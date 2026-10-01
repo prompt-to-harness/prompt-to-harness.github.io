@@ -191,12 +191,19 @@
       reveal.textContent = answer.hidden ? '查看解析' : '收起解析';
     }
   });
+  // 人像区域只是录制时的位置参考：成片用真实画面替换，所以默认隐藏（页面带 camera-hidden），
+  // 由「演示设置」里的按钮显示或隐藏。按钮文字和状态始终以 body 上的类为准。
   const cameraToggle = document.querySelector('#camera-toggle');
-  cameraToggle.addEventListener('click', () => {
-    const hidden = document.body.classList.toggle('camera-hidden');
+  function syncCameraToggle() {
+    const hidden = document.body.classList.contains('camera-hidden');
     cameraToggle.setAttribute('aria-pressed', String(!hidden));
     cameraToggle.textContent = hidden ? '显示人像辅助框' : '隐藏人像辅助框';
+  }
+  cameraToggle.addEventListener('click', () => {
+    document.body.classList.toggle('camera-hidden');
+    syncCameraToggle();
   });
+  syncCameraToggle();
   function toggleRecording() {
     const recording = !document.body.classList.contains('recording');
     if (recording && mode !== 'slides') setMode('slides');
