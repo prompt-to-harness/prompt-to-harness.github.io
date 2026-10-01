@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>知识页型原型：1.2 节 Agent、Context 与 Tool</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&family=ZCOOL+KuaiLe&family=Long+Cang&display=swap" rel="stylesheet">
+<style>
+:root{--ui-bg:#EEF0F3;--ui-panel:#FFFFFF;--ui-ink:#1B2230;--ui-muted:#626C7A;--ui-rule:#D5DAE1;--ui-acc:#4338CA;
+ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ui-bg:#12151B;--ui-panel:#1A1F27;--ui-ink:#E4E7EC;--ui-muted:#9AA3AF;--ui-rule:#323946;--ui-acc:#9D97FF}}
+:root[data-theme="dark"]{--ui-bg:#12151B;--ui-panel:#1A1F27;--ui-ink:#E4E7EC;--ui-muted:#9AA3AF;--ui-rule:#323946;--ui-acc:#9D97FF}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html,body{height:100%}
+body{margin:0;background:var(--ui-bg);color:var(--ui-ink);font:15px/1.55 "Noto Sans SC",system-ui,sans-serif;display:flex;flex-direction:column}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--ui-acc);outline-offset:2px}
+.bar{display:flex;flex-direction:column;gap:6px;padding:8px 14px;background:var(--ui-panel);border-bottom:1px solid var(--ui-rule)}
+.row{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+.bar h1{font-size:15px;margin:0 4px 0 0;font-weight:700}
+.grp{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.grp>.l{color:var(--ui-muted);font-size:13px;margin-right:2px}
+.grp button{border:1px solid var(--ui-rule);background:transparent;border-radius:5px;padding:3px 9px;font-size:13.5px}
+.grp button[aria-pressed="true"]{background:var(--ui-acc);border-color:var(--ui-acc);color:#fff}
+.grp button.sp{border-style:dashed}
+.stepi{font-size:13px;color:var(--ui-muted);min-width:64px;text-align:center}
+.main{flex:1;display:flex;min-height:0}
+.view{flex:1;display:grid;place-items:center;overflow:hidden;padding:14px;min-width:0}
+.frame{position:relative;overflow:hidden;box-shadow:0 1px 0 var(--ui-rule),0 10px 34px rgba(0,0,0,.14)}
+.info{width:330px;flex:none;overflow:auto;padding:16px 18px;background:var(--ui-panel);border-left:1px solid var(--ui-rule);font-size:14px}
+.info h2{font-size:17px;margin:0 0 2px}
+.info h3{font-size:13px;color:var(--ui-muted);margin:14px 0 3px;font-weight:700}
+.info p{margin:0}
+.tagc{display:inline-block;margin-top:6px;padding:2px 8px;border-radius:4px;background:var(--ui-bg);border:1px solid var(--ui-rule);font-size:12.5px}
+@media (max-width:900px){.main{flex-direction:column}.info{width:auto;border-left:0;border-top:1px solid var(--ui-rule);max-height:36vh}}
+
+/* ===== 幻灯片：固定浅色，不随界面主题变化 ===== */
+.stage{position:absolute;left:0;top:0;width:1280px;height:720px;transform-origin:0 0;background:var(--stage-bg,#F6F7F9);color:#18202B;font-family:"Noto Sans SC",sans-serif;overflow:hidden;
+ --ink:#18202B;--muted:#5B6573;--agent:#5A51D1}
+.hd{position:absolute;left:56px;top:40px;width:872px}
+.kick{margin:0 0 10px;font-size:20px;font-weight:700;color:var(--agent)}
+.hd h2{margin:0;font-size:40px;line-height:1.32;font-weight:900;letter-spacing:.01em}
+.bd{position:absolute;left:56px;top:262px;width:1168px;height:370px}
+.bd>svg{width:100%;height:100%;overflow:visible;display:block}
+svg text{font-family:"Noto Sans SC",sans-serif}
+.mono{font-family:"JetBrains Mono",monospace;font-variant-ligatures:none}
+[data-s],[data-n]{transition:opacity .35s ease,transform .35s ease}
+.hide{opacity:0!important;transform:translateY(8px)}
+.past{opacity:.42}
+@media (prefers-reduced-motion:reduce){[data-s],[data-n]{transition:none}}
+.rough{filter:url(#rough)}
+
+/* 皮肤：手绘线条（两种都用） */
+.skin-handT .bd rect,.skin-handT .bd path,.skin-handT .bd circle{filter:url(#rough)}
+.skin-handT .bd marker path,.skin-handT .bd .nf *,.skin-handT .bd .nf1{filter:none}
+/* 皮肤：手绘线条 + 手写标题 */
+.skin-handT .hd h2{font-family:"ZCOOL KuaiLe","Noto Sans SC",sans-serif;font-weight:400;font-size:46px;line-height:1.26;letter-spacing:.02em}
+.skin-handT .kick{font-family:"ZCOOL KuaiLe","Noto Sans SC",sans-serif;font-weight:400;font-size:22px}
+.skin-handT .bd text.big{font-family:"ZCOOL KuaiLe","Noto Sans SC",sans-serif;font-weight:400}
+
+.pg-comic.skin-sp-hand .hd h2{font-family:"ZCOOL KuaiLe","Noto Sans SC",sans-serif;font-weight:400;font-size:44px}
+.skin-sp-hand .kick{font-family:"ZCOOL KuaiLe","Noto Sans SC",sans-serif;font-weight:400;font-size:22px}
+/* 专用页：章节开篇（白板手写） */
+.pg-cover .ck{position:absolute;left:56px;top:48px;font-size:20px;color:#5B6573;font-weight:700;margin:0}
+.pg-cover h2{position:absolute;left:56px;top:84px;margin:0;font-family:"Long Cang","ZCOOL KuaiLe",cursive;font-weight:400;font-size:96px;line-height:1.08;color:#1D2B4F}
+.pg-cover .sub{position:absolute;left:60px;top:318px;margin:0;font-size:26px;color:#3B4454}
+/* 专用页：漫画记忆点 */
+.pg-comic .kick{color:#B42318}
+.pg-comic .hd h2{display:inline-block;background:#fff;border:4px solid #111;box-shadow:7px 7px 0 #111;padding:8px 20px 10px;transform:rotate(-1deg);font-size:40px}
+/* 专用页：涂鸦小结 */
+.hw{font-family:"ZCOOL KuaiLe","Noto Sans SC",sans-serif!important;font-weight:400!important}
+
+.kseg{display:inline-flex;gap:5px;margin-left:14px;vertical-align:4px}
+.kseg i{display:block;width:26px;height:6px;border-radius:3px;background:transparent;box-shadow:inset 0 0 0 1.5px #C9C5F2}
+.kseg i.d{background:#ABA6E9;box-shadow:none}.kseg i.c{background:#5A51D1;box-shadow:none}
+.chap{position:absolute;left:56px;width:1168px;bottom:8px;height:30px;display:flex;gap:6px;z-index:4;pointer-events:none}
+.chap .sg{display:flex;flex-direction:column;justify-content:flex-end;gap:5px;min-width:0}
+.chap .lb{font:500 14px/1 "Noto Sans SC",sans-serif;color:#8A8578;white-space:nowrap;overflow:hidden;text-overflow:clip}
+.chap .sg.c .lb{color:#2A2380;font-weight:700}
+.chap .tr{height:6px;border-radius:3px;background:rgba(90,81,209,.14);overflow:hidden}
+.chap .fl{height:100%;background:#ABA6E9;border-radius:3px}
+.chap .sg.c .fl{background:#5A51D1}
+.chap2{height:22px;align-items:center;gap:14px}
+.chap2 .cur{flex:none;display:flex;gap:8px;align-items:baseline;font:700 15px/1 "Noto Sans SC",sans-serif;color:#2A2380}
+.chap2 .cur span{font-weight:500;font-size:13px;color:#8A8578}
+.chap2 .trk{flex:1;display:flex;gap:5px}
+.chap2 .tr{flex-basis:0}.chap2 .tr.c .fl{background:#5A51D1}
+.pg-rec .chap .lb{color:#6B7280}.pg-rec .chap .sg.c .lb{color:#2A2380}
+/* 讲师区 */
+.cam{position:absolute;left:956px;top:24px;width:300px;height:225px;border-radius:10px;overflow:hidden;background:#2B3240;z-index:5}
+.cam .lbl{position:absolute;left:10px;bottom:8px;font-size:13px;color:#C9D0DA}
+/* 安全区 */
+.safe{position:absolute;inset:0;pointer-events:none;z-index:6;display:none}
+.showsafe .safe{display:block}
+.safe .dm{position:absolute;left:0;top:0;width:100%;height:180px;background:repeating-linear-gradient(135deg,rgba(217,72,28,.10) 0 10px,transparent 10px 20px);border-bottom:2px dashed rgba(217,72,28,.55)}
+.safe .sub2{position:absolute;left:0;bottom:0;width:100%;height:80px;background:repeating-linear-gradient(135deg,rgba(67,56,202,.10) 0 10px,transparent 10px 20px);border-top:2px dashed rgba(67,56,202,.55)}
+.safe .body{position:absolute;left:56px;top:262px;width:1168px;height:370px;outline:2px dashed rgba(15,138,122,.6)}
+.safe span{position:absolute;font-size:15px;font-weight:700;background:#fff;padding:2px 8px;border-radius:4px}
+.safe .dm span{right:330px;bottom:6px;color:#B23A14}
+.safe .sub2 span{left:24px;top:8px;color:#4338CA}
+.safe .subx{position:absolute;left:50%;top:10px;transform:translateX(-50%);font:500 26px/1.2 "Noto Sans SC",sans-serif;color:#fff;background:rgba(0,0,0,.55);padding:3px 12px;border-radius:4px;white-space:nowrap}
+.safe .body span{left:8px;bottom:8px;color:#0B6B5F}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="rough" filterUnits="userSpaceOnUse" x="-100" y="-100" width="1400" height="600"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7"/><feDisplacementMap in="SourceGraphic" scale="3.2"/></filter></svg>
+<div class="bar">
+ <div class="row"><h1>1.2 节演示页 · 统一视觉</h1>
+  <div class="grp" role="group" aria-label="显示"><button id="tSafe" aria-pressed="false">安全区</button></div>
+ </div>
+ <div class="row">
+  <div class="grp" id="pages" role="group" aria-label="页面"><span class="l">页面</span></div>
+  <div class="grp"><button id="prev" aria-label="上一步">←</button><span class="stepi" id="stepi"></span><button id="next" aria-label="下一步">→</button></div>
+ </div>
+</div>
+<div class="main">
+ <div class="view" id="view"><div class="frame" id="frame"><div class="stage" id="stage"></div></div></div>
+ <aside class="info" id="info"></aside>
+</div>
+<script>
+/* ---------- SVG 小工具 ---------- */
+const C={ink:'#18202B',muted:'#5B6573',rule:'#D9DEE5',us:'#243042',agent:'#5A51D1',agentL:'#EDEBFB',agentM:'#ABA6E9',agentD:'#2A2380',tool:'#0F8A7A',toolL:'#E0F3EF',toolT:'#0B6B5F',evid:'#B45309',evidL:'#FDF0D5',ctx:'#9C8B66',ctxL:'#F2EDE1',ctxT:'#6E6043',gate:'#D9481C',gateL:'#FCE6DD',ok:'#15803D',okL:'#E3F2E6',white:'#FFFFFF'};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function T(x,y,lines,o={}){const L=Array.isArray(lines)?lines:[lines];const fs=o.fs||22,lh=o.lh||fs*1.4,a=o.a||'start';
+ const cls=[o.mono?'mono':'',(!o.mono&&fs>=24&&(o.fw||500)>=800)?'big':'',o.hw?'hw':''].filter(Boolean).join(' ');
+ return `<text x="${x}" y="${y}" font-size="${fs}" font-weight="${o.fw||500}" fill="${o.c||C.ink}" text-anchor="${a}"${cls?` class="${cls}"`:''}>${L.map((l,i)=>`<tspan x="${x}" dy="${i?lh:0}">${esc(l)}</tspan>`).join('')}</text>`}
+const R=(x,y,w,h,f,s,o={})=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${o.rx??10}" fill="${f}"${s?` stroke="${s}" stroke-width="${o.sw||2.5}"`:''}${o.dash?` stroke-dasharray="${o.dash}"`:''}${o.cls?` class="${o.cls}"`:''}/>`;
+const A=(d,c=C.muted,o={})=>`<path d="${d}" fill="none" stroke="${c}" stroke-width="${o.sw||2.5}"${o.dash?` stroke-dasharray="${o.dash}"`:''} marker-end="url(#m-${o.m||'g'})"${o.cls?` class="${o.cls}"`:''}/>`;
+const defs=`<defs>${[['g',C.muted],['r',C.gate],['a',C.agent],['t',C.tool],['k','#111']].map(([k,c])=>`<marker id="m-${k}" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="${c}"/></marker>`).join('')}</defs>`;
+const G=(s,inner)=>`<g data-s="${s}">${inner}</g>`;
+const check=(x,y,ok)=>'<g class="nf">'+check0(x,y,ok)+'</g>';
+const check0=(x,y,ok)=>ok===true?`<circle cx="${x}" cy="${y}" r="15" fill="${C.ok}"/><path d="M${x-7} ${y}l5 5l9-10" stroke="#fff" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`
+ :ok===false?`<circle cx="${x}" cy="${y}" r="15" fill="${C.gate}"/><path d="M${x-6} ${y-6}l12 12M${x+6} ${y-6}l-12 12" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>`
+ :`<circle cx="${x}" cy="${y}" r="15" fill="none" stroke="${C.muted}" stroke-width="2.5"/><path d="M${x-7} ${y}h14" stroke="${C.muted}" stroke-width="3" stroke-linecap="round"/>`;
+
+/* ---------- 六个页型 ---------- */
+const K=[
+{n:'执行循环',type:'分层模型图 + 真实映射',kick:'1.2　执行循环',h:'一次协作是一个循环<br>每一轮都由人检查证据再放行',steps:5,
+ why:'上排是概念，下排是第 1 节里对应的具体证据。概念和实例同屏，学员不用在“定义页”和“例子页”之间来回记。',
+ cue:'每出现一个节点，讲师看向该节点说一句；最后一步看镜头，讲“人不放行，循环就不会继续”。',
+ ev:()=>{const xs=[98,339,580,821,1062],W=196;
+  const node=(i,title,sub,fill,stroke,tc)=>R(xs[i]-W/2,24,W,100,fill,stroke,{rx:12})+T(xs[i],64,title,{a:'middle',fs:26,fw:800,c:tc})+T(xs[i],100,sub,{a:'middle',fs:20,c:tc,fw:500});
+  const chip=(i,lines)=>R(xs[i]-W/2,168,W,86,'#fff',C.rule,{rx:8,sw:2})+T(xs[i]-W/2+14,202,lines,{fs:20,lh:30,c:C.ink});
+  const arr=i=>A(`M${xs[i]+W/2+4} 74 L${xs[i+1]-W/2-6} 74`);
+  const link=i=>`<path d="M${xs[i]} 128 V162" stroke="${C.rule}" stroke-width="2" stroke-dasharray="4 5"/>`;
+  return `<svg viewBox="0 0 1168 370">${defs}
+  ${G(1,node(0,'人','目标与限制',C.us,null,'#fff')+link(0)+chip(0,['改项目介绍','只动 README'])+arr(0)+node(1,'Agent','组织下一步',C.agentM,null,C.agentD)+link(1)+chip(1,['先读取，再说明','准备改哪一段']))}
+  ${G(2,arr(1)+node(2,'Tool','读取、修改、执行',C.toolL,C.tool,C.toolT)+link(2)+R(xs[2]-W/2,168,W,86,'#fff',C.rule,{rx:8,sw:2})+T(xs[2]-W/2+14,202,['read README.md','apply_patch'],{fs:18,lh:30,mono:1}))}
+  ${G(3,arr(2)+node(3,'Context','结果汇入当前信息',C.ctxL,C.ctx,C.ctxT)+link(3)+chip(3,['原文、写入状态','diff 文本']))}
+  ${G(4,arr(3)+node(4,'人的门禁','检查证据',C.gateL,C.gate,'#9A2F10')+link(4)+chip(4,['核对 diff','和 git status']))}
+  ${G(5,A('M1000 258 V300 Q1000 322 978 322 H365 Q343 322 343 300 V262',C.agent,{m:'a'})+T(672,352,'继续：回到 Agent 组织下一步',{a:'middle',fs:22,fw:700,c:C.agent})+T(1160,300,['修正：改请求'],{a:'end',fs:20,c:C.muted})+T(1160,352,['停止：不放行'],{a:'end',fs:20,c:C.gate,fw:700}))}
+  ${T(0,300,'下排：第 1 节里对应的证据（教学示例）',{fs:18,c:C.muted})}
+  </svg>`}},
+
+{n:'Context Window',type:'可见 / 不可见对照',kick:'1.2　Context Window',h:'没有读进来的文件，对 Agent 来说就不存在',steps:4,
+ why:'用“整个仓库”和“本轮 Context”两个容器并排，把抽象的容量概念变成看得见的差集。最后一步给出错误推断的样子，便于学员以后自查。',
+ cue:'第 2 步讲师视线从左移到右，跟着 README 的移动；第 4 步看镜头问：“它凭什么知道有测试？”',
+ ev:()=>{const files=['README.md','package.json','src/','\u00a0\u00a0index.html','\u00a0\u00a0styles.css','tests/','\u00a0\u00a0home.spec.ts','docs/','\u00a0\u00a0guide.md','.github/workflows/'];
+  const tree=files.map((f,i)=>{const read=f==='README.md';return `<g ${read?'data-s="2"':''}>${read?R(20,44+i*29,300,28,C.toolL,null,{rx:5}):''}</g>`+T(34,65+i*29,f,{fs:20,mono:1,c:read?C.ink:'#8A93A0'})}).join('');
+  const slot=(y,t,sub,f,s,tc)=>R(620,y,380,62,f,s,{rx:8,sw:2})+T(640,y+28,t,{fs:22,fw:700,c:tc})+T(640,y+52,sub,{fs:18,c:C.muted});
+  return `<svg viewBox="0 0 1168 370">${defs}
+  ${G(1,R(0,0,360,350,'#fff',C.rule,{rx:12,sw:2})+T(20,32,'整个仓库',{fs:22,fw:800})+T(340,32,'约 1,200 个文件',{a:'end',fs:18,c:C.muted})+tree)}
+  ${G(2,A('M330 72 C440 72 500 148 612 148',C.tool,{m:'t'})+T(462,92,'读取',{a:'middle',fs:20,fw:700,c:C.toolT})+R(600,0,420,350,C.agentL,C.agent,{rx:12,sw:2.5})+T(620,32,'本轮 Context',{fs:22,fw:800,c:C.agent})+slot(118,'已读取的文件','README.md 的原文',C.toolL,C.tool,C.toolT))}
+  ${G(3,slot(48,'人的请求','目标、范围、完成标准','#fff',C.rule,C.ink)+slot(188,'工具返回','写入状态、diff 文本',C.ctxL,C.ctx,C.ctxT)+slot(258,'此前对话','上一轮的说明与确认','#fff',C.rule,C.ink)+R(620,330,260,12,'#fff',C.agent,{rx:6,sw:2})+R(620,330,210,12,C.agent,null,{rx:6})+T(1000,342,'容量有限',{fs:17,fw:700,c:C.agent,a:'end'}))}
+  ${G(4,R(20,189,300,58,'none',C.gate,{rx:5,sw:2.5,dash:'6 5'})+A('M324 218 C520 300 900 330 1036 250',C.gate,{m:'r',dash:'6 6'})+R(1040,40,128,290,C.gateL,C.gate,{rx:10,sw:2.5,dash:'8 6'})+check(1104,40,false)+T(1104,92,['“项目里','应该有','测试”'],{a:'middle',fs:21,lh:30,fw:700,c:'#9A2F10'})+T(1104,214,['tests/','没读取'],{a:'middle',fs:20,lh:28,c:C.ink,mono:0})+T(1104,290,['不能','当成已知'],{a:'middle',fs:20,lh:28,fw:800,c:C.gate}))}
+  </svg>`}},
+
+{n:'Tool 与结果',type:'带解读的操作记录',kick:'1.2　Tool 与结果',h:'“做了什么”和“看到了什么”<br>要分成两条记录',steps:5,
+ why:'三列表格：动作、结果、这个结果能说明什么。第三列是本页的知识点，它把“结果”和“结论”拆开，也为后面软件工程的验证习惯埋线。',
+ cue:'每一行讲师先念动作，再看向第三列解释；第 4 行失败时停顿一下。',
+ ev:()=>{const X=[0,318,700],Wd=[310,374,468];
+  const hdr=['动作（Tool）','结果（返回的信息）','这个结果能说明什么'];
+  const rows=[
+   ['read README.md','返回原文，共 42 行','Agent 读到了这个文件的内容',null],
+   ['apply_patch README.md','patch applied','写入成功；不说明改得对',null],
+   ['git diff --stat','README.md | 6 +++---','实际改动的文件和规模',null],
+   ['npm run build','command not found: npm','构建没有执行，不等于构建失败','fail']];
+  const head=hdr.map((h,i)=>T(X[i]+16,30,h,{fs:20,fw:800,c:[C.toolT,C.ctxT,C.agent][i]})).join('')+`<path class="nf1" d="M0 46 H1168" stroke="${C.ink}" stroke-width="2"/>`;
+  const row=(r,i)=>{const y=52+i*74,f=r[3]==='fail';return G(i+1,(f?R(0,y,1168,68,C.gateL,null,{rx:6}):`<path class="nf1" d="M0 ${y+70} H1168" stroke="${C.rule}" stroke-width="1.5"/>`)+
+   R(X[0]+12,y+14,Wd[0]-24,40,C.toolL,null,{rx:6})+T(X[0]+24,y+42,r[0],{fs:19,mono:1,c:C.toolT})+
+   T(X[1]+16,y+42,r[1],{fs:19,mono:1,c:f?C.gate:C.ink})+T(X[2]+16,y+42,r[2],{fs:22,fw:f?800:600,c:f?'#9A2F10':C.ink}))};
+  return `<svg viewBox="0 0 1168 370">${defs}${G(1,head)}${rows.map(row).join('')}
+  ${G(5,R(700,352-4,468,0,'none',null)+T(1168,360,'记录格式：动作　结果　判断，三栏分开写',{a:'end',fs:20,fw:700,c:C.agent}))}</svg>`}},
+
+{n:'完成说明 vs 验收',type:'正反对照 + 证据清单',kick:'1.2　验收',h:'“已经完成修改”是 Agent 的说法<br>不是验收结论',steps:5,
+ why:'左边是 Agent 的原话，右边是人的四项检查，每项都绑定一个具体证据。关键的越界信息用连线从原话指到失败项，页面替讲师完成“指向”。',
+ cue:'第 3 步讲师视线从左侧下划线移到右侧红叉，同时说“它自己已经告诉你了”。最后一步看镜头给结论。',
+ ev:()=>{const items=[
+   ['目标段落改了吗','看 diff：介绍段已更新',true],
+   ['只动了约定的文件吗','git status：README.md、docs/guide.md',false],
+   ['措辞符合要求吗','读新段落：符合',true],
+   ['需要运行或构建吗','本任务不需要',null]];
+  const it=(r,i)=>{const y=44+i*62;return G(i===1?3:(i<1?2:4),R(560,y,608,56,i===1?C.gateL:'#fff',i===1?C.gate:C.rule,{rx:8,sw:2})+check(592,y+28,r[2])+T(622,y+25,r[0],{fs:21,fw:700})+T(622,y+48,r[1],{fs:18,c:i===1?'#9A2F10':C.muted,mono:0}))};
+  return `<svg viewBox="0 0 1168 370">${defs}
+  ${G(1,T(0,24,'Agent 的完成说明',{fs:20,fw:800,c:C.agent})+R(0,40,480,200,C.agentM,null,{rx:14})+`<path d="M40 238 l0 24 l28 -24z" fill="${C.agentM}"/>`+
+   T(26,86,['已经完成修改：更新了','README 中的项目介绍，','并顺手整理了 docs/','下的文档格式。'],{fs:24,lh:38,c:C.agentD,fw:500}))}
+  ${G(2,T(560,24,'人的验收：每项对应一个证据',{fs:20,fw:800,c:C.ink}))}
+  ${items.map(it).join('')}
+  ${G(3,`<path d="M26 172 H236 M26 210 H176" stroke="${C.gate}" stroke-width="3.5"/>`+A('M484 150 C522 150 520 134 554 134',C.gate,{m:'r',sw:3}))}
+  ${G(5,R(0,300,1168,56,C.us,null,{rx:10})+T(24,336,'结论：退回修正。撤销 docs/guide.md 的改动，再验收一次',{fs:23,fw:700,c:'#fff'}))}
+  </svg>`}},
+
+{n:'四层主线',type:'逐层叠加的阶梯图',kick:'1.2　课程主线',h:'四层能力逐层叠加<br>下一层保留上一层的检查习惯',steps:5,
+ why:'阶梯表示“叠加”而不是“替代”，底部通栏是贯穿四层的检查习惯。这张图会在每章开头复用，只移动“本章位置”标记，成为全课的地图。',
+ cue:'每升一级，讲师视线跟着往右上走；最后一步手势可以做一个“托底”的动作，指向底部通栏。',
+ ev:()=>{const L=[
+   ['Prompt','说清目标、上下文、','约束和完成标准','一次清楚的请求'],
+   ['Vibe Coding','把运行结果','带回反馈循环','可运行的迭代'],
+   ['SDD','把需求和验收','写成持久契约','spec 与验收标准'],
+   ['Harness','组织上下文、工具、','验证和人工门禁','可重复的工作环境']];
+  const fills=['#F1F0FC','#E1DEF8','#C8C4F2','#ABA6E9'],tc=[C.agentD,C.agentD,C.agentD,C.agentD];
+  const blk=(r,i)=>{const w=276,g=21,x=i*(w+g),h=172+i*42,y=300-h;return G(i+1,R(x,y,w,h,fills[i],null,{rx:10})+T(x+18,y+38,r[0],{fs:26,fw:900,c:tc[i]})+T(x+18,y+72,[r[1],r[2]],{fs:19,lh:27,c:tc[i]})+T(x+18,y+h-16,'产物：'+r[3],{fs:18,fw:700,c:tc[i]}))};
+  return `<svg viewBox="0 0 1168 370">${defs}${L.map(blk).join('')}
+  ${G(5,R(0,310,1168,48,C.okL,C.ok,{rx:10,sw:2})+T(20,342,'每一层都保留：看证据，再放行',{fs:22,fw:800,c:C.ok})+T(1148,342,'第 1 节的 diff 检查，在 Harness 里变成自动验证',{a:'end',fs:19,c:C.ok})+
+   R(10,76,146,34,C.us,null,{rx:17})+T(83,99,'第 1 章在这里',{a:'middle',fs:18,fw:700,c:'#fff'}))}
+  </svg>`}},
+
+{n:'三种失败',type:'主流程 + 失败分支',kick:'1.2　失败方式',h:'同一个循环里<br>失败会出在三个不同的位置',steps:4,
+ why:'每个失败都挂在主流程的具体节点上，并写出“怎么发现”。学员拿到的是一张排查地图，而不是三条孤立的注意事项。',
+ cue:'讲每个失败时，讲师视线落在红色分支的起点，再下移到“怎么发现”。最后一步看镜头预告第 3 节。',
+ ev:()=>{const xs=[90,330,570,810,1060],lab=['人的请求','Agent 找入口','Tool 执行','产生改动','人的验收'];
+  const main=xs.map((x,i)=>R(x-90,0,180,56,i===0||i===4?C.us:(i===2?C.toolL:'#fff'),i===2?C.tool:(i===0||i===4?null:C.rule),{rx:10,sw:2})+T(x,36,lab[i],{a:'middle',fs:21,fw:700,c:i===0||i===4?'#fff':(i===2?C.toolT:C.ink)})+(i<4?A(`M${x+92} 28 L${xs[i+1]-94} 28`):'')).join('');
+  const F=[[330,'找错文件','上下文不完整','计划里的路径和你说的不一致'],[570,'动作没执行','工具或权限失败','返回错误，或停在等待审批'],[810,'改多了','结果超出范围','git status 出现约定外的文件']];
+  const fail=(f,i)=>{const x=f[0],cx=[165,584,1003][i],w=330;return G(i+1,A(`M${x} 60 C${x} 100 ${cx} 96 ${cx} 124`,C.gate,{m:'r',sw:3})+R(cx-w/2,130,w,172,'#fff',C.gate,{rx:12,sw:2.5})+
+   T(cx-w/2+20,168,f[1],{fs:25,fw:900,c:C.gate})+T(cx-w/2+20,200,'原因：'+f[2],{fs:19,c:C.ink})+`<path class="nf1" d="M${cx-w/2+20} 218 H${cx+w/2-20}" stroke="${C.rule}" stroke-width="1.5"/>`+T(cx-w/2+20,248,'怎么发现',{fs:17,fw:700,c:C.muted})+T(cx-w/2+20,278,f[3],{fs:19,fw:600,c:C.ink}))};
+  return `<svg viewBox="0 0 1168 370">${defs}${G(1,main)}${F.map(fail).join('')}
+  ${G(3,T(584,340,'第 3 节会拆开看：入口选择和权限，是两个不同的问题',{a:'middle',fs:20,fw:700,c:C.agent}))}</svg>`}}
+];
+
+/* ---------- 专用页：固定风格，不随皮肤切换 ---------- */
+const COVER={n:'章节开篇',sp:1,noSeg:1,cls:'pg-cover',tag:'白板手写标题（只用于每节开篇）',type:'开篇页 + 本章地图',steps:2,
+ why:'手写大标题只出现在每节第一页，当作记忆点；正文仍是印刷体。下方的本章地图每节复用，只移动当前位置，学员随时知道自己在哪。',
+ cue:'第 1 步看镜头，用一句话讲本节要解决的问题；第 2 步视线扫过地图，停在 1.2 上。',
+ body:()=>{const S=[['1.1','第一次协作','改一段项目介绍'],['1.2','Agent、Context','与 Tool'],['1.3','App、CLI','与权限'],['1.4','四段式 Prompt','与确认'],['1.5','首页 v0','受控生成与验收'],['1.6','最小权限','与工程经验']];
+  const w=180,g=(1168-6*w)/5;
+  const cards=S.map((c,i)=>{const x=i*(w+g),cur=i===1;return R(x,40,w,150,cur?C.agentL:'#fff',cur?C.agent:C.rule,{rx:10,sw:cur?3:2,cls:'rough'})+T(x+18,84,c[0],{fs:28,c:cur?C.agent:C.muted,hw:1})+T(x+18,124,[c[1],c[2]],{fs:20,lh:30,fw:cur?700:500,c:cur?C.ink:C.muted})}).join('');
+  return `<p class="ck">AI Coding 录播课　第 1 章 Prompt　第 2 节</p><h2>把一次小改动<br>拆开看</h2>
+  <svg style="position:absolute;left:56px;top:84px;width:700px;height:240px;overflow:visible" viewBox="0 0 700 240"><path class="rough" d="M4 226 C120 214 260 220 372 212" stroke="#E4572E" stroke-width="7" fill="none" stroke-linecap="round"/></svg>
+  <p class="sub">从第 1 节的真实记录，认识 Agent、Context 和 Tool</p>
+  <div class="bd" style="top:410px;height:220px"><svg viewBox="0 0 1168 220">${defs}
+   ${G(2,T(0,22,'本章六节',{fs:20,fw:700,c:C.muted})+cards+`<ellipse class="rough" cx="${w+g+w/2}" cy="115" rx="104" ry="90" fill="none" stroke="#E4572E" stroke-width="4"/>`+T(w+g+w/2,234,'今天在这里',{a:'middle',fs:20,c:'#C2410C',hw:1}))}
+  </svg></div>`}};
+
+const COMIC={n:'漫画开场',sp:1,cls:'pg-comic',tag:'漫画线条（每节最多一页，用作开场钩子；背景跟随全局）',type:'三格漫画',steps:3,
+ why:'用一个具体冲突开场：AI 说完成了，证据却显示越界。漫画的戏剧感负责记忆点，后面的知识页负责解释。每节最多用一页，否则视觉太重。',
+ cue:'前两格讲师用对话语气读气泡；第 3 格停顿一下，看镜头问“你会直接信吗？”，再进入执行循环页。',
+ body:()=>{const px=[0,398,796],W=372,H=336;
+  const panel=(i,cap,inner)=>G(i+1,`<rect x="${px[i]+8}" y="8" width="${W}" height="${H}" fill="#111"/>`+`<rect x="${px[i]}" y="0" width="${W}" height="${H}" fill="#fff" stroke="#111" stroke-width="4"/>`+
+   `<rect x="${px[i]}" y="0" width="${cap.length*22+28}" height="42" fill="#FFD84D" stroke="#111" stroke-width="4"/>`+T(px[i]+14,29,cap,{fs:20,fw:900,c:'#111'})+inner);
+  const av=(x,y,t,f,tc='#fff')=>`<circle cx="${x}" cy="${y}" r="34" fill="${f}" stroke="#111" stroke-width="4"/>`+T(x,y+8,t,{a:'middle',fs:t.length>1?20:24,fw:900,c:tc});
+  const p1=`<path d="M24 64 H348 V218 H120 L84 250 L92 218 H24 Z" fill="#fff" stroke="#111" stroke-width="3.5" stroke-linejoin="round"/>`+T(44,110,['只改 README 里的','项目介绍，','别的文件不要动。'],{fs:25,lh:36,fw:700,c:'#111'})+av(70,290,'我们',C.us);
+  const p2=px[1],p2s=`<path d="M${p2+24} 64 H${p2+348} V218 H${p2+290} L${p2+300} 250 L${p2+256} 218 H${p2+24} Z" fill="${C.agentM}" stroke="#111" stroke-width="3.5" stroke-linejoin="round"/>`+
+   T(p2+44,108,'已经完成修改！',{fs:30,fw:900,c:C.agentD})+T(p2+44,150,['还顺手把 docs/ 的','格式也整理了。'],{fs:22,lh:32,fw:500,c:C.agentD})+av(p2+300,290,'AI',C.agentM,C.agentD)+
+   `<path d="M${p2+78} 280 l6 -16 l6 16 l16 6 l-16 6 l-6 16 l-6 -16 l-16 -6z" fill="#FFD84D" stroke="#111" stroke-width="2.5"/>`;
+  const p3=px[2],p3s=R(p3+24,62,324,132,'#1E2430',null,{rx:8})+T(p3+42,98,'$ git status',{fs:20,mono:1,c:'#8B97A6'})+T(p3+42,132,' M README.md',{fs:20,mono:1,c:'#A7F3B5'})+R(p3+34,146,300,36,'rgba(248,81,73,.28)',null,{rx:4})+T(p3+42,171,' M docs/guide.md',{fs:20,mono:1,c:'#FFB4AE'})+
+   `<path d="M${p3+120} 212 H${p3+352} V286 H${p3+150} L${p3+116} 306 L${p3+124} 286 H${p3+120}Z" fill="#fff" stroke="#111" stroke-width="3.5" stroke-linejoin="round"/>`+T(p3+136,244,['等等，docs/','是谁让你动的？'],{fs:20,lh:28,fw:900,c:'#B42318'})+av(p3+62,290,'我们',C.us);
+  return `<header class="hd"><p class="kick">1.2　开场</p><h2>它说“完成了”，你会直接信吗？</h2></header>
+  <div class="bd"><svg viewBox="0 0 1168 370">${defs}${panel(0,'上一节',p1)}${panel(1,'几秒后',p2s)}${panel(2,'看一眼证据',p3s)}</svg></div>`}};
+
+const SUM={n:'涂鸦小结',sp:1,noSeg:1,cls:'pg-sum',tag:'涂鸦笔记（每节小结页；背景跟随全局）',type:'Sketchnote 小结',steps:3,
+ why:'小结页允许更热闹：彩带标题、图标、多色卡片。它不讲新知识，只把本节的四个词、一个习惯、三种失败收拢到一张可截图保存的图上。',
+ cue:'讲师看镜头逐块回顾，最后指向右下角预告第 3 节。这一页也适合放进阅读模式，作为本节的复习卡。',
+ body:()=>{
+  const card=(x,y,c,cl,w1,l)=>R(x,y,262,128,cl,c,{rx:12,sw:3,cls:'rough'})+T(x+18,y+40,w1,{fs:26,c,hw:1})+T(x+18,y+76,l,{fs:19,lh:28,c:C.ink});
+  const tri=(x,y)=>`<path class="rough" d="M${x} ${y-16} L${x+17} ${y+13} L${x-17} ${y+13} Z" fill="#FFE08A" stroke="${C.gate}" stroke-width="3" stroke-linejoin="round"/>`+T(x,y+9,'!',{a:'middle',fs:18,fw:900,c:C.gate});
+  const star=(cx,cy,r1,r2)=>{let d='';for(let i=0;i<10;i++){const r=i%2?r2:r1,a=Math.PI/5*i-Math.PI/2;d+=(i?'L':'M')+(cx+r*Math.cos(a)).toFixed(1)+' '+(cy+r*Math.sin(a)).toFixed(1)}return `<path class="rough" d="${d}Z" fill="#FFE08A" stroke="#E08A00" stroke-width="4" stroke-linejoin="round"/>`};
+  return `<header class="hd"><svg viewBox="0 0 700 110" style="width:700px;height:110px;overflow:visible"><path class="rough" d="M0 18 H640 L610 58 L640 98 H0 L30 58 Z" fill="#0F9D8A" stroke="#0B6E61" stroke-width="3"/>${T(56,72,'1.2 小结：带走这几件事',{fs:38,c:'#fff',hw:1})}</svg></header>
+  <div class="bd"><svg viewBox="0 0 1168 370">${defs}
+  ${G(1,T(0,18,'四个词',{fs:26,c:'#C2410C',hw:1})+card(0,34,C.agent,C.agentL,'Agent',['推进任务的执行者','完成说明不等于验收'])+card(280,34,C.ctxT,C.ctxL,'Context',['当前可用的信息','没读到就不算知道'])+
+    card(0,178,C.toolT,C.toolL,'Tool',['行动的入口','动作和结果分开记'])+card(280,178,'#6D28D9','#F1EAFE','Context Window',['一次能放多少信息','不等于项目大小']))}
+  ${G(2,T(700,18,'一个习惯',{a:'middle',fs:26,c:'#C2410C',hw:1})+star(700,170,128,62)+T(700,160,'看证据',{a:'middle',fs:30,c:'#111',hw:1})+T(700,198,'再放行',{a:'middle',fs:30,c:'#111',hw:1}))}
+  ${G(3,T(880,18,'三种失败',{fs:26,c:C.gate,hw:1})+tri(900,70)+T(930,78,'找错文件',{fs:22,fw:700})+tri(900,128)+T(930,136,'动作没执行',{fs:22,fw:700})+tri(900,186)+T(930,194,'改多了',{fs:22,fw:700})+
+    A('M920 222 C930 250 960 256 986 262',C.agent,{m:'a',sw:3,cls:'rough'})+R(880,268,288,72,'#fff',C.agent,{rx:12,sw:3,cls:'rough'})+T(900,300,'下一节 1.3',{fs:22,c:C.agent,hw:1})+T(900,328,'入口和权限，是两个问题',{fs:19,c:C.ink}))}
+  </svg></div>`}};
+/* ---------- 补充页型 ---------- */
+const HL=(x,y,str,fs=20)=>{const re=/(\b(?:export|function|const|return)\b)|(`[^`]*`|'[^']*')|(\/\/.*$)/g;let out='',last=0,m;
+ while((m=re.exec(str))){if(m.index>last)out+=`<tspan>${esc(str.slice(last,m.index))}</tspan>`;const c=m[1]?'#7C3AED':m[2]?'#0B6B5F':'#8A93A0';out+=`<tspan fill="${c}">${esc(m[0])}</tspan>`;last=re.lastIndex}
+ if(last<str.length)out+=`<tspan>${esc(str.slice(last))}</tspan>`;
+ return `<text x="${x}" y="${y}" font-size="${fs}" class="mono" fill="${C.ink}" xml:space="preserve">${out}</text>`};
+const N=(n,inner)=>`<g data-n="${n}">${inner}</g>`;
+const num=(x,y,n,c)=>`<g class="nf"><circle cx="${x}" cy="${y}" r="15" fill="${c}"/>${T(x,y+7,String(n),{a:'middle',fs:18,fw:900,c:'#fff'})}</g>`;
+
+const CODE={n:'代码讲解',type:'逐行讲解：高亮当前行 + 编号批注',kick:'代码讲解',h:'读 Agent 写的代码<br>先找输入、处理和副作用',steps:4,
+ why:'只高亮当前讲的行，其余代码保持可见但不抢注意力；右侧批注一句话一条，不复述代码本身。最后一条落在副作用上，这是审查 Agent 代码时最容易漏的地方。代码框保持工整，不做手绘抖动。',
+ cue:'讲到哪一行，视线就落在哪一行；右侧批注出现时不用念全文，只念编号后的关键词。',
+ ev:()=>{const L=['export function renderProjects(list, root) {','  const items = list','    .filter(p => p.visible)','    .map(p => `<li>${p.name}</li>`);','  root.innerHTML = `<ul>${items.join(\'\')}</ul>`;','}'];
+  const y0=84,lh=40,band=(a,b,c=C.agentL)=>R(46,y0+a*lh-28,666,(b-a+1)*lh,c,null,{rx:4,cls:'nf1'});
+  const bands=[[0,0],[1,2],[3,3],[4,4]],cardY=[0,88,176,264];
+  const code=L.map((l,i)=>T(26,y0+i*lh,String(i+1),{fs:18,mono:1,c:'#A0A8B4',a:'end'})+HL(60,y0+i*lh,l)).join('');
+  const cards=[['输入','一份项目列表，一个挂载点',C.agent],['筛选','只保留 visible 为真的项目',C.agent],['生成','每个项目变成一个链接',C.agent],['副作用','整块替换 root，原有内容会被覆盖',C.gate]];
+  const card=(c,i)=>G(i+1,R(752,cardY[i],416,78,i===3?C.gateL:'#fff',i===3?C.gate:C.rule,{rx:10,sw:2})+num(782,cardY[i]+39,i+1,c[2])+T(810,cardY[i]+33,c[0],{fs:22,fw:800,c:i===3?'#9A2F10':C.ink})+T(810,cardY[i]+61,c[1],{fs:18,c:C.muted}));
+  const conn=(i)=>{const [a,b]=bands[i],ly=y0+((a+b)/2)*lh-8;return N(i+1,A(`M714 ${ly} C732 ${ly} 732 ${cardY[i]+39} 748 ${cardY[i]+39}`,i===3?C.gate:C.agent,{m:i===3?'r':'a'}))};
+  return `<svg viewBox="0 0 1168 370">${defs}
+   ${R(0,0,720,350,'#fff',C.rule,{rx:10,sw:2,cls:'nf1'})}${T(20,30,'src/projects.js',{fs:17,mono:1,c:C.muted})}<path class="nf1" d="M0 44 H720" stroke="${C.rule}" stroke-width="1.5"/>
+   ${bands.map((b,i)=>N(i+1,band(b[0],b[1],i===3?C.gateL:C.agentL))).join('')}${code}
+   ${cards.map(card).join('')}${bands.map((b,i)=>conn(i)).join('')}</svg>`}};
+
+const DIFF={n:'diff 对比',type:'unified diff + 范围检查',kick:'看 diff',h:'看 diff：先看范围<br>再看每一处改动',steps:4,
+ why:'第一步永远先看文件列表和增删行数，确认范围；再逐处看改动。左侧括号标出当前讲的改动块，右侧只写“这处改动的意图”。',
+ cue:'第 1 步视线停在文件名和 +4 −2 上；之后每一步看括号标出的行，再看右侧意图。',
+ ev:()=>{const L=[[' ','# 小站'],['-','这是我的个人网站。'],['+','这是一个记录 AI Coding 学习过程的个人网站，'],['+','每周更新一次实践笔记。'],[' ','## 目录'],['-','施工中，敬请期待。'],['+','- 学习笔记'],['+','- 项目展示']];
+  const y0=88,lh=34;
+  const rows=L.map((r,i)=>{const y=y0+i*lh,bg=r[0]==='-'?C.gateL:r[0]==='+'?C.okL:null,pc=r[0]==='-'?C.gate:r[0]==='+'?C.ok:'#A0A8B4';
+   return (bg?R(1,y-24,758,lh,bg,null,{rx:0,cls:'nf1'}):'')+T(36,y,r[0],{fs:20,mono:1,fw:700,c:pc,a:'middle'})+T(60,y,r[1],{fs:20,c:C.ink})}).join('');
+  const brk=(a,b,c)=>{const ya=y0+a*lh-24,yb=y0+(b+1)*lh-24;return `<path class="nf1" d="M-10 ${ya} H-18 V${yb} H-10" fill="none" stroke="${c}" stroke-width="4"/>`};
+  const note=(y,t,s,c,f)=>R(800,y,368,86,f||'#fff',c,{rx:10,sw:2})+T(822,y+36,t,{fs:22,fw:800,c})+T(822,y+66,s,{fs:18,c:C.muted});
+  return `<svg viewBox="0 0 1168 370">${defs}
+   ${R(0,0,760,356,'#fff',C.rule,{rx:10,sw:2,cls:'nf1'})}${T(20,32,'README.md',{fs:19,mono:1,fw:600})}
+   ${G(1,R(150,12,56,28,C.okL,null,{rx:5,cls:'nf1'})+T(178,32,'+4',{fs:18,mono:1,fw:700,c:C.ok,a:'middle'})+R(212,12,56,28,C.gateL,null,{rx:5,cls:'nf1'})+T(240,32,'−2',{fs:18,mono:1,fw:700,c:C.gate,a:'middle'}))}
+   <path class="nf1" d="M0 50 H760" stroke="${C.rule}" stroke-width="1.5"/>${rows}
+   ${N(2,brk(1,3,C.agent))}${N(3,brk(5,7,C.agent))}
+   ${G(1,note(0,'范围：只有 README.md','一个文件，增 4 行，删 2 行',C.ok,C.okL)+check(1140,24,true))}
+   ${G(2,note(100,'改动 1：介绍变具体','从一句泛称，改成写给第一次来的读者',C.agent))}
+   ${G(3,note(200,'改动 2：占位变目录','“施工中”换成真实的两个栏目',C.agent))}
+   ${G(4,R(800,300,368,50,C.us,null,{rx:10})+T(822,332,'范围和内容都符合请求',{fs:21,fw:700,c:'#fff'}))}
+  </svg>`}};
+
+const PRM={n:'Prompt 对照',type:'Prompt 四段 ↔ Agent 回复逐条对应',kick:'Prompt 与回复',h:'好的 Prompt<br>能在回复里逐条找到回应',steps:4,
+ why:'左侧 Prompt 按四段着色，右侧回复的每一句贴上对应颜色的标签。缺了哪一段，一眼就能看出来，这就是“确认”这一步要做的事。',
+ cue:'第 2 步视线在左右之间来回，每读一句回复就看一眼它对应的那段 Prompt；第 3 步停在虚线框上。',
+ ev:()=>{const parts=[['目标','把 README 的项目介绍改得更具体',C.agent,C.agentL],['上下文','读者是第一次访问的同学；原文在第 3–5 行',C.ctxT,C.ctxL],['约束','只改项目介绍段，不动其他文件',C.gate,C.gateL],['完成标准','附上 diff，并说明改了哪几句',C.ok,C.okL]];
+  const pill=(x,y,t,c,f)=>{const w=t.length*19+22;return R(x,y,w,30,f,c,{rx:15,sw:1.8})+T(x+w/2,y+22,t,{fs:17,fw:800,c,a:'middle'})};
+  const left=parts.map((p,i)=>{const y=50+i*74;return pill(20,y,p[0],p[2],p[3])+T(20,y+60,p[1],{fs:19,c:C.ink})}).join('');
+  const rep=[['我会先读取 README.md，确认介绍段位置',1],['改写介绍段，面向第一次访问的读者',0],['不会修改其他文件',2]];
+  const right=rep.map((r,i)=>{const y=62+i*70,p=parts[r[1]];return G(2,R(610,y,558,58,'#fff',C.rule,{rx:8,sw:2})+T(628,y+37,r[0],{fs:19,c:C.ink})+pill(1168-p[0].length*19-22-10,y+14,p[0],p[2],p[3]))}).join('');
+  return `<svg viewBox="0 0 1168 370">${defs}
+   ${G(1,R(0,0,560,350,'#fff',C.rule,{rx:12,sw:2})+T(20,32,'我们的 Prompt',{fs:21,fw:800})+left)}
+   ${G(2,T(610,32,'Agent 的回复（计划）',{fs:21,fw:800,c:C.agent}))}${right}
+   ${G(3,R(610,272,558,58,C.okL,C.ok,{rx:8,sw:2.5,dash:'8 6'})+T(628,309,'没有回应完成标准',{fs:20,fw:800,c:C.ok})+A('M860 302 H930',C.ok)+T(944,309,'追问：完成后附 diff',{fs:19,fw:600,c:C.ink}))}
+   ${G(4,T(1168,362,'逐条对照，缺哪一段就追问哪一段',{a:'end',fs:19,fw:700,c:C.agent}))}
+  </svg>`}};
+
+const MATRIX={n:'权衡矩阵',type:'决策矩阵：情境 × 选项',kick:'选择入口',h:'App 和 CLI 不分高低<br>按任务选入口',steps:5,
+ why:'用于“什么时候用哪个”的内容。行是具体情境，不是抽象优缺点；最后一列写判断依据。本页内容是示例，正式使用时按 1.3 节的实际结论校准。',
+ cue:'每一行先念情境，再看向圆点，最后读依据。第 3 行两边都是实心时停一下，强调“关键不在入口”。',
+ ev:()=>{const X=[0,500,640,780],rows=[['第一次上手，想边看边确认',2,0,'计划和改动直接显示在界面里'],['要写进脚本，反复执行',0,2,'命令可以复制、组合和自动化'],['改动大，需要逐条审批',2,2,'关键在权限设置，不在入口'],['在远程机器或容器里工作',0,2,'只有终端可用的场景']];
+  const dot=(x,y,v)=>v===2?`<circle class="nf1" cx="${x}" cy="${y}" r="13" fill="${C.agent}"/>`:`<circle class="nf1" cx="${x}" cy="${y}" r="12" fill="none" stroke="#A0A8B4" stroke-width="2.5"/>`;
+  const head=T(16,30,'情境',{fs:20,fw:800,c:C.muted})+T(X[1]+70,30,'App',{fs:20,fw:800,c:C.muted,a:'middle'})+T(X[2]+70,30,'CLI',{fs:20,fw:800,c:C.muted,a:'middle'})+T(X[3]+16,30,'判断依据',{fs:20,fw:800,c:C.muted})+`<path class="nf1" d="M0 46 H1168" stroke="${C.ink}" stroke-width="2"/>`;
+  const row=(r,i)=>{const y=52+i*70;return G(i+1,(i===2?R(0,y,1168,64,C.agentL,null,{rx:6,cls:'nf1'}):'')+`<path class="nf1" d="M0 ${y+66} H1168" stroke="${C.rule}" stroke-width="1.5"/>`+T(16,y+41,r[0],{fs:22,fw:600})+dot(X[1]+70,y+33,r[1])+dot(X[2]+70,y+33,r[2])+T(X[3]+16,y+41,r[3],{fs:20,c:i===2?C.agentD:C.muted,fw:i===2?700:500}))};
+  return `<svg viewBox="0 0 1168 370">${defs}${G(1,head)}${rows.map(row).join('')}
+   ${G(5,T(0,356,'示例内容，正式使用时按 1.3 节结论校准',{fs:16,c:'#A0A8B4'})+T(1168,356,'先看任务，再选入口',{a:'end',fs:21,fw:800,c:C.agent}))}</svg>`}};
+
+const HANDOFF={n:'切到实操',type:'PPT → 实操环境的衔接页',kick:'切到实操',h:'接下来切到 Codex<br>边看边找这三样东西',steps:3,
+ why:'实操在 Codex App、CLI 或 CodeSandbox 里做，PPT 不重复实操内容。切过去之前，先告诉学员“看什么”；切回来时，用同一张清单复盘。这样实操段不是“看讲师操作”，而是“带着问题找证据”。',
+ cue:'讲师看镜头说“我们切过去”，同时念一遍三个要找的东西；切回 PPT 时回到这一页，逐条打勾。',
+ ev:()=>{const env=['Codex App','Codex CLI','CodeSandbox'];
+  const items=[['计划里读取了哪些文件','对照上下文：有没有漏掉 README 以外的文件'],['每次工具调用返回了什么','用三栏记录：动作、结果、判断'],['最后的 git status','对照约束：有没有约定外的文件']];
+  return `<svg viewBox="0 0 1168 370">${defs}
+   ${G(1,R(0,0,470,350,C.us,null,{rx:14})+T(32,64,'切到实操',{fs:40,fw:900,c:'#fff'})+T(32,110,['这一段在真实环境里演示','PPT 暂停'],{fs:21,lh:32,c:'#C9D0DA'})+
+    env.map((e,i)=>R(32,196+i*46,e.length*13+36,36,'rgba(255,255,255,.1)','#6B7587',{rx:18,sw:1.5})+T(50,220+i*46,e,{fs:18,mono:1,c:'#fff'})).join(''))}
+   ${G(2,T(510,32,'边看边找',{fs:21,fw:800,c:C.agent})+items.map((it,i)=>{const y=50+i*92;return R(510,y,658,80,'#fff',C.rule,{rx:10,sw:2})+num(542,y+40,i+1,C.agent)+T(572,y+34,it[0],{fs:22,fw:800})+T(572,y+62,it[1],{fs:18,c:C.muted})}).join(''))}
+   ${G(3,T(1168,344,'看完回到这一页，逐条打勾复盘',{a:'end',fs:20,fw:700,c:C.agent}))}</svg>`}};
+
+const REC={n:'录屏叠加层',sp:1,cls:'pg-rec',tag:'实操录屏画面的叠加规范（不是幻灯片）',type:'录屏合成：讲师框 + 观察清单浮层 + 推近',steps:3,
+ why:'实操录屏时，画面换成 Codex 或 CodeSandbox，但讲师框位置不变，左下角保留一个小的观察清单浮层，和“切到实操”页的三项一一对应，找到一项就打勾。需要看清细节时推近，而不是缩小字号。',
+ cue:'录制时把应用窗口的关键区域放在左侧和中部，右上角留给讲师框；推近时保持 2 秒以上再拉回。',
+ body:()=>{const win=`<rect x="0" y="0" width="1280" height="720" fill="#DDE1E6"/><rect x="24" y="24" width="1232" height="672" rx="12" fill="#FFFFFF" stroke="#C3C9D1" stroke-width="2"/>
+   <rect x="24" y="24" width="300" height="672" rx="12" fill="#2A303B"/>${[0,1,2,3,4].map(i=>`<rect x="48" y="${84+i*44}" width="${150-i*14}" height="14" rx="7" fill="#4A5262"/>`).join('')}
+   <rect x="348" y="60" width="520" height="16" rx="8" fill="#E3E6EA"/>${[0,1,2].map(i=>`<rect x="348" y="${100+i*30}" width="${560-i*90}" height="12" rx="6" fill="#ECEEF1"/>`).join('')}
+   <rect x="348" y="206" width="580" height="150" rx="8" fill="#F4F5F7" stroke="#E3E6EA"/>${T(370,240,'Plan',{fs:18,fw:700,c:'#6B7587'})}${[0,1,2].map(i=>`<rect x="370" y="${258+i*28}" width="${420-i*60}" height="12" rx="6" fill="#DDE1E6"/>`).join('')}
+   <rect x="348" y="380" width="880" height="236" rx="8" fill="#1E2430"/>
+   ${T(372,420,'$ git status',{fs:20,mono:1,c:'#8B97A6'})}${T(372,456,' M README.md',{fs:20,mono:1,c:'#A7F3B5'})}${T(372,492,'$ git diff --stat',{fs:20,mono:1,c:'#8B97A6'})}${T(372,528,' README.md | 6 +++---',{fs:20,mono:1,c:'#E6EAF0'})}`;
+  const chip=`<g data-s="2"><rect x="40" y="496" width="268" height="132" rx="12" fill="rgba(12,16,24,.9)" stroke="#4A5262"/>${T(60,526,'边看边找',{fs:17,fw:700,c:'#C9D0DA'})}${T(60,558,'① 读取的文件',{fs:19,c:'#fff'})}${T(60,588,'② 工具结果',{fs:19,c:'#fff'})}${T(60,618,'③ git status',{fs:19,c:'#fff'})}</g>
+   <g data-s="3">${T(284,560,'✓',{fs:22,fw:900,c:'#86EFAC',a:'end'})}${T(284,620,'✓',{fs:22,fw:900,c:'#86EFAC',a:'end'})}</g>`;
+  const zoom=`<g data-s="3"><rect x="360" y="396" width="330" height="80" rx="6" fill="none" stroke="#F59E0B" stroke-width="4" stroke-dasharray="10 7"/>${R(700,400,250,40,'#F59E0B',null,{rx:6})}${T(716,427,'推近：放大到 1.5–2 倍',{fs:18,fw:700,c:'#111'})}</g>`;
+  return `<svg style="position:absolute;inset:0" viewBox="0 0 1280 720" width="1280" height="720">${defs}<g data-s="1">${win}</g>${chip}${zoom}</svg>`}};
+
+const QUIZ={n:'暂停自检',type:'暂停去想 + 逐题揭晓',kick:'暂停一下',h:'暂停视频<br>用第 1 节的记录回答三个问题',steps:4,
+ why:'录播课没有人即时提问，自检页替代课堂提问。先只给问题，提示暂停；之后逐题揭晓答案，每个答案都回到本节的一个概念。',
+ cue:'第 1 步看镜头说“先暂停，想好再继续”，停顿两秒；之后每揭晓一题，视线落在答案上。',
+ ev:()=>{const Q=[[['Agent 说“已经完成修改”，','下一步做什么？'],['看 diff 和 git status，','再决定是否放行'],'验收'],[['Agent 提到 tests/ 里的测试，','但记录里没读过，怎么办？'],['没读取就不在 Context 里，','先让它读'],'Context'],[['npm 命令找不到，','算构建失败吗？'],['不算。构建根本没执行，','先修环境'],'Tool 结果']];
+  const w=372,g=26;
+  return `<svg viewBox="0 0 1168 370">${defs}
+   ${Q.map((q,i)=>{const x=i*(w+g);return G(1,R(x,0,w,330,'#fff',C.rule,{rx:12,sw:2})+T(x+22,44,'Q'+(i+1),{fs:28,fw:900,c:C.agent})+T(x+22,86,q[0],{fs:21,lh:31,fw:700}))+
+    G(i+2,R(x+14,190,w-28,126,C.okL,C.ok,{rx:10,sw:2})+T(x+34,226,q[1],{fs:20,lh:29,fw:600,c:C.ink})+T(x+w-30,300,'回到：'+q[2],{fs:16,c:C.ok,a:'end',fw:700}))}).join('')}
+   ${G(1,T(0,362,'想好了再按继续',{fs:18,c:C.muted}))}</svg>`}};
+function wrap(s,n){const out=[];let cur='';for(const ch of s){cur+=ch;if(cur.length>=n&&/[，。、？；]/.test(ch)||cur.length>=n+3){out.push(cur);cur=''}}if(cur)out.push(cur);return out}
+
+/* ---------- 页面顺序与统一视觉 ---------- */
+K.forEach(p=>{p.tag='知识页'});
+const [LOOP,CTX,TOOLR,ACC,LAYERS,FAIL]=K;[CODE,DIFF,PRM,MATRIX,HANDOFF,QUIZ].forEach(p=>{p.tag='知识页'});
+const P=[COVER,COMIC,LOOP,CTX,TOOLR,PRM,HANDOFF,REC,CODE,DIFF,ACC,MATRIX,LAYERS,FAIL,QUIZ,SUM];
+const SPEC=`<h3>统一视觉规范</h3><p>底色：课程纸色 #F4F2EB（与 ch01 课程站同源），全课所有页面一致。<br>标题：站酷快乐体；正文、代码、表格：印刷体（Noto Sans SC、JetBrains Mono）。<br>线条：框和箭头轻微手绘抖动；表格分隔线、勾叉图标保持工整。<br>语义色：Agent 用柔和紫（大面积填充 #ABA6E9，深紫字 #2A2380），Tool 青、Context 沙、闸门红、通过绿。<br>讲师：右上角 300×225 坐姿会议框，正文区 1168×370。<br>章节条：画面最底部，本节按段落分段，宽度按计划时长分配，只写段落名、不加编号，当前段加粗并按进度填充。</p>`;
+let pg=0,st=1,safe=false,mode='bar3';
+const SEGS=[['开场',2,[0,1]],['三个概念',5,[2,3,4]],['Prompt 与实操',6,[5,6,7]],['复盘证据',5,[8,9,10]],['选择与主线',4,[11,12,13]],['收尾',2,[14,15]]];
+const CIR='①②③④⑤⑥';
+const MODES=[['none','无'],['kick','小标题指示'],['bar','章节条：全标签'],['bar3','章节条：全标签无编号'],['bar2','章节条：精简']];
+const MODE_NOTE={none:'不显示进度，只靠开篇地图和小结。',kick:'进度放在已有的小标题行：段落编号和名称，后面 6 格短条，实心为已讲。不新增任何区域。',bar:'全标签版：每段名称都写在细条上方，宽度按各段计划时长分配，当前段按讲到的页和步实时填充。打开“安全区”可以看到：居中的字幕会压住中间几段的名称。',bar3:'全标签去掉圆圈编号：顺序由左到右的位置已经表达，编号是重复信息。去掉后每段名称更短、更干净，窄的段落（开场、收尾）也不再挤。',bar2:'精简版：只在最左侧显示当前段名称和“第几 / 共几段”，右侧是不带文字的分段细条。画面中间不出现文字，和居中的字幕不冲突。'};
+function segOf(i){return SEGS.findIndex(x=>x[2].includes(i))}
+function segFrac(i){const k=segOf(i),pages=SEGS[k][2],j=pages.indexOf(i);return (j+st/P[i].steps)/pages.length}
+const $=id=>document.getElementById(id);
+const stage=$('stage');
+$('pages').insertAdjacentHTML('beforeend',P.map((p,i)=>`<button data-i="${i}"${p.sp?' class="sp"':''}>${i+1} ${p.n}</button>`).join(''));
+const camHtml=`<div class="cam"><svg viewBox="0 0 300 225" width="300" height="225" aria-hidden="true"><defs><linearGradient id="gl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3A4252"/><stop offset="1" stop-color="#232935"/></linearGradient></defs><rect width="300" height="225" fill="url(#gl)"/>
+  <circle cx="150" cy="92" r="38" fill="#5D6778"/><path d="M62 225 C66 160 100 140 150 140 C200 140 234 160 238 225Z" fill="#4E5869"/>
+  <ellipse cx="96" cy="210" rx="26" ry="15" fill="#6B7587"/><ellipse cx="208" cy="204" rx="24" ry="14" fill="#6B7587"/></svg><span class="lbl">讲师　300×225，坐姿会议框</span></div>`;
+const safeHtml=`<div class="safe"><div class="body"><span>正文区 1168×370</span></div><div class="sub2"><span>字幕与播放器控件</span><b class="subx">没读进来的文件，对它来说就不存在</b></div></div>`;
+function render(){const p=P[pg];
+ stage.style.setProperty('--stage-bg','#F4F2EB');
+ stage.className='stage '+(p.sp?p.cls+' skin-sp-hand':'skin-handT')+(safe?' showsafe':'');
+ stage.innerHTML=(p.sp?p.body():`<header class="hd"><p class="kick">${p.kick}</p><h2>${p.h}</h2></header><div class="bd">${p.ev()}</div>`)+camHtml+safeHtml;
+ stage.querySelectorAll('[data-s]').forEach(el=>{const s=+el.dataset.s;el.classList.toggle('hide',s>st);el.classList.toggle('past',s<st&&st<p.steps)});
+ (()=>{const k=segOf(pg);
+  if(mode==='kick'){const kk=stage.querySelector('.kick');if(kk&&!p.noSeg)kk.innerHTML=`1.2　${CIR[k]} ${SEGS[k][0]}<span class="kseg">${SEGS.map((x,i)=>`<i class="${i<k?'d':i===k?'c':''}"></i>`).join('')}</span>`}
+  if(mode==='bar2'){stage.insertAdjacentHTML('beforeend',`<div class="chap chap2"><div class="cur"><b>${CIR[k]} ${SEGS[k][0]}</b><span>${k+1} / ${SEGS.length}</span></div><div class="trk">${SEGS.map((x,i)=>`<div class="tr${i===k?' c':''}" style="flex:${x[1]} 1 0"><div class="fl" style="width:${i<k?100:i===k?Math.round(segFrac(pg)*100):0}%"></div></div>`).join('')}</div></div>`)}
+  if(mode==='bar'||mode==='bar3'){const nn=mode==='bar';stage.insertAdjacentHTML('beforeend',`<div class="chap">${SEGS.map((x,i)=>`<div class="sg${i===k?' c':''}" style="flex:${x[1]} 1 0"><div class="lb">${nn?CIR[i]+' ':''}${x[0]}</div><div class="tr"><div class="fl" style="width:${i<k?100:i===k?Math.round(segFrac(pg)*100):0}%"></div></div></div>`).join('')}</div>`)}
+ })();
+ stage.querySelectorAll('[data-n]').forEach(el=>el.classList.toggle('hide',+el.dataset.n!==st));
+ $('stepi').textContent=`第 ${st} / ${p.steps} 步`;
+ document.querySelectorAll('#pages button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.i===pg));
+ $('tSafe').setAttribute('aria-pressed',safe);
+ $('info').innerHTML=`<h2>${pg+1}. ${p.n}</h2><span class="tagc">${p.sp?p.tag.replace(/；背景跟随全局/,''):'知识页'}</span>
+  <h3>页型</h3><p>${p.type}</p><h3>为什么这样设计</h3><p>${p.why}</p><h3>讲师视线与讲述</h3><p>${p.cue}</p>${SPEC}
+  <h3>操作</h3><p>← → 或点画面逐步推进，最后一步再按进入下一页；1–9 直接跳到前 9 页；S 显示安全区。</p>`;
+ fit();}
+function fit(){const box=$('view'),W=box.clientWidth-28,H=box.clientHeight-28,s=Math.max(.1,Math.min(W/1280,H/720));
+ const fr=$('frame');fr.style.width=1280*s+'px';fr.style.height=720*s+'px';stage.style.transform=`scale(${s})`}
+function go(d){const p=P[pg];if(d>0){if(st<p.steps)st++;else if(pg<P.length-1){pg++;st=1}}else{if(st>1)st--;else if(pg>0){pg--;st=P[pg].steps}}render()}
+$('pages').onclick=e=>{const b=e.target.closest('button');if(!b)return;pg=+b.dataset.i;st=1;render()};
+$('prev').onclick=()=>go(-1);$('next').onclick=()=>go(1);
+$('tSafe').onclick=()=>{safe=!safe;render()};
+$('frame').onclick=()=>go(1);
+addEventListener('keydown',e=>{if(e.target.closest&&e.target.closest('input,textarea'))return;
+ if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();go(1)}else if(e.key==='ArrowLeft'){go(-1)}
+ else if(/^[1-9]$/.test(e.key)){pg=+e.key-1;st=1;render()}else if(e.key.toLowerCase()==='s'){safe=!safe;render()}});
+addEventListener('resize',fit);
+try{const m=location.hash.match(/p=(\d+)(?:&s=(\d))?/);if(m){pg=Math.min(P.length-1,+m[1]-1);st=m[2]?+m[2]:1}const md=location.hash.match(/mode=(\w+)/);if(md&&MODES.some(x=>x[0]===md[1]))mode=md[1];}catch(e){}
+render();document.fonts&&document.fonts.ready.then(fit);
+</script>
+</body>
+</html>

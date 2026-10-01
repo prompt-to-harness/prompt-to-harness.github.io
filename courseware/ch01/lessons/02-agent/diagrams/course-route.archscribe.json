@@ -1,0 +1,61 @@
+{
+  "layout": "graph",
+  "style": "paper",
+  "animation": "flow",
+  "motion_level": "none",
+  "density": "airy",
+  "direction": "down",
+  "footer": "逻辑校样；课堂使用同源节点的横向分步图。",
+  "title": {
+    "prefix": "1.2",
+    "highlight": "能力逐层叠加",
+    "subtitle": "同源节点与连接 · 正式课件另按正文区适配"
+  },
+  "nodes": [
+    {
+      "id": "prompt",
+      "label": "Prompt",
+      "body": "说清当前任务",
+      "icon": "message",
+      "accent": "white"
+    },
+    {
+      "id": "vibe",
+      "label": "Vibe Coding",
+      "body": "看结果再迭代",
+      "icon": "iterate",
+      "accent": "white"
+    },
+    {
+      "id": "sdd",
+      "label": "SDD",
+      "body": "固定需求与验收",
+      "icon": "clipboard",
+      "accent": "white"
+    },
+    {
+      "id": "harness",
+      "label": "Harness",
+      "body": "复用规则与检查",
+      "icon": "guardrail",
+      "accent": "white"
+    }
+  ],
+  "edges": [
+    {
+      "from": "prompt",
+      "to": "vibe",
+      "label": "保留并增加"
+    },
+    {
+      "from": "vibe",
+      "to": "sdd",
+      "label": "保留并增加"
+    },
+    {
+      "from": "sdd",
+      "to": "harness",
+      "label": "保留并增加"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+#!/usr/bin/env python3
+"""Check local links, resources and scene anchors without a browser."""
+import argparse
+import json
+import re
+from html import unescape
+from html.parser import HTMLParser
+from pathlib import Path
+from urllib.parse import unquote, urlsplit
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--chapter", type=Path, help="Limit the check to one chapter directory; default checks all courseware")
+args = parser.parse_args()
+courseware = Path(__file__).resolve().parents[1]
+root = args.chapter.resolve() if args.chapter else courseware
+resources = courseware.parent
+content_roots = (root, resources / 'starters')
+
+
+class Page(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.ids = set()
+        self.links = []
+        self.scripts = []
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if attrs.get('id'):
+            self.ids.add(attrs['id'])
+        for key in ('href', 'src', 'data-lesson-page'):
+            if attrs.get(key):
+                self.links.append(attrs[key])
+        if tag == 'script' and attrs.get('src'):
+            self.scripts.append(attrs['src'])
+
+
+pages = {}
+references = []
+scene_count = 0
+for path in sorted(p for directory in content_roots for p in directory.rglob('*.html')):
+    page = Page()
+    page.feed(path.read_text())
+    for script in list(page.scripts):
+        source = path.parent / script
+        if source.name != 'lesson.js' or not source.is_file():
+            continue
+        data = json.loads(source.read_text().removeprefix('window.lesson = ').strip().removesuffix(';'))
+        if path.name == 'index.html':
+            scene_count += len(data['scenes'])
+        for scene in data['scenes']:
+            page.ids.add(scene['id'])
+            page.ids.add('heading-' + scene['id'])
+            # These HTML strings are inserted into the current document.
+            page.feed(scene.get('html', ''))
+            page.feed(scene.get('notes', ''))
+    pages[path.resolve()] = page
+    references.extend((path, url) for url in page.links)
+
+for path in sorted(courseware.rglob('*.css')):
+    references.extend((path, url) for url in re.findall(r'url\([\'\"]?([^\'\")]+)', path.read_text()))
+markdown_files = [p for directory in content_roots for p in directory.rglob('*.md')]
+markdown_files += [resources / 'WORKSPACE.md', resources / 'courseware/README.md']
+for path in sorted(markdown_files):
+    references.extend((path, url) for url in re.findall(r'\]\(([^\s)]+)\)', path.read_text()))
+
+errors = []
+checked = 0
+for source, url in references:
+    parts = urlsplit(unescape(url))
+    if parts.scheme or parts.netloc or parts.path.startswith('/'):
+        continue
+    target = (source.parent / unquote(parts.path)).resolve() if parts.path else source.resolve()
+    checked += 1
+    if not target.exists():
+        errors.append(f'{source.relative_to(resources)}: missing {url}')
+    elif parts.fragment and target in pages and unquote(parts.fragment) not in pages[target].ids:
+        errors.append(f'{source.relative_to(resources)}: missing anchor {url}')
+
+for error in errors:
+    print(error)
+print(f'{len(pages)} HTML pages, {scene_count} scenes, {checked} local references, {len(errors)} errors')
+raise SystemExit(bool(errors))

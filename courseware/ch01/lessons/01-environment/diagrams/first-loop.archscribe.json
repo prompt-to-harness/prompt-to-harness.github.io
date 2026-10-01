@@ -1,0 +1,111 @@
+{
+  "layout": "graph",
+  "style": "paper",
+  "animation": "flow",
+  "motion_level": "none",
+  "density": "airy",
+  "direction": "down",
+  "footer": "逻辑校样；课堂采用同源的分步 SVG。",
+  "title": {
+    "prefix": "1.1",
+    "highlight": "首次协作闭环",
+    "subtitle": "通过、修正回路与停止出口"
+  },
+  "nodes": [
+    {
+      "id": "goal",
+      "label": "说明目标",
+      "body": "范围与完成标准",
+      "icon": "message",
+      "accent": "white"
+    },
+    {
+      "id": "plan",
+      "label": "复述与计划",
+      "body": "核对理解",
+      "icon": "agent",
+      "accent": "purple"
+    },
+    {
+      "id": "confirm",
+      "label": "人工确认",
+      "body": "写入前的决定",
+      "icon": "user",
+      "accent": "white"
+    },
+    {
+      "id": "edit",
+      "label": "执行修改",
+      "body": "指定文字",
+      "icon": "terminal",
+      "accent": "white"
+    },
+    {
+      "id": "check",
+      "label": "检查结果",
+      "body": "页面 + 完整 Diff",
+      "icon": "eye",
+      "accent": "white"
+    },
+    {
+      "id": "record",
+      "label": "接受并记录",
+      "body": "留下证据",
+      "icon": "check",
+      "accent": "white"
+    },
+    {
+      "id": "repair",
+      "label": "反馈并修正",
+      "body": "准确差异，限定范围",
+      "icon": "retry",
+      "accent": "white"
+    },
+    {
+      "id": "stop",
+      "label": "停止并记录",
+      "body": "无法验证或需越界",
+      "icon": "lock",
+      "accent": "white"
+    }
+  ],
+  "edges": [
+    {
+      "from": "goal",
+      "to": "plan"
+    },
+    {
+      "from": "plan",
+      "to": "confirm"
+    },
+    {
+      "from": "confirm",
+      "to": "edit"
+    },
+    {
+      "from": "edit",
+      "to": "check"
+    },
+    {
+      "from": "check",
+      "to": "record",
+      "label": "通过"
+    },
+    {
+      "from": "check",
+      "to": "repair",
+      "label": "不符"
+    },
+    {
+      "from": "repair",
+      "to": "check",
+      "label": "再检查",
+      "kind": "loop"
+    },
+    {
+      "from": "check",
+      "to": "stop",
+      "label": "无法继续"
+    }
+  ]
+}

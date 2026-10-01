@@ -1,0 +1,87 @@
+{
+  "layout": "graph",
+  "style": "paper",
+  "animation": "flow",
+  "motion_level": "none",
+  "density": "airy",
+  "direction": "down",
+  "footer": "逻辑校样；课堂使用同源节点的横向分步图。",
+  "title": {
+    "prefix": "1.2",
+    "highlight": "任务执行循环",
+    "subtitle": "同源节点与连接 · 正式课件另按正文区适配"
+  },
+  "nodes": [
+    {
+      "id": "input",
+      "label": "任务输入",
+      "body": "只改指定欢迎语",
+      "icon": "message",
+      "accent": "white"
+    },
+    {
+      "id": "action",
+      "label": "提出动作",
+      "body": "请求读取目标文件",
+      "icon": "agent",
+      "accent": "purple"
+    },
+    {
+      "id": "tool",
+      "label": "工具执行",
+      "body": "执行文件读取",
+      "icon": "terminal",
+      "accent": "green"
+    },
+    {
+      "id": "result",
+      "label": "结果返回",
+      "body": "文件内容或报错",
+      "icon": "file",
+      "accent": "amber"
+    },
+    {
+      "id": "next",
+      "label": "下一步",
+      "body": "修改、再读或停止",
+      "icon": "decision",
+      "accent": "purple"
+    },
+    {
+      "id": "end",
+      "label": "退出循环",
+      "body": "完成或需要停止",
+      "icon": "check",
+      "accent": "white"
+    }
+  ],
+  "edges": [
+    {
+      "from": "input",
+      "to": "action"
+    },
+    {
+      "from": "action",
+      "to": "tool"
+    },
+    {
+      "from": "tool",
+      "to": "result"
+    },
+    {
+      "from": "result",
+      "to": "next"
+    },
+    {
+      "from": "next",
+      "to": "action",
+      "label": "继续：依据结果提出新动作",
+      "kind": "loop"
+    },
+    {
+      "from": "next",
+      "to": "end",
+      "label": "完成或停止"
+    }
+  ]
+}

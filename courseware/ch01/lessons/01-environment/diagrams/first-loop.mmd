@@ -1,0 +1,17 @@
+flowchart LR
+  goal["说明目标"]
+  plan["复述与计划"]
+  confirm["人工确认"]
+  edit["执行修改"]
+  check["检查结果"]
+  record["接受并记录"]
+  repair["反馈并修正"]
+  stop["停止并记录"]
+  goal --> plan
+  plan --> confirm
+  confirm --> edit
+  edit --> check
+  check -->|通过| record
+  check -->|不符| repair
+  repair -->|再检查| check
+  check -->|无法继续| stop

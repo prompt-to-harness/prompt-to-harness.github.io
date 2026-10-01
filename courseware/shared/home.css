@@ -1,0 +1,50 @@
+/* 课程首页：阅读站调性不变（衬线大标题、留白），引入课件的视觉语言：
+   手绘边框、手写编号、课程路线阶梯。依赖 parts/parts.css。 */
+/* 首页的手写标题字：用第 0 章子集（覆盖首页全部标题用字），第 1 章子集兜底 */
+@font-face{font-family:'Home Title';src:url(../ch00/assets/title.woff2) format('woff2');font-display:swap}
+.chapter-home.p-root{--p-paper:var(--color-paper,#F4F2EB);--p-title:'Home Title','Parts Title Alt','Noto Sans SC',sans-serif}
+
+/* 课程路线 */
+.home-route{margin-top:var(--space-3xl)}
+.home-route .p-stairs{margin-top:var(--space-xl);height:auto;column-gap:22px;row-gap:12px}
+.home-route .p-box h3{font-size:26px}
+.home-route .p-box p{font-size:17px}
+.home-route .p-stair.is-todo .p-box::before{border-style:dashed;background:transparent}
+.home-route .p-stair.is-todo .p-box{color:var(--color-muted)}
+.home-route .route-status{display:inline-block;margin-top:10px;font-size:15px;font-weight:700;color:#11652F}
+.home-route .is-todo .route-status{color:var(--color-muted);font-weight:500}
+.home-route .p-base{font-size:18px;margin-top:22px}
+.home-route .p-here{font-size:18px;top:-28px}
+.home-route-intro{display:flex;align-items:center;gap:14px;margin-top:var(--space-lg);font-size:16px;color:var(--color-muted)}
+.home-route-intro .p-box{padding:8px 14px}
+.home-route-intro .p-box h3{font-size:20px;margin:0}
+
+/* 章节卡片：手绘边框 + 手写编号 */
+.chapter-home .section-card{position:relative;isolation:isolate;border:0;background:transparent}
+.chapter-home .section-card::before{content:'';position:absolute;inset:0;z-index:-1;border:2px solid #243042;border-radius:14px 10px 15px 11px;background:#FFFDF7;filter:url(#p-rough);transition:border-color .18s}
+.chapter-home .section-card:hover{border-color:transparent}
+.chapter-home .section-card:hover::before{border-color:#5A51D1}
+.chapter-home .section-number{font:400 34px/1 var(--p-title);color:#5A51D1;margin-bottom:var(--space-lg)}
+.chapter-home .chapter-section-heading .scene-kicker{display:inline-block;padding:4px 10px;border-radius:999px;background:#EDEBFB;color:#2A2380}
+
+@media (max-width:38rem){
+  .home-route .p-stairs{grid-template-columns:1fr}
+  .home-route .p-stair{margin-bottom:0}
+  .home-route .p-stair+.p-stair::before{display:none}
+  .home-route .p-here{position:static;display:block;margin:0 0 6px}
+  .home-route-intro{flex-wrap:wrap}
+}
+
+/* 章节页：本章路线（六节手绘卡片，按语义色区分） */
+.chapter-route{margin-top:var(--space-3xl)}
+.chapter-route-list{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:26px;margin:var(--space-xl) 0 0;padding:0;list-style:none}
+.chapter-route-list li{position:relative}
+.chapter-route-list li+li::before{content:'→';position:absolute;left:-21px;top:50%;transform:translateY(-50%);font:400 20px/1 var(--p-title);color:#6B7280}
+.chapter-route-list .p-box{display:block;padding:12px 14px;text-decoration:none;min-height:100%}
+.chapter-route-list .p-box:hover::before{border-width:3px}
+.chapter-route-list .route-num{display:block;font:400 22px/1 var(--p-title);color:var(--ct);opacity:.8;margin-bottom:6px}
+.chapter-route-list h3{font-size:21px;margin:0}
+.chapter-route-note{margin-top:22px;font-size:17px}
+@media (max-width:52rem){.chapter-route-list{grid-template-columns:repeat(3,minmax(0,1fr))}.chapter-route-list li:nth-child(4)::before{display:none}}
+@media (max-width:30rem){.chapter-route-list{grid-template-columns:repeat(2,minmax(0,1fr))}.chapter-route-list li::before{display:none}}
+.chapter-route+section{margin-top:var(--space-3xl)}
