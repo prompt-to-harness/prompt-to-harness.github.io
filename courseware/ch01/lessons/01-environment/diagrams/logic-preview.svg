@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 998.1899999999999 205.00000000000003" width="998.1899999999999" height="205.00000000000003" style="--bg:#FFFFFF;--fg:#27272A;background:var(--bg)">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap');
+  text { font-family: 'Inter', system-ui, sans-serif; }
+  svg {
+    /* Derived from --bg and --fg (overridable via --line, --accent, etc.) */
+    --_text:          var(--fg);
+    --_text-sec:      var(--muted, color-mix(in srgb, var(--fg) 60%, var(--bg)));
+    --_text-muted:    var(--muted, color-mix(in srgb, var(--fg) 40%, var(--bg)));
+    --_text-faint:    color-mix(in srgb, var(--fg) 25%, var(--bg));
+    --_line:          var(--line, color-mix(in srgb, var(--fg) 50%, var(--bg)));
+    --_arrow:         var(--accent, color-mix(in srgb, var(--fg) 85%, var(--bg)));
+    --_node-fill:     var(--surface, color-mix(in srgb, var(--fg) 3%, var(--bg)));
+    --_node-stroke:   var(--border, color-mix(in srgb, var(--fg) 20%, var(--bg)));
+    --_group-fill:    var(--bg);
+    --_group-hdr:     color-mix(in srgb, var(--fg) 5%, var(--bg));
+    --_inner-stroke:  color-mix(in srgb, var(--fg) 12%, var(--bg));
+    --_key-badge:     color-mix(in srgb, var(--fg) 10%, var(--bg));
+  }
+</style>
+<defs>
+  <marker id="arrowhead" markerWidth="8" markerHeight="5" refX="7" refY="2.5" orient="auto">
+    <polygon points="0 0, 8 2.5, 0 5" fill="var(--_arrow)" stroke="var(--_arrow)" stroke-width="0.75" stroke-linejoin="round" />
+  </marker>
+  <marker id="arrowhead-start" markerWidth="8" markerHeight="5" refX="1" refY="2.5" orient="auto-start-reverse">
+    <polygon points="8 0, 0 2.5, 8 5" fill="var(--_arrow)" stroke="var(--_arrow)" stroke-width="0.75" stroke-linejoin="round" />
+  </marker>
+</defs>
+<polyline class="edge" data-from="goal" data-to="plan" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="141.23,58.45 181.23,58.45" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="plan" data-to="confirm" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="297.28,58.45 349.84,58.45" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="confirm" data-to="edit" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="451.07,58.45 478.51,58.45" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="edit" data-to="check" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="579.74,58.45 591.74,58.45 591.74,103.325 603.74,103.325" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="check" data-to="record" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="通过" points="704.97,106.4 716.97,106.4 716.97,69.8375 802.38,69.8375" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="check" data-to="repair" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="不符" points="603.74,112.55000000000001 518.33,112.55000000000001 518.33,121.5125 465.89000000000004,121.5125" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="repair" data-to="check" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="再检查" points="465.89000000000004,133.8125 506.45000000000005,133.8125 506.45000000000005,145.85000000000002 591.74,145.85000000000002 591.74,121.775 603.74,121.775" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="check" data-to="stop" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="无法继续" points="704.97,118.7 732.97,118.7 732.97,130.7375 842.14,130.7375" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<g class="edge-label" data-from="check" data-to="record" data-label="通过">
+  <rect x="724.97" y="53.8375" width="41.41" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="745.6750000000001" y="68.9875" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">通过</text>
+</g>
+<g class="edge-label" data-from="check" data-to="repair" data-label="不符">
+  <rect x="526.33" y="96.55000000000001" width="41.41" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="547.0350000000001" y="111.70000000000002" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">不符</text>
+</g>
+<g class="edge-label" data-from="repair" data-to="check" data-label="再检查">
+  <rect x="514.45" y="129.85000000000002" width="53.29" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="541.095" y="145.00000000000003" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">再检查</text>
+</g>
+<g class="edge-label" data-from="check" data-to="stop" data-label="无法继续">
+  <rect x="740.97" y="114.73750000000001" width="65.17" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="773.5550000000001" y="129.88750000000002" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">无法继续</text>
+</g>
+<g class="node" data-id="goal" data-label="说明目标" data-shape="rectangle">
+  <rect x="40" y="40" width="101.22999999999999" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="90.615" y="58.45" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">说明目标</text>
+</g>
+<g class="node" data-id="plan" data-label="复述与计划" data-shape="rectangle">
+  <rect x="181.23" y="40" width="116.05" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="239.255" y="58.45" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">复述与计划</text>
+</g>
+<g class="node" data-id="confirm" data-label="人工确认" data-shape="rectangle">
+  <rect x="349.84" y="40" width="101.22999999999999" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="400.455" y="58.45" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">人工确认</text>
+</g>
+<g class="node" data-id="edit" data-label="执行修改" data-shape="rectangle">
+  <rect x="478.51" y="40" width="101.22999999999999" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="529.125" y="58.45" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">执行修改</text>
+</g>
+<g class="node" data-id="check" data-label="检查结果" data-shape="rectangle">
+  <rect x="603.74" y="94.1" width="101.22999999999999" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="654.355" y="112.55" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">检查结果</text>
+</g>
+<g class="node" data-id="record" data-label="接受并记录" data-shape="rectangle">
+  <rect x="802.38" y="51.387499999999996" width="116.05" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="860.405" y="69.8375" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">接受并记录</text>
+</g>
+<g class="node" data-id="repair" data-label="反馈并修正" data-shape="rectangle">
+  <rect x="349.84" y="109.2125" width="116.05" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="407.86499999999995" y="127.66250000000001" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">反馈并修正</text>
+</g>
+<g class="node" data-id="stop" data-label="停止并记录" data-shape="rectangle">
+  <rect x="842.14" y="112.2875" width="116.05" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="900.165" y="130.7375" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">停止并记录</text>
+</g>
+</svg>

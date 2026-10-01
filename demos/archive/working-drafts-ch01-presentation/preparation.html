@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第一节课前准备与排障 · 从 Prompt 到 Harness</title>
+  <link rel="icon" href="data:,"><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="styles.css">
+</head>
+<body><main class="script-page preparation-page">
+  <header>
+    <a href="ch01-01.html#opening">← 返回第一节</a>
+    <p class="script-meta">第 1 章 · 第 1 节</p>
+    <h1>课前准备与排障</h1>
+    <p>准备工具和独立的练习目录，再让 Codex 修改一段 README 介绍。</p>
+    <p class="preparation-status">课程 Starter Repo 的下载地址与起点版本尚未发布。现在可以准备工具、阅读讲义和练习判断 diff；拿到配套代码后，再按下面步骤完成实际操作。</p>
+  </header>
+  <section id="tools">
+    <h2>1 · 安装工具</h2>
+    <ul>
+      <li><a href="https://developers.openai.com/codex/app/">Codex App 官方入口</a>：按官方说明安装并完成登录。系统支持、账号条件和额度以官方当前说明为准；遇到不支持的系统或模型不可用，可先走本页的观看路径。</li>
+      <li><a href="https://git-scm.com/downloads">Git 官方下载</a>：安装后重新打开终端，执行 <code>git --version</code>，正常结果以 <code>git version</code> 开头。</li>
+      <li><a href="https://nodejs.org/en/download">Node.js 官方下载</a>：后续运行网站时使用。版本按配套项目 README 的要求选择；第一节仅修改文字，暂时缺少 Node 不影响这次练习。</li>
+    </ul>
+    <p>macOS 可打开“终端”，Windows 可打开 PowerShell，Linux 可打开系统终端。下面的 Git 命令在这些终端中运行；这些命令不是发给 Codex 的自然语言请求。</p>
+  </section>
+  <section id="project">
+    <h2>2 · 取得独立的练习副本</h2>
+    <p>课程配套材料会给出仓库地址与起点提交编号。先在终端进入你用来存放练习项目的文件夹，替换下面引号内的两个中文占位值，再分别执行。<code>ch01-practice</code> 必须是尚不存在的新目录。</p>
+    <pre class="prompt">git clone "课程提供的仓库地址" "ch01-practice"
+cd ch01-practice
+git switch -c ch01-01 "课程提供的起点提交编号"</pre>
+    <p>正常情况下，当前目录里有 <code>README.md</code> 和 <code>package.json</code>，README 含有“项目介绍”段落，当前分支为 <code>ch01-01</code>。普通源码 ZIP 通常不含 Git 历史，不能直接替代这条路径；只拿到 ZIP 时，先查看配套初始化说明。</p>
+    <p>这一步使用新目录。若已有同名目录或自己的未提交工作，保留它们，换一个新的目录名重新准备。</p>
+  </section>
+  <section id="checks">
+    <h2>3 · 在同一个目录检查起点</h2>
+    <p>终端保持在刚克隆的项目根目录，运行<a href="ch01-01.html#environment">讲义中的环境检查命令</a>。不要在课程讲义目录或个人代码目录里执行练习。</p>
+    <ul>
+      <li><strong>项目目录</strong>：输出应指向刚创建的 <code>ch01-practice</code>，并与之后在 App 中选择的目录一致。</li>
+      <li><strong>当前分支</strong>：另运行 <code>git branch --show-current</code>，应为 <code>ch01-01</code>。若为空，通常处于分离 HEAD 状态，先核对是否完成了上一步的新建分支操作。</li>
+      <li><strong>已有改动</strong>：命令成功且没有输出，表示 Git 没有列出已修改或未跟踪文件；忽略文件不在这个列表内。有输出就先保留原目录，另取干净副本。</li>
+    </ul>
+    <p>再执行下面的命令，复制完整输出作为起点提交编号，存到项目目录之外的笔记中。</p>
+    <pre class="prompt">git rev-parse HEAD</pre>
+    <p><code>git status</code> 只列文件状态，不保存内容。同一文件在两次检查中都显示 <code>M</code>，无法说明哪些行是原有工作。第一节通过独立的干净副本、固定起点和单人操作，建立可以核对的基线。</p>
+  </section>
+  <section id="app">
+    <h2>4 · 打开项目并开始协作</h2>
+    <p>在 Codex App 中选择刚才的项目根目录，确认 README 的“项目介绍”原文。使用在该本地目录工作的会话；若选择了另一个工作树，需要重新确认目录和起点。</p>
+    <p>先发送<a href="ch01-01.html#read-first">阅读请求</a>，对照 README 核对原文和一句话修改打算，再发送新介绍。这里拆成两轮是为了第一次演示时看清过程；熟悉后，这样的小改动可以用一条请求完成。</p>
+    <p>请求里写“先不要修改”是协作要求，实际读写和执行限制取决于工具权限设置，第三节会继续解释。遇到权限提示，要看清操作和目标目录；本节只需要读取项目、修改 README，不需要安装依赖、发布网站或连接外部服务来完成任务。</p>
+    <p>本轮不提交 commit，也不在另一窗口同时改这份副本。完成后按下面的步骤检查。</p>
+    <h3 id="verify">怎样检查改动</h3>
+    <p>先再次运行 <code>git rev-parse HEAD</code>，与开始时记下的完整编号比较。一致时，可以使用<a href="ch01-01.html#review">讲义中的三条检查命令</a>：</p>
+    <ul>
+      <li><code>git diff HEAD -- README.md</code>：查看 README 相对当前提交的改动，包括暂存和未暂存的部分。核对介绍的文字、位置，以及其他段落是否保持原样。</li>
+      <li><code>git diff --stat HEAD</code>：查看已跟踪文件的改动统计。预期只有 README；出现其他文件时，打开对应差异检查。</li>
+      <li><code>git status --short</code>：查看文件状态，也留意标为 <code>??</code> 的未跟踪文件。新增文件需要另外打开查看，不能只靠 diff 统计判断范围。</li>
+    </ul>
+    <p>这套检查以干净副本开始、期间没有其他修改为前提。提交编号变了，就按<a href="#recovery">恢复说明</a>用起点编号比较；混入了其他工作或分不清来源时，先保留现场，不直接恢复整个文件。</p>
+    <h3 id="website">第五节前：准备网站运行环境</h3>
+    <p>修改 README 不需要启动网站。第五节动手前，再按 Starter Repo 的 README 准备以下工具并试跑：</p>
+    <ul>
+      <li><strong>Node</strong>：用于运行前端开发和构建工具。执行 <code>node --version</code>，正常输出形如 <code>v主版本.次版本.补丁版本</code>，还需与项目要求比较。</li>
+      <li><strong>包管理器</strong>：用于安装项目依赖。按项目说明选择 npm、pnpm 等工具，核对版本，不混用。</li>
+      <li><strong>安装与启动</strong>：执行项目说明中的安装和启动命令，对照配套材料确认正常页面。具体命令与版本将在 Starter Repo 试跑后填写。</li>
+    </ul>
+  </section>
+  <section id="help">
+    <h2>5 · 遇到问题时</h2>
+    <ul>
+      <li><strong>找不到 git 或 node 命令</strong>：安装对应工具后重新打开终端，再检查版本。Git 是本节检查的前提，Node 可以在运行网站前补齐。</li>
+      <li><strong>出现 not a git repository</strong>：先核对终端目录是否为克隆得到的项目根目录；不要在任意目录执行 <code>git init</code> 来掩盖路径问题。</li>
+      <li><strong>克隆失败或起点编号不存在</strong>：保存完整命令与错误，核对地址、网络和配套版本；不要自行换到最新版来追赶示例。</li>
+      <li><strong>缺少 README、package.json 或目标段落</strong>：停止修改，核对仓库和起点版本。不要让 Agent 猜测或新建替代文件。</li>
+      <li><strong>App 无法登录或模型不可用</strong>：保留不含账号密钥的错误信息，按官方帮助处理。可以先看<a href="speaker.html">讲解全文</a>和<a href="ch01-01.html#self-check">自检解析</a>，环境可用后再补实操。</li>
+      <li><strong>依赖安装或页面启动失败</strong>：按项目 README 核对目录、版本和命令，保存输出后按项目排障说明处理。不要通过让 Agent 重写项目来绕过环境问题。</li>
+    </ul>
+    <p>继续本节实操的条件：配套项目和起点正确、工作区干净、App 能读取同一个目录。暂时不满足时可以继续观看，观看与检查示例不计作已完成 Agent 操作。</p>
+  </section>
+  <section id="recovery">
+    <h2>6 · 多改了文件，怎样继续</h2>
+    <p>先停止继续编辑并保存当前 diff。确认起点是干净副本、提交编号未变，也没有其他人在同时修改时，可以把实际文件名和 diff 发给 Agent：</p>
+    <pre class="prompt">这次约定只修改 README 的项目介绍。
+请先列出本轮超出范围的文件和差异，不修改。
+等我确认后，仅撤回这些额外改动，保留 README 的目标修改。
+不提交 commit；处理后重新展示完整差异和 git status。</pre>
+    <p>核对它列出的范围后再执行；随后重新检查，直到目标介绍正确且没有范围外改动。若无法确认改动来源，或文件原本含有个人工作，保留整个目录，换新目录从课程起点重做。没有事前内容快照时，不靠状态列表猜测或恢复文件。</p>
+    <p>若期间已经提交，<code>git diff HEAD</code> 可能看不到刚提交的修改。将记录的起点编号替换到下面命令中，再检查完整差异：</p>
+    <pre class="prompt">git diff "起点提交编号" -- README.md
+git diff --stat "起点提交编号"
+git status --short</pre>
+  </section>
+  <section id="record">
+    <h2>7 · 留下简短记录</h2>
+    <p>在项目目录之外保存这次请求、回复和检查结果，并附上开始时的记录。可以用下面的模板，不必照抄说明文字。</p>
+    <pre class="prompt">起点：项目目录、分支、提交编号、初始状态、工具版本
+任务：目标介绍、允许范围、请求与回复（含一句话修改打算）
+结果：最终介绍、diff、文件范围、实际检查结果
+结论：是否完成；若未完成，卡在哪里、下一步是什么</pre>
+    <p>记录里的“已检查”只填写实际做过的项目。本节无需构建或发布网站。</p>
+  </section>
+</main></body>
+</html>

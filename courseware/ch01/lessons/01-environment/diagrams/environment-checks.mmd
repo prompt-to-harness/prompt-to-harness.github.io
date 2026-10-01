@@ -1,0 +1,16 @@
+flowchart TB
+  browser["浏览器：检查当前环境"]
+  browser_pass["通过证据：打开并刷新环境页"]
+  browser_fail["未通过时：核对路径或本地服务"]
+  git["Git：检查当前环境"]
+  git_pass["通过证据：版本、分支、状态与 Diff 可读"]
+  git_fail["未通过时：补齐 Git 与独立仓库"]
+  cli["Codex CLI：检查当前环境"]
+  cli_pass["通过证据：从练习目录启动成功"]
+  cli_fail["未通过时：仅用已核验桌面入口临时起步"]
+  browser --> browser_pass
+  browser --> browser_fail
+  git --> git_pass
+  git --> git_fail
+  cli --> cli_pass
+  cli --> cli_fail

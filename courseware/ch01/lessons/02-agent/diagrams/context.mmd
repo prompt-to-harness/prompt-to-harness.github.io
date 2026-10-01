@@ -1,0 +1,6 @@
+flowchart LR
+  repo["项目中的文件"]
+  read["工具读取"]
+  context["供判断使用的上下文"]
+  repo -->|"选择相关文件"| read
+  read -->|"成功返回并纳入"| context

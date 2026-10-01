@@ -1,0 +1,46 @@
+{
+  "layout": "graph",
+  "style": "paper",
+  "animation": "flow",
+  "motion_level": "none",
+  "density": "airy",
+  "direction": "down",
+  "footer": "逻辑校样；课堂使用同源节点的横向分步图。",
+  "title": {
+    "prefix": "1.2",
+    "highlight": "可访问与已读取",
+    "subtitle": "同源节点与连接 · 正式课件另按正文区适配"
+  },
+  "nodes": [
+    {
+      "id": "repo",
+      "label": "项目中的文件",
+      "icon": "folder",
+      "accent": "white"
+    },
+    {
+      "id": "read",
+      "label": "工具读取",
+      "icon": "scan",
+      "accent": "green"
+    },
+    {
+      "id": "context",
+      "label": "供判断使用的上下文",
+      "icon": "clipboard",
+      "accent": "amber"
+    }
+  ],
+  "edges": [
+    {
+      "from": "repo",
+      "to": "read",
+      "label": "选择相关文件"
+    },
+    {
+      "from": "read",
+      "to": "context",
+      "label": "成功返回并纳入"
+    }
+  ]
+}

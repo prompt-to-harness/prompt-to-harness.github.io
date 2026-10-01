@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>首页 v0 · 操作与验收 · 从 Prompt 到 Harness</title><link rel="icon" href="data:,"><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="styles.css"></head>
+<body><main class="script-page preparation-page"><header><a href="index.html">← 第 1 章首页</a><p class="script-meta">第 1 章 · 第 5 节</p><h1>首页 v0 · 操作与验收</h1><p>使用上一节确认的请求，从独立练习副本开始。此页提供操作方案；Starter Repo、真实输出、参考实现与阶段下载包仍待试跑后发布。</p><nav class="material-nav" aria-label="配套页目录"><a href="#start">开始前与环境卡</a><a href="#execute">请求与人工确认</a><a href="#preview">启动与浏览器检查</a><a href="#build">构建与失败处理</a><a href="#review">Git 与范围检查</a><a href="#checkpoint">检查点与恢复</a><a href="#check">验收卡与自检</a><a href="#record">结果记录与继续路径</a></nav><a href="ch01-05.html">返回本节展示 →</a></header><section id="start"><h2>开始前与环境卡</h2><p class="preparation-status">当前可以阅读流程、使用验收表和完成判断题。真实实操尚缺课程 fork、固定起点、已核验启动方式和参考实现，不能将下列示例当成已跑通路径。</p>
+<p>输入：<a href="practice-04.html#prompt">确认后的完整 Prompt</a>、内容卡、允许文件清单，以及第 3 节的目录与权限记录。第一章主操作沿用 App；CLI 对照完成不代表页面生成已经通过。</p>
+<ol><li>按<a href="preparation.html#project">项目准备说明</a>取得新的独立副本。保留第一节原目录中的 README 修改，不用 restore/reset 清空旧工作。</li><li>在新副本根目录记录下面的命令输出；状态有改动时先查明来源，必要时另建副本。</li><li>核对 Node、包管理器、锁文件、实际 scripts；依赖准备单独确认。先试跑未修改项目，不能将起点环境故障误当作生成代码故障。</li><li>把新副本路径与起点同步到第 4 节请求；确认 App 使用这个目录，实际权限满足本轮必要动作。</li></ol><pre class="prompt">git rev-parse --show-toplevel
+git branch --show-current
+git rev-parse HEAD
+git status --short</pre><p>把完整 HEAD 记为“起点提交”。环境记录模板如下，每项填写实际值或“未验证”，不得留空就宣布可执行。</p><pre class="prompt">日期 / 操作系统 / 终端 / App 与 CLI 版本 / 模型入口：
+课程 fork 与起点完整 commit / 新副本目录 / 分支：
+首页及直接样式、路由 / 本轮允许修改与新增文件：
+Node / 包管理器 / 锁文件：
+安装来源与命令（单独确认）/ 开发启动命令 / 实际本地 URL：
+scripts.build / 构建命令 / 构建产物目录：
+本地读写与网络范围 / 人工审批 / 启动脚本副作用：
+未修改起点的启动、构建结果及证据位置：
+</pre></section><section id="execute"><h2>请求与人工确认</h2><p>把下面请求与第 4 节完整 Prompt、内容卡一起提供。新会话不能只引用“按刚才要求”。核对实际回复后，由人明确确认才开始修改。</p><pre class="prompt">请按我们已确认的四段式 Prompt 和内容卡完成首页 v0。
+先对照当前目录、起点和允许文件清单，用几句话复述目标及运行、构建、diff 的检查顺序；有未解决问题就先提出。等我确认后再修改。
+不增加新依赖、不发布、不提交或打 tag。需要扩大范围时先停下。</pre><p>确认示例：“目标、文件清单和检查顺序已核对，可以在上述范围内修改。扩大范围仍先停下。”保存真实回复与确认；不要把这句示例自动当作你已批准的记录。</p><p>观察文件列表。需要新文件、依赖或外部动作时暂停；必要变更经确认后同步请求和验收，不顺带追加美化。</p></section><section id="preview"><h2>启动与浏览器检查</h2><ol><li>在项目根目录执行环境卡已经试跑的开发启动命令；没有命令或启动失败时停在这里。</li><li>打开终端实际打印的本地 URL，核对课程名、介绍、两个项目的内容与状态。</li><li>点击“查看项目”确认到达本页项目区；再用 Tab 聚焦入口并按 Enter，结果应一致。</li><li>逐项点击已有导航与路由。用浏览器响应式模式分别设为 1440×900 与 360×800，观察无遮挡、无横向溢出和内容可读。</li><li>打开开发者工具 Console，先看现有错误，再清空显示、刷新并重复本轮操作，保存新错误和触发步骤。不要仅隐藏错误。</li></ol><p>成功证据：实际 URL、页面截图、动作与观察记录。失败证据：期望、实际、最短复现、相关错误。未检查的路由不写“全站通过”；界面与讲师不同但符合约定可以继续。</p></section><section id="build"><h2>构建与失败处理</h2><p>课程验收默认命令如下。必须先确认项目有 scripts.build，且 npm 与该项目锁文件、环境卡匹配。若实际项目使用其他包管理器，先确认等价构建入口并同步材料；这是一项录前核验，不是已验证结果。</p><pre class="prompt">npm run build</pre><p>保存命令、退出状态和完整输出。构建失败时先看首个相关错误，区分缺依赖、版本不符与源代码错误；不得删除检查、改空 build 脚本或换掉源码来伪装环境通过。</p><p>环境故障回到起点试跑；源代码错误由 Agent 按日志做最小修正，再重跑构建和受影响的页面检查。无限追加依赖或改造技术栈不是继续条件。</p></section><section id="review"><h2>Git 与范围检查</h2><p>将下列“起点完整提交编号”替换成开始时保存的实际值；每条命令单独执行。直接与起点比较，可看到本轮中途提交的变化；不要假设 HEAD 一直没变。</p><pre class="prompt">git rev-parse HEAD
+git diff &quot;起点完整提交编号&quot; --
+git diff --stat &quot;起点完整提交编号&quot; --
+git status --short</pre><ul><li>diff 中的每个文件是否属于已确认清单，是否保留已有行为？</li><li>status 中的未跟踪文件需要逐个打开；diff 不包含这些文件内容。</li><li>package.json、锁文件、配置是否有未确认变化？</li><li>准备页、环境检查页是否误入应用、路由、public 或实际构建产物？</li><li>新内容、源码和待提交文件是否含密钥、私人信息、未经许可的图片？检查公开候选内容，不能仅凭 status 没列出就说不存在。</li></ul><p>只写了 README 的第一节不需 build；这一节修改正式页面，必须补齐运行与构建。这是任务差异，不是前后规则冲突。</p></section><section id="checkpoint"><h2>检查点与恢复</h2><p>仅当下面验收卡通过时，由人建立本地检查点。先逐个暂存确认过的实际文件；下列文件名是占位说明，执行前替换。删除文件也通过明确路径暂存。不要用 git add . 把未知文件一并带入。</p><pre class="prompt">git add -- &quot;实际已检查文件路径&quot;
+git diff --cached --stat
+git diff --cached
+git status --short</pre><p>暂存差异仍需核对；存在无关暂存或残余改动就先处理。确认版本正是检查过的代码后执行：</p><pre class="prompt">git commit -m &quot;Complete chapter 1 homepage v0&quot;
+git rev-parse HEAD
+git tag --list ch01-home-v0</pre><p>上条 tag 查询成功且无输出时，才使用下列新名称；已有同名 tag 时检查旧位置并另选名称，不使用 -f 覆盖。把实际名称、完整提交与检查证据保存到项目外。</p><pre class="prompt">git tag ch01-home-v0
+git rev-parse ch01-home-v0
+git status --short</pre><p>最终状态应可解释且无遗漏的任务文件；检查后又改代码须补验后重新提交。本节不执行 push。</p><p><strong>恢复时保留当前目录。</strong>若需要回到已记录的检查点，可另建工作树；下列目录和分支名必须尚未存在，tag 替换为你的实际名称：</p><pre class="prompt">git worktree add -b ch01-retry ../ch01-retry ch01-home-v0</pre><p>在新目录重新按环境卡准备依赖和核对路径；这只恢复 Git 中的已提交文件，不复制依赖、未提交内容或进程。没有成功检查点时，保留现场，从课程固定起点另取新副本并重做。不要用硬重置或删除目录覆盖已有工作。</p></section><section id="check"><h2>验收卡与自检</h2><ul><li>页面启动；课程介绍、两个项目与入口行为符合已确认请求。</li><li>指定视口和键盘检查通过，已有导航与相邻路由无已发现回归。</li><li>production build 成功，Console 在本轮场景无明显错误。</li><li>diff 在批准范围内；新增文件、依赖、配置均核对。</li><li>环境检查页未进入正式应用；无已发现的 secret、私人资料或未授权素材。</li><li>本地检查点可定位，证据指向同一提交；未验证项单列。</li></ul>
+<p>题目：启动和 build 通过，但额外改了准备页、加了依赖与来源不明的图片。现在打“验收通过”的检查点吗？</p><details><summary>参考解析与继续条件</summary><p>先不标记通过。两项检查未覆盖范围和来源。保留 diff，查明新增项，撤回或另行确认超范围修改，移除或替换未经授权素材；再做受影响的页面、构建和 diff 检查。</p><p>“build 没报错”不足以证明素材可用；“全部撤回”也可能丢掉无关工作。补做要针对可确认来源的变化，分不清时保留整个目录。仅在完整清单通过后记录完成检查点。</p></details></section><section id="record"><h2>结果记录与继续路径</h2><pre class="prompt">起点：目录 / 分支 / 完整提交 / 初始状态
+请求：最终 Prompt、内容卡、文件范围与人工确认
+动作：实际文件、运行命令、必要权限与批准
+页面：URL / 视口 / 动作 / 期望 / 实际 / 证据位置
+构建：命令 / 退出状态 / 输出位置
+Review：diff / 新增文件 / 依赖 / 资料来源 / 检查结论
+检查点：最终完整提交 / 本地 tag / 最终状态
+未验证或失败：具体项 / 原因 / 修正与复验 / 下一步
+</pre><p>环境或模型不可用：先完成本页判断题和<a href="practice-06.html">第 6 节案例</a>，实际生成单列待补。实现不同：按共同验收检查，无需复制讲师代码。行为失败：保存最小复现后修正。未知阻断：提供脱敏命令、错误、起点与已尝试步骤，不假定群内能立即回复。</p><p>第 2 章从已验收的 v0 与未解决反馈开始；当前仅提供交接要求，不挂未制作的第二章页面。</p></section><footer class="material-nav"><a href="ch01-05.html">返回本节</a><a href="index.html">章节首页</a></footer></main></body></html>

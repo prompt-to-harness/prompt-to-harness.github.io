@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>环境检查页 · Vibe Coding</title>
+    <style>
+      :root { color-scheme: light; font-family: "PingFang SC", "Microsoft YaHei", sans-serif; color: #222d29; background: #f7f4ee; }
+      * { box-sizing: border-box; }
+      body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 32px 24px; }
+      main { width: min(100%, 860px); padding: 56px; border: 1px solid #d5dcd3; border-radius: 16px; background: #fffdf8; }
+      .eyebrow { margin: 0 0 28px; color: #17664e; font-size: 16px; font-weight: 600; letter-spacing: .08em; }
+      h1 { margin: 0; font-size: clamp(30px, 5vw, 48px); line-height: 1.35; letter-spacing: -.025em; }
+      .description { margin: 24px 0 36px; color: #626c65; font-size: 19px; line-height: 1.8; }
+      .scope { padding-top: 24px; border-top: 1px solid #d5dcd3; }
+      .scope h2 { margin: 0 0 12px; font-size: 18px; }
+      .scope p { margin: 0; color: #626c65; font-size: 16px; line-height: 1.8; }
+      code { font-family: ui-monospace, monospace; color: #17664e; overflow-wrap: anywhere; }
+      @media (max-width: 600px) { main { padding: 32px 24px; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">第 1 章 · 1.1 环境检查</p>
+      <h1 id="welcome-message">你好，欢迎来到我的练习页面。</h1>
+      <p class="description">这是个人主页练习项目的环境检查页。我们将在这里完成一次小改动，并用浏览器结果和 Git diff 检查它。</p>
+      <section class="scope" aria-labelledby="scope-title">
+        <h2 id="scope-title">本次练习的位置</h2>
+        <p>只修改 <code>setup-check/index.html</code> 中的欢迎语。此页面独立于授课幻灯片，也不属于后续正式首页的发布内容。</p>
+      </section>
+    </main>
+  </body>
+</html>

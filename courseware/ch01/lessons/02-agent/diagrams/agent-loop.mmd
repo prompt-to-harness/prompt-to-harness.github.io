@@ -1,0 +1,13 @@
+flowchart LR
+  input["任务输入"]
+  action["提出动作"]
+  tool["工具执行"]
+  result["结果返回"]
+  next["下一步"]
+  end["退出循环"]
+  input --> action
+  action --> tool
+  tool --> result
+  result --> next
+  next -->|"继续：依据结果提出新动作"| action
+  next -->|"完成或停止"| end

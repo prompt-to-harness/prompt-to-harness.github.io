@@ -1,0 +1,17 @@
+# Evidence Ledger
+
+| claim_id | claim | source | source_class | published_or_updated | evidence | relationship | confidence | notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| CP-01 | AI coding 的真实价值不能只用代码生成衡量，学习、搜索、文档和测试是开发者常见的 AI 使用场景，同时开发者对准确性保持谨慎 | https://survey.stackoverflow.co/2025/ai | Primary | 2025 survey | 官方调查分别报告 AI 工具使用、信任度和任务偏好 | Supports | Supported | 人群和图表口径需按原页引用，不能合并百分比 |
+| CP-02 | 代码库地图是 AI 获得仓库上下文的可复用机制 | https://aider.chat/docs/repomap.html | Primary | current docs | aider 文档将 repository map 描述为向 LLM 提供 git 仓库代码上下文的 map | Supports | Verified | 支持“代码库入门助手”作为真实工具问题，而非静态总结 |
+| CP-03 | OpenRefine 的核心工作是对杂乱数据进行转换、聚类、从网页拉取数据并导出结果 | https://docs.openrefine.org/ | Primary | current docs | 官方手册目录和介绍包含 transforming data、clustering、pulling data from the web、CSV export | Supports | Verified | 适合设计确定性数据清洗和变换任务 |
+| CP-04 | Datasette 把 CSV/SQLite 等结构化数据变成可探索、可发布的接口和报告 | https://docs.datasette.io/en/stable/ | Primary | current docs | 官方文档称其为 exploring and publishing data 的 open source multi-tool，并列出 CSV export 和多种发布方式 | Supports | Verified | 课程项目可把外部发布收窄为本地静态/只读产物 |
+| CP-05 | Zotero 用 collections、subcollections、tags 和 saved searches 组织研究资料 | https://www.zotero.org/support/collections_and_tags | Primary | current docs | 官方文档说明条目可属于多个 collection，支持层级、标签和保存的搜索 | Supports | Verified | 支持研究证据整理/资料导航候选；不等于要复制完整 Zotero |
+| CP-06 | Taskwarrior 的任务模型包含日期、优先级、标签、上下文、重复任务、过滤、报表和 JSON 导入导出 | https://taskwarrior.org/docs/ | Primary | current docs | 官方文档目录直接列出上述能力以及 hooks、external scripts 和 workflow | Supports | Verified | 支持“任务进入到每日复盘”狭窄闭环；完整 Todo 产品超出范围 |
+| CP-07 | MLflow 实验跟踪围绕参数、指标、工件、运行比较、可视化和复现组织 | https://mlflow.org/docs/latest/ml/tracking/ | Primary | current docs | 官方页面 description 明确写出 log parameters/metrics/artifacts、compare runs、visualize results、reproduce models | Supports | Verified | 适合研究生/工程师的实验记录项目；不要求训练模型 |
+| CP-08 | DVC 把数据版本、流水线、指标和实验管理放进可复现工作流 | https://dvc.org/doc/start | Primary | current docs | 官方入门页 description 包含 version data、access it anywhere、capture pipelines and metrics、manage experiments | Supports | Verified | 支持“实验记录/数据报告”候选；应使用小型固定数据集降低环境成本 |
+| CP-09 | GitHub Projects 同时提供 table、board、roadmap、多视图、custom fields、templates 和 automation，并与 issues/PR 双向关联 | https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/about-projects | Primary | current docs | 官方文档逐项说明规划、跟踪、过滤分组、状态更新、自动化和 issue/PR 同步 | Supports | Verified | 支持需求到行动项/项目交付工作台候选；可在本地数据上模拟 GitHub |
+| CP-10 | GitHub template repository 能让学习者生成具有相同目录结构、分支和文件的新仓库 | https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository | Primary | current docs | 官方文档对 template repository 的定义和生成行为有明确说明 | Supports | Verified | 支持本课程独立 starter repo 交付模式 |
+| CP-11 | 陈天训练营采用多个独立专题项目，再用一个综合项目串起全流程，而不是单一仓库严格递进 | https://tyrchen.github.io/geektime-bootcamp-ai/projects/ | Primary / repository | current snapshot | 项目分别覆盖 Ticket、NL2SQL、MCP、日志可视化、Code Review Agent 和智能文档助手，拥有独立目标、步骤和估时 | Supports | Supported | 课程结构参考，不证明教学效果 |
+| CP-12 | 企业级 AI Coding 参考把不同真实工程能力分配给 OryxOS、When、DifyPro 和开源贡献等项目 | 私有参考资料（未公开） | Repository | current snapshot | 项目分别承担 SDD/Harness 闭环、分布式系统、陌生大型项目改造和真实开源贡献 | Supports | Supported | 支持“项目并列、能力递进”的课程设计 |
+| CP-13 | 静态学习页面容易被一次性研究和生成替代，工程化 Learn X 需要学习目标、依赖、练习、诊断、版本和增量更新 | 本课程讨论归纳；对照 CP-01、CP-05、CP-07 | Interpretation | 2026-09-03 | 从 AI 高使用的学习/文档场景和资料组织/实验复现产品边界推导 | Qualifies | Supported | 这是课程设计推断，不是某个产品的直接承诺 |

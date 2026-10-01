@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ed">
+  <title>第一次 AI 协作 · 从 Prompt 到 Harness</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="lesson.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body data-mode="scroll" class="camera-hidden">
+  <a class="skip-link" href="#lesson">跳到课程内容</a>
+  <aside class="sidebar" aria-label="课程目录">
+    <a class="wordmark" href="index.html" aria-label="回到第 1 章首页"><span class="brand-mark">P<span>→</span>H</span><span>从 Prompt<br>到 Harness</span></a>
+    <div class="chapter-label">第 1 章 · Prompt</div>
+    <h1 class="sidebar-title">环境搭建与<br>第一次 AI 协作闭环</h1>
+    <p class="sidebar-meta">第 1 节</p>
+    <nav id="scene-nav" aria-label="本节目录"></nav>
+    <div class="sidebar-bottom"><div class="chapter-nav"><a href="index.html">第 1 章首页</a><a href="ch01-02.html">下一节 →</a></div><span class="edition">深蓝学院 · AI Coding</span></div>
+  </aside>
+
+  <div class="workspace">
+    <header class="toolbar">
+      <div class="mode-switch" role="group" aria-label="展示方式">
+        <button type="button" data-mode-button="scroll" aria-pressed="true">阅读</button>
+        <button type="button" data-mode-button="slides" aria-pressed="false">演示</button>
+      </div>
+      <a class="home-link" href="index.html">第 1 章首页</a><a class="script-link" href="speaker.html">讲解全文</a>
+      <details class="presentation-tools">
+        <summary>演示设置</summary>
+        <div class="view-tools" aria-label="演示设置">
+          <button type="button" id="camera-toggle" aria-pressed="false">显示人像辅助框</button>
+          <button type="button" id="record-toggle" aria-pressed="false" title="按 R 进入或退出专注演示">专注演示</button>
+          <button type="button" id="fullscreen">全屏</button>
+        </div>
+      </details>
+    </header>
+    <main id="lesson" tabindex="-1" aria-label="第 1 节课程内容"></main>
+    <footer class="lesson-footer">
+      <span id="position" aria-live="polite"></span>
+      <div class="page-buttons"><button type="button" id="previous" aria-label="上一部分">← 上一段</button><button type="button" id="next" aria-label="下一部分">下一段 →</button></div>
+      <span class="keyboard-hint">T 切换展示方式</span>
+    </footer>
+  </div>
+
+  <aside class="camera-guide" aria-label="讲师小窗预留区域">
+    <span class="camera-symbol" aria-hidden="true">＋</span>
+    <strong>人像区域</strong><span>画面位置参考</span>
+  </aside>
+  <button type="button" id="exit-recording" hidden>退出专注演示 · R</button>
+  <p id="feedback" role="status" aria-live="polite"></p>
+  <noscript>请启用 JavaScript 查看本节内容</noscript>
+</body>
+</html>

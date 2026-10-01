@@ -1,0 +1,103 @@
+{
+  "layout": "graph",
+  "style": "paper",
+  "direction": "down",
+  "motion_level": "none",
+  "title": {
+    "prefix": "1.1",
+    "highlight": "环境检查分支",
+    "subtitle": "每个检查独立判断，不假定已经通过"
+  },
+  "nodes": [
+    {
+      "id": "browser",
+      "label": "浏览器",
+      "body": "检查当前环境",
+      "icon": "scan",
+      "accent": "white"
+    },
+    {
+      "id": "browser_pass",
+      "label": "通过证据",
+      "body": "打开并刷新环境页",
+      "icon": "check",
+      "accent": "green"
+    },
+    {
+      "id": "browser_fail",
+      "label": "未通过时",
+      "body": "核对路径或本地服务",
+      "icon": "error",
+      "accent": "pink"
+    },
+    {
+      "id": "git",
+      "label": "Git",
+      "body": "检查当前环境",
+      "icon": "scan",
+      "accent": "white"
+    },
+    {
+      "id": "git_pass",
+      "label": "通过证据",
+      "body": "版本、分支、状态与 Diff 可读",
+      "icon": "check",
+      "accent": "green"
+    },
+    {
+      "id": "git_fail",
+      "label": "未通过时",
+      "body": "补齐 Git 与独立仓库",
+      "icon": "error",
+      "accent": "pink"
+    },
+    {
+      "id": "cli",
+      "label": "Codex CLI",
+      "body": "检查当前环境",
+      "icon": "scan",
+      "accent": "white"
+    },
+    {
+      "id": "cli_pass",
+      "label": "通过证据",
+      "body": "从练习目录启动成功",
+      "icon": "check",
+      "accent": "green"
+    },
+    {
+      "id": "cli_fail",
+      "label": "未通过时",
+      "body": "仅用已核验桌面入口临时起步",
+      "icon": "error",
+      "accent": "pink"
+    }
+  ],
+  "edges": [
+    {
+      "from": "browser",
+      "to": "browser_pass"
+    },
+    {
+      "from": "browser",
+      "to": "browser_fail"
+    },
+    {
+      "from": "git",
+      "to": "git_pass"
+    },
+    {
+      "from": "git",
+      "to": "git_fail"
+    },
+    {
+      "from": "cli",
+      "to": "cli_pass"
+    },
+    {
+      "from": "cli",
+      "to": "cli_fail"
+    }
+  ],
+  "footer": "校样；课堂用同源可逐步展开的手绘检查卡。"
+}

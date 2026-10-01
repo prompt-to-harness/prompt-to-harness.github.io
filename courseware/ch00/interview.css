@@ -1,0 +1,49 @@
+/* Chapter 0 uses the chapter 1 canvas; only interview-specific layout lives here. */
+@font-face{font-family:Lesson Title;src:url(assets/title.woff2) format('woff2');font-display:swap}
+@font-face{font-family:Lesson Cover;src:url(assets/cover.woff2) format('woff2');font-display:swap}
+@font-face{font-family:Lesson Body;src:url(assets/body.woff2) format('woff2');font-display:swap;font-weight:400}
+@font-face{font-family:Lesson Body;src:url(assets/body-bold.woff2) format('woff2');font-display:swap;font-weight:700}
+.interview .step-status{display:none!important}
+.interview .scene h3,.interview .cover-line{color:#243042}
+.interview .scene-content .cue-label{font-size:18px;margin-bottom:10px}
+.interview .takeaway{font-size:24px;line-height:1.5;border-left:4px solid #243042;padding:8px 18px;margin-top:16px}
+.interview .caption{font-size:18px;line-height:1.5}
+.interview .interview-pair p:not(.cue-label){font-size:23px;line-height:1.7;margin-top:14px}
+.interview .interview-pair h3{font-size:30px}
+.interview .story-line span,.interview .collaboration-flow span{font-size:20px}
+.interview .story-line b{font-size:28px}
+.interview .collaboration-flow b{font-size:25px}
+.interview .collaboration-flow small{font-size:20px;line-height:1.5}
+.interview .project-route h3{font-size:29px;line-height:1.35;margin-bottom:14px}
+.interview .project-route article{border-color:#243042}
+.interview .project-route article>p:not(.cue-label){font-size:21px;line-height:1.5}
+.interview .method span{font-size:20px}
+.interview .outcome-table>div{font-size:23px}
+.interview .outcome-table .outcome-heading{font-size:20px}
+.instructor-layout{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:30px;align-items:start}
+.instructor-profiles{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.instructor{min-width:0;border-top:2px solid #243042;padding-top:12px}
+.interview .instructor .profile-name{font-size:34px;margin:0 0 8px}
+.interview .profile-direction{font-size:23px;line-height:1.4;margin-bottom:16px}
+.interview .profile{display:block;font-size:20px;line-height:1.45}
+.interview .profile dt{font-size:18px;margin:10px 0 4px}
+.instructor-photo{margin:0}
+.instructor-photo img{display:block;width:100%;height:auto;border-radius:4px}
+.instructor-photo figcaption{font-size:18px;color:#5B6573;margin-top:8px}
+.profile-short{display:none}
+body.interview[data-mode='slides'] .scene{max-width:none}
+body.interview[data-mode='slides'] .scene-content{display:flex;flex-direction:column}
+body.interview[data-mode='slides'] .interview-pair{grid-template-columns:1fr 1fr}
+body.interview[data-mode='slides'] .story-line,body.interview[data-mode='slides'] .project-route{grid-template-columns:repeat(3,minmax(0,1fr))}
+body.interview[data-mode='slides'] .collaboration-flow{grid-template-columns:repeat(5,minmax(0,1fr))}
+body.interview[data-mode='slides'] .scene h2 br{display:initial}
+body.interview[data-mode='slides'] .scene .lede{top:207px}
+body.interview[data-mode='slides'] .scene-kicker{font-family:'Lesson Body',sans-serif;font-size:20px}
+body.interview[data-mode='slides'] .lesson-cover .lede{top:244px}
+body.interview[data-mode='slides'] .lesson-cover .scene-content{top:350px;height:282px}
+body.interview[data-mode='slides'] .profile-full{display:none}
+body.interview[data-mode='slides'] .profile-short{display:inline}
+body.interview[data-mode='slides'] .outcome-table>div{grid-template-columns:1fr 1.8fr}
+body.interview[data-mode='scroll'] .instructor-layout{grid-template-columns:1fr 240px}
+body.interview[data-mode='scroll'] .instructor-profiles{grid-template-columns:1fr}
+@media(max-width:700px){body.interview[data-mode='scroll'] .instructor-layout{grid-template-columns:1fr}body.interview[data-mode='scroll'] .instructor-photo{max-width:320px}body.interview[data-mode='scroll'] .scene h3{font-size:28px}}

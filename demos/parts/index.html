@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>课件零件陈列 · 从 Prompt 到 Harness</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../../courseware/shared/parts/parts.css">
+<style>
+@font-face{font-family:'Lesson Title';src:url(../../courseware/ch01/lessons/02-agent/assets/title.woff2) format('woff2');font-display:swap}
+@font-face{font-family:'Lesson Body';src:url(../../courseware/ch01/lessons/02-agent/assets/body.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Lesson Body';src:url(../../courseware/ch01/lessons/02-agent/assets/body-bold.woff2) format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Lesson Mono';src:url(../../courseware/ch01/lessons/02-agent/assets/mono.woff2) format('woff2');font-display:swap}
+body{margin:0;background:#E7E3D8;color:#18202B;font-family:'Lesson Body','Noto Sans SC',sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:32px 20px 80px}
+.intro h1{font:400 40px/1.2 'Lesson Title','Noto Sans SC',sans-serif;margin:0 0 8px}
+.intro p{margin:6px 0;font-size:16px;line-height:1.6;color:#4A5260;max-width:860px}
+.intro a{color:#2A2380}
+.item{margin-top:44px}
+.item-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+.item-head h2{margin:0;font-size:22px}
+.item-head code{font-size:14px;color:#4A5260;background:#F4F2EB;padding:2px 6px;border-radius:4px}
+.item-use{margin:6px 0 12px;font-size:15px;color:#4A5260;line-height:1.55}
+.controls{display:flex;gap:8px;align-items:center;font-size:14px;color:#4A5260}
+.controls button{font:inherit;padding:4px 12px;border:1px solid #9C9585;border-radius:6px;background:#FFFDF7;cursor:pointer}
+.frame{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:8px;box-shadow:0 2px 14px rgba(0,0,0,.12);background:#F4F2EB}
+.slide{position:absolute;left:0;top:0;width:1280px;height:720px;transform-origin:top left;background:#F4F2EB}
+.slide .kick{position:absolute;left:56px;top:40px;margin:0;font:22px/1.4 'Lesson Title','Noto Sans SC',sans-serif;color:#5B6573}
+.slide h3.title{position:absolute;left:56px;top:82px;width:872px;margin:0;font:400 46px/1.3 'Lesson Title','Noto Sans SC',sans-serif;color:#18202B}
+.slide .cam{position:absolute;left:956px;top:24px;width:300px;height:225px;border:1px dashed #A8A08F;border-radius:9px;background:#EAE6DB;display:grid;place-items:center;font-size:14px;color:#5B6573}
+.slide .scene-content{position:absolute;left:56px;top:262px;width:1168px;height:370px;display:grid;align-content:start;gap:16px;font-size:23px;line-height:1.55}
+.slide .zone{position:absolute;left:0;right:0;top:640px;height:40px;background:repeating-linear-gradient(45deg,rgba(217,72,28,.07) 0 10px,transparent 10px 20px);border-top:1px dashed rgba(217,72,28,.35)}
+.slide [data-reveal]{transition:opacity .35s ease}
+.slide .step-hidden{visibility:hidden;opacity:0}
+.slide .step-past{opacity:.43}
+.p-bar{margin-top:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="intro">
+  <h1>课件零件陈列</h1>
+  <p>零件库 v0.2 中“还没有小节在用”的零件，每个放在 1280×720 画布里，按真实课件的分区：右上讲师框、正文区 y 262–632、红色斜纹是字幕区。点“下一步”看分步揭示。</p>
+  <p>已在课件里使用的零件（手绘框、流程、对照、2×2、集合、记录贴纸、题卡、阶梯、结论条、开篇地图、涂鸦小结）直接看 <a href="../../courseware/ch01/lessons/02-agent/index.html?mode=slides#p09">1.2 节</a> 与 <a href="../../courseware/ch00/index.html?mode=slides#p01">第 0 章</a>。用法与制作流程见 <a href="../../docs/production/parts.md">parts.md</a>。示例内容取自现有课件，均为教学示意。</p>
+</header>
+
+<section class="item" data-kick="1.2 开场" data-title="它说“完成了”，你会直接信吗？">
+  <div class="item-head"><h2>漫画开场</h2><code>.p-comic .p-panel .p-cap .p-bubble .p-avatar</code></div>
+  <p class="item-use">需要冲突感的开场，每节最多一页。三格，角色只有“我们”（深色）和 AI（柔和紫），最后一格留下问题。</p>
+  <template>
+<div class="p-comic">
+  <div class="p-panel" data-reveal="0"><span class="p-cap">上一节</span><p class="p-bubble">只改 README 里的项目介绍，别的不要动。</p><span class="p-avatar">我们</span></div>
+  <div class="p-panel" data-reveal="1"><span class="p-cap">几秒后</span><p class="p-bubble is-ai">已完成！还顺手整理了 docs/ 的格式。</p><span class="p-avatar is-ai">AI</span></div>
+  <div class="p-panel" data-reveal="2"><span class="p-cap">看一眼证据</span><div class="p-term"><div class="dim">$ git status</div><div class="ok"> M README.md</div><div class="bad"> M docs/guide.md</div></div><div class="p-row"><p class="p-bubble">等等，docs/ 是谁让你动的？</p><span class="p-avatar">我们</span></div></div>
+</div>
+  </template>
+</section>
+
+<section class="item" data-kick="第 1 章 · 1.4 · 澄清与作答" data-title="好的 Prompt，能在回复里逐条找到回应">
+  <div class="item-head"><h2>Prompt ↔ 回复</h2><code>.p-prompt .p-seg .p-reply.is-missing [data-key]</code></div>
+  <p class="item-use">讲 Prompt 和“确认计划”。四段固定配色：目标 goal、上下文 ctx、约束 limit、完成标准 done；回复每句贴对应颜色，缺失的一段用虚线并给出追问。</p>
+  <template>
+<div class="p-prompt">
+  <div class="p-box" data-role="ink" data-reveal="0"><h3>我们的 Prompt</h3><div class="p-segs">
+    <div class="p-seg"><span class="p-chip" data-key="goal">目标</span><span>澄清首页需求</span></div>
+    <div class="p-seg"><span class="p-chip" data-key="ctx">上下文</span><span>读 PROJECT_BRIEF.md</span></div>
+    <div class="p-seg"><span class="p-chip" data-key="limit">约束</span><span>只读，不改文件</span></div>
+    <div class="p-seg"><span class="p-chip" data-key="done">完成标准</span><span>附计划和验收方法</span></div></div></div>
+  <div><h3 data-reveal="1">Agent 的回复（计划）</h3><div class="p-replies">
+    <div class="p-reply" data-reveal="1"><span>先读取 PROJECT_BRIEF.md</span><span class="p-chip" data-key="ctx">上下文</span></div>
+    <div class="p-reply" data-reveal="1"><span>有 3 个问题要确认</span><span class="p-chip" data-key="goal">目标</span></div>
+    <div class="p-reply" data-reveal="1"><span>本轮不改文件</span><span class="p-chip" data-key="limit">约束</span></div>
+    <div class="p-reply is-missing" data-key="done" data-reveal="2"><span class="p-chip" data-key="done">完成标准</span><span>没提验收方法</span><span class="p-ask">请附验收方法</span></div></div></div>
+</div>
+  </template>
+</section>
+
+<section class="item" data-kick="第 1 章 · 1.1 · 首次执行" data-title="接下来切到 Codex，边看边找三样东西">
+  <div class="item-head"><h2>切到实操</h2><code>.p-handoff .p-handoff-card .p-env .p-watch</code></div>
+  <p class="item-use">每次切去真实环境之前。列出环境，给 3 条“边看边找”；切回来时在同一张清单上打勾（给 li 加 <code>is-done</code> / <code>is-miss</code>）。</p>
+  <template>
+<div class="p-handoff">
+  <div class="p-handoff-card" data-reveal="0"><h3>切到实操</h3><p>PPT 暂停，去真实环境</p><span class="p-env">Codex CLI</span><span class="p-env">浏览器：环境检查页</span></div>
+  <ol class="p-watch">
+    <li data-reveal="1">计划里读了哪些文件<small>有没有漏读</small></li>
+    <li data-reveal="1">每次工具返回了什么<small>动作、结果、判断</small></li>
+    <li data-reveal="1">最后的 git status 和 diff<small>有没有意外的文件</small></li>
+  </ol>
+</div>
+<div class="p-bar is-light" data-reveal="2">回来后，在这张清单上<b>逐条打勾</b>。</div>
+  </template>
+</section>
+
+<section class="item" data-kick="第 1 章 · 1.5 · 工程证据" data-title="读 Agent 写的代码，先找副作用">
+  <div class="item-head"><h2>代码讲解</h2><code>.p-walk .p-src .p-ln .p-band[data-only] .p-notes</code></div>
+  <p class="item-use">讲一段代码。只高亮当前讲的行（<code>data-only</code>），右侧批注一条一句、不复述代码，最后一条落在副作用上。代码框保持工整。</p>
+  <template>
+<div class="p-walk">
+  <div class="p-src" style="--lh:38px">
+    <div class="p-fn">src/projects.js</div>
+    <div class="p-band" style="--a:0;--n:1" data-only="0"></div>
+    <div class="p-band" style="--a:2;--n:1" data-only="1"></div>
+    <div class="p-band" style="--a:3;--n:1" data-only="2"></div>
+    <div class="p-band is-risk" style="--a:4;--n:1" data-only="3"></div>
+    <div class="p-ln"><i>1</i><code><span class="k">export function</span> renderProjects(list, root) {</code></div>
+    <div class="p-ln"><i>2</i><code>  <span class="k">const</span> items = list</code></div>
+    <div class="p-ln"><i>3</i><code>    .filter(p =&gt; p.visible)</code></div>
+    <div class="p-ln"><i>4</i><code>    .map(p =&gt; <span class="s">`&lt;li&gt;${p.name}&lt;/li&gt;`</span>);</code></div>
+    <div class="p-ln"><i>5</i><code>  root.innerHTML = <span class="s">`&lt;ul&gt;${items.join('')}&lt;/ul&gt;`</span>;</code></div>
+    <div class="p-ln"><i>6</i><code>}</code></div>
+  </div>
+  <ol class="p-notes">
+    <li data-reveal="0"><span><b>输入</b><small>项目列表和挂载点</small></span></li>
+    <li data-reveal="1"><span><b>筛选</b><small>只保留 visible 为真的</small></span></li>
+    <li data-reveal="2"><span><b>生成</b><small>每一项变成一个 li</small></span></li>
+    <li class="is-risk" data-reveal="3"><span><b>副作用</b><small>整块替换 root，原内容被覆盖</small></span></li>
+  </ol>
+</div>
+  </template>
+</section>
+
+<section class="item" data-kick="第 1 章 · 1.1 · 检查与修正" data-title="看 diff：先看范围，再看每一处改动">
+  <div class="item-head"><h2>diff 对比</h2><code>.p-walk .p-src .p-ln.add/.del .p-brace[data-only] .p-notes</code></div>
+  <p class="item-use">讲一次改动、讲验收范围。第一步先看文件名和增删行数，再逐块看，左侧括号标出当前块；右侧只写这处改动的意图。</p>
+  <template>
+<div class="p-walk">
+  <div class="p-src" style="--lh:30px">
+    <div class="p-fn">README.md <span class="add" data-reveal="0">+4</span><span class="del" data-reveal="0">−2</span></div>
+    <div class="p-brace" style="--a:1;--n:3" data-only="1"></div>
+    <div class="p-brace" style="--a:5;--n:3" data-only="2"></div>
+    <div class="p-ln"><i> </i><code># 小站</code></div>
+    <div class="p-ln del"><i>−</i><code>这是我的个人网站。</code></div>
+    <div class="p-ln add"><i>+</i><code>这是一个记录 AI Coding 学习过程的网站。</code></div>
+    <div class="p-ln add"><i>+</i><code>每周更新一次实践笔记。</code></div>
+    <div class="p-ln"><i> </i><code>## 目录</code></div>
+    <div class="p-ln del"><i>−</i><code>施工中，敬请期待。</code></div>
+    <div class="p-ln add"><i>+</i><code>- 学习笔记</code></div>
+    <div class="p-ln add"><i>+</i><code>- 项目展示</code></div>
+  </div>
+  <ol class="p-notes">
+    <li class="is-ok" data-reveal="0"><span><b>范围：README.md</b><small>增 4 行，删 2 行</small></span></li>
+    <li data-reveal="1"><span><b>改动 1：介绍变具体</b><small>泛称改成写给新读者</small></span></li>
+    <li data-reveal="2"><span><b>改动 2：占位变目录</b><small>“施工中”换成两个栏目</small></span></li>
+  </ol>
+</div>
+<div class="p-bar" data-reveal="3">范围和内容都<b>符合请求</b>。</div>
+  </template>
+</section>
+
+<section class="item" data-kick="第 1 章 · 1.2 · 判断信息" data-title="“它说过”，不等于“它说的成立”">
+  <div class="item-head"><h2>正反对照 + 证据清单</h2><code>.p-claim .p-checks li.is-no</code></div>
+  <p class="item-use">讲验收、讲“凭什么相信”。左边是 Agent 的原话，右边是检查清单；有证据绿勾，没有红叉并写“还没看”。</p>
+  <template>
+<div class="p-claim">
+  <div class="p-box" data-role="agent" data-reveal="0"><span class="p-chip" data-role="agent">Agent 说</span><q>已完成，<em>没有多改文件</em>。</q></div>
+  <div data-reveal="1">
+    <p style="margin:0 0 8px;font-size:21px;color:#5B6573">证据清单</p>
+    <ul class="p-checks">
+      <li>刷新页面，看到新欢迎语<small>能证明：文案已显示</small></li>
+      <li class="is-no">完整 Diff 只改了这一句<small>还没看</small></li>
+      <li class="is-no">文件列表只有 index.html<small>还没看</small></li>
+    </ul>
+  </div>
+</div>
+<div class="p-bar" data-reveal="2">AI 的保证，<b>不是证据</b>：先标“待验证”。</div>
+  </template>
+</section>
+
+<section class="item" data-kick="第 1 章 · 1.6 · 迁移判断" data-title="任务不同，够用的权限也不同">
+  <div class="item-head"><h2>权衡矩阵</h2><code>.p-matrix [data-mk=fit|over|lack] .is-key .p-legend</code></div>
+  <p class="item-use">“什么时候用哪个”。行写具体情境，不写抽象优缺点；● 刚好、○ 过大、✕ 不够；最后一列写判断依据。</p>
+  <template>
+<div class="p-matrix" style="--n:3">
+  <div class="is-head" data-reveal="0"><span>情境</span><span class="p-c">A 只读</span><span class="p-c">B 改文件</span><span class="p-c">C 装包发布</span><span>判断依据</span></div>
+  <div class="is-key" data-reveal="0"><span>只核对本地链接</span><span class="p-c" data-mk="fit"></span><span class="p-c" data-mk="over"></span><span class="p-c" data-mk="over"></span><span>读就够了，多给的都是风险</span></div>
+  <div data-reveal="1"><span>改一句欢迎语</span><span class="p-c" data-mk="lack"></span><span class="p-c" data-mk="fit"></span><span class="p-c" data-mk="over"></span><span>要写文件，但不用发布</span></div>
+  <div data-reveal="2"><span>把站点发布上线</span><span class="p-c" data-mk="lack"></span><span class="p-c" data-mk="lack"></span><span class="p-c" data-mk="fit"></span><span>需要人再确认一次</span></div>
+  <div data-reveal="3"><span class="p-legend"><span data-mk="fit"> 刚好　</span><span data-mk="over"> 过大　</span><span data-mk="lack"> 不够</span><b>够用就停：权限跟着任务走</b></span></div>
+</div>
+  </template>
+</section>
+
+<section class="item" data-kick="第 1 章 · 1.2 · 执行循环" data-title="“准备读取”，不等于“已经读到”">
+  <div class="item-head"><h2>带解读的操作记录</h2><code>.p-rec .p-cell .p-why .is-fail</code></div>
+  <p class="item-use">讲工具调用、讲一次执行。三栏：动作 / 结果 / 这个结果能说明什么；失败行用闸门色，写明“不能当作什么”。</p>
+  <template>
+<div class="p-rec">
+  <div class="is-head" data-reveal="0"><span>动作</span><span>结果</span><span>能说明什么</span></div>
+  <div data-reveal="0"><span class="p-cell"><span class="p-chip" data-role="agent">Agent</span>提出：读取 index.html</span><span class="p-cell" style="color:#5B6573">（无返回）</span><span class="p-why">只是提出动作</span></div>
+  <div data-reveal="1"><span class="p-cell"><span class="p-chip" data-role="tool">Tool</span>执行读取</span><span class="p-cell"><code>&lt;h1&gt;欢迎来到我的练习页面&lt;/h1&gt;</code></span><span class="p-why">读到了原文</span></div>
+  <div class="is-fail" data-reveal="2"><span class="p-cell"><span class="p-chip" data-role="tool">Tool</span>执行读取</span><span class="p-cell">找不到文件</span><span class="p-why">失败，不算读到</span></div>
+</div>
+<div class="p-bar" data-reveal="2">提出动作 ≠ <b>执行成功</b></div>
+  </template>
+</section>
+
+<section class="item" data-kick="第 1 章 · 1.2 · 信息与术语" data-title="文件在项目里，不等于已经读过">
+  <div class="item-head"><h2>可见 / 不可见 + 错误推断</h2><code>.p-set .p-item.is-unread .p-item.is-wrong</code></div>
+  <p class="item-use">讲边界、范围、“有但没读到”。两个集合并排，最后给出一条“依据不足”的错误推断。1.2 的 p10-context 是不带错误推断的版本。</p>
+  <template>
+<div class="p-pair" style="grid-template-columns:1fr auto 1.1fr">
+  <div class="p-set" data-role="ink" data-reveal="0"><h3>项目里有</h3><div class="p-items"><div class="p-item is-mono">index.html</div><div class="p-item is-mono is-unread">README.md</div><div class="p-item is-mono is-unread">styles.css</div></div></div>
+  <div class="p-join" data-reveal="1"><span>工具读取</span><i class="p-arrow"></i></div>
+  <div class="p-set is-solid" data-role="ctx" data-reveal="1"><h3>这次读到的</h3><div class="p-items"><div class="p-item">你的要求</div><div class="p-item is-mono">index.html</div><div class="p-item is-wrong" data-reveal="2">AI：“README 要先装依赖” → 依据不足：没读过</div></div></div>
+</div>
+<div class="p-bar" data-reveal="2">先问：结论依据<b>哪次返回</b>？</div>
+  </template>
+</section>
+
+<section class="item" data-kick="第 1 章 · 1.6 · 课堂练习" data-title="只检查本地链接">
+  <div class="item-head"><h2>练习任务卡</h2><code>.p-task .p-box</code></div>
+  <p class="item-use">课堂练习。四格：输入、任务、产出、验收；验收用通过色。1.1 p07、1.6 p35 适用。</p>
+  <template>
+<span class="p-tag" data-role="us" style="justify-self:start">独立练习</span>
+<div class="p-task">
+  <div class="p-box" data-role="ink" data-reveal="0"><h3>输入</h3><p>已启动的本地服务 URL</p></div>
+  <div class="p-box" data-role="ink" data-reveal="0"><h3>任务</h3><p>核对本页锚点和本地链接，坏链接只记录</p></div>
+  <div class="p-box" data-role="ink" data-reveal="0"><h3>产出</h3><p>一份坏链接清单</p></div>
+  <div class="p-box" data-role="ok" data-reveal="0"><h3>验收</h3><p>没改文件、没访问外站、没发布</p></div>
+</div>
+  </template>
+</section>
+</div>
+
+<script src="../../courseware/shared/parts/parts.js"></script>
+<script>
+// 每个示例放进一张 1280×720 画布，提供逐步推进；data-reveal / data-only 的行为与正式播放器一致。
+document.querySelectorAll('.item').forEach(item => {
+  const tpl = item.querySelector('template');
+  const frame = document.createElement('div'); frame.className = 'frame';
+  frame.innerHTML = `<div class="slide"><p class="kick">${item.dataset.kick}</p><h3 class="title">${item.dataset.title}</h3><div class="cam">讲师 300×225</div><div class="scene-content">${tpl.innerHTML}</div><div class="zone"></div></div>`;
+  tpl.replaceWith(frame);
+  const slide = frame.querySelector('.slide');
+  const reveals = [...slide.querySelectorAll('[data-reveal]')], onlys = [...slide.querySelectorAll('[data-only]')];
+  const last = Math.max(0, ...reveals.map(e => +e.dataset.reveal), ...onlys.map(e => +e.dataset.only));
+  let step = last;
+  const controls = document.createElement('div'); controls.className = 'controls';
+  controls.innerHTML = '<button type="button">← 上一步</button><span></span><button type="button">下一步 →</button>';
+  item.querySelector('.item-head').append(controls);
+  const [prev, label, next] = controls.children;
+  const render = () => {
+    reveals.forEach(e => {
+      const s = +e.dataset.reveal;
+      e.classList.toggle('step-hidden', s > step);
+      const holds = [...e.querySelectorAll('[data-reveal]')].some(c => +c.dataset.reveal >= step);
+      e.classList.toggle('step-past', step < last && s < step && !holds);
+    });
+    onlys.forEach(e => e.classList.toggle('p-only-off', +e.dataset.only !== step));
+    label.textContent = `第 ${step + 1} / ${last + 1} 步`;
+  };
+  prev.onclick = () => { step = Math.max(0, step - 1); render(); };
+  next.onclick = () => { step = Math.min(last, step + 1); render(); };
+  const fit = () => slide.style.transform = `scale(${frame.clientWidth / 1280})`;
+  new ResizeObserver(fit).observe(frame); fit(); render();
+});
+</script>
+</body>
+</html>
