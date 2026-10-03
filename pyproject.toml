@@ -1,0 +1,9 @@
+[project]
+name = "prompt-to-harness"
+version = "0.0.0"
+description = "Course repository tooling (standard library only, no runtime dependencies)"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.uv]
+package = false

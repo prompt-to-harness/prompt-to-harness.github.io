@@ -51,4 +51,4 @@
 
 ## 验证
 
-推送前运行 `python3 courseware/tools/check-courseware.py` 和 `python3 tools/build-site.py`，CI 跑同样的检查。
+推送前运行 `uv run courseware/tools/check-courseware.py` 和 `uv run tools/build-site.py`，CI 跑同样的检查。Python 版本由 `.python-version` 固定，脚本只用标准库，没有第三方依赖。
