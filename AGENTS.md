@@ -13,7 +13,7 @@
 
 - 面向在校大学生，以及工作 1–2 年、有基础编程能力但项目经验有限的初级开发者。
 - 主线是 Prompt → Vibe Coding → SDD → Harness 四层能力，用 Codex 完成三个递进的真实项目。课程不是提示词技巧集：AI 协作开发必须和需求澄清、验证、调试、审查、安全与责任边界放在一起讲，不鼓励“不看代码、直接接受输出”。
-- 课程是录播，内容自洽，没有课上互动。讲师的讲述和项目演示推动故事线；学员可以暂停视频跟做，材料要支持跟做，但课程不依赖学员复现每一步。学员跟做只覆盖项目主线的交付物，机制演示（如查看请求、压缩）以看懂为准（2026-10-02 第 2 章讨论确认；录播细则见 `docs/design/course-design-principles.md` 的“录播与独立学习约定”）。
+- 课程是录播，内容自洽，没有课上互动。讲师的讲述和项目演示推动故事线；学员可以暂停视频跟做，材料要支持跟做，但课程不依赖学员复现每一步。学员跟做只覆盖项目主线的交付物，机制演示（如查看请求、压缩）以看懂为准（录播细则见 `docs/design/course-design-principles.md` 的“录播与独立学习约定”）。
 
 ## 按任务阅读
 
@@ -29,8 +29,7 @@
 
 - 不提交个人联系方式、令牌与密钥、需登录的或平台内部链接、未发布的平台细节，以及付费或保密的第三方资料；这些放在私有仓库。私有仓库可能检出在本地 `ai-coding-resources/`，已被 `.gitignore` 忽略，不要 `git add` 它。
 - 不大段复制第三方材料，可以用自己的话引用思想。不提交视频、完整 PPT、压缩包等大文件，改用外链或带外交付。
-- 2026-09-03 的会议原始转写是私有的，不在本仓库。
-- Pages 站点只发布阅读、演示、练习和准备页。发布范围由 `tools/build-site.py` 决定：不要手改产物，`.md` 笔记、`speaker.html` 和制作文件不进站点，除非维护者另行决定。`docs/` 不发布，但仍是公开的 git 内容。
+- Pages 站点的发布范围由 `tools/build-site.py` 决定，不要手改产物；`docs/` 不发布，但仍是公开的 git 内容。
 
 ## 始终适用的编辑底线
 
@@ -40,4 +39,4 @@
 
 ## 验证
 
-推送前运行 `uv run courseware/tools/check-courseware.py`、`uv run tools/build-site.py`、`uv run courseware/ch01/tools/check-progressive.py`（用 Playwright 在浏览器里逐页逐步检查第 1 章，首次需 `uv run playwright install chromium`）和 `uv run courseware/tools/check-presentation.py`（用同一套 Playwright 检查所有章节的演示外壳，如人像辅助框默认隐藏），CI 跑同样的检查。Python 版本由 `.python-version` 固定；除 Playwright（dev 依赖，只用于浏览器检查）外，脚本只用标准库。
+推送前运行 `make check`（具体检查见 `Makefile`，CI 跑同样的检查）；首次使用先运行 `make setup` 安装浏览器检查依赖。
