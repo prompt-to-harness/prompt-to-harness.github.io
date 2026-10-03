@@ -40,7 +40,7 @@ git status --short
 | 显示实际环境页 | 同一练习项目根目录 | `python3 -m http.server 4174 --bind 127.0.0.1` |
 | 查看实际环境页 | 浏览器 | <http://localhost:4174/setup-check/> |
 | 1.5 创建应用后 | 同一练习项目根目录 | `npm run dev`、`npm run build` |
-| 检查课件路径 | `prompt-to-harness.github.io/` | `python3 courseware/tools/check-courseware.py` |
+| 检查课件路径 | `prompt-to-harness.github.io/` | `uv run courseware/tools/check-courseware.py` |
 
 课件默认内嵌 `starters/personal-homepage/setup-check/index.html` 的原始离线预览。点击“连接练习副本”才切换到 4174 服务；核对服务与编码工具操作的是同一份文件。修改练习项目不会改变原始预览。
 

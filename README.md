@@ -34,7 +34,7 @@ python3 tools/serve-courseware.py
 
 ## 站点如何发布
 
-推送到 `main` 后，GitHub Actions 会先运行课件链接检查，再用 `tools/build-site.py` 构建站点并部署到 GitHub Pages。站点只包含课件中的阅读、演示、练习和课前准备页面，以及它们依赖的样式、脚本、字体和图表；`.md` 文件、`speaker.html` 讲解页、制作脚本和归档不会发布。`docs/` 不发布到站点，但仍是公开的 git 内容。本地可以运行 `python3 tools/build-site.py` 在 `_site/` 查看构建结果。
+推送到 `main` 后，GitHub Actions 会先运行课件链接检查，再用 `tools/build-site.py` 构建站点并部署到 GitHub Pages。站点只包含课件中的阅读、演示、练习和课前准备页面，以及它们依赖的样式、脚本、字体和图表；`.md` 文件、`speaker.html` 讲解页、制作脚本和归档不会发布。`docs/` 不发布到站点，但仍是公开的 git 内容。本地可以运行 `uv run tools/build-site.py`（没有 uv 时用 `python3 tools/build-site.py` 也行，脚本只用标准库）在 `_site/` 查看构建结果。
 
 ## 许可
 

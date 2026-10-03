@@ -87,3 +87,6 @@ course-starter/
 
 # 课件源字体（courseware/tools/fetch-fonts.py 下载，不提交）
 .font-sources/
+
+# Local Claude app preview config
+.claude/launch.json
