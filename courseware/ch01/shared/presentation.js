@@ -39,7 +39,7 @@
     const active = lesson.scenes[position.current];
     sections.forEach((section, index) => {
       section.querySelector('.step-status').textContent = position.mode === 'slides'
-        ? `第 ${position.step + 1} / ${active.steps.length} 步 · 方向键推进，末步看全图`
+        ? `第 ${position.step + 1} / ${active.steps.length} 步`
         : `${lesson.scenes[index].steps.length} 个讲述步骤 · 阅读模式已展开全部内容`;
       section.querySelectorAll('.segment').forEach((node, i) => {
         const segment = lesson.segments[i];
