@@ -9,7 +9,7 @@
 - [双讲师访谈提纲](speaker.html)
 - [Markdown 提纲](script.md)
 
-在仓库根目录运行 `python3 tools/serve-courseware.py`，从 <http://127.0.0.1:8841/courseware/> 进入，或直接打开 <http://127.0.0.1:8841/courseware/ch00/?mode=slides>。播放器复用 `courseware/shared/`，演示画布复用 `courseware/ch01/shared/`，本章字体与合照位于 `assets/`，均为本地资源。
+在仓库根目录运行 `python3 tools/serve-courseware.py`，从 <http://127.0.0.1:8841/courseware/> 进入，或直接打开 <http://127.0.0.1:8841/courseware/ch00/?mode=slides>。播放器复用 `courseware/shared/`，演示画布复用 `courseware/shared/presentation.css` 与 `presentation.js`，本章字体与合照位于 `assets/`，均为本地资源。
 
 方向键翻页，`T` 切换阅读/演示，`R` 切换专注演示。演示设置提供全屏与人像辅助框；辅助框只用于画面布局参考，不会打开摄像头。每题两人分别回答，奇数题 A 先答、偶数题 B 先答；讲师 A 为缪东旭，讲师 B 为李阳。
 
@@ -23,7 +23,7 @@
 - `lesson.js`：正文、串场、双讲师回答提纲与备注的唯一内容源。
 - `speaker.html`：从同一内容源展示讲稿；`script.md` 为导出副本。
 - `../shared/`：播放器、阅读导航与访谈基础布局；`navNumbers: false` 关闭本章目录额外的页序号。
-- `../ch01/shared/`：第一章的 1280×720 演示画布与底部分段进度。
+- `../shared/presentation.css`、`../shared/presentation.js`、`../shared/evidence.css`：各章共用的 1280×720 演示画布、底部分段进度与证据版式。
 - `interview.css`：访谈布局适配；演示履历显示时间要点，阅读模式显示完整资料。
 - `assets/instructors.jpg`：已裁剪的双人合照，直接作为课件资源维护；原图已按要求删除。
 - `tools/build-content.py`：导出提纲。
