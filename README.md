@@ -12,6 +12,7 @@
 | --- | --- |
 | [`courseware/`](courseware/README.md) | 课件：首页、第 0 章、第 1 章的阅读与演示页面，讲稿、分镜和练习页 |
 | [`starters/`](starters/README.md) | 练习起点中环境页的离线预览；练习起点本身在 [course-starter](https://github.com/prompt-to-harness/course-starter) |
+| [`AGENTS.md`](AGENTS.md) | 讲师与 coding agent 共用的协作指引：内容依据、公开边界、编辑与验证约定 |
 | [`docs/`](docs/README.md) | 课程大纲、设计文档、制作规范、软件工程专题 |
 | [`demos/`](demos/README.md) | 视觉系统与课件播放器的演示 |
 | [`discuss/`](discuss/README.md) | 课程设计讨论的整理稿 |
@@ -33,13 +34,15 @@ python3 tools/serve-courseware.py
 
 ## 站点如何发布
 
-推送到 `main` 后，GitHub Actions 会先运行课件链接检查，再用 `tools/build-site.py` 构建站点并部署到 GitHub Pages。站点只包含课件中的阅读、演示、练习和课前准备页面，以及它们依赖的样式、脚本、字体和图表；`.md` 文件、`speaker.html` 讲解页、制作脚本和归档不会发布。本地可以运行 `python3 tools/build-site.py` 在 `_site/` 查看构建结果。
+推送到 `main` 后，GitHub Actions 会先运行课件链接检查，再用 `tools/build-site.py` 构建站点并部署到 GitHub Pages。站点只包含课件中的阅读、演示、练习和课前准备页面，以及它们依赖的样式、脚本、字体和图表；`.md` 文件、`speaker.html` 讲解页、制作脚本和归档不会发布。`docs/` 不发布到站点，但仍是公开的 git 内容。本地可以运行 `python3 tools/build-site.py` 在 `_site/` 查看构建结果。
 
 ## 许可
 
 自有代码、课件与文档采用 [MIT License](LICENSE)。字体、截图等第三方内容见 [第三方内容说明](THIRD_PARTY_NOTICES.md)。
 
 ## 贡献约定
+
+完整约定见 [AGENTS.md](AGENTS.md)，要点如下：
 
 - 不提交个人联系方式、令牌、合作平台的内部链接，以及付费或保密的第三方资料。这类材料保存在单独的私有仓库。
 - 区分已确认的决定、工作假设和不得对外承诺的事项，不把讨论中的细节升级为公开承诺。

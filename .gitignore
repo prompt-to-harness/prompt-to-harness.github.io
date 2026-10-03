@@ -78,3 +78,9 @@ venv/
 
 # Site build output
 _site/
+
+# Private repository checkout (never commit into this public repo)
+ai-coding-resources/
+
+# Learner starter repo, checked out separately (has its own Git history)
+course-starter/
