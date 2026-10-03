@@ -6,7 +6,7 @@
 
 | 小节 | 分镜 |
 | --- | --- |
-| 2.1 先听听别人怎么说 | [STORYBOARD](lessons/01-feedback/STORYBOARD.md) |
+| 2.1 先听听别人怎么说 | [STORYBOARD](lessons/01-feedback/STORYBOARD.md) · [课件](lessons/01-feedback/index.html) · [说明](lessons/01-feedback/README.md) |
 | 2.2 只改一处，并证明改好了 | [STORYBOARD](lessons/02-iteration/STORYBOARD.md) |
 | 2.3 AI 交回的改动，收不收 | [STORYBOARD](lessons/03-review/STORYBOARD.md) |
 | 2.4 公开的不只是页面 | [STORYBOARD](lessons/04-publish/STORYBOARD.md) |
