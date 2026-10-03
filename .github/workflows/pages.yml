@@ -26,6 +26,8 @@ jobs:
         run: uv run --locked playwright install --with-deps chromium
       - name: Check chapter 1 lessons in a browser
         run: uv run --locked courseware/ch01/tools/check-progressive.py
+      - name: Check the shared presentation shell in every chapter
+        run: uv run --locked courseware/tools/check-presentation.py
       - name: Build site
         run: uv run --locked tools/build-site.py
       - uses: actions/configure-pages@v5

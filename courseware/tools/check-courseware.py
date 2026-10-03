@@ -77,6 +77,26 @@ for source, url in references:
     elif parts.fragment and target in pages and unquote(parts.fragment) not in pages[target].ids:
         errors.append(f'{source.relative_to(resources)}: missing anchor {url}')
 
+# 播放页外壳：各章共用同一套播放器，页面必须加载同一组共享文件，且人像辅助框默认隐藏。
+# 外壳是人工保持一致的，漏掉其中一项（如 body 缺 camera-hidden）不会报错，只会在录制时才发现。
+shared_assets = ('shared/tokens.css', 'shared/styles.css', 'shared/presentation.css', 'shared/app.js', 'shared/presentation.js', 'shared/parts/parts.css', 'shared/parts/parts.js')
+for path in sorted(root.rglob('index.html')):
+    if 'archive' in path.parts:
+        continue
+    text = path.read_text()
+    if 'id="camera-toggle"' not in text:
+        continue
+    name = path.relative_to(resources)
+    body = re.search(r'<body[^>]*>', text)
+    if not body or 'camera-hidden' not in body.group(0):
+        errors.append(f'{name}: <body> 缺 camera-hidden，人像辅助框不会默认隐藏')
+    if 'class="camera-guide"' not in text:
+        errors.append(f'{name}: 有「显示人像辅助框」按钮但缺 .camera-guide 元素')
+    linked = {(path.parent / unescape(u)).resolve() for u in re.findall(r'(?:href|src)="([^"]+)"', text) if not urlsplit(u).scheme}
+    for asset in shared_assets:
+        if (courseware / asset).resolve() not in linked:
+            errors.append(f'{name}: 没有加载 {asset}')
+
 # 字体缺字：全课文字中的汉字必须都在各字体子集里，否则会回退系统字体显示。
 # 覆盖表由 subset-fonts.py 生成；这里只用标准库比对，范围与 subset-fonts.py 一致。
 coverage = json.loads((courseware / 'tools' / 'font-coverage.json').read_text())
