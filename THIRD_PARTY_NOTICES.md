@@ -4,15 +4,16 @@
 
 ## 字体
 
-课件内嵌了以下字体的子集文件（`.woff2`），均采用 SIL Open Font License 1.1。各字体的版权声明和许可全文随文件存放在对应目录：
+课件内嵌了以下字体的子集文件（`.woff2`），均采用 SIL Open Font License 1.1。各字体的版权声明和许可全文与子集放在同一目录：
 
 | 字体 | 许可文件 |
 | --- | --- |
-| Noto 系列（`course-sans`、`course-serif`） | [`courseware/shared/LICENSE-NOTO.txt`](courseware/shared/LICENSE-NOTO.txt) |
-| ZCOOL KuaiLe | [`courseware/ch00/assets/LICENSE-zcoolkuaile.txt`](courseware/ch00/assets/LICENSE-zcoolkuaile.txt) |
-| Long Cang | [`courseware/ch00/assets/LICENSE-longcang.txt`](courseware/ch00/assets/LICENSE-longcang.txt) |
-| Noto Sans SC（Adobe Source Han Sans 衍生） | [`courseware/ch00/assets/LICENSE-NotoSansSC.txt`](courseware/ch00/assets/LICENSE-NotoSansSC.txt) |
-| JetBrains Mono | [`courseware/ch01/shared/assets/LICENSE-JetBrainsMono.txt`](courseware/ch01/shared/assets/LICENSE-JetBrainsMono.txt) |
+| ZCOOL KuaiLe（站酷快乐体） | [`courseware/shared/fonts/LICENSE-title.txt`](courseware/shared/fonts/LICENSE-title.txt) |
+| Long Cang（长仓体） | [`courseware/shared/fonts/LICENSE-cover.txt`](courseware/shared/fonts/LICENSE-cover.txt) |
+| Noto Sans SC（思源黑体） | [`courseware/shared/fonts/LICENSE-sans.txt`](courseware/shared/fonts/LICENSE-sans.txt) |
+| JetBrains Mono | [`courseware/shared/fonts/LICENSE-mono.txt`](courseware/shared/fonts/LICENSE-mono.txt) |
+
+字体来源与选择理由见 [`docs/production/fonts.md`](docs/production/fonts.md)。
 
 ## 截图与商标
 

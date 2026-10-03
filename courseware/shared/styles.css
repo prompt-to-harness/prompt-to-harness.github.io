@@ -191,7 +191,7 @@ body[data-mode="scroll"] .presentation-tools { display: none; }
 .chapter-nav a { color: var(--color-sidebar-muted); text-decoration: none; font-size: var(--text-sm); }
 .chapter-nav a:hover { color: var(--color-paper); }
 .chapter-home { max-width: 1180px; margin: 0 auto; padding: clamp(2rem, 6vw, 6rem) clamp(1.25rem, 5vw, 5rem); }
-.chapter-home-header { max-width: 850px; padding-bottom: var(--space-3xl); border-bottom: var(--rule-thin) solid var(--color-rule); }
+.chapter-home-header { max-width: 900px; padding-bottom: var(--space-3xl); border-bottom: var(--rule-thin) solid var(--color-rule); }
 .home-wordmark { display: inline-flex; align-items: center; gap: var(--space-md); color: var(--color-ink); text-decoration: none; font-size: var(--text-sm); line-height: 1.6; margin-bottom: var(--space-3xl); }
 .chapter-kicker { color: var(--color-accent); font-size: var(--text-sm); margin-bottom: var(--space-lg); }
 .chapter-home h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 5.5rem); line-height: 1.15; letter-spacing: -.035em; max-width: 12em; }

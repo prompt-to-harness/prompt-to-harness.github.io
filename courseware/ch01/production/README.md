@@ -30,12 +30,11 @@ Mermaid、Archscribe JSON、Excalidraw、PNG、SVG 位于 `../lessons/01-environ
 
 ```sh
 python3 courseware/ch01/tools/export-chapter-scripts.py --lessons 1 3 4 5 6
-python3 courseware/ch01/tools/export-practice.py --lessons 1 3 4 5 6
 python3 courseware/tools/check-courseware.py
 python3 courseware/ch01/tools/check-progressive.py --output /tmp/ch01-progressive-qa
 ```
 
-浏览器检查脚本需要 Playwright 与 Chromium。字体工具 `subset-progressive-fonts.py` 接受五个完整源字体路径；输出为本节独立 woff2 子集，附许可证，正文汉字覆盖会断言检查。所有播放资源本地加载。
+浏览器检查脚本需要 Playwright 与 Chromium。字体已统一到 `courseware/shared/fonts/`，见[字体说明](../../../docs/production/fonts.md)。所有播放资源本地加载。
 
 ## 验证边界
 

@@ -7,13 +7,14 @@
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="../../courseware/shared/parts/parts.css">
 <style>
-@font-face{font-family:'Lesson Title';src:url(../../courseware/ch01/lessons/02-agent/assets/title.woff2) format('woff2');font-display:swap}
-@font-face{font-family:'Lesson Body';src:url(../../courseware/ch01/lessons/02-agent/assets/body.woff2) format('woff2');font-weight:400;font-display:swap}
-@font-face{font-family:'Lesson Body';src:url(../../courseware/ch01/lessons/02-agent/assets/body-bold.woff2) format('woff2');font-weight:700;font-display:swap}
-@font-face{font-family:'Lesson Mono';src:url(../../courseware/ch01/lessons/02-agent/assets/mono.woff2) format('woff2');font-display:swap}
-body{margin:0;background:#E7E3D8;color:#18202B;font-family:'Lesson Body','Noto Sans SC',sans-serif}
+@font-face{font-family:"Course Title";src:url(../../courseware/shared/fonts/title.woff2) format("woff2")}
+@font-face{font-family:"Course Sans";src:url(../../courseware/shared/fonts/sans.woff2) format("woff2");font-weight:400}
+@font-face{font-family:"Course Sans";src:url(../../courseware/shared/fonts/sans-bold.woff2) format("woff2");font-weight:700}
+@font-face{font-family:"Course Mono";src:url(../../courseware/shared/fonts/mono.woff2) format("woff2")}
+
+body{margin:0;background:#E7E3D8;color:#18202B;font-family:'Course Sans','Noto Sans SC',sans-serif}
 .wrap{max-width:1180px;margin:0 auto;padding:32px 20px 80px}
-.intro h1{font:400 40px/1.2 'Lesson Title','Noto Sans SC',sans-serif;margin:0 0 8px}
+.intro h1{font:400 40px/1.2 'Course Title','Noto Sans SC',sans-serif;margin:0 0 8px}
 .intro p{margin:6px 0;font-size:16px;line-height:1.6;color:#4A5260;max-width:860px}
 .intro a{color:#2A2380}
 .item{margin-top:44px}
@@ -25,8 +26,8 @@ body{margin:0;background:#E7E3D8;color:#18202B;font-family:'Lesson Body','Noto S
 .controls button{font:inherit;padding:4px 12px;border:1px solid #9C9585;border-radius:6px;background:#FFFDF7;cursor:pointer}
 .frame{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:8px;box-shadow:0 2px 14px rgba(0,0,0,.12);background:#F4F2EB}
 .slide{position:absolute;left:0;top:0;width:1280px;height:720px;transform-origin:top left;background:#F4F2EB}
-.slide .kick{position:absolute;left:56px;top:40px;margin:0;font:22px/1.4 'Lesson Title','Noto Sans SC',sans-serif;color:#5B6573}
-.slide h3.title{position:absolute;left:56px;top:82px;width:872px;margin:0;font:400 46px/1.3 'Lesson Title','Noto Sans SC',sans-serif;color:#18202B}
+.slide .kick{position:absolute;left:56px;top:40px;margin:0;font:22px/1.4 'Course Title','Noto Sans SC',sans-serif;color:#5B6573}
+.slide h3.title{position:absolute;left:56px;top:82px;width:872px;margin:0;font:400 46px/1.3 'Course Title','Noto Sans SC',sans-serif;color:#18202B}
 .slide .cam{position:absolute;left:956px;top:24px;width:300px;height:225px;border:1px dashed #A8A08F;border-radius:9px;background:#EAE6DB;display:grid;place-items:center;font-size:14px;color:#5B6573}
 .slide .scene-content{position:absolute;left:56px;top:262px;width:1168px;height:370px;display:grid;align-content:start;gap:16px;font-size:23px;line-height:1.55}
 .slide .zone{position:absolute;left:0;right:0;top:640px;height:40px;background:repeating-linear-gradient(45deg,rgba(217,72,28,.07) 0 10px,transparent 10px 20px);border-top:1px dashed rgba(217,72,28,.35)}

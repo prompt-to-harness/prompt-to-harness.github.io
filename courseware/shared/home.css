@@ -1,8 +1,7 @@
 /* 课程首页：阅读站调性不变（衬线大标题、留白），引入课件的视觉语言：
    手绘边框、手写编号、课程路线阶梯。依赖 parts/parts.css。 */
 /* 首页的手写标题字：用第 0 章子集（覆盖首页全部标题用字），第 1 章子集兜底 */
-@font-face{font-family:'Home Title';src:url(../ch00/assets/title.woff2) format('woff2');font-display:swap}
-.chapter-home.p-root{--p-paper:var(--color-paper,#F4F2EB);--p-title:'Home Title','Parts Title Alt','Noto Sans SC',sans-serif}
+.chapter-home.p-root{--p-paper:var(--color-paper,#F4F2EB);--p-title:'Course Title','Course Title','Noto Sans SC',sans-serif}
 
 /* 课程路线 */
 .home-route{margin-top:var(--space-3xl)}

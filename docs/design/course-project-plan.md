@@ -61,4 +61,4 @@ Project 把 AI Coding 方法放回实际任务：尽早得到可运行结果，�
 
 Feishu MCP 等只作候选，优先只读、合成数据或沙盒；需要外部服务的操作须验证权限与失败替代，不把“换个模型接口”当作兼容性证明。
 
-相关文档：[课程共识](course-design-principles.md) · [定位](course-positioning.md) · [编辑与审校记录](course-editorial-decisions.md) · [工具参考](course-tools-and-methods.md)。
+相关文档：[课程共识](course-design-principles.md) · [定位](course-positioning.md) · [编辑规范](../production/editorial-checklist.md) · [工具参考](course-tools-and-methods.md)。

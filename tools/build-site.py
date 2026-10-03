@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build the public GitHub Pages site into _site/.
 
-The site carries reading, presentation, practice and preparation pages only:
+The site carries reading, presentation and preparation pages only:
 courseware HTML plus the assets they load, and the offline setup-check page that
 lesson 1.1 embeds. Markdown notes, speaker/script pages, production files and
 archives stay in the repository but are not published.
