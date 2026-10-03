@@ -21,7 +21,7 @@ window.lesson = {
       "script": [
         "第 1 章结束时，我们交付了首页 v0：能启动、能构建、Diff 能解释，还打了一个本地检查点。但它只在自己电脑上跑，别人看不到。",
         "这一章要把它变成可以拿给认识的人看的 v1，并且发布出去，最后得到一个公开 URL。中间会经过五节：听反馈、改一处、审改动、公开发布，最后回头看一次“只是重构”。",
-        "这一节先做第一件事。我们把首页给一两个熟人看了，他们给了几条建议。先别急着动手改，我们要先分清：哪些是能复现的问题，哪些是个人偏好，哪些其实是我们之前已经做过的决定。"
+        "这一节先做第一件事。我们用一组课程示例，模拟把首页给熟人看后收到的建议。先别急着动手改，我们要先分清：哪些是能复现的问题，哪些是个人偏好，哪些其实是我们之前已经做过的决定。"
       ],
       "teaching": [
         {
@@ -66,15 +66,15 @@ window.lesson = {
       "title": "给熟人看了一眼",
       "kicker": "第 2 章 · 2.1 · 收到反馈",
       "lead": "把首页给熟人看，收到三条建议。最自然的反应是全部交给 AI 去改，但这三条的性质并不一样。",
-      "html": "<div class=\"p-comic\"><div class=\"p-panel\" data-reveal=\"0\"><span class=\"p-cap\">在我电脑上</span><p class=\"p-bubble\">帮我看看我的个人主页？</p><span class=\"p-avatar\">我们</span></div><div class=\"p-panel\" data-reveal=\"1\"><span class=\"p-cap\">几分钟后</span><p class=\"p-bubble is-ai\">有点挤 · 卡片点了没反应 · 看不出你做过什么</p><span class=\"p-avatar is-ai\">熟人</span></div><div class=\"p-panel\" data-reveal=\"2\"><span class=\"p-cap\">我的第一反应</span><p class=\"p-bubble\">都交给 AI 改掉吧？</p><span class=\"p-avatar\">我们</span></div></div>",
+      "html": "<div class=\"p-comic\"><div class=\"p-panel\" data-reveal=\"0\"><span class=\"p-cap\">在我电脑上</span><p class=\"p-bubble\">帮我看看我的个人主页？</p><span class=\"p-avatar\">我们</span></div><div class=\"p-panel\" data-reveal=\"1\"><span class=\"p-cap\">示例反馈</span><p class=\"p-bubble is-ai\">有点挤 · 卡片点了没反应 · 看不出你做过什么</p><span class=\"p-avatar is-ai\">熟人</span></div><div class=\"p-panel\" data-reveal=\"2\"><span class=\"p-cap\">我的第一反应</span><p class=\"p-bubble\">都交给 AI 改掉吧？</p><span class=\"p-avatar\">我们</span></div></div>",
       "steps": [
         "请熟人看",
         "三条建议",
         "第一反应"
       ],
       "script": [
-        "我们在自己电脑上，把首页给一两个熟人看。注意，这时候还没有发布，熟人是在我们电脑上，或者看截图。",
-        "几分钟后，他们给了三条建议：手机上看着有点挤；项目卡看着能点，点了没反应；看不出你做过什么。",
+        "先看一个课程示例：我们在自己电脑上，把首页或截图给熟人看。这时候还没有发布，对方不用访问公开网址。",
+        "示例里的熟人给了三条建议：手机上看着有点挤；项目卡看着能点，点了没反应；看不出你做过什么。",
         "这时候最自然的反应，是把三条一股脑交给 AI：都改掉。先停一下。这三条建议，真的都是问题吗？下一页我们把它们写下来，一条一条看。"
       ],
       "teaching": [
@@ -101,14 +101,14 @@ window.lesson = {
         "先不算问题"
       ],
       "script": [
-        "左边是这一章用的课程示例反馈卡，三条就是刚才熟人说的话。大家可以直接用它，也可以换成自己收集到的真实建议。",
+        "左边是这一章用的课程示例反馈卡，三条对应刚才的示例情境。可以直接用它，也可以换成自己收集到的真实建议。",
         "一条建议要变成能处理的反馈，得补齐四样东西：复现条件，也就是在哪个视口、做了什么操作；期望，应该是什么样；实际，现在是什么样；还有证据，截图或者记录。",
         "补不齐证据的，先不算问题，只是一个待核对的说法。那就去核对。下一页我们切到浏览器，三条一条一条看。"
       ],
       "teaching": [
         {
           "title": "讲师提示",
-          "text": "配套页提供分支表：能复现、不能复现、与自己在 1.4 的决定不同，分别怎样记录。讲师首页 v0 已在录制前冻结，并核对过第 1、2 条在其上成立。"
+          "text": "核对分支直接见 p06、p17、p18。录制前须冻结讲师首页 v0，并核对反馈是否成立；目前不能把待准备素材写成已验证结果。"
         }
       ],
       "source": "index.html#p04",
@@ -159,7 +159,7 @@ window.lesson = {
         "切到浏览器之前，先把设备工具栏开在对的地方。设备模拟只作用于当前标签页，所以要先在浏览器里新开一个标签页，打开刚才 npm run dev 给出的本地地址，确认是自己的首页。然后就在这个标签页里按 Option、Command、I 打开开发者工具，再按 Shift、Command、M 打开设备工具栏。顶部选 Responsive，填上宽高。如果页面没有跟着变，按 Command、R 刷新一次。注意不要在课件页或别的标签页里开，那样模拟的是那一页，不是你的首页。",
         "第 1 条说手机上挤，那就把尺寸填成 360 乘 800，也就是手机视口，只看布局。",
         "第 2 条说项目卡点了没反应。切到 1440 乘 900 的桌面视口，点一下项目卡，再按几次 Tab 键，看键盘焦点会不会落到卡片上。这顺便也是我们的键盘检查。",
-        "第 3 条说看不出做过什么，任何一个视口都行，看项目区写了什么。三条各看各的，不用把整个页面在三个视口里全巡一遍。大家可以暂停视频，跟着核对自己的首页。"
+        "第 3 条说看不出做过什么，任何一个视口都行，看项目区写了什么。三条各看各的，不用把整个页面在三个视口里全巡一遍。可以暂停视频，跟着核对自己的首页。"
       ],
       "teaching": [
         {
@@ -191,7 +191,7 @@ window.lesson = {
       "script": [
         "核对完回来，用一张三栏的记录表把结果写下来：做了什么动作，看到什么结果，这个结果能说明什么。第 1 条，在我们各自的页面上，可能挤，也可能不挤。复现了，就把现象和截图记下来；没复现，也要写下是在哪个视口、哪个浏览器看的，这同样是有用的证据。",
         "第 2 条，点项目卡确实没反应，按 Tab 焦点也会跳过卡片。这是一个行为事实。还记得吗？1.4 回答 Agent 提问时，我们定过：“查看项目”跳到本页项目区，项目卡本身不跳转。我们自己知道这个决定，但注意，“属实”和“是问题”是两回事，它到底该不该改，我们还没判断。",
-        "第 3 条，项目区只有一句“学习笔记：记录课程练习”。这条没什么悬念，内容确实缺失。三条都核对完了。大家暂停视频，在项目里新建 docs/evidence/CH02_VIBE_ITERATIONS.md，把这张表写进去：三条原话，每条的动作、结果和说明。性质标签先不写，也不要写“这是 1.4 的决定”，等会儿我们要看 Codex 自己能不能发现。接下来请 Codex 帮忙看看，这三条分别对应哪些代码。"
+        "第 3 条，项目区只有一句“学习笔记：记录课程练习”。这份示例还没说清做了什么。自己的页面若已写清，就如实记录，不为了跟课把它判成缺陷。三条都核对完了。请暂停视频，在项目里新建 docs/evidence/CH02_VIBE_ITERATIONS.md，把这张表写进去：三条原话，每条的动作、结果和说明。性质标签先不写，也不要写“这是 1.4 的决定”，等会儿我们要看 Codex 自己能不能发现。接下来请 Codex 帮忙看看，这三条分别对应哪些代码。"
       ],
       "teaching": [
         {
@@ -223,7 +223,7 @@ window.lesson = {
       "script": [
         "接下来要请 Codex 帮忙核对。不过这一次，讲师换一种方式启动它。我们想事后看到 Codex 实际发给模型的是什么，就得在 Codex 和模型服务之间放一个记录员。claude-tap 就是这样一个开源的本地代理：在终端里运行这条命令，它会替我们启动 Codex，并把 Codex 发往模型服务的每一次请求记下来。",
         "启动之后，Codex 用起来和平时完全一样。我们照常在里面提交下一页的只读 Prompt。",
-        "等 Codex 回答完，再打开 claude-tap 的本地查看器，就能一条一条看到刚才的请求。想自己试的话，配套页写了安装步骤。"
+        "等 Codex 回答完，再打开 claude-tap 的本地查看器，就能一条一条看到刚才的请求。这一节先看讲师记录；跟做反馈核对时，直接使用已经配置好的 Codex 即可。"
       ],
       "teaching": [
         {
@@ -257,7 +257,7 @@ window.lesson = {
       "script": [
         "现在，在刚才通过 claude-tap 启动的 Codex 里提交这段 Prompt。左边是完整内容。第一句就说明：只读任务，不修改任何文件。然后让它自己去读刚才写的 CH02_VIBE_ITERATIONS.md，不用把内容粘进来。这样等会儿在记录里，我们能看到它读文件的动作。我们只是想知道这三条建议落在代码的什么地方。",
         "然后让它逐条回答三件事：对应哪些文件和代码，和项目里已有的决定有没有冲突，依据是哪个文件的哪一段。不确定就说不确定，不要猜。",
-        "大家看它的回复时，重点盯住第 2 条。项目卡不跳转，是我们在 1.4 回答 Agent 提问时定下的。注意，Prompt 里我们一个字都没提 1.4。那 Codex 会怎样判断这一条？"
+        "看它的回复，重点盯住第 2 条。项目卡不跳转，是我们在 1.4 回答 Agent 提问时定下的。注意，Prompt 里我们一个字都没提 1.4。那 Codex 会怎样判断这一条？"
       ],
       "teaching": [
         {
@@ -280,14 +280,14 @@ window.lesson = {
       "title": "我们只写了一句，请求里却有这么多",
       "kicker": "第 2 章 · 2.1 · 请求解剖",
       "lead": "借助请求查看工具，可以看到 Codex 实际发给模型的内容。我们写的那一句只占很小一部分。数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:.8fr auto 1.3fr\"><div class=\"p-box\" data-role=\"us\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"us\">我们写的</span><p class=\"p-big\">一句话</p><p class=\"p-sub\">实测示例：34 个字</p></div><div class=\"p-join\" data-reveal=\"1\"><span>Codex 发出</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">第一次请求</span><p class=\"p-big\">约 1.15 万 token</p><p class=\"p-sub\">还没开始干活</p></div></div><div class=\"p-bar\" data-reveal=\"2\">多出来的是什么？它又是怎么<b>知道 1.4 的决定</b>的？</div><p class=\"source-note\">数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构</p>",
+      "html": "<div class=\"p-pair\" style=\"grid-template-columns:.8fr auto 1.3fr\"><div class=\"p-box\" data-role=\"us\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"us\">我们写的</span><p class=\"p-big\">一句话</p><p class=\"p-sub\">读标题任务：34 个字</p></div><div class=\"p-join\" data-reveal=\"1\"><span>Codex 发出</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">第一次请求</span><p class=\"p-big\">约 1.15 万 token</p><p class=\"p-sub\">还没开始干活</p></div></div><div class=\"p-bar\" data-reveal=\"2\">多出来的是什么？它又是怎么<b>知道 1.4 的决定</b>的？</div><p class=\"source-note\">数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构</p>",
       "steps": [
         "我们写的",
         "实际发出",
         "两个问题"
       ],
       "script": [
-        "在看 Codex 的答案之前，我们先打开 claude-tap 的查看器，看看它实际发给模型的是什么。为了把结构看清楚，先看一个更简单的例子：我们只写了一句话，让它读一个文件的标题，一共 34 个字。",
+        "在看 Codex 的答案之前，我们先打开 claude-tap 的查看器，看看它实际发给模型的是什么。为了把结构看清楚，先借一份读标题任务的记录认识请求结构：用户输入一共 34 个字。它与刚才的反馈核对是两次任务，数字不能混用。看清结构后，我们再回到反馈核对记录，追踪那条决定从哪里进入请求。",
         "Codex 发出的第一次请求，大约 1.15 万个 token。这时它还没开始读文件，还没干活。我们写的那一句，只占其中很小一部分。",
         "于是有两个问题。第一，多出来的这么多内容是什么？第二，回到刚才的第 2 条，Codex 是怎么知道 1.4 那个决定的？我们先回答第一个，把这份请求拆开看。"
       ],
@@ -442,7 +442,7 @@ window.lesson = {
       "script": [
         "第四块，环境信息。模型的知识停在它训练截止的那一天，也看不到我们的电脑。所以 Harness 会写一小段文字告诉它：当前目录在哪，用的什么 Shell，今天几号，什么时区。没有这一段，它连“今天”是哪天都不知道。",
         "第五块，权限说明。右边这一句告诉模型：这次的沙箱模式是只读，只允许读文件。",
-        "这里回扣 1.6：权限说明只是写给模型看的文字，让它知道边界在哪；真正拦住越界操作的，是本地沙箱。模型就算没理会这段话，沙箱照样会拒绝写入。到这里，六块都看过了。回到刚才第二个问题：Codex 到底是怎么知道 1.4 的决定的？"
+        "回想 1.6：权限说明只是写给模型看的文字，让它知道边界在哪；真正拦住越界操作的，是本地沙箱。模型就算没理会这段话，沙箱照样会拒绝写入。到这里，六块都看过了。回到刚才第二个问题：Codex 到底是怎么知道 1.4 的决定的？"
       ],
       "teaching": [
         {
@@ -458,24 +458,24 @@ window.lesson = {
       "id": "p14",
       "segment": "请求解剖",
       "label": "它是怎么知道的",
-      "title": "它不是记得，是读到了",
+      "title": "这条决定从哪里来",
       "kicker": "第 2 章 · 2.1 · 请求解剖",
-      "lead": "Codex 不会记得上一章的对话。它能说出 1.4 的决定，是因为在这次任务里调用工具读到了记录决定的文件；读到的内容随后进入下一次请求。如果它没读到，就会把第 2 条当成缺陷。",
-      "html": "<div class=\"p-flow\" style=\"--n:3\"><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\"><h3>提出调用</h3><p class=\"p-mono\">读 PROMPT_V1.md</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"0\"><h3>Harness 执行</h3><p>返回文件内容</p></div><div class=\"p-node\" data-role=\"ctx\" data-reveal=\"1\"><h3>下一次请求</h3><p>带上“项目卡不跳转”</p></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"2\"><h3>读到了</h3><p>认出是既有决定</p></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"2\"><h3>没读到</h3><p>当成缺陷，建议改</p></div></div>",
+      "lead": "回到反馈核对记录，查找记录决定的文件是否被读取，以及内容是否进入后续请求。再对照回答，判断它有没有正确使用这条依据；没有找到依据时，保留不确定。",
+      "html": "<div class=\"p-flow\" style=\"--n:3\"><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\"><h3>提出调用</h3><p class=\"p-mono\">读 PROMPT_V1.md</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"0\"><h3>Harness 执行</h3><p>返回文件内容</p></div><div class=\"p-node\" data-role=\"ctx\" data-reveal=\"1\"><h3>下一次请求</h3><p>带上“项目卡不跳转”</p></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"2\"><h3>读到了</h3><p>再核对是否正确理解</p></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"2\"><h3>没找到依据</h3><p>保留不确定，补充核对</p></div></div>",
       "steps": [
         "工具调用",
         "进入下一次请求",
         "两种结果"
       ],
       "script": [
-        "打开刚才那次只读核对的记录，找到中间的一次工具调用：Codex 提出要读 PROMPT_V1.md，Harness 执行，把文件内容返回。",
-        "返回的内容会放进下一次请求。下一次请求里，模型才第一次看到“项目卡不跳转”这句话。所以它不是“记得”1.4，而是在这次任务里“读到了”。",
-        "所以会有两种结果。读到了，它就会认出第 2 条和既有决定冲突；没读到，它就会把第 2 条当成缺陷，建议我们加上跳转。两种结果说明的是同一件事：模型能依据的，只有这次请求里实际放进去的内容。第 7 章我们会用 AGENTS.md 让这类决定稳定地进入上下文。"
+        "现在切回三条反馈的只读核对记录。先找有没有读取 PROMPT_V1.md 或其他决定记录的工具调用，再看实际返回了什么。画面以这次运行的记录为准。",
+        "如果找到了读取记录，就继续在后续请求里找“项目卡不跳转”这句话。这样才能把“它知道这个决定”对应到可见的来源，而不是凭一句回答认定它记得上一章。",
+        "读到了，还要核对回答有没有正确理解；没找到依据，也可能回答不确定、继续查找，或提出没有依据的修改建议。我们按实际记录判断，不预设它一定答对或答错。下一步要保留决定的出处，交接任务时让它能被找到。第 7 章再展开项目规则怎样组织。"
       ],
       "teaching": [
         {
           "title": "演示分支",
-          "text": "按录制实际选用：\n\n读到了：在记录中指认读取文件的那次工具调用，以及下一次请求中出现的文件内容。\n\n没读到：在记录中指出整个过程没有读取记录决定的文件，第 2 条被当成缺陷；说明这条决定不在它的上下文里，预告第 7 章 AGENTS.md。\n\n两支都保留原始记录，不重跑凑结果。"
+          "text": "按录制实际选用：\n\n读到了：在记录中指认读取文件的那次工具调用，以及下一次请求中出现的文件内容。\n\n没找到依据：检查完整请求与工具返回，记录回答是不确定、继续查找还是建议修改；仅凭没有读取某一个文件，不能断言所有来源中都没有这条决定。\n\n两支都保留原始记录，不重跑凑结果。"
         },
         {
           "title": "讲师提示",
@@ -492,7 +492,7 @@ window.lesson = {
       "label": "换一台干净的电脑",
       "title": "同一句话，换个环境，请求就变了",
       "kicker": "第 2 章 · 2.1 · 请求会变",
-      "lead": "请求由三层来源拼成：个人（~/.codex 的配置、登录、全局 AGENTS.md，~/.agents/skills 的个人 Skills）、项目（仓库里的 AGENTS.md 与 .agents/skills）、本次（目录、日期、权限）。换一个隔离的 HOME 运行，个人那一层就没了。这是讲师示例，可按配套页自主尝试。数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。",
+      "lead": "请求由三层来源拼成：个人（~/.codex 的配置、登录、全局 AGENTS.md，~/.agents/skills 的个人 Skills）、项目（仓库里的 AGENTS.md 与 .agents/skills）、本次（目录、日期、权限）。换一个隔离的 HOME 运行，个人那一层就没了。这是讲师的环境对比示例，不要求跟做。数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。",
       "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ink\">日常环境</span><p>Skills ≈1.24 万字符 · 首次请求 ≈1.15 万 token</p></div><div class=\"p-join\" data-reveal=\"0\"><span>隔离 HOME</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ok\">隔离环境</span><p>Skills ≈2 千字符 · 首次请求 ≈9 千 token</p></div></div><div class=\"p-grid\" style=\"--n:3;gap:12px;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"us\" data-reveal=\"1\"><h3>个人</h3><p>~/.codex · ~/.agents/skills</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"1\"><h3>项目</h3><p>AGENTS.md · .agents/skills</p></div><div class=\"p-box is-soft\" data-role=\"tool\" data-reveal=\"1\"><h3>本次</h3><p>目录 · 日期 · 权限</p></div></div><div style=\"display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,2.6fr);gap:14px;margin-top:10px;align-items:stretch\"><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin:0\">个人 Skills<br><b>跟着 HOME 走</b></div><div class=\"p-term\" data-reveal=\"2\" style=\"font-size:16px\" data-copy=\"CLEAN_HOME=&quot;$(mktemp -d)&quot;\nmkdir -p &quot;$CLEAN_HOME/.codex&quot;\ncp ~/.codex/config.toml &quot;$CLEAN_HOME/.codex/&quot;\nHOME=&quot;$CLEAN_HOME&quot; codex\"><div class=\"dim\">$ CLEAN_HOME=\"$(mktemp -d)\"; mkdir -p \"$CLEAN_HOME/.codex\"</div><div class=\"dim\">$ cp ~/.codex/config.toml \"$CLEAN_HOME/.codex/\"; HOME=\"$CLEAN_HOME\" codex</div></div></div>",
       "steps": [
         "对比两次",
@@ -500,9 +500,9 @@ window.lesson = {
         "隔离要隔离什么"
       ],
       "script": [
-        "既然请求是现场组装的，那换一个环境，同一句话发出去的请求也会不一样。讲师做了一个对比：同一句话，一次在日常环境里跑，一次换了一个干净的、隔离的 HOME 目录。Skills 列表从大约 1.24 万字符降到大约 2 千，剩下的只有 Codex 自带的 4 个；第一次请求也从大约 1.15 万 token 降到大约 9 千。",
+        "既然请求是每次任务时才组装的，那换一个环境，同一句话发出去的请求也会不一样。讲师做了一个对比：同一句话，一次在日常环境里跑，一次换了一个干净的、隔离的 HOME 目录。Skills 列表从大约 1.24 万字符降到大约 2 千，剩下的只有 Codex 自带的 4 个；第一次请求也从大约 1.15 万 token 降到大约 9 千。",
         "为什么会这样？因为请求的内容有三层来源。个人这一层，来自我们自己的用户目录：~/.codex 里的配置、登录信息和全局 AGENTS.md，还有 ~/.agents/skills 里的个人 Skills。项目这一层，来自仓库里的 AGENTS.md 和 .agents/skills。本次这一层，是当前目录、日期和这次的权限设置。",
-        "有一个细节：Codex 提供了 CODEX_HOME 这个环境变量，可以把 ~/.codex 换到别处；但个人 Skills 是跟着 HOME 走的，只改 CODEX_HOME 去不掉它们。所以讲师录课时会把 HOME 一起隔离，让画面接近大家刚装好时的样子。做法就是下面这几行：建一个临时目录，只把模型配置复制进去，再让 Codex 把它当作 HOME 启动。这一页是示例，有兴趣可以按配套页自己试，不要求跟做。"
+        "有一个细节：Codex 提供了 CODEX_HOME 这个环境变量，可以把 ~/.codex 换到别处；但个人 Skills 是跟着 HOME 走的，只改 CODEX_HOME 去不掉它们。所以讲师录课时会把 HOME 一起隔离，让画面接近刚装好时的样子。做法就是下面这几行：建一个临时目录，只把模型配置复制进去，再让 Codex 把它当作 HOME 启动。这一页只需看懂环境变化怎样影响请求，不要求复制命令或修改自己的配置。"
       ],
       "teaching": [
         {
@@ -558,8 +558,8 @@ window.lesson = {
       "label": "哪些要改，谁来决定",
       "title": "三条建议，三种性质",
       "kicker": "第 2 章 · 2.1 · 分类收尾",
-      "lead": "把三条反馈分别贴上标签：视觉现象、既有决定、内容缺失。第 2 条要不要改是人的决定，不由 AI 决定；第 3 条必然成立，选它进入 2.2。把标签补进 CH02_VIBE_ITERATIONS.md。",
-      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1.3fr) minmax(0,.9fr) minmax(0,1.4fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>反馈</span><span class=\"p-c\">性质</span><span>下一步</span></div><div data-reveal=\"0\"><span>1. 手机上有点挤</span><span class=\"p-c\"><span class=\"p-chip\" data-role=\"ctx\">视觉现象</span></span><span>复现才算问题，记剩余</span></div><div data-reveal=\"1\"><span>2. 卡片点了没反应</span><span class=\"p-c\"><span class=\"p-chip\" data-role=\"us\">既有决定</span></span><span>改不改，由人决定</span></div><div data-reveal=\"2\" class=\"is-key\"><span>3. 看不出做过什么</span><span class=\"p-c\"><span class=\"p-chip\" data-role=\"gate\">内容缺失</span></span><span>选定，进入 2.2</span></div></div><div class=\"p-bar is-light\" data-reveal=\"3\">还有一类是<b>个人偏好</b>：记下来，不当缺陷</div>",
+      "lead": "把三条反馈分别贴上标签：视觉现象、既有决定、内容缺失。第 2 条要不要改是人的决定，不由 AI 决定；讲师示例选第 3 条进入 2.2；自己的内容已完整时，先确认一条值得补充的项目事实，不伪造缺陷。把标签补进 CH02_VIBE_ITERATIONS.md。",
+      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1.3fr) minmax(0,.9fr) minmax(0,1.4fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>反馈</span><span class=\"p-c\">性质</span><span>下一步</span></div><div data-reveal=\"0\"><span>1. 手机上有点挤</span><span class=\"p-c\"><span class=\"p-chip\" data-role=\"ctx\">视觉现象</span></span><span>已复现记剩余；否则待核对</span></div><div data-reveal=\"1\"><span>2. 卡片点了没反应</span><span class=\"p-c\"><span class=\"p-chip\" data-role=\"us\">既有决定</span></span><span>改不改，由人决定</span></div><div data-reveal=\"2\" class=\"is-key\"><span>3. 看不出做过什么</span><span class=\"p-c\"><span class=\"p-chip\" data-role=\"gate\">内容缺失</span></span><span>选定，进入 2.2</span></div></div><div class=\"p-bar is-light\" data-reveal=\"3\">还有一类是<b>个人偏好</b>：记下来，不当缺陷</div>",
       "steps": [
         "第 1 条",
         "第 2 条",
@@ -567,15 +567,15 @@ window.lesson = {
         "第四类"
       ],
       "script": [
-        "现在给三条反馈贴标签。第 1 条，手机上有点挤，是一个视觉现象。复现了才算问题；这一轮我们不改它，记为剩余问题。",
+        "现在给三条反馈贴标签。第 1 条，手机上有点挤，是一个视觉现象。已复现就记为剩余问题，没复现就保留核对条件；这一轮先不改布局。",
         "第 2 条，卡片点了没反应，行为属实，但它是我们在 1.4 做过的决定。改不改，要由人来决定，可以改，但那是一次需求变化，要重新确认；AI 不能替我们决定。",
-        "第 3 条，看不出做过什么，是内容缺失。它在任何人的页面上都成立，也最值得先做。我们选它，作为 2.2 这一轮唯一的目标。",
-        "反馈还有第四类：个人偏好，比如“我更喜欢蓝色”。记下来，但不当缺陷处理。大家暂停视频，回到 CH02_VIBE_ITERATIONS.md，给每条补齐复现条件、期望、实际、证据，再加上类型标签。"
+        "第 3 条，看不出做过什么，是内容缺失。在讲师示例里，我们选它作为 2.2 的唯一目标。如果你的项目区已经写清做过什么，就记录“现有内容已满足”，再选一条自己愿意公开、确实值得补充的项目事实。这一轮仍只改项目区内容；不需要补充时，可以用课程示例练习，不必制造问题。",
+        "反馈还有第四类：个人偏好，比如“我更喜欢蓝色”。记下来，但不当缺陷处理。请暂停视频，回到 CH02_VIBE_ITERATIONS.md，给每条补齐复现条件、期望、实际、证据，再加上类型标签。"
       ],
       "teaching": [
         {
           "title": "讲师提示",
-          "text": "学员若在 1.4 做了不同决定，第 2 条就按自己的决定判断；配套页的分支表给出记录方式。"
+          "text": "第 2 条按学员在 1.4 的决定判断；第 3 条区分已有缺口与新批准的内容补充。没有真实补充需求时，在独立练习副本使用 p06 的“学习笔记：记录课程练习”及 2.2 给出的合成内容，并标注课程练习。"
         }
       ],
       "source": "index.html#p17",
@@ -612,7 +612,7 @@ window.lesson = {
       "title": "先分清，再动手",
       "kicker": "第 2 章 · 2.1 · 分类收尾",
       "lead": "本节留下一份带证据的反馈清单和一个选定的问题；也第一次看到了一句话背后，Harness 实际发给模型的完整请求。下一节回答：要开始改了，继续这个会话，还是新建？",
-      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h4 style=\"text-align:center\">一个习惯</h4><div class=\"p-star\" style=\"width:260px;font-size:24px\">先写证据<br>再分性质</div><p class=\"p-sub\" style=\"text-align:center\">复现 · 期望 · 实际 · 证据</p></div><div data-reveal=\"1\"><h4>一个认识</h4><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-pass\">请求由 Harness 组装</li><li class=\"is-fix\">“记得”其实是“读到了”</li><li class=\"is-stop\">换环境，请求就变</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h4>下一节</h4><div class=\"p-box\" data-role=\"us\"><h3>2.2 改一处</h3><p>继续会话，还是新建？</p></div></div></div>",
+      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h4 style=\"text-align:center\">一个习惯</h4><div class=\"p-star\" style=\"width:260px;font-size:24px\">先写证据<br>再分性质</div><p class=\"p-sub\" style=\"text-align:center\">复现 · 期望 · 实际 · 证据</p></div><div data-reveal=\"1\"><h4>一个认识</h4><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-pass\">请求由 Harness 组装</li><li class=\"is-fix\">回答要能指回依据</li><li class=\"is-stop\">换环境，请求就变</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h4>下一节</h4><div class=\"p-box\" data-role=\"us\"><h3>2.2 改一处</h3><p>继续会话，还是新建？</p></div></div></div>",
       "steps": [
         "一个习惯",
         "一个认识",
@@ -620,7 +620,7 @@ window.lesson = {
       ],
       "script": [
         "这一节我们没有改一行代码，但留下了一份带证据的反馈清单：每条都有复现条件、期望、实际和证据，也贴好了性质标签。先写证据、再分性质，这是这一节最想留下的习惯。",
-        "我们也第一次看到了一句话背后的完整请求：它由 Harness 组装，模型说“记得”，其实是这次任务里“读到了”；换一个环境、换一个权限，同一句话发出去的请求就不一样。课件站上有一个请求解剖页，可以自己点开每一块再看看。",
+        "我们也第一次看到了一句话背后的完整请求：它由 Harness 组装，我们沿请求和工具返回追踪决定的来源；换一个环境、换一个权限，同一句话发出去的请求就不一样。需要回看时，打开本节 P09–P13，对照请求里的各块内容。",
         "下一节，我们要开始改第 3 条了。动手之前先面对一个选择：继续刚才这个会话、恢复它，还是新建一个？要回答这个问题，得先弄清楚多次请求之间到底发生了什么。"
       ],
       "teaching": [],

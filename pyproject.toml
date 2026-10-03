@@ -1,9 +1,14 @@
 [project]
 name = "prompt-to-harness"
 version = "0.0.0"
-description = "Course repository tooling (standard library only, no runtime dependencies)"
+description = "Course repository tooling (standard library only; Playwright is a dev dependency for browser checks)"
 requires-python = ">=3.12"
 dependencies = []
 
 [tool.uv]
 package = false
+
+[dependency-groups]
+dev = [
+    "playwright>=1.63.0",
+]
