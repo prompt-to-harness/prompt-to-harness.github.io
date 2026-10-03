@@ -28,6 +28,32 @@
   const scenes = [...document.querySelectorAll('.scene')];
   const visible = scenes.findIndex(s => !s.hidden);
   if (visible >= 0) applyOnly(visible, Number(new URLSearchParams(location.search).get('step')) || 0, document.body.dataset.mode);
+  // 终端块 .p-term[data-copy]：右上角加复制按钮，复制属性里的原始命令（不含提示符 $ 与画面换行）。
+  const addCopy = () => document.querySelectorAll('.p-term[data-copy]').forEach(term => {
+    if (term.querySelector('.p-term-copy')) return;
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'p-term-copy';
+    button.textContent = '复制';
+    button.setAttribute('aria-label', '复制命令');
+    button.addEventListener('click', async event => {
+      event.stopPropagation();
+      const text = term.dataset.copy;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (_) {
+        const area = Object.assign(document.createElement('textarea'), { value: text });
+        document.body.append(area);
+        area.select();
+        document.execCommand('copy');
+        area.remove();
+      }
+      button.textContent = '已复制';
+      setTimeout(() => { button.textContent = '复制'; }, 1500);
+    });
+    term.append(button);
+  });
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', addCopy); else addCopy();
   const lesson = window.lesson;
   if (!lesson) return;
   const mark = () => lesson.scenes.forEach(scene => {

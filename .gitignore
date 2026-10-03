@@ -84,3 +84,6 @@ ai-coding-resources/
 
 # Learner starter repo, checked out separately (has its own Git history)
 course-starter/
+
+# 课件源字体（courseware/tools/fetch-fonts.py 下载，不提交）
+.font-sources/

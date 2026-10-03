@@ -1,0 +1,74 @@
+{
+  "_comment": "课件字体清单。选择理由见 docs/production/fonts.md。改字体只改这里，然后运行 fetch-fonts.py 与 subset-fonts.py。extra=gb2312-level1 表示额外收入 GB2312 一级常用字 3755 个作为余量。",
+  "source_repo": "https://github.com/google/fonts",
+  "source_commit": "9710da1eacb3be272583c3224dcb70f9da6eadbb",
+  "fonts": [
+    {
+      "id": "title",
+      "role": "课件标题（手写风）",
+      "family": "ZCOOL KuaiLe",
+      "path": "ofl/zcoolkuaile/ZCOOLKuaiLe-Regular.ttf",
+      "license": "ofl/zcoolkuaile/OFL.txt",
+      "outputs": [
+        {
+          "file": "title.woff2"
+        }
+      ],
+      "path_sha256": "812a6fc1fe54b6d73a419245c32dfeba8aa33104d5be90d1cf6af082007cb71d",
+      "license_sha256": "538078469839b4a2e7ad22bef4ebe41681a4e53749bb2a072144024f1d6d703d"
+    },
+    {
+      "id": "cover",
+      "role": "节封面大标题",
+      "family": "Long Cang",
+      "path": "ofl/longcang/LongCang-Regular.ttf",
+      "license": "ofl/longcang/OFL.txt",
+      "outputs": [
+        {
+          "file": "cover.woff2"
+        }
+      ],
+      "path_sha256": "e5bf2c3f24ef2327c6f136d8f73e2f9dfdf44896fdbeb35a9515f44777bb91bc",
+      "license_sha256": "603546b7219a94bb59bf8294458194a5010119486354092b66a09a3fd61aeacc"
+    },
+    {
+      "id": "sans",
+      "role": "正文与阅读站标题",
+      "family": "Noto Sans SC",
+      "path": "ofl/notosanssc/NotoSansSC[wght].ttf",
+      "license": "ofl/notosanssc/OFL.txt",
+      "outputs": [
+        {
+          "file": "sans.woff2",
+          "wght": 400
+        },
+        {
+          "file": "sans-bold.woff2",
+          "wght": 700
+        }
+      ],
+      "path_sha256": "a3041811a78c361b1de50f953c805e0244951c21c5bd412f7232ef0d899af0da",
+      "license_sha256": "1c05c68c34f9708415aada51f17e1b0092d2cea709bf4a94cd38114f9e73d7d9",
+      "extra": "gb2312-level1"
+    },
+    {
+      "id": "mono",
+      "role": "代码、终端与 diff",
+      "family": "JetBrains Mono",
+      "path": "ofl/jetbrainsmono/JetBrainsMono[wght].ttf",
+      "license": "ofl/jetbrainsmono/OFL.txt",
+      "outputs": [
+        {
+          "file": "mono.woff2",
+          "wght": 400
+        },
+        {
+          "file": "mono-bold.woff2",
+          "wght": 700
+        }
+      ],
+      "path_sha256": "48715a42ec242c21e9f02692891e147d022299a52e48d5e413e1a942193ffeda",
+      "license_sha256": "b2fe5e8987594e9ffd1d2ca52a2f5d73eb8335243893c5d6254b5ad69269591d"
+    }
+  ]
+}

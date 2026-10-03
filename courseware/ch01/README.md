@@ -42,7 +42,7 @@ ch01/
 └── verification.md            # 验证记录与边界
 ```
 
-每个小节的 `index.html` 为演示页，`lesson.js` 是正文与讲稿的内容源，`speaker.html` 展示讲稿，`script.md` 是导出的 Markdown 讲稿；1.4–1.6 另有 `practice.html` 练习页。修改教学内容时先改该小节的 `lesson.js`，再导出讲稿；静态练习页需要同步。
+每个小节的 `index.html` 为演示页，`lesson.js` 是正文与讲稿的内容源，`speaker.html` 展示讲稿，`script.md` 是导出的 Markdown 讲稿。修改教学内容时先改该小节的 `lesson.js`，再导出讲稿。
 
 旧版 `demos/ch01-presentation/` 已迁移到这里。原页码锚点及 `mode=scroll` / `mode=slides` 参数保留，例如 [1.4 P22](lessons/04-prompt/index.html?mode=scroll#p22)。旧网址需要更新，不再保留重复课件副本。
 
@@ -52,7 +52,7 @@ ch01/
 - 1.1 修改独立的 `setup-check/index.html` 欢迎语，检查页面与 diff，按证据反馈修正。
 - 1.4 读取 Brief、提出问题并确认四段式 Prompt；1.5 在课堂创建 React + TypeScript + Vite 骨架与首页，验证后建立 `ch01-prompt-baseline` 检查点。
 - 1.6 使用“仅核对本地链接，不发布”任务判断最小权限。
-- [课前准备与排障](preparation.html)、[1.4 练习](lessons/04-prompt/practice.html)、[1.5 练习](lessons/05-homepage/practice.html)、[1.6 练习](lessons/06-permissions/practice.html)与当前内容同步。
+- [课前准备与排障](preparation.html)与当前内容同步。
 - [Starter 源文件说明](https://github.com/prompt-to-harness/course-starter)在独立的 `course-starter` 仓库维护；从该仓库创建自己的练习项目。`PROJECT_BRIEF.md`、`PLACEHOLDER_CONTENT.md`、`docs/setup/TOOLCHAIN.md` 均在项目中。课堂只修改自己的练习仓库，目录示例与获取步骤见[工作目录约定](../../WORKSPACE.md)。课程统一发布 commit 仍待录制冻结。
 
 P04 默认嵌入随课件提供的原始 Starter 页面，明确标记为“仅供预览”。要演示实时修改，在同级 `projects/personal-homepage/` 目录运行 `python3 -m http.server 4174 --bind 127.0.0.1`，再点“连接练习副本”。核对服务目录，确保展示与 CLI 修改的是同一份文件；面板出现不代表任务通过。
@@ -71,13 +71,7 @@ python3 tools/export-chapter-scripts.py
 
 内容以本仓库的[深蓝平台交付版大纲](../../docs/course-outline.md)和[共同内部大纲](../../docs/outline/course-outline-internal.md)为依据。历史上从 OpenClass 导入的记录保留在验证文档中，当前操作路径以本目录为准。
 
-新增文字后，在 `courseware/` 重建全课字体子集。指定官方 Noto CJK 简体中文完整字体：
-
-```bash
-python3 tools/subset-fonts.py --sans-regular /path/NotoSansCJKsc-Regular.otf --sans-bold /path/NotoSansCJKsc-Bold.otf --serif-bold /path/NotoSerifCJKsc-Bold.otf
-```
-
-依赖 `fontTools`、`Brotli`。原 OFL 授权保留于 `../shared/LICENSE-NOTO.txt`。
+新增文字后，按[字体说明](../../docs/production/fonts.md)重建全课字体子集（`courseware/shared/fonts/`）。
 
 ## 验证边界
 

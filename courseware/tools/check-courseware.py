@@ -77,7 +77,24 @@ for source, url in references:
     elif parts.fragment and target in pages and unquote(parts.fragment) not in pages[target].ids:
         errors.append(f'{source.relative_to(resources)}: missing anchor {url}')
 
+# 字体缺字：全课文字中的汉字必须都在各字体子集里，否则会回退系统字体显示。
+# 覆盖表由 subset-fonts.py 生成；这里只用标准库比对，范围与 subset-fonts.py 一致。
+coverage = json.loads((courseware / 'tools' / 'font-coverage.json').read_text())
+font_text = ''.join(
+    p.read_text(errors='ignore')
+    for base in (courseware, resources / 'demos' / 'parts')
+    for p in sorted(base.rglob('*'))
+    if p.suffix in {'.js', '.html', '.css', '.md', '.svg'} and 'archive' not in p.parts and 'fonts' not in p.parts
+)
+han = {c for c in font_text if '\u4e00' <= c <= '\u9fff'}
+for font_id in ('title', 'cover', 'sans'):
+    missing = sorted(han - set(coverage[font_id]))
+    if missing:
+        errors.append(f"字体 {font_id} 缺 {len(missing)} 字：{''.join(missing[:30])} —— 运行 courseware/tools/subset-fonts.py 重建子集（见 docs/production/fonts.md）")
+
 for error in errors:
     print(error)
 print(f'{len(pages)} HTML pages, {scene_count} scenes, {checked} local references, {len(errors)} errors')
-raise SystemExit(bool(errors))
+import subprocess, sys
+editorial = subprocess.run([sys.executable, str(Path(__file__).with_name('check-editorial.py'))])
+raise SystemExit(bool(errors) or bool(editorial.returncode))

@@ -51,8 +51,8 @@ python3 -m http.server 8841 --bind 127.0.0.1
 - [录制讨论归档](../../../discuss/2026-09-21-recording-consensus.md)
 - [第一节环境卡](../../../docs/archive/working-drafts-ch01/ch01-01-environment.md)：Starter Repo 确定后填写真实地址、版本、命令和正常输出
 - [课前准备与排障](preparation.html)：学员查看安装、目录检查、恢复与继续路径
-- [讲述与改稿原则](../../../docs/design/course-design-principles.md#讲述与改稿原则)：后续课程沿用的备稿要求；逐字稿由内容源导出，不单独修改
-- [课程编辑与审校记录](../../../docs/design/course-editorial-decisions.md)：反复出现的标点、材料分层和连贯性判断；新章节先按此记录走查
+- [编辑规范与改稿清单](../../../docs/production/editorial-checklist.md)：后续课程沿用的备稿要求；逐字稿由内容源导出，不单独修改
+- [编辑规范与改稿清单](../../../docs/production/editorial-checklist.md)：反复出现的标点、材料分层和连贯性判断；新章节先按此记录走查
 
 修改内容后同步生成备课逐字稿，并更新本地字体子集：
 

@@ -6,5 +6,5 @@
 - [课程定位](course-positioning.md)：目标学习者、问题和结课状态
 - [Project 目标与约束](course-project-plan.md)：项目选择和验收边界
 - [工具与方法参考](course-tools-and-methods.md)：工具、网络环境、SDD、Skills 与 Harness
-- [编辑与审校记录](course-editorial-decisions.md)：讲述、屏幕文案和连贯性审校
+- [编辑规范](../production/editorial-checklist.md)：讲述、屏幕文案和连贯性审校
 - [录播课教学与独立学习约定](recorded-course-teaching-contract.md)：兼容入口

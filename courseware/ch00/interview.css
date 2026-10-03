@@ -1,8 +1,4 @@
 /* Chapter 0 uses the chapter 1 canvas; only interview-specific layout lives here. */
-@font-face{font-family:Lesson Title;src:url(assets/title.woff2) format('woff2');font-display:swap}
-@font-face{font-family:Lesson Cover;src:url(assets/cover.woff2) format('woff2');font-display:swap}
-@font-face{font-family:Lesson Body;src:url(assets/body.woff2) format('woff2');font-display:swap;font-weight:400}
-@font-face{font-family:Lesson Body;src:url(assets/body-bold.woff2) format('woff2');font-display:swap;font-weight:700}
 .interview .step-status{display:none!important}
 .interview .scene h3,.interview .cover-line{color:#243042}
 .interview .scene-content .cue-label{font-size:18px;margin-bottom:10px}
@@ -38,7 +34,7 @@ body.interview[data-mode='slides'] .story-line,body.interview[data-mode='slides'
 body.interview[data-mode='slides'] .collaboration-flow{grid-template-columns:repeat(5,minmax(0,1fr))}
 body.interview[data-mode='slides'] .scene h2 br{display:initial}
 body.interview[data-mode='slides'] .scene .lede{top:207px}
-body.interview[data-mode='slides'] .scene-kicker{font-family:'Lesson Body',sans-serif;font-size:20px}
+body.interview[data-mode='slides'] .scene-kicker{font-family:'Course Sans',sans-serif;font-size:20px}
 body.interview[data-mode='slides'] .lesson-cover .lede{top:244px}
 body.interview[data-mode='slides'] .lesson-cover .scene-content{top:350px;height:282px}
 body.interview[data-mode='slides'] .profile-full{display:none}
