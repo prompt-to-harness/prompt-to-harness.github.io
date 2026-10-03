@@ -22,6 +22,10 @@ jobs:
       - uses: astral-sh/setup-uv@v6
       - name: Check courseware links
         run: uv run --locked courseware/tools/check-courseware.py
+      - name: Install browser for lesson checks
+        run: uv run --locked playwright install --with-deps chromium
+      - name: Check chapter 1 lessons in a browser
+        run: uv run --locked courseware/ch01/tools/check-progressive.py
       - name: Build site
         run: uv run --locked tools/build-site.py
       - uses: actions/configure-pages@v5

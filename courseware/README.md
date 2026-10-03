@@ -22,7 +22,7 @@ python3 tools/serve-courseware.py
 
 ## 课件与练习项目
 
-[course-starter](https://github.com/prompt-to-harness/course-starter) 是统一维护的练习起点。按[工作目录约定](../WORKSPACE.md)创建自己的独立仓库，课堂在该仓库内操作；`projects/personal-homepage/` 是示例目录名。课程仓库中的 `starters/personal-homepage/` 只保留环境页的离线预览。
+[course-starter](https://github.com/prompt-to-harness/course-starter) 是统一维护的练习起点。按[工作目录约定](../WORKSPACE.md)创建自己的独立仓库，课程中的操作都在该仓库内进行；`projects/personal-homepage/` 是示例目录名。课程仓库中的 `starters/personal-homepage/` 只保留环境页的离线预览。
 
 课件嵌入模板页面用于预览；实际练习页面由独立项目中的 4174 服务提供。8841 课件服务以课程仓库为根，因此课件与模板之间的相对链接可用。后续 JSON Crack、dependency-cruiser 仓库按需放入同级 `projects/`，临时试验放入 `experiments/`，不在本课程仓库嵌套 Git 项目。
 

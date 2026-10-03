@@ -51,4 +51,4 @@
 
 ## 验证
 
-推送前运行 `uv run courseware/tools/check-courseware.py` 和 `uv run tools/build-site.py`，CI 跑同样的检查。Python 版本由 `.python-version` 固定，脚本只用标准库，没有第三方依赖。
+推送前运行 `uv run courseware/tools/check-courseware.py`、`uv run tools/build-site.py` 和 `uv run courseware/ch01/tools/check-progressive.py`（后者用 Playwright 在浏览器里逐页逐步检查第 1 章，首次需 `uv run playwright install chromium`），CI 跑同样的检查。Python 版本由 `.python-version` 固定；除 Playwright（dev 依赖，只用于浏览器检查）外，脚本只用标准库。
