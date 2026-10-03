@@ -8,6 +8,7 @@
 | --- | --- | --- |
 | 第 0 章：开场访谈 | [打开课件](ch00/index.html) | [访谈提纲与维护](ch00/README.md) |
 | 第 1 章：从环境启动到首页原型 | [打开首页](ch01/index.html) | [文件组织、导出与验证](ch01/README.md) |
+| 第 2 章：迭代首页并发布 GitHub Pages（制作中） | [打开首页](ch02/index.html) | [分镜与状态](ch02/README.md) |
 
 可直接打开 HTML，或在仓库根目录运行：
 
