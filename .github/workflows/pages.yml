@@ -19,13 +19,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
+      - uses: astral-sh/setup-uv@v6
       - name: Check courseware links
-        run: python3 courseware/tools/check-courseware.py
+        run: uv run --locked courseware/tools/check-courseware.py
       - name: Build site
-        run: python3 tools/build-site.py
+        run: uv run --locked tools/build-site.py
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
