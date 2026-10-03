@@ -50,10 +50,10 @@ ch01/
 
 - CLI 是主要演示与完整验收入口。经核验的桌面端仅作临时入口，1.3 结束前补齐 CLI 基线。
 - 1.1 修改独立的 `setup-check/index.html` 欢迎语，检查页面与 diff，按证据反馈修正。
-- 1.4 读取 Brief、提出问题并确认四段式 Prompt；1.5 在课堂创建 React + TypeScript + Vite 骨架与首页，验证后建立 `ch01-prompt-baseline` 检查点。
+- 1.4 读取 Brief、提出问题并确认四段式 Prompt；1.5 创建 React + TypeScript + Vite 骨架与首页，验证后建立 `ch01-prompt-baseline` 检查点。
 - 1.6 使用“仅核对本地链接，不发布”任务判断最小权限。
 - [课前准备与排障](preparation.html)与当前内容同步。
-- [Starter 源文件说明](https://github.com/prompt-to-harness/course-starter)在独立的 `course-starter` 仓库维护；从该仓库创建自己的练习项目。`PROJECT_BRIEF.md`、`PLACEHOLDER_CONTENT.md`、`docs/setup/TOOLCHAIN.md` 均在项目中。课堂只修改自己的练习仓库，目录示例与获取步骤见[工作目录约定](../../WORKSPACE.md)。课程统一发布 commit 仍待录制冻结。
+- [Starter 源文件说明](https://github.com/prompt-to-harness/course-starter)在独立的 `course-starter` 仓库维护；从该仓库创建自己的练习项目。`PROJECT_BRIEF.md`、`PLACEHOLDER_CONTENT.md`、`docs/setup/TOOLCHAIN.md` 均在项目中。课程中只修改自己的练习仓库，目录示例与获取步骤见[工作目录约定](../../WORKSPACE.md)。课程统一发布 commit 仍待录制冻结。
 
 P04 默认嵌入随课件提供的原始 Starter 页面，明确标记为“仅供预览”。要演示实时修改，在同级 `projects/personal-homepage/` 目录运行 `python3 -m http.server 4174 --bind 127.0.0.1`，再点“连接练习副本”。核对服务目录，确保展示与 CLI 修改的是同一份文件；面板出现不代表任务通过。
 
