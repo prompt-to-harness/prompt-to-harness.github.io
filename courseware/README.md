@@ -18,7 +18,7 @@ python3 tools/serve-courseware.py
 
 然后访问 <http://127.0.0.1:8841/courseware/>。课件的脚本、字体和样式均为本地资源。
 
-播放器、设计令牌和全课字体在 [`shared/`](shared/)。各章只放内容、讲稿和练习；新增文字后，在 `courseware/` 运行 `python3 tools/subset-fonts.py`，用同一套 Noto CJK 源字体重建 `shared/` 里的三份子集。
+播放器、设计令牌和全课字体在 [`shared/`](shared/)；字体统一放在 `shared/fonts/`，只在 `shared/tokens.css` 定义。各章只放内容、讲稿和练习；新增文字后按[字体说明](../docs/production/fonts.md)重建子集。
 
 ## 课件与练习项目
 

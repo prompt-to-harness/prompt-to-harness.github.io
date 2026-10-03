@@ -26,7 +26,6 @@
 - `../ch01/shared/`：第一章的 1280×720 演示画布与底部分段进度。
 - `interview.css`：访谈布局适配；演示履历显示时间要点，阅读模式显示完整资料。
 - `assets/instructors.jpg`：已裁剪的双人合照，直接作为课件资源维护；原图已按要求删除。
-- `tools/build-assets.py`：生成字体子集。
 - `tools/build-content.py`：导出提纲。
 
 进入第 1 章的链接依赖完整 `ch01/`。本章为现有 HTML 课件体系的一部分，未另行导出 PPTX。
@@ -40,11 +39,7 @@ python3 courseware/ch00/tools/build-content.py
 python3 courseware/tools/check-courseware.py
 ```
 
-新增文字后，用与第一章相同的源字体重建本章子集。需要 `fontTools` 与 `Brotli`：
-
-```bash
-python3 courseware/ch00/tools/build-assets.py --title /path/ZCOOLKuaiLe-Regular.ttf --cover /path/LongCang-Regular.ttf --body /path/NotoSansCJKsc-Regular.otf --body-bold /path/NotoSansCJKsc-Bold.otf
-```
+新增文字后，按[字体说明](../../docs/production/fonts.md)重建全课字体子集；本章不再自带字体文件。
 
 字体与 OFL 许可输出到本章 `assets/`；构建会检查中文覆盖，不再处理照片。现有合照由方向校正后的 4032×3024 原图按 `(920, 824, 2900, 3024)` 裁剪并缩放到 900×1000；原图已删除，保留此记录说明裁剪来源。
 

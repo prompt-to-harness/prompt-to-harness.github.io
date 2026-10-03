@@ -2,13 +2,17 @@
  * Theme: Studio adaptation for Chinese teaching; nav: N3; footer: Ft2.
  * Shared tokens deliberately keep both comparison modes visually identical.
  */
-@font-face { font-family: "Course Sans"; src: url("course-sans.woff2") format("woff2"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "Course Sans"; src: url("course-sans-bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
-@font-face { font-family: "Course Serif"; src: url("course-serif.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+/* 全课字体：唯一定义处。文件由 courseware/tools/subset-fonts.py 生成，选择理由见 docs/production/fonts.md。 */
+@font-face { font-family: "Course Title"; src: url("fonts/title.woff2") format("woff2"); font-display: swap; }
+@font-face { font-family: "Course Cover"; src: url("fonts/cover.woff2") format("woff2"); font-display: swap; }
+@font-face { font-family: "Course Sans"; src: url("fonts/sans.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Course Sans"; src: url("fonts/sans-bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Course Mono"; src: url("fonts/mono.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Course Mono"; src: url("fonts/mono-bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
 :root {
-  --font-display: "Course Serif", "Noto Serif CJK SC", serif;
+  --font-display: "Course Sans", "Noto Sans CJK SC", sans-serif;
   --font-body: "Course Sans", "Noto Sans CJK SC", sans-serif;
-  --font-code: ui-monospace, SFMono-Regular, Menlo, Consolas, "Noto Sans Mono CJK SC", monospace;
+  --font-code: "Course Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Course Sans", monospace;
   --color-paper: oklch(96.5% 0.009 95);
   --color-paper-raised: oklch(98% 0.007 95);
   --color-soft: oklch(92.5% 0.012 120);

@@ -44,14 +44,14 @@
 
 ## 维护与验证
 
-`tools/build-lesson.py` 是本节内容、分步口播、内联 SVG 和三张图源的可编辑生成源；生成 `lesson.js` 与 `script.md`。修改后运行：
+`tools/build-lesson.py` 原是本节内容、分步口播、内联 SVG 和三张图源的生成源。**2026-10-03 发现它已落后于 `lesson.js`**：2026-09-30 按零件库重做页面时直接改了 `lesson.js`，没有同步回脚本；现在运行它会把页面退回旧版。同步之前以 `lesson.js` 为准，不要运行它。修改后运行：
 
 ```sh
 python3 courseware/ch01/lessons/02-agent/tools/build-lesson.py
 python3 courseware/tools/check-courseware.py
 ```
 
-字体新增字符时，使用 `tools/subset-fonts.py`，分别通过 `--title`、`--cover`、`--body`、`--body-bold`、`--mono` 指定完整字体。产物为本地 WOFF2，许可证在 `assets/`。
+字体统一在 `courseware/shared/fonts/`，新增字符时按[字体说明](../../../../docs/production/fonts.md)重建。
 
 在已安装 Playwright 与 Chromium 的 Python 环境运行：
 

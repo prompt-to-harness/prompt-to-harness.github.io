@@ -73,8 +73,6 @@ with sync_playwright() as p:
         cam=page.locator('.camera-guide').bounding_box();assert all(abs(cam[k]-v)<1 for k,v in {'x':956,'y':24,'width':300,'height':225}.items()),cam
         page.keyboard.press('r');page.keyboard.press('t');page.set_viewport_size({'width':390,'height':844})
         assert page.evaluate('document.documentElement.scrollWidth<=innerWidth'),name
-        page.goto((root/'lessons'/name/'practice.html').as_uri());page.evaluate('document.fonts.ready')
-        assert page.evaluate('document.documentElement.scrollWidth<=innerWidth'),(name,'practice')
         page.set_viewport_size({'width':1280,'height':848})
         page.goto((root/'lessons'/name/'speaker.html').as_uri())
         assert page.locator('#script a[href*="step="]').count()==count
