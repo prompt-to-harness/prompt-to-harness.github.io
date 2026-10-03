@@ -55,12 +55,18 @@
     // Some file:// browsers reject History API writes; navigation still works.
     try { history.replaceState(null, '', url); } catch (_) { /* Direct-file preview. */ }
   }
+  // 专注演示会隐藏页脚；左下角留一个淡色页码，方便和逐字稿对照。
+  const pageBadge = document.createElement('p');
+  pageBadge.id = 'page-badge';
+  pageBadge.setAttribute('aria-hidden', 'true');
+  document.body.append(pageBadge);
   function updatePosition() {
     nav.querySelectorAll('a').forEach((link, index) => {
       if (index === current) link.setAttribute('aria-current', 'step');
       else link.removeAttribute('aria-current');
     });
     document.querySelector('#position').textContent = `${String(current + 1).padStart(2, '0')} / ${String(scenes.length).padStart(2, '0')} · ${scenes[current].label}`;
+    pageBadge.textContent = `${String(current + 1).padStart(2, '0')}/${String(scenes.length).padStart(2, '0')}`;
     if (hasSteps && mode === 'slides') document.querySelector('#position').textContent += ` · ${currentStep + 1}/${lastStep(current) + 1} 步`;
     document.querySelector('#previous').disabled = mode === 'slides' ? current === 0 && currentStep === 0 : !adjacentLessons.previous;
     document.querySelector('#next').disabled = mode === 'slides' ? current === scenes.length - 1 && currentStep === lastStep(current) : !adjacentLessons.next;
