@@ -328,7 +328,11 @@ window.lesson = {
         },
         {
           "title": "切到实操",
-          "text": "不在 2.1 的主线会话上执行。按 courseware/ch02/materials/compact/README.md 用 setup.sh 建独立目录，clean-codex.sh --tap 启动，输入 steps.txt 的五步，截取压缩前、压缩请求和压缩后三次请求。摘要每次不同；若本次保留了 grep 原文或模型编出了原文，如实改写右下方框和口播。"
+          "text": "不在 2.1 的主线会话上执行，所有材料在 courseware/ch02/materials/compact/（说明见 README.md）。现场演示用自动运行脚本：在仓库根目录运行 LAB_SESSION=compact-demo LAB_HOLD=60 courseware/ch02/materials/compact/run-tmux.sh，另开终端运行 tmux attach -r -t compact-demo 只读旁观，浏览器打开本机 19527 端口的 claude-tap 面板看请求；整轮 3–5 分钟，只在运行期间有面板。想手动输入时，用 setup.sh 建目录、clean-codex.sh --tap 启动，依次输入 steps.txt 的五行。重点截取三次请求：压缩前、压缩请求、压缩后。摘要每次不同；若本次保留了 grep 原文或模型编出了原文，如实改写右下方框和口播。"
+        },
+        {
+          "title": "备用画面",
+          "text": "不想现场跑，或上游卡住（界面停在 Working 超过 5 分钟）时，浏览器打开 courseware/ch02/materials/compact/compare.html：用第 1 次运行的真实记录并排列出压缩前 25 条和压缩后 7 条，标出保留、移走、新增、重新注入，不调用模型。参考记录更新后运行同目录的 compare.py 重新生成。"
         },
         {
           "title": "实验记录",

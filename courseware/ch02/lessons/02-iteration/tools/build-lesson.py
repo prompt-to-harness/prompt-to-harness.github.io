@@ -271,7 +271,8 @@ scene(
     ],
     teaching=teach(
         ("核对记录", "压缩提示位于 codex-rs/prompts/templates/compact/prompt.md（要求写进度与决定、约束、下一步、关键数据）；本地压缩保留最近用户消息（上限约 2 万 token）、摘要和重新插入的初始上下文；OpenAI 与 Azure provider 走远程压缩（model-provider/src/provider.rs）。"),
-        ("切到实操", "不在 2.1 的主线会话上执行。按 courseware/ch02/materials/compact/README.md 用 setup.sh 建独立目录，clean-codex.sh --tap 启动，输入 steps.txt 的五步，截取压缩前、压缩请求和压缩后三次请求。摘要每次不同；若本次保留了 grep 原文或模型编出了原文，如实改写右下方框和口播。"),
+        ("切到实操", "不在 2.1 的主线会话上执行，所有材料在 courseware/ch02/materials/compact/（说明见 README.md）。现场演示用自动运行脚本：在仓库根目录运行 LAB_SESSION=compact-demo LAB_HOLD=60 courseware/ch02/materials/compact/run-tmux.sh，另开终端运行 tmux attach -r -t compact-demo 只读旁观，浏览器打开本机 19527 端口的 claude-tap 面板看请求；整轮 3–5 分钟，只在运行期间有面板。想手动输入时，用 setup.sh 建目录、clean-codex.sh --tap 启动，依次输入 steps.txt 的五行。重点截取三次请求：压缩前、压缩请求、压缩后。摘要每次不同；若本次保留了 grep 原文或模型编出了原文，如实改写右下方框和口播。"),
+        ("备用画面", "不想现场跑，或上游卡住（界面停在 Working 超过 5 分钟）时，浏览器打开 courseware/ch02/materials/compact/compare.html：用第 1 次运行的真实记录并排列出压缩前 25 条和压缩后 7 条，标出保留、移走、新增、重新注入，不调用模型。参考记录更新后运行同目录的 compare.py 重新生成。"),
         ("实验记录", "2026-10-05 压缩 5 次、不压缩对照 2 次（另有 2 次因上游超时或脚本出错不计入）。5 次压缩后都是 7 条 input：3 条用户消息、摘要、权限说明与 Skills、环境信息、新问题，没有工具调用和返回，与 compact.rs 一致（手动压缩用 DoNotInject，下一轮再注入初始上下文；用户消息从新往旧最多保留约 2 万 token）。摘要：4 次只留行号或计数，1 次抄下 grep 原文；5 次追问都没有编造。对照组 2 次都答出了 grep 原文。汇总表与参考记录见 materials/compact/。"),
         ("讲师提示", "本页是试讲过满时第一个移到配套页的内容；移走时同步移走 p33 第 2 题，并在 p28 给出配套页入口。"),
     ),
