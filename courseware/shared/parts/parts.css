@@ -173,7 +173,7 @@
 .p-sketch{display:grid;grid-template-columns:1.05fr .9fr 1fr;grid-template-rows:auto 1fr;gap:12px 22px;height:100%}
 .p-ribbon{grid-column:1/-1;justify-self:start;position:relative;isolation:isolate;padding:8px 46px 10px 26px;font:400 30px/1.2 var(--p-title);color:#fff}
 .p-ribbon::before{content:'';position:absolute;inset:0;z-index:-1;background:#0F8A7A;clip-path:polygon(0 0,100% 0,calc(100% - 22px) 50%,100% 100%,0 100%,14px 50%);filter:url(#p-rough)}
-.p-sketch h4{margin:0 0 8px;font:400 22px/1.2 var(--p-title);color:#AC3615}
+.p-sketch>*>h3{margin:0 0 8px;font:400 22px/1.2 var(--p-title);color:#AC3615}
 .p-words{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .p-words .p-box{padding:8px 12px}
 .p-words .p-box h3{font-size:23px;margin:0}
@@ -312,7 +312,7 @@ body[data-mode='scroll'] .p-log.is-tagged>.p-sticker.is-brace::after{display:non
 .p-ln{position:relative;z-index:1;display:flex;align-items:center;height:var(--lh,38px);font-size:19px;white-space:pre}
 .p-ln i{flex:none;width:44px;text-align:right;padding-right:14px;color:#646A75;font-style:normal;font-size:17px}
 .p-ln.add{background:#E3F2E6;color:#11652F}.p-ln.del{background:#FCE6DD;color:#8E2C0C}
-.p-ln .k{color:#6D28D9}.p-ln .s{color:#0B6B5F}.p-ln .c{color:#8A93A0}
+.p-ln .k{color:#6D28D9}.p-ln .s{color:#0B6B5F}.p-ln .c{color:#646A75}
 .p-band{position:absolute;z-index:0;left:0;right:0;top:calc(34px + var(--a) * var(--lh,38px));height:calc(var(--n,1) * var(--lh,38px));background:#EDEBFB}
 .p-band.is-risk{background:#FCE6DD}
 .p-brace{position:absolute;z-index:2;left:3px;width:10px;top:calc(34px + var(--a) * var(--lh,38px) + 3px);height:calc(var(--n,1) * var(--lh,38px) - 6px);border:3px solid #D9481C;border-right:0;border-radius:6px 0 0 6px}
@@ -466,7 +466,7 @@ body[data-mode='scroll'] [data-only]{display:none}
 .p-replies[style*="--rf"] .p-reply{font-size:var(--rf);padding:7px 14px}
 .p-replies[style*="--rf"] .p-ask{font-size:calc(var(--rf) - 1px)}
 .p-rec[style*="--rf"] .p-cell,.p-rec[style*="--rf"] .p-why{font-size:var(--rf);padding-top:14px;padding-bottom:14px}
-.p-sketch[style*="--big"] h4{font-size:26px}
+.p-sketch[style*="--big"]>*>h3{font-size:26px}
 .p-sketch[style*="--big"] .p-words .p-box{padding:16px 16px}
 .p-sketch[style*="--big"] .p-words .p-box p,.p-sketch[style*="--big"] .p-box p{font-size:22px}
 .p-sketch[style*="--big"] .p-box h3{font-size:26px}

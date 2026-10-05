@@ -308,7 +308,7 @@ window.lesson = {
       "title": "先对任务，再给权限，最后查证据",
       "kicker": "第 1 章 · 1.6 · 自检与收束",
       "lead": "第 1 章交付的不只是首页 v0，还有一套做事习惯：先确认，再小步做，看页面和 Diff，不符合就复验；权限只给必要的，意图不等于限制，受阻时明确停下。第 2 章会带着这个 v0 和证据，从真实页面出发继续迭代。",
-      "html": "<div class=\"p-sketch\" style=\"align-items:start;--big:1\"><div data-reveal=\"0\"><h4 style=\"text-align:center\">本章习惯</h4><div class=\"p-star\" style=\"width:260px;font-size:23px\">先确认 · 小步做<br>看页面和 Diff<br>不符就复验</div></div><div data-reveal=\"1\"><h4>权限判断</h4><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-pass\">只给必要能力</li><li class=\"is-fix\">意图不等于限制</li><li class=\"is-stop\">受阻时明确停</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h4>接下来</h4><div class=\"p-box\" data-role=\"us\"><h3>第 2 章</h3><p>带着本地 v0，按真实反馈迭代</p></div></div></div>",
+      "html": "<div class=\"p-sketch\" style=\"align-items:start;--big:1\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">本章习惯</h3><div class=\"p-star\" style=\"width:260px;font-size:23px\">先确认 · 小步做<br>看页面和 Diff<br>不符就复验</div></div><div data-reveal=\"1\"><h3>权限判断</h3><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-pass\">只给必要能力</li><li class=\"is-fix\">意图不等于限制</li><li class=\"is-stop\">受阻时明确停</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>接下来</h3><div class=\"p-box\" data-role=\"us\"><h3>第 2 章</h3><p>带着本地 v0，按真实反馈迭代</p></div></div></div>",
       "steps": [
         "回顾闭环",
         "回顾权限",

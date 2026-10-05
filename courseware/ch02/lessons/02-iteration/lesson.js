@@ -516,7 +516,7 @@ window.lesson = {
       "title": "一轮，一个结果，一份证据",
       "kicker": "第 2 章 · 2.2 · 小结",
       "lead": "本节留下一轮内容迭代、三项检查结果和一份本轮记录。下一节：Codex 说完成了，手上是一份 diff，收不收？课后可以再做 0–2 轮，不计分。",
-      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h4>三种状态</h4><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-pass\">模型不记</li><li class=\"is-fix\">会话由 Harness 重发</li><li class=\"is-stop\">文件与进程各自存在</li></ul></div><div data-reveal=\"1\"><h4 style=\"text-align:center\">一个习惯</h4><div class=\"p-star\" style=\"width:260px;font-size:24px\">一轮一个结果<br>引用当前证据</div></div><div class=\"p-next\" data-reveal=\"2\"><h4>下一节</h4><div class=\"p-box\" data-role=\"us\"><h3>2.3 审改动</h3><p>Codex 说完成了，收不收？</p></div></div></div>",
+      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3>三种状态</h3><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-pass\">模型不记</li><li class=\"is-fix\">会话由 Harness 重发</li><li class=\"is-stop\">文件与进程各自存在</li></ul></div><div data-reveal=\"1\"><h3 style=\"text-align:center\">一个习惯</h3><div class=\"p-star\" style=\"width:260px;font-size:24px\">一轮一个结果<br>引用当前证据</div></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>2.3 审改动</h3><p>Codex 说完成了，收不收？</p></div></div></div>",
       "steps": [
         "三种状态",
         "一个习惯",
