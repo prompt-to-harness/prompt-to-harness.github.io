@@ -53,6 +53,17 @@
       const h = document.createElement('h3'); h.textContent = item.title; details.append(h);
       item.text.split('\n\n').forEach(text => addParagraph(details, text));
     });
+    if (scene.refs?.length) {
+      const h = document.createElement('h3'); h.textContent = '原文与链接'; details.append(h);
+      const list = document.createElement('ul'); list.className = 'ref-list';
+      scene.refs.forEach(ref => {
+        const li = document.createElement('li');
+        const a = document.createElement('a'); a.href = ref.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = ref.text;
+        li.append(`${ref.kind === 'live' ? '画面上 · ' : '延伸 · '}${ref.group ? ref.group + ' · ' : ''}`, a);
+        list.append(li);
+      });
+      details.append(list);
+    }
     if (scene.notes) {
       const notes = document.createElement('div'); notes.innerHTML = scene.notes; details.append(notes);
     }

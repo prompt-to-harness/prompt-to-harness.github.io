@@ -138,13 +138,22 @@ MiniMax 配置下请求体 store 为 false、没有 previous_response_id；OpenA
 
 2026 年 1 月还有一次结构变化：权限说明从固定段落里拆出去，按沙箱模式和审批策略分别放模板，运行时再拼。2.1 我们对比只读和可写时看到的那段文字，就是这么来的。同样是权限说明，版本变化后，组装进请求的方式也变了。
 
+### 原文与链接
+
+- 画面上 · 原文 · [2025-04 首版](https://github.com/openai/codex/blob/31d0d7a305305ad557035a2edcab60b6be5018d8/codex-rs/core/prompt.md)
+- 画面上 · 原文 · [2025-08-05](https://github.com/openai/codex/blob/d31e149cb1b4439f47393115d7a85b3c8ab8c90d/codex-rs/core/prompt.md)
+- 画面上 · 原文 · [2025-08-07 重写后](https://github.com/openai/codex/blob/81b148bda271615b37f7e04b3135e9d552df8111/codex-rs/core/prompt.md)
+- 画面上 · 原文 · [2026-10-03 当前](https://github.com/openai/codex/blob/b741e480e203f037ca726bc2a76d99a8e8668e66/codex-rs/protocol/src/prompts/base_instructions/default.md)
+- 画面上 · diff · [重写](https://github.com/openai/codex/commit/81b148bda271615b37f7e04b3135e9d552df8111)
+- 画面上 · diff · [权限拆出](https://github.com/openai/codex/commit/87f7226cca12df04596938f58625de84e976309a)
+
 ### 核对记录
 
 首版到 2025-08-05 的大小、重写提交 81b148bda2（“update system prompt”）、按模型分文件提交 916fdc2a37、权限模板化提交 87f7226cca，见提案“Codex 开源仓库中的系统指令”。通用指令当前位于 codex-rs/protocol/src/prompts/base_instructions/default.md；2026-10-03 复核 main（b741e48）大小为 20903 字节。
 
 ### 原文与 diff
 
-每个版本的原文和两次关键提交的 diff，在阅读模式本页底部有直达链接（固定到完整提交哈希）。重写那次提交 81b148bda2 只改了 prompt.md 一个文件（+270 −80），GitHub 的提交页就是“重写前 vs 重写后”的文件 diff。
+每个版本的原文和两次关键提交的 diff，在画面底部有直达链接（固定到完整提交哈希）。重写那次提交 81b148bda2 只改了 prompt.md 一个文件（+270 −80），GitHub 的提交页就是“重写前 vs 重写后”的文件 diff。
 
 本仓库把 openai/codex 作为子模块放在 third_party/codex（固定在 b741e48），可以离线对比：git submodule update --init --filter=blob:none third_party/codex 取下子模块，再运行 git -C third_party/codex diff 31d0d7a305:codex-rs/core/prompt.md b741e48:codex-rs/protocol/src/prompts/base_instructions/default.md 看首版到当前的全部变化。文件在 2026-01-19 从 codex-rs/core/prompt.md 搬到现在的位置，所以早期版本要用旧路径。
 
@@ -154,7 +163,7 @@ MiniMax 配置下请求体 store 为 false、没有 previous_response_id；OpenA
 
 ### 讲师提示
 
-这一页与下一页是“版本线”示例，看懂即可，不要求学员背数字；想看原文的学员从阅读模式的链接打开。
+这一页与下一页是“版本线”示例，看懂即可，不要求学员背数字；想看原文的学员从画面底部的链接打开。
 
 ## P26 两份指令差在哪
 
@@ -174,13 +183,20 @@ MiniMax 配置下请求体 store 为 false、没有 previous_response_id；OpenA
 
 两份指令包含的章节不同：左边单列了性格、AGENTS.md 规范和验证工作，右边单列了前端任务。结合上一页的版本历史，我们看到，版本和模型配置都会影响 Codex 发出的请求。接下来回到本轮修改：旧会话里已经积累了反馈和检查结果，压缩一下继续，够不够？
 
+### 原文与链接
+
+- 画面上 · 通用模型指令 · [GPT-5.1](https://github.com/openai/codex/blob/b741e480e203f037ca726bc2a76d99a8e8668e66/codex-rs/core/gpt_5_1_prompt.md)
+- 画面上 · 通用模型指令 · [GPT-5.2](https://github.com/openai/codex/blob/b741e480e203f037ca726bc2a76d99a8e8668e66/codex-rs/core/gpt_5_2_prompt.md)
+- 画面上 · Codex 专用模型指令 · [GPT-5-Codex](https://github.com/openai/codex/blob/b741e480e203f037ca726bc2a76d99a8e8668e66/codex-rs/core/gpt_5_codex_prompt.md)
+- 画面上 · Codex 专用模型指令 · [GPT-5.2-Codex](https://github.com/openai/codex/blob/b741e480e203f037ca726bc2a76d99a8e8668e66/codex-rs/core/gpt-5.2-codex_prompt.md)
+
 ### 核对记录
 
 2026-10-03 复核 main（b741e48）：gpt_5_1_prompt.md 24204 字节、gpt_5_2_prompt.md 21652、gpt_5_codex_prompt.md 6647、gpt-5.2-codex_prompt.md 7589，位于 codex-rs/core/（提案记录的路径有误，已在验证记录中更正）。专用指令全文没有 AGENTS.md 一词，审查请求一节提到测试缺口。
 
 ### 原文与 diff
 
-四个文件的原文链接在阅读模式本页底部。两份文件不是同一文件的不同版本，GitHub 上不能直接对比；用子模块只对比章节标题最清楚：diff <(git -C third_party/codex show b741e48:codex-rs/core/gpt_5_2_prompt.md | grep '^#') <(git -C third_party/codex show b741e48:codex-rs/core/gpt-5.2-codex_prompt.md | grep '^#')。2026-10-05 运行结果：通用指令有 How you work、Personality、AGENTS.md spec、Autonomy and Persistence、Responsiveness、Planning、Task execution、Validating your work、Ambition vs. precision、Presenting your work 和 Tool Guidelines；专用指令只有 General、Editing constraints、Plan tool、Special user requests、Frontend tasks、Presenting your work and final message。全文 diff 为 +58 −276 行。
+四个文件的原文链接在画面底部。两份文件不是同一文件的不同版本，GitHub 上不能直接对比；用子模块只对比章节标题最清楚：diff <(git -C third_party/codex show b741e48:codex-rs/core/gpt_5_2_prompt.md | grep '^#') <(git -C third_party/codex show b741e48:codex-rs/core/gpt-5.2-codex_prompt.md | grep '^#')。2026-10-05 运行结果：通用指令有 How you work、Personality、AGENTS.md spec、Autonomy and Persistence、Responsiveness、Planning、Task execution、Validating your work、Ambition vs. precision、Presenting your work 和 Tool Guidelines；专用指令只有 General、Editing constraints、Plan tool、Special user requests、Frontend tasks、Presenting your work and final message。全文 diff 为 +58 −276 行。
 
 ### 讲师提示
 

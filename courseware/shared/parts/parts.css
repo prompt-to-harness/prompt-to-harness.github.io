@@ -484,3 +484,12 @@ body[data-mode='slides'] .p-q .p-why{display:none}
 /* 副标题与标题、口播重复：演示模式只在每节开篇页显示；录制视图隐藏“第几步”提示 */
 body[data-mode='slides'] .scene:not(.lesson-cover) .lede{display:none}
 body.recording[data-mode='slides'] .step-status{display:none}
+/* 原文链接 .p-refs：一行可直接打开的外部原文（证据，工整不抖）；<b> 是分组标签，<a> 自动带 ↗。
+   导航按钮另见 .p-links。演示与阅读模式都显示，讲师可在录制时点开。 */
+.p-refs{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:14px 0 0;font-size:17px;line-height:1.4}
+.p-refs b{font-weight:700;color:var(--p-muted)}
+.p-refs b:not(:first-child){margin-left:16px}
+.scene .p-refs a,.p-refs a{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border:1.5px solid #B9B3A6;border-radius:6px;background:var(--p-card);color:#243042;font-weight:600;text-decoration:none;white-space:nowrap}
+.p-refs a::after{content:"↗";color:var(--p-muted);font-weight:400}
+.p-refs a:hover,.p-refs a:focus-visible{border-color:#243042;background:#F1EEE4}
+.p-refs a:focus-visible{outline:2px solid #243042;outline-offset:2px}

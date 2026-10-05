@@ -26,6 +26,18 @@ def teach(*pairs):
     return [{"title": t, "text": x} for t, x in pairs]
 
 
+def ref(text, url, group="", kind="live"):
+    """一条原文链接，放进 scene(refs=[…])，由播放器渲染（courseware/shared/app.js）。
+
+    kind="live"：画面最下一行（零件 .p-refs），随最后一步出现，录制时点开；
+    kind="read"：不上画面，只在阅读模式与讲解全文列出。
+    同一 group 的相邻链接合成一组。网址固定到具体版本，不指向会变的 main。
+    """
+    assert kind in ("live", "read"), kind
+    assert url.startswith("https://"), url
+    return {"kind": kind, "group": group, "text": text, "url": url}
+
+
 def chapter_map(now):
     """开篇用的本章五节地图；now 为当前节序号（1–5），之前的节标为已完成。"""
     items = []
@@ -44,6 +56,8 @@ class Lesson:
 
     def scene(self, **kw):
         kw.setdefault("teaching", [])
+        if not kw.get("refs"):
+            kw.pop("refs", None)
         kw["source"] = f"index.html#{kw['id']}"
         kw["seconds"] = 30 * len(kw["steps"])
         assert len(kw["steps"]) == len(kw["script"]), kw["id"]
@@ -73,6 +87,10 @@ class Lesson:
             lines += [f"## {s['id'].upper()} {s['label']}", "", f"[对应课件](index.html#{s['id']})", "", "### 口播", ""]
             for i, (beat, text) in enumerate(zip(s["steps"], s["script"])):
                 lines += [f"**第 {i + 1} 步 · {beat}**（[演示](index.html?mode=slides&step={i}#{s['id']})）", "", text, ""]
+            if s.get("refs"):
+                lines += ["### 原文与链接", ""]
+                lines += [f"- {'画面上' if r['kind'] == 'live' else '延伸'} · {r['group'] + ' · ' if r['group'] else ''}[{r['text']}]({r['url']})" for r in s["refs"]]
+                lines += [""]
             if s.get("prompt"):
                 lines += ["### 请求", "", "```text", s["prompt"], "```", ""]
             for item in s["teaching"]:
