@@ -13,18 +13,14 @@ KICK = "第 2 章 · 2.2 · "
 MEASURED = "数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。"
 REPO = "数据来自 openai/codex 仓库（Apache-2.0）的提交历史，2026-10-02 核对、10-03 复核；大小为文件字节数。"
 
-ROUND_PROMPT = """Goal：在项目区呈现我提供的项目经历，
-解决反馈清单第 3 条“看不出你做过什么”。
-Context：反馈清单见 docs/evidence/CH02_VIBE_ITERATIONS.md；
-1.4 已决定项目卡不跳转，本轮不改。
-项目内容（原文照用）：
-- 学习笔记：整理三次课程练习的目标、页面截图和修改记录
-- 课表小工具：把一学期的课程时间整理成表格，可以按星期查看
-- 读书会招新页：为校读书会写的一页活动介绍，和两位同学一起改了三版文案
-Constraints：只使用上面的文字，不补写、不润色；不加链接、不加依赖；
-只改项目区相关文件；先说明计划和要改的文件，等我确认后再改。
-Done when：三种视口内容完整可读；Tab 焦点顺序与改前一致；
-npm run build 成功；diff 只含项目区相关改动。"""
+ROUND_PROMPT = """Goal：在项目区呈现我的项目经历，解决反馈第 3 条。
+Context：见 docs/evidence/CH02_VIBE_ITERATIONS.md；
+项目卡不跳转（1.4 已定），本轮不改。
+项目内容（原文照用）：<每行一条：项目名称：一句描述>
+Constraints：只用上面的文字，不补写；不加链接、依赖；
+只改项目区；先说计划，等我确认再改。
+Done when：三种视口可读；Tab 顺序不变；
+build 成功；diff 只含项目区。"""
 
 RECORD = """## 第 1 轮
 
@@ -34,7 +30,9 @@ RECORD = """## 第 1 轮
 - 改动文件：
 - 验证结果（三种视口 / 键盘 / build）：
 - 剩余问题：
-- 回退点：ch01-prompt-baseline（2.3 提交后更新）"""
+- 回退点：本轮开始前的最后一次提交（git log --oneline -1；2.3 提交后更新）"""
+
+NARROW = '<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style>'
 
 
 def teach(*pairs):
@@ -89,9 +87,9 @@ scene(
     lead="模型本身不保存任何状态；会话由 Harness 保存，每次请求时重发；文件和运行中的程序独立存在于电脑上。2.1 开场要重启开发服务器，就是第三栏的事。",
     html=(
         '<div class="p-grid" style="--n:3;gap:16px">'
-        '<div class="p-box" data-role="agent" data-reveal="0"><span class="p-tag" data-role="agent">模型</span><p class="p-big">什么都不记</p><p class="p-sub">每次只看这一次请求</p></div>'
-        '<div class="p-box" data-role="ctx" data-reveal="0"><span class="p-tag" data-role="ctx">会话</span><p class="p-big">Harness 保存</p><p class="p-sub">下一次请求时重新发出</p></div>'
-        '<div class="p-box" data-role="tool" data-reveal="0"><span class="p-tag" data-role="tool">文件与进程</span><p class="p-big">在电脑上</p><p class="p-sub">与会话无关，各自存在</p></div></div>'
+        '<div class="p-box" data-role="agent" data-reveal="0"><span class="p-tag" data-role="agent">模型</span><p class="p-big">什么都不记，只看这一次请求</p></div>'
+        '<div class="p-box" data-role="ctx" data-reveal="0"><span class="p-tag" data-role="ctx">会话</span><p class="p-big">Harness 保存，下次重发</p></div>'
+        '<div class="p-box" data-role="tool" data-reveal="0"><span class="p-tag" data-role="tool">文件与进程</span><p class="p-big">在电脑上，与会话无关</p></div></div>'
         '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:14px">'
         '<div class="p-box is-soft" data-role="tool" data-reveal="1"><h3>2.1 开场</h3><p>关掉终端 → 开发服务器停了 → 代码文件还在</p></div>'
         '<div class="p-box is-soft" data-role="gate" data-reveal="2"><h3>换个目录恢复会话</h3><p>它仍答得出上轮读的是 index.html<br>可新目录里没有这个文件</p></div></div>'
@@ -114,6 +112,7 @@ scene(
     label="会话保存了什么", title="下一次请求，带上了前面的全部历史", kicker=KICK + "三种状态",
     lead="把同一次任务里相邻两次请求放在一起比：后一次把前一次的内容原样带上，再接上模型的工具调用和工具返回。模型之所以“接得上话”，是因为 Harness 每次都把历史重新发给它。" + MEASURED,
     html=(
+        NARROW +
         '<div class="p-walk"><div data-reveal="0"><div class="p-src" style="--lh:40px">'
         '<div class="p-fn">第 1 次 → 第 2 次请求的 input <span class="add">+2</span></div>'
         '<div class="p-ln"><i>1</i><code>developer · 权限说明、Skills 列表</code></div>'
@@ -291,23 +290,23 @@ scene(
 scene(
     id="p29", segment="本轮迭代", layout="prompt-scene", prompt=ROUND_PROMPT,
     label="写本轮 Prompt", title="让 Codex 只改这一处", kicker=KICK + "本轮迭代",
-    lead="在新会话里提交本轮 Prompt。它引用反馈清单这份当前证据，项目内容由人提供并要求原文照用，范围只到项目区，完成标准写成可以检查的四件事。讲师用的是课程编写的虚构人设内容。",
+    lead="在新会话里提交本轮 Prompt。它引用反馈清单这份当前证据，项目内容由人提供并要求原文照用，范围只到项目区，完成标准写成可以检查的四件事。讲师演示的项目区借用两位讲师的真实经历；首屏沿用第 1 章的示例，本轮不改。",
     html=(
         '<div class="demo-notes"><ol class="p-notes">'
         '<li data-reveal="0"><span><b>引用当前证据</b><small>反馈清单第 3 条</small></span></li>'
-        '<li class="is-risk" data-reveal="1"><span><b>内容由人提供</b><small>原文照用，不补写、不润色</small></span></li>'
+        '<li class="is-risk" data-reveal="1"><span><b>内容由人提供</b><small>讲师演示借用两位讲师的经历</small></span></li>'
         '<li data-reveal="2"><span><b>只写愿意公开的</b><small>2.4 之后所有人都看得到</small></span></li>'
         '<li class="is-ok" data-reveal="3"><span><b>可检查的完成标准</b><small>视口 · 键盘 · build · diff 范围</small></span></li></ol></div>'
     ),
     steps=["引用证据", "内容由人提供", "只写愿意公开的", "完成标准"],
     script=[
-        "新建会话，提交这段 Prompt。先看 Goal 和 Context：目标写的是解决反馈清单第 3 条，并且点名清单的位置。新会话没有 2.1 的历史，它要从这份文件里拿到当前证据。我们还顺手写明，1.4 定下的项目卡不跳转，这一轮不改。",
-        "中间是项目内容，由人提供，要求原文照用。讲师这里用的是课程编写的虚构人设“示例同学”的三条经历。项目经历是关于你自己的事实，AI 不知道，也不该替你编。所以 Constraints 里写死：只用上面的文字，不补写、不润色事实。",
+        "新建会话，提交这段 Prompt。先看 Goal 和 Context：目标写的是解决反馈第 3 条，Context 点名反馈清单的位置。新会话没有 2.1 的历史，它要从这份文件里拿到当前证据。我们还顺手写明：项目卡点了不跳转，是第 1 章做首页时定下的，这一轮不改。",
+        "中间是项目内容，尖括号那一行换成你自己的项目经历，每行一条，要求原文照用。讲师这里填的是我们两位讲师自己的三条经历，合在第 1 章那个“示例同学”的页面上。首屏还是示例同学，这一轮只改项目区，所以先不动它。项目经历是关于你自己的事实，AI 不知道，也不该替你编。所以 Constraints 里写死：只用上面的文字，不补写、不润色事实。",
         "写自己的内容时多想一步：到 2.4，这个仓库和页面会公开，所有人都能看到。只写你愿意公开的内容，不写别人的姓名和联系方式。",
-        "最后是 Done when，四件可以检查的事：三种视口内容完整可读；Tab 焦点顺序和改前一致；npm run build 成功；diff 只含项目区相关改动。我们还要求它先说计划、等确认再改。请暂停视频，换上你自己的内容，提交 Prompt。",
+        "最后是 Done when，四件可以检查的事：三种视口内容完整可读；Tab 焦点顺序和改前一样；npm run build 成功；diff 只含项目区的改动。我们还要求它先说计划、等确认再改。请暂停视频，换上你自己的内容，提交 Prompt。",
     ],
     teaching=teach(
-        ("切到实操", "讲师在新会话中提交本 Prompt；三条项目经历来自 courseware/ch02/materials/README.md 的虚构人设，提前写好，不在镜头前现写。"),
+        ("切到实操", "讲师在新会话中提交本 Prompt，尖括号一行替换为两位讲师经历聚合的三条（courseware/ch02/materials/README.md，取自已公开的讲师简介，2026-10-05 讲师确认），提前写好，不在镜头前现写：\n\n- 红绿灯感知量产：城市 NOA 红绿灯感知模块的量产方案设计、部署与加速\n- 端侧多模态推理引擎：在 Nvidia Orin / Thor 上从 0 到 1 搭建大模型推理引擎并量产\n- RoboHarness：把自然语言需求转成可执行、可验证、可持续迭代的研发流程"),
         ("讲师提示", "学员项目区已完整时，按分镜“内容已完整时的跟做分支”：Goal 改为呈现一条新批准的补充，不追认原页面有缺陷；没有补充需求时在独立练习副本使用课程合成示例。"),
     ),
 )
@@ -332,7 +331,7 @@ scene(
     ],
     teaching=teach(
         ("切到实操", "Codex 的计划以录制实际为准。若计划越界，就地让它收窄并保留原始回复，2.3 可作为“范围扩大”的真实素材；不准备越界的计划。"),
-        ("备课参考", "按排练快照预估，内容迭代只改 src/App.tsx：9 行新增、1 行删除（materials/homepage-v1.diff）。真实 diff 以录制为准。"),
+        ("备课参考", "按排练快照预估，内容迭代只改 src/App.tsx：10 行新增、2 行删除（materials/homepage-v1.diff）。真实 diff 以录制为准。"),
     ),
 )
 
@@ -356,7 +355,7 @@ scene(
         "内容变多了，第 1 条“手机上挤”会不会出现？讲师的页面在 360 下没有横向滚动，仍然没复现。如果你的页面出现了，记成剩余问题，留到下一轮。这一轮只解决一个结果。请暂停视频，按这三项检查你自己的页面。",
     ],
     teaching=teach(
-        ("备课参考", "排练版 homepage-v1（materials/homepage-v1.diff）2026-10-03 核对：360×800 下页面高 827px、无横向滚动；Tab 只停在“查看项目”；build 成功。1440×900 下页面高度正好 900px，点“查看项目”页面不动、地址变成 #projects，与 v0 相同，不是本轮引入的回归；学员问起时这样解释，不在本轮修。"),
+        ("备课参考", "排练版 homepage-v1（materials/homepage-v1.diff）2026-10-03 核对：360×800 下页面高 827px、无横向滚动；Tab 只停在“查看项目”；build 成功。"),
         ("讲师提示", "检查由人完成；让 AI 打开浏览器自验证留到 Harness 章节（决定 10）。结果列以录制实际为准。"),
     ),
 )
@@ -364,18 +363,19 @@ scene(
 scene(
     id="p32", segment="本轮迭代",
     label="记录本轮", title="写下本轮，下一次才接得上", kicker=KICK + "本轮迭代",
-    lead="在 CH02_VIBE_ITERATIONS.md 末尾追加本轮记录。它是下一轮的交接，也是 2.3 审查 diff 时要对照的目标。回退点此时还是第 1 章的检查点，2.3 提交后更新。",
+    lead="在 CH02_VIBE_ITERATIONS.md 末尾追加本轮记录。它是下一轮的交接，也是 2.3 审查 diff 时要对照的目标。回退点此时是本轮开始前的最后一次提交，2.3 提交后更新。",
     html=(
         '<div class="p-code" data-reveal="0"><div class="p-code-head"><span>docs/evidence/CH02_VIBE_ITERATIONS.md</span><span>追加</span></div>'
-        '<pre>## 第 1 轮\n\n- 问题证据：反馈第 3 条；项目区只有一句\n- 本轮目标：呈现我提供的三条项目经历\n'
+        '<pre style="color:inherit">## 第 1 轮\n- 问题证据：反馈第 3 条；项目区只有一句\n- 本轮目标：呈现我提供的三条项目经历\n'
         '<span class="hl">- 会话选择与理由：新建；2.1 会话多为请求查看</span>\n- 改动文件：src/App.tsx\n'
-        '- 验证结果：三种视口完整 / Tab 不变 / build 成功\n<span class="hl">- 剩余问题：第 1 条在 360 下仍未复现</span>\n'
-        '- 回退点：ch01-prompt-baseline</pre></div>'
-        '<div class="p-bar is-light" data-reveal="1">记录是<b>下一轮的交接</b>，也是 2.3 的审查依据</div>'
+        '- 验证结果：视口完整 / Tab 不变 / build 成功\n<span class="hl">- 剩余问题：第 1 条在 360 下仍未复现</span>\n'
+        '- 回退点：本轮开始前的提交</pre></div>'
+        '<div class="p-grid" style="--n:2;gap:12px;margin-top:8px"><div class="p-box is-soft" data-role="ctx" data-reveal="1"><p><b>下一轮</b> · 新会话的交接文件</p></div>'
+        '<div class="p-box is-soft" data-role="tool" data-reveal="1"><p><b>2.3</b> · 审查 diff 的对照目标</p></div></div>'
     ),
     steps=["逐项填写", "它用来做什么"],
     script=[
-        "最后把这一轮记下来。在 CH02_VIBE_ITERATIONS.md 末尾追加一段“第 1 轮”。问题证据、本轮目标、改动文件、验证结果，刚才都做过，照实填。比第 1 章多了两项：会话选择与理由，还有剩余问题，这两行在画面上标黄了。回退点现在还是第 1 章的 ch01-prompt-baseline，因为这一轮还没提交。",
+        "最后把这一轮记下来。在 CH02_VIBE_ITERATIONS.md 末尾追加一段“第 1 轮”。问题证据、本轮目标、改动文件、验证结果，刚才都做过，照实填。其中两项是这一章新加的：会话选择与理由，还有剩余问题，画面上标黄了。回退点写本轮开始前的最后一次提交，运行 git log --oneline -1 就能看到它的短哈希；这一轮还没提交，所以回退点还是它。",
         "这份记录有两个用处。下一次新建会话时，它就是交接文件；下一节 2.3 审查 diff 时，它就是对照的目标。请暂停视频，把你的第 1 轮写完。",
     ],
     teaching=teach(

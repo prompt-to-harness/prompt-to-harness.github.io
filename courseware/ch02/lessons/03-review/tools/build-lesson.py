@@ -12,6 +12,8 @@ HERE = Path(__file__).resolve().parents[1]
 KICK = "第 2 章 · 2.3 · "
 SAMPLE = "画面中的命令输出来自排练版 homepage-v1（courseware/ch02/materials/homepage-v1.diff）在 Git 2.50.1 下的一次运行；录制时换成 2.2 的真实 diff。"
 
+NARROW = '<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style>'
+
 
 def teach(*pairs):
     return [{"title": t, "text": x} for t, x in pairs]
@@ -63,8 +65,9 @@ scene(
     label="改了哪些文件", title="先看范围：改了哪些文件", kicker=KICK + "拿到 diff",
     lead="先用两条命令看范围，再看内容。git status --short 列出所有变化，包括还没被 Git 跟踪的新文件；git diff --stat 只统计已跟踪文件的修改，新文件要另外打开看。" ,
     html=(
-        '<div class="p-term" data-copy="git status --short" data-reveal="0"><div class="dim">$ git status --short</div><div> M src/App.tsx</div><div>?? docs/evidence/CH02_VIBE_ITERATIONS.md</div></div>'
-        '<div class="p-term" data-copy="git diff --stat" data-reveal="1" style="margin-top:12px"><div class="dim">$ git diff --stat</div><div> src/App.tsx | 10 +++++++++-</div><div> 1 file changed, 9 insertions(+), 1 deletion(-)</div></div>'
+        '<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px">'
+        '<div class="p-term" data-copy="git status --short" data-reveal="0"><div class="dim">$ git status --short</div><div> M src/App.tsx</div><div>?? docs/evidence/CH02_…</div></div>'
+        '<div class="p-term" data-copy="git diff --stat" data-reveal="1"><div class="dim">$ git diff --stat</div><div> src/App.tsx | 12 ++++++++++--</div><div> 1 file changed, 10 insertions(+), 2 deletions(-)</div></div></div>'
         '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:14px">'
         '<div class="p-box is-soft" data-role="ok" data-reveal="2"><h3>src/App.tsx</h3><p>预期之内：项目数据就在这里</p></div>'
         '<div class="p-box is-soft" data-role="ctx" data-reveal="2"><h3>?? 记录文件</h3><p>我们自己在 2.1 新建的，不在 --stat 里</p></div></div>'
@@ -73,11 +76,11 @@ scene(
     steps=["status", "diff --stat", "对得上吗"],
     script=[
         "先看范围，再看内容。在项目目录运行 git status --short。M 开头的是已跟踪文件被修改了，这里是 src/App.tsx；两个问号开头的是 Git 还没跟踪的新文件，这里是我们在 2.1 新建的记录文件。",
-        "再运行 git diff --stat，它统计每个文件改了多少行：App.tsx 新增 9 行、删除 1 行。注意，它只统计已跟踪的文件，问号那个新文件不在里面。如果 Codex 新建了文件，只看 --stat 就会漏掉。",
+        "再运行 git diff --stat，它统计每个文件改了多少行：App.tsx 新增 10 行、删除 2 行。注意，它只统计已跟踪的文件，问号那个新文件不在里面。如果 Codex 新建了文件，只看 --stat 就会漏掉。",
         "对照本轮目标：App.tsx 是项目数据所在的文件，预期之内；记录文件是我们自己写的。没有出现别的文件，没有 package.json 的变化，也就没有新依赖。范围对得上，再看内容。请暂停视频，在自己的项目里运行这两条命令。",
     ],
     teaching=teach(
-        ("命令说明", "未跟踪文件所在目录整个都是新的时，git status --short 只显示目录名（如 ?? docs/evidence/），加 --untracked-files=all 可列出目录里的每个文件。录制版仓库有第 1 章的证据文件，预期显示具体文件名。"),
+        ("命令说明", "未跟踪文件所在目录整个都是新的时，git status --short 只显示目录名（如 ?? docs/evidence/），加 --untracked-files=all 可列出目录里的每个文件。docs/evidence/ 里已有被跟踪的文件时（例如之前各章留下的记录），会直接显示具体文件名。"),
         ("讲师提示", "若 2.2 的真实 diff 出现了无关文件或 package.json 变化，在这里就地指出，并在 p39 走“缩小”或“拒绝”。"),
     ),
 )
@@ -87,17 +90,18 @@ scene(
     label="改动做了什么", title="再看内容：每一处改动做了什么", kicker=KICK + "走读 diff",
     lead="git diff 显示逐行改动。按“数据在哪 → 怎样渲染 → 影响哪些样式”读：这一轮只改了项目数组里的数据，渲染逻辑和样式都没动，三种视口下的排版规则因此不变。" ,
     html=(
+        NARROW +
         '<div class="p-walk"><div data-reveal="0"><div class="p-src" style="--lh:36px">'
-        '<div class="p-fn">src/App.tsx <span class="add">+9</span><span class="del">−1</span></div>'
+        '<div class="p-fn">src/App.tsx <span class="add">+10</span><span class="del">−2</span></div>'
         '<div class="p-ln"><i>1</i><code>const projects = [</code></div>'
-        '<div class="p-ln"><i>2</i><code>  {</code></div>'
-        '<div class="p-ln"><i>3</i><code>    name: <span class="s">\'学习笔记\'</span>,</code></div>'
+        '<div class="p-ln del"><i>3</i><code>    name: <span class="s">\'学习笔记\'</span>,</code></div>'
         '<div class="p-ln del"><i>4</i><code>    description: <span class="s">\'记录课程练习\'</span>,</code></div>'
-        '<div class="p-ln add"><i>4</i><code>    description: <span class="s">\'整理三次课程练习的目标、…\'</span>,</code></div>'
-        '<div class="p-ln add"><i>6</i><code>  { name: <span class="s">\'课表小工具\'</span>, … },</code></div>'
-        '<div class="p-ln add"><i>10</i><code>  { name: <span class="s">\'读书会招新页\'</span>, … },</code></div>'
-        '<div class="p-ln"><i>14</i><code>]</code></div></div></div>'
-        '<ol class="p-notes"><li data-reveal="0"><span><b>数据</b><small>改了一条描述，加了两条项目</small></span></li>'
+        '<div class="p-ln add"><i>3</i><code>    name: <span class="s">\'红绿灯感知量产\'</span>,</code></div>'
+        '<div class="p-ln add"><i>4</i><code>    description: <span class="s">\'城市 NOA 红绿灯…\'</span>,</code></div>'
+        '<div class="p-ln add"><i>6</i><code>  { name: <span class="s">\'端侧多模态推理引擎\'</span>, … },</code></div>'
+        '<div class="p-ln add"><i>10</i><code>  { name: <span class="s">\'RoboHarness\'</span>, … },</code></div>'
+        '<div class="p-ln"><i>15</i><code>]</code></div></div></div>'
+        '<ol class="p-notes"><li data-reveal="0"><span><b>数据</b><small>换掉一条，又加了两条</small></span></li>'
         '<li data-reveal="1"><span><b>渲染</b><small>projects.map 那段没动</small></span></li>'
         '<li data-reveal="2"><span><b>样式</b><small>index.css 没动 · 视口规则不变</small></span></li>'
         '<li class="is-ok" data-reveal="3"><span><b>文字与原文一致</b><small>逐字对过</small></span></li></ol></div>'
@@ -105,7 +109,7 @@ scene(
     ),
     steps=["数据", "渲染", "样式", "文字"],
     script=[
-        "运行 git diff，看逐行改动。按三个问题读。第一，数据在哪？项目信息放在 App.tsx 顶部的 projects 数组里。这次改了第一条的描述，红色是旧的“记录课程练习”，绿色是新的；后面加了两条项目，画面上各折成了一行。",
+        "运行 git diff，看逐行改动。按三个问题读。第一，数据在哪？项目信息放在 App.tsx 顶部的 projects 数组里。红色两行是旧的那一条，“学习笔记：记录课程练习”，被整条换掉了；绿色是新的第一条。后面又加了两条项目，画面上各折成了一行。",
         "第二，怎样渲染？页面下方用 projects.map 把数组里的每一项变成一张卡片。这段代码这次没有出现在 diff 里，说明渲染方式没变，只是多了两项数据。",
         "第三，影响哪些样式？index.css 没有改动，所以三种视口下的排版规则和原来一样。这也解释了 2.2 的检查结果为什么没有回归。",
         "最后逐字对一遍文字，和我们给的原文一致，没有被润色。一处很小的改动，用这三个问题读完，就能说清它的目的和影响面。",
@@ -120,9 +124,10 @@ scene(
     label="对得上本轮目标吗", title="逐项对照本轮的完成标准", kicker=KICK + "走读 diff",
     lead="把 2.2 Prompt 的 Done when 逐项拿来对照：前三项看本轮记录里的检查结果，第四项看刚读过的 diff。四项都有证据，才进入处置判断。",
     html=(
+        NARROW +
         '<div class="p-claim" style="grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)">'
         '<div class="p-box" data-role="agent" data-reveal="0"><span class="p-tag" data-role="agent">Done when</span>'
-        '<p style="margin-top:8px;line-height:1.7">三种视口内容完整可读<br>Tab 焦点顺序与改前一致<br>npm run build 成功<br>diff 只含项目区相关改动</p></div>'
+        '<p style="margin-top:8px;line-height:1.7">三种视口可读<br>Tab 顺序不变<br>build 成功<br>diff 只含项目区</p></div>'
         '<ul class="p-checks"><li data-reveal="1">三种视口<small>本轮记录：三条经历完整显示</small></li>'
         '<li data-reveal="1">键盘<small>本轮记录：Tab 仍只停在“查看项目”</small></li>'
         '<li data-reveal="1">构建<small>本轮记录：退出码 0</small></li>'
@@ -163,17 +168,17 @@ scene(
 scene(
     id="p40", segment="处置",
     label="留下检查点", title="提交，留下一个检查点", kicker=KICK + "处置",
-    lead="沿用 1.5 的流程：只暂存审过的文件，用 git diff --cached 再看一遍待提交内容，然后提交。这个提交就是新的回退点。",
+    lead="和第 1 章保存检查点时一样：只暂存审过的文件，用 git diff --cached 再看一遍待提交内容，然后提交。这个提交就是新的回退点。",
     html=(
         '<div class="p-term" data-reveal="0" data-copy="git add src/App.tsx docs/evidence/CH02_VIBE_ITERATIONS.md"><div class="dim">$ git add src/App.tsx docs/evidence/CH02_VIBE_ITERATIONS.md</div></div>'
-        '<div class="p-term" data-reveal="1" style="margin-top:10px" data-copy="git diff --cached --stat"><div class="dim">$ git diff --cached --stat</div><div> docs/evidence/CH02_VIBE_ITERATIONS.md |  … +</div><div> src/App.tsx                           | 10 +++++++++-</div></div>'
+        '<div class="p-term" data-reveal="1" style="margin-top:10px" data-copy="git diff --cached --stat"><div class="dim">$ git diff --cached --stat</div><div> docs/evidence/CH02_VIBE_ITERATIONS.md |  … +</div><div> src/App.tsx                           | 12 ++++++++++--</div></div>'
         '<div class="p-term" data-reveal="2" style="margin-top:10px" data-copy="git commit -m &quot;homepage-v1: 补充项目经历&quot;"><div class="dim">$ git commit -m "homepage-v1: 补充项目经历"</div><div class="ok">[main 85c5fcb] homepage-v1: 补充项目经历</div></div>'
         '<div class="p-bar is-light" data-reveal="3">回退点更新为这个提交 · 短哈希写进记录</div>'
         '<p class="source-note">' + SAMPLE + ' 提交哈希每次不同。</p>'
     ),
     steps=["暂存", "再看一遍", "提交", "更新回退点"],
     script=[
-        "决定接受，就提交。和 1.5 一样，只暂存审过的文件，写清楚文件名，不用 git add 点号一把全加：App.tsx，和我们的记录文件。",
+        "决定接受，就提交。做法和第 1 章保存检查点时一样：只暂存审过的文件，写清楚文件名，不用 git add 点号一把全加：App.tsx，和我们的记录文件。",
         "暂存以后运行 git diff --cached --stat，看看即将提交的是不是就这两个文件。这一步能拦住手滑多加的文件。",
         "然后提交，提交说明写清楚这一轮做了什么：homepage-v1，补充项目经历。",
         "这个提交就是新的回退点。把终端显示的短哈希写进记录的“回退点”一项。记录的这次修改会跟着下一次提交带上。请暂停视频，完成你的提交。",
@@ -189,11 +194,8 @@ scene(
     label="收错了怎么回去", title="万一收错了，怎样回去", kicker=KICK + "回到检查点",
     lead="还没提交：用 git restore 放弃选定文件的修改，它不处理未跟踪的新文件，放弃的内容也找不回来。已经提交：用 git revert 新建一个“撤回提交”，历史保留，不改写。不教 git reset --hard：2.4 要公开历史，改写历史的方法放配套页。",
     html=(
-        '<div class="p-flow" style="--n:3">'
-        '<div class="p-node" data-role="agent" data-reveal="0"><h3>改动</h3><p>工作区</p></div>'
-        '<div class="p-node" data-role="tool" data-reveal="0"><h3>审查</h3><p>读懂 diff</p></div>'
-        '<div class="p-node" data-role="ok" data-reveal="0"><h3>提交</h3><p>检查点</p></div></div>'
-        '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:16px">'
+        '<div class="p-chain" data-reveal="0"><span>改动</span><i>→</i><span>审查</span><i>→</i><span>提交 = 检查点</span></div>'
+        '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:14px">'
         '<div class="p-box" data-role="gate" data-reveal="1"><span class="p-tag" data-role="gate">还没提交</span>'
         '<div class="p-term" data-copy="git restore -- src/App.tsx" style="margin-top:8px"><div class="dim">$ git restore -- src/App.tsx</div></div>'
         '<p class="p-sub" style="margin-top:8px">只放弃这个文件 · 新文件不管 · 放弃了就找不回</p></div>'

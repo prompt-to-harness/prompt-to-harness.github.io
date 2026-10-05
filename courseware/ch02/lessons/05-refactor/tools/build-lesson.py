@@ -63,13 +63,14 @@ scene(
     label="两份 diff 有什么不同", title="先看 diff：两份有什么不同", kicker=KICK + "两份 diff",
     lead="A 新建了 ProjectCard 组件，App.tsx 改为调用它。B 做了同样的提取，另外把卡片内容包进一个链接，还在 index.css 里加了悬停和焦点样式。先凭印象选：哪份是重构？" ,
     html=(
-        '<div class="p-pair" style="grid-template-columns:1fr 1fr">'
+        '<div style="display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:18px;align-items:start">'
+        '<div style="display:grid;gap:12px">'
         '<div class="p-box" data-role="ink" data-reveal="0"><span class="p-tag" data-role="ink">A · 2 个文件 +16 −4</span>'
-        '<p class="p-mono" style="margin-top:6px;line-height:1.6">src/App.tsx<br>src/ProjectCard.tsx（新建）</p></div>'
+        '<p class="p-mono" style="line-height:1.6">src/App.tsx<br>src/ProjectCard.tsx（新建）</p></div>'
         '<div class="p-box" data-role="ink" data-reveal="1"><span class="p-tag" data-role="ink">B · 3 个文件 +35 −4</span>'
-        '<p class="p-mono" style="margin-top:6px;line-height:1.6">src/App.tsx<br>src/ProjectCard.tsx（新建）<br><b>src/index.css</b></p></div></div>'
-        '<div class="p-code" data-reveal="2" style="margin-top:14px"><div class="p-code-head"><span>B 的 ProjectCard.tsx（节选）</span><span>比 A 多两行</span></div>'
-        '<pre>&lt;li className="project-card"&gt;\n<span class="add">  &lt;a className="project-card__link" href="#"&gt;</span>    &lt;h3 …&gt;{project.name}&lt;/h3&gt;\n    &lt;p …&gt;{project.description}&lt;/p&gt;\n<span class="add">  &lt;/a&gt;</span>&lt;/li&gt;</pre></div>'
+        '<p class="p-mono" style="line-height:1.6">src/App.tsx<br>src/ProjectCard.tsx（新建）<br><b>src/index.css</b></p></div></div>'
+        '<div class="p-code" data-reveal="2"><div class="p-code-head"><span>B 的 ProjectCard.tsx（节选）</span><span>比 A 多两行</span></div>'
+        '<pre style="color:inherit">&lt;li className="project-card"&gt;\n<span class="add">  &lt;a className="project-card__link"\n     href="#"&gt;</span>    &lt;h3 …&gt;{project.name}&lt;/h3&gt;\n    &lt;p …&gt;{project.description}&lt;/p&gt;\n<span class="add">  &lt;/a&gt;</span>&lt;/li&gt;</pre></div></div>'
         '<p class="source-note">' + MATERIAL[:-1] + '</p>'
     ),
     steps=["A", "B", "多出来的两行"],
@@ -88,7 +89,7 @@ scene(
         '<div class="p-matrix" style="grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr)">'
         '<div class="is-head" data-reveal="0"><span>检查</span><span>homepage-v1</span><span>A</span><span>B</span></div>'
         '<div data-reveal="0"><span>截图</span><span>基准</span><span>相同</span><span>几乎相同</span></div>'
-        '<div data-reveal="1"><span>点击项目卡</span><span>无反应</span><span>无反应</span><span class="p-c"><b>地址多出 #</b></span></div>'
+        '<div data-reveal="1"><span>点击项目卡</span><span>无反应</span><span>无反应</span><span><b>地址多出 #</b></span></div>'
         '<div data-reveal="2"><span>Tab 停留</span><span>只有“查看项目”</span><span>同左</span><span><b>再加三张卡</b></span></div>'
         '<div data-reveal="2"><span>焦点样式</span><span>无</span><span>无</span><span><b>描边框、边框变绿</b></span></div></div>'
         '<div class="p-bar" data-reveal="3">重构 = <b>不改变可观察行为</b>，只改内部结构</div>'
@@ -97,7 +98,7 @@ scene(
     steps=["截图", "点击", "键盘", "定义"],
     script=[
         "不看代码，看页面。三个版本并排截图：homepage-v1、A、B，几乎看不出区别。只看截图，两份都像重构。",
-        "点一下项目卡。v1 和 A 都没反应，这是 1.4 定下的行为。B 点了以后，地址栏末尾多了一个井号。",
+        "点一下项目卡。v1 和 A 都没反应。项目卡不跳转，是第 1 章做首页时定下的行为。B 点了以后，地址栏末尾多了一个井号。",
         "再按 Tab。v1 和 A，焦点只停在“查看项目”按钮上。B 的焦点会依次停在三张卡片上，还出现了描边框，卡片边框变成绿色。",
         "这就是 Martin Fowler 在《重构》里给的定义：在不改变可观察行为的前提下，改善代码的内部结构。可观察行为，就是用户能看到、能操作的东西。A 保持了行为，是重构。B 改变了点击和键盘行为，不管提交说明怎么写，它都不只是重构。请暂停视频，对照这张表，写下你的判断和依据。",
     ],
@@ -110,7 +111,7 @@ scene(
 scene(
     id="p56", segment="看行为",
     label="正好解决了第 2 条", title="B 正好“解决”了第 2 条反馈，收不收？", kicker=KICK + "看行为",
-    lead="B 让卡片能点、能聚焦，看上去回应了 2.1 的第 2 条“点了没反应”。但 1.4 定过项目卡不跳转，第 2 条要不要改由人决定。B 是一次未经确认的行为变化，即使受欢迎，也要另行确认。",
+    lead="B 让卡片能点、能聚焦，看上去回应了 2.1 的第 2 条“点了没反应”。但项目卡不跳转是第 1 章做首页时定下的，第 2 条要不要改由人决定。B 是一次未经确认的行为变化，即使受欢迎，也要另行确认。",
     html=(
         '<div class="p-pair" style="grid-template-columns:1fr auto 1fr">'
         '<div class="p-box" data-role="us" data-reveal="0"><span class="p-tag" data-role="us">2.1 第 2 条</span><p>“项目卡看着能点，点了没反应”</p><p class="p-sub">性质：既有决定 · 改不改由人决定</p></div>'
@@ -122,7 +123,7 @@ scene(
     ),
     steps=["第 2 条", "B 做了什么", "怎么处理", "回看 2.2"],
     script=[
-        "B 很有诱惑力。回想 2.1 的第 2 条反馈：项目卡看着能点，点了没反应。我们当时给它贴的标签是“既有决定”，改不改要由人决定。",
+        "B 很有诱惑力。回想 2.1 的第 2 条反馈：项目卡看着能点，点了没反应。我们当时给它贴的标签是“既有决定”：项目卡不跳转，是第 1 章做首页时我们自己定的，改不改要由人决定。",
         "B 顺手让卡片能点、能聚焦了，看上去正好解决了这条反馈。可仔细看：点了跳到井号，也就是回到页面顶部；能聚焦，却没有任何目的地。这不是我们讨论过、确认过的方案。",
         "所以处理方式是拆开。提取组件的部分是重构，可以收；让卡片可点击是行为变化，要单独提出来，由人确认要不要、要的话链到哪里，再作为一次需求变化去做。受欢迎的行为变化，也需要确认。",
         "顺便回看 2.2：我们补充项目经历，改的是页面上的内容，那是需求变化，也不是重构。重构只有一种：行为不变，结构变了。",
