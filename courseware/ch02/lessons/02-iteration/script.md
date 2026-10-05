@@ -222,12 +222,24 @@ Codex 还有一份模型目录，叫 models.json，它按模型名在里面查�
 
 **第 3 步 · 丢掉了什么**（[演示](index.html?mode=slides&step=2#p27)）
 
-那原始证据还剩多少？要看摘要怎么写。讲师用同样的步骤跑了 5 次：grep 输出了 10 行，其中 4 次摘要只留下行号或“共 10 处匹配”，我们追问第 1 行是什么，模型说手里没有原文，写不出来；只有 1 次，摘要把 10 行整段抄了下来。我们自己写下的决定是用户消息，5 次原文都在。所以压缩后模型看到的是摘要，不是原始证据；需要原始证据，就让它重新读。摘要每次写得不一样，好不好，我们得自己读一遍才知道。想自己重复这个实验，步骤放在本页的阅读模式里，选做。
+那原始证据还剩多少？要看摘要怎么写。讲师用同样的步骤跑了 5 次：grep 输出了 10 行，其中 4 次摘要只留下行号或“共 10 处匹配”，我们追问第 1 行是什么，模型说手里没有原文，写不出来；只有 1 次，摘要把 10 行整段抄了下来。我们自己写下的决定是用户消息，5 次原文都在。所以压缩后模型看到的是摘要，不是原始证据；需要原始证据，就让它重新读。摘要每次写得不一样，好不好，我们得自己读一遍才知道。想自己重复这个实验，点开页面上方的“复现这个实验”，选做。
 
 ### 原文与链接
 
 - 画面上 · 0.160.0 源码 · [压缩逻辑 compact.rs](https://github.com/openai/codex/blob/a956835d020762cb2b570053af06f643a11c0ecc/codex-rs/core/src/compact.rs)
 - 画面上 · 0.160.0 源码 · [压缩提示 prompt.md](https://github.com/openai/codex/blob/a956835d020762cb2b570053af06f643a11c0ecc/codex-rs/prompts/templates/compact/prompt.md)
+
+### 复现这个实验（页面按钮）
+
+1. 下载课程仓库，以下命令都在仓库根目录运行：`git clone --depth 1 https://github.com/prompt-to-harness/prompt-to-harness.github.io.git && cd prompt-to-harness.github.io`
+2. 建一个独立的实验目录（在 lab-runs/ 下，不会提交）：`courseware/ch02/materials/compact/setup.sh`
+3. 用课程基线启动 Codex；需要 MINIMAX_API_KEY，浏览器会打开请求面板：`cd lab-runs/compact-lab && ../../tools/clean-codex.sh --tap`
+4. 依次输入 steps.txt 的五行，每条等回答结束再发；第 4 行是 /compact：`cat courseware/ch02/materials/compact/steps.txt`
+5. 或者自动跑一轮，另开终端只读旁观：`LAB_SESSION=compact-demo LAB_HOLD=60 courseware/ch02/materials/compact/run-tmux.sh
+tmux attach -r -t compact-demo`
+6. 不跑也能看：用浏览器打开讲师运行的前后对照：`courseware/ch02/materials/compact/compare.html`
+
+完整说明、5 次运行的汇总和超时处理见 courseware/ch02/materials/compact/README.md。界面停在 Working 时，Codex 会在 5 分钟后自动重试。
 
 ### 核对记录
 
@@ -235,11 +247,11 @@ Codex 还有一份模型目录，叫 models.json，它按模型名在里面查�
 
 ### 切到实操
 
-不在 2.1 的主线会话上执行，所有材料在 courseware/ch02/materials/compact/（说明见 README.md）。现场演示用自动运行脚本：在仓库根目录运行 LAB_SESSION=compact-demo LAB_HOLD=60 courseware/ch02/materials/compact/run-tmux.sh，另开终端运行 tmux attach -r -t compact-demo 只读旁观，浏览器打开本机 19527 端口的 claude-tap 面板看请求；整轮 3–5 分钟，只在运行期间有面板。想手动输入时，用 setup.sh 建目录、clean-codex.sh --tap 启动，依次输入 steps.txt 的五行。重点截取三次请求：压缩前、压缩请求、压缩后。摘要每次不同；若本次保留了 grep 原文或模型编出了原文，如实改写右下方框和口播。
+不在 2.1 的主线会话上执行。命令都在页面上方的“复现这个实验”按钮里：手动跑用第 1–4 步，现场演示用第 5 步自动运行，另开终端只读旁观，浏览器看本机 19527 端口的 claude-tap 面板（只在运行期间有）。重点截取三次请求：压缩前、压缩请求、压缩后。摘要每次不同；若本次保留了 grep 原文或模型编出了原文，如实改写右下方框和口播。
 
 ### 备用画面
 
-不想现场跑，或上游卡住（界面停在 Working 超过 5 分钟）时，浏览器打开 courseware/ch02/materials/compact/compare.html：用第 1 次运行的真实记录并排列出压缩前 25 条和压缩后 7 条，标出保留、移走、新增、重新注入，不调用模型。参考记录更新后运行同目录的 compare.py 重新生成。
+不想现场跑，或上游卡住（界面停在 Working 超过 5 分钟）时，打开按钮第 6 步的 compare.html：用第 1 次运行的真实记录并排列出压缩前 25 条和压缩后 7 条，标出保留、移走、新增、重新注入，不调用模型。参考记录更新后运行同目录的 compare.py 重新生成。
 
 ### 实验记录
 

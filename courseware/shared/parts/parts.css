@@ -4,7 +4,7 @@
  * 颜色一律通过 data-role 取语义色，不在页面里直接写色值。 */
 
 
-.p-root,.scene-content{
+.p-root,.scene-content,.p-repro{
   --p-paper:#F4F2EB;--p-card:#FFFDF7;--p-ink:#18202B;--p-muted:#5B6573;--p-rule:#CFCAC0;
   --p-title:'Course Title','Course Title','Noto Sans SC',sans-serif;
   --p-body:'Course Sans','Noto Sans SC',sans-serif;
@@ -495,3 +495,21 @@ body.recording[data-mode='slides'] .step-status{display:none}
 .p-refs a::after{content:"↗";color:var(--p-muted);font-weight:400}
 .p-refs a:hover,.p-refs a:focus-visible{border-color:#243042;background:#F1EEE4}
 .p-refs a:focus-visible{outline:2px solid #243042;outline-offset:2px}
+/* 复现步骤 .p-repro：折叠按钮，点开才显示命令（scene.repro，由播放器渲染）。
+   演示模式下放在标题上方一行的右侧（讲师框左边），不占正文；展开后叠在画面上方，不推动其他内容。 */
+.p-repro{margin:12px 0 0;font-size:17px;line-height:1.5}
+.p-repro summary{display:inline-flex;align-items:center;gap:6px;padding:3px 12px;border:1.5px dashed #B9B3A6;border-radius:6px;background:var(--p-card);color:#243042;font-weight:600;cursor:pointer;list-style:none;white-space:nowrap}
+.p-repro summary::-webkit-details-marker{display:none}
+.p-repro summary::before{content:"▸";color:var(--p-muted)}
+.p-repro[open] summary::before{content:"▾"}
+.p-repro summary:hover,.p-repro summary:focus-visible{border-color:#243042;background:#F1EEE4}
+.p-repro summary:focus-visible{outline:2px solid #243042;outline-offset:2px}
+.p-repro:not([open]) .p-repro-body{display:none}
+.p-repro-body{margin-top:8px;padding:12px 16px;border:1.5px solid #B9B3A6;border-radius:8px;background:var(--p-card)}
+.p-repro ol{margin:0;padding-left:1.4em;display:grid;gap:8px}
+.p-repro pre,.p-repro pre code{color:var(--p-ink);background:#EFEBE0}
+.p-repro pre{margin:4px 0 0;padding:6px 10px;border-radius:4px;background:#EFEBE0;white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.5 var(--p-mono)}
+.p-repro-body>p{margin:10px 0 0;color:var(--p-muted);font-size:15px}
+body[data-mode='slides'] .p-repro{position:absolute;right:352px;top:40px;margin:0;z-index:6;display:flex;flex-direction:column;align-items:flex-end}
+body[data-mode='slides'] .p-repro-body{width:820px;max-height:560px;overflow:auto;box-shadow:0 8px 28px rgba(24,32,43,.18)}
+
