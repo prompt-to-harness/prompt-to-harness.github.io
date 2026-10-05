@@ -144,11 +144,12 @@ scene(
 
 scene(
     id="p05-live", segment="逐条核对",
-    label="切到浏览器核对", title="切到浏览器：先在自己的页面里打开设备工具栏", kicker=KICK + "逐条核对",
+    label="切到浏览器核对", title="切到浏览器：在自己的页面里打开设备工具栏", kicker=KICK + "逐条核对",
     lead="设备模拟只作用于当前标签页，所以要先在自己首页的标签页里打开，再逐条核对。每条只看相关的视口和操作，不做全量巡检。",
     html=(
-        '<div class="p-handoff"><div class="p-handoff-card" data-reveal="0"><h3>先打开自己的页面</h3>'
-        '<p style="margin-bottom:10px">① 浏览器新标签页，打开 npm run dev 给出的本地地址<br>② 就在这个标签页按 ⌥⌘I，再按 ⇧⌘M<br>③ 顶部选 Responsive，填宽高，如 360×800<br>④ 页面没变化就 ⌘R 刷新一次</p>'
+        '<style>body[data-mode=slides] .x-p05{grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:28px}</style>'
+        '<div class="p-handoff x-p05"><div class="p-handoff-card" data-reveal="0" style="padding:20px 26px"><h3 style="font-size:34px">先打开自己的页面</h3>'
+        '<p style="margin-bottom:12px;font-size:20px;line-height:1.55">① 浏览器新标签页，打开 npm run dev 给出的本地地址<br>② 就在这个标签页按 ⌥⌘I，再按 ⇧⌘M<br>③ 顶部选 Responsive，填宽高，如 360×800<br>④ 页面没变化就 ⌘R 刷新一次</p>'
         '<span class="p-env">360×800</span><span class="p-env">768×1024</span><span class="p-env">1440×900</span></div>'
         '<ol class="p-watch"><li data-reveal="1">第 1 条<small>切到 360×800 看布局</small></li>'
         '<li data-reveal="2">第 2 条<small>桌面点项目卡，再按 Tab</small></li>'
