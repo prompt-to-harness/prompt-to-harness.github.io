@@ -142,9 +142,19 @@ MiniMax 配置下请求体 store 为 false、没有 previous_response_id；OpenA
 
 首版到 2025-08-05 的大小、重写提交 81b148bda2（“update system prompt”）、按模型分文件提交 916fdc2a37、权限模板化提交 87f7226cca，见提案“Codex 开源仓库中的系统指令”。通用指令当前位于 codex-rs/protocol/src/prompts/base_instructions/default.md；2026-10-03 复核 main（b741e48）大小为 20903 字节。
 
+### 原文与 diff
+
+每个版本的原文和两次关键提交的 diff，在阅读模式本页底部有直达链接（固定到完整提交哈希）。重写那次提交 81b148bda2 只改了 prompt.md 一个文件（+270 −80），GitHub 的提交页就是“重写前 vs 重写后”的文件 diff。
+
+本仓库把 openai/codex 作为子模块放在 third_party/codex（固定在 b741e48），可以离线对比：git submodule update --init --filter=blob:none third_party/codex 取下子模块，再运行 git -C third_party/codex diff 31d0d7a305:codex-rs/core/prompt.md b741e48:codex-rs/protocol/src/prompts/base_instructions/default.md 看首版到当前的全部变化。文件在 2026-01-19 从 codex-rs/core/prompt.md 搬到现在的位置，所以早期版本要用旧路径。
+
+### 切到实操
+
+可在录制时打开重写那次提交的 GitHub 页面，滚动展示新增的章节标题；不逐行读。
+
 ### 讲师提示
 
-这一页与下一页是“版本线”示例，看懂即可，不要求学员背数字，也不要求去翻仓库。
+这一页与下一页是“版本线”示例，看懂即可，不要求学员背数字；想看原文的学员从阅读模式的链接打开。
 
 ## P26 两份指令差在哪
 
@@ -158,7 +168,7 @@ MiniMax 配置下请求体 store 为 false、没有 previous_response_id；OpenA
 
 **第 2 步 · 专用模型的指令**（[演示](index.html?mode=slides&step=1#p26)）
 
-右边是给专门为 Codex 训练的模型的，只有大约 6.6 到 7.6 KB，三分之一左右。目录很短：通用说明、编辑约束、计划工具、特殊请求、汇报。性格、AGENTS.md 规范、验证工作这几节，都没有出现。
+右边是给专门为 Codex 训练的模型的，只有大约 6.6 到 7.6 KB，三分之一左右。目录很短：通用说明、编辑约束、计划工具、特殊请求、汇报。性格、AGENTS.md 规范、验证工作这几节，都没有出现；倒是多了一节前端任务。
 
 **第 3 步 · 能说什么、不能说什么**（[演示](index.html?mode=slides&step=2#p26)）
 
@@ -167,6 +177,10 @@ MiniMax 配置下请求体 store 为 false、没有 previous_response_id；OpenA
 ### 核对记录
 
 2026-10-03 复核 main（b741e48）：gpt_5_1_prompt.md 24204 字节、gpt_5_2_prompt.md 21652、gpt_5_codex_prompt.md 6647、gpt-5.2-codex_prompt.md 7589，位于 codex-rs/core/（提案记录的路径有误，已在验证记录中更正）。专用指令全文没有 AGENTS.md 一词，审查请求一节提到测试缺口。
+
+### 原文与 diff
+
+四个文件的原文链接在阅读模式本页底部。两份文件不是同一文件的不同版本，GitHub 上不能直接对比；用子模块只对比章节标题最清楚：diff <(git -C third_party/codex show b741e48:codex-rs/core/gpt_5_2_prompt.md | grep '^#') <(git -C third_party/codex show b741e48:codex-rs/core/gpt-5.2-codex_prompt.md | grep '^#')。2026-10-05 运行结果：通用指令有 How you work、Personality、AGENTS.md spec、Autonomy and Persistence、Responsiveness、Planning、Task execution、Validating your work、Ambition vs. precision、Presenting your work 和 Tool Guidelines；专用指令只有 General、Editing constraints、Plan tool、Special user requests、Frontend tasks、Presenting your work and final message。全文 diff 为 +58 −276 行。
 
 ### 讲师提示
 

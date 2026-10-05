@@ -13,7 +13,28 @@ lesson = Lesson(__file__, "2.2", "只改一处，并证明改好了", summary="�
 scene, KICK = lesson.scene, lesson.kick
 
 
-REPO = "数据来自 openai/codex 仓库（Apache-2.0）的提交历史，2026-10-02 核对、10-03 复核；大小为文件字节数。"
+REPO = "数据来自 openai/codex 仓库（Apache-2.0）的提交历史，2026-10-02 核对、10-03 复核、10-05 在子模块 third_party/codex 逐版重算；大小为文件字节数。"
+
+# openai/codex 中系统指令的固定版本链接（完整哈希，内容不随 main 变化）。
+# 本仓库把 openai/codex 作为子模块放在 third_party/codex，固定在 PINNED，可离线对比。
+GH = "https://github.com/openai/codex"
+PINNED = "b741e480e203f037ca726bc2a76d99a8e8668e66"
+OLD_PROMPT = "codex-rs/core/prompt.md"  # 2026-01-19 起搬到 BASE_PROMPT
+BASE_PROMPT = "codex-rs/protocol/src/prompts/base_instructions/default.md"
+PROMPT_VERSIONS = [  # (标签, 提交, 路径)
+    ("2025-04 首版", "31d0d7a305305ad557035a2edcab60b6be5018d8", OLD_PROMPT),
+    ("2025-08-05", "d31e149cb1b4439f47393115d7a85b3c8ab8c90d", OLD_PROMPT),
+    ("2025-08-07 重写后", "81b148bda271615b37f7e04b3135e9d552df8111", OLD_PROMPT),
+    ("2026-10-03 当前", PINNED, BASE_PROMPT),
+]
+
+
+def gh_link(text, url):
+    return f'<a href="{url}" target="_blank" rel="noopener">{text}</a>'
+
+
+def blob(commit, path):
+    return f"{GH}/blob/{commit}/{path}"
 
 ROUND_PROMPT = """Goal：在项目区呈现我的项目经历，解决反馈第 3 条。
 Context：见 docs/evidence/CH02_VIBE_ITERATIONS.md；
@@ -171,7 +192,9 @@ scene(
         '<div class="p-node" data-role="agent" data-reveal="1"><span class="p-num">2025-08-07</span><h3>≈23.6 KB</h3><p>重写：工作方式、性格、汇报格式</p></div>'
         '<div class="p-node" data-role="ink" data-reveal="1"><span class="p-num">之后</span><h3>21–24 KB</h3><p>2026-01 约 20.9 KB</p></div></div>'
         '<div class="p-box is-soft" data-role="gate" data-reveal="2" style="margin-top:18px"><h3>2026-01-12 · 权限说明拆出去</h3><p>从固定段落改为按沙箱模式、审批策略分别放模板，运行时拼装（2.1 p16 看过的那段文字）</p></div>'
-        '<p class="source-note">' + REPO[:-1] + '</p>'
+        '<p class="source-note">原文：' + ' · '.join(gh_link(label, blob(c, path)) for label, c, path in PROMPT_VERSIONS)
+        + '。diff：' + gh_link('重写那次提交', f'{GH}/commit/81b148bda271615b37f7e04b3135e9d552df8111')
+        + ' · ' + gh_link('权限拆出那次提交', f'{GH}/commit/87f7226cca12df04596938f58625de84e976309a') + '。' + REPO[:-1] + '</p>'
     ),
     steps=["早期", "一次重写", "权限说明拆出"],
     script=[
@@ -181,7 +204,9 @@ scene(
     ],
     teaching=teach(
         ("核对记录", "首版到 2025-08-05 的大小、重写提交 81b148bda2（“update system prompt”）、按模型分文件提交 916fdc2a37、权限模板化提交 87f7226cca，见提案“Codex 开源仓库中的系统指令”。通用指令当前位于 codex-rs/protocol/src/prompts/base_instructions/default.md；2026-10-03 复核 main（b741e48）大小为 20903 字节。"),
-        ("讲师提示", "这一页与下一页是“版本线”示例，看懂即可，不要求学员背数字，也不要求去翻仓库。"),
+        ("原文与 diff", "每个版本的原文和两次关键提交的 diff，在阅读模式本页底部有直达链接（固定到完整提交哈希）。重写那次提交 81b148bda2 只改了 prompt.md 一个文件（+270 −80），GitHub 的提交页就是“重写前 vs 重写后”的文件 diff。\n\n本仓库把 openai/codex 作为子模块放在 third_party/codex（固定在 b741e48），可以离线对比：git submodule update --init --filter=blob:none third_party/codex 取下子模块，再运行 git -C third_party/codex diff 31d0d7a305:codex-rs/core/prompt.md b741e48:codex-rs/protocol/src/prompts/base_instructions/default.md 看首版到当前的全部变化。文件在 2026-01-19 从 codex-rs/core/prompt.md 搬到现在的位置，所以早期版本要用旧路径。"),
+        ("切到实操", "可在录制时打开重写那次提交的 GitHub 页面，滚动展示新增的章节标题；不逐行读。"),
+        ("讲师提示", "这一页与下一页是“版本线”示例，看懂即可，不要求学员背数字；想看原文的学员从阅读模式的链接打开。"),
     ),
 )
 
@@ -192,20 +217,23 @@ scene(
     html=(
         '<div class="p-pair" style="grid-template-columns:1fr 1fr">'
         '<div class="p-box" data-role="ink" data-reveal="0"><span class="p-tag" data-role="ink">通用模型 · ≈21–24 KB</span>'
-        '<p style="margin-top:8px;line-height:1.7">工作方式 · <b>性格</b> · <b>AGENTS.md 规范</b><br>自主与坚持 · 响应 · 计划及示例<br><b>执行任务</b> · <b>验证工作</b> · 汇报 · 工具指南</p></div>'
+        '<p style="margin-top:8px;line-height:1.7">工作方式 · <b>性格</b> · <b>AGENTS.md 规范</b><br>自主与坚持 · 响应 · 计划及示例<br><b>执行任务</b> · <b>验证工作</b> · 目标与精度 · 汇报 · 工具指南</p></div>'
         '<div class="p-box" data-role="agent" data-reveal="1"><span class="p-tag" data-role="agent">Codex 专用模型 · ≈6.6–7.6 KB</span>'
-        '<p style="margin-top:8px;line-height:1.7">通用 · 编辑约束 · 计划工具<br>特殊请求 · 汇报</p><p class="p-sub">没有性格、AGENTS.md、验证这几节</p></div></div>'
+        '<p style="margin-top:8px;line-height:1.7">通用 · 编辑约束 · 计划工具<br>特殊请求 · 前端任务 · 汇报</p><p class="p-sub">没有性格、AGENTS.md、验证这几节</p></div></div>'
         '<div class="p-bar is-light" data-reveal="2">能看到<b>内容差异</b> · 不能据此判断模型能力或设计原因</div>'
-        '<p class="source-note">章节名为中文意译。通用：gpt_5_1_prompt.md、gpt_5_2_prompt.md；专用：gpt_5_codex_prompt.md、gpt-5.2-codex_prompt.md，均在 codex-rs/core/。' + REPO + '</p>'
+        '<p class="source-note">章节名为中文意译，按 gpt_5_2_prompt.md 与 gpt-5.2-codex_prompt.md 的标题对比。原文（固定在 b741e48）：'
+        + ' · '.join(gh_link(f, blob(PINNED, 'codex-rs/core/' + f)) for f in ('gpt_5_1_prompt.md', 'gpt_5_2_prompt.md', 'gpt_5_codex_prompt.md', 'gpt-5.2-codex_prompt.md'))
+        + '。' + REPO + '</p>'
     ),
     steps=["通用模型的指令", "专用模型的指令", "能说什么、不能说什么"],
     script=[
         "仓库里还按模型放了不同的指令。左边是给通用模型的，大约 21 到 24 KB。章节目录我们在 2.1 见过一部分：工作方式、性格、AGENTS.md 规范、计划和示例、执行任务、验证工作、汇报，还有工具指南。",
-        "右边是给专门为 Codex 训练的模型的，只有大约 6.6 到 7.6 KB，三分之一左右。目录很短：通用说明、编辑约束、计划工具、特殊请求、汇报。性格、AGENTS.md 规范、验证工作这几节，都没有出现。",
+        "右边是给专门为 Codex 训练的模型的，只有大约 6.6 到 7.6 KB，三分之一左右。目录很短：通用说明、编辑约束、计划工具、特殊请求、汇报。性格、AGENTS.md 规范、验证工作这几节，都没有出现；倒是多了一节前端任务。",
         "我们能说的，只是两份文字的内容不一样。不能凭长度说哪个模型更聪明，也不该猜为什么这样设计。对我们这一节有用的结论是：Codex 发给模型的东西会随版本和模型变化，所以交接任务时，靠的是项目里的事实和文件，而不是指望某一版指令替我们记住什么。回到我们的选择：压缩一下继续，够不够？",
     ],
     teaching=teach(
         ("核对记录", "2026-10-03 复核 main（b741e48）：gpt_5_1_prompt.md 24204 字节、gpt_5_2_prompt.md 21652、gpt_5_codex_prompt.md 6647、gpt-5.2-codex_prompt.md 7589，位于 codex-rs/core/（提案记录的路径有误，已在验证记录中更正）。专用指令全文没有 AGENTS.md 一词，审查请求一节提到测试缺口。"),
+        ("原文与 diff", "四个文件的原文链接在阅读模式本页底部。两份文件不是同一文件的不同版本，GitHub 上不能直接对比；用子模块只对比章节标题最清楚：diff <(git -C third_party/codex show b741e48:codex-rs/core/gpt_5_2_prompt.md | grep '^#') <(git -C third_party/codex show b741e48:codex-rs/core/gpt-5.2-codex_prompt.md | grep '^#')。2026-10-05 运行结果：通用指令有 How you work、Personality、AGENTS.md spec、Autonomy and Persistence、Responsiveness、Planning、Task execution、Validating your work、Ambition vs. precision、Presenting your work 和 Tool Guidelines；专用指令只有 General、Editing constraints、Plan tool、Special user requests、Frontend tasks、Presenting your work and final message。全文 diff 为 +58 −276 行。"),
         ("讲师提示", "分镜旧稿“模型越擅长，指令写得越少”已在 10-03 审校中删去；口播保持只陈述可见差异。"),
     ),
 )
