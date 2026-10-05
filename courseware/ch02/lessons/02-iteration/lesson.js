@@ -40,6 +40,28 @@ window.lesson = {
       "kicker": "第 2 章 · 2.2 · 三种状态",
       "lead": "模型本身不保存任何状态；会话由 Harness 保存，每次请求时重发；文件和运行中的程序独立存在于电脑上。2.1 开场要重启开发服务器，就是第三栏的事。",
       "html": "<div class=\"p-grid\" style=\"--n:3;gap:16px\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"agent\">模型</span><p class=\"p-big\">什么都不记，只看这一次请求</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">会话</span><p class=\"p-big\">Harness 保存，下次重发</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"tool\">文件与进程</span><p class=\"p-big\">在电脑上，与会话无关</p></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"tool\" data-reveal=\"1\"><h3>2.1 开场</h3><p>关掉终端 → 开发服务器停了 → 代码文件还在</p></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"2\"><h3>换个目录恢复会话</h3><p>它仍答得出上轮读的是 index.html<br>可新目录里没有这个文件</p></div></div><div class=\"p-bar\" data-reveal=\"2\">恢复对话，<b>不等于恢复文件或服务</b></div>",
+      "repro": {
+        "label": "复现这个实验",
+        "steps": [
+          {
+            "text": "在课程仓库根目录建目录 A，放一个文件；目录要有自己的 .git",
+            "code": "mkdir -p lab-runs/resume-a && cd lab-runs/resume-a && git init -q && echo '<h1>hello</h1>' > index.html"
+          },
+          {
+            "text": "用固定的 HOME 启动，让 Codex 读这个文件；固定 HOME 才能在下一步找到这次会话。需要 MINIMAX_API_KEY",
+            "code": "CLEAN_CODEX_HOME=~/.cache/clean-codex/resume ../../tools/clean-codex.sh -- exec \"只读：读一下 index.html，告诉我它的第一行。\" < /dev/null"
+          },
+          {
+            "text": "换到空目录 B，恢复刚才的会话再问；--all 取消“只找当前目录的会话”",
+            "code": "mkdir -p ../resume-b && cd ../resume-b && git init -q\nCLEAN_CODEX_HOME=~/.cache/clean-codex/resume ../../tools/clean-codex.sh -- exec resume --last --all \"不要运行命令，只凭记忆回答：刚才你读的是哪个文件？它的第一行是什么？\" < /dev/null"
+          },
+          {
+            "text": "看看目录 B 里有没有这个文件",
+            "code": "ls -la"
+          }
+        ],
+        "note": "讲师 2026-10-05 按此实测：模型答出 index.html 和它的第一行，但目录 B 里没有这个文件。会话记录跟着 HOME 走，文件留在原目录。加上 --tap 可以在请求面板里看到恢复后追加的新环境信息。"
+      },
       "steps": [
         "三栏",
         "开场那一幕",

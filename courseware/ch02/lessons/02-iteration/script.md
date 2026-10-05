@@ -42,6 +42,16 @@
 
 讲师做过一个实验：在另一个目录里，用 codex exec resume 恢复 2.1 那种只读任务的会话，再问它上一轮读的是什么文件。它答得出来：index.html。可新目录里根本没有这个文件。会话被恢复了，但文件和服务不会跟着回来。所以恢复对话，不等于恢复文件或服务。
 
+### 复现这个实验（页面按钮）
+
+1. 在课程仓库根目录建目录 A，放一个文件；目录要有自己的 .git：`mkdir -p lab-runs/resume-a && cd lab-runs/resume-a && git init -q && echo '<h1>hello</h1>' > index.html`
+2. 用固定的 HOME 启动，让 Codex 读这个文件；固定 HOME 才能在下一步找到这次会话。需要 MINIMAX_API_KEY：`CLEAN_CODEX_HOME=~/.cache/clean-codex/resume ../../tools/clean-codex.sh -- exec "只读：读一下 index.html，告诉我它的第一行。" < /dev/null`
+3. 换到空目录 B，恢复刚才的会话再问；--all 取消“只找当前目录的会话”：`mkdir -p ../resume-b && cd ../resume-b && git init -q
+CLEAN_CODEX_HOME=~/.cache/clean-codex/resume ../../tools/clean-codex.sh -- exec resume --last --all "不要运行命令，只凭记忆回答：刚才你读的是哪个文件？它的第一行是什么？" < /dev/null`
+4. 看看目录 B 里有没有这个文件：`ls -la`
+
+讲师 2026-10-05 按此实测：模型答出 index.html 和它的第一行，但目录 B 里没有这个文件。会话记录跟着 HOME 走，文件留在原目录。加上 --tap 可以在请求面板里看到恢复后追加的新环境信息。
+
 ### 核对记录
 
 Codex 0.160.0，MiniMax 自定义 provider：在另一目录 codex exec resume <会话 id>，模型仍答出 index.html；Harness 追加了新的权限说明和新的环境信息，cwd 已是新目录。--last 默认只在当前目录的会话中挑选，--all 取消过滤。见提案“第二轮实测”。
