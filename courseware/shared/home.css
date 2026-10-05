@@ -18,13 +18,25 @@
 .home-route-intro .p-box{padding:8px 14px}
 .home-route-intro .p-box h3{font-size:20px;margin:0}
 
+/* 课程首页首屏：收紧页头，让课程路线阶梯进入首屏 */
+.chapter-home.course-home{padding-top:clamp(1.5rem,3.5vw,3rem)}
+.course-home .home-wordmark{margin-bottom:var(--space-lg)}
+.course-home .chapter-kicker{margin-bottom:var(--space-sm)}
+.course-home h1{font-size:clamp(2.5rem,5vw,4.25rem)}
+.course-home .chapter-home-header{padding-bottom:var(--space-lg)}
+.course-home .home-route{margin-top:var(--space-lg)}
+.course-home .home-route .chapter-section-heading .scene-kicker{display:none}
+.course-home .home-route .p-stairs{margin-top:var(--space-md)}
+/* 英文项目名用印刷体，手写标题字只写中文 */
+.home-route .p-box h3 .latin{font-family:var(--font-body);font-weight:700;font-size:23px;letter-spacing:0}
+
 /* 章节卡片：手绘边框 + 手写编号 */
 .chapter-home .section-card{position:relative;isolation:isolate;border:0;background:transparent}
 .chapter-home .section-card::before{content:'';position:absolute;inset:0;z-index:-1;border:2px solid #243042;border-radius:14px 10px 15px 11px;background:#FFFDF7;filter:url(#p-rough);transition:border-color .18s}
 .chapter-home .section-card:hover{border-color:transparent}
-.chapter-home .section-card:hover::before{border-color:#5A51D1}
-.chapter-home .section-number{font:400 34px/1 var(--p-title);color:#5A51D1;margin-bottom:var(--space-lg)}
-.chapter-home .chapter-section-heading .scene-kicker{display:inline-block;padding:4px 10px;border-radius:999px;background:#EDEBFB;color:#2A2380}
+.chapter-home .section-card:hover::before{border-color:#243042}
+.chapter-home .section-number{font:400 34px/1 var(--p-title);color:#243042;margin-bottom:var(--space-lg)}
+.chapter-home .chapter-section-heading .scene-kicker{display:inline-block;padding:4px 10px;border-radius:999px;background:#E4E1D6;color:#243042}
 
 @media (max-width:38rem){
   .home-route .p-stairs{grid-template-columns:1fr}
