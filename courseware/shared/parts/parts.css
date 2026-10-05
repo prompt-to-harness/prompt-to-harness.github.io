@@ -440,6 +440,7 @@ body[data-mode='scroll'] [data-only]{display:none}
 .p-exits .is-pass::before{content:'✓';background:#15803D}
 .p-exits .is-fix::before{content:'↺';background:#243042}
 .p-exits .is-stop::before{content:'■';background:#D9481C;font-size:12px}
+.p-exits .is-point::before{content:'';width:10px;height:10px;margin:0 9px;background:#243042}
 
 @media (max-width:760px){
   body[data-mode='scroll'] .p-watch.is-row{flex-direction:column}
