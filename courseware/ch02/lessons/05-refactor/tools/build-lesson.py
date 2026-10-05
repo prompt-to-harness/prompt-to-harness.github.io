@@ -1,41 +1,19 @@
 #!/usr/bin/env python3
-"""2.5 AI 说“只是重构”：可编辑内容源，生成 lesson.js 与 script.md。
+"""2.5 AI 说“只是重构”：本节唯一的内容源，生成 lesson.js 与 script.md。
 
-分镜见 ../STORYBOARD.md。结构与 2.1 的 build-lesson.py 相同：
-steps 与 script 一一对应；data-reveal 最大值 = 步骤数 - 1。
-scene["seconds"] 只用于章节条的宽度比例（按步骤数计算），不是时长估算。
-两份教学 diff 见 courseware/ch02/materials/。
+分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch02/tools/lessonkit.py。
 """
-import json
+import sys
 from pathlib import Path
 
-HERE = Path(__file__).resolve().parents[1]
-KICK = "第 2 章 · 2.5 · "
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from lessonkit import Lesson, chapter_map, teach  # noqa: E402
+
+lesson = Lesson(__file__, "2.5", "AI 说“只是重构”", summary="判断一次改动是不是重构，看可观察行为有没有变，不看代码是否更短、截图是否更好看。")
+scene, KICK = lesson.scene, lesson.kick
+
+
 MATERIAL = "教学材料：两份 diff 基于排练版 homepage-v1 制作（courseware/ch02/materials/），行为于 2026-10-03 在浏览器中核对；录制版基于讲师冻结的 homepage-v1 重新制作。"
-
-
-def teach(*pairs):
-    return [{"title": t, "text": x} for t, x in pairs]
-
-
-scenes = []
-
-
-def scene(**kw):
-    kw.setdefault("teaching", [])
-    kw["source"] = f"index.html#{kw['id']}"
-    kw["seconds"] = 30 * len(kw["steps"])
-    assert len(kw["steps"]) == len(kw["script"]), kw["id"]
-    scenes.append(kw)
-
-
-def chapter_map(now):
-    names = [("2.1", "听反馈"), ("2.2", "改一处"), ("2.3", "审改动"), ("2.4", "公开发布"), ("2.5", "只是重构？")]
-    items = []
-    for i, (num, name) in enumerate(names, 1):
-        cls = ' class="is-now"' if i == now else (' class="is-done"' if i < now else "")
-        items.append(f"<li{cls}><b>{num}</b>{name}</li>")
-    return '<ol class="p-map">' + "".join(items) + "</ol>"
 
 
 scene(
@@ -169,29 +147,5 @@ scene(
     teaching=teach(("讲师提示", "伏笔只点到为止，不提前讲测试框架。第 3 章预告按第 3 章定稿调整。")),
 )
 
-segments = []
-for s in scenes:
-    if not segments or segments[-1]["label"] != s["segment"]:
-        segments.append({"label": s["segment"], "seconds": 0})
-    segments[-1]["seconds"] += s["seconds"]
 
-
-lesson = {
-    "title": "AI 说“只是重构”",
-    "chapter": "第 2 章 · Vibe Coding",
-    "section": "02.05",
-    "summary": "判断一次改动是不是重构，看可观察行为有没有变，不看代码是否更短、截图是否更好看。",
-    "scenes": scenes,
-    "segments": segments,
-}
-(HERE / "lesson.js").write_text("window.lesson = " + json.dumps(lesson, ensure_ascii=False, indent=2) + ";\n")
-
-lines = ["# 2.5 AI 说“只是重构”", "", "> 由 tools/build-lesson.py 生成。", ""]
-for s in scenes:
-    lines += [f"## {s['id'].upper()} {s['label']}", "", f"[对应课件](index.html#{s['id']})", "", "### 口播", ""]
-    for i, (beat, text) in enumerate(zip(s["steps"], s["script"])):
-        lines += [f"**第 {i + 1} 步 · {beat}**（[演示](index.html?mode=slides&step={i}#{s['id']})）", "", text, ""]
-    for item in s["teaching"]:
-        lines += [f"### {item['title']}", "", item["text"], ""]
-(HERE / "script.md").write_text("\n".join(lines))
-print(f"2.5: {len(scenes)} pages, {sum(len(s['steps']) for s in scenes)} steps")
+lesson.write()

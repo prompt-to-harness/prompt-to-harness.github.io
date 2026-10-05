@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
-"""2.1 先听听别人怎么说：可编辑内容源，生成 lesson.js 与 script.md。
+"""2.1 先听听别人怎么说：本节唯一的内容源，生成 lesson.js 与 script.md。
 
-分镜见 ../STORYBOARD.md。每页 html 用 courseware/shared/parts 零件；
-steps 与 script 一一对应；data-reveal 最大值 = 步骤数 - 1。
-scene["seconds"] 只用于章节条的宽度比例（按步骤数计算），不是时长估算。
+分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch02/tools/lessonkit.py。
 """
-import json
 from html import escape
+import sys
 from pathlib import Path
 
-HERE = Path(__file__).resolve().parents[1]
-KICK = "第 2 章 · 2.1 · "
-MEASURED = "数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。"
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from lessonkit import Lesson, MEASURED, chapter_map, teach  # noqa: E402
+
+lesson = Lesson(__file__, "2.1", "先听听别人怎么说", summary="用课程示例反馈卡建立反馈基线；看懂一次请求的组成，以及它为什么随环境变化。")
+scene, KICK = lesson.scene, lesson.kick
+
 
 READONLY_PROMPT = """只读任务，不修改任何文件。
 先读取 docs/evidence/CH02_VIBE_ITERATIONS.md，
@@ -30,29 +31,13 @@ cp ~/.codex/config.toml "$CLEAN_HOME/.codex/"
 HOME="$CLEAN_HOME" codex"""
 
 
-def teach(*pairs):
-    return [{"title": t, "text": x} for t, x in pairs]
-
-
-scenes = []
-
-
-def scene(**kw):
-    kw.setdefault("teaching", [])
-    kw["source"] = f"index.html#{kw['id']}"
-    kw["seconds"] = 30 * len(kw["steps"])
-    assert len(kw["steps"]) == len(kw["script"]), kw["id"]
-    scenes.append(kw)
-
-
 # ---------- 收到反馈 ----------
 scene(
     id="p01", segment="收到反馈", layout="lesson-cover",
     label="能拿给熟人看了吗？", title="能拿给熟人看了吗？", kicker="第 2 章 · 2.1 · 开篇",
     lead="第 1 章的首页 v0 只在自己电脑上运行。这一章要把它变成可以拿给认识的人看的 v1，并发布出去。",
     html=(
-        '<ol class="p-map"><li class="is-now"><b>2.1</b>听反馈</li><li><b>2.2</b>改一处</li>'
-        '<li><b>2.3</b>审改动</li><li><b>2.4</b>公开发布</li><li><b>2.5</b>只是重构？</li></ol>'
+        chapter_map(1) +
         '<div class="p-pair" style="grid-template-columns:1fr auto 1fr;margin-top:14px">'
         '<div class="p-box" data-role="ink" data-reveal="0"><span class="p-tag" data-role="ink">现在</span><p class="p-big" style="font-weight:500">首页 v0 · 只在本机</p></div>'
         '<div class="p-join" data-reveal="1"><span>本章</span><i class="p-arrow"></i></div>'
@@ -559,31 +544,5 @@ scene(
     ],
 )
 
-segments = []
-for s in scenes:
-    if not segments or segments[-1]["label"] != s["segment"]:
-        segments.append({"label": s["segment"], "seconds": 0})
-    segments[-1]["seconds"] += s["seconds"]
 
-
-lesson = {
-    "title": "先听听别人怎么说",
-    "chapter": "第 2 章 · Vibe Coding",
-    "section": "02.01",
-    "summary": "用课程示例反馈卡建立反馈基线；看懂一次请求的组成，以及它为什么随环境变化。",
-    "scenes": scenes,
-    "segments": segments,
-}
-(HERE / "lesson.js").write_text("window.lesson = " + json.dumps(lesson, ensure_ascii=False, indent=2) + ";\n")
-
-lines = ["# 2.1 先听听别人怎么说", "", "> 由 tools/build-lesson.py 生成。", ""]
-for s in scenes:
-    lines += [f"## {s['id'].upper()} {s['label']}", "", f"[对应课件](index.html#{s['id']})", "", "### 口播", ""]
-    for i, (beat, text) in enumerate(zip(s["steps"], s["script"])):
-        lines += [f"**第 {i + 1} 步 · {beat}**（[演示](index.html?mode=slides&step={i}#{s['id']})）", "", text, ""]
-    if s.get("prompt"):
-        lines += ["### 请求", "", "```text", s["prompt"], "```", ""]
-    for item in s["teaching"]:
-        lines += [f"### {item['title']}", "", item["text"], ""]
-(HERE / "script.md").write_text("\n".join(lines))
-print(f"2.1: {len(scenes)} pages, {sum(len(s['steps']) for s in scenes)} steps")
+lesson.write()

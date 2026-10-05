@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
-"""2.4 公开的不只是页面：可编辑内容源，生成 lesson.js 与 script.md。
+"""2.4 公开的不只是页面：本节唯一的内容源，生成 lesson.js 与 script.md。
 
-分镜见 ../STORYBOARD.md。结构与 2.1 的 build-lesson.py 相同：
-steps 与 script 一一对应；data-reveal 最大值 = 步骤数 - 1。
-scene["seconds"] 只用于章节条的宽度比例（按步骤数计算），不是时长估算。
+分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch02/tools/lessonkit.py。
 """
-import json
 from html import escape
+import sys
 from pathlib import Path
 
-HERE = Path(__file__).resolve().parents[1]
-KICK = "第 2 章 · 2.4 · "
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from lessonkit import Lesson, NARROW, chapter_map, teach  # noqa: E402
+
+lesson = Lesson(__file__, "2.4", "公开的不只是页面", summary="第一次推送前看清即将公开的整段历史；发布后用公开 URL 证明页面可用。")
+scene, KICK = lesson.scene, lesson.kick
+
 
 PREPUSH = """git fetch origin
 git log --stat origin/main..HEAD
@@ -23,32 +25,6 @@ Pages 地址是 https://<用户名>.github.io/<仓库名>/。
 Constraints：只新增工作流文件和必要的 Vite 配置；
 不推送、不修改仓库设置；说明每个权限为什么需要。
 Done when：本地 npm run build 成功；我能逐项解释工作流做了什么。"""
-
-NARROW = '<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style>'
-
-
-def teach(*pairs):
-    return [{"title": t, "text": x} for t, x in pairs]
-
-
-scenes = []
-
-
-def scene(**kw):
-    kw.setdefault("teaching", [])
-    kw["source"] = f"index.html#{kw['id']}"
-    kw["seconds"] = 30 * len(kw["steps"])
-    assert len(kw["steps"]) == len(kw["script"]), kw["id"]
-    scenes.append(kw)
-
-
-def chapter_map(now):
-    names = [("2.1", "听反馈"), ("2.2", "改一处"), ("2.3", "审改动"), ("2.4", "公开发布"), ("2.5", "只是重构？")]
-    items = []
-    for i, (num, name) in enumerate(names, 1):
-        cls = ' class="is-now"' if i == now else (' class="is-done"' if i < now else "")
-        items.append(f"<li{cls}><b>{num}</b>{name}</li>")
-    return '<ol class="p-map">' + "".join(items) + "</ol>"
 
 
 # ---------- 公开之前 ----------
@@ -297,31 +273,5 @@ scene(
     ],
 )
 
-segments = []
-for s in scenes:
-    if not segments or segments[-1]["label"] != s["segment"]:
-        segments.append({"label": s["segment"], "seconds": 0})
-    segments[-1]["seconds"] += s["seconds"]
 
-
-lesson = {
-    "title": "公开的不只是页面",
-    "chapter": "第 2 章 · Vibe Coding",
-    "section": "02.04",
-    "summary": "第一次推送前看清即将公开的整段历史；发布后用公开 URL 证明页面可用。",
-    "scenes": scenes,
-    "segments": segments,
-}
-(HERE / "lesson.js").write_text("window.lesson = " + json.dumps(lesson, ensure_ascii=False, indent=2) + ";\n")
-
-lines = ["# 2.4 公开的不只是页面", "", "> 由 tools/build-lesson.py 生成。", ""]
-for s in scenes:
-    lines += [f"## {s['id'].upper()} {s['label']}", "", f"[对应课件](index.html#{s['id']})", "", "### 口播", ""]
-    for i, (beat, text) in enumerate(zip(s["steps"], s["script"])):
-        lines += [f"**第 {i + 1} 步 · {beat}**（[演示](index.html?mode=slides&step={i}#{s['id']})）", "", text, ""]
-    if s.get("prompt"):
-        lines += ["### 请求", "", "```text", s["prompt"], "```", ""]
-    for item in s["teaching"]:
-        lines += [f"### {item['title']}", "", item["text"], ""]
-(HERE / "script.md").write_text("\n".join(lines))
-print(f"2.4: {len(scenes)} pages, {sum(len(s['steps']) for s in scenes)} steps")
+lesson.write()

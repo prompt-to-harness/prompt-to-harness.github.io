@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
-"""2.2 只改一处，并证明改好了：可编辑内容源，生成 lesson.js 与 script.md。
+"""2.2 只改一处，并证明改好了：本节唯一的内容源，生成 lesson.js 与 script.md。
 
-分镜见 ../STORYBOARD.md。结构与 2.1 的 build-lesson.py 相同：
-steps 与 script 一一对应；data-reveal 最大值 = 步骤数 - 1。
-scene["seconds"] 只用于章节条的宽度比例（按步骤数计算），不是时长估算。
+分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch02/tools/lessonkit.py。
 """
-import json
+import sys
 from pathlib import Path
 
-HERE = Path(__file__).resolve().parents[1]
-KICK = "第 2 章 · 2.2 · "
-MEASURED = "数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。"
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from lessonkit import Lesson, MEASURED, NARROW, chapter_map, teach  # noqa: E402
+
+lesson = Lesson(__file__, "2.2", "只改一处，并证明改好了", summary="先弄清模型、会话、文件与进程各记住什么，再选会话；用当前证据让 Codex 只改项目区，并用三种视口、键盘和构建证明没弄坏别的。")
+scene, KICK = lesson.scene, lesson.kick
+
+
 REPO = "数据来自 openai/codex 仓库（Apache-2.0）的提交历史，2026-10-02 核对、10-03 复核；大小为文件字节数。"
 
 ROUND_PROMPT = """Goal：在项目区呈现我的项目经历，解决反馈第 3 条。
@@ -31,32 +33,6 @@ RECORD = """## 第 1 轮
 - 验证结果（三种视口 / 键盘 / build）：
 - 剩余问题：
 - 回退点：本轮开始前的最后一次提交（git log --oneline -1；2.3 提交后更新）"""
-
-NARROW = '<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style>'
-
-
-def teach(*pairs):
-    return [{"title": t, "text": x} for t, x in pairs]
-
-
-scenes = []
-
-
-def scene(**kw):
-    kw.setdefault("teaching", [])
-    kw["source"] = f"index.html#{kw['id']}"
-    kw["seconds"] = 30 * len(kw["steps"])
-    assert len(kw["steps"]) == len(kw["script"]), kw["id"]
-    scenes.append(kw)
-
-
-def chapter_map(now):
-    names = [("2.1", "听反馈"), ("2.2", "改一处"), ("2.3", "审改动"), ("2.4", "公开发布"), ("2.5", "只是重构？")]
-    items = []
-    for i, (num, name) in enumerate(names, 1):
-        cls = ' class="is-now"' if i == now else (' class="is-done"' if i < now else "")
-        items.append(f"<li{cls}><b>{num}</b>{name}</li>")
-    return '<ol class="p-map">' + "".join(items) + "</ol>"
 
 
 # ---------- 三种状态 ----------
@@ -425,31 +401,5 @@ scene(
     ],
 )
 
-segments = []
-for s in scenes:
-    if not segments or segments[-1]["label"] != s["segment"]:
-        segments.append({"label": s["segment"], "seconds": 0})
-    segments[-1]["seconds"] += s["seconds"]
 
-
-lesson = {
-    "title": "只改一处，并证明改好了",
-    "chapter": "第 2 章 · Vibe Coding",
-    "section": "02.02",
-    "summary": "先弄清模型、会话、文件与进程各记住什么，再选会话；用当前证据让 Codex 只改项目区，并用三种视口、键盘和构建证明没弄坏别的。",
-    "scenes": scenes,
-    "segments": segments,
-}
-(HERE / "lesson.js").write_text("window.lesson = " + json.dumps(lesson, ensure_ascii=False, indent=2) + ";\n")
-
-lines = ["# 2.2 只改一处，并证明改好了", "", "> 由 tools/build-lesson.py 生成。", ""]
-for s in scenes:
-    lines += [f"## {s['id'].upper()} {s['label']}", "", f"[对应课件](index.html#{s['id']})", "", "### 口播", ""]
-    for i, (beat, text) in enumerate(zip(s["steps"], s["script"])):
-        lines += [f"**第 {i + 1} 步 · {beat}**（[演示](index.html?mode=slides&step={i}#{s['id']})）", "", text, ""]
-    if s.get("prompt"):
-        lines += ["### 请求", "", "```text", s["prompt"], "```", ""]
-    for item in s["teaching"]:
-        lines += [f"### {item['title']}", "", item["text"], ""]
-(HERE / "script.md").write_text("\n".join(lines))
-print(f"2.2: {len(scenes)} pages, {sum(len(s['steps']) for s in scenes)} steps")
+lesson.write()
