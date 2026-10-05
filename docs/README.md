@@ -20,6 +20,7 @@
 | [设计参考](design/) | 早期定位、项目约束、工具方法和制作建议，待重新确认 |
 | [正式章节](chapters/) | 章节文档目录，目前只有状态说明；课件见 `courseware/` |
 | [软件工程专题](software-engineering/) | Software Engineering 0.5 的概念地图、候选问题、模板和试讲卡 |
+| [审查记录](reviews/README.md) | 每次课件审查一个文件，按章存放，供后续审查与修改参考 |
 | [制作规范](production/) | 演示页视觉和其他交付制作规范 |
 | [历史归档](archive/) | 早期方案和已被当前总纲取代的设计材料 |
 

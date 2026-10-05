@@ -4,6 +4,8 @@
 
 一句话主线：把只在本机运行的首页 v0，变成可以拿给认识的人看的 v1，并发布出去。
 
+最新审查：[docs/reviews/ch02/](../../docs/reviews/ch02/)（2026-10-05 起两份，重点 2.2–2.5）。已记录内容、跟做流程与展示问题，尚未修订课件，不代表试讲或发布验收通过。
+
 | 小节 | 分镜 |
 | --- | --- |
 | 2.1 先听听别人怎么说 | [STORYBOARD](lessons/01-feedback/STORYBOARD.md) · [课件](lessons/01-feedback/index.html) · [说明](lessons/01-feedback/README.md) |
