@@ -18,8 +18,8 @@ SECTIONS = [("2.1", "听反馈"), ("2.2", "改一处"), ("2.3", "审改动"), ("
 
 MEASURED = "数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。"
 
-# 阅读模式窄屏下，代码讲解（p-walk）与正反对照（p-claim）改为单列，代码行允许折行
-NARROW = '<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style>'
+# 阅读模式窄屏下，代码讲解（p-walk）、正反对照（p-claim）与主栏加侧栏（p-aside）改为单列，代码行允许折行
+NARROW = '<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style>'
 
 
 def teach(*pairs):

@@ -11,7 +11,7 @@ window.lesson = {
       "label": "能拿给熟人看了吗？",
       "title": "能拿给熟人看了吗？",
       "kicker": "第 2 章 · 2.1 · 开篇",
-      "lead": "第 1 章的首页 v0 只在自己电脑上运行。这一章要把它变成可以拿给认识的人看的 v1，并发布出去。",
+      "lead": "把只在本机运行的首页 v0，变成能拿给熟人看、能公开访问的 v1",
       "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>2.1</b>听反馈</li><li><b>2.2</b>改一处</li><li><b>2.3</b>审改动</li><li><b>2.4</b>公开发布</li><li><b>2.5</b>只是重构？</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:14px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ink\">现在</span><p class=\"p-big\" style=\"font-weight:500\">首页 v0 · 只在本机</p></div><div class=\"p-join\" data-reveal=\"1\"><span>本章</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"us\">目标</span><p class=\"p-big\" style=\"font-weight:500\">v1 · 公开 URL</p></div></div><p class=\"p-hand\" data-reveal=\"2\">先别急着改：别人的建议，哪些是真问题？</p>",
       "steps": [
         "回到 v0",

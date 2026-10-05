@@ -9,9 +9,9 @@ window.lesson = {
       "segment": "两份 diff",
       "layout": "lesson-cover",
       "label": "只是重构，能信吗",
-      "title": "AI 说“只是重构了一下”，能信吗？",
+      "title": "AI 说“只是重构”，能信吗？",
       "kicker": "第 2 章 · 2.5 · 工程经验",
-      "lead": "这一节不改自己的项目，看两份标明为教学材料的 diff。它们的提交说明一模一样：把项目卡提取为 ProjectCard 组件。哪一份真的只是重构？",
+      "lead": "两份教学 diff 的提交说明一模一样，哪份真的只是重构？",
       "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>听反馈</li><li class=\"is-done\"><b>2.2</b>改一处</li><li class=\"is-done\"><b>2.3</b>审改动</li><li class=\"is-done\"><b>2.4</b>公开发布</li><li class=\"is-now\"><b>2.5</b>只是重构？</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:20px\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">教学材料 A</span><p class=\"p-mono\" style=\"margin-top:6px\">refactor: 把项目卡提取为 ProjectCard 组件</p></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">教学材料 B</span><p class=\"p-mono\" style=\"margin-top:6px\">refactor: 把项目卡提取为 ProjectCard 组件</p></div></div><p class=\"p-hand\" data-reveal=\"2\">说明一样，行为一样吗？</p>",
       "steps": [
         "最后一节",

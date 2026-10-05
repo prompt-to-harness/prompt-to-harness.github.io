@@ -20,7 +20,7 @@ SAMPLE = "画面中的命令输出来自排练版 homepage-v1（courseware/ch02/
 scene(
     id="p35", segment="拿到 diff", layout="lesson-cover",
     label="说完成了，就能收吗", title="Codex 说完成了，就能收吗？", kicker="第 2 章 · 2.3 · 开篇",
-    lead="2.2 结束时，Codex 报告完成，我们也做了三项检查。但工作区里的改动还没提交。这一节先读懂这份 diff，再决定接受、缩小还是拒绝。",
+    lead="改动还在工作区：先读懂 diff，再决定接受、缩小还是拒绝",
     html=(
         chapter_map(3) +
         '<div class="p-pair" style="grid-template-columns:1fr auto 1fr;margin-top:18px">'

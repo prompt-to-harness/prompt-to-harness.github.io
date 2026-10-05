@@ -38,8 +38,8 @@ RECORD = """## 第 1 轮
 # ---------- 三种状态 ----------
 scene(
     id="p20", segment="三种状态", layout="lesson-cover",
-    label="开始改之前", title="开始改之前，先决定在哪个会话里改", kicker="第 2 章 · 2.2 · 开篇",
-    lead="2.1 选定了第 3 条反馈。动手之前有一个选择：继续 2.1 的会话、恢复它，还是新建一个？2.1 看了一次请求里有什么，这一节看多次请求之间发生了什么。",
+    label="开始改之前", title="先决定，在哪个会话里改", kicker="第 2 章 · 2.2 · 开篇",
+    lead="继续 2.1 的会话、恢复它，还是新建一个？",
     html=(
         chapter_map(2) +
         '<div class="p-grid" style="--n:3;gap:16px;margin-top:22px">'
@@ -341,13 +341,15 @@ scene(
     label="记录本轮", title="写下本轮，下一次才接得上", kicker=KICK + "本轮迭代",
     lead="在 CH02_VIBE_ITERATIONS.md 末尾追加本轮记录。它是下一轮的交接，也是 2.3 审查 diff 时要对照的目标。回退点此时是本轮开始前的最后一次提交，2.3 提交后更新。",
     html=(
+        NARROW +
+        '<div class="p-aside" style="display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:16px;align-items:start">'
         '<div class="p-code" data-reveal="0"><div class="p-code-head"><span>docs/evidence/CH02_VIBE_ITERATIONS.md</span><span>追加</span></div>'
         '<pre style="color:inherit">## 第 1 轮\n- 问题证据：反馈第 3 条；项目区只有一句\n- 本轮目标：呈现我提供的三条项目经历\n'
-        '<span class="hl">- 会话选择与理由：新建；2.1 会话多为请求查看</span>\n- 改动文件：src/App.tsx\n'
-        '- 验证结果：视口完整 / Tab 不变 / build 成功\n<span class="hl">- 剩余问题：第 1 条在 360 下仍未复现</span>\n'
+        '<span class="hl">- 会话选择与理由：新建；2.1 会话多为请求查看</span>- 改动文件：src/App.tsx\n'
+        '- 验证结果：视口完整 / Tab 不变 / build 成功\n<span class="hl">- 剩余问题：第 1 条在 360 下仍未复现</span>'
         '- 回退点：本轮开始前的提交</pre></div>'
-        '<div class="p-grid" style="--n:2;gap:12px;margin-top:8px"><div class="p-box is-soft" data-role="ctx" data-reveal="1"><p><b>下一轮</b> · 新会话的交接文件</p></div>'
-        '<div class="p-box is-soft" data-role="tool" data-reveal="1"><p><b>2.3</b> · 审查 diff 的对照目标</p></div></div>'
+        '<div style="display:grid;gap:12px"><div class="p-box is-soft" data-role="ctx" data-reveal="1"><p><b>下一轮</b> · 新会话的交接文件</p></div>'
+        '<div class="p-box is-soft" data-role="tool" data-reveal="1"><p><b>2.3</b> · 审查 diff 的对照目标</p></div></div></div>'
     ),
     steps=["逐项填写", "它用来做什么"],
     script=[

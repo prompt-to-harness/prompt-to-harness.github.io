@@ -35,7 +35,7 @@ HOME="$CLEAN_HOME" codex"""
 scene(
     id="p01", segment="收到反馈", layout="lesson-cover",
     label="能拿给熟人看了吗？", title="能拿给熟人看了吗？", kicker="第 2 章 · 2.1 · 开篇",
-    lead="第 1 章的首页 v0 只在自己电脑上运行。这一章要把它变成可以拿给认识的人看的 v1，并发布出去。",
+    lead="把只在本机运行的首页 v0，变成能拿给熟人看、能公开访问的 v1",
     html=(
         chapter_map(1) +
         '<div class="p-pair" style="grid-template-columns:1fr auto 1fr;margin-top:14px">'

@@ -18,8 +18,8 @@ MATERIAL = "教学材料：两份 diff 基于排练版 homepage-v1 制作（cour
 
 scene(
     id="p53", segment="两份 diff", layout="lesson-cover",
-    label="只是重构，能信吗", title="AI 说“只是重构了一下”，能信吗？", kicker="第 2 章 · 2.5 · 工程经验",
-    lead="这一节不改自己的项目，看两份标明为教学材料的 diff。它们的提交说明一模一样：把项目卡提取为 ProjectCard 组件。哪一份真的只是重构？",
+    label="只是重构，能信吗", title="AI 说“只是重构”，能信吗？", kicker="第 2 章 · 2.5 · 工程经验",
+    lead="两份教学 diff 的提交说明一模一样，哪份真的只是重构？",
     html=(
         chapter_map(5) +
         '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:20px">'

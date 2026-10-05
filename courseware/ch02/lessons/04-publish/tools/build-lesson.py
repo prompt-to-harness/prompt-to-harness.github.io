@@ -31,7 +31,7 @@ Done when：本地 npm run build 成功；我能逐项解释工作流做了什�
 scene(
     id="p43", segment="公开之前", layout="lesson-cover",
     label="推送之后谁能看到", title="推送之后，谁能看到什么？", kicker="第 2 章 · 2.4 · 开篇",
-    lead="到现在为止，所有提交都只在自己电脑上。这一节第一次推送到 GitHub 并发布页面。推送以后公开的有三层：页面、源码，以及整段提交历史和推送的 tag。",
+    lead="到现在为止，所有提交和 tag 都只在自己电脑上",
     html=(
         chapter_map(4) +
         '<div class="p-grid" style="--n:3;gap:16px;margin-top:22px">'
