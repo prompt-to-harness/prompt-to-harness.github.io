@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # 建立 2.2 压缩实验的起点：从第 1 章参考快照取首页源码与决定记录，放进一个新的 Git 仓库。
-# 用法：courseware/ch02/materials/compact/setup.sh [目标目录]   # 默认 ~/compact-lab
+# 用法：courseware/ch02/materials/compact/setup.sh [目标目录]   # 默认 <本仓库>/lab-runs/compact-lab（已被 git 忽略）
 # 不需要 npm install：实验只让 Codex 读文件、跑 grep，不构建页面。
 set -euo pipefail
 
 REPO="$(cd "$(dirname "$0")/../../../.." && pwd)"
 SRC="$REPO/starters/personal-homepage/ch01-complete"
-DEST="${1:-$HOME/compact-lab}"
+DEST="${1:-$REPO/lab-runs/compact-lab}"
 
 if [ -e "$DEST" ]; then
   echo "目标已存在：$DEST（换一个目录，或确认不需要后自行删除）" >&2

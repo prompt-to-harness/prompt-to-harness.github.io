@@ -295,17 +295,31 @@ window.lesson = {
       "label": "压缩一下继续",
       "title": "压缩以后，模型看到的是摘要",
       "kicker": "第 2 章 · 2.2 · 压缩与交接",
-      "lead": "在讲师的配置下，/compact 让模型自己写一份“交接摘要”。压缩后的历史只剩最近的用户消息、这份摘要和重新插入的初始上下文；工具返回的原文不在了。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ink\">压缩前</span><p style=\"line-height:1.7\">我们的提问 · 模型的工具调用<br><b>工具返回的原文</b>（文件内容、命令输出）<br>模型的回答</p></div><div class=\"p-join\" data-reveal=\"1\"><span>/compact</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ctx\">压缩后</span><p style=\"line-height:1.7\">初始上下文（重新插入）<br>最近的用户消息<br><b>一份交接摘要</b></p></div></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"2\" style=\"margin-top:14px\"><h3>摘要里可能丢掉的</h3><p>“项目卡是 li，不在 Tab 顺序里”这类具体证据，只剩一句“已核对三条反馈”</p></div><p class=\"source-note\">Codex 0.160.0 源码与本机运行核对（2026-10-02），自定义 provider 走本地压缩；右下方框为示意，以录制时实际摘要为准</p>",
+      "lead": "主线会话通常不够长，压缩单独做一个小实验看。在讲师的配置下，/compact 让模型自己写一份“交接摘要”。按 Codex 源码，压缩后的历史只留用户消息、这份摘要和重新插入的初始上下文，工具调用和返回全部移走；原始证据还剩多少，取决于摘要怎么写。",
+      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ink\">压缩前</span><p style=\"line-height:1.7\">我们的提问 · 模型的工具调用<br><b>工具返回的原文</b>（文件内容、命令输出）<br>模型的回答</p></div><div class=\"p-join\" data-reveal=\"1\"><span>/compact</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ctx\">压缩后</span><p style=\"line-height:1.7\">我们发过的用户消息<br><b>一份交接摘要</b><br>初始上下文（重新插入）</p></div></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"2\" style=\"margin-top:14px\"><h3>讲师跑了 5 次</h3><p>grep 的 10 行原文：4 次摘要只留下行号或计数，追问时模型答不出；1 次摘要整段抄了下来。我们写下的决定是用户消息，5 次原文都在</p></div><p class=\"source-note\">压缩后保留什么由源码决定（core/src/compact.rs）；摘要内容来自讲师独立实验，2026-10-05，Codex 0.160.0，clean-codex.sh（MiniMax，本地压缩），见 ch02/materials/compact</p>",
+      "refs": [
+        {
+          "kind": "live",
+          "group": "0.160.0 源码",
+          "text": "压缩逻辑 compact.rs",
+          "url": "https://github.com/openai/codex/blob/a956835d020762cb2b570053af06f643a11c0ecc/codex-rs/core/src/compact.rs"
+        },
+        {
+          "kind": "live",
+          "group": "0.160.0 源码",
+          "text": "压缩提示 prompt.md",
+          "url": "https://github.com/openai/codex/blob/a956835d020762cb2b570053af06f643a11c0ecc/codex-rs/prompts/templates/compact/prompt.md"
+        }
+      ],
       "steps": [
         "压缩前",
         "压缩后",
         "丢掉了什么"
       ],
       "script": [
-        "2.1 的会话里有不少东西：我们的提问，模型的工具调用，工具返回的原文，比如文件内容和命令输出，还有模型的回答。如果不想新建，可以在 Codex 里输入 /compact 压缩一下再继续。",
-        "压缩做了什么？在讲师的配置下，Codex 让模型按一段固定提示，写一份给“下一个接手的模型”的交接摘要：进度、关键决定、约束、下一步。压缩后的历史只剩三样：重新插入的初始上下文，最近的用户消息，和这份摘要。",
-        "问题在于，工具返回的原文不在了。比如我们核对时看到的“项目卡是 li，不在 Tab 顺序里”，摘要里可能只剩一句“已核对三条反馈”。压缩后模型看到的是摘要，不是原始证据。摘要写得好不好，我们得自己读一遍才知道。"
+        "如果不想新建会话，可以在 Codex 里输入 /compact 压缩一下再继续。我们的主线会话通常不够长，所以单独做一个小实验：先让 Codex 读两个文件，再跑一次 grep、把输出原样贴出来，最后写下一条我们自己的决定。这时历史里有我们的提问、模型的工具调用、工具返回的原文，还有模型的回答。",
+        "然后输入 /compact。压缩做了什么？在讲师的配置下，Codex 让模型按一段固定提示，写一份给“下一个接手的模型”的交接摘要：进度、关键决定、约束、下一步。压缩后的历史只剩三样：我们发过的用户消息，这份摘要，和重新插入的初始上下文。这一步每次都一样，是 Codex 源码写定的：工具调用、工具返回和模型的回答，都不会留下。",
+        "那原始证据还剩多少？要看摘要怎么写。讲师用同样的步骤跑了 5 次：grep 输出了 10 行，其中 4 次摘要只留下行号或“共 10 处匹配”，我们追问第 1 行是什么，模型说手里没有原文，写不出来；只有 1 次，摘要把 10 行整段抄了下来。我们自己写下的决定是用户消息，5 次原文都在。所以压缩后模型看到的是摘要，不是原始证据；需要原始证据，就让它重新读。摘要每次写得不一样，好不好，我们得自己读一遍才知道。"
       ],
       "teaching": [
         {
@@ -314,7 +328,11 @@ window.lesson = {
         },
         {
           "title": "切到实操",
-          "text": "录制时对 2.1 的会话执行 /compact，截取压缩前后的请求对比；右下方框换成实际摘要中缺失的具体证据。若摘要恰好保留了这些证据，如实说明，改讲“需要自己读一遍才知道”。"
+          "text": "不在 2.1 的主线会话上执行。按 courseware/ch02/materials/compact/README.md 用 setup.sh 建独立目录，clean-codex.sh --tap 启动，输入 steps.txt 的五步，截取压缩前、压缩请求和压缩后三次请求。摘要每次不同；若本次保留了 grep 原文或模型编出了原文，如实改写右下方框和口播。"
+        },
+        {
+          "title": "实验记录",
+          "text": "2026-10-05 压缩 5 次、不压缩对照 2 次（另有 2 次因上游超时或脚本出错不计入）。5 次压缩后都是 7 条 input：3 条用户消息、摘要、权限说明与 Skills、环境信息、新问题，没有工具调用和返回，与 compact.rs 一致（手动压缩用 DoNotInject，下一轮再注入初始上下文；用户消息从新往旧最多保留约 2 万 token）。摘要：4 次只留行号或计数，1 次抄下 grep 原文；5 次追问都没有编造。对照组 2 次都答出了 grep 原文。汇总表与参考记录见 materials/compact/。"
         },
         {
           "title": "讲师提示",
@@ -492,7 +510,7 @@ window.lesson = {
       "title": "暂停自检",
       "kicker": "第 2 章 · 2.2 · 小结",
       "lead": "先独立作答，再看解析。答案后面标出回到哪一页。",
-      "html": "<span class=\"p-pause\" data-reveal=\"0\">暂停 · 先独立作答</span><div class=\"p-qlist\"><div class=\"p-qrow\"><span class=\"p-n\">1</span><div><h3>关掉终端，第二天恢复 Codex 会话，页面会自动回来吗？</h3><div data-reveal=\"1\"><p>不会。会话由 Harness 保存，开发服务器是另一个程序，要重新 npm run dev<span class=\"p-back-to\" data-role=\"ctx\">回到 三种状态</span></p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">2</span><div><h3>压缩以后，模型不再看到哪些原始信息？</h3><div data-reveal=\"2\"><p>工具返回的原文和中间过程，只剩最近的用户消息和一份摘要<span class=\"p-back-to\" data-role=\"gate\">回到 压缩</span></p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">3</span><div><h3>对话越来越长，每次花的钱一定越来越多吗？</h3><div data-reveal=\"3\"><p>不一定。input 在变长，但重复前缀可被缓存；费用要看服务的计费，不能只凭对话长度断言<span class=\"p-back-to\" data-role=\"ok\">回到 代价</span></p></div></div></div></div>",
+      "html": "<span class=\"p-pause\" data-reveal=\"0\">暂停 · 先独立作答</span><div class=\"p-qlist\"><div class=\"p-qrow\"><span class=\"p-n\">1</span><div><h3>关掉终端，第二天恢复 Codex 会话，页面会自动回来吗？</h3><div data-reveal=\"1\"><p>不会。会话由 Harness 保存，开发服务器是另一个程序，要重新 npm run dev<span class=\"p-back-to\" data-role=\"ctx\">回到 三种状态</span></p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">2</span><div><h3>压缩以后，模型不再看到哪些原始信息？</h3><div data-reveal=\"2\"><p>工具返回的原文和中间过程，只剩用户消息和一份摘要<span class=\"p-back-to\" data-role=\"gate\">回到 压缩</span></p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">3</span><div><h3>对话越来越长，每次花的钱一定越来越多吗？</h3><div data-reveal=\"3\"><p>不一定。input 在变长，但重复前缀可被缓存；费用要看服务的计费，不能只凭对话长度断言<span class=\"p-back-to\" data-role=\"ok\">回到 代价</span></p></div></div></div></div>",
       "steps": [
         "暂停",
         "第 1 题",
@@ -502,7 +520,7 @@ window.lesson = {
       "script": [
         "暂停一下，回答三个问题。第一，关掉终端，第二天恢复 Codex 会话，页面会自动回来吗？第二，压缩以后，模型不再看到哪些原始信息？第三，对话越来越长，每次花的钱一定越来越多吗？",
         "第一题，不会。会话由 Harness 保存，开发服务器是另一个程序，关掉终端就停了，要重新运行 npm run dev。恢复对话，不等于恢复文件或服务。",
-        "第二题，在讲师这次看到的本地压缩里，工具返回的原文和中间过程都不在了，比如读到的文件内容、命令输出。剩下的是最近的用户消息和一份交接摘要。换别的服务或版本，细节可能不同，但摘要都替代不了原始证据。",
+        "第二题，工具调用和工具返回都会被移走，比如读到的文件内容、grep 的输出，这是 Codex 源码写定的。剩下的是用户消息和一份交接摘要；原始内容还能留下多少，要看摘要有没有抄进去。换别的服务或版本，细节可能不同，但摘要都替代不了原始证据。",
         "第三题，不一定。每次请求的 input 确实在变长，但重复的前缀可以被缓存，按更低的价格算。具体花多少，要看你用的服务怎么计费，不能只凭对话长度下结论。"
       ],
       "teaching": [],
