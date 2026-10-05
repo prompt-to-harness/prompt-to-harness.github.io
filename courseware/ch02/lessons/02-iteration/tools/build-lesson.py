@@ -17,11 +17,11 @@ REPO = "数据来自 openai/codex 仓库（Apache-2.0）的提交历史，2026-1
 
 ROUND_PROMPT = """Goal：在项目区呈现我的项目经历，解决反馈第 3 条。
 Context：见 docs/evidence/CH02_VIBE_ITERATIONS.md；
-项目卡不跳转（1.4 已定），本轮不改。
+项目卡不跳转是既有决定，本轮不改。
 项目内容（原文照用）：<每行一条：项目名称：一句描述>
 Constraints：只用上面的文字，不补写；不加链接、依赖；
 只改项目区；先说计划，等我确认再改。
-Done when：三种视口可读；Tab 顺序不变；
+Done when：360/768/1440 宽可读；Tab 顺序不变；
 build 成功；diff 只含项目区。"""
 
 RECORD = """## 第 1 轮
@@ -115,13 +115,13 @@ scene(
 
 scene(
     id="p23", segment="代价与不确定",
-    label="每次都重发，贵不贵", title="每次都重发，代价是 token 和注意力", kicker=KICK + "三种状态",
+    label="每次都重发，贵不贵", title="每次都重发，代价是 token 和注意力", kicker=KICK + "代价与不确定",
     lead="一次提问产生了 4 次请求，input 从 3 项涨到 10 项。重复的开头部分可以被缓存，算起来更便宜；但模型每次仍要读完整段历史，注意力不会因为缓存而变多。" + MEASURED,
     html=(
         '<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr)">'
         '<div class="is-head" data-reveal="0"><span>请求</span><span>input 项数</span><span>缓存命中</span></div>'
         '<div data-reveal="0"><span>第 1 次</span><span>3 项</span><span>约 1 千 token</span></div>'
-        '<div data-reveal="0"><span class="p-sub">第 2、3 次</span><span>逐次增加</span><span>逐次增加</span></div>'
+        '<div data-reveal="0"><span class="p-sub">第 2、3 次</span><span>未记录</span><span>未记录</span></div>'
         '<div data-reveal="0" class="is-key"><span>第 4 次</span><span>10 项</span><span>约 1.18 万 token</span></div></div>'
         '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:14px">'
         '<div class="p-box is-soft" data-role="ok" data-reveal="1"><h3>token</h3><p>重复的前缀能被缓存，按更低的价格算</p></div>'
@@ -135,14 +135,14 @@ scene(
         "第二种代价是注意力，缓存帮不上忙。模型每次都得把整段历史读一遍，历史越长，早先说过的需求越容易被淹没在大量工具输出里。这是我们挑会话时真正要考虑的。",
     ],
     teaching=teach(
-        ("数字来源", MEASURED + " 中间两次请求的数字未在提案中记录，画面只写“逐次增加”。"),
+        ("数字来源", MEASURED + " 中间两次请求的数字未在提案中记录，画面写“未记录”，不推断它们的走势；录制时可从 claude-tap 记录补齐。"),
         ("讲师提示", "前缀缓存的计费细节放配套页，主课只讲“重复部分更便宜，注意力不变”。不要据此断言每次费用一定增加。"),
     ),
 )
 
 scene(
     id="p24", segment="代价与不确定",
-    label="再问一次，一样吗", title="同一个问题再问一次，过程不一样", kicker=KICK + "三种状态",
+    label="再问一次，一样吗", title="同一个问题再问一次，过程不一样", kicker=KICK + "代价与不确定",
     lead="同一句只读提问跑了两次：第一次 4 次请求，中途还调用了一个不存在的工具；第二次只用了 2 次请求。模型的输出有不确定性，所以判断要看这一次的证据，而不是“上次是这样”。" + MEASURED,
     html=(
         '<div class="p-pair" style="grid-template-columns:1fr auto 1fr">'
@@ -187,7 +187,7 @@ scene(
 
 scene(
     id="p26", segment="请求会变",
-    label="两份指令差在哪", title="通用模型和专用模型，配的指令差三倍", kicker=KICK + "请求会变",
+    label="两份指令差在哪", title="通用模型和专用模型，指令的章节不一样", kicker=KICK + "请求会变",
     lead="仓库按模型放了不同的指令：给通用模型的约 21–24 KB，给为 Codex 专门训练的模型的只有约 6.6–7.6 KB。对比章节目录，能看到短的那份省掉了哪些内容；但不能凭长度判断哪个模型更好。" + REPO,
     html=(
         '<div class="p-pair" style="grid-template-columns:1fr 1fr">'
@@ -346,7 +346,7 @@ scene(
         '<div class="p-code" data-reveal="0"><div class="p-code-head"><span>docs/evidence/CH02_VIBE_ITERATIONS.md</span><span>追加</span></div>'
         '<pre style="color:inherit">## 第 1 轮\n- 问题证据：反馈第 3 条；项目区只有一句\n- 本轮目标：呈现我提供的三条项目经历\n'
         '<span class="hl">- 会话选择与理由：新建；2.1 会话多为请求查看</span>- 改动文件：src/App.tsx\n'
-        '- 验证结果：视口完整 / Tab 不变 / build 成功\n<span class="hl">- 剩余问题：第 1 条在 360 下仍未复现</span>'
+        '- 验证结果：视口完整 / Tab 不变 / build 成功\n<span class="hl">- 剩余问题：无（第 1 条在 360 下未复现）</span>'
         '- 回退点：本轮开始前的提交</pre></div>'
         '<div style="display:grid;gap:12px"><div class="p-box is-soft" data-role="ctx" data-reveal="1"><p><b>下一轮</b> · 新会话的交接文件</p></div>'
         '<div class="p-box is-soft" data-role="tool" data-reveal="1"><p><b>2.3</b> · 审查 diff 的对照目标</p></div></div></div>'
@@ -357,7 +357,7 @@ scene(
         "这份记录有两个用处。下一次新建会话时，它就是交接文件；下一节 2.3 审查 diff 时，它就是对照的目标。请暂停视频，把你的第 1 轮写完。",
     ],
     teaching=teach(
-        ("跟做产出", "本轮记录七项：问题证据、本轮目标、会话选择与理由、改动文件、验证结果、剩余问题、回退点。空白模板：\n\n" + RECORD),
+        ("跟做产出", "本轮记录七项：问题证据、本轮目标、会话选择与理由、改动文件、验证结果、剩余问题、回退点。模板（前两项为讲师示例）：\n\n```markdown\n" + RECORD + "\n```"),
         ("讲师提示", "画面上的记录是讲师示例，各项以录制实际为准。"),
     ),
 )
@@ -380,7 +380,7 @@ scene(
     script=[
         "暂停一下，回答三个问题。第一，关掉终端，第二天恢复 Codex 会话，页面会自动回来吗？第二，压缩以后，模型不再看到哪些原始信息？第三，对话越来越长，每次花的钱一定越来越多吗？",
         "第一题，不会。会话由 Harness 保存，开发服务器是另一个程序，关掉终端就停了，要重新运行 npm run dev。恢复对话，不等于恢复文件或服务。",
-        "第二题，工具返回的原文和中间过程都不在了，比如读到的文件内容、命令输出。剩下的是最近的用户消息和一份交接摘要。",
+        "第二题，在讲师这次看到的本地压缩里，工具返回的原文和中间过程都不在了，比如读到的文件内容、命令输出。剩下的是最近的用户消息和一份交接摘要。换别的服务或版本，细节可能不同，但摘要都替代不了原始证据。",
         "第三题，不一定。每次请求的 input 确实在变长，但重复的前缀可以被缓存，按更低的价格算。具体花多少，要看你用的服务怎么计费，不能只凭对话长度下结论。",
     ],
 )
@@ -397,7 +397,7 @@ scene(
     ),
     steps=["三种状态", "一个习惯", "下一节"],
     script=[
-        "这一节先回答了一个看似简单的问题：在哪个会话里改。模型什么都不记；会话由 Harness 保存，每次请求重发；文件和运行中的程序各自存在。所以选会话，看的是历史里有什么，而交接靠的是文件里的证据。",
+        "这一节先回答了一个看似简单的问题：在哪个会话里改。模型什么都不记；会话由 Harness 保存，在我们看到的那次运行里，每次请求都重发了完整历史；文件和运行中的程序各自存在。所以选会话，看的是历史里有什么，而交接靠的是文件里的证据。",
         "然后我们完成了一轮完整的迭代：Prompt 引用当前证据，内容由人提供，只改项目区，再用三种视口、键盘和构建证明没弄坏别的。一轮只解决一个结果，新发现的问题记下来留给下一轮。课后想再做一两轮可以，不计分。",
         "现在 Codex 说完成了，我们手上是一份还没提交的改动。下一节的问题是：这份 diff，收不收？",
     ],
