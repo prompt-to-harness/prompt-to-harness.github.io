@@ -104,7 +104,7 @@ font_text = ''.join(
     p.read_text(errors='ignore')
     for base in (courseware, resources / 'demos' / 'parts')
     for p in sorted(base.rglob('*'))
-    if p.suffix in {'.js', '.html', '.css', '.md', '.svg'} and 'archive' not in p.parts and 'fonts' not in p.parts
+    if p.suffix in {'.js', '.html', '.css', '.md', '.svg'} and 'archive' not in p.parts and 'fonts' not in p.parts and 'materials' not in p.parts
 )
 han = {c for c in font_text if '\u4e00' <= c <= '\u9fff'}
 for font_id in ('title', 'cover', 'sans'):
