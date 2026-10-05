@@ -45,12 +45,14 @@
 ### 复现这个实验（页面按钮）
 
 1. 在课程仓库根目录建目录 A，放一个文件；目录要有自己的 .git：`mkdir -p lab-runs/resume-a && cd lab-runs/resume-a && git init -q && echo '<h1>hello</h1>' > index.html`
-2. 用固定的 HOME 启动，让 Codex 读这个文件；固定 HOME 才能在下一步找到这次会话。需要 MINIMAX_API_KEY：`CLEAN_CODEX_HOME=~/.cache/clean-codex/resume ../../tools/clean-codex.sh -- exec "只读：读一下 index.html，告诉我它的第一行。" < /dev/null`
-3. 换到空目录 B，恢复刚才的会话再问；--all 取消“只找当前目录的会话”：`mkdir -p ../resume-b && cd ../resume-b && git init -q
-CLEAN_CODEX_HOME=~/.cache/clean-codex/resume ../../tools/clean-codex.sh -- exec resume --last --all "不要运行命令，只凭记忆回答：刚才你读的是哪个文件？它的第一行是什么？" < /dev/null`
-4. 看看目录 B 里有没有这个文件：`ls -la`
+2. 另开一个终端，在目录 A 启动一个本地服务器（相当于 npm run dev），浏览器打开 localhost:8765 能看到页面：`cd lab-runs/resume-a && python3 -m http.server 8765`
+3. 回到第一个终端，用固定的 HOME 让 Codex 读文件，并告诉它服务器开着；固定 HOME 才能在后面找到这次会话。需要 MINIMAX_API_KEY：`CLEAN_CODEX_HOME=~/.cache/clean-codex/resume ../../tools/clean-codex.sh -- exec "只读：读一下 index.html，告诉我它的第一行。另外记住：这个页面我已经用 python3 -m http.server 在 8765 端口打开了。" < /dev/null`
+4. 到第二个终端按 Ctrl-C 关掉服务器，相当于关掉终端或第二天重新开机
+5. 换到空目录 B，恢复刚才的会话再问；--all 取消“只找当前目录的会话”：`mkdir -p ../resume-b && cd ../resume-b && git init -q
+CLEAN_CODEX_HOME=~/.cache/clean-codex/resume ../../tools/clean-codex.sh -- exec resume --last --all "不要运行命令，只凭记忆回答：刚才你读的是哪个文件？它的第一行是什么？8765 端口上的那个页面现在还能打开吗？" < /dev/null`
+6. 核对：目录 B 里有没有这个文件，页面还能不能打开（000 表示打不开）：`ls -A; curl -s -o /dev/null -w "%{http_code}\n" localhost:8765 || true`
 
-讲师 2026-10-05 按此实测：模型答出 index.html 和它的第一行，但目录 B 里没有这个文件。会话记录跟着 HOME 走，文件留在原目录。加上 --tap 可以在请求面板里看到恢复后追加的新环境信息。
+讲师 2026-10-05 实测：模型答出 index.html 和它的第一行；目录 B 里没有这个文件，服务器关掉后页面打不开。问到端口时，模型两次都说无法确认、只记得“你说过它开着”；其他运行也可能直接说还开着。会话、文件、进程三者各自存在。
 
 ### 核对记录
 

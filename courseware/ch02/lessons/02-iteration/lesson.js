@@ -48,19 +48,27 @@ window.lesson = {
             "code": "mkdir -p lab-runs/resume-a && cd lab-runs/resume-a && git init -q && echo '<h1>hello</h1>' > index.html"
           },
           {
-            "text": "用固定的 HOME 启动，让 Codex 读这个文件；固定 HOME 才能在下一步找到这次会话。需要 MINIMAX_API_KEY",
-            "code": "CLEAN_CODEX_HOME=~/.cache/clean-codex/resume ../../tools/clean-codex.sh -- exec \"只读：读一下 index.html，告诉我它的第一行。\" < /dev/null"
+            "text": "另开一个终端，在目录 A 启动一个本地服务器（相当于 npm run dev），浏览器打开 localhost:8765 能看到页面",
+            "code": "cd lab-runs/resume-a && python3 -m http.server 8765"
+          },
+          {
+            "text": "回到第一个终端，用固定的 HOME 让 Codex 读文件，并告诉它服务器开着；固定 HOME 才能在后面找到这次会话。需要 MINIMAX_API_KEY",
+            "code": "CLEAN_CODEX_HOME=~/.cache/clean-codex/resume ../../tools/clean-codex.sh -- exec \"只读：读一下 index.html，告诉我它的第一行。另外记住：这个页面我已经用 python3 -m http.server 在 8765 端口打开了。\" < /dev/null"
+          },
+          {
+            "text": "到第二个终端按 Ctrl-C 关掉服务器，相当于关掉终端或第二天重新开机",
+            "code": ""
           },
           {
             "text": "换到空目录 B，恢复刚才的会话再问；--all 取消“只找当前目录的会话”",
-            "code": "mkdir -p ../resume-b && cd ../resume-b && git init -q\nCLEAN_CODEX_HOME=~/.cache/clean-codex/resume ../../tools/clean-codex.sh -- exec resume --last --all \"不要运行命令，只凭记忆回答：刚才你读的是哪个文件？它的第一行是什么？\" < /dev/null"
+            "code": "mkdir -p ../resume-b && cd ../resume-b && git init -q\nCLEAN_CODEX_HOME=~/.cache/clean-codex/resume ../../tools/clean-codex.sh -- exec resume --last --all \"不要运行命令，只凭记忆回答：刚才你读的是哪个文件？它的第一行是什么？8765 端口上的那个页面现在还能打开吗？\" < /dev/null"
           },
           {
-            "text": "看看目录 B 里有没有这个文件",
-            "code": "ls -la"
+            "text": "核对：目录 B 里有没有这个文件，页面还能不能打开（000 表示打不开）",
+            "code": "ls -A; curl -s -o /dev/null -w \"%{http_code}\\n\" localhost:8765 || true"
           }
         ],
-        "note": "讲师 2026-10-05 按此实测：模型答出 index.html 和它的第一行，但目录 B 里没有这个文件。会话记录跟着 HOME 走，文件留在原目录。加上 --tap 可以在请求面板里看到恢复后追加的新环境信息。"
+        "note": "讲师 2026-10-05 实测：模型答出 index.html 和它的第一行；目录 B 里没有这个文件，服务器关掉后页面打不开。问到端口时，模型两次都说无法确认、只记得“你说过它开着”；其他运行也可能直接说还开着。会话、文件、进程三者各自存在。"
       },
       "steps": [
         "三栏",
