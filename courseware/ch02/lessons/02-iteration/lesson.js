@@ -296,7 +296,7 @@ window.lesson = {
       "title": "压缩以后，模型看到的是摘要",
       "kicker": "第 2 章 · 2.2 · 压缩与交接",
       "lead": "主线会话通常不够长，压缩单独做一个小实验看。在讲师的配置下，/compact 让模型自己写一份“交接摘要”。按 Codex 源码，压缩后的历史只留用户消息、这份摘要和重新插入的初始上下文，工具调用和返回全部移走；原始证据还剩多少，取决于摘要怎么写。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ink\">压缩前</span><p style=\"line-height:1.7\">我们的提问 · 模型的工具调用<br><b>工具返回的原文</b>（文件内容、命令输出）<br>模型的回答</p></div><div class=\"p-join\" data-reveal=\"1\"><span>/compact</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ctx\">压缩后</span><p style=\"line-height:1.7\">我们发过的用户消息<br><b>一份交接摘要</b><br>初始上下文（重新插入）</p></div></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"2\" style=\"margin-top:14px\"><h3>讲师跑了 5 次</h3><p>grep 的 10 行原文：4 次摘要只留下行号或计数，追问时模型答不出；1 次摘要整段抄了下来。我们写下的决定是用户消息，5 次原文都在</p></div><p class=\"source-note\">压缩后保留什么由源码决定（core/src/compact.rs）；摘要内容来自讲师独立实验，2026-10-05，Codex 0.160.0，clean-codex.sh（MiniMax，本地压缩），见 ch02/materials/compact</p>",
+      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ink\">压缩前</span><p style=\"line-height:1.7\">我们的提问 · 模型的工具调用<br><b>工具返回的原文</b>（文件内容、命令输出）<br>模型的回答</p></div><div class=\"p-join\" data-reveal=\"1\"><span>/compact</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ctx\">压缩后</span><p style=\"line-height:1.7\">我们发过的用户消息<br><b>一份交接摘要</b><br>初始上下文（重新插入）</p></div></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"2\" style=\"margin-top:14px\"><h3>讲师跑了 5 次</h3><p>grep 的 10 行原文：4 次摘要只留下行号或计数，追问时模型答不出；1 次摘要整段抄了下来。我们写下的决定是用户消息，5 次原文都在</p></div><p class=\"source-note\">压缩后保留什么由源码决定（core/src/compact.rs）；摘要内容来自讲师独立实验，2026-10-05，Codex 0.160.0，clean-codex.sh（MiniMax，本地压缩），见 ch02/materials/compact</p><p class=\"source-note\">自己重复（选做）：在课程仓库根目录运行 <code>courseware/ch02/materials/compact/setup.sh</code>，再 <code>cd lab-runs/compact-lab</code>，用 <code>../../tools/clean-codex.sh --tap</code> 启动 Codex，依次输入同目录 <code>steps.txt</code> 的五行。需要 MiniMax 密钥；完整说明和讲师 5 次运行的汇总见该目录的 README.md。</p>",
       "refs": [
         {
           "kind": "live",
@@ -319,7 +319,7 @@ window.lesson = {
       "script": [
         "如果不想新建会话，可以在 Codex 里输入 /compact 压缩一下再继续。我们的主线会话通常不够长，所以单独做一个小实验：先让 Codex 读两个文件，再跑一次 grep、把输出原样贴出来，最后写下一条我们自己的决定。这时历史里有我们的提问、模型的工具调用、工具返回的原文，还有模型的回答。",
         "然后输入 /compact。压缩做了什么？在讲师的配置下，Codex 让模型按一段固定提示，写一份给“下一个接手的模型”的交接摘要：进度、关键决定、约束、下一步。压缩后的历史只剩三样：我们发过的用户消息，这份摘要，和重新插入的初始上下文。这一步每次都一样，是 Codex 源码写定的：工具调用、工具返回和模型的回答，都不会留下。",
-        "那原始证据还剩多少？要看摘要怎么写。讲师用同样的步骤跑了 5 次：grep 输出了 10 行，其中 4 次摘要只留下行号或“共 10 处匹配”，我们追问第 1 行是什么，模型说手里没有原文，写不出来；只有 1 次，摘要把 10 行整段抄了下来。我们自己写下的决定是用户消息，5 次原文都在。所以压缩后模型看到的是摘要，不是原始证据；需要原始证据，就让它重新读。摘要每次写得不一样，好不好，我们得自己读一遍才知道。"
+        "那原始证据还剩多少？要看摘要怎么写。讲师用同样的步骤跑了 5 次：grep 输出了 10 行，其中 4 次摘要只留下行号或“共 10 处匹配”，我们追问第 1 行是什么，模型说手里没有原文，写不出来；只有 1 次，摘要把 10 行整段抄了下来。我们自己写下的决定是用户消息，5 次原文都在。所以压缩后模型看到的是摘要，不是原始证据；需要原始证据，就让它重新读。摘要每次写得不一样，好不好，我们得自己读一遍才知道。想自己重复这个实验，步骤放在本页的阅读模式里，选做。"
       ],
       "teaching": [
         {
