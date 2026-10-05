@@ -168,6 +168,17 @@ Codex 的完成报告以 2.2 录制实际为准。
 
 回头看，commit 的价值在这里：它让“拒绝”变得便宜。有了检查点，接受一份改动就不再是不可回头的决定。能说出本次的回退点和回到它的命令，是这一节的验收要求。
 
+### 复现这个实验（页面按钮）
+
+1. 在课程仓库根目录，用第 1 章参考快照建一个练习仓库，不动你自己的首页：`cp -R starters/personal-homepage/ch01-complete lab-runs/revert && cd lab-runs/revert
+git init -q -b main && git add -A && git commit -qm baseline`
+2. 提交一次代码改动（homepage-v1），再单独提交一份记录：`git apply ../../courseware/ch02/materials/homepage-v1.diff && git commit -qam homepage-v1
+echo '# 本轮记录' > CH02_VIBE_ITERATIONS.md && git add CH02_VIBE_ITERATIONS.md && git commit -qm 'docs: 本轮记录'`
+3. 在演示分支上撤回代码那次提交（记录之前的那一次，即 HEAD~1）：`git switch -c demo-revert && git revert --no-edit HEAD~1 && git log --oneline -3 && git show --stat HEAD`
+4. 检查：撤回只改了 src/App.tsx，记录文件还在；然后回到 main，删掉演示分支：`ls CH02_VIBE_ITERATIONS.md && git switch main && git branch -D demo-revert`
+
+讲师 2026-10-05 按此实测。需要已配置 git user.name 与 user.email。
+
 ### 切到实操
 
 在临时分支演示，不在学员主线上做，开始前 git status 必须干净：git switch -c demo-revert → git revert --no-edit <homepage-v1 的短哈希> → git log --oneline -3 → git switch main → git branch -D demo-revert（-D 用于删除未合并的演示分支）。2026-10-05 在临时仓库按“代码、记录分两次提交”实测：撤回只改 App.tsx，记录文件保留；已暂存的修改 git restore 不生效，先 git restore --staged 再 restore 生效。

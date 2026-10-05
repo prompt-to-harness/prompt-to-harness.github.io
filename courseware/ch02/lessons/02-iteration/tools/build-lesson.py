@@ -197,6 +197,11 @@ scene(
         ref("重写", f"{GH}/commit/81b148bda271615b37f7e04b3135e9d552df8111", "diff"),
         ref("权限拆出", f"{GH}/commit/87f7226cca12df04596938f58625de84e976309a", "diff"),
     ],
+    repro=repro([
+        ("在课程仓库根目录取下 Codex 子模块的当前版本（只取一个提交）", "git submodule update --init --depth 1 third_party/codex"),
+        ("再取 2025-04 首版所在的那次提交", "git -C third_party/codex fetch --depth 1 origin 31d0d7a305305ad557035a2edcab60b6be5018d8"),
+        ("对比首版和当前的系统指令；文件在 2026-01 搬过位置，所以两边路径不同", "git -C third_party/codex diff 31d0d7a305305ad557035a2edcab60b6be5018d8:codex-rs/core/prompt.md HEAD:codex-rs/protocol/src/prompts/base_instructions/default.md"),
+    ], note="讲师 2026-10-05 在一份新克隆上实测，两步下载在讲师的网络下约 12 分钟。不想等的话，画面底部的链接可以直接看各版本原文和重写那次提交的 diff。"),
     steps=["早期", "一次重写", "权限说明拆出"],
     script=[
         "不只是模型的输出会变，Codex 自己也在变。它是开源的，系统指令的每一次修改都留在仓库历史里。我们看通用指令文件的大小：2025 年 4 月首版大约 5.7 KB，到 8 月 5 日补到大约 9.8 KB。",
@@ -205,7 +210,7 @@ scene(
     ],
     teaching=teach(
         ("核对记录", "首版到 2025-08-05 的大小、重写提交 81b148bda2（“update system prompt”）、按模型分文件提交 916fdc2a37、权限模板化提交 87f7226cca，见提案“Codex 开源仓库中的系统指令”。通用指令当前位于 codex-rs/protocol/src/prompts/base_instructions/default.md；2026-10-03 复核 main（b741e48）大小为 20903 字节。"),
-        ("原文与 diff", "每个版本的原文和两次关键提交的 diff，在画面底部有直达链接（固定到完整提交哈希）。重写那次提交 81b148bda2 只改了 prompt.md 一个文件（+270 −80），GitHub 的提交页就是“重写前 vs 重写后”的文件 diff。\n\n本仓库把 openai/codex 作为子模块放在 third_party/codex（固定在 b741e48），可以离线对比：git submodule update --init --filter=blob:none third_party/codex 取下子模块，再运行 git -C third_party/codex diff 31d0d7a305:codex-rs/core/prompt.md b741e48:codex-rs/protocol/src/prompts/base_instructions/default.md 看首版到当前的全部变化。文件在 2026-01-19 从 codex-rs/core/prompt.md 搬到现在的位置，所以早期版本要用旧路径。"),
+        ("原文与 diff", "每个版本的原文和两次关键提交的 diff，在画面底部有直达链接（固定到完整提交哈希）。重写那次提交 81b148bda2 只改了 prompt.md 一个文件（+270 −80），GitHub 的提交页就是“重写前 vs 重写后”的文件 diff。\n\n本仓库把 openai/codex 作为子模块放在 third_party/codex（固定在 b741e48），离线对比的命令见页面上的“复现这个实验”；只取需要的两个提交，比取下完整历史快得多。"),
         ("切到实操", "可在录制时打开重写那次提交的 GitHub 页面，滚动展示新增的章节标题；不逐行读。"),
         ("讲师提示", "这一页与下一页是“版本线”示例，看懂即可，不要求学员背数字；想看原文的学员从画面底部的链接打开。"),
     ),
@@ -230,6 +235,11 @@ scene(
         ref("通用指令 prompt.md", blob(V160, "codex-rs/models-manager/prompt.md"), "0.160.0 源码"),
         ref("模型目录 models.json", blob(V160, "codex-rs/models-manager/models.json"), "0.160.0 源码"),
     ] + [ref(t, blob(PINNED, "codex-rs/core/" + f), "2026-01 前按文件分模型（已不使用）", kind="read") for t, f in (("GPT-5.2", "gpt_5_2_prompt.md"), ("GPT-5.2-Codex", "gpt-5.2-codex_prompt.md"))],
+    repro=repro([
+        ("在课程仓库根目录建练习目录，准备两个临时 HOME，配置只差模型名", "mkdir -p lab-runs/model-name && cd lab-runs/model-name\nfor m in MiniMax-M3 gpt-5.5; do mkdir -p home-$m/.codex; printf 'model = \"%s\"\\nmodel_provider = \"minimax\"\\n[model_providers.minimax]\\nname = \"MiniMax\"\\nbase_url = \"https://api.minimax.cn/v1\"\\nenv_key = \"MINIMAX_API_KEY\"\\nwire_api = \"responses\"\\n' $m > home-$m/.codex/config.toml; done"),
+        ("各跑一次并导出请求；导出模式只在本地应答、不访问 MiniMax，密钥写假值即可", "for m in MiniMax-M3 gpt-5.5; do MINIMAX_API_KEY=fake HOME=$PWD/home-$m UV_CACHE_DIR=~/.cache/uv XDG_DATA_HOME=~/.local/share uvx claude-tap --tap-client codex --tap-no-open --tap-target https://api.minimax.cn/v1 --tap-export-prompt $PWD/$m.md -- exec --skip-git-repo-check -s read-only \"Reply with OK only.\" < /dev/null; done"),
+        ("对照两份导出的开头和章节", "head -5 MiniMax-M3.md gpt-5.5.md"),
+    ], note="讲师 2026-10-05 按此实测：MiniMax-M3 开头是 “You are a coding agent running in the Codex CLI”，gpt-5.5 是 “You are Codex, a coding agent based on GPT-5”。每次约 1–3 分钟。"),
     steps=["不在目录的模型", "目录里的 gpt-5.5", "模型与指令配置"],
     script=[
         "Codex 还有一份模型目录，叫 models.json，它按模型名在里面查该发哪份指令。讲师用 claude-tap 抓了两次请求，配置完全一样，只改了模型名。左边写的是 MiniMax-M3，目录里没有，Codex 就发通用指令，开头一句是“You are a coding agent running in the Codex CLI”，大约 1.7 万字符。章节有工作方式、性格、AGENTS.md 规范、验证工作、工具指南这些，2.1 我们见过。",
@@ -238,7 +248,7 @@ scene(
     ],
     teaching=teach(
         ("核对记录", "2026-10-05 本机 codex-cli 0.160.0，隔离 HOME，自定义 provider 写法与 MiniMax 相同、密钥为假值，claude-tap 0.1.145 以 --tap-export-prompt 本地应答，不访问上游；codex exec -s read-only，各 1 次请求。MiniMax-M3：instructions 16979 字符，与 2.1 的记录一致，等于 rust-v0.160.0 的 models-manager/prompt.md 删去 Planning、Examples、update_plan 三段（逐字相同）。gpt-5.5：21299 字符，等于 models.json 中 gpt-5.5 的 instructions_template 删去一行更新清单状态的说明。删段落的规则见 codex-rs/prompts/src/update_plan_instructions.rs。按模型名查目录的逻辑见 models-manager/src/manager.rs 的 construct_model_info_from_candidates（最长前缀匹配，与 provider 无关）。"),
-        ("原文与 diff", "源码链接在画面底部，固定在 rust-v0.160.0（a956835d02）。复现：建临时 HOME，在 .codex/config.toml 写 model 与自定义 provider，运行 HOME=<临时目录> uvx claude-tap --tap-client codex --tap-target <provider 地址> --tap-export-prompt <输出.md> -- exec --skip-git-repo-check -s read-only \"Reply with OK only.\" < /dev/null，只改 model 再跑一次，对比两份导出的 instructions。把模型名写成目录里的名字只用于查看请求：真实发给 MiniMax 时，它不认识这个模型名。2026-01 之前 Codex 按文件给模型配指令（codex-rs/core/gpt_*_prompt.md），这些文件仍留在仓库里但已无代码引用，链接放在延伸阅读。"),
+        ("原文与 diff", "源码链接在画面底部，固定在 rust-v0.160.0（a956835d02）。复现命令见页面上的“复现这个实验”。把模型名写成目录里的名字只用于查看请求：真实发给 MiniMax 时，它不认识这个模型名。2026-01 之前 Codex 按文件给模型配指令（codex-rs/core/gpt_*_prompt.md），这些文件仍留在仓库里但已无代码引用，链接放在延伸阅读。"),
         ("切到实操", "录制时现场跑这两次，或打开 claude-tap 导出的两份 Markdown 并排展示 instructions 开头和章节；画面截图前检查路径与用户名。"),
         ("讲师提示", "只讲两份指令可见的差异。文件长度和目录没有提供模型能力评测或设计动机的证据；如另讲这些问题，应补相应证据。"),
     ),

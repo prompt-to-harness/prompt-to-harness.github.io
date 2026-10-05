@@ -147,6 +147,14 @@ MiniMax 配置下请求体 store 为 false、没有 previous_response_id；OpenA
 - 画面上 · diff · [重写](https://github.com/openai/codex/commit/81b148bda271615b37f7e04b3135e9d552df8111)
 - 画面上 · diff · [权限拆出](https://github.com/openai/codex/commit/87f7226cca12df04596938f58625de84e976309a)
 
+### 复现这个实验（页面按钮）
+
+1. 在课程仓库根目录取下 Codex 子模块的当前版本（只取一个提交）：`git submodule update --init --depth 1 third_party/codex`
+2. 再取 2025-04 首版所在的那次提交：`git -C third_party/codex fetch --depth 1 origin 31d0d7a305305ad557035a2edcab60b6be5018d8`
+3. 对比首版和当前的系统指令；文件在 2026-01 搬过位置，所以两边路径不同：`git -C third_party/codex diff 31d0d7a305305ad557035a2edcab60b6be5018d8:codex-rs/core/prompt.md HEAD:codex-rs/protocol/src/prompts/base_instructions/default.md`
+
+讲师 2026-10-05 在一份新克隆上实测，两步下载在讲师的网络下约 12 分钟。不想等的话，画面底部的链接可以直接看各版本原文和重写那次提交的 diff。
+
 ### 核对记录
 
 首版到 2025-08-05 的大小、重写提交 81b148bda2（“update system prompt”）、按模型分文件提交 916fdc2a37、权限模板化提交 87f7226cca，见提案“Codex 开源仓库中的系统指令”。通用指令当前位于 codex-rs/protocol/src/prompts/base_instructions/default.md；2026-10-03 复核 main（b741e48）大小为 20903 字节。
@@ -155,7 +163,7 @@ MiniMax 配置下请求体 store 为 false、没有 previous_response_id；OpenA
 
 每个版本的原文和两次关键提交的 diff，在画面底部有直达链接（固定到完整提交哈希）。重写那次提交 81b148bda2 只改了 prompt.md 一个文件（+270 −80），GitHub 的提交页就是“重写前 vs 重写后”的文件 diff。
 
-本仓库把 openai/codex 作为子模块放在 third_party/codex（固定在 b741e48），可以离线对比：git submodule update --init --filter=blob:none third_party/codex 取下子模块，再运行 git -C third_party/codex diff 31d0d7a305:codex-rs/core/prompt.md b741e48:codex-rs/protocol/src/prompts/base_instructions/default.md 看首版到当前的全部变化。文件在 2026-01-19 从 codex-rs/core/prompt.md 搬到现在的位置，所以早期版本要用旧路径。
+本仓库把 openai/codex 作为子模块放在 third_party/codex（固定在 b741e48），离线对比的命令见页面上的“复现这个实验”；只取需要的两个提交，比取下完整历史快得多。
 
 ### 切到实操
 
@@ -190,13 +198,22 @@ Codex 还有一份模型目录，叫 models.json，它按模型名在里面查�
 - 延伸 · 2026-01 前按文件分模型（已不使用） · [GPT-5.2](https://github.com/openai/codex/blob/b741e480e203f037ca726bc2a76d99a8e8668e66/codex-rs/core/gpt_5_2_prompt.md)
 - 延伸 · 2026-01 前按文件分模型（已不使用） · [GPT-5.2-Codex](https://github.com/openai/codex/blob/b741e480e203f037ca726bc2a76d99a8e8668e66/codex-rs/core/gpt-5.2-codex_prompt.md)
 
+### 复现这个实验（页面按钮）
+
+1. 在课程仓库根目录建练习目录，准备两个临时 HOME，配置只差模型名：`mkdir -p lab-runs/model-name && cd lab-runs/model-name
+for m in MiniMax-M3 gpt-5.5; do mkdir -p home-$m/.codex; printf 'model = "%s"\nmodel_provider = "minimax"\n[model_providers.minimax]\nname = "MiniMax"\nbase_url = "https://api.minimax.cn/v1"\nenv_key = "MINIMAX_API_KEY"\nwire_api = "responses"\n' $m > home-$m/.codex/config.toml; done`
+2. 各跑一次并导出请求；导出模式只在本地应答、不访问 MiniMax，密钥写假值即可：`for m in MiniMax-M3 gpt-5.5; do MINIMAX_API_KEY=fake HOME=$PWD/home-$m UV_CACHE_DIR=~/.cache/uv XDG_DATA_HOME=~/.local/share uvx claude-tap --tap-client codex --tap-no-open --tap-target https://api.minimax.cn/v1 --tap-export-prompt $PWD/$m.md -- exec --skip-git-repo-check -s read-only "Reply with OK only." < /dev/null; done`
+3. 对照两份导出的开头和章节：`head -5 MiniMax-M3.md gpt-5.5.md`
+
+讲师 2026-10-05 按此实测：MiniMax-M3 开头是 “You are a coding agent running in the Codex CLI”，gpt-5.5 是 “You are Codex, a coding agent based on GPT-5”。每次约 1–3 分钟。
+
 ### 核对记录
 
 2026-10-05 本机 codex-cli 0.160.0，隔离 HOME，自定义 provider 写法与 MiniMax 相同、密钥为假值，claude-tap 0.1.145 以 --tap-export-prompt 本地应答，不访问上游；codex exec -s read-only，各 1 次请求。MiniMax-M3：instructions 16979 字符，与 2.1 的记录一致，等于 rust-v0.160.0 的 models-manager/prompt.md 删去 Planning、Examples、update_plan 三段（逐字相同）。gpt-5.5：21299 字符，等于 models.json 中 gpt-5.5 的 instructions_template 删去一行更新清单状态的说明。删段落的规则见 codex-rs/prompts/src/update_plan_instructions.rs。按模型名查目录的逻辑见 models-manager/src/manager.rs 的 construct_model_info_from_candidates（最长前缀匹配，与 provider 无关）。
 
 ### 原文与 diff
 
-源码链接在画面底部，固定在 rust-v0.160.0（a956835d02）。复现：建临时 HOME，在 .codex/config.toml 写 model 与自定义 provider，运行 HOME=<临时目录> uvx claude-tap --tap-client codex --tap-target <provider 地址> --tap-export-prompt <输出.md> -- exec --skip-git-repo-check -s read-only "Reply with OK only." < /dev/null，只改 model 再跑一次，对比两份导出的 instructions。把模型名写成目录里的名字只用于查看请求：真实发给 MiniMax 时，它不认识这个模型名。2026-01 之前 Codex 按文件给模型配指令（codex-rs/core/gpt_*_prompt.md），这些文件仍留在仓库里但已无代码引用，链接放在延伸阅读。
+源码链接在画面底部，固定在 rust-v0.160.0（a956835d02）。复现命令见页面上的“复现这个实验”。把模型名写成目录里的名字只用于查看请求：真实发给 MiniMax 时，它不认识这个模型名。2026-01 之前 Codex 按文件给模型配指令（codex-rs/core/gpt_*_prompt.md），这些文件仍留在仓库里但已无代码引用，链接放在延伸阅读。
 
 ### 切到实操
 

@@ -529,6 +529,32 @@ window.lesson = {
       "kicker": "第 2 章 · 2.1 · 请求会变",
       "lead": "只读和可写两次运行，权限说明是两段不同的文字；可写时还会列出可写目录，环境信息也随之变长。Codex 按配置从不同模板拼出这段说明。这是讲师示例，可自主尝试。数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。",
       "html": "<style>.x-w16{grid-template-columns:1.5fr 1fr}@media(max-width:600px){body[data-mode=scroll] .x-w16{grid-template-columns:1fr}body[data-mode=scroll] .x-w16 code{white-space:pre-wrap;overflow-wrap:anywhere}}</style><div class=\"p-walk x-w16\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:40px\"><div class=\"p-fn\">permissions instructions <span class=\"add\">+1</span><span class=\"del\">−1</span></div><div class=\"p-ln del\"><i>−</i><code>`sandbox_mode` is `read-only`: … only permits reading files.</code></div><div class=\"p-ln add\"><i>+</i><code>`sandbox_mode` is `workspace-write`: … editing files in `cwd` …</code></div><div class=\"p-ln add\"><i>+</i><code>The writable roots are `…/work`, …</code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>约 340 → 670 字符</b><small>可写时多出可写目录</small></span></li><li class=\"is-ok\" data-reveal=\"1\"><span><b>按配置拼装</b><small>仓库里按沙箱模式分模板</small></span></li></ol></div><div class=\"p-term\" data-reveal=\"0\" style=\"margin-top:12px;font-size:17px\" data-copy=\"uvx claude-tap --tap-client codex --tap-target https://api.minimax.cn/v1 -s read-only\"><div class=\"dim\">$ uvx claude-tap --tap-client codex --tap-target … -s read-only</div><div class=\"dim\">$ uvx claude-tap --tap-client codex --tap-target … -s workspace-write</div></div>",
+      "repro": {
+        "label": "复现这个实验",
+        "steps": [
+          {
+            "text": "在课程仓库根目录建一个带 Git 的练习目录；有自己的 .git，Codex 才不会读到课程仓库的 AGENTS.md",
+            "code": "mkdir -p lab-runs/perm && cd lab-runs/perm && git init -q && echo '<h1>hello</h1>' > index.html"
+          },
+          {
+            "text": "用课程基线（隔离 HOME + MiniMax）以只读权限跑一次；需要 MINIMAX_API_KEY，浏览器会打开请求面板",
+            "code": "../../tools/clean-codex.sh --tap -- exec -s read-only \"只读：这个目录里有什么文件？\" < /dev/null"
+          },
+          {
+            "text": "同一句话换成可写权限再跑一次",
+            "code": "../../tools/clean-codex.sh --tap -- exec -s workspace-write \"只读：这个目录里有什么文件？\" < /dev/null"
+          },
+          {
+            "text": "在面板里对照两次请求：developer 消息中 <permissions instructions> 一段，以及环境信息里的可写目录",
+            "code": ""
+          },
+          {
+            "text": "选做：用你平时的配置经 claude-tap 跑同一句，对照 Skills 列表与环境信息（p15 的隔离对照；各人配置不同，结果会不一样）",
+            "code": "uvx claude-tap --tap-client codex -- exec -s read-only \"只读：这个目录里有什么文件？\" < /dev/null"
+          }
+        ],
+        "note": "讲师 2026-10-05 按第 1–3 步在 Codex 0.160.0 上实测；字符数随版本和配置变化，只看两段说明的差别。末尾的 < /dev/null 让 codex exec 不再等待额外输入。"
+      },
       "steps": [
         "两段说明",
         "按配置拼装"

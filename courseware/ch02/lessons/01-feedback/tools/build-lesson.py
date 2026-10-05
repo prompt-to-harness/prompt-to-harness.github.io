@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from lessonkit import Lesson, MEASURED, chapter_map, teach  # noqa: E402
+from lessonkit import Lesson, MEASURED, chapter_map, repro, teach  # noqa: E402
 
 lesson = Lesson(__file__, "2.1", "先听听别人怎么说", summary="用课程示例反馈卡建立反馈基线；看懂一次请求的组成，以及它为什么随环境变化。")
 scene, KICK = lesson.scene, lesson.kick
@@ -486,6 +486,13 @@ scene(
         '<div class="dim">$ uvx claude-tap --tap-client codex --tap-target … -s read-only</div>'
         '<div class="dim">$ uvx claude-tap --tap-client codex --tap-target … -s workspace-write</div></div>'
     ),
+    repro=repro([
+        ("在课程仓库根目录建一个带 Git 的练习目录；有自己的 .git，Codex 才不会读到课程仓库的 AGENTS.md", "mkdir -p lab-runs/perm && cd lab-runs/perm && git init -q && echo '<h1>hello</h1>' > index.html"),
+        ("用课程基线（隔离 HOME + MiniMax）以只读权限跑一次；需要 MINIMAX_API_KEY，浏览器会打开请求面板", "../../tools/clean-codex.sh --tap -- exec -s read-only \"只读：这个目录里有什么文件？\" < /dev/null"),
+        ("同一句话换成可写权限再跑一次", "../../tools/clean-codex.sh --tap -- exec -s workspace-write \"只读：这个目录里有什么文件？\" < /dev/null"),
+        ("在面板里对照两次请求：developer 消息中 <permissions instructions> 一段，以及环境信息里的可写目录", None),
+        ("选做：用你平时的配置经 claude-tap 跑同一句，对照 Skills 列表与环境信息（p15 的隔离对照；各人配置不同，结果会不一样）", "uvx claude-tap --tap-client codex -- exec -s read-only \"只读：这个目录里有什么文件？\" < /dev/null"),
+    ], note="讲师 2026-10-05 按第 1–3 步在 Codex 0.160.0 上实测；字符数随版本和配置变化，只看两段说明的差别。末尾的 < /dev/null 让 codex exec 不再等待额外输入。"),
     steps=["两段说明", "按配置拼装"],
     script=[
         "再换一个维度：权限。同一句话，一次用只读，一次用可写。怎么切？启动时在命令最后加上 -s read-only 或者 -s workspace-write，claude-tap 会把它不认识的参数原样交给 Codex。两次各开一个新会话，这样两份请求只差权限这一处。看权限说明的差异：只读时说沙箱只允许读文件；可写时变成允许编辑当前目录，还多了一行，列出哪些目录可写。长度从大约 340 字符变成 670，环境信息也跟着变长。",

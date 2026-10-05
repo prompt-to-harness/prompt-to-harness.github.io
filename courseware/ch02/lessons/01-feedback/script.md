@@ -452,6 +452,16 @@ Codex 0.160.0 源码 codex-rs/ext/skills/src/host_roots.rs：个人 Skills 读�
 
 这段文字不是写死的。Codex 的仓库里，按沙箱模式和审批策略分别放了模板，Harness 按这次的配置拼出来。这就接上了 1.3：我们在界面上做的权限选择，会变成请求里的一段文字，同时变成本地沙箱的实际限制。看完了请求，回到我们的三条反馈，该做判断了。
 
+### 复现这个实验（页面按钮）
+
+1. 在课程仓库根目录建一个带 Git 的练习目录；有自己的 .git，Codex 才不会读到课程仓库的 AGENTS.md：`mkdir -p lab-runs/perm && cd lab-runs/perm && git init -q && echo '<h1>hello</h1>' > index.html`
+2. 用课程基线（隔离 HOME + MiniMax）以只读权限跑一次；需要 MINIMAX_API_KEY，浏览器会打开请求面板：`../../tools/clean-codex.sh --tap -- exec -s read-only "只读：这个目录里有什么文件？" < /dev/null`
+3. 同一句话换成可写权限再跑一次：`../../tools/clean-codex.sh --tap -- exec -s workspace-write "只读：这个目录里有什么文件？" < /dev/null`
+4. 在面板里对照两次请求：developer 消息中 <permissions instructions> 一段，以及环境信息里的可写目录
+5. 选做：用你平时的配置经 claude-tap 跑同一句，对照 Skills 列表与环境信息（p15 的隔离对照；各人配置不同，结果会不一样）：`uvx claude-tap --tap-client codex -- exec -s read-only "只读：这个目录里有什么文件？" < /dev/null`
+
+讲师 2026-10-05 按第 1–3 步在 Codex 0.160.0 上实测；字符数随版本和配置变化，只看两段说明的差别。末尾的 < /dev/null 让 codex exec 不再等待额外输入。
+
 ### 核对记录
 
 模板位于 codex-rs/prompts/templates/permissions/（sandbox_mode/*.md、approval_policy/*.md），2026-01 起由固定段落改为按配置拼装（提交 87f7226cca）。本页数据来自 codex exec，审批策略为 never；交互界面中的审批文字会不同。

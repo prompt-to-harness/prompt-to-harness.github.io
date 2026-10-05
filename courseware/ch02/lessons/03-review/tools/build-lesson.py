@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from lessonkit import Lesson, NARROW, chapter_map, teach  # noqa: E402
+from lessonkit import Lesson, NARROW, chapter_map, repro, teach  # noqa: E402
 
 lesson = Lesson(__file__, "2.3", "AI 交回的改动，收不收", summary="先看范围再看内容，决定接受、缩小还是拒绝；用提交让“拒绝”变便宜。")
 scene, KICK = lesson.scene, lesson.kick
@@ -181,6 +181,12 @@ scene(
         '<p class="p-sub" style="margin-top:8px">新增一个撤回提交 · 只撤回代码那次</p></div></div>'
         '<div class="p-bar" data-reveal="3">commit 让<b>“拒绝”变便宜</b></div>'
     ),
+    repro=repro([
+        ("在课程仓库根目录，用第 1 章参考快照建一个练习仓库，不动你自己的首页", "cp -R starters/personal-homepage/ch01-complete lab-runs/revert && cd lab-runs/revert\ngit init -q -b main && git add -A && git commit -qm baseline"),
+        ("提交一次代码改动（homepage-v1），再单独提交一份记录", "git apply ../../courseware/ch02/materials/homepage-v1.diff && git commit -qam homepage-v1\necho '# 本轮记录' > CH02_VIBE_ITERATIONS.md && git add CH02_VIBE_ITERATIONS.md && git commit -qm 'docs: 本轮记录'"),
+        ("在演示分支上撤回代码那次提交（记录之前的那一次，即 HEAD~1）", "git switch -c demo-revert && git revert --no-edit HEAD~1 && git log --oneline -3 && git show --stat HEAD"),
+        ("检查：撤回只改了 src/App.tsx，记录文件还在；然后回到 main，删掉演示分支", "ls CH02_VIBE_ITERATIONS.md && git switch main && git branch -D demo-revert"),
+    ], note="讲师 2026-10-05 按此实测。需要已配置 git user.name 与 user.email。"),
     steps=["主流程", "还没提交", "已经提交", "为什么要提交"],
     script=[
         "最后一个问题：万一收错了，怎样回去？先看主流程：改动、审查、提交。回去的方法取决于走到了哪一步。",

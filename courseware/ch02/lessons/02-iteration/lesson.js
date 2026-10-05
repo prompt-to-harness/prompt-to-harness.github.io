@@ -193,6 +193,24 @@ window.lesson = {
           "url": "https://github.com/openai/codex/commit/87f7226cca12df04596938f58625de84e976309a"
         }
       ],
+      "repro": {
+        "label": "复现这个实验",
+        "steps": [
+          {
+            "text": "在课程仓库根目录取下 Codex 子模块的当前版本（只取一个提交）",
+            "code": "git submodule update --init --depth 1 third_party/codex"
+          },
+          {
+            "text": "再取 2025-04 首版所在的那次提交",
+            "code": "git -C third_party/codex fetch --depth 1 origin 31d0d7a305305ad557035a2edcab60b6be5018d8"
+          },
+          {
+            "text": "对比首版和当前的系统指令；文件在 2026-01 搬过位置，所以两边路径不同",
+            "code": "git -C third_party/codex diff 31d0d7a305305ad557035a2edcab60b6be5018d8:codex-rs/core/prompt.md HEAD:codex-rs/protocol/src/prompts/base_instructions/default.md"
+          }
+        ],
+        "note": "讲师 2026-10-05 在一份新克隆上实测，两步下载在讲师的网络下约 12 分钟。不想等的话，画面底部的链接可以直接看各版本原文和重写那次提交的 diff。"
+      },
       "steps": [
         "早期",
         "一次重写",
@@ -210,7 +228,7 @@ window.lesson = {
         },
         {
           "title": "原文与 diff",
-          "text": "每个版本的原文和两次关键提交的 diff，在画面底部有直达链接（固定到完整提交哈希）。重写那次提交 81b148bda2 只改了 prompt.md 一个文件（+270 −80），GitHub 的提交页就是“重写前 vs 重写后”的文件 diff。\n\n本仓库把 openai/codex 作为子模块放在 third_party/codex（固定在 b741e48），可以离线对比：git submodule update --init --filter=blob:none third_party/codex 取下子模块，再运行 git -C third_party/codex diff 31d0d7a305:codex-rs/core/prompt.md b741e48:codex-rs/protocol/src/prompts/base_instructions/default.md 看首版到当前的全部变化。文件在 2026-01-19 从 codex-rs/core/prompt.md 搬到现在的位置，所以早期版本要用旧路径。"
+          "text": "每个版本的原文和两次关键提交的 diff，在画面底部有直达链接（固定到完整提交哈希）。重写那次提交 81b148bda2 只改了 prompt.md 一个文件（+270 −80），GitHub 的提交页就是“重写前 vs 重写后”的文件 diff。\n\n本仓库把 openai/codex 作为子模块放在 third_party/codex（固定在 b741e48），离线对比的命令见页面上的“复现这个实验”；只取需要的两个提交，比取下完整历史快得多。"
         },
         {
           "title": "切到实操",
@@ -258,6 +276,24 @@ window.lesson = {
           "url": "https://github.com/openai/codex/blob/b741e480e203f037ca726bc2a76d99a8e8668e66/codex-rs/core/gpt-5.2-codex_prompt.md"
         }
       ],
+      "repro": {
+        "label": "复现这个实验",
+        "steps": [
+          {
+            "text": "在课程仓库根目录建练习目录，准备两个临时 HOME，配置只差模型名",
+            "code": "mkdir -p lab-runs/model-name && cd lab-runs/model-name\nfor m in MiniMax-M3 gpt-5.5; do mkdir -p home-$m/.codex; printf 'model = \"%s\"\\nmodel_provider = \"minimax\"\\n[model_providers.minimax]\\nname = \"MiniMax\"\\nbase_url = \"https://api.minimax.cn/v1\"\\nenv_key = \"MINIMAX_API_KEY\"\\nwire_api = \"responses\"\\n' $m > home-$m/.codex/config.toml; done"
+          },
+          {
+            "text": "各跑一次并导出请求；导出模式只在本地应答、不访问 MiniMax，密钥写假值即可",
+            "code": "for m in MiniMax-M3 gpt-5.5; do MINIMAX_API_KEY=fake HOME=$PWD/home-$m UV_CACHE_DIR=~/.cache/uv XDG_DATA_HOME=~/.local/share uvx claude-tap --tap-client codex --tap-no-open --tap-target https://api.minimax.cn/v1 --tap-export-prompt $PWD/$m.md -- exec --skip-git-repo-check -s read-only \"Reply with OK only.\" < /dev/null; done"
+          },
+          {
+            "text": "对照两份导出的开头和章节",
+            "code": "head -5 MiniMax-M3.md gpt-5.5.md"
+          }
+        ],
+        "note": "讲师 2026-10-05 按此实测：MiniMax-M3 开头是 “You are a coding agent running in the Codex CLI”，gpt-5.5 是 “You are Codex, a coding agent based on GPT-5”。每次约 1–3 分钟。"
+      },
       "steps": [
         "不在目录的模型",
         "目录里的 gpt-5.5",
@@ -275,7 +311,7 @@ window.lesson = {
         },
         {
           "title": "原文与 diff",
-          "text": "源码链接在画面底部，固定在 rust-v0.160.0（a956835d02）。复现：建临时 HOME，在 .codex/config.toml 写 model 与自定义 provider，运行 HOME=<临时目录> uvx claude-tap --tap-client codex --tap-target <provider 地址> --tap-export-prompt <输出.md> -- exec --skip-git-repo-check -s read-only \"Reply with OK only.\" < /dev/null，只改 model 再跑一次，对比两份导出的 instructions。把模型名写成目录里的名字只用于查看请求：真实发给 MiniMax 时，它不认识这个模型名。2026-01 之前 Codex 按文件给模型配指令（codex-rs/core/gpt_*_prompt.md），这些文件仍留在仓库里但已无代码引用，链接放在延伸阅读。"
+          "text": "源码链接在画面底部，固定在 rust-v0.160.0（a956835d02）。复现命令见页面上的“复现这个实验”。把模型名写成目录里的名字只用于查看请求：真实发给 MiniMax 时，它不认识这个模型名。2026-01 之前 Codex 按文件给模型配指令（codex-rs/core/gpt_*_prompt.md），这些文件仍留在仓库里但已无代码引用，链接放在延伸阅读。"
         },
         {
           "title": "切到实操",
