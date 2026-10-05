@@ -227,59 +227,63 @@ window.lesson = {
     {
       "id": "p26",
       "segment": "请求会变",
-      "label": "两份指令差在哪",
-      "title": "通用模型和专用模型，指令的章节不一样",
+      "label": "换个模型名",
+      "title": "同一个 Codex，换个模型名，指令换了一份",
       "kicker": "第 2 章 · 2.2 · 请求会变",
-      "lead": "仓库按模型放了不同的指令：给通用模型的约 21–24 KB，给为 Codex 专门训练的模型的约 6.6–7.6 KB。下面对比两份指令的章节目录，看各自包含哪些内容。数据来自 openai/codex 仓库（Apache-2.0）的提交历史，2026-10-02 核对、10-03 复核、10-05 在子模块 third_party/codex 逐版重算；大小为文件字节数。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ink\">通用模型 · ≈21–24 KB</span><p style=\"margin-top:8px;line-height:1.7\">工作方式 · <b>性格</b> · <b>AGENTS.md 规范</b><br>自主与坚持 · 响应 · 计划及示例<br><b>执行任务</b> · <b>验证工作</b> · 目标与精度 · 汇报 · 工具指南</p></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">Codex 专用模型 · ≈6.6–7.6 KB</span><p style=\"margin-top:8px;line-height:1.7\">通用 · 编辑约束 · 计划工具<br>特殊请求 · 前端任务 · 汇报</p><p class=\"p-sub\">没有性格、AGENTS.md、验证这几节</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">换一个模型，Codex 配给它的<b>指令内容也会变化</b></div><p class=\"source-note\">章节名为中文意译，按 gpt_5_2_prompt.md 与 gpt-5.2-codex_prompt.md 的标题对比；链接固定在 b741e48。数据来自 openai/codex 仓库（Apache-2.0）的提交历史，2026-10-02 核对、10-03 复核、10-05 在子模块 third_party/codex 逐版重算；大小为文件字节数。</p>",
+      "lead": "Codex 按模型名在自带的模型目录（models.json）里查指令。讲师用 claude-tap 抓了两次请求，配置相同，只改模型名：目录里没有的 MiniMax-M3 拿到通用指令，目录里的 gpt-5.5 拿到为它单独写的一份。数据来自 openai/codex 仓库（Apache-2.0）的提交历史，2026-10-02 核对、10-03 复核、10-05 在子模块 third_party/codex 逐版重算；大小为文件字节数。",
+      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ink\">MiniMax-M3 · 不在目录 · 通用指令</span><p style=\"margin-top:8px;line-height:1.6\">工作方式 · 性格 · <b>AGENTS.md 规范</b><br>响应 · 执行任务 · <b>验证工作</b> · 目标与精度<br>进度更新 · 汇报 · <b>工具指南</b></p><p class=\"p-sub\">约 1.7 万字符 · “You are a coding agent running in the Codex CLI”</p></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">gpt-5.5 · 目录里的专属指令</span><p style=\"margin-top:8px;line-height:1.6\">性格 · 通用 · <b>工程判断</b> · <b>前端指南</b><br>编辑约束 · 特殊请求 · 自主与坚持<br><b>与用户协作</b> · 格式规则 · 最终回答</p><p class=\"p-sub\">约 2.1 万字符 · “You are Codex, a coding agent based on GPT-5”</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">换一个模型，Codex 配给它的<b>指令内容也会变化</b></div><p class=\"source-note\">两份指令都是 2026-10-05 在隔离 HOME 下用 claude-tap 抓到的真实请求（Codex 0.160.0，--tap-export-prompt 本地应答、不访问上游）；章节名为中文意译。抓到的内容与源码只差 update_plan 相关段落：codex exec 下未启用 update_plan，Codex 会删去这些段落。</p>",
       "refs": [
         {
           "kind": "live",
-          "group": "通用模型指令",
-          "text": "GPT-5.1",
-          "url": "https://github.com/openai/codex/blob/b741e480e203f037ca726bc2a76d99a8e8668e66/codex-rs/core/gpt_5_1_prompt.md"
+          "group": "0.160.0 源码",
+          "text": "通用指令 prompt.md",
+          "url": "https://github.com/openai/codex/blob/a956835d020762cb2b570053af06f643a11c0ecc/codex-rs/models-manager/prompt.md"
         },
         {
           "kind": "live",
-          "group": "通用模型指令",
+          "group": "0.160.0 源码",
+          "text": "模型目录 models.json",
+          "url": "https://github.com/openai/codex/blob/a956835d020762cb2b570053af06f643a11c0ecc/codex-rs/models-manager/models.json"
+        },
+        {
+          "kind": "read",
+          "group": "2026-01 前按文件分模型（已不使用）",
           "text": "GPT-5.2",
           "url": "https://github.com/openai/codex/blob/b741e480e203f037ca726bc2a76d99a8e8668e66/codex-rs/core/gpt_5_2_prompt.md"
         },
         {
-          "kind": "live",
-          "group": "Codex 专用模型指令",
-          "text": "GPT-5-Codex",
-          "url": "https://github.com/openai/codex/blob/b741e480e203f037ca726bc2a76d99a8e8668e66/codex-rs/core/gpt_5_codex_prompt.md"
-        },
-        {
-          "kind": "live",
-          "group": "Codex 专用模型指令",
+          "kind": "read",
+          "group": "2026-01 前按文件分模型（已不使用）",
           "text": "GPT-5.2-Codex",
           "url": "https://github.com/openai/codex/blob/b741e480e203f037ca726bc2a76d99a8e8668e66/codex-rs/core/gpt-5.2-codex_prompt.md"
         }
       ],
       "steps": [
-        "通用模型的指令",
-        "专用模型的指令",
+        "不在目录的模型",
+        "目录里的 gpt-5.5",
         "模型与指令配置"
       ],
       "script": [
-        "仓库里还按模型放了不同的指令。左边是给通用模型的，大约 21 到 24 KB。章节目录我们在 2.1 见过一部分：工作方式、性格、AGENTS.md 规范、计划和示例、执行任务、验证工作、汇报，还有工具指南。",
-        "右边是给专门为 Codex 训练的模型的，只有大约 6.6 到 7.6 KB，三分之一左右。目录很短：通用说明、编辑约束、计划工具、特殊请求、汇报。性格、AGENTS.md 规范、验证工作这几节，都没有出现；倒是多了一节前端任务。",
-        "两份指令包含的章节不同：左边单列了性格、AGENTS.md 规范和验证工作，右边单列了前端任务。结合上一页的版本历史，我们看到，版本和模型配置都会影响 Codex 发出的请求。接下来回到本轮修改：旧会话里已经积累了反馈和检查结果，压缩一下继续，够不够？"
+        "Codex 还有一份模型目录，叫 models.json，它按模型名在里面查该发哪份指令。讲师用 claude-tap 抓了两次请求，配置完全一样，只改了模型名。左边写的是 MiniMax-M3，目录里没有，Codex 就发通用指令，开头一句是“You are a coding agent running in the Codex CLI”，大约 1.7 万字符。章节有工作方式、性格、AGENTS.md 规范、验证工作、工具指南这些，2.1 我们见过。",
+        "右边只把模型名改成 gpt-5.5，目录里有它，Codex 就换成为它单独写的一份，开头变成“You are Codex, a coding agent based on GPT-5”，大约 2.1 万字符。章节也不一样：多了工程判断、前端指南、与用户协作；AGENTS.md 规范、验证工作和工具指南这几节，没有单独出现。",
+        "两次请求只差一个模型名，指令就换了一份。结合上一页的版本历史，我们看到，版本和模型配置都会影响 Codex 发出的请求。接下来回到本轮修改：旧会话里已经积累了反馈和检查结果，压缩一下继续，够不够？"
       ],
       "teaching": [
         {
           "title": "核对记录",
-          "text": "2026-10-03 复核 main（b741e48）：gpt_5_1_prompt.md 24204 字节、gpt_5_2_prompt.md 21652、gpt_5_codex_prompt.md 6647、gpt-5.2-codex_prompt.md 7589，位于 codex-rs/core/（提案记录的路径有误，已在验证记录中更正）。专用指令全文没有 AGENTS.md 一词，审查请求一节提到测试缺口。"
+          "text": "2026-10-05 本机 codex-cli 0.160.0，隔离 HOME，自定义 provider 写法与 MiniMax 相同、密钥为假值，claude-tap 0.1.145 以 --tap-export-prompt 本地应答，不访问上游；codex exec -s read-only，各 1 次请求。MiniMax-M3：instructions 16979 字符，与 2.1 的记录一致，等于 rust-v0.160.0 的 models-manager/prompt.md 删去 Planning、Examples、update_plan 三段（逐字相同）。gpt-5.5：21299 字符，等于 models.json 中 gpt-5.5 的 instructions_template 删去一行更新清单状态的说明。删段落的规则见 codex-rs/prompts/src/update_plan_instructions.rs。按模型名查目录的逻辑见 models-manager/src/manager.rs 的 construct_model_info_from_candidates（最长前缀匹配，与 provider 无关）。"
         },
         {
           "title": "原文与 diff",
-          "text": "四个文件的原文链接在画面底部。两份文件不是同一文件的不同版本，GitHub 上不能直接对比；用子模块只对比章节标题最清楚：diff <(git -C third_party/codex show b741e48:codex-rs/core/gpt_5_2_prompt.md | grep '^#') <(git -C third_party/codex show b741e48:codex-rs/core/gpt-5.2-codex_prompt.md | grep '^#')。2026-10-05 运行结果：通用指令有 How you work、Personality、AGENTS.md spec、Autonomy and Persistence、Responsiveness、Planning、Task execution、Validating your work、Ambition vs. precision、Presenting your work 和 Tool Guidelines；专用指令只有 General、Editing constraints、Plan tool、Special user requests、Frontend tasks、Presenting your work and final message。全文 diff 为 +58 −276 行。"
+          "text": "源码链接在画面底部，固定在 rust-v0.160.0（a956835d02）。复现：建临时 HOME，在 .codex/config.toml 写 model 与自定义 provider，运行 HOME=<临时目录> uvx claude-tap --tap-client codex --tap-target <provider 地址> --tap-export-prompt <输出.md> -- exec --skip-git-repo-check -s read-only \"Reply with OK only.\" < /dev/null，只改 model 再跑一次，对比两份导出的 instructions。把模型名写成目录里的名字只用于查看请求：真实发给 MiniMax 时，它不认识这个模型名。2026-01 之前 Codex 按文件给模型配指令（codex-rs/core/gpt_*_prompt.md），这些文件仍留在仓库里但已无代码引用，链接放在延伸阅读。"
+        },
+        {
+          "title": "切到实操",
+          "text": "录制时现场跑这两次，或打开 claude-tap 导出的两份 Markdown 并排展示 instructions 开头和章节；画面截图前检查路径与用户名。"
         },
         {
           "title": "讲师提示",
-          "text": "分镜旧稿“模型越擅长，指令写得越少”已在 10-03 审校中删去；按章节目录讲具体差异。文件长度和目录没有提供模型能力评测或设计动机的证据；如另讲这些问题，应补相应证据。"
+          "text": "只讲两份指令可见的差异。文件长度和目录没有提供模型能力评测或设计动机的证据；如另讲这些问题，应补相应证据。"
         }
       ],
       "source": "index.html#p26",
