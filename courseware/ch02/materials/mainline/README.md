@@ -1,0 +1,53 @@
+# 第 2 章主线重跑：从 v0 到 v1
+
+> 状态：2026-10-06 起用于讲师备课。脚本按课件真实运行 Codex，产物是“冻结候选”，不是录制版，也不代表试讲通过。尚未由另一位讲师复现。
+
+## 做什么
+
+从首页 v0 出发，按课件跑一遍 2.1 → 2.2 → 2.3，得到 v1 候选（`homepage-v1` 提交）和全部记录。每次运行用一个新目录，可以反复跑，用来：
+
+- 冻结录制前的真实主线产物（v1、真实 diff、本轮记录）；
+- 多跑几次，看 Codex 的回答和改动在哪些地方会变，为课上演示准备分支；
+- v0 换了（例如第 1 章录制版）之后，重跑得到对应的 v1。
+
+不发布，不推送；2.4 的发布另行决定。
+
+## 怎么跑
+
+```bash
+courseware/ch02/materials/mainline/run-v1.sh                    # 运行目录默认 lab-runs/mainline/v1-<时间>
+V0=<另一个首页目录> courseware/ch02/materials/mainline/run-v1.sh  # 换一个 v0
+python3 courseware/ch02/materials/mainline/summarize.py lab-runs/mainline/v1-*   # 多轮对照表
+```
+
+需要 `MINIMAX_API_KEY`、Node/npm、uv。每轮约 15–30 分钟，取决于 MiniMax 的响应；多轮串行运行。
+
+## 每一步由谁完成
+
+| 步骤 | 课件 | 由谁 | 说明 |
+| --- | --- | --- | --- |
+| 起点 | — | 脚本 | 复制 v0，去掉讲师排练笔记 `CHECKPOINT.md`（学员仓库没有这份文件），`npm ci` |
+| 写反馈核对记录 | 2.1 p06 | 人（代答） | [`fixtures/feedback-record.md`](fixtures/feedback-record.md)：三条课程示例反馈与对 v0 的核对；按分镜不提 1.4 的决定 |
+| 只读核对 | 2.1 p07 | Codex | Prompt 取自课件；只读权限 |
+| 补性质标签 | 2.1 p17 | 人（代答） | [`fixtures/labels.md`](fixtures/labels.md)，选定第 3 条 |
+| 写本轮 Prompt | 2.2 p29 | 人（代答） | 课件 Prompt，尖括号一行换成 [`fixtures/experiences.txt`](fixtures/experiences.txt) 的三条讲师经历 |
+| 出计划、执行 | 2.2 p29–p30 | Codex | 新会话，可写权限；先出计划，人回复“确认，按计划执行。”后再改。没等确认就改了会记录下来 |
+| 检查 | 2.2 p31 | 脚本代人 | `npm run build`；[`verify.py`](verify.py) 用浏览器查三种视口、项目区原文、Tab 顺序 |
+| 评审与提交 | 2.3 p36–p40 | 脚本代人 | 只改 `src/App.tsx` 且五项检查都通过才“接受”，提交代码与本轮记录；否则停在提交前 |
+
+课上的检查由人完成（2.2 p31 讲师提示）；脚本代做检查只用于讲师批量重跑。代答的内容都按课件示例，记录里标明“代答”。
+
+## 产物
+
+每轮目录下：
+
+- `repo/`：首页仓库，`main` 上依次是 `v0：起点`、`homepage-v1: 补充项目经历`（打 `homepage-v1` 标签）、`记录第 1 轮`；
+- `logs/`：每次 Codex 运行的事件（`*.events.jsonl`）、最终回答（`*.answer.md`）、claude-tap 会话 id，以及 diff、构建日志、浏览器检查、评审结果和 `steps.log`；
+- `home/`：本轮 Codex 用的隔离 HOME（会话记录）。
+
+运行目录在 `lab-runs/` 下，不提交。挑定的冻结候选另行整理进仓库。
+
+## 已知情况（2026-10-06）
+
+- 第 1 轮把讲师笔记 `CHECKPOINT.md` 一起复制进了仓库，Codex 在 2.1 直接引用其中“第 1 条在这份 v0 上不复现”等结论。脚本已改为去掉这份文件；第 1 轮不作为 2.1 的参考。
+- 本机 Node 为 24.15.0，`.nvmrc` 要求 22.19.0；Codex 在计划里也指出了这一点。
