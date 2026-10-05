@@ -200,7 +200,7 @@ scene(
     script=[
         "不只是模型的输出会变，Codex 自己也在变。它是开源的，系统指令的每一次修改都留在仓库历史里。我们看通用指令文件的大小：2025 年 4 月首版大约 5.7 KB，到 8 月 5 日补到大约 9.8 KB。",
         "两天后，8 月 7 日，有一次提交把它整个重写，一下变成大约 23.6 KB，新增了工作方式、性格、计划示例、汇报格式这些章节。此后一直在 21 到 24 KB 之间来回，到 2026 年 1 月大约 20.9 KB。所以它不是越写越短，也不是越写越长。",
-        "2026 年 1 月还有一次结构变化：权限说明从固定段落里拆出去，按沙箱模式和审批策略分别放模板，运行时再拼。2.1 我们对比只读和可写时看到的那段文字，就是这么来的。我们只陈述仓库里看得到的变化，不猜 OpenAI 为什么这么改。",
+        "2026 年 1 月还有一次结构变化：权限说明从固定段落里拆出去，按沙箱模式和审批策略分别放模板，运行时再拼。2.1 我们对比只读和可写时看到的那段文字，就是这么来的。同样是权限说明，版本变化后，组装进请求的方式也变了。",
     ],
     teaching=teach(
         ("核对记录", "首版到 2025-08-05 的大小、重写提交 81b148bda2（“update system prompt”）、按模型分文件提交 916fdc2a37、权限模板化提交 87f7226cca，见提案“Codex 开源仓库中的系统指令”。通用指令当前位于 codex-rs/protocol/src/prompts/base_instructions/default.md；2026-10-03 复核 main（b741e48）大小为 20903 字节。"),
@@ -213,28 +213,28 @@ scene(
 scene(
     id="p26", segment="请求会变",
     label="两份指令差在哪", title="通用模型和专用模型，指令的章节不一样", kicker=KICK + "请求会变",
-    lead="仓库按模型放了不同的指令：给通用模型的约 21–24 KB，给为 Codex 专门训练的模型的只有约 6.6–7.6 KB。对比章节目录，能看到短的那份省掉了哪些内容；但不能凭长度判断哪个模型更好。" + REPO,
+    lead="仓库按模型放了不同的指令：给通用模型的约 21–24 KB，给为 Codex 专门训练的模型的约 6.6–7.6 KB。下面对比两份指令的章节目录，看各自包含哪些内容。" + REPO,
     html=(
         '<div class="p-pair" style="grid-template-columns:1fr 1fr">'
         '<div class="p-box" data-role="ink" data-reveal="0"><span class="p-tag" data-role="ink">通用模型 · ≈21–24 KB</span>'
         '<p style="margin-top:8px;line-height:1.7">工作方式 · <b>性格</b> · <b>AGENTS.md 规范</b><br>自主与坚持 · 响应 · 计划及示例<br><b>执行任务</b> · <b>验证工作</b> · 目标与精度 · 汇报 · 工具指南</p></div>'
         '<div class="p-box" data-role="agent" data-reveal="1"><span class="p-tag" data-role="agent">Codex 专用模型 · ≈6.6–7.6 KB</span>'
         '<p style="margin-top:8px;line-height:1.7">通用 · 编辑约束 · 计划工具<br>特殊请求 · 前端任务 · 汇报</p><p class="p-sub">没有性格、AGENTS.md、验证这几节</p></div></div>'
-        '<div class="p-bar is-light" data-reveal="2">能看到<b>内容差异</b> · 不能据此判断模型能力或设计原因</div>'
+        '<div class="p-bar is-light" data-reveal="2">换一个模型，Codex 配给它的<b>指令内容也会变化</b></div>'
         '<p class="source-note">章节名为中文意译，按 gpt_5_2_prompt.md 与 gpt-5.2-codex_prompt.md 的标题对比。原文（固定在 b741e48）：'
         + ' · '.join(gh_link(f, blob(PINNED, 'codex-rs/core/' + f)) for f in ('gpt_5_1_prompt.md', 'gpt_5_2_prompt.md', 'gpt_5_codex_prompt.md', 'gpt-5.2-codex_prompt.md'))
         + '。' + REPO + '</p>'
     ),
-    steps=["通用模型的指令", "专用模型的指令", "能说什么、不能说什么"],
+    steps=["通用模型的指令", "专用模型的指令", "模型与指令配置"],
     script=[
         "仓库里还按模型放了不同的指令。左边是给通用模型的，大约 21 到 24 KB。章节目录我们在 2.1 见过一部分：工作方式、性格、AGENTS.md 规范、计划和示例、执行任务、验证工作、汇报，还有工具指南。",
         "右边是给专门为 Codex 训练的模型的，只有大约 6.6 到 7.6 KB，三分之一左右。目录很短：通用说明、编辑约束、计划工具、特殊请求、汇报。性格、AGENTS.md 规范、验证工作这几节，都没有出现；倒是多了一节前端任务。",
-        "我们能说的，只是两份文字的内容不一样。不能凭长度说哪个模型更聪明，也不该猜为什么这样设计。对我们这一节有用的结论是：Codex 发给模型的东西会随版本和模型变化，所以交接任务时，靠的是项目里的事实和文件，而不是指望某一版指令替我们记住什么。回到我们的选择：压缩一下继续，够不够？",
+        "两份指令包含的章节不同：左边单列了性格、AGENTS.md 规范和验证工作，右边单列了前端任务。结合上一页的版本历史，我们看到，版本和模型配置都会影响 Codex 发出的请求。接下来回到本轮修改：旧会话里已经积累了反馈和检查结果，压缩一下继续，够不够？",
     ],
     teaching=teach(
         ("核对记录", "2026-10-03 复核 main（b741e48）：gpt_5_1_prompt.md 24204 字节、gpt_5_2_prompt.md 21652、gpt_5_codex_prompt.md 6647、gpt-5.2-codex_prompt.md 7589，位于 codex-rs/core/（提案记录的路径有误，已在验证记录中更正）。专用指令全文没有 AGENTS.md 一词，审查请求一节提到测试缺口。"),
         ("原文与 diff", "四个文件的原文链接在阅读模式本页底部。两份文件不是同一文件的不同版本，GitHub 上不能直接对比；用子模块只对比章节标题最清楚：diff <(git -C third_party/codex show b741e48:codex-rs/core/gpt_5_2_prompt.md | grep '^#') <(git -C third_party/codex show b741e48:codex-rs/core/gpt-5.2-codex_prompt.md | grep '^#')。2026-10-05 运行结果：通用指令有 How you work、Personality、AGENTS.md spec、Autonomy and Persistence、Responsiveness、Planning、Task execution、Validating your work、Ambition vs. precision、Presenting your work 和 Tool Guidelines；专用指令只有 General、Editing constraints、Plan tool、Special user requests、Frontend tasks、Presenting your work and final message。全文 diff 为 +58 −276 行。"),
-        ("讲师提示", "分镜旧稿“模型越擅长，指令写得越少”已在 10-03 审校中删去；口播保持只陈述可见差异。"),
+        ("讲师提示", "分镜旧稿“模型越擅长，指令写得越少”已在 10-03 审校中删去；按章节目录讲具体差异。文件长度和目录没有提供模型能力评测或设计动机的证据；如另讲这些问题，应补相应证据。"),
     ),
 )
 
@@ -348,14 +348,14 @@ scene(
         '<div class="is-head" data-reveal="0"><span>检查</span><span>结果</span><span>能说明什么</span></div>'
         '<div data-reveal="0"><span class="p-cell">360 · 768 · 1440</span><span class="p-cell">三条经历都完整显示</span><span class="p-why">第 3 条已解决；布局没被挤坏</span></div>'
         '<div data-reveal="1"><span class="p-cell">Tab 键</span><span class="p-cell">仍只停在“查看项目”</span><span class="p-why">键盘行为与改前一致</span></div>'
-        '<div data-reveal="2"><span class="p-cell p-mono">npm run build</span><span class="p-cell">退出码 0</span><span class="p-why">能构建，不等于页面对</span></div></div>'
+        '<div data-reveal="2"><span class="p-cell p-mono">npm run build</span><span class="p-cell">退出码 0</span><span class="p-why">构建流程成功完成</span></div></div>'
         '<div class="p-bar is-light" data-reveal="3">新出现的问题：<b>记下来，不顺手修</b></div>'
     ),
     steps=["三种视口", "键盘", "构建", "新问题"],
     script=[
         "Codex 说改完了。我们自己检查，不只看新内容有没有出来。先切三种视口：360、768、1440，三条经历都完整显示，没有被截断或挤坏。这说明第 3 条反馈解决了。",
         "再按 Tab。改之前，焦点只会停在“查看项目”按钮上，现在还是一样。键盘行为没有变，这正是我们要的。",
-        "最后在终端运行 npm run build，退出码是 0。注意它只说明能构建，不说明页面是对的，所以前两项不能省。",
+        "最后在终端运行 npm run build，退出码是 0，构建流程成功完成。三项检查各有对象：视口检查文字和排版，Tab 检查焦点顺序，build 检查项目能否生成构建产物。把三项结果一起记进本轮记录。",
         "内容变多了，第 1 条“手机上挤”会不会出现？讲师的页面在 360 下没有横向滚动，仍然没复现。如果你的页面出现了，记成剩余问题，留到下一轮。这一轮只解决一个结果。请暂停视频，按这三项检查你自己的页面。",
     ],
     teaching=teach(

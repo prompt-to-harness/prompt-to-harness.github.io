@@ -230,8 +230,8 @@ window.lesson = {
       "label": "Actions 绿了就行吗",
       "title": "Actions 成功了，页面就能用了吗？",
       "kicker": "第 2 章 · 2.4 · 推送与发布",
-      "lead": "Actions 绿色对勾只说明构建和上传没报错。页面能不能用要用三项检查证明：未登录窗口打开公开 URL；Network 面板没有 404；停用缓存后刷新仍然正常。",
-      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-claim\" style=\"grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)\"><div class=\"p-box\" data-role=\"ok\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ok\">Actions</span><p class=\"p-big\">✓ deploy 成功</p><p class=\"p-sub\">只说明构建和上传没报错</p></div><ul class=\"p-checks\"><li data-reveal=\"1\">未登录窗口打开 URL<small>别人看到的就是这样</small></li><li data-reveal=\"2\">Network 没有 404<small>CSS、JS、图片都加载了</small></li><li data-reveal=\"3\">停用缓存后刷新仍正常<small>看到的是服务器上的版本</small></li></ul></div>",
+      "lead": "Actions 显示部署流程成功完成。接着检查公开页面：未登录窗口打开公开 URL；Network 面板没有 404；停用缓存后刷新仍然正常。",
+      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-claim\" style=\"grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)\"><div class=\"p-box\" data-role=\"ok\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ok\">Actions</span><p class=\"p-big\">✓ deploy 成功</p><p class=\"p-sub\">部署流程成功完成</p></div><ul class=\"p-checks\"><li data-reveal=\"1\">未登录窗口打开 URL<small>别人看到的就是这样</small></li><li data-reveal=\"2\">Network 没有 404<small>CSS、JS、图片都加载了</small></li><li data-reveal=\"3\">停用缓存后刷新仍正常<small>看到的是服务器上的版本</small></li></ul></div>",
       "steps": [
         "绿色对勾",
         "未登录窗口",
@@ -239,7 +239,7 @@ window.lesson = {
         "停用缓存再刷新"
       ],
       "script": [
-        "Actions 显示绿色对勾，部署成功。但这只说明构建和上传都没报错，不说明页面能用。比如 base 写错，Actions 照样是绿的，页面却是白的。",
+        "Actions 显示绿色对勾，部署流程成功完成。接下来打开公开 URL，检查实际访问和资源加载。比如 base 写错时，部署流程可能完成，页面却因为资源路径错误显示为空白。",
         "第一项，用浏览器的无痕窗口，也就是未登录状态，打开公开 URL。别人第一次访问时看到的就是这个样子。",
         "第二项，打开开发者工具的 Network 面板，刷新一次，看有没有状态是 404 的资源。CSS、JS 有一个没加载上，页面就会走样。",
         "第三项，在 Network 面板勾选 Disable cache，也就是停用缓存，再刷新一次，页面仍然正常。普通刷新可能还在用浏览器缓存里的旧文件，停用缓存以后，看到的才是服务器上现在的版本。三项都过了，才能说发布成功。把结果写进记录。"
@@ -287,14 +287,14 @@ window.lesson = {
       "title": "公开的不只是页面，还有历史",
       "kicker": "第 2 章 · 2.4 · 推送与发布",
       "lead": "本节留下推送前检查记录、审过的部署配置、公开 URL、三项发布检查结果和 ch02-homepage-live tag。",
-      "html": "<div class=\"p-flow\" style=\"--n:4\"><div class=\"p-node\" data-role=\"gate\" data-reveal=\"0\"><h3>看清历史</h3><p>提交、文件、作者</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\"><h3>审查配置</h3><p>base、权限、分支</p></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"0\"><h3>人来推送</h3><p>先设来源再推送</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"0\"><h3>证明可用</h3><p>三项检查与 tag</p></div></div><div class=\"p-bar\" data-reveal=\"1\" style=\"margin-top:18px\">推送前先看历史 · <b>Actions 成功不等于页面可用</b></div>",
+      "html": "<div class=\"p-flow\" style=\"--n:4\"><div class=\"p-node\" data-role=\"gate\" data-reveal=\"0\"><h3>看清历史</h3><p>提交、文件、作者</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\"><h3>审查配置</h3><p>base、权限、分支</p></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"0\"><h3>人来推送</h3><p>先设来源再推送</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"0\"><h3>证明可用</h3><p>三项检查与 tag</p></div></div><div class=\"p-bar\" data-reveal=\"1\" style=\"margin-top:18px\">推送前先看历史 · <b>发布后检查访问、资源与刷新</b></div>",
       "steps": [
         "本节做了什么",
         "两个认识"
       ],
       "script": [
         "回看这一节：推送之前，先列出即将公开的提交、文件和作者，由人判断能不能公开；Codex 写的部署配置逐项审过再提交；GitHub 这边设好 Pages 来源，再由我们自己推送；最后用三项检查证明页面可用，只推送 ch02-homepage-live 这一个 tag。首页现在有了一个公开 URL。",
-        "这一节留下两个认识。推送之前，看的不只是页面，还有整段历史。Actions 成功，不等于页面可用。"
+        "推送之前，检查即将公开的文件和整段历史。部署完成后，再用未登录窗口访问、资源加载和停用缓存后刷新这三项检查确认发布结果。"
       ],
       "teaching": [],
       "source": "index.html#p52",
