@@ -336,7 +336,7 @@ tmux attach -r -t compact-demo`
 
 **第 4 步 · 完成标准**（[演示](index.html?mode=slides&step=3#p29)）
 
-最后是 Done when，四件可以检查的事：三种视口内容完整可读；Tab 焦点顺序和改前一样；npm run build 成功；diff 只含项目区的改动。我们还要求它先说计划、等确认再改。请暂停视频，换上你自己的内容，提交 Prompt。
+最后是 Done when，四件可以检查的事：三种视口内容完整可读；Tab 焦点顺序和改前一样；npm run build 成功；diff 只含项目区的改动。前两件写明由我们自己在浏览器里查，后两件交给 Codex。不写清楚的话，它会自己想办法验证视口；讲师试跑时，它没有浏览器工具，绕了十几分钟。我们还要求它先说计划、等确认再改。请暂停视频，换上你自己的内容，提交 Prompt。
 
 ### 请求
 
@@ -347,8 +347,8 @@ Context：见 docs/evidence/CH02_VIBE_ITERATIONS.md；
 项目内容（原文照用）：<每行一条：项目名称：一句描述>
 Constraints：只用上面的文字，不补写；不加链接、依赖；
 只改项目区；先说计划，等我确认再改。
-Done when：360/768/1440 宽可读；Tab 顺序不变；
-build 成功；diff 只含项目区。
+Done when：我在浏览器查 360/768/1440 宽可读、Tab 顺序不变；
+你跑 build 成功；diff 只含项目区。
 ```
 
 ### 切到实操
