@@ -11,6 +11,7 @@ steps 与 script 一一对应；data-reveal 最大值 = 步骤数 - 1。
 scene["seconds"] 只用于章节条的宽度比例（按步骤数计算），不是时长估算。
 """
 import json
+from html import escape
 from pathlib import Path
 
 CHAPTER = "第 2 章 · Vibe Coding"
@@ -46,6 +47,54 @@ def repro(steps, note="", label="复现这个实验"):
     """
     assert steps and all(len(s) == 2 and s[0] for s in steps), steps
     return {"label": label, "steps": [{"text": t, "code": c or ""} for t, c in steps], "note": note}
+
+
+def code_lines(*rows):
+    """.p-code 里的逐行内容：rows 为 (类名, 已转义的文本)；类名 add / del / hl / at，空串为普通行。
+
+    每行一个块级 span，避免 pre 里的换行符和块级 .add/.del 叠出空行。
+    """
+    return "".join(
+        f'<span class="{cls}">{text}</span>' if cls else f'<span style="display:block">{text}</span>'
+        for cls, text in rows
+    )
+
+
+def diff_boxes(path):
+    """把一份 git diff 按文件拆成 .p-code 代码框：去掉 git 头，保留 @@ 行，行内容原样转义。"""
+    boxes = []
+    for chunk in Path(path).read_text().split("diff --git ")[1:]:
+        rows = chunk.splitlines()
+        name = rows[0].split(" b/")[-1]
+        new = any(r.startswith("new file") for r in rows)
+        body, started = [], False
+        for r in rows[1:]:
+            if r.startswith("@@"):
+                started = True
+                body.append(("at", escape(r)))
+            elif started:
+                cls = "add" if r.startswith("+") else "del" if r.startswith("-") else ""
+                body.append((cls, escape(r) or " "))
+        plus = sum(1 for c, _ in body if c == "add")
+        minus = sum(1 for c, _ in body if c == "del")
+        boxes.append(
+            f'<div class="p-code"><div class="p-code-head"><span>{name}{"（新文件）" if new else ""}</span><span>+{plus} −{minus}</span></div>'
+            f"<pre>{code_lines(*body)}</pre></div>"
+        )
+    return "".join(boxes)
+
+
+def pop(title, label, body):
+    """页内弹窗（零件 .p-pop）：label 是按钮文字，title 是弹窗标题，body 为内容 HTML。
+
+    演示模式点开后盖住整个正文区；祖先元素不要设 position，否则只盖住所在那一栏。
+    """
+    return (
+        f'<details class="p-pop"><summary>{label}</summary><div class="p-pop-body">'
+        f'<div class="p-pop-head"><span>{title}</span>'
+        "<button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div>"
+        f"{body}</div></details>"
+    )
 
 
 def chapter_map(now):

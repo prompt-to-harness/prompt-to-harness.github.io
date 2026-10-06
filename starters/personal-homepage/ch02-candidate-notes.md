@@ -3,6 +3,8 @@
 > 状态（2026-10-06）：讲师备课用的 **v1 冻结候选**，不是录制版，也不是标准答案；未发布到 GitHub Pages，未经另一位讲师复现。Codex 输出不确定，学员的 v1 与这里不同是正常的。
 >
 > 本笔记和日志放在快照目录之外：快照可能被整个复制进学员仓库，笔记若在目录里，Codex 会直接引用其中的结论（见 [ch01-complete 笔记](ch01-complete-notes.md) 开头）。
+>
+> 2026-10-06：快照里的 `CHECKPOINTS.md` 已同步为 course-starter `main`（`4a8b82c`）的版本，删去旧版中提前透露 2.1 结论的一句；其余文件保持运行时原样。
 
 [`ch02-candidate/`](ch02-candidate/) 是一次按第 2 章课件跑完 2.1–2.3 后，练习仓库在 `记录第 1 轮` 提交时的全部已跟踪文件（不含 `node_modules/`、`dist/`）。过程由 [`courseware/ch02/materials/mainline/run-v1.sh`](../../courseware/ch02/materials/mainline/README.md) 自动驱动，是该脚本 2026-10-06 第 5 次运行的产物。用途：
 

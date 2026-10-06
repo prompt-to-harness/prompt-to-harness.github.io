@@ -145,4 +145,3 @@ Node 版本、依赖安装和构建命令在 Starter 首次发布前必须真实
 - [课程总纲](../course-outline.md)
 - [Project 目标与约束](course-project-plan.md)
 - [课程设计原则](course-design-principles.md)
-- [第一章工作草稿材料地图](../archive/working-drafts-ch01/ch01-material-map.md)
