@@ -26,6 +26,11 @@ cp -R "$V0/." "$W/"
 "${GIT[@]}" -C "$W" push -q "$OUT/course-starter.git" main ch02-start ch02-start-v1
 rm -rf "$W"
 
+copy_v0_app() {  # 只复制第 1 章做出的首页文件；说明文档保持 Template（course-starter main）里的版本
+  for f in PROMPT_V1.md index.html package.json package-lock.json tsconfig.app.json tsconfig.json tsconfig.node.json vite.config.ts; do cp "$V0/$f" "$1/"; done
+  cp -R "$V0/src" "$1/"; cp "$V0/setup-check/index.html" "$1/setup-check/index.html"
+}
+
 new_student() {  # new_student <名字>：Template 建出的仓库，只有一个提交
   local d="$OUT/student-$1"; mkdir -p "$d"
   git -C "$STARTER" archive main | tar -x -C "$d"
@@ -35,7 +40,7 @@ new_student() {  # new_student <名字>：Template 建出的仓库，只有一�
 
 # (a) 做完第 1 章，个人内容换成自己的
 A="$(new_student a-personal)"
-cp -R "$V0/." "$A/"
+copy_v0_app "$A"
 python3 - "$A" <<'PY'
 import sys
 from pathlib import Path
@@ -62,7 +67,7 @@ cp "$V0/PROMPT_V1.md" "$B/"
 
 # (c) 做完第 1 章，但决定让项目卡跳到作品链接
 C="$(new_student c-card-links)"
-cp -R "$V0/." "$C/"
+copy_v0_app "$C"
 python3 - "$C" <<'PY'
 import sys
 from pathlib import Path
