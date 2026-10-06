@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from lessonkit import Lesson, MEASURED, NARROW, chapter_map, ref, teach  # noqa: E402
+from lessonkit import Lesson, MEASURED, NARROW, chapter_map, ref, repro, teach  # noqa: E402
 
 lesson = Lesson(__file__, "2.2", "只改一处，并证明改好了", summary="先弄清模型、会话、文件与进程各记住什么，再选会话；用当前证据让 Codex 只改项目区，并用三种视口、键盘和构建证明没弄坏别的。")
 scene, KICK = lesson.scene, lesson.kick
@@ -91,6 +91,14 @@ scene(
         '<div class="p-box is-soft" data-role="gate" data-reveal="2"><h3>换个目录恢复会话</h3><p>它仍答得出上轮读的是 index.html<br>可新目录里没有这个文件</p></div></div>'
         '<div class="p-bar" data-reveal="2">恢复对话，<b>不等于恢复文件或服务</b></div>'
     ),
+    repro=repro([
+        ("在课程仓库根目录建目录 A，放一个文件；目录要有自己的 .git", "mkdir -p lab-runs/resume-a && cd lab-runs/resume-a && git init -q && echo '<h1>hello</h1>' > index.html"),
+        ("另开一个终端，在目录 A 启动一个本地服务器（相当于 npm run dev），浏览器打开 localhost:8765 能看到页面", "cd lab-runs/resume-a && python3 -m http.server 8765"),
+        ("回到第一个终端，用固定的 HOME 让 Codex 读文件，并告诉它服务器开着；固定 HOME 才能在后面找到这次会话。需要 MINIMAX_API_KEY", "CLEAN_CODEX_HOME=~/.cache/clean-codex/resume ../../tools/clean-codex.sh -- exec \"只读：读一下 index.html，告诉我它的第一行。另外记住：这个页面我已经用 python3 -m http.server 在 8765 端口打开了。\" < /dev/null"),
+        ("到第二个终端按 Ctrl-C 关掉服务器，相当于关掉终端或第二天重新开机", None),
+        ("换到空目录 B，恢复刚才的会话再问；--all 取消“只找当前目录的会话”", "mkdir -p ../resume-b && cd ../resume-b && git init -q\nCLEAN_CODEX_HOME=~/.cache/clean-codex/resume ../../tools/clean-codex.sh -- exec resume --last --all \"不要运行命令，只凭记忆回答：刚才你读的是哪个文件？它的第一行是什么？8765 端口上的那个页面现在还能打开吗？\" < /dev/null"),
+        ("核对：目录 B 里有没有这个文件，页面还能不能打开（000 表示打不开）", "ls -A; curl -s -o /dev/null -w \"%{http_code}\\n\" localhost:8765 || true"),
+    ], note="讲师 2026-10-05 实测：模型答出 index.html 和它的第一行；目录 B 里没有这个文件，服务器关掉后页面打不开。问到端口时，模型两次都说无法确认、只记得“你说过它开着”；其他运行也可能直接说还开着。会话、文件、进程三者各自存在。"),
     steps=["三栏", "开场那一幕", "恢复会话的实验"],
     script=[
         "先把三样东西分开。第一，模型：它什么都不记，每次只看这一次请求里的内容。第二，会话：由 Harness 保存，也就是 Codex 把我们说过的话、它做过的事存下来，下一次请求时再发出去。第三，文件和运行中的程序：它们在我们的电脑上，和会话没有关系。",
@@ -197,6 +205,11 @@ scene(
         ref("重写", f"{GH}/commit/81b148bda271615b37f7e04b3135e9d552df8111", "diff"),
         ref("权限拆出", f"{GH}/commit/87f7226cca12df04596938f58625de84e976309a", "diff"),
     ],
+    repro=repro([
+        ("在课程仓库根目录取下 Codex 子模块的当前版本（只取一个提交）", "git submodule update --init --depth 1 third_party/codex"),
+        ("再取 2025-04 首版所在的那次提交", "git -C third_party/codex fetch --depth 1 origin 31d0d7a305305ad557035a2edcab60b6be5018d8"),
+        ("对比首版和当前的系统指令；文件在 2026-01 搬过位置，所以两边路径不同", "git -C third_party/codex diff 31d0d7a305305ad557035a2edcab60b6be5018d8:codex-rs/core/prompt.md HEAD:codex-rs/protocol/src/prompts/base_instructions/default.md"),
+    ], note="讲师 2026-10-05 在一份新克隆上实测，两步下载在讲师的网络下约 12 分钟。不想等的话，画面底部的链接可以直接看各版本原文和重写那次提交的 diff。"),
     steps=["早期", "一次重写", "权限说明拆出"],
     script=[
         "不只是模型的输出会变，Codex 自己也在变。它是开源的，系统指令的每一次修改都留在仓库历史里。我们看通用指令文件的大小：2025 年 4 月首版大约 5.7 KB，到 8 月 5 日补到大约 9.8 KB。",
@@ -205,7 +218,7 @@ scene(
     ],
     teaching=teach(
         ("核对记录", "首版到 2025-08-05 的大小、重写提交 81b148bda2（“update system prompt”）、按模型分文件提交 916fdc2a37、权限模板化提交 87f7226cca，见提案“Codex 开源仓库中的系统指令”。通用指令当前位于 codex-rs/protocol/src/prompts/base_instructions/default.md；2026-10-03 复核 main（b741e48）大小为 20903 字节。"),
-        ("原文与 diff", "每个版本的原文和两次关键提交的 diff，在画面底部有直达链接（固定到完整提交哈希）。重写那次提交 81b148bda2 只改了 prompt.md 一个文件（+270 −80），GitHub 的提交页就是“重写前 vs 重写后”的文件 diff。\n\n本仓库把 openai/codex 作为子模块放在 third_party/codex（固定在 b741e48），可以离线对比：git submodule update --init --filter=blob:none third_party/codex 取下子模块，再运行 git -C third_party/codex diff 31d0d7a305:codex-rs/core/prompt.md b741e48:codex-rs/protocol/src/prompts/base_instructions/default.md 看首版到当前的全部变化。文件在 2026-01-19 从 codex-rs/core/prompt.md 搬到现在的位置，所以早期版本要用旧路径。"),
+        ("原文与 diff", "每个版本的原文和两次关键提交的 diff，在画面底部有直达链接（固定到完整提交哈希）。重写那次提交 81b148bda2 只改了 prompt.md 一个文件（+270 −80），GitHub 的提交页就是“重写前 vs 重写后”的文件 diff。\n\n本仓库把 openai/codex 作为子模块放在 third_party/codex（固定在 b741e48），离线对比的命令见页面上的“复现这个实验”；只取需要的两个提交，比取下完整历史快得多。"),
         ("切到实操", "可在录制时打开重写那次提交的 GitHub 页面，滚动展示新增的章节标题；不逐行读。"),
         ("讲师提示", "这一页与下一页是“版本线”示例，看懂即可，不要求学员背数字；想看原文的学员从画面底部的链接打开。"),
     ),
@@ -230,6 +243,11 @@ scene(
         ref("通用指令 prompt.md", blob(V160, "codex-rs/models-manager/prompt.md"), "0.160.0 源码"),
         ref("模型目录 models.json", blob(V160, "codex-rs/models-manager/models.json"), "0.160.0 源码"),
     ] + [ref(t, blob(PINNED, "codex-rs/core/" + f), "2026-01 前按文件分模型（已不使用）", kind="read") for t, f in (("GPT-5.2", "gpt_5_2_prompt.md"), ("GPT-5.2-Codex", "gpt-5.2-codex_prompt.md"))],
+    repro=repro([
+        ("在课程仓库根目录建练习目录，准备两个临时 HOME，配置只差模型名", "mkdir -p lab-runs/model-name && cd lab-runs/model-name\nfor m in MiniMax-M3 gpt-5.5; do mkdir -p home-$m/.codex; printf 'model = \"%s\"\\nmodel_provider = \"minimax\"\\n[model_providers.minimax]\\nname = \"MiniMax\"\\nbase_url = \"https://api.minimax.cn/v1\"\\nenv_key = \"MINIMAX_API_KEY\"\\nwire_api = \"responses\"\\n' $m > home-$m/.codex/config.toml; done"),
+        ("各跑一次并导出请求；导出模式只在本地应答、不访问 MiniMax，密钥写假值即可", "for m in MiniMax-M3 gpt-5.5; do MINIMAX_API_KEY=fake HOME=$PWD/home-$m UV_CACHE_DIR=~/.cache/uv XDG_DATA_HOME=~/.local/share uvx claude-tap --tap-client codex --tap-no-open --tap-target https://api.minimax.cn/v1 --tap-export-prompt $PWD/$m.md -- exec --skip-git-repo-check -s read-only \"Reply with OK only.\" < /dev/null; done"),
+        ("对照两份导出的开头和章节", "head -5 MiniMax-M3.md gpt-5.5.md"),
+    ], note="讲师 2026-10-05 按此实测：MiniMax-M3 开头是 “You are a coding agent running in the Codex CLI”，gpt-5.5 是 “You are Codex, a coding agent based on GPT-5”。每次约 1–3 分钟。"),
     steps=["不在目录的模型", "目录里的 gpt-5.5", "模型与指令配置"],
     script=[
         "Codex 还有一份模型目录，叫 models.json，它按模型名在里面查该发哪份指令。讲师用 claude-tap 抓了两次请求，配置完全一样，只改了模型名。左边写的是 MiniMax-M3，目录里没有，Codex 就发通用指令，开头一句是“You are a coding agent running in the Codex CLI”，大约 1.7 万字符。章节有工作方式、性格、AGENTS.md 规范、验证工作、工具指南这些，2.1 我们见过。",
@@ -238,7 +256,7 @@ scene(
     ],
     teaching=teach(
         ("核对记录", "2026-10-05 本机 codex-cli 0.160.0，隔离 HOME，自定义 provider 写法与 MiniMax 相同、密钥为假值，claude-tap 0.1.145 以 --tap-export-prompt 本地应答，不访问上游；codex exec -s read-only，各 1 次请求。MiniMax-M3：instructions 16979 字符，与 2.1 的记录一致，等于 rust-v0.160.0 的 models-manager/prompt.md 删去 Planning、Examples、update_plan 三段（逐字相同）。gpt-5.5：21299 字符，等于 models.json 中 gpt-5.5 的 instructions_template 删去一行更新清单状态的说明。删段落的规则见 codex-rs/prompts/src/update_plan_instructions.rs。按模型名查目录的逻辑见 models-manager/src/manager.rs 的 construct_model_info_from_candidates（最长前缀匹配，与 provider 无关）。"),
-        ("原文与 diff", "源码链接在画面底部，固定在 rust-v0.160.0（a956835d02）。复现：建临时 HOME，在 .codex/config.toml 写 model 与自定义 provider，运行 HOME=<临时目录> uvx claude-tap --tap-client codex --tap-target <provider 地址> --tap-export-prompt <输出.md> -- exec --skip-git-repo-check -s read-only \"Reply with OK only.\" < /dev/null，只改 model 再跑一次，对比两份导出的 instructions。把模型名写成目录里的名字只用于查看请求：真实发给 MiniMax 时，它不认识这个模型名。2026-01 之前 Codex 按文件给模型配指令（codex-rs/core/gpt_*_prompt.md），这些文件仍留在仓库里但已无代码引用，链接放在延伸阅读。"),
+        ("原文与 diff", "源码链接在画面底部，固定在 rust-v0.160.0（a956835d02）。复现命令见页面上的“复现这个实验”。把模型名写成目录里的名字只用于查看请求：真实发给 MiniMax 时，它不认识这个模型名。2026-01 之前 Codex 按文件给模型配指令（codex-rs/core/gpt_*_prompt.md），这些文件仍留在仓库里但已无代码引用，链接放在延伸阅读。"),
         ("切到实操", "录制时现场跑这两次，或打开 claude-tap 导出的两份 Markdown 并排展示 instructions 开头和章节；画面截图前检查路径与用户名。"),
         ("讲师提示", "只讲两份指令可见的差异。文件长度和目录没有提供模型能力评测或设计动机的证据；如另讲这些问题，应补相应证据。"),
     ),
@@ -262,15 +280,24 @@ scene(
         ref("压缩逻辑 compact.rs", blob(V160, "codex-rs/core/src/compact.rs"), "0.160.0 源码"),
         ref("压缩提示 prompt.md", blob(V160, "codex-rs/prompts/templates/compact/prompt.md"), "0.160.0 源码"),
     ],
+    repro=repro([
+        ("下载课程仓库，以下命令都在仓库根目录运行", "git clone --depth 1 https://github.com/prompt-to-harness/prompt-to-harness.github.io.git && cd prompt-to-harness.github.io"),
+        ("建一个独立的实验目录（在 lab-runs/ 下，不会提交）", "courseware/ch02/materials/compact/setup.sh"),
+        ("用课程基线启动 Codex；需要 MINIMAX_API_KEY，浏览器会打开请求面板", "cd lab-runs/compact-lab && ../../tools/clean-codex.sh --tap"),
+        ("依次输入 steps.txt 的五行，每条等回答结束再发；第 4 行是 /compact", "cat courseware/ch02/materials/compact/steps.txt"),
+        ("或者自动跑一轮，另开终端只读旁观", "LAB_SESSION=compact-demo LAB_HOLD=60 courseware/ch02/materials/compact/run-tmux.sh\ntmux attach -r -t compact-demo"),
+        ("不跑也能看：用浏览器打开讲师运行的前后对照", "courseware/ch02/materials/compact/compare.html"),
+    ], note="完整说明、5 次运行的汇总和超时处理见 courseware/ch02/materials/compact/README.md。界面停在 Working 时，Codex 会在 5 分钟后自动重试。"),
     steps=["压缩前", "压缩后", "丢掉了什么"],
     script=[
         "如果不想新建会话，可以在 Codex 里输入 /compact 压缩一下再继续。我们的主线会话通常不够长，所以单独做一个小实验：先让 Codex 读两个文件，再跑一次 grep、把输出原样贴出来，最后写下一条我们自己的决定。这时历史里有我们的提问、模型的工具调用、工具返回的原文，还有模型的回答。",
         "然后输入 /compact。压缩做了什么？在讲师的配置下，Codex 让模型按一段固定提示，写一份给“下一个接手的模型”的交接摘要：进度、关键决定、约束、下一步。压缩后的历史只剩三样：我们发过的用户消息，这份摘要，和重新插入的初始上下文。这一步每次都一样，是 Codex 源码写定的：工具调用、工具返回和模型的回答，都不会留下。",
-        "那原始证据还剩多少？要看摘要怎么写。讲师用同样的步骤跑了 5 次：grep 输出了 10 行，其中 4 次摘要只留下行号或“共 10 处匹配”，我们追问第 1 行是什么，模型说手里没有原文，写不出来；只有 1 次，摘要把 10 行整段抄了下来。我们自己写下的决定是用户消息，5 次原文都在。所以压缩后模型看到的是摘要，不是原始证据；需要原始证据，就让它重新读。摘要每次写得不一样，好不好，我们得自己读一遍才知道。",
+        "那原始证据还剩多少？要看摘要怎么写。讲师用同样的步骤跑了 5 次：grep 输出了 10 行，其中 4 次摘要只留下行号或“共 10 处匹配”，我们追问第 1 行是什么，模型说手里没有原文，写不出来；只有 1 次，摘要把 10 行整段抄了下来。我们自己写下的决定是用户消息，5 次原文都在。所以压缩后模型看到的是摘要，不是原始证据；需要原始证据，就让它重新读。摘要每次写得不一样，好不好，我们得自己读一遍才知道。想自己重复这个实验，点开页面上方的“复现这个实验”，选做。",
     ],
     teaching=teach(
         ("核对记录", "压缩提示位于 codex-rs/prompts/templates/compact/prompt.md（要求写进度与决定、约束、下一步、关键数据）；本地压缩保留最近用户消息（上限约 2 万 token）、摘要和重新插入的初始上下文；OpenAI 与 Azure provider 走远程压缩（model-provider/src/provider.rs）。"),
-        ("切到实操", "不在 2.1 的主线会话上执行。按 courseware/ch02/materials/compact/README.md 用 setup.sh 建独立目录，clean-codex.sh --tap 启动，输入 steps.txt 的五步，截取压缩前、压缩请求和压缩后三次请求。摘要每次不同；若本次保留了 grep 原文或模型编出了原文，如实改写右下方框和口播。"),
+        ("切到实操", "不在 2.1 的主线会话上执行。命令都在页面上方的“复现这个实验”按钮里：手动跑用第 1–4 步，现场演示用第 5 步自动运行，另开终端只读旁观，浏览器看本机 19527 端口的 claude-tap 面板（只在运行期间有）。重点截取三次请求：压缩前、压缩请求、压缩后。摘要每次不同；若本次保留了 grep 原文或模型编出了原文，如实改写右下方框和口播。"),
+        ("备用画面", "不想现场跑，或上游卡住（界面停在 Working 超过 5 分钟）时，打开按钮第 6 步的 compare.html：用第 1 次运行的真实记录并排列出压缩前 25 条和压缩后 7 条，标出保留、移走、新增、重新注入，不调用模型。参考记录更新后运行同目录的 compare.py 重新生成。"),
         ("实验记录", "2026-10-05 压缩 5 次、不压缩对照 2 次（另有 2 次因上游超时或脚本出错不计入）。5 次压缩后都是 7 条 input：3 条用户消息、摘要、权限说明与 Skills、环境信息、新问题，没有工具调用和返回，与 compact.rs 一致（手动压缩用 DoNotInject，下一轮再注入初始上下文；用户消息从新往旧最多保留约 2 万 token）。摘要：4 次只留行号或计数，1 次抄下 grep 原文；5 次追问都没有编造。对照组 2 次都答出了 grep 原文。汇总表与参考记录见 materials/compact/。"),
         ("讲师提示", "本页是试讲过满时第一个移到配套页的内容；移走时同步移走 p33 第 2 题，并在 p28 给出配套页入口。"),
     ),
@@ -430,7 +457,7 @@ scene(
     lead="本节留下一轮内容迭代、三项检查结果和一份本轮记录。下一节：Codex 说完成了，手上是一份 diff，收不收？课后可以再做 0–2 轮，不计分。",
     html=(
         '<div class="p-sketch" style="align-items:start"><div data-reveal="0"><h3>三种状态</h3>'
-        '<ul class="p-exits" style="gap:12px"><li class="is-pass">模型不记</li><li class="is-fix">会话由 Harness 重发</li><li class="is-stop">文件与进程各自存在</li></ul></div>'
+        '<ul class="p-exits" style="gap:12px"><li class="is-point">模型不记</li><li class="is-point">会话由 Harness 重发</li><li class="is-point">文件与进程各自存在</li></ul></div>'
         '<div data-reveal="1"><h3 style="text-align:center">一个习惯</h3><div class="p-star" style="width:260px;font-size:24px">一轮一个结果<br>引用当前证据</div></div>'
         '<div class="p-next" data-reveal="2"><h3>下一节</h3><div class="p-box" data-role="us"><h3>2.3 审改动</h3><p>Codex 说完成了，收不收？</p></div></div></div>'
     ),

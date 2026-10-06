@@ -11,6 +11,8 @@
 #   MINIMAX_API_KEY      MiniMax 的 API 密钥，需要事先 export（例如写进 ~/.zshrc）；脚本不读取任何 Codex 配置文件
 #   CLEAN_CODEX_MODEL    模型名，默认 MiniMax-M3.1-Flash-Preview
 #   CLEAN_CODEX_DELETE=1 退出后删除本次的 HOME（默认保留，位于 ~/.cache/clean-codex/）
+#   CLEAN_CODEX_HOME     固定用这个目录作 HOME（不存在就新建，不会删除），多次运行共享会话记录，
+#                        例如在另一个目录 codex exec resume；不设时每次运行都用一个新的 HOME
 #
 # 密钥只通过环境变量传给 Codex，配置文件里没有密钥，可以放心展示。
 set -euo pipefail
@@ -45,10 +47,15 @@ fi
 # 不放在系统临时目录：Codex 拒绝在那里创建它的 PATH 辅助程序，行为会和学员的真实环境不同
 SIM_ROOT="$REAL_HOME/.cache/clean-codex"
 mkdir -p "$SIM_ROOT"
-SIM_HOME="$(mktemp -d "$SIM_ROOT/home.XXXXXX")"
+if [ -n "${CLEAN_CODEX_HOME:-}" ]; then
+  mkdir -p "$CLEAN_CODEX_HOME"
+  SIM_HOME="$(cd "$CLEAN_CODEX_HOME" && pwd)"
+else
+  SIM_HOME="$(mktemp -d "$SIM_ROOT/home.XXXXXX")"
+fi
 cleanup() {
   ln -sfn "$SIM_HOME" "$SIM_ROOT/latest-home"
-  if [ "${CLEAN_CODEX_DELETE:-0}" = 1 ]; then
+  if [ "${CLEAN_CODEX_DELETE:-0}" = 1 ] && [ -z "${CLEAN_CODEX_HOME:-}" ]; then
     rm -rf "$SIM_HOME"
   else
     echo "已保留（可查看 Codex 用到了哪些文件）：" >&2

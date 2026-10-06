@@ -118,14 +118,12 @@ window.lesson = {
       "title": "三种视口：在电脑上模拟手机和平板",
       "kicker": "第 2 章 · 2.1 · 逐条核对",
       "lead": "视口是浏览器里网页实际能显示的区域。不用真的找一部手机，Chrome 开发者工具的设备工具栏可以把视口改成指定宽高，模拟手机、平板和电脑上的效果。尺寸用的是 CSS 像素，不是屏幕的物理像素。",
-      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,.8fr) minmax(0,.8fr) minmax(0,1.4fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>尺寸</span><span>模拟</span><span>为什么选它</span></div><div data-reveal=\"0\"><span class=\"p-mono\">360×800</span><span>手机竖屏</span><span>常见安卓手机的宽度，最容易挤</span></div><div data-reveal=\"0\"><span class=\"p-mono\">768×1024</span><span>平板竖屏</span><span>iPad 竖着拿的大小</span></div><div data-reveal=\"0\"><span class=\"p-mono\">1440×900</span><span>笔记本</span><span>常见笔记本屏幕</span></div></div><div class=\"p-term\" data-reveal=\"1\" style=\"margin-top:14px\"><div>⌥⌘I 打开开发者工具 → ⇧⌘M 设备工具栏 → 顶部选 Responsive → 填宽 360、高 800</div><div class=\"dim\">自带机型的尺寸和这三种不完全一样，直接手填最省事</div></div>",
+      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,.8fr) minmax(0,.8fr) minmax(0,1.4fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>尺寸</span><span>模拟</span><span>为什么选它</span></div><div data-reveal=\"0\"><span class=\"p-mono\">360×800</span><span>手机竖屏</span><span>常见安卓手机的宽度，最容易挤</span></div><div data-reveal=\"0\"><span class=\"p-mono\">768×1024</span><span>平板竖屏</span><span>iPad 竖着拿的大小</span></div><div data-reveal=\"0\"><span class=\"p-mono\">1440×900</span><span>笔记本</span><span>常见笔记本屏幕</span></div></div>",
       "steps": [
-        "三种尺寸",
-        "怎么切换"
+        "三种尺寸"
       ],
       "script": [
-        "核对之前，先说清楚“三种视口”。视口，就是浏览器里网页实际能显示的那块区域。手机、平板和电脑的视口宽度差别很大，同一个页面在三种宽度下的样子也不一样。我们用三种尺寸：360 乘 800，模拟常见的安卓手机竖屏，也是最容易挤的；768 乘 1024，是 iPad 竖着拿的大小；1440 乘 900，是常见的笔记本屏幕。",
-        "怎么切换呢？以 Chrome 为例，在 Mac 上按 Option、Command、I 打开开发者工具，再按 Shift、Command、M 打开设备工具栏。顶部的下拉菜单里有不少自带机型，可它们的尺寸和我们这三种不完全一样，比如 iPhone SE 是 375 宽。所以直接选 Responsive，在旁边填上宽 360、高 800 就行。这里的尺寸是 CSS 像素，不是屏幕的物理像素，手机屏幕的物理像素更多，但网页按 360 这样的宽度来排版。所以我们不需要真的找一部手机、一台平板，在同一台电脑上就能看三种屏幕下的效果。尺寸知道了，下面切到浏览器，三条反馈各看各的。"
+        "核对之前，先说清楚“三种视口”。视口，就是浏览器里网页实际能显示的那块区域。手机、平板和电脑的视口宽度差别很大，同一个页面在三种宽度下的样子也不一样。我们用三种尺寸：360 乘 800，模拟常见的安卓手机竖屏，也是最容易挤的；768 乘 1024，是 iPad 竖着拿的大小；1440 乘 900，是常见的笔记本屏幕。这里的尺寸是 CSS 像素，不是屏幕的物理像素，手机屏幕的物理像素更多，但网页按 360 这样的宽度来排版。所以我们不需要真的找一部手机、一台平板，Chrome 开发者工具的设备工具栏就能在同一台电脑上模拟这三种屏幕。尺寸知道了，下面切到浏览器，三条反馈各看各的。"
       ],
       "teaching": [
         {
@@ -134,7 +132,7 @@ window.lesson = {
         }
       ],
       "source": "index.html#p05",
-      "seconds": 60
+      "seconds": 30
     },
     {
       "id": "p05-live",
@@ -143,7 +141,7 @@ window.lesson = {
       "title": "切到浏览器：在自己的页面里打开设备工具栏",
       "kicker": "第 2 章 · 2.1 · 逐条核对",
       "lead": "设备模拟只作用于当前标签页，所以要先在自己首页的标签页里打开，再逐条核对。每条只看相关的视口和操作，不做全量巡检。",
-      "html": "<style>body[data-mode=slides] .x-p05{grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:28px}</style><div class=\"p-handoff x-p05\"><div class=\"p-handoff-card\" data-reveal=\"0\" style=\"padding:20px 26px\"><h3 style=\"font-size:34px\">先打开自己的页面</h3><p style=\"margin-bottom:12px;font-size:20px;line-height:1.55\">① 浏览器新标签页，打开 npm run dev 给出的本地地址<br>② 就在这个标签页按 ⌥⌘I，再按 ⇧⌘M<br>③ 顶部选 Responsive，填宽高，如 360×800<br>④ 页面没变化就 ⌘R 刷新一次</p><span class=\"p-env\">360×800</span><span class=\"p-env\">768×1024</span><span class=\"p-env\">1440×900</span></div><ol class=\"p-watch\"><li data-reveal=\"1\">第 1 条<small>切到 360×800 看布局</small></li><li data-reveal=\"2\">第 2 条<small>桌面点项目卡，再按 Tab</small></li><li data-reveal=\"3\">第 3 条<small>任一视口看项目区</small></li></ol></div>",
+      "html": "<style>body[data-mode=slides] .x-p05{grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:28px}</style><div class=\"p-handoff x-p05\"><div class=\"p-handoff-card\" data-reveal=\"0\" style=\"padding:20px 26px\"><h3 style=\"font-size:34px\">先打开自己的页面</h3><p style=\"margin-bottom:12px;font-size:20px;line-height:1.55\">① 浏览器新标签页，打开 npm run dev 给出的本地地址<br>② 就在这个标签页按 ⌥⌘I，再按 ⇧⌘M<br>③ 顶部选 Responsive，手填宽高，如 360×800<br>④ 页面没变化就 ⌘R 刷新一次</p><span class=\"p-env\">360×800</span><span class=\"p-env\">768×1024</span><span class=\"p-env\">1440×900</span></div><ol class=\"p-watch\"><li data-reveal=\"1\">第 1 条<small>切到 360×800 看布局</small></li><li data-reveal=\"2\">第 2 条<small>桌面点项目卡，再按 Tab</small></li><li data-reveal=\"3\">第 3 条<small>任一视口看项目区</small></li></ol></div>",
       "steps": [
         "打开自己的页面",
         "第 1 条",
@@ -151,7 +149,7 @@ window.lesson = {
         "第 3 条"
       ],
       "script": [
-        "切到浏览器之前，先把设备工具栏开在对的地方。设备模拟只作用于当前标签页，所以要先在浏览器里新开一个标签页，打开刚才 npm run dev 给出的本地地址，确认是自己的首页。然后就在这个标签页里按 Option、Command、I 打开开发者工具，再按 Shift、Command、M 打开设备工具栏。顶部选 Responsive，填上宽高。如果页面没有跟着变，按 Command、R 刷新一次。注意不要在课件页或别的标签页里开，那样模拟的是那一页，不是你的首页。",
+        "切到浏览器之前，先把设备工具栏开在对的地方。设备模拟只作用于当前标签页，所以要先在浏览器里新开一个标签页，打开刚才 npm run dev 给出的本地地址，确认是自己的首页。然后就在这个标签页里按 Option、Command、I 打开开发者工具，再按 Shift、Command、M 打开设备工具栏。顶部的下拉菜单里有不少自带机型，可它们的尺寸和我们这三种不完全一样，比如 iPhone SE 是 375 宽，所以直接选 Responsive，手填宽高。如果页面没有跟着变，按 Command、R 刷新一次。注意不要在课件页或别的标签页里开，那样模拟的是那一页，不是你的首页。",
         "第 1 条说手机上挤，那就把尺寸填成 360 乘 800，也就是手机视口，只看布局。",
         "第 2 条说项目卡点了没反应。切到 1440 乘 900 的桌面视口，点一下项目卡，再按几次 Tab 键，看键盘焦点会不会落到卡片上。这顺便也是我们的键盘检查。",
         "第 3 条说看不出做过什么，任何一个视口都行，看项目区写了什么。三条各看各的，不用把整个页面在三个视口里全巡一遍。可以暂停视频，跟着核对自己的首页。"
@@ -207,7 +205,7 @@ window.lesson = {
       "title": "切到终端：这次用 claude-tap 启动 Codex",
       "kicker": "第 2 章 · 2.1 · 逐条核对",
       "lead": "接下来请 Codex 只读核对。为了事后能看到它实际发给模型的内容，讲师这次通过 claude-tap 启动 Codex：它是一个开源的本地代理，夹在 Codex 和模型服务之间，把每次请求记录下来。其他操作和平时一样。",
-      "html": "<div class=\"p-handoff\"><div class=\"p-handoff-card\" data-reveal=\"0\"><h3>切到终端</h3><p>项目目录 · 通过 claude-tap 启动 Codex</p><span class=\"p-env\">claude-tap</span><span class=\"p-env\">Codex CLI</span></div><ol class=\"p-watch\"><li data-reveal=\"0\">启动<small>claude-tap 帮我们启动 Codex</small></li><li data-reveal=\"1\">照常提交<small>下一页的只读 Prompt</small></li><li data-reveal=\"2\">打开查看器<small>每次请求都被记下来</small></li></ol></div><div class=\"p-term\" data-copy=\"uvx claude-tap --tap-client codex --tap-target https://api.minimax.cn/v1\" data-reveal=\"0\" style=\"margin-top:14px\"><div class=\"dim\">$ uvx claude-tap --tap-client codex \\</div><div class=\"dim\">    --tap-target https://api.minimax.cn/v1</div></div>",
+      "html": "<div class=\"p-handoff\"><div class=\"p-handoff-card\" data-reveal=\"0\"><h3>切到终端</h3><p>在项目目录运行下面这条命令</p><span class=\"p-env\">claude-tap</span><span class=\"p-env\">Codex CLI</span></div><ol class=\"p-watch\"><li data-reveal=\"0\">启动<small>讲师演示用；跟做直接开 Codex</small></li><li data-reveal=\"1\">照常提交<small>下一页的只读 Prompt</small></li><li data-reveal=\"2\">打开查看器<small>每次请求都被记下来</small></li></ol></div><div class=\"p-term\" data-copy=\"uvx claude-tap --tap-client codex --tap-target https://api.minimax.cn/v1\" data-reveal=\"0\" style=\"margin-top:14px\"><div class=\"dim\">$ uvx claude-tap --tap-client codex \\</div><div class=\"dim\">    --tap-target https://api.minimax.cn/v1</div></div>",
       "steps": [
         "启动",
         "照常提交",
@@ -221,7 +219,7 @@ window.lesson = {
       "teaching": [
         {
           "title": "切到实操",
-          "text": "命令已于 2026-10-02 在 Codex 0.160.0 + MiniMax 自定义 provider 下实测，trace 写入 ~/.local/share/claude-tap/traces.sqlite3。需要先装好 uv。录制时用隔离环境启动（见 p15），查看器地址以工具输出为准。"
+          "text": "命令已于 2026-10-02 在 Codex 0.160.0 + MiniMax 自定义 provider 下实测，trace 写入 ~/.local/share/claude-tap/traces.sqlite3。需要先装好 uv。录制时用隔离环境启动（见 p15-home），查看器地址以工具输出为准。"
         },
         {
           "title": "讲师提示",
@@ -240,7 +238,7 @@ window.lesson = {
       "title": "让 Codex 只读核对：三条对应哪些代码？",
       "kicker": "第 2 章 · 2.1 · 逐条核对",
       "lead": "这一步只读，不让 Codex 修改文件。Prompt 让它读取我们的反馈记录，再回答三件事；不提示项目里哪份文件记着之前的决定，这样后面的观察才有意义。",
-      "html": "<div class=\"demo-notes\"><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>只读</b><small>这一步不修改任何文件</small></span></li><li data-reveal=\"1\"><span><b>要依据</b><small>每条说出文件和段落</small></span></li><li class=\"is-risk\" data-reveal=\"2\"><span><b>盯住第 2 条</b><small>它会怎样判断？</small></span></li></ol></div>",
+      "html": "<div class=\"demo-notes\"><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>只读</b><small>这一步不修改任何文件</small></span></li><li data-reveal=\"1\"><span><b>要依据</b><small>每条说出文件和段落</small></span></li><li data-reveal=\"2\"><span><b>盯住第 2 条</b><small>它会怎样判断？</small></span></li></ol></div>",
       "steps": [
         "只读",
         "要依据",
@@ -302,7 +300,7 @@ window.lesson = {
       "title": "拆开这份请求：六块内容",
       "kicker": "第 2 章 · 2.1 · 请求解剖",
       "lead": "一次请求由 Harness 组装：系统指令、工具定义、Skills 列表、环境信息、权限说明，最后才是我们写的话。下面几页逐块回答“如果没有它会怎样”。数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。",
-      "html": "<style>.x-stack{display:flex;gap:6px;height:64px}.x-stack>div{position:relative;border:2.5px solid var(--c);background:var(--cl);border-radius:10px 8px 11px 9px;display:flex;align-items:center;justify-content:center;font-size:19px;color:var(--ct);min-width:14px;overflow:hidden;white-space:nowrap}</style><div class=\"x-stack\" data-reveal=\"0\"><div data-role=\"agent\" style=\"flex:17\">系统指令 ≈1.7 万字符</div><div data-role=\"tool\" style=\"flex:18\">工具定义 9 个 ≈1.8 万</div><div data-role=\"ctx\" style=\"flex:12\">Skills 列表 ≈1.2 万</div><div data-role=\"ink\" style=\"flex:1.2\" title=\"环境信息\"></div><div data-role=\"gate\" style=\"flex:1\" title=\"权限说明\"></div><div data-role=\"us\" style=\"flex:.6\" title=\"我们的话\"></div></div><p class=\"p-sub\" data-reveal=\"0\" style=\"text-align:right;margin-top:6px\">末尾三小格：环境信息 · 权限说明 · 我们的话</p><div class=\"p-grid\" style=\"--n:3;gap:12px;margin-top:16px\"><div class=\"p-box is-soft\" data-role=\"agent\" data-reveal=\"1\"><h3>Harness 写的</h3><p>系统指令 · 工具定义</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"1\"><h3>从环境收集的</h3><p>Skills · 环境信息 · 权限</p></div><div class=\"p-box is-soft\" data-role=\"us\" data-reveal=\"2\"><h3>我们写的</h3><p>最后那一小格</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">模型看到的是 <b>Harness 组装好的请求</b></div><p class=\"source-note\">右侧三小格依次是环境信息（约 600 字符）、权限说明（约 340 字符）和我们的话（34 字）。数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。</p>",
+      "html": "<style>.x-stack{display:flex;gap:6px;height:64px}.x-stack>div{position:relative;border:2.5px solid var(--c);background:var(--cl);border-radius:10px 8px 11px 9px;display:flex;align-items:center;justify-content:center;font-size:19px;color:var(--ct);min-width:14px;overflow:hidden;white-space:nowrap}.x-key{display:flex;justify-content:flex-end;align-items:center;gap:18px;margin:8px 0 0;font-size:18px;color:var(--p-muted)}.x-key i{display:inline-block;width:9px;height:24px;margin-right:7px;vertical-align:-6px;border:2.5px solid var(--c);background:var(--cl);border-radius:4px 3px 4px 3px}</style><div class=\"x-stack\" data-reveal=\"0\"><div data-role=\"agent\" style=\"flex:17\">系统指令 ≈1.7 万字符</div><div data-role=\"tool\" style=\"flex:18\">工具定义 9 个 ≈1.8 万</div><div data-role=\"ctx\" style=\"flex:12\">Skills 列表 ≈1.2 万</div><div data-role=\"ink\" style=\"flex:1.2\" title=\"环境信息\"></div><div data-role=\"gate\" style=\"flex:1\" title=\"权限说明\"></div><div data-role=\"us\" style=\"flex:.6\" title=\"我们的话\"></div></div><p class=\"x-key\" data-reveal=\"0\">末尾三小格：<span data-role=\"ink\"><i></i>环境信息</span><span data-role=\"gate\"><i></i>权限说明</span><span data-role=\"us\"><i></i>我们的话</span></p><div class=\"p-grid\" style=\"--n:3;gap:12px;margin-top:16px\"><div class=\"p-box is-soft\" data-role=\"agent\" data-reveal=\"1\"><h3>Harness 写的</h3><p>系统指令 · 工具定义</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"1\"><h3>从环境收集的</h3><p>Skills · 环境信息 · 权限</p></div><div class=\"p-box is-soft\" data-role=\"us\" data-reveal=\"2\"><h3>我们写的</h3><p>最后那一小格</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">模型看到的是 <b>Harness 组装好的请求</b></div><p class=\"source-note\">右侧三小格依次是环境信息（约 600 字符）、权限说明（约 340 字符）和我们的话（34 字）。数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。</p>",
       "steps": [
         "按大小排开",
         "两种来源",
@@ -477,16 +475,34 @@ window.lesson = {
       "title": "同一句话，换个环境，请求就变了",
       "kicker": "第 2 章 · 2.1 · 请求会变",
       "lead": "请求由三层来源拼成：个人（~/.codex 的配置、登录、全局 AGENTS.md，~/.agents/skills 的个人 Skills）、项目（仓库里的 AGENTS.md 与 .agents/skills）、本次（目录、日期、权限）。换一个隔离的 HOME 运行，个人那一层就没了。这是讲师的环境对比示例，不要求跟做。数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ink\">日常环境</span><p>Skills ≈1.24 万字符 · 首次请求 ≈1.15 万 token</p></div><div class=\"p-join\" data-reveal=\"0\"><span>隔离 HOME</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ok\">隔离环境</span><p>Skills ≈2 千字符 · 首次请求 ≈9 千 token</p></div></div><div class=\"p-grid\" style=\"--n:3;gap:12px;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"us\" data-reveal=\"1\"><h3>个人</h3><p>~/.codex · ~/.agents/skills</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"1\"><h3>项目</h3><p>AGENTS.md · .agents/skills</p></div><div class=\"p-box is-soft\" data-role=\"tool\" data-reveal=\"1\"><h3>本次</h3><p>目录 · 日期 · 权限</p></div></div><div style=\"display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,2.6fr);gap:14px;margin-top:10px;align-items:stretch\"><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin:0\">个人 Skills<br><b>跟着 HOME 走</b></div><div class=\"p-term\" data-reveal=\"2\" style=\"font-size:16px\" data-copy=\"CLEAN_HOME=&quot;$(mktemp -d)&quot;\nmkdir -p &quot;$CLEAN_HOME/.codex&quot;\ncp ~/.codex/config.toml &quot;$CLEAN_HOME/.codex/&quot;\nHOME=&quot;$CLEAN_HOME&quot; codex\"><div class=\"dim\">$ CLEAN_HOME=\"$(mktemp -d)\"; mkdir -p \"$CLEAN_HOME/.codex\"</div><div class=\"dim\">$ cp ~/.codex/config.toml \"$CLEAN_HOME/.codex/\"; HOME=\"$CLEAN_HOME\" codex</div></div></div>",
+      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ink\">日常环境</span><p>Skills ≈1.24 万字符 · 首次请求 ≈1.15 万 token</p></div><div class=\"p-join\" data-reveal=\"0\"><span>隔离 HOME</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ok\">隔离环境</span><p>Skills ≈2 千字符 · 首次请求 ≈9 千 token</p></div></div><div class=\"p-grid\" style=\"--n:3;gap:12px;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"us\" data-reveal=\"1\"><h3>个人</h3><p>~/.codex · ~/.agents/skills</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"1\"><h3>项目</h3><p>AGENTS.md · .agents/skills</p></div><div class=\"p-box is-soft\" data-role=\"tool\" data-reveal=\"1\"><h3>本次</h3><p>目录 · 日期 · 权限</p></div></div><div class=\"p-bar is-light\" data-reveal=\"1\">换掉 HOME，<b>个人那一层</b>就不在请求里了</div>",
       "steps": [
         "对比两次",
-        "三层来源",
-        "隔离要隔离什么"
+        "三层来源"
       ],
       "script": [
         "既然请求是每次任务时才组装的，那换一个环境，同一句话发出去的请求也会不一样。讲师做了一个对比：同一句话，一次在日常环境里跑，一次换了一个干净的、隔离的 HOME 目录。Skills 列表从大约 1.24 万字符降到大约 2 千，剩下的只有 Codex 自带的 4 个；第一次请求也从大约 1.15 万 token 降到大约 9 千。",
-        "为什么会这样？因为请求的内容有三层来源。个人这一层，来自我们自己的用户目录：~/.codex 里的配置、登录信息和全局 AGENTS.md，还有 ~/.agents/skills 里的个人 Skills。项目这一层，来自仓库里的 AGENTS.md 和 .agents/skills。本次这一层，是当前目录、日期和这次的权限设置。",
-        "有一个细节：Codex 提供了 CODEX_HOME 这个环境变量，可以把 ~/.codex 换到别处；但个人 Skills 是跟着 HOME 走的，只改 CODEX_HOME 去不掉它们。所以讲师录课时会把 HOME 一起隔离，让画面接近刚装好时的样子。做法就是下面这几行：建一个临时目录，只把模型配置复制进去，再让 Codex 把它当作 HOME 启动。这一页只需看懂环境变化怎样影响请求，不要求复制命令或修改自己的配置。"
+        "为什么会这样？因为请求的内容有三层来源。个人这一层，来自我们自己的用户目录：~/.codex 里的配置、登录信息和全局 AGENTS.md，还有 ~/.agents/skills 里的个人 Skills。项目这一层，来自仓库里的 AGENTS.md 和 .agents/skills。本次这一层，是当前目录、日期和这次的权限设置。"
+      ],
+      "teaching": [],
+      "source": "index.html#p15",
+      "seconds": 60
+    },
+    {
+      "id": "p15-home",
+      "segment": "请求会变",
+      "label": "隔离要连 HOME 一起换",
+      "title": "只换 CODEX_HOME 不够，个人 Skills 跟着 HOME 走",
+      "kicker": "第 2 章 · 2.1 · 请求会变",
+      "lead": "Codex 提供 CODEX_HOME 环境变量，可以把 ~/.codex 换到别处；但个人 Skills 读自 HOME 下的 .agents/skills，只改 CODEX_HOME 去不掉它们。讲师录课时把 HOME 一起隔离。这是讲师的环境做法，不要求跟做。",
+      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ink\">只换 CODEX_HOME</span><p>~/.codex 换走 · 个人 Skills <b>还在</b></p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ok\">整个 HOME 换掉</span><p>~/.codex 和个人 Skills <b>都换走</b></p></div></div><div class=\"p-term\" data-reveal=\"1\" style=\"margin-top:16px;font-size:17px\" data-copy=\"CLEAN_HOME=&quot;$(mktemp -d)&quot;\nmkdir -p &quot;$CLEAN_HOME/.codex&quot;\ncp ~/.codex/config.toml &quot;$CLEAN_HOME/.codex/&quot;\nHOME=&quot;$CLEAN_HOME&quot; codex\"><div class=\"dim\">$ CLEAN_HOME=\"$(mktemp -d)\"; mkdir -p \"$CLEAN_HOME/.codex\"</div><div class=\"dim\">$ cp ~/.codex/config.toml \"$CLEAN_HOME/.codex/\"; HOME=\"$CLEAN_HOME\" codex</div></div>",
+      "steps": [
+        "只换 CODEX_HOME 不够",
+        "连 HOME 一起隔离"
+      ],
+      "script": [
+        "有一个细节：Codex 提供了 CODEX_HOME 这个环境变量，可以把 ~/.codex 换到别处；但个人 Skills 是跟着 HOME 走的，只改 CODEX_HOME 去不掉它们。",
+        "所以讲师录课时会把 HOME 一起隔离，让画面接近刚装好时的样子。做法就是这几行：建一个临时目录，只把模型配置复制进去，再让 Codex 把它当作 HOME 启动。这一页只需看懂环境变化怎样影响请求，不要求复制命令或修改自己的配置。"
       ],
       "teaching": [
         {
@@ -502,8 +518,8 @@ window.lesson = {
           "text": "不要在画面上展示 config.toml 内容，里面有 API 密钥。"
         }
       ],
-      "source": "index.html#p15",
-      "seconds": 90
+      "source": "index.html#p15-home",
+      "seconds": 60
     },
     {
       "id": "p16",
@@ -513,6 +529,32 @@ window.lesson = {
       "kicker": "第 2 章 · 2.1 · 请求会变",
       "lead": "只读和可写两次运行，权限说明是两段不同的文字；可写时还会列出可写目录，环境信息也随之变长。Codex 按配置从不同模板拼出这段说明。这是讲师示例，可自主尝试。数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。",
       "html": "<style>.x-w16{grid-template-columns:1.5fr 1fr}@media(max-width:600px){body[data-mode=scroll] .x-w16{grid-template-columns:1fr}body[data-mode=scroll] .x-w16 code{white-space:pre-wrap;overflow-wrap:anywhere}}</style><div class=\"p-walk x-w16\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:40px\"><div class=\"p-fn\">permissions instructions <span class=\"add\">+1</span><span class=\"del\">−1</span></div><div class=\"p-ln del\"><i>−</i><code>`sandbox_mode` is `read-only`: … only permits reading files.</code></div><div class=\"p-ln add\"><i>+</i><code>`sandbox_mode` is `workspace-write`: … editing files in `cwd` …</code></div><div class=\"p-ln add\"><i>+</i><code>The writable roots are `…/work`, …</code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>约 340 → 670 字符</b><small>可写时多出可写目录</small></span></li><li class=\"is-ok\" data-reveal=\"1\"><span><b>按配置拼装</b><small>仓库里按沙箱模式分模板</small></span></li></ol></div><div class=\"p-term\" data-reveal=\"0\" style=\"margin-top:12px;font-size:17px\" data-copy=\"uvx claude-tap --tap-client codex --tap-target https://api.minimax.cn/v1 -s read-only\"><div class=\"dim\">$ uvx claude-tap --tap-client codex --tap-target … -s read-only</div><div class=\"dim\">$ uvx claude-tap --tap-client codex --tap-target … -s workspace-write</div></div>",
+      "repro": {
+        "label": "复现这个实验",
+        "steps": [
+          {
+            "text": "在课程仓库根目录建一个带 Git 的练习目录；有自己的 .git，Codex 才不会读到课程仓库的 AGENTS.md",
+            "code": "mkdir -p lab-runs/perm && cd lab-runs/perm && git init -q && echo '<h1>hello</h1>' > index.html"
+          },
+          {
+            "text": "用课程基线（隔离 HOME + MiniMax）以只读权限跑一次；需要 MINIMAX_API_KEY，浏览器会打开请求面板",
+            "code": "../../tools/clean-codex.sh --tap -- exec -s read-only \"只读：这个目录里有什么文件？\" < /dev/null"
+          },
+          {
+            "text": "同一句话换成可写权限再跑一次",
+            "code": "../../tools/clean-codex.sh --tap -- exec -s workspace-write \"只读：这个目录里有什么文件？\" < /dev/null"
+          },
+          {
+            "text": "在面板里对照两次请求：developer 消息中 <permissions instructions> 一段，以及环境信息里的可写目录",
+            "code": ""
+          },
+          {
+            "text": "选做：用你平时的配置经 claude-tap 跑同一句，对照 Skills 列表与环境信息（p15 的隔离对照；各人配置不同，结果会不一样）",
+            "code": "uvx claude-tap --tap-client codex -- exec -s read-only \"只读：这个目录里有什么文件？\" < /dev/null"
+          }
+        ],
+        "note": "讲师 2026-10-05 按第 1–3 步在 Codex 0.160.0 上实测；字符数随版本和配置变化，只看两段说明的差别。末尾的 < /dev/null 让 codex exec 不再等待额外输入。"
+      },
       "steps": [
         "两段说明",
         "按配置拼装"
@@ -592,7 +634,7 @@ window.lesson = {
       "title": "先分清，再动手",
       "kicker": "第 2 章 · 2.1 · 分类收尾",
       "lead": "本节留下一份带证据的反馈清单和一个选定的问题；也第一次看到了一句话背后，Harness 实际发给模型的完整请求。下一节回答：要开始改了，继续这个会话，还是新建？",
-      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">一个习惯</h3><div class=\"p-star\" style=\"width:260px;font-size:24px\">先写证据<br>再分性质</div><p class=\"p-sub\" style=\"text-align:center\">复现 · 期望 · 实际 · 证据</p></div><div data-reveal=\"1\"><h3>一个认识</h3><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-pass\">请求由 Harness 组装</li><li class=\"is-fix\">回答要能指回依据</li><li class=\"is-stop\">换环境，请求就变</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>2.2 改一处</h3><p>继续会话，还是新建？</p></div></div></div>",
+      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">一个习惯</h3><div class=\"p-star\" style=\"width:260px;font-size:24px\">先写证据<br>再分性质</div><p class=\"p-sub\" style=\"text-align:center\">复现 · 期望 · 实际 · 证据</p></div><div data-reveal=\"1\"><h3>一个认识</h3><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-point\">请求由 Harness 组装</li><li class=\"is-point\">回答要能指回依据</li><li class=\"is-point\">换环境，请求就变</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>2.2 改一处</h3><p>继续会话，还是新建？</p></div></div></div>",
       "steps": [
         "一个习惯",
         "一个认识",
@@ -615,7 +657,7 @@ window.lesson = {
     },
     {
       "label": "逐条核对",
-      "seconds": 450
+      "seconds": 420
     },
     {
       "label": "请求解剖",
@@ -623,7 +665,7 @@ window.lesson = {
     },
     {
       "label": "请求会变",
-      "seconds": 150
+      "seconds": 180
     },
     {
       "label": "分类收尾",

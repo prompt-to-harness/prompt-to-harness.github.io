@@ -1,0 +1,13 @@
+diff --git a/src/App.tsx b/src/App.tsx
+index bd92a25..19a89a8 100644
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -29,7 +29,7 @@ export default function App() {
+           项目
+         </h2>
+         <ul className="projects__list">
+-          {projects.map((project) => (
++          {[...projects].sort((a, b) => a.name.localeCompare(b.name, 'zh-CN')).map((project) => (
+             <li className="project-card" key={project.name}>
+               <h3 className="project-card__name">{project.name}</h3>
+               <p className="project-card__description">{project.description}</p>

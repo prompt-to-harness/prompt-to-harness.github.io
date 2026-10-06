@@ -73,7 +73,8 @@ cd lab-runs/compact-lab
 
 ## 讲师工具
 
-- [`run-tmux.sh`](run-tmux.sh)：在 tmux 里按 `steps.txt` 自动跑一轮，结束时打印 claude-tap 会话 id；`SKIP_COMPACT=1` 跑不压缩的对照组。它同时看屏幕和 claude-tap 记录里是否还有未返回的请求，`/compact` 之后没看到 “Context compacted” 就判这一轮无效。学员不需要。
+- [`run-tmux.sh`](run-tmux.sh)：在 tmux 里按 `steps.txt` 自动跑一轮，结束时打印 claude-tap 会话 id；`SKIP_COMPACT=1` 跑不压缩的对照组。旁观时用 `LAB_SESSION=compact-demo LAB_HOLD=60` 固定会话名并在结束后停留，另开终端 `tmux attach -r -t compact-demo` 只读观看，请求面板在 `http://127.0.0.1:19527`。它同时看屏幕和 claude-tap 记录里是否还有未返回的请求，`/compact` 之后没看到 “Context compacted” 就判这一轮无效。学员不需要。
+- [`compare.html`](compare.html)：压缩前后对照页，由 [`compare.py`](compare.py) 用参考记录生成，不调用模型，可直接用浏览器打开；适合录制时切换展示，或现场跑不通时代替。
 - [`extract.py`](extract.py)：`python3 extract.py <会话 id>` 打印压缩前后的条目数、工具返回数、摘要和第 5 步回答；加 `--out <文件>` 写出脱敏的参考记录。原始记录留在本机的 `lab-runs/` 和 claude-tap 数据库，不提交。
 
 ## 验证与继续

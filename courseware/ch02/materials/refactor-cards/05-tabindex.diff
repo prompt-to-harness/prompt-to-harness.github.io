@@ -1,0 +1,13 @@
+diff --git a/src/App.tsx b/src/App.tsx
+index bd92a25..b2e6d40 100644
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -30,7 +30,7 @@ export default function App() {
+         </h2>
+         <ul className="projects__list">
+           {projects.map((project) => (
+-            <li className="project-card" key={project.name}>
++            <li className="project-card" key={project.name} tabIndex={0}>
+               <h3 className="project-card__name">{project.name}</h3>
+               <p className="project-card__description">{project.description}</p>
+             </li>
