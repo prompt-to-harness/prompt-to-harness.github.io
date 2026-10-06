@@ -1,0 +1,18 @@
+{
+  "template": "https://github.com/prompt-to-harness/course-starter",
+  "source_commit": "2106e575f9d01465bf181edb040bbed276251b1c",
+  "status": "local-initialization-not-recording-release",
+  "sha256": {
+    ".gitignore": "f6084e7b07e5f84a2c0b5b231d60e270eb5dfcc110977de0f8df9b3c106a8ae8",
+    ".nvmrc": "3151949a8b43e7df5385b69fbaeb5652bbdc7f7924e4278d550348f42b103f13",
+    "CHECKPOINTS.md": "915b5bc65b1fdcd6f391bbdb2422da2fade40db95d74a28b0d6aefbceffa1fbf",
+    "LICENSE": "f59e30e444677dcbc0b8fb0b67747791cf843a7770b51d55cf139498addda009",
+    "PLACEHOLDER_CONTENT.md": "fb9eabe9420dad342b4bbaed4ad11be0bec02abd51c82ce36c5998b7b44d2bb1",
+    "PROJECT_BRIEF.md": "94e8c8af2df4c9a5c9b5d47fecab07328d71c9fcf1edac29f47bacf8efb7cd49",
+    "README.md": "6df3c22ac1dc79c475143db39e77dc978614e0997ff5ac48c86ac1a833de5e22",
+    "TASK_01_01.md": "e3d293dda56249010b98c0bc02b97e114112de11e1986eef48797dea92b52495",
+    "docs/setup/ENVIRONMENT.md": "f7692dd44d49c06c6b17d51c12eed8ce9fb5730910355f4fb3b5227f034547a1",
+    "docs/setup/TOOLCHAIN.md": "eb14942772d6c7a5718a21545efeeebf73a9be2f76390b7e581c53570d7542de",
+    "setup-check/index.html": "222afdb3c342f919a895516a112852d43568adeddc68b8aff0dab9114b84146b"
+  }
+}

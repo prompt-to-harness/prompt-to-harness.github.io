@@ -1,6 +1,6 @@
 # 第 2 章教学材料
 
-> 状态：草稿（2026-10-03）。基于[第 1 章排练快照](../../../starters/personal-homepage/ch01-complete/CHECKPOINT.md)生成，**不是录制版**。录制时讲师首页 v0 与 homepage-v1 冻结后，按下文步骤重新生成并复核行为。本目录不进 Pages 站点（`tools/build-site.py` 跳过 `materials/`）。
+> 状态：草稿（2026-10-03）。基于[第 1 章排练快照](../../../starters/personal-homepage/ch01-complete-notes.md)生成，**不是录制版**。录制时讲师首页 v0 与 homepage-v1 冻结后，按下文步骤重新生成并复核行为。本目录不进 Pages 站点（`tools/build-site.py` 跳过 `materials/`）。
 
 ## 文件
 

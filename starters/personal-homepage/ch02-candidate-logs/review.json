@@ -1,0 +1,13 @@
+{
+ "changed": [
+  "src/App.tsx"
+ ],
+ "checks": {
+  "范围只含 src/App.tsx": true,
+  "三种视口无横向溢出": true,
+  "三条经历原文都在": true,
+  "Tab 仍只停在“查看项目”": true,
+  "build 成功": true
+ },
+ "verdict": "接受"
+}

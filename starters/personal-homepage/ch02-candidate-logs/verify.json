@@ -1,0 +1,71 @@
+{
+ "viewports": {
+  "360x800": {
+   "scrollWidth": 360,
+   "clientWidth": 360,
+   "pageHeight": 827,
+   "cards": [
+    "红绿灯感知量产 城市 NOA 红绿灯感知模块的量产方案设计、部署与加速",
+    "端侧多模态推理引擎 在 Nvidia Orin / Thor 上从 0 到 1 搭建大模型推理引擎并量产",
+    "RoboHarness 把自然语言需求转成可执行、可验证、可持续迭代的研发流程"
+   ],
+   "h1": "示例同学",
+   "links": [
+    {
+     "text": "查看项目",
+     "href": "#projects"
+    }
+   ],
+   "contentWidth": 320,
+   "horizontal_overflow": false,
+   "expected_missing": [],
+   "texts_found": {}
+  },
+  "768x1024": {
+   "scrollWidth": 768,
+   "clientWidth": 768,
+   "pageHeight": 1024,
+   "cards": [
+    "红绿灯感知量产 城市 NOA 红绿灯感知模块的量产方案设计、部署与加速",
+    "端侧多模态推理引擎 在 Nvidia Orin / Thor 上从 0 到 1 搭建大模型推理引擎并量产",
+    "RoboHarness 把自然语言需求转成可执行、可验证、可持续迭代的研发流程"
+   ],
+   "h1": "示例同学",
+   "links": [
+    {
+     "text": "查看项目",
+     "href": "#projects"
+    }
+   ],
+   "contentWidth": 720,
+   "horizontal_overflow": false,
+   "expected_missing": [],
+   "texts_found": {}
+  },
+  "1440x900": {
+   "scrollWidth": 1440,
+   "clientWidth": 1440,
+   "pageHeight": 900,
+   "cards": [
+    "红绿灯感知量产 城市 NOA 红绿灯感知模块的量产方案设计、部署与加速",
+    "端侧多模态推理引擎 在 Nvidia Orin / Thor 上从 0 到 1 搭建大模型推理引擎并量产",
+    "RoboHarness 把自然语言需求转成可执行、可验证、可持续迭代的研发流程"
+   ],
+   "h1": "示例同学",
+   "links": [
+    {
+     "text": "查看项目",
+     "href": "#projects"
+    }
+   ],
+   "contentWidth": 860,
+   "horizontal_overflow": false,
+   "expected_missing": [],
+   "texts_found": {}
+  }
+ },
+ "console_errors": [],
+ "tab_stops": [
+  "A:查看项目"
+ ]
+}

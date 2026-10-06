@@ -1,0 +1,129 @@
+:root {
+  color-scheme: light;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: #222d29;
+  background: #f7f4ee;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 64px 24px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  justify-items: center;
+  gap: 48px;
+}
+
+.hero,
+.projects {
+  width: min(100%, 860px);
+  margin-inline: auto;
+}
+
+#root {
+  width: 100%;
+}
+
+.hero__name {
+  margin: 0;
+  font-size: clamp(30px, 5vw, 48px);
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+}
+
+.hero__intro {
+  margin: 24px 0 36px;
+  color: #626c65;
+  font-size: 19px;
+  line-height: 1.8;
+}
+
+.hero__action {
+  display: inline-block;
+  padding: 12px 24px;
+  border: 1px solid #17664e;
+  border-radius: 999px;
+  background: #17664e;
+  color: #fffdf8;
+  font-size: 16px;
+  text-decoration: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.hero__action:hover,
+.hero__action:focus-visible {
+  background: #0f4a39;
+  border-color: #0f4a39;
+}
+
+.hero__action:focus-visible {
+  outline: 2px solid #222d29;
+  outline-offset: 3px;
+}
+
+.projects {
+  padding-top: 40px;
+  border-top: 1px solid #d5dcd3;
+  scroll-margin-top: 32px;
+}
+
+.projects__title {
+  margin: 0 0 20px;
+  font-size: 18px;
+}
+
+.projects__list {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.project-card {
+  padding: 28px;
+  border: 1px solid #d5dcd3;
+  border-radius: 16px;
+  background: #fffdf8;
+}
+
+.project-card__name {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.project-card__description {
+  margin: 0;
+  color: #626c65;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 40px 20px;
+  }
+
+  .project-card {
+    padding: 24px;
+  }
+}
