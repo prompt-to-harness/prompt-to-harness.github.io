@@ -138,7 +138,7 @@
 /* ---------- 证据块（工整，不抖动） ---------- */
 .p-code{background:#FFFDF7;border:1px solid #B9B3A6;border-radius:6px;overflow:hidden;font-family:var(--p-mono);font-size:19px;line-height:1.6}
 .p-code-head{display:flex;justify-content:space-between;gap:12px;padding:6px 14px;background:#ECE8DE;border-bottom:1px solid #B9B3A6;font-size:17px;color:#4A5260;font-family:var(--p-body)}
-.p-code pre,.p-code .p-lines{margin:0;padding:10px 14px;background:transparent;border:0;font:inherit;white-space:pre-wrap}
+.p-code pre,.p-code .p-lines{margin:0;padding:10px 14px;background:transparent;border:0;font:inherit;white-space:pre-wrap;color:var(--p-ink)}
 .p-code .del{display:block;background:#FCE6DD;color:#8E2C0C;margin:0 -14px;padding:0 14px}
 .p-code .add{display:block;background:#E3F2E6;color:#11652F;margin:0 -14px;padding:0 14px}
 .p-code .hl{display:block;background:#FFF1BF;margin:0 -14px;padding:0 14px;box-shadow:inset 4px 0 #D9A400}
@@ -512,4 +512,22 @@ body.recording[data-mode='slides'] .step-status{display:none}
 .p-repro-body>p{margin:10px 0 0;color:var(--p-muted);font-size:15px}
 body[data-mode='slides'] .p-repro{position:absolute;right:352px;top:40px;margin:0;z-index:6;display:flex;flex-direction:column;align-items:flex-end}
 body[data-mode='slides'] .p-repro-body{width:820px;max-height:560px;overflow:auto;box-shadow:0 8px 28px rgba(24,32,43,.18)}
+/* 页内弹窗 .p-pop：放在正文里的折叠按钮，点开看页面放不下的完整证据（如整份 diff）。
+   演示模式下盖住整个正文区（定位参照 .scene-content，所以祖先不要再设 position），窗内滚动，右上角“关闭”；阅读模式原地展开。 */
+.p-pop{margin:0;font-size:15px;line-height:1.5}
+.p-pop summary{display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border:1.5px dashed #B9B3A6;border-radius:6px;background:var(--p-card);color:#243042;font-weight:600;cursor:pointer;list-style:none;white-space:nowrap}
+.p-pop summary::-webkit-details-marker{display:none}
+.p-pop summary::before{content:"▸";color:var(--p-muted)}
+.p-pop[open] summary::before{content:"▾"}
+.p-pop summary:hover,.p-pop summary:focus-visible{border-color:#243042;background:#F1EEE4}
+.p-pop summary:focus-visible{outline:2px solid #243042;outline-offset:2px}
+.p-pop:not([open]) .p-pop-body{display:none}
+.p-pop-body{margin-top:8px;padding:12px 16px;border:1.5px solid #B9B3A6;border-radius:8px;background:var(--p-card);display:grid;gap:10px;align-content:start;grid-auto-rows:max-content}
+.p-pop-head{display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:700;font-size:17px}
+.p-pop-head button{font:inherit;font-size:15px;font-weight:600;padding:2px 10px;border:1.5px solid #B9B3A6;border-radius:6px;background:#fff;color:#243042;cursor:pointer}
+.p-pop-head button:hover,.p-pop-head button:focus-visible{border-color:#243042}
+.p-pop .p-code{font-size:14px;line-height:1.45}
+.p-pop .p-code pre{white-space:pre;padding:6px 12px}
+.p-code .at{display:block;color:var(--p-muted);background:#F1EEE4;margin:0 -12px;padding:0 12px}
+body[data-mode='slides'] .p-pop-body{position:absolute;left:0;right:0;top:-96px;height:478px;overflow:auto;z-index:8;margin:0;box-shadow:0 8px 28px rgba(24,32,43,.22)}
 

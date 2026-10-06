@@ -1429,7 +1429,6 @@ GSD 原实践链 80 分钟，加第 6.5 节工程经验 15 分钟，全章 95 �
 
 以下链接指向本地同级私有资源仓库，服务内部备课；对外交付时提供经核验的原始来源和独立编写的讲义，不要求学员访问该仓库。材料迁移只表示大纲选题与讲法已整合，不表示模型实测、脚本、引用或学习效果已经通过验证。
 
-- [知识线与内容分层](../archive/course-design-v0.1/content-map.md)：输入与工具循环、状态交接、规则复用、评测条件等，映射到各章已有实践。
 - [软件工程主线](../software-engineering/software-engineering-thread.md)与[内容模板](../software-engineering/software-engineering-content-template.md)：问题先行，现象、术语、边界与判断；按本课逐章栏目和 10–15 分钟预算改编。
 - [候选问题池](../software-engineering/software-engineering-problem-pool.md)：选择权限、重构、状态、契约、耦合、测试、交接与复杂度，未选问题作为扩展。
 - [经典来源映射](../software-engineering/software-engineering-classics.md)：Saltzer & Schroeder、Fowler、Meyer、Parnas、Dijkstra、Naur、Ousterhout；Brooks/Conway 用于协作类比，引用前核对原文、版本与适用边界。
