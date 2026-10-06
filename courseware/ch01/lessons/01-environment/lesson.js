@@ -135,7 +135,7 @@ window.lesson = {
       "script": [
         "打开 docs/setup/ENVIRONMENT.md，逐项填写。第一项是浏览器：环境页能打开、能刷新，就算通过；打不开，先核对路径或本地服务。",
         "第二项是 Git：版本、分支、状态和 Diff 都能读出来。顺手记下路径和初始工作树，辨认已经存在的改动。",
-        "第三项是 Codex CLI：能从练习目录启动就通过。如果 CLI 暂时不可用，只能先用已核验的桌面入口临时起步，并在 1.3 结束前补齐 CLI 基线。三项都有证据，才进入下一步。不过，能启动、能登录，还不等于模型接入已经通过。"
+        "第三项是 Codex CLI：能从练习目录启动就通过。如果 CLI 暂时不可用，只能先用已核验的桌面入口临时起步，并在 1.3 结束前补齐 CLI 基线。三项都有证据，才进入下一步。接下来发一次只读请求，检查模型接入和文件读取。"
       ],
       "segment": "准备环境",
       "seconds": 240,
@@ -165,10 +165,10 @@ window.lesson = {
     },
     {
       "id": "p03-access",
-      "label": "能登录，不等于接入已经通过",
-      "title": "能登录，不等于接入已经通过",
+      "label": "登录后，发一次只读请求",
+      "title": "登录后，发一次只读请求",
       "kicker": "第 1 章 · 1.1 · 准备环境",
-      "lead": "能登录还不够：认证、真实请求、只读练习文件、核对实际模型与配置，要一路走通，任何一步失败都如实记录。Node.js 与 npm 本节用不到，但 1.5 生成首页前必须就绪。",
+      "lead": "登录后按这条路径核验接入：发出真实请求、只读练习文件、核对实际模型与配置；任何一步失败都如实记录。Node.js 与 npm 本节用不到，但 1.5 生成首页前必须就绪。",
       "html": "<div class=\"p-flow\" style=\"--n:4\" data-reveal=\"0\"><div class=\"p-node\" data-role=\"agent\"><h3>认证</h3></div><div class=\"p-node\" data-role=\"agent\"><h3>真实请求</h3></div><div class=\"p-node\" data-role=\"tool\"><h3>只读文件</h3></div><div class=\"p-node\" data-role=\"ok\"><h3>配置一致</h3></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:6px\"><div class=\"p-box is-dashed\" data-role=\"tool\" data-reveal=\"1\"><h3>Node.js / npm</h3><p>本节不用 · 1.5 前就绪</p></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"2\"><h3>接入失败</h3><p>记录阻塞 · 先看回放</p></div></div>",
       "steps": [
         "验证真实请求",
@@ -186,7 +186,7 @@ window.lesson = {
       "teaching": [
         {
           "title": "追问与预期判断",
-          "text": "能登录，不等于接入已经通过；桌面入口也不可用就仅观察，保留阻塞。不能换其他智能体来冒充 Codex 操作通过。"
+          "text": "登录后，发一次只读请求；桌面入口也不可用就仅观察，保留阻塞。不能换其他智能体来冒充 Codex 操作通过。"
         },
         {
           "title": "演示分支",
