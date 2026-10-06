@@ -10,6 +10,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
 from lessonkit import Lesson, MEASURED, chapter_map, repro, teach  # noqa: E402
 
+# 落后时进入第 2 章的追赶 Prompt：与 materials/catchup 的实验同一份，代入真实的参考起点
+CATCHUP_PROMPT = (Path(__file__).resolve().parents[3] / "materials/catchup/prompt-ch02.txt").read_text().strip() \
+    .replace("{URL}", "https://github.com/prompt-to-harness/course-starter.git").replace("{TAG}", "ch02-start-v1")
+
 lesson = Lesson(__file__, "2.1", "先听听别人怎么说", summary="用课程示例反馈卡建立反馈基线；看懂一次请求的组成，以及它为什么随环境变化。")
 scene, KICK = lesson.scene, lesson.kick
 
@@ -44,9 +48,18 @@ scene(
         '<div class="p-box" data-role="us" data-reveal="1"><span class="p-tag" data-role="us">目标</span><p class="p-big" style="font-weight:500">v1 · 公开 URL</p></div></div>'
         '<p class="p-hand" data-reveal="2">先别急着改：别人的建议，哪些是真问题？</p>'
     ),
+    repro=repro([
+        ("先在自己的仓库里保存当前的工作（没有改动时会提示无可提交，不影响）", "git add -A && git commit -m \"保存：开始第 2 章之前\""),
+        ("在仓库根目录启动 Codex，粘贴这段 Prompt", CATCHUP_PROMPT),
+        ("Codex 可能连续申请几次：联网克隆参考起点、在临时目录里复制项目试构建、清理临时目录。每次看清整条命令作用在哪个目录，只动临时目录的再选 Yes, proceed；不要选“以后不再问”。只有写明要联网的那次申请同意后才能联网", None),
+        ("读它的逐条判断，只确认补齐前提所必需的改动", "只做补齐第 2 章前提所必需的改动，可选的建议先不做；我的个人内容和已有的决定保持不变。改完告诉我需要我运行哪些命令。"),
+        ("装依赖、构建，然后在浏览器里看一遍首屏、项目区和“查看项目”", "npm install && npm run build && npm run preview"),
+        ("让 Codex 起草这次补齐的记录；你逐句核对，改成你确认过的内容", "把这次补齐写进 docs/evidence/CH02_START.md：对照了哪个参考起点、补了什么、保留了什么。注明由 Codex 起草、待我核对；不要写本机路径和用户名。"),
+        ("核对无误后提交", "git add -A && git commit -m \"对照 ch02-start-v1 补齐第 2 章前提\""),
+    ], note="没做完第 1 章、或想直接从第 2 章开始时用；已经做完的跳过。参考起点是 course-starter 的 ch02-start-v1 标签，只放在临时目录里对照，不进你的仓库。不想用 Codex 时，可在 GitHub 上下载这个标签的 ZIP 对照。讲师 2026-10-06 用三种起点各试两次，Codex 都能判断对；笼统地说“按你的建议执行”时，它会连可选建议一起做，所以要只确认必需项。", label="从这一章开始？"),
     steps=["回到 v0", "本章目标", "本节问题"],
     script=[
-        "第 1 章结束时，我们交付了首页 v0：能启动、能构建、Diff 能解释，还打了一个本地检查点。但它只在自己电脑上跑，别人看不到。",
+        "第 1 章结束时，我们交付了首页 v0：能启动、能构建、Diff 能解释，还打了一个本地检查点。但它只在自己电脑上跑，别人看不到。还没做完第 1 章也没关系：点开这一页上方的“从这一章开始？”，按步骤让 Codex 对照课程的参考起点补齐，再回来继续。",
         "这一章要把它变成可以拿给认识的人看的 v1，并且发布出去，最后得到一个公开 URL。中间会经过五节：听反馈、改一处、审改动、公开发布，最后回头看一次“只是重构”。",
         "这一节先做第一件事。我们用一组课程示例，模拟把首页给熟人看后收到的建议。先别急着动手改，我们要先分清：哪些是能复现的问题，哪些是个人偏好，哪些其实是我们之前已经做过的决定。",
     ],
