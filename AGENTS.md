@@ -21,6 +21,7 @@
 | --- | --- |
 | 确认课次范围、知识点、演示、练习、验收，或判断哪份文档为准 | [docs/agents/sources-of-truth.md](docs/agents/sources-of-truth.md) |
 | 写或改文档、讲义、口播稿 | [docs/agents/editing-conventions.md](docs/agents/editing-conventions.md)，以及 [docs/production/editorial-checklist.md](docs/production/editorial-checklist.md)（编辑规则的唯一来源） |
+| 审查课件（内容、格式、展示效果） | 项目 skill `lesson-polish`；先读 [docs/reviews/](docs/reviews/README.md) 里已有的记录，审完留一份新记录 |
 | 设计或修改课件、图示 | [docs/agents/courseware-workflow.md](docs/agents/courseware-workflow.md)，以及 [docs/production/](docs/production/README.md) |
 
 ## 公开仓库边界（不得削弱）

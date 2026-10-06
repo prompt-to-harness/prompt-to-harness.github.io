@@ -1,16 +1,18 @@
 # 第二章：迭代首页并发布 GitHub Pages
 
-> 状态：逐页分镜草稿（2026-10-02）。依据[第 2 章故事线提案](../../docs/outline/proposals/2026-10-02-ch02-adjustments.md)及其[分段分镜](../../docs/outline/proposals/2026-10-02-ch02-storyboards.md)，已于 2026-10-02 确认并合入大纲。2.1 讲稿与课件制作中；其余小节只有分镜。均未试讲、未录制。
+> 状态：逐页分镜草稿（2026-10-02）。依据[第 2 章故事线提案](../../docs/outline/proposals/2026-10-02-ch02-adjustments.md)及其[分段分镜](../../docs/outline/proposals/2026-10-02-ch02-storyboards.md)，已于 2026-10-02 确认并合入大纲。2.1 已有讲稿与课件并经讲师审阅；2.2–2.5 于 2026-10-03 制作首版课件，尚未经讲师审阅。均未试讲、未录制。
 
 一句话主线：把只在本机运行的首页 v0，变成可以拿给认识的人看的 v1，并发布出去。
+
+最新审查：[docs/reviews/ch02/](../../docs/reviews/ch02/)（2026-10-05 起两份，重点 2.2–2.5）。已记录内容、跟做流程与展示问题，尚未修订课件，不代表试讲或发布验收通过。
 
 | 小节 | 分镜 |
 | --- | --- |
 | 2.1 先听听别人怎么说 | [STORYBOARD](lessons/01-feedback/STORYBOARD.md) · [课件](lessons/01-feedback/index.html) · [说明](lessons/01-feedback/README.md) |
-| 2.2 只改一处，并证明改好了 | [STORYBOARD](lessons/02-iteration/STORYBOARD.md) |
-| 2.3 AI 交回的改动，收不收 | [STORYBOARD](lessons/03-review/STORYBOARD.md) |
-| 2.4 公开的不只是页面 | [STORYBOARD](lessons/04-publish/STORYBOARD.md) |
-| 2.5 AI 说“只是重构” | [STORYBOARD](lessons/05-refactor/STORYBOARD.md) |
+| 2.2 只改一处，并证明改好了 | [STORYBOARD](lessons/02-iteration/STORYBOARD.md) · [课件](lessons/02-iteration/index.html) · [说明](lessons/02-iteration/README.md) |
+| 2.3 AI 交回的改动，收不收 | [STORYBOARD](lessons/03-review/STORYBOARD.md) · [课件](lessons/03-review/index.html) · [说明](lessons/03-review/README.md) |
+| 2.4 公开的不只是页面 | [STORYBOARD](lessons/04-publish/STORYBOARD.md) · [课件](lessons/04-publish/index.html) · [说明](lessons/04-publish/README.md) |
+| 2.5 AI 说“只是重构” | [STORYBOARD](lessons/05-refactor/STORYBOARD.md) · [课件](lessons/05-refactor/index.html) · [说明](lessons/05-refactor/README.md) |
 
 ## 全章约定
 
@@ -32,11 +34,29 @@
 | 隔离环境与对比实验页 | 2.1、2.2 配套页 | 怎样用隔离的 HOME 启动 Codex、怎样对比两次请求；附 Codex 仓库指令历史的链接 |
 | claude-tap setup 页 | 2.1 配套页 | 学员选做；说明本地代理会经手 API 密钥、只看得到经过代理的内容 |
 | 统一脱敏请求记录 | 2.1、2.2 | 用 2.1 同一只读任务生成，标“一次运行” |
-| 虚构人设项目经历 | 2.2 | 讲师演示用，提前写好 |
+| 项目经历（两位讲师经历聚合） | 2.2 | 取自公开讲师简介，2026-10-05 讲师确认，见 [materials](materials/README.md) |
 | 压缩对比（备用） | 2.2 配套页 | 过满时整段移出 |
-| 改写历史方法说明 | 2.4 配套页 | 需人工复核 |
-| 两份教学 diff | 2.5 | 标明教学材料 |
+| ~~改写历史方法说明~~ | 2.4 配套页 | 2026-10-05 讲师确认不做，口播改为指向 GitHub 官方文档 |
+| 两份教学 diff | 2.5 | 基于排练版 homepage-v1 的草稿已做并核对行为，见 [materials](materials/README.md)；录制版需重做 |
 
 ## 2026-10-03 编辑审校
 
-保留已确认故事线与知识范围。2.1 修改内容源并重新生成课件、讲稿；2.2–2.5 只修改现有分镜，尚无对应成品课件。问题与修改见 [2.1 验证记录中的全章审校表](lessons/01-feedback/VALIDATION.md#2026-10-03-全章编辑审校)。
+（历史记录：2.2–2.5 课件已于同日稍后制作首版，见下一段。）保留已确认故事线与知识范围。2.1 修改内容源并重新生成课件、讲稿；2.2–2.5 只修改现有分镜，当时尚无对应成品课件。问题与修改见 [2.1 验证记录中的全章审校表](lessons/01-feedback/VALIDATION.md#2026-10-03-全章编辑审校)。
+
+## 2026-10-03 2.2–2.5 首版制作
+
+按各节 STORYBOARD 生成课件；页面编号与分镜一致（p20–p58）。
+
+已做：
+- 四个 `build-lesson.py` 生成 39 页、128 步，`data-reveal` 最大值与步骤数逐页一致。
+- 内置浏览器 1280×900 演示模式逐页展开到末步，测量内容底边：全部 ≤ 632（2.2 p29 的 Prompt 面板正好填满，不需滚动）。375 宽阅读模式没有页面级横向溢出；2.2 p32 记录框里的高亮行在框内被裁掉约 30px（零件 `.p-code .hl` 的负边距），未修。
+- `check-courseware.py`、`build-site.py`、`check-progressive.py` 通过；重建字体子集补齐新字。
+- 教学材料（`materials/`）在排练快照上实际构建并用浏览器核对行为，数字写进课件。
+
+未做：讲师审阅、正常语速的出声试读、非作者复述、录制环境实操；配套页（反馈分支表、claude-tap setup、请求解剖页）仍未制作；改写历史方法说明 2026-10-05 决定不做，改指向 GitHub 官方文档。
+
+## 2026-10-03 讲师确认的调整
+
+- 2.2 演示的项目区内容改为两位讲师已公开经历的聚合，不用虚构人设，也不用公众人物；首屏沿用第 1 章示例，口播说明；本轮不加图片。三份 diff 已据此重做并复核行为。
+- 1440×900 下点“查看项目”页面不动这一现象不在课件中提出。
+- 章节独立：2.4 推送前检查改以提交作者邮箱示范（修订提案决定 18，内部大纲已同步）；回退点写“本轮开始前的最后一次提交”；引用第 1 章时就地复述决定本身；没做完第 1 章可从参考快照开始（course-starter 与快照中的 `CHECKPOINTS.md` 已加“从第 2 章开始”，步骤在临时目录实测通过）。
