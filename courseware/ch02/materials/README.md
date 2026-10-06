@@ -8,6 +8,7 @@
 | --- | --- | --- |
 | `homepage-v1.diff` | 2.2、2.3 备课 | 排练快照 → 换成三条讲师经历后的 homepage-v1；代替 2.2 的真实 Codex 输出，只用于备课预估 diff 大小 |
 | `refactor-a.diff` | 2.5 | 教学材料 A：把项目卡提取为 `ProjectCard` 组件，保持行为 |
+| `compact/` | 2.2 p27 | 压缩独立实验：起点脚本、操作步骤、观察表和一次真实运行的请求记录（2026-10-05） |
 | `refactor-b.diff` | 2.5 | 教学材料 B：同样提取组件，顺带让卡片变成链接并加焦点样式 |
 
 两份重构 diff 都基于 homepage-v1，提交说明相同：“refactor: 把项目卡提取为 ProjectCard 组件”。

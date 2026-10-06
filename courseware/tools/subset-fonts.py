@@ -4,7 +4,7 @@
 先运行 fetch-fonts.py 取得 .font-sources/。需要 fonttools 与 brotli：
     python3 -m venv /tmp/fontenv && /tmp/fontenv/bin/pip install fonttools brotli
     /tmp/fontenv/bin/python courseware/tools/subset-fonts.py
-扫描范围：courseware/ 下（不含 archive）与 demos/parts/ 的 .js .html .css .md .svg 文字。
+扫描范围：courseware/ 下（不含 archive 与不发布的 materials）与 demos/parts/ 的 .js .html .css .md .svg 文字。
 fonts.json 中 extra 为 gb2312-level1 的字体额外收入 GB2312 一级常用字（3755 个）作余量。
 同时写出 courseware/tools/font-coverage.json（各字体已覆盖的字符），
 check-courseware.py 用它拦住缺字，不需要安装 fonttools。
@@ -35,7 +35,7 @@ text = "".join(
     p.read_text(errors="ignore")
     for root in roots
     for p in sorted(root.rglob("*"))
-    if p.suffix in {".js", ".html", ".css", ".md", ".svg"} and "archive" not in p.parts and "fonts" not in p.parts
+    if p.suffix in {".js", ".html", ".css", ".md", ".svg"} and "archive" not in p.parts and "fonts" not in p.parts and "materials" not in p.parts
 )
 text += "".join(chr(i) for i in range(32, 127))
 text += "←→↑↓↗＋−×÷✓✗·…—–，。；：！？“”‘’、（）「」《》【】〔〕￥％第章节上下页段步"

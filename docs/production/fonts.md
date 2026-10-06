@@ -68,7 +68,7 @@ python3 -m venv /tmp/fontenv && /tmp/fontenv/bin/pip install fonttools brotli
 /tmp/fontenv/bin/python courseware/tools/subset-fonts.py --check  # 只检查缺字
 ```
 
-`subset-fonts.py` 扫描 `courseware/`（不含 `archive`）与 `demos/parts/` 的全部文字，并更新 `courseware/tools/font-coverage.json`。`check-courseware.py` 报“字体 … 缺 N 字”时，按上面三步重建并提交子集与覆盖表。
+`subset-fonts.py` 扫描 `courseware/`（不含 `archive` 与不发布的 `materials`）与 `demos/parts/` 的全部文字，并更新 `courseware/tools/font-coverage.json`。`check-courseware.py` 报“字体 … 缺 N 字”时，按上面三步重建并提交子集与覆盖表。
 
 ## 更换字体
 

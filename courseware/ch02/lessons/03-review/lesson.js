@@ -214,7 +214,7 @@ window.lesson = {
       "title": "读懂再收，收了也能退",
       "kicker": "第 2 章 · 2.3 · 回到检查点",
       "lead": "本节留下一个审过、可回退的 homepage-v1 提交和一条评审结论。2.3 判断范围：该不该收；2.5 判断性质：是不是保持了行为。检查分三层：自动检查、自动 Review、人工 Review。本章已有构建这一项自动检查，Review 全靠人工。下一节：第一次推送。",
-      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h4 style=\"text-align:center\">一个习惯</h4><div class=\"p-star\" style=\"width:260px;font-size:24px\">先看范围<br>再看内容</div></div><div data-reveal=\"1\"><h4>三层检查</h4><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-pass\">自动检查 · 本章只有构建</li><li class=\"is-stop\">自动 Review · 以后</li><li class=\"is-pass\">人工 Review · 本章</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h4>下一节</h4><div class=\"p-box\" data-role=\"us\"><h3>2.4 公开发布</h3><p>推送之后，谁能看到什么？</p></div></div></div>",
+      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">一个习惯</h3><div class=\"p-star\" style=\"width:260px;font-size:24px\">先看范围<br>再看内容</div></div><div data-reveal=\"1\"><h3>三层检查</h3><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-pass\">自动检查 · 本章只有构建</li><li class=\"is-stop\">自动 Review · 以后</li><li class=\"is-pass\">人工 Review · 本章</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>2.4 公开发布</h3><p>推送之后，谁能看到什么？</p></div></div></div>",
       "steps": [
         "一个习惯",
         "三层检查",

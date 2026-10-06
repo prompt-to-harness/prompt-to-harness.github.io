@@ -592,7 +592,7 @@ window.lesson = {
       "title": "先分清，再动手",
       "kicker": "第 2 章 · 2.1 · 分类收尾",
       "lead": "本节留下一份带证据的反馈清单和一个选定的问题；也第一次看到了一句话背后，Harness 实际发给模型的完整请求。下一节回答：要开始改了，继续这个会话，还是新建？",
-      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h4 style=\"text-align:center\">一个习惯</h4><div class=\"p-star\" style=\"width:260px;font-size:24px\">先写证据<br>再分性质</div><p class=\"p-sub\" style=\"text-align:center\">复现 · 期望 · 实际 · 证据</p></div><div data-reveal=\"1\"><h4>一个认识</h4><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-pass\">请求由 Harness 组装</li><li class=\"is-fix\">回答要能指回依据</li><li class=\"is-stop\">换环境，请求就变</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h4>下一节</h4><div class=\"p-box\" data-role=\"us\"><h3>2.2 改一处</h3><p>继续会话，还是新建？</p></div></div></div>",
+      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">一个习惯</h3><div class=\"p-star\" style=\"width:260px;font-size:24px\">先写证据<br>再分性质</div><p class=\"p-sub\" style=\"text-align:center\">复现 · 期望 · 实际 · 证据</p></div><div data-reveal=\"1\"><h3>一个认识</h3><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-pass\">请求由 Harness 组装</li><li class=\"is-fix\">回答要能指回依据</li><li class=\"is-stop\">换环境，请求就变</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>2.2 改一处</h3><p>继续会话，还是新建？</p></div></div></div>",
       "steps": [
         "一个习惯",
         "一个认识",
