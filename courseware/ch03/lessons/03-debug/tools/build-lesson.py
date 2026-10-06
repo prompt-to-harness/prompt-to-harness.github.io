@@ -91,7 +91,7 @@ scene(
     label="根因在哪", title="用代码位置验证，不靠“听起来合理”", kicker=KICK + "只读调查",
     lead="打开它指出的位置自己看：词表 12 个词；生成牌组时每个词只生成一张；配对判断要求两张的词相同，永远不成立；步数只在这个分支里加。",
     html=(
-        NARROW +
+        NARROW + '<style>.p-walk .p-src .p-ln i{width:56px;white-space:nowrap}</style>' +
         '<div class="p-walk"><div data-reveal="0"><div class="p-src" style="--lh:34px">'
         '<div class="p-fn">src/components/MemoryGame.tsx</div>'
         '<div class="p-ln"><i>4</i><code>const CARD_FACES = [<span class="s">\'需求\'</span>, <span class="s">\'迭代\'</span>, …共 12 个]</code></div>'

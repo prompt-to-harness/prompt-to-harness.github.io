@@ -67,8 +67,8 @@ window.lesson = {
       "label": "Game Studio 给了什么计划",
       "title": "Game Studio 给了什么计划",
       "kicker": "第 3 章 · 3.5 · 插件的计划",
-      "lead": "用 Game Studio 的 Skill 出计划，逐项对照 Brief。以排练实际计划为准。",
-      "html": "<div class=\"p-claim\" style=\"grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"agent\">计划</span><ol class=\"p-notes\" style=\"margin-top:8px\"><li><span><b>（排练计划待补）</b></span></li></ol></div><ul class=\"p-checks\"></ul></div><p class=\"source-note\">计划与改动来自排练（courseware/ch03/materials/mainline/run-v3.sh，基线为 3.3 修复后的 v1）。来自讲师机器上的排练运行（2026-10-06，Codex 0.160.0–0.160.1 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。</p>",
+      "lead": "它先读 Brief 和仓库，再读了 Game Studio 几个 Skill 的全文。结论：零新增依赖，不用 Phaser，明确说“建议偏离插件默认”，并把这件事作为第一个问题交给我们拍板。四条理由里，第 4 条是沙箱联不了网，属于环境限制，不是选型理由。",
+      "html": "<div class=\"p-claim\" style=\"grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"agent\">计划</span><ol class=\"p-notes\" style=\"margin-top:8px\"><li data-reveal=\"0\"><span><b>零依赖：React + CSS + rAF</b><small>不用 Phaser</small></span></li><li data-reveal=\"1\"><span><b>建议偏离插件默认</b><small>四条理由，第 4 条是沙箱联不了网</small></span></li><li data-reveal=\"2\"><span><b>照搬插件的架构规范</b><small>模拟与渲染分离 · 输入集中映射</small></span></li><li data-reveal=\"3\"><span><b>三件事交给我们</b><small>第一件：零依赖还是 Phaser</small></span></li></ol></div><ul class=\"p-checks\"><li class=\"\" data-reveal=\"1\">接进现有仓库<small>新建 4 个、改 2 个文件</small></li><li class=\"\" data-reveal=\"2\">新依赖先说理由<small>package.json 不动</small></li><li class=\"is-no\" data-reveal=\"3\">理由站得住吗<small>环境限制要分开看</small></li></ul></div><p class=\"source-note\">计划与改动来自排练（courseware/ch03/materials/mainline/run-v3.sh，基线为 3.3 修复后的 v1）。来自讲师机器上的排练运行（2026-10-06，Codex 0.160.0–0.160.1 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。</p>",
       "repro": {
         "label": "请求原文",
         "steps": [
@@ -80,12 +80,16 @@ window.lesson = {
         "note": ""
       },
       "steps": [
-        "计划",
-        "对照 Brief"
+        "选型",
+        "偏离的理由",
+        "照搬的规范",
+        "交给我们"
       ],
       "script": [
-        "（排练计划待补）",
-        "（对照待补）"
+        "装好插件，开新会话，把请求发给它。它先读了 Brief 和仓库里的代码，然后用命令读了 Game Studio 几个 Skill 的全文：正是 3.4 说的，用到时才读。它的结论：React 加原生 CSS 加 requestAnimationFrame，零新增依赖，不用 Phaser。",
+        "它明确写着：插件的规则默认 2D 走 Phaser，这里我建议偏离。理由有四条：仓库已经有记忆翻牌这个先例；Phaser 擅长的精灵图、摄像机、场景编排这里都用不上；体积，它估计 Phaser 约 gzip 300 KB 上下，和我们下一页的实测对得上；第四条，沙箱里联不了网，装不了包。前三条是产品和工程理由，第四条是环境限制。环境限制不该决定技术选型：如果哪天能联网了，结论不该跟着变。理由要分开看。",
+        "它没有扔掉插件。Skill 里的架构规范它照单全收：模拟和渲染分开，碰撞和计时写成纯函数；输入在一处集中映射；HUD 用 DOM 文字。这就是“经验”的正确用法：采纳有用的做法，不盲从默认的选型。",
+        "最后，它把三件事交给我们拍板，第一件就是：零依赖，还是一定要 Phaser。对照 Brief 打勾：接进现有仓库，是；新依赖先说理由，它干脆不加；理由站不站得住，要我们来判断。请暂停视频，读你的计划，对照 Brief 逐条打勾。"
       ],
       "teaching": [
         {
@@ -94,7 +98,7 @@ window.lesson = {
         }
       ],
       "source": "index.html#p32",
-      "seconds": 60
+      "seconds": 120
     },
     {
       "id": "p33",
@@ -240,7 +244,7 @@ window.lesson = {
     },
     {
       "label": "插件的计划",
-      "seconds": 150
+      "seconds": 210
     },
     {
       "label": "试玩",
