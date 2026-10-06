@@ -2,7 +2,7 @@
 
 > 2026-09-26 · 当前演示页视觉效果的设计说明（含进度与位置感、底部章节条）。视觉效果已选为后续制作参考；配套内容仍是示例，正式章节尚未制作。早期录播和编辑建议见[设计参考](../design/README.md)，采用时重新核对。
 >
-> 参考实现：[`demos/visual-system/index.html`](../../demos/visual-system/index.html)（1.2 节内容，16 个页型）。早期的 9 种风格对比保留在 [`demos/archive/slide-styles/`](../../demos/archive/slide-styles/index.html)，仅作历史参考。
+> 参考实现：[`demos/visual-system/index.html`](../../demos/visual-system/index.html)（1.2 节内容，16 个页型）。早期风格对比已清理，可通过 Git 历史追溯。
 
 ## 1. 设计理念
 
