@@ -565,8 +565,6 @@ for s in scenes:
         segments.append({"label": s["segment"], "seconds": 0})
     segments[-1]["seconds"] += s["seconds"]
 
-for s in scenes:
-    s.setdefault("notes", "<p>本页未试讲；数字和截图以录制时的实际记录为准</p>")
 
 lesson = {
     "title": "先听听别人怎么说",
@@ -578,7 +576,7 @@ lesson = {
 }
 (HERE / "lesson.js").write_text("window.lesson = " + json.dumps(lesson, ensure_ascii=False, indent=2) + ";\n")
 
-lines = ["# 2.1 先听听别人怎么说", "", "> 由 tools/build-lesson.py 生成。未试讲；数字与截图以录制时实际记录为准。", ""]
+lines = ["# 2.1 先听听别人怎么说", "", "> 由 tools/build-lesson.py 生成。", ""]
 for s in scenes:
     lines += [f"## {s['id'].upper()} {s['label']}", "", f"[对应课件](index.html#{s['id']})", "", "### 口播", ""]
     for i, (beat, text) in enumerate(zip(s["steps"], s["script"])):
