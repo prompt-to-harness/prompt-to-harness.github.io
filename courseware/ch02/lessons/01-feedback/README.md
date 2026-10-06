@@ -6,7 +6,7 @@
 
 ## 维护
 
-`tools/build-lesson.py` 是本节唯一的内容源：页面 HTML、分步、逐字稿、阅读模式导语和讲师提示都写在里面，生成 `lesson.js` 与 `script.md`。不要直接改生成物。
+`tools/build-lesson.py` 是本节唯一的内容源：页面 HTML、分步、逐字稿、阅读模式导语和讲师提示都写在里面，生成 `lesson.js` 与 `script.md`。不要直接改生成物。全章共用的页面登记、章节地图、窄屏样式和输出写在 [`../../tools/lessonkit.py`](../../tools/lessonkit.py)；改它会影响五节，改完逐节重新生成并比对。
 
 ```sh
 python3 courseware/ch02/lessons/01-feedback/tools/build-lesson.py

@@ -6,7 +6,7 @@
 
 - 写或改任何一节之前先读本文；改完后按“改稿检查”走一遍。
 - 新出现、可迁移到多节课的问题，在这里登记一条：问题、适用材料、已确认的处理、检查方法。用户或非作者指出例外时，在对应条目补例子，不另起相似规则。
-- 能机器检查的，由 `courseware/tools/check-editorial.py` 执行（随 `check-courseware.py` 一起跑）；需要判断的，由项目 skill `courseware-editorial` 逐页对照本文输出问题清单。两者只引用本文的条目编号，不复制规则正文。
+- 能机器检查的，由 `courseware/tools/check-editorial.py` 执行（随 `check-courseware.py` 一起跑）；需要判断的，由项目 skill `lesson-polish` 逐页对照本文输出问题清单，结果留存到 `docs/reviews/`。两者只引用本文的条目编号，不复制规则正文。
 
 | 编号 | 规则 | 检查方式 |
 | --- | --- | --- |

@@ -9,9 +9,9 @@ window.lesson = {
       "segment": "三种状态",
       "layout": "lesson-cover",
       "label": "开始改之前",
-      "title": "开始改之前，先决定在哪个会话里改",
+      "title": "先决定，在哪个会话里改",
       "kicker": "第 2 章 · 2.2 · 开篇",
-      "lead": "2.1 选定了第 3 条反馈。动手之前有一个选择：继续 2.1 的会话、恢复它，还是新建一个？2.1 看了一次请求里有什么，这一节看多次请求之间发生了什么。",
+      "lead": "继续 2.1 的会话、恢复它，还是新建一个？",
       "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>听反馈</li><li class=\"is-now\"><b>2.2</b>改一处</li><li><b>2.3</b>审改动</li><li><b>2.4</b>公开发布</li><li><b>2.5</b>只是重构？</li></ol><div class=\"p-grid\" style=\"--n:3;gap:16px;margin-top:22px\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><h3>继续</h3><p>接着 2.1 那个会话往下说</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><h3>恢复</h3><p>关掉以后再把它找回来</p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\"><h3>新建</h3><p>开一个干净的会话</p></div></div><p class=\"p-hand\" data-reveal=\"2\">要选对，先弄清：会话里到底存了什么？</p>",
       "steps": [
         "回到地图",
@@ -39,7 +39,7 @@ window.lesson = {
       "title": "模型、会话、文件与进程，各记住什么",
       "kicker": "第 2 章 · 2.2 · 三种状态",
       "lead": "模型本身不保存任何状态；会话由 Harness 保存，每次请求时重发；文件和运行中的程序独立存在于电脑上。2.1 开场要重启开发服务器，就是第三栏的事。",
-      "html": "<div class=\"p-grid\" style=\"--n:3;gap:16px\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"agent\">模型</span><p class=\"p-big\">什么都不记</p><p class=\"p-sub\">每次只看这一次请求</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">会话</span><p class=\"p-big\">Harness 保存</p><p class=\"p-sub\">下一次请求时重新发出</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"tool\">文件与进程</span><p class=\"p-big\">在电脑上</p><p class=\"p-sub\">与会话无关，各自存在</p></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"tool\" data-reveal=\"1\"><h3>2.1 开场</h3><p>关掉终端 → 开发服务器停了 → 代码文件还在</p></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"2\"><h3>换个目录恢复会话</h3><p>它仍答得出上轮读的是 index.html<br>可新目录里没有这个文件</p></div></div><div class=\"p-bar\" data-reveal=\"2\">恢复对话，<b>不等于恢复文件或服务</b></div>",
+      "html": "<div class=\"p-grid\" style=\"--n:3;gap:16px\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"agent\">模型</span><p class=\"p-big\">什么都不记，只看这一次请求</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">会话</span><p class=\"p-big\">Harness 保存，下次重发</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"tool\">文件与进程</span><p class=\"p-big\">在电脑上，与会话无关</p></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"tool\" data-reveal=\"1\"><h3>2.1 开场</h3><p>关掉终端 → 开发服务器停了 → 代码文件还在</p></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"2\"><h3>换个目录恢复会话</h3><p>它仍答得出上轮读的是 index.html<br>可新目录里没有这个文件</p></div></div><div class=\"p-bar\" data-reveal=\"2\">恢复对话，<b>不等于恢复文件或服务</b></div>",
       "steps": [
         "三栏",
         "开场那一幕",
@@ -70,7 +70,7 @@ window.lesson = {
       "title": "下一次请求，带上了前面的全部历史",
       "kicker": "第 2 章 · 2.2 · 三种状态",
       "lead": "把同一次任务里相邻两次请求放在一起比：后一次把前一次的内容原样带上，再接上模型的工具调用和工具返回。模型之所以“接得上话”，是因为 Harness 每次都把历史重新发给它。数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。",
-      "html": "<div class=\"p-walk\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:40px\"><div class=\"p-fn\">第 1 次 → 第 2 次请求的 input <span class=\"add\">+2</span></div><div class=\"p-ln\"><i>1</i><code>developer · 权限说明、Skills 列表</code></div><div class=\"p-ln\"><i>2</i><code>user · 环境信息</code></div><div class=\"p-ln\"><i>3</i><code>user · 我们的那句话</code></div><div class=\"p-ln add\" data-reveal=\"1\"><i>4</i><code>模型 · 调用 exec_command: cat index.html</code></div><div class=\"p-ln add\" data-reveal=\"1\"><i>5</i><code>工具返回 · index.html 的内容</code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>前 3 项原样重发</b><small>不是“接着上次”，而是从头再发</small></span></li><li data-reveal=\"1\"><span><b>新增在末尾</b><small>调用和返回都进了历史</small></span></li><li class=\"is-risk\" data-reveal=\"2\"><span><b>只在这次运行里看到</b><small>MiniMax 配置下 store 为 false</small></span></li></ol></div><p class=\"source-note\">示意图按记录结构整理，条目名为中文概括。数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。</p>",
+      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-walk\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:40px\"><div class=\"p-fn\">第 1 次 → 第 2 次请求的 input <span class=\"add\">+2</span></div><div class=\"p-ln\"><i>1</i><code>developer · 权限说明、Skills 列表</code></div><div class=\"p-ln\"><i>2</i><code>user · 环境信息</code></div><div class=\"p-ln\"><i>3</i><code>user · 我们的那句话</code></div><div class=\"p-ln add\" data-reveal=\"1\"><i>4</i><code>模型 · 调用 exec_command: cat index.html</code></div><div class=\"p-ln add\" data-reveal=\"1\"><i>5</i><code>工具返回 · index.html 的内容</code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>前 3 项原样重发</b><small>不是“接着上次”，而是从头再发</small></span></li><li data-reveal=\"1\"><span><b>新增在末尾</b><small>调用和返回都进了历史</small></span></li><li class=\"is-risk\" data-reveal=\"2\"><span><b>只在这次运行里看到</b><small>MiniMax 配置下 store 为 false</small></span></li></ol></div><p class=\"source-note\">示意图按记录结构整理，条目名为中文概括。数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。</p>",
       "steps": [
         "第 1 次请求",
         "第 2 次多了什么",
@@ -99,9 +99,9 @@ window.lesson = {
       "segment": "代价与不确定",
       "label": "每次都重发，贵不贵",
       "title": "每次都重发，代价是 token 和注意力",
-      "kicker": "第 2 章 · 2.2 · 三种状态",
+      "kicker": "第 2 章 · 2.2 · 代价与不确定",
       "lead": "一次提问产生了 4 次请求，input 从 3 项涨到 10 项。重复的开头部分可以被缓存，算起来更便宜；但模型每次仍要读完整段历史，注意力不会因为缓存而变多。数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。",
-      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>请求</span><span>input 项数</span><span>缓存命中</span></div><div data-reveal=\"0\"><span>第 1 次</span><span>3 项</span><span>约 1 千 token</span></div><div data-reveal=\"0\"><span class=\"p-sub\">第 2、3 次</span><span>逐次增加</span><span>逐次增加</span></div><div data-reveal=\"0\" class=\"is-key\"><span>第 4 次</span><span>10 项</span><span>约 1.18 万 token</span></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"1\"><h3>token</h3><p>重复的前缀能被缓存，按更低的价格算</p></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"2\"><h3>注意力</h3><p>历史越长，早先的需求越容易被淹没</p></div></div><p class=\"source-note\">数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构</p>",
+      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>请求</span><span>input 项数</span><span>缓存命中</span></div><div data-reveal=\"0\"><span>第 1 次</span><span>3 项</span><span>约 1 千 token</span></div><div data-reveal=\"0\"><span class=\"p-sub\">第 2、3 次</span><span>未记录</span><span>未记录</span></div><div data-reveal=\"0\" class=\"is-key\"><span>第 4 次</span><span>10 项</span><span>约 1.18 万 token</span></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"1\"><h3>token</h3><p>重复的前缀能被缓存，按更低的价格算</p></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"2\"><h3>注意力</h3><p>历史越长，早先的需求越容易被淹没</p></div></div><p class=\"source-note\">数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构</p>",
       "steps": [
         "4 次请求",
         "token 与缓存",
@@ -115,7 +115,7 @@ window.lesson = {
       "teaching": [
         {
           "title": "数字来源",
-          "text": "数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。 中间两次请求的数字未在提案中记录，画面只写“逐次增加”。"
+          "text": "数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。 中间两次请求的数字未在提案中记录，画面写“未记录”，不推断它们的走势；录制时可从 claude-tap 记录补齐。"
         },
         {
           "title": "讲师提示",
@@ -130,7 +130,7 @@ window.lesson = {
       "segment": "代价与不确定",
       "label": "再问一次，一样吗",
       "title": "同一个问题再问一次，过程不一样",
-      "kicker": "第 2 章 · 2.2 · 三种状态",
+      "kicker": "第 2 章 · 2.2 · 代价与不确定",
       "lead": "同一句只读提问跑了两次：第一次 4 次请求，中途还调用了一个不存在的工具；第二次只用了 2 次请求。模型的输出有不确定性，所以判断要看这一次的证据，而不是“上次是这样”。数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。",
       "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ink\">第一次运行</span><p class=\"p-big\">4 次请求</p><p class=\"p-sub\">先调用 read_file 报错，再改用 cat</p></div><div class=\"p-join\" data-reveal=\"1\"><span>同一句话</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ink\">第二次运行</span><p class=\"p-big\">2 次请求</p><p class=\"p-sub\">直接读到文件，没有报错</p></div></div><div class=\"p-bar\" data-reveal=\"2\">看这一次的证据，<b>不靠“上次是这样”</b></div><p class=\"source-note\">数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构</p>",
       "steps": [
@@ -182,7 +182,7 @@ window.lesson = {
       "id": "p26",
       "segment": "请求会变",
       "label": "两份指令差在哪",
-      "title": "通用模型和专用模型，配的指令差三倍",
+      "title": "通用模型和专用模型，指令的章节不一样",
       "kicker": "第 2 章 · 2.2 · 请求会变",
       "lead": "仓库按模型放了不同的指令：给通用模型的约 21–24 KB，给为 Codex 专门训练的模型的只有约 6.6–7.6 KB。对比章节目录，能看到短的那份省掉了哪些内容；但不能凭长度判断哪个模型更好。数据来自 openai/codex 仓库（Apache-2.0）的提交历史，2026-10-02 核对、10-03 复核；大小为文件字节数。",
       "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ink\">通用模型 · ≈21–24 KB</span><p style=\"margin-top:8px;line-height:1.7\">工作方式 · <b>性格</b> · <b>AGENTS.md 规范</b><br>自主与坚持 · 响应 · 计划及示例<br><b>执行任务</b> · <b>验证工作</b> · 汇报 · 工具指南</p></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">Codex 专用模型 · ≈6.6–7.6 KB</span><p style=\"margin-top:8px;line-height:1.7\">通用 · 编辑约束 · 计划工具<br>特殊请求 · 汇报</p><p class=\"p-sub\">没有性格、AGENTS.md、验证这几节</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">能看到<b>内容差异</b> · 不能据此判断模型能力或设计原因</div><p class=\"source-note\">章节名为中文意译。通用：gpt_5_1_prompt.md、gpt_5_2_prompt.md；专用：gpt_5_codex_prompt.md、gpt-5.2-codex_prompt.md，均在 codex-rs/core/。数据来自 openai/codex 仓库（Apache-2.0）的提交历史，2026-10-02 核对、10-03 复核；大小为文件字节数。</p>",
@@ -279,12 +279,12 @@ window.lesson = {
       "id": "p29",
       "segment": "本轮迭代",
       "layout": "prompt-scene",
-      "prompt": "Goal：在项目区呈现我提供的项目经历，\n解决反馈清单第 3 条“看不出你做过什么”。\nContext：反馈清单见 docs/evidence/CH02_VIBE_ITERATIONS.md；\n1.4 已决定项目卡不跳转，本轮不改。\n项目内容（原文照用）：\n- 学习笔记：整理三次课程练习的目标、页面截图和修改记录\n- 课表小工具：把一学期的课程时间整理成表格，可以按星期查看\n- 读书会招新页：为校读书会写的一页活动介绍，和两位同学一起改了三版文案\nConstraints：只使用上面的文字，不补写、不润色；不加链接、不加依赖；\n只改项目区相关文件；先说明计划和要改的文件，等我确认后再改。\nDone when：三种视口内容完整可读；Tab 焦点顺序与改前一致；\nnpm run build 成功；diff 只含项目区相关改动。",
+      "prompt": "Goal：在项目区呈现我的项目经历，解决反馈第 3 条。\nContext：见 docs/evidence/CH02_VIBE_ITERATIONS.md；\n项目卡不跳转是既有决定，本轮不改。\n项目内容（原文照用）：<每行一条：项目名称：一句描述>\nConstraints：只用上面的文字，不补写；不加链接、依赖；\n只改项目区；先说计划，等我确认再改。\nDone when：360/768/1440 宽可读；Tab 顺序不变；\nbuild 成功；diff 只含项目区。",
       "label": "写本轮 Prompt",
       "title": "让 Codex 只改这一处",
       "kicker": "第 2 章 · 2.2 · 本轮迭代",
-      "lead": "在新会话里提交本轮 Prompt。它引用反馈清单这份当前证据，项目内容由人提供并要求原文照用，范围只到项目区，完成标准写成可以检查的四件事。讲师用的是课程编写的虚构人设内容。",
-      "html": "<div class=\"demo-notes\"><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>引用当前证据</b><small>反馈清单第 3 条</small></span></li><li class=\"is-risk\" data-reveal=\"1\"><span><b>内容由人提供</b><small>原文照用，不补写、不润色</small></span></li><li data-reveal=\"2\"><span><b>只写愿意公开的</b><small>2.4 之后所有人都看得到</small></span></li><li class=\"is-ok\" data-reveal=\"3\"><span><b>可检查的完成标准</b><small>视口 · 键盘 · build · diff 范围</small></span></li></ol></div>",
+      "lead": "在新会话里提交本轮 Prompt。它引用反馈清单这份当前证据，项目内容由人提供并要求原文照用，范围只到项目区，完成标准写成可以检查的四件事。讲师演示的项目区借用两位讲师的真实经历；首屏沿用第 1 章的示例，本轮不改。",
+      "html": "<div class=\"demo-notes\"><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>引用当前证据</b><small>反馈清单第 3 条</small></span></li><li class=\"is-risk\" data-reveal=\"1\"><span><b>内容由人提供</b><small>讲师演示借用两位讲师的经历</small></span></li><li data-reveal=\"2\"><span><b>只写愿意公开的</b><small>2.4 之后所有人都看得到</small></span></li><li class=\"is-ok\" data-reveal=\"3\"><span><b>可检查的完成标准</b><small>视口 · 键盘 · build · diff 范围</small></span></li></ol></div>",
       "steps": [
         "引用证据",
         "内容由人提供",
@@ -292,15 +292,15 @@ window.lesson = {
         "完成标准"
       ],
       "script": [
-        "新建会话，提交这段 Prompt。先看 Goal 和 Context：目标写的是解决反馈清单第 3 条，并且点名清单的位置。新会话没有 2.1 的历史，它要从这份文件里拿到当前证据。我们还顺手写明，1.4 定下的项目卡不跳转，这一轮不改。",
-        "中间是项目内容，由人提供，要求原文照用。讲师这里用的是课程编写的虚构人设“示例同学”的三条经历。项目经历是关于你自己的事实，AI 不知道，也不该替你编。所以 Constraints 里写死：只用上面的文字，不补写、不润色事实。",
+        "新建会话，提交这段 Prompt。先看 Goal 和 Context：目标写的是解决反馈第 3 条，Context 点名反馈清单的位置。新会话没有 2.1 的历史，它要从这份文件里拿到当前证据。我们还顺手写明：项目卡点了不跳转，是第 1 章做首页时定下的，这一轮不改。",
+        "中间是项目内容，尖括号那一行换成你自己的项目经历，每行一条，要求原文照用。讲师这里填的是我们两位讲师自己的三条经历，合在第 1 章那个“示例同学”的页面上。首屏还是示例同学，这一轮只改项目区，所以先不动它。项目经历是关于你自己的事实，AI 不知道，也不该替你编。所以 Constraints 里写死：只用上面的文字，不补写、不润色事实。",
         "写自己的内容时多想一步：到 2.4，这个仓库和页面会公开，所有人都能看到。只写你愿意公开的内容，不写别人的姓名和联系方式。",
-        "最后是 Done when，四件可以检查的事：三种视口内容完整可读；Tab 焦点顺序和改前一致；npm run build 成功；diff 只含项目区相关改动。我们还要求它先说计划、等确认再改。请暂停视频，换上你自己的内容，提交 Prompt。"
+        "最后是 Done when，四件可以检查的事：三种视口内容完整可读；Tab 焦点顺序和改前一样；npm run build 成功；diff 只含项目区的改动。我们还要求它先说计划、等确认再改。请暂停视频，换上你自己的内容，提交 Prompt。"
       ],
       "teaching": [
         {
           "title": "切到实操",
-          "text": "讲师在新会话中提交本 Prompt；三条项目经历来自 courseware/ch02/materials/README.md 的虚构人设，提前写好，不在镜头前现写。"
+          "text": "讲师在新会话中提交本 Prompt，尖括号一行替换为两位讲师经历聚合的三条（courseware/ch02/materials/README.md，取自已公开的讲师简介，2026-10-05 讲师确认），提前写好，不在镜头前现写：\n\n- 红绿灯感知量产：城市 NOA 红绿灯感知模块的量产方案设计、部署与加速\n- 端侧多模态推理引擎：在 Nvidia Orin / Thor 上从 0 到 1 搭建大模型推理引擎并量产\n- RoboHarness：把自然语言需求转成可执行、可验证、可持续迭代的研发流程"
         },
         {
           "title": "讲师提示",
@@ -337,7 +337,7 @@ window.lesson = {
         },
         {
           "title": "备课参考",
-          "text": "按排练快照预估，内容迭代只改 src/App.tsx：9 行新增、1 行删除（materials/homepage-v1.diff）。真实 diff 以录制为准。"
+          "text": "按排练快照预估，内容迭代只改 src/App.tsx：10 行新增、2 行删除（materials/homepage-v1.diff）。真实 diff 以录制为准。"
         }
       ],
       "source": "index.html#p30",
@@ -366,7 +366,7 @@ window.lesson = {
       "teaching": [
         {
           "title": "备课参考",
-          "text": "排练版 homepage-v1（materials/homepage-v1.diff）2026-10-03 核对：360×800 下页面高 827px、无横向滚动；Tab 只停在“查看项目”；build 成功。1440×900 下页面高度正好 900px，点“查看项目”页面不动、地址变成 #projects，与 v0 相同，不是本轮引入的回归；学员问起时这样解释，不在本轮修。"
+          "text": "排练版 homepage-v1（materials/homepage-v1.diff）2026-10-03 核对：360×800 下页面高 827px、无横向滚动；Tab 只停在“查看项目”；build 成功。"
         },
         {
           "title": "讲师提示",
@@ -382,20 +382,20 @@ window.lesson = {
       "label": "记录本轮",
       "title": "写下本轮，下一次才接得上",
       "kicker": "第 2 章 · 2.2 · 本轮迭代",
-      "lead": "在 CH02_VIBE_ITERATIONS.md 末尾追加本轮记录。它是下一轮的交接，也是 2.3 审查 diff 时要对照的目标。回退点此时还是第 1 章的检查点，2.3 提交后更新。",
-      "html": "<div class=\"p-code\" data-reveal=\"0\"><div class=\"p-code-head\"><span>docs/evidence/CH02_VIBE_ITERATIONS.md</span><span>追加</span></div><pre>## 第 1 轮\n\n- 问题证据：反馈第 3 条；项目区只有一句\n- 本轮目标：呈现我提供的三条项目经历\n<span class=\"hl\">- 会话选择与理由：新建；2.1 会话多为请求查看</span>\n- 改动文件：src/App.tsx\n- 验证结果：三种视口完整 / Tab 不变 / build 成功\n<span class=\"hl\">- 剩余问题：第 1 条在 360 下仍未复现</span>\n- 回退点：ch01-prompt-baseline</pre></div><div class=\"p-bar is-light\" data-reveal=\"1\">记录是<b>下一轮的交接</b>，也是 2.3 的审查依据</div>",
+      "lead": "在 CH02_VIBE_ITERATIONS.md 末尾追加本轮记录。它是下一轮的交接，也是 2.3 审查 diff 时要对照的目标。回退点此时是本轮开始前的最后一次提交，2.3 提交后更新。",
+      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-aside\" style=\"display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:16px;align-items:start\"><div class=\"p-code\" data-reveal=\"0\"><div class=\"p-code-head\"><span>docs/evidence/CH02_VIBE_ITERATIONS.md</span><span>追加</span></div><pre style=\"color:inherit\">## 第 1 轮\n- 问题证据：反馈第 3 条；项目区只有一句\n- 本轮目标：呈现我提供的三条项目经历\n<span class=\"hl\">- 会话选择与理由：新建；2.1 会话多为请求查看</span>- 改动文件：src/App.tsx\n- 验证结果：视口完整 / Tab 不变 / build 成功\n<span class=\"hl\">- 剩余问题：无（第 1 条在 360 下未复现）</span>- 回退点：本轮开始前的提交</pre></div><div style=\"display:grid;gap:12px\"><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"1\"><p><b>下一轮</b> · 新会话的交接文件</p></div><div class=\"p-box is-soft\" data-role=\"tool\" data-reveal=\"1\"><p><b>2.3</b> · 审查 diff 的对照目标</p></div></div></div>",
       "steps": [
         "逐项填写",
         "它用来做什么"
       ],
       "script": [
-        "最后把这一轮记下来。在 CH02_VIBE_ITERATIONS.md 末尾追加一段“第 1 轮”。问题证据、本轮目标、改动文件、验证结果，刚才都做过，照实填。比第 1 章多了两项：会话选择与理由，还有剩余问题，这两行在画面上标黄了。回退点现在还是第 1 章的 ch01-prompt-baseline，因为这一轮还没提交。",
+        "最后把这一轮记下来。在 CH02_VIBE_ITERATIONS.md 末尾追加一段“第 1 轮”。问题证据、本轮目标、改动文件、验证结果，刚才都做过，照实填。其中两项是这一章新加的：会话选择与理由，还有剩余问题，画面上标黄了。回退点写本轮开始前的最后一次提交，运行 git log --oneline -1 就能看到它的短哈希；这一轮还没提交，所以回退点还是它。",
         "这份记录有两个用处。下一次新建会话时，它就是交接文件；下一节 2.3 审查 diff 时，它就是对照的目标。请暂停视频，把你的第 1 轮写完。"
       ],
       "teaching": [
         {
           "title": "跟做产出",
-          "text": "本轮记录七项：问题证据、本轮目标、会话选择与理由、改动文件、验证结果、剩余问题、回退点。空白模板：\n\n## 第 1 轮\n\n- 问题证据：反馈第 3 条；1440×900 下项目区只有一句“记录课程练习”\n- 本轮目标：在项目区呈现我提供的三条项目经历\n- 会话选择与理由：\n- 改动文件：\n- 验证结果（三种视口 / 键盘 / build）：\n- 剩余问题：\n- 回退点：ch01-prompt-baseline（2.3 提交后更新）"
+          "text": "本轮记录七项：问题证据、本轮目标、会话选择与理由、改动文件、验证结果、剩余问题、回退点。模板（前两项为讲师示例）：\n\n```markdown\n## 第 1 轮\n\n- 问题证据：反馈第 3 条；1440×900 下项目区只有一句“记录课程练习”\n- 本轮目标：在项目区呈现我提供的三条项目经历\n- 会话选择与理由：\n- 改动文件：\n- 验证结果（三种视口 / 键盘 / build）：\n- 剩余问题：\n- 回退点：本轮开始前的最后一次提交（git log --oneline -1；2.3 提交后更新）\n```"
         },
         {
           "title": "讲师提示",
@@ -422,7 +422,7 @@ window.lesson = {
       "script": [
         "暂停一下，回答三个问题。第一，关掉终端，第二天恢复 Codex 会话，页面会自动回来吗？第二，压缩以后，模型不再看到哪些原始信息？第三，对话越来越长，每次花的钱一定越来越多吗？",
         "第一题，不会。会话由 Harness 保存，开发服务器是另一个程序，关掉终端就停了，要重新运行 npm run dev。恢复对话，不等于恢复文件或服务。",
-        "第二题，工具返回的原文和中间过程都不在了，比如读到的文件内容、命令输出。剩下的是最近的用户消息和一份交接摘要。",
+        "第二题，在讲师这次看到的本地压缩里，工具返回的原文和中间过程都不在了，比如读到的文件内容、命令输出。剩下的是最近的用户消息和一份交接摘要。换别的服务或版本，细节可能不同，但摘要都替代不了原始证据。",
         "第三题，不一定。每次请求的 input 确实在变长，但重复的前缀可以被缓存，按更低的价格算。具体花多少，要看你用的服务怎么计费，不能只凭对话长度下结论。"
       ],
       "teaching": [],
@@ -443,7 +443,7 @@ window.lesson = {
         "下一节"
       ],
       "script": [
-        "这一节先回答了一个看似简单的问题：在哪个会话里改。模型什么都不记；会话由 Harness 保存，每次请求重发；文件和运行中的程序各自存在。所以选会话，看的是历史里有什么，而交接靠的是文件里的证据。",
+        "这一节先回答了一个看似简单的问题：在哪个会话里改。模型什么都不记；会话由 Harness 保存，在我们看到的那次运行里，每次请求都重发了完整历史；文件和运行中的程序各自存在。所以选会话，看的是历史里有什么，而交接靠的是文件里的证据。",
         "然后我们完成了一轮完整的迭代：Prompt 引用当前证据，内容由人提供，只改项目区，再用三种视口、键盘和构建证明没弄坏别的。一轮只解决一个结果，新发现的问题记下来留给下一轮。课后想再做一两轮可以，不计分。",
         "现在 Codex 说完成了，我们手上是一份还没提交的改动。下一节的问题是：这份 diff，收不收？"
       ],
