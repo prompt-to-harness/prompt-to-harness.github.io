@@ -60,9 +60,10 @@ python3 courseware/ch02/materials/catchup/evaluate.py lab-runs/catchup/*-r*
 
 课上可借此讲权限判断：看清整条命令（这里前面带着 `rm -rf`），不选“以后同类命令不再询问”。
 
-## 还要决定或补做
+## 落地情况（2026-10-06）
 
-- 课件写法：Prompt 放在哪一页、学员怎样逐项确认（只确认必需项）。
-- course-starter：建 `ch02-start-v1` 这类标签；删掉 `CHECKPOINTS.md` 中提前透露 2.1 结论的一句。本地 `main` 上还有一个未推送的提交 `966a3fb`。
-- 证据文件由谁写、写什么：避免 Codex 代写并署名学员、记录本机路径。
-- 每种起点只跑了两次，(b)(c) 的个人内容场景还可以再变化；第 3 章的前提清单尚未设计。
+- 已采纳：课件 2.1 p01 的“从这一章开始？”按钮使用本目录的 `prompt-ch02.txt`（构建时代入真实地址与标签），步骤中只确认必需项；补齐记录由 Codex 起草、学员逐句核对后提交，不写本机路径和用户名。
+- course-starter：`main` 推送到 `4a8b82c`（“从第 2 章开始”改为本流程，删去提前透露 2.1 结论的一句，含此前未推送的 `966a3fb`）；`course-run` 推送到 `8e9a323` 并打 `ch02-start-v1`。从 GitHub 浅克隆该标签后构建通过。
+- 契约与大纲：`docs/design/course-starter-contract.md` 第 2、7、8 节，`docs/outline/course-outline-internal.md` 已确认事项。
+
+仍待补做：每种起点只跑了两次；用真实标签 `ch02-start-v1` 的完整追赶流程（含联网申请）尚未在交互界面里从头到尾跑一遍；第 3 章的前提清单与参考起点尚未设计。
