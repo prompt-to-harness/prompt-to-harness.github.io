@@ -1,4 +1,4 @@
-/* Canvas and chapter progress for 1.2; navigation remains in shared/app.js. */
+/* Canvas and chapter progress for the progressive lessons; navigation remains in shared/app.js. */
 (() => {
   const lesson = window.lesson;
   const sections = [...document.querySelectorAll('.scene')];
@@ -6,6 +6,15 @@
   let lastScale;
   let position = {current: Math.max(0, lesson.scenes.findIndex(s => `#${s.id}` === location.hash)), step: Number(new URLSearchParams(location.search).get('step')) || 0, mode: document.body.dataset.mode};
   sections.forEach(section => {
+    const request = section.querySelector('.prompt pre');
+    if (request) {
+      request.tabIndex = 0;
+      request.addEventListener('keydown', event => {
+        if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(event.key)) event.stopPropagation();
+      });
+      request.setAttribute('role', 'region');
+      request.setAttribute('aria-label', '完整 Prompt；可滚动查看，复制按钮复制全文');
+    }
     const bar = document.createElement('div');
     bar.className = 'segment-bar';
     bar.setAttribute('aria-label', '本节学习进度');
@@ -72,4 +81,17 @@
   window.addEventListener('resize', fit);
   document.fonts.ready.then(fit);
   update();
+})();
+// Bring the welcome message into the short preview when same-origin access is
+// available. Cross-origin practice servers retain normal scrolling/opening.
+(() => {
+  document.querySelectorAll('.welcome-demo iframe').forEach(frame => {
+    frame.addEventListener('load', () => {
+      try {
+        if (document.body.dataset.mode === 'slides') {
+          frame.contentDocument.querySelector('#welcome-message')?.scrollIntoView({block: 'start'});
+        }
+      } catch (_) { /* Different origin: use the independent-open link. */ }
+    });
+  });
 })();

@@ -76,6 +76,7 @@ pre > code { font-size: inherit; padding: 0; border: 0; border-radius: 0; backgr
 .page-buttons button { font-size: var(--text-sm); }
 .keyboard-hint { display: none; color: var(--color-muted); font-size: var(--text-xs); }
 .camera-guide { display: none; }
+body.camera-hidden .camera-guide { visibility: hidden; }
 .presentation-tools { position: relative; font-size: var(--text-sm); }
 .presentation-tools summary { cursor: pointer; padding: var(--space-sm) var(--space-md); min-height: 44px; align-content: center; border-radius: var(--radius-sm); }
 .presentation-tools summary:hover, .presentation-tools[open] summary { background: var(--color-soft); }
@@ -85,6 +86,8 @@ body[data-mode="scroll"] .presentation-tools { display: none; }
 .view-tools button[aria-pressed="true"] { background: var(--color-accent-soft); color: var(--color-accent); }
 #feedback { margin: 0; position: fixed; z-index: 30; bottom: 80px; left: var(--space-lg); max-width: min(32rem, 90%); font-size: var(--text-sm); }
 #feedback:not(:empty) { background: var(--color-ink); color: var(--color-paper); padding: var(--space-md); }
+#page-badge { display: none; position: fixed; bottom: 10px; left: 14px; margin: 0; z-index: 30; font-size: var(--text-xs); color: var(--color-muted); opacity: .55; font-variant-numeric: tabular-nums; letter-spacing: .04em; pointer-events: none; }
+.recording #page-badge { display: block; }
 #exit-recording { position: fixed; bottom: 8px; right: 12px; font-size: var(--text-xs); z-index: 30; opacity: .65; min-height: 36px; }
 .recording .sidebar, .recording .toolbar, .recording .view-tools, .recording .keyboard-hint { display: none; }
 .recording .workspace { margin-left: 0; }
@@ -140,7 +143,6 @@ body[data-mode="scroll"] .presentation-tools { display: none; }
   .camera-guide strong { font-size: var(--text-sm); font-weight: 400; }
   .camera-guide span:not(.camera-symbol), .camera-guide small { font-size: var(--text-xs); }
   .camera-symbol { font-size: 30px; font-weight: 400; }
-  body.camera-hidden .camera-guide { visibility: hidden; }
   .camera-guide small { position: absolute; bottom: 12px; }
   .lesson-footer { padding: var(--space-lg) var(--space-2xl); min-height: 88px; }
   .keyboard-hint { display: block; }

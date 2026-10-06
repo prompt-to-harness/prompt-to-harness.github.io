@@ -31,7 +31,7 @@
 
 ```sh
 python3 courseware/tools/check-courseware.py
-node --check courseware/ch01/shared/presentation.js
+node --check courseware/shared/presentation.js
 git diff --check
 ```
 

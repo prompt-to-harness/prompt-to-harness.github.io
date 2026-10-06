@@ -30,8 +30,7 @@ window.lesson = {
         }
       ],
       "source": "index.html#p01",
-      "seconds": 90,
-      "notes": "<p>本页未试讲；数字和截图以录制时的实际记录为准</p>"
+      "seconds": 90
     },
     {
       "id": "p02",
@@ -56,8 +55,7 @@ window.lesson = {
         }
       ],
       "source": "index.html#p02",
-      "seconds": 60,
-      "notes": "<p>本页未试讲；数字和截图以录制时的实际记录为准</p>"
+      "seconds": 60
     },
     {
       "id": "p03",
@@ -84,8 +82,7 @@ window.lesson = {
         }
       ],
       "source": "index.html#p03",
-      "seconds": 90,
-      "notes": "<p>本页未试讲；数字和截图以录制时的实际记录为准</p>"
+      "seconds": 90
     },
     {
       "id": "p04",
@@ -112,8 +109,7 @@ window.lesson = {
         }
       ],
       "source": "index.html#p04",
-      "seconds": 90,
-      "notes": "<p>本页未试讲；数字和截图以录制时的实际记录为准</p>"
+      "seconds": 90
     },
     {
       "id": "p05",
@@ -138,8 +134,7 @@ window.lesson = {
         }
       ],
       "source": "index.html#p05",
-      "seconds": 60,
-      "notes": "<p>本页未试讲；数字和截图以录制时的实际记录为准</p>"
+      "seconds": 60
     },
     {
       "id": "p05-live",
@@ -172,8 +167,7 @@ window.lesson = {
         }
       ],
       "source": "index.html#p05-live",
-      "seconds": 120,
-      "notes": "<p>本页未试讲；数字和截图以录制时的实际记录为准</p>"
+      "seconds": 120
     },
     {
       "id": "p06",
@@ -204,8 +198,7 @@ window.lesson = {
         }
       ],
       "source": "index.html#p06",
-      "seconds": 90,
-      "notes": "<p>本页未试讲；数字和截图以录制时的实际记录为准</p>"
+      "seconds": 90
     },
     {
       "id": "p06-tap",
@@ -236,8 +229,7 @@ window.lesson = {
         }
       ],
       "source": "index.html#p06-tap",
-      "seconds": 90,
-      "notes": "<p>本页未试讲；数字和截图以录制时的实际记录为准</p>"
+      "seconds": 90
     },
     {
       "id": "p07",
@@ -270,8 +262,7 @@ window.lesson = {
         }
       ],
       "source": "index.html#p07",
-      "seconds": 90,
-      "notes": "<p>本页未试讲；数字和截图以录制时的实际记录为准</p>"
+      "seconds": 90
     },
     {
       "id": "p08",
@@ -302,8 +293,7 @@ window.lesson = {
         }
       ],
       "source": "index.html#p08",
-      "seconds": 90,
-      "notes": "<p>本页未试讲；数字和截图以录制时的实际记录为准</p>"
+      "seconds": 90
     },
     {
       "id": "p09",
@@ -335,8 +325,7 @@ window.lesson = {
       ],
       "expressive": "按大小比例排开的一条请求带，后续页逐块放大",
       "source": "index.html#p09",
-      "seconds": 90,
-      "notes": "<p>本页未试讲；数字和截图以录制时的实际记录为准</p>"
+      "seconds": 90
     },
     {
       "id": "p10",
@@ -367,8 +356,7 @@ window.lesson = {
         }
       ],
       "source": "index.html#p10",
-      "seconds": 90,
-      "notes": "<p>本页未试讲；数字和截图以录制时的实际记录为准</p>"
+      "seconds": 90
     },
     {
       "id": "p11",
@@ -395,8 +383,7 @@ window.lesson = {
         }
       ],
       "source": "index.html#p11",
-      "seconds": 90,
-      "notes": "<p>本页未试讲；数字和截图以录制时的实际记录为准</p>"
+      "seconds": 90
     },
     {
       "id": "p12",
@@ -423,8 +410,7 @@ window.lesson = {
         }
       ],
       "source": "index.html#p12",
-      "seconds": 90,
-      "notes": "<p>本页未试讲；数字和截图以录制时的实际记录为准</p>"
+      "seconds": 90
     },
     {
       "id": "p13",
@@ -451,8 +437,7 @@ window.lesson = {
         }
       ],
       "source": "index.html#p13",
-      "seconds": 90,
-      "notes": "<p>本页未试讲；数字和截图以录制时的实际记录为准</p>"
+      "seconds": 90
     },
     {
       "id": "p14",
@@ -483,8 +468,7 @@ window.lesson = {
         }
       ],
       "source": "index.html#p14",
-      "seconds": 90,
-      "notes": "<p>本页未试讲；数字和截图以录制时的实际记录为准</p>"
+      "seconds": 90
     },
     {
       "id": "p15",
@@ -519,8 +503,7 @@ window.lesson = {
         }
       ],
       "source": "index.html#p15",
-      "seconds": 90,
-      "notes": "<p>本页未试讲；数字和截图以录制时的实际记录为准</p>"
+      "seconds": 90
     },
     {
       "id": "p16",
@@ -549,8 +532,7 @@ window.lesson = {
         }
       ],
       "source": "index.html#p16",
-      "seconds": 60,
-      "notes": "<p>本页未试讲；数字和截图以录制时的实际记录为准</p>"
+      "seconds": 60
     },
     {
       "id": "p17",
@@ -579,8 +561,7 @@ window.lesson = {
         }
       ],
       "source": "index.html#p17",
-      "seconds": 120,
-      "notes": "<p>本页未试讲；数字和截图以录制时的实际记录为准</p>"
+      "seconds": 120
     },
     {
       "id": "p18",
@@ -602,8 +583,7 @@ window.lesson = {
       ],
       "teaching": [],
       "source": "index.html#p18",
-      "seconds": 90,
-      "notes": "<p>本页未试讲；数字和截图以录制时的实际记录为准</p>"
+      "seconds": 90
     },
     {
       "id": "p19",
@@ -625,8 +605,7 @@ window.lesson = {
       ],
       "teaching": [],
       "source": "index.html#p19",
-      "seconds": 90,
-      "notes": "<p>本页未试讲；数字和截图以录制时的实际记录为准</p>"
+      "seconds": 90
     }
   ],
   "segments": [

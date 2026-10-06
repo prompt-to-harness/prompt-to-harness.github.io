@@ -18,7 +18,7 @@
 | 1.5 | [分镜](../lessons/05-homepage/STORYBOARD.md) |
 | 1.6 | [分镜](../lessons/06-permissions/STORYBOARD.md) |
 
-所有原页面 ID 保留；新增页使用后缀。演示由现有 steps / data-reveal 推进，末步恢复总览；阅读模式展开全部内容。长请求完整保留在内容源，可复制，阅读模式显示全文。五节独立加载 `shared/progressive.css`、`shared/presentation.js` 与本地字体，不让 1.2 加载新文件。
+所有原页面 ID 保留；新增页使用后缀。演示由现有 steps / data-reveal 推进，末步恢复总览；阅读模式展开全部内容。长请求完整保留在内容源，可复制，阅读模式显示全文。1.1、1.3–1.6 加载 `shared/presentation.css`、`shared/evidence.css`、`shared/presentation.js` 与本地字体；1.2 只加载 `presentation.css` 和 `presentation.js`（不加载 `evidence.css`），再叠加自带的 `lesson.css`（仅 P10 的补充规则）。这三个文件被各章共用，改动时要回看第 0、1、2 章。
 
 ## 图示来源
 

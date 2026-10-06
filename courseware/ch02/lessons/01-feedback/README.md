@@ -13,7 +13,7 @@ python3 courseware/ch02/lessons/01-feedback/tools/build-lesson.py
 python3 courseware/tools/check-courseware.py
 ```
 
-- 页面零件来自 `courseware/shared/parts/`；字体来自 `courseware/shared/fonts/`；播放器画布和章节条沿用第 1 章的 `courseware/ch01/shared/progressive.css` 与 `presentation.js`（跨章引用，第 1 章改动这两个文件时要回看本节）。
+- 页面零件来自 `courseware/shared/parts/`；字体来自 `courseware/shared/fonts/`；播放器画布和章节条使用各章共用的 `courseware/shared/presentation.css`、`evidence.css` 与 `presentation.js`（改动这些文件时要回看第 0、1、2 章）。
 - 每页的 `seconds` 只用于章节条的宽度比例，按步骤数计算，不是时长估算；讲述节奏由讲师录制时调整。
 - 本节暂无练习页；跟做产出写入学员仓库的 `docs/evidence/CH02_VIBE_ITERATIONS.md`。
 
