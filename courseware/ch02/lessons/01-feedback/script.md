@@ -1,6 +1,6 @@
 # 2.1 先听听别人怎么说
 
-> 由 tools/build-lesson.py 生成。未试讲；数字与截图以录制时实际记录为准。
+> 由 tools/build-lesson.py 生成。
 
 ## P01 能拿给熟人看了吗？
 
