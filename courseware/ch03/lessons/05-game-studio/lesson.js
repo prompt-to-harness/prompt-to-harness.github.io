@@ -67,7 +67,7 @@ window.lesson = {
       "label": "Game Studio 给了什么计划",
       "title": "Game Studio 给了什么计划",
       "kicker": "第 3 章 · 3.5 · 插件的计划",
-      "lead": "它先读 Brief 和仓库，再读了 Game Studio 几个 Skill 的全文。结论：零新增依赖，不用 Phaser，明确说“建议偏离插件默认”，并把这件事作为第一个问题交给我们拍板。四条理由里，第 4 条是沙箱联不了网，属于环境限制，不是选型理由。",
+      "lead": "它先读 Brief 和仓库，再读了 Game Studio 几个 Skill 的全文。结论：零新增依赖，不用 Phaser，明确“建议偏离插件默认”，并把选型作为第一个问题交给我们。排练两轮都是这个结论；其中一轮的理由里混了一条环境限制（沙箱联不了网），不是选型理由。",
       "html": "<div class=\"p-claim\" style=\"grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"agent\">计划</span><ol class=\"p-notes\" style=\"margin-top:8px\"><li data-reveal=\"0\"><span><b>零依赖：React + CSS + rAF</b><small>不用 Phaser</small></span></li><li data-reveal=\"1\"><span><b>建议偏离插件默认</b><small>四条理由，第 4 条是沙箱联不了网</small></span></li><li data-reveal=\"2\"><span><b>照搬插件的架构规范</b><small>模拟与渲染分离 · 输入集中映射</small></span></li><li data-reveal=\"3\"><span><b>三件事交给我们</b><small>第一件：零依赖还是 Phaser</small></span></li></ol></div><ul class=\"p-checks\"><li class=\"\" data-reveal=\"1\">接进现有仓库<small>新建 4 个、改 2 个文件</small></li><li class=\"\" data-reveal=\"2\">新依赖先说理由<small>package.json 不动</small></li><li class=\"is-no\" data-reveal=\"3\">理由站得住吗<small>环境限制要分开看</small></li></ul></div><p class=\"source-note\">计划与改动来自排练（courseware/ch03/materials/mainline/run-v3.sh，基线为 3.3 修复后的 v1）。来自讲师机器上的排练运行（2026-10-06，Codex 0.160.0–0.160.1 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。</p>",
       "repro": {
         "label": "请求原文",
@@ -87,7 +87,7 @@ window.lesson = {
       ],
       "script": [
         "装好插件，开新会话，把请求发给它。它先读了 Brief 和仓库里的代码，然后用命令读了 Game Studio 几个 Skill 的全文：正是 3.4 说的，用到时才读。它的结论：React 加原生 CSS 加 requestAnimationFrame，零新增依赖，不用 Phaser。",
-        "它明确写着：插件的规则默认 2D 走 Phaser，这里我建议偏离。理由有四条：仓库已经有记忆翻牌这个先例；Phaser 擅长的精灵图、摄像机、场景编排这里都用不上；体积，它估计 Phaser 约 gzip 300 KB 上下，和我们下一页的实测对得上；第四条，沙箱里联不了网，装不了包。前三条是产品和工程理由，第四条是环境限制。环境限制不该决定技术选型：如果哪天能联网了，结论不该跟着变。理由要分开看。",
+        "它明确写着：插件的规则默认 2D 走 Phaser，这里我建议偏离。这一轮的理由有四条：仓库已经有记忆翻牌这个先例；Phaser 擅长的精灵图、摄像机、场景编排这里都用不上；体积，它估计 Phaser 约 gzip 300 KB 上下，和我们下一页的实测对得上；第四条，沙箱里联不了网，装不了包。前三条是产品和工程理由，第四条是环境限制。环境限制不该决定技术选型：如果哪天能联网了，结论不该跟着变。理由要分开看。另一轮排练没有这一条，倒是多了一条：页面开着 StrictMode，Phaser 实例要额外处理销毁和重建。",
         "它没有扔掉插件。Skill 里的架构规范它照单全收：模拟和渲染分开，碰撞和计时写成纯函数；输入在一处集中映射；HUD 用 DOM 文字。这就是“经验”的正确用法：采纳有用的做法，不盲从默认的选型。",
         "最后，它把三件事交给我们拍板，第一件就是：零依赖，还是一定要 Phaser。对照 Brief 打勾：接进现有仓库，是；新依赖先说理由，它干脆不加；理由站不站得住，要我们来判断。请暂停视频，读你的计划，对照 Brief 逐条打勾。"
       ],
@@ -138,24 +138,24 @@ window.lesson = {
       "label": "做出来能玩吗",
       "title": "确认，执行，再由人试玩",
       "kicker": "第 3 章 · 3.5 · 试玩",
-      "lead": "按我们的决定确认计划，让它执行。试玩由人做，按 Brief 逐项过：移动、收集、碰撞、HUD、结束、重开。",
-      "html": "<div class=\"p-handoff\"><div class=\"p-handoff-card\" data-reveal=\"0\"><h3>确认计划</h3><p>按我们的技术选择执行</p><span class=\"p-env\">同一会话</span><span class=\"p-env\">workspace-write</span></div><ol class=\"p-watch\"><li data-reveal=\"1\">移动与收集<small>方向键、WASD；分数增加</small></li><li data-reveal=\"2\">碰撞与 HUD<small>扣命；时间、分数、生命都显示</small></li><li data-reveal=\"3\">结束与重开<small>60 秒或三条命；重开后全部归零</small></li></ol></div>",
+      "lead": "我们选零依赖，确认计划。试玩由人做，按 Brief 逐项过：移动、收集、碰撞、HUD、结束、重开，再回去看记忆翻牌。讲师试玩时还发现一件 Brief 没写的事：开局站着不动，4 秒内掉了两条命。难度，又是 AI 替我们定的。",
+      "html": "<div style=\"display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px;align-items:start\"><div class=\"p-page\" data-reveal=\"0\"><img src=\"evidence/dodge-playing.png\" alt=\"躲避与收集游戏进行中：顶部显示剩余时间、分数、生命和最佳成绩，场地里有绿色玩家圆点、橙色收集物和红褐色障碍\" style=\"display:block;width:100%\"></div><ul class=\"p-checks\"><li data-reveal=\"1\">移动与收集<small>方向键、WASD；吃到圆点 +10 分</small></li><li data-reveal=\"1\">碰撞与 HUD<small>扣命；时间、分数、生命、最佳都在</small></li><li data-reveal=\"2\">结束与重开<small>三条命用完结束；重开归零，最佳保留；记忆翻牌还在</small></li><li class=\"is-no\" data-reveal=\"3\">开局不动，4 秒掉两条命<small>难度谁定的？Brief 没写</small></li></ul></div><p class=\"source-note\">讲师用脚本代人走了一遍（courseware/ch03/materials/mainline/playtest-dodge.py，结果见 reference/3.5-playtest.run3.json）；60 秒倒计时结束的路径没有走到，课上由人试玩</p>",
       "steps": [
-        "确认",
-        "移动与收集",
-        "碰撞与 HUD",
-        "结束与重开"
+        "确认，看画面",
+        "移动、收集、碰撞",
+        "结束与重开",
+        "Brief 没写的"
       ],
       "script": [
-        "按我们的决定确认计划，让它执行。",
-        "做完以后，试玩由我们做。按 Brief 逐项过：方向键和 WASD 都能移动，碰到目标分数增加。",
-        "碰到障碍扣一条命；时间、分数、生命都显示在 HUD 上。",
-        "60 秒到或者三条命用完，游戏结束；点重开，全部归零。再回去玩一局记忆翻牌，确认它没被影响。请暂停视频，试玩你的第二个游戏，按这张表记录。"
+        "我们回复它：选零依赖，其余两个问题按它的推荐。它执行完，build 成功。打开页面，项目区下面多了第二个游戏：顶部是剩余时间、分数、生命和最佳成绩，场地里绿色圆点是玩家，橙色是收集物，红褐色是障碍。",
+        "试玩由人做，按 Brief 逐项过。方向键和 WASD 都能移动；吃到圆点加 10 分；碰到障碍扣一条命，HUD 跟着变。",
+        "三条命用完，游戏结束，显示本局得分；点“再来一局”，时间、分数、生命归零，最佳成绩保留。再往上翻，记忆翻牌还在，还能玩。",
+        "讲师试玩时还注意到一件事：开局站着不动，4 秒之内就掉了两条命。太难了吗？Brief 只写了“碰到障碍扣一条命”，没写开局要不要有缓冲、障碍多快。这又是一条 AI 替我们定的规则。记进问题清单，3.6 会用到。请暂停视频，试玩你的第二个游戏。"
       ],
       "teaching": [
         {
           "title": "讲师提示",
-          "text": "排练中执行结果见 reference/3.5-*；录制以当天为准。发现问题沿用 3.3 的流程，不顺手扩需求。"
+          "text": "排练中执行时上游多次断线重连，用时约 32 分钟（大部分在 Codex 自检）；录制以当天为准。60 秒倒计时结束的路径要人工试到。"
         }
       ],
       "source": "index.html#p34",
@@ -168,18 +168,22 @@ window.lesson = {
       "title": "交回来的改动，收不收",
       "kicker": "第 3 章 · 3.5 · 评审",
       "lead": "沿用 2.3：先看范围，再看内容。这一次多查三项：有没有新依赖；离开页面或组件卸载时，计时器、键盘监听和游戏实例有没有清理；首页和记忆翻牌有没有被改动。",
-      "html": "<div class=\"p-term\" data-reveal=\"0\"><div class=\"dim\">$ git diff --stat</div><div>（排练 diff 待补）</div></div><ul class=\"p-checks\" style=\"margin-top:12px\"></ul><p class=\"source-note\">计划与改动来自排练（courseware/ch03/materials/mainline/run-v3.sh，基线为 3.3 修复后的 v1）。来自讲师机器上的排练运行（2026-10-06，Codex 0.160.0–0.160.1 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。</p>",
+      "html": "<div class=\"p-term\" data-reveal=\"0\"><div class=\"dim\">$ git diff --stat</div><div>6 files changed, 1049 insertions(+), 4 deletions(-)</div><div>新建：DodgeGame.tsx、dodge-game.css、game/dodge/</div><div>改：App.tsx +14、index.css 12 行</div></div><ul class=\"p-checks\" style=\"margin-top:12px\"><li class=\"\" data-reveal=\"0\">范围<small>只动约定的 6 个文件；记忆翻牌一个字节没动</small></li><li class=\"\" data-reveal=\"1\">新依赖<small>没有；首页产物 gzip 61.2 → 64.9 KB</small></li><li class=\"\" data-reveal=\"2\">清理<small>帧循环 cancelAnimationFrame；尺寸观察器 disconnect；键盘监听挂在游戏区元素上</small></li><li class=\"\" data-reveal=\"3\">它自己验证了什么<small>build + 18 项纯逻辑测试（Node 里跑）；没开浏览器，试玩交给人</small></li></ul><p class=\"source-note\">计划与改动来自排练（courseware/ch03/materials/mainline/run-v3.sh，基线为 3.3 修复后的 v1）。来自讲师机器上的排练运行（2026-10-06，Codex 0.160.0–0.160.1 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。</p>",
       "steps": [
         "范围",
-        "逐项"
+        "新依赖",
+        "清理",
+        "它的自证"
       ],
       "script": [
-        "（评审待补）",
-        "（评审待补）"
+        "沿用 2.3，先看范围。git diff --stat：新建 4 个文件，改了 App.tsx 和 index.css，就是计划里说的 6 个；记忆翻牌的文件一个字节没动。",
+        "再看新依赖：package.json 没变。首页的构建产物 gzip 后从 61.2 KB 变成 64.9 KB，多了不到 4 KB。对照上一页，用 Phaser 的话游戏分包是 332 KB。",
+        "第三项是这一章特有的：离开页面或组件卸载时，还在运行的东西有没有清理。打开 DodgeGame.tsx：帧循环在 effect 的清理函数里 cancelAnimationFrame；监听尺寸的观察器 disconnect；键盘监听挂在游戏区元素上，随组件一起移除。这一项 3.7 还会回来讲。",
+        "最后看它的自证：它跑了 build，还把纯逻辑部分放到 Node 里跑了 18 项检查，比如超时结束、碰撞扣命、无敌期不重复扣命。这些是逻辑层的证据；它没开浏览器，试玩交给了我们，和完成标准的分工一致。范围、依赖、清理都对，选接受，单独提交。请暂停视频，评审你的 diff。"
       ],
       "teaching": [],
       "source": "index.html#p35",
-      "seconds": 60
+      "seconds": 120
     },
     {
       "id": "p36",
@@ -212,15 +216,15 @@ window.lesson = {
       "title": "插件的主张，我们的决定",
       "kicker": "第 3 章 · 3.5 · 小结",
       "lead": "本节留下第二个游戏、插件计划与 Brief 的对照、评审结论，以及停用后的复验证据，写进 CH03_GAME_STUDIO_PLUGIN_LAB.md。Skill 是经验，不是规则。下一节：本章这些规则，下次 Codex 从哪里知道？",
-      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">三样东西</h3><ul class=\"p-exits\" style=\"gap:10px\"><li class=\"is-point\">插件的主张：默认 Phaser</li><li class=\"is-point\">我们的决定：按 Brief 和数字</li><li class=\"is-point\">留下的证据：计划、diff、停用复验</li></ul></div><div data-reveal=\"1\"><h3 style=\"text-align:center\">一句话</h3><div class=\"p-star\" style=\"width:240px;font-size:22px\">停用<br>≠ 撤销</div></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>3.6 说明在哪</h3><p>下次 Codex 从哪里知道？</p></div></div></div>",
+      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">三样东西</h3><ul class=\"p-exits\" style=\"gap:10px\"><li class=\"is-point\">插件的主张：默认 Phaser</li><li class=\"is-point\">我们的决定：按 Brief 和数字</li><li class=\"is-point\">留下的证据：计划、diff、停用复验</li></ul></div><div data-reveal=\"1\"><h3 style=\"text-align:center\">撤回靠什么</h3><div class=\"p-star\" style=\"width:240px;font-size:22px\">靠 git<br>不靠开关</div></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>3.6 说明在哪</h3><p>下次 Codex 从哪里知道？</p></div></div></div>",
       "steps": [
         "三样东西",
-        "一句话",
+        "撤回靠什么",
         "下一节"
       ],
       "script": [
         "这一节有三样东西：插件的主张，2D 默认 Phaser；我们的决定，按 Brief 和数字来；留下的证据，计划、diff 和停用后的复验。",
-        "一句话：停用插件不等于撤销它写的代码，项目没有插件也要能跑。",
+        "如果哪天想撤回插件写的代码，靠的是 git：它的改动在 3.5 单独提交过，可以照 2.3 的办法 revert；插件的开关管不了仓库。",
         "到这里，这一章已经定下了好几条规则：有 AI 定的，有我们定的，有插件带来的。下一节问：下次开新会话，Codex 从哪里知道它们？"
       ],
       "teaching": [
@@ -252,7 +256,7 @@ window.lesson = {
     },
     {
       "label": "评审",
-      "seconds": 60
+      "seconds": 120
     },
     {
       "label": "停用",

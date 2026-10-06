@@ -144,17 +144,17 @@ window.lesson = {
       "title": "本章的规则，都在哪里？",
       "kicker": "第 3 章 · 3.6 · 信息来源表",
       "lead": "把本章每条规则和决定列出来，标出它现在在哪里。只在对话里、只在记忆里、只在插件里的，都是需求债务；落进仓库但只有结论、没有原因或验收方法的，也标出来。",
-      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1.5fr) repeat(4,minmax(0,.7fr));font-size:19px\"><div class=\"is-head\" data-reveal=\"0\"><span>规则 / 决定</span><span>仓库</span><span>只在对话</span><span>插件</span><span>记忆</span></div><div data-reveal=\"0\"><span>等待期锁住点击（AI 定）</span><span>代码有，原因没有</span><span>✓</span><span></span><span>可能</span></div><div data-reveal=\"1\"><span>6 对词、两张算一步（我们定）</span><span>代码 + 记录</span><span></span><span></span><span></span></div><div data-reveal=\"1\"><span>第二个游戏用不用引擎（3.5）</span><span>记录</span><span>✓</span><span>默认 Phaser</span><span></span></div><div data-reveal=\"2\" class=\"is-key\"><span>通关后最佳成绩怎么比</span><span>代码有</span><span></span><span></span><span></span></div></div><div class=\"p-bar is-light\" data-reveal=\"3\">只在对话、记忆、插件里的，就是<b>需求债务</b></div>",
+      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1.5fr) repeat(4,minmax(0,.7fr));font-size:19px\"><div class=\"is-head\" data-reveal=\"0\"><span>规则 / 决定</span><span>仓库</span><span>只在对话</span><span>插件</span><span>记忆</span></div><div data-reveal=\"0\"><span>等待期锁住点击（AI 定）</span><span>代码有，原因没有</span><span>✓</span><span></span><span>可能</span></div><div data-reveal=\"1\"><span>6 对词、两张算一步（我们定）</span><span>代码 + 记录</span><span></span><span></span><span></span></div><div data-reveal=\"1\"><span>第二个游戏用不用引擎（3.5）</span><span>记录</span><span>✓</span><span>默认 Phaser</span><span></span></div><div data-reveal=\"2\" class=\"is-key\"><span>躲避游戏的难度（AI 定）</span><span>代码有，原因没有</span><span></span><span></span><span></span></div></div><div class=\"p-bar is-light\" data-reveal=\"3\">只在对话、记忆、插件里的，就是<b>需求债务</b></div>",
       "steps": [
         "AI 定的",
         "我们定的",
-        "没人问过的",
+        "试玩发现的",
         "练习"
       ],
       "script": [
         "把本章的规则列成一张表，每条标出它现在在哪里。等待期锁住点击：代码里有这个行为，可是为什么这样定、谁同意的，只在 3.1 的对话里。",
         "我们定的 6 对词和步数：代码里有，3.3 的记录里也写了原因。第二个游戏用不用引擎：3.5 的记录里写了，插件那边的默认是 Phaser。",
-        "还有一些根本没人问过：通关后最佳成绩怎么比？步数相同时比用时吗？代码里有某种行为，但没有人定过。",
+        "还有 3.5 试玩时发现的：躲避游戏开局站着不动，4 秒就掉两条命。难度是 AI 定的，代码里有具体数值，可没有人说过为什么是这个数。",
         "可信度从高到低：当前的代码和测试，仓库里的文档，最后才是记忆。只在对话里、只在记忆里、只在插件里的规则，就是需求债务；进了仓库但只有结论、没写原因或验收方法的，也标出来。请暂停视频，做出你的信息来源表，写进 CH03_REQUIREMENTS_DEBT.md。"
       ],
       "teaching": [

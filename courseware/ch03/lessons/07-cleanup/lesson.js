@@ -96,18 +96,18 @@ window.lesson = {
       "label": "还有什么要清理",
       "title": "谁创建，谁清理",
       "kicker": "第 3 章 · 3.7 · 清理责任",
-      "lead": "状态是数据，重开时归零就行；副作用是正在运行的东西：计时器、事件监听、动画帧、游戏实例。它们由谁创建，就由谁在结束或重来时清理。3.5 里离开页面时销毁 Phaser 实例，是同一类问题。",
-      "html": "<div class=\"p-set\" style=\"display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px\"><div class=\"p-item\" data-reveal=\"0\"><b>计时器</b> · setTimeout / setInterval → clearTimeout</div><div class=\"p-item\" data-reveal=\"1\"><b>事件监听</b> · addEventListener('keydown') → removeEventListener</div><div class=\"p-item\" data-reveal=\"1\"><b>动画帧</b> · requestAnimationFrame → cancelAnimationFrame</div><div class=\"p-item is-picked\" data-reveal=\"2\"><b>游戏实例</b> · new Phaser.Game → game.destroy(true)（3.5）</div></div><div class=\"p-bar is-light\" data-reveal=\"3\">界面重置 ≠ <b>资源重置</b></div>",
+      "lead": "状态是数据，重开时归零就行；副作用是正在运行的东西：计时器、事件监听、动画帧、观察器、游戏引擎实例。它们由谁创建，就由谁在结束或重来时清理。3.5 的躲避游戏里，帧循环和尺寸观察器都在组件卸载时清理了。",
+      "html": "<div class=\"p-set\" style=\"display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px\"><div class=\"p-item\" data-reveal=\"0\"><b>计时器</b> · setTimeout / setInterval → clearTimeout</div><div class=\"p-item\" data-reveal=\"1\"><b>事件监听</b> · addEventListener('keydown') → removeEventListener</div><div class=\"p-item\" data-reveal=\"1\"><b>动画帧</b> · requestAnimationFrame → cancelAnimationFrame</div><div class=\"p-item is-picked\" data-reveal=\"2\"><b>3.5 的躲避游戏</b> · cancelAnimationFrame、observer.disconnect()；用引擎时还有 game.destroy()</div></div><div class=\"p-bar is-light\" data-reveal=\"3\">界面重置 ≠ <b>资源重置</b></div>",
       "steps": [
         "计时器",
         "监听与动画帧",
-        "游戏实例",
+        "3.5 的游戏",
         "一句话"
       ],
       "script": [
         "把问题推广一下。状态是数据：牌面、步数、用时，重开时归零就行。副作用是正在运行的东西，第一类就是计时器：谁 setTimeout，谁负责 clearTimeout。",
         "第二类，事件监听：躲避游戏要监听键盘，组件卸载时要移除监听，否则离开页面后按方向键，旧的处理函数还在跑。第三类，动画帧：每一帧调用一次，停下来时要取消。",
-        "第四类，游戏实例。3.5 的第二个游戏用了一个游戏引擎的实例，离开页面时要 destroy 它。3.5 评审 diff 时我们查的那一项，就是这个问题。",
+        "回到 3.5 的躲避游戏，打开它的组件看：帧循环在组件卸载时 cancelAnimationFrame，监听尺寸的观察器 disconnect，键盘监听挂在游戏区元素上，随组件一起移除。如果当时选了 Phaser，还要加一项：离开页面时 destroy 游戏实例。3.5 评审 diff 时查的那一项，就是这个问题。",
         "一句话：界面重置不等于资源重置。也不要走向另一个极端，把所有状态变化都当成 Bug：数据归零是对的，要查的是还在运行的东西。"
       ],
       "teaching": [],
@@ -121,7 +121,7 @@ window.lesson = {
       "title": "第 3 章：能玩，以及能玩背后的规则",
       "kicker": "第 3 章 · 3.7 · 本章收尾",
       "lead": "本章交付：两个可玩、已发布的游戏；状态图与问题清单；一次复现、调查、定规则、修复、复验的闭环；插件审查与生命周期证据；信息来源表与需求债务清单；本节的清理判断。下一章：换一个真实的开源项目，用规格把决定写下来。",
-      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3>本章交付</h3><ul class=\"p-exits\" style=\"gap:8px;font-size:18px\"><li class=\"is-pass\">两个游戏，已发布</li><li class=\"is-pass\">缺陷闭环与两条规则</li><li class=\"is-pass\">插件审查与停用证据</li><li class=\"is-pass\">需求债务清单</li></ul></div><div data-reveal=\"1\"><h3 style=\"text-align:center\">一个问题</h3><div class=\"p-star\" style=\"width:260px;font-size:22px\">这条规则<br>是谁定的？</div></div><div class=\"p-next\" data-reveal=\"2\"><h3>第 4 章</h3><div class=\"p-box\" data-role=\"us\"><h3>SDD</h3><p>为 JSON Diff 建立可执行规格</p></div></div></div>",
+      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3>本章交付</h3><ul class=\"p-exits\" style=\"gap:8px;font-size:18px\"><li class=\"is-pass\">两个游戏，已发布</li><li class=\"is-pass\">缺陷闭环与两条规则</li><li class=\"is-pass\">插件审查与停用证据</li><li class=\"is-pass\">需求债务清单</li></ul></div><div data-reveal=\"1\"><h3 style=\"text-align:center\">一个问题</h3><div class=\"p-star\" style=\"width:260px;font-size:22px\">这条规则<br>是谁定的？</div></div><div class=\"p-next\" data-reveal=\"2\"><h3>第 4 章</h3><div class=\"p-box\" data-role=\"us\"><h3>SDD</h3><p>为 JSON Diff 建立可执行规格</p></div></div></div><p class=\"p-links\" data-reveal=\"2\" style=\"margin-top:12px\"><a href=\"../../practice/homepage-v2/index.html\" target=\"_blank\" rel=\"noopener\">试玩讲师的本章成品</a></p>",
       "steps": [
         "交付",
         "贯穿的问题",

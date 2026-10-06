@@ -112,21 +112,25 @@ scene(
 scene(
     id="p34", segment="试玩",
     label="做出来能玩吗", title="确认，执行，再由人试玩", kicker=KICK + "试玩",
-    lead="按我们的决定确认计划，让它执行。试玩由人做，按 Brief 逐项过：移动、收集、碰撞、HUD、结束、重开。",
+    lead="我们选零依赖，确认计划。试玩由人做，按 Brief 逐项过：移动、收集、碰撞、HUD、结束、重开，再回去看记忆翻牌。讲师试玩时还发现一件 Brief 没写的事：开局站着不动，4 秒内掉了两条命。难度，又是 AI 替我们定的。",
     html=(
-        '<div class="p-handoff"><div class="p-handoff-card" data-reveal="0"><h3>确认计划</h3><p>按我们的技术选择执行</p><span class="p-env">同一会话</span><span class="p-env">workspace-write</span></div>'
-        '<ol class="p-watch"><li data-reveal="1">移动与收集<small>方向键、WASD；分数增加</small></li>'
-        '<li data-reveal="2">碰撞与 HUD<small>扣命；时间、分数、生命都显示</small></li>'
-        '<li data-reveal="3">结束与重开<small>60 秒或三条命；重开后全部归零</small></li></ol></div>'
+        '<div style="display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px;align-items:start">'
+        '<div class="p-page" data-reveal="0"><img src="evidence/dodge-playing.png" alt="躲避与收集游戏进行中：顶部显示剩余时间、分数、生命和最佳成绩，场地里有绿色玩家圆点、橙色收集物和红褐色障碍" style="display:block;width:100%"></div>'
+        '<ul class="p-checks">'
+        '<li data-reveal="1">移动与收集<small>方向键、WASD；吃到圆点 +10 分</small></li>'
+        '<li data-reveal="1">碰撞与 HUD<small>扣命；时间、分数、生命、最佳都在</small></li>'
+        '<li data-reveal="2">结束与重开<small>三条命用完结束；重开归零，最佳保留；记忆翻牌还在</small></li>'
+        '<li class="is-no" data-reveal="3">开局不动，4 秒掉两条命<small>难度谁定的？Brief 没写</small></li></ul></div>'
+        '<p class="source-note">讲师用脚本代人走了一遍（courseware/ch03/materials/mainline/playtest-dodge.py，结果见 reference/3.5-playtest.run3.json）；60 秒倒计时结束的路径没有走到，课上由人试玩</p>'
     ),
-    steps=["确认", "移动与收集", "碰撞与 HUD", "结束与重开"],
+    steps=["确认，看画面", "移动、收集、碰撞", "结束与重开", "Brief 没写的"],
     script=[
-        "按我们的决定确认计划，让它执行。",
-        "做完以后，试玩由我们做。按 Brief 逐项过：方向键和 WASD 都能移动，碰到目标分数增加。",
-        "碰到障碍扣一条命；时间、分数、生命都显示在 HUD 上。",
-        "60 秒到或者三条命用完，游戏结束；点重开，全部归零。再回去玩一局记忆翻牌，确认它没被影响。请暂停视频，试玩你的第二个游戏，按这张表记录。",
+        "我们回复它：选零依赖，其余两个问题按它的推荐。它执行完，build 成功。打开页面，项目区下面多了第二个游戏：顶部是剩余时间、分数、生命和最佳成绩，场地里绿色圆点是玩家，橙色是收集物，红褐色是障碍。",
+        "试玩由人做，按 Brief 逐项过。方向键和 WASD 都能移动；吃到圆点加 10 分；碰到障碍扣一条命，HUD 跟着变。",
+        "三条命用完，游戏结束，显示本局得分；点“再来一局”，时间、分数、生命归零，最佳成绩保留。再往上翻，记忆翻牌还在，还能玩。",
+        "讲师试玩时还注意到一件事：开局站着不动，4 秒之内就掉了两条命。太难了吗？Brief 只写了“碰到障碍扣一条命”，没写开局要不要有缓冲、障碍多快。这又是一条 AI 替我们定的规则。记进问题清单，3.6 会用到。请暂停视频，试玩你的第二个游戏。",
     ],
-    teaching=teach(("讲师提示", "排练中执行结果见 reference/3.5-*；录制以当天为准。发现问题沿用 3.3 的流程，不顺手扩需求。")),
+    teaching=teach(("讲师提示", "排练中执行时上游多次断线重连，用时约 32 分钟（大部分在 Codex 自检）；录制以当天为准。60 秒倒计时结束的路径要人工试到。")),
 )
 
 diff_items = E.get("review", [])
@@ -174,13 +178,13 @@ scene(
     html=(
         '<div class="p-sketch" style="align-items:start"><div data-reveal="0"><h3 style="text-align:center">三样东西</h3>'
         '<ul class="p-exits" style="gap:10px"><li class="is-point">插件的主张：默认 Phaser</li><li class="is-point">我们的决定：按 Brief 和数字</li><li class="is-point">留下的证据：计划、diff、停用复验</li></ul></div>'
-        '<div data-reveal="1"><h3 style="text-align:center">一句话</h3><div class="p-star" style="width:240px;font-size:22px">停用<br>≠ 撤销</div></div>'
+        '<div data-reveal="1"><h3 style="text-align:center">撤回靠什么</h3><div class="p-star" style="width:240px;font-size:22px">靠 git<br>不靠开关</div></div>'
         '<div class="p-next" data-reveal="2"><h3>下一节</h3><div class="p-box" data-role="us"><h3>3.6 说明在哪</h3><p>下次 Codex 从哪里知道？</p></div></div></div>'
     ),
-    steps=["三样东西", "一句话", "下一节"],
+    steps=["三样东西", "撤回靠什么", "下一节"],
     script=[
         "这一节有三样东西：插件的主张，2D 默认 Phaser；我们的决定，按 Brief 和数字来；留下的证据，计划、diff 和停用后的复验。",
-        "一句话：停用插件不等于撤销它写的代码，项目没有插件也要能跑。",
+        "如果哪天想撤回插件写的代码，靠的是 git：它的改动在 3.5 单独提交过，可以照 2.3 的办法 revert；插件的开关管不了仓库。",
         "到这里，这一章已经定下了好几条规则：有 AI 定的，有我们定的，有插件带来的。下一节问：下次开新会话，Codex 从哪里知道它们？",
     ],
     teaching=teach(("跟做产出", "第二个游戏；CH03_GAME_STUDIO_PLUGIN_LAB.md 中的插件计划对照、技术选择及理由、评审结论、停用与无插件复验证据。")),

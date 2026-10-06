@@ -8,3 +8,4 @@
 | `3.3-investigate.run1.answer.md`、`3.3-investigate.run2.answer.md` | `debug-3.3.sh` 两次运行：只读调查的回答（两次都指出牌组配不成对，并反问报告里的推断） |
 | `3.3-fix.answer.md`、`3.3-fix.diff`、`3.3-fix.diffstat` | 第 2 次运行：人定规则后的修复（第一次回合因上游错误中断，按脚本续跑一次后完成） |
 | `3.3-fix.probe2.json` | 修复后的扩展探查：一局能打完、每翻两张计一步、通关后计时停住、最佳成绩不被覆盖 |
+| `3.5-plan.run3.answer.md`、`3.5-plan.run2.answer.md` | `run-v3.sh` 两轮：Game Studio 在场时的计划（基线分别为修复后的 v1、第 2 轮实现），两轮都建议偏离插件的 Phaser 默认、零依赖，并把选型交给人 |

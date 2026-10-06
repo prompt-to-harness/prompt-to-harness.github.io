@@ -6,6 +6,7 @@
 | --- | --- | --- |
 | `memory-v0/` | 3.1 交回的记忆翻牌（带缺陷：12 张牌互不相同，一局打不完；步数只在配对时加） | 排练第 8 轮，`courseware/ch03/materials/mainline/` |
 | `memory-v1/` | 3.3 人定规则后修好的版本 | `materials/mainline/reference/3.3-fix.diff` |
+| `homepage-v2/` | 本章成品：修好的记忆翻牌 + 用 Game Studio 做的“60 秒躲避与收集” | `materials/mainline/run-v3.sh` 第 3 轮（基线为 v1） |
 | `memory-stale-timer/` | 3.7 的**教学预备版本**：在 v1 上删掉一行计时器清理 | `materials/prepared/stale-timer.diff` |
 
 源码不在本目录；重建时先按对应材料还原源码，再运行上面的构建命令覆盖这里。
