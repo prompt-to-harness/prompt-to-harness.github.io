@@ -13,6 +13,7 @@
 #   CLEAN_CODEX_DELETE=1 退出后删除本次的 HOME（默认保留，位于 ~/.cache/clean-codex/）
 #   CLEAN_CODEX_HOME     固定用这个目录作 HOME（不存在就新建，不会删除），多次运行共享会话记录，
 #                        例如在另一个目录 codex exec resume；不设时每次运行都用一个新的 HOME
+#   CLEAN_CODEX_NO_OPEN=1 配合 --tap：不自动在浏览器打开请求面板（批量运行用），记录照常保存
 #
 # 密钥只通过环境变量传给 Codex，配置文件里没有密钥，可以放心展示。
 set -euo pipefail
@@ -26,7 +27,7 @@ codex_args=()
 while [ $# -gt 0 ]; do
   case "$1" in
     --tap) use_tap=1 ;;
-    -h|--help) sed -n '2,17p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    -h|--help) sed -n '2,18p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
     --) shift; codex_args=("$@"); break ;;
     *) echo "未知参数：$1（把要交给 codex 的参数放在 -- 之后）" >&2; exit 2 ;;
   esac
@@ -90,7 +91,8 @@ if [ "$use_tap" = 1 ]; then
   # 临时 HOME 会让 uv 缓存和 claude-tap 的 trace 目录跟着消失，所以把它们指回真实位置。
   export UV_CACHE_DIR="${UV_CACHE_DIR:-$REAL_HOME/.cache/uv}"
   export XDG_DATA_HOME="${XDG_DATA_HOME:-$REAL_HOME/.local/share}"
-  uvx claude-tap --tap-client codex --tap-target "$BASE_URL" -- ${codex_args[@]+"${codex_args[@]}"}
+  tap_opts=(); [ "${CLEAN_CODEX_NO_OPEN:-0}" = 1 ] && tap_opts=(--tap-no-open)
+  uvx claude-tap --tap-client codex --tap-target "$BASE_URL" ${tap_opts[@]+"${tap_opts[@]}"} -- ${codex_args[@]+"${codex_args[@]}"}
 else
   codex ${codex_args[@]+"${codex_args[@]}"}
 fi

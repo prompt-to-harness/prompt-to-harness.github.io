@@ -15,7 +15,7 @@
 
 | 依据 | 已有材料或记录 | 当前边界 |
 | --- | --- | --- |
-| [第 1 章排练快照](../../../starters/personal-homepage/ch01-complete/CHECKPOINT.md) | 真实 Codex 排练过程、首页 v0、版本与依赖、浏览器和构建结果；包含内容列宽度异常及两轮修正的记载 | 排练版，非录制版；记录还指出后续人工调整依赖；有过程记载不等于已具备完整可重放轨迹 |
+| [第 1 章排练快照](../../../starters/personal-homepage/ch01-complete-notes.md) | 真实 Codex 排练过程、首页 v0、版本与依赖、浏览器和构建结果；包含内容列宽度异常及两轮修正的记载 | 排练版，非录制版；记录还指出后续人工调整依赖；有过程记载不等于已具备完整可重放轨迹 |
 | [检查点说明](../../../starters/personal-homepage/ch01-complete/CHECKPOINTS.md) | 学员连续做自己的仓库；可从第一章参考快照开始第二章；已有工作须先保留 | 课程发布基线与后续快照仍有未发布项 |
 | [第 2 章材料](../../../courseware/ch02/materials/README.md) | 内容迭代预估 diff、重构 A/B diff，已有一次应用、构建和行为核对记录 | `homepage-v1.diff` 为备课材料，不能标成 2.2 的真实 Codex 运行；材料目录不进入 Pages 站点 |
 | [第 2 章提案实测与决定](2026-10-02-ch02-adjustments.md) | 请求组成、隔离环境、会话恢复和压缩的历史核验；决定 7 明确不准备坏 diff、错误 base 分支 | 依赖特定版本、provider 与单机记录；不保证未来输出一致 |
