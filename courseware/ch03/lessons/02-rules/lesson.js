@@ -201,7 +201,7 @@ window.lesson = {
       "title": "只走成功路径，不等于验证",
       "kicker": "第 3 章 · 3.2 · 小结",
       "lead": "本节留下状态图和分两栏的问题清单。“没出错”也可能只是 AI 替你做了决定。下一节：挑一个缺陷，按证据修。",
-      "html": "<div class=\"p-pause\" data-reveal=\"0\"><h3>暂停自检</h3><div class=\"p-qlist\"><div class=\"p-qrow\"><span>“等待期点不开第三张”是缺陷吗？</span><span class=\"p-back-to\" data-reveal=\"1\">不是：AI 定的规则，合理，但要记下来</span></div><div class=\"p-qrow\"><span>没写期望来源的记录，能判断对错吗？</span><span class=\"p-back-to\" data-reveal=\"1\">不能：先补上期望和来源</span></div></div></div><div class=\"p-next\" data-reveal=\"2\" style=\"margin-top:14px\"><div class=\"p-box\" data-role=\"us\"><h3>3.3 按证据修</h3><p>先复现，再让 Codex 只调查</p></div></div>",
+      "html": "<div class=\"p-pause\" data-reveal=\"0\"><h3>暂停自检</h3><div class=\"p-qlist\"><div class=\"p-qrow\"><span>“等待期点不开第三张”是缺陷吗？</span><span class=\"p-back-to\" data-reveal=\"1\">不是：AI 定的规则，合理，但要记下来</span></div><div class=\"p-qrow\"><span>没写期望来源的记录，能判断对错吗？</span><span class=\"p-back-to\" data-reveal=\"1\">不能：先补上期望和来源</span></div></div></div><div class=\"p-next\" data-reveal=\"2\" style=\"margin-top:14px\"><div class=\"p-box\" data-role=\"us\"><h3>3.3 按证据修</h3><p>先复现，再让 Codex 只调查</p></div></div><p class=\"p-links\" data-reveal=\"2\" style=\"margin-top:12px\"><a href=\"../../practice/memory-v0/index.html\" target=\"_blank\" rel=\"noopener\">试玩讲师的 v0（带缺陷）</a></p>",
       "steps": [
         "两道题",
         "答案",

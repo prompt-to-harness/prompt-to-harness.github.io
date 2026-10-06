@@ -44,6 +44,7 @@ scene(
         '<div class="p-code" data-reveal="1" style="margin-top:12px"><div class="p-code-head"><span>预备版本（教学用）</span><span>−1 行</span></div>'
         '<pre><span style="display:block">window.setTimeout(() =&gt; { …翻回、清空“已翻开” }, 900)</span>'
         '<span class="del">-return () =&gt; window.clearTimeout(timer)</span></pre></div>'
+        '<p class="p-links" data-reveal="1" style="margin-top:12px"><a href="../../practice/memory-v1/index.html" target="_blank" rel="noopener">v1</a><a href="../../practice/memory-stale-timer/index.html" target="_blank" rel="noopener">预备版本（教学用）</a></p>'
         '<p class="source-note">' + PREP + '</p>'
     ),
     steps=["v1 的清理", "预备版本"],

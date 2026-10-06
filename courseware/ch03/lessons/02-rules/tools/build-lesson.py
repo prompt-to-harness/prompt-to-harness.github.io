@@ -185,6 +185,7 @@ scene(
         '<div class="p-qrow"><span>“等待期点不开第三张”是缺陷吗？</span><span class="p-back-to" data-reveal="1">不是：AI 定的规则，合理，但要记下来</span></div>'
         '<div class="p-qrow"><span>没写期望来源的记录，能判断对错吗？</span><span class="p-back-to" data-reveal="1">不能：先补上期望和来源</span></div></div></div>'
         '<div class="p-next" data-reveal="2" style="margin-top:14px"><div class="p-box" data-role="us"><h3>3.3 按证据修</h3><p>先复现，再让 Codex 只调查</p></div></div>'
+        '<p class="p-links" data-reveal="2" style="margin-top:12px"><a href="../../practice/memory-v0/index.html" target="_blank" rel="noopener">试玩讲师的 v0（带缺陷）</a></p>'
     ),
     steps=["两道题", "答案", "下一节"],
     script=[

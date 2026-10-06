@@ -163,7 +163,9 @@ scene(
     html=(
         '<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start">'
         '<div><div class="p-term" data-reveal="0"><div class="dim">$ git diff --stat</div>' + stat_rows + '</div>'
-        '<div data-reveal="0" style="margin-top:8px">' + pop("修复的完整 diff", "看完整 diff", NARROW + fix_html) + '</div></div>'
+        '<div data-reveal="0" style="margin-top:8px">' + pop("修复的完整 diff", "看完整 diff", NARROW + fix_html) + '</div>'
+        '<p class="p-links" data-reveal="3" style="margin-top:12px"><a href="../../practice/memory-v0/index.html" target="_blank" rel="noopener">v0：复现</a><a href="../../practice/memory-v1/index.html" target="_blank" rel="noopener">v1：修好之后</a></p>'
+        '</div>'
         '<ul class="p-checks">'
         '<li data-reveal="1">翻错一次<small>步数 1</small></li>'
         '<li data-reveal="2">配对成功<small>步数也加 1，剩余减 1</small></li>'
