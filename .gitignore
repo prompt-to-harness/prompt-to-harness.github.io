@@ -90,3 +90,6 @@ course-starter/
 
 # Local Claude app preview config
 .claude/launch.json
+
+# 实验运行目录（courseware/*/materials/*/setup.sh 默认建在这里，不提交）
+lab-runs/
