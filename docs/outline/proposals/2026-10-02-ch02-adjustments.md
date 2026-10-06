@@ -187,6 +187,7 @@
 - 通用指令的历史不是单调变短：2025-04 首版约 5.7 KB；2025-08-05 约 9.8 KB；2025-08-07 的提交 `81b148bda2`（“update system prompt”）重写为约 23.6 KB，新增工作方式、性格、计划示例、汇报格式等章节；此后在 21.8–24.4 KB 间波动，2026-01 降到约 20.9 KB。`gpt_5_1_prompt.md` 曾增至约 28.7 KB，2026-01 降回约 24.2 KB。`gpt_5_codex_prompt.md` 从约 10–11 KB 降到 2026-01 的约 6.6 KB。
 - 2026-01-12 的提交 `87f7226cca`（“Assemble sandbox/approval/network prompts dynamically”）把沙箱与审批说明从基础指令中移出，改为按配置从 `codex-rs/prompts/templates/permissions/` 下的模板拼装（如 `sandbox_mode/workspace_write.md`、`approval_policy/on_request.md`）。压缩也有独立模板 `codex-rs/prompts/templates/compact/prompt.md`。
 - 与本机实测对照：本节第一次实测（Codex 0.160.0，MiniMax 自定义 provider，`codex exec`）发出的 `instructions` 约 1.7 万字符，内容与 `default.md` 一致，只是少了“Planning”及其示例和 `update_plan` 两节。为什么少这两节（是否与 `exec` 模式或工具集有关）尚未在源码中核实。
+- 2026-10-05 补记：上条“为什么少这两节”已核实。rust-v0.160.0 的 `codex-rs/prompts/src/update_plan_instructions.rs` 在未启用 update_plan 时删去 `## Planning` 等段落；同日用 claude-tap `--tap-export-prompt` 在隔离 HOME 下复现，抓到的 16979 字符与 `models-manager/prompt.md` 删去这几段后逐字相同。另：当前按模型的指令来自 `models-manager/models.json`，上文 `codex-rs/core/gpt_*_prompt.md` 自 2026-01 起已无代码引用，2.2 p26 已改为对比 MiniMax-M3 与 gpt-5.5 两次实测请求。
 
 可讲的观察（设计假设，讲述时用“仓库历史显示”的口吻，不推断 OpenAI 的内部动机）：通用模型配的指令长，专门为 Codex 训练的模型配的指令短得多；新一代通用模型上线时指令反而变长；权限说明从固定段落变成按配置拼装，所以同一句话在不同配置下发出的请求不同。
 

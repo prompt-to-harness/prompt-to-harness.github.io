@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from lessonkit import Lesson, NARROW, chapter_map, teach  # noqa: E402
+from lessonkit import Lesson, NARROW, chapter_map, ref, teach  # noqa: E402
 
 lesson = Lesson(__file__, "2.4", "公开的不只是页面", summary="第一次推送前看清即将公开的整段历史；发布后用公开 URL 证明页面可用。")
 scene, KICK = lesson.scene, lesson.kick
@@ -112,15 +112,19 @@ scene(
         '<li data-reveal="2">本人愿意公开<small>包括作者邮箱</small></li></ul></div>'
         '<div class="p-bar" data-reveal="3">有一项不行，<b>先停下，不推送</b></div>'
     ),
+    refs=[
+        ref("设置提交邮箱", "https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-email-preferences/setting-your-commit-email-address", "GitHub 官方文档（改写历史不在本课范围，做之前人工复核）", kind="read"),
+        ref("从仓库历史中删除敏感数据", "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository", "GitHub 官方文档（改写历史不在本课范围，做之前人工复核）", kind="read"),
+    ],
     steps=["作者邮箱", "三项排查", "本人意愿", "停止条件"],
     script=[
-        "先看刚才列出的作者。每个提交里都写着作者的姓名和邮箱，来自你本机的 Git 配置。如果那是你的私人邮箱，推送以后它就挂在公开历史里了。不想公开，就先停下，把 Git 的邮箱换成 GitHub 提供的 noreply 邮箱。注意，改配置只影响之后的提交，已经做过的提交还带着旧邮箱，要换掉它们就得改写历史。改写历史不在本课范围，GitHub 官方文档有说明，链接放在讲解全文的这一页。",
+        "先看刚才列出的作者。每个提交里都写着作者的姓名和邮箱，来自你本机的 Git 配置。如果那是你的私人邮箱，推送以后它就挂在公开历史里了。不想公开，就先停下，把 Git 的邮箱换成 GitHub 提供的 noreply 邮箱。注意，改配置只影响之后的提交，已经做过的提交还带着旧邮箱，要换掉它们就得改写历史。改写历史不在本课范围，GitHub 官方文档有说明，链接放在阅读模式这一页的底部。",
         "再对照判断清单，前三项要确认“没有”：有没有 secret，比如 API 密钥、令牌，或者整份配置文件；有没有未经同意的他人信息，比如别人的姓名、联系方式、经历和照片；截图里有没有隐私，比如桌面上的文件名、弹出的通知。2.2 的项目经历借用了我们两位讲师的经历，这是本人同意公开的；你如果写了别人的事，要先问过对方。",
         "第四项是本人愿不愿意公开，作者邮箱也算在里面。这是每个人对自己内容的判断，没有标准答案：有人愿意用常用邮箱，有人只用 noreply，都合理。",
         "只要有一项不行，就先停下，不推送。推出去就收不回来了。怎样从历史里去掉一个文件、换掉旧邮箱，看 GitHub 官方文档；那些操作会改写历史，不在本课范围，做之前要人工复核。请暂停视频，逐项判断你的内容，把结论写进记录。",
     ],
     teaching=teach(
-        ("参考链接", "设置提交邮箱与 noreply 邮箱：https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-email-preferences/setting-your-commit-email-address；从仓库历史中删除敏感数据：https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository。两者都会涉及改写历史，主课不演示，做之前人工复核（2026-10-05 讲师确认：不做配套页，口播指向官方文档）。"),
+        ("参考链接", "设置提交邮箱、从仓库历史中删除敏感数据两篇 GitHub 官方文档，见本页“原文与链接”。两者都会涉及改写历史，主课不演示，做之前人工复核（2026-10-05 讲师确认：不做配套页，口播指向官方文档）。"),
         ("核对记录", "GitHub 文档（2026-10-03 查阅）：从命令行推送的提交使用本地 Git 配置的 user.email；修改配置只影响之后的提交；GitHub 为账号提供 noreply 邮箱。noreply 地址的具体格式与相关隐私设置按录制时的 GitHub 设置页核对，画面不写具体格式。"),
         ("讲师提示", "2026-10-03 讲师确认：示范例子由“第 1 章环境记录中的系统用户名”（提案决定 18）改为提交作者邮箱，使本节不依赖之前各章的证据文件。录制时按讲师实际情况判断，不预写“可以公开”。"),
         ("跟做产出", "推送前检查记录：列出的提交、文件与作者，四项判断结果，结论（推送 / 暂停及原因）。"),
@@ -213,18 +217,18 @@ scene(
 scene(
     id="p50", segment="推送与发布",
     label="Actions 绿了就行吗", title="Actions 成功了，页面就能用了吗？", kicker=KICK + "推送与发布",
-    lead="Actions 绿色对勾只说明构建和上传没报错。页面能不能用要用三项检查证明：未登录窗口打开公开 URL；Network 面板没有 404；停用缓存后刷新仍然正常。",
+    lead="Actions 显示部署流程成功完成。接着检查公开页面：未登录窗口打开公开 URL；Network 面板没有 404；停用缓存后刷新仍然正常。",
     html=(
         NARROW +
         '<div class="p-claim" style="grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)">'
-        '<div class="p-box" data-role="ok" data-reveal="0"><span class="p-tag" data-role="ok">Actions</span><p class="p-big">✓ deploy 成功</p><p class="p-sub">只说明构建和上传没报错</p></div>'
+        '<div class="p-box" data-role="ok" data-reveal="0"><span class="p-tag" data-role="ok">Actions</span><p class="p-big">✓ deploy 成功</p><p class="p-sub">部署流程成功完成</p></div>'
         '<ul class="p-checks"><li data-reveal="1">未登录窗口打开 URL<small>别人看到的就是这样</small></li>'
         '<li data-reveal="2">Network 没有 404<small>CSS、JS、图片都加载了</small></li>'
         '<li data-reveal="3">停用缓存后刷新仍正常<small>看到的是服务器上的版本</small></li></ul></div>'
     ),
     steps=["绿色对勾", "未登录窗口", "Network", "停用缓存再刷新"],
     script=[
-        "Actions 显示绿色对勾，部署成功。但这只说明构建和上传都没报错，不说明页面能用。比如 base 写错，Actions 照样是绿的，页面却是白的。",
+        "Actions 显示绿色对勾，部署流程成功完成。接下来打开公开 URL，检查实际访问和资源加载。比如 base 写错时，部署流程可能完成，页面却因为资源路径错误显示为空白。",
         "第一项，用浏览器的无痕窗口，也就是未登录状态，打开公开 URL。别人第一次访问时看到的就是这个样子。",
         "第二项，打开开发者工具的 Network 面板，刷新一次，看有没有状态是 404 的资源。CSS、JS 有一个没加载上，页面就会走样。",
         "第三项，在 Network 面板勾选 Disable cache，也就是停用缓存，再刷新一次，页面仍然正常。普通刷新可能还在用浏览器缓存里的旧文件，停用缓存以后，看到的才是服务器上现在的版本。三项都过了，才能说发布成功。把结果写进记录。",
@@ -264,12 +268,12 @@ scene(
         '<div class="p-node" data-role="agent" data-reveal="0"><h3>审查配置</h3><p>base、权限、分支</p></div>'
         '<div class="p-node" data-role="us" data-reveal="0"><h3>人来推送</h3><p>先设来源再推送</p></div>'
         '<div class="p-node" data-role="ok" data-reveal="0"><h3>证明可用</h3><p>三项检查与 tag</p></div></div>'
-        '<div class="p-bar" data-reveal="1" style="margin-top:18px">推送前先看历史 · <b>Actions 成功不等于页面可用</b></div>'
+        '<div class="p-bar" data-reveal="1" style="margin-top:18px">推送前先看历史 · <b>发布后检查访问、资源与刷新</b></div>'
     ),
     steps=["本节做了什么", "两个认识"],
     script=[
         "回看这一节：推送之前，先列出即将公开的提交、文件和作者，由人判断能不能公开；Codex 写的部署配置逐项审过再提交；GitHub 这边设好 Pages 来源，再由我们自己推送；最后用三项检查证明页面可用，只推送 ch02-homepage-live 这一个 tag。首页现在有了一个公开 URL。",
-        "这一节留下两个认识。推送之前，看的不只是页面，还有整段历史。Actions 成功，不等于页面可用。",
+        "推送之前，检查即将公开的文件和整段历史。部署完成后，再用未登录窗口访问、资源加载和停用缓存后刷新这三项检查确认发布结果。",
     ],
 )
 

@@ -153,8 +153,46 @@ window.lesson = {
       "label": "Codex 自己也在变",
       "title": "不只输出会变，系统指令也在变",
       "kicker": "第 2 章 · 2.2 · 请求会变",
-      "lead": "Codex 的通用系统指令在开源仓库里有完整历史。它没有一路变短：2025 年 8 月一次重写后变成原来的两倍多，此后在 21–24 KB 间波动；权限说明后来拆成按配置拼装的模板。数据来自 openai/codex 仓库（Apache-2.0）的提交历史，2026-10-02 核对、10-03 复核；大小为文件字节数。",
-      "html": "<div class=\"p-flow\" style=\"--n:4\"><div class=\"p-node\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-num\">2025-04</span><h3>≈5.7 KB</h3><p>首版</p></div><div class=\"p-node\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-num\">2025-08-05</span><h3>≈9.8 KB</h3><p>逐步补充</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-num\">2025-08-07</span><h3>≈23.6 KB</h3><p>重写：工作方式、性格、汇报格式</p></div><div class=\"p-node\" data-role=\"ink\" data-reveal=\"1\"><span class=\"p-num\">之后</span><h3>21–24 KB</h3><p>2026-01 约 20.9 KB</p></div></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"2\" style=\"margin-top:18px\"><h3>2026-01-12 · 权限说明拆出去</h3><p>从固定段落改为按沙箱模式、审批策略分别放模板，运行时拼装（2.1 p16 看过的那段文字）</p></div><p class=\"source-note\">数据来自 openai/codex 仓库（Apache-2.0）的提交历史，2026-10-02 核对、10-03 复核；大小为文件字节数</p>",
+      "lead": "Codex 的通用系统指令在开源仓库里有完整历史。它没有一路变短：2025 年 8 月一次重写后变成原来的两倍多，此后在 21–24 KB 间波动；权限说明后来拆成按配置拼装的模板。数据来自 openai/codex 仓库（Apache-2.0）的提交历史，2026-10-02 核对、10-03 复核、10-05 在子模块 third_party/codex 逐版重算；大小为文件字节数。",
+      "html": "<div class=\"p-flow\" style=\"--n:4\"><div class=\"p-node\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-num\">2025-04</span><h3>≈5.7 KB</h3><p>首版</p></div><div class=\"p-node\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-num\">2025-08-05</span><h3>≈9.8 KB</h3><p>逐步补充</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-num\">2025-08-07</span><h3>≈23.6 KB</h3><p>重写：工作方式、性格、汇报格式</p></div><div class=\"p-node\" data-role=\"ink\" data-reveal=\"1\"><span class=\"p-num\">之后</span><h3>21–24 KB</h3><p>2026-01 约 20.9 KB</p></div></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"2\" style=\"margin-top:18px\"><h3>2026-01-12 · 权限说明拆出去</h3><p>从固定段落改为按沙箱模式、审批策略分别放模板，运行时拼装（2.1 p16 看过的那段文字）</p></div><p class=\"source-note\">数据来自 openai/codex 仓库（Apache-2.0）的提交历史，2026-10-02 核对、10-03 复核、10-05 在子模块 third_party/codex 逐版重算；大小为文件字节数</p>",
+      "refs": [
+        {
+          "kind": "live",
+          "group": "原文",
+          "text": "2025-04 首版",
+          "url": "https://github.com/openai/codex/blob/31d0d7a305305ad557035a2edcab60b6be5018d8/codex-rs/core/prompt.md"
+        },
+        {
+          "kind": "live",
+          "group": "原文",
+          "text": "2025-08-05",
+          "url": "https://github.com/openai/codex/blob/d31e149cb1b4439f47393115d7a85b3c8ab8c90d/codex-rs/core/prompt.md"
+        },
+        {
+          "kind": "live",
+          "group": "原文",
+          "text": "2025-08-07 重写后",
+          "url": "https://github.com/openai/codex/blob/81b148bda271615b37f7e04b3135e9d552df8111/codex-rs/core/prompt.md"
+        },
+        {
+          "kind": "live",
+          "group": "原文",
+          "text": "2026-10-03 当前",
+          "url": "https://github.com/openai/codex/blob/b741e480e203f037ca726bc2a76d99a8e8668e66/codex-rs/protocol/src/prompts/base_instructions/default.md"
+        },
+        {
+          "kind": "live",
+          "group": "diff",
+          "text": "重写",
+          "url": "https://github.com/openai/codex/commit/81b148bda271615b37f7e04b3135e9d552df8111"
+        },
+        {
+          "kind": "live",
+          "group": "diff",
+          "text": "权限拆出",
+          "url": "https://github.com/openai/codex/commit/87f7226cca12df04596938f58625de84e976309a"
+        }
+      ],
       "steps": [
         "早期",
         "一次重写",
@@ -163,7 +201,7 @@ window.lesson = {
       "script": [
         "不只是模型的输出会变，Codex 自己也在变。它是开源的，系统指令的每一次修改都留在仓库历史里。我们看通用指令文件的大小：2025 年 4 月首版大约 5.7 KB，到 8 月 5 日补到大约 9.8 KB。",
         "两天后，8 月 7 日，有一次提交把它整个重写，一下变成大约 23.6 KB，新增了工作方式、性格、计划示例、汇报格式这些章节。此后一直在 21 到 24 KB 之间来回，到 2026 年 1 月大约 20.9 KB。所以它不是越写越短，也不是越写越长。",
-        "2026 年 1 月还有一次结构变化：权限说明从固定段落里拆出去，按沙箱模式和审批策略分别放模板，运行时再拼。2.1 我们对比只读和可写时看到的那段文字，就是这么来的。我们只陈述仓库里看得到的变化，不猜 OpenAI 为什么这么改。"
+        "2026 年 1 月还有一次结构变化：权限说明从固定段落里拆出去，按沙箱模式和审批策略分别放模板，运行时再拼。2.1 我们对比只读和可写时看到的那段文字，就是这么来的。同样是权限说明，版本变化后，组装进请求的方式也变了。"
       ],
       "teaching": [
         {
@@ -171,8 +209,16 @@ window.lesson = {
           "text": "首版到 2025-08-05 的大小、重写提交 81b148bda2（“update system prompt”）、按模型分文件提交 916fdc2a37、权限模板化提交 87f7226cca，见提案“Codex 开源仓库中的系统指令”。通用指令当前位于 codex-rs/protocol/src/prompts/base_instructions/default.md；2026-10-03 复核 main（b741e48）大小为 20903 字节。"
         },
         {
+          "title": "原文与 diff",
+          "text": "每个版本的原文和两次关键提交的 diff，在画面底部有直达链接（固定到完整提交哈希）。重写那次提交 81b148bda2 只改了 prompt.md 一个文件（+270 −80），GitHub 的提交页就是“重写前 vs 重写后”的文件 diff。\n\n本仓库把 openai/codex 作为子模块放在 third_party/codex（固定在 b741e48），可以离线对比：git submodule update --init --filter=blob:none third_party/codex 取下子模块，再运行 git -C third_party/codex diff 31d0d7a305:codex-rs/core/prompt.md b741e48:codex-rs/protocol/src/prompts/base_instructions/default.md 看首版到当前的全部变化。文件在 2026-01-19 从 codex-rs/core/prompt.md 搬到现在的位置，所以早期版本要用旧路径。"
+        },
+        {
+          "title": "切到实操",
+          "text": "可在录制时打开重写那次提交的 GitHub 页面，滚动展示新增的章节标题；不逐行读。"
+        },
+        {
           "title": "讲师提示",
-          "text": "这一页与下一页是“版本线”示例，看懂即可，不要求学员背数字，也不要求去翻仓库。"
+          "text": "这一页与下一页是“版本线”示例，看懂即可，不要求学员背数字；想看原文的学员从画面底部的链接打开。"
         }
       ],
       "source": "index.html#p25",
@@ -181,29 +227,63 @@ window.lesson = {
     {
       "id": "p26",
       "segment": "请求会变",
-      "label": "两份指令差在哪",
-      "title": "通用模型和专用模型，指令的章节不一样",
+      "label": "换个模型名",
+      "title": "同一个 Codex，换个模型名，指令换了一份",
       "kicker": "第 2 章 · 2.2 · 请求会变",
-      "lead": "仓库按模型放了不同的指令：给通用模型的约 21–24 KB，给为 Codex 专门训练的模型的只有约 6.6–7.6 KB。对比章节目录，能看到短的那份省掉了哪些内容；但不能凭长度判断哪个模型更好。数据来自 openai/codex 仓库（Apache-2.0）的提交历史，2026-10-02 核对、10-03 复核；大小为文件字节数。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ink\">通用模型 · ≈21–24 KB</span><p style=\"margin-top:8px;line-height:1.7\">工作方式 · <b>性格</b> · <b>AGENTS.md 规范</b><br>自主与坚持 · 响应 · 计划及示例<br><b>执行任务</b> · <b>验证工作</b> · 汇报 · 工具指南</p></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">Codex 专用模型 · ≈6.6–7.6 KB</span><p style=\"margin-top:8px;line-height:1.7\">通用 · 编辑约束 · 计划工具<br>特殊请求 · 汇报</p><p class=\"p-sub\">没有性格、AGENTS.md、验证这几节</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">能看到<b>内容差异</b> · 不能据此判断模型能力或设计原因</div><p class=\"source-note\">章节名为中文意译。通用：gpt_5_1_prompt.md、gpt_5_2_prompt.md；专用：gpt_5_codex_prompt.md、gpt-5.2-codex_prompt.md，均在 codex-rs/core/。数据来自 openai/codex 仓库（Apache-2.0）的提交历史，2026-10-02 核对、10-03 复核；大小为文件字节数。</p>",
+      "lead": "Codex 按模型名在自带的模型目录（models.json）里查指令。讲师用 claude-tap 抓了两次请求，配置相同，只改模型名：目录里没有的 MiniMax-M3 拿到通用指令，目录里的 gpt-5.5 拿到为它单独写的一份。数据来自 openai/codex 仓库（Apache-2.0）的提交历史，2026-10-02 核对、10-03 复核、10-05 在子模块 third_party/codex 逐版重算；大小为文件字节数。",
+      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ink\">MiniMax-M3 · 不在目录 · 通用指令</span><p style=\"margin-top:8px;line-height:1.6\">工作方式 · 性格 · <b>AGENTS.md 规范</b><br>响应 · 执行任务 · <b>验证工作</b> · 目标与精度<br>进度更新 · 汇报 · <b>工具指南</b></p><p class=\"p-sub\">约 1.7 万字符 · “You are a coding agent running in the Codex CLI”</p></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">gpt-5.5 · 目录里的专属指令</span><p style=\"margin-top:8px;line-height:1.6\">性格 · 通用 · <b>工程判断</b> · <b>前端指南</b><br>编辑约束 · 特殊请求 · 自主与坚持<br><b>与用户协作</b> · 格式规则 · 最终回答</p><p class=\"p-sub\">约 2.1 万字符 · “You are Codex, a coding agent based on GPT-5”</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">换一个模型，Codex 配给它的<b>指令内容也会变化</b></div><p class=\"source-note\">两份指令都是 2026-10-05 在隔离 HOME 下用 claude-tap 抓到的真实请求（Codex 0.160.0，--tap-export-prompt 本地应答、不访问上游）；章节名为中文意译。抓到的内容与源码只差 update_plan 相关段落：codex exec 下未启用 update_plan，Codex 会删去这些段落。</p>",
+      "refs": [
+        {
+          "kind": "live",
+          "group": "0.160.0 源码",
+          "text": "通用指令 prompt.md",
+          "url": "https://github.com/openai/codex/blob/a956835d020762cb2b570053af06f643a11c0ecc/codex-rs/models-manager/prompt.md"
+        },
+        {
+          "kind": "live",
+          "group": "0.160.0 源码",
+          "text": "模型目录 models.json",
+          "url": "https://github.com/openai/codex/blob/a956835d020762cb2b570053af06f643a11c0ecc/codex-rs/models-manager/models.json"
+        },
+        {
+          "kind": "read",
+          "group": "2026-01 前按文件分模型（已不使用）",
+          "text": "GPT-5.2",
+          "url": "https://github.com/openai/codex/blob/b741e480e203f037ca726bc2a76d99a8e8668e66/codex-rs/core/gpt_5_2_prompt.md"
+        },
+        {
+          "kind": "read",
+          "group": "2026-01 前按文件分模型（已不使用）",
+          "text": "GPT-5.2-Codex",
+          "url": "https://github.com/openai/codex/blob/b741e480e203f037ca726bc2a76d99a8e8668e66/codex-rs/core/gpt-5.2-codex_prompt.md"
+        }
+      ],
       "steps": [
-        "通用模型的指令",
-        "专用模型的指令",
-        "能说什么、不能说什么"
+        "不在目录的模型",
+        "目录里的 gpt-5.5",
+        "模型与指令配置"
       ],
       "script": [
-        "仓库里还按模型放了不同的指令。左边是给通用模型的，大约 21 到 24 KB。章节目录我们在 2.1 见过一部分：工作方式、性格、AGENTS.md 规范、计划和示例、执行任务、验证工作、汇报，还有工具指南。",
-        "右边是给专门为 Codex 训练的模型的，只有大约 6.6 到 7.6 KB，三分之一左右。目录很短：通用说明、编辑约束、计划工具、特殊请求、汇报。性格、AGENTS.md 规范、验证工作这几节，都没有出现。",
-        "我们能说的，只是两份文字的内容不一样。不能凭长度说哪个模型更聪明，也不该猜为什么这样设计。对我们这一节有用的结论是：Codex 发给模型的东西会随版本和模型变化，所以交接任务时，靠的是项目里的事实和文件，而不是指望某一版指令替我们记住什么。回到我们的选择：压缩一下继续，够不够？"
+        "Codex 还有一份模型目录，叫 models.json，它按模型名在里面查该发哪份指令。讲师用 claude-tap 抓了两次请求，配置完全一样，只改了模型名。左边写的是 MiniMax-M3，目录里没有，Codex 就发通用指令，开头一句是“You are a coding agent running in the Codex CLI”，大约 1.7 万字符。章节有工作方式、性格、AGENTS.md 规范、验证工作、工具指南这些，2.1 我们见过。",
+        "右边只把模型名改成 gpt-5.5，目录里有它，Codex 就换成为它单独写的一份，开头变成“You are Codex, a coding agent based on GPT-5”，大约 2.1 万字符。章节也不一样：多了工程判断、前端指南、与用户协作；AGENTS.md 规范、验证工作和工具指南这几节，没有单独出现。",
+        "两次请求只差一个模型名，指令就换了一份。结合上一页的版本历史，我们看到，版本和模型配置都会影响 Codex 发出的请求。接下来回到本轮修改：旧会话里已经积累了反馈和检查结果，压缩一下继续，够不够？"
       ],
       "teaching": [
         {
           "title": "核对记录",
-          "text": "2026-10-03 复核 main（b741e48）：gpt_5_1_prompt.md 24204 字节、gpt_5_2_prompt.md 21652、gpt_5_codex_prompt.md 6647、gpt-5.2-codex_prompt.md 7589，位于 codex-rs/core/（提案记录的路径有误，已在验证记录中更正）。专用指令全文没有 AGENTS.md 一词，审查请求一节提到测试缺口。"
+          "text": "2026-10-05 本机 codex-cli 0.160.0，隔离 HOME，自定义 provider 写法与 MiniMax 相同、密钥为假值，claude-tap 0.1.145 以 --tap-export-prompt 本地应答，不访问上游；codex exec -s read-only，各 1 次请求。MiniMax-M3：instructions 16979 字符，与 2.1 的记录一致，等于 rust-v0.160.0 的 models-manager/prompt.md 删去 Planning、Examples、update_plan 三段（逐字相同）。gpt-5.5：21299 字符，等于 models.json 中 gpt-5.5 的 instructions_template 删去一行更新清单状态的说明。删段落的规则见 codex-rs/prompts/src/update_plan_instructions.rs。按模型名查目录的逻辑见 models-manager/src/manager.rs 的 construct_model_info_from_candidates（最长前缀匹配，与 provider 无关）。"
+        },
+        {
+          "title": "原文与 diff",
+          "text": "源码链接在画面底部，固定在 rust-v0.160.0（a956835d02）。复现：建临时 HOME，在 .codex/config.toml 写 model 与自定义 provider，运行 HOME=<临时目录> uvx claude-tap --tap-client codex --tap-target <provider 地址> --tap-export-prompt <输出.md> -- exec --skip-git-repo-check -s read-only \"Reply with OK only.\" < /dev/null，只改 model 再跑一次，对比两份导出的 instructions。把模型名写成目录里的名字只用于查看请求：真实发给 MiniMax 时，它不认识这个模型名。2026-01 之前 Codex 按文件给模型配指令（codex-rs/core/gpt_*_prompt.md），这些文件仍留在仓库里但已无代码引用，链接放在延伸阅读。"
+        },
+        {
+          "title": "切到实操",
+          "text": "录制时现场跑这两次，或打开 claude-tap 导出的两份 Markdown 并排展示 instructions 开头和章节；画面截图前检查路径与用户名。"
         },
         {
           "title": "讲师提示",
-          "text": "分镜旧稿“模型越擅长，指令写得越少”已在 10-03 审校中删去；口播保持只陈述可见差异。"
+          "text": "只讲两份指令可见的差异。文件长度和目录没有提供模型能力评测或设计动机的证据；如另讲这些问题，应补相应证据。"
         }
       ],
       "source": "index.html#p26",
@@ -350,7 +430,7 @@ window.lesson = {
       "title": "改好了吗？有没有弄坏别的？",
       "kicker": "第 2 章 · 2.2 · 本轮迭代",
       "lead": "改完由人检查，不只看新内容：三种视口下内容完整可读；Tab 焦点顺序与改前一致；npm run build 成功。内容变多后第 1 条“手机上挤”若出现，记为剩余问题，不在这一轮顺手修。",
-      "html": "<div class=\"p-rec\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1.1fr) minmax(0,1.3fr);row-gap:12px;--rf:21px\"><div class=\"is-head\" data-reveal=\"0\"><span>检查</span><span>结果</span><span>能说明什么</span></div><div data-reveal=\"0\"><span class=\"p-cell\">360 · 768 · 1440</span><span class=\"p-cell\">三条经历都完整显示</span><span class=\"p-why\">第 3 条已解决；布局没被挤坏</span></div><div data-reveal=\"1\"><span class=\"p-cell\">Tab 键</span><span class=\"p-cell\">仍只停在“查看项目”</span><span class=\"p-why\">键盘行为与改前一致</span></div><div data-reveal=\"2\"><span class=\"p-cell p-mono\">npm run build</span><span class=\"p-cell\">退出码 0</span><span class=\"p-why\">能构建，不等于页面对</span></div></div><div class=\"p-bar is-light\" data-reveal=\"3\">新出现的问题：<b>记下来，不顺手修</b></div>",
+      "html": "<div class=\"p-rec\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1.1fr) minmax(0,1.3fr);row-gap:12px;--rf:21px\"><div class=\"is-head\" data-reveal=\"0\"><span>检查</span><span>结果</span><span>能说明什么</span></div><div data-reveal=\"0\"><span class=\"p-cell\">360 · 768 · 1440</span><span class=\"p-cell\">三条经历都完整显示</span><span class=\"p-why\">第 3 条已解决；布局没被挤坏</span></div><div data-reveal=\"1\"><span class=\"p-cell\">Tab 键</span><span class=\"p-cell\">仍只停在“查看项目”</span><span class=\"p-why\">键盘行为与改前一致</span></div><div data-reveal=\"2\"><span class=\"p-cell p-mono\">npm run build</span><span class=\"p-cell\">退出码 0</span><span class=\"p-why\">构建流程成功完成</span></div></div><div class=\"p-bar is-light\" data-reveal=\"3\">新出现的问题：<b>记下来，不顺手修</b></div>",
       "steps": [
         "三种视口",
         "键盘",
@@ -360,7 +440,7 @@ window.lesson = {
       "script": [
         "Codex 说改完了。我们自己检查，不只看新内容有没有出来。先切三种视口：360、768、1440，三条经历都完整显示，没有被截断或挤坏。这说明第 3 条反馈解决了。",
         "再按 Tab。改之前，焦点只会停在“查看项目”按钮上，现在还是一样。键盘行为没有变，这正是我们要的。",
-        "最后在终端运行 npm run build，退出码是 0。注意它只说明能构建，不说明页面是对的，所以前两项不能省。",
+        "最后在终端运行 npm run build，退出码是 0，构建流程成功完成。三项检查各有对象：视口检查文字和排版，Tab 检查焦点顺序，build 检查项目能否生成构建产物。把三项结果一起记进本轮记录。",
         "内容变多了，第 1 条“手机上挤”会不会出现？讲师的页面在 360 下没有横向滚动，仍然没复现。如果你的页面出现了，记成剩余问题，留到下一轮。这一轮只解决一个结果。请暂停视频，按这三项检查你自己的页面。"
       ],
       "teaching": [

@@ -136,41 +136,75 @@ MiniMax 配置下请求体 store 为 false、没有 previous_response_id；OpenA
 
 **第 3 步 · 权限说明拆出**（[演示](index.html?mode=slides&step=2#p25)）
 
-2026 年 1 月还有一次结构变化：权限说明从固定段落里拆出去，按沙箱模式和审批策略分别放模板，运行时再拼。2.1 我们对比只读和可写时看到的那段文字，就是这么来的。我们只陈述仓库里看得到的变化，不猜 OpenAI 为什么这么改。
+2026 年 1 月还有一次结构变化：权限说明从固定段落里拆出去，按沙箱模式和审批策略分别放模板，运行时再拼。2.1 我们对比只读和可写时看到的那段文字，就是这么来的。同样是权限说明，版本变化后，组装进请求的方式也变了。
+
+### 原文与链接
+
+- 画面上 · 原文 · [2025-04 首版](https://github.com/openai/codex/blob/31d0d7a305305ad557035a2edcab60b6be5018d8/codex-rs/core/prompt.md)
+- 画面上 · 原文 · [2025-08-05](https://github.com/openai/codex/blob/d31e149cb1b4439f47393115d7a85b3c8ab8c90d/codex-rs/core/prompt.md)
+- 画面上 · 原文 · [2025-08-07 重写后](https://github.com/openai/codex/blob/81b148bda271615b37f7e04b3135e9d552df8111/codex-rs/core/prompt.md)
+- 画面上 · 原文 · [2026-10-03 当前](https://github.com/openai/codex/blob/b741e480e203f037ca726bc2a76d99a8e8668e66/codex-rs/protocol/src/prompts/base_instructions/default.md)
+- 画面上 · diff · [重写](https://github.com/openai/codex/commit/81b148bda271615b37f7e04b3135e9d552df8111)
+- 画面上 · diff · [权限拆出](https://github.com/openai/codex/commit/87f7226cca12df04596938f58625de84e976309a)
 
 ### 核对记录
 
 首版到 2025-08-05 的大小、重写提交 81b148bda2（“update system prompt”）、按模型分文件提交 916fdc2a37、权限模板化提交 87f7226cca，见提案“Codex 开源仓库中的系统指令”。通用指令当前位于 codex-rs/protocol/src/prompts/base_instructions/default.md；2026-10-03 复核 main（b741e48）大小为 20903 字节。
 
+### 原文与 diff
+
+每个版本的原文和两次关键提交的 diff，在画面底部有直达链接（固定到完整提交哈希）。重写那次提交 81b148bda2 只改了 prompt.md 一个文件（+270 −80），GitHub 的提交页就是“重写前 vs 重写后”的文件 diff。
+
+本仓库把 openai/codex 作为子模块放在 third_party/codex（固定在 b741e48），可以离线对比：git submodule update --init --filter=blob:none third_party/codex 取下子模块，再运行 git -C third_party/codex diff 31d0d7a305:codex-rs/core/prompt.md b741e48:codex-rs/protocol/src/prompts/base_instructions/default.md 看首版到当前的全部变化。文件在 2026-01-19 从 codex-rs/core/prompt.md 搬到现在的位置，所以早期版本要用旧路径。
+
+### 切到实操
+
+可在录制时打开重写那次提交的 GitHub 页面，滚动展示新增的章节标题；不逐行读。
+
 ### 讲师提示
 
-这一页与下一页是“版本线”示例，看懂即可，不要求学员背数字，也不要求去翻仓库。
+这一页与下一页是“版本线”示例，看懂即可，不要求学员背数字；想看原文的学员从画面底部的链接打开。
 
-## P26 两份指令差在哪
+## P26 换个模型名
 
 [对应课件](index.html#p26)
 
 ### 口播
 
-**第 1 步 · 通用模型的指令**（[演示](index.html?mode=slides&step=0#p26)）
+**第 1 步 · 不在目录的模型**（[演示](index.html?mode=slides&step=0#p26)）
 
-仓库里还按模型放了不同的指令。左边是给通用模型的，大约 21 到 24 KB。章节目录我们在 2.1 见过一部分：工作方式、性格、AGENTS.md 规范、计划和示例、执行任务、验证工作、汇报，还有工具指南。
+Codex 还有一份模型目录，叫 models.json，它按模型名在里面查该发哪份指令。讲师用 claude-tap 抓了两次请求，配置完全一样，只改了模型名。左边写的是 MiniMax-M3，目录里没有，Codex 就发通用指令，开头一句是“You are a coding agent running in the Codex CLI”，大约 1.7 万字符。章节有工作方式、性格、AGENTS.md 规范、验证工作、工具指南这些，2.1 我们见过。
 
-**第 2 步 · 专用模型的指令**（[演示](index.html?mode=slides&step=1#p26)）
+**第 2 步 · 目录里的 gpt-5.5**（[演示](index.html?mode=slides&step=1#p26)）
 
-右边是给专门为 Codex 训练的模型的，只有大约 6.6 到 7.6 KB，三分之一左右。目录很短：通用说明、编辑约束、计划工具、特殊请求、汇报。性格、AGENTS.md 规范、验证工作这几节，都没有出现。
+右边只把模型名改成 gpt-5.5，目录里有它，Codex 就换成为它单独写的一份，开头变成“You are Codex, a coding agent based on GPT-5”，大约 2.1 万字符。章节也不一样：多了工程判断、前端指南、与用户协作；AGENTS.md 规范、验证工作和工具指南这几节，没有单独出现。
 
-**第 3 步 · 能说什么、不能说什么**（[演示](index.html?mode=slides&step=2#p26)）
+**第 3 步 · 模型与指令配置**（[演示](index.html?mode=slides&step=2#p26)）
 
-我们能说的，只是两份文字的内容不一样。不能凭长度说哪个模型更聪明，也不该猜为什么这样设计。对我们这一节有用的结论是：Codex 发给模型的东西会随版本和模型变化，所以交接任务时，靠的是项目里的事实和文件，而不是指望某一版指令替我们记住什么。回到我们的选择：压缩一下继续，够不够？
+两次请求只差一个模型名，指令就换了一份。结合上一页的版本历史，我们看到，版本和模型配置都会影响 Codex 发出的请求。接下来回到本轮修改：旧会话里已经积累了反馈和检查结果，压缩一下继续，够不够？
+
+### 原文与链接
+
+- 画面上 · 0.160.0 源码 · [通用指令 prompt.md](https://github.com/openai/codex/blob/a956835d020762cb2b570053af06f643a11c0ecc/codex-rs/models-manager/prompt.md)
+- 画面上 · 0.160.0 源码 · [模型目录 models.json](https://github.com/openai/codex/blob/a956835d020762cb2b570053af06f643a11c0ecc/codex-rs/models-manager/models.json)
+- 延伸 · 2026-01 前按文件分模型（已不使用） · [GPT-5.2](https://github.com/openai/codex/blob/b741e480e203f037ca726bc2a76d99a8e8668e66/codex-rs/core/gpt_5_2_prompt.md)
+- 延伸 · 2026-01 前按文件分模型（已不使用） · [GPT-5.2-Codex](https://github.com/openai/codex/blob/b741e480e203f037ca726bc2a76d99a8e8668e66/codex-rs/core/gpt-5.2-codex_prompt.md)
 
 ### 核对记录
 
-2026-10-03 复核 main（b741e48）：gpt_5_1_prompt.md 24204 字节、gpt_5_2_prompt.md 21652、gpt_5_codex_prompt.md 6647、gpt-5.2-codex_prompt.md 7589，位于 codex-rs/core/（提案记录的路径有误，已在验证记录中更正）。专用指令全文没有 AGENTS.md 一词，审查请求一节提到测试缺口。
+2026-10-05 本机 codex-cli 0.160.0，隔离 HOME，自定义 provider 写法与 MiniMax 相同、密钥为假值，claude-tap 0.1.145 以 --tap-export-prompt 本地应答，不访问上游；codex exec -s read-only，各 1 次请求。MiniMax-M3：instructions 16979 字符，与 2.1 的记录一致，等于 rust-v0.160.0 的 models-manager/prompt.md 删去 Planning、Examples、update_plan 三段（逐字相同）。gpt-5.5：21299 字符，等于 models.json 中 gpt-5.5 的 instructions_template 删去一行更新清单状态的说明。删段落的规则见 codex-rs/prompts/src/update_plan_instructions.rs。按模型名查目录的逻辑见 models-manager/src/manager.rs 的 construct_model_info_from_candidates（最长前缀匹配，与 provider 无关）。
+
+### 原文与 diff
+
+源码链接在画面底部，固定在 rust-v0.160.0（a956835d02）。复现：建临时 HOME，在 .codex/config.toml 写 model 与自定义 provider，运行 HOME=<临时目录> uvx claude-tap --tap-client codex --tap-target <provider 地址> --tap-export-prompt <输出.md> -- exec --skip-git-repo-check -s read-only "Reply with OK only." < /dev/null，只改 model 再跑一次，对比两份导出的 instructions。把模型名写成目录里的名字只用于查看请求：真实发给 MiniMax 时，它不认识这个模型名。2026-01 之前 Codex 按文件给模型配指令（codex-rs/core/gpt_*_prompt.md），这些文件仍留在仓库里但已无代码引用，链接放在延伸阅读。
+
+### 切到实操
+
+录制时现场跑这两次，或打开 claude-tap 导出的两份 Markdown 并排展示 instructions 开头和章节；画面截图前检查路径与用户名。
 
 ### 讲师提示
 
-分镜旧稿“模型越擅长，指令写得越少”已在 10-03 审校中删去；口播保持只陈述可见差异。
+只讲两份指令可见的差异。文件长度和目录没有提供模型能力评测或设计动机的证据；如另讲这些问题，应补相应证据。
 
 ## P27 压缩一下继续
 
@@ -321,7 +355,7 @@ Codex 说改完了。我们自己检查，不只看新内容有没有出来。�
 
 **第 3 步 · 构建**（[演示](index.html?mode=slides&step=2#p31)）
 
-最后在终端运行 npm run build，退出码是 0。注意它只说明能构建，不说明页面是对的，所以前两项不能省。
+最后在终端运行 npm run build，退出码是 0，构建流程成功完成。三项检查各有对象：视口检查文字和排版，Tab 检查焦点顺序，build 检查项目能否生成构建产物。把三项结果一起记进本轮记录。
 
 **第 4 步 · 新问题**（[演示](index.html?mode=slides&step=3#p31)）
 

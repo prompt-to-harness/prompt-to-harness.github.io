@@ -80,7 +80,7 @@ GitHub 免费账号的 Pages 需要公开仓库；仓库设置界面按录制时
 
 **第 1 步 · 作者邮箱**（[演示](index.html?mode=slides&step=0#p46)）
 
-先看刚才列出的作者。每个提交里都写着作者的姓名和邮箱，来自你本机的 Git 配置。如果那是你的私人邮箱，推送以后它就挂在公开历史里了。不想公开，就先停下，把 Git 的邮箱换成 GitHub 提供的 noreply 邮箱。注意，改配置只影响之后的提交，已经做过的提交还带着旧邮箱，要换掉它们就得改写历史。改写历史不在本课范围，GitHub 官方文档有说明，链接放在讲解全文的这一页。
+先看刚才列出的作者。每个提交里都写着作者的姓名和邮箱，来自你本机的 Git 配置。如果那是你的私人邮箱，推送以后它就挂在公开历史里了。不想公开，就先停下，把 Git 的邮箱换成 GitHub 提供的 noreply 邮箱。注意，改配置只影响之后的提交，已经做过的提交还带着旧邮箱，要换掉它们就得改写历史。改写历史不在本课范围，GitHub 官方文档有说明，链接放在阅读模式这一页的底部。
 
 **第 2 步 · 三项排查**（[演示](index.html?mode=slides&step=1#p46)）
 
@@ -94,9 +94,14 @@ GitHub 免费账号的 Pages 需要公开仓库；仓库设置界面按录制时
 
 只要有一项不行，就先停下，不推送。推出去就收不回来了。怎样从历史里去掉一个文件、换掉旧邮箱，看 GitHub 官方文档；那些操作会改写历史，不在本课范围，做之前要人工复核。请暂停视频，逐项判断你的内容，把结论写进记录。
 
+### 原文与链接
+
+- 延伸 · GitHub 官方文档（改写历史不在本课范围，做之前人工复核） · [设置提交邮箱](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-email-preferences/setting-your-commit-email-address)
+- 延伸 · GitHub 官方文档（改写历史不在本课范围，做之前人工复核） · [从仓库历史中删除敏感数据](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository)
+
 ### 参考链接
 
-设置提交邮箱与 noreply 邮箱：https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-email-preferences/setting-your-commit-email-address；从仓库历史中删除敏感数据：https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository。两者都会涉及改写历史，主课不演示，做之前人工复核（2026-10-05 讲师确认：不做配套页，口播指向官方文档）。
+设置提交邮箱、从仓库历史中删除敏感数据两篇 GitHub 官方文档，见本页“原文与链接”。两者都会涉及改写历史，主课不演示，做之前人工复核（2026-10-05 讲师确认：不做配套页，口播指向官方文档）。
 
 ### 核对记录
 
@@ -207,7 +212,7 @@ Codex 生成了两处改动。第一项看 vite.config.ts 里的 base。页面�
 
 **第 1 步 · 绿色对勾**（[演示](index.html?mode=slides&step=0#p50)）
 
-Actions 显示绿色对勾，部署成功。但这只说明构建和上传都没报错，不说明页面能用。比如 base 写错，Actions 照样是绿的，页面却是白的。
+Actions 显示绿色对勾，部署流程成功完成。接下来打开公开 URL，检查实际访问和资源加载。比如 base 写错时，部署流程可能完成，页面却因为资源路径错误显示为空白。
 
 **第 2 步 · 未登录窗口**（[演示](index.html?mode=slides&step=1#p50)）
 
@@ -259,4 +264,4 @@ Actions 显示绿色对勾，部署成功。但这只说明构建和上传都没
 
 **第 2 步 · 两个认识**（[演示](index.html?mode=slides&step=1#p52)）
 
-这一节留下两个认识。推送之前，看的不只是页面，还有整段历史。Actions 成功，不等于页面可用。
+推送之前，检查即将公开的文件和整段历史。部署完成后，再用未登录窗口访问、资源加载和停用缓存后刷新这三项检查确认发布结果。

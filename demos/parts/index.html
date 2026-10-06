@@ -41,7 +41,7 @@ body{margin:0;background:#E7E3D8;color:#18202B;font-family:'Course Sans','Noto S
 <div class="wrap">
 <header class="intro">
   <h1>课件零件陈列</h1>
-  <p>零件库 v0.2 中“还没有小节在用”的零件，每个放在 1280×720 画布里，按真实课件的分区：右上讲师框、正文区 y 262–632、红色斜纹是字幕区。点“下一步”看分步揭示。</p>
+  <p>零件库中“还没有在很多小节里用”的零件，每个放在 1280×720 画布里，按真实课件的分区：右上讲师框、正文区 y 262–632、红色斜纹是字幕区。点“下一步”看分步揭示。</p>
   <p>已在课件里使用的零件（手绘框、流程、对照、2×2、集合、记录贴纸、题卡、阶梯、结论条、开篇地图、涂鸦小结）直接看 <a href="../../courseware/ch01/lessons/02-agent/index.html?mode=slides#p09">1.2 节</a> 与 <a href="../../courseware/ch00/index.html?mode=slides#p01">第 0 章</a>。用法与制作流程见 <a href="../../docs/production/parts.md">parts.md</a>。示例内容取自现有课件，均为教学示意。</p>
 </header>
 
@@ -219,6 +219,18 @@ body{margin:0;background:#E7E3D8;color:#18202B;font-family:'Course Sans','Noto S
   <div class="p-box" data-role="ink" data-reveal="0"><h3>产出</h3><p>一份坏链接清单</p></div>
   <div class="p-box" data-role="ok" data-reveal="0"><h3>验收</h3><p>没改文件、没访问外站、没发布</p></div>
 </div>
+  </template>
+</section>
+<section class="item" data-kick="第 2 章 · 2.2 · 请求会变" data-title="不只输出会变，系统指令也在变">
+  <div class="item-head"><h2>原文链接</h2><code>.p-refs b a</code></div>
+  <p class="item-use">值得直接打开的外部原文：放在正文最下面一行，和本页最后一步一起出现，讲师录制时点开展示。<code>&lt;b&gt;</code> 是分组标签，每个链接自动带 ↗，新标签打开。链接固定到具体版本（如完整提交哈希），不要指向会变的 main。课件里不手写，在页面数据里写 <code>refs</code>，由播放器渲染。导航用的大按钮是另一个零件 <code>.p-links</code>。</p>
+  <template>
+<div class="p-flow" style="--n:3">
+  <div class="p-node" data-role="ink" data-reveal="0"><span class="p-num">2025-04</span><h3>≈5.7 KB</h3><p>首版</p></div>
+  <div class="p-node" data-role="agent" data-reveal="0"><span class="p-num">2025-08-07</span><h3>≈23.6 KB</h3><p>重写</p></div>
+  <div class="p-node" data-role="ink" data-reveal="0"><span class="p-num">2026-10</span><h3>≈20.9 KB</h3><p>当前</p></div>
+</div>
+<p class="p-refs" data-reveal="1"><b>原文</b><a href="https://github.com/openai/codex/blob/31d0d7a305305ad557035a2edcab60b6be5018d8/codex-rs/core/prompt.md" target="_blank" rel="noopener">2025-04 首版</a><a href="https://github.com/openai/codex/blob/81b148bda271615b37f7e04b3135e9d552df8111/codex-rs/core/prompt.md" target="_blank" rel="noopener">2025-08-07 重写后</a><b>diff</b><a href="https://github.com/openai/codex/commit/81b148bda271615b37f7e04b3135e9d552df8111" target="_blank" rel="noopener">重写那次提交</a></p>
   </template>
 </section>
 </div>
