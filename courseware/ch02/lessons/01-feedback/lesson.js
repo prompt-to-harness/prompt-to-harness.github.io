@@ -13,13 +13,47 @@ window.lesson = {
       "kicker": "第 2 章 · 2.1 · 开篇",
       "lead": "把只在本机运行的首页 v0，变成能拿给熟人看、能公开访问的 v1",
       "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>2.1</b>听反馈</li><li><b>2.2</b>改一处</li><li><b>2.3</b>审改动</li><li><b>2.4</b>公开发布</li><li><b>2.5</b>只是重构？</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:14px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ink\">现在</span><p class=\"p-big\" style=\"font-weight:500\">首页 v0 · 只在本机</p></div><div class=\"p-join\" data-reveal=\"1\"><span>本章</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"us\">目标</span><p class=\"p-big\" style=\"font-weight:500\">v1 · 公开 URL</p></div></div><p class=\"p-hand\" data-reveal=\"2\">先别急着改：别人的建议，哪些是真问题？</p>",
+      "repro": {
+        "label": "从这一章开始？",
+        "steps": [
+          {
+            "text": "先在自己的仓库里保存当前的工作（没有改动时会提示无可提交，不影响）",
+            "code": "git add -A && git commit -m \"保存：开始第 2 章之前\""
+          },
+          {
+            "text": "在仓库根目录启动 Codex，粘贴这段 Prompt",
+            "code": "先只读检查，不修改我的项目文件。\n课程第 2 章的参考起点在 https://github.com/prompt-to-harness/course-starter.git 的 ch02-start-v1 标签。\n请把它克隆到临时目录（不要放进我的项目），只用来对照。\n请检查我的项目是否满足第 2 章开始前的前提：\n1. 有能 npm run build 的首页应用；\n2. 首页有首屏和项目区，“查看项目”跳到本页项目区；\n3. 项目卡是否跳转，有一条记录下来的决定。\n逐条说明：已满足 / 缺少 / 与参考不同但不影响，并给出依据。\n我的个人内容（姓名、简介、项目、已有的决定）一律保留，\n不要换成参考里的示例文字。\n列出建议补上的改动，等我确认后再改。"
+          },
+          {
+            "text": "Codex 可能连续申请几次：联网克隆参考起点、在临时目录里复制项目试构建、清理临时目录。每次看清整条命令作用在哪个目录，只动临时目录的再选 Yes, proceed；不要选“以后不再问”。只有写明要联网的那次申请同意后才能联网",
+            "code": ""
+          },
+          {
+            "text": "读它的逐条判断，只确认补齐前提所必需的改动",
+            "code": "只做补齐第 2 章前提所必需的改动，可选的建议先不做；我的个人内容和已有的决定保持不变。改完告诉我需要我运行哪些命令。"
+          },
+          {
+            "text": "装依赖、构建，然后在浏览器里看一遍首屏、项目区和“查看项目”",
+            "code": "npm install && npm run build && npm run preview"
+          },
+          {
+            "text": "让 Codex 起草这次补齐的记录；你逐句核对，改成你确认过的内容",
+            "code": "把这次补齐写进 docs/evidence/CH02_START.md：对照了哪个参考起点、补了什么、保留了什么。注明由 Codex 起草、待我核对；不要写本机路径和用户名。"
+          },
+          {
+            "text": "核对无误后提交",
+            "code": "git add -A && git commit -m \"对照 ch02-start-v1 补齐第 2 章前提\""
+          }
+        ],
+        "note": "没做完第 1 章、或想直接从第 2 章开始时用；已经做完的跳过。参考起点是 course-starter 的 ch02-start-v1 标签，只放在临时目录里对照，不进你的仓库。不想用 Codex 时，可在 GitHub 上下载这个标签的 ZIP 对照。讲师 2026-10-06 用三种起点各试两次，Codex 都能判断对；笼统地说“按你的建议执行”时，它会连可选建议一起做，所以要只确认必需项。"
+      },
       "steps": [
         "回到 v0",
         "本章目标",
         "本节问题"
       ],
       "script": [
-        "第 1 章结束时，我们交付了首页 v0：能启动、能构建、Diff 能解释，还打了一个本地检查点。但它只在自己电脑上跑，别人看不到。",
+        "第 1 章结束时，我们交付了首页 v0：能启动、能构建、Diff 能解释，还打了一个本地检查点。但它只在自己电脑上跑，别人看不到。还没做完第 1 章也没关系：点开这一页上方的“从这一章开始？”，按步骤让 Codex 对照课程的参考起点补齐，再回来继续。",
         "这一章要把它变成可以拿给认识的人看的 v1，并且发布出去，最后得到一个公开 URL。中间会经过五节：听反馈、改一处、审改动、公开发布，最后回头看一次“只是重构”。",
         "这一节先做第一件事。我们用一组课程示例，模拟把首页给熟人看后收到的建议。先别急着动手改，我们要先分清：哪些是能复现的问题，哪些是个人偏好，哪些其实是我们之前已经做过的决定。"
       ],
