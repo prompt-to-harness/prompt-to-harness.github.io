@@ -300,7 +300,7 @@ window.lesson = {
       "title": "授权管动作，验收看结果",
       "kicker": "第 1 章 · 1.3 · 判断与交付",
       "lead": "把选择理由补进已有的环境与权限记录：工具路径、CLI 基线、实际权限、停止条件和四题理由；缺项如实标为待补做。一句话：授权管动作，验收看结果。下一节把这些边界写进首页任务。",
-      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h4>保留记录</h4><div class=\"p-words\" style=\"grid-template-columns:1fr\"><div class=\"p-box\" data-role=\"ctx\"><p>实际权限 · 停止条件</p></div><div class=\"p-box\" data-role=\"ctx\"><p>四题理由</p></div></div></div><div data-reveal=\"1\"><h4>如实标记</h4><ul class=\"p-warns\"><li>缺项待补做</li><li>未补 CLI 不验收</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h4>一句话</h4><div class=\"p-star\" style=\"width:200px;font-size:22px\">授权管动作<br>验收看结果</div><div class=\"p-box\" data-role=\"us\" style=\"margin-top:12px\"><h3>下一节 1.4 写清任务</h3></div></div></div>",
+      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3>保留记录</h3><div class=\"p-words\" style=\"grid-template-columns:1fr\"><div class=\"p-box\" data-role=\"ctx\"><p>实际权限 · 停止条件</p></div><div class=\"p-box\" data-role=\"ctx\"><p>四题理由</p></div></div></div><div data-reveal=\"1\"><h3>如实标记</h3><ul class=\"p-warns\"><li>缺项待补做</li><li>未补 CLI 不验收</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>一句话</h3><div class=\"p-star\" style=\"width:200px;font-size:22px\">授权管动作<br>验收看结果</div><div class=\"p-box\" data-role=\"us\" style=\"margin-top:12px\"><h3>下一节 1.4 写清任务</h3></div></div></div>",
       "steps": [
         "交付",
         "核对状态",
