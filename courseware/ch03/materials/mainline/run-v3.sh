@@ -34,9 +34,14 @@ step() {  # step <名字> <exec 参数…>
   grep '^{' "$LOG/$name.out" > "$LOG/$name.events.jsonl" || true
   echo $((SECONDS - start)) > "$LOG/$name.seconds"; say "$name 完成，用时 $((SECONDS - start)) 秒"
 }
-step 3.5-plan -s workspace-write "$(cat "$HERE/fixtures/prompt-3.5.txt")"
+# 上游先 502、重发得 400 时回合中断：续一次“继续”，最多两次，记在日志里
+retry() { local name="$1"
+  for i in 1 2; do grep -q '"turn.failed"' "$LOG/$name.events.jsonl" 2>/dev/null || return 0
+    say "$name 回合中断（上游错误），第 $i 次续跑"; mv "$LOG/$name.events.jsonl" "$LOG/$name.failed$i.events.jsonl"
+    step "$name" resume --last -c sandbox_mode='"workspace-write"' "刚才的回合因为网络错误中断了，请接着完成上一个请求。"; done; }
+step 3.5-plan -s workspace-write "$(cat "$HERE/fixtures/prompt-3.5.txt")"; retry 3.5-plan
 if [ -n "$(git -C "$APP" status --porcelain)" ]; then say "没等确认就改了文件"; else
-  step 3.5-exec resume --last -c sandbox_mode='"workspace-write"' "确认，按计划执行。"; fi
+  step 3.5-exec resume --last -c sandbox_mode='"workspace-write"' "确认，按计划执行。"; retry 3.5-exec; fi
 set +e; (cd "$APP" && npm run build > "$LOG/build.log" 2>&1); echo $? > "$LOG/build.exit"; set -e
 git -C "$APP" add -A; git -C "$APP" diff --cached --stat > "$LOG/diffstat.txt"; git -C "$APP" diff --cached -- package.json > "$LOG/package.diff"
 git -c user.name=讲师排练 -c user.email=rehearsal@example.invalid -C "$APP" commit -qm "第二个小游戏（预检 E，未评审）" || true

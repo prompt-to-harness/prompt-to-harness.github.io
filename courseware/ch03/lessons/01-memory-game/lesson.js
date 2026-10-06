@@ -9,9 +9,9 @@ window.lesson = {
       "segment": "开篇",
       "layout": "lesson-cover",
       "label": "一句话，能加出一个小游戏吗",
-      "title": "一句话，能加出一个小游戏吗？",
+      "title": "一句话，能加个游戏吗？",
       "kicker": "第 3 章 · 3.1 · 开篇",
-      "lead": "这一章把只有首页的个人站点，变成能玩两个小游戏的实验室：第一个用普通的 Vibe Coding，第二个用插件",
+      "lead": "本章把首页变成能玩两个小游戏的实验室",
       "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>3.1</b>加个游戏</li><li><b>3.2</b>谁定的规则</li><li><b>3.3</b>按证据修</li><li><b>3.4</b>审插件</li><li><b>3.5</b>插件的主张</li><li><b>3.6</b>说明在哪</li><li><b>3.7</b>重开清理</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:18px\"><div class=\"p-box\" data-role=\"us\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"us\">3.1–3.3</span><h3>记忆翻牌</h3><p>一句话需求 · 普通 Vibe Coding</p></div><div class=\"p-join\" data-reveal=\"2\"><span>再加一个</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"tool\">3.4–3.5</span><h3>60 秒躲避与收集</h3><p>用 Game Studio 插件</p></div></div><div class=\"p-bar is-light\" data-reveal=\"3\">贯穿全章的问题：<b>这条规则是谁定的？</b></div>",
       "steps": [
         "本章地图",
@@ -37,7 +37,16 @@ window.lesson = {
       "kicker": "第 3 章 · 3.1 · 写请求",
       "lead": "刻意不写规格，先体验 Vibe Coding 的速度。但保留两个习惯：先给计划、问题最多三个；完成标准写清分工：build 由 Codex 跑，试玩由我们做（沿用 2.2 p29）。",
       "html": "<div class=\"p-prompt\"><div class=\"p-seg\" data-key=\"goal\" data-reveal=\"0\"><b>Goal</b>在主页加入一个记忆翻牌小游戏</div><div class=\"p-seg\" data-key=\"limit\" data-reveal=\"1\"><b>Constraints</b>先给计划；需要我决定的最多问三个，附上推荐做法；我确认后再改</div><div class=\"p-seg\" data-key=\"done\" data-reveal=\"2\"><b>Done when</b>你跑 build 成功；试玩和三种宽度由我检查，你不用自己打开浏览器</div></div><div class=\"p-bar is-light\" data-reveal=\"3\">没写的：<b>玩法细节、计分、出错时怎么办</b></div>",
-      "prompt": "在主页加入一个记忆翻牌小游戏。\n先告诉我你的计划；有需要我决定的问题，最多问三个，每个问题附上你推荐的做法。我确认后再改。\n完成标准：你跑 build 成功；浏览器里的试玩和三种宽度的检查由我来做，你不用自己打开浏览器。",
+      "repro": {
+        "label": "请求原文",
+        "steps": [
+          {
+            "text": "把这段请求发给 Codex（新会话）",
+            "code": "在主页加入一个记忆翻牌小游戏。\n先告诉我你的计划；有需要我决定的问题，最多问三个，每个问题附上你推荐的做法。我确认后再改。\n完成标准：你跑 build 成功；浏览器里的试玩和三种宽度的检查由我来做，你不用自己打开浏览器。"
+          }
+        ],
+        "note": ""
+      },
       "steps": [
         "一句话",
         "先给计划",
@@ -93,7 +102,7 @@ window.lesson = {
       "title": "把选择交给它，本身就是一个决定",
       "kicker": "第 3 章 · 3.1 · 让它动手",
       "lead": "确认语是“问题都按你推荐的做法处理”。这样回答很常见，也很快；记住它的含义：三个问题的答案，也是 AI 定的。",
-      "html": "<div class=\"p-handoff\"><div class=\"p-handoff-card\" data-reveal=\"0\"><h3>回复计划</h3><p class=\"p-mono\" style=\"font-size:20px\">确认，按计划执行；你问的问题都按你推荐的做法处理。</p><span class=\"p-env\">同一会话</span><span class=\"p-env\">workspace-write</span></div><ol class=\"p-watch\"><li data-reveal=\"1\">改了哪些文件<small>预期：一个游戏组件、它的样式、App.tsx 挂载</small></li><li data-reveal=\"2\">有没有新依赖<small>看 package.json 有没有变</small></li><li data-reveal=\"3\">build 成功了吗<small>Codex 跑，回答里要有结果</small></li></ol></div>",
+      "html": "<div class=\"p-handoff\"><div class=\"p-handoff-card\" data-reveal=\"0\"><h3>回复计划</h3><p class=\"p-mono\" style=\"font-size:20px\">确认，按计划执行；你问的问题都按你推荐的做法处理</p><span class=\"p-env\">同一会话</span><span class=\"p-env\">workspace-write</span></div><ol class=\"p-watch\"><li data-reveal=\"1\">改了哪些文件<small>预期：一个游戏组件、它的样式、App.tsx 挂载</small></li><li data-reveal=\"2\">有没有新依赖<small>看 package.json 有没有变</small></li><li data-reveal=\"3\">build 成功了吗<small>Codex 跑，回答里要有结果</small></li></ol></div>",
       "steps": [
         "确认",
         "改了哪些文件",

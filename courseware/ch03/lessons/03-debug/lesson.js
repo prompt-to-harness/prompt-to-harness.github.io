@@ -34,7 +34,7 @@ window.lesson = {
       "title": "先复现三次，再写报告",
       "kicker": "第 3 章 · 3.3 · 复现",
       "lead": "同样的步骤做三次，结果都一样，才算稳定复现；然后写成报告：步骤、期望、实际。不能稳定复现，就先别修。",
-      "html": "<div class=\"p-rec\" style=\"grid-template-columns:minmax(0,.5fr) minmax(0,1.6fr) minmax(0,.8fr);row-gap:10px;--rf:21px\"><div class=\"is-head\" data-reveal=\"0\"><span>次</span><span>步骤</span><span>步数</span></div><div data-reveal=\"0\"><span class=\"p-cell\">1</span><span class=\"p-cell\">开新一局 → 翻开两张不同的牌 → 等它们翻回</span><span class=\"p-cell\">0</span></div><div data-reveal=\"1\"><span class=\"p-cell\">2</span><span class=\"p-cell\">同上</span><span class=\"p-cell\">0</span></div><div data-reveal=\"1\"><span class=\"p-cell\">3</span><span class=\"p-cell\">同上</span><span class=\"p-cell\">0</span></div></div><div class=\"p-code\" data-reveal=\"2\" style=\"margin-top:12px\"><div class=\"p-code-head\"><span>缺陷报告（讲师写的）</span></div><pre><span style=\"display:block\">期望：步数变成 1（页面写着“看看你要用多少步”）</span><span style=\"display:block\">实际：步数还是 0；<span class=\"hl\">只有配对成功时步数才加 1</span></span></pre></div>",
+      "html": "<div class=\"p-rec\" style=\"grid-template-columns:minmax(0,.5fr) minmax(0,1.6fr) minmax(0,.8fr);row-gap:10px;--rf:21px\"><div class=\"is-head\" data-reveal=\"0\"><span>次</span><span>步骤</span><span>步数</span></div><div data-reveal=\"0\"><span class=\"p-cell\">1</span><span class=\"p-cell\">开新一局 → 翻开两张不同的牌 → 等它们翻回</span><span class=\"p-cell\">0</span></div><div data-reveal=\"1\"><span class=\"p-cell\">2、3</span><span class=\"p-cell\">同上</span><span class=\"p-cell\">0、0</span></div></div><div class=\"p-code\" data-reveal=\"2\" style=\"margin-top:12px\"><div class=\"p-code-head\"><span>缺陷报告（讲师写的）</span></div><pre><span style=\"display:block\">期望：步数变成 1（页面写着“看看你要用多少步”）</span><span style=\"display:block\">实际：步数还是 0；<span class=\"hl\">只有配对成功时步数才加 1</span></span></pre></div>",
       "steps": [
         "第一次",
         "再做两次",
@@ -57,7 +57,16 @@ window.lesson = {
       "kicker": "第 3 章 · 3.3 · 只读调查",
       "lead": "用只读权限，要求它列出可验证的假设、代码位置和几种改法的代价，等我们确认。两次排练，它都查出了报告里没有的东西。",
       "html": "<div class=\"p-pair\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);align-items:start\"><div class=\"p-box\" data-role=\"us\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"us\">请求 · read-only</span><ol class=\"p-notes\" style=\"margin-top:8px\"><li><span><b>复现步骤、期望、实际</b><small>就是刚才的报告</small></span></li><li><span><b>可以验证的假设</b><small>每条写出怎样验证</small></span></li><li><span><b>代码位置</b></span></li><li><span><b>几种改法和代价</b><small>我确认后再改</small></span></li></ol></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">Codex 的结论</span><p class=\"p-big\" style=\"font-weight:600;margin-top:8px\">有两个独立缺陷，第二个让第一个无法单独验证</p><ol class=\"p-notes\"><li data-reveal=\"1\"><span><b>步数只在配对成功的分支里加</b></span></li><li data-reveal=\"2\"><span><b>12 个词各不相同，一对都配不上</b><small>配对分支永远走不到</small></span></li></ol></div></div><p class=\"source-note\">调查与修复来自 2026-10-06 的两次排练（courseware/ch03/materials/mainline/debug-3.3.sh），两次调查结论一致。来自讲师机器上的排练运行（2026-10-06，Codex 0.160.0–0.160.1 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。</p>",
-      "prompt": "记忆翻牌里有一个能复现的问题：\n步骤：开新一局 → 翻开两张不一样的牌 → 等它们翻回去。\n期望：步数变成 1（页面写着“看看你要用多少步”）。\n实际：步数还是 0；只有配对成功时步数才加 1。\n先只调查，不要改代码：\n1. 列出可能的原因，每条写成可以验证的假设，并说明怎样验证；\n2. 指出相关的代码位置；\n3. 给出几种改法和各自的代价。我确认后再改。",
+      "repro": {
+        "label": "请求原文",
+        "steps": [
+          {
+            "text": "把这段请求发给 Codex（只读权限）",
+            "code": "记忆翻牌里有一个能复现的问题：\n步骤：开新一局 → 翻开两张不一样的牌 → 等它们翻回去。\n期望：步数变成 1（页面写着“看看你要用多少步”）。\n实际：步数还是 0；只有配对成功时步数才加 1。\n先只调查，不要改代码：\n1. 列出可能的原因，每条写成可以验证的假设，并说明怎样验证；\n2. 指出相关的代码位置；\n3. 给出几种改法和各自的代价。我确认后再改。"
+          }
+        ],
+        "note": ""
+      },
       "steps": [
         "只读请求",
         "第一层",
@@ -136,7 +145,16 @@ window.lesson = {
       "kicker": "第 3 章 · 3.3 · 人定规则",
       "lead": "它给了几种改法，但有两件事它明确说不替我们定：用哪几个词配对（文案取舍）；步数怎么算。这是规则，不是代码问题。",
       "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr\"><div class=\"p-box\" data-role=\"gate\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"gate\">问题一</span><h3>用哪几个词配对？</h3><p class=\"p-sub\">Codex：“文案取舍是你的决定，我不自行定”</p></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"gate\">问题二</span><h3>步数怎么算？</h3><p class=\"p-sub\">一张算一步？两张算一步？翻错算吗？</p></div></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"2\" style=\"margin-top:14px\"><span class=\"p-tag\" data-role=\"us\">我们定</span><p style=\"margin-top:6px;line-height:1.7\">6 对：需求、迭代、推理、部署、验收、协作<br>步数：每翻开两张算一步，成功和失败都算</p></div>",
-      "prompt": "第 2 点属实：我把 12 张全翻开过，没有两张相同的词，一局打不完。我报告里写的“只有配对成功时步数才加 1”是从代码推的，没在页面上看到过。\n规则由我定：\n1. 6 对牌，用这 6 个词：需求、迭代、推理、部署、验收、协作；\n2. 步数按“每翻开两张牌算一步”，配对成功和失败都算。\n牌组用你推荐的改法 A（6 个词各生成两张），步数用改法 A（翻开第二张时计数）。只改这两处，不顺手改别的；改完跑 build，并告诉我需要我在浏览器里复验哪些场景。",
+      "repro": {
+        "label": "回复原文",
+        "steps": [
+          {
+            "text": "在同一会话里回复 Codex（可写权限）",
+            "code": "第 2 点属实：我把 12 张全翻开过，没有两张相同的词，一局打不完。我报告里写的“只有配对成功时步数才加 1”是从代码推的，没在页面上看到过。\n规则由我定：\n1. 6 对牌，用这 6 个词：需求、迭代、推理、部署、验收、协作；\n2. 步数按“每翻开两张牌算一步”，配对成功和失败都算。\n牌组用你推荐的改法 A（6 个词各生成两张），步数用改法 A（翻开第二张时计数）。只改这两处，不顺手改别的；改完跑 build，并告诉我需要我在浏览器里复验哪些场景。"
+          }
+        ],
+        "note": ""
+      },
       "steps": [
         "哪几个词",
         "步数怎么算",

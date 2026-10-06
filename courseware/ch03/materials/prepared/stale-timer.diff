@@ -1,0 +1,21 @@
+diff --git a/src/components/MemoryGame.tsx b/src/components/MemoryGame.tsx
+index 8cd4afa..882bc77 100644
+--- a/src/components/MemoryGame.tsx
++++ b/src/components/MemoryGame.tsx
+@@ -120,7 +120,7 @@ export default function MemoryGame() {
+ 
+     setLocked(true)
+     setStatus('不是一对，稍后自动翻回。')
+-    const timer = window.setTimeout(() => {
++    window.setTimeout(() => {
+       setCards((prev) =>
+         prev.map((card) =>
+           card.id === firstId || card.id === secondId
+@@ -131,7 +131,6 @@ export default function MemoryGame() {
+       setOpenIds([])
+       setLocked(false)
+     }, MISMATCH_DELAY_MS)
+-    return () => window.clearTimeout(timer)
+   }, [cards, openIds])
+ 
+   useEffect(() => {

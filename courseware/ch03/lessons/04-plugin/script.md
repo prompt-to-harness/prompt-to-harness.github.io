@@ -133,15 +133,11 @@ CLEAN_CODEX_KEEP_CONFIG=1 CLEAN_CODEX_HOME=lab-runs/ch03-plugin/home tools/clean
 
 ### 口播
 
-**第 1 步 · 安装**（[演示](index.html?mode=slides&step=0#p28)）
+**第 1 步 · 新会话的请求**（[演示](index.html?mode=slides&step=0#p28)）
 
-审查通过，安装。装完要开一个新会话，Skill 才生效。
+审查通过，安装。装完要开一个新会话，Skill 才生效。用 2.1 学过的请求查看工具看新会话的第一次请求：多了 9 行，每行是一个 Skill 的名称、一句描述和文件位置，一共约 2.3 KB。
 
-**第 2 步 · 新会话的请求**（[演示](index.html?mode=slides&step=1#p28)）
-
-用 2.1 学过的请求查看工具看新会话的第一次请求：多了 9 行，每行是一个 Skill 的名称、一句描述和文件位置，一共约 2.3 KB。
-
-**第 3 步 · 按需读取**（[演示](index.html?mode=slides&step=2#p28)）
+**第 2 步 · 按需读取**（[演示](index.html?mode=slides&step=1#p28)）
 
 9 份 SKILL.md 的全文合起来约 37.8 KB，并不在请求里。平时只放名称和描述，Codex 判断用得上某个 Skill 时，才去读它的全文。这叫渐进披露。记住这个结构：平时只放摘要，需要时才展开。3.6 讲 Memory 时它还会出现。请暂停视频，安装，开新会话，在请求里找到这 9 行。
 

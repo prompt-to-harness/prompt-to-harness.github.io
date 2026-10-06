@@ -9,9 +9,9 @@ window.lesson = {
       "segment": "开篇",
       "layout": "lesson-cover",
       "label": "我又点了第三张",
-      "title": "第二张还没翻回去，我又点了第三张",
+      "title": "我又点了第三张",
       "kicker": "第 3 章 · 3.2 · 开篇",
-      "lead": "不需要手特别快：两张牌不一样时会停留约一秒，这段时间里点第三张是很正常的玩法",
+      "lead": "第二张还没翻回去的时候",
       "html": "<div class=\"p-comic\"><div class=\"p-panel\" data-reveal=\"0\"><span class=\"p-cap\">第一步</span><p class=\"p-bubble\">翻开两张：迭代、验收</p><span class=\"p-avatar\">我们</span></div><div class=\"p-panel\" data-reveal=\"1\"><span class=\"p-cap\">它们还没翻回去</span><p class=\"p-bubble\">我又点了第三张……</p><span class=\"p-avatar\">我们</span></div><div class=\"p-panel\" data-reveal=\"2\"><span class=\"p-cap\">没反应</span><p class=\"p-bubble\">这是谁定的？</p><span class=\"p-avatar\">我们</span></div></div>",
       "steps": [
         "翻开两张",
@@ -150,7 +150,7 @@ window.lesson = {
       "title": "缺陷，还是 AI 替你定的规则？",
       "kicker": "第 3 章 · 3.2 · 判断",
       "lead": "缺陷违背了明确的期望；规则是没人问过你的选择，可能很合理。分不清的那一类，往往是“规则还没人定”。",
-      "html": "<div class=\"p-quad\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"agent\">AI 定的规则</span><h3>等待期锁住点击</h3><p>900ms 后翻回；合理，但没人问过你</p></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"gate\">缺陷</span><h3>一局打不完</h3><p>和“找出全部 6 对”矛盾</p></div><div class=\"p-box is-dashed\" data-role=\"ink\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ink\">规则还没人定</span><h3>步数怎么算</h3><p>翻一张算一步？两张？翻错算不算？</p></div><div class=\"p-box is-soft\" data-role=\"us\" data-reveal=\"3\"><span class=\"p-tag\" data-role=\"us\">我们的问题清单</span><p>缺陷一栏，规则一栏；本节不修</p></div></div>",
+      "html": "<div class=\"p-quad\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"agent\">AI 定的规则</span><h3>等待期锁住点击</h3><p>900ms 后翻回；合理，但没人问过你</p></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"gate\">缺陷</span><h3>一局打不完</h3><p>和“找出全部 6 对”矛盾</p></div><div class=\"p-box is-dashed\" data-role=\"ink\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ink\">规则还没人定</span><h3>步数怎么算</h3><p>一张一步？两张一步？</p></div><div class=\"p-box is-soft\" data-role=\"us\" data-reveal=\"3\"><span class=\"p-tag\" data-role=\"us\">问题清单</span><p>缺陷一栏，规则一栏</p></div></div>",
       "steps": [
         "AI 定的规则",
         "缺陷",

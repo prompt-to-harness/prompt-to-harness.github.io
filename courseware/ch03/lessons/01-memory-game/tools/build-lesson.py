@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from lessonkit import Lesson, MEASURED, chapter_map, teach  # noqa: E402
+from lessonkit import Lesson, MEASURED, chapter_map, repro, teach  # noqa: E402
 
 lesson = Lesson(__file__, "3.1", "一句话加一个记忆翻牌", summary="一句话就能加出一个能玩的游戏；能玩是起点，不是验收。")
 scene, KICK = lesson.scene, lesson.kick
@@ -23,8 +23,8 @@ PROMPT = (
 # ---------- 开篇 ----------
 scene(
     id="p01", segment="开篇", layout="lesson-cover",
-    label="一句话，能加出一个小游戏吗", title="一句话，能加出一个小游戏吗？", kicker="第 3 章 · 3.1 · 开篇",
-    lead="这一章把只有首页的个人站点，变成能玩两个小游戏的实验室：第一个用普通的 Vibe Coding，第二个用插件",
+    label="一句话，能加出一个小游戏吗", title="一句话，能加个游戏吗？", kicker="第 3 章 · 3.1 · 开篇",
+    lead="本章把首页变成能玩两个小游戏的实验室",
     html=(
         chapter_map(1) +
         '<div class="p-pair" style="grid-template-columns:1fr auto 1fr;margin-top:18px">'
@@ -53,7 +53,7 @@ scene(
         '<div class="p-seg" data-key="done" data-reveal="2"><b>Done when</b>你跑 build 成功；试玩和三种宽度由我检查，你不用自己打开浏览器</div></div>'
         '<div class="p-bar is-light" data-reveal="3">没写的：<b>玩法细节、计分、出错时怎么办</b></div>'
     ),
-    prompt=PROMPT,
+    repro=repro([("把这段请求发给 Codex（新会话）", PROMPT)], label="请求原文"),
     steps=["一句话", "先给计划", "完成标准", "没写的"],
     script=[
         "这一次的请求只有一句话：在主页加入一个记忆翻牌小游戏。我们刻意不写规格，先体验一下 Vibe Coding 有多快。",
@@ -97,7 +97,7 @@ scene(
     label="确认后它做了什么", title="把选择交给它，本身就是一个决定", kicker=KICK + "让它动手",
     lead="确认语是“问题都按你推荐的做法处理”。这样回答很常见，也很快；记住它的含义：三个问题的答案，也是 AI 定的。",
     html=(
-        '<div class="p-handoff"><div class="p-handoff-card" data-reveal="0"><h3>回复计划</h3><p class="p-mono" style="font-size:20px">确认，按计划执行；你问的问题都按你推荐的做法处理。</p>'
+        '<div class="p-handoff"><div class="p-handoff-card" data-reveal="0"><h3>回复计划</h3><p class="p-mono" style="font-size:20px">确认，按计划执行；你问的问题都按你推荐的做法处理</p>'
         '<span class="p-env">同一会话</span><span class="p-env">workspace-write</span></div>'
         '<ol class="p-watch"><li data-reveal="1">改了哪些文件<small>预期：一个游戏组件、它的样式、App.tsx 挂载</small></li>'
         '<li data-reveal="2">有没有新依赖<small>看 package.json 有没有变</small></li>'

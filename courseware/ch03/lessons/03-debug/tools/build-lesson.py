@@ -48,8 +48,7 @@ scene(
         '<div class="p-rec" style="grid-template-columns:minmax(0,.5fr) minmax(0,1.6fr) minmax(0,.8fr);row-gap:10px;--rf:21px">'
         '<div class="is-head" data-reveal="0"><span>次</span><span>步骤</span><span>步数</span></div>'
         '<div data-reveal="0"><span class="p-cell">1</span><span class="p-cell">开新一局 → 翻开两张不同的牌 → 等它们翻回</span><span class="p-cell">0</span></div>'
-        '<div data-reveal="1"><span class="p-cell">2</span><span class="p-cell">同上</span><span class="p-cell">0</span></div>'
-        '<div data-reveal="1"><span class="p-cell">3</span><span class="p-cell">同上</span><span class="p-cell">0</span></div></div>'
+        '<div data-reveal="1"><span class="p-cell">2、3</span><span class="p-cell">同上</span><span class="p-cell">0、0</span></div></div>'
         '<div class="p-code" data-reveal="2" style="margin-top:12px"><div class="p-code-head"><span>缺陷报告（讲师写的）</span></div>'
         '<pre><span style="display:block">期望：步数变成 1（页面写着“看看你要用多少步”）</span><span style="display:block">实际：步数还是 0；<span class="hl">只有配对成功时步数才加 1</span></span></pre></div>'
     ),
@@ -77,7 +76,7 @@ scene(
         '<li data-reveal="2"><span><b>12 个词各不相同，一对都配不上</b><small>配对分支永远走不到</small></span></li></ol></div></div>'
         '<p class="source-note">' + RUN + '</p>'
     ),
-    prompt=INVESTIGATE,
+    repro=repro([("把这段请求发给 Codex（只读权限）", INVESTIGATE)], label="请求原文"),
     steps=["只读请求", "第一层", "第二层"],
     script=[
         "把报告交给 Codex，但只给它只读权限，并且提三个要求：列出可能的原因，每条写成可以验证的假设；指出代码位置；给出几种改法和代价，我们确认后再改。",
@@ -146,7 +145,7 @@ scene(
         '<div class="p-box" data-role="us" data-reveal="2" style="margin-top:14px"><span class="p-tag" data-role="us">我们定</span>'
         '<p style="margin-top:6px;line-height:1.7">6 对：需求、迭代、推理、部署、验收、协作<br>步数：每翻开两张算一步，成功和失败都算</p></div>'
     ),
-    prompt=CONFIRM,
+    repro=repro([("在同一会话里回复 Codex（可写权限）", CONFIRM)], label="回复原文"),
     steps=["哪几个词", "步数怎么算", "我们定"],
     script=[
         "它列了几种改法，各有代价。但有两件事，它明确说不替我们定。第一，用哪几个词配对。原话是：文案取舍是你的决定，我不自行定。",

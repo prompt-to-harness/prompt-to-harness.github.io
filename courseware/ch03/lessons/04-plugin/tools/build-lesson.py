@@ -15,12 +15,12 @@ scene, KICK = lesson.scene, lesson.kick
 
 SHA = "82fd64bce3869f0d4c0bb2bf0e36a6e262ca5ad8"
 GS = f"https://github.com/openai/plugins/tree/{SHA}/plugins/game-studio"
-SRC = "Game Studio 0.1.0，openai/plugins 提交 82fd64b（2026-10-06 Codex 启动时同步到的版本；Game Studio 目录最后改动于 27651a4）。"
+SRC = "Game Studio 0.1.0，openai/plugins 提交 82fd64b（2026-10-06 Codex 启动时同步到的版本；Game Studio 目录最后改动于 27651a4）"
 
 scene(
     id="p23", segment="开篇", layout="lesson-cover",
-    label="有人打包好了吗", title="做游戏的经验，有人打包好了吗？", kicker="第 3 章 · 3.4 · 开篇",
-    lead="3.3 我们自己摸到了几条做游戏的经验；做第二个游戏之前，先找找有没有现成的",
+    label="有人打包好了吗", title="做游戏的经验，有现成的吗？", kicker="第 3 章 · 3.4 · 开篇",
+    lead="做第二个游戏之前，先找找看",
     html=(
         chapter_map(4) +
         '<div class="p-pair" style="grid-template-columns:1fr auto 1fr;margin-top:18px">'
@@ -67,12 +67,10 @@ scene(
     lead="沿用 1.3 的权限判断：它从哪来、能做什么、会运行什么、会不会联网。每一项都要有可以打开核对的证据。",
     html=(
         '<ul class="p-checks" style="font-size:20px">'
-        '<li data-reveal="0">来源<small>openai/plugins 官方仓库，作者 OpenAI；固定到提交 82fd64b</small></li>'
-        '<li data-reveal="0">版本与许可证<small>0.1.0 · MIT</small></li>'
+        '<li data-reveal="0">来源、版本、许可证<small>openai/plugins 官方仓库 · 0.1.0 · MIT · 固定到提交 82fd64b</small></li>'
         '<li data-reveal="1">声明的能力<small>Interactive、Write：会在仓库里写代码</small></li>'
         '<li data-reveal="2">会运行的脚本<small>3 个本地图片处理脚本（需要 Pillow），不联网；本课用几何图形，不运行</small></li>'
-        '<li data-reveal="3">MCP、连接器、Hook<small>没有</small></li>'
-        '<li class="is-no" data-reveal="3">允许修改的范围<small>要由我们写：只改游戏模块、入口和必要的样式</small></li></ul>'
+                '<li class="is-no" data-reveal="3">允许修改的范围<small>要由我们写：只改游戏模块、入口和必要的样式</small></li></ul>'
         '<p class="source-note">' + SRC + '</p>'
     ),
     steps=["来源与版本", "能力", "脚本", "其余与范围"],
@@ -91,11 +89,11 @@ scene(
     label="Skill 里写了什么", title="读两段 Skill 原文", kicker=KICK + "审查",
     lead="第一段和 3.3 的经验对上了：计时器属于游戏状态。第二段先记住：2D 默认用 Phaser，除非用户另有要求。我们的 Brief 说要接进现有仓库，这会在 3.5 变成一个需要人做的决定。",
     html=(
-        '<div class="p-code" data-reveal="0"><div class="p-code-head"><span>web-game-foundations/SKILL.md · Architecture Rules</span></div>'
-        '<pre><span style="display:block">1. Separate simulation from rendering.</span><span class="hl">   - Simulation owns entities, turns, timers, collisions, …</span></pre></div>'
-        '<p class="p-sub" data-reveal="1" style="margin:8px 0 14px">对照 3.3：等待翻回的计时器、步数，都是游戏状态的一部分</p>'
-        '<div class="p-code" data-reveal="2"><div class="p-code-head"><span>game-studio/SKILL.md</span></div>'
-        '<pre><span class="hl">Default to a 2D Phaser path unless the user explicitly asks for …</span></pre></div>'
+        '<div class="p-box" data-role="tool" data-reveal="0"><span class="p-tag" data-role="tool">web-game-foundations/SKILL.md</span>'
+        '<p class="p-mono" style="margin-top:8px;font-size:21px">Separate simulation from rendering.<br>Simulation owns entities, turns, <b>timers</b>, collisions …</p></div>'
+        '<p class="p-sub" data-reveal="1" style="margin:8px 0 12px">对照 3.3：等待翻回的计时器、步数，都是游戏状态的一部分</p>'
+        '<div class="p-box" data-role="tool" data-reveal="2"><span class="p-tag" data-role="tool">game-studio/SKILL.md</span>'
+        '<p class="p-mono" style="margin-top:8px;font-size:21px">Default to a 2D <b>Phaser</b> path unless the user explicitly asks for …</p></div>'
         '<div class="p-bar is-light" data-reveal="3">Skill 是<b>前人的经验</b>，不是我们的规则</div>'
     ),
     steps=["状态归属", "对照 3.3", "默认路线", "怎么看待"],
@@ -139,18 +137,16 @@ scene(
     label="装好了，Codex 看到了什么", title="装好了，请求里只多了 9 行", kicker=KICK + "怎么装",
     lead="安装后开新会话。请求里出现 9 行“名称：描述（文件位置）”，一共约 2.3 KB；9 份 SKILL.md 全文约 37.8 KB，不在请求里。用到某个 Skill 时，Codex 才去读它的全文。",
     html=(
-        '<div class="p-term" data-reveal="0"><div class="dim">$ codex plugin add game-studio@course-lab</div><div class="ok">Added plugin `game-studio` from marketplace `course-lab`.</div></div>'
-        '<div class="p-code" data-reveal="1" style="margin-top:10px"><div class="p-code-head"><span>新会话的第一次请求（节选）</span><span>9 行 · 2,352 字节</span></div>'
-        '<pre><span style="display:block">- game-studio:phaser-2d-game: Implement 2D browser games with Phaser. Use when …</span>'
-        '<span style="display:block">- game-studio:web-game-foundations: Set browser-game architecture before …</span><span style="display:block">  …（共 9 行）</span></pre></div>'
-        '<div class="p-pair" style="grid-template-columns:1fr auto 1fr;margin-top:12px" data-reveal="2">'
+                '<div class="p-code" data-reveal="0"><div class="p-code-head"><span>新会话的第一次请求（节选）</span><span>9 行 · 2,352 字节</span></div>'
+        '<pre><span style="display:block">- game-studio:phaser-2d-game: Implement 2D browser games …</span>'
+        '<span style="display:block">- game-studio:web-game-foundations: Set browser-game …</span><span style="display:block">  …（共 9 行）</span></pre></div>'
+        '<div class="p-pair" style="grid-template-columns:1fr auto 1fr;margin-top:12px" data-reveal="1">'
         '<div class="p-box is-soft" data-role="ctx"><h3>平时</h3><p>名称 + 描述：2.3 KB</p></div><div class="p-join"><span>用到时</span><i class="p-arrow"></i></div>'
         '<div class="p-box is-soft" data-role="tool"><h3>读全文</h3><p>9 份合计 37.8 KB</p></div></div>'
     ),
-    steps=["安装", "新会话的请求", "按需读取"],
+    steps=["新会话的请求", "按需读取"],
     script=[
-        "审查通过，安装。装完要开一个新会话，Skill 才生效。",
-        "用 2.1 学过的请求查看工具看新会话的第一次请求：多了 9 行，每行是一个 Skill 的名称、一句描述和文件位置，一共约 2.3 KB。",
+        "审查通过，安装。装完要开一个新会话，Skill 才生效。用 2.1 学过的请求查看工具看新会话的第一次请求：多了 9 行，每行是一个 Skill 的名称、一句描述和文件位置，一共约 2.3 KB。",
         "9 份 SKILL.md 的全文合起来约 37.8 KB，并不在请求里。平时只放名称和描述，Codex 判断用得上某个 Skill 时，才去读它的全文。这叫渐进披露。记住这个结构：平时只放摘要，需要时才展开。3.6 讲 Memory 时它还会出现。请暂停视频，安装，开新会话，在请求里找到这 9 行。",
     ],
     teaching=teach(("备课参考", "数字来自课程基线下的一次请求（claude-tap 记录，2026-10-06），见 materials/plugin/README.md；安装前同一请求里没有这 9 行。")),
