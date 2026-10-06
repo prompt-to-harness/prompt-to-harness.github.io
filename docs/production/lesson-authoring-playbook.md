@@ -55,6 +55,8 @@
 
 复现材料放在本仓库对应章节的 `materials/` 下（如 `courseware/ch02/materials/`），不放 `course-starter`（会随 Template 进入学员仓库），也不新建仓库；隔离启动沿用 `tools/clean-codex.sh`。`materials/` 不进 Pages，课件配套页用固定版本的 GitHub 链接指向实验说明；学员可用 `git clone --depth 1` 下载本仓库（默认不拉子模块），只看对应实验目录（2026-10-05 确认）。
 
+课件页面上的复现入口统一用 `repro` 字段（零件 `.p-repro`，见 [parts.md](parts.md)）：平时只占一个“复现这个实验”按钮，点开是完整命令，学员和讲师都能直接找到；不把命令只写在讲师提示里，也不占正文位置。
+
 每个实验在已有分镜或配套材料中写一份简短说明即可，不要求另建目录体系：
 
 | 项目 | 需要写清 |

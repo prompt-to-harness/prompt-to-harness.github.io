@@ -7,11 +7,10 @@
 | 文件 | 用在 | 内容 |
 | --- | --- | --- |
 | `homepage-v1.diff` | 2.2、2.3 备课 | 排练快照 → 换成三条讲师经历后的 homepage-v1；代替 2.2 的真实 Codex 输出，只用于备课预估 diff 大小 |
-| `refactor-a.diff` | 2.5 | 教学材料 A：把项目卡提取为 `ProjectCard` 组件，保持行为 |
+| `refactor-cards/` | 2.5 | 分拣题的五张卡：每张一份基于 homepage-v1 的 diff，提交说明都是“refactor: …” |
 | `compact/` | 2.2 p27 | 压缩独立实验：起点脚本、操作步骤、观察表和一次真实运行的请求记录（2026-10-05） |
-| `refactor-b.diff` | 2.5 | 教学材料 B：同样提取组件，顺带让卡片变成链接并加焦点样式 |
 
-两份重构 diff 都基于 homepage-v1，提交说明相同：“refactor: 把项目卡提取为 ProjectCard 组件”。
+2026-10-05 起 2.5 改用五张卡分拣（讲师确认），原来的两份 diff（`refactor-a.diff`、`refactor-b.diff`）已删除；`01-extract-component.diff` 与原 A 逐字相同。
 
 ## 讲师经历聚合的项目经历（2.2 讲师演示用）
 
@@ -25,31 +24,41 @@
 
 不用公众人物：会让 AI 代找他人经历与图片，违背 2.2“经历由人提供”，并在 2.4 的公开检查中触及他人信息与图片授权。图片不在本轮加入，可作课后选做轮次。
 
-## 已核对的行为（2026-10-03，讲师机器，单次；换成讲师经历后重做）
+## 已核对的行为
 
-Node 24.15.0，`npm ci` 后三个版本都能 `npm run build`。分别用静态服务器打开构建产物，在内置浏览器中检查：
+### homepage-v1（2026-10-03，讲师机器，单次；换成讲师经历后重做）
 
-| 检查 | homepage-v1 | A | B |
-| --- | --- | --- | --- |
-| 渲染出的 `#root` DOM | 基准 | 与 v1 逐字相同 | 卡片内容包在 `<a href="#">` 里 |
-| Tab 可停留的元素 | 只有“查看项目” | 只有“查看项目” | “查看项目” + 三张卡片 |
-| 点击项目卡 | 无反应 | 无反应 | 地址末尾多出 `#` |
-| 聚焦 / 悬停样式 | 无 | 无 | 聚焦时出现描边框；悬停或聚焦时边框变绿 |
-| `git diff --stat` | App.tsx 10+ 2− | 2 个文件 16+ 4− | 3 个文件 35+ 4− |
+Node 24.15.0，`npm ci` 后可以 `npm run build`。homepage-v1 在 360×800 下页面高 827px，无横向滚动；1440×900 与 768×1024 下整页不滚动。
+
+### 2.5 的五张卡（2026-10-05，讲师机器，单次）
+
+每张卡单独应用在 homepage-v1 上，各自 `npm run build`（都成功），用静态服务器打开构建产物，Playwright 驱动的 Chromium 在 1440×900、768×1024、360×800 下检查。
+
+| 卡 | 文件 | `git diff --stat` | 渲染出的 `#root` | 三种视口 | Tab 停留 | 点击第三张卡 |
+| --- | --- | --- | --- | --- | --- | --- |
+| v1 | — | — | 基准 | 卡高 127 / 127 / 148px | 只有“查看项目” | 无反应 |
+| ① 提取组件 | `01-extract-component.diff` | 2 个文件 16+ 4− | 与 v1 逐字相同 | 同 v1 | 同 v1 | 同 v1 |
+| ② 移动数据 | `02-move-data.diff` | 2 个文件 15+ 14− | 与 v1 逐字相同 | 同 v1 | 同 v1 | 同 v1 |
+| ③ 按名称排序 | `03-sort-by-name.diff` | 1 个文件 1+ 1− | 卡片顺序不同 | 顺序变为端侧多模态推理引擎、红绿灯感知量产、RoboHarness；尺寸同 v1 | 同 v1 | 同 v1 |
+| ④ 缩短类名 | `04-short-class-name.diff` | 1 个文件 1+ 1− | 描述的 class 不同 | 描述颜色 `#626c65` → `#222d29`，行高 28.8 → 24px，外边距 0 → 上下 16px；卡高 144 / 144 / 160px；360 宽页面高 865px | 同 v1 | 同 v1 |
+| ⑤ 可聚焦 | `05-tabindex.diff` | 1 个文件 1+ 1− | `li` 多了 `tabindex="0"` | 同 v1 | “查看项目”后依次停在三张卡，Chromium 默认蓝色焦点框 | 同 v1 |
 
 其他观察：
 
-- homepage-v1 在 360×800 下页面高 827px，无横向滚动。
-- A 让 `App.tsx` 净减 1 行（+3 −4），但新增了 13 行的组件文件，总行数变多。2.5 自检不要说“A 更短”。（2026-10-05 更正：此前误记为减少 3 行。）
+- ③ 用 `localeCompare(…, 'zh-CN')` 按拼音排序。最初没写 `'zh-CN'`，结果随浏览器语言变：英文环境下 RoboHarness 排第一，中文环境下排最后（Node 24 实测）。固定语言后，各环境都是上表顺序。
+- ① 让 `App.tsx` 净减 1 行（+3 −4），新增 13 行的组件文件，总行数变多。
+- 曾做第六张卡（区块 id `projects` → `work`，按钮链接同步改）：站内点击正常，但 v1 在 1440 与 768 宽下整页不滚动、360 宽只能滚 27px，旧链接 `#projects` 本来就没有可跳的距离，不能拿来讲“链接失效”，没有采用。
 
 ## 重新生成
 
 ```bash
 cp -R starters/personal-homepage/ch01-complete /tmp/hp && cd /tmp/hp
+rm -rf node_modules dist
 git init -q -b main && git add -A && git commit -qm baseline
 git apply /path/to/homepage-v1.diff && git commit -qam homepage-v1 && git tag homepage-v1
-git switch -c refactor-a && git apply /path/to/refactor-a.diff
-npm ci && npm run build && git add -A && git commit -qm refactor-a
+npm ci
+git switch -c card-03 homepage-v1 && git apply /path/to/refactor-cards/03-sort-by-name.diff
+npm run build
 ```
 
-B 同理：先提交 A，再 `git switch -c refactor-b homepage-v1` 后应用 `refactor-b.diff`。2026-10-03 在排练快照的新副本上按此步骤应用三份 diff 均成功。录制版要基于讲师冻结的 homepage-v1 重新制作两份 diff，并重做上表的检查。
+其他卡同理：每张都从 `homepage-v1` 新建分支后应用，不叠加。2026-10-05 在排练快照的新副本上按此步骤应用 homepage-v1 与五张卡均成功。录制版要基于讲师冻结的 homepage-v1 重新制作五张卡，并重做上表的检查；2.5 p54–p57 里的行数、顺序与尺寸随之更新。

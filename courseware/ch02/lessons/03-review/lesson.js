@@ -182,6 +182,28 @@ window.lesson = {
       "kicker": "第 2 章 · 2.3 · 回到检查点",
       "lead": "还没提交：用 git restore 放弃选定文件还没暂存的修改，已经 git add 的先用 git restore --staged 取消暂存；它不处理未跟踪的新文件，放弃的内容也找不回来。已经提交：用 git revert 加提交哈希，新建一个“撤回提交”，历史保留，不改写。不教 git reset --hard：2.4 要公开历史。",
       "html": "<div class=\"p-chain\" data-reveal=\"0\"><span>改动</span><i>→</i><span>审查</span><i>→</i><span>提交 = 检查点</span></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box\" data-role=\"gate\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"gate\">还没提交</span><div class=\"p-term\" data-copy=\"git restore -- src/App.tsx\" style=\"margin-top:8px\"><div class=\"dim\">$ git restore -- src/App.tsx</div></div><p class=\"p-sub\" style=\"margin-top:8px\">已 add 的先 --staged · 新文件不管 · 放弃了就找不回</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ctx\">已经提交</span><div class=\"p-term\" data-copy=\"git revert --no-edit 85c5fcb\" style=\"margin-top:8px\"><div class=\"dim\">$ git revert --no-edit 85c5fcb</div><div class=\"ok\">Revert \"homepage-v1: 补充项目经历\"</div></div><p class=\"p-sub\" style=\"margin-top:8px\">新增一个撤回提交 · 只撤回代码那次</p></div></div><div class=\"p-bar\" data-reveal=\"3\">commit 让<b>“拒绝”变便宜</b></div>",
+      "repro": {
+        "label": "复现这个实验",
+        "steps": [
+          {
+            "text": "在课程仓库根目录，用第 1 章参考快照建一个练习仓库，不动你自己的首页",
+            "code": "cp -R starters/personal-homepage/ch01-complete lab-runs/revert && cd lab-runs/revert\ngit init -q -b main && git add -A && git commit -qm baseline"
+          },
+          {
+            "text": "提交一次代码改动（homepage-v1），再单独提交一份记录",
+            "code": "git apply ../../courseware/ch02/materials/homepage-v1.diff && git commit -qam homepage-v1\necho '# 本轮记录' > CH02_VIBE_ITERATIONS.md && git add CH02_VIBE_ITERATIONS.md && git commit -qm 'docs: 本轮记录'"
+          },
+          {
+            "text": "在演示分支上撤回代码那次提交（记录之前的那一次，即 HEAD~1）",
+            "code": "git switch -c demo-revert && git revert --no-edit HEAD~1 && git log --oneline -3 && git show --stat HEAD"
+          },
+          {
+            "text": "检查：撤回只改了 src/App.tsx，记录文件还在；然后回到 main，删掉演示分支",
+            "code": "ls CH02_VIBE_ITERATIONS.md && git switch main && git branch -D demo-revert"
+          }
+        ],
+        "note": "讲师 2026-10-05 按此实测。需要已配置 git user.name 与 user.email。"
+      },
       "steps": [
         "主流程",
         "还没提交",

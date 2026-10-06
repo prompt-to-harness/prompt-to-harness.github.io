@@ -2,7 +2,7 @@
 
 [打开课件](index.html) · [逐步讲稿](speaker.html) · [Markdown 讲稿](script.md) · [分镜](STORYBOARD.md)
 
-用两份提交说明相同的教学 diff，判断哪份保持了可观察行为；受欢迎的行为变化也需另行确认；收尾铺垫“没有测试，验证很贵”。6 页。依据[内部大纲](../../../../docs/outline/course-outline-internal.md)与[第 2 章提案](../../../../docs/outline/proposals/2026-10-02-ch02-adjustments.md)。首版（2026-10-03），未经讲师审阅，未试讲、未录制。
+用五张提交说明都写着 refactor 的小卡做分拣，判断哪几张保持了可观察行为；受欢迎的行为变化也需另行确认；收尾铺垫“没有测试，验证很贵”。6 页。2026-10-05 由“两份 diff 二选一”改为分拣题（讲师确认，原因见 [STORYBOARD](STORYBOARD.md)）。依据[内部大纲](../../../../docs/outline/course-outline-internal.md)与[第 2 章提案](../../../../docs/outline/proposals/2026-10-02-ch02-adjustments.md)。首版（2026-10-03），未经讲师审阅，未试讲、未录制。
 
 ## 维护
 
@@ -15,5 +15,5 @@ uv run courseware/tools/check-courseware.py
 
 ## 素材状态
 
-- 两份 diff 与行为核对见 [`../../materials/README.md`](../../materials/README.md)：A 渲染结果与 homepage-v1 逐字相同；B 让三张卡片进入 Tab 顺序、点击后地址多出 `#`。
-- 录制版基于讲师冻结的 homepage-v1 重新制作两份 diff，并按 materials README 重做检查；p54 的文件数与行数随之更新。
+- 五张卡的 diff 与行为核对见 [`../../materials/README.md`](../../materials/README.md)（2026-10-05，排练版 homepage-v1，单次）：①② 渲染结果与 homepage-v1 逐字相同；③ 顺序变了；④ 描述样式丢失、卡片变高，构建仍成功；⑤ 三张卡进入 Tab 顺序。
+- 录制版基于讲师冻结的 homepage-v1 重新制作五张卡，并按 materials README 重做检查；p54 的行数、p55 的顺序与尺寸随之更新。p55 的录屏素材（③ 同屏、④ 并排、⑤ 连续按 Tab）尚未录制。
