@@ -1,0 +1,70 @@
+# 第 3 章 Memory 独立实验（预检 B）
+
+> 状态：2026-10-06 讲师机器上运行 8 轮。第 1 轮由讲师按步骤手动推进（脚本初版在会话二处中断），据此改写了 [`run-memory.sh`](run-memory.sh)；第 6–8 轮的脚本结果见文末，脚本还没有一轮完整通过（对照会话被污染，见文末）。环境是课程基线 `tools/clean-codex.sh`（API key 登录，MiniMax-M3.1-Flash-Preview），Codex CLI 0.160.0–0.160.1。未经另一位讲师复现，未试讲。
+
+## 问题与位置
+
+3.6 的独立实验：让 Codex 自己记住一条规则，下次新会话里它知道吗？知道的还对吗？依赖后台整理、跨会话状态和隔离的 Codex home，学员项目未必具备，所以独立做；学员看懂即可，重跑选做。起点用第 2 章冻结候选（没有记忆翻牌代码），只借项目背景。
+
+## 由代码决定的部分（子模块 `third_party/codex`，`b741e480`）
+
+| 行为 | 源码位置 |
+| --- | --- |
+| 记忆功能默认关闭：`features.memories`，另有 `memories.use_memories`、`memories.generate_memories` | `config/src/types.rs`；`codex features list` |
+| 记忆说明只在 `memory_summary.md` 非空时注入请求 | `ext/memories/src/prompts.rs` 的 `build_memory_tool_developer_instructions` |
+| 被明确要求时，把笔记写到 `memories/extensions/ad_hoc/notes/<时间>-<短名>.md` | `ext/memories/templates/memories/read_path.md` 第 119–123 行 |
+| 默认使用 v1 说明；“Memory is not proof of current behavior”只在 v2 说明里 | `config/src/types.rs`（默认 `MemoryVersion::V1`）；`read_path_v2.md` 第 12 行 |
+| 每次根会话启动时在后台跑两段：从闲置 6 小时以上的会话提取，再整理成 `MEMORY.md`、`memory_summary.md` | `memories/README.md`；`config/src/types.rs` 的 `DEFAULT_MEMORIES_MIN_ROLLOUT_IDLE_HOURS` |
+| 整理成功后 6 小时内不再整理（不可配置）；失败后按退避重试 | `state/src/runtime/memories.rs` 的 `PHASE2_SUCCESS_COOLDOWN_SECONDS` |
+| 两段的模型默认取 provider 的推荐值（OpenAI 模型名），可用 `memories.extract_model`、`memories.consolidation_model` 改 | `memories/write/src/phase1.rs`、`phase2.rs` |
+| 用到记忆时，回答末尾带 `<oai-mem-citation>`，列出引用的记忆文件和行号 | `read_path.md`；实测原始回答 |
+
+## 第 1 轮（手动推进）观察
+
+| 步骤 | 看到的 |
+| --- | --- |
+| 会话一（全新 home）说“记住：记忆翻牌里，两张牌不匹配、等待翻回期间的点击一律忽略。” | 请求里没有任何记忆说明（这时还没有 `memory_summary.md`）。Codex 新建了仓库里的 **`AGENTS.md`**，写下规则，说“后续会话会自动读取” |
+| 启动时的后台整理 | 本轮全新 home 的第一次整理没有生成 `memory_summary.md`，1 小时后的会话里才生成（只有占位内容）。之后另开的全新 home 中，一次以 `failed_agent` 结束、按退避 1 小时后才重试，一次直接成功；失败原因未查明 |
+| 再次说“记住…”（已有 summary，移走 `AGENTS.md`） | 请求里有记忆说明。Codex 申请在沙箱外写笔记，理由“是否允许我在记忆目录的 ad_hoc/notes 下创建并写入这条翻牌点击锁定规则？”，人同意。笔记除了人说的规则，还自己加了“落地要求：用显式的锁定标志位……不要依赖延时回调去推断状态” |
+| 新会话（整理） | 6 小时冷却内不整理；**人工把上次整理时间改到 6 小时前**后，约 2 分钟整理完成。`memory_summary.md` 把 Codex 自己加的那句写成用户规则，还多了一条“把用户说的游戏规则当作长期契约，不重新讨论” |
+| 新会话问“等待翻回期间的点击，我们是怎么定的？” | 请求里有记忆摘要（含规则原文）。回答复述规则，同时给出“落地要求”“定性：长期行为契约，不重新讨论”“踩过的坑”，都不是人说的；回答末尾引用了笔记和 `MEMORY.md` 的行号。它也去仓库搜了实现，说明“这条规则目前只存在于记忆中，还没有落到代码里” |
+| 关闭记忆的新会话问同一个问题 | “这个决定目前不存在”，列出查过的文件和 git 历史，给出两种常见口径，并说要先由人确认口径再动代码 |
+| `/memories` | 两个开关“Use memories / Generate memories”，保存到 `config.toml`，“从下一个会话起”生效；不是关闭本会话 |
+
+## 对课程设计的含义
+
+- **能在课程基线下演示，但要准备**：两个阶段的模型要指到 MiniMax；第一次整理可能失败并退避 1 小时（3 个全新 home 中 2 次第一次没成功），成功后冷却 6 小时。录制用提前准备好的 home（至少前一天做好初始化），或者在画面上明说“这里人工把整理时间改早了”。
+- **第一个会话里的“记住”进了 `AGENTS.md`**——这恰好是第三节表里“仓库”那一行：同一句话，Codex 有时写进仓库、有时写进记忆，取决于它这时看到了什么说明。可以考虑作为 3.6 的开场证据（需要再跑几轮看是否稳定）。
+- **记忆会长出人没说过的内容**，并在后续回答里被当作规则。这比“记忆可能过期”更直接地说明为什么可信度要排在代码和仓库文档之后，也能直接回到 3.2 的问题：这条规则是谁定的？
+- 关闭记忆的对照回答“这个决定不存在”，正好引出需求债务：决定只在记忆里，没在仓库里。
+- 不再引用“Memory is not proof of current behavior”（默认 v1 的请求里没有）。
+
+## 怎么跑
+
+```bash
+courseware/ch03/materials/memory/run-memory.sh                 # 默认 lab-runs/ch03-memory/<时间>，约 15–25 分钟
+SKIP_COOLDOWN=0 courseware/ch03/materials/memory/run-memory.sh <目录>   # 不改数据库：会话一之后停下
+RESUME=1 courseware/ch03/materials/memory/run-memory.sh <同一目录>      # 6 小时后继续
+```
+
+脚本在 tmux 里开交互会话，遇到写记忆目录的申请自动同意一次并留下屏幕记录。人工构造的条件（改整理完成时间、改重试时间）都写进 `logs/steps.log`。请求记录用 [`../tools/reqscan.py`](../tools/reqscan.py) 查，例如 `python3 courseware/ch03/materials/tools/reqscan.py <会话 id> 记忆翻牌 ad_hoc/notes`。
+
+## 脚本运行结果（第 3–8 轮，2026-10-06）
+
+脚本边跑边改，改动原因都写在脚本注释里；第 2–5 轮是脚本自身的问题（识别回答结束、会话一不发申请），不计入下表。
+
+| 项目 | 第 6 轮 | 第 7 轮 | 第 8 轮 |
+| --- | --- | --- | --- |
+| 会话零：第一次整理 | 成功 | `failed_agent`，人工改重试时间后第二次成功 | 成功 |
+| 会话一：写笔记 | 申请 `mkdir`，同意后写入 | 先只说“需要提升权限”就结束，人回“同意，写进记忆笔记吧”（代答）后申请并写入 | 申请，同意后写入 |
+| 笔记里 Codex 加的内容 | 范围、副作用、“意图：防止玩家（或自动化脚本）误触” | 加了“落地建议”，但**标明“非用户原话，实现时确认”** | 加了显式锁定位、覆盖重开入口、不补放点击等“落地要求”，没有标明 |
+| 会话二：整理 | 没整理：会话一启动时已跑过一次“无变化”的整理，重新开始冷却（脚本据此把绕过冷却移到会话二之前） | 成功；summary 把“区分用户决定与建议”也写成一条 | `failed_agent`（3.5 分钟） |
+| 会话三：开记忆提问 | summary 里没有，Codex 自己翻记忆目录读到笔记并复述 | 按原话复述规则，指出落地机制“只是建议，不是已批准的要求”；“以上均来自记忆，未重新核对仓库代码” | （整理失败，未分析） |
+| 会话四：关记忆对照 | — | **被污染**：Codex 去上级目录翻到脚本复制到日志里的笔记 | **被污染**：用了 11 分钟逐级翻上级目录，找到 Codex home 下的笔记和本仓库 `lab-runs/` 里的运行日志 |
+
+### 补充结论
+
+- **整理不稳定**：本日共约 9 次整理，3 次 `failed_agent`（MiniMax 作整理模型，原因未查明）。录制必须准备参考记录，失败时明说。
+- **Codex 加的内容是否标明“非用户原话”，每轮不同**（4 份笔记里 1 份标明）。课上不能预设哪一种，按当次结果讲；两种都能接上“这条规则是谁定的”。
+- **关闭记忆不等于看不到记忆文件**。请求里没有记忆说明，但笔记就在磁盘上，Codex 的读权限能翻到上级目录和其他目录（第 8 轮对照会话自己说：“这不是记忆告诉我的……我是靠翻文件查到的”）。这可以接回 1.3 的沙箱：限制的是写，不是读。对照组要有意义，仓库、Codex home 和运行记录都不能放在能从仓库逐级向上翻到的位置；当前 `lab-runs/` 在本仓库里，不满足，尚未解决。
+- 第 1 轮手动推进时的对照会话没有翻上级目录，回答“这个决定目前不存在”。同样的设置，Codex 是否去翻也因轮而异。

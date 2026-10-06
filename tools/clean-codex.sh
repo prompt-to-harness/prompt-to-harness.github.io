@@ -13,6 +13,8 @@
 #   CLEAN_CODEX_DELETE=1 退出后删除本次的 HOME（默认保留，位于 ~/.cache/clean-codex/）
 #   CLEAN_CODEX_HOME     固定用这个目录作 HOME（不存在就新建，不会删除），多次运行共享会话记录，
 #                        例如在另一个目录 codex exec resume；不设时每次运行都用一个新的 HOME
+#   CLEAN_CODEX_KEEP_CONFIG=1 配合 CLEAN_CODEX_HOME：已有 config.toml 时不重写，保留 Codex 自己写入的设置
+#                        （如 plugin marketplace add、插件开关）；不设时每次启动都重写为只含 MiniMax 的配置
 #   CLEAN_CODEX_NO_OPEN=1 配合 --tap：不自动在浏览器打开请求面板（批量运行用），记录照常保存
 #
 # 密钥只通过环境变量传给 Codex，配置文件里没有密钥，可以放心展示。
@@ -27,7 +29,7 @@ codex_args=()
 while [ $# -gt 0 ]; do
   case "$1" in
     --tap) use_tap=1 ;;
-    -h|--help) sed -n '2,18p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    -h|--help) sed -n '2,20p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
     --) shift; codex_args=("$@"); break ;;
     *) echo "未知参数：$1（把要交给 codex 的参数放在 -- 之后）" >&2; exit 2 ;;
   esac
@@ -66,6 +68,9 @@ cleanup() {
 trap cleanup EXIT
 
 mkdir -p "$SIM_HOME/.codex"
+if [ "${CLEAN_CODEX_KEEP_CONFIG:-0}" = 1 ] && [ -f "$SIM_HOME/.codex/config.toml" ]; then
+  echo "保留已有配置：$SIM_HOME/.codex/config.toml" >&2
+else
 cat > "$SIM_HOME/.codex/config.toml" <<EOF
 model = "$MODEL"
 model_provider = "minimax"
@@ -81,6 +86,7 @@ wire_api = "responses"
 [shell_environment_policy]
 exclude = ["MINIMAX_API_KEY"]
 EOF
+fi
 
 export HOME="$SIM_HOME"
 unset CODEX_HOME OPENAI_API_KEY OPENAI_BASE_URL
