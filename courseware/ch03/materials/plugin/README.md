@@ -17,9 +17,29 @@
 
 Game Studio 目录最后一次改动是 `openai/plugins` 的 `27651a4`（2026-04-21）；提案第三版引用的 `5fd93af` 与本次 `82fd64b` 中的 Game Studio 内容相同（按目录历史推断，未逐文件对比 `5fd93af`）。
 
+## 不用 OpenAI 账号，怎样用官方仓库里的东西（2026-10-06 补测）
+
+讲师追问：能不能先添加市场、再从市场装 Plugin 或 Skill？分别测了三条路，环境同上。
+
+| 路径 | 做法 | 结果 |
+| --- | --- | --- |
+| 直接把官方仓库加为市场 | `codex plugin marketplace add openai/plugins`（不加 `--sparse` 时完整克隆十几分钟未完成；加 `--sparse .agents --sparse plugins/game-studio` 约 40 秒） | **被拒绝**：“marketplace `openai-curated` is reserved and cannot be added from this source”。官方仓库的市场名是保留名，只能由 Codex 自己同步（子模块 `core-plugins/src/marketplace_policy.rs` 的 `is_reserved_marketplace_name`） |
+| 本地市场（换一个市场名） | [`setup-marketplace.sh`](setup-marketplace.sh)：从官方仓库固定提交取出 `plugins/game-studio`，配一个名为 `course-lab` 的 `marketplace.json` | 可以，安装、停用、卸载都通（见上文） |
+| 用内置的 `skill-installer` 只装 Skill | 在交互界面说“用 skill-installer 从 GitHub 仓库 openai/plugins 安装 plugins/game-studio/skills/phaser-2d-game 和 …/web-game-foundations”；Codex 申请联网运行安装脚本，人同意 | 可以，装进 `~/.codex/skills/`，内容与插件里的同名 Skill 逐字相同，新会话请求里出现。脚本默认下载整个仓库的 zip，本机卡了约 7 分钟，Codex 自己中断后改用 `--method git` 稀疏检出，10 秒完成；整轮 30 分钟 |
+| 把 Skill 目录放进仓库 | 复制到仓库的 `.agents/skills/<名字>/` 或 `.codex/skills/<名字>/` | 可以，新会话请求里出现，来源标为仓库路径；**会随 git 提交**，换机器、换人都一样 |
+
+结论：**官方仓库里的 Skill 不需要 OpenAI 账号**，有三种装法；需要账号（或绕一步）的只是“从官方目录里一键装插件”这一个入口。三种装法的差别正好可以讲：
+
+| | 插件（本地市场） | `skill-installer` | 仓库 `.agents/skills/` |
+| --- | --- | --- | --- |
+| 装在哪 | 本机 Codex home 的插件缓存 | 本机 `~/.codex/skills/` | 项目仓库里 |
+| 进不进 git | 不进 | 不进 | 进 |
+| 停用 / 卸载 | 一个开关管 9 个 Skill | 手动删目录 | 改仓库、提交 |
+| 其他工具能不能读 | 只有 Codex | 只有 Codex | `SKILL.md` 是开放格式，其他 Agent 也能读（各工具发现路径不同，未测） |
+
 ## 对课程设计的含义
 
-- **课程基线下学员不能“在官方目录里找到 Game Studio”**。3.4 的“发现 → 审查 → 安装”要按登录方式分两条路：ChatGPT 账号登录（待测）走官方目录；API key 登录（含课程基线）走本目录的本地市场，等于学员亲手把一个插件来源加进配置——审查来源本身就成了 3.4 的一部分。需要讲师决定主路径。
+- **课程基线下学员不能“在官方目录里找到 Game Studio”**，但能用官方仓库的内容（见上节）。3.4 的主路径待讲师决定；ChatGPT 账号登录下的官方目录仍未测。
 - 渐进披露可以在请求记录里直接指认，停用后同样可以指认“Skill 不在了”。
 - 本地市场的 `marketplace.json` 是课程自己写的（名称、策略字段照抄官方条目），录制时要说明这一点。
 

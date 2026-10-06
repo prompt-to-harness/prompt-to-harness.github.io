@@ -36,7 +36,7 @@ launcher() {  # launcher <use_memories true|false>：写一个启动脚本，tmu
   local f="$LOG/start-$1.sh"
   cat > "$f" <<EOF
 #!/bin/zsh
-cd $(printf %q "$APP") && CLEAN_CODEX_HOME=$(printf %q "$HOMEDIR") CLEAN_CODEX_NO_OPEN=1 $(printf %q "$REPO/tools/clean-codex.sh") --tap -- \\
+cd $(printf %q "$APP") && CLEAN_CODEX_KEEP_CONFIG=${KEEP_CONFIG:-0} CLEAN_CODEX_HOME=$(printf %q "$HOMEDIR") CLEAN_CODEX_NO_OPEN=1 $(printf %q "$REPO/tools/clean-codex.sh") --tap -- \\
   -c features.memories=true -c memories.generate_memories=true -c memories.use_memories=$1 \\
   -c 'memories.extract_model="$MODEL"' -c 'memories.consolidation_model="$MODEL"'
 sleep 5
@@ -117,8 +117,23 @@ session s2 true 180 "只读：package.json 里有哪些 scripts？"
 wait_consolidated "翻牌" && say "整理完成：summary 里出现了这条规则" || say "等 5 分钟仍未整理进 summary"
 # 会话三：同一个问题，开记忆
 session s3 true 5 "记忆翻牌里，等待翻回期间的点击，我们是怎么定的？"
-# 会话四：同一个问题，关记忆作对照
-session s4 false 5 "记忆翻牌里，等待翻回期间的点击，我们是怎么定的？"
+# 会话四：同一个问题，关记忆作对照。只关记忆不够：Codex 有整盘读权限，会翻上级目录找到笔记文件
+# （第 7、8 轮实测）。这里再用权限配置禁止读运行目录和记忆目录，只允许读写仓库（第 8 轮补测有效）
+CFG="$HOMEDIR/.codex/config.toml"
+{ printf 'default_permissions = "memlab"\n'; cat "$CFG"; cat <<EOF
+
+[permissions.memlab]
+extends = ":workspace"
+
+[permissions.memlab.filesystem]
+"$RUN" = "deny"
+"$REPO" = "deny"
+"$MEM" = "deny"
+"$APP" = "write"
+EOF
+} > "$CFG.new" && mv "$CFG.new" "$CFG"
+say "会话四：权限配置禁止读取运行目录、本课程仓库和记忆目录"
+KEEP_CONFIG=1 session s4 false 5 "记忆翻牌里，等待翻回期间的点击，我们是怎么定的？"
 cp -R "$MEM" "$LOG/memories-final" 2>/dev/null || true
 [ -f "$APP/AGENTS.md" ] && cp "$APP/AGENTS.md" "$LOG/repo-AGENTS.md"
 say "完成：$RUN"
