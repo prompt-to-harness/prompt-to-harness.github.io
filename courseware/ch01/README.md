@@ -38,7 +38,6 @@ ch01/
 │   └── 06-permissions/        # 1.6 最小权限
 ├── materials/                 # 备课材料与补充清单
 ├── tools/                     # 讲稿导出；样式、校验与字体在上级 shared/、tools/
-├── archive/                   # 旧模板截图与设计记录
 └── verification.md            # 验证记录与边界
 ```
 
@@ -67,7 +66,7 @@ P04 默认嵌入随课件提供的原始 Starter 页面，明确标记为“仅�
 python3 tools/export-chapter-scripts.py
 ```
 
-`export-script.py`保留为兼容入口，同样导出六节，不再写回外部旧版 `docs/`。旧版仓库中的 storyboard、录制说明和脚本不作为此版课件依据，需另行对齐后才能用于录制。`archive/previews/`中的旧截图仅代表原模板，不代表本次内容。
+`export-script.py`保留为兼容入口，同样导出六节，不再写回外部旧版 `docs/`。早期 storyboard、录制说明、脚本和模板截图已清理，可从 Git 历史查看；录制依据以当前小节内容源和配套材料为准。
 
 内容以本仓库的[深蓝平台交付版大纲](../../docs/course-outline.md)和[共同内部大纲](../../docs/outline/course-outline-internal.md)为依据。历史上从 OpenClass 导入的记录保留在验证文档中，当前操作路径以本目录为准。
 

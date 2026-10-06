@@ -42,4 +42,4 @@
 
 - [Matt Pocock 课程画面样本](https://www.totaltypescript.com/api/video-thumb?videoResourceId=597697d0-d6c2-4faf-bcd0-98651a5f14c7)：屏幕主体与右上讲师小窗的参考，不推断所有视频统一布局。
 - [陈天课程站](https://tyrchen.github.io/geektime-bootcamp-ai/)及其公开仓库：公开课程导航、资料、项目与演示文稿的组织参考。课程公开边界是本次用户决定，不推断陈天付费视频的完整安排。
-- [第 1 章 storyboard](../docs/archive/working-drafts-ch01/ch01-storyboard.md)、[第一节 HTML 讲义](../courseware/ch01/README.md)。
+- 第 1 章 storyboard（原路径 `docs/archive/working-drafts-ch01/ch01-storyboard.md`；2026-10-06 清理旧草稿后通过 Git 历史追溯）、[第一节 HTML 讲义](../courseware/ch01/README.md)。
