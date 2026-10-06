@@ -4,7 +4,7 @@
 
 ## 做什么
 
-从 course-starter 出发，按课件跑一遍 1.1 → 1.4 → 1.5，得到首页 v0 候选（`ch01-prompt-baseline` 标签）和全部记录。和 2026-10-03 那次手动排练（`starters/personal-homepage/ch01-complete/CHECKPOINT.md`）走的是同样的步骤，区别是可以反复跑、每次结果都留档。得到的 v0 可以交给 [第 2 章的重跑脚本](../../../ch02/materials/mainline/README.md)（`V0=<运行目录>/repo`）。
+从 course-starter 出发，按课件跑一遍 1.1 → 1.4 → 1.5，得到首页 v0 候选（`ch01-prompt-baseline` 标签）和全部记录。和 2026-10-03 那次手动排练（`starters/personal-homepage/ch01-complete-notes.md`）走的是同样的步骤，区别是可以反复跑、每次结果都留档。得到的 v0 可以交给 [第 2 章的重跑脚本](../../../ch02/materials/mainline/README.md)（`V0=<运行目录>/repo`）。
 
 ## 怎么跑
 

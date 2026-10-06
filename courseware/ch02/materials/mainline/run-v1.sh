@@ -44,7 +44,7 @@ codex_step() {  # codex_step <名字> <exec 参数…>：记录事件、最后�
 say "起点：复制 v0（$V0）"
 cp -R "$V0" "$APP"
 rm -rf "$APP/node_modules" "$APP/dist"
-# CHECKPOINT.md 是讲师的排练笔记，不在学员仓库里；留着会让 Codex 直接引用其中的结论（2026-10-06 第一轮实测）
+# 防止讲师笔记混进 v0：它曾放在快照目录里，Codex 在 2.1 直接引用其中的结论（2026-10-06 第一轮实测，笔记已移出快照）
 rm -f "$APP/CHECKPOINT.md"
 "${GIT[@]}" -C "$APP" init -q -b main
 "${GIT[@]}" -C "$APP" add -A && "${GIT[@]}" -C "$APP" commit -qm "v0：起点"

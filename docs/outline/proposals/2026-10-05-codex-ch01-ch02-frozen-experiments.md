@@ -6,7 +6,7 @@
 
 ## 范围与依据
 
-本次梳理第一、二章教学中的演示、机制实验、故障案例和项目验证，不是课程站自动检查的运行报告，也不是课件逐页审校。依据共同内部大纲 1.1–1.6、2.1–2.5，各节分镜、现有验证记录，以及 `starters/personal-homepage/ch01-complete/CHECKPOINT.md` 和第二章材料说明。没有修改课件或学员验收要求。
+本次梳理第一、二章教学中的演示、机制实验、故障案例和项目验证，不是课程站自动检查的运行报告，也不是课件逐页审校。依据共同内部大纲 1.1–1.6、2.1–2.5，各节分镜、现有验证记录，以及 `starters/personal-homepage/ch01-complete-notes.md` 和第二章材料说明。没有修改课件或学员验收要求。
 
 ## 建议的关系
 
@@ -58,7 +58,7 @@
 
 - [共同内部大纲](../course-outline-internal.md)：课次与验收基线。
 - [录播与独立学习约定](../../design/course-design-principles.md#录播与独立学习约定)：检查点、不同实现的继续路径与运行材料标注。
-- [第一章排练快照](../../../starters/personal-homepage/ch01-complete/CHECKPOINT.md)：已跑过的链路、真实修正、窄屏反馈不复现及环境问题。
+- [第一章排练快照](../../../starters/personal-homepage/ch01-complete-notes.md)：已跑过的链路、真实修正、窄屏反馈不复现及环境问题。
 - [第一章验证记录](../../../courseware/ch01/production/VALIDATION.md)：课件展示检查的覆盖与未验证边界。
 - [2.1 验证记录](../../../courseware/ch02/lessons/01-feedback/VALIDATION.md)：请求素材和配套页缺口。
 - [第二章材料](../../../courseware/ch02/materials/README.md)：排练 v1、A/B diff 与已有行为核对。

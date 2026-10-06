@@ -1,8 +1,10 @@
-# ch01-complete（排练版）
+# ch01-complete（排练版）讲师笔记
 
-> 状态（2026-10-03）：讲师备课排练产物，**不是录制版，也不是标准答案**。第 1 章录制时会重新生成，届时以录制结果替换本目录。Codex 输出不确定，学员自己的首页 v0 与这里不同是正常的。
+> 状态（2026-10-03）：讲师备课排练产物，**不是录制版，也不是标准答案**。第 1 章录制时会重新生成，届时以录制结果替换 `ch01-complete/`。Codex 输出不确定，学员自己的首页 v0 与这里不同是正常的。
+>
+> 本笔记放在快照目录之外（2026-10-06 移出）：学员会把 `ch01-complete/` 整个复制进自己的仓库，笔记若在目录里，Codex 在 2.1 会直接引用其中的结论。
 
-本目录是一次按第 1 章课件跑完 1.1、1.4、1.5 后，练习仓库在 `ch01-prompt-baseline` 时的全部已跟踪文件（不含 `node_modules/`、`dist/`）。用途：
+[`ch01-complete/`](ch01-complete/) 是一次按第 1 章课件跑完 1.1、1.4、1.5 后，练习仓库在 `ch01-prompt-baseline` 时的全部已跟踪文件（不含 `node_modules/`、`dist/`）。用途：
 
 - 第 2 章备课与录制的起点；
 - 学员落后时对照：把需要的改动带回自己的仓库，不整仓覆盖（见 `CHECKPOINTS.md`）。
@@ -24,7 +26,7 @@
 3. **1.5**：新会话提交 P23 任务。Codex 发现沙箱不能联网、无法 `npm install`，于是停下来问怎么办。人选择“它写源码，人来安装和构建”。
 4. 人运行 `npm install` 和 `npm run build`，都成功；在浏览器里核对时发现一处偏差，见下节。
 5. 两轮修正后复验通过，提交并打 `ch01-prompt-baseline`。
-6. 排练结束后人工追加 rollup 的 `overrides`，重新 `npm install` 并构建通过。本目录的 `package.json` 与 `package-lock.json` 是追加后的版本，不是 Codex 当时生成的原样。
+6. 排练结束后人工追加 rollup 的 `overrides`，重新 `npm install` 并构建通过。`ch01-complete/` 的 `package.json` 与 `package-lock.json` 是追加后的版本，不是 Codex 当时生成的原样。
 
 ## 排练中发现的问题
 
