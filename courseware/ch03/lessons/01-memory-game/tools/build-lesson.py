@@ -9,6 +9,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
 from lessonkit import Lesson, MEASURED, chapter_map, repro, teach  # noqa: E402
 
+# 落后时进入第 3 章的追赶 Prompt：与 materials/catchup 的实验同一份，代入参考起点（ch03-start-v1 尚未发布）
+CATCHUP_PROMPT = (Path(__file__).resolve().parents[3] / "materials/catchup/prompt-ch03.txt").read_text().strip() \
+    .replace("{URL}", "https://github.com/prompt-to-harness/course-starter.git").replace("{TAG}", "ch03-start-v1")
+
 lesson = Lesson(__file__, "3.1", "一句话加一个记忆翻牌", summary="一句话就能加出一个能玩的游戏；能玩是起点，不是验收。")
 scene, KICK = lesson.scene, lesson.kick
 
@@ -33,6 +37,14 @@ scene(
         '<div class="p-box" data-role="tool" data-reveal="2"><span class="p-tag" data-role="tool">3.4–3.5</span><h3>60 秒躲避与收集</h3><p>用 Game Studio 插件</p></div></div>'
         '<div class="p-bar is-light" data-reveal="3">贯穿全章的问题：<b>这条规则是谁定的？</b></div>'
     ),
+    repro=repro([
+        ("先在自己的仓库里保存当前的工作（没有改动时会提示无可提交，不影响）", "git add -A && git commit -m \"保存：开始第 3 章之前\""),
+        ("在仓库根目录启动 Codex，粘贴这段 Prompt", CATCHUP_PROMPT),
+        ("Codex 可能申请联网克隆参考起点、在临时目录里试构建。看清整条命令作用在哪个目录，只动临时目录的再同意；不要选“以后不再问”", None),
+        ("读它的逐条判断，只确认补齐前提所必需的改动", "只做补齐第 3 章前提所必需的改动，可选的建议先不做；我的个人内容、仓库名和已有的决定保持不变。我的 GitHub 仓库名是 <你的仓库名>，Vite 的 base 按 2.4 的写法用它。改完告诉我需要我运行哪些命令。"),
+        ("构建并在浏览器里看一遍首页；需要发布时按 2.4 的步骤推送", "npm install && npm run build && npm run preview"),
+        ("核对无误后提交", "git add -A && git commit -m \"对照 ch03-start-v1 补齐第 3 章前提\""),
+    ], note="没做完第 2 章、或想直接从第 3 章开始时用。参考起点 ch03-start-v1 要等第 2 章录制版发布后制作，目前还不存在；讲师 2026-10-06 用本地草案在两种起点上试过（courseware/ch03/materials/catchup/）。", label="从这一章开始？"),
     steps=["本章地图", "第一个游戏", "第二个游戏", "贯穿的问题"],
     script=[
         "第 2 章结束时，我们有了一个公开发布的个人首页 v1。这一章在它上面加两个小游戏，把它变成一个小游戏实验室。",

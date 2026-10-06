@@ -13,6 +13,36 @@ window.lesson = {
       "kicker": "第 3 章 · 3.1 · 开篇",
       "lead": "本章把首页变成能玩两个小游戏的实验室",
       "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>3.1</b>加个游戏</li><li><b>3.2</b>谁定的规则</li><li><b>3.3</b>按证据修</li><li><b>3.4</b>审插件</li><li><b>3.5</b>插件的主张</li><li><b>3.6</b>说明在哪</li><li><b>3.7</b>重开清理</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:18px\"><div class=\"p-box\" data-role=\"us\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"us\">3.1–3.3</span><h3>记忆翻牌</h3><p>一句话需求 · 普通 Vibe Coding</p></div><div class=\"p-join\" data-reveal=\"2\"><span>再加一个</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"tool\">3.4–3.5</span><h3>60 秒躲避与收集</h3><p>用 Game Studio 插件</p></div></div><div class=\"p-bar is-light\" data-reveal=\"3\">贯穿全章的问题：<b>这条规则是谁定的？</b></div>",
+      "repro": {
+        "label": "从这一章开始？",
+        "steps": [
+          {
+            "text": "先在自己的仓库里保存当前的工作（没有改动时会提示无可提交，不影响）",
+            "code": "git add -A && git commit -m \"保存：开始第 3 章之前\""
+          },
+          {
+            "text": "在仓库根目录启动 Codex，粘贴这段 Prompt",
+            "code": "先只读检查，不修改我的项目文件。\n课程第 3 章的参考起点在 https://github.com/prompt-to-harness/course-starter.git 的 ch03-start-v1 标签。\n请把它克隆到临时目录（不要放进我的项目），只用来对照。\n请检查我的项目是否满足第 3 章开始前的前提：\n1. 有能 npm run build 的首页 v1：项目区已经按第 2 章补充，第 2 章的改动和记录都已提交；\n2. 有 GitHub Pages 的发布配置（Vite 的 base 与部署工作流），可以再次发布；\n3. 工作区是干净的。\n逐条说明：已满足 / 缺少 / 与参考不同但不影响，并给出依据。\n我的个人内容（姓名、简介、项目、仓库名、已有的决定）一律保留，\n不要换成参考里的示例文字，也不要照抄参考里的仓库名。\n列出建议补上的改动，等我确认后再改。"
+          },
+          {
+            "text": "Codex 可能申请联网克隆参考起点、在临时目录里试构建。看清整条命令作用在哪个目录，只动临时目录的再同意；不要选“以后不再问”",
+            "code": ""
+          },
+          {
+            "text": "读它的逐条判断，只确认补齐前提所必需的改动",
+            "code": "只做补齐第 3 章前提所必需的改动，可选的建议先不做；我的个人内容、仓库名和已有的决定保持不变。我的 GitHub 仓库名是 <你的仓库名>，Vite 的 base 按 2.4 的写法用它。改完告诉我需要我运行哪些命令。"
+          },
+          {
+            "text": "构建并在浏览器里看一遍首页；需要发布时按 2.4 的步骤推送",
+            "code": "npm install && npm run build && npm run preview"
+          },
+          {
+            "text": "核对无误后提交",
+            "code": "git add -A && git commit -m \"对照 ch03-start-v1 补齐第 3 章前提\""
+          }
+        ],
+        "note": "没做完第 2 章、或想直接从第 3 章开始时用。参考起点 ch03-start-v1 要等第 2 章录制版发布后制作，目前还不存在；讲师 2026-10-06 用本地草案在两种起点上试过（courseware/ch03/materials/catchup/）。"
+      },
       "steps": [
         "本章地图",
         "第一个游戏",
