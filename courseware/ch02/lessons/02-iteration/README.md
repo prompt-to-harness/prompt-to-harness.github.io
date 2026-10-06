@@ -17,5 +17,6 @@ uv run courseware/tools/check-courseware.py
 
 - p21–p24、p27 的数字与行为来自 2026-10-02 讲师机器上的单次运行（Codex 0.160.0 + MiniMax），见提案“实测记录”；p22 是按记录结构整理的示意图，录制时换成 claude-tap 的相邻请求 diff 截图。
 - p25–p26 的仓库数据 2026-10-03 在 openai/codex main（b741e48）上复核：通用指令 `codex-rs/protocol/src/prompts/base_instructions/default.md`；按模型的指令在 `codex-rs/core/`（提案记录的路径有误）。
+- p26 于 2026-10-05 改为对比两次真实请求：本机 codex-cli 0.160.0、隔离 HOME、claude-tap `--tap-export-prompt`（本地应答、不访问上游、无真实密钥），模型名分别为 MiniMax-M3 与 gpt-5.5。当前 Codex 的按模型指令来自 `codex-rs/models-manager/models.json`；p26 旧版对比的 `codex-rs/core/gpt_*_prompt.md` 自 2026-01 起已无代码引用。复现步骤见 p26 讲师备注，审查见 `docs/reviews/ch02/2026-10-05-2.2-p25-p26-claude.md`。
 - p29 的项目经历用 [`../../materials/README.md`](../../materials/README.md) 中两位讲师经历聚合的三条；p30–p32 的 Codex 计划、diff 与检查结果以录制实际为准，排练版预估见 `materials/homepage-v1.diff`。
 - p27 是试讲过满时第一个移到配套页的内容，移走时同步移走 p33 第 2 题。

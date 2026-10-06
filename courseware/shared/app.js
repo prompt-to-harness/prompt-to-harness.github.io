@@ -22,6 +22,25 @@
     lessonButtons[id] = button;
   }
   const escape = (value) => value.replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+  // 每页的原文链接（scene.refs）：live 在画面最下一行随最后一步出现，录制时点开；
+  // read 只在阅读模式列出（source-note 在演示模式隐藏）。说明见 docs/production/lesson-authoring-playbook.md。
+  const renderRefs = (scene) => {
+    const refs = scene.refs || [];
+    const row = (items, attrs, fallback) => {
+      if (!items.length) return '';
+      const groups = [];
+      items.forEach(ref => {
+        const group = ref.group || fallback;
+        if (!groups.length || groups[groups.length - 1].group !== group) groups.push({ group, items: [] });
+        groups[groups.length - 1].items.push(ref);
+      });
+      const inner = groups.map(g => `<b>${escape(g.group)}</b>` + g.items.map(ref => `<a href="${escape(ref.url)}" title="${escape(ref.url.split('/').pop())}" target="_blank" rel="noopener">${escape(ref.text)}</a>`).join('')).join('');
+      return `<p ${attrs}>${inner}</p>`;
+    };
+    const last = Math.max(0, (scene.steps?.length || 1) - 1);
+    return row(refs.filter(ref => ref.kind === 'live'), `class="p-refs" data-reveal="${last}"`, '原文')
+      + row(refs.filter(ref => ref.kind !== 'live'), 'class="p-refs source-note"', '延伸阅读');
+  };
   const renderCommands = (commands = []) => commands.length ? `<dl class="command-list">${commands.map(item => `<div><dt>${escape(item.label)}</dt><dd><code>${escape(item.command)}</code>${escape(item.description)}</dd></div>`).join('')}</dl>` : '';
   let mode = new URLSearchParams(location.search).get('mode') === 'slides' ? 'slides' : 'scroll';
   let current = Math.max(0, scenes.findIndex(scene => `#${scene.id}` === location.hash));
@@ -37,7 +56,7 @@
     <p class="scene-kicker">${scene.kicker}</p>
     <h2 id="heading-${scene.id}" tabindex="-1">${scene.title}</h2>
     <p class="lede">${scene.lead}</p>
-    <div class="scene-content">${scene.prompt ? `<div class="prompt"><div class="prompt-label"><span>发给 Codex 的请求</span><button type="button" class="copy-button" data-copy="${index}">复制请求</button></div><pre><code class="language-text">${escape(scene.prompt)}</code></pre></div>` : ''}${renderCommands(scene.commands)}${scene.html}</div>
+    <div class="scene-content">${scene.prompt ? `<div class="prompt"><div class="prompt-label"><span>发给 Codex 的请求</span><button type="button" class="copy-button" data-copy="${index}">复制请求</button></div><pre><code class="language-text">${escape(scene.prompt)}</code></pre></div>` : ''}${renderCommands(scene.commands)}${scene.html}${renderRefs(scene)}</div>
   </section>`).join('');
   nav.innerHTML = scenes.map((scene, index) => `<a href="#${scene.id}" data-index="${index}">${window.lesson.navNumbers === false ? '' : `<span>${String(index + 1).padStart(2, '0')}</span>`}${scene.label}</a>`).join('');
   const sections = [...lesson.querySelectorAll('.scene')];
