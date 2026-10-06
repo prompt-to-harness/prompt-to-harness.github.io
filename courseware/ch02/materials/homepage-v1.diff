@@ -1,0 +1,22 @@
+diff --git a/src/App.tsx b/src/App.tsx
+index 1259d12..bd92a25 100644
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -1,7 +1,15 @@
+ const projects = [
+   {
+-    name: '学习笔记',
+-    description: '记录课程练习',
++    name: '红绿灯感知量产',
++    description: '城市 NOA 红绿灯感知模块的量产方案设计、部署与加速',
++  },
++  {
++    name: '端侧多模态推理引擎',
++    description: '在 Nvidia Orin / Thor 上从 0 到 1 搭建大模型推理引擎并量产',
++  },
++  {
++    name: 'RoboHarness',
++    description: '把自然语言需求转成可执行、可验证、可持续迭代的研发流程',
+   },
+ ]
+ 

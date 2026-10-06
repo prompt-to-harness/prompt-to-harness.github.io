@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
-"""2.1 先听听别人怎么说：可编辑内容源，生成 lesson.js 与 script.md。
+"""2.1 先听听别人怎么说：本节唯一的内容源，生成 lesson.js 与 script.md。
 
-分镜见 ../STORYBOARD.md。每页 html 用 courseware/shared/parts 零件；
-steps 与 script 一一对应；data-reveal 最大值 = 步骤数 - 1。
-scene["seconds"] 只用于章节条的宽度比例（按步骤数计算），不是时长估算。
+分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch02/tools/lessonkit.py。
 """
-import json
 from html import escape
+import sys
 from pathlib import Path
 
-HERE = Path(__file__).resolve().parents[1]
-KICK = "第 2 章 · 2.1 · "
-MEASURED = "数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。"
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from lessonkit import Lesson, MEASURED, chapter_map, teach  # noqa: E402
+
+lesson = Lesson(__file__, "2.1", "先听听别人怎么说", summary="用课程示例反馈卡建立反馈基线；看懂一次请求的组成，以及它为什么随环境变化。")
+scene, KICK = lesson.scene, lesson.kick
+
 
 READONLY_PROMPT = """只读任务，不修改任何文件。
 先读取 docs/evidence/CH02_VIBE_ITERATIONS.md，
@@ -30,29 +31,13 @@ cp ~/.codex/config.toml "$CLEAN_HOME/.codex/"
 HOME="$CLEAN_HOME" codex"""
 
 
-def teach(*pairs):
-    return [{"title": t, "text": x} for t, x in pairs]
-
-
-scenes = []
-
-
-def scene(**kw):
-    kw.setdefault("teaching", [])
-    kw["source"] = f"index.html#{kw['id']}"
-    kw["seconds"] = 30 * len(kw["steps"])
-    assert len(kw["steps"]) == len(kw["script"]), kw["id"]
-    scenes.append(kw)
-
-
 # ---------- 收到反馈 ----------
 scene(
     id="p01", segment="收到反馈", layout="lesson-cover",
     label="能拿给熟人看了吗？", title="能拿给熟人看了吗？", kicker="第 2 章 · 2.1 · 开篇",
-    lead="第 1 章的首页 v0 只在自己电脑上运行。这一章要把它变成可以拿给认识的人看的 v1，并发布出去。",
+    lead="把只在本机运行的首页 v0，变成能拿给熟人看、能公开访问的 v1",
     html=(
-        '<ol class="p-map"><li class="is-now"><b>2.1</b>听反馈</li><li><b>2.2</b>改一处</li>'
-        '<li><b>2.3</b>审改动</li><li><b>2.4</b>公开发布</li><li><b>2.5</b>只是重构？</li></ol>'
+        chapter_map(1) +
         '<div class="p-pair" style="grid-template-columns:1fr auto 1fr;margin-top:14px">'
         '<div class="p-box" data-role="ink" data-reveal="0"><span class="p-tag" data-role="ink">现在</span><p class="p-big" style="font-weight:500">首页 v0 · 只在本机</p></div>'
         '<div class="p-join" data-reveal="1"><span>本章</span><i class="p-arrow"></i></div>'
@@ -84,7 +69,7 @@ scene(
     steps=["打不开", "重新启动"],
     script=[
         "隔了一天回到项目，我们先打开昨天的本地地址。浏览器说拒绝连接，页面打不开。代码明明都还在，这是怎么回事？",
-        "回到第 1 章做出首页 v0 的那个项目目录，重新运行 npm run dev，页面就回来了。注意是我们自己的项目，不是课程刚发下来的原始起点，那里还没有应用，npm run dev 会报找不到 package.json。原因不复杂：开发服务器是一个正在运行的程序，昨天我们关掉终端，它就停了。代码文件都还在硬盘上，可程序得重新启动。大家跟做时也先做这一步，把首页打开。",
+        "回到第 1 章做出首页 v0 的那个项目目录，重新运行 npm run dev，页面就回来了。注意是我们自己的项目，不是课程刚发下来的原始起点，那里还没有应用，npm run dev 会报找不到 package.json。原因不复杂：开发服务器是一个正在运行的程序，昨天我们关掉终端，它就停了。代码文件都还在硬盘上，可程序得重新启动。没做完第 1 章也没关系，可以从课程提供的第 1 章参考快照开始，做法写在仓库的 CHECKPOINTS.md 里。大家跟做时也先做这一步，把首页打开。",
     ],
     teaching=teach(
         ("讲师提示", "开发服务器的端口以学员自己的 Vite 输出为准，画面上的 5173 是常见默认值。这里只点出“程序停了要重启”，不展开进程与会话的关系。"),
@@ -159,11 +144,12 @@ scene(
 
 scene(
     id="p05-live", segment="逐条核对",
-    label="切到浏览器核对", title="切到浏览器：先在自己的页面里打开设备工具栏", kicker=KICK + "逐条核对",
+    label="切到浏览器核对", title="切到浏览器：在自己的页面里打开设备工具栏", kicker=KICK + "逐条核对",
     lead="设备模拟只作用于当前标签页，所以要先在自己首页的标签页里打开，再逐条核对。每条只看相关的视口和操作，不做全量巡检。",
     html=(
-        '<div class="p-handoff"><div class="p-handoff-card" data-reveal="0"><h3>先打开自己的页面</h3>'
-        '<p style="margin-bottom:10px">① 浏览器新标签页，打开 npm run dev 给出的本地地址<br>② 就在这个标签页按 ⌥⌘I，再按 ⇧⌘M<br>③ 顶部选 Responsive，填宽高，如 360×800<br>④ 页面没变化就 ⌘R 刷新一次</p>'
+        '<style>body[data-mode=slides] .x-p05{grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:28px}</style>'
+        '<div class="p-handoff x-p05"><div class="p-handoff-card" data-reveal="0" style="padding:20px 26px"><h3 style="font-size:34px">先打开自己的页面</h3>'
+        '<p style="margin-bottom:12px;font-size:20px;line-height:1.55">① 浏览器新标签页，打开 npm run dev 给出的本地地址<br>② 就在这个标签页按 ⌥⌘I，再按 ⇧⌘M<br>③ 顶部选 Responsive，填宽高，如 360×800<br>④ 页面没变化就 ⌘R 刷新一次</p>'
         '<span class="p-env">360×800</span><span class="p-env">768×1024</span><span class="p-env">1440×900</span></div>'
         '<ol class="p-watch"><li data-reveal="1">第 1 条<small>切到 360×800 看布局</small></li>'
         '<li data-reveal="2">第 2 条<small>桌面点项目卡，再按 Tab</small></li>'
@@ -220,7 +206,7 @@ scene(
     ),
     steps=["启动", "照常提交", "打开查看器"],
     script=[
-        "接下来要请 Codex 帮忙核对。不过这一次，讲师换一种方式启动它。我们想事后看到 Codex 实际发给模型的是什么，就得在 Codex 和模型服务之间放一个记录员。claude-tap 就是这样一个开源的本地代理：在终端里运行这条命令，它会替我们启动 Codex，并把 Codex 发往模型服务的每一次请求记下来。",
+        "接下来要请 Codex 帮忙核对。不过这一次，我们换一种方式启动它。我们想事后看到 Codex 实际发给模型的是什么，就得在 Codex 和模型服务之间放一个记录员。claude-tap 就是这样一个开源的本地代理：在终端里运行这条命令，它会替我们启动 Codex，并把 Codex 发往模型服务的每一次请求记下来。",
         "启动之后，Codex 用起来和平时完全一样。我们照常在里面提交下一页的只读 Prompt。",
         "等 Codex 回答完，再打开 claude-tap 的本地查看器，就能一条一条看到刚才的请求。这一节先看讲师记录；跟做反馈核对时，直接使用已经配置好的 Codex 即可。",
     ],
@@ -559,31 +545,5 @@ scene(
     ],
 )
 
-segments = []
-for s in scenes:
-    if not segments or segments[-1]["label"] != s["segment"]:
-        segments.append({"label": s["segment"], "seconds": 0})
-    segments[-1]["seconds"] += s["seconds"]
 
-
-lesson = {
-    "title": "先听听别人怎么说",
-    "chapter": "第 2 章 · Vibe Coding",
-    "section": "02.01",
-    "summary": "用课程示例反馈卡建立反馈基线；看懂一次请求的组成，以及它为什么随环境变化。",
-    "scenes": scenes,
-    "segments": segments,
-}
-(HERE / "lesson.js").write_text("window.lesson = " + json.dumps(lesson, ensure_ascii=False, indent=2) + ";\n")
-
-lines = ["# 2.1 先听听别人怎么说", "", "> 由 tools/build-lesson.py 生成。", ""]
-for s in scenes:
-    lines += [f"## {s['id'].upper()} {s['label']}", "", f"[对应课件](index.html#{s['id']})", "", "### 口播", ""]
-    for i, (beat, text) in enumerate(zip(s["steps"], s["script"])):
-        lines += [f"**第 {i + 1} 步 · {beat}**（[演示](index.html?mode=slides&step={i}#{s['id']})）", "", text, ""]
-    if s.get("prompt"):
-        lines += ["### 请求", "", "```text", s["prompt"], "```", ""]
-    for item in s["teaching"]:
-        lines += [f"### {item['title']}", "", item["text"], ""]
-(HERE / "script.md").write_text("\n".join(lines))
-print(f"2.1: {len(scenes)} pages, {sum(len(s['steps']) for s in scenes)} steps")
+lesson.write()

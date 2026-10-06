@@ -183,6 +183,7 @@
 来源：[openai/codex](https://github.com/openai/codex)（Apache-2.0），核对时仓库最新提交 `ca466061d6`。大小为文件字节数，内容为英文，近似字符数。
 
 - 系统指令按模型分文件：通用基础指令 `codex-rs/protocol/src/prompts/base_instructions/default.md`（约 20.9 KB）；`gpt_5_1_prompt.md`（约 24.2 KB）、`gpt_5_2_prompt.md`（约 21.7 KB）；为 Codex 专门训练的模型 `gpt_5_codex_prompt.md`（约 6.6 KB）、`gpt-5.1-codex-max_prompt.md` 与 `gpt-5.2-codex_prompt.md`（各约 7.6 KB）。按模型分文件始于 2025-09-14 的提交 `916fdc2a37`（“Add per-model-family prompts”）。
+- 勘误（2026-10-03 复核 main `b741e48`）：按模型分的指令文件实际位于 `codex-rs/core/`（如 `codex-rs/core/gpt_5_codex_prompt.md`），不在 `base_instructions/` 目录；通用基础指令 `default.md` 的路径无误。各文件大小与上文一致。
 - 通用指令的历史不是单调变短：2025-04 首版约 5.7 KB；2025-08-05 约 9.8 KB；2025-08-07 的提交 `81b148bda2`（“update system prompt”）重写为约 23.6 KB，新增工作方式、性格、计划示例、汇报格式等章节；此后在 21.8–24.4 KB 间波动，2026-01 降到约 20.9 KB。`gpt_5_1_prompt.md` 曾增至约 28.7 KB，2026-01 降回约 24.2 KB。`gpt_5_codex_prompt.md` 从约 10–11 KB 降到 2026-01 的约 6.6 KB。
 - 2026-01-12 的提交 `87f7226cca`（“Assemble sandbox/approval/network prompts dynamically”）把沙箱与审批说明从基础指令中移出，改为按配置从 `codex-rs/prompts/templates/permissions/` 下的模板拼装（如 `sandbox_mode/workspace_write.md`、`approval_policy/on_request.md`）。压缩也有独立模板 `codex-rs/prompts/templates/compact/prompt.md`。
 - 与本机实测对照：本节第一次实测（Codex 0.160.0，MiniMax 自定义 provider，`codex exec`）发出的 `instructions` 约 1.7 万字符，内容与 `default.md` 一致，只是少了“Planning”及其示例和 `update_plan` 两节。为什么少这两节（是否与 `exec` 模式或工具集有关）尚未在源码中核实。
@@ -232,10 +233,10 @@
 12. 课程按录播设计，讲师演示推动故事线；学员跟做只覆盖反馈基线、一轮内容迭代与发布，机制演示看懂即可（已写入 `AGENTS.md`）。
 13. 章节主线：把本机首页 v0 变成可以拿给认识的人看的 v1。熟人在讲师电脑上或通过截图看页面，不先发布；五节顺序不变。
 14. 2.1 用固定的“课程示例反馈卡”替代窄屏问题，三条分别对应视觉现象、既有决定和内容缺失；配分支表；讲师 v0 录制前冻结并核对。
-15. 2.2 固定修改第 3 条：由人提供项目经历，Codex 只负责呈现，不得编造；写入时提醒只写愿意公开的内容。
+15. 2.2 固定修改第 3 条：由人提供项目经历，Codex 只负责呈现，不得编造；写入时提醒只写愿意公开的内容。（2026-10-03 修订：讲师演示内容改为两位讲师已公开简介中的经历聚合，不再使用虚构人设；见 `courseware/ch02/materials/README.md`。）
 16. 2.1 以“Codex 怎么知道 1.4 的决定”引出查看请求。
 17. 压缩放在 2.2 选会话时，作“继续 + 压缩”与“新建 + 交接文件”的对比；过满时先移到配套页。
-18. 第 1 章记录本机完整路径不改；2.4 推送前检查时，用其中的系统用户名示范“由人判断可以公开”。
+18. 第 1 章记录本机完整路径不改；2.4 推送前检查时，用其中的系统用户名示范“由人判断可以公开”。（2026-10-03 修订：为使各章更独立，2.4 改用提交作者的姓名和邮箱示范，不再依赖第 1 章环境记录；内部大纲已同步。）
 19. 第 2 条反馈贯穿全章：2.1 用 Tab 检查键盘焦点，兑现键盘检查；2.5 的行为变化 diff 让卡片变得可点击，说明受欢迎的行为变化也需确认。
 20. 全章主转折是 2.4“公开的不只是页面，还有历史”。
 21. 各节厚度不要求均匀：2.2 的内容迭代若只产生很小的 diff，2.3 就以演示回到检查点为主，不为加厚 2.3 而扩大 2.2 的需求。
