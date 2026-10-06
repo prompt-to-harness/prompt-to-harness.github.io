@@ -1,0 +1,43 @@
+diff --git a/src/App.tsx b/src/App.tsx
+index bd92a25..7dcf064 100644
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -1,17 +1,4 @@
+-const projects = [
+-  {
+-    name: '红绿灯感知量产',
+-    description: '城市 NOA 红绿灯感知模块的量产方案设计、部署与加速',
+-  },
+-  {
+-    name: '端侧多模态推理引擎',
+-    description: '在 Nvidia Orin / Thor 上从 0 到 1 搭建大模型推理引擎并量产',
+-  },
+-  {
+-    name: 'RoboHarness',
+-    description: '把自然语言需求转成可执行、可验证、可持续迭代的研发流程',
+-  },
+-]
++import { projects } from './projects'
+ 
+ export default function App() {
+   return (
+diff --git a/src/projects.ts b/src/projects.ts
+new file mode 100644
+index 0000000..ec7566f
+--- /dev/null
++++ b/src/projects.ts
+@@ -0,0 +1,14 @@
++export const projects = [
++  {
++    name: '红绿灯感知量产',
++    description: '城市 NOA 红绿灯感知模块的量产方案设计、部署与加速',
++  },
++  {
++    name: '端侧多模态推理引擎',
++    description: '在 Nvidia Orin / Thor 上从 0 到 1 搭建大模型推理引擎并量产',
++  },
++  {
++    name: 'RoboHarness',
++    description: '把自然语言需求转成可执行、可验证、可持续迭代的研发流程',
++  },
++]

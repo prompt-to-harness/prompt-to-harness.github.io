@@ -40,6 +40,36 @@ window.lesson = {
       "kicker": "第 2 章 · 2.2 · 三种状态",
       "lead": "模型本身不保存任何状态；会话由 Harness 保存，每次请求时重发；文件和运行中的程序独立存在于电脑上。2.1 开场要重启开发服务器，就是第三栏的事。",
       "html": "<div class=\"p-grid\" style=\"--n:3;gap:16px\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"agent\">模型</span><p class=\"p-big\">什么都不记，只看这一次请求</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">会话</span><p class=\"p-big\">Harness 保存，下次重发</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"tool\">文件与进程</span><p class=\"p-big\">在电脑上，与会话无关</p></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"tool\" data-reveal=\"1\"><h3>2.1 开场</h3><p>关掉终端 → 开发服务器停了 → 代码文件还在</p></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"2\"><h3>换个目录恢复会话</h3><p>它仍答得出上轮读的是 index.html<br>可新目录里没有这个文件</p></div></div><div class=\"p-bar\" data-reveal=\"2\">恢复对话，<b>不等于恢复文件或服务</b></div>",
+      "repro": {
+        "label": "复现这个实验",
+        "steps": [
+          {
+            "text": "在课程仓库根目录建目录 A，放一个文件；目录要有自己的 .git",
+            "code": "mkdir -p lab-runs/resume-a && cd lab-runs/resume-a && git init -q && echo '<h1>hello</h1>' > index.html"
+          },
+          {
+            "text": "另开一个终端，在目录 A 启动一个本地服务器（相当于 npm run dev），浏览器打开 localhost:8765 能看到页面",
+            "code": "cd lab-runs/resume-a && python3 -m http.server 8765"
+          },
+          {
+            "text": "回到第一个终端，用固定的 HOME 让 Codex 读文件，并告诉它服务器开着；固定 HOME 才能在后面找到这次会话。需要 MINIMAX_API_KEY",
+            "code": "CLEAN_CODEX_HOME=~/.cache/clean-codex/resume ../../tools/clean-codex.sh -- exec \"只读：读一下 index.html，告诉我它的第一行。另外记住：这个页面我已经用 python3 -m http.server 在 8765 端口打开了。\" < /dev/null"
+          },
+          {
+            "text": "到第二个终端按 Ctrl-C 关掉服务器，相当于关掉终端或第二天重新开机",
+            "code": ""
+          },
+          {
+            "text": "换到空目录 B，恢复刚才的会话再问；--all 取消“只找当前目录的会话”",
+            "code": "mkdir -p ../resume-b && cd ../resume-b && git init -q\nCLEAN_CODEX_HOME=~/.cache/clean-codex/resume ../../tools/clean-codex.sh -- exec resume --last --all \"不要运行命令，只凭记忆回答：刚才你读的是哪个文件？它的第一行是什么？8765 端口上的那个页面现在还能打开吗？\" < /dev/null"
+          },
+          {
+            "text": "核对：目录 B 里有没有这个文件，页面还能不能打开（000 表示打不开）",
+            "code": "ls -A; curl -s -o /dev/null -w \"%{http_code}\\n\" localhost:8765 || true"
+          }
+        ],
+        "note": "讲师 2026-10-05 实测：模型答出 index.html 和它的第一行；目录 B 里没有这个文件，服务器关掉后页面打不开。问到端口时，模型两次都说无法确认、只记得“你说过它开着”；其他运行也可能直接说还开着。会话、文件、进程三者各自存在。"
+      },
       "steps": [
         "三栏",
         "开场那一幕",
@@ -193,6 +223,24 @@ window.lesson = {
           "url": "https://github.com/openai/codex/commit/87f7226cca12df04596938f58625de84e976309a"
         }
       ],
+      "repro": {
+        "label": "复现这个实验",
+        "steps": [
+          {
+            "text": "在课程仓库根目录取下 Codex 子模块的当前版本（只取一个提交）",
+            "code": "git submodule update --init --depth 1 third_party/codex"
+          },
+          {
+            "text": "再取 2025-04 首版所在的那次提交",
+            "code": "git -C third_party/codex fetch --depth 1 origin 31d0d7a305305ad557035a2edcab60b6be5018d8"
+          },
+          {
+            "text": "对比首版和当前的系统指令；文件在 2026-01 搬过位置，所以两边路径不同",
+            "code": "git -C third_party/codex diff 31d0d7a305305ad557035a2edcab60b6be5018d8:codex-rs/core/prompt.md HEAD:codex-rs/protocol/src/prompts/base_instructions/default.md"
+          }
+        ],
+        "note": "讲师 2026-10-05 在一份新克隆上实测，两步下载在讲师的网络下约 12 分钟。不想等的话，画面底部的链接可以直接看各版本原文和重写那次提交的 diff。"
+      },
       "steps": [
         "早期",
         "一次重写",
@@ -210,7 +258,7 @@ window.lesson = {
         },
         {
           "title": "原文与 diff",
-          "text": "每个版本的原文和两次关键提交的 diff，在画面底部有直达链接（固定到完整提交哈希）。重写那次提交 81b148bda2 只改了 prompt.md 一个文件（+270 −80），GitHub 的提交页就是“重写前 vs 重写后”的文件 diff。\n\n本仓库把 openai/codex 作为子模块放在 third_party/codex（固定在 b741e48），可以离线对比：git submodule update --init --filter=blob:none third_party/codex 取下子模块，再运行 git -C third_party/codex diff 31d0d7a305:codex-rs/core/prompt.md b741e48:codex-rs/protocol/src/prompts/base_instructions/default.md 看首版到当前的全部变化。文件在 2026-01-19 从 codex-rs/core/prompt.md 搬到现在的位置，所以早期版本要用旧路径。"
+          "text": "每个版本的原文和两次关键提交的 diff，在画面底部有直达链接（固定到完整提交哈希）。重写那次提交 81b148bda2 只改了 prompt.md 一个文件（+270 −80），GitHub 的提交页就是“重写前 vs 重写后”的文件 diff。\n\n本仓库把 openai/codex 作为子模块放在 third_party/codex（固定在 b741e48），离线对比的命令见页面上的“复现这个实验”；只取需要的两个提交，比取下完整历史快得多。"
         },
         {
           "title": "切到实操",
@@ -258,6 +306,24 @@ window.lesson = {
           "url": "https://github.com/openai/codex/blob/b741e480e203f037ca726bc2a76d99a8e8668e66/codex-rs/core/gpt-5.2-codex_prompt.md"
         }
       ],
+      "repro": {
+        "label": "复现这个实验",
+        "steps": [
+          {
+            "text": "在课程仓库根目录建练习目录，准备两个临时 HOME，配置只差模型名",
+            "code": "mkdir -p lab-runs/model-name && cd lab-runs/model-name\nfor m in MiniMax-M3 gpt-5.5; do mkdir -p home-$m/.codex; printf 'model = \"%s\"\\nmodel_provider = \"minimax\"\\n[model_providers.minimax]\\nname = \"MiniMax\"\\nbase_url = \"https://api.minimax.cn/v1\"\\nenv_key = \"MINIMAX_API_KEY\"\\nwire_api = \"responses\"\\n' $m > home-$m/.codex/config.toml; done"
+          },
+          {
+            "text": "各跑一次并导出请求；导出模式只在本地应答、不访问 MiniMax，密钥写假值即可",
+            "code": "for m in MiniMax-M3 gpt-5.5; do MINIMAX_API_KEY=fake HOME=$PWD/home-$m UV_CACHE_DIR=~/.cache/uv XDG_DATA_HOME=~/.local/share uvx claude-tap --tap-client codex --tap-no-open --tap-target https://api.minimax.cn/v1 --tap-export-prompt $PWD/$m.md -- exec --skip-git-repo-check -s read-only \"Reply with OK only.\" < /dev/null; done"
+          },
+          {
+            "text": "对照两份导出的开头和章节",
+            "code": "head -5 MiniMax-M3.md gpt-5.5.md"
+          }
+        ],
+        "note": "讲师 2026-10-05 按此实测：MiniMax-M3 开头是 “You are a coding agent running in the Codex CLI”，gpt-5.5 是 “You are Codex, a coding agent based on GPT-5”。每次约 1–3 分钟。"
+      },
       "steps": [
         "不在目录的模型",
         "目录里的 gpt-5.5",
@@ -275,7 +341,7 @@ window.lesson = {
         },
         {
           "title": "原文与 diff",
-          "text": "源码链接在画面底部，固定在 rust-v0.160.0（a956835d02）。复现：建临时 HOME，在 .codex/config.toml 写 model 与自定义 provider，运行 HOME=<临时目录> uvx claude-tap --tap-client codex --tap-target <provider 地址> --tap-export-prompt <输出.md> -- exec --skip-git-repo-check -s read-only \"Reply with OK only.\" < /dev/null，只改 model 再跑一次，对比两份导出的 instructions。把模型名写成目录里的名字只用于查看请求：真实发给 MiniMax 时，它不认识这个模型名。2026-01 之前 Codex 按文件给模型配指令（codex-rs/core/gpt_*_prompt.md），这些文件仍留在仓库里但已无代码引用，链接放在延伸阅读。"
+          "text": "源码链接在画面底部，固定在 rust-v0.160.0（a956835d02）。复现命令见页面上的“复现这个实验”。把模型名写成目录里的名字只用于查看请求：真实发给 MiniMax 时，它不认识这个模型名。2026-01 之前 Codex 按文件给模型配指令（codex-rs/core/gpt_*_prompt.md），这些文件仍留在仓库里但已无代码引用，链接放在延伸阅读。"
         },
         {
           "title": "切到实操",
@@ -311,6 +377,36 @@ window.lesson = {
           "url": "https://github.com/openai/codex/blob/a956835d020762cb2b570053af06f643a11c0ecc/codex-rs/prompts/templates/compact/prompt.md"
         }
       ],
+      "repro": {
+        "label": "复现这个实验",
+        "steps": [
+          {
+            "text": "下载课程仓库，以下命令都在仓库根目录运行",
+            "code": "git clone --depth 1 https://github.com/prompt-to-harness/prompt-to-harness.github.io.git && cd prompt-to-harness.github.io"
+          },
+          {
+            "text": "建一个独立的实验目录（在 lab-runs/ 下，不会提交）",
+            "code": "courseware/ch02/materials/compact/setup.sh"
+          },
+          {
+            "text": "用课程基线启动 Codex；需要 MINIMAX_API_KEY，浏览器会打开请求面板",
+            "code": "cd lab-runs/compact-lab && ../../tools/clean-codex.sh --tap"
+          },
+          {
+            "text": "依次输入 steps.txt 的五行，每条等回答结束再发；第 4 行是 /compact",
+            "code": "cat courseware/ch02/materials/compact/steps.txt"
+          },
+          {
+            "text": "或者自动跑一轮，另开终端只读旁观",
+            "code": "LAB_SESSION=compact-demo LAB_HOLD=60 courseware/ch02/materials/compact/run-tmux.sh\ntmux attach -r -t compact-demo"
+          },
+          {
+            "text": "不跑也能看：用浏览器打开讲师运行的前后对照",
+            "code": "courseware/ch02/materials/compact/compare.html"
+          }
+        ],
+        "note": "完整说明、5 次运行的汇总和超时处理见 courseware/ch02/materials/compact/README.md。界面停在 Working 时，Codex 会在 5 分钟后自动重试。"
+      },
       "steps": [
         "压缩前",
         "压缩后",
@@ -319,7 +415,7 @@ window.lesson = {
       "script": [
         "如果不想新建会话，可以在 Codex 里输入 /compact 压缩一下再继续。我们的主线会话通常不够长，所以单独做一个小实验：先让 Codex 读两个文件，再跑一次 grep、把输出原样贴出来，最后写下一条我们自己的决定。这时历史里有我们的提问、模型的工具调用、工具返回的原文，还有模型的回答。",
         "然后输入 /compact。压缩做了什么？在讲师的配置下，Codex 让模型按一段固定提示，写一份给“下一个接手的模型”的交接摘要：进度、关键决定、约束、下一步。压缩后的历史只剩三样：我们发过的用户消息，这份摘要，和重新插入的初始上下文。这一步每次都一样，是 Codex 源码写定的：工具调用、工具返回和模型的回答，都不会留下。",
-        "那原始证据还剩多少？要看摘要怎么写。讲师用同样的步骤跑了 5 次：grep 输出了 10 行，其中 4 次摘要只留下行号或“共 10 处匹配”，我们追问第 1 行是什么，模型说手里没有原文，写不出来；只有 1 次，摘要把 10 行整段抄了下来。我们自己写下的决定是用户消息，5 次原文都在。所以压缩后模型看到的是摘要，不是原始证据；需要原始证据，就让它重新读。摘要每次写得不一样，好不好，我们得自己读一遍才知道。"
+        "那原始证据还剩多少？要看摘要怎么写。讲师用同样的步骤跑了 5 次：grep 输出了 10 行，其中 4 次摘要只留下行号或“共 10 处匹配”，我们追问第 1 行是什么，模型说手里没有原文，写不出来；只有 1 次，摘要把 10 行整段抄了下来。我们自己写下的决定是用户消息，5 次原文都在。所以压缩后模型看到的是摘要，不是原始证据；需要原始证据，就让它重新读。摘要每次写得不一样，好不好，我们得自己读一遍才知道。想自己重复这个实验，点开页面上方的“复现这个实验”，选做。"
       ],
       "teaching": [
         {
@@ -328,7 +424,11 @@ window.lesson = {
         },
         {
           "title": "切到实操",
-          "text": "不在 2.1 的主线会话上执行。按 courseware/ch02/materials/compact/README.md 用 setup.sh 建独立目录，clean-codex.sh --tap 启动，输入 steps.txt 的五步，截取压缩前、压缩请求和压缩后三次请求。摘要每次不同；若本次保留了 grep 原文或模型编出了原文，如实改写右下方框和口播。"
+          "text": "不在 2.1 的主线会话上执行。命令都在页面上方的“复现这个实验”按钮里：手动跑用第 1–4 步，现场演示用第 5 步自动运行，另开终端只读旁观，浏览器看本机 19527 端口的 claude-tap 面板（只在运行期间有）。重点截取三次请求：压缩前、压缩请求、压缩后。摘要每次不同；若本次保留了 grep 原文或模型编出了原文，如实改写右下方框和口播。"
+        },
+        {
+          "title": "备用画面",
+          "text": "不想现场跑，或上游卡住（界面停在 Working 超过 5 分钟）时，打开按钮第 6 步的 compare.html：用第 1 次运行的真实记录并排列出压缩前 25 条和压缩后 7 条，标出保留、移走、新增、重新注入，不调用模型。参考记录更新后运行同目录的 compare.py 重新生成。"
         },
         {
           "title": "实验记录",
@@ -534,7 +634,7 @@ window.lesson = {
       "title": "一轮，一个结果，一份证据",
       "kicker": "第 2 章 · 2.2 · 小结",
       "lead": "本节留下一轮内容迭代、三项检查结果和一份本轮记录。下一节：Codex 说完成了，手上是一份 diff，收不收？课后可以再做 0–2 轮，不计分。",
-      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3>三种状态</h3><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-pass\">模型不记</li><li class=\"is-fix\">会话由 Harness 重发</li><li class=\"is-stop\">文件与进程各自存在</li></ul></div><div data-reveal=\"1\"><h3 style=\"text-align:center\">一个习惯</h3><div class=\"p-star\" style=\"width:260px;font-size:24px\">一轮一个结果<br>引用当前证据</div></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>2.3 审改动</h3><p>Codex 说完成了，收不收？</p></div></div></div>",
+      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3>三种状态</h3><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-point\">模型不记</li><li class=\"is-point\">会话由 Harness 重发</li><li class=\"is-point\">文件与进程各自存在</li></ul></div><div data-reveal=\"1\"><h3 style=\"text-align:center\">一个习惯</h3><div class=\"p-star\" style=\"width:260px;font-size:24px\">一轮一个结果<br>引用当前证据</div></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>2.3 审改动</h3><p>Codex 说完成了，收不收？</p></div></div></div>",
       "steps": [
         "三种状态",
         "一个习惯",

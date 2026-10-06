@@ -2,6 +2,8 @@
 # 讲师用：在 tmux 里按 steps.txt 自动跑一轮压缩实验，供多次运行对照。学员按 README 手动输入即可。
 # 用法：courseware/ch02/materials/compact/run-tmux.sh [目标目录]   # 默认 <本仓库>/lab-runs/compact-<时间>
 #       SKIP_COMPACT=1 …/run-tmux.sh   # 对照组：跳过 /compact，其余步骤相同
+#       LAB_SESSION=compact-demo LAB_HOLD=60 …/run-tmux.sh   # 固定会话名便于旁观，结束后停留 60 秒
+# 旁观（另开终端，只读）：tmux attach -r -t <会话名>
 # 需要：tmux、MINIMAX_API_KEY（在当前 shell 或 ~/.zshrc 中）、uv（claude-tap 记录请求）。
 # 结束后打印 claude-tap 的会话 id；请求存在 ~/.local/share/claude-tap/traces.sqlite3。
 set -euo pipefail
@@ -9,7 +11,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 REPO="$(cd "$HERE/../../../.." && pwd)"
 DEST="${1:-$REPO/lab-runs/compact-$(date +%Y%m%d-%H%M%S)}"
-SESSION="compact-lab-$$"
+SESSION="${LAB_SESSION:-compact-lab-$$}"
 DB="${XDG_DATA_HOME:-$HOME/.local/share}/claude-tap/traces.sqlite3"
 
 "$HERE/setup.sh" "$DEST" >/dev/null
@@ -42,6 +44,7 @@ wait_idle() {
   echo "等待回答超时（15 分钟）" >&2; return 1
 }
 
+echo "旁观：tmux attach -r -t $SESSION    请求面板：http://127.0.0.1:19527" >&2
 wait_for "Trust this folder"; tmux send-keys -t "$SESSION" Enter
 wait_for "Ask Codex"
 while IFS= read -r step; do
@@ -54,6 +57,6 @@ while IFS= read -r step; do
   fi
 done < "$HERE/steps.txt"
 
-sleep 3; tmux send-keys -t "$SESSION" C-c; sleep 1; tmux send-keys -t "$SESSION" C-c; sleep 6
+sleep "${LAB_HOLD:-3}"; tmux send-keys -t "$SESSION" C-c; sleep 1; tmux send-keys -t "$SESSION" C-c; sleep 6
 tmux kill-session -t "$SESSION" 2>/dev/null || true
 tap_session

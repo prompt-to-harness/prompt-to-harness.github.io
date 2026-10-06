@@ -68,6 +68,20 @@
 | `bolder`、`quieter`、`colorize`、`animate`、`delight`、`overdrive` | 不适用 | 改变视觉风格，和全课统一的视觉规范、只允许逐步揭示的动画规则冲突 |
 | `init`、`document`、`extract`、`shape`、`craft`、`live`、`generate` | 不适用 | 生成 `PRODUCT.md`/`DESIGN.md` 或新设计方向；本课程已有视觉规范和零件库作为唯一来源 |
 
+## 视觉命令试验（2026-10-05）
+
+在本地分支 `trial/impeccable-visual`（未推送，不合并）上，按 bolder、quieter、colorize、typeset、layout 的参考文档各写一份只覆盖共用样式的 CSS，套在 2.1 的 p01、p04、p09、p16、p17、p19 上截图对照，并对全课 138 页跑重叠与裁切检查。CSS 和脚本在该分支的 `courseware/shared/variants/`。
+
+| 命令 | 改了什么 | 结果 | 建议 |
+| --- | --- | --- | --- |
+| bolder | 标题 50px、框线和结论条加重，小标题和导语调淡 | 无重叠；超出页标题 46px 上限，画面更重 | 不采纳；结论条字号可在手机看录屏后单独试 |
+| quieter | 语义色降饱和、细线、去硬阴影、结论条改浅底 | 无重叠；角色在小屏上更难区分，结论条失去分量 | 不采纳 |
+| colorize | 语义浅底加深；小标题、章节条、表头用课程站强调绿；关键行和结论条加黄底 | 无重叠；强调绿和“通过”绿几乎同色，黄色身兼两义 | 不采纳；作为第 14 节“强调色统一”的反证据 |
+| typeset | 小标题改为 Noto Sans 18px 粗体加字距；正文字号合并为 22px；等宽数字 | 无重叠；和规范最一致 | 待讲师决定：小标题现为手写体 22px 常规字重，与第 3 节“手写体用于 ≥24px 且加粗”不一致 |
+| layout | 正文区内容垂直居中，组内间距收紧 | 1.1 p06、2.2 p29 的 Prompt 面板被裁掉 50–65px；逐步揭示位置不跳动 | 不采纳；空白问题逐页处理 |
+
+delight、animate、overdrive 主要改交互和动效，静态截图看不出效果，本轮没有试。以上是截图判断，没有在手机上看 720p 录屏，也没有讲师或学员看过。
+
 ## 待讲师决定
 
 - **是否用作课程案例。** impeccable 本身就是一个完整的 Harness 样例：skill 文本、`PRODUCT.md`/`DESIGN.md` 上下文文件、确定性 detector、编辑后自动运行的 hook，以及 LLM 评审和 detector 证据分两路再合并的评审流程。它可以作为 Harness 章节的外部参照，目前没有写进大纲。

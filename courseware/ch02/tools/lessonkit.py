@@ -38,6 +38,16 @@ def ref(text, url, group="", kind="live"):
     return {"kind": kind, "group": group, "text": text, "url": url}
 
 
+def repro(steps, note="", label="复现这个实验"):
+    """页面上的折叠按钮：点开才显示复现步骤，放进 scene(repro=…)，由播放器渲染（courseware/shared/app.js）。
+
+    steps 为 [(说明, 命令或 None), …]；命令按原样显示，可选中复制。演示模式下按钮在标题上方一行、
+    不占正文位置，展开后叠在画面上方；阅读模式下在副标题之后展开。
+    """
+    assert steps and all(len(s) == 2 and s[0] for s in steps), steps
+    return {"label": label, "steps": [{"text": t, "code": c or ""} for t, c in steps], "note": note}
+
+
 def chapter_map(now):
     """开篇用的本章五节地图；now 为当前节序号（1–5），之前的节标为已完成。"""
     items = []
@@ -91,6 +101,11 @@ class Lesson:
                 lines += ["### 原文与链接", ""]
                 lines += [f"- {'画面上' if r['kind'] == 'live' else '延伸'} · {r['group'] + ' · ' if r['group'] else ''}[{r['text']}]({r['url']})" for r in s["refs"]]
                 lines += [""]
+            if s.get("repro"):
+                lines += [f"### {s['repro']['label']}（页面按钮）", ""]
+                for i, st in enumerate(s["repro"]["steps"], 1):
+                    lines += [f"{i}. {st['text']}" + (f"：`{st['code']}`" if st["code"] else "")]
+                lines += ([""] + [s["repro"]["note"]] if s["repro"]["note"] else []) + [""]
             if s.get("prompt"):
                 lines += ["### 请求", "", "```text", s["prompt"], "```", ""]
             for item in s["teaching"]:

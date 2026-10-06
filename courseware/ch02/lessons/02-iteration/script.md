@@ -42,6 +42,18 @@
 
 讲师做过一个实验：在另一个目录里，用 codex exec resume 恢复 2.1 那种只读任务的会话，再问它上一轮读的是什么文件。它答得出来：index.html。可新目录里根本没有这个文件。会话被恢复了，但文件和服务不会跟着回来。所以恢复对话，不等于恢复文件或服务。
 
+### 复现这个实验（页面按钮）
+
+1. 在课程仓库根目录建目录 A，放一个文件；目录要有自己的 .git：`mkdir -p lab-runs/resume-a && cd lab-runs/resume-a && git init -q && echo '<h1>hello</h1>' > index.html`
+2. 另开一个终端，在目录 A 启动一个本地服务器（相当于 npm run dev），浏览器打开 localhost:8765 能看到页面：`cd lab-runs/resume-a && python3 -m http.server 8765`
+3. 回到第一个终端，用固定的 HOME 让 Codex 读文件，并告诉它服务器开着；固定 HOME 才能在后面找到这次会话。需要 MINIMAX_API_KEY：`CLEAN_CODEX_HOME=~/.cache/clean-codex/resume ../../tools/clean-codex.sh -- exec "只读：读一下 index.html，告诉我它的第一行。另外记住：这个页面我已经用 python3 -m http.server 在 8765 端口打开了。" < /dev/null`
+4. 到第二个终端按 Ctrl-C 关掉服务器，相当于关掉终端或第二天重新开机
+5. 换到空目录 B，恢复刚才的会话再问；--all 取消“只找当前目录的会话”：`mkdir -p ../resume-b && cd ../resume-b && git init -q
+CLEAN_CODEX_HOME=~/.cache/clean-codex/resume ../../tools/clean-codex.sh -- exec resume --last --all "不要运行命令，只凭记忆回答：刚才你读的是哪个文件？它的第一行是什么？8765 端口上的那个页面现在还能打开吗？" < /dev/null`
+6. 核对：目录 B 里有没有这个文件，页面还能不能打开（000 表示打不开）：`ls -A; curl -s -o /dev/null -w "%{http_code}\n" localhost:8765 || true`
+
+讲师 2026-10-05 实测：模型答出 index.html 和它的第一行；目录 B 里没有这个文件，服务器关掉后页面打不开。问到端口时，模型两次都说无法确认、只记得“你说过它开着”；其他运行也可能直接说还开着。会话、文件、进程三者各自存在。
+
 ### 核对记录
 
 Codex 0.160.0，MiniMax 自定义 provider：在另一目录 codex exec resume <会话 id>，模型仍答出 index.html；Harness 追加了新的权限说明和新的环境信息，cwd 已是新目录。--last 默认只在当前目录的会话中挑选，--all 取消过滤。见提案“第二轮实测”。
@@ -147,6 +159,14 @@ MiniMax 配置下请求体 store 为 false、没有 previous_response_id；OpenA
 - 画面上 · diff · [重写](https://github.com/openai/codex/commit/81b148bda271615b37f7e04b3135e9d552df8111)
 - 画面上 · diff · [权限拆出](https://github.com/openai/codex/commit/87f7226cca12df04596938f58625de84e976309a)
 
+### 复现这个实验（页面按钮）
+
+1. 在课程仓库根目录取下 Codex 子模块的当前版本（只取一个提交）：`git submodule update --init --depth 1 third_party/codex`
+2. 再取 2025-04 首版所在的那次提交：`git -C third_party/codex fetch --depth 1 origin 31d0d7a305305ad557035a2edcab60b6be5018d8`
+3. 对比首版和当前的系统指令；文件在 2026-01 搬过位置，所以两边路径不同：`git -C third_party/codex diff 31d0d7a305305ad557035a2edcab60b6be5018d8:codex-rs/core/prompt.md HEAD:codex-rs/protocol/src/prompts/base_instructions/default.md`
+
+讲师 2026-10-05 在一份新克隆上实测，两步下载在讲师的网络下约 12 分钟。不想等的话，画面底部的链接可以直接看各版本原文和重写那次提交的 diff。
+
 ### 核对记录
 
 首版到 2025-08-05 的大小、重写提交 81b148bda2（“update system prompt”）、按模型分文件提交 916fdc2a37、权限模板化提交 87f7226cca，见提案“Codex 开源仓库中的系统指令”。通用指令当前位于 codex-rs/protocol/src/prompts/base_instructions/default.md；2026-10-03 复核 main（b741e48）大小为 20903 字节。
@@ -155,7 +175,7 @@ MiniMax 配置下请求体 store 为 false、没有 previous_response_id；OpenA
 
 每个版本的原文和两次关键提交的 diff，在画面底部有直达链接（固定到完整提交哈希）。重写那次提交 81b148bda2 只改了 prompt.md 一个文件（+270 −80），GitHub 的提交页就是“重写前 vs 重写后”的文件 diff。
 
-本仓库把 openai/codex 作为子模块放在 third_party/codex（固定在 b741e48），可以离线对比：git submodule update --init --filter=blob:none third_party/codex 取下子模块，再运行 git -C third_party/codex diff 31d0d7a305:codex-rs/core/prompt.md b741e48:codex-rs/protocol/src/prompts/base_instructions/default.md 看首版到当前的全部变化。文件在 2026-01-19 从 codex-rs/core/prompt.md 搬到现在的位置，所以早期版本要用旧路径。
+本仓库把 openai/codex 作为子模块放在 third_party/codex（固定在 b741e48），离线对比的命令见页面上的“复现这个实验”；只取需要的两个提交，比取下完整历史快得多。
 
 ### 切到实操
 
@@ -190,13 +210,22 @@ Codex 还有一份模型目录，叫 models.json，它按模型名在里面查�
 - 延伸 · 2026-01 前按文件分模型（已不使用） · [GPT-5.2](https://github.com/openai/codex/blob/b741e480e203f037ca726bc2a76d99a8e8668e66/codex-rs/core/gpt_5_2_prompt.md)
 - 延伸 · 2026-01 前按文件分模型（已不使用） · [GPT-5.2-Codex](https://github.com/openai/codex/blob/b741e480e203f037ca726bc2a76d99a8e8668e66/codex-rs/core/gpt-5.2-codex_prompt.md)
 
+### 复现这个实验（页面按钮）
+
+1. 在课程仓库根目录建练习目录，准备两个临时 HOME，配置只差模型名：`mkdir -p lab-runs/model-name && cd lab-runs/model-name
+for m in MiniMax-M3 gpt-5.5; do mkdir -p home-$m/.codex; printf 'model = "%s"\nmodel_provider = "minimax"\n[model_providers.minimax]\nname = "MiniMax"\nbase_url = "https://api.minimax.cn/v1"\nenv_key = "MINIMAX_API_KEY"\nwire_api = "responses"\n' $m > home-$m/.codex/config.toml; done`
+2. 各跑一次并导出请求；导出模式只在本地应答、不访问 MiniMax，密钥写假值即可：`for m in MiniMax-M3 gpt-5.5; do MINIMAX_API_KEY=fake HOME=$PWD/home-$m UV_CACHE_DIR=~/.cache/uv XDG_DATA_HOME=~/.local/share uvx claude-tap --tap-client codex --tap-no-open --tap-target https://api.minimax.cn/v1 --tap-export-prompt $PWD/$m.md -- exec --skip-git-repo-check -s read-only "Reply with OK only." < /dev/null; done`
+3. 对照两份导出的开头和章节：`head -5 MiniMax-M3.md gpt-5.5.md`
+
+讲师 2026-10-05 按此实测：MiniMax-M3 开头是 “You are a coding agent running in the Codex CLI”，gpt-5.5 是 “You are Codex, a coding agent based on GPT-5”。每次约 1–3 分钟。
+
 ### 核对记录
 
 2026-10-05 本机 codex-cli 0.160.0，隔离 HOME，自定义 provider 写法与 MiniMax 相同、密钥为假值，claude-tap 0.1.145 以 --tap-export-prompt 本地应答，不访问上游；codex exec -s read-only，各 1 次请求。MiniMax-M3：instructions 16979 字符，与 2.1 的记录一致，等于 rust-v0.160.0 的 models-manager/prompt.md 删去 Planning、Examples、update_plan 三段（逐字相同）。gpt-5.5：21299 字符，等于 models.json 中 gpt-5.5 的 instructions_template 删去一行更新清单状态的说明。删段落的规则见 codex-rs/prompts/src/update_plan_instructions.rs。按模型名查目录的逻辑见 models-manager/src/manager.rs 的 construct_model_info_from_candidates（最长前缀匹配，与 provider 无关）。
 
 ### 原文与 diff
 
-源码链接在画面底部，固定在 rust-v0.160.0（a956835d02）。复现：建临时 HOME，在 .codex/config.toml 写 model 与自定义 provider，运行 HOME=<临时目录> uvx claude-tap --tap-client codex --tap-target <provider 地址> --tap-export-prompt <输出.md> -- exec --skip-git-repo-check -s read-only "Reply with OK only." < /dev/null，只改 model 再跑一次，对比两份导出的 instructions。把模型名写成目录里的名字只用于查看请求：真实发给 MiniMax 时，它不认识这个模型名。2026-01 之前 Codex 按文件给模型配指令（codex-rs/core/gpt_*_prompt.md），这些文件仍留在仓库里但已无代码引用，链接放在延伸阅读。
+源码链接在画面底部，固定在 rust-v0.160.0（a956835d02）。复现命令见页面上的“复现这个实验”。把模型名写成目录里的名字只用于查看请求：真实发给 MiniMax 时，它不认识这个模型名。2026-01 之前 Codex 按文件给模型配指令（codex-rs/core/gpt_*_prompt.md），这些文件仍留在仓库里但已无代码引用，链接放在延伸阅读。
 
 ### 切到实操
 
@@ -222,12 +251,24 @@ Codex 还有一份模型目录，叫 models.json，它按模型名在里面查�
 
 **第 3 步 · 丢掉了什么**（[演示](index.html?mode=slides&step=2#p27)）
 
-那原始证据还剩多少？要看摘要怎么写。讲师用同样的步骤跑了 5 次：grep 输出了 10 行，其中 4 次摘要只留下行号或“共 10 处匹配”，我们追问第 1 行是什么，模型说手里没有原文，写不出来；只有 1 次，摘要把 10 行整段抄了下来。我们自己写下的决定是用户消息，5 次原文都在。所以压缩后模型看到的是摘要，不是原始证据；需要原始证据，就让它重新读。摘要每次写得不一样，好不好，我们得自己读一遍才知道。
+那原始证据还剩多少？要看摘要怎么写。讲师用同样的步骤跑了 5 次：grep 输出了 10 行，其中 4 次摘要只留下行号或“共 10 处匹配”，我们追问第 1 行是什么，模型说手里没有原文，写不出来；只有 1 次，摘要把 10 行整段抄了下来。我们自己写下的决定是用户消息，5 次原文都在。所以压缩后模型看到的是摘要，不是原始证据；需要原始证据，就让它重新读。摘要每次写得不一样，好不好，我们得自己读一遍才知道。想自己重复这个实验，点开页面上方的“复现这个实验”，选做。
 
 ### 原文与链接
 
 - 画面上 · 0.160.0 源码 · [压缩逻辑 compact.rs](https://github.com/openai/codex/blob/a956835d020762cb2b570053af06f643a11c0ecc/codex-rs/core/src/compact.rs)
 - 画面上 · 0.160.0 源码 · [压缩提示 prompt.md](https://github.com/openai/codex/blob/a956835d020762cb2b570053af06f643a11c0ecc/codex-rs/prompts/templates/compact/prompt.md)
+
+### 复现这个实验（页面按钮）
+
+1. 下载课程仓库，以下命令都在仓库根目录运行：`git clone --depth 1 https://github.com/prompt-to-harness/prompt-to-harness.github.io.git && cd prompt-to-harness.github.io`
+2. 建一个独立的实验目录（在 lab-runs/ 下，不会提交）：`courseware/ch02/materials/compact/setup.sh`
+3. 用课程基线启动 Codex；需要 MINIMAX_API_KEY，浏览器会打开请求面板：`cd lab-runs/compact-lab && ../../tools/clean-codex.sh --tap`
+4. 依次输入 steps.txt 的五行，每条等回答结束再发；第 4 行是 /compact：`cat courseware/ch02/materials/compact/steps.txt`
+5. 或者自动跑一轮，另开终端只读旁观：`LAB_SESSION=compact-demo LAB_HOLD=60 courseware/ch02/materials/compact/run-tmux.sh
+tmux attach -r -t compact-demo`
+6. 不跑也能看：用浏览器打开讲师运行的前后对照：`courseware/ch02/materials/compact/compare.html`
+
+完整说明、5 次运行的汇总和超时处理见 courseware/ch02/materials/compact/README.md。界面停在 Working 时，Codex 会在 5 分钟后自动重试。
 
 ### 核对记录
 
@@ -235,7 +276,11 @@ Codex 还有一份模型目录，叫 models.json，它按模型名在里面查�
 
 ### 切到实操
 
-不在 2.1 的主线会话上执行。按 courseware/ch02/materials/compact/README.md 用 setup.sh 建独立目录，clean-codex.sh --tap 启动，输入 steps.txt 的五步，截取压缩前、压缩请求和压缩后三次请求。摘要每次不同；若本次保留了 grep 原文或模型编出了原文，如实改写右下方框和口播。
+不在 2.1 的主线会话上执行。命令都在页面上方的“复现这个实验”按钮里：手动跑用第 1–4 步，现场演示用第 5 步自动运行，另开终端只读旁观，浏览器看本机 19527 端口的 claude-tap 面板（只在运行期间有）。重点截取三次请求：压缩前、压缩请求、压缩后。摘要每次不同；若本次保留了 grep 原文或模型编出了原文，如实改写右下方框和口播。
+
+### 备用画面
+
+不想现场跑，或上游卡住（界面停在 Working 超过 5 分钟）时，打开按钮第 6 步的 compare.html：用第 1 次运行的真实记录并排列出压缩前 25 条和压缩后 7 条，标出保留、移走、新增、重新注入，不调用模型。参考记录更新后运行同目录的 compare.py 重新生成。
 
 ### 实验记录
 
