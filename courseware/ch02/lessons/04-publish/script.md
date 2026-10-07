@@ -127,7 +127,7 @@ GitHub 文档（2026-10-03 查阅）：从命令行推送的提交使用本地 G
 
 **第 2 步 · 不推送**（[演示](index.html?mode=slides&step=1#p47)）
 
-Constraints 里最重要的一句：不推送、不修改仓库设置。推送和启用 Pages 是对外的副作用，这类操作由人确认，不交给 Codex。
+Constraints 里最重要的一句：不推送，这一轮也不改仓库设置。推送是把内容公开出去的那一下，始终由我们自己执行。仓库设置稍后也会交给 Codex，但那是单独的一步，每条命令都要我们批准。
 
 **第 3 步 · 解释权限**（[演示](index.html?mode=slides&step=2#p47)）
 
@@ -140,7 +140,7 @@ Goal：用 GitHub Actions 把这个 Vite 项目发布到 GitHub Pages。
 Context：仓库名是 <我的仓库名>，
 Pages 地址是 https://<用户名>.github.io/<仓库名>/。
 Constraints：只新增工作流文件和必要的 Vite 配置；
-不推送、不修改仓库设置；说明每个权限为什么需要。
+不推送，这一轮不改仓库设置；说明每个权限为什么需要。
 Done when：本地 npm run build 成功；我能逐项解释工作流做了什么。
 ```
 
@@ -188,21 +188,32 @@ Codex 生成了两处改动。第一项看 vite.config.ts 里的 base。页面�
 
 检查都过了，先提交部署配置。提交以后，再运行一遍推送前检查的那几条命令：这次列出的才是最终要公开的全部提交，包括刚提交的工作流和配置。
 
-**第 2 步 · 先设来源再推送**（[演示](index.html?mode=slides&step=1#p49)）
+**第 2 步 · Codex 设来源**（[演示](index.html?mode=slides&step=1#p49)）
 
-推送之前先把 GitHub 这边准备好。仓库如果还是私有的，现在才改成公开，因为待公开的内容已经看过了。然后打开仓库的 Settings，找到 Pages，把来源设成 GitHub Actions：工作流要在启用之后才能部署。最后由我们自己在终端执行 git push。切到 Actions 页，能看到工作流正在运行，点进去可以看每一步的日志。
+推送之前先把 GitHub 这边准备好。仓库如果还是私有的，现在才在网页上改成公开，因为待公开的内容已经看过了。然后要把 Pages 的来源设成 GitHub Actions，工作流要在启用之后才能部署。这一步交给 Codex：新开一个会话，用页面上“请求原文”里的这段话。仓库设置不只能在网页上点，GitHub CLI 也能改。Codex 要访问 GitHub，会弹出批准框，每次一条命令，写着命令和它给的理由。查询类的读一遍就批；修改类的看清楚方法和对象：改的是不是自己的仓库、是不是 Pages。讲师预检那一次，它说完“先告诉你要运行的命令”，紧接着就去执行了，真正停住它的是批准框。改完它会用命令再查一次，但它看不到网页：我们自己打开 Settings 里的 Pages，刷新，看到来源变成 GitHub Actions。没装 GitHub CLI 的同学，就在这个页面上手动选。
 
-**第 3 步 · 失败时**（[演示](index.html?mode=slides&step=2#p49)）
+**第 3 步 · 人来推送**（[演示](index.html?mode=slides&step=2#p49)）
+
+最后由我们自己在终端执行 git push。切到 Actions 页，能看到工作流正在运行，点进去可以看每一步的日志。
+
+**第 4 步 · 失败时**（[演示](index.html?mode=slides&step=3#p49)）
 
 第一次部署不一定成功。失败了，按顺序找出在哪一环：Actions 日志里哪一步红了；同样的 build 在本地能不能复现；页面打开了，Network 面板里哪个资源是 404。
 
+### 请求原文（页面按钮）
+
+1. 新开 Codex 会话，发送这段请求；每条命令弹出批准框时先读命令和理由：`请用 GitHub CLI（gh）把这个仓库的 GitHub Pages 部署来源设为 GitHub Actions。先查现在的设置，执行修改前告诉我要运行的命令；改完再查一次，并告诉我在网页哪里确认。不推送，不改仓库里的文件。`
+2. 改完在网页上确认（没装 GitHub CLI 时直接在这里手动选择 GitHub Actions）：`仓库页 → Settings → Pages → Build and deployment → Source`
+
+这一轮不推送；推送由人在下一步执行。
+
 ### 切到实操
 
-顺序是提交 → 复查待推送提交 → 必要时改为公开 → 设置 Pages 来源 → 推送；GitHub 文档要求先为仓库启用自定义工作流（2026-10-05 查阅 Using custom workflows with GitHub Pages）。若录制时先推送了，在 Actions 页对失败的运行点 Re-run，并确认新运行成功。Pages 来源设置界面按录制时 GitHub 版本核对。讲师录制时若真的失败，失败过程保留在本页。首次部署若自然出错，就地从 Actions 日志、build 输出和 Network 定位并保留；没有出错不伪造（决定 7）。
+顺序是提交 → 复查待推送提交 → 必要时改为公开 → Codex 设置 Pages 来源（人批准、网页确认）→ 推送；GitHub 文档要求先为仓库启用自定义工作流（2026-10-05 查阅 Using custom workflows with GitHub Pages）。若录制时先推送了，在 Actions 页对失败的运行点 Re-run，并确认新运行成功。Pages 来源设置界面按录制时 GitHub 版本核对。讲师录制时若真的失败，失败过程保留在本页。首次部署若自然出错，就地从 Actions 日志、build 输出和 Network 定位并保留；没有出错不伪造（决定 7）。
 
 ### 讲师提示
 
-推送和启用 Pages 由人执行，不交给 Codex（回扣 1.6）。
+推送由人执行；设置交给 Codex 时，批准框就是人机边界（回扣 1.6）。gh 由学员本人登录（环境检查单），令牌不贴进对话、不放环境变量。预检见 courseware/ch02/materials/pages-source/：临时仓库上 13 次批准，修改命令先错用 POST 再改 PUT；录制仓库的实际次数和说法以当天为准，画面不预告。
 
 ## P50 Actions 绿了就行吗
 
@@ -260,7 +271,7 @@ Actions 显示绿色对勾，部署流程成功完成。接下来打开公开 UR
 
 **第 1 步 · 本节做了什么**（[演示](index.html?mode=slides&step=0#p52)）
 
-回看这一节：推送之前，先列出即将公开的提交、文件和作者，由人判断能不能公开；Codex 写的部署配置逐项审过再提交；GitHub 这边设好 Pages 来源，再由我们自己推送；最后用三项检查证明页面可用，只推送 ch02-homepage-live 这一个 tag。首页现在有了一个公开 URL。
+回看这一节：推送之前，先列出即将公开的提交、文件和作者，由人判断能不能公开；Codex 写的部署配置逐项审过再提交；Pages 来源交给 Codex 设置，每条命令由我们批准、在网页上确认，再由我们自己推送；最后用三项检查证明页面可用，只推送 ch02-homepage-live 这一个 tag。首页现在有了一个公开 URL。
 
 **第 2 步 · 两个认识**（[演示](index.html?mode=slides&step=1#p52)）
 

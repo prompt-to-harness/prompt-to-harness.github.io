@@ -149,12 +149,12 @@ window.lesson = {
       "id": "p47",
       "segment": "部署配置",
       "layout": "prompt-scene",
-      "prompt": "Goal：用 GitHub Actions 把这个 Vite 项目发布到 GitHub Pages。\nContext：仓库名是 <我的仓库名>，\nPages 地址是 https://<用户名>.github.io/<仓库名>/。\nConstraints：只新增工作流文件和必要的 Vite 配置；\n不推送、不修改仓库设置；说明每个权限为什么需要。\nDone when：本地 npm run build 成功；我能逐项解释工作流做了什么。",
+      "prompt": "Goal：用 GitHub Actions 把这个 Vite 项目发布到 GitHub Pages。\nContext：仓库名是 <我的仓库名>，\nPages 地址是 https://<用户名>.github.io/<仓库名>/。\nConstraints：只新增工作流文件和必要的 Vite 配置；\n不推送，这一轮不改仓库设置；说明每个权限为什么需要。\nDone when：本地 npm run build 成功；我能逐项解释工作流做了什么。",
       "label": "让 Codex 写部署工作流",
       "title": "让 Codex 写部署工作流，但不让它推送",
       "kicker": "第 2 章 · 2.4 · 部署配置",
-      "lead": "部署要两样东西：一个 GitHub Actions 工作流，在 GitHub 的机器上构建并发布页面；还有 Vite 的 base 配置，让资源路径对上仓库名。Codex 只负责写文件，推送和改仓库设置由人来做。",
-      "html": "<div class=\"demo-notes\"><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>写清仓库名和地址</b><small>别让它猜，也别抄讲师的</small></span></li><li class=\"is-risk\" data-reveal=\"1\"><span><b>不推送、不改设置</b><small>对外副作用留给人</small></span></li><li data-reveal=\"2\"><span><b>说明每个权限</b><small>下一页逐项审查</small></span></li></ol></div>",
+      "lead": "部署要两样东西：一个 GitHub Actions 工作流，在 GitHub 的机器上构建并发布页面；还有 Vite 的 base 配置，让资源路径对上仓库名。这一轮 Codex 只写文件；仓库设置留到推送前单独一步，推送始终由人来做。",
+      "html": "<div class=\"demo-notes\"><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>写清仓库名和地址</b><small>别让它猜，也别抄讲师的</small></span></li><li class=\"is-risk\" data-reveal=\"1\"><span><b>不推送，这轮不改设置</b><small>设置单独一步，推送留给人</small></span></li><li data-reveal=\"2\"><span><b>说明每个权限</b><small>下一页逐项审查</small></span></li></ol></div>",
       "steps": [
         "仓库名",
         "不推送",
@@ -162,7 +162,7 @@ window.lesson = {
       ],
       "script": [
         "部署需要两样东西。一个是 GitHub Actions 工作流：每次推送后，GitHub 在它自己的机器上安装依赖、构建，再把 dist 发布成页面。另一个是 Vite 的 base 配置：页面放在仓库名这一级路径下，资源路径要跟着改。Context 里写清自己的仓库名和 Pages 地址，不要让它猜，更不要照抄讲师的仓库名。",
-        "Constraints 里最重要的一句：不推送、不修改仓库设置。推送和启用 Pages 是对外的副作用，这类操作由人确认，不交给 Codex。",
+        "Constraints 里最重要的一句：不推送，这一轮也不改仓库设置。推送是把内容公开出去的那一下，始终由我们自己执行。仓库设置稍后也会交给 Codex，但那是单独的一步，每条命令都要我们批准。",
         "我们还要求它说明每个权限为什么需要，下一页要逐项审查。请暂停视频，把仓库名和地址换成你自己的，提交 Prompt。"
       ],
       "teaching": [
@@ -211,32 +211,48 @@ window.lesson = {
       "id": "p49",
       "segment": "推送与发布",
       "label": "推送并启用 Pages",
-      "title": "由人确认，推送并启用 Pages",
+      "title": "Codex 设来源，人来推送",
       "kicker": "第 2 章 · 2.4 · 推送与发布",
-      "lead": "提交部署配置，再用推送前检查的命令看一遍最终要公开的提交。仓库需要公开时现在再改，并先把 Pages 的来源设为 GitHub Actions，最后由人执行推送、看 Actions 日志。首次部署若失败，按日志、build 输出、Network 的顺序定位出在哪一环。",
-      "html": "<div class=\"p-flow\" style=\"--n:4\"><div class=\"p-node\" data-role=\"us\" data-reveal=\"0\"><span class=\"p-num\">1</span><h3>提交配置</h3><p>审过的两处改动</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"0\"><span class=\"p-num\">2</span><h3>再看历史</h3><p>待推送的全部提交</p></div><div class=\"p-node\" data-role=\"ctx\" data-reveal=\"1\"><span class=\"p-num\">3</span><h3>先设来源</h3><p>Pages → GitHub Actions</p></div><div class=\"p-node\" data-role=\"gate\" data-reveal=\"1\"><span class=\"p-num\">4</span><h3>人来推送</h3><p class=\"p-mono\">git push</p></div></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"2\" style=\"margin-top:18px\"><h3>失败时出在哪一环</h3><p>Actions 日志：哪一步红了 → build 输出：本地能复现吗 → Network：哪个资源 404</p></div>",
+      "lead": "提交部署配置，再用推送前检查的命令看一遍最终要公开的提交。仓库需要公开时现在再改。Pages 的来源交给 Codex 用 GitHub CLI 设为 GitHub Actions：每条命令弹出批准框，读过再批；改完在网页上刷新确认。最后由人执行推送、看 Actions 日志。首次部署若失败，按日志、build 输出、Network 的顺序定位出在哪一环。",
+      "html": "<div class=\"p-flow\" style=\"--n:4\"><div class=\"p-node\" data-role=\"us\" data-reveal=\"0\"><span class=\"p-num\">1</span><h3>提交配置</h3><p>审过的两处改动</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"0\"><span class=\"p-num\">2</span><h3>再看历史</h3><p>待推送的全部提交</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-num\">3</span><h3>Codex 设来源</h3><p>每条命令由你批准</p></div><div class=\"p-node\" data-role=\"gate\" data-reveal=\"2\"><span class=\"p-num\">4</span><h3>人来推送</h3><p class=\"p-mono\">git push</p></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:16px\" data-reveal=\"1\"><div class=\"p-box is-soft\" data-role=\"gate\"><h3>批准框里看什么</h3><p>命令和理由；修改类命令看清方法和对象</p></div><div class=\"p-box is-soft\" data-role=\"ok\"><h3>网页上确认</h3><p>Settings → Pages，刷新后来源是 GitHub Actions</p></div></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"3\" style=\"margin-top:12px\"><h3>失败时出在哪一环</h3><p>Actions 日志 → build 输出 → Network 里哪个资源 404</p></div>",
       "steps": [
         "提交并复查",
-        "先设来源再推送",
+        "Codex 设来源",
+        "人来推送",
         "失败时"
       ],
       "script": [
         "检查都过了，先提交部署配置。提交以后，再运行一遍推送前检查的那几条命令：这次列出的才是最终要公开的全部提交，包括刚提交的工作流和配置。",
-        "推送之前先把 GitHub 这边准备好。仓库如果还是私有的，现在才改成公开，因为待公开的内容已经看过了。然后打开仓库的 Settings，找到 Pages，把来源设成 GitHub Actions：工作流要在启用之后才能部署。最后由我们自己在终端执行 git push。切到 Actions 页，能看到工作流正在运行，点进去可以看每一步的日志。",
+        "推送之前先把 GitHub 这边准备好。仓库如果还是私有的，现在才在网页上改成公开，因为待公开的内容已经看过了。然后要把 Pages 的来源设成 GitHub Actions，工作流要在启用之后才能部署。这一步交给 Codex：新开一个会话，用页面上“请求原文”里的这段话。仓库设置不只能在网页上点，GitHub CLI 也能改。Codex 要访问 GitHub，会弹出批准框，每次一条命令，写着命令和它给的理由。查询类的读一遍就批；修改类的看清楚方法和对象：改的是不是自己的仓库、是不是 Pages。讲师预检那一次，它说完“先告诉你要运行的命令”，紧接着就去执行了，真正停住它的是批准框。改完它会用命令再查一次，但它看不到网页：我们自己打开 Settings 里的 Pages，刷新，看到来源变成 GitHub Actions。没装 GitHub CLI 的同学，就在这个页面上手动选。",
+        "最后由我们自己在终端执行 git push。切到 Actions 页，能看到工作流正在运行，点进去可以看每一步的日志。",
         "第一次部署不一定成功。失败了，按顺序找出在哪一环：Actions 日志里哪一步红了；同样的 build 在本地能不能复现；页面打开了，Network 面板里哪个资源是 404。"
       ],
       "teaching": [
         {
           "title": "切到实操",
-          "text": "顺序是提交 → 复查待推送提交 → 必要时改为公开 → 设置 Pages 来源 → 推送；GitHub 文档要求先为仓库启用自定义工作流（2026-10-05 查阅 Using custom workflows with GitHub Pages）。若录制时先推送了，在 Actions 页对失败的运行点 Re-run，并确认新运行成功。Pages 来源设置界面按录制时 GitHub 版本核对。讲师录制时若真的失败，失败过程保留在本页。首次部署若自然出错，就地从 Actions 日志、build 输出和 Network 定位并保留；没有出错不伪造（决定 7）。"
+          "text": "顺序是提交 → 复查待推送提交 → 必要时改为公开 → Codex 设置 Pages 来源（人批准、网页确认）→ 推送；GitHub 文档要求先为仓库启用自定义工作流（2026-10-05 查阅 Using custom workflows with GitHub Pages）。若录制时先推送了，在 Actions 页对失败的运行点 Re-run，并确认新运行成功。Pages 来源设置界面按录制时 GitHub 版本核对。讲师录制时若真的失败，失败过程保留在本页。首次部署若自然出错，就地从 Actions 日志、build 输出和 Network 定位并保留；没有出错不伪造（决定 7）。"
         },
         {
           "title": "讲师提示",
-          "text": "推送和启用 Pages 由人执行，不交给 Codex（回扣 1.6）。"
+          "text": "推送由人执行；设置交给 Codex 时，批准框就是人机边界（回扣 1.6）。gh 由学员本人登录（环境检查单），令牌不贴进对话、不放环境变量。预检见 courseware/ch02/materials/pages-source/：临时仓库上 13 次批准，修改命令先错用 POST 再改 PUT；录制仓库的实际次数和说法以当天为准，画面不预告。"
         }
       ],
+      "repro": {
+        "label": "请求原文",
+        "steps": [
+          {
+            "text": "新开 Codex 会话，发送这段请求；每条命令弹出批准框时先读命令和理由",
+            "code": "请用 GitHub CLI（gh）把这个仓库的 GitHub Pages 部署来源设为 GitHub Actions。先查现在的设置，执行修改前告诉我要运行的命令；改完再查一次，并告诉我在网页哪里确认。不推送，不改仓库里的文件。"
+          },
+          {
+            "text": "改完在网页上确认（没装 GitHub CLI 时直接在这里手动选择 GitHub Actions）",
+            "code": "仓库页 → Settings → Pages → Build and deployment → Source"
+          }
+        ],
+        "note": "这一轮不推送；推送由人在下一步执行。"
+      },
       "source": "index.html#p49",
-      "seconds": 90
+      "seconds": 120
     },
     {
       "id": "p50",
@@ -301,13 +317,13 @@ window.lesson = {
       "title": "公开的不只是页面，还有历史",
       "kicker": "第 2 章 · 2.4 · 推送与发布",
       "lead": "本节留下推送前检查记录、审过的部署配置、公开 URL、三项发布检查结果和 ch02-homepage-live tag。",
-      "html": "<div class=\"p-flow\" style=\"--n:4\"><div class=\"p-node\" data-role=\"gate\" data-reveal=\"0\"><h3>看清历史</h3><p>提交、文件、作者</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\"><h3>审查配置</h3><p>base、权限、分支</p></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"0\"><h3>人来推送</h3><p>先设来源再推送</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"0\"><h3>证明可用</h3><p>三项检查与 tag</p></div></div><div class=\"p-bar\" data-reveal=\"1\" style=\"margin-top:18px\">推送前先看历史 · <b>发布后检查访问、资源与刷新</b></div>",
+      "html": "<div class=\"p-flow\" style=\"--n:4\"><div class=\"p-node\" data-role=\"gate\" data-reveal=\"0\"><h3>看清历史</h3><p>提交、文件、作者</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\"><h3>审查配置</h3><p>base、权限、分支</p></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"0\"><h3>人来推送</h3><p>设置交给 Codex，人批准</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"0\"><h3>证明可用</h3><p>三项检查与 tag</p></div></div><div class=\"p-bar\" data-reveal=\"1\" style=\"margin-top:18px\">推送前先看历史 · <b>发布后检查访问、资源与刷新</b></div>",
       "steps": [
         "本节做了什么",
         "两个认识"
       ],
       "script": [
-        "回看这一节：推送之前，先列出即将公开的提交、文件和作者，由人判断能不能公开；Codex 写的部署配置逐项审过再提交；GitHub 这边设好 Pages 来源，再由我们自己推送；最后用三项检查证明页面可用，只推送 ch02-homepage-live 这一个 tag。首页现在有了一个公开 URL。",
+        "回看这一节：推送之前，先列出即将公开的提交、文件和作者，由人判断能不能公开；Codex 写的部署配置逐项审过再提交；Pages 来源交给 Codex 设置，每条命令由我们批准、在网页上确认，再由我们自己推送；最后用三项检查证明页面可用，只推送 ch02-homepage-live 这一个 tag。首页现在有了一个公开 URL。",
         "推送之前，检查即将公开的文件和整段历史。部署完成后，再用未登录窗口访问、资源加载和停用缓存后刷新这三项检查确认发布结果。"
       ],
       "teaching": [],
@@ -330,7 +346,7 @@ window.lesson = {
     },
     {
       "label": "推送与发布",
-      "seconds": 360
+      "seconds": 390
     }
   ]
 };

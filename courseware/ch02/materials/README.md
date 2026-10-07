@@ -9,6 +9,7 @@
 | `homepage-v1.diff` | 2.2、2.3 备课 | 排练快照 → 换成三条讲师经历后的 homepage-v1；代替 2.2 的真实 Codex 输出，只用于备课预估 diff 大小 |
 | `refactor-cards/` | 2.5 | 分拣题的五张卡：每张一份基于 homepage-v1 的 diff，提交说明都是“refactor: …”；`shoot.py` 把五张卡各自构建、核对行为，并拍 2.5 的证据图（写到 `lessons/05-refactor/evidence/`） |
 | `compact/` | 2.2 p27 | 压缩独立实验：起点脚本、操作步骤、观察表和一次真实运行的请求记录（2026-10-05） |
+| `pages-source/` | 2.4（待确认提议） | 预检：Codex 用 `gh` 查询并修改 Pages 部署来源、再改回；改来源的副作用与凭据边界（2026-10-07） |
 
 2026-10-05 起 2.5 改用五张卡分拣（讲师确认），原来的两份 diff（`refactor-a.diff`、`refactor-b.diff`）已删除；`01-extract-component.diff` 与原 A 逐字相同。
 
