@@ -147,6 +147,7 @@ Node 版本、依赖安装和构建命令在 Starter 首次发布前必须真实
 - 文档已对照实现检查：公开 README、BRIEF、CHECKPOINTS 使用中文说明，明确虚构示例、可选项目链接和保留个人工作的恢复方式。页面示例使用英文，README 说明了改为中文时的语言元数据位置。
 
 - 2026-10-06：`main` 推送至 `4a8b82c`（含“从第 2 章开始”改为由 Codex 对照参考起点补齐，删去提前透露 2.1 结论的提示）；`course-run` 推送至 `8e9a323` 并打 `ch02-start-v1`。从 GitHub 浅克隆该标签后 `npm ci`、`npm run build` 通过。
+- 2026-10-07：`main` 推送至 `e16c441`：`docs/setup/ENVIRONMENT.md` 新增 GitHub CLI 一行与说明（2.4 由 Codex 用 gh 设置 Pages 来源，学员本人 `gh auth login --scopes workflow`；依据见 `courseware/ch02/materials/pages-source/`）。只改文档，未重跑构建。
 
 范围未扩展。后续待做的是按课程推进讲师实现、GitHub Pages 发布、游戏和章节标签；这次只交付初始 Starter。当前证据覆盖 Linux/Chrome 本地运行，不代表课程录制或其他操作系统的试跑已完成。
 
