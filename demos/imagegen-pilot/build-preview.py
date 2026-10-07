@@ -20,8 +20,8 @@ PROMPT_HTML = '''<ol class="p-map"><li class="is-done"><b>1.1</b>首次闭环</l
 <div class="pilot-prompt-layout">
  <div class="pilot-request" data-reveal="0"><span class="p-tag" data-role="us">同一句请求</span><p class="p-bubble">帮我做一个好看的个人主页</p><p class="pilot-note">两种都好看<br>你想要哪一种？</p></div>
  <div class="pilot-concepts" data-reveal="0">
-  <figure class="pilot-concept"><img src="assets/portfolio.png" alt="设计示意：留白充足、色彩克制的个人作品集"><figcaption>克制的作品集 · 设计示意</figcaption></figure>
-  <figure class="pilot-concept"><img src="assets/game-gallery.png" alt="设计示意：色彩活泼、插画丰富的小游戏展厅"><figcaption>活泼的游戏展厅 · 设计示意</figcaption></figure>
+  <figure class="pilot-concept"><img src="assets/portfolio.jpg" alt="设计示意：留白充足、色彩克制的个人作品集"><figcaption>克制的作品集 · 设计示意</figcaption></figure>
+  <figure class="pilot-concept"><img src="assets/game-gallery.jpg" alt="设计示意：色彩活泼、插画丰富的小游戏展厅"><figcaption>活泼的游戏展厅 · 设计示意</figcaption></figure>
  </div>
 </div>
 <div class="pilot-questions">
@@ -73,7 +73,7 @@ def boundary_html(key, scene):
     )
     return (map_html
             + f'<div class="boundary-layout {"has-map" if map_html else ""}">'
-            + f'<figure class="boundary-art" data-reveal="0"><img src="assets/{chapter}-workbench.png" alt="情景插画：{image_alt}"><figcaption>{phase} · 情景插画</figcaption></figure>'
+            + f'<figure class="boundary-art" data-reveal="0"><img src="assets/{chapter}-workbench.jpg" alt="情景插画：{image_alt}"><figcaption>{phase} · 情景插画</figcaption></figure>'
             + f'<div class="boundary-points">{cards}</div></div>'
             + ("" if opening else f'<div class="boundary-handoff" data-reveal="2">{next_line}</div>'))
 

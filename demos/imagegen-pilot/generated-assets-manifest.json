@@ -2,291 +2,689 @@
   "snapshot_date": "2026-10-07",
   "images": [
     {
-      "file": "assets/cat-ch02-feedback-detailed.png",
+      "file": "assets/cat-ch02-feedback-detailed.jpg",
       "prompt": "prompts/cat-ch02-feedback-detailed.txt",
-      "width": 1774,
-      "height": 887,
-      "bytes": 2679414,
-      "sha256": "008e9ab1f2b5cee7954560fea9ed662d9466447f41edd0b940457f407d695710",
+      "width": 640,
+      "height": 320,
+      "bytes": 69646,
+      "sha256": "578b174fa843a1227e45c8c203a020db08090ce74fceba3a6c18adc614f81ff4",
       "reference_images": [
-        "assets/cat-trio-sheet-detailed-v2.png"
-      ]
+        "assets/cat-trio-sheet-detailed-v2.jpg"
+      ],
+      "generation_original": {
+        "width": 1774,
+        "height": 887,
+        "bytes": 2679414,
+        "sha256": "008e9ab1f2b5cee7954560fea9ed662d9466447f41edd0b940457f407d695710",
+        "filename": "cat-ch02-feedback-detailed.png"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 640,
+        "format": "jpeg",
+        "quality": 80
+      }
     },
     {
-      "file": "assets/cat-ch02-feedback-natural.png",
+      "file": "assets/cat-ch02-feedback-natural.jpg",
       "prompt": "prompts/cat-ch02-feedback-natural.txt",
-      "width": 1774,
-      "height": 887,
-      "bytes": 2574704,
-      "sha256": "e027072197c9b432d4fbd8bdcc77068be1a5b76cae9ad76a3f77634daf1ad4e7",
+      "width": 640,
+      "height": 320,
+      "bytes": 69370,
+      "sha256": "ce8afd75da8c2d307d613279cae1a4781adaa8122883c5300f4cdfd487770ead",
       "reference_images": [
-        "assets/cat-ch02-feedback-detailed.png"
-      ]
+        "assets/cat-ch02-feedback-detailed.jpg"
+      ],
+      "generation_original": {
+        "width": 1774,
+        "height": 887,
+        "bytes": 2574704,
+        "sha256": "e027072197c9b432d4fbd8bdcc77068be1a5b76cae9ad76a3f77634daf1ad4e7",
+        "filename": "cat-ch02-feedback-natural.png"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 640,
+        "format": "jpeg",
+        "quality": 80
+      }
     },
     {
-      "file": "assets/cat-ch04-spec-detailed-v2.png",
+      "file": "assets/cat-ch04-spec-detailed-v2.jpg",
       "prompt": "prompts/cat-ch04-spec-detailed-v2.txt",
-      "width": 1774,
-      "height": 887,
-      "bytes": 2294770,
-      "sha256": "d50393878027da5db42c98d9c33a0a13917729b78c3391db597396265c1630e2",
+      "width": 640,
+      "height": 320,
+      "bytes": 52064,
+      "sha256": "36f9a1dc78a3508b942dc054f4e109d6bb0fd85261c601c48a16488167a1eab5",
       "reference_images": [
-        "assets/cat-ch04-spec-detailed.png"
-      ]
+        "assets/cat-ch04-spec-detailed.jpg"
+      ],
+      "generation_original": {
+        "width": 1774,
+        "height": 887,
+        "bytes": 2294770,
+        "sha256": "d50393878027da5db42c98d9c33a0a13917729b78c3391db597396265c1630e2",
+        "filename": "cat-ch04-spec-detailed-v2.png"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 640,
+        "format": "jpeg",
+        "quality": 80
+      }
     },
     {
-      "file": "assets/cat-ch04-spec-detailed.png",
+      "file": "assets/cat-ch04-spec-detailed.jpg",
       "prompt": "prompts/cat-ch04-spec-detailed.txt",
-      "width": 1774,
-      "height": 887,
-      "bytes": 2442542,
-      "sha256": "7dfb39dde5e99d9c945e7a7ac66e3563ab7abaf8a929f2df691f3545cd14b4a1",
+      "width": 640,
+      "height": 320,
+      "bytes": 51407,
+      "sha256": "1c234f3af8d115266fdff8389d502e7a0be01d8c28e3231102d25ee5cd8ddfba",
       "reference_images": [
-        "assets/cat-trio-sheet-detailed-v2.png"
-      ]
+        "assets/cat-trio-sheet-detailed-v2.jpg"
+      ],
+      "generation_original": {
+        "width": 1774,
+        "height": 887,
+        "bytes": 2442542,
+        "sha256": "7dfb39dde5e99d9c945e7a7ac66e3563ab7abaf8a929f2df691f3545cd14b4a1",
+        "filename": "cat-ch04-spec-detailed.png"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 640,
+        "format": "jpeg",
+        "quality": 80
+      }
     },
     {
-      "file": "assets/cat-ch04-spec-natural.png",
+      "file": "assets/cat-ch04-spec-natural.jpg",
       "prompt": "prompts/cat-ch04-spec-natural.txt",
-      "width": 1774,
-      "height": 887,
-      "bytes": 2320842,
-      "sha256": "adabf337869821ad51b893bf3f0ea37d615549df5bae330b34b4fb7eda988622",
+      "width": 640,
+      "height": 320,
+      "bytes": 52074,
+      "sha256": "6cf93e3fd464c8c552403e34a3724825a0186971fe80fd35961895f932c27892",
       "reference_images": [
-        "assets/cat-ch04-spec-detailed-v2.png"
-      ]
+        "assets/cat-ch04-spec-detailed-v2.jpg"
+      ],
+      "generation_original": {
+        "width": 1774,
+        "height": 887,
+        "bytes": 2320842,
+        "sha256": "adabf337869821ad51b893bf3f0ea37d615549df5bae330b34b4fb7eda988622",
+        "filename": "cat-ch04-spec-natural.png"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 640,
+        "format": "jpeg",
+        "quality": 80
+      }
     },
     {
-      "file": "assets/cat-ch08-handoff-detailed.png",
+      "file": "assets/cat-ch08-handoff-detailed.jpg",
       "prompt": "prompts/cat-ch08-handoff-detailed.txt",
-      "width": 1774,
-      "height": 887,
-      "bytes": 2693735,
-      "sha256": "3093dccdf0681f2dd99f749819f813bd120ebad7b4638fb58de8273698b8265e",
+      "width": 640,
+      "height": 320,
+      "bytes": 66734,
+      "sha256": "1678f7ceecc77fbeee4150c0e7c4d9b6be5309cf751975138fdbb69b1c1bfde6",
       "reference_images": [
-        "assets/cat-trio-sheet-detailed-v2.png"
-      ]
+        "assets/cat-trio-sheet-detailed-v2.jpg"
+      ],
+      "generation_original": {
+        "width": 1774,
+        "height": 887,
+        "bytes": 2693735,
+        "sha256": "3093dccdf0681f2dd99f749819f813bd120ebad7b4638fb58de8273698b8265e",
+        "filename": "cat-ch08-handoff-detailed.png"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 640,
+        "format": "jpeg",
+        "quality": 80
+      }
     },
     {
-      "file": "assets/cat-ch08-handoff-natural.png",
+      "file": "assets/cat-ch08-handoff-natural.jpg",
       "prompt": "prompts/cat-ch08-handoff-natural.txt",
-      "width": 1774,
-      "height": 887,
-      "bytes": 2662071,
-      "sha256": "813d164f51f0094a7e2c836a7e70d1f0312bcb820bcc8a4491929b8a80301b00",
+      "width": 640,
+      "height": 320,
+      "bytes": 66982,
+      "sha256": "2ab2ce13278b79927e9ad73b022c1e82a35982460a6b964a1c1d674b40774b19",
       "reference_images": [
-        "assets/cat-ch08-handoff-detailed.png"
-      ]
+        "assets/cat-ch08-handoff-detailed.jpg"
+      ],
+      "generation_original": {
+        "width": 1774,
+        "height": 887,
+        "bytes": 2662071,
+        "sha256": "813d164f51f0094a7e2c836a7e70d1f0312bcb820bcc8a4491929b8a80301b00",
+        "filename": "cat-ch08-handoff-natural.png"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 640,
+        "format": "jpeg",
+        "quality": 80
+      }
     },
     {
-      "file": "assets/cat-trio-sheet-detailed-v2.png",
+      "file": "assets/cat-trio-sheet-detailed-v2.jpg",
       "prompt": "prompts/cat-trio-sheet-detailed-v2.txt",
-      "width": 1536,
-      "height": 1024,
-      "bytes": 2740274,
-      "sha256": "32ecd635601509bfbe054dfed8cc24017d308ec755afbf22a2dd450956cf53ea",
+      "width": 1280,
+      "height": 853,
+      "bytes": 302292,
+      "sha256": "c365e4b828b11445b1dbf9c34b3279aa19e4d3e1fdd67c3af4f90ec7f2619f57",
       "reference_images": [
-        "assets/cat-trio-sheet-detailed.png",
+        "assets/cat-trio-sheet-detailed.jpg",
         "references/blue-gray-02.jpg"
-      ]
+      ],
+      "generation_original": {
+        "width": 1536,
+        "height": 1024,
+        "bytes": 2740274,
+        "sha256": "32ecd635601509bfbe054dfed8cc24017d308ec755afbf22a2dd450956cf53ea",
+        "filename": "cat-trio-sheet-detailed-v2.png"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 1280,
+        "format": "jpeg",
+        "quality": 80
+      }
     },
     {
-      "file": "assets/cat-trio-sheet-detailed.png",
+      "file": "assets/cat-trio-sheet-detailed.jpg",
       "prompt": "prompts/cat-trio-sheet-detailed.txt",
-      "width": 1536,
-      "height": 1024,
-      "bytes": 2954116,
-      "sha256": "95a61d9f168eb0968dfabbac7abdefa288e0e5d6e8f6bfc48c748cd314bef4ca",
+      "width": 1280,
+      "height": 853,
+      "bytes": 329760,
+      "sha256": "08e5878c8704de0d2959746383a2295be03edd5bdfb80d66db6317bfb91d9309",
       "reference_images": [
         "references/orange-white.jpg",
         "references/blue-gray-01.jpg",
         "references/longhair-tabby.jpg"
-      ]
+      ],
+      "generation_original": {
+        "width": 1536,
+        "height": 1024,
+        "bytes": 2954116,
+        "sha256": "95a61d9f168eb0968dfabbac7abdefa288e0e5d6e8f6bfc48c748cd314bef4ca",
+        "filename": "cat-trio-sheet-detailed.png"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 1280,
+        "format": "jpeg",
+        "quality": 80
+      }
     },
     {
-      "file": "assets/cat-trio-sheet.png",
+      "file": "assets/cat-trio-sheet.jpg",
       "prompt": "prompts/cat-trio-sheet.txt",
-      "width": 1536,
-      "height": 1024,
-      "bytes": 2142952,
-      "sha256": "ffd97d903097b014801e4e2c7d0d7bab1305bb360f0adadabc40d644bcefd836",
+      "width": 1280,
+      "height": 853,
+      "bytes": 241321,
+      "sha256": "d66602df5cc7ab32756a8d8b1a1f1cda2bcc39a3f1a87123e31a69f05aead5ef",
       "reference_images": [
-        "assets/cat-trio-sheet-detailed.png"
-      ]
+        "assets/cat-trio-sheet-detailed.jpg"
+      ],
+      "generation_original": {
+        "width": 1536,
+        "height": 1024,
+        "bytes": 2142952,
+        "sha256": "ffd97d903097b014801e4e2c7d0d7bab1305bb360f0adadabc40d644bcefd836",
+        "filename": "cat-trio-sheet.png"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 1280,
+        "format": "jpeg",
+        "quality": 80
+      }
     },
     {
-      "file": "assets/cat-trio-workbench.png",
+      "file": "assets/cat-trio-workbench.jpg",
       "prompt": "prompts/cat-trio-workbench.txt",
-      "width": 1774,
-      "height": 887,
-      "bytes": 2074667,
-      "sha256": "45bf7c7b7ff1c40dc459847f86d3ad4c616ae9bac4ea5ec3a732e0b5ce6499f8",
+      "width": 640,
+      "height": 320,
+      "bytes": 61832,
+      "sha256": "53ccaf8da6a1b0633560ac10055fc38f70323527914bbf6b648d80ca97abe6a2",
       "reference_images": [
-        "assets/cat-trio-sheet.png"
-      ]
+        "assets/cat-trio-sheet.jpg"
+      ],
+      "generation_original": {
+        "width": 1774,
+        "height": 887,
+        "bytes": 2074667,
+        "sha256": "45bf7c7b7ff1c40dc459847f86d3ad4c616ae9bac4ea5ec3a732e0b5ce6499f8",
+        "filename": "cat-trio-workbench.png"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 640,
+        "format": "jpeg",
+        "quality": 80
+      }
     },
     {
-      "file": "assets/ch01-workbench.png",
+      "file": "assets/ch01-workbench.jpg",
       "prompt": "prompts/ch01-workbench.txt",
-      "width": 1774,
-      "height": 887,
-      "bytes": 1979096,
-      "sha256": "f896c3c361908a64b12a8e9e07ed1e836263c0f3be66a9fd714cca979ebdfc96",
+      "width": 640,
+      "height": 320,
+      "bytes": 44692,
+      "sha256": "ef84f2de26735eaf4c33a6b85029938707deb5cafe3b056274839b535dc0ebd4",
       "reference_images": [
-        "assets/feedback-comic.png"
-      ]
+        "assets/feedback-comic.jpg"
+      ],
+      "generation_original": {
+        "width": 1774,
+        "height": 887,
+        "bytes": 1979096,
+        "sha256": "f896c3c361908a64b12a8e9e07ed1e836263c0f3be66a9fd714cca979ebdfc96",
+        "filename": "ch01-workbench.png"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 640,
+        "format": "jpeg",
+        "quality": 80
+      }
     },
     {
-      "file": "assets/ch02-workbench.png",
+      "file": "assets/ch02-workbench.jpg",
       "prompt": "prompts/ch02-workbench.txt",
-      "width": 1774,
-      "height": 887,
-      "bytes": 2004167,
-      "sha256": "44a5a3529a815f27a847e63a7cc7f763b964d05ff3ae74b409e7a26be5bb8391",
+      "width": 640,
+      "height": 320,
+      "bytes": 49536,
+      "sha256": "181cb945f860ca6c58d0378689cca9ec283600a4b71ade9f80ced82c874e6255",
       "reference_images": [
-        "assets/feedback-comic.png"
-      ]
+        "assets/feedback-comic.jpg"
+      ],
+      "generation_original": {
+        "width": 1774,
+        "height": 887,
+        "bytes": 2004167,
+        "sha256": "44a5a3529a815f27a847e63a7cc7f763b964d05ff3ae74b409e7a26be5bb8391",
+        "filename": "ch02-workbench.png"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 640,
+        "format": "jpeg",
+        "quality": 80
+      }
     },
     {
-      "file": "assets/feedback-comic.png",
+      "file": "assets/feedback-comic.jpg",
       "prompt": "prompts/feedback-comic.txt",
-      "width": 2172,
-      "height": 724,
-      "bytes": 2016880,
-      "sha256": "e692e605bce5ee8a7ff90e930d3b61e894f702df6e3f7757b8893d8c2eb4bf32",
-      "reference_images": []
+      "width": 1920,
+      "height": 640,
+      "bytes": 279440,
+      "sha256": "0313743886751dfb2f817a86475d36bdcb025e9fa15a07dc0049c67465c8a6b1",
+      "reference_images": [],
+      "generation_original": {
+        "width": 2172,
+        "height": 724,
+        "bytes": 2016880,
+        "sha256": "e692e605bce5ee8a7ff90e930d3b61e894f702df6e3f7757b8893d8c2eb4bf32",
+        "filename": "feedback-comic.png"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 1920,
+        "format": "jpeg",
+        "quality": 80
+      }
     },
     {
-      "file": "assets/game-gallery.png",
+      "file": "assets/game-gallery.jpg",
       "prompt": "prompts/game-gallery.txt",
-      "width": 1448,
-      "height": 1086,
-      "bytes": 1659925,
-      "sha256": "3f17803b087e50e9c2d6336a1b5075b3fd472d0f144dc00e2306fb89ba9f065b",
-      "reference_images": []
+      "width": 640,
+      "height": 480,
+      "bytes": 110192,
+      "sha256": "0f453f236340b1fa4e39daf7800ad02358871ceaea81ce6e357ee30c968057a2",
+      "reference_images": [],
+      "generation_original": {
+        "width": 1448,
+        "height": 1086,
+        "bytes": 1659925,
+        "sha256": "3f17803b087e50e9c2d6336a1b5075b3fd472d0f144dc00e2306fb89ba9f065b",
+        "filename": "game-gallery.png"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 640,
+        "format": "jpeg",
+        "quality": 80
+      }
     },
     {
-      "file": "assets/human-beaver-comparison.png",
+      "file": "assets/human-beaver-comparison.jpg",
       "prompt": "prompts/human-beaver-comparison.txt",
-      "width": 1774,
-      "height": 887,
-      "bytes": 1731089,
-      "sha256": "9c30926cad89753978cd5e999ecfcd29c1f86f1ef296cb1756fb8c2807cd0544",
+      "width": 640,
+      "height": 320,
+      "bytes": 44744,
+      "sha256": "e17cb665eb997391e3639e34f44a691a203fe79966470c79b4544a35ffea31fe",
       "reference_images": [
-        "assets/ch01-workbench.png"
-      ]
+        "assets/ch01-workbench.jpg"
+      ],
+      "generation_original": {
+        "width": 1774,
+        "height": 887,
+        "bytes": 1731089,
+        "sha256": "9c30926cad89753978cd5e999ecfcd29c1f86f1ef296cb1756fb8c2807cd0544",
+        "filename": "human-beaver-comparison.png"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 640,
+        "format": "jpeg",
+        "quality": 80
+      }
     },
     {
-      "file": "assets/portfolio.png",
+      "file": "assets/portfolio.jpg",
       "prompt": "prompts/portfolio.txt",
-      "width": 1448,
-      "height": 1086,
-      "bytes": 1679140,
-      "sha256": "1853c83a3953cd929cf3c03da1872e267121acc93877a690bde3401f8ed3d89a",
-      "reference_images": []
+      "width": 640,
+      "height": 480,
+      "bytes": 68111,
+      "sha256": "3019c7c69cb7d03c2f63c694064257547dae783ad28d8d9689b2e6107c5ac1de",
+      "reference_images": [],
+      "generation_original": {
+        "width": 1448,
+        "height": 1086,
+        "bytes": 1679140,
+        "sha256": "1853c83a3953cd929cf3c03da1872e267121acc93877a690bde3401f8ed3d89a",
+        "filename": "portfolio.png"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 640,
+        "format": "jpeg",
+        "quality": 80
+      }
     },
     {
-      "file": "assets/cat-ch04-pose-reference.png",
+      "file": "assets/cat-ch04-pose-reference.jpg",
       "prompt": "prompts/cat-ch04-pose-reference.txt",
-      "width": 1536,
-      "height": 1024,
-      "bytes": 2890696,
-      "sha256": "c455aa16d8502b1d9be999fe898279f65703e9d8b5ae74c45cf7647fe0525000",
+      "width": 640,
+      "height": 426,
+      "bytes": 67761,
+      "sha256": "821dbf71f7f3d02fa261c85a0896e85b80735be9005a80e0b6fffe37b8460bad",
       "reference_images": [
         "references/blue-gray-02.jpg",
-        "assets/cat-trio-sheet-detailed-v2.png"
+        "assets/cat-trio-sheet-detailed-v2.jpg"
       ],
-      "status": "workflow study, awaiting instructor comparison"
+      "status": "workflow study, awaiting instructor comparison",
+      "generation_original": {
+        "width": 1536,
+        "height": 1024,
+        "bytes": 2890696,
+        "sha256": "c455aa16d8502b1d9be999fe898279f65703e9d8b5ae74c45cf7647fe0525000",
+        "filename": "cat-ch04-pose-reference.png"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 640,
+        "format": "jpeg",
+        "quality": 80
+      }
     },
     {
       "file": "assets/blue-gray-standing-cutout.png",
       "prompt": "prompts/blue-gray-standing-cutout.txt",
-      "width": 1448,
-      "height": 1086,
-      "bytes": 1879501,
-      "sha256": "80e79bdc8782bbe820d864fd85271978f174f716929d209a9d6d73a2e5ef1df8",
+      "width": 640,
+      "height": 480,
+      "bytes": 329204,
+      "sha256": "88e97635343231c50668aefb3934c08e9abd3320e1281821ebb7efef4c6adfc9",
       "reference_images": [
         "references/blue-gray-02.jpg",
-        "assets/cat-trio-sheet-detailed-v2.png"
+        "assets/cat-trio-sheet-detailed-v2.jpg"
       ],
-      "status": "workflow study, awaiting instructor comparison"
+      "status": "workflow study, awaiting instructor comparison",
+      "generation_original": {
+        "width": 1448,
+        "height": 1086,
+        "bytes": 1879501,
+        "sha256": "80e79bdc8782bbe820d864fd85271978f174f716929d209a9d6d73a2e5ef1df8",
+        "filename": "blue-gray-standing-cutout.png"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 640,
+        "format": "png"
+      }
     },
     {
-      "file": "assets/cat-ch04-interaction-detailed.png",
+      "file": "assets/cat-ch04-interaction-detailed.jpg",
       "prompt": "prompts/cat-ch04-interaction-detailed.txt",
-      "width": 1536,
-      "height": 1024,
-      "bytes": 2368644,
-      "sha256": "fc453ac0311142861323e219930f043c45915c50274fe31a0eaba54b7f013fa5",
+      "width": 640,
+      "height": 426,
+      "bytes": 51416,
+      "sha256": "24dbf62c95ee17ec29462e3b6c25434642247def614c918f139b683f4e7371e8",
       "reference_images": [
-        "assets/cat-trio-sheet-detailed-v2.png"
+        "assets/cat-trio-sheet-detailed-v2.jpg"
       ],
-      "status": "instructor rejected: limb silhouette reads as six legs"
+      "status": "instructor rejected: limb silhouette reads as six legs",
+      "generation_original": {
+        "width": 1536,
+        "height": 1024,
+        "bytes": 2368644,
+        "sha256": "fc453ac0311142861323e219930f043c45915c50274fe31a0eaba54b7f013fa5",
+        "filename": "cat-ch04-interaction-detailed.png"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 640,
+        "format": "jpeg",
+        "quality": 80
+      }
     },
     {
-      "file": "assets/cat-ch04-interaction-cartoon.png",
+      "file": "assets/cat-ch04-interaction-cartoon.jpg",
       "prompt": "prompts/cat-ch04-interaction-cartoon.txt",
-      "width": 1536,
-      "height": 1024,
-      "bytes": 1694047,
-      "sha256": "1c8d4d269755bcbf4ca0780da944fc8a3cad007b91134a0ca7a13d7f3ceab902",
+      "width": 640,
+      "height": 426,
+      "bytes": 34949,
+      "sha256": "a5da43ae0ef6583bd9d56ffcfb6eba696f50dc8f870d2067f7e05569e47071ac",
       "reference_images": [
-        "assets/cat-trio-sheet-detailed-v2.png",
-        "assets/cat-trio-sheet.png"
+        "assets/cat-trio-sheet-detailed-v2.jpg",
+        "assets/cat-trio-sheet.jpg"
       ],
-      "status": "instructor preferred over detailed sample; style reference for further trials"
+      "status": "instructor preferred over detailed sample; style reference for further trials",
+      "generation_original": {
+        "width": 1536,
+        "height": 1024,
+        "bytes": 1694047,
+        "sha256": "1c8d4d269755bcbf4ca0780da944fc8a3cad007b91134a0ca7a13d7f3ceab902",
+        "filename": "cat-ch04-interaction-cartoon.png"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 640,
+        "format": "jpeg",
+        "quality": 80
+      }
     },
     {
-      "file": "assets/cat-ch02-feedback-cartoon.png",
+      "file": "assets/cat-ch02-feedback-cartoon.jpg",
       "prompt": "prompts/cat-ch02-feedback-cartoon.txt",
-      "width": 1536,
-      "height": 1024,
-      "bytes": 2026631,
-      "sha256": "98162c735be0d0abe3041b6c4fee03c8bda81d468db1386599adab2d717d3ede",
+      "width": 640,
+      "height": 426,
+      "bytes": 70028,
+      "sha256": "67a17d43d81ba6c93e19f31b332fa2403d53ffeb417853b36df39f1760bcea29",
       "reference_images": [
-        "assets/cat-ch04-interaction-cartoon.png",
-        "assets/cat-trio-sheet.png"
+        "assets/cat-ch04-interaction-cartoon.jpg",
+        "assets/cat-trio-sheet.jpg"
       ],
-      "status": "initial phone grip has thumb-like projection; retained for comparison"
+      "status": "initial phone grip has thumb-like projection; retained for comparison",
+      "generation_original": {
+        "width": 1536,
+        "height": 1024,
+        "bytes": 2026631,
+        "sha256": "98162c735be0d0abe3041b6c4fee03c8bda81d468db1386599adab2d717d3ede",
+        "filename": "cat-ch02-feedback-cartoon.png"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 640,
+        "format": "jpeg",
+        "quality": 80
+      }
     },
     {
-      "file": "assets/cat-ch02-feedback-cartoon-v2.png",
+      "file": "assets/cat-ch02-feedback-cartoon-v2.jpg",
       "prompt": "prompts/cat-ch02-feedback-cartoon-v2.txt",
-      "width": 1536,
-      "height": 1024,
-      "bytes": 1893589,
-      "sha256": "da30db4b744fa9fd679bf4fc87c150b6f98fd0bf80b04b3b31d0120ce0107928",
+      "width": 640,
+      "height": 426,
+      "bytes": 68452,
+      "sha256": "b305cf537338d0c1ece88d522f92154d4f45b5692d8921e8c251c914831b6fd9",
       "reference_images": [
-        "assets/cat-ch02-feedback-cartoon.png"
+        "assets/cat-ch02-feedback-cartoon.jpg"
       ],
-      "status": "new cartoon action study; awaiting instructor comparison"
+      "status": "new cartoon action study; awaiting instructor comparison",
+      "generation_original": {
+        "width": 1536,
+        "height": 1024,
+        "bytes": 1893589,
+        "sha256": "da30db4b744fa9fd679bf4fc87c150b6f98fd0bf80b04b3b31d0120ce0107928",
+        "filename": "cat-ch02-feedback-cartoon-v2.png"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 640,
+        "format": "jpeg",
+        "quality": 80
+      }
     },
     {
-      "file": "assets/cat-ch06-evidence-cartoon.png",
+      "file": "assets/cat-ch06-evidence-cartoon.jpg",
       "prompt": "prompts/cat-ch06-evidence-cartoon.txt",
-      "width": 1536,
-      "height": 1024,
-      "bytes": 1888573,
-      "sha256": "0d5493694b806137127e60c4e57c8469e2680e621968a3a2dea44082b8555af8",
+      "width": 640,
+      "height": 426,
+      "bytes": 42936,
+      "sha256": "d7b525674b45f32aacf22336ca37db12e9baedeb2759590873bd1a36149851e5",
       "reference_images": [
-        "assets/cat-ch04-interaction-cartoon.png",
-        "assets/cat-trio-sheet.png"
+        "assets/cat-ch04-interaction-cartoon.jpg",
+        "assets/cat-trio-sheet.jpg"
       ],
-      "status": "new cartoon action study; awaiting instructor comparison"
+      "status": "new cartoon action study; awaiting instructor comparison",
+      "generation_original": {
+        "width": 1536,
+        "height": 1024,
+        "bytes": 1888573,
+        "sha256": "0d5493694b806137127e60c4e57c8469e2680e621968a3a2dea44082b8555af8",
+        "filename": "cat-ch06-evidence-cartoon.png"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 640,
+        "format": "jpeg",
+        "quality": 80
+      }
     },
     {
-      "file": "assets/cat-ch08-handoff-cartoon.png",
+      "file": "assets/cat-ch08-handoff-cartoon.jpg",
       "prompt": "prompts/cat-ch08-handoff-cartoon.txt",
-      "width": 1536,
-      "height": 1024,
-      "bytes": 2104375,
-      "sha256": "46041fb9486a5b60dc8b523ef7e71ca27e5c53c80e6caa261c146c817547d523",
+      "width": 640,
+      "height": 426,
+      "bytes": 60480,
+      "sha256": "50def30dbd8f864fa2c025b173240780262b4f30926e837dc13907d66a18a29d",
       "reference_images": [
-        "assets/cat-ch04-interaction-cartoon.png",
-        "assets/cat-trio-sheet.png"
+        "assets/cat-ch04-interaction-cartoon.jpg",
+        "assets/cat-trio-sheet.jpg"
       ],
-      "status": "new cartoon action study; awaiting instructor comparison"
+      "status": "new cartoon action study; awaiting instructor comparison",
+      "generation_original": {
+        "width": 1536,
+        "height": 1024,
+        "bytes": 2104375,
+        "sha256": "46041fb9486a5b60dc8b523ef7e71ca27e5c53c80e6caa261c146c817547d523",
+        "filename": "cat-ch08-handoff-cartoon.png"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 640,
+        "format": "jpeg",
+        "quality": 80
+      }
+    },
+    {
+      "file": "assets/blue-cat-resolution-probe-640.jpg",
+      "prompt": "prompts/blue-cat-resolution-probe-640.txt",
+      "width": 640,
+      "height": 480,
+      "bytes": 33264,
+      "sha256": "cd8fe30cfd8b1c3ac656db9fdb087330e81e5a4d48e4a1f00c93c590035ddb53",
+      "reference_images": [
+        "assets/cat-ch04-interaction-cartoon.jpg"
+      ],
+      "generation_original": {
+        "filename": "blue-cat-resolution-probe-640.png",
+        "width": 1448,
+        "height": 1086,
+        "bytes": 1313095,
+        "sha256": "1690ad80d5da5cca2f259061409cb1be3423ab91dd89096598cd429d9169c7aa"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 640,
+        "format": "jpeg",
+        "quality": 80
+      },
+      "export_only": false,
+      "status": "native 640x480 prompt probe returned 1448x1086; 640x480 is post-export"
+    },
+    {
+      "file": "assets/cat-ch02-feedback-size1024.jpg",
+      "prompt": "prompts/cat-ch02-feedback-cartoon-v2.txt",
+      "width": 1024,
+      "height": 682,
+      "bytes": 141356,
+      "sha256": "dd518ced24705eefafe5456ffbafbfbc8e3e01e0965b8567f8cd4c4a7246661a",
+      "reference_images": [
+        "assets/cat-ch02-feedback-cartoon.jpg"
+      ],
+      "generation_original": {
+        "filename": "cat-ch02-feedback-cartoon-v2.png",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 1893589,
+        "sha256": "da30db4b744fa9fd679bf4fc87c150b6f98fd0bf80b04b3b31d0120ce0107928"
+      },
+      "export": {
+        "tool": "sips",
+        "max_edge": 1024,
+        "format": "jpeg",
+        "quality": 80
+      },
+      "export_only": true,
+      "status": "size comparison export"
     }
   ],
-  "reference_note": "照片参考最初使用讲师原尺寸附件；这里列出 Git 中对应的缩小参考，便于接续，不保证重新生成逐像素一致。"
+  "reference_note": "照片参考最初使用讲师原尺寸附件；这里列出 Git 中对应的缩小参考，便于接续，不保证重新生成逐像素一致。",
+  "export_policy": {
+    "scene_max_edge": 640,
+    "character_sheet_max_edge": 1280,
+    "three_panel_strip_max_edge": 1920,
+    "jpeg_quality": 80,
+    "transparent_format": "png",
+    "full_resolution_masters": "local ignored generated-originals/; not required for continuation"
+  },
+  "resolution_probe": {
+    "requested_in_prompt": "640x480",
+    "native_returned": "1448x1086",
+    "elapsed_seconds": 16.829,
+    "token_usage": "not returned",
+    "model": "not exposed by built-in tool",
+    "explicit_parameters_available": [
+      "prompt",
+      "referenced_image_paths",
+      "num_last_images_to_include",
+      "transparent_background"
+    ],
+    "api_call": "not performed; native prompt probe only"
+  }
 }

@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>小尺寸插画对照与生图 Probe</title>
+<style>*{box-sizing:border-box}body{margin:0;background:#F4F2EB;color:#243042;font:16px/1.65 system-ui,sans-serif}main{max-width:1300px;margin:auto;padding:24px}h1{font-size:29px}h2{font-size:24px;margin-top:28px}a{color:inherit;text-underline-offset:4px}.pair{display:grid;grid-template-columns:1fr 1fr;gap:20px}figure{margin:0;min-width:0;border:1px solid #C9C2B4;padding:16px;border-radius:8px}img{display:block;width:100%;height:auto}figcaption{margin-top:10px}.note{color:#5B6573;font-size:15px}.probe{max-width:720px}table{border-collapse:collapse;width:100%;margin:18px 0}td,th{text-align:left;border-bottom:1px solid #C9C2B4;padding:9px}th{width:38%}@media(max-width:760px){main{padding:18px 16px}.pair{grid-template-columns:1fr}h1{font-size:25px}}</style></head>
+<body><main>
+<a href="cartoon-tests.html">← 三组卡通章节动作</a>
+<h1>640 级别的小图，是否已经够用？</h1>
+<p>同一张插画、同样的显示占位，只比较导出尺寸；没有重新生成两张场景</p>
+<div class="pair">
+<figure><img src="assets/cat-ch02-feedback-size1024.jpg" alt="同一反馈场景的 1024 像素 JPEG 对照"><figcaption>1024×682 · JPEG 质量 80<br><span id="large-bytes"></span></figcaption></figure>
+<figure><img src="assets/cat-ch02-feedback-cartoon-v2.jpg" alt="同一反馈场景的 640 像素 JPEG 小图"><figcaption>640×426 · JPEG 质量 80<br><span id="small-bytes"></span></figcaption></figure>
+</div>
+<p class="note">正式页若给插画约 500–640 像素宽，小图适合这一占位；更大占位会放大像素，角色花色与爪子边缘需人工比较</p>
+<h2>一次原生分辨率 Probe</h2>
+<table><tbody><tr><th>Prompt 中明确请求</th><td>640×480 · 快速卡通草稿</td></tr><tr><th>工具实际返回</th><td>1448×1086 PNG</td></tr><tr><th>本次调用耗时</th><td>约 16.8 秒</td></tr><tr><th>下方保存版本</th><td>640×480 JPEG · 生成后缩小</td></tr><tr><th>Token 与模型</th><td>工具没有返回，不估算成本</td></tr></tbody></table>
+<figure class="probe"><img src="assets/blue-cat-resolution-probe-640.jpg" alt="导出为 640×480 的蓝猫卡通稿，用两只圆猫爪拿一个文件夹"><figcaption>这张确实保存为 640×480；原生返回尺寸没有按 Prompt 生效</figcaption></figure>
+<p>一次短 Prompt、一个角色和一张参考的结果，不能证明小分辨率使生成更快；本轮仅测到比例遵循、像素尺寸未遵循</p>
+<p class="note">官方 API 开放 size、quality 与 JPEG 输出；当前内置工具只开放 Prompt、参考图与透明背景。官方当前自定义尺寸指南的最少像素数为 655,360，640×480 的 307,200 像素低于该范围。API 参数与这里的 Prompt 请求须分别判断</p>
+<p><a href="https://developers.openai.com/api/docs/guides/image-generation">OpenAI 图像生成文档</a> · <a href="prompts/blue-cat-resolution-probe-640.txt">本次完整 Prompt</a> · <a href="README.md">保存规则与素材清单</a></p>
+</main><script>fetch('generated-assets-manifest.json').then(r=>r.json()).then(m=>{for(const [id,name] of [['large-bytes','assets/cat-ch02-feedback-size1024.jpg'],['small-bytes','assets/cat-ch02-feedback-cartoon-v2.jpg']]){const i=m.images.find(i=>i.file===name);document.getElementById(id).textContent=(i.bytes/1000).toFixed(1)+' KB';}}).catch(()=>{document.getElementById('large-bytes').textContent='尺寸与字节数见素材清单';document.getElementById('small-bytes').textContent='尺寸与字节数见素材清单';});</script>
+</body></html>
