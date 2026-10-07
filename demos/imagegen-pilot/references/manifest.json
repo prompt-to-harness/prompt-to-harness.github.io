@@ -1,0 +1,39 @@
+{
+  "snapshot_date": "2026-10-07",
+  "source": "讲师提供的四张猫照片；用户明确要求缩小版进入公开 Git",
+  "encoding": "JPEG quality 80, max edge 1280; APP1/APP13/comment metadata removed; full originals preserved locally",
+  "images": [
+    {
+      "file": "orange-white.jpg",
+      "purpose": "橘白猫外形与花色",
+      "width": 1280,
+      "height": 960,
+      "bytes": 218325,
+      "sha256": "e4c5b207edf113767ec930eec7e416460363ba6116517339b453ae1ebbfb53ca"
+    },
+    {
+      "file": "blue-gray-01.jpg",
+      "purpose": "蓝猫初始外形参考",
+      "width": 1280,
+      "height": 960,
+      "bytes": 448217,
+      "sha256": "01132c0c6c3ecc1435d49b6ba43b3cc9e55fb1a9e767132835e2cd37fdd90ff6"
+    },
+    {
+      "file": "longhair-tabby.jpg",
+      "purpose": "长毛狸花外形、毛量与条纹",
+      "width": 1280,
+      "height": 960,
+      "bytes": 194122,
+      "sha256": "8defbb66863bb53240eacbf339e06ac4c7cbb086db738e2e524707fbf65a493c"
+    },
+    {
+      "file": "blue-gray-02.jpg",
+      "purpose": "蓝猫修订依据：自然体型与较小腮部",
+      "width": 1280,
+      "height": 960,
+      "bytes": 158900,
+      "sha256": "9dfe86acbb9968c67fdec49de23f5c3dbdc5e55bc37a3e123ac6127955697409"
+    }
+  ]
+}
