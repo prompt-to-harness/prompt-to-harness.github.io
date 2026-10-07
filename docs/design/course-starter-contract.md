@@ -30,6 +30,10 @@ ch02-start-v1    第 2 章参考起点：第 1 章结束时的讲师首页（202
 ch03-start-v1    第 3 章参考起点（待制作）
 ```
 
+参考起点由课程仓库的主线重跑脚本（`courseware/ch01/materials/mainline/`、`courseware/ch02/materials/mainline/`）真实运行得到，讲师审查后冻结，再提交到 `course-run`；讲师笔记和运行日志留在课程仓库，不进入 Starter。原先规划的 `ch01-complete` 等完成态标签不再使用。
+
+这些参考起点用于学员补齐前提、录制复现和结果对照，不是要求学员覆盖自己工作的 reset 点。学员完成一章后，应在自己的仓库或分支中继续积累个人内容。第一版不开发 `reset`、`cherry-pick` 或自动备份工具。标签在对应章节真正完成并核验后再创建；初始 Starter 不伪造这些标签。
+
 ### 讲师参考成品的线上版本（2026-10-07 确认）
 
 `course-run` 部署到 course-starter 自己的 GitHub Pages（`https://prompt-to-harness.github.io/course-starter/`），作为讲师参考成品的线上版本；学员仍在自己由 Template 生成的仓库 `main` 上部署，互不影响。这一做法 2026-10-07 在结构相同的临时仓库实测可行（过程见[第 3 章提案](../outline/proposals/2026-10-05-ch03-storyline.md) §七第 6 条），需要：
@@ -39,10 +43,6 @@ ch03-start-v1    第 3 章参考起点（待制作）
 3. `vite.config` 的 `base` 写 `/course-starter/`。
 
 第 2、3 条会进入参考起点标签，学员“从这一章开始”时 Codex 会看到。各章追赶预检要核对：Codex 不把 `course-run` 抄进学员的 workflow，`base` 用学员自己的仓库名。线上只显示 `course-run` 的最新提交；各章标签的状态以标签本身为准。设置在制作 `ch03-start-v1` 时一并完成（尚未操作）。从 Template 生成仓库时不带 `course-run`，依据是 GitHub 默认只复制默认分支，未实测。
-
-参考起点由课程仓库的主线重跑脚本（`courseware/ch01/materials/mainline/`、`courseware/ch02/materials/mainline/`）真实运行得到，讲师审查后冻结，再提交到 `course-run`；讲师笔记和运行日志留在课程仓库，不进入 Starter。原先规划的 `ch01-complete` 等完成态标签不再使用。
-
-这些参考起点用于学员补齐前提、录制复现和结果对照，不是要求学员覆盖自己工作的 reset 点。学员完成一章后，应在自己的仓库或分支中继续积累个人内容。第一版不开发 `reset`、`cherry-pick` 或自动备份工具。标签在对应章节真正完成并核验后再创建；初始 Starter 不伪造这些标签。
 
 ## 3. 技术与环境基线
 
