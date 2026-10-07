@@ -1,2 +1,4 @@
 # Original household photos and their archive manifest stay local.
 /private-references/
+# Full-resolution generated masters stay local; compact exports are tracked.
+/generated-originals/

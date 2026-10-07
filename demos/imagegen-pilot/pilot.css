@@ -11,7 +11,7 @@
 .pilot-question b{white-space:nowrap}
 .pilot-comic{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;height:350px;padding:4px 7px 0 0}
 .pilot-comic-panel{position:relative;min-width:0;border:3px solid var(--pilot-ink);box-shadow:5px 5px 0 var(--pilot-ink);background:var(--pilot-paper)}
-.pilot-comic-art{position:absolute;inset:0;background-image:url('assets/feedback-comic.png');background-repeat:no-repeat;background-size:300% 100%}
+.pilot-comic-art{position:absolute;inset:0;background-image:url('assets/feedback-comic.jpg');background-repeat:no-repeat;background-size:300% 100%}
 .pilot-comic-art.first{background-position:0 0}.pilot-comic-art.second{background-position:50% 0}.pilot-comic-art.third{background-position:100% 0}
 .pilot-comic-cap{position:absolute;top:10px;left:14px;font-size:18px;font-weight:700;padding:3px 7px;background:#EAE6DB;border-radius:3px}
 .pilot-comic-dialogue{position:absolute;top:47px;left:14px;right:14px;font-size:22px;line-height:1.3;font-weight:700;background:rgba(244,242,235,.96);border:2px solid var(--pilot-ink);border-radius:10px;padding:9px 12px;margin:0}

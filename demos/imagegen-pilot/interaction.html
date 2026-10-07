@@ -21,7 +21,7 @@
 <div class="chapter">第 4 章 · SDD · 4.3 固定可观察行为</div>
 <h2>对象键换序，算不算变化？</h2>
 <div class="body">
-<figure><div class="art cartoon" id="art"><img id="scene-image" src="assets/cat-ch04-interaction-cartoon.png" alt="卡通版蓝猫用两只圆猫爪举起输入卡，头部轻微倾斜，两后脚与尾巴可辨"><span class="tag tag-a" aria-hidden="true">A</span><span class="tag tag-b" aria-hidden="true">B</span></div><figcaption>猫实际拿着 A、B 两张输入卡；准确输入与规则在右侧对应展示</figcaption></figure>
+<figure><div class="art cartoon" id="art"><img id="scene-image" src="assets/cat-ch04-interaction-cartoon.jpg" alt="卡通版蓝猫用两只圆猫爪举起输入卡，头部轻微倾斜，两后脚与尾巴可辨"><span class="tag tag-a" aria-hidden="true">A</span><span class="tag tag-b" aria-hidden="true">B</span></div><figcaption>猫实际拿着 A、B 两张输入卡；准确输入与规则在右侧对应展示</figcaption></figure>
 <div>
 <div class="inputs"><div class="card"><b>A · Before</b><pre>{"a": 1, "b": 2}</pre></div><div class="card"><b>B · After</b><pre>{"b": 2, "a": 1}</pre></div></div>
 <p class="rule"><strong>批准规则：忽略对象键顺序</strong></p>
@@ -33,7 +33,7 @@
 <p class="history"><a href="pose-research.html">真实站姿与透明角色 · 历史探索</a> · <a href="chapter-states.html">旧章节样本</a> · <a href="CONTINUE.md">最新续做约定</a> · <a href="README.md">素材与 Prompt</a></p>
 </main>
 <script>
-const variants={detailed:{src:'assets/cat-ch04-interaction-detailed.png',alt:'细节版蓝猫头和身体朝向一致，用两只圆毛爪拿着两张输入卡比较',note:'讲师指出细节版像有“六条腿”，本稿肢体未通过；保留作失败对照，后续优先卡通版'},cartoon:{src:'assets/cat-ch04-interaction-cartoon.png',alt:'卡通版蓝猫用圆润的动画式猫爪举起两张输入卡，头部轻微倾斜，身体朝前',note:'讲师已偏好本组卡通版：两前爪举卡，两后脚与尾巴易区分；下一步比较更多动作能否延续这种清楚的轮廓'}};
+const variants={detailed:{src:'assets/cat-ch04-interaction-detailed.jpg',alt:'细节版蓝猫头和身体朝向一致，用两只圆毛爪拿着两张输入卡比较',note:'讲师指出细节版像有“六条腿”，本稿肢体未通过；保留作失败对照，后续优先卡通版'},cartoon:{src:'assets/cat-ch04-interaction-cartoon.jpg',alt:'卡通版蓝猫用圆润的动画式猫爪举起两张输入卡，头部轻微倾斜，身体朝前',note:'讲师已偏好本组卡通版：两前爪举卡，两后脚与尾巴易区分；下一步比较更多动作能否延续这种清楚的轮廓'}};
 document.querySelectorAll('[data-style]').forEach(button=>button.addEventListener('click',()=>{const name=button.dataset.style,v=variants[name];document.querySelectorAll('[data-style]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));const img=document.getElementById('scene-image');img.src=v.src;img.alt=v.alt;document.getElementById('art').className='art '+name;document.getElementById('observation').textContent=v.note;}));
 </script>
 </body></html>

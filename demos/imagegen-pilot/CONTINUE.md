@@ -6,12 +6,13 @@
 
 ## 已确认偏好
 
-- 最新画法偏好：讲师比较第 4 章互动两稿后，明确认为卡通版更好，细节版的肢体容易读成“六条腿”。后续互动试验优先使用 [cat-ch04-interaction-cartoon.png](assets/cat-ch04-interaction-cartoon.png) 的简化轮廓、柔和填色与圆猫爪。
-- 外形仍参考 [cat-trio-sheet-detailed-v2.png](assets/cat-trio-sheet-detailed-v2.png) 已修正的身份特征。旧简化设定图可提供橘白和狸花的参考，不能复制其中未修正的胖蓝猫。
+- 最新画法偏好：讲师比较第 4 章互动两稿后，明确认为卡通版更好，细节版的肢体容易读成“六条腿”。后续互动试验优先使用 [cat-ch04-interaction-cartoon.jpg](assets/cat-ch04-interaction-cartoon.jpg) 的简化轮廓、柔和填色与圆猫爪。
+- 外形仍参考 [cat-trio-sheet-detailed-v2.jpg](assets/cat-trio-sheet-detailed-v2.jpg) 已修正的身份特征。旧简化设定图可提供橘白和狸花的参考，不能复制其中未修正的胖蓝猫。
 - 橘白猫和长毛狸花沿用已认可造型。蓝猫采用 v2 的自然体型与较小腮部，不能恢复第一稿的胖圆脸。
 - 最新澄清：讲师指出的是那张图的诡异扭头，并未否定所有适度拟人动作。角色必须与章节内容互动；允许动画片式简单抓握、持卡与适度夸张，爪子保持短、圆、有毛的猫爪，不画像人手一样灵活的分指、拇指或精细捏取。头、颈和身体朝向连贯，避免身体朝前却头颈急扭。不要把互动角色退化成与内容无关的猫贴图。
 - 名字、性格、固定分工仍待讨论，不从照片推断真实性格。
 - 技术文字和判断留在 HTML/SVG；插画中的屏幕、纸张不是执行证据。
+- Git 中保存小尺寸导出：普通场景优先最长边 640、设定图 1280，非透明图 JPEG 质量 80；三格条带最长边 1920，透明 PNG 最长边 640。新图生成后先压缩与检查，再提交。完整生成原稿在本机 Git 忽略的 generated-originals/，续做不依赖它。
 
 ## 可用文件
 
@@ -23,6 +24,9 @@
 - [prompts/](prompts/)：每幅图对应的完整 Prompt。
 - [generated-assets-manifest.json](generated-assets-manifest.json)：生成文件、Prompt、尺寸和校验值。
 - [制作提案](../../docs/production/imagegen-pilot-proposal.md)、[最新卡通试验审查](../../docs/reviews/2026-10-07-all-cartoon-state-tests-codex.md)：课程使用标准与检查范围。
+
+- [resolution.html](resolution.html)：640 与 1024 导出对照，以及一次原生尺寸请求未生效的 Probe。当前内置工具没有显式 size／quality／format 参数；不要仅在 Prompt 写小尺寸就承诺降低生成 Token 或耗时。
+- 本轮大 PNG 历史已在本地清理；压缩图、参考照片与 Prompt 仍在 Git。远端 dongxu/dev-1006 已于 2026-10-07 用精确旧值的 force-with-lease 同步；旧克隆须重新同步，避免把旧大图历史再次带回。完整备份及 commit-map 在本机忽略目录 generated-originals/git-backup-20261007/；详情见 [压缩与历史清理记录](../../docs/reviews/2026-10-07-all-imagegen-size-history-codex.md)。
 
 ## 修改方法
 
