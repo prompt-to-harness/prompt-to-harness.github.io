@@ -10,29 +10,30 @@
 <body><main>
 <a href="characters.html">← 三猫角色设定</a>
 <h1>圆猫爪可以抓握，角色要参与章节任务</h1>
-<p>同一“拿两张输入卡比较”的动作，保留细节版，也尝试之前的卡通画法</p>
-<p class="note">2026-10-07 · 按最新澄清修订：允许适度拟人，重点检查头颈连贯与猫爪形状 · 两稿待比较</p>
+<p>同一“拿两张输入卡比较”的动作：讲师偏好卡通版，细节版保留为失败对照</p>
+<p class="note">2026-10-07 · 后续优先卡通画法：允许适度拟人，检查头颈、猫爪与肢体数量</p>
+<p><a href="cartoon-tests.html">查看新增三组卡通动作：反馈、核对依据、递交记录 →</a></p>
 <div class="tabs" role="group" aria-label="切换画法">
-<button type="button" data-style="detailed" aria-pressed="true">细节版 · 保留毛发笔触</button>
-<button type="button" data-style="cartoon" aria-pressed="false">卡通版 · 简化轮廓</button>
+<button type="button" data-style="detailed" aria-pressed="false">细节版 · 肢体未通过</button>
+<button type="button" data-style="cartoon" aria-pressed="true">卡通版 · 当前优先方向</button>
 </div>
 <section class="sample">
 <div class="chapter">第 4 章 · SDD · 4.3 固定可观察行为</div>
 <h2>对象键换序，算不算变化？</h2>
 <div class="body">
-<figure><div class="art detailed" id="art"><img id="scene-image" src="assets/cat-ch04-interaction-detailed.png" alt="细节版蓝猫头和身体朝向一致，用两只圆毛爪拿着两张输入卡比较"><span class="tag tag-a" aria-hidden="true">A</span><span class="tag tag-b" aria-hidden="true">B</span></div><figcaption>猫实际拿着 A、B 两张输入卡；准确输入与规则在右侧对应展示</figcaption></figure>
+<figure><div class="art cartoon" id="art"><img id="scene-image" src="assets/cat-ch04-interaction-cartoon.png" alt="卡通版蓝猫用两只圆猫爪举起输入卡，头部轻微倾斜，两后脚与尾巴可辨"><span class="tag tag-a" aria-hidden="true">A</span><span class="tag tag-b" aria-hidden="true">B</span></div><figcaption>猫实际拿着 A、B 两张输入卡；准确输入与规则在右侧对应展示</figcaption></figure>
 <div>
 <div class="inputs"><div class="card"><b>A · Before</b><pre>{"a": 1, "b": 2}</pre></div><div class="card"><b>B · After</b><pre>{"b": 2, "a": 1}</pre></div></div>
 <p class="rule"><strong>批准规则：忽略对象键顺序</strong></p>
 <p>本章建立规格与验收，不改生产代码</p>
 </div></div>
-<p class="observation" id="observation" aria-live="polite">细节版：保留毛发与铅笔笔触；头部基本朝前，两爪以圆润块面抓住卡缘。观察头颈是否连贯、抓握是否仍像猫爪</p>
+<p class="observation" id="observation" aria-live="polite">讲师已偏好本组卡通版：两前爪举卡，两后脚与尾巴易区分；下一步比较更多动作能否延续这种清楚的轮廓</p>
 </section>
 <p class="note history">新方向以互动承担章节任务：反馈可以拿页面给同伴看，交接可以拿问题记录递给伙伴。简单抓握可以拟人，分指与精细捏取不做</p>
 <p class="history"><a href="pose-research.html">真实站姿与透明角色 · 历史探索</a> · <a href="chapter-states.html">旧章节样本</a> · <a href="CONTINUE.md">最新续做约定</a> · <a href="README.md">素材与 Prompt</a></p>
 </main>
 <script>
-const variants={detailed:{src:'assets/cat-ch04-interaction-detailed.png',alt:'细节版蓝猫头和身体朝向一致，用两只圆毛爪拿着两张输入卡比较',note:'细节版：保留毛发与铅笔笔触；头部基本朝前，两爪以圆润块面抓住卡缘。观察头颈是否连贯、抓握是否仍像猫爪'},cartoon:{src:'assets/cat-ch04-interaction-cartoon.png',alt:'卡通版蓝猫用圆润的动画式猫爪举起两张输入卡，头部轻微倾斜，身体朝前',note:'卡通版：简化毛发与轮廓，动作更夸张；头部轻微倾斜，两爪简单抓握。比较猫爪是否比细节版更容易接受，以及蓝猫小腮部是否保留'}};
+const variants={detailed:{src:'assets/cat-ch04-interaction-detailed.png',alt:'细节版蓝猫头和身体朝向一致，用两只圆毛爪拿着两张输入卡比较',note:'讲师指出细节版像有“六条腿”，本稿肢体未通过；保留作失败对照，后续优先卡通版'},cartoon:{src:'assets/cat-ch04-interaction-cartoon.png',alt:'卡通版蓝猫用圆润的动画式猫爪举起两张输入卡，头部轻微倾斜，身体朝前',note:'讲师已偏好本组卡通版：两前爪举卡，两后脚与尾巴易区分；下一步比较更多动作能否延续这种清楚的轮廓'}};
 document.querySelectorAll('[data-style]').forEach(button=>button.addEventListener('click',()=>{const name=button.dataset.style,v=variants[name];document.querySelectorAll('[data-style]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));const img=document.getElementById('scene-image');img.src=v.src;img.alt=v.alt;document.getElementById('art').className='art '+name;document.getElementById('observation').textContent=v.note;}));
 </script>
 </body></html>

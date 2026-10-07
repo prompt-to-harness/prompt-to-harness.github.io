@@ -10,7 +10,9 @@
 
 2026-10-07 后续反馈：讲师指出第 4 章自然猫爪稿仍不自然，姿态未通过确认。新增 [姿态研究对照](pose-research.html)：从真实四足站姿重建场景，以及透明角色与页面内容分别制作。研究来源与取舍见 [姿态研究](../../docs/production/cat-pose-research.md)。
 
-2026-10-07 最新澄清：讲师批评的是特定图的诡异扭头，并未否定适度拟人；希望猫能用动画片式圆猫爪简单抓握，与章节内容互动。真实站姿与无互动贴图仅作历史探索。新增 [章节互动对照](interaction.html)：同一“比较两张输入卡”动作的细节版与卡通版，均待比较。最新约定见 [CONTINUE.md](CONTINUE.md)。
+2026-10-07 最新澄清：讲师批评的是特定图的诡异扭头，并未否定适度拟人；希望猫能用动画片式圆猫爪简单抓握，与章节内容互动。真实站姿与无互动贴图仅作历史探索。新增 [章节互动对照](interaction.html)：同一“比较两张输入卡”动作的细节版与卡通版，为两种画法对照。最新约定见 [CONTINUE.md](CONTINUE.md)。
+
+2026-10-07 最新比较：讲师明确认为上一组卡通版更好，细节版像有“六条腿”，后续优先卡通互动。新增 [三组卡通动作试验](cartoon-tests.html)：2.1 解释反馈、6.5 核对证据、8.2 递交记录；反馈初稿的手机抓握有拇指感，另做双爪托手机的局部修订，旧稿保留。新动作仍待讲师比较。
 
 ## 看效果
 
@@ -65,8 +67,13 @@ python3 demos/imagegen-pilot/build-preview.py
 | [cat-ch04-pose-reference.png](assets/cat-ch04-pose-reference.png) | [cat-ch04-pose-reference.txt](prompts/cat-ch04-pose-reference.txt) | 从真实站姿重建场景，待比较 |
 | [blue-gray-standing-cutout.png](assets/blue-gray-standing-cutout.png) | [blue-gray-standing-cutout.txt](prompts/blue-gray-standing-cutout.txt) | 透明角色与可编辑内容组合，待比较 |
 
-| [cat-ch04-interaction-detailed.png](assets/cat-ch04-interaction-detailed.png) | [cat-ch04-interaction-detailed.txt](prompts/cat-ch04-interaction-detailed.txt) | 细节版圆猫爪拿两张卡比较，待比较 |
-| [cat-ch04-interaction-cartoon.png](assets/cat-ch04-interaction-cartoon.png) | [cat-ch04-interaction-cartoon.txt](prompts/cat-ch04-interaction-cartoon.txt) | 相同动作的卡通画法，待比较 |
+| [cat-ch04-interaction-detailed.png](assets/cat-ch04-interaction-detailed.png) | [cat-ch04-interaction-detailed.txt](prompts/cat-ch04-interaction-detailed.txt) | 第 4 章细节版互动，讲师指出肢体像六条腿，未通过 |
+| [cat-ch04-interaction-cartoon.png](assets/cat-ch04-interaction-cartoon.png) | [cat-ch04-interaction-cartoon.txt](prompts/cat-ch04-interaction-cartoon.txt) | 第 4 章卡通互动，讲师偏好，后续画法参考 |
+
+| [cat-ch02-feedback-cartoon.png](assets/cat-ch02-feedback-cartoon.png) | [cat-ch02-feedback-cartoon.txt](prompts/cat-ch02-feedback-cartoon.txt) | 2.1 反馈初稿：手机抓握有拇指感，保留对照 |
+| [cat-ch02-feedback-cartoon-v2.png](assets/cat-ch02-feedback-cartoon-v2.png) | [cat-ch02-feedback-cartoon-v2.txt](prompts/cat-ch02-feedback-cartoon-v2.txt) | 局部改为双爪托手机，新稿待比较 |
+| [cat-ch06-evidence-cartoon.png](assets/cat-ch06-evidence-cartoon.png) | [cat-ch06-evidence-cartoon.txt](prompts/cat-ch06-evidence-cartoon.txt) | 6.5 蓝猫用放大镜核对报告，新稿待比较 |
+| [cat-ch08-handoff-cartoon.png](assets/cat-ch08-handoff-cartoon.png) | [cat-ch08-handoff-cartoon.txt](prompts/cat-ch08-handoff-cartoon.txt) | 8.2 蓝猫与狸花递交一个文件夹，新稿待比较 |
 
 ## 留存与复用
 
@@ -76,7 +83,7 @@ python3 demos/imagegen-pilot/build-preview.py
 
 生成图完整保存到 assets/，最终 Prompt 保存到 prompts/，各版本另存，原稿不覆盖。generated-assets-manifest.json 是本轮素材留存快照，记录文件、尺寸、字节数与 SHA-256，后续新增素材时需更新。
 
-换状态时使用细节版 v2 作为固定参考：先写角色身份与画法不变量，再描述动作、表情和道具。最新澄清允许适度拟人和动画式简单抓握，角色须与章节内容互动；重点限制人手般灵活的分指与精细捏取，检查头颈连贯。无互动的真实站姿仅作历史探索，不作为当前模板。技术文字、输入、规则、结果和流程继续由页面提供。局部换表情与新建完整协作场景是不同程度的变更，均须逐图检查身份与肢体动作。
+换状态时，画法优先参考第 4 章互动卡通稿，外形保留细节版 v2 的已修正特征；旧简化设定只补充橘白与狸花，不能恢复旧蓝猫的胖腮。先写角色身份与画法不变量，再描述动作、表情和道具。最新澄清允许适度拟人和动画式简单抓握，角色须与章节内容互动；重点限制人手般灵活的分指与精细捏取，检查头颈连贯与肢体数量。无互动的真实站姿仅作历史探索，不作为当前模板。技术文字、输入、规则、结果和流程继续由页面提供。局部换表情与新建完整协作场景是不同程度的变更，均须逐图检查身份与肢体动作。
 
 同机新会话选用本项目后可读取 [CONTINUE.md](CONTINUE.md) 接续，重新加载设定图、参考照片和已确认偏好。
 
@@ -95,3 +102,5 @@ python3 demos/imagegen-pilot/build-preview.py
 2026-10-07 的角色素材与画廊检查见 [角色试验记录](../../docs/reviews/2026-10-07-all-character-pilot-codex.md)。设定与场景图仍待讲师选择，未合成到正式课件。
 
 跨章节状态、自然猫爪修订与留存检查见 [本轮审查](../../docs/reviews/2026-10-07-all-cat-state-pilot-codex.md)。
+
+新增卡通动作与局部修订的检查见 [本轮审查](../../docs/reviews/2026-10-07-all-cartoon-state-tests-codex.md)。
