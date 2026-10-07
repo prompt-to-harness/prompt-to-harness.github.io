@@ -8,3 +8,4 @@
 - [课件制作手册](lesson-authoring-playbook.md)：从分镜到零件的制作顺序与检查；[实验与项目主线](lesson-authoring-playbook.md#实验与项目主线)规定实验选择、最小准备和第二章示例
 - [课件字体](fonts.md)：字体选择理由、来源、子集生成与更换步骤
 - [外部设计 skill 评估：impeccable](impeccable-evaluation.md)：采纳了哪些方法，detector 试扫结果和待复核的问题
+- [生图使用提案](imagegen-pilot-proposal.md)：待讨论的章首／章末复用安排、选页标准与统一风格；尚未替代现有视觉规范
