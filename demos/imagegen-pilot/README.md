@@ -10,6 +10,8 @@
 
 2026-10-07 后续反馈：讲师指出第 4 章自然猫爪稿仍不自然，姿态未通过确认。新增 [姿态研究对照](pose-research.html)：从真实四足站姿重建场景，以及透明角色与页面内容分别制作。研究来源与取舍见 [姿态研究](../../docs/production/cat-pose-research.md)。
 
+2026-10-07 最新澄清：讲师批评的是特定图的诡异扭头，并未否定适度拟人；希望猫能用动画片式圆猫爪简单抓握，与章节内容互动。真实站姿与无互动贴图仅作历史探索。新增 [章节互动对照](interaction.html)：同一“比较两张输入卡”动作的细节版与卡通版，均待比较。最新约定见 [CONTINUE.md](CONTINUE.md)。
+
 ## 看效果
 
 从仓库根目录启动本地预览：
@@ -63,6 +65,9 @@ python3 demos/imagegen-pilot/build-preview.py
 | [cat-ch04-pose-reference.png](assets/cat-ch04-pose-reference.png) | [cat-ch04-pose-reference.txt](prompts/cat-ch04-pose-reference.txt) | 从真实站姿重建场景，待比较 |
 | [blue-gray-standing-cutout.png](assets/blue-gray-standing-cutout.png) | [blue-gray-standing-cutout.txt](prompts/blue-gray-standing-cutout.txt) | 透明角色与可编辑内容组合，待比较 |
 
+| [cat-ch04-interaction-detailed.png](assets/cat-ch04-interaction-detailed.png) | [cat-ch04-interaction-detailed.txt](prompts/cat-ch04-interaction-detailed.txt) | 细节版圆猫爪拿两张卡比较，待比较 |
+| [cat-ch04-interaction-cartoon.png](assets/cat-ch04-interaction-cartoon.png) | [cat-ch04-interaction-cartoon.txt](prompts/cat-ch04-interaction-cartoon.txt) | 相同动作的卡通画法，待比较 |
+
 ## 留存与复用
 
 四张原始照片完整保存到本目录的 private-references/，包括蓝猫两张参考。该目录由本地 .gitignore 忽略；目录内 manifest.json 记录原始尺寸、字节数和 SHA-256，复制前后已核对一致。原尺寸存档仅保存在当前机器。
@@ -71,7 +76,7 @@ python3 demos/imagegen-pilot/build-preview.py
 
 生成图完整保存到 assets/，最终 Prompt 保存到 prompts/，各版本另存，原稿不覆盖。generated-assets-manifest.json 是本轮素材留存快照，记录文件、尺寸、字节数与 SHA-256，后续新增素材时需更新。
 
-换状态时使用细节版 v2 作为固定参考：先写角色身份与画法不变量，再描述动作、表情和道具。讲师指出持笔、伸指与递纸过于拟人；后续固定采用真实猫爪与自然姿态，道具放在桌上，通过视线与头部朝向表达状态。旧拟人动作稿保留作对照，不继续作为动作模板。技术文字、输入、规则、结果和流程继续由页面提供。局部换表情与新建完整协作场景是不同程度的变更，均须逐图检查身份与肢体动作。
+换状态时使用细节版 v2 作为固定参考：先写角色身份与画法不变量，再描述动作、表情和道具。最新澄清允许适度拟人和动画式简单抓握，角色须与章节内容互动；重点限制人手般灵活的分指与精细捏取，检查头颈连贯。无互动的真实站姿仅作历史探索，不作为当前模板。技术文字、输入、规则、结果和流程继续由页面提供。局部换表情与新建完整协作场景是不同程度的变更，均须逐图检查身份与肢体动作。
 
 同机新会话选用本项目后可读取 [CONTINUE.md](CONTINUE.md) 接续，重新加载设定图、参考照片和已确认偏好。
 

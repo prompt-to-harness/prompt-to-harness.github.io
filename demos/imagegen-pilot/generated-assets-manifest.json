@@ -210,6 +210,31 @@
         "assets/cat-trio-sheet-detailed-v2.png"
       ],
       "status": "workflow study, awaiting instructor comparison"
+    },
+    {
+      "file": "assets/cat-ch04-interaction-detailed.png",
+      "prompt": "prompts/cat-ch04-interaction-detailed.txt",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2368644,
+      "sha256": "fc453ac0311142861323e219930f043c45915c50274fe31a0eaba54b7f013fa5",
+      "reference_images": [
+        "assets/cat-trio-sheet-detailed-v2.png"
+      ],
+      "status": "interaction and style study, awaiting instructor comparison"
+    },
+    {
+      "file": "assets/cat-ch04-interaction-cartoon.png",
+      "prompt": "prompts/cat-ch04-interaction-cartoon.txt",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1694047,
+      "sha256": "1c8d4d269755bcbf4ca0780da944fc8a3cad007b91134a0ca7a13d7f3ceab902",
+      "reference_images": [
+        "assets/cat-trio-sheet-detailed-v2.png",
+        "assets/cat-trio-sheet.png"
+      ],
+      "status": "interaction and style study, awaiting instructor comparison"
     }
   ],
   "reference_note": "照片参考最初使用讲师原尺寸附件；这里列出 Git 中对应的缩小参考，便于接续，不保证重新生成逐像素一致。"

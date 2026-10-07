@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>三猫章节互动 · 细节版与卡通版</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#F4F2EB;color:#243042;font-family:system-ui,sans-serif;line-height:1.6}main{max-width:1320px;margin:auto;padding:28px 24px 60px}a{color:inherit;text-underline-offset:4px}h1{font-size:30px;margin:18px 0 8px}h2{font-size:30px;line-height:1.35;margin:0 0 22px}p{margin:8px 0 14px}.note,figcaption{color:#5B6573;font-size:15px}.tabs{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}button{font:inherit;cursor:pointer;border:1px solid #9E9789;background:transparent;color:inherit;border-radius:5px;padding:8px 16px}button[aria-pressed=true]{background:#243042;color:#F4F2EB}button:focus-visible{outline:3px solid #9C8B66;outline-offset:3px}.sample{border:1px solid #C9C2B4;border-radius:8px;padding:24px}.chapter{color:#5B6573;font-size:17px;font-weight:700;margin-bottom:10px}.body{display:grid;grid-template-columns:1.55fr 1fr;gap:26px;align-items:center}figure{margin:0;min-width:0}.art{position:relative;container-type:inline-size}.art img{display:block;width:100%;height:auto}.tag{position:absolute;transform:translate(-50%,-50%);font-size:5cqw;font-weight:700;color:#243042;line-height:1}.tag-a{left:40%;top:48%}.tag-b{left:57%;top:48%}.art.cartoon .tag-a{left:40%;top:46%}.art.cartoon .tag-b{left:58%;top:46%}figcaption{padding-top:10px}.inputs{display:grid;gap:14px}.card{padding:14px 16px;background:#EAE6DB;border:1px solid #C9C2B4;border-radius:6px}.card b{font-size:20px}pre{font-size:18px;white-space:pre-wrap;overflow-wrap:anywhere;margin:8px 0 0}.rule{font-size:20px}.observation{border-top:1px solid #C9C2B4;padding-top:16px;margin-top:22px;font-size:16px}.history{margin-top:24px}@media(max-width:800px){main{padding:20px 16px}.sample{padding:20px 16px}.body{grid-template-columns:1fr}h1,h2{font-size:26px}}
+</style>
+</head>
+<body><main>
+<a href="characters.html">← 三猫角色设定</a>
+<h1>圆猫爪可以抓握，角色要参与章节任务</h1>
+<p>同一“拿两张输入卡比较”的动作，保留细节版，也尝试之前的卡通画法</p>
+<p class="note">2026-10-07 · 按最新澄清修订：允许适度拟人，重点检查头颈连贯与猫爪形状 · 两稿待比较</p>
+<div class="tabs" role="group" aria-label="切换画法">
+<button type="button" data-style="detailed" aria-pressed="true">细节版 · 保留毛发笔触</button>
+<button type="button" data-style="cartoon" aria-pressed="false">卡通版 · 简化轮廓</button>
+</div>
+<section class="sample">
+<div class="chapter">第 4 章 · SDD · 4.3 固定可观察行为</div>
+<h2>对象键换序，算不算变化？</h2>
+<div class="body">
+<figure><div class="art detailed" id="art"><img id="scene-image" src="assets/cat-ch04-interaction-detailed.png" alt="细节版蓝猫头和身体朝向一致，用两只圆毛爪拿着两张输入卡比较"><span class="tag tag-a" aria-hidden="true">A</span><span class="tag tag-b" aria-hidden="true">B</span></div><figcaption>猫实际拿着 A、B 两张输入卡；准确输入与规则在右侧对应展示</figcaption></figure>
+<div>
+<div class="inputs"><div class="card"><b>A · Before</b><pre>{"a": 1, "b": 2}</pre></div><div class="card"><b>B · After</b><pre>{"b": 2, "a": 1}</pre></div></div>
+<p class="rule"><strong>批准规则：忽略对象键顺序</strong></p>
+<p>本章建立规格与验收，不改生产代码</p>
+</div></div>
+<p class="observation" id="observation" aria-live="polite">细节版：保留毛发与铅笔笔触；头部基本朝前，两爪以圆润块面抓住卡缘。观察头颈是否连贯、抓握是否仍像猫爪</p>
+</section>
+<p class="note history">新方向以互动承担章节任务：反馈可以拿页面给同伴看，交接可以拿问题记录递给伙伴。简单抓握可以拟人，分指与精细捏取不做</p>
+<p class="history"><a href="pose-research.html">真实站姿与透明角色 · 历史探索</a> · <a href="chapter-states.html">旧章节样本</a> · <a href="CONTINUE.md">最新续做约定</a> · <a href="README.md">素材与 Prompt</a></p>
+</main>
+<script>
+const variants={detailed:{src:'assets/cat-ch04-interaction-detailed.png',alt:'细节版蓝猫头和身体朝向一致，用两只圆毛爪拿着两张输入卡比较',note:'细节版：保留毛发与铅笔笔触；头部基本朝前，两爪以圆润块面抓住卡缘。观察头颈是否连贯、抓握是否仍像猫爪'},cartoon:{src:'assets/cat-ch04-interaction-cartoon.png',alt:'卡通版蓝猫用圆润的动画式猫爪举起两张输入卡，头部轻微倾斜，身体朝前',note:'卡通版：简化毛发与轮廓，动作更夸张；头部轻微倾斜，两爪简单抓握。比较猫爪是否比细节版更容易接受，以及蓝猫小腮部是否保留'}};
+document.querySelectorAll('[data-style]').forEach(button=>button.addEventListener('click',()=>{const name=button.dataset.style,v=variants[name];document.querySelectorAll('[data-style]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));const img=document.getElementById('scene-image');img.src=v.src;img.alt=v.alt;document.getElementById('art').className='art '+name;document.getElementById('observation').textContent=v.note;}));
+</script>
+</body></html>
