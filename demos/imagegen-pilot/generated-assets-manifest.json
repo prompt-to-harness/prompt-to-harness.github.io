@@ -184,6 +184,32 @@
       "bytes": 1679140,
       "sha256": "1853c83a3953cd929cf3c03da1872e267121acc93877a690bde3401f8ed3d89a",
       "reference_images": []
+    },
+    {
+      "file": "assets/cat-ch04-pose-reference.png",
+      "prompt": "prompts/cat-ch04-pose-reference.txt",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2890696,
+      "sha256": "c455aa16d8502b1d9be999fe898279f65703e9d8b5ae74c45cf7647fe0525000",
+      "reference_images": [
+        "references/blue-gray-02.jpg",
+        "assets/cat-trio-sheet-detailed-v2.png"
+      ],
+      "status": "workflow study, awaiting instructor comparison"
+    },
+    {
+      "file": "assets/blue-gray-standing-cutout.png",
+      "prompt": "prompts/blue-gray-standing-cutout.txt",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 1879501,
+      "sha256": "80e79bdc8782bbe820d864fd85271978f174f716929d209a9d6d73a2e5ef1df8",
+      "reference_images": [
+        "references/blue-gray-02.jpg",
+        "assets/cat-trio-sheet-detailed-v2.png"
+      ],
+      "status": "workflow study, awaiting instructor comparison"
     }
   ],
   "reference_note": "照片参考最初使用讲师原尺寸附件；这里列出 Git 中对应的缩小参考，便于接续，不保证重新生成逐像素一致。"

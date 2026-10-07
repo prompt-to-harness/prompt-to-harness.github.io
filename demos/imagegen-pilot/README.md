@@ -8,6 +8,8 @@
 
 同日新增 [跨章节状态试验](chapter-states.html)：按现有大纲选取第 2 章反馈、第 4 章规则对照、第 8 章失败交接。三张新图均使用细节版 v2 设定作为身份与画法参考，精确文字独立放在 HTML。
 
+2026-10-07 后续反馈：讲师指出第 4 章自然猫爪稿仍不自然，姿态未通过确认。新增 [姿态研究对照](pose-research.html)：从真实四足站姿重建场景，以及透明角色与页面内容分别制作。研究来源与取舍见 [姿态研究](../../docs/production/cat-pose-research.md)。
+
 ## 看效果
 
 从仓库根目录启动本地预览：
@@ -57,6 +59,9 @@ python3 demos/imagegen-pilot/build-preview.py
 | [cat-ch02-feedback-natural.png](assets/cat-ch02-feedback-natural.png) | [cat-ch02-feedback-natural.txt](prompts/cat-ch02-feedback-natural.txt) | 2.1 自然猫爪，手机放在支架上 |
 | [cat-ch04-spec-natural.png](assets/cat-ch04-spec-natural.png) | [cat-ch04-spec-natural.txt](prompts/cat-ch04-spec-natural.txt) | 4.3 自然猫爪，铅笔平放，目光转向输入 |
 | [cat-ch08-handoff-natural.png](assets/cat-ch08-handoff-natural.png) | [cat-ch08-handoff-natural.txt](prompts/cat-ch08-handoff-natural.txt) | 8.2 自然猫爪，共同关注桌面记录 |
+
+| [cat-ch04-pose-reference.png](assets/cat-ch04-pose-reference.png) | [cat-ch04-pose-reference.txt](prompts/cat-ch04-pose-reference.txt) | 从真实站姿重建场景，待比较 |
+| [blue-gray-standing-cutout.png](assets/blue-gray-standing-cutout.png) | [blue-gray-standing-cutout.txt](prompts/blue-gray-standing-cutout.txt) | 透明角色与可编辑内容组合，待比较 |
 
 ## 留存与复用
 

@@ -1,0 +1,5 @@
+Use case: style-transfer
+Asset type: reusable full-body cat illustration with transparent background.
+Image 1 is the identity and exact standing-pose reference: the real blue-gray cat. Preserve its ordinary four-legged anatomy, horizontal torso, leg arrangement, weight-bearing stance and tail curl. Image 2 is ONLY a drawing-style reference: use its detailed pencil fur and muted soft wash, especially the blue-gray character's face and coat.
+Illustrate only the cat from Image 1. Show the entire body, all four feet and tail with a comfortable margin. Keep normal body proportions, smaller cheek jowls, yellow-green eyes, dark nose and plain blue-gray short coat. Keep the cat's original attentive downward gaze and relaxed everyday posture.
+Remove the photographic room, furniture and floor; output a clean transparent cutout. The subject remains a pet cat rendered in the preferred illustration style. No props, human gestures, clothing, text or other cats.
