@@ -1,0 +1,163 @@
+"""第 3 章各节 build-lesson.py 共用的骨架（从第 2 章 lessonkit.py 复制，只改章节常量）：页面登记、章节地图与输出。
+
+每节的 tools/build-lesson.py 只写本节内容：
+
+    lesson = Lesson(__file__, "3.2", "这条规则是谁定的", summary="…")
+    scene, KICK = lesson.scene, lesson.kick
+    scene(id="p35", …)
+    lesson.write()
+
+steps 与 script 一一对应；data-reveal 最大值 = 步骤数 - 1。
+scene["seconds"] 只用于章节条的宽度比例（按步骤数计算），不是时长估算。
+"""
+import json
+from html import escape
+from pathlib import Path
+
+CHAPTER = "第 3 章 · Vibe Coding + Plugin"
+SECTIONS = [("3.1", "加个游戏"), ("3.2", "谁定的规则"), ("3.3", "按证据修"), ("3.4", "审插件"), ("3.5", "插件的主张"), ("3.6", "说明在哪"), ("3.7", "重开清理")]
+
+MEASURED = "来自讲师机器上的排练运行（2026-10-06，Codex 0.160.0–0.160.1 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。"
+
+# 阅读模式窄屏下，代码讲解（p-walk）、正反对照（p-claim）与主栏加侧栏（p-aside）改为单列，代码行允许折行
+NARROW = '<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style>'
+
+
+def teach(*pairs):
+    return [{"title": t, "text": x} for t, x in pairs]
+
+
+def ref(text, url, group="", kind="live"):
+    """一条原文链接，放进 scene(refs=[…])，由播放器渲染（courseware/shared/app.js）。
+
+    kind="live"：画面最下一行（零件 .p-refs），随最后一步出现，录制时点开；
+    kind="read"：不上画面，只在阅读模式与讲解全文列出。
+    同一 group 的相邻链接合成一组。网址固定到具体版本，不指向会变的 main。
+    """
+    assert kind in ("live", "read"), kind
+    assert url.startswith("https://"), url
+    return {"kind": kind, "group": group, "text": text, "url": url}
+
+
+def repro(steps, note="", label="复现这个实验"):
+    """页面上的折叠按钮：点开才显示复现步骤，放进 scene(repro=…)，由播放器渲染（courseware/shared/app.js）。
+
+    steps 为 [(说明, 命令或 None), …]；命令按原样显示，可选中复制。演示模式下按钮在标题上方一行、
+    不占正文位置，展开后叠在画面上方；阅读模式下在副标题之后展开。
+    """
+    assert steps and all(len(s) == 2 and s[0] for s in steps), steps
+    return {"label": label, "steps": [{"text": t, "code": c or ""} for t, c in steps], "note": note}
+
+
+def code_lines(*rows):
+    """.p-code 里的逐行内容：rows 为 (类名, 已转义的文本)；类名 add / del / hl / at，空串为普通行。
+
+    每行一个块级 span，避免 pre 里的换行符和块级 .add/.del 叠出空行。
+    """
+    return "".join(
+        f'<span class="{cls}">{text}</span>' if cls else f'<span style="display:block">{text}</span>'
+        for cls, text in rows
+    )
+
+
+def diff_boxes(path):
+    """把一份 git diff 按文件拆成 .p-code 代码框：去掉 git 头，保留 @@ 行，行内容原样转义。"""
+    boxes = []
+    for chunk in Path(path).read_text().split("diff --git ")[1:]:
+        rows = chunk.splitlines()
+        name = rows[0].split(" b/")[-1]
+        new = any(r.startswith("new file") for r in rows)
+        body, started = [], False
+        for r in rows[1:]:
+            if r.startswith("@@"):
+                started = True
+                body.append(("at", escape(r)))
+            elif started:
+                cls = "add" if r.startswith("+") else "del" if r.startswith("-") else ""
+                body.append((cls, escape(r) or " "))
+        plus = sum(1 for c, _ in body if c == "add")
+        minus = sum(1 for c, _ in body if c == "del")
+        boxes.append(
+            f'<div class="p-code"><div class="p-code-head"><span>{name}{"（新文件）" if new else ""}</span><span>+{plus} −{minus}</span></div>'
+            f"<pre>{code_lines(*body)}</pre></div>"
+        )
+    return "".join(boxes)
+
+
+def pop(title, label, body):
+    """页内弹窗（零件 .p-pop）：label 是按钮文字，title 是弹窗标题，body 为内容 HTML。
+
+    演示模式点开后盖住整个正文区；祖先元素不要设 position，否则只盖住所在那一栏。
+    """
+    return (
+        f'<details class="p-pop"><summary>{label}</summary><div class="p-pop-body">'
+        f'<div class="p-pop-head"><span>{title}</span>'
+        "<button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div>"
+        f"{body}</div></details>"
+    )
+
+
+def chapter_map(now):
+    """开篇用的本章七节地图；now 为当前节序号（1–7），之前的节标为已完成。"""
+    items = []
+    for i, (num, name) in enumerate(SECTIONS, 1):
+        cls = ' class="is-now"' if i == now else (' class="is-done"' if i < now else "")
+        items.append(f"<li{cls}><b>{num}</b>{name}</li>")
+    return '<ol class="p-map">' + "".join(items) + "</ol>"
+
+
+class Lesson:
+    def __init__(self, builder, number, title, summary):
+        self.here = Path(builder).resolve().parents[1]
+        self.number, self.title, self.summary = number, title, summary
+        self.kick = f"第 3 章 · {number} · "
+        self.scenes = []
+
+    def scene(self, **kw):
+        kw.setdefault("teaching", [])
+        if not kw.get("refs"):
+            kw.pop("refs", None)
+        kw["source"] = f"index.html#{kw['id']}"
+        kw["seconds"] = 30 * len(kw["steps"])
+        assert len(kw["steps"]) == len(kw["script"]), kw["id"]
+        self.scenes.append(kw)
+
+    def write(self):
+        scenes = self.scenes
+        segments = []
+        for s in scenes:
+            if not segments or segments[-1]["label"] != s["segment"]:
+                segments.append({"label": s["segment"], "seconds": 0})
+            segments[-1]["seconds"] += s["seconds"]
+
+        major, minor = self.number.split(".")
+        lesson = {
+            "title": self.title,
+            "chapter": CHAPTER,
+            "section": f"{int(major):02d}.{int(minor):02d}",
+            "summary": self.summary,
+            "scenes": scenes,
+            "segments": segments,
+        }
+        (self.here / "lesson.js").write_text("window.lesson = " + json.dumps(lesson, ensure_ascii=False, indent=2) + ";\n")
+
+        lines = [f"# {self.number} {self.title}", "", "> 由 tools/build-lesson.py 生成。", ""]
+        for s in scenes:
+            lines += [f"## {s['id'].upper()} {s['label']}", "", f"[对应课件](index.html#{s['id']})", "", "### 口播", ""]
+            for i, (beat, text) in enumerate(zip(s["steps"], s["script"])):
+                lines += [f"**第 {i + 1} 步 · {beat}**（[演示](index.html?mode=slides&step={i}#{s['id']})）", "", text, ""]
+            if s.get("refs"):
+                lines += ["### 原文与链接", ""]
+                lines += [f"- {'画面上' if r['kind'] == 'live' else '延伸'} · {r['group'] + ' · ' if r['group'] else ''}[{r['text']}]({r['url']})" for r in s["refs"]]
+                lines += [""]
+            if s.get("repro"):
+                lines += [f"### {s['repro']['label']}（页面按钮）", ""]
+                for i, st in enumerate(s["repro"]["steps"], 1):
+                    lines += [f"{i}. {st['text']}" + (f"：`{st['code']}`" if st["code"] else "")]
+                lines += ([""] + [s["repro"]["note"]] if s["repro"]["note"] else []) + [""]
+            if s.get("prompt"):
+                lines += ["### 请求", "", "```text", s["prompt"], "```", ""]
+            for item in s["teaching"]:
+                lines += [f"### {item['title']}", "", item["text"], ""]
+        (self.here / "script.md").write_text("\n".join(lines))
+        print(f"{self.number}: {len(scenes)} pages, {sum(len(s['steps']) for s in scenes)} steps")
