@@ -39,11 +39,6 @@ scene(
         '<div class="p-box" data-role="us" data-reveal="2"><span class="p-tag" data-role="us">我们的 Brief</span><p>接进现有仓库；新依赖先说理由</p></div></div>'
     ),
     steps=["地图", "插件的默认", "我们的 Brief"],
-    script=[
-        "3.4 我们审过并装好了 Game Studio。这一节真的用它做第二个游戏。",
-        "3.4 读到 Skill 原文里的一句：2D 游戏默认走 Phaser，除非用户另有要求。这是插件的主张。",
-        "我们的 Brief 会写：接进现有仓库，新增依赖要先说理由。这两者会不会冲突？冲突时听谁的？这一节的转折来自插件原文，可以预期；判断留给我们。",
-    ],
 )
 
 scene(
@@ -59,12 +54,6 @@ scene(
     ),
     repro=repro([("Brief 全文，存为 docs/briefs/CH03_DODGE_BRIEF.md", BRIEF)], label="Brief 原文"),
     steps=["玩法", "素材", "约束", "完成标准"],
-    script=[
-        "第二个游戏，60 秒躲避与收集。玩法：方向键移动，收集目标加分，碰到障碍扣一条命；60 秒倒计时结束或三条命用完，游戏结束，可以重开。",
-        "素材只用几何图形或 CSS，不用图片和音频。",
-        "约束最重要：接进现有的仓库和页面，不新建项目，不加路由，不做 3D；新增依赖要先说明理由。",
-        "完成标准：build 成功，试玩由我们做，记忆翻牌和首页不受影响。这一次我们先把 Brief 写成文件，放进仓库的 docs/briefs。请暂停视频，写下你的 Brief。",
-    ],
 )
 
 plan = E.get("plan", [])
@@ -83,7 +72,6 @@ scene(
     ),
     repro=repro([("装好插件后开新会话，发这段请求", PROMPT)], label="请求原文"),
     steps=E.get("plan_steps", ["计划", "对照 Brief"]),
-    script=E.get("plan_script", ["（排练计划待补）", "（对照待补）"]),
     teaching=teach(("讲师提示", "以录制当天的真实计划为准。插件读了哪些 Skill 全文，可在请求记录里看到它读取 SKILL.md 的命令。")),
 )
 
@@ -101,11 +89,6 @@ scene(
         '<p class="source-note">courseware/ch03/materials/bundle/：phaser 3.90.0、three 0.186.1、@react-three/fiber 9.8.1，Vite 构建，2026-10-06 一次运行；只测引入引擎本身，不是完整游戏</p>'
     ),
     steps=["基线", "两种引擎", "谁来决定"],
-    script=[
-        "插件的默认是 Phaser，要不要接受？先看一组数字。讲师在同一个首页上，分别懒加载一个最小场景，只画一个方块。不用引擎时，没有游戏分包，也没有新依赖。",
-        "用 Phaser，游戏分包 gzip 后 332 kB；用 React Three Fiber 做 3D，是 249 kB。2D 不等于更轻：Phaser 是一个完整的游戏引擎，渲染、物理、输入、场景都带上了。首页主包因为懒加载，几乎没变。",
-        "我们的游戏只需要几个矩形、键盘输入和碰撞判断，用浏览器自带的 Canvas 就能写。要不要为它多下载 300 多 kB？这不是插件替我们定的，是我们按 Brief 决定的：Brief 写了“新依赖先说理由”，这组数字就是理由要回答的问题。",
-    ],
     repro=repro([("在课程仓库根目录，用一份记忆翻牌首页比较三种方案的构建产物", "courseware/ch03/materials/bundle/compare.sh <记忆翻牌首页目录>")], note="需要能访问 npm 仓库。"),
 )
 
@@ -124,12 +107,6 @@ scene(
         '<p class="source-note">讲师用脚本代人走了一遍（courseware/ch03/materials/mainline/playtest-dodge.py，结果见 reference/3.5-playtest.run3.json）；60 秒倒计时结束的路径没有走到，课上由人试玩</p>'
     ),
     steps=["确认，看画面", "移动、收集、碰撞", "结束与重开", "Brief 没写的"],
-    script=[
-        "我们回复它：选零依赖，其余两个问题按它的推荐。它执行完，build 成功。打开页面，项目区下面多了第二个游戏：顶部是剩余时间、分数、生命和最佳成绩，场地里绿色圆点是玩家，橙色是收集物，红褐色是障碍。",
-        "试玩由人做，按 Brief 逐项过。方向键和 WASD 都能移动；吃到圆点加 10 分；碰到障碍扣一条命，HUD 跟着变。",
-        "三条命用完，游戏结束，显示本局得分；点“再来一局”，时间、分数、生命归零，最佳成绩保留。再往上翻，记忆翻牌还在，还能玩。",
-        "讲师试玩时还注意到一件事：开局站着不动，4 秒之内就掉了两条命。太难了吗？Brief 只写了“碰到障碍扣一条命”，没写开局要不要有缓冲、障碍多快。这又是一条 AI 替我们定的规则。记进问题清单，3.6 会用到。请暂停视频，试玩你的第二个游戏。",
-    ],
     teaching=teach(("讲师提示", "排练中执行时上游多次断线重连，用时约 32 分钟（大部分在 Codex 自检）；录制以当天为准。60 秒倒计时结束的路径要人工试到。")),
 )
 
@@ -146,7 +123,6 @@ scene(
         '<p class="source-note">' + RUN + '</p>'
     ),
     steps=E.get("review_steps", ["范围", "逐项"]),
-    script=E.get("review_script", ["（评审待补）", "（评审待补）"]),
 )
 
 scene(
@@ -163,12 +139,6 @@ scene(
         '<p class="source-note">停用与请求检查在课程基线下实测（2026-10-06，materials/plugin/README.md）；卸载用 codex plugin remove，同样实测</p>'
     ),
     steps=["停用", "新会话", "代码还在", "没有插件也能跑"],
-    script=[
-        "最后一步：停用插件。把配置里它的 enabled 改成 false；plugin list 显示已安装、已停用。想彻底移除，就用 codex plugin remove 卸载。",
-        "开一个新会话，看请求：game-studio 一次都没有出现。装着的时候，它出现了 12 次。",
-        "可是它写的代码还在仓库里。停用插件，不等于撤销它做过的事。",
-        "所以最后要证明：没有插件，项目也能构建、能玩。npm run build 成功，两个游戏和首页都能用。请暂停视频，停用插件，开新会话，再 build 一次。",
-    ],
 )
 
 scene(
@@ -182,11 +152,6 @@ scene(
         '<div class="p-next" data-reveal="2"><h3>下一节</h3><div class="p-box" data-role="us"><h3>3.6 说明在哪</h3><p>下次 Codex 从哪里知道？</p></div></div></div>'
     ),
     steps=["三样东西", "撤回靠什么", "下一节"],
-    script=[
-        "这一节有三样东西：插件的主张，2D 默认 Phaser；我们的决定，按 Brief 和数字来；留下的证据，计划、diff 和停用后的复验。",
-        "如果哪天想撤回插件写的代码，靠的是 git：它的改动在 3.5 单独提交过，可以照 2.3 的办法 revert；插件的开关管不了仓库。",
-        "到这里，这一章已经定下了好几条规则：有 AI 定的，有我们定的，有插件带来的。下一节问：下次开新会话，Codex 从哪里知道它们？",
-    ],
     teaching=teach(("跟做产出", "第二个游戏；CH03_GAME_STUDIO_PLUGIN_LAB.md 中的插件计划对照、技术选择及理由、评审结论、停用与无插件复验证据。")),
 )
 

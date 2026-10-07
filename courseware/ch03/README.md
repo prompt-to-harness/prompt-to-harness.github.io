@@ -25,7 +25,7 @@
 
 ## 课件维护
 
-每节 `tools/build-lesson.py` 是唯一内容源，生成 `lesson.js` 与 `script.md`；全章共用的骨架在 [`tools/lessonkit.py`](tools/lessonkit.py)（从第 2 章复制，只改章节常量）。
+每节 `tools/build-lesson.py` 是画面与结构的内容源，口播在本节的 `script.json`，两者一起生成 `lesson.js` 与 `script.md`；全章共用的骨架在 [`tools/lessonkit.py`](tools/lessonkit.py)（从第 2 章复制，只改章节常量）。
 
 ```sh
 for f in courseware/ch03/lessons/*/tools/build-lesson.py; do python3 "$f"; done

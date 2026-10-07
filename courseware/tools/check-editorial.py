@@ -38,6 +38,14 @@ for builder in sorted(builders):
             p.write_bytes(old)
             errors.append(f'ED-011 {p.relative_to(repo)} 与 {builder.name} 的输出不一致：改源文件，不要只改生成物')
 
+# ED-011: narration lives in each lesson's script.json; hand-written lesson.js must carry the same text
+for lesson_js in sorted(courseware.glob('**/lesson.js')):
+    if 'archive' not in lesson_js.parts and not (lesson_js.parent / 'script.json').exists():
+        errors.append(f'ED-011 {lesson_js.parent.relative_to(repo)} 缺少 script.json：口播的唯一来源，用 tools/rebuild-lesson.py 的说明补建')
+result = subprocess.run([sys.executable, str(courseware / 'tools' / 'rebuild-lesson.py'), '--check'], capture_output=True, text=True)
+if result.returncode:
+    errors.append('ED-011 script.json 与 lesson.js 不一致：' + result.stderr.strip().replace('\n', '；'))
+
 # ED-011: relative Markdown links must resolve (catches residue after deleting a page)
 md_roots = [courseware, repo / 'docs' / 'production', repo / 'docs' / 'design']
 link = re.compile(r'\[[^\]]*\]\(([^)#?\s]+)(?:[#?][^)]*)?\)')

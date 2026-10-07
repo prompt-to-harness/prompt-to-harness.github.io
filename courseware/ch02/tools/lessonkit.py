@@ -109,6 +109,8 @@ def chapter_map(now):
 class Lesson:
     def __init__(self, builder, number, title, summary):
         self.here = Path(builder).resolve().parents[1]
+        # 口播的唯一来源：本节目录下的 script.json，按页面 id 存每页的口播数组；页面里可直接改，见 tools/serve-courseware.py
+        self.scripts = json.loads((self.here / "script.json").read_text())
         self.number, self.title, self.summary = number, title, summary
         self.kick = f"第 2 章 · {number} · "
         self.scenes = []
@@ -119,11 +121,20 @@ class Lesson:
             kw.pop("refs", None)
         kw["source"] = f"index.html#{kw['id']}"
         kw["seconds"] = 30 * len(kw["steps"])
-        assert len(kw["steps"]) == len(kw["script"]), kw["id"]
-        self.scenes.append(kw)
+        assert kw["id"] in self.scripts, f"script.json 里没有 {kw['id']} 的口播"
+        script = self.scripts[kw["id"]]
+        assert len(kw["steps"]) == len(script), (kw["id"], "steps 与 script 条数不一致")
+        scene = {}
+        for key, value in kw.items():
+            scene[key] = value
+            if key == "steps":  # script 紧跟 steps，保持 lesson.js 里的键顺序
+                scene["script"] = script
+        self.scenes.append(scene)
 
     def write(self):
         scenes = self.scenes
+        unused = set(self.scripts) - {s["id"] for s in scenes}
+        assert not unused, f"script.json 里有页面不存在的 id：{sorted(unused)}"
         segments = []
         for s in scenes:
             if not segments or segments[-1]["label"] != s["segment"]:

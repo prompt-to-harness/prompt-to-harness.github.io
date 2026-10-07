@@ -31,6 +31,7 @@ PUBLISH_SPEAKER_PAGES = False
 SKIP_DIRS = {'tools', 'archive', 'production', 'materials', 'promo', '.hallmark'}
 SKIP_SUFFIXES = {'.md', '.py', '.mmd', '.excalidraw'}
 SKIP_ENDINGS = ('.archscribe.json',)
+SKIP_NAMES = {'script.json'}  # 口播的编辑源；站点只需要播放器读的 lesson.js
 SPEAKER_NAME = 'speaker.html'
 
 # An anchor to a speaker page (with or without a #fragment), plus a leading " · " separator.
@@ -48,7 +49,7 @@ ROOT_INDEX = """<!doctype html>
 def wanted(path: Path, rel: Path) -> bool:
     if any(part in SKIP_DIRS for part in rel.parts[:-1]):
         return False
-    if path.suffix in SKIP_SUFFIXES or path.name.endswith(SKIP_ENDINGS):
+    if path.suffix in SKIP_SUFFIXES or path.name.endswith(SKIP_ENDINGS) or path.name in SKIP_NAMES:
         return False
     if path.name == SPEAKER_NAME and not PUBLISH_SPEAKER_PAGES:
         return False

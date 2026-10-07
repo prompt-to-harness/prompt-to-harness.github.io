@@ -41,7 +41,7 @@ ch01/
 └── verification.md            # 验证记录与边界
 ```
 
-每个小节的 `index.html` 为演示页，`lesson.js` 是正文与讲稿的内容源，`speaker.html` 展示讲稿，`script.md` 是导出的 Markdown 讲稿。修改教学内容时先改该小节的 `lesson.js`，再导出讲稿。
+每个小节的 `index.html` 为演示页，`lesson.js` 是正文的内容源，`script.json` 是口播的内容源，`speaker.html` 展示讲稿，`script.md` 是导出的 Markdown 讲稿。改口播时改 `script.json`（或在 `speaker.html` 里直接改），再运行 `courseware/tools/rebuild-lesson.py <节目录>`；改其余内容时改 `lesson.js`。1.2 另有 `tools/build-lesson.py`，它读 `script.json` 生成 `lesson.js`。
 
 旧版 `demos/ch01-presentation/` 已迁移到这里。原页码锚点及 `mode=scroll` / `mode=slides` 参数保留，例如 [1.4 P22](lessons/04-prompt/index.html?mode=scroll#p22)。旧网址需要更新，不再保留重复课件副本。
 
@@ -58,7 +58,7 @@ P04 默认嵌入随课件提供的原始 Starter 页面，明确标记为“仅�
 
 ## 讲稿与维护
 
-`lessons/*/lesson.js` 保存正文、原页码、Prompt、口播、教学分支与讲师备注。同目录的 `speaker.html` 从这一内容源展示讲解全文。
+`lessons/*/lesson.js` 保存正文、原页码、Prompt、教学分支与讲师备注；口播在同目录的 `script.json`，由 `rebuild-lesson.py` 合并进 `lesson.js`。同目录的 `speaker.html` 展示讲解全文。
 
 在本章目录运行，导出六份讲稿到 `lessons/*/script.md`：
 
