@@ -1,0 +1,59 @@
+diff --git a/src/components/MemoryGame.tsx b/src/components/MemoryGame.tsx
+index c3a10de..8cd4afa 100644
+--- a/src/components/MemoryGame.tsx
++++ b/src/components/MemoryGame.tsx
+@@ -4,19 +4,13 @@ import './memory-game.css'
+ const CARD_FACES = [
+   '需求',
+   '迭代',
+-  '感知',
+   '推理',
+-  '量产',
+   '部署',
+-  '加速',
+   '验收',
+-  '端侧',
+-  '提示',
+   '协作',
+-  '智能体',
+ ] as const
+ 
+-const PAIR_COUNT = CARD_FACES.length / 2
++const PAIR_COUNT = CARD_FACES.length
+ const MISMATCH_DELAY_MS = 900
+ const BEST_MOVES_KEY = 'memory-game-best-moves'
+ 
+@@ -40,7 +34,14 @@ function shuffle<T>(items: T[]): T[] {
+ 
+ function createDeck(): Card[] {
+   return shuffle(
+-    CARD_FACES.map((face, id) => ({ id, face, flipped: false, matched: false })),
++    CARD_FACES.flatMap((face, index) =>
++      [0, 1].map((copy) => ({
++        id: index * 2 + copy,
++        face,
++        flipped: false,
++        matched: false,
++      })),
++    ),
+   )
+ }
+ 
+@@ -113,7 +114,6 @@ export default function MemoryGame() {
+         ),
+       )
+       setOpenIds([])
+-      setMoves((prev) => prev + 1)
+       setStatus(`配对成功：${first.face}。`)
+       return
+     }
+@@ -168,6 +168,9 @@ export default function MemoryGame() {
+       prev.map((item) => (item.id === id ? { ...item, flipped: true } : item)),
+     )
+     setOpenIds((prev) => (prev.length < 2 ? [...prev, id] : prev))
++    if (openIds.length === 1) {
++      setMoves((prev) => prev + 1)
++    }
+   }
+ 
+   function startNewGame() {
