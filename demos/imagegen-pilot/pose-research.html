@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>猫姿态研究 · 重建场景与角色复用</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#F4F2EB;color:#243042;font-family:system-ui,sans-serif;line-height:1.6}main{max-width:1180px;margin:auto;padding:28px 24px 60px}a{color:inherit;text-underline-offset:4px}h1{font-size:30px;margin:18px 0 8px}h2{font-size:25px;margin:0 0 14px}h3{font-size:23px;line-height:1.4}p{margin:8px 0 14px}.note,figcaption{color:#5B6573;font-size:15px}.panel{margin:26px 0;border:1px solid #C9C2B4;border-radius:8px;padding:24px}.pair{display:grid;grid-template-columns:1fr 1fr;gap:24px}figure{margin:0;min-width:0}figure img{display:block;width:100%;height:auto}figcaption{padding-top:10px}.pair h3{margin:0 0 10px}.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}button{font:inherit;cursor:pointer;border:1px solid #9E9789;background:transparent;color:inherit;border-radius:5px;padding:8px 15px}button[aria-pressed=true]{background:#243042;color:#F4F2EB}button:focus-visible{outline:3px solid #9C8B66;outline-offset:3px}.reuse{display:grid;grid-template-columns:0.85fr 1.3fr;gap:24px;align-items:center}.cat{width:100%;height:auto;display:block}.evidence{font-size:19px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}.card{padding:16px;background:#EAE6DB;border:1px solid #C9C2B4;border-radius:6px}.card b{font-size:18px}pre{font-size:17px;white-space:pre-wrap;overflow-wrap:anywhere;margin:10px 0}.rule{margin-top:20px;border-top:1px solid #C9C2B4;padding-top:12px}.evidence ul{padding-left:23px;margin:12px 0}.evidence li{margin:9px 0}@media(max-width:720px){main{padding:20px 16px}.panel{padding:18px 14px}.pair,.reuse{grid-template-columns:1fr}.reuse .cat{max-width:330px;margin:auto}.cards{grid-template-columns:1fr}h1{font-size:27px}}
+</style>
+</head>
+<body><main>
+<a href="chapter-states.html">← 回到跨章节试验</a>
+<h1>真实姿态与透明角色 · 历史探索</h1>
+<p><strong>最新澄清：</strong>讲师指出的是扭头诡异，并不反对适度拟人；角色应与章节内容互动。本页做法不作为当前方向。<a href="interaction.html">查看新的圆猫爪互动对照 →</a></p>
+<p>姿势照片与画风参考分开使用，比较重新布置场景与复用透明角色两种做法</p>
+<p class="note">2026-10-07 · 两个流程各生成一次，待讲师比较 · 正式课件未替换</p>
+<section class="panel">
+<h2>整体构图对照</h2>
+<div class="pair">
+<figure><h3>旧稿 · 讲师已指出仍不自然</h3><img src="assets/cat-ch04-spec-natural.png" alt="失败对照：蓝猫坐在椅子后，前肢弯到书桌上，下半身被遮住"><figcaption>去掉了人手，但保留了办公坐姿、椅子与桌面遮挡，无法充分判断身体的支撑关系</figcaption></figure>
+<figure><h3>新样本 · 从真实站姿起稿</h3><img src="assets/cat-ch04-pose-reference.png" alt="蓝猫四足站在桌面，本子和两张纸平放在旁边，完整身体和足部可见"><figcaption>照片给身份与姿势，设定图只给画法；重新布置空间，四爪与桌面的接触可见。相似度和画风仍待比较</figcaption></figure>
+</div></section>
+<section class="panel" id="reuse">
+<h2>角色与课程内容分别制作</h2>
+<p>同一张透明角色图复用到三个章节；这里切换的是内容，猫的姿态保持不变</p>
+<div class="tabs" role="group" aria-label="选择章节情境">
+<button type="button" data-scene="spec" aria-pressed="true">第 4 章 · 规格</button>
+<button type="button" data-scene="feedback" aria-pressed="false">第 2 章 · 反馈</button>
+<button type="button" data-scene="handoff" aria-pressed="false">第 8 章 · 交接</button>
+</div>
+<div class="reuse">
+<figure><img class="cat" src="assets/blue-gray-standing-cutout.png" alt="同一张蓝猫全身透明插画，自然站立，尾巴向上弯曲"><figcaption>角色只作陪伴与章节识别，具体判断看右侧内容</figcaption></figure>
+<div class="evidence" id="evidence" aria-live="polite">
+<h3>对象键换序，算不算变化？</h3><div class="cards"><div class="card"><b>Before</b><pre>{"a": 1, "b": 2}</pre></div><div class="card"><b>After</b><pre>{"b": 2, "a": 1}</pre></div></div><p class="rule">批准规则：忽略对象键顺序<br>本章建立规格与验收，不改生产代码</p>
+</div></div>
+<p class="note">透明图已检查 Alpha 通道；一条后腿受视角遮挡，不能声称满足“四足全部可见”。这个姿态、透明边缘和画法仍需讲师确认。以后可增加少量已确认的坐姿、趴姿素材；不靠拉伸同一张图伪造动作</p>
+</section>
+<section class="panel"><h2>本轮研究建议</h2><p>停止在失败的办公坐姿上继续修爪。先确认猫的完整自然姿态，再组合章节内容；少量章首场景使用姿势参考重新生成</p><p class="note">Prompt 的目标和保留项不能互相冲突。两个新样本同时改变参考和构图，无法证明某个措辞普遍更有效</p><a href="../../docs/production/cat-pose-research.md">完整研究、来源与制作取舍</a> · <a href="README.md">素材与 Prompt</a></section>
+</main>
+<script>
+const scenes={
+spec:'<h3>对象键换序，算不算变化？</h3><div class="cards"><div class="card"><b>Before</b><pre>{"a": 1, "b": 2}</pre></div><div class="card"><b>After</b><pre>{"b": 2, "a": 1}</pre></div></div><p class="rule">批准规则：忽略对象键顺序<br>本章建立规格与验收，不改生产代码</p>',
+feedback:'<h3>别人的建议，都要改吗？</h3><ul><li>先定位观察条件与具体现象</li><li>分清视觉现象、行为事实、个人偏好与既有决定</li><li>留下复现条件、期望、实际与证据</li></ul>',
+handoff:'<h3>该继续修，还是停下来交接？</h3><ul><li>先区分测试失败、环境失败与规格歧义</li><li>最多两轮；超预算、范围扩大或权限／规格问题就停止</li><li>交接已尝试什么、还剩什么、需要人决定什么</li></ul>'};
+document.querySelectorAll('[data-scene]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-scene]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));document.getElementById('evidence').innerHTML=scenes[button.dataset.scene];}));
+</script>
+</body></html>

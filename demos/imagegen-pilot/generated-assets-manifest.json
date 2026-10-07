@@ -1,0 +1,292 @@
+{
+  "snapshot_date": "2026-10-07",
+  "images": [
+    {
+      "file": "assets/cat-ch02-feedback-detailed.png",
+      "prompt": "prompts/cat-ch02-feedback-detailed.txt",
+      "width": 1774,
+      "height": 887,
+      "bytes": 2679414,
+      "sha256": "008e9ab1f2b5cee7954560fea9ed662d9466447f41edd0b940457f407d695710",
+      "reference_images": [
+        "assets/cat-trio-sheet-detailed-v2.png"
+      ]
+    },
+    {
+      "file": "assets/cat-ch02-feedback-natural.png",
+      "prompt": "prompts/cat-ch02-feedback-natural.txt",
+      "width": 1774,
+      "height": 887,
+      "bytes": 2574704,
+      "sha256": "e027072197c9b432d4fbd8bdcc77068be1a5b76cae9ad76a3f77634daf1ad4e7",
+      "reference_images": [
+        "assets/cat-ch02-feedback-detailed.png"
+      ]
+    },
+    {
+      "file": "assets/cat-ch04-spec-detailed-v2.png",
+      "prompt": "prompts/cat-ch04-spec-detailed-v2.txt",
+      "width": 1774,
+      "height": 887,
+      "bytes": 2294770,
+      "sha256": "d50393878027da5db42c98d9c33a0a13917729b78c3391db597396265c1630e2",
+      "reference_images": [
+        "assets/cat-ch04-spec-detailed.png"
+      ]
+    },
+    {
+      "file": "assets/cat-ch04-spec-detailed.png",
+      "prompt": "prompts/cat-ch04-spec-detailed.txt",
+      "width": 1774,
+      "height": 887,
+      "bytes": 2442542,
+      "sha256": "7dfb39dde5e99d9c945e7a7ac66e3563ab7abaf8a929f2df691f3545cd14b4a1",
+      "reference_images": [
+        "assets/cat-trio-sheet-detailed-v2.png"
+      ]
+    },
+    {
+      "file": "assets/cat-ch04-spec-natural.png",
+      "prompt": "prompts/cat-ch04-spec-natural.txt",
+      "width": 1774,
+      "height": 887,
+      "bytes": 2320842,
+      "sha256": "adabf337869821ad51b893bf3f0ea37d615549df5bae330b34b4fb7eda988622",
+      "reference_images": [
+        "assets/cat-ch04-spec-detailed-v2.png"
+      ]
+    },
+    {
+      "file": "assets/cat-ch08-handoff-detailed.png",
+      "prompt": "prompts/cat-ch08-handoff-detailed.txt",
+      "width": 1774,
+      "height": 887,
+      "bytes": 2693735,
+      "sha256": "3093dccdf0681f2dd99f749819f813bd120ebad7b4638fb58de8273698b8265e",
+      "reference_images": [
+        "assets/cat-trio-sheet-detailed-v2.png"
+      ]
+    },
+    {
+      "file": "assets/cat-ch08-handoff-natural.png",
+      "prompt": "prompts/cat-ch08-handoff-natural.txt",
+      "width": 1774,
+      "height": 887,
+      "bytes": 2662071,
+      "sha256": "813d164f51f0094a7e2c836a7e70d1f0312bcb820bcc8a4491929b8a80301b00",
+      "reference_images": [
+        "assets/cat-ch08-handoff-detailed.png"
+      ]
+    },
+    {
+      "file": "assets/cat-trio-sheet-detailed-v2.png",
+      "prompt": "prompts/cat-trio-sheet-detailed-v2.txt",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2740274,
+      "sha256": "32ecd635601509bfbe054dfed8cc24017d308ec755afbf22a2dd450956cf53ea",
+      "reference_images": [
+        "assets/cat-trio-sheet-detailed.png",
+        "references/blue-gray-02.jpg"
+      ]
+    },
+    {
+      "file": "assets/cat-trio-sheet-detailed.png",
+      "prompt": "prompts/cat-trio-sheet-detailed.txt",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2954116,
+      "sha256": "95a61d9f168eb0968dfabbac7abdefa288e0e5d6e8f6bfc48c748cd314bef4ca",
+      "reference_images": [
+        "references/orange-white.jpg",
+        "references/blue-gray-01.jpg",
+        "references/longhair-tabby.jpg"
+      ]
+    },
+    {
+      "file": "assets/cat-trio-sheet.png",
+      "prompt": "prompts/cat-trio-sheet.txt",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2142952,
+      "sha256": "ffd97d903097b014801e4e2c7d0d7bab1305bb360f0adadabc40d644bcefd836",
+      "reference_images": [
+        "assets/cat-trio-sheet-detailed.png"
+      ]
+    },
+    {
+      "file": "assets/cat-trio-workbench.png",
+      "prompt": "prompts/cat-trio-workbench.txt",
+      "width": 1774,
+      "height": 887,
+      "bytes": 2074667,
+      "sha256": "45bf7c7b7ff1c40dc459847f86d3ad4c616ae9bac4ea5ec3a732e0b5ce6499f8",
+      "reference_images": [
+        "assets/cat-trio-sheet.png"
+      ]
+    },
+    {
+      "file": "assets/ch01-workbench.png",
+      "prompt": "prompts/ch01-workbench.txt",
+      "width": 1774,
+      "height": 887,
+      "bytes": 1979096,
+      "sha256": "f896c3c361908a64b12a8e9e07ed1e836263c0f3be66a9fd714cca979ebdfc96",
+      "reference_images": [
+        "assets/feedback-comic.png"
+      ]
+    },
+    {
+      "file": "assets/ch02-workbench.png",
+      "prompt": "prompts/ch02-workbench.txt",
+      "width": 1774,
+      "height": 887,
+      "bytes": 2004167,
+      "sha256": "44a5a3529a815f27a847e63a7cc7f763b964d05ff3ae74b409e7a26be5bb8391",
+      "reference_images": [
+        "assets/feedback-comic.png"
+      ]
+    },
+    {
+      "file": "assets/feedback-comic.png",
+      "prompt": "prompts/feedback-comic.txt",
+      "width": 2172,
+      "height": 724,
+      "bytes": 2016880,
+      "sha256": "e692e605bce5ee8a7ff90e930d3b61e894f702df6e3f7757b8893d8c2eb4bf32",
+      "reference_images": []
+    },
+    {
+      "file": "assets/game-gallery.png",
+      "prompt": "prompts/game-gallery.txt",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 1659925,
+      "sha256": "3f17803b087e50e9c2d6336a1b5075b3fd472d0f144dc00e2306fb89ba9f065b",
+      "reference_images": []
+    },
+    {
+      "file": "assets/human-beaver-comparison.png",
+      "prompt": "prompts/human-beaver-comparison.txt",
+      "width": 1774,
+      "height": 887,
+      "bytes": 1731089,
+      "sha256": "9c30926cad89753978cd5e999ecfcd29c1f86f1ef296cb1756fb8c2807cd0544",
+      "reference_images": [
+        "assets/ch01-workbench.png"
+      ]
+    },
+    {
+      "file": "assets/portfolio.png",
+      "prompt": "prompts/portfolio.txt",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 1679140,
+      "sha256": "1853c83a3953cd929cf3c03da1872e267121acc93877a690bde3401f8ed3d89a",
+      "reference_images": []
+    },
+    {
+      "file": "assets/cat-ch04-pose-reference.png",
+      "prompt": "prompts/cat-ch04-pose-reference.txt",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2890696,
+      "sha256": "c455aa16d8502b1d9be999fe898279f65703e9d8b5ae74c45cf7647fe0525000",
+      "reference_images": [
+        "references/blue-gray-02.jpg",
+        "assets/cat-trio-sheet-detailed-v2.png"
+      ],
+      "status": "workflow study, awaiting instructor comparison"
+    },
+    {
+      "file": "assets/blue-gray-standing-cutout.png",
+      "prompt": "prompts/blue-gray-standing-cutout.txt",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 1879501,
+      "sha256": "80e79bdc8782bbe820d864fd85271978f174f716929d209a9d6d73a2e5ef1df8",
+      "reference_images": [
+        "references/blue-gray-02.jpg",
+        "assets/cat-trio-sheet-detailed-v2.png"
+      ],
+      "status": "workflow study, awaiting instructor comparison"
+    },
+    {
+      "file": "assets/cat-ch04-interaction-detailed.png",
+      "prompt": "prompts/cat-ch04-interaction-detailed.txt",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2368644,
+      "sha256": "fc453ac0311142861323e219930f043c45915c50274fe31a0eaba54b7f013fa5",
+      "reference_images": [
+        "assets/cat-trio-sheet-detailed-v2.png"
+      ],
+      "status": "instructor rejected: limb silhouette reads as six legs"
+    },
+    {
+      "file": "assets/cat-ch04-interaction-cartoon.png",
+      "prompt": "prompts/cat-ch04-interaction-cartoon.txt",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1694047,
+      "sha256": "1c8d4d269755bcbf4ca0780da944fc8a3cad007b91134a0ca7a13d7f3ceab902",
+      "reference_images": [
+        "assets/cat-trio-sheet-detailed-v2.png",
+        "assets/cat-trio-sheet.png"
+      ],
+      "status": "instructor preferred over detailed sample; style reference for further trials"
+    },
+    {
+      "file": "assets/cat-ch02-feedback-cartoon.png",
+      "prompt": "prompts/cat-ch02-feedback-cartoon.txt",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2026631,
+      "sha256": "98162c735be0d0abe3041b6c4fee03c8bda81d468db1386599adab2d717d3ede",
+      "reference_images": [
+        "assets/cat-ch04-interaction-cartoon.png",
+        "assets/cat-trio-sheet.png"
+      ],
+      "status": "initial phone grip has thumb-like projection; retained for comparison"
+    },
+    {
+      "file": "assets/cat-ch02-feedback-cartoon-v2.png",
+      "prompt": "prompts/cat-ch02-feedback-cartoon-v2.txt",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1893589,
+      "sha256": "da30db4b744fa9fd679bf4fc87c150b6f98fd0bf80b04b3b31d0120ce0107928",
+      "reference_images": [
+        "assets/cat-ch02-feedback-cartoon.png"
+      ],
+      "status": "new cartoon action study; awaiting instructor comparison"
+    },
+    {
+      "file": "assets/cat-ch06-evidence-cartoon.png",
+      "prompt": "prompts/cat-ch06-evidence-cartoon.txt",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1888573,
+      "sha256": "0d5493694b806137127e60c4e57c8469e2680e621968a3a2dea44082b8555af8",
+      "reference_images": [
+        "assets/cat-ch04-interaction-cartoon.png",
+        "assets/cat-trio-sheet.png"
+      ],
+      "status": "new cartoon action study; awaiting instructor comparison"
+    },
+    {
+      "file": "assets/cat-ch08-handoff-cartoon.png",
+      "prompt": "prompts/cat-ch08-handoff-cartoon.txt",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 2104375,
+      "sha256": "46041fb9486a5b60dc8b523ef7e71ca27e5c53c80e6caa261c146c817547d523",
+      "reference_images": [
+        "assets/cat-ch04-interaction-cartoon.png",
+        "assets/cat-trio-sheet.png"
+      ],
+      "status": "new cartoon action study; awaiting instructor comparison"
+    }
+  ],
+  "reference_note": "照片参考最初使用讲师原尺寸附件；这里列出 Git 中对应的缩小参考，便于接续，不保证重新生成逐像素一致。"
+}
