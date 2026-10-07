@@ -1,0 +1,2 @@
+ src/components/MemoryGame.tsx | 21 ++++++++++++---------
+ 1 file changed, 12 insertions(+), 9 deletions(-)

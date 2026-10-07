@@ -1,0 +1,26 @@
+{
+ "instructions_chars": 16979,
+ "input": [
+  {
+   "index": 0,
+   "type": "message",
+   "role": "developer",
+   "chars": 12384,
+   "head": "## Memory\n\nYou have access to a memory folder with guidance from prior runs. It can save\ntime and help you stay consistent. Use it whenever it is likely to help"
+  },
+  {
+   "index": 1,
+   "type": "message",
+   "role": "user",
+   "chars": 691,
+   "head": "# AGENTS.md instructions for <课程仓库>/lab-runs/ch03-compare/repo\n\n<INSTRUCTIONS>\n# 项目说明\n\n- 规则A（AGENTS.md）：等待翻回期间的点击一律忽略。\n\n</INST"
+  },
+  {
+   "index": 2,
+   "type": "message",
+   "role": "user",
+   "chars": 20,
+   "head": "只读：用一句话说你好，不要读取任何文件。"
+  }
+ ]
+}

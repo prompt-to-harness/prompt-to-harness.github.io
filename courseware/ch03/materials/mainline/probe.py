@@ -87,6 +87,15 @@ def main():
                 r2 = faceup(pg.evaluate(STATE, cls))
                 out['restart_during_wait'] = {'faceup_right_after': r1, 'faceup_after_1500ms': r2,
                                               'stale_timer_flipped_back': bool(r1) and not r2}
+                # 探查三：不匹配 → 立刻重开 → 点一张 → 等旧计时器到点 → 再点一张 → 看两张是否正常比较、翻回
+                card(0).click(); card(j).click()
+                pg.locator('[data-probe-restart]').click()
+                pg.evaluate(FIND)
+                base = pg.evaluate(STATE)
+                card(0).click(force=True); pg.wait_for_timeout(1200)
+                card(1).click(force=True); pg.wait_for_timeout(1600)
+                out['restart_then_two_clicks'] = {'faceup_after': faceup(pg.evaluate(STATE)),
+                                                  'note': '正常：两张比较后或配对、或都翻回；旧计时器清空了“已翻开”时，第一张会一直朝上'}
         out['page_errors'] = errors
         br.close()
     print(json.dumps(out, ensure_ascii=False, indent=1))
