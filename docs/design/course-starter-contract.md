@@ -1,6 +1,6 @@
 # `course-starter` 设计契约
 
-> 状态：初始 Starter 已实现并推送，2026-09-27。2026-10-06 修订第 2、7、8 节：章节参考起点改为带版本号的标签，学员落后时由 Codex 对照参考起点补齐前提（讨论与实验见 `courseware/ch02/materials/catchup/README.md`）。第 4、5 节描述的初始应用已不再是现状，见各节说明。本文不是章节已完成或发布效果的声明。
+> 状态：初始 Starter 已实现并推送，2026-09-27。2026-10-07 补第 2 节讲师参考成品的线上版本。2026-10-06 修订第 2、7、8 节：章节参考起点改为带版本号的标签，学员落后时由 Codex 对照参考起点补齐前提（讨论与实验见 `courseware/ch02/materials/catchup/README.md`）。第 4、5 节描述的初始应用已不再是现状，见各节说明。本文不是章节已完成或发布效果的声明。
 >
 > 本文面向课程作者、录制和维护人员。它定义 Starter Repo 的职责、边界和恢复语义；学员看到的操作说明放在 `course-starter` 的 `README.md`、`BRIEF.md` 和 `CHECKPOINTS.md` 中。
 
@@ -29,6 +29,16 @@ course-run  讲师按课程顺序完成的代码演进
 ch02-start-v1    第 2 章参考起点：第 1 章结束时的讲师首页（2026-10-06 发布，排练版）
 ch03-start-v1    第 3 章参考起点（待制作）
 ```
+
+### 讲师参考成品的线上版本（2026-10-07 确认）
+
+`course-run` 部署到 course-starter 自己的 GitHub Pages（`https://prompt-to-harness.github.io/course-starter/`），作为讲师参考成品的线上版本；学员仍在自己由 Template 生成的仓库 `main` 上部署，互不影响。这一做法 2026-10-07 在结构相同的临时仓库实测可行（过程见[第 3 章提案](../outline/proposals/2026-10-05-ch03-storyline.md) §七第 6 条），需要：
+
+1. course-starter 开启 Pages，来源选 GitHub Actions。开启时自动建的 `github-pages` 环境只允许默认分支 `main` 部署，要在环境的部署分支规则里加上 `course-run`，否则部署一步报 `Branch "course-run" is not allowed to deploy to github-pages due to environment protection rules`。
+2. `course-run` 上的 Pages workflow 写 `push: branches: [main, course-run]`。`main` 不放 workflow（2.4 才教），而 `workflow_dispatch` 要求文件在默认分支，所以 `course-run` 只能靠 push 触发；照抄学员版的 `branches: [main]` 不会触发任何运行。
+3. `vite.config` 的 `base` 写 `/course-starter/`。
+
+第 2、3 条会进入参考起点标签，学员“从这一章开始”时 Codex 会看到。各章追赶预检要核对：Codex 不把 `course-run` 抄进学员的 workflow，`base` 用学员自己的仓库名。线上只显示 `course-run` 的最新提交；各章标签的状态以标签本身为准。设置在制作 `ch03-start-v1` 时一并完成（尚未操作）。从 Template 生成仓库时不带 `course-run`，依据是 GitHub 默认只复制默认分支，未实测。
 
 参考起点由课程仓库的主线重跑脚本（`courseware/ch01/materials/mainline/`、`courseware/ch02/materials/mainline/`）真实运行得到，讲师审查后冻结，再提交到 `course-run`；讲师笔记和运行日志留在课程仓库，不进入 Starter。原先规划的 `ch01-complete` 等完成态标签不再使用。
 
