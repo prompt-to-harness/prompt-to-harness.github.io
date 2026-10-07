@@ -26,6 +26,7 @@
 - [制作提案](../../docs/production/imagegen-pilot-proposal.md)、[最新卡通试验审查](../../docs/reviews/2026-10-07-all-cartoon-state-tests-codex.md)：课程使用标准与检查范围。
 
 - [resolution.html](resolution.html)：640 与 1024 导出对照，以及一次原生尺寸请求未生效的 Probe。当前内置工具没有显式 size／quality／format 参数；不要仅在 Prompt 写小尺寸就承诺降低生成 Token 或耗时。
+- 本轮大 PNG 历史已在本地清理；压缩图、参考照片与 Prompt 仍在 Git。远端尚未改写，续做时先检查同步状态，避免把旧大图历史再次带回。完整备份及 commit-map 在本机忽略目录 generated-originals/git-backup-20261007/；详情见 [压缩与历史清理记录](../../docs/reviews/2026-10-07-all-imagegen-size-history-codex.md)。
 
 ## 修改方法
 

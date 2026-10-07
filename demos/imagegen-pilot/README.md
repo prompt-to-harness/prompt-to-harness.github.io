@@ -91,7 +91,7 @@ python3 demos/imagegen-pilot/build-preview.py
 sips -Z 640 -s format jpeg -s formatOptions 80 source.png --out assets/new-scene.jpg
 ```
 
-讲师随后明确要求清理这组生图相关历史。清理仅按原始 25 个 PNG 的 blob ID 进行，保留压缩导出、Prompt、参考照片和其他课程文件；先保存本地完整备份。当前素材体积与 Git 对象库体积分别核验；远端若尚未同步，仍可能保留旧历史。清理记录见本轮审查。
+讲师随后明确要求清理这组生图相关历史。本地已按原始 25 个 PNG 的 blob ID 清理，保留压缩导出、Prompt、参考照片和其他课程文件，并保存完整备份。相关分支和 6 个目录快照已更新，当前完整文件树保持一致；旧图及其关联不可达元数据移至本地备份，其他对象与恢复记录保留。根仓库对象目录从约 115 MiB 降至 49 MiB；第三方子模块约 118 MiB 的 Git 数据不属于本次清理。远端尚未改写，仍保留旧历史，待确认后用 force-with-lease 同步。详见本轮审查。
 
 生成速度与保存体积分别处理：当前内置 image_gen 接口没有显式 size、quality、output_format 参数，本次使用 sips 导出，没有重新生成。OpenAI 官方 API 支持这些参数，文档建议草稿使用 low 质量，并说明直接输出 JPEG 比 PNG 更快；这是 API 能力，不能假定当前工具已暴露，也没有在本项目测量延迟。来源：[OpenAI Image generation](https://developers.openai.com/api/docs/guides/image-generation)（2026-10-07）。
 
