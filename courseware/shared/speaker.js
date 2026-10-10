@@ -18,6 +18,11 @@
     });
     parent.append(list);
   };
+  if (window.lesson.intro?.length) {
+    const intro = document.createElement('div'); intro.id = 'chapter-intro';
+    window.lesson.intro.forEach(paragraph => addParagraph(intro, paragraph));
+    root.append(intro);
+  }
   window.lesson.scenes.forEach((scene, index) => {
     const section = document.createElement('section'); section.id = scene.id;
     const title = document.createElement('h2'); title.textContent = `${String(index + 1).padStart(2, '0')} · ${scene.label}`;
@@ -31,7 +36,9 @@
         link.textContent = '查看这一步 →';
         section.append(heading, link);
       }
-      addParagraph(section, paragraph);
+      paragraph.split('\n\n').forEach(text => {
+        addParagraph(section, text, text.startsWith('【操作提示｜') ? 'stage-direction' : undefined);
+      });
     });
     addCommands(section, scene.commands);
     if (scene.prompt) {

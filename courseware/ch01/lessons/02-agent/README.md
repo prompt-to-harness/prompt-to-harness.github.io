@@ -44,7 +44,7 @@
 
 ## 维护与验证
 
-`tools/build-lesson.py` 原是本节内容、分步口播、内联 SVG 和三张图源的生成源。**2026-10-03 发现它已落后于 `lesson.js`**：2026-09-30 按零件库重做页面时直接改了 `lesson.js`，没有同步回脚本；现在运行它会把页面退回旧版。同步之前以 `lesson.js` 为准，不要运行它。修改后运行：
+`lesson.js` 是页面与分步口播的内容源。2026-10-09 将过时的 `tools/build-lesson.py` 改为调用本章导出工具，只从 `lesson.js` 更新 `script.md`，不重建页面或图资产，避免覆盖零件库版式。修改后运行：
 
 ```sh
 python3 courseware/ch01/lessons/02-agent/tools/build-lesson.py

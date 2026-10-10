@@ -15,6 +15,8 @@ for source in sorted((root / "lessons").glob("*/lesson.js")):
         continue
     lesson = json.loads(source.read_text().removeprefix("window.lesson = ").strip().removesuffix(";"))
     lines = [f"# 1.{number} {lesson['title']}", "", "> 从演示内容源导出。逐页时长预算见 `lesson.js` 的 `seconds`，口播与操作均未试录；演示分支按录制时的实际情况选择。", ""]
+    if lesson.get("intro"):
+        lines += ["## 第一章开场口播", "", *sum(([text, ""] for text in lesson["intro"]), [])]
     for scene in lesson["scenes"]:
         lines += [f"## {scene['id'].upper()} {scene['label']}", "", f"[对应课件](index.html#{scene['id']})", "", "### 口播", "", *sum(([text, ""] for text in scene["script"]), [])]
         if scene.get("steps"):
