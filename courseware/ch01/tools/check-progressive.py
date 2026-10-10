@@ -64,9 +64,13 @@ with sync_playwright() as p:
         page.keyboard.press('t');assert page.locator('.step-hidden,.step-past').count()==0
         page.keyboard.press('t');assert state()['step']==len(first['steps'])-1
         page.goto(base+'?mode=slides&step=1#'+second['id']);page.reload();assert state()=={'id':second['id'],'step':1}
-        page.set_viewport_size({'width':1280,'height':720});page.keyboard.press('r')
+        # A 64px logo strip sits above the full-size 1280x720 recording canvas.
+        page.set_viewport_size({'width':1280,'height':784});page.keyboard.press('r')
         page.wait_for_function("document.querySelector('.scene:not([hidden])').getBoundingClientRect().width===1280")
-        cam=page.locator('.camera-guide').bounding_box();assert all(abs(cam[k]-v)<1 for k,v in {'x':956,'y':24,'width':300,'height':225}.items()),cam
+        logo=page.locator('.recording-branding .institution-logo');assert logo.is_visible()
+        assert logo.evaluate('(e)=>e.complete&&e.naturalWidth===2420')
+        assert logo.bounding_box()['y']+logo.bounding_box()['height']<=page.locator('.scene:not([hidden])').bounding_box()['y']
+        cam=page.locator('.camera-guide').bounding_box();assert all(abs(cam[k]-v)<1 for k,v in {'x':956,'y':88,'width':300,'height':225}.items()),cam
         page.keyboard.press('r');page.keyboard.press('t');page.set_viewport_size({'width':390,'height':844})
         assert page.evaluate('document.documentElement.scrollWidth<=innerWidth'),name
         page.set_viewport_size({'width':1280,'height':848})
