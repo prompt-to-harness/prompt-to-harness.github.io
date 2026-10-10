@@ -105,6 +105,13 @@ with sync_playwright() as p:
     # 零件库重刷后 diff 行为 .p-ln.del / .p-ln.add；旧写法 .minus / .plus 仍兼容。
     assert page.locator('#p05-diff .minus, #p05-diff .p-ln.del').first.evaluate('(e)=>getComputedStyle(e).backgroundColor')=='rgb(252, 230, 221)'
     assert page.locator('#p05-diff .plus, #p05-diff .p-ln.add').first.evaluate('(e)=>getComputedStyle(e).backgroundColor')=='rgb(227, 242, 230)'
+    # The default standalone view must open the same offline Starter as the iframe.
+    panel=page.locator('#p04-live .welcome-demo')
+    preview_url=(root.parents[1]/'starters/personal-homepage/setup-check/index.html').as_uri()
+    assert panel.locator('iframe').evaluate('(e)=>e.src')==preview_url
+    assert panel.locator('a').evaluate('(e)=>e.href')==preview_url
+    with page.expect_popup() as popup:panel.locator('a').click()
+    popup.value.wait_for_url(preview_url);popup.value.locator('#welcome-message').wait_for();popup.value.close()
     assert not network,network
     # Exercise the preview controls against a local fixture, never a learner's project.
     page.unroute('http://**/*')
@@ -113,10 +120,11 @@ with sync_playwright() as p:
     page.goto((root/'lessons/01-environment/index.html').as_uri()+'?mode=slides&step=1#p04-live')
     panel=page.locator('.scene:not([hidden]) .welcome-demo');panel.locator('[data-demo-connect]').click()
     assert panel.locator('iframe').get_attribute('src')=='http://localhost:4174/setup-check/'
+    assert panel.locator('a').get_attribute('href')=='http://localhost:4174/setup-check/'
     page.frame_locator('.scene:not([hidden]) iframe').locator('#welcome-message').wait_for()
     panel.locator('[data-demo-reload]').click();page.frame_locator('.scene:not([hidden]) iframe').locator('#welcome-message').wait_for()
     with page.expect_popup() as popup:panel.locator('a').click()
-    popup.value.wait_for_load_state();assert popup.value.url=='http://localhost:4174/setup-check/';popup.value.close()
+    popup.value.wait_for_url('http://localhost:4174/setup-check/');popup.value.locator('#welcome-message').wait_for();popup.value.close()
     # Protect P10's independent Context Window step and navigation.
     base=(root/'lessons/02-agent/index.html').as_uri()
     page.goto(base+'?mode=slides#p10');agent=page.evaluate('window.lesson.scenes.find(s=>s.id==="p10")')
