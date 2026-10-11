@@ -10,7 +10,6 @@ window.lesson = {
       "layout": "lesson-cover",
       "label": "我又点了第三张",
       "title": "我又点了第三张",
-      "kicker": "第 3 章 · 3.2 · 开篇",
       "lead": "第二张还没翻回去的时候",
       "html": "<div class=\"p-comic\"><div class=\"p-panel\" data-reveal=\"0\"><span class=\"p-cap\">第一步</span><p class=\"p-bubble\">翻开两张：迭代、验收</p><span class=\"p-avatar\">我们</span></div><div class=\"p-panel\" data-reveal=\"1\"><span class=\"p-cap\">它们还没翻回去</span><p class=\"p-bubble\">我又点了第三张……</p><span class=\"p-avatar\">我们</span></div><div class=\"p-panel\" data-reveal=\"2\"><span class=\"p-cap\">没反应</span><p class=\"p-bubble\">这是谁定的？</p><span class=\"p-avatar\">我们</span></div></div>",
       "steps": [
@@ -32,7 +31,6 @@ window.lesson = {
       "segment": "画状态",
       "label": "游戏有哪些状态",
       "title": "先画最小状态图",
-      "kicker": "第 3 章 · 3.2 · 画状态",
       "lead": "状态图不求完整，只求让我们知道该去哪些角落看。分叉、等待和结束是最容易出事的地方。",
       "html": "<div class=\"p-flow\" style=\"--n:5\"><div class=\"p-node\" data-reveal=\"0\"><b>初始</b><small>全部背面</small></div><div class=\"p-node\" data-reveal=\"0\"><b>翻开一张</b></div><div class=\"p-node\" data-reveal=\"0\"><b>翻开两张</b></div><div class=\"p-node\" data-role=\"gate\" data-reveal=\"1\"><b>等待翻回</b><small>两张不同</small></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"2\"><b>全部配对</b><small>完成</small></div></div><div class=\"p-flow\" style=\"--n:5;margin-top:10px\"><div class=\"p-node is-row2\" style=\"grid-column:3\" data-role=\"ok\" data-reveal=\"1\"><b>配对</b><small>两张相同</small></div><div class=\"p-node is-row2\" style=\"grid-column:5\" data-role=\"us\" data-reveal=\"3\"><b>重开</b><small>任何时候都能点</small></div></div><div class=\"p-bar is-light\" data-reveal=\"3\">容易出事的地方：<b>分叉、等待、结束、重开</b></div>",
       "steps": [
@@ -61,7 +59,6 @@ window.lesson = {
       "segment": "去哪看",
       "label": "检查路线",
       "title": "六条检查路线",
-      "kicker": "第 3 章 · 3.2 · 去哪看",
       "lead": "按状态图挑路线，每条只回答一个问题。“完整打完一局”最容易漏：只玩几下，看不到结束时发生的事。",
       "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1.2fr) minmax(0,1.6fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>路线</span><span>看什么</span></div><div data-reveal=\"0\"><span>等待期点第三张</span><span>点得开吗？之后几张朝上？</span></div><div data-reveal=\"0\"><span>等待期点重开</span><span>新的一局干净吗？</span></div><div data-reveal=\"1\" class=\"is-key\"><span>完整打完一局</span><span>能结束吗？步数、提示对得上页面说的规则吗？</span></div><div data-reveal=\"2\"><span>通关后重开</span><span>最佳成绩、计时归零了吗？</span></div><div data-reveal=\"2\"><span>第一次点击</span><span>计时从哪一刻开始，数字对吗？</span></div><div data-reveal=\"2\"><span>手机与键盘</span><span>双击、Tab 加回车能玩吗？</span></div></div>",
       "steps": [
@@ -93,7 +90,6 @@ window.lesson = {
       "segment": "去哪看",
       "label": "怎么记",
       "title": "一条记录：步骤、期望、实际、证据",
-      "kicker": "第 3 章 · 3.2 · 去哪看",
       "lead": "期望必须写出来，而且要有来源：页面上的文字、我们给的需求、还是我们心里想的。没有期望，就判断不了对错。",
       "html": "<div class=\"p-rec\" style=\"grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr) minmax(0,.8fr);row-gap:12px;--rf:20px\"><div class=\"is-head\" data-reveal=\"0\"><span>最小步骤</span><span>期望</span><span>实际</span><span>证据</span></div><div data-reveal=\"0\"><span class=\"p-cell\">开新一局 → 翻开两张不同的牌 → 等它们翻回</span><span class=\"p-cell\" data-reveal=\"1\">步数变成 1<small>来源：页面写着“看看你要用多少步”</small></span><span class=\"p-cell\" data-reveal=\"2\">步数还是 0</span><span class=\"p-why\" data-reveal=\"2\">截图</span></div></div><div class=\"p-bar is-light\" data-reveal=\"3\">期望写出<b>来源</b>：页面、需求，还是心里想的</div>",
       "steps": [
@@ -117,7 +113,6 @@ window.lesson = {
       "segment": "讲师的游戏",
       "label": "讲师的游戏查出了什么",
       "title": "讲师的游戏查出了什么",
-      "kicker": "第 3 章 · 3.2 · 讲师的游戏",
       "lead": "前两条看起来都“没问题”：第三张点不开，步数不动。完整打完一局才发现：12 张牌全翻过一遍，没有两张相同的词，这一局永远打不完。",
       "html": "<div style=\"display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:16px;align-items:start\"><div class=\"p-page\" data-reveal=\"1\"><img src=\"evidence/run8-mismatch.png\" alt=\"翻开迭代和验收两张不同的牌，提示“不是一对，稍后自动翻回”，步数仍为 0\" style=\"display:block;width:100%\"></div><ul class=\"p-checks\"><li data-reveal=\"0\">等待期点第三张<small>没反应</small></li><li data-reveal=\"1\">翻错一次<small>步数还是 0</small></li><li class=\"is-no\" data-reveal=\"2\">完整打完一局<small>12 张全翻过：迭代、验收、感知、部署、智能体、端侧、量产、加速、需求、协作、推理、提示，没有两张相同</small></li></ul></div><p class=\"source-note\">讲师排练第 8 轮的实现（lab-runs/ch03-mainline/v2-run8，未提交）。来自讲师机器上的排练运行（2026-10-06，Codex 0.160.0–0.160.1 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。</p>",
       "steps": [
@@ -148,7 +143,6 @@ window.lesson = {
       "segment": "判断",
       "label": "缺陷还是规则",
       "title": "缺陷，还是 AI 替你定的规则？",
-      "kicker": "第 3 章 · 3.2 · 判断",
       "lead": "缺陷违背了明确的期望；规则是没人问过你的选择，可能很合理。分不清的那一类，往往是“规则还没人定”。",
       "html": "<div class=\"p-quad\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"agent\">AI 定的规则</span><h3>等待期锁住点击</h3><p>900ms 后翻回；合理，但没人问过你</p></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"gate\">缺陷</span><h3>一局打不完</h3><p>和“找出全部 6 对”矛盾</p></div><div class=\"p-box is-dashed\" data-role=\"ink\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ink\">规则还没人定</span><h3>步数怎么算</h3><p>一张一步？两张一步？</p></div><div class=\"p-box is-soft\" data-role=\"us\" data-reveal=\"3\"><span class=\"p-tag\" data-role=\"us\">问题清单</span><p>缺陷一栏，规则一栏</p></div></div>",
       "steps": [
@@ -172,7 +166,6 @@ window.lesson = {
       "segment": "判断",
       "label": "你的实现也会这样吗",
       "title": "同一句话，六份实现",
-      "kicker": "第 3 章 · 3.2 · 判断",
       "lead": "讲师用同一句需求排练了多次，6 份实现里 3 份有真实缺陷，规则也各不相同。你的版本会不同；自己没发现缺陷时，用讲师这一份做 3.3 的练习。",
       "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,.6fr) minmax(0,1.6fr) minmax(0,1fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>实现</span><span>发现</span><span>性质</span></div><div data-reveal=\"0\"><span>A</span><span>配上第一对就显示“全部配对完成”</span><span>缺陷</span></div><div data-reveal=\"0\"><span>B</span><span>第一次翻牌时用时显示“−1:−2”</span><span>缺陷</span></div><div data-reveal=\"0\" class=\"is-key\"><span>C（讲师）</span><span>12 张牌互不相同，一局打不完</span><span>缺陷</span></div><div data-reveal=\"1\"><span>各份</span><span>6 对、8 对，还有只做 3 对的</span><span>AI 定的规则</span></div><div data-reveal=\"1\"><span>各份</span><span>步数：有的一张算一步，有的两张算一步</span><span>AI 定的规则</span></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">都要<b>完整打完一局、盯住第一次点击、对照页面文字</b>才看得到</div>",
       "steps": [
@@ -199,7 +192,6 @@ window.lesson = {
       "segment": "小结",
       "label": "本节小结",
       "title": "只走成功路径，不等于验证",
-      "kicker": "第 3 章 · 3.2 · 小结",
       "lead": "本节留下状态图和分两栏的问题清单。“没出错”也可能只是 AI 替你做了决定。下一节：挑一个缺陷，按证据修。",
       "html": "<div class=\"p-pause\" data-reveal=\"0\"><h3>暂停自检</h3><div class=\"p-qlist\"><div class=\"p-qrow\"><span>“等待期点不开第三张”是缺陷吗？</span><span class=\"p-back-to\" data-reveal=\"1\">不是：AI 定的规则，合理，但要记下来</span></div><div class=\"p-qrow\"><span>没写期望来源的记录，能判断对错吗？</span><span class=\"p-back-to\" data-reveal=\"1\">不能：先补上期望和来源</span></div></div></div><div class=\"p-next\" data-reveal=\"2\" style=\"margin-top:14px\"><div class=\"p-box\" data-role=\"us\"><h3>3.3 按证据修</h3><p>先复现，再让 Codex 只调查</p></div></div><p class=\"p-links\" data-reveal=\"2\" style=\"margin-top:12px\"><a href=\"../../practice/memory-v0/index.html\" target=\"_blank\" rel=\"noopener\">试玩讲师的 v0（带缺陷）</a></p>",
       "steps": [

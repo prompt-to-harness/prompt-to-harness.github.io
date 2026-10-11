@@ -10,7 +10,6 @@ window.lesson = {
       "layout": "lesson-cover",
       "label": "插件会照我的意思做吗",
       "title": "插件会照我的意思做吗？",
-      "kicker": "第 3 章 · 3.5 · 开篇",
       "lead": "它的默认和我们的 Brief，听谁的",
       "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>3.1</b>加个游戏</li><li class=\"is-done\"><b>3.2</b>谁定的规则</li><li class=\"is-done\"><b>3.3</b>按证据修</li><li class=\"is-done\"><b>3.4</b>审插件</li><li class=\"is-now\"><b>3.5</b>插件的主张</li><li><b>3.6</b>说明在哪</li><li><b>3.7</b>重开清理</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:18px\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"tool\">插件的默认</span><p>2D 走 Phaser，除非用户另有要求</p></div><div class=\"p-join\" data-reveal=\"2\"><span>?</span></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"us\">我们的 Brief</span><p>接进现有仓库；新依赖先说理由</p></div></div>",
       "steps": [
@@ -32,7 +31,6 @@ window.lesson = {
       "segment": "Brief",
       "label": "第二个游戏要什么",
       "title": "Brief 写进仓库",
-      "kicker": "第 3 章 · 3.5 · Brief",
       "lead": "这一次先写 Brief，放进仓库的 docs/briefs/。它会跟着仓库走，3.6 查规则来源时还会用到。",
       "html": "<div class=\"p-task\" style=\"grid-template-columns:repeat(4,minmax(0,1fr))\"><div class=\"p-box\" data-reveal=\"0\"><h3>玩法</h3><p>方向键移动；收集加分；碰障碍扣命；60 秒或三条命用完结束；可重开</p></div><div class=\"p-box\" data-reveal=\"1\"><h3>素材</h3><p>只用几何图形或 CSS</p></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"2\"><h3>约束</h3><p>接进现有仓库；不新建项目、不加路由、不做 3D；新依赖先说理由</p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"3\"><h3>完成标准</h3><p>build 成功；试玩由我做；记忆翻牌和首页不受影响</p></div></div>",
       "repro": {
@@ -66,7 +64,6 @@ window.lesson = {
       "segment": "插件的计划",
       "label": "Game Studio 给了什么计划",
       "title": "Game Studio 给了什么计划",
-      "kicker": "第 3 章 · 3.5 · 插件的计划",
       "lead": "它先读 Brief 和仓库，再读了 Game Studio 几个 Skill 的全文。结论：零新增依赖，不用 Phaser，明确“建议偏离插件默认”，并把选型作为第一个问题交给我们。排练两轮都是这个结论；其中一轮的理由里混了一条环境限制（沙箱联不了网），不是选型理由。",
       "html": "<div class=\"p-claim\" style=\"grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"agent\">计划</span><ol class=\"p-notes\" style=\"margin-top:8px\"><li data-reveal=\"0\"><span><b>零依赖：React + CSS + rAF</b><small>不用 Phaser</small></span></li><li data-reveal=\"1\"><span><b>建议偏离插件默认</b><small>四条理由，第 4 条是沙箱联不了网</small></span></li><li data-reveal=\"2\"><span><b>照搬插件的架构规范</b><small>模拟与渲染分离 · 输入集中映射</small></span></li><li data-reveal=\"3\"><span><b>三件事交给我们</b><small>第一件：零依赖还是 Phaser</small></span></li></ol></div><ul class=\"p-checks\"><li class=\"\" data-reveal=\"1\">接进现有仓库<small>新建 4 个、改 2 个文件</small></li><li class=\"\" data-reveal=\"2\">新依赖先说理由<small>package.json 不动</small></li><li class=\"is-no\" data-reveal=\"3\">理由站得住吗<small>环境限制要分开看</small></li></ul></div><p class=\"source-note\">计划与改动来自排练（courseware/ch03/materials/mainline/run-v3.sh，基线为 3.3 修复后的 v1）。来自讲师机器上的排练运行（2026-10-06，Codex 0.160.0–0.160.1 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。</p>",
       "repro": {
@@ -105,7 +102,6 @@ window.lesson = {
       "segment": "插件的计划",
       "label": "要不要引擎",
       "title": "要不要引擎？2D 不等于更轻",
-      "kicker": "第 3 章 · 3.5 · 插件的计划",
       "lead": "在同一个首页上分别懒加载一个最小场景，只画一个方块：首页主包几乎不变，游戏分包差别很大。Phaser 是完整的游戏引擎，比 3D 方案还大约 30%。这个游戏只需要矩形、键盘和碰撞判断。",
       "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>方案</span><span>游戏分包（gzip）</span><span>新增依赖</span></div><div data-reveal=\"0\"><span>不用引擎（Canvas）</span><span>—</span><span>无</span></div><div data-reveal=\"1\"><span>Phaser 最小场景</span><span>332 kB</span><span>phaser</span></div><div data-reveal=\"1\"><span>React Three Fiber 最小场景</span><span>249 kB</span><span>three、@react-three/fiber</span></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">要不要多下载 300 多 kB，<b>由人按 Brief 决定</b></div><p class=\"source-note\">courseware/ch03/materials/bundle/：phaser 3.90.0、three 0.186.1、@react-three/fiber 9.8.1，Vite 构建，2026-10-06 一次运行；只测引入引擎本身，不是完整游戏</p>",
       "steps": [
@@ -137,7 +133,6 @@ window.lesson = {
       "segment": "试玩",
       "label": "做出来能玩吗",
       "title": "确认，执行，再由人试玩",
-      "kicker": "第 3 章 · 3.5 · 试玩",
       "lead": "我们选零依赖，确认计划。试玩由人做，按 Brief 逐项过：移动、收集、碰撞、HUD、结束、重开，再回去看记忆翻牌。讲师试玩时还发现一件 Brief 没写的事：开局站着不动，4 秒内掉了两条命。难度，又是 AI 替我们定的。",
       "html": "<div style=\"display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px;align-items:start\"><div class=\"p-page\" data-reveal=\"0\"><img src=\"evidence/dodge-playing.png\" alt=\"躲避与收集游戏进行中：顶部显示剩余时间、分数、生命和最佳成绩，场地里有绿色玩家圆点、橙色收集物和红褐色障碍\" style=\"display:block;width:100%\"></div><ul class=\"p-checks\"><li data-reveal=\"1\">移动与收集<small>方向键、WASD；吃到圆点 +10 分</small></li><li data-reveal=\"1\">碰撞与 HUD<small>扣命；时间、分数、生命、最佳都在</small></li><li data-reveal=\"2\">结束与重开<small>三条命用完结束；重开归零，最佳保留；记忆翻牌还在</small></li><li class=\"is-no\" data-reveal=\"3\">开局不动，4 秒掉两条命<small>难度谁定的？Brief 没写</small></li></ul></div><p class=\"source-note\">讲师用脚本代人走了一遍（courseware/ch03/materials/mainline/playtest-dodge.py，结果见 reference/3.5-playtest.run3.json）；60 秒倒计时结束的路径没有走到，课上由人试玩</p>",
       "steps": [
@@ -166,7 +161,6 @@ window.lesson = {
       "segment": "评审",
       "label": "改动收不收",
       "title": "交回来的改动，收不收",
-      "kicker": "第 3 章 · 3.5 · 评审",
       "lead": "沿用 2.3：先看范围，再看内容。这一次多查三项：有没有新依赖；离开页面或组件卸载时，计时器、键盘监听和游戏实例有没有清理；首页和记忆翻牌有没有被改动。",
       "html": "<div class=\"p-term\" data-reveal=\"0\"><div class=\"dim\">$ git diff --stat</div><div>6 files changed, 1049 insertions(+), 4 deletions(-)</div><div>新建：DodgeGame.tsx、dodge-game.css、game/dodge/</div><div>改：App.tsx +14、index.css 12 行</div></div><ul class=\"p-checks\" style=\"margin-top:12px\"><li class=\"\" data-reveal=\"0\">范围<small>只动约定的 6 个文件；记忆翻牌一个字节没动</small></li><li class=\"\" data-reveal=\"1\">新依赖<small>没有；首页产物 gzip 61.2 → 64.9 KB</small></li><li class=\"\" data-reveal=\"2\">清理<small>帧循环 cancelAnimationFrame；尺寸观察器 disconnect；键盘监听挂在游戏区元素上</small></li><li class=\"\" data-reveal=\"3\">它自己验证了什么<small>build + 18 项纯逻辑测试（Node 里跑）；没开浏览器，试玩交给人</small></li></ul><p class=\"source-note\">计划与改动来自排练（courseware/ch03/materials/mainline/run-v3.sh，基线为 3.3 修复后的 v1）。来自讲师机器上的排练运行（2026-10-06，Codex 0.160.0–0.160.1 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。</p>",
       "steps": [
@@ -190,7 +184,6 @@ window.lesson = {
       "segment": "停用",
       "label": "停用插件后还剩什么",
       "title": "停用插件后，还剩什么",
-      "kicker": "第 3 章 · 3.5 · 停用",
       "lead": "停用插件，开新会话：请求里不再有 game-studio 的 9 行。它写的代码还在仓库里，项目不依赖插件也要能构建、能玩。停用不等于撤销。",
       "html": "<div class=\"p-rec\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);row-gap:10px;--rf:20px\"><div class=\"is-head\" data-reveal=\"0\"><span>动作</span><span>结果</span></div><div data-reveal=\"0\"><span class=\"p-cell p-mono\">enabled = false</span><span class=\"p-cell\">plugin list：installed, disabled</span></div><div data-reveal=\"1\"><span class=\"p-cell\">新会话的请求</span><span class=\"p-cell\">game-studio 出现 0 次（装着时 12 次）</span></div><div data-reveal=\"2\"><span class=\"p-cell\">仓库</span><span class=\"p-cell\">第二个游戏的代码还在</span></div><div data-reveal=\"3\"><span class=\"p-cell p-mono\">npm run build</span><span class=\"p-cell\">成功；两个游戏和首页都能用</span></div></div><p class=\"source-note\">停用与请求检查在课程基线下实测（2026-10-06，materials/plugin/README.md）；卸载用 codex plugin remove，同样实测</p>",
       "steps": [
@@ -214,7 +207,6 @@ window.lesson = {
       "segment": "小结",
       "label": "本节小结",
       "title": "插件的主张，我们的决定",
-      "kicker": "第 3 章 · 3.5 · 小结",
       "lead": "本节留下第二个游戏、插件计划与 Brief 的对照、评审结论，以及停用后的复验证据，写进 CH03_GAME_STUDIO_PLUGIN_LAB.md。Skill 是经验，不是规则。下一节：本章这些规则，下次 Codex 从哪里知道？",
       "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">三样东西</h3><ul class=\"p-exits\" style=\"gap:10px\"><li class=\"is-point\">插件的主张：默认 Phaser</li><li class=\"is-point\">我们的决定：按 Brief 和数字</li><li class=\"is-point\">留下的证据：计划、diff、停用复验</li></ul></div><div data-reveal=\"1\"><h3 style=\"text-align:center\">撤回靠什么</h3><div class=\"p-star\" style=\"width:240px;font-size:22px\">靠 git<br>不靠开关</div></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>3.6 说明在哪</h3><p>下次 Codex 从哪里知道？</p></div></div></div>",
       "steps": [

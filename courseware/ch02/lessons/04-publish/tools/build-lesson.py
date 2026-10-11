@@ -11,7 +11,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
 from lessonkit import Lesson, NARROW, chapter_map, ref, repro, teach  # noqa: E402
 
 lesson = Lesson(__file__, "2.4", "公开的不只是页面", summary="第一次推送前看清即将公开的整段历史；发布后用公开 URL 证明页面可用。")
-scene, KICK = lesson.scene, lesson.kick
+scene = lesson.scene
 
 
 PREPUSH = """git fetch origin
@@ -32,7 +32,7 @@ SOURCE_PROMPT = """请用 GitHub CLI（gh）把这个仓库的 GitHub Pages 部�
 # ---------- 公开之前 ----------
 scene(
     id="p43", segment="公开之前", layout="lesson-cover",
-    label="推送之后谁能看到", title="推送之后，谁能看到什么？", kicker="第 2 章 · 2.4 · 开篇",
+    label="推送之后谁能看到", title="推送之后，谁能看到什么？",
     lead="到现在为止，所有提交和 tag 都只在自己电脑上",
     html=(
         chapter_map(4) +
@@ -48,7 +48,7 @@ scene(
 
 scene(
     id="p44", segment="公开之前",
-    label="仓库是公开的吗", title="先看一眼：仓库现在是公开还是私有", kicker=KICK + "公开之前",
+    label="仓库是公开的吗", title="先看一眼：仓库现在是公开还是私有",
     lead="打开 GitHub 上自己的仓库，看名字旁边的标记是 Public 还是 Private。GitHub Pages 发布要求仓库公开（课前准备页已提前说明）。此时只查看，不改设置；看清待公开内容以后再决定。",
     html=(
         '<div class="p-handoff"><div class="p-handoff-card" data-reveal="0"><h3>切到 GitHub</h3><p>打开自己的仓库首页</p>'
@@ -65,7 +65,7 @@ scene(
 
 scene(
     id="p45", segment="推送前检查",
-    label="即将公开的历史", title="列出即将公开的提交、文件和作者", kicker=KICK + "推送前检查",
+    label="即将公开的历史", title="列出即将公开的提交、文件和作者",
     lead="先取回远端的最新状态，再列出本地有、远端没有的提交。--stat 列出每个提交涉及的文件，包括后来删掉的；-p 展开每一行实际文字；最后一条列出这些提交的作者姓名和邮箱，它们也会随提交公开。截图等二进制文件要另外打开看。",
     html=(
         '<div class="p-term" data-reveal="0" data-copy="' + escape(PREPUSH) + '"><div class="dim">$ git fetch origin</div><div class="dim">$ git log --stat origin/main..HEAD</div>'
@@ -86,7 +86,7 @@ scene(
 
 scene(
     id="p46", segment="推送前检查",
-    label="能让所有人看到吗", title="这些内容，可以让所有人看到吗？", kicker=KICK + "推送前检查",
+    label="能让所有人看到吗", title="这些内容，可以让所有人看到吗？",
     lead="逐项对照判断清单，由人决定。以提交作者邮箱为例：它是不是你愿意公开的邮箱？不愿意，就先停下，不推送。项目经历借用了两位讲师的经历，是本人同意公开的内容。",
     html=(
         NARROW +
@@ -115,7 +115,7 @@ scene(
 # ---------- 部署配置 ----------
 scene(
     id="p47", segment="部署配置", layout="prompt-scene", prompt=DEPLOY_PROMPT,
-    label="让 Codex 写部署工作流", title="让 Codex 写部署工作流，但不让它推送", kicker=KICK + "部署配置",
+    label="让 Codex 写部署工作流", title="让 Codex 写部署工作流，但不让它推送",
     lead="部署要两样东西：一个 GitHub Actions 工作流，在 GitHub 的机器上构建并发布页面；还有 Vite 的 base 配置，让资源路径对上仓库名。这一轮 Codex 只写文件；仓库设置留到推送前单独一步，推送始终由人来做。",
     html=(
         '<div class="demo-notes"><ol class="p-notes">'
@@ -131,7 +131,7 @@ scene(
 
 scene(
     id="p48", segment="部署配置",
-    label="工作流能直接用吗", title="Codex 写的配置，逐项审查再推送", kicker=KICK + "部署配置",
+    label="工作流能直接用吗", title="Codex 写的配置，逐项审查再推送",
     lead="四项逐一核对：base 是否等于自己的仓库名；资源路径会不会因此对上；工作流权限是不是只要了发布所需的；触发分支是不是自己的默认分支。有一项不对就不推送，让 Codex 改。",
     html=(
         NARROW +
@@ -162,7 +162,7 @@ scene(
 # ---------- 推送与发布 ----------
 scene(
     id="p49", segment="推送与发布",
-    label="推送并启用 Pages", title="Codex 设来源，人来推送", kicker=KICK + "推送与发布",
+    label="推送并启用 Pages", title="Codex 设来源，人来推送",
     lead="提交部署配置，再用推送前检查的命令看一遍最终要公开的提交。仓库需要公开时现在再改。Pages 的来源交给 Codex 用 GitHub CLI 设为 GitHub Actions：每条命令弹出批准框，读过再批；改完在网页上刷新确认。最后由人执行推送、看 Actions 日志。首次部署若失败，按日志、build 输出、Network 的顺序定位出在哪一环。",
     html=(
         '<div class="p-flow" style="--n:4">'
@@ -187,7 +187,7 @@ scene(
 
 scene(
     id="p50", segment="推送与发布",
-    label="Actions 绿了就行吗", title="Actions 成功了，页面就能用了吗？", kicker=KICK + "推送与发布",
+    label="Actions 绿了就行吗", title="Actions 成功了，页面就能用了吗？",
     lead="Actions 显示部署流程成功完成。接着检查公开页面：未登录窗口打开公开 URL；Network 面板没有 404；停用缓存后刷新仍然正常。",
     html=(
         NARROW +
@@ -205,7 +205,7 @@ scene(
 
 scene(
     id="p51", segment="推送与发布",
-    label="标记这个版本", title="给这个版本打 tag，只推送它", kicker=KICK + "推送与发布",
+    label="标记这个版本", title="给这个版本打 tag，只推送它",
     lead="给公开的版本打上 ch02-homepage-live，然后只推送这一个 tag。用 --tags 会把所有本地 tag 一并公开，包括练习时随手打的。",
     html=(
         '<div class="p-term" data-reveal="0" data-copy="git tag ch02-homepage-live"><div class="dim">$ git tag ch02-homepage-live</div></div>'
@@ -220,7 +220,7 @@ scene(
 
 scene(
     id="p52", segment="推送与发布",
-    label="本节小结", title="公开的不只是页面，还有历史", kicker=KICK + "推送与发布",
+    label="本节小结", title="公开的不只是页面，还有历史",
     lead="本节留下推送前检查记录、审过的部署配置、公开 URL、三项发布检查结果和 ch02-homepage-live tag。",
     html=(
         '<div class="p-flow" style="--n:4">'

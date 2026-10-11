@@ -11,13 +11,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
 from lessonkit import Lesson, chapter_map, repro, teach  # noqa: E402
 
 lesson = Lesson(__file__, "3.6", "那条规则，下次 Codex 从哪里知道", summary="对照对话、Skill、Memory、仓库四处说明；没落档的就是需求债务。")
-scene, KICK = lesson.scene, lesson.kick
+scene = lesson.scene
 
 MEM = "Memory 实验在课程基线（tools/clean-codex.sh，MiniMax）下运行，2026-10-06 共 9 轮，参考记录见 courseware/ch03/materials/memory/reference/。整理阶段约三分之一以 failed_agent 结束；画面中的为成功的那几轮。"
 
 scene(
     id="p38", segment="开篇", layout="lesson-cover",
-    label="新会话还知道吗", title="新会话还知道规则吗？", kicker="第 3 章 · 3.6 · 开篇",
+    label="新会话还知道吗", title="新会话还知道规则吗？",
     lead="对话会结束，规则从哪里来",
     html=(
         chapter_map(6) +
@@ -32,7 +32,7 @@ scene(
 
 scene(
     id="p39", segment="四个来源",
-    label="说明有哪几个来源", title="给 AI 的说明，有四个来源", kicker=KICK + "四个来源",
+    label="说明有哪几个来源", title="给 AI 的说明，有四个来源",
     lead="对话历史、Skill、Memory、仓库：谁写的、放在哪、什么时候进请求、会不会过期都不一样。Skill 和 Memory 是同一种结构：平时只放一段摘要，需要时才展开。",
     html=(
         '<div class="p-matrix" style="grid-template-columns:minmax(0,.8fr) repeat(4,minmax(0,1fr));font-size:19px">'
@@ -47,7 +47,7 @@ scene(
 
 scene(
     id="p40", segment="请求里的样子",
-    label="三处在请求里", title="同一条规则，放在三处，请求里分别是什么样", kicker=KICK + "请求里的样子",
+    label="三处在请求里", title="同一条规则，放在三处，请求里分别是什么样",
     lead="同一个仓库：AGENTS.md 写规则 A，docs/RULES.md 写规则 B，Memory 里有规则 C。看一次真实请求：Memory 是第 1 条 developer 消息；AGENTS.md 是第 2 条 user 消息，全文；docs/RULES.md 不在请求里。",
     html=(
         '<div class="p-set" style="display:grid;gap:10px">'
@@ -65,7 +65,7 @@ scene(
 
 scene(
     id="p41", segment="让它自己记",
-    label="让 Codex 自己记住", title="让 Codex 自己记住，会怎样", kicker=KICK + "让它自己记",
+    label="让 Codex 自己记住", title="让 Codex 自己记住，会怎样",
     lead="参考记录（讲师 9 轮中的一轮）：说“记住”→ Codex 申请在沙箱外写一份笔记，人同意 → 整理进记忆摘要 → 新会话复述规则时，多出了“落地要求”和“长期契约，不重新讨论”。这些都不是人说的。",
     html=(
         '<div class="p-rec" style="grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr);row-gap:10px;--rf:19px">'
@@ -84,7 +84,7 @@ scene(
 
 scene(
     id="p42", segment="让它自己记",
-    label="关掉记忆就看不到了吗", title="关掉记忆，它就看不到了吗？", kicker=KICK + "让它自己记",
+    label="关掉记忆就看不到了吗", title="关掉记忆，它就看不到了吗？",
     lead="关掉记忆只是不把它放进请求。Codex 有整盘的读权限：有两轮对照会话自己去上级目录，翻到了笔记文件。再用权限配置禁止读取记忆目录，它才回答“不会猜一个答案”。",
     html=(
         '<div class="p-pair" style="grid-template-columns:1fr 1fr">'
@@ -98,7 +98,7 @@ scene(
 
 scene(
     id="p43", segment="信息来源表",
-    label="规则都在哪", title="本章的规则，都在哪里？", kicker=KICK + "信息来源表",
+    label="规则都在哪", title="本章的规则，都在哪里？",
     lead="把本章每条规则和决定列出来，标出它现在在哪里。只在对话里、只在记忆里、只在插件里的，都是需求债务；落进仓库但只有结论、没有原因或验收方法的，也标出来。",
     html=(
         '<div class="p-matrix" style="grid-template-columns:minmax(0,1.5fr) repeat(4,minmax(0,.7fr));font-size:19px">'
@@ -115,7 +115,7 @@ scene(
 
 scene(
     id="p44", segment="小结",
-    label="本节小结", title="没落档的，就是需求债务", kicker=KICK + "小结",
+    label="本节小结", title="没落档的，就是需求债务",
     lead="记忆是辅助回忆，不是团队规则的来源，也不跟着仓库走。第 4 章用规格把这些决定写成持久契约：规格能留住决定，但不能替人做决定。",
     html=(
         '<div class="p-sketch" style="align-items:start"><div data-reveal="0"><h3 style="text-align:center">可信度</h3>'

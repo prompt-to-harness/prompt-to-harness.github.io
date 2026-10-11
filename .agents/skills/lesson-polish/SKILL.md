@@ -18,7 +18,7 @@ description: 写、改或审查课件某一节（页面文案、阅读模式、�
 
 单节审查容易漏掉跨章的问题。每改完一章、录制一章之前，或讲师要求时，跑一次跨章巡检，范围是全部已有课件：
 
-1. ED-014：按 `docs/production/wording-patterns.md` 过一遍节标题、章首页与课程首页卡片、kicker、label、页标题、`lead`、`closing`。先看上次巡检记录里“待处理”的条目；高频词顺手重数一次，更新该文件“高频词”表的数字和日期。
+1. ED-014：按 `docs/production/wording-patterns.md` 过一遍节标题、章首页与课程首页卡片、段名（`segment`）、label、页标题、`lead`、`closing`。先看上次巡检记录里“待处理”的条目；高频词顺手重数一次，更新该文件“高频词”表的数字和日期。
 2. ED-015：列出各章与各节 `README.md` 里的完成状态句，逐章比对，不一致的按章 README 改；章 README 本身过时的列出来问讲师。
 3. ED-016：在 `courseware/index.html` 和各章 `index.html` 里找制作进度和审阅状态（“制作中”“待制作”“首版”“草稿”“未试讲”等），删掉，不要改写成新的状态。
 4. ED-013 的演示形态提示（`check-editorial.py` 的 hint）：列出还没定形态的页，录制前要清零。

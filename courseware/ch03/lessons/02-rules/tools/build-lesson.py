@@ -11,13 +11,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
 from lessonkit import Lesson, MEASURED, repro, teach  # noqa: E402
 
 lesson = Lesson(__file__, "3.2", "这条规则是谁定的", summary="换几种玩法、完整打完一局；把缺陷和 AI 替你定的规则分开记。")
-scene, KICK = lesson.scene, lesson.kick
+scene = lesson.scene
 
 RUN = "讲师排练第 8 轮的实现（lab-runs/ch03-mainline/v2-run8，未提交）。" + MEASURED
 
 scene(
     id="p07", segment="开篇", layout="lesson-cover",
-    label="我又点了第三张", title="我又点了第三张", kicker="第 3 章 · 3.2 · 开篇",
+    label="我又点了第三张", title="我又点了第三张",
     lead="第二张还没翻回去的时候",
     html=(
         '<div class="p-comic">'
@@ -31,7 +31,7 @@ scene(
 
 scene(
     id="p08", segment="画状态",
-    label="游戏有哪些状态", title="先画最小状态图", kicker=KICK + "画状态",
+    label="游戏有哪些状态", title="先画最小状态图",
     lead="状态图不求完整，只求让我们知道该去哪些角落看。分叉、等待和结束是最容易出事的地方。",
     html=(
         '<div class="p-flow" style="--n:5">'
@@ -51,7 +51,7 @@ scene(
 
 scene(
     id="p09", segment="去哪看",
-    label="检查路线", title="六条检查路线", kicker=KICK + "去哪看",
+    label="检查路线", title="六条检查路线",
     lead="按状态图挑路线，每条只回答一个问题。“完整打完一局”最容易漏：只玩几下，看不到结束时发生的事。",
     html=(
         '<div class="p-matrix" style="grid-template-columns:minmax(0,1.2fr) minmax(0,1.6fr)">'
@@ -71,7 +71,7 @@ scene(
 
 scene(
     id="p10", segment="去哪看",
-    label="怎么记", title="一条记录：步骤、期望、实际、证据", kicker=KICK + "去哪看",
+    label="怎么记", title="一条记录：步骤、期望、实际、证据",
     lead="期望必须写出来，而且要有来源：页面上的文字、我们给的需求、还是我们心里想的。没有期望，就判断不了对错。",
     html=(
         '<div class="p-rec" style="grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr) minmax(0,.8fr);row-gap:12px;--rf:20px">'
@@ -86,7 +86,7 @@ scene(
 
 scene(
     id="p11", segment="讲师的游戏",
-    label="讲师的游戏查出了什么", title="讲师的游戏查出了什么", kicker=KICK + "讲师的游戏",
+    label="讲师的游戏查出了什么", title="讲师的游戏查出了什么",
     lead="前两条看起来都“没问题”：第三张点不开，步数不动。完整打完一局才发现：12 张牌全翻过一遍，没有两张相同的词，这一局永远打不完。",
     html=(
         '<div style="display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:16px;align-items:start">'
@@ -106,7 +106,7 @@ scene(
 
 scene(
     id="p12", segment="判断",
-    label="缺陷还是规则", title="缺陷，还是 AI 替你定的规则？", kicker=KICK + "判断",
+    label="缺陷还是规则", title="缺陷，还是 AI 替你定的规则？",
     lead="缺陷违背了明确的期望；规则是没人问过你的选择，可能很合理。分不清的那一类，往往是“规则还没人定”。",
     html=(
         '<div class="p-quad">'
@@ -120,7 +120,7 @@ scene(
 
 scene(
     id="p13", segment="判断",
-    label="你的实现也会这样吗", title="同一句话，六份实现", kicker=KICK + "判断",
+    label="你的实现也会这样吗", title="同一句话，六份实现",
     lead="讲师用同一句需求排练了多次，6 份实现里 3 份有真实缺陷，规则也各不相同。你的版本会不同；自己没发现缺陷时，用讲师这一份做 3.3 的练习。",
     html=(
         '<div class="p-matrix" style="grid-template-columns:minmax(0,.6fr) minmax(0,1.6fr) minmax(0,1fr)">'
@@ -140,7 +140,7 @@ scene(
 
 scene(
     id="p14", segment="小结",
-    label="本节小结", title="只走成功路径，不等于验证", kicker=KICK + "小结",
+    label="本节小结", title="只走成功路径，不等于验证",
     lead="本节留下状态图和分两栏的问题清单。“没出错”也可能只是 AI 替你做了决定。下一节：挑一个缺陷，按证据修。",
     html=(
         '<div class="p-pause" data-reveal="0"><h3>暂停自检</h3><div class="p-qlist">'

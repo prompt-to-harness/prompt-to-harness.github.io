@@ -11,7 +11,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
 from lessonkit import NARROW, Lesson, chapter_map, code_lines, diff_boxes, pop, teach  # noqa: E402
 
 lesson = Lesson(__file__, "2.5", "AI 说“只是重构”", summary="判断一次改动是不是重构，看可观察行为有没有变，不看提交说明、diff 大小，也不看截图是否好看。")
-scene, KICK = lesson.scene, lesson.kick
+scene = lesson.scene
 
 CARDS = Path(__file__).resolve().parents[3] / "materials" / "refactor-cards"
 MATERIAL = "教学材料：五张卡基于 homepage-v1 制作（courseware/ch02/materials/refactor-cards/），每张单独应用；页面截图与数值来自 v1 冻结候选，2026-10-06 在 1440×900 下用浏览器实测（shoot.py）。录制版基于讲师冻结的 homepage-v1 重新制作、重新拍摄。"
@@ -75,7 +75,7 @@ GREEN, RED = "#11652F", "#A8350F"
 
 scene(
     id="p53", segment="分拣", layout="lesson-cover",
-    label="只是重构，能信吗", title="AI 说“只是重构”，能信吗？", kicker="第 2 章 · 2.5 · 工程经验",
+    label="只是重构，能信吗", title="AI 说“只是重构”，能信吗？",
     lead="AI 交回改动时常说“只是重构”，五张卡里哪几张是真的？",
     html=(
         chapter_map(5) +
@@ -99,7 +99,7 @@ def overview_card(n, step):
 
 scene(
     id="p54", segment="分拣",
-    label="五张卡，怎么查", title="五张卡，你打算怎么查？", kicker=KICK + "分拣",
+    label="五张卡，怎么查", title="五张卡，你打算怎么查？",
     lead="五张卡都基于 homepage-v1，每张单独应用，AI 交回时都说“只是重构，行为不变”。先只看说明和改动大小，给每张选一种检查办法；拿不准就写“证据不足”。",
     html=(
         '<div class="p-quiz" style="grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 14px">'
@@ -137,7 +137,7 @@ CARD2 = excerpt("src/App.tsx · 另新建 projects.ts", "②", [
 
 scene(
     id="p55-12", segment="看行为",
-    label="①② 提取组件、移动数据", title="①② 改了 30 来行，行为呢？", kicker=KICK + "看行为",
+    label="①② 提取组件、移动数据", title="①② 改了 30 来行，行为呢？",
     lead="两张卡都改了两个文件、30 行上下。页面上只放关键几行，完整改动点“完整 diff”查看；行为要逐项对照才能下结论。",
     html=(
         NARROW + f'<div class="p-aside" style="{TWO.format(l=1, r=1)}">'
@@ -169,7 +169,7 @@ CARD3 = excerpt("src/App.tsx", "③", [
 
 scene(
     id="p55-3", segment="看行为",
-    label="③ 按名称排序", title="③ “按名称排序，找起来更方便”", kicker=KICK + "看行为",
+    label="③ 按名称排序", title="③ “按名称排序，找起来更方便”",
     lead="这张卡的说明自己就写出了新行为：用户看到的顺序会变。对照重构的定义，读说明就能发现它不是重构；打开页面再确认一遍。",
     html=(
         NARROW + f'<div class="p-aside" style="{TWO.format(l=1.2, r=.8)}">'
@@ -200,7 +200,7 @@ CSS4 = (
 
 scene(
     id="p55-4", segment="看行为",
-    label="④ 缩短类名", title="④ “只是统一了类名”", kicker=KICK + "看行为",
+    label="④ 缩短类名", title="④ “只是统一了类名”",
     lead="说明听起来完全无害，diff 也只换了一个名字。顺着类名去找样式，再和原页面并排比，才看得出描述的样式整段丢了。",
     html=(
         NARROW + f'<div class="p-aside" style="{TWO.format(l=1.13, r=.87)}">'
@@ -227,7 +227,7 @@ CARD5 = excerpt("src/App.tsx", "⑤", [
 
 scene(
     id="p55-5", segment="看行为",
-    label="⑤ 可以聚焦", title="⑤ “键盘也能聚焦”", kicker=KICK + "看行为",
+    label="⑤ 可以聚焦", title="⑤ “键盘也能聚焦”",
     lead="说明同样写出了新行为。截图、点击都和原来一样，只有按 Tab 才看得到：焦点多停了三次，按回车却没有任何反应。",
     html=(
         NARROW + f'<div class="p-aside" style="{TWO.format(l=1.05, r=.95)}">'
@@ -245,7 +245,7 @@ scene(
 
 scene(
     id="p56", segment="看行为",
-    label="凭什么这样分", title="凭什么这样分", kicker=KICK + "看行为",
+    label="凭什么这样分", title="凭什么这样分",
     lead="Martin Fowler 在《重构》里给的定义：在不改变可观察行为的前提下，改善代码的内部结构。可观察行为就是用户能看到、能操作的东西；“只是重构”这句话和 diff 大小都不算数。⑤ 看起来回应了 2.1 的第 2 条反馈，它也是行为变化，要拆出来由人确认。",
     html=(
         '<div class="p-bar" data-reveal="0">重构 = <b>可观察行为不变</b>，内部结构变好</div>'
@@ -262,7 +262,7 @@ scene(
 
 scene(
     id="p57", segment="收尾",
-    label="暂停自检", title="暂停自检", kicker=KICK + "收尾",
+    label="暂停自检", title="暂停自检",
     lead="先独立作答，再看解析。",
     html=(
         '<span class="p-pause" data-reveal="0">暂停 · 先独立作答</span><div class="p-qlist">'
@@ -277,7 +277,7 @@ scene(
 
 scene(
     id="p58", segment="收尾",
-    label="每次都手工查吗", title="每次都这样手工重查吗？", kicker=KICK + "收尾",
+    label="每次都手工查吗", title="每次都这样手工重查吗？",
     lead="现在的项目没有覆盖这些行为的自动测试。确认“行为不变”只能把文字与顺序、样式、点击、键盘和三种视口全部手工查一遍，每改一次就重复一次。验证很贵，这是后面规格与 Harness 章节要解决的问题。本章交付物：迭代记录、审过的提交、推送前检查记录、公开 URL 和 ch02-homepage-live tag。",
     html=(
         '<div class="p-grid" style="--n:2;gap:16px;align-items:stretch">'

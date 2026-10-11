@@ -25,7 +25,7 @@
   }
   window.lesson.scenes.forEach((scene, index) => {
     const section = document.createElement('section'); section.id = scene.id;
-    const title = document.createElement('h2'); title.textContent = `${String(index + 1).padStart(2, '0')} · ${scene.label}`;
+    const title = document.createElement('h2'); title.textContent = `${String(index + 1).padStart(2, '0')} · ${scene.label ?? scene.title.replace(/<[^>]+>/g, '')}`;
     section.append(title);
     scene.script.forEach((paragraph, step) => {
       if (scene.steps?.[step]) {

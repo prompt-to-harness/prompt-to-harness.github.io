@@ -13,7 +13,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
 from lessonkit import Lesson, MEASURED, chapter_map, repro, teach  # noqa: E402
 
 lesson = Lesson(__file__, "3.5", "插件有自己的主张", summary="插件的默认和 Brief 冲突时由人按证据决定；停用插件不撤销它写的代码。")
-scene, KICK = lesson.scene, lesson.kick
+scene = lesson.scene
 
 MAT = Path(__file__).resolve().parents[3] / "materials"
 REF = MAT / "mainline" / "reference"
@@ -29,7 +29,7 @@ def li(items):
 
 scene(
     id="p30", segment="开篇", layout="lesson-cover",
-    label="插件会照我的意思做吗", title="插件会照我的意思做吗？", kicker="第 3 章 · 3.5 · 开篇",
+    label="插件会照我的意思做吗", title="插件会照我的意思做吗？",
     lead="它的默认和我们的 Brief，听谁的",
     html=(
         chapter_map(5) +
@@ -43,7 +43,7 @@ scene(
 
 scene(
     id="p31", segment="Brief",
-    label="第二个游戏要什么", title="Brief 写进仓库", kicker=KICK + "Brief",
+    label="第二个游戏要什么", title="Brief 写进仓库",
     lead="这一次先写 Brief，放进仓库的 docs/briefs/。它会跟着仓库走，3.6 查规则来源时还会用到。",
     html=(
         '<div class="p-task" style="grid-template-columns:repeat(4,minmax(0,1fr))">'
@@ -60,7 +60,7 @@ plan = E.get("plan", [])
 plan_html = li(plan) if plan else '<li><span><b>（排练计划待补）</b></span></li>'
 scene(
     id="p32", segment="插件的计划",
-    label="Game Studio 给了什么计划", title="Game Studio 给了什么计划", kicker=KICK + "插件的计划",
+    label="Game Studio 给了什么计划", title="Game Studio 给了什么计划",
     lead=E.get("plan_lead", "用 Game Studio 的 Skill 出计划，逐项对照 Brief。以排练实际计划为准。"),
     html=(
         '<div class="p-claim" style="grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)">'
@@ -77,7 +77,7 @@ scene(
 
 scene(
     id="p33", segment="插件的计划",
-    label="要不要引擎", title="要不要引擎？2D 不等于更轻", kicker=KICK + "插件的计划",
+    label="要不要引擎", title="要不要引擎？2D 不等于更轻",
     lead="在同一个首页上分别懒加载一个最小场景，只画一个方块：首页主包几乎不变，游戏分包差别很大。Phaser 是完整的游戏引擎，比 3D 方案还大约 30%。这个游戏只需要矩形、键盘和碰撞判断。",
     html=(
         '<div class="p-matrix" style="grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr)">'
@@ -94,7 +94,7 @@ scene(
 
 scene(
     id="p34", segment="试玩",
-    label="做出来能玩吗", title="确认，执行，再由人试玩", kicker=KICK + "试玩",
+    label="做出来能玩吗", title="确认，执行，再由人试玩",
     lead="我们选零依赖，确认计划。试玩由人做，按 Brief 逐项过：移动、收集、碰撞、HUD、结束、重开，再回去看记忆翻牌。讲师试玩时还发现一件 Brief 没写的事：开局站着不动，4 秒内掉了两条命。难度，又是 AI 替我们定的。",
     html=(
         '<div style="display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px;align-items:start">'
@@ -113,7 +113,7 @@ scene(
 diff_items = E.get("review", [])
 scene(
     id="p35", segment="评审",
-    label="改动收不收", title="交回来的改动，收不收", kicker=KICK + "评审",
+    label="改动收不收", title="交回来的改动，收不收",
     lead="沿用 2.3：先看范围，再看内容。这一次多查三项：有没有新依赖；离开页面或组件卸载时，计时器、键盘监听和游戏实例有没有清理；首页和记忆翻牌有没有被改动。",
     html=(
         '<div class="p-term" data-reveal="0"><div class="dim">$ git diff --stat</div>' + "".join(f"<div>{escape(r)}</div>" for r in E.get("diffstat", ["（排练 diff 待补）"])) + '</div>'
@@ -127,7 +127,7 @@ scene(
 
 scene(
     id="p36", segment="停用",
-    label="停用插件后还剩什么", title="停用插件后，还剩什么", kicker=KICK + "停用",
+    label="停用插件后还剩什么", title="停用插件后，还剩什么",
     lead="停用插件，开新会话：请求里不再有 game-studio 的 9 行。它写的代码还在仓库里，项目不依赖插件也要能构建、能玩。停用不等于撤销。",
     html=(
         '<div class="p-rec" style="grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);row-gap:10px;--rf:20px">'
@@ -143,7 +143,7 @@ scene(
 
 scene(
     id="p37", segment="小结",
-    label="本节小结", title="插件的主张，我们的决定", kicker=KICK + "小结",
+    label="本节小结", title="插件的主张，我们的决定",
     lead="本节留下第二个游戏、插件计划与 Brief 的对照、评审结论，以及停用后的复验证据，写进 CH03_GAME_STUDIO_PLUGIN_LAB.md。Skill 是经验，不是规则。下一节：本章这些规则，下次 Codex 从哪里知道？",
     html=(
         '<div class="p-sketch" style="align-items:start"><div data-reveal="0"><h3 style="text-align:center">三样东西</h3>'

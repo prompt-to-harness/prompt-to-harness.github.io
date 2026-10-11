@@ -10,7 +10,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
 from lessonkit import Lesson, NARROW, chapter_map, repro, teach  # noqa: E402
 
 lesson = Lesson(__file__, "2.3", "AI 交回的改动，收不收", summary="先看范围再看内容，决定接受、缩小还是拒绝；用提交让“拒绝”变便宜。")
-scene, KICK = lesson.scene, lesson.kick
+scene = lesson.scene
 
 
 SAMPLE = "画面中的命令输出来自排练版 homepage-v1（courseware/ch02/materials/homepage-v1.diff）在 Git 2.50.1 下的一次运行；录制时换成 2.2 的真实 diff。"
@@ -19,7 +19,7 @@ SAMPLE = "画面中的命令输出来自排练版 homepage-v1（courseware/ch02/
 # ---------- 拿到 diff ----------
 scene(
     id="p35", segment="拿到 diff", layout="lesson-cover",
-    label="说完成了，就能收吗", title="Codex 说完成了，就能收吗？", kicker="第 2 章 · 2.3 · 开篇",
+    label="说完成了，就能收吗", title="Codex 说完成了，就能收吗？",
     lead="改动还在工作区：先读懂 diff，再决定接受、缩小还是拒绝",
     html=(
         chapter_map(3) +
@@ -34,7 +34,7 @@ scene(
 
 scene(
     id="p36", segment="拿到 diff",
-    label="改了哪些文件", title="先看范围：改了哪些文件", kicker=KICK + "拿到 diff",
+    label="改了哪些文件", title="先看范围：改了哪些文件",
     lead="先用两条命令看范围，再看内容。git status --short 列出所有变化，包括还没被 Git 跟踪的新文件；git diff --stat 只统计已跟踪文件还没暂存的修改：新文件要另外打开看，已经 git add 的改动要用 git diff --cached --stat 看。",
     html=(
         '<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px">'
@@ -54,7 +54,7 @@ scene(
 
 scene(
     id="p37", segment="走读 diff",
-    label="改动做了什么", title="再看内容：每一处改动做了什么", kicker=KICK + "走读 diff",
+    label="改动做了什么", title="再看内容：每一处改动做了什么",
     lead="git diff 显示逐行改动。按“数据在哪 → 怎样渲染 → 影响哪些样式”读：这一轮只改了项目数组里的数据，渲染逻辑和样式都没动。排版规则没变，但内容变多了，有没有挤坏仍以 2.2 的视口检查为准。",
     html=(
         NARROW +
@@ -82,7 +82,7 @@ scene(
 
 scene(
     id="p38", segment="走读 diff",
-    label="对得上本轮目标吗", title="逐项对照本轮的完成标准", kicker=KICK + "走读 diff",
+    label="对得上本轮目标吗", title="逐项对照本轮的完成标准",
     lead="把 2.2 Prompt 的 Done when 逐项拿来对照：前三项看本轮记录里的检查结果，第四项看刚读过的 diff。四项都有证据，才进入处置判断。",
     html=(
         NARROW +
@@ -99,7 +99,7 @@ scene(
 
 scene(
     id="p39", segment="处置",
-    label="接受、缩小还是拒绝", title="接受、缩小，还是拒绝", kicker=KICK + "处置",
+    label="接受、缩小还是拒绝", title="接受、缩小，还是拒绝",
     lead="三种处置看两个条件：改动是否都在目标之内，越界的部分能不能单独去掉。讲师这次的 diff 干净，选接受。范围扩大真的出现时，就地处理，不为了教学去制造。",
     html=(
         '<div class="p-matrix" style="grid-template-columns:minmax(0,.7fr) minmax(0,1.4fr) minmax(0,1.6fr)">'
@@ -118,7 +118,7 @@ scene(
 
 scene(
     id="p40", segment="处置",
-    label="留下检查点", title="提交，留下一个检查点", kicker=KICK + "处置",
+    label="留下检查点", title="提交，留下一个检查点",
     lead="和第 1 章保存检查点时一样：只暂存审过的文件，用 git diff --cached 再看一遍待提交内容，然后提交。代码和记录分两次提交：代码那次就是新的回退点，它的短哈希写进记录，再单独提交记录。",
     html=(
         '<div class="p-term" data-reveal="0" data-copy="git add src/App.tsx"><div class="dim">$ git add src/App.tsx</div></div>'
@@ -136,7 +136,7 @@ scene(
 # ---------- 回到检查点 ----------
 scene(
     id="p41", segment="回到检查点",
-    label="收错了怎么回去", title="万一收错了，怎样回去", kicker=KICK + "回到检查点",
+    label="收错了怎么回去", title="万一收错了，怎样回去",
     lead="还没提交：用 git restore 放弃选定文件还没暂存的修改，已经 git add 的先用 git restore --staged 取消暂存；它不处理未跟踪的新文件，放弃的内容也找不回来。已经提交：用 git revert 加提交哈希，新建一个“撤回提交”，历史保留，不改写。不教 git reset --hard：2.4 要公开历史。",
     html=(
         '<div class="p-chain" data-reveal="0"><span>改动</span><i>→</i><span>审查</span><i>→</i><span>提交 = 检查点</span></div>'
@@ -164,7 +164,7 @@ scene(
 
 scene(
     id="p42", segment="回到检查点",
-    label="本节小结", title="读懂再收，收了也能退", kicker=KICK + "回到检查点",
+    label="本节小结", title="读懂再收，收了也能退",
     lead="本节留下一个审过、可回退的 homepage-v1 提交和一条评审结论。2.3 判断范围：该不该收；2.5 判断性质：是不是保持了行为。检查分三层：自动检查、自动 Review、人工 Review。本章已有构建这一项自动检查，Review 全靠人工。下一节：第一次推送。",
     html=(
         '<div class="p-sketch" style="align-items:start"><div data-reveal="0"><h3 style="text-align:center">一个习惯</h3>'

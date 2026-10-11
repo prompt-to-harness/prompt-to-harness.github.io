@@ -10,7 +10,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
 from lessonkit import Lesson, MEASURED, NARROW, chapter_map, ref, repro, teach  # noqa: E402
 
 lesson = Lesson(__file__, "2.2", "只改一处，并证明改好了", summary="先弄清模型、会话、文件与进程各记住什么，再选会话；用当前证据让 Codex 只改项目区，并用三种视口、键盘和构建证明没弄坏别的。")
-scene, KICK = lesson.scene, lesson.kick
+scene = lesson.scene
 
 
 REPO = "数据来自 openai/codex 仓库（Apache-2.0）的提交历史，2026-10-02 核对、10-03 复核、10-05 在子模块 third_party/codex 逐版重算；大小为文件字节数。"
@@ -58,7 +58,7 @@ RECORD = """## 第 1 轮
 # ---------- 三种状态 ----------
 scene(
     id="p20", segment="三种状态", layout="lesson-cover",
-    label="开始改之前", title="先决定，在哪个会话里改", kicker="第 2 章 · 2.2 · 开篇",
+    label="开始改之前", title="先决定，在哪个会话里改",
     lead="继续 2.1 的会话、恢复它，还是新建一个？",
     html=(
         chapter_map(2) +
@@ -74,7 +74,7 @@ scene(
 
 scene(
     id="p21", segment="三种状态",
-    label="三种状态", title="模型、会话、文件与进程，各记住什么", kicker=KICK + "三种状态",
+    label="三种状态", title="模型、会话、文件与进程，各记住什么",
     lead="模型本身不保存任何状态；会话由 Harness 保存，每次请求时重发；文件和运行中的程序独立存在于电脑上。2.1 开场要重启开发服务器，就是第三栏的事。",
     html=(
         '<div class="p-grid" style="--n:3;gap:16px">'
@@ -103,7 +103,7 @@ scene(
 
 scene(
     id="p22", segment="三种状态",
-    label="会话保存了什么", title="下一次请求，带上了前面的全部历史", kicker=KICK + "三种状态",
+    label="会话保存了什么", title="下一次请求，带上了前面的全部历史",
     lead="把同一次任务里相邻两次请求放在一起比：后一次把前一次的内容原样带上，再接上模型的工具调用和工具返回。模型之所以“接得上话”，是因为 Harness 每次都把历史重新发给它。" + MEASURED,
     html=(
         NARROW +
@@ -128,7 +128,7 @@ scene(
 
 scene(
     id="p23", segment="代价与不确定",
-    label="每次都重发，贵不贵", title="每次都重发，代价是 token 和注意力", kicker=KICK + "代价与不确定",
+    label="每次都重发，贵不贵", title="每次都重发，代价是 token 和注意力",
     lead="一次提问产生了 4 次请求，input 从 3 项涨到 10 项。重复的开头部分可以被缓存，算起来更便宜；但模型每次仍要读完整段历史，注意力不会因为缓存而变多。" + MEASURED,
     html=(
         '<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr)">'
@@ -150,7 +150,7 @@ scene(
 
 scene(
     id="p24", segment="代价与不确定",
-    label="再问一次，一样吗", title="同一个问题再问一次，过程不一样", kicker=KICK + "代价与不确定",
+    label="再问一次，一样吗", title="同一个问题再问一次，过程不一样",
     lead="同一句只读提问跑了两次：第一次 4 次请求，中途还调用了一个不存在的工具；第二次只用了 2 次请求。模型的输出有不确定性，所以判断要看这一次的证据，而不是“上次是这样”。" + MEASURED,
     html=(
         '<div class="p-pair" style="grid-template-columns:1fr auto 1fr">'
@@ -165,7 +165,7 @@ scene(
 
 scene(
     id="p25", segment="请求会变",
-    label="Codex 自己也在变", title="不只输出会变，系统指令也在变", kicker=KICK + "请求会变",
+    label="Codex 自己也在变", title="不只输出会变，系统指令也在变",
     lead="Codex 的通用系统指令在开源仓库里有完整历史。它没有一路变短：2025 年 8 月一次重写后变成原来的两倍多，此后在 21–24 KB 间波动；权限说明后来拆成按配置拼装的模板。" + REPO,
     html=(
         '<div class="p-flow" style="--n:4">'
@@ -196,7 +196,7 @@ scene(
 
 scene(
     id="p26", segment="请求会变",
-    label="换个模型名", title="同一个 Codex，换个模型名，指令换了一份", kicker=KICK + "请求会变",
+    label="换个模型名", title="同一个 Codex，换个模型名，指令换了一份",
     lead="Codex 按模型名在自带的模型目录（models.json）里查指令。讲师用 claude-tap 抓了两次请求，配置相同，只改模型名：目录里没有的 MiniMax-M3 拿到通用指令，目录里的 gpt-5.5 拿到为它单独写的一份。" + REPO,
     html=(
         '<div class="p-pair" style="grid-template-columns:1fr 1fr">'
@@ -229,7 +229,7 @@ scene(
 
 scene(
     id="p27", segment="压缩与交接",
-    label="压缩一下继续", title="压缩以后，模型看到的是摘要", kicker=KICK + "压缩与交接",
+    label="压缩一下继续", title="压缩以后，模型看到的是摘要",
     lead="主线会话通常不够长，压缩单独做一个小实验看。在讲师的配置下，/compact 让模型自己写一份“交接摘要”。按 Codex 源码，压缩后的历史只留用户消息、这份摘要和重新插入的初始上下文，工具调用和返回全部移走；原始证据还剩多少，取决于摘要怎么写。",
     html=(
         '<div class="p-pair" style="grid-template-columns:1fr auto 1fr">'
@@ -265,7 +265,7 @@ scene(
 
 scene(
     id="p28", segment="压缩与交接",
-    label="这次该怎么选", title="四种做法，这一次选哪个", kicker=KICK + "压缩与交接",
+    label="这次该怎么选", title="四种做法，这一次选哪个",
     lead="继续、恢复、压缩后继续、新建并交接，各有适用情境。先看 2.1 的实际会话再决定：与修改无关的探索很多，就新建，用反馈清单交接；上下文仍然集中，继续也合理。把选择和理由写进本轮记录。",
     html=(
         '<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1.5fr) minmax(0,1.5fr)">'
@@ -286,7 +286,7 @@ scene(
 # ---------- 本轮迭代 ----------
 scene(
     id="p29", segment="本轮迭代", layout="prompt-scene", prompt=ROUND_PROMPT,
-    label="写本轮 Prompt", title="让 Codex 只改这一处", kicker=KICK + "本轮迭代",
+    label="写本轮 Prompt", title="让 Codex 只改这一处",
     lead="在新会话里提交本轮 Prompt。它引用反馈清单这份当前证据，项目内容由人提供并要求原文照用，范围只到项目区，完成标准写成可以检查的四件事。讲师演示的项目区借用两位讲师的真实经历；首屏沿用第 1 章的示例，本轮不改。",
     html=(
         '<div class="demo-notes"><ol class="p-notes">'
@@ -304,7 +304,7 @@ scene(
 
 scene(
     id="p30", segment="本轮迭代",
-    label="确认计划再执行", title="先看计划，再让它动手", kicker=KICK + "本轮迭代",
+    label="确认计划再执行", title="先看计划，再让它动手",
     lead="Codex 先回复计划。确认三件事再放行：计划只涉及项目区；要放进页面的内容和我们给的原文一致；没有新依赖、没有链接。小改动的计划可能只有一两句，这正常。",
     html=(
         '<div class="p-handoff"><div class="p-handoff-card" data-reveal="0"><h3>看 Codex 的计划</h3><p>它说要改哪些文件、怎么改</p>'
@@ -322,7 +322,7 @@ scene(
 
 scene(
     id="p31", segment="本轮迭代",
-    label="改好了吗", title="改好了吗？有没有弄坏别的？", kicker=KICK + "本轮迭代",
+    label="改好了吗", title="改好了吗？有没有弄坏别的？",
     lead="改完由人检查，不只看新内容：三种视口下内容完整可读；Tab 焦点顺序与改前一致；npm run build 成功。内容变多后第 1 条“手机上挤”若出现，记为剩余问题，不在这一轮顺手修。",
     html=(
         '<div class="p-rec" style="grid-template-columns:minmax(0,1fr) minmax(0,1.1fr) minmax(0,1.3fr);row-gap:12px;--rf:21px">'
@@ -341,7 +341,7 @@ scene(
 
 scene(
     id="p32", segment="本轮迭代",
-    label="记录本轮", title="写下本轮，下一次才接得上", kicker=KICK + "本轮迭代",
+    label="记录本轮", title="写下本轮，下一次才接得上",
     lead="在 CH02_VIBE_ITERATIONS.md 末尾追加本轮记录。它是下一轮的交接，也是 2.3 审查 diff 时要对照的目标。回退点此时是本轮开始前的最后一次提交，2.3 提交后更新。",
     html=(
         NARROW +
@@ -364,7 +364,7 @@ scene(
 # ---------- 小结 ----------
 scene(
     id="p33", segment="小结",
-    label="暂停自检", title="暂停自检", kicker=KICK + "小结",
+    label="暂停自检", title="暂停自检",
     lead="先独立作答，再看解析。答案后面标出回到哪一页。",
     html=(
         '<span class="p-pause" data-reveal="0">暂停 · 先独立作答</span><div class="p-qlist">'
@@ -380,7 +380,7 @@ scene(
 
 scene(
     id="p34", segment="小结",
-    label="本节小结", title="一轮，一个结果，一份证据", kicker=KICK + "小结",
+    label="本节小结", title="一轮，一个结果，一份证据",
     lead="本节留下一轮内容迭代、三项检查结果和一份本轮记录。下一节：Codex 说完成了，手上是一份 diff，收不收？课后可以再做 0–2 轮，不计分。",
     html=(
         '<div class="p-sketch" style="align-items:start"><div data-reveal="0"><h3>三种状态</h3>'

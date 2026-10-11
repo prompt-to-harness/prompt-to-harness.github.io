@@ -8,7 +8,6 @@ window.lesson = {
       "id": "p15",
       "label": "换入口，还要核对什么？",
       "title": "换入口，还要核对什么？",
-      "kicker": "第 1 章 · 1.3 · 入口与动作",
       "lead": "同一个任务换个入口来做，结果从哪看、权限怎么给，都要重新核对",
       "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>1.1</b>首次闭环</li><li class=\"is-done\"><b>1.2</b>拆开执行过程</li><li class=\"is-now\"><b>1.3</b>工具与权限</li><li class=\"\"><b>1.4</b>写清任务</li><li class=\"\"><b>1.5</b>完成个人主页</li><li class=\"\"><b>1.6</b>最小权限</li></ol><div style=\"display:grid;grid-template-columns:3fr 2fr;gap:28px;margin-top:14px;align-items:start\"><div class=\"p-box\" data-role=\"tool\" style=\"padding:12px 20px\"><h3 style=\"font-size:24px\">Codex CLI · 本课统一使用</h3><div data-reveal=\"0\" style=\"display:grid;grid-template-columns:70px 1fr;gap:10px;padding:8px 0;border-top:1px dashed #CFCAC0\"><span class=\"p-sub\">资料</span><span style=\"font-size:21px\">从练习项目根目录启动</span></div><div data-reveal=\"1\" style=\"display:grid;grid-template-columns:70px 1fr;gap:10px;padding:8px 0;border-top:1px dashed #CFCAC0\"><span class=\"p-sub\">动作</span><span style=\"font-size:21px\">看工具返回与 diff</span></div><div data-reveal=\"2\" style=\"display:grid;grid-template-columns:70px 1fr;gap:10px;padding:8px 0;border-top:1px dashed #CFCAC0\"><span class=\"p-sub\">边界</span><span style=\"font-size:21px\"><b>主路径 · 完整验收</b></span></div></div><div class=\"p-box is-dashed\" data-role=\"ink\" data-reveal=\"2\" style=\"padding:12px 20px\"><h3 style=\"font-size:20px\">也可以用图形界面</h3><p style=\"font-size:18px;line-height:1.55;margin-top:8px\">比如 ChatGPT App。能做什么，按你的版本、账号和配置核对；核对过才临时使用，本课不演示</p></div></div>",
       "steps": [
@@ -52,7 +51,6 @@ window.lesson = {
       "id": "p16",
       "label": "同一个欢迎语任务，会做哪些动作？",
       "title": "同一个欢迎语任务，会做哪些动作？",
-      "kicker": "第 1 章 · 1.3 · 入口与动作",
       "lead": "同样是改欢迎语，会涉及四类动作：读取、修改、执行命令、对外操作，影响范围依次变大。读取要和任务有关，修改要看实际 Diff，命令要看会不会写入、联网，欢迎语任务则根本不需要发布。",
       "html": "<div class=\"p-grid\" style=\"--n:4;gap:16px\"><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"0\" style=\"padding:14px 18px\"><h3>读取</h3><p style=\"font-size:22px;font-weight:700\">查看目标 HTML</p><p style=\"font-size:20px;margin-top:10px;color:var(--ct)\">是否与任务有关？</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\" style=\"padding:14px 18px\"><h3>修改</h3><p style=\"font-size:22px;font-weight:700\">替换欢迎语</p><p style=\"font-size:20px;margin-top:10px;color:var(--ct)\">是否只改目标？</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"2\" style=\"padding:14px 18px\"><h3>执行命令</h3><p style=\"font-size:22px;font-weight:700\">Git 差异 / 检查脚本</p><p style=\"font-size:20px;margin-top:10px;color:var(--ct)\">是否写入、启动进程或联网？</p></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"3\" style=\"padding:14px 18px\"><h3>对外操作</h3><p style=\"font-size:22px;font-weight:700\">发布公开站点</p><p style=\"font-size:20px;margin-top:10px;color:var(--ct)\">当前任务是否需要发布？</p></div></div><div class=\"p-scale\" data-reveal=\"3\"><span>影响范围小</span><span>影响范围大</span></div>",
       "steps": [
@@ -97,7 +95,6 @@ window.lesson = {
       "id": "p17",
       "label": "一句“不许越界”，限制住了吗？",
       "title": "一句“不许越界”，限制住了吗？",
-      "kicker": "第 1 章 · 1.3 · 权限三层",
       "lead": "每个动作要经过三层：Prompt 里写的任务约束像一块告示牌，只说明意图、挡不住动作；Sandbox 的技术限制像围栏，要看真实配置；人工批准像这一次盖的章。三者是不同的证据，批准也不会改变配置。",
       "html": "<div class=\"p-flow is-big\" style=\"--n:5;column-gap:36px;--node-h:250px\"><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\"><h3>Agent 动作</h3><p>读 · 写 · 执行</p></div><div class=\"p-node\" data-role=\"ctx\" data-reveal=\"0\"><svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"color:var(--c);filter:url(#p-rough);display:block;margin:0 auto 6px\"><path d=\"M60 30 V78\"/><rect x=\"18\" y=\"6\" width=\"84\" height=\"32\" rx=\"4\" transform=\"rotate(-5 60 22)\" fill=\"#FFFDF7\" stroke-dasharray=\"7 6\"/><text x=\"60\" y=\"28\" text-anchor=\"middle\" font-size=\"16\" font-family=\"Noto Sans SC,sans-serif\" fill=\"currentColor\" stroke=\"none\" font-weight=\"700\" transform=\"rotate(-5 60 22)\">不许越界</text></svg><h3><span class=\"p-num\">1</span>任务约束</h3><p>告示牌<br>写下的意图</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"1\"><svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"color:var(--c);filter:url(#p-rough);display:block;margin:0 auto 6px\"><path d=\"M14 26 L22 14 L30 26 V76 H14 Z M46 26 L54 14 L62 26 V76 H46 Z M78 26 L86 14 L94 26 V76 H78 Z\" fill=\"var(--cl)\"/><path d=\"M6 38 H112 M6 62 H112\"/></svg><h3><span class=\"p-num\">2</span>技术限制</h3><p>围栏 · Sandbox<br>实际挡住什么</p></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"2\"><svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"color:var(--c);filter:url(#p-rough);display:block;margin:0 auto 6px\"><path d=\"M50 8 h20 v10 c0 8 8 10 8 20 h-36 c0-10 8-12 8-20 Z\" fill=\"var(--cl)\"/><rect x=\"30\" y=\"38\" width=\"60\" height=\"12\" rx=\"3\" fill=\"var(--cl)\"/><path d=\"M26 64 h68\" stroke-dasharray=\"2 0\"/><path d=\"M40 72 h40\"/></svg><h3><span class=\"p-num\">3</span>人工批准</h3><p>盖章 · Approval<br>批准这一次</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"2\"><h3>执行</h3><p>之后仍要验收</p></div></div><div class=\"p-bar\" data-reveal=\"3\" style=\"margin-top:22px\">告示牌挡不住动作 · 围栏和盖章也各管各的：<b>三份不同的证据</b></div>",
       "steps": [
@@ -138,7 +135,6 @@ window.lesson = {
       "id": "p18",
       "label": "这次同意，究竟批准了什么？",
       "title": "这次同意，究竟批准了什么？",
-      "kicker": "第 1 章 · 1.3 · 授权与返回",
       "lead": "一次批准分三步看：请求的对象、目标文字和影响是否明确；计划是否保留布局和已有改动、实际权限是否核对过；最后只批准按当前计划修改指定文字。批准动作不等于接受结果。",
       "html": "<div class=\"p-flow is-big\" style=\"--n:3;--node-h:190px\"><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-num\">01</span><h3>提出请求</h3><p>只改欢迎语</p></div><div class=\"p-node\" data-role=\"ctx\" data-reveal=\"1\"><span class=\"p-num\">02</span><h3>核对计划</h3><p>布局与权限已核对</p></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"2\"><span class=\"p-num\">03</span><h3>明确批准</h3><p>范围一变就停</p></div></div>",
       "steps": [
@@ -177,7 +173,6 @@ window.lesson = {
       "id": "p18a",
       "label": "已经批准，为什么仍可能没改成？",
       "title": "已经批准，为什么仍可能没改成？",
-      "kicker": "第 1 章 · 1.3 · 授权与返回",
       "lead": "批准之后，工具可能返回“找不到目标文件”，也可能返回“写入成功”，这是互斥的两个分支。即使写入成功，也只是工具的报告，文字、布局和范围都还没检查，不能写“任务完成”。",
       "html": "<div class=\"p-chain\" data-reveal=\"0\" style=\"font-size:20px\"><span>请求</span><i>→</i><span>批准</span><i>→</i><span>工具返回</span></div><div class=\"p-pair\"><div class=\"p-box\" data-role=\"gate\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"gate\">工具失败分支</span><div class=\"p-term\"><span class=\"err\">找不到目标文件</span></div></div><div class=\"p-join\" data-reveal=\"1\"><b>≠</b></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"tool\">工具成功分支</span><div class=\"p-term\">写入成功</div><p style=\"margin-top:8px\"><b>结果仍待检查</b></p></div></div><div class=\"p-bar\" data-reveal=\"2\">还不能写“<b>任务完成</b>”</div>",
       "steps": [
@@ -216,7 +211,6 @@ window.lesson = {
       "id": "p18-check",
       "label": "结果检查以后，才决定下一步",
       "title": "结果检查以后，才决定下一步",
-      "kicker": "第 1 章 · 1.3 · 授权与返回",
       "lead": "检查页面和完整 Diff 之后有三个去向：符合就接受并记录证据；不符就在当前范围内修正，再检查；路径不明、缺材料或需要扩大权限，就记录并停下，不靠扩大权限掩盖问题。",
       "html": "<div class=\"p-flow\" style=\"--n:3\"><div class=\"p-node\" data-role=\"ink\" style=\"grid-column:2\"><h3>检查结果</h3><p>页面 + 完整 Diff</p></div><div class=\"p-fork\" style=\"grid-column:1/4\"><div class=\"l\" data-reveal=\"0\"><span>符合</span></div><div class=\"m\" data-reveal=\"1\"><span>不符</span></div><div class=\"r\" data-reveal=\"2\"><span>无法验证</span></div></div><div class=\"p-box is-row2\" data-role=\"ok\" data-reveal=\"0\" style=\"grid-row:3;grid-column:1\"><h3>接受并记录</h3></div><div class=\"p-box is-row2\" data-role=\"agent\" data-reveal=\"1\" style=\"grid-row:3;grid-column:2\"><h3>限定修正，再检查</h3></div><div class=\"p-box is-row2\" data-role=\"gate\" data-reveal=\"2\" style=\"grid-row:3;grid-column:3\"><h3>记录并停</h3></div></div>",
       "steps": [
@@ -255,7 +249,6 @@ window.lesson = {
       "id": "p19",
       "label": "四个场景，你会允许哪种动作？",
       "title": "四个场景，你会允许哪种动作？",
-      "kicker": "第 1 章 · 1.3 · 判断与交付",
       "lead": "练习：为四个场景各选一种处理。核对分支与 Diff 只需只读；计划已确认的欢迎语修改允许写入目标文件；为纯文字修改安装依赖应拒绝；未获授权的公开发布要停下，另行说明影响并由人确认。",
       "html": "<span class=\"p-pause\" data-reveal=\"0\">暂停 · 先独立判断四个场景</span><div class=\"p-quiz\"><div class=\"p-q\"><p class=\"p-say\">A · 核对分支与 Diff</p><div data-reveal=\"1\"><span class=\"p-stamp\" data-role=\"ok\">只读</span><p class=\"p-why\">只读检查，不为查看状态开放写入</p></div></div><div class=\"p-q\"><p class=\"p-say\">B · 已确认计划，只改欢迎语</p><div data-reveal=\"2\"><span class=\"p-stamp\" data-role=\"tool\">允许写入</span><p class=\"p-why\">允许本次目标文件写入，并核对实际权限</p></div></div><div class=\"p-q\"><p class=\"p-say\">C · 为纯文字修改安装依赖</p><div data-reveal=\"3\"><span class=\"p-stamp\" data-role=\"gate\">拒绝</span><p class=\"p-why\">当前任务不需要新依赖</p></div></div><div class=\"p-q\"><p class=\"p-say\">D · 未获授权就公开发布</p><div data-reveal=\"4\"><span class=\"p-stamp\" data-role=\"gate\">停止</span><p class=\"p-why\">确需发布时另行说明影响并人工确认</p></div></div></div>",
       "steps": [
@@ -298,7 +291,6 @@ window.lesson = {
       "id": "p19-recap",
       "label": "授权管动作，验收看结果",
       "title": "授权管动作，验收看结果",
-      "kicker": "第 1 章 · 1.3 · 判断与交付",
       "lead": "把选择理由补进已有的环境与权限记录：工具路径、CLI 基线、实际权限、停止条件和四题理由；缺项如实标为待补做。一句话：授权管动作，验收看结果。下一节把这些边界写进个人主页任务。",
       "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3>保留记录</h3><div class=\"p-words\" style=\"grid-template-columns:1fr\"><div class=\"p-box\" data-role=\"ctx\"><p>实际权限 · 停止条件</p></div><div class=\"p-box\" data-role=\"ctx\"><p>四题理由</p></div></div></div><div data-reveal=\"1\"><h3>如实标记</h3><ul class=\"p-warns\"><li>缺项待补做</li><li>未补 CLI 不验收</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>一句话</h3><div class=\"p-star\" style=\"width:200px;font-size:22px\">授权管动作<br>验收看结果</div><div class=\"p-box\" data-role=\"us\" style=\"margin-top:12px\"><h3>下一节 1.4 写清任务</h3></div></div></div>",
       "steps": [

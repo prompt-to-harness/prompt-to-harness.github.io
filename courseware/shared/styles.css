@@ -28,6 +28,7 @@ h1, h2, h3 { font-style: normal; min-width: 0; overflow-wrap: anywhere; }
 .mode-switch { display: flex; gap: var(--space-xs); }
 .mode-switch button { font-size: var(--text-sm); }
 .script-link, .chapter-link { font-size: var(--text-sm); white-space: nowrap; }
+.chapter-link { color: var(--color-accent); }
 .script-link { margin-left: 0; }
 #lesson { padding: 0 var(--space-lg); }
 .scene { padding: var(--space-2xl) 0; scroll-margin-top: var(--space-md); }
@@ -118,11 +119,14 @@ body[data-mode="scroll"] .presentation-tools { display: none; }
   .sidebar :focus-visible { outline-color: var(--color-focus-on-dark); }
   .wordmark { display: flex; align-items: center; gap: var(--space-md); text-decoration: none; color: var(--color-paper); font-size: var(--text-sm); line-height: 1.6; }
   .chapter-label { margin-top: var(--space-3xl); color: var(--color-sidebar-muted); font-size: var(--text-xs); }
+  .wordmark + .sidebar-meta { margin-top: var(--space-3xl); }
   .sidebar-title { font-size: 18px; font-weight: 700; line-height: 1.8; margin-top: var(--space-md); }
   .sidebar-meta { font-size: var(--text-xs); color: var(--color-sidebar-muted); margin-top: var(--space-sm); }
   #scene-nav { display: grid; gap: var(--space-xs); margin-top: var(--space-xl); }
   #scene-nav a { display: flex; gap: var(--space-sm); align-items: center; text-decoration: none; color: var(--color-sidebar-muted); padding: 9px 8px; min-height: 42px; font-size: 13px; border-left: 2px solid var(--color-sidebar); white-space: nowrap; }
   #scene-nav a span { font-size: 11px; min-width: 22px; }
+  #scene-nav .nav-group { margin-top: var(--space-lg); padding: 0 10px; font-size: 15px; font-weight: 700; color: var(--color-paper); }
+  #scene-nav .nav-group:first-child { margin-top: 0; }
   #scene-nav a:hover { color: var(--color-paper); background: var(--color-sidebar-rule); }
   #scene-nav a[aria-current="step"] { color: var(--color-paper); border-left-color: var(--color-paper); background: var(--color-sidebar-rule); }
   .sidebar-bottom { margin-top: auto; padding-top: var(--space-2xl); font-size: var(--text-xs); color: var(--color-sidebar-muted); }
@@ -159,6 +163,7 @@ body[data-mode="scroll"] .presentation-tools { display: none; }
   :root { --sidebar-width: 272px; }
   .sidebar { padding: var(--space-2xl) var(--space-xl); }
   #scene-nav a { font-size: 14px; min-height: 46px; }
+  #scene-nav .nav-group { font-size: 16px; }
   .scene-kicker { margin-bottom: var(--space-xl); }
   .scene-content { gap: var(--space-xl); }
 }
@@ -173,7 +178,7 @@ body[data-mode="scroll"] .presentation-tools { display: none; }
   body[data-mode="slides"] .command-list > div { padding-block: var(--space-sm); }
   body[data-mode="slides"] .prompt { padding: var(--space-md); }
   body[data-mode="slides"] pre { line-height: 1.7; }
-  .chapter-label { margin-top: var(--space-xl); }
+  .chapter-label, .wordmark + .sidebar-meta { margin-top: var(--space-xl); }
   .sidebar-bottom { padding-top: var(--space-md); }
 }
 @media (max-width: 59.99rem) {
@@ -203,6 +208,7 @@ body[data-mode="scroll"] .presentation-tools { display: none; }
 .chapter-nav a:hover { color: var(--color-paper); }
 .chapter-label a { color: inherit; text-decoration: none; }
 .chapter-label a:hover { color: var(--color-paper); }
+.crumbs { display: flex; align-items: center; gap: var(--space-xs); font-size: var(--text-sm); color: var(--color-muted); white-space: nowrap; }
 .chapter-home { max-width: 1180px; margin: 0 auto; padding: clamp(2rem, 6vw, 6rem) clamp(1.25rem, 5vw, 5rem); }
 .chapter-home-header { position: relative; max-width: 900px; padding-bottom: var(--space-3xl); border-bottom: var(--rule-thin) solid var(--color-rule); }
 .chapter-home-header .institution-link { position: absolute; top: 0; right: 0; display: block; line-height: 0; }
@@ -390,9 +396,10 @@ body[data-mode="slides"] .prompt { padding: 0; }
 .next-chapter { display: flex; flex-wrap: wrap; gap: var(--space-lg) var(--space-2xl); align-items: center; margin-top: var(--space-md); }
 .next-chapter a + a { font-size: var(--text-sm); }
 @media (min-width: 60rem) {
-  body.interview .chapter-label { margin-top: var(--space-xl); }
+  body.interview .wordmark + .sidebar-meta { margin-top: var(--space-xl); }
   body.interview #scene-nav { margin-top: var(--space-lg); gap: 0; }
   body.interview #scene-nav a { min-height: 36px; padding-block: 6px; font-size: 12px; }
+  body.interview #scene-nav .nav-group { margin-top: var(--space-md); font-size: 13px; }
   body.interview .sidebar-bottom { padding-top: var(--space-lg); }
   body.interview[data-mode="slides"] .scene { max-width: 1250px; }
   body.interview[data-mode="slides"] .camera-guide { aspect-ratio: 3 / 5; }

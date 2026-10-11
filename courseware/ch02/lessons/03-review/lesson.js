@@ -10,7 +10,6 @@ window.lesson = {
       "layout": "lesson-cover",
       "label": "说完成了，就能收吗",
       "title": "Codex 说完成了，就能收吗？",
-      "kicker": "第 2 章 · 2.3 · 开篇",
       "lead": "改动还在工作区：先读懂 diff，再决定接受、缩小还是拒绝",
       "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>听反馈</li><li class=\"is-done\"><b>2.2</b>改一处</li><li class=\"is-now\"><b>2.3</b>审改动</li><li><b>2.4</b>公开发布</li><li><b>2.5</b>只是重构？</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:18px\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">Codex 说</span><p class=\"p-big\" style=\"font-weight:500\">“已完成，项目区已更新”</p></div><div class=\"p-join\" data-reveal=\"2\"><span>还差</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"us\">我们要做</span><p class=\"p-big\" style=\"font-weight:500\">读懂 diff，再决定</p></div></div>",
       "steps": [
@@ -37,7 +36,6 @@ window.lesson = {
       "segment": "拿到 diff",
       "label": "改了哪些文件",
       "title": "先看范围：改了哪些文件",
-      "kicker": "第 2 章 · 2.3 · 拿到 diff",
       "lead": "先用两条命令看范围，再看内容。git status --short 列出所有变化，包括还没被 Git 跟踪的新文件；git diff --stat 只统计已跟踪文件还没暂存的修改：新文件要另外打开看，已经 git add 的改动要用 git diff --cached --stat 看。",
       "html": "<div style=\"display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px\"><div class=\"p-term\" data-copy=\"git status --short\" data-reveal=\"0\"><div class=\"dim\">$ git status --short</div><div> M src/App.tsx</div><div>?? docs/evidence/CH02_…</div></div><div class=\"p-term\" data-copy=\"git diff --stat\" data-reveal=\"1\"><div class=\"dim\">$ git diff --stat</div><div> src/App.tsx | 12 ++++++++++--</div><div> 1 file changed, 10 insertions(+), 2 deletions(-)</div></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"2\"><h3>src/App.tsx</h3><p>预期之内：项目数据就在这里</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"2\"><h3>?? 记录文件</h3><p>我们自己在 2.1 新建的，不在 --stat 里</p></div></div><p class=\"source-note\">画面中的命令输出来自排练版 homepage-v1（courseware/ch02/materials/homepage-v1.diff）在 Git 2.50.1 下的一次运行；录制时换成 2.2 的真实 diff</p>",
       "steps": [
@@ -68,7 +66,6 @@ window.lesson = {
       "segment": "走读 diff",
       "label": "改动做了什么",
       "title": "再看内容：每一处改动做了什么",
-      "kicker": "第 2 章 · 2.3 · 走读 diff",
       "lead": "git diff 显示逐行改动。按“数据在哪 → 怎样渲染 → 影响哪些样式”读：这一轮只改了项目数组里的数据，渲染逻辑和样式都没动。排版规则没变，但内容变多了，有没有挤坏仍以 2.2 的视口检查为准。",
       "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-walk\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:36px\"><div class=\"p-fn\">src/App.tsx <span class=\"add\">+10</span><span class=\"del\">−2</span></div><div class=\"p-ln\"><i>1</i><code>const projects = [</code></div><div class=\"p-ln del\"><i>3</i><code>    name: <span class=\"s\">'学习笔记'</span>,</code></div><div class=\"p-ln del\"><i>4</i><code>    description: <span class=\"s\">'记录课程练习'</span>,</code></div><div class=\"p-ln add\"><i>3</i><code>    name: <span class=\"s\">'红绿灯感知量产'</span>,</code></div><div class=\"p-ln add\"><i>4</i><code>    description: <span class=\"s\">'城市 NOA 红绿灯…'</span>,</code></div><div class=\"p-ln add\"><i>6</i><code>  { name: <span class=\"s\">'端侧多模态推理引擎'</span>, … },</code></div><div class=\"p-ln add\"><i>10</i><code>  { name: <span class=\"s\">'RoboHarness'</span>, … },</code></div><div class=\"p-ln\"><i>15</i><code>]</code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>数据</b><small>换掉一条，又加了两条</small></span></li><li data-reveal=\"1\"><span><b>渲染</b><small>projects.map 那段没动</small></span></li><li data-reveal=\"2\"><span><b>样式</b><small>index.css 没动 · 挤没挤坏看 2.2 的检查</small></span></li><li class=\"is-ok\" data-reveal=\"3\"><span><b>文字与原文一致</b><small>逐字对过</small></span></li></ol></div><p class=\"source-note\">新增的两项各占 4 行，画面折叠为一行。画面中的命令输出来自排练版 homepage-v1（courseware/ch02/materials/homepage-v1.diff）在 Git 2.50.1 下的一次运行；录制时换成 2.2 的真实 diff。</p>",
       "steps": [
@@ -97,7 +94,6 @@ window.lesson = {
       "segment": "走读 diff",
       "label": "对得上本轮目标吗",
       "title": "逐项对照本轮的完成标准",
-      "kicker": "第 2 章 · 2.3 · 走读 diff",
       "lead": "把 2.2 Prompt 的 Done when 逐项拿来对照：前三项看本轮记录里的检查结果，第四项看刚读过的 diff。四项都有证据，才进入处置判断。",
       "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-claim\" style=\"grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"agent\">Done when</span><p style=\"margin-top:8px;line-height:1.7\">三种视口可读<br>Tab 顺序不变<br>build 成功<br>diff 只含项目区</p></div><ul class=\"p-checks\"><li data-reveal=\"1\">三种视口<small>本轮记录：三条经历完整显示</small></li><li data-reveal=\"1\">键盘<small>本轮记录：Tab 仍只停在“查看项目”</small></li><li data-reveal=\"1\">构建<small>本轮记录：退出码 0</small></li><li data-reveal=\"2\">diff 范围<small>刚才读过：只有 App.tsx 的项目数据</small></li></ul></div>",
       "steps": [
@@ -119,7 +115,6 @@ window.lesson = {
       "segment": "处置",
       "label": "接受、缩小还是拒绝",
       "title": "接受、缩小，还是拒绝",
-      "kicker": "第 2 章 · 2.3 · 处置",
       "lead": "三种处置看两个条件：改动是否都在目标之内，越界的部分能不能单独去掉。讲师这次的 diff 干净，选接受。范围扩大真的出现时，就地处理，不为了教学去制造。",
       "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,.7fr) minmax(0,1.4fr) minmax(0,1.6fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>处置</span><span>什么情况</span><span>怎么做</span></div><div data-reveal=\"0\" class=\"is-key\"><span>接受</span><span>都在目标内，四项有证据</span><span>暂存、检查、提交</span></div><div data-reveal=\"1\"><span>缩小</span><span>主体对，夹带了无关修改</span><span>放弃越界的文件，或让 Codex 收回</span></div><div data-reveal=\"1\"><span>拒绝</span><span>方向错，或改得太多读不懂</span><span>放弃全部改动，重写 Prompt</span></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">本次：<b>接受</b> · 理由写进记录</div>",
       "steps": [
@@ -150,7 +145,6 @@ window.lesson = {
       "segment": "处置",
       "label": "留下检查点",
       "title": "提交，留下一个检查点",
-      "kicker": "第 2 章 · 2.3 · 处置",
       "lead": "和第 1 章保存检查点时一样：只暂存审过的文件，用 git diff --cached 再看一遍待提交内容，然后提交。代码和记录分两次提交：代码那次就是新的回退点，它的短哈希写进记录，再单独提交记录。",
       "html": "<div class=\"p-term\" data-reveal=\"0\" data-copy=\"git add src/App.tsx\"><div class=\"dim\">$ git add src/App.tsx</div></div><div class=\"p-term\" data-reveal=\"1\" style=\"margin-top:8px\" data-copy=\"git diff --cached --stat\"><div class=\"dim\">$ git diff --cached --stat</div><div> src/App.tsx | 12 ++++++++++--</div></div><div class=\"p-term\" data-reveal=\"2\" style=\"margin-top:8px\" data-copy=\"git commit -m &quot;homepage-v1: 补充项目经历&quot;\"><div class=\"dim\">$ git commit -m \"homepage-v1: 补充项目经历\"</div><div class=\"ok\">[main 85c5fcb] homepage-v1: 补充项目经历</div></div><div class=\"p-term\" data-reveal=\"3\" style=\"margin-top:8px\" data-copy=\"git add docs/evidence/CH02_VIBE_ITERATIONS.md &amp;&amp; git commit -m &quot;记录第 1 轮&quot;\"><div class=\"dim\">$ git add docs/evidence/CH02_VIBE_ITERATIONS.md &amp;&amp; git commit -m \"记录第 1 轮\"</div><div class=\"ok\">[main 3e1d0a7] 记录第 1 轮</div></div><p class=\"source-note\">画面中的命令输出来自排练版 homepage-v1（courseware/ch02/materials/homepage-v1.diff）在 Git 2.50.1 下的一次运行；录制时换成 2.2 的真实 diff。 提交哈希每次不同。</p>",
       "steps": [
@@ -179,7 +173,6 @@ window.lesson = {
       "segment": "回到检查点",
       "label": "收错了怎么回去",
       "title": "万一收错了，怎样回去",
-      "kicker": "第 2 章 · 2.3 · 回到检查点",
       "lead": "还没提交：用 git restore 放弃选定文件还没暂存的修改，已经 git add 的先用 git restore --staged 取消暂存；它不处理未跟踪的新文件，放弃的内容也找不回来。已经提交：用 git revert 加提交哈希，新建一个“撤回提交”，历史保留，不改写。不教 git reset --hard：2.4 要公开历史。",
       "html": "<div class=\"p-chain\" data-reveal=\"0\"><span>改动</span><i>→</i><span>审查</span><i>→</i><span>提交 = 检查点</span></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box\" data-role=\"gate\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"gate\">还没提交</span><div class=\"p-term\" data-copy=\"git restore -- src/App.tsx\" style=\"margin-top:8px\"><div class=\"dim\">$ git restore -- src/App.tsx</div></div><p class=\"p-sub\" style=\"margin-top:8px\">已 add 的先 --staged · 新文件不管 · 放弃了就找不回</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ctx\">已经提交</span><div class=\"p-term\" data-copy=\"git revert --no-edit 85c5fcb\" style=\"margin-top:8px\"><div class=\"dim\">$ git revert --no-edit 85c5fcb</div><div class=\"ok\">Revert \"homepage-v1: 补充项目经历\"</div></div><p class=\"p-sub\" style=\"margin-top:8px\">新增一个撤回提交 · 只撤回代码那次</p></div></div><div class=\"p-bar\" data-reveal=\"3\">commit 让<b>“拒绝”变便宜</b></div>",
       "repro": {
@@ -234,7 +227,6 @@ window.lesson = {
       "segment": "回到检查点",
       "label": "本节小结",
       "title": "读懂再收，收了也能退",
-      "kicker": "第 2 章 · 2.3 · 回到检查点",
       "lead": "本节留下一个审过、可回退的 homepage-v1 提交和一条评审结论。2.3 判断范围：该不该收；2.5 判断性质：是不是保持了行为。检查分三层：自动检查、自动 Review、人工 Review。本章已有构建这一项自动检查，Review 全靠人工。下一节：第一次推送。",
       "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">一个习惯</h3><div class=\"p-star\" style=\"width:260px;font-size:24px\">先看范围<br>再看内容</div></div><div data-reveal=\"1\"><h3>三层检查</h3><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-pass\">自动检查 · 本章只有构建</li><li class=\"is-stop\">自动 Review · 以后</li><li class=\"is-pass\">人工 Review · 本章</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>2.4 公开发布</h3><p>推送之后，谁能看到什么？</p></div></div></div>",
       "steps": [

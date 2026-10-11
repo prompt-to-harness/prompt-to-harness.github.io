@@ -8,7 +8,6 @@ window.lesson = {
       "id": "p01",
       "label": "只改一句话，怎样证明改对？",
       "title": "只改一句话，怎样证明改对？",
-      "kicker": "第 1 章 · 1.1 · 找准任务",
       "lead": "本章：首次闭环 → 执行机制 → 权限 → Prompt → 个人主页 v0 → 最小权限",
       "html": "<ol class=\"p-map\" data-reveal=\"0\"><li class=\"is-now\"><b>1.1</b>首次闭环</li><li class=\"\"><b>1.2</b>拆开执行过程</li><li class=\"\"><b>1.3</b>工具与权限</li><li class=\"\"><b>1.4</b>写清任务</li><li class=\"\"><b>1.5</b>完成个人主页</li><li class=\"\"><b>1.6</b>最小权限</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:18px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">修改前</span><p class=\"p-big\" style=\"font-weight:500\">你好，欢迎来到我的练习页面</p></div><div class=\"p-join\" data-reveal=\"1\"><span>只改这一句</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ok\">任务目标</span><p class=\"p-big\">你好，欢迎来到 Vibe Coding 课堂！</p></div></div>",
       "steps": [
@@ -46,7 +45,6 @@ window.lesson = {
       "id": "p02",
       "label": "先找准你要改的那一份文件",
       "title": "先找准你要改的那一份文件",
-      "kicker": "第 1 章 · 1.1 · 找准任务",
       "lead": "你的电脑上有两个容易混的目录：course-starter 是课程模板，只用来创建你自己的仓库；练习在 projects/personal-homepage 这份副本里进行。本节唯一要改的是 setup-check/index.html，动手前先记下当前分支和初始状态。",
       "html": "<ul class=\"p-tree\" style=\"font-size:25px;padding:22px 28px;line-height:1.9\"><li class=\"is-dim\" data-reveal=\"0\"><span class=\"p-path\">course-starter/</span><span class=\"p-note\">模板 · 不在这里练习</span></li><li class=\"is-open\" data-reveal=\"1\"><span class=\"p-path\">projects/personal-homepage/</span><span class=\"p-note\">练习副本 · 在这里打开</span><ul><li class=\"is-target\" data-reveal=\"2\"><span class=\"p-path\">setup-check/index.html</span><span class=\"p-note\">唯一目标</span></li></ul></li></ul><p class=\"source-note\"><a href=\"https://github.com/prompt-to-harness/course-starter\" target=\"_blank\" rel=\"noopener noreferrer\">course-starter 模板仓库</a><a href=\"../../../ch00/preparation.html\">课前准备（第 0 章）</a></p>",
       "steps": [
@@ -85,7 +83,6 @@ window.lesson = {
       "id": "p02a",
       "label": "安装工具与选择模型是两件事",
       "title": "安装工具与选择模型是两件事",
-      "kicker": "第 1 章 · 1.1 · 准备环境",
       "lead": "按 Codex CLI 官方说明安装，在 projects/personal-homepage 目录里启动并登录；选哪个模型是另一件事。课程主用 MiniMax M3，另外几个模型只拿来对照，不比谁更强。没有完成一次真实请求，就不能写成“可用”。",
       "html": "<div class=\"p-pair\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"tool\">先安装</span><h3>Codex CLI</h3><p><a href=\"https://learn.chatgpt.com/docs/codex/cli\" target=\"_blank\" rel=\"noopener noreferrer\">官方安装说明</a></p></div><div class=\"p-join\" data-reveal=\"1\"><b>≠</b><span>两件事</span></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">再选择</span><h3>课程模型</h3><p class=\"p-big\">主用 <a href=\"https://www.minimax.cn/models/text/m3\" target=\"_blank\" rel=\"noopener noreferrer\">MiniMax M3</a></p><p class=\"p-sub\">对照：<a href=\"https://openai.com/zh-Hans-CN/index/gpt-6-astra/\" target=\"_blank\" rel=\"noopener noreferrer\">GPT-6 Astra</a> · <a href=\"https://www.anthropic.com/claude-opus-5-5\" target=\"_blank\" rel=\"noopener noreferrer\">Claude Opus 5</a> · <a href=\"https://www.anthropic.com/claude-fable-and-mythos-5-1\" target=\"_blank\" rel=\"noopener noreferrer\">Claude Fable 5</a></p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\"><b>待核验 ≠ 可用</b></div>",
       "steps": [
@@ -124,7 +121,6 @@ window.lesson = {
       "id": "p03",
       "label": "哪些条件不满足，就不能开始？",
       "title": "哪些条件不满足，就不能开始？",
-      "kicker": "第 1 章 · 1.1 · 准备环境",
       "lead": "按 docs/setup/ENVIRONMENT.md 逐项检查三件事：浏览器能打开并刷新环境页，Git 能读出分支、状态和 Diff（改动前后的差异），Codex CLI 能从练习目录启动。CLI 暂不可用时，可以先用已核验的桌面入口，但最晚在 1.3 节（工具与权限）结束前补上 CLI。",
       "html": "<div class=\"p-grid\" style=\"--n:3\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\" style=\"padding:16px 20px\"><h3 data-node=\"browser\">浏览器</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"browser_pass\" data-edge=\"browser:browser_pass\">打开并刷新环境页</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"browser_fail\" data-edge=\"browser:browser_fail\" class=\"p-sub\">核对路径或本地服务</p></div></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"1\" style=\"padding:16px 20px\"><h3 data-node=\"git\">Git</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"git_pass\" data-edge=\"git:git_pass\">分支、状态、Diff 可读</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"git_fail\" data-edge=\"git:git_fail\" class=\"p-sub\">补齐 Git 与仓库</p></div></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"2\" style=\"padding:16px 20px\"><h3 data-node=\"cli\">Codex CLI</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"cli_pass\" data-edge=\"cli:cli_pass\">从练习目录启动</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"cli_fail\" data-edge=\"cli:cli_fail\" class=\"p-sub\">临时用桌面入口</p></div></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">三项都<b>通过</b>才开始</div>",
       "steps": [
@@ -167,7 +163,6 @@ window.lesson = {
       "id": "p03-access",
       "label": "登录模型账号，发一次只读请求",
       "title": "登录模型账号，发一次只读请求",
-      "kicker": "第 1 章 · 1.1 · 准备环境",
       "lead": "在 Codex CLI 里登录课程所用模型服务的账号，再按这条路径核验接入：发出真实请求、只读练习文件、核对实际模型与配置；任何一步失败都如实记录。Node.js 与 npm 本节用不到，第 1.5 节创建个人主页之前装好即可。",
       "html": "<div class=\"p-flow\" style=\"--n:4\" data-reveal=\"0\"><div class=\"p-node\" data-role=\"agent\"><h3>登录</h3></div><div class=\"p-node\" data-role=\"agent\"><h3>真实请求</h3></div><div class=\"p-node\" data-role=\"tool\"><h3>只读文件</h3></div><div class=\"p-node\" data-role=\"ok\"><h3>配置一致</h3></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:6px\"><div class=\"p-box is-dashed\" data-role=\"tool\" data-reveal=\"1\"><h3>Node.js / npm</h3><p>本节不用 · 做个人主页前装好</p></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"2\"><h3>接入失败</h3><p>记录阻塞 · 先看回放</p></div></div>",
       "steps": [
@@ -206,7 +201,6 @@ window.lesson = {
       "id": "p04",
       "label": "先交任务，再看计划，最后确认",
       "title": "先交任务，再看计划，最后确认",
-      "kicker": "第 1 章 · 1.1 · 首次执行",
       "lead": "第一次协作分三步：先交完整任务，请 Agent 复述目标、非目标和计划，此时不允许写入；再核对计划里有没有多出样式修改、安装或发布；三者都对，才批准这一次单文件的文字修改。",
       "html": "<div class=\"demo-notes\"><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>任务</b><small>只改 <code>h1#welcome-message</code></small></span></li><li data-reveal=\"1\"><span><b>计划</b><small>读取 → 替换文字 → 查页面与 Diff</small></span></li><li class=\"is-ok\" data-reveal=\"2\"><span><b>人工确认</b><small>都对才批准 · 越界先停</small></span></li></ol></div>",
       "steps": [
@@ -251,7 +245,6 @@ window.lesson = {
       "id": "p04-live",
       "label": "切到实操：盯住这三件事",
       "title": "切到实操：盯住这三件事",
-      "kicker": "第 1 章 · 1.1 · 首次执行",
       "lead": "切到实操前先记住三件事：看的是不是同一份副本，是不是确认后才写入，是不是只改了指定文字。默认显示的是 Starter 原始预览，启动练习副本的 4174 服务后再连接，才是实际结果。",
       "html": "<div class=\"demo-visual\" data-reveal=\"1\"><div class=\"welcome-demo\"><div class=\"demo-toolbar\"><span data-demo-status>Starter 原始页面 · 仅供预览</span><button type=\"button\" data-demo-connect>连接练习副本</button><button data-demo-reload=\"\" type=\"button\">刷新案例</button><a href=\"../../../../starters/personal-homepage/setup-check/index.html\" rel=\"noopener\" target=\"_blank\">独立打开 ↗</a></div><iframe loading=\"lazy\" src=\"../../../../starters/personal-homepage/setup-check/index.html\" title=\"独立练习项目的环境检查页\"></iframe><p class=\"caption\">默认是 Starter 预览。实操先启动练习副本的 4174 服务，再连接；核对同一份文件。</p></div></div><aside class=\"demo-notes\"><h3 style=\"font:400 26px/1.3 var(--p-title);margin:0 0 10px\">边看边核对</h3><ol class=\"p-watch\" data-reveal=\"0\"><li>同一份副本</li><li>确认后写入</li><li>只改指定文字</li></ol></aside>",
       "steps": [
@@ -293,7 +286,6 @@ window.lesson = {
       "id": "p05",
       "label": "页面正确，还要查改动范围",
       "title": "页面正确，还要查改动范围",
-      "kicker": "第 1 章 · 1.1 · 检查与修正",
       "lead": "验收要两类证据：页面回答“改对没有”，刷新同一份副本逐字核对；Diff 回答“多改没有”，要对照初始状态看完整 Diff 和文件列表。两类都符合才接受，否则带着准确的差异去修正。",
       "html": "<div class=\"p-pair\"><div class=\"p-box\" data-role=\"ok\" data-reveal=\"0\"><div class=\"p-head\"><h3>页面证据</h3><span class=\"p-tag\" data-role=\"ok\">对不对</span></div><div class=\"p-page\"><div class=\"p-page-bar\"><i></i><i></i><i></i><span>setup-check · 同一副本</span></div><div class=\"p-page-body\" style=\"font-size:23px\">你好，欢迎来到 Vibe Coding 课堂！</div></div></div><div class=\"p-join\" data-reveal=\"1\"><b>+</b></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><div class=\"p-head\"><h3>Diff 证据</h3><span class=\"p-tag\" data-role=\"gate\">多没多</span></div><div class=\"p-term\" data-copy=\"git diff -- setup-check/index.html\">git diff -- setup-check/index.html</div></div></div><ol class=\"p-watch is-row\" data-reveal=\"2\"><li class=\"is-done\">同一副本</li><li class=\"is-done\">确认后写入</li><li class=\"is-done\">指定文字变化</li></ol>",
       "steps": [
@@ -332,7 +324,6 @@ window.lesson = {
       "id": "p05-diff",
       "label": "这份 Diff 能说明什么？",
       "title": "这份 Diff 能说明什么？",
-      "kicker": "第 1 章 · 1.1 · 检查与修正",
       "lead": "这段 Diff 是教学截取：它能说明这句文字从旧改成新，但证明不了别的文件没变。每份证据只对应它能支持的那条结论，其余部分还要看完整 Diff、文件列表和实际页面。",
       "html": "<div class=\"p-walk\" style=\"grid-template-columns:1.35fr 1fr\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:44px\"><div class=\"p-fn\">setup-check/index.html <span class=\"add\">+1</span><span class=\"del\">−1</span></div><div class=\"p-ln del\"><i>−</i><code>你好，欢迎来到我的练习页面</code></div><div class=\"p-ln add\"><i>+</i><code>你好，欢迎来到 Vibe Coding 课堂！</code></div></div><p class=\"source-note\" style=\"margin-top:8px\">教学截取；删除为红底，新增为绿底</p></div><ol class=\"p-notes\"><li class=\"is-ok\" data-reveal=\"0\"><span><b>能说明</b><small>这段文字从旧改成新</small></span></li><li class=\"is-risk\" data-reveal=\"1\"><span><b>还不能证明</b><small>没有修改其他文件</small></span></li><li data-reveal=\"1\"><span><b>继续检查</b><small>完整 Diff、文件列表与实际页面</small></span></li></ol></div>",
       "steps": [
@@ -369,7 +360,6 @@ window.lesson = {
       "id": "p06",
       "label": "“不对”要改成可执行的反馈",
       "title": "“不对”要改成可执行的反馈",
-      "kicker": "第 1 章 · 1.1 · 检查与修正",
       "lead": "发现不对时，先准确说出实际和期望差在哪里，例如漏了“课堂”二字，而不是只说一句“不对”。反馈只要求补这两个字，不追加美化；修正后刷新同一页面，再复查完整 Diff。",
       "html": "<div class=\"demo-notes\"><div style=\"display:grid;gap:12px\"><div class=\"p-box\" data-role=\"gate\" data-reveal=\"0\" style=\"padding:12px 18px\"><span class=\"p-tag\" data-role=\"gate\">实际 · 教学示例</span><p class=\"p-big\">你好，欢迎来到 Vibe Coding<span class=\"p-miss\">&nbsp;</span>！</p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\" style=\"padding:12px 18px\"><span class=\"p-tag\" data-role=\"ok\">期望</span><p class=\"p-big\">你好，欢迎来到 Vibe Coding <span class=\"p-ins\">课堂</span>！</p></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"font-size:21px\">只补“课堂”二字 → 刷新同一页面 → <b>复查完整 Diff</b></div></div></div>",
       "steps": [
@@ -414,7 +404,6 @@ window.lesson = {
       "id": "p06-loop",
       "label": "什么时候继续，什么时候停？",
       "title": "什么时候继续，什么时候停？",
-      "kicker": "第 1 章 · 1.1 · 检查与修正",
       "lead": "把整条路径连起来：说明目标、复述计划、人工确认，然后才写入；写入后检查页面和 Diff。检查之后有三个出口——通过就记录，不符就限定范围修正再检查，无法验证或需要越界就记录并停下。",
       "html": "<div class=\"p-flow\" style=\"--n:6;column-gap:28px\"><div class=\"p-node\" data-role=\"ink\" data-reveal=\"0\" data-node=\"goal\"><h3>说明目标</h3><p>范围与标准</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\" data-node=\"plan\" data-edge=\"goal:plan\"><h3>复述与计划</h3><p>核对理解</p></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"0\" data-node=\"confirm\" data-edge=\"plan:confirm\"><h3>人工确认</h3><p>写入前</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"0\" data-node=\"edit\" data-edge=\"confirm:edit\"><h3>执行修改</h3><p>指定文字</p></div><div class=\"p-node\" data-role=\"ink\" data-reveal=\"1\" data-node=\"check\" data-edge=\"edit:check\"><h3>检查结果</h3><p>页面 + Diff</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"1\" data-node=\"record\" data-edge=\"check:record\"><h3>接受并记录</h3><p>留下证据</p></div><div class=\"p-fork\" data-reveal=\"1\" style=\"grid-column:4/7;--gap:28px\"><div class=\"l\" data-reveal=\"1\" data-edge=\"check:repair\"><span>不符</span></div><div class=\"r\" data-reveal=\"2\" data-edge=\"check:stop\"><span>无法继续</span></div></div><div class=\"p-node is-row2\" data-role=\"agent\" data-reveal=\"1\" data-node=\"repair\" data-edge=\"repair:check\" style=\"grid-column:4\"><h3>反馈并修正</h3><p>限定范围</p><span class=\"p-loopnote\">↺ 修正后再检查</span></div><div class=\"p-node is-row2\" data-role=\"gate\" data-reveal=\"2\" data-node=\"stop\" style=\"grid-column:6\"><h3>停止并记录</h3><p>无法验证 · 需越界</p></div></div>",
       "steps": [
@@ -453,7 +442,6 @@ window.lesson = {
       "id": "p07",
       "label": "独立完成一次，再拿证据回答",
       "title": "独立完成一次，再拿证据回答",
-      "kicker": "第 1 章 · 1.1 · 独立练习",
       "lead": "暂停视频，用自己的练习副本独立走一遍，不复制老师的截图。复述、计划、确认、前后截图、Diff 与修正记录写进 docs/evidence/CH01_ENVIRONMENT_AND_FIRST_LOOP.md；页面正确但 Diff 越界，不能算通过。",
       "html": "<span class=\"p-tag\" data-role=\"us\" style=\"justify-self:start\">独立练习</span><div class=\"p-task\" style=\"grid-template-columns:repeat(3,minmax(0,1fr))\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><h3>输入与任务</h3><p>自己的副本 · 指定欢迎语</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><h3>交付</h3><p>复述 · 计划 · 确认 · 截图 · Diff · 修正记录</p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"2\"><h3>验收</h3><p>文案准确 · 范围合规 · 问题已复验</p></div></div>",
       "steps": [
@@ -492,7 +480,6 @@ window.lesson = {
       "id": "p07-recap",
       "label": "先确认，再修改；拿证据收尾",
       "title": "先确认，再修改；拿证据收尾",
-      "kicker": "第 1 章 · 1.1 · 独立练习",
       "lead": "这一节只改了一句话，却完整走过了确认、执行、检查和反馈。带走一个习惯：页面和 Diff 一起看，缺证据就不写通过。下一节用这份记录，把 Agent 的执行过程拆开来看。",
       "html": "<div class=\"p-sketch\" style=\"align-items:center\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">一个习惯</h3><div class=\"p-star\" style=\"width:270px;font-size:27px\">页面与 Diff<br>一起看</div><p class=\"p-sub\" style=\"text-align:center\">缺证据不写通过</p></div><div data-reveal=\"1\"><h3>三个出口</h3><ul class=\"p-exits\" style=\"gap:14px\"><li class=\"is-pass\">通过就记录</li><li class=\"is-fix\">不符就修正复验</li><li class=\"is-stop\">受阻就停止</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>1.2 拆开执行过程</h3></div></div></div>",
       "steps": [

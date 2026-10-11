@@ -11,13 +11,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
 from lessonkit import Lesson, chapter_map, repro, teach  # noqa: E402
 
 lesson = Lesson(__file__, "3.7", "重开时，还有什么要清理", summary="界面重置不等于资源重置；谁创建计时器和实例，谁负责清理。")
-scene, KICK = lesson.scene, lesson.kick
+scene = lesson.scene
 
 PREP = "教学预备版本：在 3.3 修复后的 v1 上删掉一行清理代码（courseware/ch03/materials/prepared/stale-timer.diff），2026-10-06 用脚本核对一次。不是自然出现的缺陷。"
 
 scene(
     id="p45", segment="开篇", layout="lesson-cover",
-    label="重开时什么被重置了", title="点“重新开始”，什么被重置了？", kicker="第 3 章 · 3.7 · 工程经验",
+    label="重开时什么被重置了", title="点“重新开始”，什么被重置了？",
     lead="看得见的归零了，看不见的呢",
     html=(
         chapter_map(7) +
@@ -30,7 +30,7 @@ scene(
 
 scene(
     id="p46", segment="我们的实现",
-    label="我们的实现有这个问题吗", title="我们的实现，其实都清理了", kicker=KICK + "我们的实现",
+    label="我们的实现有这个问题吗", title="我们的实现，其实都清理了",
     lead="排练的 6 份实现，重开时都清理了计时器。为了看清没清理会怎样，我们用一份明确标注的预备版本：在修好的 v1 上删掉一行。这不是自然出现的事故。",
     html=(
         '<div class="p-code" data-reveal="0"><div class="p-code-head"><span>v1 · 等待翻回的 effect</span></div>'
@@ -48,7 +48,7 @@ scene(
 
 scene(
     id="p47", segment="时间线",
-    label="旧计时器做了什么", title="先预测，再看：旧计时器做了什么", kicker=KICK + "时间线",
+    label="旧计时器做了什么", title="先预测，再看：旧计时器做了什么",
     lead="翻错 → 计时器开始倒数 → 立刻重开 → 新一局翻开一张 → 900ms 到，旧回调执行：它清空的是新一局的“已翻开”记录 → 再翻一张，游戏不再比较这两张，它们一直朝上。",
     html=(
         '<div class="p-flow" style="--n:5;font-size:18px">'
@@ -70,7 +70,7 @@ scene(
 
 scene(
     id="p48", segment="清理责任",
-    label="还有什么要清理", title="谁创建，谁清理", kicker=KICK + "清理责任",
+    label="还有什么要清理", title="谁创建，谁清理",
     lead="状态是数据，重开时归零就行；副作用是正在运行的东西：计时器、事件监听、动画帧、观察器、游戏引擎实例。它们由谁创建，就由谁在结束或重来时清理。3.5 的躲避游戏里，帧循环和尺寸观察器都在组件卸载时清理了。",
     html=(
         '<div class="p-set" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">'
@@ -85,7 +85,7 @@ scene(
 
 scene(
     id="p49", segment="本章收尾",
-    label="本章小结", title="第 3 章：能玩，以及能玩背后的规则", kicker=KICK + "本章收尾",
+    label="本章小结", title="第 3 章：能玩，以及能玩背后的规则",
     lead="本章交付：两个可玩、已发布的游戏；状态图与问题清单；一次复现、调查、定规则、修复、复验的闭环；插件审查与生命周期证据；信息来源表与需求债务清单；本节的清理判断。下一章：换一个真实的开源项目，用规格把决定写下来。",
     html=(
         '<div class="p-sketch" style="align-items:start"><div data-reveal="0"><h3>本章交付</h3><ul class="p-exits" style="gap:8px;font-size:18px">'

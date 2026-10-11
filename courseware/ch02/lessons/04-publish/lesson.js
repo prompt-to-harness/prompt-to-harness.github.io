@@ -10,7 +10,6 @@ window.lesson = {
       "layout": "lesson-cover",
       "label": "推送之后谁能看到",
       "title": "推送之后，谁能看到什么？",
-      "kicker": "第 2 章 · 2.4 · 开篇",
       "lead": "到现在为止，所有提交和 tag 都只在自己电脑上",
       "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>听反馈</li><li class=\"is-done\"><b>2.2</b>改一处</li><li class=\"is-done\"><b>2.3</b>审改动</li><li class=\"is-now\"><b>2.4</b>公开发布</li><li><b>2.5</b>只是重构？</li></ol><div class=\"p-grid\" style=\"--n:3;gap:16px;margin-top:22px\"><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\"><h3>页面</h3><p>公开 URL，任何人能打开</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><h3>源码</h3><p>仓库里当前的每个文件</p></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"2\"><h3>整段历史</h3><p>每一次提交，包括后来删掉的文件</p></div></div><p class=\"p-hand\" data-reveal=\"2\">公开的不只是页面，还有历史</p>",
       "steps": [
@@ -37,7 +36,6 @@ window.lesson = {
       "segment": "公开之前",
       "label": "仓库是公开的吗",
       "title": "先看一眼：仓库现在是公开还是私有",
-      "kicker": "第 2 章 · 2.4 · 公开之前",
       "lead": "打开 GitHub 上自己的仓库，看名字旁边的标记是 Public 还是 Private。GitHub Pages 发布要求仓库公开（课前准备页已提前说明）。此时只查看，不改设置；看清待公开内容以后再决定。",
       "html": "<div class=\"p-handoff\"><div class=\"p-handoff-card\" data-reveal=\"0\"><h3>切到 GitHub</h3><p>打开自己的仓库首页</p><span class=\"p-env\">Public</span><span class=\"p-env\">Private</span></div><ol class=\"p-watch\"><li data-reveal=\"1\">仓库名旁的标记<small>Public 还是 Private</small></li><li data-reveal=\"1\">远端已有什么<small>Template 生成的初始提交</small></li><li class=\"is-miss\" data-reveal=\"2\">现在先不改<small>查清待公开内容后再决定</small></li></ol></div>",
       "steps": [
@@ -64,7 +62,6 @@ window.lesson = {
       "segment": "推送前检查",
       "label": "即将公开的历史",
       "title": "列出即将公开的提交、文件和作者",
-      "kicker": "第 2 章 · 2.4 · 推送前检查",
       "lead": "先取回远端的最新状态，再列出本地有、远端没有的提交。--stat 列出每个提交涉及的文件，包括后来删掉的；-p 展开每一行实际文字；最后一条列出这些提交的作者姓名和邮箱，它们也会随提交公开。截图等二进制文件要另外打开看。",
       "html": "<div class=\"p-term\" data-reveal=\"0\" data-copy=\"git fetch origin\ngit log --stat origin/main..HEAD\ngit log -p origin/main..HEAD\ngit log --format=&#x27;%an &lt;%ae&gt;&#x27; origin/main..HEAD | sort -u\"><div class=\"dim\">$ git fetch origin</div><div class=\"dim\">$ git log --stat origin/main..HEAD</div><div>homepage-v1: 补充项目经历</div><div>  docs/evidence/CH02_VIBE_ITERATIONS.md · src/App.tsx</div><div class=\"dim\">$ git log --format='%an &lt;%ae&gt;' origin/main..HEAD | sort -u</div><div>示例同学 &lt;student@example.com&gt;</div></div><div class=\"p-grid\" style=\"--n:3;gap:12px;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"1\"><h3>提交作者</h3><p>每个提交都带着姓名和邮箱</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"1\"><h3>docs/evidence/</h3><p>本章的过程记录</p></div><div class=\"p-box is-soft\" data-role=\"us\" data-reveal=\"2\"><h3>2.2 的项目经历</h3><p>关于具体的人的事实</p></div></div><p class=\"source-note\">输出为示意，作者为占位；命令已在本地裸仓库模拟 Template 远端实测（2026-10-02、10-03）</p>",
       "steps": [
@@ -95,7 +92,6 @@ window.lesson = {
       "segment": "推送前检查",
       "label": "能让所有人看到吗",
       "title": "这些内容，可以让所有人看到吗？",
-      "kicker": "第 2 章 · 2.4 · 推送前检查",
       "lead": "逐项对照判断清单，由人决定。以提交作者邮箱为例：它是不是你愿意公开的邮箱？不愿意，就先停下，不推送。项目经历借用了两位讲师的经历，是本人同意公开的内容。",
       "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-claim\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)\"><div class=\"p-box\" data-role=\"gate\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"gate\">每个提交里都有</span><p class=\"p-mono\" style=\"margin-top:8px;line-height:1.6\">Author: 示例同学<br>&lt;<b>你的邮箱</b>&gt;</p><p class=\"p-sub\">不想公开：先停，换成 GitHub 的 noreply 邮箱</p></div><ul class=\"p-checks\"><li class=\"is-no\" data-reveal=\"1\">有没有 secret<small>API 密钥、令牌、配置文件</small></li><li class=\"is-no\" data-reveal=\"1\">有没有未经同意的他人信息<small>别人的姓名、联系方式、经历、照片</small></li><li class=\"is-no\" data-reveal=\"1\">截图里有没有隐私<small>桌面、通知、浏览器标签</small></li><li data-reveal=\"2\">本人愿意公开<small>包括作者邮箱</small></li></ul></div><div class=\"p-bar\" data-reveal=\"3\">有一项不行，<b>先停下，不推送</b></div>",
       "refs": [
@@ -152,7 +148,6 @@ window.lesson = {
       "prompt": "Goal：用 GitHub Actions 把这个 Vite 项目发布到 GitHub Pages。\nContext：仓库名是 <我的仓库名>，\nPages 地址是 https://<用户名>.github.io/<仓库名>/。\nConstraints：只新增工作流文件和必要的 Vite 配置；\n不推送，这一轮不改仓库设置；说明每个权限为什么需要。\nDone when：本地 npm run build 成功；我能逐项解释工作流做了什么。",
       "label": "让 Codex 写部署工作流",
       "title": "让 Codex 写部署工作流，但不让它推送",
-      "kicker": "第 2 章 · 2.4 · 部署配置",
       "lead": "部署要两样东西：一个 GitHub Actions 工作流，在 GitHub 的机器上构建并发布页面；还有 Vite 的 base 配置，让资源路径对上仓库名。这一轮 Codex 只写文件；仓库设置留到推送前单独一步，推送始终由人来做。",
       "html": "<div class=\"demo-notes\"><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>写清仓库名和地址</b><small>别让它猜，也别抄讲师的</small></span></li><li class=\"is-risk\" data-reveal=\"1\"><span><b>不推送，这轮不改设置</b><small>设置单独一步，推送留给人</small></span></li><li data-reveal=\"2\"><span><b>说明每个权限</b><small>下一页逐项审查</small></span></li></ol></div>",
       "steps": [
@@ -179,7 +174,6 @@ window.lesson = {
       "segment": "部署配置",
       "label": "工作流能直接用吗",
       "title": "Codex 写的配置，逐项审查再推送",
-      "kicker": "第 2 章 · 2.4 · 部署配置",
       "lead": "四项逐一核对：base 是否等于自己的仓库名；资源路径会不会因此对上；工作流权限是不是只要了发布所需的；触发分支是不是自己的默认分支。有一项不对就不推送，让 Codex 改。",
       "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-walk\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:34px\"><div class=\"p-fn\">vite.config.ts · .github/workflows/deploy.yml（示意）</div><div class=\"p-ln\"><i>1</i><code>base: <span class=\"s\">'/&lt;仓库名&gt;/'</span>,</code></div><div class=\"p-ln\"><i>2</i><code>on:</code></div><div class=\"p-ln\"><i>3</i><code>  push:</code></div><div class=\"p-ln\"><i>4</i><code>    branches: [main]</code></div><div class=\"p-ln\"><i>5</i><code>permissions:</code></div><div class=\"p-ln\"><i>6</i><code>  contents: read</code></div><div class=\"p-ln\"><i>7</i><code>  pages: write</code></div><div class=\"p-ln\"><i>8</i><code>  id-token: write</code></div><div class=\"p-ln\"><i>9</i><code><span class=\"c\"># … npm ci → npm run build → 上传 dist</span></code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>base = 自己的仓库名</b><small>前后都有斜杠</small></span></li><li data-reveal=\"1\"><span><b>资源路径</b><small>build 后，资源路径以 /&lt;仓库名&gt;/ 开头</small></span></li><li data-reveal=\"2\"><span><b>权限只要发布所需</b><small>读代码、写 Pages、取部署身份</small></span></li><li class=\"is-risk\" data-reveal=\"3\"><span><b>触发分支</b><small>等于自己的默认分支</small></span></li></ol></div><p class=\"source-note\">左侧为常见结构的示意，不是 Codex 的实际输出；字段与写法以录制时生成的文件为准</p>",
       "steps": [
@@ -212,7 +206,6 @@ window.lesson = {
       "segment": "推送与发布",
       "label": "推送并启用 Pages",
       "title": "Codex 设来源，人来推送",
-      "kicker": "第 2 章 · 2.4 · 推送与发布",
       "lead": "提交部署配置，再用推送前检查的命令看一遍最终要公开的提交。仓库需要公开时现在再改。Pages 的来源交给 Codex 用 GitHub CLI 设为 GitHub Actions：每条命令弹出批准框，读过再批；改完在网页上刷新确认。最后由人执行推送、看 Actions 日志。首次部署若失败，按日志、build 输出、Network 的顺序定位出在哪一环。",
       "html": "<div class=\"p-flow\" style=\"--n:4\"><div class=\"p-node\" data-role=\"us\" data-reveal=\"0\"><span class=\"p-num\">1</span><h3>提交配置</h3><p>审过的两处改动</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"0\"><span class=\"p-num\">2</span><h3>再看历史</h3><p>待推送的全部提交</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-num\">3</span><h3>Codex 设来源</h3><p>每条命令由你批准</p></div><div class=\"p-node\" data-role=\"gate\" data-reveal=\"2\"><span class=\"p-num\">4</span><h3>人来推送</h3><p class=\"p-mono\">git push</p></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:16px\" data-reveal=\"1\"><div class=\"p-box is-soft\" data-role=\"gate\"><h3>批准框里看什么</h3><p>命令和理由；修改类命令看清方法和对象</p></div><div class=\"p-box is-soft\" data-role=\"ok\"><h3>网页上确认</h3><p>Settings → Pages，刷新后来源是 GitHub Actions</p></div></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"3\" style=\"margin-top:12px\"><h3>失败时出在哪一环</h3><p>Actions 日志 → build 输出 → Network 里哪个资源 404</p></div>",
       "steps": [
@@ -259,7 +252,6 @@ window.lesson = {
       "segment": "推送与发布",
       "label": "Actions 绿了就行吗",
       "title": "Actions 成功了，页面就能用了吗？",
-      "kicker": "第 2 章 · 2.4 · 推送与发布",
       "lead": "Actions 显示部署流程成功完成。接着检查公开页面：未登录窗口打开公开 URL；Network 面板没有 404；停用缓存后刷新仍然正常。",
       "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-claim\" style=\"grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)\"><div class=\"p-box\" data-role=\"ok\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ok\">Actions</span><p class=\"p-big\">✓ deploy 成功</p><p class=\"p-sub\">部署流程成功完成</p></div><ul class=\"p-checks\"><li data-reveal=\"1\">未登录窗口打开 URL<small>别人看到的就是这样</small></li><li data-reveal=\"2\">Network 没有 404<small>CSS、JS、图片都加载了</small></li><li data-reveal=\"3\">停用缓存后刷新仍正常<small>看到的是服务器上的版本</small></li></ul></div>",
       "steps": [
@@ -288,7 +280,6 @@ window.lesson = {
       "segment": "推送与发布",
       "label": "标记这个版本",
       "title": "给这个版本打 tag，只推送它",
-      "kicker": "第 2 章 · 2.4 · 推送与发布",
       "lead": "给公开的版本打上 ch02-homepage-live，然后只推送这一个 tag。用 --tags 会把所有本地 tag 一并公开，包括练习时随手打的。",
       "html": "<div class=\"p-term\" data-reveal=\"0\" data-copy=\"git tag ch02-homepage-live\"><div class=\"dim\">$ git tag ch02-homepage-live</div></div><div class=\"p-term\" data-reveal=\"1\" style=\"margin-top:10px\" data-copy=\"git push origin ch02-homepage-live\"><div class=\"dim\">$ git push origin ch02-homepage-live</div><div class=\"ok\"> * [new tag] ch02-homepage-live -> ch02-homepage-live</div></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"2\" style=\"margin-top:14px\"><h3>不用 git push --tags</h3><p>它会把所有本地 tag 一起推上去</p></div>",
       "steps": [
@@ -315,7 +306,6 @@ window.lesson = {
       "segment": "推送与发布",
       "label": "本节小结",
       "title": "公开的不只是页面，还有历史",
-      "kicker": "第 2 章 · 2.4 · 推送与发布",
       "lead": "本节留下推送前检查记录、审过的部署配置、公开 URL、三项发布检查结果和 ch02-homepage-live tag。",
       "html": "<div class=\"p-flow\" style=\"--n:4\"><div class=\"p-node\" data-role=\"gate\" data-reveal=\"0\"><h3>看清历史</h3><p>提交、文件、作者</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\"><h3>审查配置</h3><p>base、权限、分支</p></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"0\"><h3>人来推送</h3><p>设置交给 Codex，人批准</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"0\"><h3>证明可用</h3><p>三项检查与 tag</p></div></div><div class=\"p-bar\" data-reveal=\"1\" style=\"margin-top:18px\">推送前先看历史 · <b>发布后检查访问、资源与刷新</b></div>",
       "steps": [

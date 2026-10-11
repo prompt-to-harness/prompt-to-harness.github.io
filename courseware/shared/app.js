@@ -1,6 +1,12 @@
 /* One set of lesson nodes, two presentation modes. No external services. */
 (() => {
   const scenes = window.lesson.scenes;
+  // 三个名字各写一次：章（lesson.chapter）、段（scene.segment）、页（scene.title）。
+  // 小标题拼成“章 · 节 · 段名”；侧栏按段分组；label 只在标题太长时另写短名。见 docs/agents/courseware-workflow.md。
+  const [chapterName] = window.lesson.chapter.split(' · ');
+  const sectionName = /^\d+\.\d+$/.test(window.lesson.section) ? window.lesson.section.split('.').map(Number).join('.') : '';
+  const kickerFor = scene => [chapterName, sectionName, scene.segment].filter(Boolean).join(' · ');
+  scenes.forEach(scene => { scene.label ??= scene.title.replace(/<br\s*\/?>/g, ' ').replace(/<[^>]+>/g, ''); });
   const lesson = document.querySelector('#lesson');
   const nav = document.querySelector('#scene-nav');
   const feedback = document.querySelector('#feedback');
@@ -55,12 +61,13 @@
 
   const sceneClass = (scene) => ['scene', ...(scene.layout ? [scene.layout] : [])].join(' ');
   lesson.innerHTML = scenes.map((scene, index) => `<section class="${sceneClass(scene)}" id="${scene.id}" aria-labelledby="heading-${scene.id}" data-index="${index}">
-    <p class="scene-kicker">${scene.kicker}</p>
+    <p class="scene-kicker">${kickerFor(scene)}</p>
     <h2 id="heading-${scene.id}" tabindex="-1">${scene.title}</h2>
     <p class="lede">${scene.lead}</p>${renderRepro(scene.repro)}
     <div class="scene-content">${scene.prompt ? `<div class="prompt"><div class="prompt-label"><span>发给 Codex 的请求</span><button type="button" class="copy-button" data-copy="${index}">复制请求</button></div><pre><code class="language-text">${escape(scene.prompt)}</code></pre></div>` : ''}${renderCommands(scene.commands)}${scene.html}${scene.closing ? `<p class="closing">${scene.closing}</p>` : ''}${renderRefs(scene)}</div>
   </section>`).join('');
-  nav.innerHTML = scenes.map((scene, index) => `<a href="#${scene.id}" data-index="${index}">${window.lesson.navNumbers === false ? '' : `<span>${String(index + 1).padStart(2, '0')}</span>`}${scene.label}</a>`).join('');
+  nav.innerHTML = scenes.map((scene, index) => (index === 0 || scenes[index - 1].segment !== scene.segment ? `<p class="nav-group">${scene.segment}</p>` : '')
+    + `<a href="#${scene.id}" data-index="${index}">${window.lesson.navNumbers === false ? '' : `<span>${String(index + 1).padStart(2, '0')}</span>`}${scene.label}</a>`).join('');
   const sections = [...lesson.querySelectorAll('.scene')];
 
   function announce(message) {

@@ -12,7 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
 from lessonkit import Lesson, MEASURED, NARROW, diff_boxes, pop, repro, teach  # noqa: E402
 
 lesson = Lesson(__file__, "3.3", "挑一个缺陷，按证据修", summary="先复现，再让 Codex 只调查，由人定规则，最后最小修改；调查常常比报告看得更深。")
-scene, KICK = lesson.scene, lesson.kick
+scene = lesson.scene
 
 REF = Path(__file__).resolve().parents[3] / "materials" / "mainline" / "reference"
 RUN = "调查与修复来自 2026-10-06 的两次排练（courseware/ch03/materials/mainline/debug-3.3.sh），两次调查结论一致。" + MEASURED
@@ -23,7 +23,7 @@ FIX_STAT = (REF / "3.3-fix.diffstat").read_text().strip().splitlines() if (REF /
 
 scene(
     id="p15", segment="挑一个", layout="lesson-cover",
-    label="挑哪一个", title="挑一个缺陷，按证据修", kicker="第 3 章 · 3.3 · 开篇",
+    label="挑哪一个", title="挑一个缺陷，按证据修",
     lead="从 3.2 的问题清单里挑最先看到、最能稳定复现的那一条：翻错时步数不动",
     html=(
         '<div class="p-pair" style="grid-template-columns:1fr auto 1fr;margin-top:10px">'
@@ -37,7 +37,7 @@ scene(
 
 scene(
     id="p16", segment="复现",
-    label="能稳定复现吗", title="先复现三次，再写报告", kicker=KICK + "复现",
+    label="能稳定复现吗", title="先复现三次，再写报告",
     lead="同样的步骤做三次，结果都一样，才算稳定复现；然后写成报告：步骤、期望、实际。不能稳定复现，就先别修。",
     html=(
         '<div class="p-rec" style="grid-template-columns:minmax(0,.5fr) minmax(0,1.6fr) minmax(0,.8fr);row-gap:10px;--rf:21px">'
@@ -52,7 +52,7 @@ scene(
 
 scene(
     id="p17", segment="只读调查",
-    label="先让 Codex 只调查", title="先让 Codex 只调查，不改代码", kicker=KICK + "只读调查",
+    label="先让 Codex 只调查", title="先让 Codex 只调查，不改代码",
     lead="缺陷报告已经写好：步骤、期望、实际。现在把它交给 Codex，但先只让它调查、不让它改：给只读权限，要它列出可以验证的假设、代码位置和几种改法的代价，由我们确认后再动手。",
     closing="调查给出了两个独立缺陷。第二个是报告里没有的：12 个词各不相同，配对成功的分支永远走不到，这也解释了 3.2 里“一局打不完”。页面上的结论来自讲师的两次排练，两次都查出了这一层；在自己的项目里重做时，回答的措辞和结构会不一样。结论听起来合理还不够，下一页打开它指出的代码位置逐行核对。",
     html=(
@@ -74,7 +74,7 @@ scene(
 
 scene(
     id="p18", segment="只读调查",
-    label="根因在哪", title="用代码位置验证，不靠“听起来合理”", kicker=KICK + "只读调查",
+    label="根因在哪", title="用代码位置验证，不靠“听起来合理”",
     lead="打开它指出的位置自己看：词表 12 个词；生成牌组时每个词只生成一张；配对判断要求两张的词相同，永远不成立；步数只在这个分支里加。",
     html=(
         NARROW + '<style>.p-walk .p-src .p-ln i{width:56px;white-space:nowrap}</style>' +
@@ -96,7 +96,7 @@ scene(
 
 scene(
     id="p19", segment="观察与推断",
-    label="我的报告哪里不对", title="观察到的，还是从代码推的？", kicker=KICK + "观察与推断",
+    label="我的报告哪里不对", title="观察到的，还是从代码推的？",
     lead="Codex 反问报告里的那一句。它说得对：在这副牌里，配对成功根本不可能发生，那一句是讲师读代码推出来的，不是在页面上看到的。报告里要把观察和推断分开写。",
     html=(
         '<div class="p-claim" style="grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)">'
@@ -111,7 +111,7 @@ scene(
 
 scene(
     id="p20", segment="人定规则",
-    label="改之前先定什么", title="改之前，先由人定两条规则", kicker=KICK + "人定规则",
+    label="改之前先定什么", title="改之前，先由人定两条规则",
     lead="它给了几种改法，但有两件事它明确说不替我们定：用哪几个词配对（文案取舍）；步数怎么算。这是规则，不是代码问题。",
     html=(
         '<div class="p-pair" style="grid-template-columns:1fr 1fr">'
@@ -128,7 +128,7 @@ fix_html = diff_boxes(FIX_DIFF) if FIX_DIFF.exists() else '<p class="p-sub">修�
 stat_rows = "".join(f"<div>{escape(r.split('|')[0].strip() + ('  | ' + r.split('|')[1].strip().split()[0] if '|' in r else ''))}</div>" for r in FIX_STAT[-3:]) or "<div>待补</div>"
 scene(
     id="p21", segment="修改与复验",
-    label="改对了吗", title="最小修改，再看相邻场景", kicker=KICK + "修改与复验",
+    label="改对了吗", title="最小修改，再看相邻场景",
     lead="先看范围：只动了游戏组件。再复验：原来的场景（翻错一次，步数变成 1），以及相邻场景：配对成功、完整打完一局、重开、最佳成绩，最后 build。",
     html=(
         '<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start">'
@@ -153,7 +153,7 @@ scene(
 
 scene(
     id="p22", segment="小结",
-    label="本节小结", title="调查常常比报告看得更深", kicker=KICK + "小结",
+    label="本节小结", title="调查常常比报告看得更深",
     lead="本节留下记忆翻牌 v1、一份缺陷记录和一条我们自己定的规则（步数怎么算）。代码和记录分两次提交。下一节：做第二个游戏前，先看看做游戏的经验有没有人打包好了。",
     html=(
         '<div class="p-sketch" style="align-items:start"><div data-reveal="0"><h3 style="text-align:center">五步</h3>'

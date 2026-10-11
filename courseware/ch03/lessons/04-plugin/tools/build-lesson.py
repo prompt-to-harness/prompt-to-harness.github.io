@@ -11,7 +11,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
 from lessonkit import Lesson, MEASURED, chapter_map, ref, repro, teach  # noqa: E402
 
 lesson = Lesson(__file__, "3.4", "做游戏的经验，有人打包好了吗", summary="分清 Plugin 与 Skill，装之前先审；看懂 Skill 怎样按需进入请求。")
-scene, KICK = lesson.scene, lesson.kick
+scene = lesson.scene
 
 SHA = "82fd64bce3869f0d4c0bb2bf0e36a6e262ca5ad8"
 GS = f"https://github.com/openai/plugins/tree/{SHA}/plugins/game-studio"
@@ -19,7 +19,7 @@ SRC = "Game Studio 0.1.0，openai/plugins 提交 82fd64b（2026-10-06 Codex 启�
 
 scene(
     id="p23", segment="开篇", layout="lesson-cover",
-    label="有人打包好了吗", title="做游戏的经验，有现成的吗？", kicker="第 3 章 · 3.4 · 开篇",
+    label="有人打包好了吗", title="做游戏的经验，有现成的吗？",
     lead="做第二个游戏之前，先找找看",
     html=(
         chapter_map(4) +
@@ -33,7 +33,7 @@ scene(
 
 scene(
     id="p24", segment="是什么",
-    label="Plugin 和 Skill", title="一个 Plugin，九个 Skill", kicker=KICK + "是什么",
+    label="Plugin 和 Skill", title="一个 Plugin，九个 Skill",
     lead="Skill 是一个带 SKILL.md 的目录，写着某类任务的经验和做法；SKILL.md 是开放格式，多种 Agent 都能读。Plugin 是 Codex 把 Skill 和其他组件一起打包、安装、停用的单位；Game Studio 只含 Skill、本地脚本和图标。",
     html=(
         '<div class="p-pair" style="grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);align-items:start">'
@@ -52,7 +52,7 @@ scene(
 
 scene(
     id="p25", segment="审查",
-    label="装之前审什么", title="装之前，逐项审", kicker=KICK + "审查",
+    label="装之前审什么", title="装之前，逐项审",
     lead="沿用 1.3 的权限判断：它从哪来、能做什么、会运行什么、会不会联网。每一项都要有可以打开核对的证据。",
     html=(
         '<ul class="p-checks" style="font-size:20px">'
@@ -69,7 +69,7 @@ scene(
 
 scene(
     id="p26", segment="审查",
-    label="Skill 里写了什么", title="读两段 Skill 原文", kicker=KICK + "审查",
+    label="Skill 里写了什么", title="读两段 Skill 原文",
     lead="第一段和 3.3 的经验对上了：计时器属于游戏状态。第二段先记住：2D 默认用 Phaser，除非用户另有要求。我们的 Brief 说要接进现有仓库，这会在 3.5 变成一个需要人做的决定。",
     html=(
         '<div class="p-box" data-role="tool" data-reveal="0"><span class="p-tag" data-role="tool">web-game-foundations/SKILL.md</span>'
@@ -86,7 +86,7 @@ scene(
 
 scene(
     id="p27", segment="怎么装",
-    label="三种装法", title="同一份 Skill，三种装法", kicker=KICK + "怎么装",
+    label="三种装法", title="同一份 Skill，三种装法",
     lead="课程基线用 API key 登录，Codex 的官方插件目录是空的，也不能直接把官方仓库加成市场（市场名是保留名）。官方仓库里的 Skill 仍然能用：本课用课程准备的本地市场装插件，另外两种装法作对照。",
     html=(
         '<div class="p-matrix" style="grid-template-columns:minmax(0,1.3fr) repeat(3,minmax(0,1fr))">'
@@ -106,7 +106,7 @@ scene(
 
 scene(
     id="p28", segment="怎么装",
-    label="装好了，Codex 看到了什么", title="装好了，请求里只多了 9 行", kicker=KICK + "怎么装",
+    label="装好了，Codex 看到了什么", title="装好了，请求里只多了 9 行",
     lead="安装后开新会话。请求里出现 9 行“名称：描述（文件位置）”，一共约 2.3 KB；9 份 SKILL.md 全文约 37.8 KB，不在请求里。用到某个 Skill 时，Codex 才去读它的全文。",
     html=(
                 '<div class="p-code" data-reveal="0"><div class="p-code-head"><span>新会话的第一次请求（节选）</span><span>9 行 · 2,352 字节</span></div>'
@@ -122,7 +122,7 @@ scene(
 
 scene(
     id="p29", segment="小结",
-    label="本节小结", title="先审，再装，再看它进了哪里", kicker=KICK + "小结",
+    label="本节小结", title="先审，再装，再看它进了哪里",
     lead="本节留下一份审查记录（来源、版本、许可证、能力、脚本、允许范围、不运行的脚本）和安装证据。审查不通过或装不上时，使用课程快照继续 3.5 的分析，但不记作插件实操通过。下一节：调用它做第二个游戏。",
     html=(
         '<div class="p-sketch" style="align-items:start"><div data-reveal="0"><h3 style="text-align:center">一句话</h3>'

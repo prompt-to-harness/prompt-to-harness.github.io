@@ -25,6 +25,17 @@ for path in sorted(screen_files):
             line = text.count('\n', 0, m.start()) + 1
             errors.append(f'ED-001 {path.relative_to(repo)}:{line} 单句屏幕文字以句号结尾：{m.group(1)[:30]}')
 
+# Page names: kicker is generated from chapter, section and segment by shared/app.js (docs/agents/courseware-workflow.md)
+for path in sorted(courseware.rglob('lesson.js')):
+    if 'archive' in path.parts:
+        continue
+    data = json.loads(path.read_text().removeprefix('window.lesson = ').strip().removesuffix(';'))
+    for scene in data['scenes']:
+        if 'kicker' in scene:
+            errors.append(f'{path.relative_to(repo)} {scene["id"]} 手写了 kicker：小标题由段名自动生成，改 segment')
+        if not scene.get('segment'):
+            errors.append(f'{path.relative_to(repo)} {scene["id"]} 缺 segment：小标题、进度条和侧栏分组都靠它')
+
 # ED-011: generated files must match their source builder
 builders = list(courseware.glob('ch*/lessons/*/tools/build-lesson.py'))
 for builder in sorted(builders):

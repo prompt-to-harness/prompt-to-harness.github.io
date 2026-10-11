@@ -3,7 +3,7 @@
 每节的 tools/build-lesson.py 只写本节内容：
 
     lesson = Lesson(__file__, "3.2", "这条规则是谁定的", summary="…")
-    scene, KICK = lesson.scene, lesson.kick
+    scene = lesson.scene
     scene(id="p35", …)
     lesson.write()
 
@@ -112,10 +112,10 @@ class Lesson:
         # 口播的唯一来源：本节目录下的 script.json，按页面 id 存每页的口播数组；页面里可直接改，见 tools/serve-courseware.py
         self.scripts = json.loads((self.here / "script.json").read_text())
         self.number, self.title, self.summary = number, title, summary
-        self.kick = f"第 3 章 · {number} · "
         self.scenes = []
 
     def scene(self, **kw):
+        assert "kicker" not in kw, "小标题由 app.js 按“章 · 节 · 段名”生成，不再手写 kicker"
         kw.setdefault("teaching", [])
         if not kw.get("refs"):
             kw.pop("refs", None)

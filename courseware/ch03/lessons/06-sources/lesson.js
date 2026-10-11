@@ -10,7 +10,6 @@ window.lesson = {
       "layout": "lesson-cover",
       "label": "新会话还知道吗",
       "title": "新会话还知道规则吗？",
-      "kicker": "第 3 章 · 3.6 · 开篇",
       "lead": "对话会结束，规则从哪里来",
       "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>3.1</b>加个游戏</li><li class=\"is-done\"><b>3.2</b>谁定的规则</li><li class=\"is-done\"><b>3.3</b>按证据修</li><li class=\"is-done\"><b>3.4</b>审插件</li><li class=\"is-done\"><b>3.5</b>插件的主张</li><li class=\"is-now\"><b>3.6</b>说明在哪</li><li><b>3.7</b>重开清理</li></ol><div class=\"p-grid\" style=\"grid-template-columns:repeat(3,minmax(0,1fr));margin-top:16px\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">AI 定的</span><p>等待翻回期间锁住点击</p></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"us\">我们定的</span><p>6 对词；两张算一步</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"tool\">插件带来的</span><p>2D 默认 Phaser；计时器属于状态</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">新会话里问：<b>步数怎么算？</b></div>",
       "steps": [
@@ -32,7 +31,6 @@ window.lesson = {
       "segment": "四个来源",
       "label": "说明有哪几个来源",
       "title": "给 AI 的说明，有四个来源",
-      "kicker": "第 3 章 · 3.6 · 四个来源",
       "lead": "对话历史、Skill、Memory、仓库：谁写的、放在哪、什么时候进请求、会不会过期都不一样。Skill 和 Memory 是同一种结构：平时只放一段摘要，需要时才展开。",
       "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,.8fr) repeat(4,minmax(0,1fr));font-size:19px\"><div class=\"is-head\" data-reveal=\"0\"><span></span><span>谁写的</span><span>放在哪</span><span>何时进请求</span><span>换机器、换人</span></div><div data-reveal=\"0\"><span>对话历史</span><span>你和 AI</span><span>当前会话</span><span>本会话每次</span><span>开新会话就没了</span></div><div data-reveal=\"1\"><span>Skill</span><span>别人</span><span>插件或 Skill 目录</span><span>平时名称+描述，用到读全文</span><span>看装在哪</span></div><div data-reveal=\"1\"><span>Memory</span><span>AI 自己整理</span><span>本机 Codex home</span><span>平时摘要，需要时读细节</span><span>不一样</span></div><div data-reveal=\"2\" class=\"is-key\"><span>仓库</span><span>你和团队</span><span>代码、测试、文档</span><span>按需读；AGENTS.md 每次</span><span>一样</span></div></div>",
       "steps": [
@@ -54,7 +52,6 @@ window.lesson = {
       "segment": "请求里的样子",
       "label": "三处在请求里",
       "title": "同一条规则，放在三处，请求里分别是什么样",
-      "kicker": "第 3 章 · 3.6 · 请求里的样子",
       "lead": "同一个仓库：AGENTS.md 写规则 A，docs/RULES.md 写规则 B，Memory 里有规则 C。看一次真实请求：Memory 是第 1 条 developer 消息；AGENTS.md 是第 2 条 user 消息，全文；docs/RULES.md 不在请求里。",
       "html": "<div class=\"p-set\" style=\"display:grid;gap:10px\"><div class=\"p-item\" data-reveal=\"0\"><span class=\"p-chip\" data-role=\"ctx\">developer</span> <b>Memory</b>：怎样使用记忆目录的说明 + 记忆摘要 · 12,384 字</div><div class=\"p-item\" data-reveal=\"1\"><span class=\"p-chip\" data-role=\"us\">user</span> <b>AGENTS.md</b>：“# AGENTS.md instructions for …” + 全文 · 691 字</div><div class=\"p-item is-unread\" data-reveal=\"2\"><b>docs/RULES.md</b>：不在请求里，模型自己决定读不读</div><div class=\"p-item\" data-reveal=\"2\"><span class=\"p-chip\" data-role=\"us\">user</span> 我们这次的问题 · 20 字</div></div><p class=\"source-note\">课程基线下的一次 codex exec 请求（2026-10-06），结构见 courseware/ch03/materials/memory/reference/compare-request-outline.json；子模块 ext/memories/src/prompts.rs（摘要截断到 2500 token）、core/src/config/mod.rs（AGENTS.md 上限 32 KiB）</p>",
       "steps": [
@@ -86,7 +83,6 @@ window.lesson = {
       "segment": "让它自己记",
       "label": "让 Codex 自己记住",
       "title": "让 Codex 自己记住，会怎样",
-      "kicker": "第 3 章 · 3.6 · 让它自己记",
       "lead": "参考记录（讲师 9 轮中的一轮）：说“记住”→ Codex 申请在沙箱外写一份笔记，人同意 → 整理进记忆摘要 → 新会话复述规则时，多出了“落地要求”和“长期契约，不重新讨论”。这些都不是人说的。",
       "html": "<div class=\"p-rec\" style=\"grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr);row-gap:10px;--rf:19px\"><div class=\"is-head\" data-reveal=\"0\"><span>步骤</span><span>看到的</span></div><div data-reveal=\"0\"><span class=\"p-cell\">人说</span><span class=\"p-cell\">记住：两张牌不匹配、等待翻回期间的点击一律忽略</span></div><div data-reveal=\"1\"><span class=\"p-cell\">写笔记</span><span class=\"p-cell\">申请在沙箱外写入记忆目录 · 笔记里多了一条“落地要求”</span></div><div data-reveal=\"2\"><span class=\"p-cell\">整理后</span><span class=\"p-cell\">摘要把这条“落地要求”当成用户规则</span></div><div data-reveal=\"3\" class=\"is-fail\"><span class=\"p-cell\">新会话复述</span><span class=\"p-cell\">“定性：这是长期行为契约……不重新讨论”</span></div></div><p class=\"source-note\">Memory 实验在课程基线（tools/clean-codex.sh，MiniMax）下运行，2026-10-06 共 9 轮，参考记录见 courseware/ch03/materials/memory/reference/。整理阶段约三分之一以 failed_agent 结束；画面中的为成功的那几轮。</p>",
       "steps": [
@@ -115,7 +111,6 @@ window.lesson = {
       "segment": "让它自己记",
       "label": "关掉记忆就看不到了吗",
       "title": "关掉记忆，它就看不到了吗？",
-      "kicker": "第 3 章 · 3.6 · 让它自己记",
       "lead": "关掉记忆只是不把它放进请求。Codex 有整盘的读权限：有两轮对照会话自己去上级目录，翻到了笔记文件。再用权限配置禁止读取记忆目录，它才回答“不会猜一个答案”。",
       "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr\"><div class=\"p-box\" data-role=\"gate\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"gate\">只关掉记忆</span><p style=\"margin-top:8px\">请求里没有记忆说明 → 它逐级翻上级目录 → 读到笔记文件</p><p class=\"p-sub\">“这不是记忆告诉我的……我是靠翻文件查到的”</p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ok\">再禁止读取记忆目录</span><p style=\"margin-top:8px\">查遍仓库，没找到这条决定</p><p class=\"p-sub\">“我不会猜一个答案给你——那只会变成编造的规则”</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">关掉的是<b>注入</b>，不是<b>读权限</b></div>",
       "steps": [
@@ -142,7 +137,6 @@ window.lesson = {
       "segment": "信息来源表",
       "label": "规则都在哪",
       "title": "本章的规则，都在哪里？",
-      "kicker": "第 3 章 · 3.6 · 信息来源表",
       "lead": "把本章每条规则和决定列出来，标出它现在在哪里。只在对话里、只在记忆里、只在插件里的，都是需求债务；落进仓库但只有结论、没有原因或验收方法的，也标出来。",
       "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1.5fr) repeat(4,minmax(0,.7fr));font-size:19px\"><div class=\"is-head\" data-reveal=\"0\"><span>规则 / 决定</span><span>仓库</span><span>只在对话</span><span>插件</span><span>记忆</span></div><div data-reveal=\"0\"><span>等待期锁住点击（AI 定）</span><span>代码有，原因没有</span><span>✓</span><span></span><span>可能</span></div><div data-reveal=\"1\"><span>6 对词、两张算一步（我们定）</span><span>代码 + 记录</span><span></span><span></span><span></span></div><div data-reveal=\"1\"><span>第二个游戏用不用引擎（3.5）</span><span>记录</span><span>✓</span><span>默认 Phaser</span><span></span></div><div data-reveal=\"2\" class=\"is-key\"><span>躲避游戏的难度（AI 定）</span><span>代码有，原因没有</span><span></span><span></span><span></span></div></div><div class=\"p-bar is-light\" data-reveal=\"3\">只在对话、记忆、插件里的，就是<b>需求债务</b></div>",
       "steps": [
@@ -171,7 +165,6 @@ window.lesson = {
       "segment": "小结",
       "label": "本节小结",
       "title": "没落档的，就是需求债务",
-      "kicker": "第 3 章 · 3.6 · 小结",
       "lead": "记忆是辅助回忆，不是团队规则的来源，也不跟着仓库走。第 4 章用规格把这些决定写成持久契约：规格能留住决定，但不能替人做决定。",
       "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">可信度</h3><ol class=\"p-notes\"><li><span><b>当前代码与测试</b></span></li><li><span><b>仓库文档</b></span></li><li><span><b>记忆</b><small>辅助回忆</small></span></li></ol></div><div data-reveal=\"1\"><h3>留下的</h3><ul class=\"p-exits\" style=\"gap:10px\"><li class=\"is-pass\">信息来源表</li><li class=\"is-pass\">需求债务清单</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>第 4 章</h3><div class=\"p-box\" data-role=\"us\"><h3>SDD</h3><p>把决定写成持久契约</p></div></div></div>",
       "steps": [

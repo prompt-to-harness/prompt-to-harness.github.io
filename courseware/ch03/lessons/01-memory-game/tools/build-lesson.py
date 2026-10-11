@@ -14,7 +14,7 @@ CATCHUP_PROMPT = (Path(__file__).resolve().parents[3] / "materials/catchup/promp
     .replace("{URL}", "https://github.com/prompt-to-harness/course-starter.git").replace("{TAG}", "ch03-start-v1")
 
 lesson = Lesson(__file__, "3.1", "一句话加一个记忆翻牌", summary="一句话就能加出一个能玩的游戏；能玩是起点，不是验收。")
-scene, KICK = lesson.scene, lesson.kick
+scene = lesson.scene
 
 RUN = "画面中的计划与改动来自排练第 8 轮（courseware/ch03/materials/mainline/run-v2.sh）。" + MEASURED
 
@@ -27,7 +27,7 @@ PROMPT = (
 # ---------- 开篇 ----------
 scene(
     id="p01", segment="开篇", layout="lesson-cover",
-    label="一句话，能加出一个小游戏吗", title="一句话，能加个游戏吗？", kicker="第 3 章 · 3.1 · 开篇",
+    label="一句话，能加出一个小游戏吗", title="一句话，能加个游戏吗？",
     lead="本章把首页变成能玩两个小游戏的实验室",
     html=(
         chapter_map(1) +
@@ -50,7 +50,7 @@ scene(
 
 scene(
     id="p02", segment="写请求",
-    label="这一次的请求", title="这一次只写一句话", kicker=KICK + "写请求",
+    label="这一次的请求", title="这一次只写一句话",
     lead="刻意不写规格，先体验 Vibe Coding 的速度。但保留两个习惯：先给计划、问题最多三个；完成标准写清分工：build 由 Codex 跑，试玩由我们做（沿用 2.2 p29）。",
     html=(
         '<div class="p-prompt">'
@@ -68,7 +68,7 @@ scene(
 
 scene(
     id="p03", segment="写请求",
-    label="它问了什么，又定了什么", title="它问了什么，又自己定了什么", kicker=KICK + "写请求",
+    label="它问了什么，又定了什么", title="它问了什么，又自己定了什么",
     lead="Codex 的三个问题都是外观和位置；游戏怎么运转的规则，它在计划里自己定了，没有问。先记下来，3.2 回来查。",
     html=(
         '<div class="p-claim" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)">'
@@ -89,7 +89,7 @@ scene(
 
 scene(
     id="p04", segment="让它动手",
-    label="确认后它做了什么", title="把选择交给它，本身就是一个决定", kicker=KICK + "让它动手",
+    label="确认后它做了什么", title="把选择交给它，本身就是一个决定",
     lead="确认语是“问题都按你推荐的做法处理”。这样回答很常见，也很快；记住它的含义：三个问题的答案，也是 AI 定的。",
     html=(
         '<div class="p-handoff"><div class="p-handoff-card" data-reveal="0"><h3>回复计划</h3><p class="p-mono" style="font-size:20px">确认，按计划执行；你问的问题都按你推荐的做法处理</p>'
@@ -103,7 +103,7 @@ scene(
 
 scene(
     id="p05", segment="让它动手",
-    label="交回来的是什么", title="交回来的是什么", kicker=KICK + "让它动手",
+    label="交回来的是什么", title="交回来的是什么",
     lead="两个新文件、一处修改，没有新依赖，build 成功。打开页面，翻牌、配对、重开都能用，首页原样。能玩了。",
     html=(
         '<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:16px;align-items:start">'
@@ -121,7 +121,7 @@ scene(
 
 scene(
     id="p06", segment="小结",
-    label="本节小结", title="能玩了，然后呢", kicker=KICK + "小结",
+    label="本节小结", title="能玩了，然后呢",
     lead="本节留下记忆翻牌 v0：能翻、能配对、能重开，build 成功。照 2.3 的做法，代码和记录分两次提交；记录里写下请求、它问的三个问题和它自己定的规则。“能玩”是起点，不是验收。下一节：换几种玩法试试。",
     html=(
         '<div class="p-sketch" style="align-items:start"><div data-reveal="0"><h3 style="text-align:center">一个判断</h3>'
