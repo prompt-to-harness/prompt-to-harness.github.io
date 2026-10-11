@@ -256,7 +256,7 @@ window.lesson = {
       "kicker": "第 0 章 · 访谈 07 / 08",
       "title": "什么基础的同学适合学？<br>看不懂代码或报错怎么办？",
       "lead": "适合有基础编程与 Git 能力、希望积累项目经验的同学。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr 26px 1fr\"><div class=\"p-set is-solid\" data-role=\"ok\"><h3>开始前 · 已有基础</h3><div class=\"p-items\"><div class=\"p-item\">✓ 能读简单函数、条件和循环</div><div class=\"p-item\">✓ 能使用 Git 的基本操作</div><div class=\"p-item\">React 与 TypeScript 可先补基础</div></div></div><div></div><div class=\"p-set is-solid\" data-role=\"tool\"><h3>遇到困难时 · 把问题缩小</h3><div class=\"p-items\"><div class=\"p-item\"><b>1</b>&ensp;保留报错与复现步骤</div><div class=\"p-item\"><b>2</b>&ensp;沿入口读一小段相关代码</div><div class=\"p-item\"><b>3</b>&ensp;修正后，重新运行并检查</div></div></div></div><p class=\"source-note\" style=\"margin-top:14px\">课程以 Codex CLI 为主要实操入口。环境准备与基础自检见第 1 章配套材料。</p>",
+      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr 26px 1fr\"><div class=\"p-set is-solid\" data-role=\"ok\"><h3>开始前 · 已有基础</h3><div class=\"p-items\"><div class=\"p-item\">✓ 能读简单函数、条件和循环</div><div class=\"p-item\">✓ 能使用 Git 的基本操作</div><div class=\"p-item\">React 与 TypeScript 可先补基础</div></div></div><div></div><div class=\"p-set is-solid\" data-role=\"tool\"><h3>遇到困难时 · 把问题缩小</h3><div class=\"p-items\"><div class=\"p-item\"><b>1</b>&ensp;保留报错与复现步骤</div><div class=\"p-item\"><b>2</b>&ensp;沿入口读一小段相关代码</div><div class=\"p-item\"><b>3</b>&ensp;修正后，重新运行并检查</div></div></div></div><p class=\"source-note\" style=\"margin-top:14px\">课程以 Codex CLI 为主要实操入口。环境准备与基础自检见 0.2 配套材料。</p>",
       "script": [
         "串场提问：什么基础的同学适合学？遇到看不懂的代码或报错怎么办？",
         "讲师 A 从准备回答：适合在校大学生，以及工作 1–2 年、具备基础编程能力但项目经验有限的初级开发者。需要能阅读简单函数、条件、循环和错误信息，会用基本 Git；不预设 React、TypeScript 或前端工程化经验，建议先做配套基础自检。",
@@ -271,7 +271,7 @@ window.lesson = {
         },
         {
           "title": "范围",
-          "text": "不把本课介绍为零编程基础课，也不现场展开安装排障。产品版本和账号差异遵循第 1 章准备清单。"
+          "text": "不把本课介绍为零编程基础课，也不现场展开安装排障。产品版本和账号差异遵循 0.2 准备清单。"
         }
       ],
       "notes": "",
@@ -314,15 +314,15 @@ window.lesson = {
     },
     {
       "id": "p11",
-      "label": "进入第一章",
-      "kicker": "第 0 章 · 开始实操",
-      "title": "开始第一次 AI 协作",
-      "lead": "从修改一句欢迎语开始，走完一次可检查的小任务。",
-      "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>1.1</b>首次闭环</li><li><b>1.2</b>拆开执行过程</li><li><b>1.3</b>工具与权限</li><li><b>1.4</b>写清任务</li><li><b>1.5</b>完成首页</li><li><b>1.6</b>最小权限</li></ol><div class=\"p-flow is-big\" style=\"--n:3;margin-top:24px;--node-h:118px\"><div class=\"p-node\" data-role=\"ctx\"><span class=\"p-num\">准备</span><h3>核对环境与目录</h3></div><div class=\"p-node\" data-role=\"tool\"><span class=\"p-num\">执行</span><h3>修改指定欢迎语</h3></div><div class=\"p-node\" data-role=\"ok\"><span class=\"p-num\">验证</span><h3>查看页面与 diff</h3></div></div><p class=\"next-chapter p-links\" style=\"margin-top:22px\"><a href=\"../ch01/lessons/01-environment/index.html?mode=slides\">进入第 1.1 节 →</a><a href=\"../ch01/preparation.html\">课前准备与排障</a></p>",
+      "label": "进入课前准备",
+      "kicker": "第 0 章 · 进入 0.2",
+      "title": "先准备，再开始第一次协作",
+      "lead": "先在 0.2 准备环境，再进入 1.1 完成欢迎语修改与检查",
+      "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>1.1</b>首次闭环</li><li><b>1.2</b>拆开执行过程</li><li><b>1.3</b>工具与权限</li><li><b>1.4</b>写清任务</li><li><b>1.5</b>完成首页</li><li><b>1.6</b>最小权限</li></ol><div class=\"p-flow is-big\" style=\"--n:3;margin-top:24px;--node-h:118px\"><div class=\"p-node\" data-role=\"ctx\"><span class=\"p-num\">准备</span><h3>核对环境与目录</h3></div><div class=\"p-node\" data-role=\"tool\"><span class=\"p-num\">执行</span><h3>修改指定欢迎语</h3></div><div class=\"p-node\" data-role=\"ok\"><span class=\"p-num\">验证</span><h3>查看页面与 diff</h3></div></div><p class=\"next-chapter p-links\" style=\"margin-top:22px\"><a href=\"lessons/02-preparation/index.html?mode=slides\">进入 0.2 课前准备 →</a><a href=\"lessons/02-preparation/index.html#p12\">课前准备与操作</a></p>",
       "script": [
         "结束串词：我们已经认识了两位讲师，也看到了三个项目的路线。现在从一个很小的任务开始，核对环境和目录，修改指定欢迎语，再查看页面与代码差异。",
         "开始前，请在心里确认：课程有哪三个项目？自己希望练成什么能力？接下来要验证什么结果？",
-        "准备好后进入第 1.1 节。还没准备好环境的同学，先看课前准备与排障材料。"
+        "接下来进入零点二，准备工具、账号和练习副本。环境已经就绪的同学可以按清单自检，再进入一点一完成首次修改。"
       ],
       "teaching": [
         {

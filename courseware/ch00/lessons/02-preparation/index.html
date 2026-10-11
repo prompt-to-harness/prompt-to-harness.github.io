@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ed">
+  <title>课前准备：工具、账号与练习项目 · 从 Prompt 到 Harness</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../../../shared/tokens.css">
+  <link rel="stylesheet" href="../../../shared/styles.css">
+  <link rel="stylesheet" href="../../../shared/presentation.css">
+  <link rel="stylesheet" href="../../../shared/evidence.css">
+  <link rel="stylesheet" href="../../../shared/parts/parts.css">
+  <style>
+    body[data-mode='scroll'] .step-status,
+    #p12 .step-status, #p13 .step-status, #p14 .step-status, #p14a .step-status, #p15a .step-status { display: none; }
+    #p13 .scene-content, #p14 .scene-content, #p15 .scene-content { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; align-content: start; }
+    #p16 .scene-content, #p17 .scene-content { align-content: start; }
+    #p18 .preparation-next { display: grid; gap: 6px; padding: 16px 22px; }
+    #p18 .preparation-next h3 { font: 400 28px/1.3 'Course Title'; }
+    #p18 .preparation-next p { font-size: 20px; line-height: 1.5; }
+    #p18 .preparation-lead { color: var(--p-muted); }
+    #p13 .p-grid, #p14 .p-grid, #p15 .p-grid { display: contents; }
+    #p13 .p-repro, #p14 .p-repro, #p15 .p-repro, #p16 .p-repro, #p17 .p-repro { grid-column: 1 / -1; margin: 12px 0 0; justify-self: start; }
+    body[data-mode='slides'] #p13 .p-repro,
+    body[data-mode='scroll'] #p13 .p-repro,
+    body[data-mode='slides'] #p14 .p-repro,
+    body[data-mode='scroll'] #p14 .p-repro,
+    body[data-mode='slides'] #p15 .p-repro,
+    body[data-mode='scroll'] #p15 .p-repro { grid-row: 2; }
+    #p13 .p-repro-body, #p14 .p-repro-body, #p15 .p-repro-body, #p16 .p-repro-body, #p17 .p-repro-body { width: 100%; box-sizing: border-box; }
+    #p13 .p-repro .p-jumps, #p16 .p-repro .p-jumps { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 14px; }
+    #p13 .p-repro .p-jumps a, #p16 .p-repro .p-jumps a {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 14px; border: 1.5px solid #243042; border-radius: 8px;
+      background: #FFFDF7; color: #243042; font-weight: 700; text-decoration: none;
+    }
+    #p13 .p-repro .p-jumps a::after, #p16 .p-repro .p-jumps a::after { content: "↗"; color: #5B6573; font-weight: 400; }
+    #p13 .p-repro .p-jumps a:hover, #p13 .p-repro .p-jumps a:focus-visible,
+    #p16 .p-repro .p-jumps a:hover, #p16 .p-repro .p-jumps a:focus-visible { background: #F1EEE4; }
+    #p13 .p-repro .p-jumps a:focus-visible, #p16 .p-repro .p-jumps a:focus-visible { outline: 2px solid #243042; outline-offset: 2px; }
+    body[data-mode='slides'] #p13 .p-repro,
+    body[data-mode='slides'] #p14 .p-repro,
+    body[data-mode='slides'] #p15 .p-repro,
+    body[data-mode='slides'] #p16 .p-repro,
+    body[data-mode='slides'] #p17 .p-repro { position: static; align-items: flex-start; }
+    body[data-mode='slides'] #p13 .p-repro-body,
+    body[data-mode='slides'] #p14 .p-repro-body,
+    body[data-mode='slides'] #p15 .p-repro-body,
+    body[data-mode='slides'] #p16 .p-repro-body,
+    body[data-mode='slides'] #p17 .p-repro-body {
+      position: fixed; left: 50%; top: 50%; z-index: 8;
+      transform: translate(-50%, -50%);
+      width: min(1080px, calc(100vw - 64px)); max-width: none; max-height: min(620px, calc(100vh - 96px));
+      overflow: auto; box-shadow: 0 16px 40px rgba(24,32,43,.24);
+    }
+    body[data-mode='slides'] #p13 .p-repro[open]::before,
+    body[data-mode='slides'] #p14 .p-repro[open]::before,
+    body[data-mode='slides'] #p15 .p-repro[open]::before,
+    body[data-mode='slides'] #p16 .p-repro[open]::before,
+    body[data-mode='slides'] #p17 .p-repro[open]::before {
+      content: ""; position: fixed; inset: 0; z-index: 7; cursor: default;
+    }
+    @media (max-width: 1100px) {
+      body[data-mode='scroll'] #p13 .scene-content,
+      body[data-mode='scroll'] #p14 .scene-content,
+      body[data-mode='scroll'] #p15 .scene-content { grid-template-columns: 1fr; }
+      body[data-mode='scroll'] #p13 .p-repro,
+      body[data-mode='scroll'] #p14 .p-repro,
+      body[data-mode='scroll'] #p15 .p-repro { grid-row: auto; }
+    }
+    @media (max-width: 600px) {
+      body[data-mode='scroll'] #p18 .preparation-next h3 { font-size: 24px; }
+      body[data-mode='scroll'] #p18 .preparation-lead { font-size: 19px; }
+    }
+  </style>
+  <script src="lesson.js" defer></script>
+  <script src="../../../shared/app.js" defer></script>
+  <script src="../../../shared/presentation.js" defer></script>
+  <script src="../../../shared/parts/parts.js" defer></script>
+  <script>
+    const redirectMergedClosingPage = () => {
+      if (location.hash !== '#p19') return;
+      const url = new URL(location.href);
+      url.hash = 'p18';
+      url.searchParams.set('step', '3');
+      try { history.replaceState(null, '', url); }
+      catch (_) { location.replace(url.href); }
+    };
+    redirectMergedClosingPage();
+    window.addEventListener('hashchange', redirectMergedClosingPage);
+    document.addEventListener('click', (event) => {
+      if (document.body.dataset.mode !== 'slides') return;
+      if (event.target.closest('.p-repro summary, .p-repro-body')) return;
+      for (const id of ['p13', 'p14', 'p15', 'p16', 'p17']) {
+        const panel = document.querySelector(`#${id} .p-repro[open]`);
+        if (panel) panel.open = false;
+      }
+    });
+  </script>
+</head>
+<body data-mode="scroll" class="camera-hidden">
+  <a class="skip-link" href="#lesson">跳到课程内容</a>
+  <aside class="sidebar" aria-label="课程目录">
+    <a class="wordmark" href="../../../index.html" aria-label="回到课程首页"><span class="brand-mark">P<span>→</span>H</span><span>从 Prompt<br>到 Harness</span></a>
+    <div class="chapter-label">第 0 章 · 课程导入</div>
+    <h1 class="sidebar-title">课前准备：工具、账号与练习项目</h1>
+    <p class="sidebar-meta">第 0.2 节</p>
+    <nav id="scene-nav" aria-label="本节目录"></nav>
+    <div class="sidebar-bottom"><div class="chapter-nav"><a href="../../../index.html">课程首页</a><a href="../../index.html">开场访谈</a><a href="../../../ch01/lessons/01-environment/index.html">下一节 →</a></div><span class="edition">深蓝学院 · AI Coding</span></div>
+  </aside>
+
+  <div class="workspace">
+    <header class="toolbar">
+      <div class="mode-switch" role="group" aria-label="展示方式">
+        <button type="button" data-mode-button="scroll" aria-pressed="true">阅读</button>
+        <button type="button" data-mode-button="slides" aria-pressed="false">演示</button>
+      </div>
+      <a class="home-link" href="../../../index.html">课程首页</a><a class="chapter-link" href="../../index.html">开场访谈</a><a class="script-link" href="speaker.html">讲解全文</a>
+      <details class="presentation-tools">
+        <summary>演示设置</summary>
+        <div class="view-tools" aria-label="演示设置">
+          <button type="button" id="camera-toggle" aria-pressed="false">显示人像辅助框</button>
+          <button type="button" id="record-toggle" aria-pressed="false" title="按 R 进入或退出专注演示">专注演示</button>
+          <button type="button" id="fullscreen">全屏</button>
+        </div>
+      </details>
+    </header>
+    <main id="lesson" tabindex="-1" aria-label="第 0.2 节课程内容"></main>
+    <footer class="lesson-footer">
+      <span id="position" aria-live="polite"></span>
+      <div class="page-buttons"><button type="button" id="previous" aria-label="上一部分">← 上一段</button><button type="button" id="next" aria-label="下一部分">下一段 →</button></div>
+      <span class="keyboard-hint">T 切换展示方式</span>
+    </footer>
+  </div>
+
+  <aside class="camera-guide" aria-label="讲师小窗预留区域">
+    <span class="camera-symbol" aria-hidden="true">＋</span>
+    <strong>人像区域</strong><span>画面位置参考</span>
+  </aside>
+  <button type="button" id="exit-recording" hidden>退出专注演示 · R</button>
+  <p id="feedback" role="status" aria-live="polite"></p>
+  <noscript>请启用 JavaScript 查看本节内容</noscript>
+</body>
+</html>

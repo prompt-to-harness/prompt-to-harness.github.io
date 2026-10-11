@@ -53,6 +53,13 @@ def collect():
             for url in HREF.findall(scene.get('html', '')):
                 if not skip(url):
                     links.append((path, scene['id'], 'html', '', url))
+            for step in scene.get('repro', {}).get('steps', []):
+                for link in step.get('links', []):
+                    url = link.get('url', '')
+                    if not link.get('text') or link['text'] not in step.get('text', '') or not url.startswith('https://'):
+                        errors.append(f'{where}: 步骤链接需要出现在步骤文字里，并使用 https 网址：{link}')
+                    elif not skip(url):
+                        links.append((path, scene['id'], 'html', link['text'], url))
             prose = [scene.get('lead', ''), *scene.get('script', []), *(t['text'] for t in scene.get('teaching', []))]
             for url in URL.findall('\n'.join(prose)):
                 if not skip(url):
