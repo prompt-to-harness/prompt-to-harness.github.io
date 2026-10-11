@@ -30,7 +30,7 @@ ch01/
 ├── index.html                 # 第一章入口
 ├── preparation.html           # 跳转页：课前准备已移到第 0 章
 ├── lessons/
-│   ├── 01-environment/         # 1.1 环境与首次闭环（含 practice.html 实操备忘）
+│   ├── 01-environment/         # 1.1 环境与首次闭环
 │   ├── 02-agent/               # 1.2 Agent 与协作基础
 │   ├── 03-tools/               # 1.3 工具与权限
 │   ├── 04-prompt/              # 1.4 写清任务
@@ -51,7 +51,7 @@ ch01/
 - 1.1 修改独立的 `setup-check/index.html` 欢迎语，检查页面与 diff，按证据反馈修正。
 - 1.4 读取 Brief、提出问题并确认四段式 Prompt；1.5 创建 React + TypeScript + Vite 骨架与首页，验证后建立 `ch01-prompt-baseline` 检查点。
 - 1.6 使用“仅核对本地链接，不发布”任务判断最小权限。
-- 课前准备在第 0 章的 [preparation.html](../ch00/preparation.html)（开课前必须完成的安装与登录）；1.1 实操时的命令与检查在 [1.1 实操备忘](lessons/01-environment/practice.html)。2026-10-11 按平台 reviewer 反馈 R22 拆分，原 `ch01/preparation.html` 保留为跳转页。
+- 课前准备在第 0 章的 [preparation.html](../ch00/preparation.html)（开课前必须完成的安装与登录）。原 `ch01/preparation.html` 保留为跳转页。
 - [Starter 源文件说明](https://github.com/prompt-to-harness/course-starter)在独立的 `course-starter` 仓库维护；从该仓库创建自己的练习项目。`PROJECT_BRIEF.md`、`PLACEHOLDER_CONTENT.md`、`docs/setup/TOOLCHAIN.md` 均在项目中。课程中只修改自己的练习仓库，目录示例与获取步骤见[工作目录约定](../../WORKSPACE.md)。课程统一发布 commit 仍待录制冻结。
 
 P04 默认嵌入随课件提供的原始 Starter 页面，明确标记为“仅供预览”。要演示实时修改，在同级 `projects/personal-homepage/` 目录运行 `python3 -m http.server 4174 --bind 127.0.0.1`，再点“连接练习副本”。核对服务目录，确保展示与 CLI 修改的是同一份文件；面板出现不代表任务通过。
