@@ -1,0 +1,124 @@
+{
+  "batch": {
+    "id": "2026-10-07",
+    "title": "3.1 一句话需求，5 次独立运行",
+    "date": "2026-10-07",
+    "fixed": [
+      ["起点", "第 2 章冻结候选（首页 v1），每轮复制一份新的"],
+      ["需求句", "materials/mainline/fixtures/prompt-3.1.txt"],
+      ["人的确认", "“问题都按你推荐的做法处理”（代答）"],
+      ["工具与模型", "Codex CLI 0.160.1 · MiniMax-M3.1-Flash-Preview · tools/clean-codex.sh"],
+      ["运行方式", "串行，每轮全新 Codex home，可写权限"]
+    ],
+    "machine": "讲师第二台机器，Node 25.9.0（10-06 那组为 Node 24.15.0）",
+    "source": "courseware/ch03/materials/mainline/README.md#新机器重跑2026-10-07"
+  },
+  "properties": [
+    {"key": "pairs", "label": "牌组"},
+    {"key": "moves", "label": "怎么计步"},
+    {"key": "timer", "label": "计时"},
+    {"key": "restart", "label": "重开入口"},
+    {"key": "lock_plan", "label": "计划里写了等待期锁吗"},
+    {"key": "lock_code", "label": "代码里等待期的点击"},
+    {"key": "asked", "label": "问了人什么"},
+    {"key": "checkpoints", "label": "计划引用 CHECKPOINTS.md"}
+  ],
+  "runs": [
+    {
+      "id": "r1007-1",
+      "dir": "v2-r1007-1",
+      "label": "第 1 轮",
+      "status": "ok",
+      "props": {
+        "pairs": {"v": "4 对 · emoji + 短词"},
+        "moves": {"v": "翻两张算一步"},
+        "timer": {"v": "有"},
+        "restart": {"v": "常驻“重新开始”"},
+        "lock_plan": {"v": "没写", "tag": "ai-rule"},
+        "lock_code": {"v": "忽略", "tag": "ai-rule"},
+        "asked": {"v": "入口、卡面、功能档位"},
+        "checkpoints": {"v": "是", "tag": "leak"}
+      },
+      "findings": [
+        {"tag": "ai-rule", "title": "等待翻回时点第三张：直接忽略", "detail": "计划一个字没提，代码里照样加了锁。", "where": "src/MemoryGame.tsx:103"},
+        {"tag": "ai-rule", "title": "配对成功也要等 420ms，期间点击无效", "detail": "配对不是立刻落定；这段时间的点击同样被忽略。", "where": "src/MemoryGame.tsx:87"}
+      ]
+    },
+    {
+      "id": "r1007-2",
+      "dir": "v2-r1007-2",
+      "label": "第 2 轮",
+      "status": "ok",
+      "props": {
+        "pairs": {"v": "3 对 · 项目名"},
+        "moves": {"v": "“翻牌 N 次”，两张算一次"},
+        "timer": {"v": "没有", "tag": "ai-rule"},
+        "restart": {"v": "常驻“再来一局”"},
+        "lock_plan": {"v": "没写（只写“延时判定”）", "tag": "ai-rule"},
+        "lock_code": {"v": "忽略", "tag": "ai-rule"},
+        "asked": {"v": "卡面、入口（只问了 2 个）"},
+        "checkpoints": {"v": "否"}
+      },
+      "findings": [
+        {"tag": "ai-rule", "title": "等待翻回时点第三张：直接忽略", "detail": "计划只写了“翻开两张后延时判定”。", "where": "src/MemoryGame.tsx:56"},
+        {"tag": "defect", "title": "牌背面的读屏标签写着牌面内容", "detail": "aria-label 是“项目名 + ，背面”：读屏软件或开发者工具能直接看到每张牌是什么。看画面发现不了。", "where": "src/MemoryGame.tsx:104"},
+        {"tag": "note", "title": "自己写了第 3 章记录文件", "detail": "docs/evidence/CH03_MEMORY_GAME.md：第 2 章的记录习惯延续下来了。", "where": "docs/evidence/CH03_MEMORY_GAME.md"}
+      ]
+    },
+    {
+      "id": "r1007-3",
+      "dir": "v2-r1007-3",
+      "label": "第 3 轮",
+      "status": "ok",
+      "props": {
+        "pairs": {"v": "6 对 · 项目名 ↔ 关键词", "tag": "defect"},
+        "moves": {"v": "“翻牌 N 次”，两张算一次"},
+        "timer": {"v": "有"},
+        "restart": {"v": "常驻“再来一局”"},
+        "lock_plan": {"v": "写了，没问"},
+        "lock_code": {"v": "忽略", "tag": "ai-rule"},
+        "asked": {"v": "卡面、牌数、入口"},
+        "checkpoints": {"v": "是", "tag": "leak"}
+      },
+      "findings": [
+        {"tag": "defect", "title": "页面说“内容相同的牌配对”，牌组却是“项目名 ↔ 关键词”", "detail": "12 张牌文字各不相同，按页面说明一对也找不到。改说明还是改牌组，要由人定。Codex 执行中自己写了渲染测试，也没发现。", "where": ["src/MemoryGame.tsx:120", "src/MemoryGame.tsx:5"]},
+        {"tag": "ai-rule", "title": "等待翻回时点第三张：直接忽略", "detail": "计划里写了“期间锁定输入”，但没当问题问人。", "where": "src/MemoryGame.tsx:81"}
+      ]
+    },
+    {
+      "id": "r1007-4",
+      "dir": "v2-r1007-4",
+      "label": "第 4 轮",
+      "status": "void",
+      "void_reason": "执行到 147 秒，上游返回 400，回合中断，没有任何改动。按约定作废，不计入统计。",
+      "props": {},
+      "findings": []
+    },
+    {
+      "id": "r1007-5",
+      "dir": "v2-r1007-5",
+      "label": "第 5 轮",
+      "status": "ok",
+      "props": {
+        "pairs": {"v": "6 对 · 图案"},
+        "moves": {"v": "翻两张算一步"},
+        "timer": {"v": "有"},
+        "restart": {"v": "只在通关后出现", "tag": "ai-rule"},
+        "lock_plan": {"v": "写了（“同时最多 2 张”），没问"},
+        "lock_code": {"v": "忽略", "tag": "ai-rule"},
+        "asked": {"v": "入口、卡面与牌数、功能"},
+        "checkpoints": {"v": "是", "tag": "leak"}
+      },
+      "findings": [
+        {"tag": "defect", "title": "配上 3 对就显示“全部配对完成”", "detail": "已配对数数的是牌（每对 2 张），通关条件却和对数 6 比较；计数也从 0/6 直接跳到 2/6。", "where": "src/MemoryGame.tsx:47"},
+        {"tag": "ai-rule", "title": "局中不能重开", "detail": "“再来一次”只在通关面板里出现。", "where": "src/MemoryGame.tsx:129"},
+        {"tag": "ai-rule", "title": "等待翻回时点第三张：直接忽略", "detail": "计划写了“同时最多 2 张”，没问人。", "where": "src/MemoryGame.tsx:77"}
+      ]
+    }
+  ],
+  "patterns": [
+    {"tag": "ai-rule", "title": "规则是 AI 定的，没有一次问过人", "body": "4 份有效实现都在等待期忽略点击，没有一轮把它当作问题；2 轮的计划里连写都没写。牌数、计步、计时、重开入口也各不相同，同样没人问。", "count": "4 / 4"},
+    {"tag": "defect", "title": "能玩，但和页面上写的规则对不上", "body": "第 3 轮说明与牌组矛盾，第 5 轮通关判定按牌数算。都要完整打完一局、对照页面文字才看得到。", "count": "2 / 4"},
+    {"tag": "leak", "title": "Codex 会读仓库里的提示文件", "body": "3 轮计划引用了 CHECKPOINTS.md 里“加入本章小游戏后的快照”一句，用来论证任务合理。参考起点里的每一句话都可能被当成需求。", "count": "3 / 4"}
+  ]
+}

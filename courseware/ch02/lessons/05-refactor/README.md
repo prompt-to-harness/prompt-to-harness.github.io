@@ -1,12 +1,12 @@
 # 2.5 AI 说“只是重构”
 
-[打开课件](index.html) · [逐步讲稿](speaker.html) · [Markdown 讲稿](script.md) · [分镜](STORYBOARD.md)
+[打开课件](index.html) · [逐步讲稿](speaker.html) · [分镜](STORYBOARD.md)
 
 用五张提交说明都写着 refactor 的小卡做分拣，判断哪几张保持了可观察行为；受欢迎的行为变化也需另行确认；收尾铺垫“没有测试，验证很贵”。9 页：总览一页，①②、③、④、⑤ 各一页对照（2026-10-06 由一张结论表拆开），之后是定义、自检、小结。2026-10-05 由“两份 diff 二选一”改为分拣题（讲师确认，原因见 [STORYBOARD](STORYBOARD.md)）。依据[内部大纲](../../../../docs/outline/course-outline-internal.md)与[第 2 章提案](../../../../docs/outline/proposals/2026-10-02-ch02-adjustments.md)。首版（2026-10-03），未经讲师审阅，未试讲、未录制。
 
 ## 维护
 
-`tools/build-lesson.py` 是本节唯一的内容源，生成 `lesson.js` 与 `script.md`，不要直接改生成物。结构与 [2.1](../01-feedback/README.md) 相同（页面零件、字体、跨章引用的播放器文件见那里）。全章共用的页面登记、章节地图、窄屏样式和输出写在 [`../../tools/lessonkit.py`](../../tools/lessonkit.py)；改它会影响五节，改完逐节重新生成并比对。
+`tools/build-lesson.py` 是本节唯一的内容源，生成 `lesson.js`，不要直接改生成物。结构与 [2.1](../01-feedback/README.md) 相同（页面零件、字体、跨章引用的播放器文件见那里）。全章共用的页面登记、章节地图、窄屏样式和输出写在 [`../../tools/lessonkit.py`](../../tools/lessonkit.py)；改它会影响五节，改完逐节重新生成并比对。
 
 ```sh
 python3 courseware/ch02/lessons/05-refactor/tools/build-lesson.py

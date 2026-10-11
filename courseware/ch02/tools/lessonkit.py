@@ -3,7 +3,7 @@
 每节的 tools/build-lesson.py 只写本节内容：
 
     lesson = Lesson(__file__, "2.3", "AI 交回的改动，收不收", summary="…")
-    scene, KICK = lesson.scene, lesson.kick
+    scene = lesson.scene
     scene(id="p35", …)
     lesson.write()
 
@@ -109,21 +109,32 @@ def chapter_map(now):
 class Lesson:
     def __init__(self, builder, number, title, summary):
         self.here = Path(builder).resolve().parents[1]
+        # 口播的唯一来源：本节目录下的 script.json，按页面 id 存每页的口播数组；页面里可直接改，见 tools/serve-courseware.py
+        self.scripts = json.loads((self.here / "script.json").read_text())
         self.number, self.title, self.summary = number, title, summary
-        self.kick = f"第 2 章 · {number} · "
         self.scenes = []
 
     def scene(self, **kw):
+        assert "kicker" not in kw, "小标题由 app.js 按“章 · 节 · 段名”生成，不再手写 kicker"
         kw.setdefault("teaching", [])
         if not kw.get("refs"):
             kw.pop("refs", None)
         kw["source"] = f"index.html#{kw['id']}"
         kw["seconds"] = 30 * len(kw["steps"])
-        assert len(kw["steps"]) == len(kw["script"]), kw["id"]
-        self.scenes.append(kw)
+        assert kw["id"] in self.scripts, f"script.json 里没有 {kw['id']} 的口播"
+        script = self.scripts[kw["id"]]
+        assert len(kw["steps"]) == len(script), (kw["id"], "steps 与 script 条数不一致")
+        scene = {}
+        for key, value in kw.items():
+            scene[key] = value
+            if key == "steps":  # script 紧跟 steps，保持 lesson.js 里的键顺序
+                scene["script"] = script
+        self.scenes.append(scene)
 
     def write(self):
         scenes = self.scenes
+        unused = set(self.scripts) - {s["id"] for s in scenes}
+        assert not unused, f"script.json 里有页面不存在的 id：{sorted(unused)}"
         segments = []
         for s in scenes:
             if not segments or segments[-1]["label"] != s["segment"]:
@@ -141,23 +152,4 @@ class Lesson:
         }
         (self.here / "lesson.js").write_text("window.lesson = " + json.dumps(lesson, ensure_ascii=False, indent=2) + ";\n")
 
-        lines = [f"# {self.number} {self.title}", "", "> 由 tools/build-lesson.py 生成。", ""]
-        for s in scenes:
-            lines += [f"## {s['id'].upper()} {s['label']}", "", f"[对应课件](index.html#{s['id']})", "", "### 口播", ""]
-            for i, (beat, text) in enumerate(zip(s["steps"], s["script"])):
-                lines += [f"**第 {i + 1} 步 · {beat}**（[演示](index.html?mode=slides&step={i}#{s['id']})）", "", text, ""]
-            if s.get("refs"):
-                lines += ["### 原文与链接", ""]
-                lines += [f"- {'画面上' if r['kind'] == 'live' else '延伸'} · {r['group'] + ' · ' if r['group'] else ''}[{r['text']}]({r['url']})" for r in s["refs"]]
-                lines += [""]
-            if s.get("repro"):
-                lines += [f"### {s['repro']['label']}（页面按钮）", ""]
-                for i, st in enumerate(s["repro"]["steps"], 1):
-                    lines += [f"{i}. {st['text']}" + (f"：`{st['code']}`" if st["code"] else "")]
-                lines += ([""] + [s["repro"]["note"]] if s["repro"]["note"] else []) + [""]
-            if s.get("prompt"):
-                lines += ["### 请求", "", "```text", s["prompt"], "```", ""]
-            for item in s["teaching"]:
-                lines += [f"### {item['title']}", "", item["text"], ""]
-        (self.here / "script.md").write_text("\n".join(lines))
         print(f"{self.number}: {len(scenes)} pages, {sum(len(s['steps']) for s in scenes)} steps")

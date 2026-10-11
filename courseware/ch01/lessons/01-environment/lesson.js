@@ -2,22 +2,21 @@ window.lesson = {
   "title": "第一次 AI 协作闭环",
   "chapter": "第 1 章 · Prompt",
   "section": "01.01",
-  "summary": "CLI 为主演示入口；1.1 完成欢迎语闭环，1.5 创建 React + TypeScript + Vite 首页。",
+  "summary": "CLI 为主演示入口；1.1 完成欢迎语闭环，1.5 创建 React + TypeScript + Vite 个人主页。",
   "scenes": [
     {
       "id": "p01",
       "label": "只改一句话，怎样证明改对？",
       "title": "只改一句话，怎样证明改对？",
-      "kicker": "第 1 章 · 1.1 · 找准任务",
-      "lead": "本章：首次闭环 → 执行机制 → 权限 → Prompt → 首页 v0 → 最小权限",
-      "html": "<ol class=\"p-map\" data-reveal=\"0\"><li class=\"is-now\"><b>1.1</b>首次闭环</li><li class=\"\"><b>1.2</b>拆开执行过程</li><li class=\"\"><b>1.3</b>工具与权限</li><li class=\"\"><b>1.4</b>写清任务</li><li class=\"\"><b>1.5</b>完成首页</li><li class=\"\"><b>1.6</b>最小权限</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:18px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">修改前</span><p class=\"p-big\" style=\"font-weight:500\">你好，欢迎来到我的练习页面</p></div><div class=\"p-join\" data-reveal=\"1\"><span>只改这一句</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ok\">任务目标</span><p class=\"p-big\">你好，欢迎来到 Vibe Coding 课堂！</p></div></div>",
+      "lead": "本章：首次闭环 → 执行机制 → 权限 → Prompt → 个人主页 v0 → 最小权限",
+      "html": "<ol class=\"p-map\" data-reveal=\"0\"><li class=\"is-now\"><b>1.1</b>首次闭环</li><li class=\"\"><b>1.2</b>拆开执行过程</li><li class=\"\"><b>1.3</b>工具与权限</li><li class=\"\"><b>1.4</b>写清任务</li><li class=\"\"><b>1.5</b>完成个人主页</li><li class=\"\"><b>1.6</b>最小权限</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:18px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">修改前</span><p class=\"p-big\" style=\"font-weight:500\">你好，欢迎来到我的练习页面</p></div><div class=\"p-join\" data-reveal=\"1\"><span>只改这一句</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ok\">任务目标</span><p class=\"p-big\">你好，欢迎来到 Vibe Coding 课堂！</p></div></div>",
       "steps": [
         "看原文",
         "比较目标"
       ],
       "script": [
-        "【操作提示｜课件 p01，第 1 步；暂不切窗口】\n\n我们先看屏幕左边这句话：“你好，欢迎来到我的练习页面。”今天要做的事情很小，就是请 AI 帮我们换掉这句欢迎语。\n\n你可能会想，这几个字我自己改，不是更快吗？是的，手动改并不难。我们选这个小任务，是因为修改前后很容易比较。这样，你可以把注意力放在另一件事上：我把任务交给 AI 之后，要看它做了什么，又该怎样检查它交回来的结果。",
-        "【操作提示｜推进到第 2 步，指向右侧目标文案】\n\n这次要换成的文字是：“你好，欢迎来到 Vibe Coding 课堂！”先记住这句话，后面我们就拿它来核对。\n\n假如 AI 回你一句“已经完成”，你会直接接受吗？我们先不急着回答。等会儿你会看到，浏览器里的页面和代码里的改动，各能帮我们检查一部分。\n\n上面这条路线是第一章的六节课。今天先走完这次小修改，正式的个人主页放到一点五再做。现在，我们先找准要修改的文件。"
+        "【操作提示｜课件 p01，第 1 步；暂不切窗口】\n\n我们先看屏幕左边这句话：“你好，欢迎来到我的练习页面。”今天要做的事情很小，就是请 AI 帮我们换掉这句欢迎语。\n\n我们可能会想，这几个字我自己改，不是更快吗？是的，手动改并不难。我们选这个小任务，是因为修改前后很容易比较。这样，我们可以把注意力放在另一件事上：我把任务交给 AI 之后，要看它做了什么，又该怎样检查它交回来的结果。",
+        "【操作提示｜推进到第 2 步，指向右侧目标文案】\n\n这次要换成的文字是：“你好，欢迎来到 Vibe Coding 课堂！”先记住这句话，后面我们就拿它来核对。\n\n假如 AI 回我们一句“已经完成”，我们会直接接受吗？我们先不急着回答。等会儿我们会看到，浏览器里的页面和代码里的改动，各能帮我们检查一部分。\n\n上面这条路线是第一章的六节课。今天先走完这次小修改，正式的个人主页放到一点五再做。现在，我们先找准要修改的文件。"
       ],
       "segment": "找准任务",
       "seconds": 45,
@@ -38,7 +37,7 @@ window.lesson = {
         },
         {
           "title": "讲师提示",
-          "text": "先看这一句欢迎语。这节只改它，正式首页留到 1.5。\n\n你准备怎样证明改对了？先留下这个问题，后面用页面和 Diff 回答。"
+          "text": "先看这一句欢迎语。这节只改它，个人主页留到 1.5。\n\n你准备怎样证明改对了？先留下这个问题，后面用页面和 Diff 回答。"
         }
       ]
     },
@@ -46,7 +45,6 @@ window.lesson = {
       "id": "p02",
       "label": "先找准你要改的那一份文件",
       "title": "先找准你要改的那一份文件",
-      "kicker": "第 1 章 · 1.1 · 找准任务",
       "lead": "打开 0.2 准备好的独立练习副本，确认终端、编辑器与浏览器指向同一目录。本次唯一修改对象是 setup-check/index.html。",
       "html": "<ul class=\"p-tree\" style=\"font-size:25px;padding:22px 28px;line-height:1.9\"><li class=\"is-dim\" data-reveal=\"0\"><span class=\"p-path\">course-starter/</span><span class=\"p-note\">模板 · 不在这里练习</span></li><li class=\"is-open\" data-reveal=\"1\"><span class=\"p-path\">projects/personal-homepage/</span><span class=\"p-note\">练习副本 · 在这里打开</span><ul><li class=\"is-target\" data-reveal=\"2\"><span class=\"p-path\">setup-check/index.html</span><span class=\"p-note\">唯一目标</span></li></ul></li></ul><p class=\"source-note\"><a href=\"../../../ch00/lessons/02-preparation/index.html#p12\">课前准备与操作</a></p>",
       "steps": [
@@ -57,7 +55,7 @@ window.lesson = {
       "script": [
         "【操作提示｜打开 0.2 准备好的练习副本】\n\n上一节已经取得自己的练习项目。现在认准这份副本，后面的编辑器、终端和浏览器都指向它。还没有准备好时，先回零点二完成准备，再继续实操。",
         "【操作提示｜返回课件推进第 2 步 → 切 VS Code，用“打开文件夹”打开独立练习副本 projects/personal-homepage；不要打开课程课件目录】\n\n我现在切到 VS Code。先看左边文件列表的根目录，确认打开的是个人主页的练习副本。接着再找文件。不要只凭一个 index.html 的名字判断，因为不同目录里可能都有同名文件。\n\n等会儿我说“切到 Terminal”，指的是运行命令的终端；用 VS Code 的集成终端也可以。为了方便看清楚，我们把终端放大一点。目录和文件名都尽量完整地露出来。",
-        "【操作提示｜课件第 3 步对应实操：在 VS Code 展开 setup-check，打开 index.html，搜索 welcome-message；随后打开 Terminal，确认当前目录。macOS/Linux 用 pwd，PowerShell 用 Get-Location】\n\n我们要找的是 setup-check 文件夹里的 index.html。找到 welcome-message，你就能看到页面上的那句欢迎语。现在先看位置，不手动修改。\n\n再看终端的当前目录。它应该指向刚才打开的练习项目根目录。如果指向课件仓库，或者其他项目，就先切到正确的位置。\n\n动手前还要留一份初始状态：当前在哪个分支，已经有哪些改动。这样等会儿看差异时，我们才分得清哪些是原来就有的，哪些是这次新产生的。具体命令稍后在环境检查里一起执行。"
+        "【操作提示｜课件第 3 步对应实操：在 VS Code 展开 setup-check，打开 index.html，搜索 welcome-message；随后打开 Terminal，确认当前目录。macOS/Linux 用 pwd，PowerShell 用 Get-Location】\n\n我们要找的是 setup-check 文件夹里的 index.html。找到 welcome-message，就能看到页面上的那句欢迎语。现在先看位置，不手动修改。\n\n再看终端的当前目录。它应该指向刚才打开的练习项目根目录。如果指向课件仓库，或者其他项目，就先切到正确的位置。\n\n动手前还要留一份初始状态：当前在哪个分支，已经有哪些改动。这样等会儿看差异时，我们才分得清哪些是原来就有的，哪些是这次新产生的。具体命令稍后在环境检查里一起执行。"
       ],
       "segment": "找准任务",
       "seconds": 105,
@@ -85,7 +83,6 @@ window.lesson = {
       "id": "p02a",
       "label": "工具与页面就绪，再开始修改",
       "title": "工具与页面就绪，再开始修改",
-      "kicker": "第 1 章 · 1.1 · 操作前复核",
       "lead": "课前准备已安装工具、取得项目并启动欢迎页。这里复核当前目录和工具，缺项回到对应操作步骤。",
       "html": "<div class=\"p-box\" data-role=\"ctx\"><h3>回到自己的项目</h3><p>工具能用 · Git 能看变化 · 页面能打开</p></div><p class=\"p-links\"><a href=\"../../../ch00/lessons/02-preparation/index.html\">返回课前准备</a></p>",
       "steps": [
@@ -103,7 +100,6 @@ window.lesson = {
       "id": "p03",
       "label": "哪些条件不满足，就不能开始？",
       "title": "哪些条件不满足，就不能开始？",
-      "kicker": "第 1 章 · 1.1 · 操作前复核",
       "lead": "修改前复核当前页面、工作树和工具目录。只记录本次实际状态，不重复安装或提交课前准备记录。",
       "html": "<div class=\"p-grid\" style=\"--n:3\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\" style=\"padding:16px 20px\"><h3 data-node=\"browser\">浏览器</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"browser_pass\" data-edge=\"browser:browser_pass\">打开并刷新环境页</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"browser_fail\" data-edge=\"browser:browser_fail\" class=\"p-sub\">核对路径或本地服务</p></div></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"1\" style=\"padding:16px 20px\"><h3 data-node=\"git\">Git</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"git_pass\" data-edge=\"git:git_pass\">分支、状态、Diff 可读</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"git_fail\" data-edge=\"git:git_fail\" class=\"p-sub\">补齐 Git 与仓库</p></div></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"2\" style=\"padding:16px 20px\"><h3 data-node=\"cli\">Codex CLI</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"cli_pass\" data-edge=\"cli:cli_pass\">从练习目录启动</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"cli_fail\" data-edge=\"cli:cli_fail\" class=\"p-sub\">临时用桌面入口</p></div></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">三处都<b>通过</b>才开始</div>",
       "steps": [
@@ -130,7 +126,6 @@ window.lesson = {
       "id": "p03-access",
       "label": "确认工具读到的是目标文件",
       "title": "确认工具读到的是目标文件",
-      "kicker": "第 1 章 · 1.1 · 操作前复核",
       "lead": "工具读取对象应与当前欢迎页一致。会话或目录变化后，再读取一次目标文件。",
       "html": "<div class=\"p-box\" data-role=\"ctx\"><h3>对照原始欢迎语</h3><p>setup-check/index.html<br>h1#welcome-message</p></div><div class=\"p-bar is-light\">会话或目录变化时，补做只读检查</div>",
       "steps": [
@@ -148,7 +143,6 @@ window.lesson = {
       "id": "p04",
       "label": "先交任务，再看计划，最后确认",
       "title": "先交任务，再看计划，最后确认",
-      "kicker": "第 1 章 · 1.1 · 首次执行",
       "lead": "第一次协作分三步：先交完整任务，请 Agent 复述目标、非目标和计划，此时不允许写入；再核对计划里有没有多出样式修改、安装或发布；三者都对，才批准这一次单文件的文字修改。",
       "html": "<div class=\"demo-notes\"><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>任务</b><small>只改 <code>h1#welcome-message</code></small></span></li><li data-reveal=\"1\"><span><b>计划</b><small>读取 → 替换文字 → 查页面与 Diff</small></span></li><li class=\"is-ok\" data-reveal=\"2\"><span><b>人工确认</b><small>都对才批准 · 越界先停</small></span></li></ol></div>",
       "steps": [
@@ -158,8 +152,8 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜停留课件 p04 第 1 步，展开并阅读完整请求；此页讲解请求，暂不发送，统一在 p04-live 实操】\n\n我们先把要发的请求看一遍。第一句限定读取范围：只读 setup-check/index.html 和必要的仓库状态。接下来写清楚目标，要改的是 h1#welcome-message，也就是刚才找到的那个标题元素。\n\n目标文案直接给出完整的一句：“你好，欢迎来到 Vibe Coding 课堂！”这样后面检查时，就有一份可以逐字对照的标准。\n\n再往下看，其他内容、结构、样式都不改，也不安装依赖、不发布。因为今天要做的事情只有替换欢迎语，增加这些动作会超出当前任务。",
-        "【操作提示｜推进第 2 步，指向“先复述目标、非目标和小计划，等我确认后再修改”；仍留在课件】\n\n注意这一句：先复述，再给小计划，等我确认后再修改。我们希望先听一听它准备怎么做。\n\n计划不需要很长。读到目标文字，只替换这句欢迎语，然后说明怎样检查页面和改动，就够了。你要看的是，这个计划有没有对应刚才的任务。\n\n如果它说“顺便调整配色”，或者“先安装一套前端框架”，就指出这一项超出了范围，让它先改计划。今天把这些环节分开，是为了看清楚每一步；小任务不用写成一份很长的方案。",
-        "【操作提示｜推进第 3 步；下一页再发送请求与确认，不在此处预读一份虚构的 AI 回答】\n\n等目标、范围和计划都对上，我们再明确回复：同意按这个计划，只修改指定文件里的欢迎语，其他内容保持不变。\n\n这次确认对应的是这一次修改。如果后面出现额外动作，还要看它是否在范围里。具体的工具权限提示，我们会在一点三专门讲。\n\n接下来切到真实操作。你可以对照刚才这份请求，看它怎样读取文件、怎样回复，以及什么时候开始写入。"
+        "【操作提示｜推进第 2 步，指向“先复述目标、非目标和小计划，等我确认后再修改”；仍留在课件】\n\n注意这一句：先复述，再给小计划，等我确认后再修改。我们希望先听一听它准备怎么做。\n\n计划不需要很长。读到目标文字，只替换这句欢迎语，然后说明怎样检查页面和改动，就够了。我们要看的是，这个计划有没有对应刚才的任务。\n\n如果它说“顺便调整配色”，或者“先安装一套前端框架”，就指出这一项超出了范围，让它先改计划。今天把这些环节分开，是为了看清楚每一步；小任务不用写成一份很长的方案。",
+        "【操作提示｜推进第 3 步；下一页再发送请求与确认，不在此处预读一份虚构的 AI 回答】\n\n等目标、范围和计划都对上，我们再明确回复：同意按这个计划，只修改指定文件里的欢迎语，其他内容保持不变。\n\n这次确认对应的是这一次修改。如果后面出现额外动作，还要看它是否在范围里。具体的工具权限提示，我们会在一点三专门讲。\n\n接下来切到真实操作。我们可以对照刚才这份请求，看它怎样读取文件、怎样回复，以及什么时候开始写入。"
       ],
       "segment": "首次执行",
       "seconds": 90,
@@ -193,7 +187,6 @@ window.lesson = {
       "id": "p04-live",
       "label": "切到实操：盯住这三件事",
       "title": "切到实操：盯住这三件事",
-      "kicker": "第 1 章 · 1.1 · 首次执行",
       "lead": "切到实操前先记住三件事：看的是不是同一份副本，是不是确认后才写入，是不是只改了指定文字。默认显示的是 Starter 原始预览，启动练习副本的 4174 服务后再连接，才是实际结果。",
       "html": "<div class=\"demo-visual\" data-reveal=\"1\"><div class=\"welcome-demo\"><div class=\"demo-toolbar\"><span data-demo-status>Starter 原始页面 · 仅供预览</span><button type=\"button\" data-demo-connect>连接练习副本</button><button data-demo-reload=\"\" type=\"button\">刷新案例</button><a href=\"../../../../starters/personal-homepage/setup-check/index.html\" rel=\"noopener\" target=\"_blank\">独立打开 ↗</a></div><iframe loading=\"lazy\" src=\"../../../../starters/personal-homepage/setup-check/index.html\" title=\"独立练习项目的环境检查页\"></iframe><p class=\"caption\">默认是 Starter 预览。实操先启动练习副本的 4174 服务，再连接；核对同一份文件。</p></div></div><aside class=\"demo-notes\"><h3 style=\"font:400 26px/1.3 var(--p-title);margin:0 0 10px\">边看边核对</h3><ol class=\"p-watch\" data-reveal=\"0\"><li>同一份副本</li><li>确认后写入</li><li>只改指定文字</li></ol></aside>",
       "steps": [
@@ -235,7 +228,6 @@ window.lesson = {
       "id": "p05",
       "label": "页面正确，还要查改动范围",
       "title": "页面正确，还要查改动范围",
-      "kicker": "第 1 章 · 1.1 · 检查与修正",
       "lead": "验收要两类证据：页面回答“改对没有”，刷新同一份副本逐字核对；Diff 回答“多改没有”，要对照初始状态看完整 Diff 和文件列表。两类都符合才接受，否则带着准确的差异去修正。",
       "html": "<div class=\"p-pair\"><div class=\"p-box\" data-role=\"ok\" data-reveal=\"0\"><div class=\"p-head\"><h3>页面证据</h3><span class=\"p-tag\" data-role=\"ok\">对不对</span></div><div class=\"p-page\"><div class=\"p-page-bar\"><i></i><i></i><i></i><span>setup-check · 同一副本</span></div><div class=\"p-page-body\" style=\"font-size:23px\">你好，欢迎来到 Vibe Coding 课堂！</div></div></div><div class=\"p-join\" data-reveal=\"1\"><b>+</b></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><div class=\"p-head\"><h3>Diff 证据</h3><span class=\"p-tag\" data-role=\"gate\">多没多</span></div><div class=\"p-term\" data-copy=\"git diff -- setup-check/index.html\">git diff -- setup-check/index.html</div></div></div><ol class=\"p-watch is-row\" data-reveal=\"2\"><li class=\"is-done\">同一副本</li><li class=\"is-done\">确认后写入</li><li class=\"is-done\">指定文字变化</li></ol>",
       "steps": [
@@ -274,7 +266,6 @@ window.lesson = {
       "id": "p05-diff",
       "label": "这份 Diff 能说明什么？",
       "title": "这份 Diff 能说明什么？",
-      "kicker": "第 1 章 · 1.1 · 检查与修正",
       "lead": "这段 Diff 是教学截取：它能说明这句文字从旧改成新，但证明不了别的文件没变。每份证据只对应它能支持的那条结论，其余部分还要看完整 Diff、文件列表和实际页面。",
       "html": "<div class=\"p-walk\" style=\"grid-template-columns:1.35fr 1fr\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:44px\"><div class=\"p-fn\">setup-check/index.html <span class=\"add\">+1</span><span class=\"del\">−1</span></div><div class=\"p-ln del\"><i>−</i><code>你好，欢迎来到我的练习页面</code></div><div class=\"p-ln add\"><i>+</i><code>你好，欢迎来到 Vibe Coding 课堂！</code></div></div><p class=\"source-note\" style=\"margin-top:8px\">教学截取；删除为红底，新增为绿底</p></div><ol class=\"p-notes\"><li class=\"is-ok\" data-reveal=\"0\"><span><b>能说明</b><small>这段文字从旧改成新</small></span></li><li class=\"is-risk\" data-reveal=\"1\"><span><b>还不能证明</b><small>没有修改其他文件</small></span></li><li data-reveal=\"1\"><span><b>继续检查</b><small>完整 Diff、文件列表与实际页面</small></span></li></ol></div>",
       "steps": [
@@ -282,8 +273,8 @@ window.lesson = {
         "揭示边界"
       ],
       "script": [
-        "【操作提示｜留在课件 p05-diff 第 1 步；这是教学截取，不切真实终端。停顿片刻再揭示下一步】\n\n看这两行，红色这一行是旧文字，绿色这一行是新文字。这是课件里的教学截取，不是刚才终端输出的完整记录。\n\n只拿到这两行，你会给整个任务打上“通过”吗？可以先暂停一下，想想还有什么没看到。",
-        "【操作提示｜推进第 2 步，指向完整 Diff、文件列表和页面结果；无需新开 Chrome 标签页】\n\n这两行能说明，这一处文字按要求发生了替换。可是其他文件有没有变化，页面刷新以后显示什么，都没有出现在这张截取里。\n\n所以我们还要补上完整差异、文件状态和浏览器检查。回到刚才的实操，你就能理解为什么要来回看两个地方了：每一份证据，都在回答一个具体问题。\n\n接下来，如果检查真的发现了问题，我们该怎么把它说清楚？"
+        "【操作提示｜留在课件 p05-diff 第 1 步；这是教学截取，不切真实终端。停顿片刻再揭示下一步】\n\n看这两行，红色这一行是旧文字，绿色这一行是新文字。这是课件里的教学截取，不是刚才终端输出的完整记录。\n\n只拿到这两行，我们会给整个任务打上“通过”吗？可以先暂停一下，想想还有什么没看到。",
+        "【操作提示｜推进第 2 步，指向完整 Diff、文件列表和页面结果；无需新开 Chrome 标签页】\n\n这两行能说明，这一处文字按要求发生了替换。可是其他文件有没有变化，页面刷新以后显示什么，都没有出现在这张截取里。\n\n所以我们还要补上完整差异、文件状态和浏览器检查。回到刚才的实操，就能理解为什么要来回看两个地方了：每一份证据，都在回答一个具体问题。\n\n接下来，如果检查真的发现了问题，我们该怎么把它说清楚？"
       ],
       "segment": "检查与修正",
       "seconds": 60,
@@ -311,7 +302,6 @@ window.lesson = {
       "id": "p06",
       "label": "“不对”要改成可执行的反馈",
       "title": "“不对”要改成可执行的反馈",
-      "kicker": "第 1 章 · 1.1 · 检查与修正",
       "lead": "发现不对时，先准确说出实际和期望差在哪里，例如漏了“课堂”二字，而不是只说一句“不对”。反馈只要求补这两个字，不追加美化；修正后刷新同一页面，再复查完整 Diff。",
       "html": "<div class=\"demo-notes\"><div style=\"display:grid;gap:12px\"><div class=\"p-box\" data-role=\"gate\" data-reveal=\"0\" style=\"padding:12px 18px\"><span class=\"p-tag\" data-role=\"gate\">实际 · 教学示例</span><p class=\"p-big\">你好，欢迎来到 Vibe Coding<span class=\"p-miss\">&nbsp;</span>！</p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\" style=\"padding:12px 18px\"><span class=\"p-tag\" data-role=\"ok\">期望</span><p class=\"p-big\">你好，欢迎来到 Vibe Coding <span class=\"p-ins\">课堂</span>！</p></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"font-size:21px\">只补“课堂”二字 → 刷新同一页面 → <b>复查完整 Diff</b></div></div></div>",
       "steps": [
@@ -320,7 +310,7 @@ window.lesson = {
         "再次验证"
       ],
       "script": [
-        "【操作提示｜课件 p06 第 1 步。优先使用刚才真实发现的问题；如果首次任务已通过，就保留课件的“漏了课堂二字”教学假设，不改坏原文件来伪装失败】\n\n我们先用屏幕上这个教学例子：假设页面显示的是“你好，欢迎来到 Vibe Coding！”，少了“课堂”两个字。\n\n如果我只回复“不对，再改一下”，它还要猜我指的是文字、配色，还是布局。现在我们已经看见具体差异，就直接把实际文字和期望文字一起给它。\n\n有真实问题时，就把这里的例子换成你实际看到的内容。第一次已经全部改对，也不用特意制造一次错误。",
+        "【操作提示｜课件 p06 第 1 步。优先使用刚才真实发现的问题；如果首次任务已通过，就保留课件的“漏了课堂二字”教学假设，不改坏原文件来伪装失败】\n\n我们先用屏幕上这个教学例子：假设页面显示的是“你好，欢迎来到 Vibe Coding！”，少了“课堂”两个字。\n\n如果我只回复“不对，再改一下”，它还要猜我指的是文字、配色，还是布局。现在我们已经看见具体差异，就直接把实际文字和期望文字一起给它。\n\n有真实问题时，就把这里的例子换成自己实际看到的内容。第一次已经全部改对，也不用特意制造一次错误。",
         "【操作提示｜推进第 2 步，逐句看反馈请求。有真实问题才切 Terminal 发送对应反馈；没有真实问题则在课件上讲解，不把教学请求发给已正确的文件】\n\n这份反馈先交代现象：现在显示的句子少了两个字。然后给出完整的期望文字，最后限定动作：只补这两个字，其他内容、结构和样式保持不变。\n\n这个时候也不要顺手加一句“再帮我美化一下”。否则任务范围变了，后面我们就很难分清，哪些是修正，哪些是新需求。\n\n把这一次差异处理清楚，再重新检查。",
         "【操作提示｜有实际修正：等待 Terminal 完成后，切 Chrome 原“练习页面”刷新，再切“仓库检查”终端复查状态与完整差异；无实际修正：留课件，明确说明本段只练习反馈表述。最后回课件 p06-loop】\n\n修正后，我们还是回到同一个页面，再对照完整欢迎语，接着复查改动范围。只有重新看过，才能判断刚才的问题是否已经解决。\n\n如果这一段只是课件上的假设，就记录为反馈写法练习，没有执行真实修正。实际任务的结果和教学例子分开记录。\n\n我们把这些动作连起来看，就能看清楚：什么时候继续，什么时候可以结束，还有什么时候应该停下来。"
       ],
@@ -356,7 +346,6 @@ window.lesson = {
       "id": "p06-loop",
       "label": "什么时候继续，什么时候停？",
       "title": "什么时候继续，什么时候停？",
-      "kicker": "第 1 章 · 1.1 · 检查与修正",
       "lead": "把整条路径连起来：说明目标、复述计划、人工确认，然后才写入；写入后检查页面和 Diff。检查之后有三个出口——通过就记录，不符就限定范围修正再检查，无法验证或需要越界就记录并停下。",
       "html": "<div class=\"p-flow\" style=\"--n:6;column-gap:28px\"><div class=\"p-node\" data-role=\"ink\" data-reveal=\"0\" data-node=\"goal\"><h3>说明目标</h3><p>范围与标准</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\" data-node=\"plan\" data-edge=\"goal:plan\"><h3>复述与计划</h3><p>核对理解</p></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"0\" data-node=\"confirm\" data-edge=\"plan:confirm\"><h3>人工确认</h3><p>写入前</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"0\" data-node=\"edit\" data-edge=\"confirm:edit\"><h3>执行修改</h3><p>指定文字</p></div><div class=\"p-node\" data-role=\"ink\" data-reveal=\"1\" data-node=\"check\" data-edge=\"edit:check\"><h3>检查结果</h3><p>页面 + Diff</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"1\" data-node=\"record\" data-edge=\"check:record\"><h3>接受并记录</h3><p>留下证据</p></div><div class=\"p-fork\" data-reveal=\"1\" style=\"grid-column:4/7;--gap:28px\"><div class=\"l\" data-reveal=\"1\" data-edge=\"check:repair\"><span>不符</span></div><div class=\"r\" data-reveal=\"2\" data-edge=\"check:stop\"><span>无法继续</span></div></div><div class=\"p-node is-row2\" data-role=\"agent\" data-reveal=\"1\" data-node=\"repair\" data-edge=\"repair:check\" style=\"grid-column:4\"><h3>反馈并修正</h3><p>限定范围</p><span class=\"p-loopnote\">↺ 修正后再检查</span></div><div class=\"p-node is-row2\" data-role=\"gate\" data-reveal=\"2\" data-node=\"stop\" style=\"grid-column:6\"><h3>停止并记录</h3><p>无法验证 · 需越界</p></div></div>",
       "steps": [
@@ -367,7 +356,7 @@ window.lesson = {
       "script": [
         "【操作提示｜停留课件 p06-loop 第 1 步，沿图中的目标、复述和计划、人工确认、执行依次指示】\n\n图的前半段，就是刚才修改前做的事情。先把欢迎语的目标说清楚，再核对它的理解和小计划，然后确认这一次修改。\n\n顺序很关键。确认发生在写入之前，我们才有机会在动手前发现任务理解上的偏差。",
         "【操作提示｜推进第 2 步，指向检查后的通过出口和修正回路】\n\n执行以后，我们来到检查这里。页面和改动范围都符合要求，就接受结果、保存记录。\n\n如果有一处不符，就说清实际和期望的差异，让它在原来的范围里修正。修完还要回来检查，不能从“它说修好了”直接跳到结束。\n\n今天的任务小，检查也很具体：一句欢迎语、原来的布局，以及完整的文件改动。",
-        "【操作提示｜推进第 3 步，指向停止出口；不切窗口】\n\n还有一种情况：现在没法判断。比如实际页面打不开，或者它要求做超出本次范围的事情。这个时候先停下来，写清楚卡在哪里、已经看到什么、下一步需要补什么。\n\n我们不需要连续发“再试一次”。有明确的错误，处理错误；缺少必要条件，补齐条件后再继续。\n\n下面你可以用自己的练习副本，把这条路径走一遍。"
+        "【操作提示｜推进第 3 步，指向停止出口；不切窗口】\n\n还有一种情况：现在没法判断。比如实际页面打不开，或者它要求做超出本次范围的事情。这个时候先停下来，写清楚卡在哪里、已经看到什么、下一步需要补什么。\n\n我们不需要连续发“再试一次”。有明确的错误，处理错误；缺少必要条件，补齐条件后再继续。\n\n下面我们各自用自己的练习副本，把这条路径走一遍。"
       ],
       "segment": "检查与修正",
       "seconds": 90,
@@ -395,7 +384,6 @@ window.lesson = {
       "id": "p07",
       "label": "独立完成一次，再拿证据回答",
       "title": "独立完成一次，再拿证据回答",
-      "kicker": "第 1 章 · 1.1 · 独立练习",
       "lead": "暂停视频，用自己的练习副本独立走一遍，不复制老师的截图。复述、计划、确认、前后截图、Diff 与修正记录写进 docs/evidence/CH01_ENVIRONMENT_AND_FIRST_LOOP.md；页面正确但 Diff 越界，不能算通过。",
       "html": "<span class=\"p-tag\" data-role=\"us\" style=\"justify-self:start\">独立练习</span><div class=\"p-task\" style=\"grid-template-columns:repeat(3,minmax(0,1fr))\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><h3>输入与任务</h3><p>自己的副本 · 指定欢迎语</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><h3>交付</h3><p>复述 · 计划 · 确认 · 截图 · Diff · 修正记录</p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"2\"><h3>验收</h3><p>文案准确 · 范围合规 · 问题已复验</p></div></div>",
       "steps": [
@@ -404,9 +392,9 @@ window.lesson = {
         "对照验收"
       ],
       "script": [
-        "【操作提示｜课件 p07 第 1 步，给暂停跟做提示；不等待学员反馈】\n\n现在可以暂停视频，完成你自己的欢迎语修改。先检查环境，保留修改前状态，再发送请求，核对计划、确认修改，最后看页面和差异。\n\n你不用复现老师屏幕上的每一行回复。只要围绕同一个任务，完成必要的操作和检查就可以。遇到问题，先把现象记下来，再按 0.2 课前准备小节的入口处理。",
-        "【操作提示｜推进第 2 步 → 切 VS Code，在练习副本创建或打开 docs/evidence/CH01_ENVIRONMENT_AND_FIRST_LOOP.md，由讲师本人整理记录；如已有内容则追加，不覆盖。此操作在欢迎语任务验收后单独进行】\n\n做完以后，我们把证据放进这个记录文件。你可以按操作顺序写：开始时的环境状态、发出的请求、它的复述和计划、你的确认，然后是修改前后截图、完整差异和检查结论。\n\nReview 就是审查结论。不要只写“看过了”，要写清楚欢迎语是否一致，布局有没有变化，文件改动有没有超出范围。\n\n这个记录文件是我们完成任务后另行整理的，不属于刚才授权 AI 修改欢迎语的范围。你之后再看 Git 状态，会多出这份记录，要把它和那次单文件任务分清。\n\n如果有修正，保留修正前后的证据。没有真实修正，就写明首次任务通过；教学例子的练习另外标注来源，不填一个没有发生过的修复结果。",
-        "【操作提示｜回课件 p07 第 3 步，对照验收项；保留原始记录供下一节使用】\n\n最后给自己一个判断题：欢迎语看起来对了，但 diff 显示它还改了页面颜色，这次能通过吗？\n\n按今天的要求，还不能。因为我们明确约定只替换文字，样式变化超出了范围。要把这处额外改动反馈清楚，处理后再检查。\n\n如果你是从临时桌面入口完成的，记录为临时通过，并在一点三结束前补齐 CLI。还没做完的就写待补做，下一次从记录里的阻塞位置继续。"
+        "【操作提示｜课件 p07 第 1 步，给暂停跟做提示；不等待学员反馈】\n\n现在可以暂停视频，完成自己的欢迎语修改。先检查环境，保留修改前状态，再发送请求，核对计划、确认修改，最后看页面和差异。\n\n不用复现老师屏幕上的每一行回复。只要围绕同一个任务，完成必要的操作和检查就可以。遇到问题，先把现象记下来，再按 0.2 课前准备小节的入口处理。",
+        "【操作提示｜推进第 2 步 → 切 VS Code，在练习副本创建或打开 docs/evidence/CH01_ENVIRONMENT_AND_FIRST_LOOP.md，由讲师本人整理记录；如已有内容则追加，不覆盖。此操作在欢迎语任务验收后单独进行】\n\n做完以后，我们把证据放进这个记录文件。可以按操作顺序写：开始时的环境状态、发出的请求、它的复述和计划、自己的确认，然后是修改前后截图、完整差异和检查结论。\n\nReview 就是审查结论。不要只写“看过了”，要写清楚欢迎语是否一致，布局有没有变化，文件改动有没有超出范围。\n\n这个记录文件是我们完成任务后另行整理的，不属于刚才授权 AI 修改欢迎语的范围。之后再看 Git 状态，会多出这份记录，要把它和那次单文件任务分清。\n\n如果有修正，保留修正前后的证据。没有真实修正，就写明首次任务通过；教学例子的练习另外标注来源，不填一个没有发生过的修复结果。",
+        "【操作提示｜回课件 p07 第 3 步，对照验收项；保留原始记录供下一节使用】\n\n最后给自己一个判断题：欢迎语看起来对了，但 diff 显示它还改了页面颜色，这次能通过吗？\n\n按今天的要求，还不能。因为我们明确约定只替换文字，样式变化超出了范围。要把这处额外改动反馈清楚，处理后再检查。\n\n如果是从临时桌面入口完成的，记录为临时通过，并在一点三结束前补齐 CLI。还没做完的就写待补做，下一次从记录里的阻塞位置继续。"
       ],
       "segment": "独立练习",
       "seconds": 210,
@@ -434,7 +422,6 @@ window.lesson = {
       "id": "p07-recap",
       "label": "先确认，再修改；拿证据收尾",
       "title": "先确认，再修改；拿证据收尾",
-      "kicker": "第 1 章 · 1.1 · 独立练习",
       "lead": "这一节只改了一句话，却完整走过了确认、执行、检查和反馈。带走一个习惯：页面和 Diff 一起看，缺证据就不写通过。下一节用这份记录，把 Agent 的执行过程拆开来看。",
       "html": "<div class=\"p-sketch\" style=\"align-items:center\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">一个习惯</h3><div class=\"p-star\" style=\"width:270px;font-size:27px\">页面与 Diff<br>一起看</div><p class=\"p-sub\" style=\"text-align:center\">缺证据不写通过</p></div><div data-reveal=\"1\"><h3>三个出口</h3><ul class=\"p-exits\" style=\"gap:14px\"><li class=\"is-pass\">通过就记录</li><li class=\"is-fix\">不符就修正复验</li><li class=\"is-stop\">受阻就停止</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>1.2 拆开执行过程</h3></div></div></div>",
       "steps": [
@@ -443,9 +430,9 @@ window.lesson = {
         "交接证据"
       ],
       "script": [
-        "【操作提示｜停留课件 p07-recap 第 1 步，不再切工具窗口】\n\n这一节，我们从一行欢迎语出发，看了一次任务怎样从请求走到验收。开头那个问题，现在有具体答案了：去看实际页面，再对照完整差异和文件状态。\n\n你可以把这个习惯带到下一次小修改里。先给出明确的目标，确认要做的动作，再用实际结果判断是否完成。",
-        "【操作提示｜推进第 2 步，依次指向三个出口】\n\n检查后有三个出口。符合要求，接受并记录；发现差异，反馈后重新检查；缺少条件，保留阻塞再继续。\n\n跟做暂时受阻的同学，先把卡在哪里写具体。以后回来，你就知道要补哪一项，而不是重新从头试一遍。",
-        "【操作提示｜推进第 3 步，结束本节；保留 Terminal 会话、截图和首次闭环记录，下一节复用】\n\n请保留这次的请求、执行过程和检查记录。下一节我们会回到这些材料，看你发出一句话之后，工具怎样读取文件、执行动作，又把结果返回。\n\n今天先把欢迎语任务的证据整理好。我们下一节接着看。"
+        "【操作提示｜停留课件 p07-recap 第 1 步，不再切工具窗口】\n\n这一节，我们从一行欢迎语出发，看了一次任务怎样从请求走到验收。开头那个问题，现在有具体答案了：去看实际页面，再对照完整差异和文件状态。\n\n我们可以把这个习惯带到下一次小修改里。先给出明确的目标，确认要做的动作，再用实际结果判断是否完成。",
+        "【操作提示｜推进第 2 步，依次指向三个出口】\n\n检查后有三个出口。符合要求，接受并记录；发现差异，反馈后重新检查；缺少条件，保留阻塞再继续。\n\n跟做暂时受阻的同学，先把卡在哪里写具体。以后回来，就知道要补哪一项，而不是重新从头试一遍。",
+        "【操作提示｜推进第 3 步，结束本节；保留 Terminal 会话、截图和首次闭环记录，下一节复用】\n\n请保留这次的请求、执行过程和检查记录。下一节我们会回到这些材料，看我们发出一句话之后，工具怎样读取文件、执行动作，又把结果返回。\n\n今天先把欢迎语任务的证据整理好。我们下一节接着看。"
       ],
       "segment": "独立练习",
       "seconds": 60,
@@ -485,9 +472,9 @@ window.lesson = {
     }
   ],
   "intro": [
-    "你好，欢迎来到第一章。从这一章开始，我们要动手做一个自己的个人主页。你可以先想一个很简单的画面：有人打开这个页面，能看到你是谁、你在做什么，以及你想展示的作品。我们会从这个想法出发，一步一步把首页原型做出来。",
+    "你好，欢迎来到第一章。从这一章开始，我们要动手做一个自己的个人主页。你可以先想一个很简单的画面：有人打开这个页面，能看到你是谁、你在做什么，以及你想展示的作品。我们会从这个想法出发，一步一步把个人主页原型做出来。",
     "如果现在让你对 AI 说“帮我做一个个人主页”，它可能马上就开始写代码。不过，这句话里还有不少事情没有说清楚：页面要放哪些内容，哪些文件可以修改，做到什么程度才算完成？这一章，我们就围绕这个小项目，练习怎样把这些要求讲清楚，再检查它交回来的结果。",
-    "工具与环境在零点二准备。本章从一次很小的修改开始。接着，回过头看 AI 是怎样读取文件、执行动作的，以及什么时候需要我们确认。等这些环节看明白了，再把首页的需求整理成一份明确的请求，交给它执行，最后一起看页面、检查代码改动，并验证项目能否构建。",
+    "工具与环境在零点二准备。本章从一次很小的修改开始。接着，回过头看 AI 是怎样读取文件、执行动作的，以及什么时候需要我们确认。等这些环节看明白了，再把个人主页的需求整理成一份明确的请求，交给它执行，最后一起看页面、检查代码改动，并验证项目能否构建。",
     "你可以跟着视频暂停操作，也可以先看完一遍，再用自己的项目练习。遇到报错或者结果和预期不一样，我们就把具体问题找出来，带着证据继续修改。现在先从一个容易看清结果的任务开始：请 AI 帮我们换掉页面上的一句欢迎语。"
   ]
 };

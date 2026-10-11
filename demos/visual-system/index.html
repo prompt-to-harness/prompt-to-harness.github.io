@@ -353,6 +353,21 @@ const HANDOFF={n:'切到实操',type:'PPT → 实操环境的衔接页',kick:'�
    ${G(2,T(510,32,'边看边找',{fs:21,fw:800,c:C.agent})+items.map((it,i)=>{const y=50+i*92;return R(510,y,658,80,'#fff',C.rule,{rx:10,sw:2})+num(542,y+40,i+1,C.agent)+T(572,y+34,it[0],{fs:22,fw:800})+T(572,y+62,it[1],{fs:18,c:C.muted})}).join(''))}
    ${G(3,T(1168,344,'看完回到这一页，逐条打勾复盘',{a:'end',fs:20,fw:700,c:C.agent}))}</svg>`}};
 
+const CMDS={n:'两类代码块',type:'同屏对照：发给 Codex 的请求 vs 在终端运行的命令',kick:'1.2　两类代码块',h:'同样是一段等宽文字<br>先看清它是给谁的',steps:3,
+ why:'学员最容易混的是“这段要粘给 Codex，还是自己在终端里运行”。两类块用不同的标签和外形：Prompt 是浅底加左侧色条，标签写“发给 Codex 的请求”并带复制按钮；终端命令是标签栏加灰底代码区，标签写“在终端运行”和运行位置。课件里分别对应 .prompt 与 .cmd-block（视觉规范第 10 节）。',
+ cue:'第 1 步指左边，说“这段是交给 Codex 的”；第 2 步指右边，说“这几行是你自己在终端里跑的，先看清目录”；第 3 步看镜头，把两句区分讲一遍。',
+ ev:()=>{const P=['只读取 README.md 和必要的仓库状态。','把“项目介绍”这一段改得更具体，','其他段落不动，不装依赖，不发布。','先复述目标和小计划，等我确认再改。'];
+  const S=['git status --short','git diff README.md'];
+  const left=R(0,0,570,268,'#FFFDF7',null,{rx:4})+`<rect x="0" y="0" width="5" height="268" fill="${C.agent}"/>`+
+   T(26,40,'发给 Codex 的请求',{fs:19,fw:700,c:C.muted})+R(432,16,118,34,'#fff',C.agentM,{rx:6,sw:1.5})+T(491,40,'复制请求',{fs:17,fw:700,c:C.agentD,a:'middle'})+
+   R(24,66,526,180,'#F1EFE8',C.rule,{rx:6,sw:1.5})+T(44,104,P,{fs:19,lh:38,mono:1})+
+   T(0,302,'给 Agent：粘到 Codex 的对话框里',{fs:20,fw:800,c:C.agent});
+  const x=598,right=R(x,0,570,52,'#FFFDF7',C.rule,{rx:6,sw:1.5})+T(x+22,34,'在终端运行',{fs:19,fw:800})+T(x+142,34,'练习项目根目录',{fs:19,c:C.muted})+
+   R(x,50,570,150,'#F1EFE8',C.rule,{rx:6,sw:1.5})+S.map((s,i)=>T(x+24,96+i*44,'$ '+s,{fs:21,mono:1})).join('')+
+   T(x,302,'给你自己：在终端里逐行运行，看输出',{fs:20,fw:800,c:C.toolT});
+  return `<svg viewBox="0 0 1168 370">${defs}${G(1,left)}${G(2,right)}
+   ${G(3,R(0,326,1168,40,C.agentL,null,{rx:8})+T(20,353,'标签说清三件事：给谁 · 在哪里 · 怎么用　——　Prompt 不进终端，命令不发给 Codex',{fs:19,fw:700,c:C.agentD}))}</svg>`}};
+
 const REC={n:'录屏叠加层',sp:1,cls:'pg-rec',tag:'实操录屏画面的叠加规范（不是幻灯片）',type:'录屏合成：讲师框 + 观察清单浮层 + 推近',steps:3,
  why:'实操录屏时，画面换成 Codex 或 CodeSandbox，但讲师框位置不变，左下角保留一个小的观察清单浮层，和“切到实操”页的三项一一对应，找到一项就打勾。需要看清细节时推近，而不是缩小字号。',
  cue:'录制时把应用窗口的关键区域放在左侧和中部，右上角留给讲师框；推近时保持 2 秒以上再拉回。',
@@ -380,11 +395,11 @@ function wrap(s,n){const out=[];let cur='';for(const ch of s){cur+=ch;if(cur.len
 
 /* ---------- 页面顺序与统一视觉 ---------- */
 K.forEach(p=>{p.tag='知识页'});
-const [LOOP,CTX,TOOLR,ACC,LAYERS,FAIL]=K;[CODE,DIFF,PRM,MATRIX,HANDOFF,QUIZ].forEach(p=>{p.tag='知识页'});
-const P=[COVER,COMIC,LOOP,CTX,TOOLR,PRM,HANDOFF,REC,CODE,DIFF,ACC,MATRIX,LAYERS,FAIL,QUIZ,SUM];
+const [LOOP,CTX,TOOLR,ACC,LAYERS,FAIL]=K;[CODE,DIFF,PRM,MATRIX,HANDOFF,CMDS,QUIZ].forEach(p=>{p.tag='知识页'});
+const P=[COVER,COMIC,LOOP,CTX,TOOLR,PRM,HANDOFF,CMDS,REC,CODE,DIFF,ACC,MATRIX,LAYERS,FAIL,QUIZ,SUM];
 const SPEC=`<h3>统一视觉规范</h3><p>底色：课程纸色 #F4F2EB（与 ch01 课程站同源），全课所有页面一致。<br>标题：站酷快乐体；正文、代码、表格：印刷体（Noto Sans SC、JetBrains Mono）。<br>线条：框和箭头轻微手绘抖动；表格分隔线、勾叉图标保持工整。<br>语义色：Agent 用柔和紫（大面积填充 #ABA6E9，深紫字 #2A2380），Tool 青、Context 沙、闸门红、通过绿。<br>讲师：右上角 300×225 坐姿会议框，正文区 1168×370。<br>章节条：画面最底部，本节按段落分段，宽度按计划时长分配，只写段落名、不加编号，当前段加粗并按进度填充。</p>`;
 let pg=0,st=1,safe=false,mode='bar3';
-const SEGS=[['开场',2,[0,1]],['三个概念',5,[2,3,4]],['Prompt 与实操',6,[5,6,7]],['复盘证据',5,[8,9,10]],['选择与主线',4,[11,12,13]],['收尾',2,[14,15]]];
+const SEGS=[['开场',2,[0,1]],['三个概念',5,[2,3,4]],['Prompt 与实操',6,[5,6,7,8]],['复盘证据',5,[9,10,11]],['选择与主线',4,[12,13,14]],['收尾',2,[15,16]]];
 const CIR='①②③④⑤⑥';
 const MODES=[['none','无'],['kick','小标题指示'],['bar','章节条：全标签'],['bar3','章节条：全标签无编号'],['bar2','章节条：精简']];
 const MODE_NOTE={none:'不显示进度，只靠开篇地图和小结。',kick:'进度放在已有的小标题行：段落编号和名称，后面 6 格短条，实心为已讲。不新增任何区域。',bar:'全标签版：每段名称都写在细条上方，宽度按各段计划时长分配，当前段按讲到的页和步实时填充。打开“安全区”可以看到：居中的字幕会压住中间几段的名称。',bar3:'全标签去掉圆圈编号：顺序由左到右的位置已经表达，编号是重复信息。去掉后每段名称更短、更干净，窄的段落（开场、收尾）也不再挤。',bar2:'精简版：只在最左侧显示当前段名称和“第几 / 共几段”，右侧是不带文字的分段细条。画面中间不出现文字，和居中的字幕不冲突。'};

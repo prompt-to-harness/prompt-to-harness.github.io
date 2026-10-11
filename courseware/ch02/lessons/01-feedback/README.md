@@ -1,12 +1,12 @@
 # 2.1 先听听别人怎么说
 
-[打开课件](index.html) · [逐步讲稿](speaker.html) · [Markdown 讲稿](script.md) · [分镜](STORYBOARD.md) · [验证记录](VALIDATION.md)
+[打开课件](index.html) · [逐步讲稿](speaker.html) · [分镜](STORYBOARD.md) · [验证记录](VALIDATION.md)
 
 用课程示例反馈卡建立反馈基线；借一次只读核对，看懂 Codex 实际发给模型的请求由哪几块组成，以及它为什么随环境和权限变化。依据[内部大纲](../../../../docs/outline/course-outline-internal.md) 2.1 与[第 2 章提案](../../../../docs/outline/proposals/2026-10-02-ch02-adjustments.md)。未试讲。
 
 ## 维护
 
-`tools/build-lesson.py` 是本节唯一的内容源：页面 HTML、分步、逐字稿、阅读模式导语和讲师提示都写在里面，生成 `lesson.js` 与 `script.md`。不要直接改生成物。全章共用的页面登记、章节地图、窄屏样式和输出写在 [`../../tools/lessonkit.py`](../../tools/lessonkit.py)；改它会影响五节，改完逐节重新生成并比对。
+`tools/build-lesson.py` 是本节唯一的内容源：页面 HTML、分步、逐字稿、阅读模式导语和讲师提示都写在里面，生成 `lesson.js`。不要直接改生成物。全章共用的页面登记、章节地图、窄屏样式和输出写在 [`../../tools/lessonkit.py`](../../tools/lessonkit.py)；改它会影响五节，改完逐节重新生成并比对。
 
 ```sh
 python3 courseware/ch02/lessons/01-feedback/tools/build-lesson.py

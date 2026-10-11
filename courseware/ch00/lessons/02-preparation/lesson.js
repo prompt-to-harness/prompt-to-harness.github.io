@@ -8,7 +8,6 @@ window.lesson = {
       "id": "p12",
       "label": "安装 & 接入 agent 工具",
       "title": "安装 & 接入 agent 工具",
-      "kicker": "第 0 章 · 0.2 · 安装 & 接入",
       "lead": "安装 Codex 并接入模型; 用 Git 取得项目; 在浏览器打开欢迎页",
       "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>01</b>安装 &amp; 接入</li><li><b>02</b>Git 与项目</li><li><b>03</b>启动 course-starter</li></ol>",
       "steps": [
@@ -32,7 +31,6 @@ window.lesson = {
       "id": "p14",
       "label": "安装 App 与 CLI，再配置模型",
       "title": "安装 App 与 CLI，再配置模型",
-      "kicker": "第 0 章 · 0.2 · 安装 & 接入",
       "lead": "App 提供图形界面，CLI 从终端启动。分别安装后配置课程模型，再通过一次真实请求检查接入。",
       "html": "<div class=\"p-grid\" style=\"--n:2;align-items:start\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><h3>Codex App</h3><p class=\"p-go\"><a href=\"https://developers.openai.com/codex/app/\" target=\"_blank\" rel=\"noopener\">Codex App 官方说明</a></p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><h3>Codex CLI</h3><p class=\"p-go\"><a href=\"https://learn.chatgpt.com/docs/codex/cli\" target=\"_blank\" rel=\"noopener\">Codex CLI 官方说明</a></p></div></div>",
       "steps": [
@@ -98,7 +96,6 @@ window.lesson = {
       "id": "p14a",
       "label": "安装 Git & 取得 course-starter",
       "title": "安装 Git & 取得 course-starter",
-      "kicker": "第 0 章 · 0.2 · Git 与项目",
       "lead": "安装 Codex 并接入模型; 用 Git 取得项目; 在浏览器打开欢迎页",
       "html": "<ol class=\"p-map\"><li><b>01</b>安装 &amp; 接入</li><li class=\"is-now\"><b>02</b>Git 与项目</li><li><b>03</b>启动 course-starter</li></ol>",
       "steps": [
@@ -122,7 +119,6 @@ window.lesson = {
       "id": "p13",
       "label": "用 Git 取得 course-starter",
       "title": "用 Git 取得 course-starter",
-      "kicker": "第 0 章 · 0.2 · Git 与项目",
       "lead": "安装 Git 后，克隆 course-starter 到新目录。进入项目根目录，后续命令都在这里运行。",
       "html": "<div class=\"p-grid\" style=\"--n:2;align-items:start\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><h3>验证 Git 安装</h3><p><code>git --version</code></p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><h3>下载并进入项目</h3><p><code>git clone https://github.com/prompt-to-harness/course-starter.git</code><br><code>cd course-starter</code></p></div></div>",
       "steps": [
@@ -185,7 +181,6 @@ window.lesson = {
       "id": "p15",
       "label": "Git status & diff",
       "title": "Git status & diff",
-      "kicker": "第 0 章 · 0.2 · Git 与项目",
       "lead": "在 README.md 末尾加一行练习文字，比较保存前后的 Git 输出。然后尝试恢复",
       "html": "<div class=\"p-grid\" style=\"--n:2\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><h3>Git status</h3><p><code>git status --short</code></p><pre style=\"font-size:22px\"> M README.md</pre></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><h3>Git diff</h3><p><code>git diff -- README.md</code></p><pre style=\"font-size:20px;white-space:pre-wrap\">+Git 命令练习：我已经取得本地项目</pre></div></div>",
       "steps": [
@@ -234,7 +229,6 @@ window.lesson = {
       "id": "p15a",
       "label": "本地启动 course-starter 验证",
       "title": "本地启动 course-starter 验证",
-      "kicker": "第 0 章 · 0.2 · 启动 course-starter",
       "lead": "安装 Codex 并接入模型; 用 Git 取得项目; 在浏览器打开欢迎页",
       "html": "<ol class=\"p-map\"><li><b>01</b>安装 &amp; 接入</li><li><b>02</b>Git 与项目</li><li class=\"is-now\"><b>03</b>启动 course-starter</li></ol>",
       "steps": [
@@ -258,7 +252,6 @@ window.lesson = {
       "id": "p16",
       "label": "在本地启动欢迎页",
       "title": "在本地启动欢迎页",
-      "kicker": "第 0 章 · 0.2 · 启动 course-starter",
       "lead": "欢迎页是一个独立 HTML 文件。下面的本地服务从项目根目录提供文件，浏览器打开 /setup-check/，下一节继续使用同一页面。",
       "html": "<div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><h3>启动本地 http server</h3><p><code>python3 -m http.server 4174 --bind 127.0.0.1</code></p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\" style=\"margin-top:16px\"><h3>浏览器打开</h3><p><a href=\"http://localhost:4174/setup-check/\">http://localhost:4174/setup-check/</a></p><p>你好，欢迎来到我的练习页面</p></div>",
       "steps": [
@@ -316,7 +309,6 @@ window.lesson = {
       "id": "p17",
       "label": "在 CLI & APP 各发一次指令",
       "title": "在 CLI & APP 各发一次指令",
-      "kicker": "第 0 章 · 0.2 · 启动 course-starter",
       "lead": "App 打开本地项目，CLI 从同一项目根目录启动。配置完成后，分别读取欢迎语并对照原文",
       "html": "<div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><h3>发送请求</h3><p>只读取 setup-check/index.html，告诉我 h1#welcome-message 当前的完整文字，不修改任何文件</p></div>",
       "steps": [
@@ -358,7 +350,6 @@ window.lesson = {
       "id": "p18",
       "label": "Recheck 三个准备项",
       "title": "Recheck 三个准备项",
-      "kicker": "第 0 章 · 0.2",
       "lead": "最终检查项",
       "html": "<div class=\"p-grid\" style=\"--n:3\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><h3>模型能响应</h3><p>App 或 CLI 正常安装<br>App 或 CLI 正常发送指令</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><h3>Git 能看变化</h3><p>git 命令正常使用<br>git diff &amp; status 均正常查看</p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"2\"><h3>欢迎页能打开</h3><p>本地正常启动 http serve<br>本地正常打开欢迎页</p></div></div><div class=\"p-bar is-light preparation-next\" data-reveal=\"3\"><h3>第一次修改：VibeCoding 的 \"Hello world!\"</h3><p class=\"preparation-lead\">保留当前准备，进入第一章第一小节(1.1节)完成第一次修改、检查与反馈</p><p><b>第一章：从环境启动到首页原型</b></p></div>",
       "steps": [

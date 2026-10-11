@@ -10,7 +10,6 @@ window.lesson = {
       "layout": "lesson-cover",
       "label": "重开时什么被重置了",
       "title": "点“重新开始”，什么被重置了？",
-      "kicker": "第 3 章 · 3.7 · 工程经验",
       "lead": "看得见的归零了，看不见的呢",
       "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>3.1</b>加个游戏</li><li class=\"is-done\"><b>3.2</b>谁定的规则</li><li class=\"is-done\"><b>3.3</b>按证据修</li><li class=\"is-done\"><b>3.4</b>审插件</li><li class=\"is-done\"><b>3.5</b>插件的主张</li><li class=\"is-done\"><b>3.6</b>说明在哪</li><li class=\"is-now\"><b>3.7</b>重开清理</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:18px\"><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ok\">看得见的</span><p>牌面、步数、用时、提示</p></div><div class=\"p-box is-dashed\" data-role=\"gate\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"gate\">看不见的</span><p>还在倒数的计时器 · 事件监听 · 游戏实例</p></div></div>",
       "steps": [
@@ -19,9 +18,9 @@ window.lesson = {
         "看不见的"
       ],
       "script": [
-        "本章最后一节是一段工程经验。问题很简单：点“重新开始”的时候，什么被重置了？",
-        "看得见的：牌面全部翻回，步数和用时归零，提示换成“新一局开始”。",
-        "看不见的呢？3.2 里，翻错以后有一个 900 毫秒的计时器在倒数。如果这时候点重开，那个计时器还在吗？它到点以后，会对新的一局做什么？"
+        "【操作提示｜停留课件 p45 第 1 步，指向章节地图上的 3.7；不切窗口】\n\n本章最后一节是一段工程经验。问题很简单：点“重新开始”的时候，什么被重置了？",
+        "【操作提示｜推进第 2 步，指向“看得见的”卡片】\n\n看得见的：牌面全部翻回，步数和用时归零，提示换成“新一局开始”。",
+        "【操作提示｜推进第 3 步，指向虚线的“看不见的”卡片，先停在计时器这一项提问；讲完进入 p46】\n\n看不见的呢？3.2 里，翻错以后有一个 900 毫秒的计时器在倒数。如果这时候点重开，那个计时器还在吗？它到点以后，会对新的一局做什么？"
       ],
       "teaching": [],
       "source": "index.html#p45",
@@ -32,7 +31,6 @@ window.lesson = {
       "segment": "我们的实现",
       "label": "我们的实现有这个问题吗",
       "title": "我们的实现，其实都清理了",
-      "kicker": "第 3 章 · 3.7 · 我们的实现",
       "lead": "排练的 6 份实现，重开时都清理了计时器。为了看清没清理会怎样，我们用一份明确标注的预备版本：在修好的 v1 上删掉一行。这不是自然出现的事故。",
       "html": "<div class=\"p-code\" data-reveal=\"0\"><div class=\"p-code-head\"><span>v1 · 等待翻回的 effect</span></div><pre><span style=\"display:block\">const timer = window.setTimeout(() =&gt; { …翻回、清空“已翻开” }, 900)</span><span class=\"hl\">return () =&gt; window.clearTimeout(timer)   // 清理</span></pre></div><div class=\"p-code\" data-reveal=\"1\" style=\"margin-top:12px\"><div class=\"p-code-head\"><span>预备版本（教学用）</span><span>−1 行</span></div><pre><span style=\"display:block\">window.setTimeout(() =&gt; { …翻回、清空“已翻开” }, 900)</span><span class=\"del\">-return () =&gt; window.clearTimeout(timer)</span></pre></div><p class=\"p-links\" data-reveal=\"1\" style=\"margin-top:12px\"><a href=\"../../practice/memory-v1/index.html\" target=\"_blank\" rel=\"noopener\">v1</a><a href=\"../../practice/memory-stale-timer/index.html\" target=\"_blank\" rel=\"noopener\">预备版本（教学用）</a></p><p class=\"source-note\">教学预备版本：在 3.3 修复后的 v1 上删掉一行清理代码（courseware/ch03/materials/prepared/stale-timer.diff），2026-10-06 用脚本核对一次。不是自然出现的缺陷。</p>",
       "steps": [
@@ -40,8 +38,8 @@ window.lesson = {
         "预备版本"
       ],
       "script": [
-        "先看我们自己的实现。v1 等待翻回的那段代码：建一个 900 毫秒的计时器，到点后翻回两张牌、清空“已翻开”的记录；下面一行是清理：这段逻辑结束或重新执行时，取消计时器。讲师排练的 6 份实现，重开时都做了清理。",
-        "为了看清楚没清理会怎样，讲师准备了一份预备版本：在修好的 v1 上删掉这一行。请记住，这是教学用的，不是 AI 自然写出来的事故。"
+        "【操作提示｜课件 p46 第 1 步，指向上方 v1 代码里高亮的清理行。如需展示源码，切 VS Code 打开 v1 的 src/components/MemoryGame.tsx 定位这个 effect，看完回课件；“6 份实现都清理了”按 materials/mainline 排练记录念】\n\n先看我们自己的实现。v1 等待翻回的那段代码：建一个 900 毫秒的计时器，到点后翻回两张牌、清空“已翻开”的记录；下面一行是清理：这段逻辑结束或重新执行时，取消计时器。讲师排练的 6 份实现，重开时都做了清理。",
+        "【操作提示｜推进第 2 步，指向下方预备版本里删掉的那一行和“预备版本（教学用）”标签；这是 materials/prepared/stale-timer.diff 构造的教学预备，不说成现场发现。本页两个链接此时不点开，留到 p47 之后】\n\n为了看清楚没清理会怎样，讲师准备了一份预备版本：在修好的 v1 上删掉这一行。请记住，这是教学用的，不是 AI 自然写出来的事故。"
       ],
       "teaching": [
         {
@@ -57,7 +55,6 @@ window.lesson = {
       "segment": "时间线",
       "label": "旧计时器做了什么",
       "title": "先预测，再看：旧计时器做了什么",
-      "kicker": "第 3 章 · 3.7 · 时间线",
       "lead": "翻错 → 计时器开始倒数 → 立刻重开 → 新一局翻开一张 → 900ms 到，旧回调执行：它清空的是新一局的“已翻开”记录 → 再翻一张，游戏不再比较这两张，它们一直朝上。",
       "html": "<div class=\"p-flow\" style=\"--n:5;font-size:18px\"><div class=\"p-node\" data-reveal=\"0\"><b>0 ms</b><small>翻错，计时器开始</small></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"0\"><b>约 50 ms</b><small>点重开</small></div><div class=\"p-node\" data-reveal=\"1\"><b>约 100 ms</b><small>新一局翻开第 1 张</small></div><div class=\"p-node\" data-role=\"gate\" data-reveal=\"2\"><b>900 ms</b><small>旧回调：清空“已翻开”</small></div><div class=\"p-node\" data-role=\"gate\" data-reveal=\"3\"><b>之后</b><small>翻第 2 张：两张一直朝上</small></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\" data-reveal=\"3\"><div class=\"p-box is-soft\" data-role=\"ok\"><h3>v1</h3><p>“不是一对”，两张翻回</p></div><div class=\"p-box is-soft\" data-role=\"gate\"><h3>预备版本</h3><p>两张一直朝上，提示不变</p></div></div>",
       "steps": [
@@ -67,10 +64,10 @@ window.lesson = {
         "结果"
       ],
       "script": [
-        "先预测，再看结果。时间线从翻错开始：计时器开始倒数 900 毫秒。几十毫秒后，我们点了重开。",
-        "新的一局，我们翻开第一张。画面一切正常。",
-        "到了 900 毫秒，上一局的计时器到点了，它的回调照常执行：翻回上一局那两张、清空“已翻开”的记录。可现在的“已翻开”是新一局的：它把我们刚翻开的那一张从记录里抹掉了，画面上却看不出来。",
-        "再翻第二张。v1 会说“不是一对”，两张翻回。预备版本里，两张一直朝上，提示不变，游戏已经不记得第一张了。请暂停视频，先写下你的预测，再打开配套材料看结果。"
+        "【操作提示｜课件 p47 第 1 步，指向时间线前两格（0 ms、约 50 ms）；不切窗口。时间线来自 materials/prepared/README.md 的 2026-10-06 核对记录，时刻按记录中的约数念】\n\n先预测，再看结果。时间线从翻错开始：计时器开始倒数 900 毫秒。几十毫秒后，我们点了重开。",
+        "【操作提示｜推进第 2 步，指向“约 100 ms 新一局翻开第 1 张”】\n\n新的一局，我们翻开第一张。画面一切正常。",
+        "【操作提示｜推进第 3 步，指向“900 ms 旧回调”格；强调画面上看不出变化】\n\n到了 900 毫秒，上一局的计时器到点了，它的回调照常执行：翻回上一局那两张、清空“已翻开”的记录。可现在的“已翻开”是新一局的：它把我们刚翻开的那一张从记录里抹掉了，画面上却看不出来。",
+        "【操作提示｜推进第 4 步，指向下方 v1 与预备版本两张对照卡，留出暂停视频的时间。如需现场对照，从 p46 的两个链接在 Chrome 各新开一个标签页（practice/memory-v1、practice/memory-stale-timer），按“翻错、立刻重开、翻一张、等 1.2 秒、再翻一张”操作；手速差异导致现象不同就如实说明，以 stale-timer-check.py 的核对记录为准，之后回课件】\n\n再翻第二张。v1 会说“不是一对”，两张翻回。预备版本里，两张一直朝上，提示不变，游戏已经不记得第一张了。请暂停视频，先写下你的预测，再打开配套材料看结果。"
       ],
       "repro": {
         "label": "复现这个实验",
@@ -95,7 +92,6 @@ window.lesson = {
       "segment": "清理责任",
       "label": "还有什么要清理",
       "title": "谁创建，谁清理",
-      "kicker": "第 3 章 · 3.7 · 清理责任",
       "lead": "状态是数据，重开时归零就行；副作用是正在运行的东西：计时器、事件监听、动画帧、观察器、游戏引擎实例。它们由谁创建，就由谁在结束或重来时清理。3.5 的躲避游戏里，帧循环和尺寸观察器都在组件卸载时清理了。",
       "html": "<div class=\"p-set\" style=\"display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px\"><div class=\"p-item\" data-reveal=\"0\"><b>计时器</b> · setTimeout / setInterval → clearTimeout</div><div class=\"p-item\" data-reveal=\"1\"><b>事件监听</b> · addEventListener('keydown') → removeEventListener</div><div class=\"p-item\" data-reveal=\"1\"><b>动画帧</b> · requestAnimationFrame → cancelAnimationFrame</div><div class=\"p-item is-picked\" data-reveal=\"2\"><b>3.5 的躲避游戏</b> · cancelAnimationFrame、observer.disconnect()；用引擎时还有 game.destroy()</div></div><div class=\"p-bar is-light\" data-reveal=\"3\">界面重置 ≠ <b>资源重置</b></div>",
       "steps": [
@@ -105,10 +101,10 @@ window.lesson = {
         "一句话"
       ],
       "script": [
-        "把问题推广一下。状态是数据：牌面、步数、用时，重开时归零就行。副作用是正在运行的东西，第一类就是计时器：谁 setTimeout，谁负责 clearTimeout。",
-        "第二类，事件监听：躲避游戏要监听键盘，组件卸载时要移除监听，否则离开页面后按方向键，旧的处理函数还在跑。第三类，动画帧：每一帧调用一次，停下来时要取消。",
-        "回到 3.5 的躲避游戏，打开它的组件看：帧循环在组件卸载时 cancelAnimationFrame，监听尺寸的观察器 disconnect，键盘监听挂在游戏区元素上，随组件一起移除。如果当时选了 Phaser，还要加一项：离开页面时 destroy 游戏实例。3.5 评审 diff 时查的那一项，就是这个问题。",
-        "一句话：界面重置不等于资源重置。也不要走向另一个极端，把所有状态变化都当成 Bug：数据归零是对的，要查的是还在运行的东西。"
+        "【操作提示｜课件 p48 第 1 步，指向“计时器”一项；不切窗口】\n\n把问题推广一下。状态是数据：牌面、步数、用时，重开时归零就行。副作用是正在运行的东西，第一类就是计时器：谁 setTimeout，谁负责 clearTimeout。",
+        "【操作提示｜推进第 2 步，指向“事件监听”“动画帧”两项】\n\n第二类，事件监听：躲避游戏要监听键盘，组件卸载时要移除监听，否则离开页面后按方向键，旧的处理函数还在跑。第三类，动画帧：每一帧调用一次，停下来时要取消。",
+        "【操作提示｜推进第 3 步，指向高亮的“3.5 的躲避游戏”一项。如需展示源码，切 VS Code 打开 3.5 排练成品的 DodgeGame.tsx，指认 cancelAnimationFrame、disconnect 所在的清理函数，看完回课件；3.5 排练没有引入 Phaser（无新依赖），不演示 destroy】\n\n回到 3.5 的躲避游戏，打开它的组件看：帧循环在组件卸载时 cancelAnimationFrame，监听尺寸的观察器 disconnect，键盘监听挂在游戏区元素上，随组件一起移除。如果当时选了 Phaser，还要加一项：离开页面时 destroy 游戏实例。3.5 评审 diff 时查的那一项，就是这个问题。",
+        "【操作提示｜推进第 4 步，指向底部“界面重置 ≠ 资源重置”；讲完进入 p49】\n\n一句话：界面重置不等于资源重置。也不要走向另一个极端，把所有状态变化都当成 Bug：数据归零是对的，要查的是还在运行的东西。"
       ],
       "teaching": [],
       "source": "index.html#p48",
@@ -119,7 +115,6 @@ window.lesson = {
       "segment": "本章收尾",
       "label": "本章小结",
       "title": "第 3 章：能玩，以及能玩背后的规则",
-      "kicker": "第 3 章 · 3.7 · 本章收尾",
       "lead": "本章交付：两个可玩、已发布的游戏；状态图与问题清单；一次复现、调查、定规则、修复、复验的闭环；插件审查与生命周期证据；信息来源表与需求债务清单；本节的清理判断。下一章：换一个真实的开源项目，用规格把决定写下来。",
       "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3>本章交付</h3><ul class=\"p-exits\" style=\"gap:8px;font-size:18px\"><li class=\"is-pass\">两个游戏，已发布</li><li class=\"is-pass\">缺陷闭环与两条规则</li><li class=\"is-pass\">插件审查与停用证据</li><li class=\"is-pass\">需求债务清单</li></ul></div><div data-reveal=\"1\"><h3 style=\"text-align:center\">一个问题</h3><div class=\"p-star\" style=\"width:260px;font-size:22px\">这条规则<br>是谁定的？</div></div><div class=\"p-next\" data-reveal=\"2\"><h3>第 4 章</h3><div class=\"p-box\" data-role=\"us\"><h3>SDD</h3><p>为 JSON Diff 建立可执行规格</p></div></div></div><p class=\"p-links\" data-reveal=\"2\" style=\"margin-top:12px\"><a href=\"../../practice/homepage-v2/index.html\" target=\"_blank\" rel=\"noopener\">试玩讲师的本章成品</a></p>",
       "steps": [
@@ -128,9 +123,9 @@ window.lesson = {
         "下一章"
       ],
       "script": [
-        "回顾这一章的交付：两个可玩的游戏，build 通过后更新公开版本，在桌面和手机宽度都能进入、能操作；一次完整的缺陷闭环和两条规则；插件的审查、使用和停用证据；需求债务清单；还有这一节的清理判断，补进缺陷记录。",
-        "贯穿全章的只有一个问题：这条规则是谁定的？AI 替我们定的，要发现它；该我们定的，要自己定；插件带来的，要判断听不听；定下的，要落进仓库。",
-        "下一章换一个真实的开源项目，JSON Crack。我们不再一句话开工，而是先用规格把决定写下来。"
+        "【操作提示｜课件 p49 第 1 步，指向“本章交付”四项；不切窗口。build 与公开版本更新属于学员跟做产出，录制时不在这里演示部署】\n\n回顾这一章的交付：两个可玩的游戏，build 通过后更新公开版本，在桌面和手机宽度都能进入、能操作；一次完整的缺陷闭环和两条规则；插件的审查、使用和停用证据；需求债务清单；还有这一节的清理判断，补进缺陷记录。",
+        "【操作提示｜推进第 2 步，指向中间“这条规则是谁定的？”】\n\n贯穿全章的只有一个问题：这条规则是谁定的？AI 替我们定的，要发现它；该我们定的，要自己定；插件带来的，要判断听不听；定下的，要落进仓库。",
+        "【操作提示｜推进第 3 步，指向“第 4 章 SDD”卡片；如需展示成品，点“试玩讲师的本章成品”链接，在 Chrome 新开标签页打开后回课件。本章结束】\n\n下一章换一个真实的开源项目，JSON Crack。我们不再一句话开工，而是先用规格把决定写下来。"
       ],
       "teaching": [
         {
