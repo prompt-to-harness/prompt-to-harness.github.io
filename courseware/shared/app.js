@@ -42,7 +42,34 @@
       + row(refs.filter(ref => ref.kind !== 'live'), 'class="p-refs source-note"', '延伸阅读');
   };
   // 复现步骤（scene.repro）：折叠按钮，点开才显示；演示模式下在标题上方一行，展开后叠在画面上方。见 docs/production/parts.md 的 .p-repro。
-  const renderRepro = (repro) => repro ? `<details class="p-repro"><summary>${escape(repro.label)}</summary><div class="p-repro-body"><ol>${repro.steps.map(step => `<li><span>${escape(step.text)}</span>${step.code ? `<pre><code>${escape(step.code)}</code></pre>` : ''}</li>`).join('')}</ol>${repro.note ? `<p>${escape(repro.note)}</p>` : ''}</div></details>` : '';
+  // step.links 是步骤文字里的可跳转片段，文字其余部分仍转义。
+  const renderStepText = (step) => {
+    const links = step.links || [];
+    if (!links.length) return escape(step.text);
+    const pattern = new RegExp(links.map(link => link.text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'), 'g');
+    let cursor = 0;
+    let html = '';
+    for (const match of step.text.matchAll(pattern)) {
+      const link = links.find(item => item.text === match[0]);
+      html += escape(step.text.slice(cursor, match.index));
+      html += `<a href="${escape(link.url)}" target="_blank" rel="noopener">${escape(link.text)}</a>`;
+      cursor = match.index + match[0].length;
+    }
+    return html + escape(step.text.slice(cursor));
+  };
+  const renderJump = (step) => {
+    const links = step.links || [];
+    if (!step.jump || links.length !== 1 || step.text !== links[0].text) return '';
+    const link = links[0];
+    return `<a href="${escape(link.url)}" target="_blank" rel="noopener">${escape(link.text)}</a>`;
+  };
+  const renderRepro = (repro) => {
+    if (!repro) return '';
+    const jumps = repro.steps.filter(step => renderJump(step));
+    const steps = repro.steps.filter(step => !renderJump(step));
+    const jumpRow = jumps.length ? `<p class="p-jumps">${jumps.map(renderJump).join('')}</p>` : '';
+    return `<details class="p-repro"><summary>${escape(repro.label)}</summary><div class="p-repro-body">${jumpRow}<ol>${steps.map(step => `<li><span>${renderStepText(step)}</span>${step.code ? `<pre><code>${escape(step.code)}</code></pre>` : ''}</li>`).join('')}</ol>${repro.note ? `<p>${escape(repro.note)}</p>` : ''}</div></details>`;
+  };
   const renderCommands = (commands = []) => commands.length ? `<dl class="command-list">${commands.map(item => `<div><dt>${escape(item.label)}</dt><dd><code>${escape(item.command)}</code>${escape(item.description)}</dd></div>`).join('')}</dl>` : '';
   let mode = new URLSearchParams(location.search).get('mode') === 'slides' ? 'slides' : 'scroll';
   let current = Math.max(0, scenes.findIndex(scene => `#${scene.id}` === location.hash));
@@ -57,8 +84,8 @@
   lesson.innerHTML = scenes.map((scene, index) => `<section class="${sceneClass(scene)}" id="${scene.id}" aria-labelledby="heading-${scene.id}" data-index="${index}">
     <p class="scene-kicker">${scene.kicker}</p>
     <h2 id="heading-${scene.id}" tabindex="-1">${scene.title}</h2>
-    <p class="lede">${scene.lead}</p>${renderRepro(scene.repro)}
-    <div class="scene-content">${scene.prompt ? `<div class="prompt"><div class="prompt-label"><span>发给 Codex 的请求</span><button type="button" class="copy-button" data-copy="${index}">复制请求</button></div><pre><code class="language-text">${escape(scene.prompt)}</code></pre></div>` : ''}${renderCommands(scene.commands)}${scene.html}${renderRefs(scene)}</div>
+    <p class="lede">${scene.lead}</p>${scene.repro?.place === 'content' ? '' : renderRepro(scene.repro)}
+    <div class="scene-content">${scene.prompt ? `<div class="prompt"><div class="prompt-label"><span>发给 Codex 的请求</span><button type="button" class="copy-button" data-copy="${index}">复制请求</button></div><pre><code class="language-text">${escape(scene.prompt)}</code></pre></div>` : ''}${renderCommands(scene.commands)}${scene.html}${scene.repro?.place === 'content' ? renderRepro(scene.repro) : ''}${renderRefs(scene)}</div>
   </section>`).join('');
   nav.innerHTML = scenes.map((scene, index) => `<a href="#${scene.id}" data-index="${index}">${window.lesson.navNumbers === false ? '' : `<span>${String(index + 1).padStart(2, '0')}</span>`}${scene.label}</a>`).join('');
   const sections = [...lesson.querySelectorAll('.scene')];
