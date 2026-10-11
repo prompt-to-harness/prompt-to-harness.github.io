@@ -119,3 +119,41 @@ RESUME=1 courseware/ch03/materials/memory/run-memory.sh <同一目录>      # 6 
 - **Codex 加的内容是否标明“非用户原话”，每轮不同**（4 份笔记里 1 份标明）。课上不能预设哪一种，按当次结果讲；两种都能接上“这条规则是谁定的”。
 - **关闭记忆不等于看不到记忆文件**。请求里没有记忆说明，但笔记就在磁盘上，Codex 的读权限能翻到上级目录和其他目录（第 8 轮对照会话自己说：“这不是记忆告诉我的……我是靠翻文件查到的”）。这可以接回 1.3 的沙箱：限制的是写，不是读。对照组要有意义，仓库、Codex home 和运行记录都不能放在能从仓库逐级向上翻到的位置；已用权限配置解决，见上文“关闭记忆的对照会话怎样才不被污染”。
 - 第 1 轮手动推进时的对照会话没有翻上级目录，回答“这个决定目前不存在”。同样的设置，Codex 是否去翻也因轮而异。
+
+## 三家记忆机制对比（2026-10-07 核查）
+
+讲师追问“为什么要等 6 小时才起作用”后的核查。Codex 一列依据子模块 `b741e480` 源码；Claude Code 一列依据[官方文档](https://code.claude.com/docs/en/memory.md)原文；Claude 应用一列依据[官方 release notes](https://support.claude.com/en/articles/12138966-release-notes) 与[帮助中心](https://support.claude.com/en/articles/11817273)。均为文档与源码阅读，Claude 两列未实测。
+
+| | Codex 本地 Memories | Claude 应用 Memory | Claude Code auto memory |
+| --- | --- | --- | --- |
+| 怎么生成 | 后台两段：从闲置会话提取，再全局整理成 `memory_summary.md` | 对话中逐条写入主题记录 | Claude 在会话中直接写记忆文件，`MEMORY.md` 作索引 |
+| 何时生效 | 闲置 6 小时后，下一次启动时提取；整理成功后冷却 6 小时 | 下一次对话 | 下一个会话启动时加载 `MEMORY.md` 前 200 行或 25KB，主题文件按需读 |
+| 说“记住” | 只写一条 ad_hoc 笔记，下一次整理后才进摘要 | 下一次对话 | 立即写文件，下个会话可见 |
+| 默认 | 关 | Free/Pro/Max 开，Team/Enterprise 关 | 本地会话开 |
+| 存在哪 | 本机 `~/.codex/memories/` | 云端账号，按 Project 隔离 | 本机 `~/.claude/projects/<项目>/memory/`，不跨机器，不进 git |
+| 人能否编辑 | 官方称生成状态，不建议手改 | 设置里逐条编辑、删除 | 普通 Markdown 文件 |
+
+更新时间线（与课程相关的部分）：
+
+- Claude 应用 2026-07-10 从“每 24 小时汇总一次”改为“对话中逐条读写”（release notes 只有标题，机制取自帮助中心底部保留的旧版说明和第三方转述）；2026-08-25 加 Topics 逐条编辑界面、敏感话题开关（release notes 原文）。
+- Codex 2026-02 的 PR #12231 把 `min_rollout_idle_hours` 默认从 12 降到 6；2026-09 合并的 memory v2（`memories.version`，需手动开启）只出现在 GitHub PR 与 release 明细，没有正式公告。官方文档只说“idle long enough”，不写数字；整理冷却没有官方说明，只在源码里。
+
+源码补充：
+
+- **ad_hoc 笔记不会被 7 天清理删掉。** `memories/write/src/extensions/prune.rs` 只删 `extensions/<扩展>/resources/` 下带时间戳的 `.md`（`RETENTION_DAYS = 7`，`memories/write/src/lib.rs`）；笔记在 `extensions/ad_hoc/notes/`，整理说明还要求 “Never delete a note file”（`memories/write/templates/extensions/ad_hoc/instructions.md`）。
+- **默认值随版本变**：PR #12231 时每次启动处理 16 个会话，`b741e480` 是 2 个、只看 10 天内（`config/src/types.rs`）。课件只引用固定提交的值并注明版本。
+
+对 3.6 的含义：同一句“记住这条规则”，三个产品生效的时间和位置都不同。Claude 应用曾经也是批量汇总，后来改成随写随用并加了逐条编辑——延迟换来的是总结更完整、不占对话额度，代价是“刚定的规则下次不一定在”。无论哪一家，人定下的项目规则都应该写进仓库（`AGENTS.md` 或规格文件）；Codex 官方文档也这样建议。
+
+## Claude Code auto memory 对照实测（2026-10-09，1 轮）
+
+用 [`tools/clean-claude.sh`](../../../../tools/clean-claude.sh)（全新 HOME，Claude Code 2.1.292，同一个 MiniMax-M3.1-Flash-Preview，走 `https://api.minimax.cn/anthropic`），起点同上（第 2 章冻结候选），三个 `claude -p` 会话共用一个 HOME。运行目录在本机 `~/.cache/clean-claude-memlab-*`，不提交。只跑了 1 轮，结论不外推。
+
+| 步骤 | 看到的 |
+| --- | --- |
+| 第一个会话的请求 | **已经有 auto memory 说明**（`MEMORY.md`、记忆目录都在请求里；claude-tap 记录）。Codex 要等 `memory_summary.md` 非空才注入，所以 Codex 第一个会话里的“记住”会写进 `AGENTS.md` |
+| 会话一：“记住：记忆翻牌里，两张牌不匹配、等待翻回期间的点击一律忽略。”（38 秒） | 立即写入 `~/.claude/projects/<项目>/memory/` 下一条记忆和 `MEMORY.md` 索引；仓库没有改动。记忆文件的 `How to apply` 里写了 Claude 自己的实现建议（锁定布尔量、“已匹配的牌也应保持不可点击”），正文还加了“不允许打断翻回动画”，**都没有标明不是人说的**；`Why` 写“用户明确要求” |
+| 会话二：新进程问“等待翻回期间的点击，我们是怎么定的？”（32 秒） | 立即可用，没有等待期。复述规则并说明“不在仓库里……是记在记忆里的一条用户口头约定”，同时把会话一的实现建议说成“**约定的实现方式**” |
+| 会话三：`CLAUDE_CODE_DISABLE_AUTO_MEMORY=1` 再问（60 秒） | “这个仓库里没有找到相关记录”，列出查过的位置；它试过往上级目录找，被沙箱挡住；提出先由人定再落地 |
+
+和 Codex 的同类实验相比：生效时间差别很大（Claude Code 下个会话就能用，Codex 要闲置加整理），但**“记忆长出人没说过的内容，下次被当成约定”这一点一样**，第 8 轮 Codex 笔记里的“落地要求”和这里的 `How to apply` 是同一类。对 3.6 来说，这条比“要等 6 小时”更值得讲：即使记忆立刻生效，它记下的也不全是你说的话。

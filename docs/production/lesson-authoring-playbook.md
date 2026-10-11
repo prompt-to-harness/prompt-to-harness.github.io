@@ -72,7 +72,7 @@
 - **录制前从上一章的录制版起点重跑一次。** 上一章录制版定为参考起点标签后，用 `V1=` 等参数把本章主线和“从这一章开始”各跑一遍，确认前两层仍然成立。这次跑出的东西不进课件。
 - **课件页标明数据的来源。** 第三层内容的讲师提示写“以录制当天为准”，审查记录按页列出待替换项，录制后逐项关闭。
 
-复现材料放在本仓库对应章节的 `materials/` 下（如 `courseware/ch02/materials/`），不放 `course-starter`（会随 Template 进入学员仓库），也不新建仓库；隔离启动沿用 `tools/clean-codex.sh`。`materials/` 不进 Pages，课件配套页用固定版本的 GitHub 链接指向实验说明；学员可用 `git clone --depth 1` 下载本仓库（默认不拉子模块），只看对应实验目录（2026-10-05 确认）。
+复现材料放在本仓库对应章节的 `materials/` 下（如 `courseware/ch02/materials/`），不放 `course-starter`（会随 Template 进入学员仓库），也不新建仓库；隔离启动沿用 `tools/clean-codex.sh`；需要拿 Claude Code 做同条件对照时用 `tools/clean-claude.sh`（同一 MiniMax 模型，走 Anthropic 兼容接口；2026-10-09 加入，只作对照，不是课程基线）。`materials/` 不进 Pages，课件配套页用固定版本的 GitHub 链接指向实验说明；学员可用 `git clone --depth 1` 下载本仓库（默认不拉子模块），只看对应实验目录（2026-10-05 确认）。
 
 课件页面上的复现入口统一用 `repro` 字段（零件 `.p-repro`，见 [parts.md](parts.md)）：平时只占一个“复现这个实验”按钮，点开是完整命令，学员和讲师都能直接找到；不把命令只写在讲师提示里，也不占正文位置。
 
