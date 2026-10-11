@@ -4,10 +4,9 @@
   const lesson = document.querySelector('#lesson');
   const nav = document.querySelector('#scene-nav');
   const feedback = document.querySelector('#feedback');
-  const chapterLinks = [...document.querySelectorAll('.chapter-nav a')];
   const adjacentLessons = {
-    previous: chapterLinks.find(link => /上一[节章]/.test(link.textContent)),
-    next: chapterLinks.find(link => /下一[节章]/.test(link.textContent)),
+    previous: document.querySelector('.chapter-nav a[rel="prev"]'),
+    next: document.querySelector('.chapter-nav a[rel="next"]'),
   };
   const lessonButtons = {};
   for (const [id, label, direction] of [['previous', '← 上一节', -1], ['next', '下一节 →', 1]]) {

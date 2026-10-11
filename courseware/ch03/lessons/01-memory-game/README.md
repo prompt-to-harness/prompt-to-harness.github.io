@@ -6,7 +6,7 @@
 
 ## 维护
 
-`tools/build-lesson.py` 是本节唯一的内容源，生成 `lesson.js`，不要直接改生成物。播放页外壳由 [`../../tools/make-shells.py`](../../tools/make-shells.py) 生成。
+`tools/build-lesson.py` 是本节唯一的内容源，生成 `lesson.js`，不要直接改生成物。播放页外壳（`index.html`、`speaker.html`）直接维护，侧栏上下节链接的约定见 [`docs/agents/courseware-workflow.md`](../../../../docs/agents/courseware-workflow.md)。
 
 ```sh
 python3 courseware/ch03/lessons/01-memory-game/tools/build-lesson.py
