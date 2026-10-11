@@ -2,15 +2,15 @@ window.lesson = {
   "title": "环境搭建与第一次 AI 协作闭环",
   "chapter": "第 1 章 · Prompt",
   "section": "01.01",
-  "summary": "CLI 为主演示入口；1.1 完成欢迎语闭环，1.5 创建 React + TypeScript + Vite 首页。",
+  "summary": "CLI 为主演示入口；1.1 完成欢迎语闭环，1.5 创建 React + TypeScript + Vite 个人主页。",
   "scenes": [
     {
       "id": "p01",
       "label": "只改一句话，怎样证明改对？",
       "title": "只改一句话，怎样证明改对？",
       "kicker": "第 1 章 · 1.1 · 找准任务",
-      "lead": "本章：首次闭环 → 执行机制 → 权限 → Prompt → 首页 v0 → 最小权限",
-      "html": "<ol class=\"p-map\" data-reveal=\"0\"><li class=\"is-now\"><b>1.1</b>首次闭环</li><li class=\"\"><b>1.2</b>拆开执行过程</li><li class=\"\"><b>1.3</b>工具与权限</li><li class=\"\"><b>1.4</b>写清任务</li><li class=\"\"><b>1.5</b>完成首页</li><li class=\"\"><b>1.6</b>最小权限</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:18px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">修改前</span><p class=\"p-big\" style=\"font-weight:500\">你好，欢迎来到我的练习页面</p></div><div class=\"p-join\" data-reveal=\"1\"><span>只改这一句</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ok\">任务目标</span><p class=\"p-big\">你好，欢迎来到 Vibe Coding 课堂！</p></div></div>",
+      "lead": "本章：首次闭环 → 执行机制 → 权限 → Prompt → 个人主页 v0 → 最小权限",
+      "html": "<ol class=\"p-map\" data-reveal=\"0\"><li class=\"is-now\"><b>1.1</b>首次闭环</li><li class=\"\"><b>1.2</b>拆开执行过程</li><li class=\"\"><b>1.3</b>工具与权限</li><li class=\"\"><b>1.4</b>写清任务</li><li class=\"\"><b>1.5</b>完成个人主页</li><li class=\"\"><b>1.6</b>最小权限</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:18px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">修改前</span><p class=\"p-big\" style=\"font-weight:500\">你好，欢迎来到我的练习页面</p></div><div class=\"p-join\" data-reveal=\"1\"><span>只改这一句</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ok\">任务目标</span><p class=\"p-big\">你好，欢迎来到 Vibe Coding 课堂！</p></div></div>",
       "steps": [
         "看原文",
         "比较目标"
@@ -38,7 +38,7 @@ window.lesson = {
         },
         {
           "title": "讲师提示",
-          "text": "先看这一句欢迎语。这节只改它，正式首页留到 1.5。\n\n你准备怎样证明改对了？先留下这个问题，后面用页面和 Diff 回答。"
+          "text": "先看这一句欢迎语。这节只改它，个人主页留到 1.5。\n\n你准备怎样证明改对了？先留下这个问题，后面用页面和 Diff 回答。"
         }
       ]
     },
@@ -48,14 +48,14 @@ window.lesson = {
       "title": "先找准你要改的那一份文件",
       "kicker": "第 1 章 · 1.1 · 找准任务",
       "lead": "你的电脑上有两个容易混的目录：course-starter 是课程模板，只用来创建你自己的仓库；练习在 projects/personal-homepage 这份副本里进行。本节唯一要改的是 setup-check/index.html，动手前先记下当前分支和初始状态。",
-      "html": "<ul class=\"p-tree\" style=\"font-size:25px;padding:22px 28px;line-height:1.9\"><li class=\"is-dim\" data-reveal=\"0\"><span class=\"p-path\">course-starter/</span><span class=\"p-note\">模板 · 不在这里练习</span></li><li class=\"is-open\" data-reveal=\"1\"><span class=\"p-path\">projects/personal-homepage/</span><span class=\"p-note\">练习副本 · 在这里打开</span><ul><li class=\"is-target\" data-reveal=\"2\"><span class=\"p-path\">setup-check/index.html</span><span class=\"p-note\">唯一目标</span></li></ul></li></ul><p class=\"source-note\"><a href=\"https://github.com/prompt-to-harness/course-starter\" target=\"_blank\" rel=\"noopener noreferrer\">course-starter 模板仓库</a><a href=\"../../preparation.html\">课前准备与排障</a></p>",
+      "html": "<ul class=\"p-tree\" style=\"font-size:25px;padding:22px 28px;line-height:1.9\"><li class=\"is-dim\" data-reveal=\"0\"><span class=\"p-path\">course-starter/</span><span class=\"p-note\">模板 · 不在这里练习</span></li><li class=\"is-open\" data-reveal=\"1\"><span class=\"p-path\">projects/personal-homepage/</span><span class=\"p-note\">练习副本 · 在这里打开</span><ul><li class=\"is-target\" data-reveal=\"2\"><span class=\"p-path\">setup-check/index.html</span><span class=\"p-note\">唯一目标</span></li></ul></li></ul><p class=\"source-note\"><a href=\"https://github.com/prompt-to-harness/course-starter\" target=\"_blank\" rel=\"noopener noreferrer\">course-starter 模板仓库</a><a href=\"../../../ch00/preparation.html\">课前准备（第 0 章）</a></p>",
       "steps": [
         "区分模板",
         "确认根目录",
         "定位文件"
       ],
       "script": [
-        "【操作提示｜课件 p02 第 1 步 → 在 Chrome 新开标签页“课前准备”，通过页首“配套材料”链接打开“取得练习项目”；保留课件标签页】\n\n先看准备页里的“取得练习项目”。这里给出了 Starter 的项目说明、任务卡和环境记录单。如果你还没有练习目录，就从这个入口开始，按项目说明创建自己的仓库，再克隆到本地。\n\n这里有两个名字要认清。course-starter 是起点模板，后面的练习要在自己的项目副本里完成。课程示例把副本放在 projects 下面，名字叫 personal-homepage。你可以选其他目录，关键是后面打开文件、启动工具和查看页面，都认准同一份。",
+        "【操作提示｜课件 p02 第 1 步 → 在 Chrome 新开标签页“课前准备”，通过本页下方“课前准备（第 0 章）”链接打开“取得练习项目”；保留课件标签页】\n\n先看准备页里的“取得练习项目”。这里给出了 Starter 的项目说明、任务卡和环境记录单。如果你还没有练习目录，就从这个入口开始，按项目说明创建自己的仓库，再克隆到本地。\n\n这里有两个名字要认清。course-starter 是起点模板，后面的练习要在自己的项目副本里完成。课程示例把副本放在 projects 下面，名字叫 personal-homepage。你可以选其他目录，关键是后面打开文件、启动工具和查看页面，都认准同一份。",
         "【操作提示｜返回课件推进第 2 步 → 切 VS Code，用“打开文件夹”打开独立练习副本 projects/personal-homepage；不要打开课程课件目录】\n\n我现在切到 VS Code。先看左边文件列表的根目录，确认打开的是个人主页的练习副本。接着再找文件。不要只凭一个 index.html 的名字判断，因为不同目录里可能都有同名文件。\n\n等会儿我说“切到 Terminal”，指的是运行命令的终端；用 VS Code 的集成终端也可以。为了方便看清楚，我们把终端放大一点。目录和文件名都尽量完整地露出来。",
         "【操作提示｜课件第 3 步对应实操：在 VS Code 展开 setup-check，打开 index.html，搜索 welcome-message；随后打开 Terminal，确认当前目录。macOS/Linux 用 pwd，PowerShell 用 Get-Location】\n\n我们要找的是 setup-check 文件夹里的 index.html。找到 welcome-message，你就能看到页面上的那句欢迎语。现在先看位置，不手动修改。\n\n再看终端的当前目录。它应该指向刚才打开的练习项目根目录。如果指向课件仓库，或者其他项目，就先切到正确的位置。\n\n动手前还要留一份初始状态：当前在哪个分支，已经有哪些改动。这样等会儿看差异时，我们才分得清哪些是原来就有的，哪些是这次新产生的。具体命令稍后在环境检查里一起执行。"
       ],
@@ -126,7 +126,7 @@ window.lesson = {
       "title": "哪些条件不满足，就不能开始？",
       "kicker": "第 1 章 · 1.1 · 准备环境",
       "lead": "按 docs/setup/ENVIRONMENT.md 逐项检查三件事：浏览器能打开并刷新环境页，Git 能读出分支、状态和 Diff（改动前后的差异），Codex CLI 能从练习目录启动。CLI 暂不可用时，可以先用已核验的桌面入口，但最晚在 1.3 节（工具与权限）结束前补上 CLI。",
-      "html": "<div class=\"p-grid\" style=\"--n:3\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\" style=\"padding:16px 20px\"><h3 data-node=\"browser\">浏览器</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"browser_pass\" data-edge=\"browser:browser_pass\">打开并刷新环境页</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"browser_fail\" data-edge=\"browser:browser_fail\" class=\"p-sub\">核对路径或本地服务</p></div></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"1\" style=\"padding:16px 20px\"><h3 data-node=\"git\">Git</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"git_pass\" data-edge=\"git:git_pass\">分支、状态、Diff 可读</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"git_fail\" data-edge=\"git:git_fail\" class=\"p-sub\">补齐 Git 与仓库</p></div></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"2\" style=\"padding:16px 20px\"><h3 data-node=\"cli\">Codex CLI</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"cli_pass\" data-edge=\"cli:cli_pass\">从练习目录启动</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"cli_fail\" data-edge=\"cli:cli_fail\" class=\"p-sub\">临时用桌面入口</p></div></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">三项都<b>通过</b>才开始</div>",
+      "html": "<div class=\"p-grid\" style=\"--n:3\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\" style=\"padding:16px 20px\"><h3 data-node=\"browser\">浏览器</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"browser_pass\" data-edge=\"browser:browser_pass\">打开并刷新环境页</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"browser_fail\" data-edge=\"browser:browser_fail\" class=\"p-sub\">核对路径或本地服务</p></div></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"1\" style=\"padding:16px 20px\"><h3 data-node=\"git\">Git</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"git_pass\" data-edge=\"git:git_pass\">分支、状态、Diff 可读</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"git_fail\" data-edge=\"git:git_fail\" class=\"p-sub\">补齐 Git 与仓库</p></div></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"2\" style=\"padding:16px 20px\"><h3 data-node=\"cli\">Codex CLI</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"cli_pass\" data-edge=\"cli:cli_pass\">从练习目录启动</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"cli_fail\" data-edge=\"cli:cli_fail\" class=\"p-sub\">临时用桌面入口</p></div></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">三项都<b>通过</b>才开始</div><p class=\"source-note\"><a href=\"practice.html\">1.1 实操备忘：启动页面服务的命令</a></p>",
       "steps": [
         "检查页面",
         "检查仓库",
@@ -198,7 +198,7 @@ window.lesson = {
         },
         {
           "title": "讲师提示",
-          "text": "登录后还要发出实际请求，并只读目标文件。无法认证或调用失败时记录错误，不伪装成功。\n\nNode 未就绪可以先完成无依赖欢迎语任务，但不能进入正式首页生成。\n\n桌面入口也不可用就仅观察，保留阻塞。不能换其他智能体来冒充 Codex 操作通过。"
+          "text": "登录后还要发出实际请求，并只读目标文件。无法认证或调用失败时记录错误，不伪装成功。\n\nNode 未就绪可以先完成无依赖欢迎语任务，但不能进入个人主页生成。\n\n桌面入口也不可用就仅观察，保留阻塞。不能换其他智能体来冒充 Codex 操作通过。"
         }
       ]
     },
@@ -543,9 +543,9 @@ window.lesson = {
     }
   ],
   "intro": [
-    "你好，欢迎来到第一章。从这一章开始，我们要动手做一个自己的个人主页。你可以先想一个很简单的画面：有人打开这个页面，能看到你是谁、你在做什么，以及你想展示的作品。我们会从这个想法出发，一步一步把首页原型做出来。",
+    "你好，欢迎来到第一章。从这一章开始，我们要动手做一个自己的个人主页。你可以先想一个很简单的画面：有人打开这个页面，能看到你是谁、你在做什么，以及你想展示的作品。我们会从这个想法出发，一步一步把个人主页原型做出来。",
     "如果现在让你对 AI 说“帮我做一个个人主页”，它可能马上就开始写代码。不过，这句话里还有不少事情没有说清楚：页面要放哪些内容，哪些文件可以修改，做到什么程度才算完成？这一章，我们就围绕这个小项目，练习怎样把这些要求讲清楚，再检查它交回来的结果。",
-    "我们会先把工具和环境准备好，完成一次很小的修改。接着，回过头看 AI 是怎样读取文件、执行动作的，以及什么时候需要我们确认。等这些环节看明白了，再把首页的需求整理成一份明确的请求，交给它执行，最后一起看页面、检查代码改动，并验证项目能否构建。",
+    "我们会先把工具和环境准备好，完成一次很小的修改。接着，回过头看 AI 是怎样读取文件、执行动作的，以及什么时候需要我们确认。等这些环节看明白了，再把个人主页的需求整理成一份明确的请求，交给它执行，最后一起看页面、检查代码改动，并验证项目能否构建。",
     "你可以跟着视频暂停操作，也可以先看完一遍，再用自己的项目练习。遇到报错或者结果和预期不一样，我们就把具体问题找出来，带着证据继续修改。现在先从一个容易看清结果的任务开始：请 AI 帮我们换掉页面上的一句欢迎语。"
   ]
 };

@@ -100,7 +100,7 @@ window.lesson = {
       "kicker": "第 0 章 · 访谈 02 / 08",
       "title": "用了一段时间后，它给你的<br>工作带来最大的变化是什么？",
       "lead": "每人选一个变化，也说说哪些事仍要自己做。",
-      "html": "<div class=\"p-pair\"><div class=\"p-box\" data-role=\"ink\"><span class=\"p-tag\" data-role=\"ctx\">选一个任务</span><h3>以前怎样完成</h3><p class=\"p-big\" style=\"font-weight:500\">哪些步骤需要自己从头推进？</p></div><div class=\"p-join\"><span>用了一段时间后</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"agent\"><span class=\"p-tag\" data-role=\"agent\">再看现在</span><h3>现在怎样协作</h3><p class=\"p-big\" style=\"font-weight:500\">哪些步骤交给 AI，自己的精力移到了哪里？</p></div></div><div class=\"p-bar\" style=\"margin-top:22px\">围绕具体工作过程，讲清<b>收益与代价</b></div>",
+      "html": "<div class=\"p-pair\"><div class=\"p-box\" data-role=\"ink\"><span class=\"p-tag\" data-role=\"ctx\">选一个任务</span><h3>以前怎样完成</h3><p class=\"p-big\" style=\"font-weight:500\">哪些步骤需要自己从头推进？</p></div><div class=\"p-join\"><span>用了一段时间后</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"agent\"><span class=\"p-tag\" data-role=\"agent\">再看现在</span><h3>现在怎样协作</h3><p class=\"p-big\" style=\"font-weight:500\">省下了什么，又多了哪些要自己做的事？</p></div></div><div class=\"p-bar\" style=\"margin-top:22px\">围绕具体工作过程，讲清<b>收益与代价</b></div>",
       "script": [
         "串场提问：用了一段时间后，它给你的工作带来最大的变化是什么？",
         "讲师 B 先答：从〔真实工作待填〕说明使用前后的变化。可以围绕尝试想法、调试或读陌生代码，选择自己最有感受的一项；说明仍需投入的理解、检查和返工。",
@@ -193,7 +193,7 @@ window.lesson = {
       "kicker": "第 0 章 · 访谈 05 / 08",
       "title": "这门课会带大家做哪些项目，<br>为什么这样安排？",
       "lead": "三个独立仓库，逐步增加协作能力。",
-      "html": "<div class=\"p-stairs\" style=\"--n:3;column-gap:26px;--rise:26px\"><div class=\"p-stair\" style=\"--i:0\"><span class=\"p-here\">第一个项目</span><div class=\"p-box\" data-role=\"us\" style=\"padding:14px 18px\"><span class=\"p-tag\" data-role=\"us\">第 1–3 章</span><h3 style=\"font-size:26px\">个人主页<br>与小游戏</h3><p style=\"margin-top:8px;font-size:22px\"><b>Prompt · Vibe Coding</b></p></div></div><div class=\"p-stair\" style=\"--i:1\"><div class=\"p-box\" data-role=\"agent\" style=\"padding:14px 18px\"><span class=\"p-tag\" data-role=\"agent\">第 4–6 章</span><h3 style=\"font-size:26px\">JSON Crack<br>JSON Diff</h3><p style=\"margin-top:8px;font-size:22px\"><b>SDD</b></p></div></div><div class=\"p-stair\" style=\"--i:2\"><div class=\"p-box\" data-role=\"agent\" style=\"padding:14px 18px\"><span class=\"p-tag\" data-role=\"agent\">第 7–9 章</span><h3 style=\"font-size:26px\">dependency-cruiser<br>依赖图快照是否过期</h3><p style=\"margin-top:8px;font-size:22px\"><b>Harness</b></p></div></div></div>",
+      "html": "<div class=\"p-grid project-cards\" style=\"--n:3\"><figure class=\"p-box project-card\" data-role=\"us\"><span class=\"p-here\">第一个项目</span><img src=\"assets/project-homepage.jpg\" width=\"640\" height=\"400\" alt=\"课程实测做出的示例个人主页，右下角是躲避小游戏\"><h3>个人主页与小游戏</h3><p class=\"project-meta\">第 1–3 章 · <b>Prompt · Vibe Coding</b></p><figcaption>课程实测成品：个人主页 + 小游戏</figcaption></figure><figure class=\"p-box project-card\" data-role=\"agent\"><img src=\"assets/project-jsoncrack.jpg\" width=\"640\" height=\"400\" alt=\"JSON Crack 编辑器的现有界面：左边是 JSON，右边是对应的节点图\"><h3>JSON Crack · JSON Diff</h3><p class=\"project-meta\">第 4–6 章 · <b>SDD</b></p><figcaption>JSON Crack 现在的样子；本课为它加上 JSON 对比功能</figcaption></figure><figure class=\"p-box project-card\" data-role=\"agent\"><img src=\"assets/project-dependency-cruiser.jpg\" width=\"640\" height=\"400\" alt=\"dependency-cruiser 生成的模块依赖图\"><h3>dependency-cruiser</h3><p class=\"project-meta\">第 7–9 章 · <b>Harness</b></p><figcaption>它生成的依赖图；本课判断这张图的快照是否过期</figcaption></figure></div>",
       "script": [
         "串场提问：这门课会带大家做哪些项目，为什么这样安排？",
         "讲师 A 先介绍场景：第 1–3 章从个人主页起步，发布到 GitHub Pages，再做记忆翻牌和“60 秒躲避与收集”小游戏，体验反馈、调试与插件实践。",
@@ -318,11 +318,11 @@ window.lesson = {
       "kicker": "第 0 章 · 开始实操",
       "title": "开始第一次 AI 协作",
       "lead": "第一个任务：改掉练习页上的一句欢迎语，并确认改对了。",
-      "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>1.1</b>首次闭环</li><li><b>1.2</b>拆开执行过程</li><li><b>1.3</b>工具与权限</li><li><b>1.4</b>写清任务</li><li><b>1.5</b>完成首页</li><li><b>1.6</b>最小权限</li></ol><div class=\"p-flow is-big\" style=\"--n:3;margin-top:24px;--node-h:118px\"><div class=\"p-node\" data-role=\"ctx\"><span class=\"p-num\">准备</span><h3>核对环境与目录</h3></div><div class=\"p-node\" data-role=\"tool\"><span class=\"p-num\">执行</span><h3>修改练习页欢迎语</h3></div><div class=\"p-node\" data-role=\"ok\"><span class=\"p-num\">验证</span><h3>查看页面与 diff</h3><p>diff：改动前后的差异</p></div></div><p class=\"next-chapter p-links\" style=\"margin-top:22px\"><a href=\"../ch01/lessons/01-environment/index.html?mode=slides\">进入第 1.1 节 →</a></p>",
+      "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>1.1</b>首次闭环</li><li><b>1.2</b>拆开执行过程</li><li><b>1.3</b>工具与权限</li><li><b>1.4</b>写清任务</li><li><b>1.5</b>完成个人主页</li><li><b>1.6</b>最小权限</li></ol><div class=\"p-flow is-big\" style=\"--n:3;margin-top:24px;--node-h:118px\"><div class=\"p-node\" data-role=\"ctx\"><span class=\"p-num\">准备</span><h3>核对环境与目录</h3></div><div class=\"p-node\" data-role=\"tool\"><span class=\"p-num\">执行</span><h3>修改练习页欢迎语</h3></div><div class=\"p-node\" data-role=\"ok\"><span class=\"p-num\">验证</span><h3>查看页面与 diff</h3><p>diff：改动前后的差异</p></div></div><p class=\"next-chapter p-links\" style=\"margin-top:22px\"><a href=\"preparation.html\">先完成课前准备 →</a><a href=\"../ch01/lessons/01-environment/index.html?mode=slides\">已准备好，进入第 1.1 节</a></p>",
       "script": [
         "结束串词：我们已经认识了两位讲师，也看到了三个项目的路线。现在从一个很小的任务开始，核对环境和目录，把练习页上的一句欢迎语改掉，再打开页面看效果，并查看 diff，也就是这次改动前后的差异。",
         "开始前，请在心里确认：课程有哪三个项目？自己希望练成什么能力？接下来要验证什么结果？",
-        "准备好后进入第 1.1 节。环境怎么准备，1.1 会带着大家一项一项核对。"
+        "下一步是课前准备：取得练习项目，装好 Codex CLI 并登录。准备页就在第 0 章，做完再进入第 1.1 节；1.1 里我们还会把这些检查完整走一遍。"
       ],
       "teaching": [
         {

@@ -1,4 +1,4 @@
-# 第一章：从环境启动到首页原型
+# 第一章：从环境搭建到个人主页原型
 
 第一章正式课件工作区。按小节集中维护演示、讲稿和练习，保留阅读/演示切换、目录、请求复制、展开解析、讲解全文、人像辅助框及专注演示。目录正式化不代表所有实操材料或录制核验已完成。
 
@@ -17,9 +17,9 @@ python3 tools/serve-courseware.py
 | 1.1 环境搭建与第一次 AI 协作闭环 | [打开](lessons/01-environment/index.html) |
 | 1.2 Agent 执行机制与 AI 协作基础 | [打开](lessons/02-agent/index.html) |
 | 1.3 工具使用与权限 | [打开](lessons/03-tools/index.html) |
-| 1.4 写清首页任务：从模糊需求到可执行 Prompt | [打开](lessons/04-prompt/index.html) |
-| 1.5 完成首页任务：从已确认 Prompt 到可验收的首页 v0 | [打开](lessons/05-homepage/index.html) |
-| 1.6 工程经验：为什么不能给 Agent 所有权限 | [打开](lessons/06-permissions/index.html) |
+| 1.4 写清个人主页任务：从模糊需求到可执行 Prompt | [打开](lessons/04-prompt/index.html) |
+| 1.5 完成个人主页：从已确认 Prompt 到可验收的个人主页 v0 | [打开](lessons/05-homepage/index.html) |
+| 1.6 最小权限：为什么不能给 Agent 所有权限 | [打开](lessons/06-permissions/index.html) |
 
 页面、步骤和时长预算以各节 `lesson.js` 为准（讲稿页显示每页预算），尚未计时试讲。URL 使用 `?mode=slides#p04` 进入演示并定位；省略参数为阅读模式。
 
@@ -28,9 +28,9 @@ python3 tools/serve-courseware.py
 ```text
 ch01/
 ├── index.html                 # 第一章入口
-├── preparation.html           # 课前准备与排障
+├── preparation.html           # 跳转页：课前准备已移到第 0 章
 ├── lessons/
-│   ├── 01-environment/         # 1.1 环境与首次闭环
+│   ├── 01-environment/         # 1.1 环境与首次闭环（含 practice.html 实操备忘）
 │   ├── 02-agent/               # 1.2 Agent 与协作基础
 │   ├── 03-tools/               # 1.3 工具与权限
 │   ├── 04-prompt/              # 1.4 写清任务
@@ -41,7 +41,7 @@ ch01/
 └── verification.md            # 验证记录与边界
 ```
 
-每个小节的 `index.html` 为演示页，`lesson.js` 是正文的内容源，`script.json` 是口播的内容源，`speaker.html` 展示讲稿，`script.md` 是导出的 Markdown 讲稿。改口播时改 `script.json`（或在 `speaker.html` 里直接改），再运行 `courseware/tools/rebuild-lesson.py <节目录>`；改其余内容时改 `lesson.js`。1.2 另有 `tools/build-lesson.py`，它读 `script.json` 生成 `lesson.js`。
+每个小节的 `index.html` 为演示页，`lesson.js` 是正文的内容源，`script.json` 是口播的内容源，`speaker.html` 展示讲稿，`script.md` 是导出的 Markdown 讲稿。改口播时改 `script.json`（或在 `speaker.html` 里直接改），再运行 `courseware/tools/rebuild-lesson.py <节目录>`；改其余内容时改 `lesson.js`。1.2 原有的 `tools/build-lesson.py` 已在 2026-10-11 删除，1.2 与其他小节一样直接改 `lesson.js`。
 
 旧版 `demos/ch01-presentation/` 已迁移到这里。原页码锚点及 `mode=scroll` / `mode=slides` 参数保留，例如 [1.4 P22](lessons/04-prompt/index.html?mode=scroll#p22)。旧网址需要更新，不再保留重复课件副本。
 
@@ -51,7 +51,7 @@ ch01/
 - 1.1 修改独立的 `setup-check/index.html` 欢迎语，检查页面与 diff，按证据反馈修正。
 - 1.4 读取 Brief、提出问题并确认四段式 Prompt；1.5 创建 React + TypeScript + Vite 骨架与首页，验证后建立 `ch01-prompt-baseline` 检查点。
 - 1.6 使用“仅核对本地链接，不发布”任务判断最小权限。
-- [课前准备与排障](preparation.html)与当前内容同步。
+- 课前准备在第 0 章的 [preparation.html](../ch00/preparation.html)（开课前必须完成的安装与登录）；1.1 实操时的命令与检查在 [1.1 实操备忘](lessons/01-environment/practice.html)。2026-10-11 按平台 reviewer 反馈 R22 拆分，原 `ch01/preparation.html` 保留为跳转页。
 - [Starter 源文件说明](https://github.com/prompt-to-harness/course-starter)在独立的 `course-starter` 仓库维护；从该仓库创建自己的练习项目。`PROJECT_BRIEF.md`、`PLACEHOLDER_CONTENT.md`、`docs/setup/TOOLCHAIN.md` 均在项目中。课程中只修改自己的练习仓库，目录示例与获取步骤见[工作目录约定](../../WORKSPACE.md)。课程统一发布 commit 仍待录制冻结。
 
 P04 默认嵌入随课件提供的原始 Starter 页面，明确标记为“仅供预览”。要演示实时修改，在同级 `projects/personal-homepage/` 目录运行 `python3 -m http.server 4174 --bind 127.0.0.1`，再点“连接练习副本”。核对服务目录，确保展示与 CLI 修改的是同一份文件；面板出现不代表任务通过。

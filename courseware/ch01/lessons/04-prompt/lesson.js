@@ -1,16 +1,16 @@
 window.lesson = {
-  "title": "写清首页任务：从模糊需求到可执行 Prompt",
+  "title": "写清个人主页任务：从模糊需求到可执行 Prompt",
   "chapter": "第 1 章 · Prompt",
   "section": "01.04",
-  "summary": "CLI 为主演示入口；1.1 完成欢迎语闭环，1.5 创建 React + TypeScript + Vite 首页。",
+  "summary": "CLI 为主演示入口；1.1 完成欢迎语闭环，1.5 创建 React + TypeScript + Vite 个人主页。",
   "scenes": [
     {
       "id": "p20",
       "label": "“做一个好看的主页”还缺什么？",
       "title": "“做一个好看的主页”<span class=\"p20-title-tail\">还缺什么？</span>",
       "kicker": "第 1 章 · 1.4 · 找出缺口",
-      "lead": "1.3 权限边界 → 1.4 可执行 Prompt → 1.5 首页 v0",
-      "html": "<style>body[data-mode='slides'] #p20 h2{top:82px}body[data-mode='slides'] #p20 .p20-title-tail{display:block}body[data-mode='slides'] #p20 .lede{top:242px}body[data-mode='slides'] #p20 .step-status{top:282px}body[data-mode='slides'] #p20 .scene-content{top:322px;height:340px}.x-g{display:grid;grid-template-columns:1.1fr 1fr;gap:30px;align-items:start;margin-top:12px}.x-g-l{display:grid;gap:10px}.x-g-page{position:relative;transform:rotate(-1deg)}.x-g-page .p-page-body{display:grid;grid-template-columns:1fr auto;gap:8px 12px;padding:14px 18px 18px;background:linear-gradient(135deg,#2A1E5C,#7A2D7E);color:#fff}.x-g-page .hero{font:400 26px/1.2 var(--p-title)}.x-g-page .sub{grid-column:1;font-size:15px;font-weight:400;opacity:.85}.x-g-page .btn{grid-row:1;grid-column:2;align-self:start;font-size:15px;border:2px solid #fff;border-radius:6px;padding:2px 10px}.x-g-page .cards{grid-column:1/3;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.x-g-page .cards i{height:44px;border-radius:6px;background:rgba(255,255,255,.18);font:normal 400 14px/38px sans-serif;text-align:center}.x-g-pin{position:absolute;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font:400 20px/1 var(--p-title);color:#fff;background:var(--c);box-shadow:0 0 0 3px #fff,2px 3px 0 rgba(36,48,66,.25)}.x-g-guess{font:400 20px/1.2 var(--p-title);color:#5A51D1}</style><ol class=\"p-map\"><li class=\"is-done\"><b>1.1</b>首次闭环</li><li class=\"is-done\"><b>1.2</b>拆开执行过程</li><li class=\"is-done\"><b>1.3</b>工具与权限</li><li class=\"is-now\"><b>1.4</b>写清任务</li><li class=\"\"><b>1.5</b>完成首页</li><li class=\"\"><b>1.6</b>最小权限</li></ol><div class=\"x-g\"><div class=\"x-g-l\"><div data-reveal=\"0\" style=\"display:flex;gap:12px;align-items:center\"><span class=\"p-avatar\">我们</span><p class=\"p-bubble\" style=\"font-size:24px;padding:12px 18px;margin:0\">帮我做一个好看的个人主页</p></div><div class=\"p-replies\" style=\"gap:12px;--rf:21px;margin-top:4px\"><div class=\"p-reply is-missing\" data-key=\"ctx\" data-reveal=\"1\"><span class=\"p-chip\" data-key=\"ctx\">1 目标</span><span>给谁看？显示什么？</span></div><div class=\"p-reply is-missing\" data-key=\"limit\" data-reveal=\"2\"><span class=\"p-chip\" data-key=\"limit\">2 范围</span><span>改哪里？什么时候停？</span></div><div class=\"p-reply is-missing\" data-key=\"done\" data-reveal=\"3\"><span class=\"p-chip\" data-key=\"done\">3 标准</span><span>怎样算可以接受？</span></div></div></div><div class=\"x-g-l\"><span class=\"x-g-guess\" data-reveal=\"0\">AI 只能自己猜，于是……</span><div style=\"position:relative\" data-reveal=\"0\"><div class=\"x-g-page p-page\"><div class=\"p-page-bar\"><i></i><i></i><i></i><span>localhost</span></div><div class=\"p-page-body\"><span class=\"hero\">Hi, I'm Alex</span><span class=\"btn\">登录 · 发布</span><span class=\"sub\">Full-stack · Blog · Shop</span><div class=\"cards\"><i>Project 1</i><i>Project 2</i><i>Project 3</i></div></div></div><span class=\"x-g-pin\" data-key=\"ctx\" data-reveal=\"1\" style=\"left:-14px;top:48px\">1</span><span class=\"x-g-pin\" data-key=\"limit\" data-reveal=\"2\" style=\"right:6px;top:-10px\">2</span><span class=\"x-g-pin\" data-key=\"done\" data-reveal=\"3\" style=\"left:46%;bottom:-16px\">3</span></div></div></div>",
+      "lead": "1.3 权限边界 → 1.4 可执行 Prompt → 1.5 个人主页 v0",
+      "html": "<style>body[data-mode='slides'] #p20 h2{top:82px}body[data-mode='slides'] #p20 .p20-title-tail{display:block}body[data-mode='slides'] #p20 .lede{top:242px}body[data-mode='slides'] #p20 .step-status{top:282px}body[data-mode='slides'] #p20 .scene-content{top:322px;height:340px}.x-g{display:grid;grid-template-columns:1.1fr 1fr;gap:30px;align-items:start;margin-top:12px}.x-g-l{display:grid;gap:10px}.x-g-page{position:relative;transform:rotate(-1deg)}.x-g-page .p-page-body{display:grid;grid-template-columns:1fr auto;gap:8px 12px;padding:14px 18px 18px;background:linear-gradient(135deg,#2A1E5C,#7A2D7E);color:#fff}.x-g-page .hero{font:400 26px/1.2 var(--p-title)}.x-g-page .sub{grid-column:1;font-size:15px;font-weight:400;opacity:.85}.x-g-page .btn{grid-row:1;grid-column:2;align-self:start;font-size:15px;border:2px solid #fff;border-radius:6px;padding:2px 10px}.x-g-page .cards{grid-column:1/3;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.x-g-page .cards i{height:44px;border-radius:6px;background:rgba(255,255,255,.18);font:normal 400 14px/38px sans-serif;text-align:center}.x-g-pin{position:absolute;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font:400 20px/1 var(--p-title);color:#fff;background:var(--c);box-shadow:0 0 0 3px #fff,2px 3px 0 rgba(36,48,66,.25)}.x-g-guess{font:400 20px/1.2 var(--p-title);color:#5A51D1}</style><ol class=\"p-map\"><li class=\"is-done\"><b>1.1</b>首次闭环</li><li class=\"is-done\"><b>1.2</b>拆开执行过程</li><li class=\"is-done\"><b>1.3</b>工具与权限</li><li class=\"is-now\"><b>1.4</b>写清任务</li><li class=\"\"><b>1.5</b>完成个人主页</li><li class=\"\"><b>1.6</b>最小权限</li></ol><div class=\"x-g\"><div class=\"x-g-l\"><div data-reveal=\"0\" style=\"display:flex;gap:12px;align-items:center\"><span class=\"p-avatar\">我们</span><p class=\"p-bubble\" style=\"font-size:24px;padding:12px 18px;margin:0\">帮我做一个好看的个人主页</p></div><div class=\"p-replies\" style=\"gap:12px;--rf:21px;margin-top:4px\"><div class=\"p-reply is-missing\" data-key=\"ctx\" data-reveal=\"1\"><span class=\"p-chip\" data-key=\"ctx\">1 目标</span><span>给谁看？显示什么？</span></div><div class=\"p-reply is-missing\" data-key=\"limit\" data-reveal=\"2\"><span class=\"p-chip\" data-key=\"limit\">2 范围</span><span>改哪里？什么时候停？</span></div><div class=\"p-reply is-missing\" data-key=\"done\" data-reveal=\"3\"><span class=\"p-chip\" data-key=\"done\">3 标准</span><span>怎样算可以接受？</span></div></div></div><div class=\"x-g-l\"><span class=\"x-g-guess\" data-reveal=\"0\">AI 只能自己猜，于是……</span><div style=\"position:relative\" data-reveal=\"0\"><div class=\"x-g-page p-page\"><div class=\"p-page-bar\"><i></i><i></i><i></i><span>localhost</span></div><div class=\"p-page-body\"><span class=\"hero\">Hi, I'm Alex</span><span class=\"btn\">登录 · 发布</span><span class=\"sub\">Full-stack · Blog · Shop</span><div class=\"cards\"><i>Project 1</i><i>Project 2</i><i>Project 3</i></div></div></div><span class=\"x-g-pin\" data-key=\"ctx\" data-reveal=\"1\" style=\"left:-14px;top:48px\">1</span><span class=\"x-g-pin\" data-key=\"limit\" data-reveal=\"2\" style=\"right:6px;top:-10px\">2</span><span class=\"x-g-pin\" data-key=\"done\" data-reveal=\"3\" style=\"left:46%;bottom:-16px\">3</span></div></div></div>",
       "steps": [
         "先判断",
         "目标",
@@ -61,9 +61,9 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜停留课件 p21 第 1 步，借欢迎语任务解释 Goal；不重做 1.1 的修改】\n\n先看 Goal，也就是目标：这次要做成什么。我们拿第一节做过的欢迎语修改来对照。那次目标很具体，把页面上的欢迎语换成“你好，欢迎来到 Vibe Coding 课堂！”\n\n这句话给出了修改后的样子。执行的人知道要替换成什么，检查的人也知道拿什么来比。换到个人主页上，我们同样要说清楚首屏和项目区要显示的内容。",
-        "【操作提示｜推进第 2 步，指向 Context 卡】\n\n第二个问题是 Context，上下文：为了完成眼前这个任务，需要知道什么？欢迎语任务里，至少要知道目标 HTML 在哪里、原来写了什么，以及工作区有没有已有改动。\n\n这些信息帮助它找到正确的位置，也帮助我们区分这次任务和之前的修改。到了首页任务，上下文还会包括项目说明、可公开的占位内容，以及我们刚刚作出的决定。\n\n只提供当前任务需要的材料就好。如果相关答案就在文件里，可以告诉它去读哪份文件，不必把整个项目的所有资料都粘进来。",
+        "【操作提示｜推进第 2 步，指向 Context 卡】\n\n第二个问题是 Context，上下文：为了完成眼前这个任务，需要知道什么？欢迎语任务里，至少要知道目标 HTML 在哪里、原来写了什么，以及工作区有没有已有改动。\n\n这些信息帮助它找到正确的位置，也帮助我们区分这次任务和之前的修改。到了个人主页任务，上下文还会包括项目说明、可公开的占位内容，以及我们刚刚作出的决定。\n\n只提供当前任务需要的材料就好。如果相关答案就在文件里，可以告诉它去读哪份文件，不必把整个项目的所有资料都粘进来。",
         "【操作提示｜推进第 3 步，指向 Constraints 卡】\n\n第三个问题是 Constraints，约束：这一轮允许做到哪里，遇到什么情况要停下来？欢迎语任务只改指定文字，结构和样式都保留，不装依赖、不发布。\n\n假如它发现目标文件不存在，或者觉得必须改另一个文件才能完成，就先说明情况，等我们判断。这里写的“停止条件”，就是把这种分叉提前讲清楚。\n\n这些是我们向 Agent 表达的任务要求。实际能访问哪些目录、执行哪些操作，还要结合上一节讲的权限设置来控制。",
-        "【操作提示｜推进第 4 步，指向 Done when；随后转 p22】\n\n第四个问题是 Done when，完成标准：看到什么结果，我们才接受这次交付？欢迎语任务里，我们刷新页面，逐字核对文字，再看完整差异，确认只有指定的地方发生了变化。\n\n所以，完成标准后面应该能接上一句：“我会这样检查。”如果只能接上“我觉得应该不错”，就还需要写具体一些。\n\n这四个标题可以帮我们检查遗漏。小任务用几句话就能说清，不用为了填模板写成长篇。现在把这套检查方法用到首页上，先让它读材料，把真正缺的决定找出来。"
+        "【操作提示｜推进第 4 步，指向 Done when；随后转 p22】\n\n第四个问题是 Done when，完成标准：看到什么结果，我们才接受这次交付？欢迎语任务里，我们刷新页面，逐字核对文字，再看完整差异，确认只有指定的地方发生了变化。\n\n所以，完成标准后面应该能接上一句：“我会这样检查。”如果只能接上“我觉得应该不错”，就还需要写具体一些。\n\n这四个标题可以帮我们检查遗漏。小任务用几句话就能说清，不用为了填模板写成长篇。现在把这套检查方法用到个人主页上，先让它读材料，把真正缺的决定找出来。"
       ],
       "segment": "找出缺口",
       "seconds": 180,
@@ -154,8 +154,8 @@ window.lesson = {
         "【操作提示｜停留课件 p22-answers 第 1 步，只展示问题；此页案例与 CLI 实际输出分开讲】\n\n先看左边这四个问题：姓名和简介是什么，项目展示什么，按钮去哪，哪些文件可以改。它们分别影响内容、交互和实现范围。\n\n你可以先想一想，自己的项目说明里，哪几项已经有答案？有答案的就引用，没有答案的由自己决定。下面我用“示例同学”这组公开占位内容，演示怎样回答得足够具体。",
         "【操作提示｜推进第 2 步，展示姓名和简介；如采用该案例，在 VS Code 的 PROMPT_V1.md 草稿中记录，保存由讲师手动完成】\n\n姓名，我就回答：“示例同学。”简介写：“正在学习 AI 协作开发。”两段文字直接给到最终要显示的版本。\n\n这样，后面检查页面时，我们就能拿这两句逐字对照。如果换成你自己的主页，就填你愿意公开的内容。暂时还没整理好真实介绍，也可以明确使用占位文字，先把这个决定记下来。",
         "【操作提示｜回课件推进第 3 步，指向一个合成项目；在草稿中记录名称和描述】\n\n项目区这次只放一个合成项目，名字是“学习笔记”，描述是“记录课程练习”。数量和内容都明确了。\n\n这里很容易漏掉数量。你只说“展示我的项目”，对方可能排出三张卡片，再补几段看起来很像真的介绍。我们现在把“一项”和这段内容说清，后面就不用再猜哪些文字是我们提供的。",
-        "【操作提示｜回课件推进第 4 步，指向按钮与项目卡的不同要求；此处没有已生成首页，不打开本地应用冒充演示】\n\n再看按钮。“查看项目”这四个字，告诉了我们按钮叫什么，但还没告诉我们点击以后发生什么。\n\n本例的决定是，点它以后跳到本页的项目区。项目卡本身只负责展示内容，不跳转。这两句话要一起留下来。否则按钮可能做对了，卡片却被加上了一个我们没提供的链接。\n\n现在还没有实现页面，我们先记录期望行为。下一节生成以后，再真的点击检查。",
-        "【操作提示｜推进第 5 步；切 Terminal，仅将与实际缺项对应的已确认答案发送到原澄清会话，并要求整理小计划、预计文件清单和验收建议，仍不修改文件。回 VS Code 留存决定及来源，再回课件 p23】\n\n最后是文件范围。欢迎语任务只改一个 HTML；正式首页要用 React、TypeScript 和 Vite，就会涉及源码、包清单和配置文件。我们让它先列出预计文件，再逐项确认。\n\n我把已决定的答案回复到刚才那轮对话里，同时说明：“请据此整理需求、小计划、预计文件清单和验收建议，本轮仍不修改文件。”\n\n返回以后，核对它有没有遗漏刚才的按钮行为，有没有多加功能。如果还有会影响实现的问题，就继续保留待确认项。我们自己把答案和来源保存到草稿里，接下来再整理成完整任务。"
+        "【操作提示｜回课件推进第 4 步，指向按钮与项目卡的不同要求；此处没有已生成个人主页，不打开本地应用冒充演示】\n\n再看按钮。“查看项目”这四个字，告诉了我们按钮叫什么，但还没告诉我们点击以后发生什么。\n\n本例的决定是，点它以后跳到本页的项目区。项目卡本身只负责展示内容，不跳转。这两句话要一起留下来。否则按钮可能做对了，卡片却被加上了一个我们没提供的链接。\n\n现在还没有实现页面，我们先记录期望行为。下一节生成以后，再真的点击检查。",
+        "【操作提示｜推进第 5 步；切 Terminal，仅将与实际缺项对应的已确认答案发送到原澄清会话，并要求整理小计划、预计文件清单和验收建议，仍不修改文件。回 VS Code 留存决定及来源，再回课件 p23】\n\n最后是文件范围。欢迎语任务只改一个 HTML；个人主页要用 React、TypeScript 和 Vite，就会涉及源码、包清单和配置文件。我们让它先列出预计文件，再逐项确认。\n\n我把已决定的答案回复到刚才那轮对话里，同时说明：“请据此整理需求、小计划、预计文件清单和验收建议，本轮仍不修改文件。”\n\n返回以后，核对它有没有遗漏刚才的按钮行为，有没有多加功能。如果还有会影响实现的问题，就继续保留待确认项。我们自己把答案和来源保存到草稿里，接下来再整理成完整任务。"
       ],
       "segment": "澄清与作答",
       "seconds": 140,
@@ -192,14 +192,14 @@ window.lesson = {
         "查看完整稿"
       ],
       "script": [
-        "【操作提示｜停留课件 p23 第 1 步，指向左侧 Goal；本页完整实现请求先讲解，不发送执行】\n\n现在看左边这份完整任务。它和前面的澄清请求有一个变化：前面是请它找出未知项，这里是在整理下一节准备执行的首页任务。\n\n先读目标。首屏显示“示例同学”和指定简介，项目区显示“学习笔记：记录课程练习”。这些都是从上一页的答案整理过来的。\n\n你可以顺着检查一遍：每项内容能不能找到依据？如果忽然出现了“资深开发者”或者三个新项目，就要退回去核对，不能在整理文字时悄悄增加经历。",
+        "【操作提示｜停留课件 p23 第 1 步，指向左侧 Goal；本页完整实现请求先讲解，不发送执行】\n\n现在看左边这份完整任务。它和前面的澄清请求有一个变化：前面是请它找出未知项，这里是在整理下一节准备执行的个人主页任务。\n\n先读目标。首屏显示“示例同学”和指定简介，项目区显示“学习笔记：记录课程练习”。这些都是从上一页的答案整理过来的。\n\n你可以顺着检查一遍：每项内容能不能找到依据？如果忽然出现了“资深开发者”或者三个新项目，就要退回去核对，不能在整理文字时悄悄增加经历。",
         "【操作提示｜推进第 2 步，指向 Context；对照已保存的人工决定】\n\n接着看上下文。这里沿用刚才的合成问答，把“查看项目”跳到本页项目区、项目卡不跳转，也写了进去。\n\n在自己的版本里，可以注明依据的是哪份项目说明，以及哪些内容是这次由自己补充决定的。这样再打开这份任务时，就能知道要求从哪里来。\n\n同一个要求放在目标还是上下文里，有时都说得通。我们主要检查的是信息有没有丢，前后有没有冲突，以及执行的人能不能找到它。",
         "【操作提示｜推进第 3 步 → Chrome 新开“完整 Prompt 对照”标签页：复制当前课件地址，将末尾 index.html 后的查询与锚点改为 ?mode=scroll#p23。保留原演示标签页；在新页阅读并复制完整请求到 VS Code 的 PROMPT_V1.md 草稿，已有文件则编辑原稿，不覆盖已有决定。随后回原课件标签页 p23-scope】\n\n这份请求比较长，我另开一个阅读页，把全文展开，方便从头到尾对照。原来的演示页保留着，等会儿还要回去。\n\n我们把完整请求复制到草稿里，逐项换成自己的材料。复制以后先读一遍，尤其检查里面有没有还没决定的内容。没有答案的地方，明确标成待确认。\n\n这一节先把任务整理好，等下一节核对计划后再批准执行。下面两页，我们重点看文件范围和完成标准，这两部分最容易写得笼统。"
       ],
       "segment": "拼成任务",
       "seconds": 90,
       "source": "index.html#p23",
-      "prompt": "Goal：生成首页首屏与项目区；首屏显示“示例同学”、\n“正在学习 AI 协作开发。”；项目区显示“学习笔记：记录课程练习”。\nContext：沿用上页合成问答；“查看项目”跳到本页项目区，项目卡不跳转。\nConstraints：React + TypeScript + Vite；示例写入范围为根目录 index.html、\npackage.json、package-lock.json、vite.config.ts、tsconfig*.json、src/。\n依赖版本按已核验工具链；不改 setup-check/，不加账号、后端或发布。\n先复述并列计划，等人确认；缺材料、版本未核验或需越界时先停。\nDone when：文字逐项一致，按钮跳转正确；npm run build 成功；\n无明显控制台错误，Diff 无越界，正式产物无环境页与私人资料。",
+      "prompt": "Goal：生成个人主页首屏与项目区；首屏显示“示例同学”、\n“正在学习 AI 协作开发。”；项目区显示“学习笔记：记录课程练习”。\nContext：沿用上页合成问答；“查看项目”跳到本页项目区，项目卡不跳转。\nConstraints：React + TypeScript + Vite；示例写入范围为根目录 index.html、\npackage.json、package-lock.json、vite.config.ts、tsconfig*.json、src/。\n依赖版本按已核验工具链；不改 setup-check/，不加账号、后端或发布。\n先复述并列计划，等人确认；缺材料、版本未核验或需越界时先停。\nDone when：文字逐项一致，按钮跳转正确；npm run build 成功；\n无明显控制台错误，Diff 无越界，正式产物无环境页与私人资料。",
       "teaching": [
         {
           "title": "追问与预期判断",
@@ -229,7 +229,7 @@ window.lesson = {
       "label": "这次允许创建哪些文件？",
       "title": "这次允许创建哪些文件？",
       "kicker": "第 1 章 · 1.4 · 拼成任务",
-      "lead": "首页生成已不是单文件任务：允许创建根目录 index.html、包清单与锁文件、Vite 和 TypeScript 配置以及 src 目录，都要经人确认。setup-check 不改，不加账号、后端或发布，缺材料或越界就先停。",
+      "lead": "个人主页生成已不是单文件任务：允许创建根目录 index.html、包清单与锁文件、Vite 和 TypeScript 配置以及 src 目录，都要经人确认。setup-check 不改，不加账号、后端或发布，缺材料或越界就先停。",
       "html": "<div class=\"p-pair\" style=\"grid-template-columns:1.2fr 1fr;gap:28px\"><ul class=\"p-tree\" data-reveal=\"0\" style=\"font-size:22px\"><li class=\"is-open\"><span class=\"p-path\">练习仓库根目录/</span><ul><li class=\"is-allow\"><span class=\"p-path\">index.html</span></li><li class=\"is-allow\"><span class=\"p-path\">package.json · package-lock.json</span></li><li class=\"is-allow\"><span class=\"p-path\">vite.config.ts · tsconfig*.json</span></li><li class=\"is-allow\"><span class=\"p-path\">src/</span></li><li class=\"is-block\" data-reveal=\"1\"><span class=\"p-path\">setup-check/</span><span class=\"p-note\">不改</span></li></ul></li></ul><div class=\"p-box\" data-role=\"gate\" data-reveal=\"1\"><h3>停止条件</h3><ul class=\"p-warns\"><li>不加账号、后端、发布</li><li>缺材料或越界先停</li></ul></div></div>",
       "steps": [
         "核对文件清单",
@@ -237,7 +237,7 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜课件 p23-scope 第 1 步 → VS Code 查看练习副本文件树和 PROMPT_V1.md 中的预计文件清单，只核对，不创建应用文件】\n\n我们先看文件清单。根目录的 index.html 是正式应用的入口；package.json 记录项目脚本和依赖，package-lock.json 记录锁定的依赖信息；Vite 和 TypeScript 有各自的配置，源码放在 src 目录里。\n\n你现在不需要记住每份配置怎么写。先知道为什么清单里会有它们，再对照 Agent 给出的计划，看这次预计创建或修改的文件是不是都在范围里。\n\n如果练习副本里已经有同名文件，还要说明是在现有内容上修改，不能当成一片空白直接覆盖。",
-        "【操作提示｜回课件推进第 2 步，指向 setup-check/ 与停止条件；在草稿标出尚未核验项，不现场安装依赖】\n\n再看不动的部分：setup-check 是前面做环境检查用的，这轮保留；账号、后端和发布也不在范围里。\n\n依赖版本要沿用已核验的工具链。如果版本还没核验，或者计划必须改到清单以外，就先停下来，把原因说清楚。我们再决定是否调整范围。\n\n这份清单给出了检查边界，后面看到实际改动时，就能逐项对照。接下来还要写清楚：首页做出来以后，怎样判断它符合要求。"
+        "【操作提示｜回课件推进第 2 步，指向 setup-check/ 与停止条件；在草稿标出尚未核验项，不现场安装依赖】\n\n再看不动的部分：setup-check 是前面做环境检查用的，这轮保留；账号、后端和发布也不在范围里。\n\n依赖版本要沿用已核验的工具链。如果版本还没核验，或者计划必须改到清单以外，就先停下来，把原因说清楚。我们再决定是否调整范围。\n\n这份清单给出了检查边界，后面看到实际改动时，就能逐项对照。接下来还要写清楚：个人主页做出来以后，怎样判断它符合要求。"
       ],
       "segment": "拼成任务",
       "seconds": 45,
@@ -257,7 +257,7 @@ window.lesson = {
         },
         {
           "title": "讲师提示",
-          "text": "首页生成不再是单文件任务。必须把包清单、锁文件、配置与源码纳入人工确认范围。\n\n版本按已核验工具链；未核验或还缺关键决定，就先停，不让 AI 自行补假设。"
+          "text": "个人主页生成不再是单文件任务。必须把包清单、锁文件、配置与源码纳入人工确认范围。\n\n版本按已核验工具链；未核验或还缺关键决定，就先停，不让 AI 自行补假设。"
         }
       ]
     },
@@ -387,17 +387,17 @@ window.lesson = {
       "label": "四个问题，换来一个可检查的任务",
       "title": "四个问题，换来一个可检查的任务",
       "kicker": "第 1 章 · 1.4 · 练习与确认",
-      "lead": "互查四项：目标可观察、上下文有来源、范围有边界、标准能检查。交付 PROMPT_V1.md 和人工决定，未决项要留在记录里。这一节没有提前实现，下一节拿着已确认的任务生成首页 v0。",
-      "html": "<div class=\"p-sketch\" style=\"align-items:start;--big:1\"><div data-reveal=\"0\"><h3>互查四项</h3><div class=\"p-words\"><div class=\"p-box\" data-role=\"ink\"><p>目标可观察</p></div><div class=\"p-box\" data-role=\"ctx\"><p>上下文有来源</p></div><div class=\"p-box\" data-role=\"gate\"><p>范围有边界</p></div><div class=\"p-box\" data-role=\"ok\"><p>标准能检查</p></div></div></div><div data-reveal=\"1\"><h3>交付</h3><div class=\"p-box\" data-role=\"tool\"><h3 style=\"font-size:22px\">PROMPT_V1.md</h3><p>+ 人工决定</p></div><ul class=\"p-warns\" style=\"margin-top:12px\"><li>未决项不能悄悄消失</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>1.5 完成首页</h3></div></div></div>",
+      "lead": "互查四项：目标可观察、上下文有来源、范围有边界、标准能检查。交付 PROMPT_V1.md 和人工决定，未决项要留在记录里。这一节没有提前实现，下一节拿着已确认的任务生成个人主页 v0。",
+      "html": "<div class=\"p-sketch\" style=\"align-items:start;--big:1\"><div data-reveal=\"0\"><h3>互查四项</h3><div class=\"p-words\"><div class=\"p-box\" data-role=\"ink\"><p>目标可观察</p></div><div class=\"p-box\" data-role=\"ctx\"><p>上下文有来源</p></div><div class=\"p-box\" data-role=\"gate\"><p>范围有边界</p></div><div class=\"p-box\" data-role=\"ok\"><p>标准能检查</p></div></div></div><div data-reveal=\"1\"><h3>交付</h3><div class=\"p-box\" data-role=\"tool\"><h3 style=\"font-size:22px\">PROMPT_V1.md</h3><p>+ 人工决定</p></div><ul class=\"p-warns\" style=\"margin-top:12px\"><li>未决项不能悄悄消失</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>1.5 完成个人主页</h3></div></div></div>",
       "steps": [
         "留出互查",
         "核对交付",
         "收束"
       ],
       "script": [
-        "【操作提示｜停留课件 p25-recap 第 1 步；可切回 Chrome 已有“完整 Prompt 对照”标签页，不重复新开。对照后返回原演示标签页】\n\n最后，用一分钟把自己的任务从头到尾读一遍。先看目标：能不能说出首页上要出现什么？再看上下文：这些要求来自哪份材料、哪次决定？\n\n接着看范围：哪些文件可以动，哪些功能这次不做，遇到什么情况要停？最后看标准：每一条后面能不能接上一个检查动作？\n\n你可以暂停视频，拿自己的草稿对照。发现缺项，就回到那一行补充。",
-        "【操作提示｜推进第 2 步 → VS Code 确认 PROMPT_V1.md 已保存，人工决定、待确认项与状态可找到。Terminal 普通 shell 运行 git status --short、git diff，核对本节变化；新增文档直接打开检查，不应出现未经授权的应用实现。回课件】\n\n这一节要留下来的，是首页任务 Prompt 和人工决定。我们自己整理文档，会留下文档改动；Agent 的这轮任务仍然是只读澄清。最后检查一下，别把提前生成的应用文件混进来。\n\n还有未决定的事项，就继续列在文档里。把它记下来，下一次才知道从哪里接着做。对于已经确认的内容，也把依据和状态留下，避免后面又回到模糊的一句话。",
-        "【操作提示｜推进第 3 步，停留课件收束；保留文档与会话，下一节再生成、运行和验收首页】\n\n回看开头那句“帮我做一个好看的个人主页”，现在我们已经把它展开成了可以执行、也可以检查的任务。内容由谁提供，按钮怎么表现，哪些文件可以变化，最后怎样检查，都有了落点。\n\n以后写请求时，你也可以从一个很朴素的问题开始：如果我要亲自验收，眼前这句话够不够用？不够的部分，就补材料、补决定、补检查动作。\n\n下一节，我们拿着确认好的任务和 CLI 基线，开始生成首页第一版。到时候再一起看实际页面、构建输出和文件差异，判断这一轮交付能不能接受。"
+        "【操作提示｜停留课件 p25-recap 第 1 步；可切回 Chrome 已有“完整 Prompt 对照”标签页，不重复新开。对照后返回原演示标签页】\n\n最后，用一分钟把自己的任务从头到尾读一遍。先看目标：能不能说出个人主页上要出现什么？再看上下文：这些要求来自哪份材料、哪次决定？\n\n接着看范围：哪些文件可以动，哪些功能这次不做，遇到什么情况要停？最后看标准：每一条后面能不能接上一个检查动作？\n\n你可以暂停视频，拿自己的草稿对照。发现缺项，就回到那一行补充。",
+        "【操作提示｜推进第 2 步 → VS Code 确认 PROMPT_V1.md 已保存，人工决定、待确认项与状态可找到。Terminal 普通 shell 运行 git status --short、git diff，核对本节变化；新增文档直接打开检查，不应出现未经授权的应用实现。回课件】\n\n这一节要留下来的，是个人主页任务 Prompt 和人工决定。我们自己整理文档，会留下文档改动；Agent 的这轮任务仍然是只读澄清。最后检查一下，别把提前生成的应用文件混进来。\n\n还有未决定的事项，就继续列在文档里。把它记下来，下一次才知道从哪里接着做。对于已经确认的内容，也把依据和状态留下，避免后面又回到模糊的一句话。",
+        "【操作提示｜推进第 3 步，停留课件收束；保留文档与会话，下一节再生成、运行和验收个人主页】\n\n回看开头那句“帮我做一个好看的个人主页”，现在我们已经把它展开成了可以执行、也可以检查的任务。内容由谁提供，按钮怎么表现，哪些文件可以变化，最后怎样检查，都有了落点。\n\n以后写请求时，你也可以从一个很朴素的问题开始：如果我要亲自验收，眼前这句话够不够用？不够的部分，就补材料、补决定、补检查动作。\n\n下一节，我们拿着确认好的任务和 CLI 基线，开始生成个人主页第一版。到时候再一起看实际页面、构建输出和文件差异，判断这一轮交付能不能接受。"
       ],
       "segment": "练习与确认",
       "seconds": 160,
