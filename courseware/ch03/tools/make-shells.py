@@ -54,7 +54,7 @@ def chapter_home():
     nav = "".join(f'<a href="lessons/{d}/index.html"><span>{i + 1:02d}</span>{short}</a>' for i, (d, _t, _s, short, _role) in enumerate(LESSONS))
     sidebar = (
         '<aside class="sidebar" aria-label="课程目录">\n'
-        '<a class="wordmark" href="../index.html" aria-label="回到课程首页"><span class="brand-mark">P<span>→</span>H</span><span>从 Prompt<br/>到 Harness</span></a>\n'
+        '<a class="wordmark" href="../index.html" aria-label="回到课程首页"><img class="brand-mark" src="../shared/assets/ph_logo.png" alt="" width="400" height="400"><span>从 Prompt<br/>到 Harness</span></a>\n'
         f'<div class="chapter-label"><a href="../index.html">课程首页</a> › {CHAPTER}</div>\n'
         f'<p class="sidebar-meta">本章 {len(LESSONS)} 节</p>\n<p class="sidebar-title">{TITLE}</p>\n'
         f'<nav id="scene-nav" aria-label="本章目录">{nav}</nav>\n'
@@ -64,7 +64,7 @@ def chapter_home():
     return head + (
         '<body>\n' + sidebar + '<div class="workspace"><main class="chapter-home p-root">\n<header class="chapter-home-header">\n'
         '<img class="institution-logo" src="../shared/assets/shenlanxueyuan_logo.png" alt="深蓝学院" width="2420" height="744"/>\n'
-        '<a aria-label="回到课程首页" class="wordmark home-wordmark" href="../index.html"><span class="brand-mark">P<span>→</span>H</span><span>从 Prompt<br/>到 Harness</span></a>\n'
+        '<a aria-label="回到课程首页" class="wordmark home-wordmark" href="../index.html"><img class="brand-mark" src="../shared/assets/ph_logo.png" alt="" width="400" height="400"><span>从 Prompt<br/>到 Harness</span></a>\n'
         '<p class="script-meta">深蓝学院 · Vibe Coding</p>\n'
         f'<p class="chapter-kicker">{CHAPTER}</p>\n<h1>{TITLE}</h1>\n'
         '<p class="chapter-lede">把只有首页的个人站点变成能玩两个小游戏的实验室，并发现“能玩”背后有一串没人亲自定过、也没写下来的规则</p>\n</header>\n'

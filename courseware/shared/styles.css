@@ -22,6 +22,7 @@ h1, h2, h3 { font-style: normal; min-width: 0; overflow-wrap: anywhere; }
 .sidebar { display: none; }
 .workspace { min-width: 0; }
 .toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm) var(--space-md); padding: var(--space-md); border-bottom: var(--rule-thin) solid var(--color-rule); background: var(--color-paper); position: sticky; top: 0; z-index: 10; }
+.brand-mark { display: block; width: 56px; height: 56px; flex-shrink: 0; border-radius: 6px; }
 .institution-logo { display: block; width: 180px; height: auto; flex-shrink: 0; }
 .toolbar .institution-logo { width: 144px; margin-left: auto; }
 .mode-switch { display: flex; gap: var(--space-xs); }
@@ -116,8 +117,6 @@ body[data-mode="scroll"] .presentation-tools { display: none; }
   .sidebar { display: flex; flex-direction: column; position: fixed; inset: 0 auto 0 0; width: var(--sidebar-width); background: var(--color-sidebar); color: var(--color-paper); padding: var(--space-xl) var(--space-lg); z-index: 20; overflow-y: auto; }
   .sidebar :focus-visible { outline-color: var(--color-focus-on-dark); }
   .wordmark { display: flex; align-items: center; gap: var(--space-md); text-decoration: none; color: var(--color-paper); font-size: var(--text-sm); line-height: 1.6; }
-  .brand-mark { font-size: 24px; letter-spacing: -2px; font-weight: 700; border: 1px solid var(--color-sidebar-rule); padding: 8px; }
-  .brand-mark span { font-weight: 400; padding: 0 3px; }
   .chapter-label { margin-top: var(--space-3xl); color: var(--color-sidebar-muted); font-size: var(--text-xs); }
   .sidebar-title { font-size: 18px; font-weight: 700; line-height: 1.8; margin-top: var(--space-md); }
   .sidebar-meta { font-size: var(--text-xs); color: var(--color-sidebar-muted); margin-top: var(--space-sm); }
