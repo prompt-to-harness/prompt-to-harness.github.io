@@ -57,9 +57,13 @@ def apply_edit(payload):
     step = payload['step']
     if not 0 <= step < len(paragraphs):
         raise EditError('这一步不存在，请刷新页面')
-    if paragraphs[step] != old:
+    # 一步口播可含以空行分隔的多段（操作提示与口播）；part 指其中一段
+    parts = paragraphs[step].split('\n\n')
+    part = payload.get('part', 0)
+    if not 0 <= part < len(parts) or parts[part] != old:
         raise EditError('这句话已经在别处被改过，请刷新页面后再改')
-    paragraphs[step] = new
+    parts[part] = new
+    paragraphs[step] = '\n\n'.join(parts)
     write_scripts(path, scripts)
     try:
         rebuild(lesson_dir)

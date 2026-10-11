@@ -3,6 +3,19 @@
   const lesson = window.lesson;
   const sections = [...document.querySelectorAll('.scene')];
   const root = document.documentElement;
+  const logo = document.createElement('img');
+  logo.className = 'institution-logo';
+  logo.src = new URL('assets/shenlanxueyuan_logo.png', document.currentScript.src).href;
+  logo.alt = '深蓝学院';
+  logo.width = 2420;
+  logo.height = 744;
+  document.querySelector('.toolbar').append(logo);
+  // Keep the logo above the canvas in recording mode, leaving the fixed
+  // instructor area and the 16:9 slide layout available in full.
+  const branding = document.createElement('div');
+  branding.className = 'recording-branding';
+  branding.append(logo.cloneNode());
+  document.querySelector('.toolbar').after(branding);
   let lastScale;
   let position = {current: Math.max(0, lesson.scenes.findIndex(s => `#${s.id}` === location.hash)), step: Number(new URLSearchParams(location.search).get('step')) || 0, mode: document.body.dataset.mode};
   sections.forEach(section => {
@@ -58,7 +71,8 @@
   }
   function fit() {
     if (document.body.dataset.mode !== 'slides') { lastScale = undefined; return; }
-    const toolbar = document.querySelector('.toolbar').getBoundingClientRect().height;
+    const toolbar = document.querySelector('.toolbar').getBoundingClientRect().height
+      + branding.getBoundingClientRect().height;
     const footer = document.querySelector('.lesson-footer').getBoundingClientRect().height;
     const height = Math.max(1, innerHeight - toolbar - footer);
     const scale = Math.min(innerWidth / 1280, height / 720);

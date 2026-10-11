@@ -39,6 +39,8 @@
 .chapter-home .chapter-section-heading .scene-kicker{display:inline-block;padding:4px 10px;border-radius:999px;background:#E4E1D6;color:#243042}
 
 @media (max-width:38rem){
+  .chapter-home-header .institution-logo{width:112px}
+  .chapter-home-header .home-wordmark{padding-right:128px}
   .home-route .p-stairs{grid-template-columns:1fr}
   .home-route .p-stair{margin-bottom:0}
   .home-route .p-stair+.p-stair::before{display:none}

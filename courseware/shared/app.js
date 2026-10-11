@@ -190,7 +190,9 @@
     const connect = event.target.closest('[data-demo-connect]');
     if (connect) {
       const panel = connect.closest('.welcome-demo');
-      panel.querySelector('iframe').src = 'http://localhost:4174/setup-check/';
+      const url = 'http://localhost:4174/setup-check/';
+      panel.querySelector('iframe').src = url;
+      panel.querySelector('a').href = url;
       panel.querySelector('[data-demo-status]').textContent = '练习副本 · localhost:4174（请核对实际加载）';
     }
     const reload = event.target.closest('[data-demo-reload]');

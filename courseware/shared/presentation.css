@@ -31,3 +31,10 @@ body[data-mode='slides'] .evidence-panel{padding:16px 22px}body[data-mode='slide
 body[data-mode='slides'] .diff-lines{margin:12px -12px}body[data-mode='slides'] .page-evidence{margin:8px 0;padding:10px 20px}
 .scene .card-answer p{font-size:20px;line-height:1.4}.scene .record-body small,.scene .industry-item .small-copy{font-size:20px}.scene .page-evidence span{font-size:18px}body[data-mode='slides'] .card-answer{margin-top:4px;padding-top:4px}body[data-mode='slides'] .statement-grid+.conclusion{padding-block:4px}
 body.recording #lesson:focus-visible{outline:none}
+.recording-branding{display:none}
+body.recording[data-mode='slides'] .recording-branding{display:flex;justify-content:flex-end;align-items:center;height:64px;flex:none;padding:10px 24px}
+.recording-branding .institution-logo{width:144px}
+@media(max-width:600px){
+  body[data-mode='scroll'] .toolbar{padding-right:144px;min-height:66px}
+  body[data-mode='scroll'] .toolbar .institution-logo{position:absolute;top:16px;right:16px;width:112px}
+}

@@ -18,6 +18,11 @@
     });
     parent.append(list);
   };
+  if (window.lesson.intro?.length) {
+    const intro = document.createElement('div'); intro.id = 'chapter-intro';
+    window.lesson.intro.forEach(paragraph => addParagraph(intro, paragraph));
+    root.append(intro);
+  }
   window.lesson.scenes.forEach((scene, index) => {
     const section = document.createElement('section'); section.id = scene.id;
     const title = document.createElement('h2'); title.textContent = `${String(index + 1).padStart(2, '0')} · ${scene.label}`;
@@ -31,8 +36,12 @@
         link.textContent = '查看这一步 →';
         section.append(heading, link);
       }
-      addParagraph(section, paragraph, 'narration');
-      Object.assign(section.lastChild.dataset, { scene: scene.id, step });
+      // 一步口播可含多段（以空行分隔）；【操作提示｜…】是给讲师的操作说明，单独排版、不可编辑
+      paragraph.split('\n\n').forEach((text, part) => {
+        const stage = text.startsWith('【操作提示｜');
+        addParagraph(section, text, stage ? 'stage-direction' : 'narration');
+        Object.assign(section.lastChild.dataset, { scene: scene.id, step, part });
+      });
     });
     addCommands(section, scene.commands);
     if (scene.prompt) {
@@ -83,10 +92,10 @@
       if (location.protocol === 'file:') addBanner('当前是只读页面。要改口播，运行 sh tools/edit-courseware.sh，从打开的浏览器进入逐字稿页。');
       return;
     }
-    makeEditable(async ({ scene, step, old, text }) => {
+    makeEditable(async ({ scene, step, part, old, text }) => {
       const response = await fetch('/__script/edit', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ page: location.pathname, scene, step, old, new: text }),
+        body: JSON.stringify({ page: location.pathname, scene, step, part, old, new: text }),
       });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error);
@@ -129,7 +138,7 @@
         if (text === saved) { p.textContent = saved; delete p.dataset.state; return; }
         p.dataset.state = 'saving';
         try {
-          const result = await save({ scene: p.dataset.scene, step: Number(p.dataset.step), old: saved, text });
+          const result = await save({ scene: p.dataset.scene, step: Number(p.dataset.step), part: Number(p.dataset.part), old: saved, text });
           p.textContent = saved = result.text;
           p.dataset.state = 'saved'; p.title = result.note;
         } catch (error) {

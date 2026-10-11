@@ -64,9 +64,13 @@ with sync_playwright() as p:
         page.keyboard.press('t');assert page.locator('.step-hidden,.step-past').count()==0
         page.keyboard.press('t');assert state()['step']==len(first['steps'])-1
         page.goto(base+'?mode=slides&step=1#'+second['id']);page.reload();assert state()=={'id':second['id'],'step':1}
-        page.set_viewport_size({'width':1280,'height':720});page.keyboard.press('r')
+        # A 64px logo strip sits above the full-size 1280x720 recording canvas.
+        page.set_viewport_size({'width':1280,'height':784});page.keyboard.press('r')
         page.wait_for_function("document.querySelector('.scene:not([hidden])').getBoundingClientRect().width===1280")
-        cam=page.locator('.camera-guide').bounding_box();assert all(abs(cam[k]-v)<1 for k,v in {'x':956,'y':24,'width':300,'height':225}.items()),cam
+        logo=page.locator('.recording-branding .institution-logo');assert logo.is_visible()
+        assert logo.evaluate('(e)=>e.complete&&e.naturalWidth===2420')
+        assert logo.bounding_box()['y']+logo.bounding_box()['height']<=page.locator('.scene:not([hidden])').bounding_box()['y']
+        cam=page.locator('.camera-guide').bounding_box();assert all(abs(cam[k]-v)<1 for k,v in {'x':956,'y':88,'width':300,'height':225}.items()),cam
         page.keyboard.press('r');page.keyboard.press('t');page.set_viewport_size({'width':390,'height':844})
         assert page.evaluate('document.documentElement.scrollWidth<=innerWidth'),name
         page.set_viewport_size({'width':1280,'height':848})
@@ -105,6 +109,13 @@ with sync_playwright() as p:
     # 零件库重刷后 diff 行为 .p-ln.del / .p-ln.add；旧写法 .minus / .plus 仍兼容。
     assert page.locator('#p05-diff .minus, #p05-diff .p-ln.del').first.evaluate('(e)=>getComputedStyle(e).backgroundColor')=='rgb(252, 230, 221)'
     assert page.locator('#p05-diff .plus, #p05-diff .p-ln.add').first.evaluate('(e)=>getComputedStyle(e).backgroundColor')=='rgb(227, 242, 230)'
+    # The default standalone view must open the same offline Starter as the iframe.
+    panel=page.locator('#p04-live .welcome-demo')
+    preview_url=(root.parents[1]/'starters/personal-homepage/setup-check/index.html').as_uri()
+    assert panel.locator('iframe').evaluate('(e)=>e.src')==preview_url
+    assert panel.locator('a').evaluate('(e)=>e.href')==preview_url
+    with page.expect_popup() as popup:panel.locator('a').click()
+    popup.value.wait_for_url(preview_url);popup.value.locator('#welcome-message').wait_for();popup.value.close()
     assert not network,network
     # Exercise the preview controls against a local fixture, never a learner's project.
     page.unroute('http://**/*')
@@ -113,10 +124,11 @@ with sync_playwright() as p:
     page.goto((root/'lessons/01-environment/index.html').as_uri()+'?mode=slides&step=1#p04-live')
     panel=page.locator('.scene:not([hidden]) .welcome-demo');panel.locator('[data-demo-connect]').click()
     assert panel.locator('iframe').get_attribute('src')=='http://localhost:4174/setup-check/'
+    assert panel.locator('a').get_attribute('href')=='http://localhost:4174/setup-check/'
     page.frame_locator('.scene:not([hidden]) iframe').locator('#welcome-message').wait_for()
     panel.locator('[data-demo-reload]').click();page.frame_locator('.scene:not([hidden]) iframe').locator('#welcome-message').wait_for()
     with page.expect_popup() as popup:panel.locator('a').click()
-    popup.value.wait_for_load_state();assert popup.value.url=='http://localhost:4174/setup-check/';popup.value.close()
+    popup.value.wait_for_url('http://localhost:4174/setup-check/');popup.value.locator('#welcome-message').wait_for();popup.value.close()
     # Protect P10's independent Context Window step and navigation.
     base=(root/'lessons/02-agent/index.html').as_uri()
     page.goto(base+'?mode=slides#p10');agent=page.evaluate('window.lesson.scenes.find(s=>s.id==="p10")')

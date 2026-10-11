@@ -51,6 +51,7 @@ def chapter_home():
     head = home[: home.index("<body>")].replace("第 2 章 · Vibe Coding", CHAPTER)
     return head + (
         '<body><main class="chapter-home p-root">\n<header class="chapter-home-header">\n'
+        '<img class="institution-logo" src="../shared/assets/shenlanxueyuan_logo.png" alt="深蓝学院" width="2420" height="744"/>\n'
         '<a aria-label="回到课程首页" class="wordmark home-wordmark" href="../index.html"><span class="brand-mark">P<span>→</span>H</span><span>从 Prompt<br/>到 Harness</span></a>\n'
         '<p class="script-meta">深蓝学院 · AI Coding</p>\n'
         f'<p class="chapter-kicker">{CHAPTER}</p>\n<h1>用小游戏体验快速迭代与 Plugin</h1>\n'
