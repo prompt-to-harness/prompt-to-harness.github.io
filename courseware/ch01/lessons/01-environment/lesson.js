@@ -47,15 +47,15 @@ window.lesson = {
       "label": "先找准你要改的那一份文件",
       "title": "先找准你要改的那一份文件",
       "kicker": "第 1 章 · 1.1 · 找准任务",
-      "lead": "课程仓库里有两个容易混的目录：course-starter 是课程模板，只用来初始化；练习在 projects/personal-homepage 这份副本里进行。这次唯一要改的是 setup-check/index.html，动手前先记下当前分支和初始状态。",
-      "html": "<ul class=\"p-tree\" style=\"font-size:25px;padding:22px 28px;line-height:1.9\"><li class=\"is-dim\" data-reveal=\"0\"><span class=\"p-path\">course-starter/</span><span class=\"p-note\">模板 · 不在这里练习</span></li><li class=\"is-open\" data-reveal=\"1\"><span class=\"p-path\">projects/personal-homepage/</span><span class=\"p-note\">练习副本 · 在这里打开</span><ul><li class=\"is-target\" data-reveal=\"2\"><span class=\"p-path\">setup-check/index.html</span><span class=\"p-note\">唯一目标</span></li></ul></li></ul><p class=\"source-note\"><a href=\"../../preparation.html\">课前准备与排障</a></p>",
+      "lead": "你的电脑上有两个容易混的目录：course-starter 是课程模板，只用来创建你自己的仓库；练习在 projects/personal-homepage 这份副本里进行。本节唯一要改的是 setup-check/index.html，动手前先记下当前分支和初始状态。",
+      "html": "<ul class=\"p-tree\" style=\"font-size:25px;padding:22px 28px;line-height:1.9\"><li class=\"is-dim\" data-reveal=\"0\"><span class=\"p-path\">course-starter/</span><span class=\"p-note\">模板 · 不在这里练习</span></li><li class=\"is-open\" data-reveal=\"1\"><span class=\"p-path\">projects/personal-homepage/</span><span class=\"p-note\">练习副本 · 在这里打开</span><ul><li class=\"is-target\" data-reveal=\"2\"><span class=\"p-path\">setup-check/index.html</span><span class=\"p-note\">唯一目标</span></li></ul></li></ul><p class=\"source-note\"><a href=\"https://github.com/prompt-to-harness/course-starter\" target=\"_blank\" rel=\"noopener noreferrer\">course-starter 模板仓库</a><a href=\"../../preparation.html\">课前准备与排障</a></p>",
       "steps": [
         "区分模板",
         "确认根目录",
         "定位文件"
       ],
       "script": [
-        "【操作提示｜课件 p02 第 1 步 → 在 Chrome 新开标签页“课前准备”，通过页首“配套材料”链接打开“取得独立练习项目”；保留课件标签页】\n\n先看准备页里的“取得独立练习项目”。这里给出了 Starter 的项目说明、任务卡和环境记录单。如果你还没有练习目录，就从这个入口开始，按项目说明创建自己的仓库，再克隆到本地。\n\n这里有两个名字要认清。course-starter 是起点模板，后面的练习要在自己的项目副本里完成。课程示例把副本放在 projects 下面，名字叫 personal-homepage。你可以选其他目录，关键是后面打开文件、启动工具和查看页面，都认准同一份。",
+        "【操作提示｜课件 p02 第 1 步 → 在 Chrome 新开标签页“课前准备”，通过页首“配套材料”链接打开“取得练习项目”；保留课件标签页】\n\n先看准备页里的“取得练习项目”。这里给出了 Starter 的项目说明、任务卡和环境记录单。如果你还没有练习目录，就从这个入口开始，按项目说明创建自己的仓库，再克隆到本地。\n\n这里有两个名字要认清。course-starter 是起点模板，后面的练习要在自己的项目副本里完成。课程示例把副本放在 projects 下面，名字叫 personal-homepage。你可以选其他目录，关键是后面打开文件、启动工具和查看页面，都认准同一份。",
         "【操作提示｜返回课件推进第 2 步 → 切 VS Code，用“打开文件夹”打开独立练习副本 projects/personal-homepage；不要打开课程课件目录】\n\n我现在切到 VS Code。先看左边文件列表的根目录，确认打开的是个人主页的练习副本。接着再找文件。不要只凭一个 index.html 的名字判断，因为不同目录里可能都有同名文件。\n\n等会儿我说“切到 Terminal”，指的是运行命令的终端；用 VS Code 的集成终端也可以。为了方便看清楚，我们把终端放大一点。目录和文件名都尽量完整地露出来。",
         "【操作提示｜课件第 3 步对应实操：在 VS Code 展开 setup-check，打开 index.html，搜索 welcome-message；随后打开 Terminal，确认当前目录。macOS/Linux 用 pwd，PowerShell 用 Get-Location】\n\n我们要找的是 setup-check 文件夹里的 index.html。找到 welcome-message，你就能看到页面上的那句欢迎语。现在先看位置，不手动修改。\n\n再看终端的当前目录。它应该指向刚才打开的练习项目根目录。如果指向课件仓库，或者其他项目，就先切到正确的位置。\n\n动手前还要留一份初始状态：当前在哪个分支，已经有哪些改动。这样等会儿看差异时，我们才分得清哪些是原来就有的，哪些是这次新产生的。具体命令稍后在环境检查里一起执行。"
       ],
@@ -86,16 +86,16 @@ window.lesson = {
       "label": "安装工具与选择模型是两件事",
       "title": "安装工具与选择模型是两件事",
       "kicker": "第 1 章 · 1.1 · 准备环境",
-      "lead": "工具入口按官方 CLI 说明安装，在练习目录里启动并登录；模型是另一件事。课程主用 MiniMax M3，其余模型只作观察，不做排名。没有完成一次真实请求，就不能写成“可用”。",
-      "html": "<div class=\"p-pair\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"tool\">先安装</span><h3>工具入口</h3><p><a href=\"https://learn.chatgpt.com/docs/codex/cli\" target=\"_blank\" rel=\"noopener noreferrer\">官方 CLI 安装说明</a></p></div><div class=\"p-join\" data-reveal=\"1\"><b>≠</b><span>两件事</span></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">再选择</span><h3>课程模型</h3><p class=\"p-big\">主用 <a href=\"https://www.minimax.cn/models/text/m3\" target=\"_blank\" rel=\"noopener noreferrer\">MiniMax M3</a></p><p class=\"p-sub\">观察：<a href=\"https://openai.com/zh-Hans-CN/index/gpt-6-astra/\" target=\"_blank\" rel=\"noopener noreferrer\">GPT-6 Astra</a> · <a href=\"https://www.anthropic.com/claude-opus-5-5\" target=\"_blank\" rel=\"noopener noreferrer\">Claude Opus 5</a> · <a href=\"https://www.anthropic.com/claude-fable-and-mythos-5-1\" target=\"_blank\" rel=\"noopener noreferrer\">Claude Fable 5</a></p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\"><b>待核验 ≠ 可用</b></div>",
+      "lead": "按 Codex CLI 官方说明安装，在 projects/personal-homepage 目录里启动并登录；选哪个模型是另一件事。课程主用 MiniMax M3，另外几个模型只拿来对照，不比谁更强。没有完成一次真实请求，就不能写成“可用”。",
+      "html": "<div class=\"p-pair\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"tool\">先安装</span><h3>Codex CLI</h3><p><a href=\"https://learn.chatgpt.com/docs/codex/cli\" target=\"_blank\" rel=\"noopener noreferrer\">官方安装说明</a></p></div><div class=\"p-join\" data-reveal=\"1\"><b>≠</b><span>两件事</span></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">再选择</span><h3>课程模型</h3><p class=\"p-big\">主用 <a href=\"https://www.minimax.cn/models/text/m3\" target=\"_blank\" rel=\"noopener noreferrer\">MiniMax M3</a></p><p class=\"p-sub\">对照：<a href=\"https://openai.com/zh-Hans-CN/index/gpt-6-astra/\" target=\"_blank\" rel=\"noopener noreferrer\">GPT-6 Astra</a> · <a href=\"https://www.anthropic.com/claude-opus-5-5\" target=\"_blank\" rel=\"noopener noreferrer\">Claude Opus 5</a> · <a href=\"https://www.anthropic.com/claude-fable-and-mythos-5-1\" target=\"_blank\" rel=\"noopener noreferrer\">Claude Fable 5</a></p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\"><b>待核验 ≠ 可用</b></div>",
       "steps": [
         "先安装入口",
         "再看模型",
         "核实可用性"
       ],
       "script": [
-        "【操作提示｜回课件 p02a 第 1 步 → 在 Chrome 新开标签页“CLI 官方说明”，通过课件上的“官方 CLI 安装说明”链接打开；按录制当天官方页面定位安装说明】\n\n接下来准备我们发任务的入口。我现在打开的是官方 CLI 说明。CLI 就是命令行入口，也就是在终端里输入任务、查看执行过程的那个界面。\n\n安装时先看自己的操作系统，再按官方说明选择对应方式。你不需要把网页上的所有安装方式都试一遍，选适合自己系统的一条就可以。\n\n安装完成后，我们会回到练习目录启动它。如果下载失败或速度很慢，可以暂停视频，去刚才的课前准备页查看排障入口，处理好再继续。",
-        "【操作提示｜回课件推进第 2 步，指向“工具入口”和“课程模型”；此处不必新开模型官网】\n\n这里再分清两件事：一个是你在电脑上使用的工具入口，另一个是处理请求的模型。装好了入口，接下来还要核对模型接入。\n\n课程安排主用 MiniMax M3。右边列出的其他模型，是课程的观察对象。这节先沿着指定环境完成一次任务，不要求你逐个注册、逐个比较，也不需要为这次欢迎语练习下载模型权重。\n\n你真正需要记下来的是：自己实际用了哪个工具、哪个模型，以及对应的接入方式。后面如果遇到问题，我们才能知道要从哪里查。",
+        "【操作提示｜回课件 p02a 第 1 步 → 在 Chrome 新开标签页“CLI 官方说明”，通过课件上的“官方安装说明”链接打开；按录制当天官方页面定位安装说明】\n\n接下来准备我们发任务的入口。我现在打开的是官方 CLI 说明。CLI 就是命令行入口，也就是在终端里输入任务、查看执行过程的那个界面。\n\n安装时先看自己的操作系统，再按官方说明选择对应方式。你不需要把网页上的所有安装方式都试一遍，选适合自己系统的一条就可以。\n\n安装完成后，我们会回到练习目录启动它。如果下载失败或速度很慢，可以暂停视频，去刚才的课前准备页查看排障入口，处理好再继续。",
+        "【操作提示｜回课件推进第 2 步，指向“Codex CLI”和“课程模型”；此处不必新开模型官网】\n\n这里再分清两件事：一个是你在电脑上使用的工具，也就是 Codex CLI；另一个是处理请求的模型。装好了工具，接下来还要核对模型接入。\n\n课程安排主用 MiniMax M3。右边列出的其他模型，只是拿来对照的。这节先沿着指定环境完成一次任务，不要求你逐个注册、逐个比较，也不需要为这次欢迎语练习下载模型权重。\n\n你真正需要记下来的是：自己实际用了哪个工具、哪个模型，以及对应的接入方式。后面如果遇到问题，我们才能知道要从哪里查。",
         "【操作提示｜回课件推进第 3 步；安装与认证按已核验的录制环境操作。若认证要求打开浏览器，使用 Chrome 新标签页完成，暂停录屏或遮挡账号、验证码和密钥，再回 Terminal。不要展示配置中的凭据】\n\n接入这一步，我们用实际请求来确认。稍后会请它读取练习文件，并说出原来的欢迎语。这样就能把工具启动、请求响应和文件读取连起来检查。\n\n如果某一步报错，先把具体错误记下来，处理这一项。不要因为界面已经打开，就把后面的检查都填成通过。现在先回到环境检查表，看看开始修改前还要确认什么。"
       ],
       "segment": "准备环境",
@@ -125,8 +125,8 @@ window.lesson = {
       "label": "哪些条件不满足，就不能开始？",
       "title": "哪些条件不满足，就不能开始？",
       "kicker": "第 1 章 · 1.1 · 准备环境",
-      "lead": "按 docs/setup/ENVIRONMENT.md 逐项检查三件事：浏览器能打开并刷新环境页，Git 能读出分支、状态和 Diff，Codex CLI 能从练习目录启动。CLI 暂不可用时，可以先用已核验的桌面入口，但要在 1.3 结束前补齐。",
-      "html": "<div class=\"p-grid\" style=\"--n:3\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\" style=\"padding:16px 20px\"><h3 data-node=\"browser\">浏览器</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"browser_pass\" data-edge=\"browser:browser_pass\">打开并刷新环境页</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"browser_fail\" data-edge=\"browser:browser_fail\" class=\"p-sub\">核对路径或本地服务</p></div></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"1\" style=\"padding:16px 20px\"><h3 data-node=\"git\">Git</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"git_pass\" data-edge=\"git:git_pass\">分支、状态、Diff 可读</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"git_fail\" data-edge=\"git:git_fail\" class=\"p-sub\">补齐 Git 与仓库</p></div></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"2\" style=\"padding:16px 20px\"><h3 data-node=\"cli\">Codex CLI</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"cli_pass\" data-edge=\"cli:cli_pass\">从练习目录启动</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"cli_fail\" data-edge=\"cli:cli_fail\" class=\"p-sub\">临时用桌面入口</p></div></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">三处都<b>通过</b>才开始</div>",
+      "lead": "按 docs/setup/ENVIRONMENT.md 逐项检查三件事：浏览器能打开并刷新环境页，Git 能读出分支、状态和 Diff（改动前后的差异），Codex CLI 能从练习目录启动。CLI 暂不可用时，可以先用已核验的桌面入口，但最晚在 1.3 节（工具与权限）结束前补上 CLI。",
+      "html": "<div class=\"p-grid\" style=\"--n:3\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\" style=\"padding:16px 20px\"><h3 data-node=\"browser\">浏览器</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"browser_pass\" data-edge=\"browser:browser_pass\">打开并刷新环境页</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"browser_fail\" data-edge=\"browser:browser_fail\" class=\"p-sub\">核对路径或本地服务</p></div></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"1\" style=\"padding:16px 20px\"><h3 data-node=\"git\">Git</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"git_pass\" data-edge=\"git:git_pass\">分支、状态、Diff 可读</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"git_fail\" data-edge=\"git:git_fail\" class=\"p-sub\">补齐 Git 与仓库</p></div></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"2\" style=\"padding:16px 20px\"><h3 data-node=\"cli\">Codex CLI</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"cli_pass\" data-edge=\"cli:cli_pass\">从练习目录启动</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"cli_fail\" data-edge=\"cli:cli_fail\" class=\"p-sub\">临时用桌面入口</p></div></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">三项都<b>通过</b>才开始</div>",
       "steps": [
         "检查页面",
         "检查仓库",
@@ -135,7 +135,7 @@ window.lesson = {
       "script": [
         "【操作提示｜切 VS Code，打开练习项目 docs/setup/ENVIRONMENT.md；另开 Terminal 标签页作为“页面服务”，在练习根目录运行 python3 -m http.server 4174 --bind 127.0.0.1 并保持运行。随后在 Chrome 新开标签页“练习页面”，打开 http://localhost:4174/setup-check/】\n\n我先打开环境记录单。我们一项一项检查，有实际结果了再填。\n\n第一项是浏览器。现在终端里启动了一个本地页面服务，它提供的文件来自当前练习目录。浏览器打开这个地址，就能查看这份副本。\n\n看一下地址栏，再刷新一次。检查页面能否显示，原来的欢迎语是否还在。等会儿修改后，我们还会回到这个标签页。现在可以保存一张修改前的截图，作为后面对照的起点。\n\n如果你只是自己练习，也可以用浏览器直接打开那个 HTML 文件。这里启动服务，是为了稍后把实际页面连进课件的预览区。",
         "【操作提示｜切到另一个 Terminal 标签页“仓库检查”，仍在练习根目录依次运行 git --version、git branch --show-current、git status --short、git diff；如有已暂存改动，补看 git diff --cached。记录实际结果后回 VS Code 环境单】\n\n第二项是 Git。先看版本，再看分支，接着看当前状态和文件差异。Diff 这个词，指的就是修改前后的差异。\n\n运行 status 后，如果没有列出文件，表示这个工作区当时没有待处理的文件变化。如果列出了文件，就逐个辨认它们的来源。这里的判断以你自己的实际输出为准。\n\n我们保留这份初始状态，等会儿再比较。不要为了让输出看起来干净，把已有改动直接删掉。还没有安装 Git，或者命令提示当前不在仓库里，就先回准备页补齐这一项。",
-        "【操作提示｜在同一练习根目录的 Terminal 中运行 codex --version，记录版本后运行 codex；保留“页面服务”终端。核对启动目录和实际配置。完成后回课件 p03 第 3 步】\n\n第三项是 Codex CLI。先记下版本，再在这个练习目录里启动。这样，它接下来要处理的项目，和 VS Code、浏览器里展示的项目才能对上。\n\n如果 CLI 暂时用不了，而你已经有经过核验的桌面入口，可以先用它完成同一个任务，记录为临时通过，并在一点三结束前补齐 CLI。\n\n浏览器、Git 和工具入口都检查过以后，我们再发一次只读请求。先把文件读对，再开始改。"
+        "【操作提示｜在同一练习根目录的 Terminal 中运行 codex --version，记录版本后运行 codex；保留“页面服务”终端。核对启动目录和实际配置。完成后回课件 p03 第 3 步】\n\n第三项是 Codex CLI。先记下版本，再在这个练习目录里启动。这样，它接下来要处理的项目，和 VS Code、浏览器里展示的项目才能对上。\n\n如果 CLI 暂时用不了，而你已经有经过核验的桌面入口，可以先用它完成同一个任务，记录为临时通过，最晚在一点三讲完工具与权限之前，把 CLI 补上。\n\n浏览器、Git 和 Codex CLI 都检查过以后，我们再发一次只读请求。先把文件读对，再开始改。"
       ],
       "segment": "准备环境",
       "seconds": 240,
@@ -165,20 +165,20 @@ window.lesson = {
     },
     {
       "id": "p03-access",
-      "label": "登录后，发一次只读请求",
-      "title": "登录后，发一次只读请求",
+      "label": "登录模型账号，发一次只读请求",
+      "title": "登录模型账号，发一次只读请求",
       "kicker": "第 1 章 · 1.1 · 准备环境",
-      "lead": "登录后按这条路径核验接入：发出真实请求、只读练习文件、核对实际模型与配置；任何一步失败都如实记录。Node.js 与 npm 本节用不到，但 1.5 生成首页前必须就绪。",
-      "html": "<div class=\"p-flow\" style=\"--n:4\" data-reveal=\"0\"><div class=\"p-node\" data-role=\"agent\"><h3>认证</h3></div><div class=\"p-node\" data-role=\"agent\"><h3>真实请求</h3></div><div class=\"p-node\" data-role=\"tool\"><h3>只读文件</h3></div><div class=\"p-node\" data-role=\"ok\"><h3>配置一致</h3></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:6px\"><div class=\"p-box is-dashed\" data-role=\"tool\" data-reveal=\"1\"><h3>Node.js / npm</h3><p>本节不用 · 1.5 前就绪</p></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"2\"><h3>接入失败</h3><p>记录阻塞 · 先看回放</p></div></div>",
+      "lead": "在 Codex CLI 里登录课程所用模型服务的账号，再按这条路径核验接入：发出真实请求、只读练习文件、核对实际模型与配置；任何一步失败都如实记录。Node.js 与 npm 本节用不到，第 1.5 节创建个人主页之前装好即可。",
+      "html": "<div class=\"p-flow\" style=\"--n:4\" data-reveal=\"0\"><div class=\"p-node\" data-role=\"agent\"><h3>登录</h3></div><div class=\"p-node\" data-role=\"agent\"><h3>真实请求</h3></div><div class=\"p-node\" data-role=\"tool\"><h3>只读文件</h3></div><div class=\"p-node\" data-role=\"ok\"><h3>配置一致</h3></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:6px\"><div class=\"p-box is-dashed\" data-role=\"tool\" data-reveal=\"1\"><h3>Node.js / npm</h3><p>本节不用 · 做个人主页前装好</p></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"2\"><h3>接入失败</h3><p>记录阻塞 · 先看回放</p></div></div>",
       "steps": [
         "验证真实请求",
         "隔离 Node 问题",
         "如实记录降级"
       ],
       "script": [
-        "【操作提示｜课件 p03-access 第 1 步 → 切 Terminal 的 Codex 会话，发送：“只读取 setup-check/index.html，告诉我 h1#welcome-message 当前的完整文字，不修改任何文件。”查看实际读取与返回；切 VS Code 对照原文】\n\n我先发一个很小的请求：只读取这个文件，告诉我欢迎语现在是什么，不修改文件。\n\n请求返回以后，我们把它给出的文字，和 VS Code 里刚才找到的那一行对照。这里要检查的是，它有没有读到指定文件，返回的内容能不能与文件原文对应。\n\n实际使用的模型和配置，要结合工具显示的信息和接入记录核对。如果工具没有显示，就记为待核验，不让它随口回答一个模型名字来代替检查。\n\n如果认证失败，或者请求报错，这里就先停住。记下经过脱敏的错误信息，再处理接入问题。",
-        "【操作提示｜回课件推进第 2 步；无需新开窗口或安装前端依赖】\n\n你可能注意到，我们还没有创建 React 项目，也没有运行 npm install。这次要改的是一个独立 HTML 页面，页面本身不依赖 Node.js 和 npm。\n\n如果你的工具入口已经能用，只是正式首页需要的 Node 环境还没有准备好，可以先完成今天的欢迎语任务。到一点五生成正式首页之前，再按工具链说明补齐。\n\n如果你选择的 CLI 安装方式本身需要 Node，那是工具安装的前提，仍然要按官方说明准备好。我们这里说的，是这个练习页面不需要安装前端项目依赖。",
-        "【操作提示｜推进第 3 步；接入失败时切回 Chrome 已有“课前准备”标签页的“失败与继续条件”，并在 VS Code 环境单记录阻塞；接入成功则直接过渡】\n\n如果现在连临时入口也不能用，可以先看完老师的演示，把卡住的位置记下来，恢复后再补操作。记录里写清楚“仅观察”或者“待补做”。\n\n这些记录会帮助你下一次继续：是页面没打开、Git 没就绪，还是模型请求失败，不用从头猜一遍。\n\n接下来我们看正式的修改请求。能继续操作的同学，可以跟着走；暂时受阻的同学，先观察老师怎样交任务和检查结果。"
+        "【操作提示｜课件 p03-access 第 1 步 → 切 Terminal 的 Codex 会话，发送：“只读取 setup-check/index.html，告诉我 h1#welcome-message 当前的完整文字，不修改任何文件。”查看实际读取与返回；切 VS Code 对照原文】\n\n在 Codex CLI 里登录好课程所用模型服务的账号以后，我先发一个很小的请求：只读取这个文件，告诉我欢迎语现在是什么，不修改文件。\n\n请求返回以后，我们把它给出的文字，和 VS Code 里刚才找到的那一行对照。这里要检查的是，它有没有读到指定文件，返回的内容能不能与文件原文对应。\n\n实际使用的模型和配置，要结合工具显示的信息和接入记录核对。如果工具没有显示，就记为待核验，不让它随口回答一个模型名字来代替检查。\n\n如果认证失败，或者请求报错，这里就先停住。记下经过脱敏的错误信息，再处理接入问题。",
+        "【操作提示｜回课件推进第 2 步；无需新开窗口或安装前端依赖】\n\n你可能注意到，我们还没有创建 React 项目，也没有运行 npm install。这次要改的是一个独立 HTML 页面，页面本身不依赖 Node.js 和 npm。\n\n如果你的 Codex CLI 已经能用，只是做个人主页需要的 Node 环境还没有准备好，可以先完成今天的欢迎语任务。到一点五创建个人主页之前，再按工具链说明补齐。\n\n如果你选择的 CLI 安装方式本身需要 Node，那是工具安装的前提，仍然要按官方说明准备好。我们这里说的，是这个练习页面不需要安装前端项目依赖。",
+        "【操作提示｜推进第 3 步；接入失败时切回 Chrome 已有“课前准备”标签页的“遇到问题时”，并在 VS Code 环境单记录阻塞；接入成功则直接过渡】\n\n如果现在连临时入口也不能用，可以先看完老师的演示，把卡住的位置记下来，恢复后再补操作。记录里写清楚“仅观察”或者“待补做”。\n\n这些记录会帮助你下一次继续：是页面没打开、Git 没就绪，还是模型请求失败，不用从头猜一遍。\n\n接下来我们看正式的修改请求。能继续操作的同学，可以跟着走；暂时受阻的同学，先观察老师怎样交任务和检查结果。"
       ],
       "segment": "准备环境",
       "seconds": 180,

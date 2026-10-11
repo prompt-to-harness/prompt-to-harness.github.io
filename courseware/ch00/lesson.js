@@ -10,7 +10,7 @@ window.lesson = {
       "kicker": "第 0 章 · 开场",
       "title": "我们为什么这样学<br>Vibe Coding",
       "lead": "两位讲师，八个问题。先聊真实经历，再看这门课怎么学。",
-      "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>第 0 章</b>开场访谈</li><li><b>第 1–3 章</b>个人主页与小游戏</li><li><b>第 4–6 章</b>JSON Crack · JSON Diff</li><li><b>第 7–9 章</b>dependency-cruiser</li></ol><div class=\"p-chain\" style=\"margin-top:26px\"><span>从 Prompt 到 Harness</span><i>·</i><span>三个递进式真实项目</span></div><p class=\"p-hand\" style=\"font-size:32px;margin-top:18px\">带着一个自己的开发想法，开始这次对话</p>",
+      "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>第 0 章</b>开场访谈</li><li><b>第 1–3 章</b>个人主页与小游戏</li><li><b>第 4–6 章</b>JSON Crack · JSON Diff</li><li><b>第 7–9 章</b>dependency-cruiser</li></ol><div class=\"p-chain\" style=\"margin-top:26px\"><span>从 Prompt 到 Harness</span><i>·</i><span>三个递进式真实项目</span></div><p class=\"p-hand\" style=\"font-size:32px;margin-top:18px\">想想你在工作或学习中遇到的一个开发问题，带着它来听</p>",
       "script": [
         "欢迎来到课程。在动手之前，我们先用八个问题，聊聊各自怎样开始使用 Vibe Coding、踩过什么坑，以及为什么把这些经历组织成现在这门课。",
         "这节课先建立方向。接下来会分别做三个项目，每个项目都要留下实际结果和验证证据。"
@@ -99,8 +99,8 @@ window.lesson = {
       "label": "02 · 工作发生的变化",
       "kicker": "第 0 章 · 访谈 02 / 08",
       "title": "用了一段时间后，它给你的<br>工作带来最大的变化是什么？",
-      "lead": "每人选一个变化，也说说仍需要自己投入的部分。",
-      "html": "<div class=\"p-pair\"><div class=\"p-box\" data-role=\"ink\"><span class=\"p-tag\" data-role=\"ctx\">回看一个任务</span><h3>以前怎样完成</h3><p class=\"p-big\" style=\"font-weight:500\">哪些步骤需要自己从头推进？</p></div><div class=\"p-join\"><span>用了一段时间后</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"agent\"><span class=\"p-tag\" data-role=\"agent\">再看现在</span><h3>现在怎样协作</h3><p class=\"p-big\" style=\"font-weight:500\">哪些步骤交给 AI，自己的精力移到了哪里？</p></div></div><div class=\"p-bar\" style=\"margin-top:22px\">围绕具体工作过程，讲清<b>收益与代价</b></div>",
+      "lead": "每人选一个变化，也说说哪些事仍要自己做。",
+      "html": "<div class=\"p-pair\"><div class=\"p-box\" data-role=\"ink\"><span class=\"p-tag\" data-role=\"ctx\">选一个任务</span><h3>以前怎样完成</h3><p class=\"p-big\" style=\"font-weight:500\">哪些步骤需要自己从头推进？</p></div><div class=\"p-join\"><span>用了一段时间后</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"agent\"><span class=\"p-tag\" data-role=\"agent\">再看现在</span><h3>现在怎样协作</h3><p class=\"p-big\" style=\"font-weight:500\">哪些步骤交给 AI，自己的精力移到了哪里？</p></div></div><div class=\"p-bar\" style=\"margin-top:22px\">围绕具体工作过程，讲清<b>收益与代价</b></div>",
       "script": [
         "串场提问：用了一段时间后，它给你的工作带来最大的变化是什么？",
         "讲师 B 先答：从〔真实工作待填〕说明使用前后的变化。可以围绕尝试想法、调试或读陌生代码，选择自己最有感受的一项；说明仍需投入的理解、检查和返工。",
@@ -162,7 +162,7 @@ window.lesson = {
       "kicker": "第 0 章 · 访谈 04 / 08",
       "title": "现在你会怎样和 AI 分工，<br>完成一个开发任务？",
       "lead": "人确认目标与边界，依据执行结果决定下一步。",
-      "html": "<div class=\"p-flow\" style=\"--n:5;column-gap:34px\"><div class=\"p-node\" data-role=\"us\"><span class=\"p-num\">01</span><h3>澄清需求</h3><p>确认未知项</p></div><div class=\"p-node\" data-role=\"agent\"><span class=\"p-num\">02</span><h3>讨论计划</h3><p>拆成小任务</p></div><div class=\"p-node\" data-role=\"tool\"><span class=\"p-num\">03</span><h3>执行修改</h3><p>核对范围与权限</p></div><div class=\"p-node\" data-role=\"ok\"><span class=\"p-num\">04</span><h3>检查结果</h3><p>运行、测试与 diff</p></div><div class=\"p-node\" data-role=\"us\"><span class=\"p-num\">05</span><h3>评审与修正</h3><p>接受、继续或回退</p></div><div class=\"p-back\" data-role=\"agent\" style=\"grid-column:3/6;--span:3;--gap:34px\"><span class=\"p-back-label\">继续或回退</span></div></div><div class=\"p-bar\" style=\"margin-top:40px\">目标、关键取舍和发布决定，<b>由人负责</b></div>",
+      "html": "<div class=\"p-flow\" style=\"--n:5;column-gap:34px\"><div class=\"p-node\" data-role=\"us\"><span class=\"p-num\">01</span><h3>澄清需求</h3><p>确认未知项</p></div><div class=\"p-node\" data-role=\"agent\"><span class=\"p-num\">02</span><h3>讨论计划</h3><p>拆成小任务</p></div><div class=\"p-node\" data-role=\"tool\"><span class=\"p-num\">03</span><h3>执行修改</h3><p>核对范围与权限</p></div><div class=\"p-node\" data-role=\"ok\"><span class=\"p-num\">04</span><h3>检查结果</h3><p>运行、测试、看改动</p></div><div class=\"p-node\" data-role=\"us\"><span class=\"p-num\">05</span><h3>评审与修正</h3><p>接受、继续或回退</p></div><div class=\"p-back\" data-role=\"agent\" style=\"grid-column:3/6;--span:3;--gap:34px\"><span class=\"p-back-label\">继续或回退</span></div></div><div class=\"p-bar\" style=\"margin-top:40px\">目标、关键取舍和发布决定，<b>由人负责</b></div>",
       "script": [
         "串场提问：现在你会怎样和 AI 分工，完成一个开发任务？两位都请指出一个必须自己决定的节点。",
         "讲师 B 回答提纲：结合前面案例，描述自己的真实流程。〔实际分工待填〕。可沿页面的五个环节说明，由谁补充上下文、谁确认计划、怎样核对结果。",
@@ -193,11 +193,11 @@ window.lesson = {
       "kicker": "第 0 章 · 访谈 05 / 08",
       "title": "这门课会带大家做哪些项目，<br>为什么这样安排？",
       "lead": "三个独立仓库，逐步增加协作能力。",
-      "html": "<div class=\"p-stairs\" style=\"--n:3;column-gap:26px;--rise:26px\"><div class=\"p-stair\" style=\"--i:0\"><span class=\"p-here\">第一个项目</span><div class=\"p-box\" data-role=\"us\" style=\"padding:14px 18px\"><span class=\"p-tag\" data-role=\"us\">第 1–3 章</span><h3 style=\"font-size:26px\">个人主页<br>与小游戏</h3><p style=\"margin-top:8px;font-size:22px\"><b>Prompt · Vibe Coding</b></p></div></div><div class=\"p-stair\" style=\"--i:1\"><div class=\"p-box\" data-role=\"agent\" style=\"padding:14px 18px\"><span class=\"p-tag\" data-role=\"agent\">第 4–6 章</span><h3 style=\"font-size:26px\">JSON Crack<br>JSON Diff</h3><p style=\"margin-top:8px;font-size:22px\"><b>SDD</b></p></div></div><div class=\"p-stair\" style=\"--i:2\"><div class=\"p-box\" data-role=\"agent\" style=\"padding:14px 18px\"><span class=\"p-tag\" data-role=\"agent\">第 7–9 章</span><h3 style=\"font-size:26px\">dependency-cruiser<br>快照判定</h3><p style=\"margin-top:8px;font-size:22px\"><b>Harness</b></p></div></div></div><p class=\"source-note\" style=\"margin-top:12px\">各项目从自己的固定基线开始。第三项目只实现快照身份与新鲜度判定核心。</p>",
+      "html": "<div class=\"p-stairs\" style=\"--n:3;column-gap:26px;--rise:26px\"><div class=\"p-stair\" style=\"--i:0\"><span class=\"p-here\">第一个项目</span><div class=\"p-box\" data-role=\"us\" style=\"padding:14px 18px\"><span class=\"p-tag\" data-role=\"us\">第 1–3 章</span><h3 style=\"font-size:26px\">个人主页<br>与小游戏</h3><p style=\"margin-top:8px;font-size:22px\"><b>Prompt · Vibe Coding</b></p></div></div><div class=\"p-stair\" style=\"--i:1\"><div class=\"p-box\" data-role=\"agent\" style=\"padding:14px 18px\"><span class=\"p-tag\" data-role=\"agent\">第 4–6 章</span><h3 style=\"font-size:26px\">JSON Crack<br>JSON Diff</h3><p style=\"margin-top:8px;font-size:22px\"><b>SDD</b></p></div></div><div class=\"p-stair\" style=\"--i:2\"><div class=\"p-box\" data-role=\"agent\" style=\"padding:14px 18px\"><span class=\"p-tag\" data-role=\"agent\">第 7–9 章</span><h3 style=\"font-size:26px\">dependency-cruiser<br>依赖图快照是否过期</h3><p style=\"margin-top:8px;font-size:22px\"><b>Harness</b></p></div></div></div>",
       "script": [
         "串场提问：这门课会带大家做哪些项目，为什么这样安排？",
         "讲师 A 先介绍场景：第 1–3 章从个人主页起步，发布到 GitHub Pages，再做记忆翻牌和“60 秒躲避与收集”小游戏，体验反馈、调试与插件实践。",
-        "讲师 A 接着介绍：第 4–6 章在 JSON Crack 中做 JSON Diff，比较两份 JSON 并显示差异。第 7–9 章在 dependency-cruiser 中完成快照身份与新鲜度判定核心，用固定输入判断代码地图快照是否适用。",
+        "讲师 A 接着介绍：第 4–6 章在 JSON Crack 中做 JSON Diff，比较两份 JSON 并显示差异。第 7–9 章在 dependency-cruiser 中做一个核心功能：判断之前生成的依赖图快照，和现在的代码还对不对得上、能不能继续用。",
         "讲师 B 补充安排理由：从较小的可见产品，走到已有代码库中的明确规则，再到可重复的协作环境。Prompt 负责写清任务，Vibe Coding 通过实际结果持续反馈；SDD 把规格与验收放进仓库，Harness 将上下文、工具、验证与人工决策组织起来。后面继续保留前面学到的能力。",
         "讲师 B 范围说明：三个仓库互不依赖，不继承前一项目的代码或会话；第三项目只做限定的数据层任务，不承诺开发完整的新 CLI 或可视化平台。",
         "转场：看完路线，我们再具体回答，课程结束时大家能带走什么。"
@@ -317,12 +317,12 @@ window.lesson = {
       "label": "进入第一章",
       "kicker": "第 0 章 · 开始实操",
       "title": "开始第一次 AI 协作",
-      "lead": "从修改一句欢迎语开始，走完一次可检查的小任务。",
-      "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>1.1</b>首次闭环</li><li><b>1.2</b>拆开执行过程</li><li><b>1.3</b>工具与权限</li><li><b>1.4</b>写清任务</li><li><b>1.5</b>完成首页</li><li><b>1.6</b>最小权限</li></ol><div class=\"p-flow is-big\" style=\"--n:3;margin-top:24px;--node-h:118px\"><div class=\"p-node\" data-role=\"ctx\"><span class=\"p-num\">准备</span><h3>核对环境与目录</h3></div><div class=\"p-node\" data-role=\"tool\"><span class=\"p-num\">执行</span><h3>修改指定欢迎语</h3></div><div class=\"p-node\" data-role=\"ok\"><span class=\"p-num\">验证</span><h3>查看页面与 diff</h3></div></div><p class=\"next-chapter p-links\" style=\"margin-top:22px\"><a href=\"../ch01/lessons/01-environment/index.html?mode=slides\">进入第 1.1 节 →</a><a href=\"../ch01/preparation.html\">课前准备与排障</a></p>",
+      "lead": "第一个任务：改掉练习页上的一句欢迎语，并确认改对了。",
+      "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>1.1</b>首次闭环</li><li><b>1.2</b>拆开执行过程</li><li><b>1.3</b>工具与权限</li><li><b>1.4</b>写清任务</li><li><b>1.5</b>完成首页</li><li><b>1.6</b>最小权限</li></ol><div class=\"p-flow is-big\" style=\"--n:3;margin-top:24px;--node-h:118px\"><div class=\"p-node\" data-role=\"ctx\"><span class=\"p-num\">准备</span><h3>核对环境与目录</h3></div><div class=\"p-node\" data-role=\"tool\"><span class=\"p-num\">执行</span><h3>修改练习页欢迎语</h3></div><div class=\"p-node\" data-role=\"ok\"><span class=\"p-num\">验证</span><h3>查看页面与 diff</h3><p>diff：改动前后的差异</p></div></div><p class=\"next-chapter p-links\" style=\"margin-top:22px\"><a href=\"../ch01/lessons/01-environment/index.html?mode=slides\">进入第 1.1 节 →</a></p>",
       "script": [
-        "结束串词：我们已经认识了两位讲师，也看到了三个项目的路线。现在从一个很小的任务开始，核对环境和目录，修改指定欢迎语，再查看页面与代码差异。",
+        "结束串词：我们已经认识了两位讲师，也看到了三个项目的路线。现在从一个很小的任务开始，核对环境和目录，把练习页上的一句欢迎语改掉，再打开页面看效果，并查看 diff，也就是这次改动前后的差异。",
         "开始前，请在心里确认：课程有哪三个项目？自己希望练成什么能力？接下来要验证什么结果？",
-        "准备好后进入第 1.1 节。还没准备好环境的同学，先看课前准备与排障材料。"
+        "准备好后进入第 1.1 节。环境怎么准备，1.1 会带着大家一项一项核对。"
       ],
       "teaching": [
         {

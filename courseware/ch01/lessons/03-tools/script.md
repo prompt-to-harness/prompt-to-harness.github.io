@@ -24,7 +24,7 @@
 
 后面课程统一用 CLI，操作记录和检查方式就能连起来。
 
-【操作提示｜课件 p15 第 3 步 → VS Code 打开 docs/setup/ENVIRONMENT.md。仅桌面起步或环境发生变化时，补对应检查：Terminal 运行 codex --version、codex --help，再从练习根目录启动 codex，核对当前权限后发送只读请求：“只检查当前项目目录、分支、Git 状态和差异，报告结果；不要修改文件、安装依赖或发布。”已完成者复用真实记录。失败转本章 preparation.html 的“失败与继续条件”；完成后回课件。】
+【操作提示｜课件 p15 第 3 步 → VS Code 打开 docs/setup/ENVIRONMENT.md。仅桌面起步或环境发生变化时，补对应检查：Terminal 运行 codex --version、codex --help，再从练习根目录启动 codex，核对当前权限后发送只读请求：“只检查当前项目目录、分支、Git 状态和差异，报告结果；不要修改文件、安装依赖或发布。”已完成者复用真实记录。失败转本章 preparation.html 的“遇到问题时”；完成后回课件。】
 
 如果你从第一节开始就在用 CLI，而且环境没有变化，原来的记录可以继续用。如果之前用的是临时桌面入口，现在要补一次 CLI 的只读检查。
 

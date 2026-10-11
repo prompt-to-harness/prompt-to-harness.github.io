@@ -196,6 +196,8 @@ body[data-mode="scroll"] .presentation-tools { display: none; }
 .chapter-nav { display: grid; gap: var(--space-sm); }
 .chapter-nav a { color: var(--color-sidebar-muted); text-decoration: none; font-size: var(--text-sm); }
 .chapter-nav a:hover { color: var(--color-paper); }
+.chapter-label a { color: inherit; text-decoration: none; }
+.chapter-label a:hover { color: var(--color-paper); }
 .chapter-home { max-width: 1180px; margin: 0 auto; padding: clamp(2rem, 6vw, 6rem) clamp(1.25rem, 5vw, 5rem); }
 .chapter-home-header { position: relative; max-width: 900px; padding-bottom: var(--space-3xl); border-bottom: var(--rule-thin) solid var(--color-rule); }
 .chapter-home-header .institution-logo { position: absolute; top: 0; right: 0; }

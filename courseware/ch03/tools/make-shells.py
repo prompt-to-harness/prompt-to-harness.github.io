@@ -53,7 +53,7 @@ def chapter_home():
         '<body><main class="chapter-home p-root">\n<header class="chapter-home-header">\n'
         '<img class="institution-logo" src="../shared/assets/shenlanxueyuan_logo.png" alt="深蓝学院" width="2420" height="744"/>\n'
         '<a aria-label="回到课程首页" class="wordmark home-wordmark" href="../index.html"><span class="brand-mark">P<span>→</span>H</span><span>从 Prompt<br/>到 Harness</span></a>\n'
-        '<p class="script-meta">深蓝学院 · AI Coding</p>\n'
+        '<p class="script-meta">深蓝学院 · Vibe Coding</p>\n'
         f'<p class="chapter-kicker">{CHAPTER}</p>\n<h1>用小游戏体验快速迭代与 Plugin</h1>\n'
         '<p class="chapter-lede">把只有首页的个人站点变成能玩两个小游戏的实验室，并发现“能玩”背后有一串没人亲自定过、也没写下来的规则</p>\n</header>\n'
         '<section class="chapter-route" aria-labelledby="route-title">\n'

@@ -339,7 +339,7 @@ window.lesson = {
       "title": "“它说过”，不等于“它说的成立”",
       "lead": "先判断②和③：分别能支持什么结论？缺什么证据？",
       "kicker": "第 1 章 · 1.2 · 判断信息",
-      "html": "<div class=\"statement-grid\"><article class=\"statement\"><span class=\"card-quote\">① 记录中有一次目标文件读取</span><div data-reveal=\"1\" class=\"card-answer ctx\"><b>事实候选</b><p>核对真实日志中的路径和返回；有对应证据才成立</p></div></article><article class=\"statement\"><span class=\"card-quote\">② 刷新正确页面，显示了目标文案</span><div data-reveal=\"1\" class=\"card-answer ok\"><b>事实</b><p>有对应观察支持“文案已显示”；不能单独证明改动范围</p></div></article><article class=\"statement\"><span class=\"card-quote\">③ AI 说：“没有多改文件。”尚无 Diff。</span><div data-reveal=\"1\" class=\"card-answer risk\"><b>待验证主张</b><p>不能直接当事实；缺少实际 Diff 和文件范围检查</p></div></article><article class=\"statement\"><span class=\"card-quote\">④ “学员大概喜欢深色背景。”</span><div data-reveal=\"1\" class=\"card-answer ctx\"><b>假设</b><p>偏好未确认，先向用户核实</p></div></article></div><div data-reveal=\"2\" class=\"conclusion \"><p>③保留为“待验证主张”，不强行归入四类</p></div><p class=\"source-note\">八卡练习 · 前四张。依据原 P11 教学草案，待与 M06 原题核对。</p>",
+      "html": "<div class=\"statement-grid\"><article class=\"statement\"><span class=\"card-quote\">① 记录中有一次目标文件读取</span><div data-reveal=\"1\" class=\"card-answer ctx\"><b>事实候选</b><p>核对真实日志中的路径和返回；有对应证据才成立</p></div></article><article class=\"statement\"><span class=\"card-quote\">② 刷新正确页面，显示了目标文案</span><div data-reveal=\"1\" class=\"card-answer ok\"><b>事实</b><p>有对应观察支持“文案已显示”；不能单独证明改动范围</p></div></article><article class=\"statement\"><span class=\"card-quote\">③ AI 说：“没有多改文件。”尚无 Diff。</span><div data-reveal=\"1\" class=\"card-answer risk\"><b>待验证主张</b><p>不能直接当事实；缺少实际 Diff 和文件范围检查</p></div></article><article class=\"statement\"><span class=\"card-quote\">④ “学员大概喜欢深色背景。”</span><div data-reveal=\"1\" class=\"card-answer ctx\"><b>假设</b><p>偏好未确认，先向用户核实</p></div></article></div><div data-reveal=\"2\" class=\"conclusion \"><p>③保留为“待验证主张”，不强行归入四类</p></div>",
       "steps": [
         "停顿，让学员判断②③，其余对照",
         "揭晓四条，重点解释证据边界",
@@ -360,7 +360,7 @@ window.lesson = {
         },
         {
           "title": "教学边界与材料",
-          "text": "此为原 P11 八条草案的前四条，未冒称已核验的 M06 原题。请学员用本人任务片段补证据。"
+          "text": "请学员用本人任务片段补证据。"
         }
       ],
       "notes": "<p>预算 65 秒，含页内停顿；实际试讲时长未测。按左右键逐步推进，末步恢复总览。</p>",
@@ -372,7 +372,7 @@ window.lesson = {
       "title": "一句建议，什么时候变成任务？",
       "lead": "先分⑤⑥与⑦⑧，再为自己的任务补一条信息。",
       "kicker": "第 1 章 · 1.2 · 判断信息",
-      "html": "<div class=\"statement-grid\"><article class=\"statement\"><span class=\"card-quote\">⑤ “建议先看 Diff。”</span><div data-reveal=\"1\" class=\"card-answer agent\"><b>建议</b><p>提出验证做法；还不表示已经执行</p></div></article><article class=\"statement\"><span class=\"card-quote\">⑥ “可以考虑扩大标题字号。”</span><div data-reveal=\"1\" class=\"card-answer agent\"><b>建议</b><p>可选改动，需要人决定，不能擅自扩范围</p></div></article><article class=\"statement\"><span class=\"card-quote\">⑦ 教师已批准：“只改欢迎语。”</span><div data-reveal=\"1\" class=\"card-answer ink\"><b>决定</b><p>需有明确确认记录；它约束可修改范围</p></div></article><article class=\"statement\"><span class=\"card-quote\">⑧ 教师决定：“这次不新增依赖。”</span><div data-reveal=\"1\" class=\"card-answer ink\"><b>决定</b><p>需有明确确认记录；后续执行遵守这一边界</p></div></article></div><div data-reveal=\"2\" class=\"conclusion \"><p>还缺什么？目标文案 / 指定文件 / 完成标准 —— 任选一项写清</p></div><p class=\"source-note\">八卡练习 · 后四张。与前页共同构成草案八卡，不替代本人记录。</p>",
+      "html": "<div class=\"statement-grid\"><article class=\"statement\"><span class=\"card-quote\">⑤ “建议先看 Diff。”</span><div data-reveal=\"1\" class=\"card-answer agent\"><b>建议</b><p>提出验证做法；还不表示已经执行</p></div></article><article class=\"statement\"><span class=\"card-quote\">⑥ “可以考虑扩大标题字号。”</span><div data-reveal=\"1\" class=\"card-answer agent\"><b>建议</b><p>可选改动，需要人决定，不能擅自扩范围</p></div></article><article class=\"statement\"><span class=\"card-quote\">⑦ 教师已批准：“只改欢迎语。”</span><div data-reveal=\"1\" class=\"card-answer ink\"><b>决定</b><p>需有明确确认记录；它约束可修改范围</p></div></article><article class=\"statement\"><span class=\"card-quote\">⑧ 教师决定：“这次不新增依赖。”</span><div data-reveal=\"1\" class=\"card-answer ink\"><b>决定</b><p>需有明确确认记录；后续执行遵守这一边界</p></div></article></div><div data-reveal=\"2\" class=\"conclusion \"><p>还缺什么？目标文案 / 指定文件 / 完成标准 —— 任选一项写清</p></div>",
       "steps": [
         "先区分建议与已确认决定",
         "揭晓四条，指出确认记录",
@@ -540,10 +540,10 @@ window.lesson = {
     {
       "id": "p14-check",
       "label": "暂停自检",
-      "title": "回到你的记录，能讲清这三件事吗？",
+      "title": "拿出 1.1 的协作记录，能讲清这三件事吗？",
       "lead": "暂停自检只检查本节核心能力，不考行业名词。",
       "kicker": "第 1 章 · 1.2 · 路标与收尾",
-      "html": "<div class=\"self-check\"><article><span class=\"check-number\">1</span><h3>Agent、Tool、Context、Window 各指什么？</h3><div data-reveal=\"1\" class=\"\"><p>用自己的话各说一句，再从本人记录中指一条对应证据</p></div></article><article><span class=\"check-number\">2</span><h3>一句“完成了”，还缺哪些证据？</h3><div data-reveal=\"2\" class=\"\"><p>页面核对结果，Diff 核对范围；分类理由要解释得通</p></div></article><article><span class=\"check-number\">3</span><h3>至少三种失败，怎样纠正和复验？</h3><div data-reveal=\"3\" class=\"\"><p>补信息、撤销本次越界改动、补结果检查；纠正后重新验证</p></div></article></div>",
+      "html": "<div class=\"self-check\"><article><span class=\"check-number\">1</span><h3>Agent、Tool、Context、Window 各指什么？</h3><div data-reveal=\"1\" class=\"\"><p>用自己的话各说一句，再从 1.1 的记录中指一条对应证据</p></div></article><article><span class=\"check-number\">2</span><h3>一句“完成了”，还缺哪些证据？</h3><div data-reveal=\"2\" class=\"\"><p>页面核对结果，Diff 核对范围；分类理由要解释得通</p></div></article><article><span class=\"check-number\">3</span><h3>至少三种失败，怎样纠正和复验？</h3><div data-reveal=\"3\" class=\"\"><p>补信息、撤销本次越界改动、补结果检查；纠正后重新验证</p></div></article></div>",
       "steps": [
         "暂停，先独立作答",
         "揭晓概念自检依据",
@@ -551,7 +551,7 @@ window.lesson = {
         "揭晓失败自检依据"
       ],
       "script": [
-        "【操作提示｜课件 p14-check 第 1 步；保持答案隐藏，留暂停点】\n\n请暂停视频，拿自己的记录回答这三问。四个词分别指什么？一句“完成了”还需要哪些证据？能不能列出至少三种失败，并说明怎样纠正和复验？\n\n不用逐字背定义。能把概念和刚才的任务连起来，就有了自检的依据。",
+        "【操作提示｜课件 p14-check 第 1 步；保持答案隐藏，留暂停点】\n\n请暂停视频，拿出你在 1.1 保存的协作记录，回答这三问。四个词分别指什么？一句“完成了”还需要哪些证据？能不能列出至少三种失败，并说明怎样纠正和复验？\n\n不用逐字背定义。能把概念和刚才的任务连起来，就有了自检的依据。",
         "【操作提示｜推进第 2 步，指向第一问；不要求从运行日志读出上下文窗口大小】\n\n第一问，你可以这样说：Agent 组织任务循环，Tool 执行具体动作，Context 是供判断使用的信息，Window 是一次处理信息的容量边界。\n\n再从记录里指出一次读取动作、对应的返回，以及当时的任务要求。窗口这一项能解释容量的意思即可，不用从日志里猜一个数字。",
         "【操作提示｜推进第 3 步，指向第二问】\n\n第二问，要把“完成了”对应到可检查的东西。页面是否显示目标文字，完整 Diff 是否只包含允许的改动？\n\n分类记录里也要写理由。没有找到对应证据，就先保留为待验证，后面补上再判断。",
         "【操作提示｜推进第 4 步 → 切 VS Code，展示同一份证据记录，将概念地图、分类理由、缺失信息与已有证据关联；未完成项明确留空或标待补，不代填成功结果】\n\n第三问，可以从信息不全、范围失控、没有验证、读取失败、找错修改位置中选三种。每一种都说清“先做什么，再看什么结果”。\n\n把概念地图和分类理由保存到这份记录里。还缺实际操作证据的地方标出来，补做以后再完善。"
