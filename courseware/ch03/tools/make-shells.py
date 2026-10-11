@@ -72,9 +72,9 @@ def chapter_home():
         '<div class="chapter-section-heading"><p class="scene-kicker">本章路线</p><h2 id="route-title">加游戏、查规则、修缺陷、用插件，再问说明在哪</h2></div>\n'
         f'<ol class="chapter-route-list">{route}</ol>\n'
         '<div class="p-bar is-light chapter-route-note">每一节都问一句：<b>这条规则是谁定的？</b></div>\n</section>\n'
-        '<section aria-labelledby="sections-title">\n<div class="chapter-section-heading"><p class="scene-kicker">章节导航</p><h2 id="sections-title">七节首版</h2></div>\n'
-        f'<div class="section-grid">{cards}</div>\n<p>首版课件（2026-10-06），未经讲师审阅，未试讲、未录制</p>\n</section>\n'
-        '<footer class="chapter-home-footer"><a href="../index.html">← 课程首页</a><a href="../ch02/index.html">← 第 2 章</a><span>草稿，未试讲</span></footer>\n'
+        '<section aria-labelledby="sections-title">\n<div class="chapter-section-heading"><p class="scene-kicker">章节导航</p><h2 id="sections-title">选择一节开始</h2></div>\n'
+        f'<div class="section-grid">{cards}</div>\n</section>\n'
+        '<footer class="chapter-home-footer"><a href="../index.html">← 课程首页</a><a href="../ch02/index.html">← 第 2 章</a></footer>\n'
         '</main></div></body>\n</html>\n'
     )
 

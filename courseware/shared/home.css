@@ -10,10 +10,6 @@
 .home-route .p-box p{font-size:17px}
 .home-route .p-stair.is-todo .p-box::before{border-style:dashed;background:transparent}
 .home-route .p-stair.is-todo .p-box{color:var(--color-muted)}
-.home-route .route-status{display:inline-block;margin-top:10px;font-size:15px;font-weight:700;color:#11652F}
-.home-route .is-todo .route-status{color:var(--color-muted);font-weight:500}
-.home-route .p-base{font-size:18px;margin-top:22px}
-.home-route .p-here{font-size:18px;top:-28px}
 .home-route-intro{display:flex;align-items:center;gap:14px;margin-top:var(--space-lg);font-size:16px;color:var(--color-muted)}
 .home-route-intro .p-box{padding:8px 14px}
 .home-route-intro .p-box h3{font-size:20px;margin:0}
@@ -48,7 +44,6 @@
   .home-route .p-stairs{grid-template-columns:1fr}
   .home-route .p-stair{margin-bottom:0}
   .home-route .p-stair+.p-stair::before{display:none}
-  .home-route .p-here{position:static;display:block;margin:0 0 6px}
   .home-route-intro{flex-wrap:wrap}
 }
 

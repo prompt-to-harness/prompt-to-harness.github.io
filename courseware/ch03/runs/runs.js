@@ -116,5 +116,5 @@
   });
   show(0);
 
-  $('provenance').textContent = `${D.batch.date} 讲师一台机器上的 ${D.runs.length} 次运行（${ok.length} 次有效）；不代表 Codex 的普遍行为。原型，未试讲`;
+  $('provenance').textContent = `${D.batch.date} 讲师一台机器上的 ${D.runs.length} 次运行（${ok.length} 次有效）；不代表 Codex 的普遍行为`;
 })();
