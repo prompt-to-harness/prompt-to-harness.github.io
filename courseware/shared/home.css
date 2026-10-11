@@ -17,6 +17,7 @@
 .home-route-intro{display:flex;align-items:center;gap:14px;margin-top:var(--space-lg);font-size:16px;color:var(--color-muted)}
 .home-route-intro .p-box{padding:8px 14px}
 .home-route-intro .p-box h3{font-size:20px;margin:0}
+.course-chapter .home-route-intro{margin-top:0;margin-bottom:var(--space-md)}
 
 /* 课程首页首屏：收紧页头，让课程路线阶梯进入首屏 */
 .chapter-home.course-home{padding-top:clamp(1.5rem,3.5vw,3rem)}

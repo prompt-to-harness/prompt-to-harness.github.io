@@ -10,7 +10,7 @@ window.lesson = {
       "kicker": "第 0 章 · 开场",
       "title": "我们为什么这样学<br>Vibe Coding",
       "lead": "两位讲师，八个问题。先聊真实经历，再看这门课怎么学。",
-      "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>第 0 章</b>开场访谈</li><li><b>第 1–3 章</b>个人主页与小游戏</li><li><b>第 4–6 章</b>JSON Crack · JSON Diff</li><li><b>第 7–9 章</b>dependency-cruiser</li></ol><div class=\"p-chain\" style=\"margin-top:26px\"><span>从 Prompt 到 Harness</span><i>·</i><span>三个递进式真实项目</span></div><p class=\"p-hand\" style=\"font-size:32px;margin-top:18px\">带着一个自己的开发想法，开始这次对话</p>",
+      "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>第 0 章</b>开场访谈</li><li><b>第 1–3 章</b>个人主页与小游戏</li><li><b>第 4–6 章</b>JSON Crack · JSON Diff</li><li><b>第 7–9 章</b>dependency-cruiser</li></ol><div class=\"p-chain\" style=\"margin-top:26px\"><span>从 Prompt 到 Harness</span><i>·</i><span>三个递进式真实项目</span></div>",
       "script": [
         "欢迎来到课程。在动手之前，我们先用八个问题，聊聊各自怎样开始使用 Vibe Coding、踩过什么坑，以及为什么把这些经历组织成现在这门课。",
         "这节课先建立方向。接下来会分别做三个项目，每个项目都要留下实际结果和验证证据。"
@@ -99,8 +99,8 @@ window.lesson = {
       "label": "02 · 工作发生的变化",
       "kicker": "第 0 章 · 访谈 02 / 08",
       "title": "用了一段时间后，它给你的<br>工作带来最大的变化是什么？",
-      "lead": "每人选一个变化，也说说仍需要自己投入的部分。",
-      "html": "<div class=\"p-pair\"><div class=\"p-box\" data-role=\"ink\"><span class=\"p-tag\" data-role=\"ctx\">回看一个任务</span><h3>以前怎样完成</h3><p class=\"p-big\" style=\"font-weight:500\">哪些步骤需要自己从头推进？</p></div><div class=\"p-join\"><span>用了一段时间后</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"agent\"><span class=\"p-tag\" data-role=\"agent\">再看现在</span><h3>现在怎样协作</h3><p class=\"p-big\" style=\"font-weight:500\">哪些步骤交给 AI，自己的精力移到了哪里？</p></div></div><div class=\"p-bar\" style=\"margin-top:22px\">围绕具体工作过程，讲清<b>收益与代价</b></div>",
+      "lead": "",
+      "html": "<div class=\"p-pair\"><div class=\"p-box\" data-role=\"ink\"><span class=\"p-tag\" data-role=\"ctx\">以前如何完成任务</span><h3>以前怎样完成</h3><p class=\"p-big\" style=\"font-weight:500\">哪些步骤需要自己从头推进？</p></div><div class=\"p-join\"><span>用了一段时间后</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"agent\"><span class=\"p-tag\" data-role=\"agent\">现在如何完成任务</span><h3>现在怎样协作</h3><p class=\"p-big\" style=\"font-weight:500\">哪些步骤交给 AI，自己的精力移到了哪里？</p></div></div><div class=\"p-bar\" style=\"margin-top:22px\">基于具体工作过程，有哪些<b>收益与代价</b></div>",
       "script": [
         "串场提问：用了一段时间后，它给你的工作带来最大的变化是什么？",
         "讲师 B 先答：从〔真实工作待填〕说明使用前后的变化。可以围绕尝试想法、调试或读陌生代码，选择自己最有感受的一项；说明仍需投入的理解、检查和返工。",
@@ -160,11 +160,11 @@ window.lesson = {
       "id": "p06",
       "label": "04 · 人与 AI 的分工",
       "kicker": "第 0 章 · 访谈 04 / 08",
-      "title": "现在你会怎样和 AI 分工，<br>完成一个开发任务？",
-      "lead": "人确认目标与边界，依据执行结果决定下一步。",
+      "title": "人与 AI 如何合作？",
+      "lead": "",
       "html": "<div class=\"p-flow\" style=\"--n:5;column-gap:34px\"><div class=\"p-node\" data-role=\"us\"><span class=\"p-num\">01</span><h3>澄清需求</h3><p>确认未知项</p></div><div class=\"p-node\" data-role=\"agent\"><span class=\"p-num\">02</span><h3>讨论计划</h3><p>拆成小任务</p></div><div class=\"p-node\" data-role=\"tool\"><span class=\"p-num\">03</span><h3>执行修改</h3><p>核对范围与权限</p></div><div class=\"p-node\" data-role=\"ok\"><span class=\"p-num\">04</span><h3>检查结果</h3><p>运行、测试与 diff</p></div><div class=\"p-node\" data-role=\"us\"><span class=\"p-num\">05</span><h3>评审与修正</h3><p>接受、继续或回退</p></div><div class=\"p-back\" data-role=\"agent\" style=\"grid-column:3/6;--span:3;--gap:34px\"><span class=\"p-back-label\">继续或回退</span></div></div><div class=\"p-bar\" style=\"margin-top:40px\">目标、关键取舍和发布决定，<b>由人负责</b></div>",
       "script": [
-        "串场提问：现在你会怎样和 AI 分工，完成一个开发任务？两位都请指出一个必须自己决定的节点。",
+        "串场提问：人与 AI 如何合作？两位都请指出一个必须自己决定的节点。",
         "讲师 B 回答提纲：结合前面案例，描述自己的真实流程。〔实际分工待填〕。可沿页面的五个环节说明，由谁补充上下文、谁确认计划、怎样核对结果。",
         "讲师 A 回答提纲：补充一个自己不会直接交给 AI 决定的取舍，以及依据什么作出判断。〔真实决定待填〕。",
         "课程口径：本课用自然语言与 AI 编程智能体协作，覆盖需求澄清、计划、实现、验证、调试和持续迭代。执行可能反复往返，图上的环节用于定位当前工作。",
@@ -193,7 +193,7 @@ window.lesson = {
       "kicker": "第 0 章 · 访谈 05 / 08",
       "title": "这门课会带大家做哪些项目，<br>为什么这样安排？",
       "lead": "三个独立仓库，逐步增加协作能力。",
-      "html": "<div class=\"p-stairs\" style=\"--n:3;column-gap:26px;--rise:26px\"><div class=\"p-stair\" style=\"--i:0\"><span class=\"p-here\">第一个项目</span><div class=\"p-box\" data-role=\"us\" style=\"padding:14px 18px\"><span class=\"p-tag\" data-role=\"us\">第 1–3 章</span><h3 style=\"font-size:26px\">个人主页<br>与小游戏</h3><p style=\"margin-top:8px;font-size:22px\"><b>Prompt · Vibe Coding</b></p></div></div><div class=\"p-stair\" style=\"--i:1\"><div class=\"p-box\" data-role=\"agent\" style=\"padding:14px 18px\"><span class=\"p-tag\" data-role=\"agent\">第 4–6 章</span><h3 style=\"font-size:26px\">JSON Crack<br>JSON Diff</h3><p style=\"margin-top:8px;font-size:22px\"><b>SDD</b></p></div></div><div class=\"p-stair\" style=\"--i:2\"><div class=\"p-box\" data-role=\"agent\" style=\"padding:14px 18px\"><span class=\"p-tag\" data-role=\"agent\">第 7–9 章</span><h3 style=\"font-size:26px\">dependency-cruiser<br>快照判定</h3><p style=\"margin-top:8px;font-size:22px\"><b>Harness</b></p></div></div></div><p class=\"source-note\" style=\"margin-top:12px\">各项目从自己的固定基线开始。第三项目只实现快照身份与新鲜度判定核心。</p>",
+      "html": "<div class=\"p-stairs\" style=\"--n:3;column-gap:26px;--rise:26px\"><div class=\"p-stair\" style=\"--i:0\"><span class=\"p-here\">第一个项目</span><div class=\"p-box\" data-role=\"us\" style=\"padding:14px 18px\"><span class=\"p-tag\" data-role=\"us\">第 1–3 章</span><h3 style=\"font-size:26px\">个人主页<br>与小游戏</h3><p style=\"margin-top:8px;font-size:22px\"><b>Prompt · Vibe Coding</b></p></div></div><div class=\"p-stair\" style=\"--i:1\"><span class=\"p-here\">第二个项目</span><div class=\"p-box\" data-role=\"agent\" style=\"padding:14px 18px\"><span class=\"p-tag\" data-role=\"agent\">第 4–6 章</span><h3 style=\"font-size:26px\">JSON Crack<br>JSON Diff</h3><p style=\"margin-top:8px;font-size:22px\"><b>SDD</b></p></div></div><div class=\"p-stair\" style=\"--i:2\"><span class=\"p-here\">第三个项目</span><div class=\"p-box\" data-role=\"agent\" style=\"padding:14px 18px\"><span class=\"p-tag\" data-role=\"agent\">第 7–9 章</span><h3 style=\"font-size:26px\">dependency-cruiser<br>快照判定</h3><p style=\"margin-top:8px;font-size:22px\"><b>Harness</b></p></div></div></div>",
       "script": [
         "串场提问：这门课会带大家做哪些项目，为什么这样安排？",
         "讲师 A 先介绍场景：第 1–3 章从个人主页起步，发布到 GitHub Pages，再做记忆翻牌和“60 秒躲避与收集”小游戏，体验反馈、调试与插件实践。",
@@ -224,8 +224,8 @@ window.lesson = {
       "label": "06 · 成果与独立能力",
       "kicker": "第 0 章 · 访谈 06 / 08",
       "title": "学完以后，大家能带走什么，<br>又能独立完成什么？",
-      "lead": "三份项目成果，加上一套能在新任务中使用的协作方法。",
-      "html": "<div class=\"p-grid\" style=\"--n:3\"><div class=\"p-box\" data-role=\"us\" style=\"padding:14px 18px\"><h3 style=\"font-size:25px\">个人主页成果包</h3><p style=\"font-size:21px\">写清任务 · 依据反馈修正 · 发布</p></div><div class=\"p-box\" data-role=\"agent\" style=\"padding:14px 18px\"><h3 style=\"font-size:25px\">JSON Diff 成果包</h3><p style=\"font-size:21px\">澄清规则 · 拆分任务 · 测试与 Review</p></div><div class=\"p-box\" data-role=\"agent\" style=\"padding:14px 18px\"><h3 style=\"font-size:25px\">Harness 评测成果包</h3><p style=\"font-size:21px\">新会话接手 · 可比证据评估</p></div></div><div class=\"p-bar\" style=\"margin-top:22px\">说得清改了什么、怎么验证、<b>哪里还没确认</b></div>",
+      "lead": "三份项目成果，加上一套能即插即用的方法论",
+      "html": "<div class=\"p-grid\" style=\"--n:3\"><div class=\"p-box\" data-role=\"us\" style=\"padding:14px 18px\"><h3 style=\"font-size:25px\">个人主页成果包</h3><p style=\"font-size:21px\">写清任务 · 依据反馈修正 · 发布</p></div><div class=\"p-box\" data-role=\"agent\" style=\"padding:14px 18px\"><h3 style=\"font-size:25px\">JSON Diff 成果包</h3><p style=\"font-size:21px\">澄清规则 · 拆分任务 · 测试与 Review</p></div><div class=\"p-box\" data-role=\"agent\" style=\"padding:14px 18px\"><h3 style=\"font-size:25px\">Harness 评测成果包</h3><p style=\"font-size:21px\">新会话接手 · 可比证据评估</p></div></div><div class=\"p-bar\" style=\"margin-top:22px\">说得清怎么改、怎么确认边界、<b>怎么验证</b></div>",
       "script": [
         "串场提问：学完以后，大家能带走什么，又能独立完成什么？",
         "讲师 B 从成果回答：个人主页成果包包括可访问的页面、游戏与交付证据；JSON Diff 成果包包括规格、功能实现、测试与变更记录；Harness 成果包包括判定核心、工程环境资产与前后评测证据。三份成果分别验收。",
@@ -256,11 +256,11 @@ window.lesson = {
       "kicker": "第 0 章 · 访谈 07 / 08",
       "title": "什么基础的同学适合学？<br>看不懂代码或报错怎么办？",
       "lead": "适合有基础编程与 Git 能力、希望积累项目经验的同学。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr 26px 1fr\"><div class=\"p-set is-solid\" data-role=\"ok\"><h3>开始前 · 已有基础</h3><div class=\"p-items\"><div class=\"p-item\">✓ 能读简单函数、条件和循环</div><div class=\"p-item\">✓ 能使用 Git 的基本操作</div><div class=\"p-item\">React 与 TypeScript 可先补基础</div></div></div><div></div><div class=\"p-set is-solid\" data-role=\"tool\"><h3>遇到困难时 · 把问题缩小</h3><div class=\"p-items\"><div class=\"p-item\"><b>1</b>&ensp;保留报错与复现步骤</div><div class=\"p-item\"><b>2</b>&ensp;沿入口读一小段相关代码</div><div class=\"p-item\"><b>3</b>&ensp;修正后，重新运行并检查</div></div></div></div><p class=\"source-note\" style=\"margin-top:14px\">课程以 Codex CLI 为主要实操入口。环境准备与基础自检见 0.2 配套材料。</p>",
+      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr 26px 1fr\"><div class=\"p-set is-solid\" data-role=\"ok\"><h3>开始前 · 已有基础</h3><div class=\"p-items\"><div class=\"p-item\">✓ 能读简单函数、条件和循环</div><div class=\"p-item\">✓ 能使用 Git 的基本操作</div><div class=\"p-item\">不要求 React 与 TypeScript 基础</div></div></div><div></div><div class=\"p-set is-solid\" data-role=\"tool\"><h3>遇到困难时 · 把问题缩小</h3><div class=\"p-items\"><div class=\"p-item\"><b>1</b>&ensp;保留报错与复现步骤</div><div class=\"p-item\"><b>2</b>&ensp;沿入口读一小段相关代码</div><div class=\"p-item\"><b>3</b>&ensp;修正后，重新运行并检查</div></div></div></div><p class=\"source-note\" style=\"margin-top:14px\">课程以 Codex CLI 为主要实操入口。课前准备参见 0.2 小节。</p>",
       "script": [
         "串场提问：什么基础的同学适合学？遇到看不懂的代码或报错怎么办？",
-        "讲师 A 从准备回答：适合在校大学生，以及工作 1–2 年、具备基础编程能力但项目经验有限的初级开发者。需要能阅读简单函数、条件、循环和错误信息，会用基本 Git；不预设 React、TypeScript 或前端工程化经验，建议先做配套基础自检。",
-        "讲师 A 补充自己的入门建议：〔建议待填〕。课程主要使用 Codex CLI，安装与账号路径在第 1 章按核验后的资料操作。",
+        "讲师 A 从准备回答：适合在校大学生，以及工作 1–2 年、具备基础编程能力但项目经验有限的初级开发者。需要能阅读简单函数、条件、循环和错误信息，会用基本 Git；不要求 React 与 TypeScript 基础，也不预设前端工程化经验。",
+        "讲师 A 补充自己的入门建议：〔建议待填〕。课程主要使用 Codex CLI，课前准备参见 0.2 小节。",
         "讲师 B 从卡点回答：先保留完整报错与复现条件，把任务缩小到相关文件或函数。可以让 AI 解释，但要回到源码、运行结果和测试核对。无法解释或验证的改动，先暂停、拆小或回退。",
         "讲师 B 补充自己的处理办法：〔建议待填〕。随后引出最后一问：跟课时怎样练，才会把这些方法变成自己的能力？"
       ],
@@ -318,7 +318,7 @@ window.lesson = {
       "kicker": "第 0 章 · 进入 0.2",
       "title": "先准备，再开始第一次协作",
       "lead": "先在 0.2 准备环境，再进入 1.1 完成欢迎语修改与检查",
-      "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>1.1</b>首次闭环</li><li><b>1.2</b>拆开执行过程</li><li><b>1.3</b>工具与权限</li><li><b>1.4</b>写清任务</li><li><b>1.5</b>完成首页</li><li><b>1.6</b>最小权限</li></ol><div class=\"p-flow is-big\" style=\"--n:3;margin-top:24px;--node-h:118px\"><div class=\"p-node\" data-role=\"ctx\"><span class=\"p-num\">准备</span><h3>核对环境与目录</h3></div><div class=\"p-node\" data-role=\"tool\"><span class=\"p-num\">执行</span><h3>修改指定欢迎语</h3></div><div class=\"p-node\" data-role=\"ok\"><span class=\"p-num\">验证</span><h3>查看页面与 diff</h3></div></div><p class=\"next-chapter p-links\" style=\"margin-top:22px\"><a href=\"lessons/02-preparation/index.html?mode=slides\">进入 0.2 课前准备 →</a><a href=\"lessons/02-preparation/index.html#p12\">课前准备与操作</a></p>",
+      "html": "<div class=\"p-flow is-big\" style=\"--n:3;margin-top:24px;--node-h:118px\"><div class=\"p-node\" data-role=\"ctx\"><span class=\"p-num\">准备</span><h3>核对环境与目录</h3></div><div class=\"p-node\" data-role=\"tool\"><span class=\"p-num\">执行</span><h3>修改指定欢迎语</h3></div><div class=\"p-node\" data-role=\"ok\"><span class=\"p-num\">验证</span><h3>查看页面与 diff</h3></div></div><p class=\"next-chapter p-links\" style=\"margin-top:22px\"><a href=\"lessons/02-preparation/index.html?mode=slides\">进入 0.2 课前准备 →</a></p>",
       "script": [
         "结束串词：我们已经认识了两位讲师，也看到了三个项目的路线。现在从一个很小的任务开始，核对环境和目录，修改指定欢迎语，再查看页面与代码差异。",
         "开始前，请在心里确认：课程有哪三个项目？自己希望练成什么能力？接下来要验证什么结果？",
