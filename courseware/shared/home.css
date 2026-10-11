@@ -61,3 +61,6 @@
 @media (max-width:52rem){.chapter-route-list{grid-template-columns:repeat(3,minmax(0,1fr))}.chapter-route-list li:nth-child(4)::before{display:none}}
 @media (max-width:30rem){.chapter-route-list{grid-template-columns:repeat(2,minmax(0,1fr))}.chapter-route-list li::before{display:none}}
 .chapter-route+section{margin-top:var(--space-3xl)}
+
+/* 章首页有左侧目录时（宽屏），站标已在侧栏，页头不再重复；窄屏侧栏隐藏，仍用页头站标回课程首页 */
+@media (min-width: 60rem) { .workspace .home-wordmark { display: none; } }

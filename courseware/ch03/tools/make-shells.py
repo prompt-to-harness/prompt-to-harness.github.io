@@ -11,6 +11,7 @@ from pathlib import Path
 CH = Path(__file__).resolve().parents[1]
 TEMPLATE = CH.parent / "ch02" / "lessons" / "03-review"
 CHAPTER = "第 3 章 · Vibe Coding + Plugin"
+TITLE = "用小游戏体验快速迭代与 Plugin"
 LESSONS = [
     ("01-memory-game", "一句话加一个记忆翻牌", "一句话就能加出一个能玩的游戏；能玩是起点，不是验收", "加个游戏", "us"),
     ("02-rules", "这条规则是谁定的", "换几种玩法、完整打完一局；把缺陷和 AI 替你定的规则分开记", "谁定的规则", "agent"),
@@ -49,12 +50,23 @@ def chapter_home():
     )
     home = (CH.parent / "ch02" / "index.html").read_text()
     head = home[: home.index("<body>")].replace("第 2 章 · Vibe Coding", CHAPTER)
+    # 左侧目录与小节页同款（2026-10-11，平台 reviewer R25）：先看本章概览，再进具体小节
+    nav = "".join(f'<a href="lessons/{d}/index.html"><span>{i + 1:02d}</span>{short}</a>' for i, (d, _t, _s, short, _role) in enumerate(LESSONS))
+    sidebar = (
+        '<aside class="sidebar" aria-label="课程目录">\n'
+        '<a class="wordmark" href="../index.html" aria-label="回到课程首页"><span class="brand-mark">P<span>→</span>H</span><span>从 Prompt<br/>到 Harness</span></a>\n'
+        f'<div class="chapter-label"><a href="../index.html">课程首页</a> › {CHAPTER}</div>\n'
+        f'<p class="sidebar-meta">本章 {len(LESSONS)} 节</p>\n<p class="sidebar-title">{TITLE}</p>\n'
+        f'<nav id="scene-nav" aria-label="本章目录">{nav}</nav>\n'
+        '<div class="sidebar-bottom"><div class="chapter-nav"><a href="../ch02/index.html">← 上一章：第 2 章</a></div><span class="edition">深蓝学院 · Vibe Coding</span></div>\n'
+        '</aside>\n'
+    )
     return head + (
-        '<body><main class="chapter-home p-root">\n<header class="chapter-home-header">\n'
+        '<body>\n' + sidebar + '<div class="workspace"><main class="chapter-home p-root">\n<header class="chapter-home-header">\n'
         '<img class="institution-logo" src="../shared/assets/shenlanxueyuan_logo.png" alt="深蓝学院" width="2420" height="744"/>\n'
         '<a aria-label="回到课程首页" class="wordmark home-wordmark" href="../index.html"><span class="brand-mark">P<span>→</span>H</span><span>从 Prompt<br/>到 Harness</span></a>\n'
         '<p class="script-meta">深蓝学院 · Vibe Coding</p>\n'
-        f'<p class="chapter-kicker">{CHAPTER}</p>\n<h1>用小游戏体验快速迭代与 Plugin</h1>\n'
+        f'<p class="chapter-kicker">{CHAPTER}</p>\n<h1>{TITLE}</h1>\n'
         '<p class="chapter-lede">把只有首页的个人站点变成能玩两个小游戏的实验室，并发现“能玩”背后有一串没人亲自定过、也没写下来的规则</p>\n</header>\n'
         '<section class="chapter-route" aria-labelledby="route-title">\n'
         '<div class="chapter-section-heading"><p class="scene-kicker">本章路线</p><h2 id="route-title">加游戏、查规则、修缺陷、用插件，再问说明在哪</h2></div>\n'
@@ -63,7 +75,7 @@ def chapter_home():
         '<section aria-labelledby="sections-title">\n<div class="chapter-section-heading"><p class="scene-kicker">章节导航</p><h2 id="sections-title">七节首版</h2></div>\n'
         f'<div class="section-grid">{cards}</div>\n<p>首版课件（2026-10-06），未经讲师审阅，未试讲、未录制</p>\n</section>\n'
         '<footer class="chapter-home-footer"><a href="../index.html">← 课程首页</a><a href="../ch02/index.html">← 第 2 章</a><span>草稿，未试讲</span></footer>\n'
-        '</main></body>\n</html>\n'
+        '</main></div></body>\n</html>\n'
     )
 
 
