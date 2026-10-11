@@ -55,7 +55,8 @@ window.lesson = {
       "label": "先让 Codex 只调查",
       "title": "先让 Codex 只调查，不改代码",
       "kicker": "第 3 章 · 3.3 · 只读调查",
-      "lead": "用只读权限，要求它列出可验证的假设、代码位置和几种改法的代价，等我们确认。两次排练，它都查出了报告里没有的东西。",
+      "lead": "缺陷报告已经写好：步骤、期望、实际。现在把它交给 Codex，但先只让它调查、不让它改：给只读权限，要它列出可以验证的假设、代码位置和几种改法的代价，由我们确认后再动手。",
+      "closing": "调查给出了两个独立缺陷。第二个是报告里没有的：12 个词各不相同，配对成功的分支永远走不到，这也解释了 3.2 里“一局打不完”。页面上的结论来自讲师的两次排练，两次都查出了这一层；在自己的项目里重做时，回答的措辞和结构会不一样。结论听起来合理还不够，下一页打开它指出的代码位置逐行核对。",
       "html": "<div class=\"p-pair\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);align-items:start\"><div class=\"p-box\" data-role=\"us\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"us\">请求 · read-only</span><ol class=\"p-notes\" style=\"margin-top:8px\"><li><span><b>复现步骤、期望、实际</b><small>就是刚才的报告</small></span></li><li><span><b>可以验证的假设</b><small>每条写出怎样验证</small></span></li><li><span><b>代码位置</b></span></li><li><span><b>几种改法和代价</b><small>我确认后再改</small></span></li></ol></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">Codex 的结论</span><p class=\"p-big\" style=\"font-weight:600;margin-top:8px\">有两个独立缺陷，第二个让第一个无法单独验证</p><ol class=\"p-notes\"><li data-reveal=\"1\"><span><b>步数只在配对成功的分支里加</b></span></li><li data-reveal=\"2\"><span><b>12 个词各不相同，一对都配不上</b><small>配对分支永远走不到</small></span></li></ol></div></div><p class=\"source-note\">调查与修复来自 2026-10-06 的两次排练（courseware/ch03/materials/mainline/debug-3.3.sh），两次调查结论一致。来自讲师机器上的排练运行（2026-10-06，Codex 0.160.0–0.160.1 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。</p>",
       "repro": {
         "label": "请求原文",

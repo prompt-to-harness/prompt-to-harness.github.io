@@ -173,7 +173,8 @@ scene(
 scene(
     id="p06-tap", segment="逐条核对",
     label="用 claude-tap 启动 Codex", title="切到终端：这次用 claude-tap 启动 Codex", kicker=KICK + "逐条核对",
-    lead="接下来请 Codex 只读核对。为了事后能看到它实际发给模型的内容，讲师这次通过 claude-tap 启动 Codex：它是一个开源的本地代理，夹在 Codex 和模型服务之间，把每次请求记录下来。其他操作和平时一样。",
+    lead="三条反馈已经在页面上核对过，接下来请 Codex 只读核对它们分别对应哪些代码。我们还想在事后看清它实际发给模型的内容，所以这一次换一种方式启动 Codex。",
+    closing="claude-tap 是一个开源的本地代理，夹在 Codex 和模型服务之间，把每一次请求记录下来；启动之后，Codex 的用法和平时一样。这是讲师演示用的启动方式，跟做时直接打开已经配置好的 Codex 即可。下一页把只读核对的请求发出去，等回答结束再打开查看器看记录。",
     html=(
         '<div class="p-handoff"><div class="p-handoff-card" data-reveal="0"><h3>切到终端</h3><p>在项目目录运行下面这条命令</p>'
         '<span class="p-env">claude-tap</span><span class="p-env">Codex CLI</span></div>'

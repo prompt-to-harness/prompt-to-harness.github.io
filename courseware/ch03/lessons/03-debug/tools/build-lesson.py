@@ -53,7 +53,8 @@ scene(
 scene(
     id="p17", segment="只读调查",
     label="先让 Codex 只调查", title="先让 Codex 只调查，不改代码", kicker=KICK + "只读调查",
-    lead="用只读权限，要求它列出可验证的假设、代码位置和几种改法的代价，等我们确认。两次排练，它都查出了报告里没有的东西。",
+    lead="缺陷报告已经写好：步骤、期望、实际。现在把它交给 Codex，但先只让它调查、不让它改：给只读权限，要它列出可以验证的假设、代码位置和几种改法的代价，由我们确认后再动手。",
+    closing="调查给出了两个独立缺陷。第二个是报告里没有的：12 个词各不相同，配对成功的分支永远走不到，这也解释了 3.2 里“一局打不完”。页面上的结论来自讲师的两次排练，两次都查出了这一层；在自己的项目里重做时，回答的措辞和结构会不一样。结论听起来合理还不够，下一页打开它指出的代码位置逐行核对。",
     html=(
         '<div class="p-pair" style="grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);align-items:start">'
         '<div class="p-box" data-role="us" data-reveal="0"><span class="p-tag" data-role="us">请求 · read-only</span>'

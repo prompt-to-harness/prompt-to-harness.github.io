@@ -60,6 +60,16 @@ for path in sorted(courseware.glob('**/script.json')):
             elif not any(part.strip() and not stage.fullmatch(part) for part in parts[1:]):
                 errors.append(f'ED-013 {path.relative_to(repo)} {scene_id} 第 {i} 步只有操作提示，没有口播正文')
 
+# ED-013: 一页只定一种演示形态，操作提示里不留“现场演示时……”这类两可分支（提示，不报错）
+undecided = re.compile(r'现场演示时|如改为现场|若想换成现场|若改为现场')
+for path in sorted(courseware.rglob('script.json')):
+    if 'archive' in path.parts:
+        continue
+    pages = sorted({scene_id for scene_id, steps in json.loads(path.read_text()).items()
+                    if any(undecided.search(step.split('\n\n')[0]) for step in steps)})
+    if pages:
+        hints.append(f'ED-013 {path.relative_to(repo)} 演示形态未定（条件式现场分支）：' + '、'.join(pages))
+
 # ED-011: relative Markdown links must resolve (catches residue after deleting a page)
 md_roots = [courseware, repo / 'docs' / 'production', repo / 'docs' / 'design']
 link = re.compile(r'\[[^\]]*\]\(([^)#?\s]+)(?:[#?][^)]*)?\)')
