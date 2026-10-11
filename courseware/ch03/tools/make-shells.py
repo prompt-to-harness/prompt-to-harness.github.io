@@ -63,7 +63,7 @@ def chapter_home():
     )
     return head + (
         '<body>\n' + sidebar + '<div class="workspace"><main class="chapter-home p-root">\n<header class="chapter-home-header">\n'
-        '<img class="institution-logo" src="../shared/assets/shenlanxueyuan_logo.png" alt="深蓝学院" width="2420" height="744"/>\n'
+        '<a class="institution-link" href="https://www.shenlanxueyuan.com/course/913" target="_blank" rel="noopener" aria-label="在深蓝学院查看课程"><img class="institution-logo" src="../shared/assets/shenlanxueyuan_logo.png" alt="深蓝学院" width="2420" height="744"/></a>\n'
         '<a aria-label="回到课程首页" class="wordmark home-wordmark" href="../index.html"><img class="brand-mark" src="../shared/assets/ph_logo.png" alt="" width="400" height="400"><span>从 Prompt<br/>到 Harness</span></a>\n'
         '<p class="script-meta">深蓝学院 · Vibe Coding</p>\n'
         f'<p class="chapter-kicker">{CHAPTER}</p>\n<h1>{TITLE}</h1>\n'

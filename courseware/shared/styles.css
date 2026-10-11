@@ -204,7 +204,7 @@ body[data-mode="scroll"] .presentation-tools { display: none; }
 .chapter-label a:hover { color: var(--color-paper); }
 .chapter-home { max-width: 1180px; margin: 0 auto; padding: clamp(2rem, 6vw, 6rem) clamp(1.25rem, 5vw, 5rem); }
 .chapter-home-header { position: relative; max-width: 900px; padding-bottom: var(--space-3xl); border-bottom: var(--rule-thin) solid var(--color-rule); }
-.chapter-home-header .institution-logo { position: absolute; top: 0; right: 0; }
+.chapter-home-header .institution-link { position: absolute; top: 0; right: 0; display: block; line-height: 0; }
 .chapter-home-header .home-wordmark { padding-right: 204px; }
 .home-wordmark { display: inline-flex; align-items: center; gap: var(--space-md); color: var(--color-ink); text-decoration: none; font-size: var(--text-sm); line-height: 1.6; margin-bottom: var(--space-3xl); }
 .chapter-kicker { color: var(--color-accent); font-size: var(--text-sm); margin-bottom: var(--space-lg); }
