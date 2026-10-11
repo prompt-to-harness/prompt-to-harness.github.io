@@ -10,7 +10,6 @@ window.lesson = {
       "layout": "lesson-cover",
       "label": "一句话，能加出一个小游戏吗",
       "title": "一句话，能加个游戏吗？",
-      "kicker": "第 3 章 · 3.1 · 开篇",
       "lead": "本章把首页变成能玩两个小游戏的实验室",
       "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>3.1</b>加个游戏</li><li><b>3.2</b>谁定的规则</li><li><b>3.3</b>按证据修</li><li><b>3.4</b>审插件</li><li><b>3.5</b>插件的主张</li><li><b>3.6</b>说明在哪</li><li><b>3.7</b>重开清理</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:18px\"><div class=\"p-box\" data-role=\"us\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"us\">3.1–3.3</span><h3>记忆翻牌</h3><p>一句话需求 · 普通 Vibe Coding</p></div><div class=\"p-join\" data-reveal=\"2\"><span>再加一个</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"tool\">3.4–3.5</span><h3>60 秒躲避与收集</h3><p>用 Game Studio 插件</p></div></div><div class=\"p-bar is-light\" data-reveal=\"3\">贯穿全章的问题：<b>这条规则是谁定的？</b></div>",
       "repro": {
@@ -50,10 +49,10 @@ window.lesson = {
         "贯穿的问题"
       ],
       "script": [
-        "第 2 章结束时，我们有了一个公开发布的个人首页 v1。这一章在它上面加两个小游戏，把它变成一个小游戏实验室。",
-        "第一个是记忆翻牌：翻开两张牌，相同就配对。我们用最普通的 Vibe Coding 来做，一句话需求，不写规格。",
-        "第二个是一个 60 秒躲避与收集的小游戏。做它的时候，我们会发现有人已经把“做游戏的经验”打包成了插件，就是 Game Studio。",
-        "贯穿全章的是一个问题：游戏里那些规则，是谁定的？是我们，是 AI，还是插件？它们写在哪里，下次还在不在？带着这个问题开始。"
+        "【操作提示｜停留课件 p01 第 1 步，指向章节地图上的 3.1；不切窗口。录前确认个人首页 v1 练习仓库在本地、工作区干净（git status --short 无输出）；从第 3 章开始的学员走本页“从这一章开始？”配套步骤，录制时不演示】\n\n第 2 章结束时，我们有了一个公开发布的个人首页 v1。这一章在它上面加两个小游戏，把它变成一个小游戏实验室。",
+        "【操作提示｜推进课件第 2 步，指向“记忆翻牌”卡片（3.1–3.3）】\n\n第一个是记忆翻牌：翻开两张牌，相同就配对。我们用最普通的 Vibe Coding 来做，一句话需求，不写规格。",
+        "【操作提示｜推进第 3 步，指向“60 秒躲避与收集”卡片（3.4–3.5）；不在此处打开或安装插件】\n\n第二个是一个 60 秒躲避与收集的小游戏。做它的时候，我们会发现有人已经把“做游戏的经验”打包成了插件，就是 Game Studio。",
+        "【操作提示｜推进第 4 步，指向底部“这条规则是谁定的？”；讲完进入 p02】\n\n贯穿全章的是一个问题：游戏里那些规则，是谁定的？是我们，是 AI，还是插件？它们写在哪里，下次还在不在？带着这个问题开始。"
       ],
       "teaching": [],
       "source": "index.html#p01",
@@ -64,7 +63,6 @@ window.lesson = {
       "segment": "写请求",
       "label": "这一次的请求",
       "title": "这一次只写一句话",
-      "kicker": "第 3 章 · 3.1 · 写请求",
       "lead": "刻意不写规格，先体验 Vibe Coding 的速度。但保留两个习惯：先给计划、问题最多三个；完成标准写清分工：build 由 Codex 跑，试玩由我们做（沿用 2.2 p29）。",
       "html": "<div class=\"p-prompt\"><div class=\"p-seg\" data-key=\"goal\" data-reveal=\"0\"><b>Goal</b>在主页加入一个记忆翻牌小游戏</div><div class=\"p-seg\" data-key=\"limit\" data-reveal=\"1\"><b>Constraints</b>先给计划；需要我决定的最多问三个，附上推荐做法；我确认后再改</div><div class=\"p-seg\" data-key=\"done\" data-reveal=\"2\"><b>Done when</b>你跑 build 成功；试玩和三种宽度由我检查，你不用自己打开浏览器</div></div><div class=\"p-bar is-light\" data-reveal=\"3\">没写的：<b>玩法细节、计分、出错时怎么办</b></div>",
       "repro": {
@@ -84,10 +82,10 @@ window.lesson = {
         "没写的"
       ],
       "script": [
-        "这一次的请求只有一句话：在主页加入一个记忆翻牌小游戏。我们刻意不写规格，先体验一下 Vibe Coding 有多快。",
-        "但保留两个习惯。第一，先给计划，等我们确认再动手；需要我们决定的问题最多问三个，每个附上它推荐的做法。问题太多，一句话需求就变成了填问卷。",
-        "第二，完成标准写清分工：build 由 Codex 跑，浏览器里的试玩和三种宽度的检查由我们做。这一句来自 2.2：排练时不写这句，Codex 会花十几分钟自己想办法打开浏览器。",
-        "请注意我们没写的东西：怎么玩、怎么计分、两张不一样时怎么办。这些都要有人定。谁来定？下一页看 Codex 的计划。请暂停视频，在自己的项目里用同一句话开一个新会话。"
+        "【操作提示｜课件 p02 第 1 步，指向 Goal 段；不切窗口。请求原文在本页“请求原文”配套里，录制时从那里复制，不现场改写】\n\n这一次的请求只有一句话：在主页加入一个记忆翻牌小游戏。我们刻意不写规格，先体验一下 Vibe Coding 有多快。",
+        "【操作提示｜推进第 2 步，指向 Constraints 段的“最多问三个”“附上推荐做法”】\n\n但保留两个习惯。第一，先给计划，等我们确认再动手；需要我们决定的问题最多问三个，每个附上它推荐的做法。问题太多，一句话需求就变成了填问卷。",
+        "【操作提示｜推进第 3 步，指向 Done when 段的分工】\n\n第二，完成标准写清分工：build 由 Codex 跑，浏览器里的试玩和三种宽度的检查由我们做。这一句来自 2.2：排练时不写这句，Codex 会花十几分钟自己想办法打开浏览器。",
+        "【操作提示｜推进第 4 步，指向“没写的”条。之后切 Terminal，在个人首页练习仓库根目录启动新的 Codex 会话，粘贴“请求原文”发送；等计划返回、不作确认，再回课件 p03】\n\n请注意我们没写的东西：怎么玩、怎么计分、两张不一样时怎么办。这些都要有人定。谁来定？下一页看 Codex 的计划。请暂停视频，在自己的项目里用同一句话开一个新会话。"
       ],
       "teaching": [
         {
@@ -103,7 +101,6 @@ window.lesson = {
       "segment": "写请求",
       "label": "它问了什么，又定了什么",
       "title": "它问了什么，又自己定了什么",
-      "kicker": "第 3 章 · 3.1 · 写请求",
       "lead": "Codex 的三个问题都是外观和位置；游戏怎么运转的规则，它在计划里自己定了，没有问。先记下来，3.2 回来查。",
       "html": "<div class=\"p-claim\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1fr)\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"agent\">问了我们</span><ol class=\"p-notes\" style=\"margin-top:10px\"><li><span><b>卡面用什么</b><small>推荐：主页上的中文短词</small></span></li><li><span><b>难度</b><small>推荐：固定 6 对 12 张</small></span></li><li><span><b>放哪、怎么进</b><small>推荐：项目区下方，首屏加次级链接</small></span></li></ol></div><div class=\"p-box is-dashed\" data-role=\"gate\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"gate\">没问，自己定了</span><ol class=\"p-notes\" style=\"margin-top:10px\"><li><span><b>翻错 900ms 后自动翻回</b><small>期间锁住输入</small></span></li><li data-reveal=\"2\"><span><b>步数、计时、最佳成绩</b><small>步数怎么算？计划里没写</small></span></li></ol></div></div><p class=\"source-note\">画面中的计划与改动来自排练第 8 轮（courseware/ch03/materials/mainline/run-v2.sh）。来自讲师机器上的排练运行（2026-10-06，Codex 0.160.0–0.160.1 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。</p>",
       "steps": [
@@ -112,9 +109,9 @@ window.lesson = {
         "没写的"
       ],
       "script": [
-        "这是讲师排练时 Codex 给的计划，问题只有三个：卡面用什么，推荐用主页上的中文短词；难度，推荐固定 6 对 12 张；放在哪里，推荐项目区下方。三个都附了推荐做法，很好回答。",
-        "再看计划正文里它自己定了、但没有问的：两张翻错，900 毫秒后自动翻回，这段时间锁住输入。这是一条游戏规则，而且是合理的规则。但没有人问过我们。",
-        "还有步数、计时、最佳成绩。步数怎么算？翻一张算一步，还是翻两张算一步？计划里没写。先把这两条记在纸上，3.2 我们回来查。你的计划会和讲师不一样，找一找你的版本里，它自己定了哪些规则。"
+        "【操作提示｜课件 p03 第 1 步，指向左栏三个问题。画面为排练第 8 轮的计划（materials/mainline/run-v2.sh），不是本次输出；若刚才现场发送了请求，可切 Terminal 对照当天计划，问题内容不同就按实际指认】\n\n这是讲师排练时 Codex 给的计划，问题只有三个：卡面用什么，推荐用主页上的中文短词；难度，推荐固定 6 对 12 张；放在哪里，推荐项目区下方。三个都附了推荐做法，很好回答。",
+        "【操作提示｜推进第 2 步，指向右栏“翻错 900ms 后自动翻回 · 期间锁住输入”。当天计划若没写这条或时长不同，如实说明，不念成计划里有】\n\n再看计划正文里它自己定了、但没有问的：两张翻错，900 毫秒后自动翻回，这段时间锁住输入。这是一条游戏规则，而且是合理的规则。但没有人问过我们。",
+        "【操作提示｜推进第 3 步，指向“步数怎么算？计划里没写”；切到当天计划时，按实际内容找出它自己定的规则；讲完进入 p04】\n\n还有步数、计时、最佳成绩。步数怎么算？翻一张算一步，还是翻两张算一步？计划里没写。先把这两条记在纸上，3.2 我们回来查。你的计划会和讲师不一样，找一找你的版本里，它自己定了哪些规则。"
       ],
       "teaching": [
         {
@@ -130,7 +127,6 @@ window.lesson = {
       "segment": "让它动手",
       "label": "确认后它做了什么",
       "title": "把选择交给它，本身就是一个决定",
-      "kicker": "第 3 章 · 3.1 · 让它动手",
       "lead": "确认语是“问题都按你推荐的做法处理”。这样回答很常见，也很快；记住它的含义：三个问题的答案，也是 AI 定的。",
       "html": "<div class=\"p-handoff\"><div class=\"p-handoff-card\" data-reveal=\"0\"><h3>回复计划</h3><p class=\"p-mono\" style=\"font-size:20px\">确认，按计划执行；你问的问题都按你推荐的做法处理</p><span class=\"p-env\">同一会话</span><span class=\"p-env\">workspace-write</span></div><ol class=\"p-watch\"><li data-reveal=\"1\">改了哪些文件<small>预期：一个游戏组件、它的样式、App.tsx 挂载</small></li><li data-reveal=\"2\">有没有新依赖<small>看 package.json 有没有变</small></li><li data-reveal=\"3\">build 成功了吗<small>Codex 跑，回答里要有结果</small></li></ol></div>",
       "steps": [
@@ -140,10 +136,10 @@ window.lesson = {
         "build"
       ],
       "script": [
-        "我们回复：确认，按计划执行；你问的问题都按你推荐的做法处理。这是最常见、也最快的回答。但请记住它的含义：三个问题的答案，现在也是 AI 定的了。",
-        "它动手的时候，我们边看边找三件事。第一，改了哪些文件。预期是一个游戏组件、它的样式，再在 App.tsx 里挂上去。",
-        "第二，有没有新依赖。看 package.json 有没有变。记忆翻牌用不着任何新库。",
-        "第三，build 成功了吗。这是我们交给它的检查，回答里要有结果。请暂停视频，确认你的计划，看着它做完。"
+        "【操作提示｜课件 p04 第 1 步，指向确认语。现场演示时切 Terminal，在同一个 Codex 会话里发送这句确认语，不开新会话；之后回课件】\n\n我们回复：确认，按计划执行；你问的问题都按你推荐的做法处理。这是最常见、也最快的回答。但请记住它的含义：三个问题的答案，现在也是 AI 定的了。",
+        "【操作提示｜推进第 2 步，指向“改了哪些文件”；Codex 执行中途可切 Terminal 看它正在写的文件，执行用时随版本和模型变化，等待段可剪辑】\n\n它动手的时候，我们边看边找三件事。第一，改了哪些文件。预期是一个游戏组件、它的样式，再在 App.tsx 里挂上去。",
+        "【操作提示｜推进第 3 步，指向“有没有新依赖”；执行中若出现安装依赖或越出练习仓库的请求，先暂停审批，不一律批准】\n\n第二，有没有新依赖。看 package.json 有没有变。记忆翻牌用不着任何新库。",
+        "【操作提示｜推进第 4 步，指向“build 成功了吗”；留出暂停视频的时间。等 Codex 回答完成，确认回答里有 build 结果后回课件 p05】\n\n第三，build 成功了吗。这是我们交给它的检查，回答里要有结果。请暂停视频，确认你的计划，看着它做完。"
       ],
       "teaching": [],
       "source": "index.html#p04",
@@ -154,7 +150,6 @@ window.lesson = {
       "segment": "让它动手",
       "label": "交回来的是什么",
       "title": "交回来的是什么",
-      "kicker": "第 3 章 · 3.1 · 让它动手",
       "lead": "两个新文件、一处修改，没有新依赖，build 成功。打开页面，翻牌、配对、重开都能用，首页原样。能玩了。",
       "html": "<div style=\"display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:16px;align-items:start\"><div><div class=\"p-term\" data-reveal=\"0\" data-copy=\"git status --short\"><div class=\"dim\">$ git status --short</div><div> M src/App.tsx</div><div>?? src/components/</div></div><div class=\"p-term\" data-reveal=\"1\" style=\"margin-top:8px\"><div class=\"dim\">$ npm run build</div><div class=\"ok\">✓ built</div></div><ul class=\"p-checks\" style=\"margin-top:12px\" data-reveal=\"2\"><li>没有新依赖<small>package.json 没变</small></li><li>首页原样<small>项目区三条经历都在</small></li></ul></div><div class=\"p-page\" data-reveal=\"1\"><img src=\"../02-rules/evidence/run8-start.png\" alt=\"记忆翻牌初始画面：12 张背面朝上的绿色卡片，上方显示步数 0、用时 0:00、剩余 6/6 对\" style=\"display:block;width:100%\"></div></div><p class=\"source-note\">画面中的计划与改动来自排练第 8 轮（courseware/ch03/materials/mainline/run-v2.sh）。来自讲师机器上的排练运行（2026-10-06，Codex 0.160.0–0.160.1 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。 src/components/ 下是 MemoryGame.tsx 与 memory-game.css。</p>",
       "steps": [
@@ -163,9 +158,9 @@ window.lesson = {
         "没碰别的"
       ],
       "script": [
-        "Codex 说做完了。先看范围：git status 显示 App.tsx 改了，新增了 src/components 目录，里面是游戏组件和它的样式。",
-        "build 成功。打开页面，项目区下面多了一个记忆翻牌：12 张牌，上面有步数、用时、剩余几对和最佳成绩。点一张，翻开；再点一张，翻开；不一样的话，过一会儿翻回去。",
-        "package.json 没变，没有新依赖；首页的项目区三条经历都还在。从一句话到能玩，前后不到半小时。请暂停视频，打开你自己的页面，玩几下。"
+        "【操作提示｜课件 p05 第 1 步，指向 git status --short 输出。画面为排练第 8 轮记录；现场演示时切 Terminal 普通 shell，在练习仓库根目录运行 git status --short，文件名以实际输出为准，不在 Codex 对话里输入 shell 命令】\n\nCodex 说做完了。先看范围：git status 显示 App.tsx 改了，新增了 src/components 目录，里面是游戏组件和它的样式。",
+        "【操作提示｜推进第 2 步，指向 npm run build 结果和右侧初始画面截图（来自 ../02-rules/evidence/run8-start.png）。现场演示时另开 Terminal 标签页在练习仓库根目录运行 npm run dev（已在运行则复用），在 Chrome 新开标签页打开终端实际打印的 Local 地址，只翻几张，不完整打完一局】\n\nbuild 成功。打开页面，项目区下面多了一个记忆翻牌：12 张牌，上面有步数、用时、剩余几对和最佳成绩。点一张，翻开；再点一张，翻开；不一样的话，过一会儿翻回去。",
+        "【操作提示｜推进第 3 步，指向“没有新依赖”“首页原样”；现场演示时用 git diff 查看 package.json 是否有改动，回到同一 Chrome 标签页滚到项目区确认三条经历仍在。留出暂停视频的时间，之后回课件 p06】\n\npackage.json 没变，没有新依赖；首页的项目区三条经历都还在。从一句话到能玩，前后不到半小时。请暂停视频，打开你自己的页面，玩几下。"
       ],
       "teaching": [
         {
@@ -181,7 +176,6 @@ window.lesson = {
       "segment": "小结",
       "label": "本节小结",
       "title": "能玩了，然后呢",
-      "kicker": "第 3 章 · 3.1 · 小结",
       "lead": "本节留下记忆翻牌 v0：能翻、能配对、能重开，build 成功。照 2.3 的做法，代码和记录分两次提交；记录里写下请求、它问的三个问题和它自己定的规则。“能玩”是起点，不是验收。下一节：换几种玩法试试。",
       "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">一个判断</h3><div class=\"p-star\" style=\"width:260px;font-size:24px\">能玩<br>≠ 验收</div></div><div data-reveal=\"1\"><h3>留下的</h3><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-pass\">记忆翻牌 v0 提交</li><li class=\"is-pass\">记录：它问的、它定的</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>3.2 谁定的规则</h3><p>第二张还没翻回去，我又点了第三张</p></div></div></div>",
       "steps": [
@@ -190,9 +184,9 @@ window.lesson = {
         "下一节"
       ],
       "script": [
-        "这一节最想留下的一个判断：能玩，不等于验收。我们只走了最顺的那条路：翻两张、配对、重开。",
-        "先把它存下来。照 2.3 的做法，代码一次提交，记录一次提交。记录写进 docs/evidence/CH03_MEMORY_GAME.md：请求原文、它问的三个问题和我们的回答，还有它自己定了、没问我们的规则。",
-        "下一节，我们换几种玩法：第二张还没翻回去，我又点了第三张，会怎样？"
+        "【操作提示｜回课件 p06 第 1 步，指向“能玩 ≠ 验收”；不切窗口】\n\n这一节最想留下的一个判断：能玩，不等于验收。我们只走了最顺的那条路：翻两张、配对、重开。",
+        "【操作提示｜推进第 2 步，指向“留下的”两项。现场演示时切 VS Code 新建或打开 docs/evidence/CH03_MEMORY_GAME.md，写入请求原文、三个问题与回答、它自己定的规则；再到 Terminal 分两次提交代码和记录，提交前先看 git diff。未录现场时只讲课件】\n\n先把它存下来。照 2.3 的做法，代码一次提交，记录一次提交。记录写进 docs/evidence/CH03_MEMORY_GAME.md：请求原文、它问的三个问题和我们的回答，还有它自己定了、没问我们的规则。",
+        "【操作提示｜推进第 3 步，指向“3.2 谁定的规则”卡片；保留练习页面与 Codex 会话，不在收尾增加新操作，进入下一节】\n\n下一节，我们换几种玩法：第二张还没翻回去，我又点了第三张，会怎样？"
       ],
       "teaching": [
         {

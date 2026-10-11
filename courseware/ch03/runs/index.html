@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#f5f4ed" name="theme-color"/>
+<title>同一句需求的几次运行 · 第 3 章 · 从 Prompt 到 Harness</title>
+<link rel="icon" type="image/png" href="../../shared/assets/ph_logo.png">
+<link href="../../shared/tokens.css" rel="stylesheet"/>
+<link href="../../shared/styles.css" rel="stylesheet"/>
+<link href="../../shared/home.css" rel="stylesheet"/>
+<link href="runs.css" rel="stylesheet"/>
+<script defer src="data.js"></script>
+<script defer src="runs.js"></script>
+</head>
+<body><main class="chapter-home runs-page">
+<header class="chapter-home-header">
+<a aria-label="回到课程首页" class="wordmark home-wordmark" href="../../index.html"><img class="brand-mark" src="../../shared/assets/ph_logo.png" alt="" width="400" height="400"><span>从 Prompt<br/>到 Harness</span></a>
+<p class="script-meta">原型 · 未经讲师审阅</p>
+<p class="chapter-kicker">第 3 章 · 运行对比</p>
+<h1>同一句需求，每次做出的游戏都不一样</h1>
+<p class="chapter-lede">讲师把 3.1 的同一句需求独立跑了几次。哪些地方每次都变，哪些问题每次都在：后者才是这一章要讲的</p>
+</header>
+
+<section aria-labelledby="fixed-title" class="runs-section">
+<div class="chapter-section-heading"><p class="scene-kicker">不变的条件</p><h2 id="fixed-title">除了运行本身，其他都一样</h2></div>
+<dl class="runs-fixed" id="fixed"></dl>
+<details class="runs-raw"><summary>需求句与人的回复原文</summary><pre id="prompt"></pre></details>
+</section>
+
+<section aria-labelledby="play-title" class="runs-section">
+<div class="chapter-section-heading"><p class="scene-kicker">先自己看</p><h2 id="play-title">按页面上写的规则，各玩一局</h2></div>
+<p class="runs-note">先别看下面的对比。每份都完整打完一局，记下：它和另一份哪里不一样？哪条规则是你没说过的？</p>
+<div class="runs-play-grid" id="play-grid"></div>
+</section>
+
+<section aria-labelledby="matrix-title" class="runs-section">
+<div class="chapter-section-heading"><p class="scene-kicker">并排对比</p><h2 id="matrix-title">每一行都是一条规则，每一列是一次运行</h2></div>
+<p class="runs-legend"><span class="tag" data-tag="ai-rule">AI 替人定的</span><span class="tag" data-tag="defect">缺陷</span><span class="tag" data-tag="leak">从仓库提示里读来的</span></p>
+<div class="runs-table-wrap"><table class="runs-matrix" id="matrix"></table></div>
+</section>
+
+<section aria-labelledby="pattern-title" class="runs-section">
+<div class="chapter-section-heading"><p class="scene-kicker">共同的问题</p><h2 id="pattern-title">实现每次都变，这三件事一直在</h2></div>
+<div class="runs-patterns" id="patterns"></div>
+</section>
+
+<section aria-labelledby="detail-title" class="runs-section">
+<div class="chapter-section-heading"><p class="scene-kicker">逐轮证据</p><h2 id="detail-title">每个结论都能追到代码和原文</h2></div>
+<div class="runs-tabs" id="tabs" role="tablist"></div>
+<div id="detail"></div>
+</section>
+
+<footer class="chapter-home-footer"><a href="../index.html">← 第 3 章</a><span id="provenance"></span></footer>
+</main></body>
+</html>

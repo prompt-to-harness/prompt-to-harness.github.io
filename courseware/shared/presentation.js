@@ -51,9 +51,9 @@
   function update() {
     const active = lesson.scenes[position.current];
     sections.forEach((section, index) => {
+      // 步数只在演示模式显示；阅读模式已展开全部内容，不再提示
       section.querySelector('.step-status').textContent = position.mode === 'slides'
-        ? `第 ${position.step + 1} / ${active.steps.length} 步`
-        : `${lesson.scenes[index].steps.length} 个讲述步骤 · 阅读模式已展开全部内容`;
+        ? `第 ${position.step + 1} / ${active.steps.length} 步` : '';
       section.querySelectorAll('.segment').forEach((node, i) => {
         const segment = lesson.segments[i];
         const indices = lesson.scenes.map((s, n) => s.segment === segment.label ? n : -1).filter(n => n >= 0);

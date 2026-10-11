@@ -1,21 +1,26 @@
 /* One set of lesson nodes, two presentation modes. No external services. */
 (() => {
   const scenes = window.lesson.scenes;
+  // 三个名字各写一次：章（lesson.chapter）、段（scene.segment）、页（scene.title）。
+  // 小标题拼成“章 · 节 · 段名”；侧栏按段分组；label 只在标题太长时另写短名。见 docs/agents/courseware-workflow.md。
+  const [chapterName] = window.lesson.chapter.split(' · ');
+  const sectionName = /^\d+\.\d+$/.test(window.lesson.section) ? window.lesson.section.split('.').map(Number).join('.') : '';
+  const kickerFor = scene => [chapterName, sectionName, scene.segment].filter(Boolean).join(' · ');
+  scenes.forEach(scene => { scene.label ??= scene.title.replace(/<br\s*\/?>/g, ' ').replace(/<[^>]+>/g, ''); });
   const lesson = document.querySelector('#lesson');
   const nav = document.querySelector('#scene-nav');
   const feedback = document.querySelector('#feedback');
-  const chapterLinks = [...document.querySelectorAll('.chapter-nav a')];
   const adjacentLessons = {
-    previous: chapterLinks.find(link => link.textContent.includes('上一节')),
-    next: chapterLinks.find(link => link.textContent.includes('下一节')),
+    previous: document.querySelector('.chapter-nav a[rel="prev"]'),
+    next: document.querySelector('.chapter-nav a[rel="next"]'),
   };
   const lessonButtons = {};
   for (const [id, label, direction] of [['previous', '← 上一节', -1], ['next', '下一节 →', 1]]) {
     const button = document.createElement('button');
     button.type = 'button';
     button.id = `${id}-lesson`;
-    button.textContent = label;
-    button.setAttribute('aria-label', direction < 0 ? '上一节' : '下一节');
+    button.textContent = adjacentLessons[id]?.textContent.trim() || label;
+    button.setAttribute('aria-label', button.textContent.replace(/[←→]/g, '').trim());
     button.hidden = true;
     button.addEventListener('click', () => navigateLesson(direction));
     document.querySelector(`#${id}`).insertAdjacentElement(direction < 0 ? 'beforebegin' : 'afterend', button);
@@ -41,6 +46,7 @@
     return row(refs.filter(ref => ref.kind === 'live'), `class="p-refs" data-reveal="${last}"`, '原文')
       + row(refs.filter(ref => ref.kind !== 'live'), 'class="p-refs source-note"', '延伸阅读');
   };
+  // 收束（scene.closing）：本页的判断和通往下一页的一句话，只在阅读模式显示。见 docs/production/lesson-authoring-playbook.md 第 4 节。
   // 复现步骤（scene.repro）：折叠按钮，点开才显示；演示模式下在标题上方一行，展开后叠在画面上方。见 docs/production/parts.md 的 .p-repro。
   // step.links 是步骤文字里的可跳转片段，文字其余部分仍转义。
   const renderStepText = (step) => {
@@ -82,12 +88,13 @@
 
   const sceneClass = (scene) => ['scene', ...(scene.layout ? [scene.layout] : [])].join(' ');
   lesson.innerHTML = scenes.map((scene, index) => `<section class="${sceneClass(scene)}" id="${scene.id}" aria-labelledby="heading-${scene.id}" data-index="${index}">
-    <p class="scene-kicker">${scene.kicker}</p>
+    <p class="scene-kicker">${kickerFor(scene)}</p>
     <h2 id="heading-${scene.id}" tabindex="-1">${scene.title}</h2>
     <p class="lede">${scene.lead}</p>${scene.repro?.place === 'content' ? '' : renderRepro(scene.repro)}
-    <div class="scene-content">${scene.prompt ? `<div class="prompt"><div class="prompt-label"><span>发给 Codex 的请求</span><button type="button" class="copy-button" data-copy="${index}">复制请求</button></div><pre><code class="language-text">${escape(scene.prompt)}</code></pre></div>` : ''}${renderCommands(scene.commands)}${scene.html}${scene.repro?.place === 'content' ? renderRepro(scene.repro) : ''}${renderRefs(scene)}</div>
+    <div class="scene-content">${scene.prompt ? `<div class="prompt"><div class="prompt-label"><span>发给 Codex 的请求</span><button type="button" class="copy-button" data-copy="${index}">复制请求</button></div><pre><code class="language-text">${escape(scene.prompt)}</code></pre></div>` : ''}${renderCommands(scene.commands)}${scene.html}${scene.closing ? `<p class="closing">${scene.closing}</p>` : ''}${scene.repro?.place === 'content' ? renderRepro(scene.repro) : ''}${renderRefs(scene)}</div>
   </section>`).join('');
-  nav.innerHTML = scenes.map((scene, index) => `<a href="#${scene.id}" data-index="${index}">${window.lesson.navNumbers === false ? '' : `<span>${String(index + 1).padStart(2, '0')}</span>`}${scene.label}</a>`).join('');
+  nav.innerHTML = scenes.map((scene, index) => (index === 0 || scenes[index - 1].segment !== scene.segment ? `<p class="nav-group">${scene.segment}</p>` : '')
+    + `<a href="#${scene.id}" data-index="${index}">${window.lesson.navNumbers === false ? '' : `<span>${String(index + 1).padStart(2, '0')}</span>`}${scene.label}</a>`).join('');
   const sections = [...lesson.querySelectorAll('.scene')];
 
   function announce(message) {
@@ -118,8 +125,8 @@
     if (hasSteps && mode === 'slides') document.querySelector('#position').textContent += ` · ${currentStep + 1}/${lastStep(current) + 1} 步`;
     document.querySelector('#previous').disabled = mode === 'slides' ? current === 0 && currentStep === 0 : !adjacentLessons.previous;
     document.querySelector('#next').disabled = mode === 'slides' ? current === scenes.length - 1 && currentStep === lastStep(current) : !adjacentLessons.next;
-    document.querySelector('#previous').textContent = mode === 'slides' ? (hasSteps ? '← 上一步' : '← 上一页') : '← 上一节';
-    document.querySelector('#next').textContent = mode === 'slides' ? (hasSteps ? '下一步 →' : '下一页 →') : '下一节 →';
+    document.querySelector('#previous').textContent = mode === 'slides' ? (hasSteps ? '← 上一步' : '← 上一页') : adjacentLessons.previous?.textContent.trim() || '← 上一节';
+    document.querySelector('#next').textContent = mode === 'slides' ? (hasSteps ? '下一步 →' : '下一页 →') : adjacentLessons.next?.textContent.trim() || '下一节 →';
     for (const id of ['previous', 'next']) {
       const button = document.querySelector(`#${id}`);
       button.setAttribute('aria-label', button.textContent.replace(/[←→]/g, '').trim());

@@ -1,6 +1,6 @@
 # 1.2 Agent 执行机制与 AI 协作基础
 
-[打开课件](index.html) · [画面预览](preview.png) · [逐步讲稿](speaker.html) · [Markdown 讲稿](script.md) · [分镜](STORYBOARD.md)
+[打开课件](index.html) · [画面预览](preview.png) · [逐步讲稿](speaker.html) · [分镜](STORYBOARD.md)
 
 保留原 P09–P14 六段主线，沿用 1.1 欢迎语任务；末尾行业路标只作口播。原锚点 `p09` 到 `p14` 保留。页面、步骤与时长预算以 `lesson.js` 为准，实际课堂时长和教学效果未试讲验证。
 
@@ -44,10 +44,10 @@
 
 ## 维护与验证
 
-`lesson.js` 是页面与分步口播的内容源。2026-10-09 将过时的 `tools/build-lesson.py` 改为调用本章导出工具，只从 `lesson.js` 更新 `script.md`，不重建页面或图资产，避免覆盖零件库版式。修改后运行：
+`lesson.js` 是页面的内容源，分步口播在 `script.json`。2026-10-09 起不再用过时的 `tools/build-lesson.py` 重建页面或图资产，避免覆盖零件库版式；2026-10-11 合并时删除了它，本节按“手写 `lesson.js`”处理。修改后运行：
 
 ```sh
-python3 courseware/ch01/lessons/02-agent/tools/build-lesson.py
+python3 courseware/tools/rebuild-lesson.py courseware/ch01/lessons/02-agent
 python3 courseware/tools/check-courseware.py
 ```
 

@@ -22,6 +22,7 @@
 | [软件工程专题](software-engineering/) | Software Engineering 0.5 的概念地图、候选问题、模板和试讲卡 |
 | [审查记录](reviews/README.md) | 每次课件审查一个文件，按章存放，供后续审查与修改参考 |
 | [制作规范](production/) | 演示页视觉和其他交付制作规范 |
+| [调研](research/README.md) | 外部方案调研：最终报告在 `reports/`，原始笔记在 `notes/` |
 
 ## 使用规则
 
