@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""3.3 挑一个缺陷，按证据修：本节唯一的内容源，生成 lesson.js 与 script.md。
+"""3.3 挑一个缺陷，按证据修：本节唯一的内容源，生成 lesson.js。
 
 分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch03/tools/lessonkit.py。
 调查与修复的真实输出见 courseware/ch03/materials/mainline/reference/（由 debug-3.3.sh 运行得到）。

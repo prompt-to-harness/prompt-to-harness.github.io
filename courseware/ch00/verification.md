@@ -37,7 +37,7 @@
 在仓库根目录运行：
 
 ```bash
-python3 courseware/ch00/tools/build-content.py
+python3 courseware/tools/rebuild-lesson.py courseware/ch00
 python3 courseware/tools/check-courseware.py
 node --check courseware/ch00/lesson.js
 git diff --check

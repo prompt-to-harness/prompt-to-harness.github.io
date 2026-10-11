@@ -29,7 +29,7 @@ Mermaid、Archscribe JSON、Excalidraw、PNG、SVG 位于 `../lessons/01-environ
 ## 导出与复验
 
 ```sh
-python3 courseware/ch01/tools/export-chapter-scripts.py --lessons 1 3 4 5 6
+python3 courseware/tools/rebuild-lesson.py courseware/ch01/lessons/*
 python3 courseware/tools/check-courseware.py
 python3 courseware/ch01/tools/check-progressive.py --output /tmp/ch01-progressive-qa
 ```

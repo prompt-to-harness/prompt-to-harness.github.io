@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""2.4 公开的不只是页面：本节唯一的内容源，生成 lesson.js 与 script.md。
+"""2.4 公开的不只是页面：本节唯一的内容源，生成 lesson.js。
 
 分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch02/tools/lessonkit.py。
 """

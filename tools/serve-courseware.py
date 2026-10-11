@@ -2,8 +2,8 @@
 """Serve courseware and its Starter references from a consistent root.
 
 Local only: speaker.html pages can also save narration edits. Each lesson's narration lives
-in its script.json (the single source); a save rewrites that file and rebuilds lesson.js and
-script.md through courseware/tools/rebuild-lesson.py. The published site is static, so the
+in its script.json (the single source); a save rewrites that file and rebuilds lesson.js
+through courseware/tools/rebuild-lesson.py. The published site is static, so the
 edit endpoint does not exist there and the pages stay read-only.
 """
 import argparse

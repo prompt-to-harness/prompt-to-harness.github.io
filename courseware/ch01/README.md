@@ -37,11 +37,11 @@ ch01/
 │   ├── 05-homepage/            # 1.5 完成任务
 │   └── 06-permissions/        # 1.6 最小权限
 ├── materials/                 # 备课材料与补充清单
-├── tools/                     # 讲稿导出；样式、校验与字体在上级 shared/、tools/
+├── tools/                     # 本章渐进检查；样式、校验与字体在上级 shared/、tools/
 └── verification.md            # 验证记录与边界
 ```
 
-每个小节的 `index.html` 为演示页，`lesson.js` 是正文的内容源，`script.json` 是口播的内容源，`speaker.html` 展示讲稿，`script.md` 是导出的 Markdown 讲稿。改口播时改 `script.json`（或在 `speaker.html` 里直接改），再运行 `courseware/tools/rebuild-lesson.py <节目录>`；改其余内容时改 `lesson.js`。1.2 原有的 `tools/build-lesson.py` 已在 2026-10-11 删除，1.2 与其他小节一样直接改 `lesson.js`。
+每个小节的 `index.html` 为演示页，`lesson.js` 是正文的内容源，`script.json` 是口播的内容源，`speaker.html` 展示讲稿。改口播时改 `script.json`（或在 `speaker.html` 里直接改），再运行 `courseware/tools/rebuild-lesson.py <节目录>`；改其余内容时改 `lesson.js`。1.2 原有的 `tools/build-lesson.py` 已在 2026-10-11 删除，1.2 与其他小节一样直接改 `lesson.js`。
 
 旧版 `demos/ch01-presentation/` 已迁移到这里。原页码锚点及 `mode=scroll` / `mode=slides` 参数保留，例如 [1.4 P22](lessons/04-prompt/index.html?mode=scroll#p22)。旧网址需要更新，不再保留重复课件副本。
 
@@ -60,13 +60,7 @@ P04 默认嵌入随课件提供的原始 Starter 页面，明确标记为“仅�
 
 `lessons/*/lesson.js` 保存正文、原页码、Prompt、教学分支与讲师备注；口播在同目录的 `script.json`，由 `rebuild-lesson.py` 合并进 `lesson.js`。同目录的 `speaker.html` 展示讲解全文。
 
-在本章目录运行，导出六份讲稿到 `lessons/*/script.md`：
-
-```bash
-python3 tools/export-chapter-scripts.py
-```
-
-`export-script.py`保留为兼容入口，同样导出六节，不再写回外部旧版 `docs/`。早期 storyboard、录制说明、脚本和模板截图已清理，可从 Git 历史查看；录制依据以当前小节内容源和配套材料为准。
+2026-10-11 起不再导出 Markdown 讲稿（`script.md`）：连读、改稿都在 `speaker.html` 里做，编辑检查直接读 `script.json`。早期 storyboard、录制说明、脚本和模板截图已清理，可从 Git 历史查看；录制依据以当前小节内容源和配套材料为准。
 
 内容以本仓库的[深蓝平台交付版大纲](../../docs/course-outline.md)和[共同内部大纲](../../docs/outline/course-outline-internal.md)为依据。历史上从 OpenClass 导入的记录保留在验证文档中，当前操作路径以本目录为准。
 

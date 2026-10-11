@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""3.6 那条规则，下次 Codex 从哪里知道：本节唯一的内容源，生成 lesson.js 与 script.md。
+"""3.6 那条规则，下次 Codex 从哪里知道：本节唯一的内容源，生成 lesson.js。
 
 分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch03/tools/lessonkit.py。
 Memory 与三处说明的实验见 courseware/ch03/materials/memory/README.md，参考记录在 reference/。

@@ -152,23 +152,4 @@ class Lesson:
         }
         (self.here / "lesson.js").write_text("window.lesson = " + json.dumps(lesson, ensure_ascii=False, indent=2) + ";\n")
 
-        lines = [f"# {self.number} {self.title}", "", "> 由 tools/build-lesson.py 生成。", ""]
-        for s in scenes:
-            lines += [f"## {s['id'].upper()} {s['label']}", "", f"[对应课件](index.html#{s['id']})", "", "### 口播", ""]
-            for i, (beat, text) in enumerate(zip(s["steps"], s["script"])):
-                lines += [f"**第 {i + 1} 步 · {beat}**（[演示](index.html?mode=slides&step={i}#{s['id']})）", "", text, ""]
-            if s.get("refs"):
-                lines += ["### 原文与链接", ""]
-                lines += [f"- {'画面上' if r['kind'] == 'live' else '延伸'} · {r['group'] + ' · ' if r['group'] else ''}[{r['text']}]({r['url']})" for r in s["refs"]]
-                lines += [""]
-            if s.get("repro"):
-                lines += [f"### {s['repro']['label']}（页面按钮）", ""]
-                for i, st in enumerate(s["repro"]["steps"], 1):
-                    lines += [f"{i}. {st['text']}" + (f"：`{st['code']}`" if st["code"] else "")]
-                lines += ([""] + [s["repro"]["note"]] if s["repro"]["note"] else []) + [""]
-            if s.get("prompt"):
-                lines += ["### 请求", "", "```text", s["prompt"], "```", ""]
-            for item in s["teaching"]:
-                lines += [f"### {item['title']}", "", item["text"], ""]
-        (self.here / "script.md").write_text("\n".join(lines))
         print(f"{self.number}: {len(scenes)} pages, {sum(len(s['steps']) for s in scenes)} steps")

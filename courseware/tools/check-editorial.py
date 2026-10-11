@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Mechanical checks for docs/production/editorial-checklist.md (ED-001, ED-007/010, ED-011).
+"""Mechanical checks for docs/production/editorial-checklist.md (ED-001, ED-007/010, ED-011, ED-013).
 
 Errors fail the run; hints are printed but never fail. Judgment rules live in the
 checklist and are applied by the courseware-editorial skill, not here.
 """
+import json
 import re
 import subprocess
 import sys
@@ -25,10 +26,10 @@ for path in sorted(screen_files):
             errors.append(f'ED-001 {path.relative_to(repo)}:{line} 单句屏幕文字以句号结尾：{m.group(1)[:30]}')
 
 # ED-011: generated files must match their source builder
-builders = list(courseware.glob('ch*/lessons/*/tools/build-lesson.py')) + list(courseware.glob('ch00/tools/build-content.py'))
+builders = list(courseware.glob('ch*/lessons/*/tools/build-lesson.py'))
 for builder in sorted(builders):
     base = builder.parents[1]
-    outputs = [base / 'lesson.js', base / 'script.md']
+    outputs = [base / 'lesson.js']
     before = {p: p.read_bytes() for p in outputs if p.exists()}
     result = subprocess.run([sys.executable, str(builder)], capture_output=True, text=True)
     if result.returncode:
@@ -46,6 +47,19 @@ result = subprocess.run([sys.executable, str(courseware / 'tools' / 'rebuild-les
 if result.returncode:
     errors.append('ED-011 script.json 与 lesson.js 不一致：' + result.stderr.strip().replace('\n', '；'))
 
+# ED-013: every step opens with one 【操作提示｜…】 for the recording lecturer, then spoken narration
+stage = re.compile(r'【操作提示｜[^\n]+】')
+for path in sorted(courseware.glob('**/script.json')):
+    if 'archive' in path.parts:
+        continue
+    for scene_id, steps in json.loads(path.read_text()).items():
+        for i, step in enumerate(steps, 1):
+            parts = step.split('\n\n')
+            if not stage.fullmatch(parts[0]):
+                errors.append(f'ED-013 {path.relative_to(repo)} {scene_id} 第 {i} 步没有以【操作提示｜…】开头')
+            elif not any(part.strip() and not stage.fullmatch(part) for part in parts[1:]):
+                errors.append(f'ED-013 {path.relative_to(repo)} {scene_id} 第 {i} 步只有操作提示，没有口播正文')
+
 # ED-011: relative Markdown links must resolve (catches residue after deleting a page)
 md_roots = [courseware, repo / 'docs' / 'production', repo / 'docs' / 'design']
 link = re.compile(r'\[[^\]]*\]\(([^)#?\s]+)(?:[#?][^)]*)?\)')
@@ -62,10 +76,12 @@ for root in md_roots:
 
 # ED-007 / ED-010: filler phrases are a prompt to ask "does this add information", not a ban
 fillers = ['这样做是为了', '这里练习的就是', '大家看', '对吧', '其实']
-for path in sorted(courseware.rglob('script.md')):
+# 只数口播正文；【操作提示｜…】不念，不计入
+for path in sorted(courseware.rglob('script.json')):
     if 'archive' in path.parts:
         continue
-    text = path.read_text()
+    text = '\n'.join(part for steps in json.loads(path.read_text()).values() for step in steps
+                     for part in step.split('\n\n') if not part.startswith('【操作提示｜'))
     counts = {w: text.count(w) for w in fillers if text.count(w)}
     if counts:
         hints.append(f'ED-007/010 {path.relative_to(repo)} ' + '、'.join(f'{w}×{n}' for w, n in counts.items()))

@@ -84,7 +84,7 @@
   enableEditing();
 
   // 口播存在本节 script.json。只有 tools/serve-courseware.py（sh tools/edit-courseware.sh 启动）提供
-  // /__script/edit，写回后由 rebuild-lesson.py 重建 lesson.js 与 script.md；其他打开方式保持只读。
+  // /__script/edit，写回后由 rebuild-lesson.py 重建 lesson.js；其他打开方式保持只读。
   async function enableEditing() {
     let server = false;
     try { server = (await fetch('/__script/ping', { cache: 'no-store' })).ok; } catch { /* 不是通过服务打开的 */ }
@@ -100,7 +100,7 @@
       const result = await response.json();
       if (!response.ok) throw new Error(result.error);
       return { text: result.text, note: `已写回 ${result.source}` };
-    }, '本地编辑：点任一句口播直接改，Enter 或点别处保存，Esc 撤销；每句下方可展开对应的画面对照。保存会写回本节 script.json 并重建 lesson.js 与 script.md。只能改句子，增删步骤请改源文件。');
+    }, '本地编辑：点任一句口播直接改，Enter 或点别处保存，Esc 撤销；每句下方可展开对应的画面对照。保存会写回本节 script.json 并重建 lesson.js。只能改句子，增删步骤请改源文件。');
   }
 
   function addBanner(text) {

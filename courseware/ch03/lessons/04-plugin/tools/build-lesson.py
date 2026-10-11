@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""3.4 做游戏的经验，有人打包好了吗：本节唯一的内容源，生成 lesson.js 与 script.md。
+"""3.4 做游戏的经验，有人打包好了吗：本节唯一的内容源，生成 lesson.js。
 
 分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch03/tools/lessonkit.py。
 插件材料与安装链路见 courseware/ch03/materials/plugin/README.md。

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""3.1 一句话加一个记忆翻牌：本节唯一的内容源，生成 lesson.js 与 script.md。
+"""3.1 一句话加一个记忆翻牌：本节唯一的内容源，生成 lesson.js。
 
 分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch03/tools/lessonkit.py。
 """

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""3.2 这条规则是谁定的：本节唯一的内容源，生成 lesson.js 与 script.md。
+"""3.2 这条规则是谁定的：本节唯一的内容源，生成 lesson.js。
 
 分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch03/tools/lessonkit.py。
 证据图由 courseware/ch03/materials/mainline/shoot.py 生成。

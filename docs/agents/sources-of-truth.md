@@ -10,5 +10,5 @@
 - 课次、知识点、演示、练习、产出与验收以这两份大纲为准，不另起结构。两份大纲冲突时，先让讲师确认并修订大纲，再改课件。
 - `docs/design/` 是早期内部讨论与指引，不是第二份已确认基线；采纳前对照当前大纲重新评估。旧版方案与演示草稿已清理，需要追溯时查 Git 历史。
 - 软件工程 0.5：`docs/software-engineering/software-engineering-thread.md` 是原则文档，`software-engineering-problem-pool.md` 是候选池；试点卡片不是正式课次。
-- 每节的口播以该节目录下的 `courseware/**/script.json` 为准（按页面 id 存每页口播数组）；`lesson.js` 与 `script.md` 是由它生成的，不要只改生成物。改口播可直接在 `speaker.html` 里逐句改（运行 `sh tools/edit-courseware.sh` 起本地服务打开），或编辑 `script.json` 后运行 `courseware/tools/rebuild-lesson.py`。
+- 每节的口播以该节目录下的 `courseware/**/script.json` 为准（按页面 id 存每页口播数组）；`lesson.js` 里的 `script` 是由它生成的，不要只改生成物。改口播可直接在 `speaker.html` 里逐句改（运行 `sh tools/edit-courseware.sh` 起本地服务打开），或编辑 `script.json` 后运行 `courseware/tools/rebuild-lesson.py`。
 - 视觉参考以 `demos/visual-system/` 和 `docs/production/visual-design-system.md` 为准。

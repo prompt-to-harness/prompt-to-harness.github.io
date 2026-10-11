@@ -88,10 +88,10 @@ def main():
         (here / "speaker.html").write_text(shell(speaker_t, i, d, title, summary))
         readme = here / "README.md"
         readme.write_text(
-            f"# 3.{i + 1} {title}\n\n[打开课件](index.html) · [逐步讲稿](speaker.html) · [Markdown 讲稿](script.md) · [分镜](STORYBOARD.md)\n\n"
+            f"# 3.{i + 1} {title}\n\n[打开课件](index.html) · [逐步讲稿](speaker.html) · [分镜](STORYBOARD.md)\n\n"
             f"{summary}。依据[第 3 章故事线提案](../../../../docs/outline/proposals/2026-10-05-ch03-storyline.md)第五版与本节分镜。"
             "首版（2026-10-06），未经讲师审阅，未试讲、未录制；画面中的输出来自排练运行，见 [materials](../../materials/README.md)。\n\n"
-            "## 维护\n\n`tools/build-lesson.py` 是本节唯一的内容源，生成 `lesson.js` 与 `script.md`，不要直接改生成物。"
+            "## 维护\n\n`tools/build-lesson.py` 是本节唯一的内容源，生成 `lesson.js`，不要直接改生成物。"
             "播放页外壳由 [`../../tools/make-shells.py`](../../tools/make-shells.py) 生成。\n\n"
             f"```sh\npython3 courseware/ch03/lessons/{d}/tools/build-lesson.py\nuv run courseware/tools/check-courseware.py\n```\n"
         )

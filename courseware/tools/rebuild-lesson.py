@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""按每节的 script.json 重建 lesson.js 与 script.md。
+"""按每节的 script.json 重建 lesson.js。
 
 口播的唯一来源是各节目录下的 script.json（按页面 id 存每页的口播数组）：
 - 有 tools/build-lesson.py 的节：重跑构建脚本，它自己读 script.json。
-- 手写 lesson.js 的节（第 0 章与第 1 章部分小节）：把 script.json 合并进 lesson.js，再导出 script.md。
+- 手写 lesson.js 的节（第 0 章与第 1 章）：把 script.json 合并进 lesson.js。
 
 用法：rebuild-lesson.py [节目录 ...]；不带参数时处理全部。--check 只核对不写文件，不一致就退出 1。
 """
@@ -34,16 +34,6 @@ def merged_text(lesson_dir):
     return PREFIX + json.dumps(lesson, ensure_ascii=False, indent=2) + ';\n'
 
 
-def exporter(lesson_dir):
-    if lesson_dir == COURSEWARE / 'ch00':
-        return [sys.executable, str(lesson_dir / 'tools' / 'build-content.py')]
-    chapter_tools = lesson_dir.parents[1] / 'tools' / 'export-chapter-scripts.py'
-    number = lesson_dir.name.split('-', 1)[0]
-    if chapter_tools.exists() and number.isdigit():
-        return [sys.executable, str(chapter_tools), '--lessons', str(int(number))]
-    return None
-
-
 def run(command):
     result = subprocess.run(command, cwd=REPO, capture_output=True, text=True, timeout=120)
     if result.returncode:
@@ -64,9 +54,6 @@ def rebuild(lesson_dir, check=False):
         return text == current
     if text != current:
         (lesson_dir / 'lesson.js').write_text(text)
-    command = exporter(lesson_dir)
-    if command:
-        run(command)
     return True
 
 

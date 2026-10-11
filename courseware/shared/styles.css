@@ -420,3 +420,5 @@ body[data-mode="slides"] .prompt { padding: 0; }
 .script-editable p.narration[data-state="error"] { outline: 2px dashed var(--color-negative); }
 .script-editable .peek { margin: 0 0 var(--space-md); padding: 2px var(--space-sm); border: 1px solid var(--color-rule); border-radius: 4px; background: none; color: inherit; font: inherit; font-size: var(--text-sm); cursor: pointer; }
 .script-editable .peek-frame { display: block; width: 100%; aspect-ratio: 16 / 9; margin-bottom: var(--space-md); border: 1px solid var(--color-rule); border-radius: 4px; background: var(--color-paper); }
+/* 逐字稿里每一步开头的【操作提示｜…】：只给录制的讲师看，不念（编辑规范 ED-013） */
+.script-page .stage-direction { padding: 12px 16px; border-left: 3px solid #49646b; background: #eaf0ef; color: #304d54; font-size: .9em; line-height: 1.75; overflow-wrap: anywhere; }

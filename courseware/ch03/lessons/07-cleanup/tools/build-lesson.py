@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""3.7 重开时，还有什么要清理：本节唯一的内容源，生成 lesson.js 与 script.md。
+"""3.7 重开时，还有什么要清理：本节唯一的内容源，生成 lesson.js。
 
 分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch03/tools/lessonkit.py。
 预备版本与核对见 courseware/ch03/materials/prepared/README.md。
