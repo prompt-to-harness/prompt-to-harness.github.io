@@ -254,24 +254,24 @@ window.lesson = {
       "id": "p09",
       "label": "07 · 基础与卡点",
       "kicker": "第 0 章 · 访谈 07 / 08",
-      "title": "什么基础的同学适合学？<br>看不懂代码或报错怎么办？",
+      "title": "什么基础、什么电脑适合学？<br>看不懂代码或报错怎么办？",
       "lead": "适合有基础编程与 Git 能力、希望积累项目经验的同学。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr 26px 1fr\"><div class=\"p-set is-solid\" data-role=\"ok\"><h3>开始前 · 已有基础</h3><div class=\"p-items\"><div class=\"p-item\">✓ 能读简单函数、条件和循环</div><div class=\"p-item\">✓ 能使用 Git 的基本操作</div><div class=\"p-item\">React 与 TypeScript 可先补基础</div></div></div><div></div><div class=\"p-set is-solid\" data-role=\"tool\"><h3>遇到困难时 · 把问题缩小</h3><div class=\"p-items\"><div class=\"p-item\"><b>1</b>&ensp;保留报错与复现步骤</div><div class=\"p-item\"><b>2</b>&ensp;沿入口读一小段相关代码</div><div class=\"p-item\"><b>3</b>&ensp;修正后，重新运行并检查</div></div></div></div><p class=\"source-note\" style=\"margin-top:14px\">课程以 Codex CLI 为主要实操入口。环境准备与基础自检见第 1 章配套材料。</p>",
+      "html": "<div class=\"p-grid\" style=\"--n:3;gap:20px\"><div class=\"p-set is-solid\" data-role=\"ok\"><h3>开始前 · 已有基础</h3><div class=\"p-items\"><div class=\"p-item\">✓ 能读简单函数、条件和循环</div><div class=\"p-item\">✓ 能使用 Git 的基本操作</div><div class=\"p-item\">✓ 会 JS / TS 基础语法</div><div class=\"p-item\">只会 Python：先补 JS / TS 语法</div></div></div><div class=\"p-set is-solid\" data-role=\"ctx\"><h3>电脑与环境</h3><div class=\"p-items\"><div class=\"p-item\">Windows 10/11、macOS 或 Linux</div><div class=\"p-item\">不需要 GPU：模型在云端运行</div><div class=\"p-item\">GitHub 账号 · 稳定网络</div></div></div><div class=\"p-set is-solid\" data-role=\"tool\"><h3>遇到困难时 · 把问题缩小</h3><div class=\"p-items\"><div class=\"p-item\"><b>1</b>&ensp;保留报错与复现步骤</div><div class=\"p-item\"><b>2</b>&ensp;沿入口读一小段相关代码</div><div class=\"p-item\"><b>3</b>&ensp;修正后，重新运行并检查</div></div></div></div><p class=\"source-note\" style=\"margin-top:14px\"><a href=\"preparation.html\">装哪些工具、怎样登录：见第 0 章课前准备</a></p>",
       "script": [
-        "串场提问：什么基础的同学适合学？遇到看不懂的代码或报错怎么办？",
-        "讲师 A 从准备回答：适合在校大学生，以及工作 1–2 年、具备基础编程能力但项目经验有限的初级开发者。需要能阅读简单函数、条件、循环和错误信息，会用基本 Git；不预设 React、TypeScript 或前端工程化经验，建议先做配套基础自检。",
-        "讲师 A 补充自己的入门建议：〔建议待填〕。课程主要使用 Codex CLI，安装与账号路径在第 1 章按核验后的资料操作。",
+        "串场提问：什么基础的同学适合学？需要什么样的电脑？遇到看不懂的代码或报错怎么办？",
+        "讲师 A 从准备回答：适合在校大学生，以及工作 1–2 年、具备基础编程能力但项目经验有限的初级开发者。需要能阅读简单函数、条件、循环和错误信息，会用基本 Git；需要 JavaScript / TypeScript 的基础语法，不预设 React 或前端工程化经验。平时只写 Python、做算法的同学也能学，先把 JS / TS 的基础语法补上；看不懂的代码，课程会示范怎样缩小范围去读。",
+        "讲师 A 补充自己的入门建议：〔建议待填〕。电脑方面：Windows 10/11、macOS 或 Linux 都可以；不需要 GPU，模型在云端运行，本机只装 Codex CLI、Git、Node.js 这些工具；另外要有 GitHub 账号和稳定的网络。具体怎么装、怎么登录，看第 0 章的课前准备。",
         "讲师 B 从卡点回答：先保留完整报错与复现条件，把任务缩小到相关文件或函数。可以让 AI 解释，但要回到源码、运行结果和测试核对。无法解释或验证的改动，先暂停、拆小或回退。",
         "讲师 B 补充自己的处理办法：〔建议待填〕。随后引出最后一问：跟课时怎样练，才会把这些方法变成自己的能力？"
       ],
       "teaching": [
         {
           "title": "回答顺序",
-          "text": "A 先答基础，B 补充卡点处理，合计约 2 分 30 秒。"
+          "text": "A 先答基础与电脑环境，B 补充卡点处理，合计约 2 分 30 秒。"
         },
         {
           "title": "范围",
-          "text": "不把本课介绍为零编程基础课，也不现场展开安装排障。产品版本和账号差异遵循第 1 章准备清单。"
+          "text": "不把本课介绍为零编程基础课，也不现场展开安装排障。系统要求与基础要求以平台交付版大纲为准；产品版本和账号差异遵循第 0 章课前准备。"
         }
       ],
       "notes": "",
