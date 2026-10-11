@@ -6,7 +6,7 @@
 
 - [阅读课件](index.html)
 - [演示课件](index.html?mode=slides#p01)
-- [双讲师访谈提纲](speaker.html)
+- [讲解全文（双讲师访谈）](speaker.html)
 - [课前准备](preparation.html)：取得练习项目、安装 Codex CLI 并登录；第 0 章末页引导学员先完成它再进入 1.1
 
 在仓库根目录运行 `python3 tools/serve-courseware.py`，从 <http://127.0.0.1:8841/courseware/> 进入，或直接打开 <http://127.0.0.1:8841/courseware/ch00/?mode=slides>。播放器复用 `courseware/shared/`，演示画布复用 `courseware/shared/presentation.css` 与 `presentation.js`，本章字体与合照位于 `assets/`，均为本地资源。
@@ -15,7 +15,7 @@
 
 ## 页面与节奏
 
-页面顺序、每页问题、回答线索与逐页预算都以 `lesson.js` 为准，在[访谈提纲](speaker.html)中查看；本文件不再重复列出，避免两处不一致。
+页面顺序、每页问题、回答线索与逐页预算都以 `lesson.js` 为准，在[讲解全文](speaker.html)中查看；本文件不再重复列出，避免两处不一致。
 
 ## 文件与视觉复用
 
