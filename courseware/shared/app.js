@@ -6,16 +6,16 @@
   const feedback = document.querySelector('#feedback');
   const chapterLinks = [...document.querySelectorAll('.chapter-nav a')];
   const adjacentLessons = {
-    previous: chapterLinks.find(link => link.textContent.includes('上一节')),
-    next: chapterLinks.find(link => link.textContent.includes('下一节')),
+    previous: chapterLinks.find(link => /上一[节章]/.test(link.textContent)),
+    next: chapterLinks.find(link => /下一[节章]/.test(link.textContent)),
   };
   const lessonButtons = {};
   for (const [id, label, direction] of [['previous', '← 上一节', -1], ['next', '下一节 →', 1]]) {
     const button = document.createElement('button');
     button.type = 'button';
     button.id = `${id}-lesson`;
-    button.textContent = label;
-    button.setAttribute('aria-label', direction < 0 ? '上一节' : '下一节');
+    button.textContent = adjacentLessons[id]?.textContent.trim() || label;
+    button.setAttribute('aria-label', button.textContent.replace(/[←→]/g, '').trim());
     button.hidden = true;
     button.addEventListener('click', () => navigateLesson(direction));
     document.querySelector(`#${id}`).insertAdjacentElement(direction < 0 ? 'beforebegin' : 'afterend', button);
@@ -92,8 +92,8 @@
     if (hasSteps && mode === 'slides') document.querySelector('#position').textContent += ` · ${currentStep + 1}/${lastStep(current) + 1} 步`;
     document.querySelector('#previous').disabled = mode === 'slides' ? current === 0 && currentStep === 0 : !adjacentLessons.previous;
     document.querySelector('#next').disabled = mode === 'slides' ? current === scenes.length - 1 && currentStep === lastStep(current) : !adjacentLessons.next;
-    document.querySelector('#previous').textContent = mode === 'slides' ? (hasSteps ? '← 上一步' : '← 上一页') : '← 上一节';
-    document.querySelector('#next').textContent = mode === 'slides' ? (hasSteps ? '下一步 →' : '下一页 →') : '下一节 →';
+    document.querySelector('#previous').textContent = mode === 'slides' ? (hasSteps ? '← 上一步' : '← 上一页') : adjacentLessons.previous?.textContent.trim() || '← 上一节';
+    document.querySelector('#next').textContent = mode === 'slides' ? (hasSteps ? '下一步 →' : '下一页 →') : adjacentLessons.next?.textContent.trim() || '下一节 →';
     for (const id of ['previous', 'next']) {
       const button = document.querySelector(`#${id}`);
       button.setAttribute('aria-label', button.textContent.replace(/[←→]/g, '').trim());
