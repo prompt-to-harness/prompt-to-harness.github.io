@@ -70,6 +70,10 @@ window.lesson = {
             "code": "node --version\nnpm --version\nnpm install -g @openai/codex\ncodex --version"
           },
           {
+            "text": "Node.js 安装排障（macOS / Linux）：按 Node.js LTS 官方文档安装 nvm 时，如果 git fetch 失败，将原命令 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | bash 替换为下面的命令。METHOD=script 会改用脚本下载方式，避开 Git 拉取；完成后继续官方文档中的 Node.js 安装步骤。",
+            "code": "curl -fsSL --connect-timeout 10 --max-time 60 \\\n  https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh \\\n  | METHOD=script bash"
+          },
+          {
             "text": "macOS：在终端创建用户配置目录，用编辑器打开 ~/.codex/config.toml。已有配置先备份，再合并相应字段，不覆盖其他设置。",
             "code": "mkdir -p ~/.codex"
           },
