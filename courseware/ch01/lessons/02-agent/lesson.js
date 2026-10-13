@@ -35,7 +35,7 @@ window.lesson = {
       "label": "把小改动拆开看",
       "title": "把一次小改动拆开看",
       "lead": "上一节改了欢迎语，这一节回看 Codex 怎样读文件、改文字",
-      "html": "<div class=\"opening\"><div class=\"welcome-sheet\"><span class=\"eyebrow\">环境检查页 · 原文</span><p class=\"welcome-old\">你好，欢迎来到我的练习页面</p><div data-reveal=\"1\" class=\"\"><span class=\"pencil-mark\">这次只改这一句</span><p class=\"welcome-new\">你好，欢迎来到<br>Vibe Coding 课堂！</p></div></div><div class=\"opening-question\"><div data-reveal=\"0\" class=\"\"><p class=\"hand\">你发出一句话，<br>谁真正改了文件？</p></div><div data-reveal=\"1\" class=\"\"><p>今天只追三件事：<br><b>拿到什么 → 做了什么 → 凭什么相信</b></p></div></div></div><p class=\"source-note\">原文来自 Starter；目标沿用 1.1。此处为任务对照，不是运行结果。</p>",
+      "html": "<ol class=\"p-map\" data-reveal=\"0\"><li class=\"is-done\"><b>1.1</b>第一次 AI 协作闭环</li><li class=\"is-now\"><b>1.2</b>Agent 执行机制与 AI 协作基础</li><li class=\"\"><b>1.3</b>工具使用与权限</li><li class=\"\"><b>1.4</b>写清个人主页任务：从模糊需求到可执行 Prompt</li><li class=\"\"><b>1.5</b>完成个人主页：从已确认 Prompt 到可验收的个人主页 v0</li><li class=\"\"><b>1.6</b>最小权限：为什么不能给 Agent 所有权限</li></ol><div class=\"opening\"><div class=\"welcome-sheet\"><span class=\"eyebrow\">环境检查页 · 原文</span><p class=\"welcome-old\">你好，欢迎来到我的练习页面</p><div data-reveal=\"1\" class=\"\"><span class=\"pencil-mark\">这次只改这一句</span><p class=\"welcome-new\">你好，欢迎来到<br>Vibe Coding 课堂！</p></div></div><div class=\"opening-question\"><div data-reveal=\"0\" class=\"\"><p class=\"hand\">你发出一句话，<br>谁真正改了文件？</p></div><div data-reveal=\"1\" class=\"\"><p>今天只追三件事：<br><b>拿到什么 → 做了什么 → 凭什么相信</b></p></div></div></div><p class=\"source-note\">原文来自 Starter；目标沿用 1.1。此处为任务对照，不是运行结果。</p>",
       "steps": [
         "回看原欢迎语，抛出“谁改了文件”",
         "圈定目标，说明本节只复盘已有任务"
