@@ -8,17 +8,17 @@ window.lesson = {
       "id": "p15",
       "label": "换入口，还要核对什么？",
       "title": "换入口，还要核对什么？",
-      "lead": "同一个任务换个入口来做，结果从哪看、权限怎么给，都要重新核对",
-      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>1.1</b>首次闭环</li><li class=\"is-done\"><b>1.2</b>拆开执行过程</li><li class=\"is-now\"><b>1.3</b>工具与权限</li><li class=\"\"><b>1.4</b>写清任务</li><li class=\"\"><b>1.5</b>完成个人主页</li><li class=\"\"><b>1.6</b>最小权限</li></ol><div style=\"display:grid;grid-template-columns:3fr 2fr;gap:28px;margin-top:14px;align-items:start\"><div class=\"p-box\" data-role=\"tool\" style=\"padding:12px 20px\"><h3 style=\"font-size:24px\">Codex CLI · 本课统一使用</h3><div data-reveal=\"0\" style=\"display:grid;grid-template-columns:70px 1fr;gap:10px;padding:8px 0;border-top:1px dashed #CFCAC0\"><span class=\"p-sub\">资料</span><span style=\"font-size:21px\">从练习项目根目录启动</span></div><div data-reveal=\"1\" style=\"display:grid;grid-template-columns:70px 1fr;gap:10px;padding:8px 0;border-top:1px dashed #CFCAC0\"><span class=\"p-sub\">动作</span><span style=\"font-size:21px\">看工具返回与 diff</span></div><div data-reveal=\"2\" style=\"display:grid;grid-template-columns:70px 1fr;gap:10px;padding:8px 0;border-top:1px dashed #CFCAC0\"><span class=\"p-sub\">边界</span><span style=\"font-size:21px\"><b>主路径 · 完整验收</b></span></div></div><div class=\"p-box is-dashed\" data-role=\"ink\" data-reveal=\"2\" style=\"padding:12px 20px\"><h3 style=\"font-size:20px\">也可以用图形界面</h3><p style=\"font-size:18px;line-height:1.55;margin-top:8px\">比如 ChatGPT App。能做什么，按你的版本、账号和配置核对；核对过才临时使用，本课不演示</p></div></div>",
+      "lead": "Codex CLI 必备，Codex App 可选；换入口时核对项目、权限与结果",
+      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>1.1</b>首次闭环</li><li class=\"is-done\"><b>1.2</b>拆开执行过程</li><li class=\"is-now\"><b>1.3</b>工具与权限</li><li class=\"\"><b>1.4</b>写清任务</li><li class=\"\"><b>1.5</b>完成个人主页</li><li class=\"\"><b>1.6</b>最小权限</li></ol><div style=\"display:grid;grid-template-columns:3fr 2fr;gap:28px;margin-top:14px;align-items:start\"><div class=\"p-box\" data-role=\"tool\" style=\"padding:12px 20px\"><h3 style=\"font-size:24px\">Codex CLI · 本课统一使用</h3><div data-reveal=\"0\" style=\"display:grid;grid-template-columns:70px 1fr;gap:10px;padding:8px 0;border-top:1px dashed #CFCAC0\"><span class=\"p-sub\">资料</span><span style=\"font-size:21px\">从练习项目根目录启动</span></div><div data-reveal=\"1\" style=\"display:grid;grid-template-columns:70px 1fr;gap:10px;padding:8px 0;border-top:1px dashed #CFCAC0\"><span class=\"p-sub\">动作</span><span style=\"font-size:21px\">看工具返回与 diff</span></div><div data-reveal=\"2\" style=\"display:grid;grid-template-columns:70px 1fr;gap:10px;padding:8px 0;border-top:1px dashed #CFCAC0\"><span class=\"p-sub\">边界</span><span style=\"font-size:21px\"><b>本课实操与检查都用 CLI</b></span></div></div><div class=\"p-box is-dashed\" data-role=\"ink\" data-reveal=\"2\" style=\"padding:12px 20px\"><h3 style=\"font-size:20px\">也可以用图形界面</h3><p style=\"font-size:18px;line-height:1.55;margin-top:8px\">Codex App · 可选。项目操作与模型接入按实际版本、账号和配置核对，本节不演示</p></div></div>",
       "steps": [
         "认准入口",
         "找到证据",
         "决定路径"
       ],
       "script": [
-        "【操作提示｜课件 p15 第 1 步。录制前准备同一 Starter Repo、1.1 的真实请求与授权记录、修改前截图和完整差异；终端记录先脱敏。本节复用首次任务，不重置已完成的欢迎语。】\n\n上一节，我们沿着欢迎语任务，看了 Agent 怎样读取文件、执行动作，再根据返回继续往下做。这一节，我们站到使用者这一边：它准备做一个动作的时候，我该看什么，又该在什么地方停下来？\n\n这门课统一用左边这个入口：终端里的 Codex CLI。我们可能也用过图形界面，比如右边提到的 ChatGPT App。换个窗口，任务还是那个任务：修改我们练习项目里的欢迎语。不管用哪个，先核对它接触到的是不是同一个项目。\n\n用 CLI，要看它从哪个目录启动；用图形界面，要看它实际接入了哪个项目和文件。要是两边打开了不同的副本，后面看到的修改和结果就对不上。",
+        "【操作提示｜课件 p15 第 1 步。录制前准备同一 Starter Repo、1.1 的真实请求与授权记录、修改前截图和完整差异；终端记录先脱敏。本节复用首次任务，不重置已完成的欢迎语。】\n\n上一节，我们沿着欢迎语任务，看了 Agent 怎样读取文件、执行动作，再根据返回继续往下做。这一节，我们站到使用者这一边：它准备做一个动作的时候，我该看什么，又该在什么地方停下来？\n\n这门课统一用左边这个入口：终端里的 Codex CLI。我们可能也用过图形界面，比如右边提到的 Codex App。换个窗口，任务还是那个任务：修改我们练习项目里的欢迎语。不管用哪个，先核对它接触到的是不是同一个项目。\n\n用 CLI，要看它从哪个目录启动；用图形界面，要看它实际接入了哪个项目和文件。要是两边打开了不同的副本，后面看到的修改和结果就对不上。",
         "【操作提示｜切 Terminal，在独立练习项目根目录运行 git branch --show-current、git status --short、git diff。切 VS Code 打开同一目录的 setup-check/index.html，定位 h1#welcome-message；再展示已保存的 CLI 工具返回。图形界面不现场演示，只用课件右侧说明带过。随后回课件 p15 第 2 步。】\n\n我先在终端里看当前分支和文件状态，再打开这份 HTML，找到欢迎语。这里有两个观察位置：工具记录告诉我们它做了什么，文件和差异告诉我们实际留下了什么。\n\n比较入口的时候，也沿着这两个位置找。在哪里看它执行的命令？在哪里看它改过的文件？权限提示又在哪里？图形界面的具体能力，要按实际版本、账号和配置核对，不能只看窗口长什么样。\n\n后面课程统一用 CLI，操作记录和检查方式就能连起来。",
-        "【操作提示｜课件 p15 第 3 步 → VS Code 打开 docs/setup/ENVIRONMENT.md。仅桌面起步或环境发生变化时，补对应检查：Terminal 运行 codex --version、codex --help，再从练习根目录启动 codex，核对当前权限后发送只读请求：“只检查当前项目目录、分支、Git 状态和差异，报告结果；不要修改文件、安装依赖或发布。”已完成者复用真实记录。失败回 0.2 课前准备的对应步骤排查；完成后回课件。】\n\n如果从第一节开始就在用 CLI，而且环境没有变化，原来的记录可以继续用。如果之前用的是临时桌面入口，现在要补一次 CLI 的只读检查。\n\n所谓只读检查，就是先让它报告目录、分支、状态和差异，把项目认对，不要求它写文件。我们要留下实际返回，确认这条操作路径能走通。\n\n这一项卡住，就把错误和待补项记下来，按 0.2 课前准备排查。看过演示与自己完成检查，要分别记录。入口核对清楚以后，再看这个欢迎语任务究竟涉及哪些动作。"
+        "【操作提示｜课件 p15 第 3 步 → VS Code 打开 docs/setup/ENVIRONMENT.md。仅 CLI 检查缺项或环境发生变化时，补对应检查：Terminal 运行 codex --version、codex --help，再从练习根目录启动 codex，核对当前权限后发送只读请求：“只检查当前项目目录、分支、Git 状态和差异，报告结果；不要修改文件、安装依赖或发布。”已完成者复用真实记录。失败回 0.2 课前准备的对应步骤排查；完成后回课件。】\n\n第一节已经在用 CLI，环境没有变化时，原来的记录可以继续用。还没有完成 CLI 检查时，先补一次只读请求；可选 App 的操作不能代替这一项。\n\n所谓只读检查，就是先让它报告目录、分支、状态和差异，把项目认对，不要求它写文件。我们要留下实际返回，确认这条操作路径能走通。\n\n这一项卡住，就把错误和待补项记下来，按 0.2 课前准备排查。看过演示与自己完成检查，要分别记录。入口核对清楚以后，再看这个欢迎语任务究竟涉及哪些动作。"
       ],
       "segment": "入口与动作",
       "seconds": 100,
@@ -27,11 +27,11 @@ window.lesson = {
       "teaching": [
         {
           "title": "追问与预期判断",
-          "text": "换了入口，哪些事情仍要核对？\n\n复用 1.1 记录。仅桌面起步者补 CLI 只读基线，环境变化者复核变化项，不重做全套检查。"
+          "text": "换了入口，哪些事情仍要核对？\n\n复用 1.1 记录。CLI 检查缺项者补做只读请求，环境变化者复核变化项，不重做全套检查。"
         },
         {
           "title": "演示分支",
-          "text": "桌面端未核验时明确只介绍交互入口。不得声称 ChatGPT App 只能聊天，也不得声称所有桌面版本均可直接修改本地项目；不作能力排名。"
+          "text": "可选 App 未核验时明确只介绍交互入口。不得声称 Codex App 只能聊天，也不得声称所有桌面版本均可直接修改本地项目；不作能力排名。"
         },
         {
           "title": "备课标记",
@@ -43,16 +43,17 @@ window.lesson = {
         },
         {
           "title": "讲师提示",
-          "text": "两个入口都能表达任务，但不能假定可见界面背后的能力相同。\n\n先问在哪里看动作、权限和结果；以实际版本、账号和配置为准。\n\n复用 1.1 记录。仅桌面起步者补 CLI 只读基线，环境变化者复核变化项，不重做全套检查。"
+          "text": "两个入口都能表达任务，但不能假定可见界面背后的能力相同。\n\n先问在哪里看动作、权限和结果；以实际版本、账号和配置为准。\n\n复用 1.1 记录。CLI 检查缺项者补做只读请求，环境变化者复核变化项，不重做全套检查。"
         }
-      ]
+      ],
+      "closing": "本课实操统一使用 Codex CLI。Codex App 是可选图形界面，使用时也要核对项目、权限与结果；App 的完成状态不替代 CLI 的准备检查。"
     },
     {
       "id": "p16",
       "label": "同一个欢迎语任务，会做哪些动作？",
       "title": "同一个欢迎语任务，会做哪些动作？",
-      "lead": "同样是改欢迎语，会涉及四类动作：读取、修改、执行命令、对外操作，影响范围依次变大。读取要和任务有关，修改要看实际 Diff，命令要看会不会写入、联网，欢迎语任务则根本不需要发布。",
-      "html": "<div class=\"p-grid\" style=\"--n:4;gap:16px\"><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"0\" style=\"padding:14px 18px\"><h3>读取</h3><p style=\"font-size:22px;font-weight:700\">查看目标 HTML</p><p style=\"font-size:20px;margin-top:10px;color:var(--ct)\">是否与任务有关？</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\" style=\"padding:14px 18px\"><h3>修改</h3><p style=\"font-size:22px;font-weight:700\">替换欢迎语</p><p style=\"font-size:20px;margin-top:10px;color:var(--ct)\">是否只改目标？</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"2\" style=\"padding:14px 18px\"><h3>执行命令</h3><p style=\"font-size:22px;font-weight:700\">Git 差异 / 检查脚本</p><p style=\"font-size:20px;margin-top:10px;color:var(--ct)\">是否写入、启动进程或联网？</p></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"3\" style=\"padding:14px 18px\"><h3>对外操作</h3><p style=\"font-size:22px;font-weight:700\">发布公开站点</p><p style=\"font-size:20px;margin-top:10px;color:var(--ct)\">当前任务是否需要发布？</p></div></div><div class=\"p-scale\" data-reveal=\"3\"><span>影响范围小</span><span>影响范围大</span></div>",
+      "lead": "欢迎语任务可能涉及读取、修改和执行命令，当前不需要对外发布。每种动作都要看具体对象和影响：读什么、改哪里、命令会不会写入或联网，不能只按动作名称判断风险大小。",
+      "html": "<div class=\"p-grid\" style=\"--n:4;gap:16px\"><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"0\" style=\"padding:14px 18px\"><h3>读取</h3><p style=\"font-size:22px;font-weight:700\">查看目标 HTML</p><p style=\"font-size:20px;margin-top:10px;color:var(--ct)\">是否与任务有关？</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\" style=\"padding:14px 18px\"><h3>修改</h3><p style=\"font-size:22px;font-weight:700\">替换欢迎语</p><p style=\"font-size:20px;margin-top:10px;color:var(--ct)\">是否只改目标？</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"2\" style=\"padding:14px 18px\"><h3>执行命令</h3><p style=\"font-size:22px;font-weight:700\">Git 差异 / 检查脚本</p><p style=\"font-size:20px;margin-top:10px;color:var(--ct)\">是否写入、启动进程或联网？</p></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"3\" style=\"padding:14px 18px\"><h3>对外操作</h3><p style=\"font-size:22px;font-weight:700\">发布公开站点</p><p style=\"font-size:20px;margin-top:10px;color:var(--ct)\">当前任务是否需要发布？</p></div></div><div class=\"p-scale\" data-reveal=\"3\"><span>看具体对象</span><span>查实际影响</span></div>",
       "steps": [
         "读",
         "写",
@@ -63,7 +64,7 @@ window.lesson = {
         "【操作提示｜课件 p16 第 1 步 → 切 VS Code，展示 setup-check/index.html 的欢迎语及相邻几行；切 Terminal 回看 1.1 中读取该文件的真实记录。缺少记录时留在课件，明确按示例讲解。随后回课件。】\n\n第一类是读取。要改欢迎语，先读目标 HTML，找到现在的文字和对应位置，这个读取和任务直接有关。\n\n如果它要读取别的内容，就继续问：这份资料能帮助完成哪一步？例如，读取项目说明，是为了确认项目约定；但私人目录里的文件，和这次改欢迎语没有关系。\n\n所以，看到“读取”两个字，我们仍然要看对象。没有写入，也需要有合理的读取范围。",
         "【操作提示｜课件 p16 第 2 步 → 切 VS Code，打开 1.1 留存的完整差异，指出欢迎语的删除行和新增行。若修改已提交，使用对应任务的已保存差异，不把当前空 diff 解释成没有改动。随后回课件。】\n\n第二类是修改。现在看这段差异：原来的欢迎语被删掉，目标文字加进来。这才是“改欢迎语”对应的具体变化。\n\n接下来还要往下看，有没有顺手改样式，或者动到其他文件。任务只要求换一句文字，我们核对范围时，就以这句话和这个位置为依据。\n\n已有的其他改动也要和开工前的记录对照，先分清哪些原来就在，哪些是本次新增的。",
         "【操作提示｜课件 p16 第 3 步 → 切 Terminal 的普通 shell，展示 git diff --stat 与 git diff 的实际输出；不要把 shell 命令输入 Codex 对话，也不要为演示临时安装检查工具。随后回课件。】\n\n第三类是执行命令。我们刚才查看差异，也是通过命令完成的。命令可以用来读信息，也可以用来改文件、启动服务，或者把数据发出去。\n\n所以，“执行了一个命令”还不够具体。要接着看：命令针对哪个目录？会产生什么变化？如果是检查脚本，还得知道它里面实际做了什么，不能因为名字叫检查，就当成完全只读。\n\n这几类动作会有交叉。用命令修改文件，同时涉及命令执行和写入，我们按实际影响来判断。",
-        "【操作提示｜留在课件 p16 第 4 步，只展示“发布公开站点”卡片；这里不打开发布网站、不执行推送或部署。】\n\n第四类是对外操作，比如发布公开站点。欢迎语在本地改好，和让别人通过公网地址看到它，是两件需要分别决定的事。\n\n这次任务只检查本地页面，没有提出发布要求。因此，即使工具具备发布能力，也没有理由在这里顺手发布。\n\n图上的箭头提醒我们关注影响范围。具体风险还得看内容和对象，读取敏感资料也可能产生很大影响。那如果我在请求里写上“只改欢迎语，不要发布”，这些边界就已经被系统锁住了吗？"
+        "【操作提示｜留在课件 p16 第 4 步，只展示“发布公开站点”卡片；这里不打开发布网站、不执行推送或部署。】\n\n第四类是对外操作，比如发布公开站点。欢迎语在本地改好，和让别人通过公网地址看到它，是两件需要分别决定的事。\n\n这次任务只检查本地页面，没有提出发布要求。因此，即使工具具备发布能力，也没有理由在这里顺手发布。\n\n图上的箭头列出了几类动作，判断时还要看具体对象和实际影响。具体风险还得看内容和对象，读取敏感资料也可能产生很大影响。那如果我在请求里写上“只改欢迎语，不要发布”，这些边界就已经被系统锁住了吗？"
       ],
       "segment": "入口与动作",
       "seconds": 120,
@@ -95,8 +96,8 @@ window.lesson = {
       "id": "p17",
       "label": "一句“不许越界”，限制住了吗？",
       "title": "一句“不许越界”，限制住了吗？",
-      "lead": "每个动作要经过三层：Prompt 里写的任务约束像一块告示牌，只说明意图、挡不住动作；Sandbox 的技术限制像围栏，要看真实配置；人工批准像这一次盖的章。三者是不同的证据，批准也不会改变配置。",
-      "html": "<div class=\"p-flow is-big\" style=\"--n:5;column-gap:36px;--node-h:250px\"><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\"><h3>Agent 动作</h3><p>读 · 写 · 执行</p></div><div class=\"p-node\" data-role=\"ctx\" data-reveal=\"0\"><svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"color:var(--c);filter:url(#p-rough);display:block;margin:0 auto 6px\"><path d=\"M60 30 V78\"/><rect x=\"18\" y=\"6\" width=\"84\" height=\"32\" rx=\"4\" transform=\"rotate(-5 60 22)\" fill=\"#FFFDF7\" stroke-dasharray=\"7 6\"/><text x=\"60\" y=\"28\" text-anchor=\"middle\" font-size=\"16\" font-family=\"Noto Sans SC,sans-serif\" fill=\"currentColor\" stroke=\"none\" font-weight=\"700\" transform=\"rotate(-5 60 22)\">不许越界</text></svg><h3><span class=\"p-num\">1</span>任务约束</h3><p>告示牌<br>写下的意图</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"1\"><svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"color:var(--c);filter:url(#p-rough);display:block;margin:0 auto 6px\"><path d=\"M14 26 L22 14 L30 26 V76 H14 Z M46 26 L54 14 L62 26 V76 H46 Z M78 26 L86 14 L94 26 V76 H78 Z\" fill=\"var(--cl)\"/><path d=\"M6 38 H112 M6 62 H112\"/></svg><h3><span class=\"p-num\">2</span>技术限制</h3><p>围栏 · Sandbox<br>实际挡住什么</p></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"2\"><svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"color:var(--c);filter:url(#p-rough);display:block;margin:0 auto 6px\"><path d=\"M50 8 h20 v10 c0 8 8 10 8 20 h-36 c0-10 8-12 8-20 Z\" fill=\"var(--cl)\"/><rect x=\"30\" y=\"38\" width=\"60\" height=\"12\" rx=\"3\" fill=\"var(--cl)\"/><path d=\"M26 64 h68\" stroke-dasharray=\"2 0\"/><path d=\"M40 72 h40\"/></svg><h3><span class=\"p-num\">3</span>人工批准</h3><p>盖章 · Approval<br>批准这一次</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"2\"><h3>执行</h3><p>之后仍要验收</p></div></div><div class=\"p-bar\" data-reveal=\"3\" style=\"margin-top:22px\">告示牌挡不住动作 · 围栏和盖章也各管各的：<b>三份不同的证据</b></div>",
+      "lead": "核对动作时，分清三项内容：Prompt 写下的任务范围、Sandbox 实际设置的限制、人的批准记录。任务要求不会自动变成技术隔离，批准也不自动改变配置；是否需要授权提示，要看当前策略。",
+      "html": "<div class=\"p-flow is-big\" style=\"--n:5;column-gap:36px;--node-h:250px\"><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\"><h3>Agent 动作</h3><p>读 · 写 · 执行</p></div><div class=\"p-node\" data-role=\"ctx\" data-reveal=\"0\"><svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"color:var(--c);filter:url(#p-rough);display:block;margin:0 auto 6px\"><path d=\"M60 30 V78\"/><rect x=\"18\" y=\"6\" width=\"84\" height=\"32\" rx=\"4\" transform=\"rotate(-5 60 22)\" fill=\"#FFFDF7\" stroke-dasharray=\"7 6\"/><text x=\"60\" y=\"28\" text-anchor=\"middle\" font-size=\"16\" font-family=\"Noto Sans SC,sans-serif\" fill=\"currentColor\" stroke=\"none\" font-weight=\"700\" transform=\"rotate(-5 60 22)\">不许越界</text></svg><h3><span class=\"p-num\">1</span>任务约束</h3><p>告示牌<br>写下的意图</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"1\"><svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"color:var(--c);filter:url(#p-rough);display:block;margin:0 auto 6px\"><path d=\"M14 26 L22 14 L30 26 V76 H14 Z M46 26 L54 14 L62 26 V76 H46 Z M78 26 L86 14 L94 26 V76 H78 Z\" fill=\"var(--cl)\"/><path d=\"M6 38 H112 M6 62 H112\"/></svg><h3><span class=\"p-num\">2</span>技术限制</h3><p>围栏 · Sandbox<br>实际挡住什么</p></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"2\"><svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"color:var(--c);filter:url(#p-rough);display:block;margin:0 auto 6px\"><path d=\"M50 8 h20 v10 c0 8 8 10 8 20 h-36 c0-10 8-12 8-20 Z\" fill=\"var(--cl)\"/><rect x=\"30\" y=\"38\" width=\"60\" height=\"12\" rx=\"3\" fill=\"var(--cl)\"/><path d=\"M26 64 h68\" stroke-dasharray=\"2 0\"/><path d=\"M40 72 h40\"/></svg><h3><span class=\"p-num\">3</span>人工批准</h3><p>盖章 · Approval<br>批准这一次</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"2\"><h3>执行</h3><p>之后仍要验收</p></div></div><div class=\"p-bar\" data-reveal=\"3\" style=\"margin-top:22px\">任务请求、限制配置与批准记录，<b>分别核对</b></div>",
       "steps": [
         "先看意图",
         "再看限制",
@@ -291,8 +292,8 @@ window.lesson = {
       "id": "p19-recap",
       "label": "授权管动作，验收看结果",
       "title": "授权管动作，验收看结果",
-      "lead": "把选择理由补进已有的环境与权限记录：工具路径、CLI 基线、实际权限、停止条件和四题理由；缺项如实标为待补做。一句话：授权管动作，验收看结果。下一节把这些边界写进个人主页任务。",
-      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3>保留记录</h3><div class=\"p-words\" style=\"grid-template-columns:1fr\"><div class=\"p-box\" data-role=\"ctx\"><p>实际权限 · 停止条件</p></div><div class=\"p-box\" data-role=\"ctx\"><p>四题理由</p></div></div></div><div data-reveal=\"1\"><h3>如实标记</h3><ul class=\"p-warns\"><li>缺项待补做</li><li>未补 CLI 不验收</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>一句话</h3><div class=\"p-star\" style=\"width:200px;font-size:22px\">授权管动作<br>验收看结果</div><div class=\"p-box\" data-role=\"us\" style=\"margin-top:12px\"><h3>下一节 1.4 写清任务</h3></div></div></div>",
+      "lead": "把四题的选择理由补进已有记录，写明 Codex CLI 是否能用、实际权限是什么、什么情况要停止。缺项标为待补做；下一节把这些已核对的边界写进个人主页任务。",
+      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3>保留记录</h3><div class=\"p-words\" style=\"grid-template-columns:1fr\"><div class=\"p-box\" data-role=\"ctx\"><p>实际权限 · 停止条件</p></div><div class=\"p-box\" data-role=\"ctx\"><p>四题理由</p></div></div></div><div data-reveal=\"1\"><h3>如实标记</h3><ul class=\"p-warns\"><li>缺项待补做</li><li>CLI 未就绪，先补做</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>一句话</h3><div class=\"p-star\" style=\"width:200px;font-size:22px\">授权管动作<br>验收看结果</div><div class=\"p-box\" data-role=\"us\" style=\"margin-top:12px\"><h3>下一节 1.4 写清任务</h3></div></div></div>",
       "steps": [
         "交付",
         "核对状态",
@@ -300,7 +301,7 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜课件 p19-recap 第 1 步 → 切 VS Code，打开 docs/setup/ENVIRONMENT.md 和 docs/evidence/CH01_ENVIRONMENT_AND_FIRST_LOOP.md，由讲师整理工具路径、CLI 基线、实际权限与停止入口，并补入四题理由；不让 Agent 把证据文件混入原欢迎语单文件授权。】\n\n这一节的结果，继续放在原来的环境和证据记录里。环境单说明自己用哪个入口、CLI 检查到了哪一步、当前权限是什么；证据单保留授权、返回、结果和四个场景的判断理由。\n\n写清这些，以后换机器或者换配置时，就能知道哪些需要重新核对。记录不要求写成长报告，但每个通过结论要找得到依据。",
-        "【操作提示｜课件 p19-recap 第 2 步，对照实际记录标记已完成、失败或待补做；CLI 缺项指向 0.2 课前准备，不修改状态来凑通过。】\n\n最后看有没有缺项。桌面入口完成过任务，但 CLI 还没有实际跑通，就把 CLI 标记为待补做。可以继续理解后面的任务讨论，依赖 CLI 的操作要等这项补齐。\n\n权限不清楚、工具执行失败，也按实际情况记。先定位缺的是哪一步，再按 0.2 课前准备补齐，不要靠放开所有权限或者修改别处源码，让检查表看起来全部通过。",
+        "【操作提示｜课件 p19-recap 第 2 步，对照实际记录标记已完成、失败或待补做；CLI 缺项指向 0.2 课前准备，不修改状态来凑通过。】\n\n最后看有没有缺项。CLI 还没有实际跑通，就把这一项标记为待补做。可选 App 的完成记录不能替代它。可以继续理解后面的任务讨论，依赖 CLI 的操作要等这项补齐。\n\n权限不清楚、工具执行失败，也按实际情况记。先定位缺的是哪一步，再按 0.2 课前准备补齐，不要靠放开所有权限或者修改别处源码，让检查表看起来全部通过。",
         "【操作提示｜回 Chrome 课件 p19-recap 第 3 步；讲完后进入下一节。保留需要的练习页面与记录，不在收尾临时增加新操作。】\n\n这一节，我们从同一个欢迎语任务里，分清了三个问题：它准备做什么，我同意它做什么，最后实际得到了什么。\n\n授权管动作，验收看结果。下一节，我们把这些判断用到个人主页任务里，把目标、上下文、允许修改的范围和完成标准写清楚，让 Codex 有具体依据开始工作。"
       ],
       "segment": "判断与交付",

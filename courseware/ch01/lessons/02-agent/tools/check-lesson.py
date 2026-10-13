@@ -69,15 +69,37 @@ with sync_playwright() as p:
     page.goto(base+'?mode=slides&step=1#p11-judge');assert state()['step']==1
     page.reload();assert state()['id']=='p11-judge' and state()['step']==1
     page.goto(base+'?mode=slides&step=999#p09');assert state()['step']==1
-    # 1280x720 recording coordinates / presenter safe zone.
+    # The recording logo occupies space above the scaled 1280x720 canvas.
     page.set_viewport_size({'width':1280,'height':720});page.keyboard.press('r')
-    page.wait_for_function("document.querySelector('.scene:not([hidden])').getBoundingClientRect().width===1280")
+    page.wait_for_function("""() => {
+        const s=document.querySelector('.scene:not([hidden])').getBoundingClientRect();
+        return document.body.classList.contains('recording') && s.bottom<=innerHeight+1;
+    }""")
+    canvas=page.locator('.scene:not([hidden])').bounding_box()
+    scale=canvas['width']/1280
+    assert abs(canvas['height']-720*scale)<1,canvas
     cam=page.locator('.camera-guide').bounding_box()
-    assert all(abs(cam[k]-v)<1 for k,v in {'x':956,'y':24,'width':300,'height':225}.items()),cam
+    expected={'x':canvas['x']+956*scale,'y':canvas['y']+24*scale,'width':300*scale,'height':225*scale}
+    assert all(abs(cam[k]-v)<1 for k,v in expected.items()),(cam,expected)
     page.keyboard.press('End');assert not layout_check()['over']
-    # Responsive reading and keyboard-scrollable diagrams.
-    page.keyboard.press('r');page.keyboard.press('t');page.set_viewport_size({'width':390,'height':844})
-    assert page.evaluate('document.documentElement.scrollWidth<=innerWidth'), 'mobile horizontal overflow'
+    # Page overflow can stay hidden while a grid's text is clipped on a phone.
+    page.keyboard.press('r');page.keyboard.press('t')
+    for width in (390,320):
+        page.set_viewport_size({'width':width,'height':844})
+        page.goto(base+'?mode=scroll#p14-check');page.evaluate('document.fonts.ready')
+        assert page.evaluate('document.documentElement.scrollWidth<=innerWidth'), 'mobile horizontal overflow'
+        clipped=page.evaluate('''() => {
+            const scene=document.querySelector('#p14-check'), bounds=scene.getBoundingClientRect();
+            const walker=document.createTreeWalker(scene,NodeFilter.SHOW_TEXT), outside=[];
+            for(let node;node=walker.nextNode();){
+                if(!node.textContent.trim() || !node.parentElement.getClientRects().length)continue;
+                const range=document.createRange();range.selectNodeContents(node);
+                if([...range.getClientRects()].some(r=>r.width>0 && (r.left<bounds.left-1 || r.right>bounds.right+1)))
+                    outside.push(node.textContent.trim().slice(0,50));
+            }
+            return outside;
+        }''')
+        assert not clipped,('p14-check',width,clipped)
     # 零件图示在窄屏自动改为纵向排列，不再需要横向滚动容器。
     # Speaker links land on each exact step.
     page.goto((ROOT/'speaker.html').as_uri())

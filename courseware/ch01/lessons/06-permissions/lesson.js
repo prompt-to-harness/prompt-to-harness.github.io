@@ -47,7 +47,7 @@ window.lesson = {
       "id": "p33",
       "label": "必要能力与额外影响分开看",
       "title": "必要能力与额外影响分开看",
-      "lead": "回到 1.3 只改一句欢迎语的任务，把每项能力按“这次需不需要”分开：读取目标、写入这一句是必要的；读私人目录、写无关文件、安装和发布都不是，只会带来额外影响。“以后可能用得上”不是这次授权的理由。",
+      "lead": "回到第一次修改欢迎语的任务（1.1），把每项能力按“这次需不需要”分开：读取目标、写入这一句是必要的；读私人目录、写无关文件、安装和发布都不是，只会带来额外影响。“以后可能用得上”不是这次授权的理由。",
       "html": "<div class=\"p-matrix\" style=\"--n:1;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1.4fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>能力</span><span class=\"p-c\">改欢迎语需要吗</span><span>影响</span></div><div data-reveal=\"0\"><span>读目标与仓库状态</span><span class=\"p-c\" data-mk=\"fit\"> 需要</span><span>定位文字</span></div><div data-reveal=\"1\"><span>写指定欢迎语</span><span class=\"p-c\" data-mk=\"fit\"> 需要</span><span>改动目标文件，仍查 Diff</span></div><div data-reveal=\"2\"><span>读私人目录 / 写无关文件</span><span class=\"p-c\" data-mk=\"over\"> 不需要</span><span>资料暴露 / 误改其他工作</span></div><div data-reveal=\"3\"><span>安装依赖 / 发布</span><span class=\"p-c\" data-mk=\"over\"> 不需要</span><span>环境被改 / 内容公开</span></div></div>",
       "steps": [
         "必要读取",
@@ -135,8 +135,8 @@ window.lesson = {
       "id": "p34-boundary",
       "label": "写了“不许”，还要看实际限制",
       "title": "写了“不许”，还要看实际限制",
-      "lead": "Prompt 里写“不许发布”只是表达意图，也就是 1.3 讲过的第一层。真正有没有被限制，要看实际配置和批准范围；人工批准了，也不代表结果一定正确。三者要分别核对。",
-      "html": "<div class=\"p-pair\"><div class=\"p-box is-dashed\" data-role=\"ctx\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">写下的</span><h3>说明意图</h3><p>“不许发布”</p></div><div class=\"p-join\" data-reveal=\"1\"><b>≠</b><span>还要核对</span></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"tool\">实际的</span><h3>核对限制</h3><p>真实配置 · 批准范围</p></div></div><div class=\"p-bar is-light\" data-reveal=\"1\">意图 · 限制 · 批准，<b>三份证据</b></div>",
+      "lead": "上一节权限讨论中，Prompt 的任务约束是第一项。“不许发布”明确了任务范围，但有没有技术限制，要看实际配置；人的批准范围也要单独核对。批准以后，仍然需要检查结果。",
+      "html": "<div class=\"p-pair\"><div class=\"p-box is-dashed\" data-role=\"ctx\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">写下的</span><h3>说明意图</h3><p>“不许发布”</p></div><div class=\"p-join\" data-reveal=\"1\"><b>≠</b><span>还要核对</span></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"tool\">实际的</span><h3>核对限制</h3><p>真实配置 · 批准范围</p></div></div><div class=\"p-bar is-light\" data-reveal=\"1\">核对<b>任务请求、限制配置和批准记录</b></div>",
       "steps": [
         "回扣三层",
         "解释边界"

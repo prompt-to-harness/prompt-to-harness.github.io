@@ -36,24 +36,46 @@ window.lesson = {
       "segment": "公开之前",
       "label": "仓库是公开的吗",
       "title": "先看一眼：仓库现在是公开还是私有",
-      "lead": "打开 GitHub 上自己的仓库，看名字旁边的标记是 Public 还是 Private。GitHub Pages 发布要求仓库公开（课前准备页已提前说明）。此时只查看，不改设置；看清待公开内容以后再决定。",
-      "html": "<div class=\"p-handoff\"><div class=\"p-handoff-card\" data-reveal=\"0\"><h3>切到 GitHub</h3><p>打开自己的仓库首页</p><span class=\"p-env\">Public</span><span class=\"p-env\">Private</span></div><ol class=\"p-watch\"><li data-reveal=\"1\">仓库名旁的标记<small>Public 还是 Private</small></li><li data-reveal=\"1\">远端已有什么<small>Template 生成的初始提交</small></li><li class=\"is-miss\" data-reveal=\"2\">现在先不改<small>查清待公开内容后再决定</small></li></ol></div>",
+      "lead": "前面只把课程模板克隆到本地。发布前先在自己的 GitHub 账号下新建空仓库，核对 origin 指向自己的仓库；此时不推送。再看仓库公开范围，检查待公开内容以后才决定是否公开。",
+      "html": "<div class=\"p-handoff\"><div class=\"p-handoff-card\" data-reveal=\"0\"><h3>切到 GitHub</h3><p>新建或打开自己的空仓库</p><span class=\"p-env\">Public</span><span class=\"p-env\">Private</span></div><ol class=\"p-watch\"><li data-reveal=\"1\">仓库名旁的标记<small>Public 还是 Private</small></li><li data-reveal=\"1\">远端已有什么<small>首次发布前应为空仓库</small></li><li class=\"is-miss\" data-reveal=\"2\">现在先不改<small>查清待公开内容后再决定</small></li></ol></div>",
       "steps": [
-        "打开仓库",
-        "看什么",
-        "先不改"
+        "建立个人远端",
+        "核对目标与历史",
+        "先不公开"
       ],
       "script": [
-        "【操作提示｜课件 p44 第 1 步 → Chrome 新开标签页“GitHub 仓库”，打开讲师录制用的、由 Template 生成的仓库首页（地址录前核对），保留课件标签页；不展示账号设置等含个人信息的页面】\n\n切到浏览器，打开 GitHub 上自己的仓库首页。这个仓库是课程开始时用 Template 生成的。",
-        "【操作提示｜同一标签页指认仓库名旁的 Public / Private 标记，再打开提交历史，指认远端只有 Template 生成的初始提交；实际不同（例如已推送过）时如实说明】\n\n看两样东西。仓库名旁边的标记，是 Public 还是 Private。再看远端现在有什么：应该只有 Template 生成的那个初始提交，我们后来的提交都还没推上来。",
-        "【操作提示｜回课件 p44 第 3 步；本页不进 Settings 改可见性。讲师仓库已是公开时，说明私有的同学到 p49 再改】\n\n本课用 GitHub Pages 发布，要求仓库是公开的，课前准备页已经提醒过。如果自己的仓库现在是私有的，先别急着改成公开。看清楚即将公开的内容，再做决定。"
+        "【操作提示｜课件 p44 第 1 步 → Chrome 新建“GitHub 仓库”标签页，在讲师自己的账号下新建空仓库，暂选 Private，不勾选 README、.gitignore 或许可证；账号资料不入镜。已有个人空仓库时直接打开，不重复创建。保留课件标签页，此时不推送】\n\n前面我们直接克隆了课程模板，一直在本地练习。现在要发布，先建立自己的远端仓库。在 GitHub 上新建一个空仓库，暂时设为私有，不初始化文件。我们已有源码和提交，后面会把检查过的这一份推过去。",
+        "【操作提示｜推进第 2 步 → 复制个人空仓库的 HTTPS 地址；Terminal 在练习项目根目录运行 git remote -v，核对原来的 origin。按展开步骤执行 git remote set-url origin 个人仓库地址，再运行 git remote -v，核对 fetch 与 push 目标。回 GitHub 检查仓库为空；已有内容时停止并核对，不覆盖、不强推】\n\n刚克隆时，origin 指向课程模板。现在把它改成自己的仓库地址，再看一次，确认取回和推送的目标都属于自己的账号。这里只改本地连接地址，没有推送。\n\n再看 GitHub 上的仓库：公开还是私有，里面有没有已有内容。首次发布使用空仓库；如果已经有提交，就先查清来源和历史，不能当作空仓库直接覆盖。",
+        "【操作提示｜回课件 p44 第 3 步；本页不进 Settings 改可见性。讲师仓库已是公开时，说明私有的同学到 p49 再改】\n\n本课用 GitHub Pages 发布，要求仓库是公开的，这里先说明发布时需要的公开范围。如果自己的仓库现在是私有的，先别急着改成公开。看清楚即将公开的内容，再做决定。"
       ],
       "teaching": [
         {
           "title": "讲师提示",
-          "text": "GitHub 免费账号的 Pages 需要公开仓库；仓库设置界面按录制时 GitHub 版本核对。若学员仓库是私有的，改成公开前还要检查远端已有的内容与历史，不能只看 origin/main..HEAD。"
+          "text": "使用学员自己的空远端仓库；从课程模板直接克隆的本地历史会随首次推送一起公开。已有远端含提交时先核对历史和分支，不覆盖或强推。"
         }
       ],
+      "repro": {
+        "label": "发布前：建立个人远端",
+        "steps": [
+          {
+            "text": "在自己的 GitHub 账号下新建空仓库，暂选 Private；不初始化 README、.gitignore 或许可证。已有远端包含内容时先核对来源和历史，不覆盖、不强推。",
+            "code": ""
+          },
+          {
+            "text": "复制新仓库的 HTTPS 地址，在练习项目根目录先查看原来的 origin。",
+            "code": "git remote -v"
+          },
+          {
+            "text": "把命令中的“你自己的仓库地址”替换为刚复制的地址。这里只改本地 origin 的目标，不推送、不改变文件或提交。",
+            "code": "git remote set-url origin 你自己的仓库地址\ngit remote -v"
+          },
+          {
+            "text": "核对 origin 的 fetch、push 地址都属于自己的仓库，GitHub 页面没有已有提交。原来的课程模板只用来取得起始材料。",
+            "code": ""
+          }
+        ],
+        "note": ""
+      },
       "source": "index.html#p44",
       "seconds": 90
     },
@@ -62,28 +84,42 @@ window.lesson = {
       "segment": "推送前检查",
       "label": "即将公开的历史",
       "title": "列出即将公开的提交、文件和作者",
-      "lead": "先取回远端的最新状态，再列出本地有、远端没有的提交。--stat 列出每个提交涉及的文件，包括后来删掉的；-p 展开每一行实际文字；最后一条列出这些提交的作者姓名和邮箱，它们也会随提交公开。截图等二进制文件要另外打开看。",
-      "html": "<div class=\"p-term\" data-reveal=\"0\" data-copy=\"git fetch origin\ngit log --stat origin/main..HEAD\ngit log -p origin/main..HEAD\ngit log --format=&#x27;%an &lt;%ae&gt;&#x27; origin/main..HEAD | sort -u\"><div class=\"dim\">$ git fetch origin</div><div class=\"dim\">$ git log --stat origin/main..HEAD</div><div>homepage-v1: 补充项目经历</div><div>  docs/evidence/CH02_VIBE_ITERATIONS.md · src/App.tsx</div><div class=\"dim\">$ git log --format='%an &lt;%ae&gt;' origin/main..HEAD | sort -u</div><div>示例同学 &lt;student@example.com&gt;</div></div><div class=\"p-grid\" style=\"--n:3;gap:12px;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"1\"><h3>提交作者</h3><p>每个提交都带着姓名和邮箱</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"1\"><h3>docs/evidence/</h3><p>本章的过程记录</p></div><div class=\"p-box is-soft\" data-role=\"us\" data-reveal=\"2\"><h3>2.2 的项目经历</h3><p>关于具体的人的事实</p></div></div><p class=\"source-note\">输出为示意，作者为占位；命令已在本地裸仓库模拟 Template 远端实测（2026-10-02、10-03）</p>",
+      "lead": "首次向个人空仓库推送时，当前分支的全部历史都会公开。检查每次提交改过的文件、实际内容和作者信息，包含后来删掉的文件；不能只看当前目录或与课程模板相比的新增提交。",
+      "html": "<div class=\"p-term\" data-reveal=\"0\" data-copy=\"git log --stat HEAD\ngit log -p HEAD\ngit log --format=&#x27;%an &lt;%ae&gt;&#x27; HEAD | sort -u\"><div class=\"dim\">$ git log --stat HEAD</div><div>homepage-v1: 补充项目经历</div><div>  docs/evidence/CH02_VIBE_ITERATIONS.md · src/App.tsx</div><div class=\"dim\">$ git log -p HEAD</div><div class=\"dim\">$ git log --format='%an &lt;%ae&gt;' HEAD | sort -u</div><div>示例同学 &lt;student@example.com&gt;</div></div><div class=\"p-grid\" style=\"--n:3;gap:12px;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"1\"><h3>提交作者</h3><p>每个提交都带着姓名和邮箱</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"1\"><h3>docs/evidence/</h3><p>本章的过程记录</p></div><div class=\"p-box is-soft\" data-role=\"us\" data-reveal=\"2\"><h3>2.2 的项目经历</h3><p>关于具体的人的事实</p></div></div><p class=\"source-note\">输出为示意，作者为占位；实际检查当前分支的完整历史</p>",
       "steps": [
         "列出提交与作者",
         "作者与过程记录",
         "个人内容"
       ],
       "script": [
-        "【操作提示｜课件 p45 第 1 步 → 切 Terminal，在练习项目根目录依次运行 git fetch origin、git log --stat origin/main..HEAD、git log --format='%an <%ae>' origin/main..HEAD | sort -u；画面输出和作者是占位示意。录前先离屏跑一遍作者命令，讲师真实邮箱不出镜，必要时遮挡或剪掉。默认分支不是 main 时相应替换】\n\n在项目目录运行这几条命令。git fetch origin，先取回远端的最新状态。git log --stat origin/main..HEAD，意思是：列出本地有、远端 main 还没有的提交，也就是即将公开的提交，每个提交下面列出它动过的文件。某次提交加进来、后来又删掉的文件也会列出来，推上去同样能看到。最后一条只看作者：列出这些提交里出现过的姓名和邮箱。",
+        "【操作提示｜课件 p45 第 1 步 → Terminal 在练习项目根目录依次运行 git log --stat HEAD、git log --format='%an <%ae>' HEAD | sort -u。录前离屏检查作者输出，真实邮箱不出镜；画面中的姓名和邮箱仍用占位示意。本页不以 origin/main..HEAD 限定检查范围】\n\n个人远端现在是空仓库，第一次推送会带过去当前分支的完整历史。我们先运行 git log --stat HEAD，列出这些提交和每次动过的文件。某个文件后来删掉了，早先提交里的内容仍会跟着公开。\n\n作者命令列出整段历史里的姓名和邮箱，包括课程模板原有的提交。先把将公开的范围看完整，不能只查自己后来新增的提交。",
         "【操作提示｜回课件推进第 2 步；可切回 Terminal，在 --stat 输出里指认 docs/evidence/CH02_VIBE_ITERATIONS.md，作者行只指位置、不念出邮箱】\n\n看看列出了什么。第一样很容易被忽略：每个提交都记着作者的姓名和邮箱，那是本机 Git 配置里写的，推送以后所有人都能看到。第二样是 docs/evidence 下本章的过程记录，这是我们的工作过程，也一起公开。",
-        "【操作提示｜推进第 3 步 → 同一 Terminal 运行 git log -p origin/main..HEAD，翻到 src/App.tsx 里项目经历的新增行，按 q 退出分页；历史里有截图等二进制文件时另行打开查看。说完暂停提示后回课件】\n\n还有 2.2 刚写进去的项目经历，这是关于具体的人的事实。文件列表只能告诉我们“有什么”，不能告诉我们“能不能公开”。所以还要运行第三条，git log -p，把每一处实际改动的文字展开读一遍。截图这类二进制文件，要另外打开看。请暂停视频，在自己的项目里运行这几条命令。"
+        "【操作提示｜推进第 3 步 → 同一 Terminal 运行 git log -p HEAD，翻到 src/App.tsx 里项目经历的新增行，按 q 退出分页；历史里有截图等二进制文件时另行打开查看。说完暂停提示后回课件】\n\n还有 2.2 刚写进去的项目经历，这是关于具体的人的事实。文件列表只能告诉我们“有什么”，不能告诉我们“能不能公开”。所以还要运行第三条，git log -p，把每一处实际改动的文字展开读一遍。截图这类二进制文件，要另外打开看。请暂停视频，在自己的项目里运行这几条命令。"
       ],
       "teaching": [
         {
           "title": "命令说明",
-          "text": "远端已有 GitHub Template 生成的初始提交；origin/main..HEAD 只列出本地新增提交（Git 2.50.1 实测）。作者命令 2026-10-03 在本地裸仓库实测：只列出本地新增提交的作者，Template 初始提交的作者不在其中。course-starter 默认分支为 main，学员分支名不同时相应替换。"
+          "text": "HEAD 表示当前分支版本；三个 log 命令检查其全部可达历史，不依赖个人空仓库是否已有 origin/main，也不遗漏课程模板带来的提交。已有远端内容时另核对远端历史；不强推。"
         },
         {
           "title": "讲师提示",
           "text": "本页只依赖本章产生的内容（提交作者、CH02 记录、2.2 的项目经历），不要求学员保留之前各章的证据文件；学员仓库里有更早的记录时，一并按同样方法检查。画面中的作者用占位，不展示讲师真实邮箱。"
         }
       ],
+      "repro": {
+        "label": "推送前：检查完整历史",
+        "steps": [
+          {
+            "text": "在练习项目根目录运行。用 --stat 查看提交和文件，再用 -p 查看每次改动；作者命令列出当前分支历史里的姓名与邮箱。",
+            "code": "git log --stat HEAD\ngit log -p HEAD\ngit log --format='%an <%ae>' HEAD | sort -u"
+          },
+          {
+            "text": "已有远端提交时，先核对远端历史与当前分支，再决定如何继续；不要强推绕过历史冲突。",
+            "code": ""
+          }
+        ],
+        "note": ""
+      },
       "source": "index.html#p45",
       "seconds": 90
     },
@@ -206,8 +242,8 @@ window.lesson = {
       "segment": "推送与发布",
       "label": "推送并启用 Pages",
       "title": "Codex 设来源，人来推送",
-      "lead": "提交部署配置，再用推送前检查的命令看一遍最终要公开的提交。仓库需要公开时现在再改。Pages 的来源交给 Codex 用 GitHub CLI 设为 GitHub Actions：每条命令弹出批准框，读过再批；改完在网页上刷新确认。最后由人执行推送、看 Actions 日志。首次部署若失败，按日志、build 输出、Network 的顺序定位出在哪一环。",
-      "html": "<div class=\"p-flow\" style=\"--n:4\"><div class=\"p-node\" data-role=\"us\" data-reveal=\"0\"><span class=\"p-num\">1</span><h3>提交配置</h3><p>审过的两处改动</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"0\"><span class=\"p-num\">2</span><h3>再看历史</h3><p>待推送的全部提交</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-num\">3</span><h3>Codex 设来源</h3><p>每条命令由你批准</p></div><div class=\"p-node\" data-role=\"gate\" data-reveal=\"2\"><span class=\"p-num\">4</span><h3>人来推送</h3><p class=\"p-mono\">git push</p></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:16px\" data-reveal=\"1\"><div class=\"p-box is-soft\" data-role=\"gate\"><h3>批准框里看什么</h3><p>命令和理由；修改类命令看清方法和对象</p></div><div class=\"p-box is-soft\" data-role=\"ok\"><h3>网页上确认</h3><p>Settings → Pages，刷新后来源是 GitHub Actions</p></div></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"3\" style=\"margin-top:12px\"><h3>失败时出在哪一环</h3><p>Actions 日志 → build 输出 → Network 里哪个资源 404</p></div>",
+      "lead": "提交部署配置，再用推送前检查的命令看一遍最终要公开的提交。仓库需要公开时现在再改。Pages 的来源交给 Codex 用 GitHub CLI 设为 GitHub Actions：每条命令弹出批准框，读过再批；改完在网页上刷新确认。最后由人把当前分支推到自己的 origin、看 Actions 日志。首次部署若失败，按日志、build 输出、Network 的顺序定位出在哪一环。",
+      "html": "<div class=\"p-flow\" style=\"--n:4\"><div class=\"p-node\" data-role=\"us\" data-reveal=\"0\"><span class=\"p-num\">1</span><h3>提交配置</h3><p>审过的两处改动</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"0\"><span class=\"p-num\">2</span><h3>再看历史</h3><p>待推送的全部提交</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-num\">3</span><h3>Codex 设来源</h3><p>每条命令由你批准</p></div><div class=\"p-node\" data-role=\"gate\" data-reveal=\"2\"><span class=\"p-num\">4</span><h3>人来推送</h3><p class=\"p-mono\">git push -u origin HEAD</p></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:16px\" data-reveal=\"1\"><div class=\"p-box is-soft\" data-role=\"gate\"><h3>批准框里看什么</h3><p>命令和理由；修改类命令看清方法和对象</p></div><div class=\"p-box is-soft\" data-role=\"ok\"><h3>网页上确认</h3><p>Settings → Pages，刷新后来源是 GitHub Actions</p></div></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"3\" style=\"margin-top:12px\"><h3>失败时出在哪一环</h3><p>Actions 日志 → build 输出 → Network 里哪个资源 404</p></div>",
       "steps": [
         "提交并复查",
         "Codex 设来源",
@@ -215,9 +251,9 @@ window.lesson = {
         "失败时"
       ],
       "script": [
-        "【操作提示｜课件 p49 第 1 步 → Terminal 在练习项目根目录 git add 审过的工作流文件和 vite.config.ts（写明路径，不用 git add .），git diff --cached 看过再提交，提交说明按实际写；然后重跑 p45 的四条推送前检查命令，新增内容补进推送前检查记录】\n\n检查都过了，先提交部署配置。提交以后，再运行一遍推送前检查的那几条命令：这次列出的才是最终要公开的全部提交，包括刚提交的工作流和配置。",
-        "【操作提示｜推进第 2 步。录前确认 gh 已由讲师本人登录（gh auth login --scopes workflow），令牌不放环境变量、不贴进对话。仓库需公开时，先在 Chrome“GitHub 仓库”标签页的 Settings 改可见性。Terminal 另开标签页，在练习项目根目录新开 Codex 会话，粘贴本页“请求原文”第 1 条；每个批准框先读命令和理由，只批本次、不选以后不再询问，修改类命令核对方法和仓库。完成后回 Chrome 打开 Settings → Pages 并刷新，确认 Source 为 GitHub Actions。批准次数以当天为准，不预告；没装 gh 的分支只讲，在该页手动选择。界面按录制时的 GitHub 版本核对】\n\n推送之前先把 GitHub 这边准备好。仓库如果还是私有的，现在才在网页上改成公开，因为待公开的内容已经看过了。然后要把 Pages 的来源设成 GitHub Actions，工作流要在启用之后才能部署。这一步交给 Codex：新开一个会话，用页面上“请求原文”里的这段话。仓库设置不只能在网页上点，GitHub CLI 也能改。Codex 要访问 GitHub，会弹出批准框，每次一条命令，写着命令和它给的理由。查询类的读一遍就批；修改类的看清楚方法和对象：改的是不是自己的仓库、是不是 Pages。讲师预检那一次，它说完“先告诉你要运行的命令”，紧接着就去执行了，真正停住它的是批准框。改完它会用命令再查一次，但它看不到网页：我们自己打开 Settings 里的 Pages，刷新，看到来源变成 GitHub Actions。没装 GitHub CLI 的同学，就在这个页面上手动选。",
-        "【操作提示｜推进第 3 步 → 回练习项目根目录的 Terminal，由讲师本人执行 git push，不交给 Codex；推送 .github/workflows/ 被拒时核对 gh 登录是否带 workflow 权限。随后在 Chrome“GitHub 仓库”标签页打开 Actions，点进本次运行看各步日志】\n\n最后由我们自己在终端执行 git push。切到 Actions 页，能看到工作流正在运行，点进去可以看每一步的日志。",
+        "【操作提示｜课件 p49 第 1 步 → Terminal 在练习项目根目录 git add 审过的工作流文件和 vite.config.ts（写明路径，不用 git add .），git diff --cached 看过再提交，提交说明按实际写；然后重跑 p45 的三条推送前检查命令，新增内容补进推送前检查记录】\n\n检查都过了，先提交部署配置。提交以后，再运行一遍推送前检查的那几条命令：这次列出的才是最终要公开的全部提交，包括刚提交的工作流和配置。",
+        "【操作提示｜推进第 2 步。录前确认 gh 已由讲师本人登录（gh auth login --scopes workflow），令牌不放环境变量、不贴进对话。仓库需公开时，先在 Chrome“GitHub 仓库”标签页的 Settings 改可见性。Terminal 另开标签页，在练习项目根目录新开 Codex 会话，粘贴本页“请求原文”第 1 条；每个批准框先读命令和理由，只批本次、不选以后不再询问，修改类命令核对方法和仓库。若个人空仓库暂时不能启用来源，先由讲师执行第 3 步的已审查推送，再完成来源设置，并在 Actions 重新运行部署；目标必须是个人 origin。完成后回 Chrome 打开 Settings → Pages 并刷新，确认 Source 为 GitHub Actions。批准次数以当天为准，不预告；没装 gh 的分支只讲，在该页手动选择。界面按录制时的 GitHub 版本核对】\n\n推送之前先把 GitHub 这边准备好。仓库如果还是私有的，现在才在网页上改成公开，因为待公开的内容已经看过了。然后要把 Pages 的来源设成 GitHub Actions，工作流要在启用之后才能部署。这一步交给 Codex：新开一个会话，用页面上“请求原文”里的这段话。仓库设置不只能在网页上点，GitHub CLI 也能改。Codex 要访问 GitHub，会弹出批准框，每次一条命令，写着命令和它给的理由。查询类的读一遍就批；修改类的看清楚方法和对象：改的是不是自己的仓库、是不是 Pages。讲师预检那一次，它说完“先告诉你要运行的命令”，紧接着就去执行了，真正停住它的是批准框。若空仓库暂时不能启用来源，就先由我们推送已检查的内容，再完成来源设置，并在 Actions 重新运行部署。设置完成后，它会用命令再查一次，但它看不到网页：我们自己打开 Settings 里的 Pages，刷新，看到来源变成 GitHub Actions。没装 GitHub CLI 的同学，就在这个页面上手动选。",
+        "【操作提示｜推进第 3 步 → 回练习项目根目录的 Terminal，由讲师本人执行 git push -u origin HEAD，不交给 Codex；推送 .github/workflows/ 被拒时核对 gh 登录是否带 workflow 权限。若第 2 步已为初始化空仓库推送过，直接查看重新运行的结果，不重复推送。随后在 Chrome“GitHub 仓库”标签页打开 Actions，点进本次运行看各步日志】\n\n最后由我们自己在终端执行 git push -u origin HEAD，把当前分支推到自己的仓库，并建立后续使用的跟踪关系。切到 Actions 页，能看到工作流正在运行，点进去可以看每一步的日志。",
         "【操作提示｜推进第 4 步；实际失败时保留真实过程，按 Actions 日志 → 本地 npm run build → Network 的顺序定位。若先推送后才设来源导致失败，在 Actions 页对失败的运行点 Re-run 并确认新运行成功。没有失败只讲课件，不伪造】\n\n第一次部署不一定成功。失败了，按顺序找出在哪一环：Actions 日志里哪一步红了；同样的 build 在本地能不能复现；页面打开了，Network 面板里哪个资源是 404。"
       ],
       "teaching": [
@@ -242,7 +278,7 @@ window.lesson = {
             "code": "仓库页 → Settings → Pages → Build and deployment → Source"
           }
         ],
-        "note": "这一轮不推送；推送由人在下一步执行。"
+        "note": "交给 Codex 的请求不推送。若个人空仓库暂时不能启用 Pages 来源，先由人推送已检查的内容，再完成来源设置并在 Actions 重新运行部署；推送目标必须是自己的 origin。"
       },
       "source": "index.html#p49",
       "seconds": 120

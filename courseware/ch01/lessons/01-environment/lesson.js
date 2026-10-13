@@ -8,7 +8,7 @@ window.lesson = {
       "id": "p01",
       "label": "只改一句话，怎样证明改对？",
       "title": "只改一句话，怎样证明改对？",
-      "lead": "本章：首次闭环 → 执行机制 → 权限 → Prompt → 个人主页 v0 → 最小权限",
+      "lead": "先让 Codex 替换练习页的一句欢迎语，再看页面和代码差异，确认它只改了指定文字",
       "html": "<ol class=\"p-map\" data-reveal=\"0\"><li class=\"is-now\"><b>1.1</b>首次闭环</li><li class=\"\"><b>1.2</b>拆开执行过程</li><li class=\"\"><b>1.3</b>工具与权限</li><li class=\"\"><b>1.4</b>写清任务</li><li class=\"\"><b>1.5</b>完成个人主页</li><li class=\"\"><b>1.6</b>最小权限</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:18px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">修改前</span><p class=\"p-big\" style=\"font-weight:500\">你好，欢迎来到我的练习页面</p></div><div class=\"p-join\" data-reveal=\"1\"><span>只改这一句</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ok\">任务目标</span><p class=\"p-big\">你好，欢迎来到 Vibe Coding 课堂！</p></div></div>",
       "steps": [
         "看原文",
@@ -45,17 +45,17 @@ window.lesson = {
       "id": "p02",
       "label": "先找准你要改的那一份文件",
       "title": "先找准你要改的那一份文件",
-      "lead": "打开 0.2 准备好的独立练习副本，确认终端、编辑器与浏览器指向同一目录。本次唯一修改对象是 setup-check/index.html。",
-      "html": "<ul class=\"p-tree\" style=\"font-size:25px;padding:22px 28px;line-height:1.9\"><li class=\"is-dim\" data-reveal=\"0\"><span class=\"p-path\">course-starter/</span><span class=\"p-note\">模板 · 不在这里练习</span></li><li class=\"is-open\" data-reveal=\"1\"><span class=\"p-path\">projects/personal-homepage/</span><span class=\"p-note\">练习副本 · 在这里打开</span><ul><li class=\"is-target\" data-reveal=\"2\"><span class=\"p-path\">setup-check/index.html</span><span class=\"p-note\">唯一目标</span></li></ul></li></ul><p class=\"source-note\"><a href=\"../../../ch00/lessons/02-preparation/index.html#p12\">课前准备与操作</a></p>",
+      "lead": "继续使用课前准备中克隆到本地的 course-starter 项目。终端、编辑器与浏览器都指向这份练习项目，本次只修改 setup-check/index.html。",
+      "html": "<ul class=\"p-tree\" style=\"font-size:25px;padding:22px 28px;line-height:1.9\"><li data-reveal=\"0\"><span class=\"p-path\">GitHub · course-starter</span><span class=\"p-note\">课程模板 · 克隆来源</span></li><li class=\"is-open\" data-reveal=\"1\"><span class=\"p-path\">course-starter/</span><span class=\"p-note\">本地练习项目 · 在这里打开</span><ul><li class=\"is-target\" data-reveal=\"2\"><span class=\"p-path\">setup-check/index.html</span><span class=\"p-note\">本次修改目标</span></li></ul></li></ul><p class=\"source-note\"><a href=\"../../../ch00/lessons/02-preparation/index.html#p13\">课前准备：取得练习项目</a></p>",
       "steps": [
-        "区分模板",
+        "认准本地项目",
         "确认根目录",
         "定位文件"
       ],
       "script": [
-        "【操作提示｜打开 0.2 准备好的练习副本】\n\n上一节已经取得自己的练习项目。现在认准这份副本，后面的编辑器、终端和浏览器都指向它。还没有准备好时，先回零点二完成准备，再继续实操。",
-        "【操作提示｜返回课件推进第 2 步 → 切 VS Code，用“打开文件夹”打开独立练习副本 projects/personal-homepage；不要打开课程课件目录】\n\n我现在切到 VS Code。先看左边文件列表的根目录，确认打开的是个人主页的练习副本。接着再找文件。不要只凭一个 index.html 的名字判断，因为不同目录里可能都有同名文件。\n\n等会儿我说“切到 Terminal”，指的是运行命令的终端；用 VS Code 的集成终端也可以。为了方便看清楚，我们把终端放大一点。目录和文件名都尽量完整地露出来。",
-        "【操作提示｜课件第 3 步对应实操：在 VS Code 展开 setup-check，打开 index.html，搜索 welcome-message；随后打开 Terminal，确认当前目录。macOS/Linux 用 pwd，PowerShell 用 Get-Location】\n\n我们要找的是 setup-check 文件夹里的 index.html。找到 welcome-message，就能看到页面上的那句欢迎语。现在先看位置，不手动修改。\n\n再看终端的当前目录。它应该指向刚才打开的练习项目根目录。如果指向课件仓库，或者其他项目，就先切到正确的位置。\n\n动手前还要留一份初始状态：当前在哪个分支，已经有哪些改动。这样等会儿看差异时，我们才分得清哪些是原来就有的，哪些是这次新产生的。具体命令稍后在环境检查里一起执行。"
+        "【操作提示｜课件 p02 第 1 步；指向课程模板与本地项目的区别。未取得项目时打开“课前准备：取得练习项目”，已完成时继续使用原目录，不重新克隆或移动文件】\n\n上一节已经把课程模板克隆到本地。GitHub 上的 course-starter 是取得材料的来源，本地的 course-starter 文件夹就是我们接下来修改的练习项目。还没有准备好时，先回课前准备完成克隆，再继续实操。",
+        "【操作提示｜推进第 2 步 → 切 VS Code，确认打开课前准备取得的 course-starter 根目录；再切项目终端运行 pwd，Windows PowerShell 用 Get-Location。核对编辑器、终端与欢迎页服务是同一目录；目录名自定义时展示实际路径】\n\n我现在切到 VS Code，先看文件列表的根目录，再看终端的当前目录。默认文件夹叫 course-starter；如果自己用了别的名字，就以自己的实际路径为准。关键是编辑器、终端和浏览器服务都使用同一份项目。\n\n后面说终端，指的就是运行命令的窗口，VS Code 的集成终端也可以。目录和文件名尽量完整地露出来，方便核对。",
+        "【操作提示｜推进第 3 步 → VS Code 打开 setup-check/index.html，搜索 welcome-message；只展示原文，不手动修改。当前分支与已有改动在后面的操作前复核中记录】\n\n我们要找的是 setup-check 文件夹里的 index.html。找到 welcome-message，就能看到页面上的欢迎语。不同目录里可能都有 index.html，不能只凭文件名判断。\n\n现在先看位置，不手动修改。动手前还要记下当前分支和已有改动，等会儿看差异时，才分得清哪些原来就有、哪些是这次产生的。"
       ],
       "segment": "找准任务",
       "seconds": 105,
@@ -101,7 +101,7 @@ window.lesson = {
       "label": "哪些条件不满足，就不能开始？",
       "title": "哪些条件不满足，就不能开始？",
       "lead": "修改前复核当前页面、工作树和工具目录。只记录本次实际状态，不重复安装或提交课前准备记录。",
-      "html": "<div class=\"p-grid\" style=\"--n:3\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\" style=\"padding:16px 20px\"><h3 data-node=\"browser\">浏览器</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"browser_pass\" data-edge=\"browser:browser_pass\">打开并刷新环境页</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"browser_fail\" data-edge=\"browser:browser_fail\" class=\"p-sub\">核对路径或本地服务</p></div></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"1\" style=\"padding:16px 20px\"><h3 data-node=\"git\">Git</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"git_pass\" data-edge=\"git:git_pass\">分支、状态、Diff 可读</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"git_fail\" data-edge=\"git:git_fail\" class=\"p-sub\">补齐 Git 与仓库</p></div></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"2\" style=\"padding:16px 20px\"><h3 data-node=\"cli\">Codex CLI</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"cli_pass\" data-edge=\"cli:cli_pass\">从练习目录启动</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"cli_fail\" data-edge=\"cli:cli_fail\" class=\"p-sub\">临时用桌面入口</p></div></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">三处都<b>通过</b>才开始</div>",
+      "html": "<div class=\"p-grid\" style=\"--n:3\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\" style=\"padding:16px 20px\"><h3 data-node=\"browser\">浏览器</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"browser_pass\" data-edge=\"browser:browser_pass\">打开并刷新环境页</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"browser_fail\" data-edge=\"browser:browser_fail\" class=\"p-sub\">核对路径或本地服务</p></div></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"1\" style=\"padding:16px 20px\"><h3 data-node=\"git\">Git</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"git_pass\" data-edge=\"git:git_pass\">分支、状态、Diff 可读</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"git_fail\" data-edge=\"git:git_fail\" class=\"p-sub\">补齐 Git 与仓库</p></div></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"2\" style=\"padding:16px 20px\"><h3 data-node=\"cli\">Codex CLI</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"cli_pass\" data-edge=\"cli:cli_pass\">从练习目录启动</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"cli_fail\" data-edge=\"cli:cli_fail\" class=\"p-sub\">补齐 Codex CLI</p></div></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">三项条件都<b>满足</b>再开始</div>",
       "steps": [
         "检查页面",
         "检查仓库",
@@ -110,7 +110,7 @@ window.lesson = {
       "script": [
         "【操作提示｜打开准备好的原始环境页并刷新；录制内嵌预览时，按 0.2 启动步骤从练习根目录启动 4174 服务】\n\n先确认页面仍来自自己的练习副本，原来的欢迎语还在。保存修改前截图，等会儿对照。服务已经启动时直接复用，避免重复启动。",
         "【操作提示｜在练习根目录运行 git branch --show-current、git status --short、git diff；有暂存改动时补看 git diff --cached】\n\n开始修改前，再看一次分支与文件变化。零点二之后你可能编辑过项目文件，把这些已有变化注明，等会儿才分得清本次改动。发现不明改动先查来源并保留。",
-        "【操作提示｜核对当前 Codex 会话的工作目录与权限】\n\n最后核对工具处理的是同一份副本，权限适合当前操作。CLI 不可用时仅用已核验的临时桌面入口，并标记临时通过；一点三结束前补齐 CLI。工具与账号失败时回课前准备小节排查，恢复后再实操。"
+        "【操作提示｜核对当前 Codex 会话的工作目录与权限】\n\n最后核对工具处理的是同一份副本，权限适合当前操作。CLI 不可用时，先补齐 CLI；可以继续看演示，自己的实操等工具恢复后再做。Codex App 是可选入口，不替代 CLI 的准备检查。工具与账号失败时回课前准备小节排查，恢复后再实操。"
       ],
       "segment": "操作前复核",
       "seconds": 120,
@@ -394,7 +394,7 @@ window.lesson = {
       "script": [
         "【操作提示｜课件 p07 第 1 步，给暂停跟做提示；不等待学员反馈】\n\n现在可以暂停视频，完成自己的欢迎语修改。先检查环境，保留修改前状态，再发送请求，核对计划、确认修改，最后看页面和差异。\n\n不用复现老师屏幕上的每一行回复。只要围绕同一个任务，完成必要的操作和检查就可以。遇到问题，先把现象记下来，再按 0.2 课前准备小节的入口处理。",
         "【操作提示｜推进第 2 步 → 切 VS Code，在练习副本创建或打开 docs/evidence/CH01_ENVIRONMENT_AND_FIRST_LOOP.md，由讲师本人整理记录；如已有内容则追加，不覆盖。此操作在欢迎语任务验收后单独进行】\n\n做完以后，我们把证据放进这个记录文件。可以按操作顺序写：开始时的环境状态、发出的请求、它的复述和计划、自己的确认，然后是修改前后截图、完整差异和检查结论。\n\nReview 就是审查结论。不要只写“看过了”，要写清楚欢迎语是否一致，布局有没有变化，文件改动有没有超出范围。\n\n这个记录文件是我们完成任务后另行整理的，不属于刚才授权 AI 修改欢迎语的范围。之后再看 Git 状态，会多出这份记录，要把它和那次单文件任务分清。\n\n如果有修正，保留修正前后的证据。没有真实修正，就写明首次任务通过；教学例子的练习另外标注来源，不填一个没有发生过的修复结果。",
-        "【操作提示｜回课件 p07 第 3 步，对照验收项；保留原始记录供下一节使用】\n\n最后给自己一个判断题：欢迎语看起来对了，但 diff 显示它还改了页面颜色，这次能通过吗？\n\n按今天的要求，还不能。因为我们明确约定只替换文字，样式变化超出了范围。要把这处额外改动反馈清楚，处理后再检查。\n\n如果是从临时桌面入口完成的，记录为临时通过，并在一点三结束前补齐 CLI。还没做完的就写待补做，下一次从记录里的阻塞位置继续。"
+        "【操作提示｜回课件 p07 第 3 步，对照验收项；保留原始记录供下一节使用】\n\n最后给自己一个判断题：欢迎语看起来对了，但 diff 显示它还改了页面颜色，这次能通过吗？\n\n按今天的要求，还不能。因为我们明确约定只替换文字，样式变化超出了范围。要把这处额外改动反馈清楚，处理后再检查。\n\nCodex CLI 还没能实际完成任务，就写待补做，下一次从记录里的阻塞位置继续。可选 App 的操作另外记录，不替代本节的 CLI 检查。"
       ],
       "segment": "独立练习",
       "seconds": 210,
@@ -402,7 +402,7 @@ window.lesson = {
       "teaching": [
         {
           "title": "追问与预期判断",
-          "text": "独立完成一次，再拿证据回答；页面正确但 Diff 越界能通过吗？不能。临时桌面路径标临时通过，1.3 前补 CLI。"
+          "text": "独立完成一次，再拿证据回答；页面正确但 Diff 越界能通过吗？不能。CLI 未完成则标待补做；App 可选，不替代 CLI 检查。"
         },
         {
           "title": "演示分支",
@@ -414,7 +414,7 @@ window.lesson = {
         },
         {
           "title": "讲师提示",
-          "text": "用自己的副本执行，不复制教师的成功截图。录播可暂停，完成后继续。\n\n写入 docs/evidence/CH01_ENVIRONMENT_AND_FIRST_LOOP.md。没有真实修正时标明练习素材来源与尚缺证据。\n\n页面正确但 Diff 越界能通过吗？不能。临时桌面路径标临时通过，1.3 前补 CLI。"
+          "text": "用自己的副本执行，不复制教师的成功截图。录播可暂停，完成后继续。\n\n写入 docs/evidence/CH01_ENVIRONMENT_AND_FIRST_LOOP.md。没有真实修正时标明练习素材来源与尚缺证据。\n\n页面正确但 Diff 越界能通过吗？不能。CLI 未完成则标待补做；App 可选，不替代 CLI 检查。"
         }
       ]
     },
