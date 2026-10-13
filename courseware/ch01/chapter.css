@@ -1,2 +1,12 @@
 /* Chapter 1 reading omits the presentation step summary. */
 body[data-mode='scroll'] .step-status{display:none}
+/* Full lesson titles wrap within each chapter-route item. */
+.p-map>li{min-width:0;overflow-wrap:anywhere}
+/* Keep the 1.4 opening example below the full chapter route. */
+body[data-mode='slides'] #p20 .x-g{margin-top:0}
+body[data-mode='slides'] #p20 .x-g-l{gap:6px}
+body[data-mode='slides'] #p20 .p-avatar{width:56px;height:56px}
+body[data-mode='slides'] #p20 .p-replies{gap:8px!important}
+body[data-mode='slides'] #p20 .p-reply{padding-block:5px}
+body[data-mode='slides'] #p20 .x-g-page .p-page-body{padding:10px 18px 14px}
+body[data-mode='slides'] #p20 .x-g-page .cards i{height:32px;line-height:32px}
