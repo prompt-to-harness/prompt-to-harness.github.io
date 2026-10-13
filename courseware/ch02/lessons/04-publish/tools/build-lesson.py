@@ -14,10 +14,9 @@ lesson = Lesson(__file__, "2.4", "公开的不只是页面", summary="第一次�
 scene = lesson.scene
 
 
-PREPUSH = """git fetch origin
-git log --stat origin/main..HEAD
-git log -p origin/main..HEAD
-git log --format='%an <%ae>' origin/main..HEAD | sort -u"""
+PREPUSH = """git log --stat HEAD
+git log -p HEAD
+git log --format='%an <%ae>' HEAD | sort -u"""
 
 DEPLOY_PROMPT = """Goal：用 GitHub Actions 把这个 Vite 项目发布到 GitHub Pages。
 Context：仓库名是 <我的仓库名>，
@@ -49,39 +48,50 @@ scene(
 scene(
     id="p44", segment="公开之前",
     label="仓库是公开的吗", title="先看一眼：仓库现在是公开还是私有",
-    lead="打开 GitHub 上自己的仓库，看名字旁边的标记是 Public 还是 Private。GitHub Pages 发布要求仓库公开（课前准备页已提前说明）。此时只查看，不改设置；看清待公开内容以后再决定。",
+    lead="前面只把课程模板克隆到本地。发布前先在自己的 GitHub 账号下新建空仓库，核对 origin 指向自己的仓库；此时不推送。再看仓库公开范围，检查待公开内容以后才决定是否公开。",
     html=(
-        '<div class="p-handoff"><div class="p-handoff-card" data-reveal="0"><h3>切到 GitHub</h3><p>打开自己的仓库首页</p>'
+        '<div class="p-handoff"><div class="p-handoff-card" data-reveal="0"><h3>切到 GitHub</h3><p>新建或打开自己的空仓库</p>'
         '<span class="p-env">Public</span><span class="p-env">Private</span></div>'
         '<ol class="p-watch"><li data-reveal="1">仓库名旁的标记<small>Public 还是 Private</small></li>'
-        '<li data-reveal="1">远端已有什么<small>Template 生成的初始提交</small></li>'
+        '<li data-reveal="1">远端已有什么<small>首次发布前应为空仓库</small></li>'
         '<li class="is-miss" data-reveal="2">现在先不改<small>查清待公开内容后再决定</small></li></ol></div>'
     ),
-    steps=["打开仓库", "看什么", "先不改"],
+    steps=["建立个人远端", "核对目标与历史", "先不公开"],
     teaching=teach(
-        ("讲师提示", "GitHub 免费账号的 Pages 需要公开仓库；仓库设置界面按录制时 GitHub 版本核对。若学员仓库是私有的，改成公开前还要检查远端已有的内容与历史，不能只看 origin/main..HEAD。"),
+        ("讲师提示", "使用学员自己的空远端仓库；从课程模板直接克隆的本地历史会随首次推送一起公开。已有远端含提交时先核对历史和分支，不覆盖或强推。"),
     ),
+    repro=repro([
+        ("在自己的 GitHub 账号下新建空仓库，暂选 Private；不初始化 README、.gitignore 或许可证。已有远端包含内容时先核对来源和历史，不覆盖、不强推。", ""),
+        ("复制新仓库的 HTTPS 地址，在练习项目根目录先查看原来的 origin。", "git remote -v"),
+        ("把命令中的“你自己的仓库地址”替换为刚复制的地址。这里只改本地 origin 的目标，不推送、不改变文件或提交。", "git remote set-url origin 你自己的仓库地址\ngit remote -v"),
+        ("核对 origin 的 fetch、push 地址都属于自己的仓库，GitHub 页面没有已有提交。原来的课程模板只用来取得起始材料。", ""),
+    ], label="发布前：建立个人远端"),
 )
 
 scene(
     id="p45", segment="推送前检查",
     label="即将公开的历史", title="列出即将公开的提交、文件和作者",
-    lead="先取回远端的最新状态，再列出本地有、远端没有的提交。--stat 列出每个提交涉及的文件，包括后来删掉的；-p 展开每一行实际文字；最后一条列出这些提交的作者姓名和邮箱，它们也会随提交公开。截图等二进制文件要另外打开看。",
+    lead="首次向个人空仓库推送时，当前分支的全部历史都会公开。检查每次提交改过的文件、实际内容和作者信息，包含后来删掉的文件；不能只看当前目录或与课程模板相比的新增提交。",
     html=(
-        '<div class="p-term" data-reveal="0" data-copy="' + escape(PREPUSH) + '"><div class="dim">$ git fetch origin</div><div class="dim">$ git log --stat origin/main..HEAD</div>'
+        '<div class="p-term" data-reveal="0" data-copy="' + escape(PREPUSH) + '"><div class="dim">$ git log --stat HEAD</div>'
         '<div>homepage-v1: 补充项目经历</div><div>  docs/evidence/CH02_VIBE_ITERATIONS.md · src/App.tsx</div>'
-        '<div class="dim">$ git log --format=\'%an &lt;%ae&gt;\' origin/main..HEAD | sort -u</div><div>示例同学 &lt;student@example.com&gt;</div></div>'
+        '<div class="dim">$ git log -p HEAD</div>'
+        '<div class="dim">$ git log --format=\'%an &lt;%ae&gt;\' HEAD | sort -u</div><div>示例同学 &lt;student@example.com&gt;</div></div>'
         '<div class="p-grid" style="--n:3;gap:12px;margin-top:14px">'
         '<div class="p-box is-soft" data-role="gate" data-reveal="1"><h3>提交作者</h3><p>每个提交都带着姓名和邮箱</p></div>'
         '<div class="p-box is-soft" data-role="ctx" data-reveal="1"><h3>docs/evidence/</h3><p>本章的过程记录</p></div>'
         '<div class="p-box is-soft" data-role="us" data-reveal="2"><h3>2.2 的项目经历</h3><p>关于具体的人的事实</p></div></div>'
-        '<p class="source-note">输出为示意，作者为占位；命令已在本地裸仓库模拟 Template 远端实测（2026-10-02、10-03）</p>'
+        '<p class="source-note">输出为示意，作者为占位；实际检查当前分支的完整历史</p>'
     ),
     steps=["列出提交与作者", "作者与过程记录", "个人内容"],
     teaching=teach(
-        ("命令说明", "远端已有 GitHub Template 生成的初始提交；origin/main..HEAD 只列出本地新增提交（Git 2.50.1 实测）。作者命令 2026-10-03 在本地裸仓库实测：只列出本地新增提交的作者，Template 初始提交的作者不在其中。course-starter 默认分支为 main，学员分支名不同时相应替换。"),
+        ("命令说明", "HEAD 表示当前分支版本；三个 log 命令检查其全部可达历史，不依赖个人空仓库是否已有 origin/main，也不遗漏课程模板带来的提交。已有远端内容时另核对远端历史；不强推。"),
         ("讲师提示", "本页只依赖本章产生的内容（提交作者、CH02 记录、2.2 的项目经历），不要求学员保留之前各章的证据文件；学员仓库里有更早的记录时，一并按同样方法检查。画面中的作者用占位，不展示讲师真实邮箱。"),
     ),
+    repro=repro([
+        ("在练习项目根目录运行。用 --stat 查看提交和文件，再用 -p 查看每次改动；作者命令列出当前分支历史里的姓名与邮箱。", PREPUSH),
+        ("已有远端提交时，先核对远端历史与当前分支，再决定如何继续；不要强推绕过历史冲突。", ""),
+    ], label="推送前：检查完整历史"),
 )
 
 scene(
@@ -163,13 +173,13 @@ scene(
 scene(
     id="p49", segment="推送与发布",
     label="推送并启用 Pages", title="Codex 设来源，人来推送",
-    lead="提交部署配置，再用推送前检查的命令看一遍最终要公开的提交。仓库需要公开时现在再改。Pages 的来源交给 Codex 用 GitHub CLI 设为 GitHub Actions：每条命令弹出批准框，读过再批；改完在网页上刷新确认。最后由人执行推送、看 Actions 日志。首次部署若失败，按日志、build 输出、Network 的顺序定位出在哪一环。",
+    lead="提交部署配置，再用推送前检查的命令看一遍最终要公开的提交。仓库需要公开时现在再改。Pages 的来源交给 Codex 用 GitHub CLI 设为 GitHub Actions：每条命令弹出批准框，读过再批；改完在网页上刷新确认。最后由人把当前分支推到自己的 origin、看 Actions 日志。首次部署若失败，按日志、build 输出、Network 的顺序定位出在哪一环。",
     html=(
         '<div class="p-flow" style="--n:4">'
         '<div class="p-node" data-role="us" data-reveal="0"><span class="p-num">1</span><h3>提交配置</h3><p>审过的两处改动</p></div>'
         '<div class="p-node" data-role="tool" data-reveal="0"><span class="p-num">2</span><h3>再看历史</h3><p>待推送的全部提交</p></div>'
         '<div class="p-node" data-role="agent" data-reveal="1"><span class="p-num">3</span><h3>Codex 设来源</h3><p>每条命令由你批准</p></div>'
-        '<div class="p-node" data-role="gate" data-reveal="2"><span class="p-num">4</span><h3>人来推送</h3><p class="p-mono">git push</p></div></div>'
+        '<div class="p-node" data-role="gate" data-reveal="2"><span class="p-num">4</span><h3>人来推送</h3><p class="p-mono">git push -u origin HEAD</p></div></div>'
         '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:16px" data-reveal="1">'
         '<div class="p-box is-soft" data-role="gate"><h3>批准框里看什么</h3><p>命令和理由；修改类命令看清方法和对象</p></div>'
         '<div class="p-box is-soft" data-role="ok"><h3>网页上确认</h3><p>Settings → Pages，刷新后来源是 GitHub Actions</p></div></div>'
@@ -182,7 +192,7 @@ scene(
     ),
     repro=repro([("新开 Codex 会话，发送这段请求；每条命令弹出批准框时先读命令和理由", SOURCE_PROMPT),
                  ("改完在网页上确认（没装 GitHub CLI 时直接在这里手动选择 GitHub Actions）", "仓库页 → Settings → Pages → Build and deployment → Source")],
-                note="这一轮不推送；推送由人在下一步执行。", label="请求原文"),
+                note="交给 Codex 的请求不推送。若个人空仓库暂时不能启用 Pages 来源，先由人推送已检查的内容，再完成来源设置并在 Actions 重新运行部署；推送目标必须是自己的 origin。", label="请求原文"),
 )
 
 scene(

@@ -42,8 +42,8 @@ AI Coding 正在从"辅助补全"走向"智能体驱动开发"。以 Codex 为�
 
 #### 第2节：课前准备——工具、账号与练习项目
 
-- 安装 Codex App 与 CLI，演示 MiniMax M3 接入；App 配置单独核验
-- 安装 Git，克隆 course-starter，练习 git status 与 git diff
+- 安装必需的 Codex CLI，演示 MiniMax M3 接入；Codex App 可选，配置单独核验
+- 安装 Git，直接克隆 course-starter 作为本地练习项目，练习 git status 与 git diff；发布前再建立个人远端
 - 在本地启动欢迎页，通过真实请求检查工具接入
 
 ### 第1章：Prompt \- 从环境启动到个人主页原型
@@ -72,7 +72,7 @@ AI Coding 正在从"辅助补全"走向"智能体驱动开发"。以 Codex 为�
 
 #### 第3节：Codex CLI、桌面端与权限边界
 
-- CLI 与桌面端的选择理由和替代边界
+- CLI 的必需路径与 Codex App 的可选边界
 
 - CLI 的路径、状态和权限核对方法
 

@@ -7,3 +7,9 @@ body[data-mode='scroll'] #p10 .record-label{overflow-wrap:anywhere}
 body[data-mode='slides'] #p10 .record{line-height:1.4}
 /* Distinguish information capacity from the warm Context information row. */
 #p10 .record[data-reveal='3']{--tone:#315C91;--tint:#E7EFF9}
+/* Keep the self-check and its record path inside the reading column. */
+body[data-mode='scroll'] #p14-check .scene-content{grid-template-columns:minmax(0,1fr)}
+body[data-mode='scroll'] #p14-check .self-check,
+body[data-mode='scroll'] #p14-check .self-check article{min-width:0}
+body[data-mode='scroll'] #p14-check .self-check h3,
+body[data-mode='scroll'] #p14-check .closing{overflow-wrap:anywhere}

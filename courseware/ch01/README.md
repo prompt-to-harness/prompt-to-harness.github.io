@@ -21,7 +21,7 @@ python3 tools/serve-courseware.py
 | 1.5 完成个人主页：从已确认 Prompt 到可验收的个人主页 v0 | [打开](lessons/05-homepage/index.html) |
 | 1.6 最小权限：为什么不能给 Agent 所有权限 | [打开](lessons/06-permissions/index.html) |
 
-页面、步骤和时长预算以各节 `lesson.js` 为准（讲稿页显示每页预算），尚未计时试讲。URL 使用 `?mode=slides#p04` 进入演示并定位；省略参数为阅读模式。
+页面与步骤以各节 `lesson.js` 为准，口播以同目录的 `script.json` 为准；时长仍待计时试讲。URL 使用 `?mode=slides#p04` 进入演示并定位；省略参数为阅读模式。
 
 ## 文件组织
 
@@ -47,14 +47,14 @@ ch01/
 
 ## 教学路线与材料
 
-- CLI 是主要演示与完整验收入口。经核验的桌面端仅作临时入口，1.3 结束前补齐 CLI 基线。
+- Codex CLI 是必需的实操与检查入口，Codex App 可选；CLI 受阻时先观察演示，补齐后再实操。
 - 1.1 修改独立的 `setup-check/index.html` 欢迎语，检查页面与 diff，按证据反馈修正。
 - 1.4 读取 Brief、提出问题并确认四段式 Prompt；1.5 创建 React + TypeScript + Vite 骨架与首页，验证后建立 `ch01-prompt-baseline` 检查点。
 - 1.6 使用“仅核对本地链接，不发布”任务判断最小权限。
 - [首次任务与验收](preparation.html)、[0.2 课前准备](../ch00/lessons/02-preparation/index.html#p12)与当前内容同步。
-- [Starter 源文件说明](https://github.com/prompt-to-harness/course-starter)在独立的 `course-starter` 仓库维护；从该仓库创建自己的练习项目。`PROJECT_BRIEF.md`、`PLACEHOLDER_CONTENT.md`、`docs/setup/TOOLCHAIN.md` 均在项目中。课程中只修改自己的练习仓库，目录示例与获取步骤见[工作目录约定](../../WORKSPACE.md)。课程统一发布 commit 仍待录制冻结。
+- [Starter 源文件说明](https://github.com/prompt-to-harness/course-starter)在独立的 `course-starter` 仓库维护；0.2 直接克隆到本地作为练习项目，1.1 继续使用同一目录，发布前再建立个人远端。`PROJECT_BRIEF.md`、`PLACEHOLDER_CONTENT.md`、`docs/setup/TOOLCHAIN.md` 均在项目中。目录与获取步骤见[工作目录约定](../../WORKSPACE.md)。课程统一发布 commit 仍待录制冻结。
 
-P04 默认嵌入随课件提供的原始 Starter 页面，明确标记为“仅供预览”。要演示实时修改，在同级 `projects/personal-homepage/` 目录运行 `python3 -m http.server 4174 --bind 127.0.0.1`，再点“连接练习副本”。核对服务目录，确保展示与 CLI 修改的是同一份文件；面板出现不代表任务通过。
+首次任务的实操预览默认嵌入随课件提供的原始 Starter 页面，明确标记为“仅供预览”。要演示实时修改，在 0.2 取得的本地练习项目根目录运行 `python3 -m http.server 4174 --bind 127.0.0.1`，再点“连接练习副本”。核对服务目录，确保展示与 CLI 修改的是同一份文件；面板出现不代表任务通过。
 
 ## 讲稿与维护
 

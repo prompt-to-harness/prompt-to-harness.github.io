@@ -8,8 +8,8 @@ window.lesson = {
       "id": "p26",
       "label": "从确认的任务到个人主页 v0",
       "title": "从确认的任务到个人主页 v0",
-      "lead": "1.4 已确认 Prompt → 1.5 本地个人主页 v0 → 第 2 章迭代",
-      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>1.1</b>首次闭环</li><li class=\"is-done\"><b>1.2</b>拆开执行过程</li><li class=\"is-done\"><b>1.3</b>工具与权限</li><li class=\"is-done\"><b>1.4</b>写清任务</li><li class=\"is-now\"><b>1.5</b>完成个人主页</li><li class=\"\"><b>1.6</b>最小权限</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:14px\"><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">任务输入</span><p>已确认 Prompt + 文件范围</p></div><div class=\"p-join\" data-reveal=\"1\"><b>+</b></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"tool\">执行条件</span><p>CLI 基线 + 工具链就绪</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">只到<b>本地个人主页</b>，不发布</div>",
+      "lead": "核对任务与工具，生成并检查本地个人主页；本节不发布",
+      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>1.1</b>首次闭环</li><li class=\"is-done\"><b>1.2</b>拆开执行过程</li><li class=\"is-done\"><b>1.3</b>工具与权限</li><li class=\"is-done\"><b>1.4</b>写清任务</li><li class=\"is-now\"><b>1.5</b>完成个人主页</li><li class=\"\"><b>1.6</b>最小权限</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:14px\"><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">任务输入</span><p>已确认 Prompt + 文件范围</p></div><div class=\"p-join\" data-reveal=\"1\"><b>+</b></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"tool\">执行条件</span><p>CLI 能用 · Node/npm 已核对</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">只到<b>本地个人主页</b>，不发布</div>",
       "steps": [
         "核对任务",
         "核对环境",
@@ -41,7 +41,8 @@ window.lesson = {
           "title": "讲师提示",
           "text": "先对照上一节的最终版本，不从模糊需求重新开始。\n\nNode 未就绪、版本未核验就不能进入生成，不通过改源码掩盖环境失败。\n\n今天交付可启动、可构建、可审阅的本地 v0，不追求无限美化。"
         }
-      ]
+      ],
+      "closing": "打开上一节确认的个人主页任务，核对内容、按钮行为和文件范围。Codex CLI 与 Node/npm 都能使用，版本也已核对，再开始生成；本节只完成和检查本地个人主页，不推送、不发布。"
     },
     {
       "id": "p27",
@@ -90,7 +91,7 @@ window.lesson = {
       "label": "切到页面：看内容、点交互、查错误",
       "title": "切到页面：看内容、点交互、查错误",
       "lead": "切到真实开发页面前，先拿好三项清单：内容逐项对照自己的 Prompt；真的点一下“查看项目”，确认跳到本页项目区；打开控制台看有没有明显报错。三项分别记录检查结果。",
-      "html": "<div class=\"p-handoff\"><div class=\"p-handoff-card\" data-reveal=\"0\"><h3>切到页面</h3><p>PPT 暂停，打开本地个人主页</p><span class=\"p-env\">浏览器：个人主页 v0</span><span class=\"p-env\">控制台</span></div><ol class=\"p-watch\"><li data-reveal=\"0\">内容<small>对照 Prompt</small></li><li data-reveal=\"1\">行为<small>点“查看项目”</small></li><li data-reveal=\"2\">错误<small>看控制台</small></li></ol></div>",
+      "html": "<div class=\"p-handoff\"><div class=\"p-handoff-card\" data-reveal=\"0\"><h3>切到页面</h3><p>打开自己的个人主页，逐项检查</p><span class=\"p-env\">浏览器：个人主页 v0</span><span class=\"p-env\">控制台</span></div><ol class=\"p-watch\"><li data-reveal=\"0\">内容<small>对照 Prompt</small></li><li data-reveal=\"1\">行为<small>点“查看项目”</small></li><li data-reveal=\"2\">错误<small>看控制台</small></li></ol></div>",
       "steps": [
         "先找内容",
         "操作交互",
@@ -321,8 +322,8 @@ window.lesson = {
     },
     {
       "id": "p30-save",
-      "label": "检查通过，才保存本地基线",
-      "title": "检查通过，才保存本地基线",
+      "label": "检查通过，再提交并打 tag",
+      "title": "检查通过，再提交并打 tag",
       "lead": "所有检查通过、待提交内容与批准范围一致，才保存本地提交并创建 ch01-prompt-baseline 这个 tag。提交和 tag 只用来定位版本，不证明质量；本节不推送、不发布，证据不全就停在待补做。",
       "html": "<div class=\"p-flow\" style=\"--n:3\"><div class=\"p-node\" data-role=\"ok\" data-reveal=\"0\"><span class=\"p-num\">01</span><h3>检查全部通过</h3><p>范围一致</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"1\"><span class=\"p-num\">02</span><h3>保存本地提交</h3></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"1\"><span class=\"p-num\">03</span><h3>创建 tag</h3><p class=\"p-mono\" style=\"font-size:18px\">ch01-prompt-baseline</p></div></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"2\" style=\"margin-top:12px\"><span class=\"p-tag\" data-role=\"gate\">停止条件</span><p>无法验证 · 无法理解 · 需越界 → <b>不标通过</b></p></div>",
       "steps": [
@@ -341,7 +342,7 @@ window.lesson = {
       "teaching": [
         {
           "title": "追问与预期判断",
-          "text": "检查通过，才保存本地基线；证据不全就停在待补做，不能为了得到 tag 假装通过。"
+          "text": "检查通过，再提交并打 tag；证据不全就停在待补做，不能为了得到 tag 假装通过。"
         },
         {
           "title": "演示分支",
@@ -359,9 +360,9 @@ window.lesson = {
     },
     {
       "id": "p31",
-      "label": "交付的是源码，也是一条证据链",
-      "title": "交付的是源码，也是一条证据链",
-      "lead": "交付的是三环相扣的证据链：任务与实现（Prompt、源码、组件说明），验证与决定（截图、build、Diff、Review），版本与后续（提交、tag、未决事项）。任一环断开，交付就说不清。v0 仍是原型，第 2 章继续迭代。",
+      "label": "保存源码、检查记录和版本",
+      "title": "保存源码、检查记录和版本",
+      "lead": "交接时放好三组材料：任务与实现（Prompt、源码、组件说明），检查与决定（截图、build、diff、Review），版本与后续（提交、tag、未决事项）。它们要能对应起来，说明这一版做了什么、怎样检查、接下来从哪里继续。",
       "html": "<style>.x-ch{display:flex;justify-content:center;align-items:center;margin:14px 0 6px}.x-ch-l{position:relative;width:380px;height:190px;margin:0 -34px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}.x-ch-ring{position:absolute;inset:0;border:16px solid var(--c);border-radius:95px;filter:url(#p-rough);box-shadow:inset 0 0 0 3px rgba(255,255,255,.35)}.x-ch-l:nth-child(2) .x-ch-ring{border-width:16px;transform:translateY(0)}.x-ch-l h3{position:relative;font:400 28px/1.2 var(--p-title);color:var(--ct);margin:0 0 6px}.x-ch-l p{position:relative;margin:0;font-size:19px;color:#18202B;max-width:280px}.x-ch-break{display:flex;align-items:center;gap:14px;justify-content:center;margin-top:18px}.x-ch-break .bk{display:flex;align-items:center}.x-ch-break .bk i{display:block;width:54px;height:30px;border:7px solid #D9481C;border-radius:16px}.x-ch-break .bk i:first-child{transform:rotate(-14deg) translateX(4px)}.x-ch-break .bk i:last-child{transform:rotate(18deg) translateX(-4px)}.x-ch-break .bk b{font:400 26px/1 var(--p-title);color:#D9481C;margin:0 6px}</style><div class=\"x-ch\"><div class=\"x-ch-l\" data-role=\"agent\" data-reveal=\"0\" style=\"z-index:3\"><div class=\"x-ch-ring\"></div><h3>任务与实现</h3><p>Prompt · 源码 · 组件说明</p></div><div class=\"x-ch-l\" data-role=\"ok\" data-reveal=\"1\" style=\"z-index:2\"><div class=\"x-ch-ring\"></div><h3>验证与决定</h3><p>截图 · build · Diff · Review</p></div><div class=\"x-ch-l\" data-role=\"tool\" data-reveal=\"2\" style=\"z-index:1\"><div class=\"x-ch-ring\"></div><h3>版本与后续</h3><p>提交 · tag · 未决事项</p></div></div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:20px;display:flex;align-items:center;gap:16px\"><span class=\"x-ch-break\" style=\"margin:0\"><span class=\"bk\"><i></i><b>⁄</b><i></i></span></span><span>任何一环断开，交付就<b>说不清</b></span></div>",
       "steps": [
         "交接任务",
@@ -379,7 +380,7 @@ window.lesson = {
       "teaching": [
         {
           "title": "追问与预期判断",
-          "text": "交付的是源码，也是一条证据链；v0 仍是原型。第 2 章将从真实页面发现问题、建立反馈基线；下一节先总结权限取舍。"
+          "text": "保存源码、检查记录和版本；v0 仍是原型。第 2 章将从真实页面发现问题、建立反馈基线；下一节先总结权限取舍。"
         },
         {
           "title": "演示分支",

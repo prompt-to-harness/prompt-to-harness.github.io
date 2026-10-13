@@ -2,7 +2,7 @@ window.lesson = {
   "title": "课前准备：工具、账号与练习项目",
   "chapter": "第 0 章 · 课程导入",
   "section": "00.02",
-  "summary": "安装 App 与 CLI 并接入 M3，练习 Git status/diff，启动本地欢迎页。App 接入待单独核验。",
+  "summary": "安装 Codex CLI 并接入课程模型，克隆 course-starter 作为本地练习项目，查看 Git 变化并启动欢迎页；Codex App 可选。",
   "scenes": [
     {
       "id": "p12",
@@ -29,19 +29,19 @@ window.lesson = {
     },
     {
       "id": "p14",
-      "label": "安装 App 与 CLI，再配置模型",
-      "title": "安装 App 与 CLI，再配置模型",
-      "lead": "App 提供图形界面，CLI 从终端启动。分别安装后配置课程模型，再通过一次真实请求检查接入。",
-      "html": "<div class=\"p-grid\" style=\"--n:2;align-items:start\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><h3>Codex App</h3><p class=\"p-go\"><a href=\"https://developers.openai.com/codex/app/\" target=\"_blank\" rel=\"noopener\">Codex App 官方说明</a></p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><h3>Codex CLI</h3><p class=\"p-go\"><a href=\"https://learn.chatgpt.com/docs/codex/cli\" target=\"_blank\" rel=\"noopener\">Codex CLI 官方说明</a></p></div></div>",
+      "label": "安装 Codex CLI，App 可选",
+      "title": "安装 Codex CLI，App 可选",
+      "lead": "本课必须准备 Codex CLI，并通过一次真实请求核对模型接入。Codex App 是可选的图形界面；使用时单独核对安装与接入，不影响 CLI 的准备要求。",
+      "html": "<div class=\"p-grid\" style=\"--n:2;align-items:start\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><h3>Codex App · 可选</h3><p class=\"p-go\"><a href=\"https://developers.openai.com/codex/app/\" target=\"_blank\" rel=\"noopener\">Codex App 官方说明</a></p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><h3>Codex CLI · 必备</h3><p class=\"p-go\"><a href=\"https://learn.chatgpt.com/docs/codex/cli\" target=\"_blank\" rel=\"noopener\">Codex CLI 官方说明</a></p></div></div>",
       "steps": [
-        "安装 App",
-        "安装 CLI",
-        "配置 M3"
+        "认识可选 App",
+        "安装必需 CLI",
+        "配置课程模型"
       ],
       "script": [
-        "【操作提示｜课件 p14，第 1 步 → Chrome 新建“Codex App 官方说明”标签页，打开课件“Codex App 官方说明”链接；保留课件标签页。展示适配录制机器的官方安装入口，再切安装器和 Codex App。录制前关闭私人项目；登录、账号资料与密钥画面不入镜。若已安装，展示现有应用并说明，不假装重新安装】\n\n屏幕上有两个入口。左边的 App 是桌面应用，我们在图形界面里选择项目、输入请求。右边的 CLI 是命令行工具，要从终端启动。后面的实操主要用 CLI，这里也把 App 的入口给你看一下。\n\n我先在 Chrome 里打开 App 的官方说明。下载时要看清楚自己的操作系统，按官方页面当前提供的安装方式来。安装包准备好以后，跟着安装器完成安装，再打开应用。\n\n【操作提示｜仅在 App 已实际打开后继续；系统不受支持或安装失败时留在对应步骤处理。完成后切回 Chrome“课件”标签页 p14，推进第 2 步】\n\n应用打开以后，先停在这里。我们还要准备本地项目，稍后再回来选择它。接下来安装终端里使用的 CLI。",
+        "【操作提示｜课件 p14 第 1 步；只展示“Codex App 官方说明”入口，说明这是可选工具，不现场安装或演示未经核验的接入；随后推进第 2 步，打开 Codex CLI 官方说明】\n\n屏幕上有两个入口。Codex CLI 在终端里使用，本课实操和检查都需要它。Codex App 提供图形界面，是可选工具，可以按官方说明了解安装方式。\n\n这一轮先把必需的 CLI 准备好。App 的项目操作和模型接入要单独核对，不因为 CLI 配置成功就认定 App 也能使用。",
         "【操作提示｜课件 p14，第 2 步；Chrome 新建“Codex CLI 官方说明”标签页，打开课件“Codex CLI 官方说明”链接。随后切 Terminal，依次执行 node --version、npm --version。这里的 Terminal 指系统终端，也可以使用 VS Code 的集成终端；录制时统一用一套界面】\n\n这里我们用 npm 安装 Codex CLI。npm 是随 Node.js 一起安装的包管理工具，等会儿用它下载和安装 CLI。先检查电脑上有没有这两个命令。\n\n我打开 Terminal，分别输入 node 和 npm 的版本检查命令。每条命令执行以后，看有没有返回版本号。如果提示找不到命令，就先补齐 Node.js。\n\n【操作提示｜缺少 Node.js 时：回课件展开“详细安装步骤参见”，在 Chrome 新建“Node.js 下载”标签页，打开课件“先安装 Node.js LTS（包含 npm）”链接，演示安装 LTS 版本；安装后重新打开 Terminal 并重查两条版本命令。已有 Node/npm 时略过这个安装分支。检查通过后执行 npm install -g @openai/codex，再执行 codex --version；等待实际输出】\n\n接着执行课件里的 npm 安装命令。命令执行结束后，再运行 codex 的版本检查。看到版本号，说明这个终端已经能找到 Codex 命令。模型能不能正常响应，还要等配置完成以后发一次请求来检查。\n\nWindows 同学在 PowerShell 里执行同样的 npm 安装命令。安装报错时，先看报错内容，确认这一步完成了，再继续配置。\n\n【操作提示｜切回 Chrome“课件”标签页 p14，推进第 3 步，展开“详细安装步骤参见”】",
-        "【操作提示｜课件 p14，第 3 步；指向展开步骤中的配置样例。切 Terminal 执行 mkdir -p ~/.codex；再切 VS Code，通过“打开文件”打开用户目录下的 .codex/config.toml。已有配置先备份并合并；仅展示不含密钥的配置区域，避免暴露私人路径与其他服务配置】\n\n现在配置 CLI 要连接的模型。看课件里的这份样例，model 这一项写的是课程使用的模型 ID：MiniMax-M3。服务地址告诉工具把请求发到哪里，env_key 则告诉它从哪个环境变量里读取 API 密钥。\n\n我们打开用户目录下的 .codex 文件夹，把课程配置放到 config.toml 里。路径开头的 ~ 表示你的用户目录。如果文件里已经有其他配置，先备份，再合并相应字段，别把原来的设置整份覆盖掉。\n\n你可以直接从课件复制配置，逐项核对。尤其留意模型 ID、服务地址，还有 MINIMAX_API_KEY 这个环境变量名。环境变量可以先理解成提供给程序的一项运行设置，这里用它来传入密钥。\n\n【操作提示｜保存配置后切回 Terminal；暂停录屏或遮住输入区域，按课件 macOS zsh 命令隐藏输入密钥并 export。不要回显变量，不展示剪贴板或真实密钥。保留这个终端，后面 p17 从这里进入项目并启动 Codex。Windows 命令展示课件已有 PowerShell 分支，不在 macOS 上执行】\n\n密钥用你自己的，按照展开步骤里的隐藏输入命令填写。真实密钥不要写进项目文件，也不要粘到对话里。这里设置的密钥只对当前终端和它启动的程序生效，所以先留着这个窗口，后面我们还要从这里启动 Codex。\n\nWindows 的配置文件位置和隐藏输入命令也放在同一组步骤里，跟着对应系统的版本操作就可以。\n\n【操作提示｜切回 Chrome“课件”标签页，收起详情。App 的 M3 接入尚待单独实测；不演示猜测的设置入口，不将 CLI 配置成功当成 App 已接入。以下口播保留实际操作所需的提醒】\n\nApp 的接入要另外检查，不能因为终端里填过密钥，就直接认为 App 也配置好了。我们稍后分别检查实际返回。先把练习项目下载下来，这样发请求时就有一个明确的读取对象。"
+        "【操作提示｜课件 p14，第 3 步；指向展开步骤中的配置样例。切 Terminal 执行 mkdir -p ~/.codex；再切 VS Code，通过“打开文件”打开用户目录下的 .codex/config.toml。已有配置先备份并合并；仅展示不含密钥的配置区域，避免暴露私人路径与其他服务配置】\n\n现在配置 CLI 要连接的模型。看课件里的这份样例，model 这一项写的是课程使用的模型 ID：MiniMax-M3。服务地址告诉工具把请求发到哪里，env_key 则告诉它从哪个环境变量里读取 API 密钥。\n\n我们打开用户目录下的 .codex 文件夹，把课程配置放到 config.toml 里。路径开头的 ~ 表示你的用户目录。如果文件里已经有其他配置，先备份，再合并相应字段，别把原来的设置整份覆盖掉。\n\n你可以直接从课件复制配置，逐项核对。尤其留意模型 ID、服务地址，还有 MINIMAX_API_KEY 这个环境变量名。环境变量可以先理解成提供给程序的一项运行设置，这里用它来传入密钥。\n\n【操作提示｜保存配置后切回 Terminal；暂停录屏或遮住输入区域，按课件 macOS zsh 命令隐藏输入密钥并 export。不要回显变量，不展示剪贴板或真实密钥。保留这个终端，后面 p17 从这里进入项目并启动 Codex。Windows 命令展示课件已有 PowerShell 分支，不在 macOS 上执行】\n\n密钥用你自己的，按照展开步骤里的隐藏输入命令填写。真实密钥不要写进项目文件，也不要粘到对话里。这里设置的密钥只对当前终端和它启动的程序生效，所以先留着这个窗口，后面我们还要从这里启动 Codex。\n\nWindows 的配置文件位置和隐藏输入命令也放在同一组步骤里，跟着对应系统的版本操作就可以。\n\n【操作提示｜切回 Chrome“课件”标签页，收起详情。App 的 M3 接入尚待单独实测；不演示猜测的设置入口，不将 CLI 配置成功当成 App 已接入。以下口播保留实际操作所需的提醒】\n\nApp 的接入要另外检查，不能因为终端里填过密钥，就直接认为 App 也配置好了。这次先检查 CLI 的实际返回。先把练习项目下载下来，这样发请求时就有一个明确的读取对象。"
       ],
       "seconds": 240,
       "segment": "安装 & 接入",
@@ -57,7 +57,7 @@ window.lesson = {
         "label": "详细安装步骤参见",
         "steps": [
           {
-            "text": "macOS：从本页 App 官方入口下载适配系统的安装包，按安装器完成安装并打开。App 的 M3 配置界面与请求需单独实测，当前不作为已走通的操作。"
+            "text": "Codex App 可选：按官方页面当前提供的系统支持和安装方式操作；项目操作与课程模型接入需要单独核对。"
           },
           {
             "text": "CLI：本机已安装包的 README 提供 npm 安装方式。先安装 Node.js LTS（包含 npm），再执行以下命令。新安装过程本轮未测。",
@@ -123,7 +123,7 @@ window.lesson = {
       "id": "p13",
       "label": "用 Git 取得 course-starter",
       "title": "用 Git 取得 course-starter",
-      "lead": "安装 Git 后，克隆 course-starter 到新目录。进入项目根目录，后续命令都在这里运行。",
+      "lead": "在终端把 course-starter 克隆到一个新目录，作为自己的本地练习项目。进入项目根目录，后续操作都使用这一份项目；发布前再建立个人远端仓库。",
       "html": "<div class=\"p-grid\" style=\"--n:2;align-items:start\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><h3>验证 Git 安装</h3><p><code>git --version</code></p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><h3>下载并进入项目</h3><p><code>git clone https://github.com/prompt-to-harness/course-starter.git</code><br><code>cd course-starter</code></p></div></div>",
       "steps": [
         "确认 Git",
@@ -311,16 +311,16 @@ window.lesson = {
     },
     {
       "id": "p17",
-      "label": "在 CLI & APP 各发一次指令",
-      "title": "在 CLI & APP 各发一次指令",
-      "lead": "App 打开本地项目，CLI 从同一项目根目录启动。配置完成后，分别读取欢迎语并对照原文",
+      "label": "在 Codex CLI 发一次只读请求",
+      "title": "在 Codex CLI 发一次只读请求",
+      "lead": "从练习项目根目录启动 Codex CLI，发送下面的只读请求，核对返回的欢迎语与文件原文一致。Codex App 可选，它的结果不能替代 CLI 的这次检查。",
       "html": "<div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><h3>发送请求</h3><p>只读取 setup-check/index.html，告诉我 h1#welcome-message 当前的完整文字，不修改任何文件</p></div>",
       "steps": [
         "打开同一项目",
         "对照真实返回"
       ],
       "script": [
-        "【操作提示｜课件 p17，第 1 步；先指向完整只读请求，再切回 p14 设置密钥的 Terminal，进入 VS Code 打开的同一份 course-starter 根目录；用 pwd 核对后运行 codex。若换了终端，按 p14 隐藏输入步骤重新设置密钥，不回显。页面服务终端保持运行】\n\n现在检查 Codex 能不能读到这份项目。我们给它一个很小的任务：只读取 setup-check/index.html，告诉我们欢迎语的完整文字，不修改任何文件。\n\n我先回到刚才配置密钥的终端，进入这份项目的根目录，再启动 codex。这里要注意，浏览器、VS Code 和 Codex，应该指向同一份练习副本。\n\n【操作提示｜在 CLI 发送：“只读取 setup-check/index.html，告诉我 h1#welcome-message 当前的完整文字，不修改任何文件。”等待实际读取和返回；出现确认提示时先核对动作范围，越出本次只读任务就停止。返回内容留到第 2 步核对】\n\n这句请求里，文件路径说明去哪里读，h1#welcome-message 进一步指出我们要找的标题元素。最后一句把这次任务限定为读取。先观察它的实际操作和返回，等会儿再跟文件对照。\n\n【操作提示｜切 Codex App：只有 App 的 M3 接入已单独实测，才选择同一 course-starter 目录并发送同一句请求，等待真实返回。未核验时跳过 App 发送操作，念下方备用口播，不展示模拟成功。正常完成 App 演示时略过备用口播】\n\nApp 这一路还需要完成接入检查。这里先保留待补状态，我们继续看 CLI 的实际结果。\n\n【操作提示｜App 已核验并实际发送请求时，改念：“我在 App 里也选择这份项目，发送同一句请求。两个入口分别检查，各自的读取结果都要和文件原文核对。”随后切回课件 p17，推进第 2 步】",
+        "【操作提示｜课件 p17，第 1 步；先指向完整只读请求，再切回 p14 设置密钥的 Terminal，进入 VS Code 打开的同一份 course-starter 根目录；用 pwd 核对后运行 codex。若换了终端，按 p14 隐藏输入步骤重新设置密钥，不回显。页面服务终端保持运行】\n\n现在检查 Codex 能不能读到这份项目。我们给它一个很小的任务：只读取 setup-check/index.html，告诉我们欢迎语的完整文字，不修改任何文件。\n\n我先回到刚才配置密钥的终端，进入这份项目的根目录，再启动 codex。这里要注意，浏览器、VS Code 和 Codex，应该指向同一份练习副本。\n\n【操作提示｜在 CLI 发送：“只读取 setup-check/index.html，告诉我 h1#welcome-message 当前的完整文字，不修改任何文件。”等待实际读取和返回；出现确认提示时先核对动作范围，越出本次只读任务就停止。返回内容留到第 2 步核对】\n\n这句请求里，文件路径说明去哪里读，h1#welcome-message 进一步指出我们要找的标题元素。最后一句把这次任务限定为读取。先观察它的实际操作和返回，等会儿再跟文件对照。\n\n【操作提示｜本页只演示必需的 CLI 请求，App 可选操作不在此处切换。返回后回课件推进第 2 步】",
         "【操作提示｜切 VS Code，在 setup-check/index.html 中搜索 welcome-message，展示 h1 的原文；再切 Terminal 的 CLI 返回，与原文逐字对照。App 本次已执行时，再切 App 核对其返回。按实际读取记录与文字选择成功或失败分支，不把预先写好的答案当成工具输出】\n\n我先打开文件里的原文，再看工具返回的文字。要核对的是：读取路径是不是这个 setup-check/index.html，读出的欢迎语是不是和这里一致。仅仅收到一句“你好”，还没有完成我们刚才指定的任务。\n\n【操作提示｜仅在读取对象和实际返回均核对一致时念下段；否则直接进入后面的错误处理口播】\n\n这一句和文件里的原文对上了，读取的也是我们指定的文件。这个入口已经完成了这次只读请求。我们现在有了一个具体结果，可以确认这一步走通。\n\n【操作提示｜遇到错误时才念下段；正常演示略过。只展示脱敏错误，不展示账号、密钥或私人配置】\n\n这里没有得到预期的读取结果，先停一下。我们看它报的是什么：认证失败就回接入步骤查账号或密钥；模型请求错误就核对模型和服务配置；找不到文件就先查当前项目目录。错误里涉及密钥或个人信息的部分，先遮住再分享。\n\n【操作提示｜无论哪种分支，处理完成后在项目的普通终端执行 git status --short、git diff，确认没有新增文件改动；如有意外写入，先检查并保留，不自动清空。随后回 Chrome“课件”标签页，进入 p18】\n\n这次要求的是只读，所以最后再检查一下仓库里有没有新增改动。读取结果和文件状态都核对清楚以后，再进入下一步。"
       ],
       "seconds": 120,
@@ -329,7 +329,7 @@ window.lesson = {
       "teaching": [
         {
           "title": "录制前提",
-          "text": "CLI 与 App 需分别完成实际 M3 接入核验；本轮没有执行模型调用。"
+          "text": "必需检查使用 Codex CLI。Codex App 是可选入口，项目操作与课程模型接入单独核验。"
         }
       ],
       "repro": {
@@ -337,11 +337,11 @@ window.lesson = {
         "label": "请求原文与启动位置",
         "steps": [
           {
-            "text": "App 打开本地 course-starter 目录；CLI 在同一目录启动。",
+            "text": "Codex CLI 从本地练习项目根目录启动。",
             "code": "codex"
           },
           {
-            "text": "在两个已配置好的入口分别发送，不修改文件。",
+            "text": "在 Codex CLI 中发送这条请求，不修改文件。Codex App 若已单独核对可用，可选做同一请求。",
             "code": "只读取 setup-check/index.html，告诉我 h1#welcome-message 当前的完整文字，不修改任何文件。"
           },
           {
@@ -354,8 +354,8 @@ window.lesson = {
       "id": "p18",
       "label": "Recheck 三个准备项",
       "title": "Recheck 三个准备项",
-      "lead": "最终检查项",
-      "html": "<div class=\"p-grid\" style=\"--n:3\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><h3>模型能响应</h3><p>App 或 CLI 正常安装<br>App 或 CLI 正常发送指令</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><h3>Git 能看变化</h3><p>git 命令正常使用<br>git diff &amp; status 均正常查看</p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"2\"><h3>欢迎页能打开</h3><p>本地正常启动 http serve<br>本地正常打开欢迎页</p></div></div><div class=\"p-bar is-light preparation-next\" data-reveal=\"3\"><h3>第一次修改：VibeCoding 的 \"Hello world!\"</h3><p class=\"preparation-lead\">保留当前准备，进入第一章第一小节(1.1节)完成第一次修改、检查与反馈</p><p><b>第一章：从环境启动到首页原型</b></p></div>",
+      "lead": "开始首次修改前，确认 Codex CLI 能读取目标文件、Git 能查看变化、浏览器能打开自己的欢迎页。缺项先补齐，App 的可选操作不计入必需检查。",
+      "html": "<div class=\"p-grid\" style=\"--n:3\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><h3>模型能响应</h3><p>Codex CLI 正常安装<br>只读请求返回与原文一致</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><h3>Git 能看变化</h3><p>git 命令正常使用<br>git diff &amp; status 均正常查看</p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"2\"><h3>欢迎页能打开</h3><p>本地正常启动 http serve<br>本地正常打开欢迎页</p></div></div><div class=\"p-bar is-light preparation-next\" data-reveal=\"3\"><h3>第一次修改：VibeCoding 的 \"Hello world!\"</h3><p class=\"preparation-lead\">保留当前准备，进入第一章第一小节(1.1节)完成第一次修改、检查与反馈</p><p><b>第一章：从环境搭建到个人主页原型</b></p></div>",
       "steps": [
         "检查接入",
         "检查 Git",
@@ -363,7 +363,7 @@ window.lesson = {
         "进入首次任务"
       ],
       "script": [
-        "【操作提示｜课件 p18，第 1 步；留在课件，指向“模型能响应”，不重复发送请求】\n\n最后对照屏幕，把准备情况过一遍。先看工具：App 或 CLI 至少有一个已经正常安装，而且能完成刚才的读取请求。检查时就拿真实返回和文件原文对照。如果还卡在安装或接入，回到前面的对应步骤处理，处理好再开始自己的修改任务。",
+        "【操作提示｜课件 p18，第 1 步；留在课件，指向“模型能响应”，不重复发送请求】\n\n最后对照屏幕，把准备情况过一遍。先看工具：Codex CLI 已经正常安装，而且能完成刚才的读取请求。Codex App 是可选工具，不用它的完成情况替代这项检查。检查时就拿真实返回和文件原文对照。如果还卡在安装或接入，回到前面的对应步骤处理，处理好再开始自己的修改任务。",
         "【操作提示｜推进课件 p18 第 2 步，指向“Git 能看变化”；停留课件，不重新演示加行】\n\n再看 Git。刚才在 README 里加一行以后，你能在 status 里找到它，也能在 diff 里找到那句新增文字。练习结束后，自己加的内容已经删回去了。以后看到 AI 交回修改，我们就有办法打开这些差异，看看它具体做了什么。",
         "【操作提示｜推进课件 p18 第 3 步 → 切回 Chrome 已有“练习欢迎页”标签页，刷新并核对；必要时短暂切“页面服务”终端确认进程仍运行，再回课件。页面未通过时不把准备说成全部完成】\n\n最后看页面。本地服务保持运行，浏览器能打开自己这份项目的欢迎页，而且原来的欢迎语还在。先保留这个状态，下一节就在这份项目上继续。\n\n如果你暂时有一项卡住，可以先看后面的演示，回头再补操作。这一节不用另外提交准备作业，关键是开始实操时，这几项都能用。",
         "【操作提示｜推进课件 p18 第 4 步，揭示首次修改与第一章提示；停留课件，不提前发修改请求。保留项目、服务终端和“练习欢迎页”标签页，供 1.1 接续】\n\n下一节，我们就把第一次修改交给 AI：换掉这句欢迎语，再一起检查页面和 diff，看看它到底改了哪里。这就是我们这门课的 Hello world。我们在第一章见。"

@@ -8,7 +8,7 @@ window.lesson = {
       "id": "p20",
       "label": "“做一个好看的主页”还缺什么？",
       "title": "“做一个好看的主页”<span class=\"p20-title-tail\">还缺什么？</span>",
-      "lead": "1.3 权限边界 → 1.4 可执行 Prompt → 1.5 个人主页 v0",
+      "lead": "“好看”还没说明显示什么、哪些文件能动、怎样检查",
       "html": "<style>body[data-mode='slides'] #p20 h2{top:82px}body[data-mode='slides'] #p20 .p20-title-tail{display:block}body[data-mode='slides'] #p20 .lede{top:242px}body[data-mode='slides'] #p20 .step-status{top:282px}body[data-mode='slides'] #p20 .scene-content{top:322px;height:340px}.x-g{display:grid;grid-template-columns:1.1fr 1fr;gap:30px;align-items:start;margin-top:12px}.x-g-l{display:grid;gap:10px}.x-g-page{position:relative;transform:rotate(-1deg)}.x-g-page .p-page-body{display:grid;grid-template-columns:1fr auto;gap:8px 12px;padding:14px 18px 18px;background:linear-gradient(135deg,#2A1E5C,#7A2D7E);color:#fff}.x-g-page .hero{font:400 26px/1.2 var(--p-title)}.x-g-page .sub{grid-column:1;font-size:15px;font-weight:400;opacity:.85}.x-g-page .btn{grid-row:1;grid-column:2;align-self:start;font-size:15px;border:2px solid #fff;border-radius:6px;padding:2px 10px}.x-g-page .cards{grid-column:1/3;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.x-g-page .cards i{height:44px;border-radius:6px;background:rgba(255,255,255,.18);font:normal 400 14px/38px sans-serif;text-align:center}.x-g-pin{position:absolute;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font:400 20px/1 var(--p-title);color:#fff;background:var(--c);box-shadow:0 0 0 3px #fff,2px 3px 0 rgba(36,48,66,.25)}.x-g-guess{font:400 20px/1.2 var(--p-title);color:#5A51D1}</style><ol class=\"p-map\"><li class=\"is-done\"><b>1.1</b>首次闭环</li><li class=\"is-done\"><b>1.2</b>拆开执行过程</li><li class=\"is-done\"><b>1.3</b>工具与权限</li><li class=\"is-now\"><b>1.4</b>写清任务</li><li class=\"\"><b>1.5</b>完成个人主页</li><li class=\"\"><b>1.6</b>最小权限</li></ol><div class=\"x-g\"><div class=\"x-g-l\"><div data-reveal=\"0\" style=\"display:flex;gap:12px;align-items:center\"><span class=\"p-avatar\">我们</span><p class=\"p-bubble\" style=\"font-size:24px;padding:12px 18px;margin:0\">帮我做一个好看的个人主页</p></div><div class=\"p-replies\" style=\"gap:12px;--rf:21px;margin-top:4px\"><div class=\"p-reply is-missing\" data-key=\"ctx\" data-reveal=\"1\"><span class=\"p-chip\" data-key=\"ctx\">1 目标</span><span>给谁看？显示什么？</span></div><div class=\"p-reply is-missing\" data-key=\"limit\" data-reveal=\"2\"><span class=\"p-chip\" data-key=\"limit\">2 范围</span><span>改哪里？什么时候停？</span></div><div class=\"p-reply is-missing\" data-key=\"done\" data-reveal=\"3\"><span class=\"p-chip\" data-key=\"done\">3 标准</span><span>怎样算可以接受？</span></div></div></div><div class=\"x-g-l\"><span class=\"x-g-guess\" data-reveal=\"0\">AI 只能自己猜，于是……</span><div style=\"position:relative\" data-reveal=\"0\"><div class=\"x-g-page p-page\"><div class=\"p-page-bar\"><i></i><i></i><i></i><span>localhost</span></div><div class=\"p-page-body\"><span class=\"hero\">Hi, I'm Alex</span><span class=\"btn\">登录 · 发布</span><span class=\"sub\">Full-stack · Blog · Shop</span><div class=\"cards\"><i>Project 1</i><i>Project 2</i><i>Project 3</i></div></div></div><span class=\"x-g-pin\" data-key=\"ctx\" data-reveal=\"1\" style=\"left:-14px;top:48px\">1</span><span class=\"x-g-pin\" data-key=\"limit\" data-reveal=\"2\" style=\"right:6px;top:-10px\">2</span><span class=\"x-g-pin\" data-key=\"done\" data-reveal=\"3\" style=\"left:46%;bottom:-16px\">3</span></div></div></div>",
       "steps": [
         "先判断",
@@ -43,7 +43,8 @@ window.lesson = {
           "title": "讲师提示",
           "text": "这句话能直接开工吗？请先说一个会改变实现方向的未知项。\n\n给谁看、显示什么内容？这些会影响实现，先依据 Brief 明确，不能私自补假设。\n\n即使画面好看，也可能多做登录、后端或发布；这些没有被批准。\n\n把评价变成可以逐项核对的内容与行为，再进入任务编写。"
         }
-      ]
+      ],
+      "closing": "“好看”还没有说明主页给谁看、显示什么、哪些文件可以动、怎样检查。先用这句话找出缺口，再让 Codex 读取项目说明，把会改变实现的决定问清楚。"
     },
     {
       "id": "p21",
@@ -135,10 +136,10 @@ window.lesson = {
     },
     {
       "id": "p22-answers",
-      "label": "问题逐个回答，决定逐项留痕",
-      "title": "问题逐个回答，决定逐项留痕",
-      "lead": "这是合成案例：Agent 提出四个问题——姓名与简介、项目展示什么、按钮去哪、哪些文件可改，人逐一回答并留痕。你的项目要记录自己的决定和来源，不照抄示例。",
-      "html": "<div class=\"p-rec\" style=\"grid-template-columns:minmax(0,.75fr) minmax(0,1.5fr) 120px;row-gap:16px;--rf:22px\"><div class=\"is-head\" data-reveal=\"0\"><span>Agent 的问题</span><span>人的回答</span><span>留痕</span></div><div><span class=\"p-cell\" data-reveal=\"0\"><span class=\"p-chip\" data-role=\"agent\">问</span>姓名与简介？</span><span class=\"p-cell\" data-reveal=\"1\">示例同学 · 正在学习 AI 协作开发</span><span class=\"p-why\" data-reveal=\"1\" style=\"color:#11652F\">✓ 已记录</span></div><div><span class=\"p-cell\" data-reveal=\"0\"><span class=\"p-chip\" data-role=\"agent\">问</span>项目展示什么？</span><span class=\"p-cell\" data-reveal=\"2\">学习笔记：记录课程练习</span><span class=\"p-why\" data-reveal=\"2\" style=\"color:#11652F\">✓ 已记录</span></div><div><span class=\"p-cell\" data-reveal=\"0\"><span class=\"p-chip\" data-role=\"agent\">问</span>按钮去哪？</span><span class=\"p-cell\" data-reveal=\"3\">跳到本页项目区 · 卡片不跳转</span><span class=\"p-why\" data-reveal=\"3\" style=\"color:#11652F\">✓ 已记录</span></div><div><span class=\"p-cell\" data-reveal=\"0\"><span class=\"p-chip\" data-role=\"agent\">问</span>哪些文件可改？</span><span class=\"p-cell\" data-reveal=\"4\">React + TS + Vite 必需文件 · 清单须确认</span><span class=\"p-why\" data-reveal=\"4\" style=\"color:#11652F\">✓ 已记录</span></div></div>",
+      "label": "回答问题，并记下每个决定",
+      "title": "回答问题，并记下每个决定",
+      "lead": "这是合成案例：Agent 提出四个问题——姓名与简介、项目展示什么、按钮去哪、哪些文件可改，人逐一回答并记录决定。你的项目要记录自己的决定和来源，不照抄示例。",
+      "html": "<div class=\"p-rec\" style=\"grid-template-columns:minmax(0,.75fr) minmax(0,1.5fr) 120px;row-gap:16px;--rf:22px\"><div class=\"is-head\" data-reveal=\"0\"><span>Agent 的问题</span><span>人的回答</span><span>记录决定</span></div><div><span class=\"p-cell\" data-reveal=\"0\"><span class=\"p-chip\" data-role=\"agent\">问</span>姓名与简介？</span><span class=\"p-cell\" data-reveal=\"1\">示例同学 · 正在学习 AI 协作开发</span><span class=\"p-why\" data-reveal=\"1\" style=\"color:#11652F\">✓ 已记录</span></div><div><span class=\"p-cell\" data-reveal=\"0\"><span class=\"p-chip\" data-role=\"agent\">问</span>项目展示什么？</span><span class=\"p-cell\" data-reveal=\"2\">学习笔记：记录课程练习</span><span class=\"p-why\" data-reveal=\"2\" style=\"color:#11652F\">✓ 已记录</span></div><div><span class=\"p-cell\" data-reveal=\"0\"><span class=\"p-chip\" data-role=\"agent\">问</span>按钮去哪？</span><span class=\"p-cell\" data-reveal=\"3\">跳到本页项目区 · 卡片不跳转</span><span class=\"p-why\" data-reveal=\"3\" style=\"color:#11652F\">✓ 已记录</span></div><div><span class=\"p-cell\" data-reveal=\"0\"><span class=\"p-chip\" data-role=\"agent\">问</span>哪些文件可改？</span><span class=\"p-cell\" data-reveal=\"4\">React + TS + Vite 必需文件 · 清单须确认</span><span class=\"p-why\" data-reveal=\"4\" style=\"color:#11652F\">✓ 已记录</span></div></div>",
       "steps": [
         "先读问题",
         "姓名与简介？",
@@ -159,7 +160,7 @@ window.lesson = {
       "teaching": [
         {
           "title": "追问与预期判断",
-          "text": "问题逐个回答，决定逐项留痕；教学示例的人工作答是：允许创建 React + TypeScript + Vite 必需文件；清单须确认。 实际项目必须记录自己的决定及来源。"
+          "text": "回答问题，并记下每个决定；教学示例的人工作答是：允许创建 React + TypeScript + Vite 必需文件；清单须确认。 实际项目必须记录自己的决定及来源。"
         },
         {
           "title": "演示分支",
@@ -301,11 +302,11 @@ window.lesson = {
       "id": "p24",
       "label": "把“项目区正确”改到能验收",
       "title": "把“项目区正确”改到能验收",
-      "lead": "练习：补全一个只写了“做一个好看的主页”和“项目区正确”的 Prompt。依据自己的 Brief 补齐四要素，未知项单列，保存为 PROMPT_V1.md；再请同伴为一条完成标准说出检查动作，说不出就继续改。",
-      "html": "<div class=\"p-prompt\" style=\"grid-template-columns:1.1fr 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\" style=\"padding:12px 18px\"><h3 style=\"margin-bottom:6px\">待补全 Prompt</h3><div class=\"p-replies\" style=\"gap:8px;--rf:19px\"><div class=\"p-reply is-missing\" data-key=\"goal\" style=\"--cl:#E8EAEE;--ct:#243042\"><span class=\"p-chip\" data-key=\"goal\">Goal</span><span>做一个好看的主页</span><span class=\"p-ask\">做给谁、显示什么？</span></div><div class=\"p-reply is-missing\" data-key=\"ctx\"><span class=\"p-chip\" data-key=\"ctx\">Context</span><span>〔材料〕</span></div><div class=\"p-reply is-missing\" data-key=\"limit\"><span class=\"p-chip\" data-key=\"limit\">Constraints</span><span>〔边界〕</span></div><div class=\"p-reply is-missing\" data-key=\"done\"><span class=\"p-chip\" data-key=\"done\">Done when</span><span>项目区正确</span><span class=\"p-ask\">怎样算正确？</span></div></div></div><div style=\"display:grid;gap:14px;align-content:start\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><h3>你的交付</h3><p>补齐四要素 · 未知项单列</p><p style=\"margin-top:6px\"><code class=\"p-mono\">PROMPT_V1.md</code></p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ok\">参考</span><p>逐项显示已确认内容 · 链接按确认行为</p></div></div></div>",
+      "lead": "练习：依据自己的项目说明补齐 Prompt，未知项单列，保存为 PROMPT_V1.md。挑一条完成标准，自己写出打开哪个页面、对照什么内容、点击哪里、应该看到什么；写不清就继续修改。同伴复述可选。",
+      "html": "<div class=\"p-prompt\" style=\"grid-template-columns:1.1fr 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\" style=\"padding:12px 18px\"><h3 style=\"margin-bottom:6px\">待补全 Prompt</h3><div class=\"p-replies\" style=\"gap:8px;--rf:19px\"><div class=\"p-reply is-missing\" data-key=\"goal\" style=\"--cl:#E8EAEE;--ct:#243042\"><span class=\"p-chip\" data-key=\"goal\">Goal</span><span>做一个好看的主页</span><span class=\"p-ask\">做给谁、显示什么？</span></div><div class=\"p-reply is-missing\" data-key=\"ctx\"><span class=\"p-chip\" data-key=\"ctx\">Context</span><span>〔材料〕</span></div><div class=\"p-reply is-missing\" data-key=\"limit\"><span class=\"p-chip\" data-key=\"limit\">Constraints</span><span>〔边界〕</span></div><div class=\"p-reply is-missing\" data-key=\"done\"><span class=\"p-chip\" data-key=\"done\">Done when</span><span>项目区正确</span><span class=\"p-ask\">怎样算正确？</span></div></div></div><div style=\"display:grid;gap:14px;align-content:start\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><h3>你的交付</h3><p>补齐四要素 · 未知项单列</p><p style=\"margin-top:6px\"><code class=\"p-mono\">PROMPT_V1.md</code></p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ok\">参考</span><p>内容与确认稿一致 · 链接跳到确认的位置</p></div></div></div>",
       "steps": [
         "独立补写",
-        "互查标准",
+        "自查标准",
         "揭晓解析"
       ],
       "script": [
@@ -331,7 +332,7 @@ window.lesson = {
         },
         {
           "title": "讲师提示",
-          "text": "先暂停两分钟起草，不先看参考解析。不要照抄教师的内容决定。\n\n选一条 Done when，请同伴说出实际检查动作；说不出来就继续改写。\n\n数量、内容、行为不明确时先问，不得填猜测。草稿可以保存，不能标成已批准。"
+          "text": "先暂停两分钟起草，不先看参考解析。不要照抄教师的内容决定。\n\n选一条 Done when，自己写出实际检查动作；写不出来就继续改写。同伴复述可选。\n\n数量、内容、行为不明确时先问，不得填猜测。草稿可以保存，不能标成已批准。"
         }
       ]
     },
@@ -377,10 +378,10 @@ window.lesson = {
       "id": "p25-recap",
       "label": "四个问题，换来一个可检查的任务",
       "title": "四个问题，换来一个可检查的任务",
-      "lead": "互查四项：目标可观察、上下文有来源、范围有边界、标准能检查。交付 PROMPT_V1.md 和人工决定，未决项要留在记录里。这一节没有提前实现，下一节拿着已确认的任务生成个人主页 v0。",
-      "html": "<div class=\"p-sketch\" style=\"align-items:start;--big:1\"><div data-reveal=\"0\"><h3>互查四项</h3><div class=\"p-words\"><div class=\"p-box\" data-role=\"ink\"><p>目标可观察</p></div><div class=\"p-box\" data-role=\"ctx\"><p>上下文有来源</p></div><div class=\"p-box\" data-role=\"gate\"><p>范围有边界</p></div><div class=\"p-box\" data-role=\"ok\"><p>标准能检查</p></div></div></div><div data-reveal=\"1\"><h3>交付</h3><div class=\"p-box\" data-role=\"tool\"><h3 style=\"font-size:22px\">PROMPT_V1.md</h3><p>+ 人工决定</p></div><ul class=\"p-warns\" style=\"margin-top:12px\"><li>未决项不能悄悄消失</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>1.5 完成个人主页</h3></div></div></div>",
+      "lead": "自己对照四项：目标可观察、上下文有来源、范围有边界、标准能检查。保存 PROMPT_V1.md 和人工决定，未决定的事也留在记录里。这一节先确认任务，下一节再生成个人主页 v0。",
+      "html": "<div class=\"p-sketch\" style=\"align-items:start;--big:1\"><div data-reveal=\"0\"><h3>自查四项</h3><div class=\"p-words\"><div class=\"p-box\" data-role=\"ink\"><p>目标可观察</p></div><div class=\"p-box\" data-role=\"ctx\"><p>上下文有来源</p></div><div class=\"p-box\" data-role=\"gate\"><p>范围有边界</p></div><div class=\"p-box\" data-role=\"ok\"><p>标准能检查</p></div></div></div><div data-reveal=\"1\"><h3>交付</h3><div class=\"p-box\" data-role=\"tool\"><h3 style=\"font-size:22px\">PROMPT_V1.md</h3><p>+ 人工决定</p></div><ul class=\"p-warns\" style=\"margin-top:12px\"><li>还没定的事，也写进记录</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>1.5 完成个人主页</h3></div></div></div>",
       "steps": [
-        "留出互查",
+        "独立自查",
         "核对交付",
         "收束"
       ],
@@ -399,7 +400,7 @@ window.lesson = {
         },
         {
           "title": "讲师提示",
-          "text": "用一分钟对照完整稿互查。指出一条标准、一处边界和一个停止条件。\n\n解释为什么这份任务可以执行，或者明确卡在哪里。实践时间包含在本节二十分钟内。\n\n这一节没有提前实现。下一节才进入生成、运行与验收。"
+          "text": "用一分钟自己对照完整稿检查。指出一条标准、一处边界和一个停止条件。\n\n解释为什么这份任务可以执行，或者明确卡在哪里。实践时间包含在本节二十分钟内。\n\n这一节没有提前实现。下一节才进入生成、运行与验收。"
         }
       ]
     }

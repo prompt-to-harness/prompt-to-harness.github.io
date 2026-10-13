@@ -6,29 +6,31 @@
 工作目录/
 ├── prompt-to-harness.github.io/           # 课件与课程设计
 │   └── starters/personal-homepage/ # 原始环境页离线预览
-├── course-starter/               # 本机课程起点仓库
+├── course-starter/               # 学员从课程模板克隆的本地练习项目
 ├── projects/
-│   └── personal-homepage/        # 学员独立项目的示例位置
+│   └── personal-homepage/        # 维护者试讲副本的可选位置
 └── experiments/                  # 临时试讲副本
 ```
 
 ## 取得练习项目
 
-按 course-starter 的 README 从 GitHub Template 创建自己的仓库，克隆到课程仓库之外。例：在课程仓库根目录执行以下命令，将地址替换为自己的仓库地址：
+先直接克隆课程模板，在本地完成练习；发布前再建立个人远端仓库（2026-10-12 讲师确认）。与 0.2 课前准备一致：在自己选定的工作目录运行，不在课件仓库里克隆：
 
 ```bash
-git clone 你自己的仓库地址 ../projects/personal-homepage
-cd ../projects/personal-homepage
+git clone https://github.com/prompt-to-harness/course-starter.git
+cd course-starter
 git rev-parse --show-toplevel
 git rev-parse HEAD
 git status --short
 ```
 
-目录名可自定，已有目录不要覆盖。所有课堂任务、编码工具与环境页服务均在同一个练习项目根目录执行。本机维护的同级 `course-starter/` 用于核对起始材料；需要试讲时另建副本，避免把演示答案写回起点。
+目录名可自定，已有目录不要覆盖。GitHub 上的 `course-starter` 是课程模板，本地克隆目录是练习项目；即使名字相同，用途也不同。所有课堂任务、编码工具与欢迎页服务均在同一个本地项目根目录执行，1.1 继续使用 0.2 取得的项目。
+
+克隆时的 `origin` 指向课程模板，第 1 章只在本地修改和提交。第 2 章发布前，在自己的 GitHub 账号下创建空仓库，再把 `origin` 改为个人仓库地址，按发布课检查完整分支历史后推送。不要向课程模板仓库推送。已有个人远端含内容时先核对，不覆盖或强推；具体步骤见 [2.4 发布准备](courseware/ch02/lessons/04-publish/index.html#p44)。
 
 记录课程来源版本与自己仓库的初始提交。课程统一发布 commit 尚待冻结，本地 SHA 不等于已发布课程基线。
 
-维护者需要本地初始化时，可使用 `python3 tools/init-workspace.py`。它读取同级 `course-starter/` 的已提交起点，复制跟踪文件到 `projects/personal-homepage/`，建立独立 Git 历史并记录来源 SHA 和哈希。源仓库有未提交改动、已包含正式 React 应用或目标目录已存在时停止，不覆盖。`--starter` 可指定本地来源，`--workspace-root` 可指定目标工作目录。普通学员按上面的 Template 流程即可。
+维护者需要本地初始化时，可使用 `python3 tools/init-workspace.py`。它读取单独维护的 `course-starter/` 的已提交起点，复制跟踪文件到 `projects/personal-homepage/`，建立独立 Git 历史并记录来源 SHA 和哈希。源仓库有未提交改动、已包含正式 React 应用或目标目录已存在时停止，不覆盖。`--starter` 可指定本地来源，`--workspace-root` 可指定目标工作目录。普通学员按上面的直接克隆流程即可；维护用起点与试讲副本保持分开。
 
 ## 课件与项目分别运行
 
