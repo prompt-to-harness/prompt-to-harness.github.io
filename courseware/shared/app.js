@@ -227,7 +227,7 @@
       const url = 'http://localhost:4174/setup-check/';
       panel.querySelector('iframe').src = url;
       panel.querySelector('a').href = url;
-      panel.querySelector('[data-demo-status]').textContent = '练习副本 · localhost:4174（请核对实际加载）';
+      panel.querySelector('[data-demo-status]').textContent = '本地 course-starter · localhost:4174（请核对实际加载）';
     }
     const reload = event.target.closest('[data-demo-reload]');
     if (reload) {

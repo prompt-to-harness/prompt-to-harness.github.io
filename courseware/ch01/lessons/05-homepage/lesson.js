@@ -246,8 +246,8 @@ window.lesson = {
       "id": "p29-diff",
       "label": "范围和产物，要单独检查",
       "title": "范围和产物，要单独检查",
-      "lead": "范围和产物要单独检查：完整改动对照批准清单和初始状态，包括未跟踪的新文件，不覆盖已有工作；构建产物里不能有 setup-check、secret 或私人资料。页面、build、代码理解、Diff、产物五类证据互不替代。",
-      "html": "<div class=\"p-pair\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"tool\">完整改动</span><p>对照批准清单 · <b>不覆盖已有工作</b></p></div><div class=\"p-join\" data-reveal=\"1\"><b>+</b></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"gate\">实际产物</span><p>无 setup-check · 无 secret 与私人资料</p></div></div><div data-reveal=\"2\"><p class=\"p-sub\" style=\"margin:0 0 8px\">不能互相替代</p><div class=\"p-chain\" style=\"font-size:21px\"><span>页面</span><i>·</i><span>build</span><i>·</i><span>代码理解</span><i>·</i><span>Diff</span><i>·</i><span>产物</span></div></div>",
+      "lead": "范围和产物要单独检查：完整改动对照批准清单和初始状态，包括未跟踪的新文件，不覆盖已有工作；构建产物里不能有 setup-check、secret 或私人资料。页面、build、代码理解、全部改动检查、产物五类证据互不替代。",
+      "html": "<div class=\"p-pair\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"tool\">完整改动</span><p>对照批准清单 · <b>不覆盖已有工作</b></p></div><div class=\"p-join\" data-reveal=\"1\"><b>+</b></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"gate\">实际产物</span><p>无 setup-check · 无 secret 与私人资料</p></div></div><div data-reveal=\"2\"><p class=\"p-sub\" style=\"margin:0 0 8px\">不能互相替代</p><div class=\"p-chain\" style=\"font-size:21px\"><span>页面</span><i>·</i><span>build</span><i>·</i><span>代码理解</span><i>·</i><span>全部改动检查</span><i>·</i><span>产物</span></div></div>",
       "steps": [
         "检查范围",
         "检查产物",
@@ -256,7 +256,7 @@ window.lesson = {
       "script": [
         "【操作提示｜课件 p29-diff 第 1 步 → Terminal 在练习根目录执行 git status --short、git diff --stat、git diff、git diff --cached；VS Code 对照初始状态与批准清单，逐个打开 ?? 新文件。普通 git diff 不展示未跟踪文件内容，不能漏看】\n\n先看 status 列出了哪些文件，再和动手前的状态、批准的文件清单比较。新增的配置、页面源码、锁文件，都要能说明为什么属于这次任务。\n\n这里有个很容易漏的地方：新创建、还没被 Git 跟踪的文件，普通 git diff 不会展示它的内容。看到问号标记的文件，要在编辑器里打开检查。已经暂存的变化，也要单独看。\n\n如果发现范围外的改动，先分清是不是用户原来就有的。只处理本次造成的问题，不能为了把状态清干净，把原有工作一起覆盖掉。",
         "【操作提示｜推进第 2 步 → VS Code 检查实际 build 输出目录及 Vite 配置、应用入口、复制配置和 import；对应用源码与实际产物查 setup-check 引用及环境页特征文字，核对输出文件。检查源码、产物、待提交内容中的密钥及私人资料；发现敏感项先停止录屏并处理，不展示具体值】\n\n再看构建产物。先从构建输出和配置里确认文件生成到了哪里，然后打开那个目录。setup-check 可以留在练习仓库里，但它不应该被正式应用引用，也不应该被复制进发布用的产物。\n\n所以要看入口、引用关系和复制配置，再查实际输出的文件。只看到目录里没有一个叫 setup-check 的文件夹，还不足以确认它的内容没有被带进去。可以结合环境页的特征文字一起查。\n\n同时检查源码、产物和待提交内容，有没有密钥或私人资料。发现具体问题就先处理。这次人工检查的范围和结果如实记录，不把一次检查写成全面安全保证。",
-        "【操作提示｜返回课件第 3 步，对照证据文档汇总五类检查；若缺项留待补，不新开 Chrome 页面】\n\n现在把五类记录放在一起看。页面记录对应文字和交互，build 记录对应构建，代码说明对应我们对实现的理解，diff 对应修改范围，产物检查对应实际输出的内容。\n\n每一条完成标准，都应该能指到一项实际检查。缺哪项就补哪项，有问题就写清楚下一步要修什么。接下来我们用三个小例子，练习怎样作出接受、修正或者暂时停下的决定。"
+        "【操作提示｜返回课件第 3 步，对照证据文档汇总五类检查；若缺项留待补，不新开 Chrome 页面】\n\n现在把五类记录放在一起看。页面记录对应文字和交互，build 记录对应构建，代码说明对应我们对实现的理解，git diff 输出和新文件内容对应修改范围，产物检查对应实际输出的内容。\n\n每一条完成标准，都应该能指到一项实际检查。缺哪项就补哪项，有问题就写清楚下一步要修什么。接下来我们用三个小例子，练习怎样作出接受、修正或者暂时停下的决定。"
       ],
       "segment": "工程证据",
       "seconds": 100,
@@ -276,7 +276,7 @@ window.lesson = {
         },
         {
           "title": "讲师提示",
-          "text": "同时检查已跟踪与未跟踪文件。多出的文件要解释，不能只挑一段好看的 Diff。\n\n查实际构建输出和引用关系，不能因为目录名看起来独立就直接判通过。\n\n把每份证据接到完成标准，再判断是否可接受。"
+          "text": "同时检查已跟踪与未跟踪文件。多出的文件要解释，不能只挑一段好看的 git diff 输出。\n\n查实际构建输出和引用关系，不能因为目录名看起来独立就直接判通过。\n\n把每份证据接到完成标准，再判断是否可接受。"
         }
       ]
     },
@@ -362,8 +362,8 @@ window.lesson = {
       "id": "p31",
       "label": "保存源码、检查记录和版本",
       "title": "保存源码、检查记录和版本",
-      "lead": "交接时放好三组材料：任务与实现（Prompt、源码、组件说明），检查与决定（截图、build、diff、Review），版本与后续（提交、tag、未决事项）。它们要能对应起来，说明这一版做了什么、怎样检查、接下来从哪里继续。",
-      "html": "<style>.x-ch{display:flex;justify-content:center;align-items:center;margin:14px 0 6px}.x-ch-l{position:relative;width:380px;height:190px;margin:0 -34px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}.x-ch-ring{position:absolute;inset:0;border:16px solid var(--c);border-radius:95px;filter:url(#p-rough);box-shadow:inset 0 0 0 3px rgba(255,255,255,.35)}.x-ch-l:nth-child(2) .x-ch-ring{border-width:16px;transform:translateY(0)}.x-ch-l h3{position:relative;font:400 28px/1.2 var(--p-title);color:var(--ct);margin:0 0 6px}.x-ch-l p{position:relative;margin:0;font-size:19px;color:#18202B;max-width:280px}.x-ch-break{display:flex;align-items:center;gap:14px;justify-content:center;margin-top:18px}.x-ch-break .bk{display:flex;align-items:center}.x-ch-break .bk i{display:block;width:54px;height:30px;border:7px solid #D9481C;border-radius:16px}.x-ch-break .bk i:first-child{transform:rotate(-14deg) translateX(4px)}.x-ch-break .bk i:last-child{transform:rotate(18deg) translateX(-4px)}.x-ch-break .bk b{font:400 26px/1 var(--p-title);color:#D9481C;margin:0 6px}</style><div class=\"x-ch\"><div class=\"x-ch-l\" data-role=\"agent\" data-reveal=\"0\" style=\"z-index:3\"><div class=\"x-ch-ring\"></div><h3>任务与实现</h3><p>Prompt · 源码 · 组件说明</p></div><div class=\"x-ch-l\" data-role=\"ok\" data-reveal=\"1\" style=\"z-index:2\"><div class=\"x-ch-ring\"></div><h3>验证与决定</h3><p>截图 · build · Diff · Review</p></div><div class=\"x-ch-l\" data-role=\"tool\" data-reveal=\"2\" style=\"z-index:1\"><div class=\"x-ch-ring\"></div><h3>版本与后续</h3><p>提交 · tag · 未决事项</p></div></div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:20px;display:flex;align-items:center;gap:16px\"><span class=\"x-ch-break\" style=\"margin:0\"><span class=\"bk\"><i></i><b>⁄</b><i></i></span></span><span>任何一环断开，交付就<b>说不清</b></span></div>",
+      "lead": "交接时放好三组材料：任务与实现（Prompt、源码、组件说明），检查与决定（截图、build、改动检查记录、Review），版本与后续（提交、tag、未决事项）。它们要能对应起来，说明这一版做了什么、怎样检查、接下来从哪里继续。",
+      "html": "<style>.x-ch{display:flex;justify-content:center;align-items:center;margin:14px 0 6px}.x-ch-l{position:relative;width:380px;height:190px;margin:0 -34px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}.x-ch-ring{position:absolute;inset:0;border:16px solid var(--c);border-radius:95px;filter:url(#p-rough);box-shadow:inset 0 0 0 3px rgba(255,255,255,.35)}.x-ch-l:nth-child(2) .x-ch-ring{border-width:16px;transform:translateY(0)}.x-ch-l h3{position:relative;font:400 28px/1.2 var(--p-title);color:var(--ct);margin:0 0 6px}.x-ch-l p{position:relative;margin:0;font-size:19px;color:#18202B;max-width:280px}.x-ch-break{display:flex;align-items:center;gap:14px;justify-content:center;margin-top:18px}.x-ch-break .bk{display:flex;align-items:center}.x-ch-break .bk i{display:block;width:54px;height:30px;border:7px solid #D9481C;border-radius:16px}.x-ch-break .bk i:first-child{transform:rotate(-14deg) translateX(4px)}.x-ch-break .bk i:last-child{transform:rotate(18deg) translateX(-4px)}.x-ch-break .bk b{font:400 26px/1 var(--p-title);color:#D9481C;margin:0 6px}</style><div class=\"x-ch\"><div class=\"x-ch-l\" data-role=\"agent\" data-reveal=\"0\" style=\"z-index:3\"><div class=\"x-ch-ring\"></div><h3>任务与实现</h3><p>Prompt · 源码 · 组件说明</p></div><div class=\"x-ch-l\" data-role=\"ok\" data-reveal=\"1\" style=\"z-index:2\"><div class=\"x-ch-ring\"></div><h3>验证与决定</h3><p>截图 · build · 改动检查 · Review</p></div><div class=\"x-ch-l\" data-role=\"tool\" data-reveal=\"2\" style=\"z-index:1\"><div class=\"x-ch-ring\"></div><h3>版本与后续</h3><p>提交 · tag · 未决事项</p></div></div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:20px;display:flex;align-items:center;gap:16px\"><span class=\"x-ch-break\" style=\"margin:0\"><span class=\"bk\"><i></i><b>⁄</b><i></i></span></span><span>任何一环断开，交付就<b>说不清</b></span></div>",
       "steps": [
         "交接任务",
         "交接证据",
@@ -371,7 +371,7 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜课件 p31 第 1 步 → VS Code 并排查看最终 Prompt、源码与入口/组件说明，选一条要求指认实现位置；完成后回课件】\n\n先拿出最终的任务，再看源码和说明。比如任务要求展示“学习笔记”，我们能不能指出这段内容在哪个文件里，由哪个组件显示到页面上？\n\n能把这一条连起来，后面再改项目内容时，就有明确的起点。把最终 Prompt 和这份实现对应保存，也方便下一次继续工作时知道，这一版到底按什么要求做的。",
-        "【操作提示｜推进第 2 步 → VS Code 打开现有证据文档，抽查一条完成标准对应的截图、构建或 diff 记录及 Review 结论；这是独立自检，不要求同伴参与。需要重查页面时复用 Chrome“个人主页 v0”标签页】\n\n再抽查一条完成标准，看能不能找到对应结果。比如“查看项目”要跳到项目区，那记录里有没有实际点击结果？要求构建成功，那完整输出放在哪里？\n\n我们可以暂停视频，自己抽查一条。Review 就是这次审阅的结论：接受、需要修正，或者因为什么暂时停下。结论旁边写上依据和待处理项，下一次打开记录，就知道工作应该从哪里接着做。",
+        "【操作提示｜推进第 2 步 → VS Code 打开现有证据文档，抽查一条完成标准对应的截图、构建或改动检查记录（git diff 输出及新文件内容）及 Review 结论；这是独立自检，不要求同伴参与。需要重查页面时复用 Chrome“个人主页 v0”标签页】\n\n再抽查一条完成标准，看能不能找到对应结果。比如“查看项目”要跳到项目区，那记录里有没有实际点击结果？要求构建成功，那完整输出放在哪里？\n\n我们可以暂停视频，自己抽查一条。Review 就是这次审阅的结论：接受、需要修正，或者因为什么暂时停下。结论旁边写上依据和待处理项，下一次打开记录，就知道工作应该从哪里接着做。",
         "【操作提示｜返回课件 p31 第 3 步，指向版本与后续；核对记录中的提交、tag 与未决事项后收尾。不新开 Chrome 页面，不发布；未完成者使用“个人主页交接仍待补做”分支】\n\n最后，把本地提交、ch01-prompt-baseline 标签和检查记录对应起来。有待改进的地方，也单独留下。这样交出去的就是一份能定位版本、能查看依据的个人主页 v0。\n\n回看这一节，我们从已确认的请求出发，观察生成，打开页面检查，再回到代码、构建和差异，最后决定是否接受。以后再把任务交给 AI，我们也可以沿着这些具体对象检查结果。\n\n个人主页还没完成的同学，先把交接状态留在待补做，后面补齐。已经完成的这一版，会成为第二章继续迭代的起点。在那之前，下一节我们先回看今天哪些动作需要权限，为什么只给当前任务需要的权限。"
       ],
       "segment": "判断与交付",
