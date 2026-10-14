@@ -20,14 +20,14 @@ Prompt to Harness 课程第 1–3 章的个人主页练习起点。1.1 先修改
 
 | 小节 | 输入与操作位置 | 本节产出 |
 | --- | --- | --- |
-| 1.1 环境与首次闭环 | 填写 [环境检查单](docs/setup/ENVIRONMENT.md)，按 [任务卡](TASK_01_01.md)只修改 `setup-check/index.html` 的欢迎语 | 页面检查、diff 与 `docs/evidence/CH01_ENVIRONMENT_AND_FIRST_LOOP.md` |
+| 1.1 环境与首次闭环 | 填写 [环境检查单](docs/setup/ENVIRONMENT.md)，按 [任务卡](TASK_01_01.md)只修改 `setup-check/index.html` 的欢迎语 | 页面检查、diff 与自行记录的发现和问题 |
 | 1.2 Agent 与协作基础 | 复用 1.1 的请求、工具返回和结果 | 分类记录与 `docs/evidence/CH01_PROMPT_EXPERIMENT.md` 初稿 |
 | 1.3 工具与权限 | 同一仓库、环境记录和欢迎语任务 | CLI 基线、权限选择记录 |
 | 1.4 写清首页任务 | 读取 [PROJECT_BRIEF.md](PROJECT_BRIEF.md)、[占位内容](PLACEHOLDER_CONTENT.md)与必要仓库状态；只规划 | 人工确认的需求、小计划、文件清单和 `PROMPT_V1.md` |
 | 1.5 完成首页任务 | 根据确认的 Prompt，在根目录创建正式应用；使用 [工具链说明](docs/setup/TOOLCHAIN.md) | 首页 v0、运行与构建证据、Review、本地提交和 `ch01-prompt-baseline` tag |
 | 1.6 最小权限 | 结合课件“仅核对本地链接，不发布”任务作判断 | 在已有权限记录中补充判断与理由 |
 
-证据文档与 `PROMPT_V1.md` 由学员在对应环节创建。它们不属于欢迎语单文件修改的授权范围，不预填执行记录或验收通过结论。
+1.1 的观察记录方式自选。后续概念练习文档与 `PROMPT_V1.md` 在对应环节创建，不预填执行记录或验收通过结论。
 
 ## 打开 1.1 环境检查页
 

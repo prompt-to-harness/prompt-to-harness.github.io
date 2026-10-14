@@ -48,7 +48,7 @@ ch01/
 ## 教学路线与材料
 
 - Codex CLI 是必需的实操与检查入口，Codex App 可选；CLI 受阻时先观察演示，补齐后再实操。
-- 1.1 修改独立的 `setup-check/index.html` 欢迎语，检查页面与 diff，按证据反馈修正。
+- 1.1 修改独立的 `setup-check/index.html` 欢迎语，检查页面与 git diff 输出，按证据反馈修正。
 - 1.4 读取 Brief、提出问题并确认四段式 Prompt；1.5 创建 React + TypeScript + Vite 骨架与首页，验证后建立 `ch01-prompt-baseline` 检查点。
 - 1.6 使用“仅核对本地链接，不发布”任务判断最小权限。
 - [首次任务与验收](preparation.html)、[0.2 课前准备](../ch00/lessons/02-preparation/index.html#p12)与当前内容同步。

@@ -43,7 +43,7 @@
     {
       "id": "check",
       "label": "检查结果",
-      "body": "页面 + 完整 Diff",
+      "body": "页面与 git diff 输出",
       "icon": "eye",
       "accent": "white"
     },

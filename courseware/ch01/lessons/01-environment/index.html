@@ -12,10 +12,28 @@
   <link rel="stylesheet" href="../../chapter.css">
   <link rel="stylesheet" href="../../../shared/evidence.css">
   <link rel="stylesheet" href="../../../shared/parts/parts.css">
+  <style>
+    body[data-mode="slides"] .segment-bar .segment { min-width: max-content; }
+    #p05 .p-page-bar { flex-wrap: wrap; }
+    #p05 .p-page-bar span { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+    body[data-mode="scroll"] #p07 > .scene-content > .p-tag { width: fit-content; }
+  </style>
   <script src="lesson.js" defer></script>
   <script src="../../../shared/app.js" defer></script>
   <script src="../../../shared/presentation.js" defer></script>
   <script src="../../../shared/parts/parts.js" defer></script>
+  <script>
+    const redirectMergedPreparationPages = () => {
+      if (!['#p02a', '#p03-access'].includes(location.hash)) return;
+      const url = new URL(location.href);
+      url.hash = 'p03';
+      url.searchParams.set('step', '0');
+      try { history.replaceState(null, '', url); }
+      catch (_) { location.replace(url.href); }
+    };
+    redirectMergedPreparationPages();
+    window.addEventListener('hashchange', redirectMergedPreparationPages);
+  </script>
 </head>
 <body data-mode="scroll" class="camera-hidden">
   <a class="skip-link" href="#lesson">跳到课程内容</a>

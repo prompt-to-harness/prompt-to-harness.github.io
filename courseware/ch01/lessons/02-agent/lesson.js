@@ -42,7 +42,7 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜课件 p09 第 1 步；保留课件 Chrome 标签页，暂不切窗口】\n\n上一节，我们请 AI 改了一句欢迎语。从“你好，欢迎来到我的练习页面”，改成“你好，欢迎来到 Vibe Coding 课堂！”操作做完了，今天我们再回头看一个问题：我在对话里发了一句话，电脑上的文件到底是怎么变的？\n\n中间发生了哪些动作？哪些只是它准备做，哪些已经有了结果？把这几件事分清楚，后面看 AI 的执行记录，我们就知道应该看哪里。",
-        "【操作提示｜推进第 2 步 → 切 VS Code，打开上一节练习副本中的 docs/evidence/CH01_PROMPT_EXPERIMENT.md，定位已有请求和检查记录，再回课件；录前准备好 1.1 的原始记录，缺失时明确使用教学示意，不重发修改任务】\n\n我们沿用上一节的欢迎语任务。请把注意力放在三件事上：它拿到了什么信息，实际做了什么，以及我们凭什么接受结果。\n\n如果已经跟做过，可以拿自己的记录来对照。还没做过，也可以先看懂这次拆解，之后补做上一节，再把真实证据填进记录里。"
+        "【操作提示｜推进第 2 步 → 切 Terminal，回看上一节的 Codex 对话，定位请求、工具返回和检查结果；可结合讲师自己的笔记或截图。缺少实际过程时明确使用教学示意，不重发修改任务。完成后回课件】\n\n我们沿用上一节的欢迎语任务。请把注意力放在三件事上：它拿到了什么信息，实际做了什么，以及我们凭什么接受结果。\n\n如果已经跟做过，可以对照自己的对话、页面和观察笔记。还没做过，也可以先看懂这次拆解，之后再完成欢迎语修改。"
       ],
       "segment": "执行循环",
       "seconds": 20,
@@ -269,17 +269,17 @@ window.lesson = {
       "id": "p10-diff",
       "label": "差异与页面",
       "title": "两份证据，回答两个问题",
-      "lead": "完整 diff 用来核对文字怎样变化、有没有多改文件；浏览器用来核对目标页面实际显示什么、布局是否改变。图里只有两行差异示意，实际检查还要看文件状态，并与开始前的记录对照。",
-      "html": "<div class=\"evidence-pair\"><div data-reveal=\"0\" class=\"evidence-panel ink\"><h3>Diff · 改了什么</h3><div class=\"diff-lines\"><p class=\"minus\">− 你好，欢迎来到我的练习页面</p><p class=\"plus\">+ 你好，欢迎来到 Vibe Coding 课堂！</p></div><p class=\"small-copy\">核对改动内容与范围</p></div><div data-reveal=\"1\" class=\"evidence-panel ink\"><h3>页面 · 显示什么</h3><div class=\"page-evidence\"><span>环境检查页</span><b>你好，欢迎来到<br>Vibe Coding 课堂！</b></div><p class=\"small-copy\">打开正确页面，刷新并核对结果</p></div></div><div data-reveal=\"2\" class=\"conclusion \"><p>“看到了新文案”，还不能单独证明“没有多改文件”</p></div><p class=\"source-note\">差异与页面均为教学示意，非真实执行截图；正式检查需查看完整 Diff</p>",
+      "lead": "完整 git diff 输出用来核对文字怎样变化、有没有多改文件；浏览器用来核对目标页面实际显示什么、布局是否改变。图里只有两行差异示意，实际检查还要看文件状态，并与开始前的记录对照。",
+      "html": "<div class=\"evidence-pair\"><div data-reveal=\"0\" class=\"evidence-panel ink\"><h3>欢迎语变化示意</h3><div class=\"diff-lines\"><p class=\"minus\">− 你好，欢迎来到我的练习页面</p><p class=\"plus\">+ 你好，欢迎来到 Vibe Coding 课堂！</p></div><p class=\"small-copy\">实际检查：查看 git diff 输出</p></div><div data-reveal=\"1\" class=\"evidence-panel ink\"><h3>页面 · 显示什么</h3><div class=\"page-evidence\"><span>环境检查页</span><b>你好，欢迎来到<br>Vibe Coding 课堂！</b></div><p class=\"small-copy\">打开正确页面，刷新并核对结果</p></div></div><div data-reveal=\"2\" class=\"conclusion \"><p>“看到了新文案”，还不能单独证明“没有多改文件”</p></div><p class=\"source-note\">欢迎语变化与页面均为教学示意，非真实执行截图；正式检查需查看完整 git diff 输出</p>",
       "steps": [
-        "解释 Diff 的作用",
+        "核对代码改动",
         "展示页面结果的作用",
         "问“页面能证明没多改文件吗”"
       ],
       "script": [
-        "【操作提示｜课件 p10-diff 第 1 步 → 切 Terminal“仓库检查”，在同一练习副本运行 git status --short、git diff；有暂存改动补看 git diff --cached。若上一节已提交或又有新改动，展示当时保存的完整 Diff 和初始状态，不把当前差异冒充上一节结果】\n\n现在看两份检查证据。第一份是 Diff，就是修改前后的差异。\n\n我先看文件列表，再看每个改动块：欢迎语是否按要求替换了，有没有动到样式或者其他文件。课件只截了两行文字，实际检查要看完整差异，并和开始前的状态对照。\n\n如果现在没有差异输出，先确认改动是不是已经提交。回看一次旧任务，要找到那次任务留下的记录。",
+        "【操作提示｜课件 p10-diff 第 1 步 → 切 Terminal“仓库检查”，在同一练习副本运行 git status --short、git diff；有暂存改动补看 git diff --cached。若上一节已提交或又有新改动，展示当时保存的完整 git diff 输出和初始状态，不把当前差异冒充上一节结果】\n\n现在看两份检查证据。第一份是 git diff 输出，它显示文件修改前后的差异。\n\n我先看文件列表，再看每个改动块：欢迎语是否按要求替换了，有没有动到样式或者其他文件。课件用两行欢迎语展示变化，实际检查要看完整 git diff 输出，并和开始前的状态对照。\n\n如果现在没有差异输出，先确认改动是不是已经提交。回看一次旧任务，要找到那次任务留下的记录。",
         "【操作提示｜推进课件第 2 步 → 在 Chrome 新开标签页“1.1 欢迎语结果”，打开 http://localhost:4174/setup-check/。录前确认服务来自同一练习副本；服务未启动时，在该副本的独立 Terminal 标签页运行 python3 -m http.server 4174 --bind 127.0.0.1。保留课件页，核对地址、刷新，检查文案与布局；若结果不符，描述实际现象，不念成功结论】\n\n第二份是浏览器里的页面。我现在新开一个标签页，打开同一份练习项目的环境页，再刷新一次。\n\n我们核对两件事：显示的文字是否是要求的那一句，原来的布局有没有变化。结果对得上，才能记录对应检查通过；对不上，就把实际现象记下来，继续定位原因。",
-        "【操作提示｜回课件第 3 步，指向两份证据；保留结果标签页供后面回看】\n\n假如页面显示了新欢迎语，能不能就此认定没有多改文件？还不能。别的文件即使被改了，也不一定会在这个页面上显示出来。\n\n所以，页面帮我们核对看见的结果，完整 Diff 帮我们核对改动内容和范围。接下来，我们用这个区别判断几句话。"
+        "【操作提示｜回课件第 3 步，指向两份证据；保留结果标签页供后面回看】\n\n假如页面显示了新欢迎语，能不能就此认定没有多改文件？还不能。别的文件即使被改了，也不一定会在这个页面上显示出来。\n\n所以，页面帮我们核对看见的结果，完整 git diff 输出帮我们核对改动内容和范围。接下来，我们用这个区别判断几句话。"
       ],
       "segment": "信息与术语",
       "seconds": 35,
@@ -287,7 +287,7 @@ window.lesson = {
       "teaching": [
         {
           "title": "逐步呈现与提问",
-          "text": "1. 解释 Diff 的作用\n\n2. 展示页面结果的作用\n\n3. 问“页面能证明没多改文件吗”"
+          "text": "1. 解释 git diff 输出的作用\n\n2. 展示页面结果的作用\n\n3. 问“页面能证明没多改文件吗”"
         },
         {
           "title": "教学边界与材料",
@@ -296,14 +296,14 @@ window.lesson = {
       ],
       "notes": "",
       "source": "index.html#p10-diff",
-      "closing": "页面显示新欢迎语，不能单独证明没有多改文件。已经提交的旧任务要查看留存差异，当前 diff 为空也不能代替当时的检查结果。"
+      "closing": "页面显示新欢迎语，不能单独证明没有多改文件。已经提交的旧任务要查看留存的 git diff 输出，当前 git diff 输出为空也不能代替当时的检查结果。"
     },
     {
       "id": "p11",
       "label": "四类信息",
       "title": "同一句“改好了”，你凭什么相信？",
       "lead": "同样一句“改好了”，信息的性质可能不同：实际观察可以支持事实，未确认的偏好是假设，可选做法是建议，人的明确确认是决定。先看来源和依据，再判断这句话可以怎样用于当前任务。",
-      "html": "<div class=\"classification\"><div data-reveal=\"0\" class=\"class-row ok\"><span class=\"class-name\">事实</span><blockquote>刷新正确页面，看到了目标文案</blockquote><p>有对应观察支持；仍需 Diff 查范围</p></div><div data-reveal=\"1\" class=\"class-row ctx\"><span class=\"class-name\">假设</span><blockquote>“用户可能更喜欢活泼的文案。”</blockquote><p>尚未确认，向用户核实</p></div><div data-reveal=\"2\" class=\"class-row agent\"><span class=\"class-name\">建议</span><blockquote>“可以顺便加个动画。”</blockquote><p>是可选做法，由人决定是否采纳</p></div><div data-reveal=\"3\" class=\"class-row ink\"><span class=\"class-name\">决定</span><blockquote>用户明确说：“只改文字，不加动画。”</blockquote><p>已确认，约束本次任务范围</p></div></div>",
+      "html": "<div class=\"classification\"><div data-reveal=\"0\" class=\"class-row ok\"><span class=\"class-name\">事实</span><blockquote>刷新正确页面，看到了目标文案</blockquote><p>有对应观察支持；仍需 git diff 输出查范围</p></div><div data-reveal=\"1\" class=\"class-row ctx\"><span class=\"class-name\">假设</span><blockquote>“用户可能更喜欢活泼的文案。”</blockquote><p>尚未确认，向用户核实</p></div><div data-reveal=\"2\" class=\"class-row agent\"><span class=\"class-name\">建议</span><blockquote>“可以顺便加个动画。”</blockquote><p>是可选做法，由人决定是否采纳</p></div><div data-reveal=\"3\" class=\"class-row ink\"><span class=\"class-name\">决定</span><blockquote>用户明确说：“只改文字，不加动画。”</blockquote><p>已确认，约束本次任务范围</p></div></div>",
       "steps": [
         "先看事实及它能支持的范围",
         "把未经确认的偏好识别为假设",
@@ -331,23 +331,23 @@ window.lesson = {
       ],
       "notes": "",
       "source": "index.html#p11",
-      "closing": "例如页面观察支持“目标文字已经显示”，是否多改文件还要查 diff。未确认的偏好和建议不能自行变成修改要求。"
+      "closing": "例如页面观察支持“目标文字已经显示”，是否多改文件还要查 git diff 输出。未确认的偏好和建议不能自行变成修改要求。"
     },
     {
       "id": "p11-judge",
       "label": "先判断，再看证据",
       "title": "“它说过”，不等于“它说的成立”",
       "lead": "先比较第二条的页面观察与第三条 AI 的保证：它们分别能支持什么结论？第一条也要核对真实读取记录；第四条只是尚未确认的偏好。先写理由，再对照解析，不因句子出自 AI 就认定成立。",
-      "html": "<div class=\"statement-grid\"><article class=\"statement\"><span class=\"card-quote\">① 记录中有一次目标文件读取</span><div data-reveal=\"1\" class=\"card-answer ctx\"><b>还要核对</b><p>核对真实日志中的路径和返回；有对应证据才成立</p></div></article><article class=\"statement\"><span class=\"card-quote\">② 刷新正确页面，显示了目标文案</span><div data-reveal=\"1\" class=\"card-answer ok\"><b>事实</b><p>有对应观察支持“文案已显示”；不能单独证明改动范围</p></div></article><article class=\"statement\"><span class=\"card-quote\">③ AI 说：“没有多改文件。”尚无 Diff。</span><div data-reveal=\"1\" class=\"card-answer risk\"><b>尚未证实</b><p>不能直接当事实；缺少实际 Diff 和文件范围检查</p></div></article><article class=\"statement\"><span class=\"card-quote\">④ “学员大概喜欢深色背景。”</span><div data-reveal=\"1\" class=\"card-answer ctx\"><b>假设</b><p>偏好未确认，先向用户核实</p></div></article></div><div data-reveal=\"2\" class=\"conclusion \"><p>③还缺完整 diff，暂时不能确认改动范围</p></div>",
+      "html": "<div class=\"statement-grid\"><article class=\"statement\"><span class=\"card-quote\">① 记录中有一次目标文件读取</span><div data-reveal=\"1\" class=\"card-answer ctx\"><b>还要核对</b><p>核对真实日志中的路径和返回；有对应证据才成立</p></div></article><article class=\"statement\"><span class=\"card-quote\">② 刷新正确页面，显示了目标文案</span><div data-reveal=\"1\" class=\"card-answer ok\"><b>事实</b><p>有对应观察支持“文案已显示”；不能单独证明改动范围</p></div></article><article class=\"statement\"><span class=\"card-quote\">③ AI 说：“没有多改文件。”尚无 git diff 输出。</span><div data-reveal=\"1\" class=\"card-answer risk\"><b>尚未证实</b><p>不能直接当事实；缺少实际 git diff 输出和文件范围检查</p></div></article><article class=\"statement\"><span class=\"card-quote\">④ “学员大概喜欢深色背景。”</span><div data-reveal=\"1\" class=\"card-answer ctx\"><b>假设</b><p>偏好未确认，先向用户核实</p></div></article></div><div data-reveal=\"2\" class=\"conclusion \"><p>③还缺完整 git diff 输出，暂时不能确认改动范围</p></div>",
       "steps": [
         "停顿，让学员判断②③，其余对照",
         "揭晓四条，重点解释证据边界",
         "收拢：AI 的保证也要核对"
       ],
       "script": [
-        "【操作提示｜课件 p11-judge 第 1 步；答案保持隐藏，停约 5 秒，提示学员可暂停】\n\n先比较第二条和第三条。第二条说刷新页面后看到了目标文案；第三条是 AI 说“没有多改文件”，但还没看 Diff。\n\n这两句话，我们分别敢确认到哪一步？可以暂停一下，先说出自己的理由，再看后面的解析。其他两条也一起判断。",
+        "【操作提示｜课件 p11-judge 第 1 步；答案保持隐藏，停约 5 秒，提示学员可暂停】\n\n先比较第二条和第三条。第二条说刷新页面后看到了目标文案；第三条是 AI 说“没有多改文件”，但还没看 git diff 输出。\n\n这两句话，我们分别敢确认到哪一步？可以暂停一下，先说出自己的理由，再看后面的解析。其他两条也一起判断。",
         "【操作提示｜推进第 2 步，按②③①④的顺序讲解】\n\n第二条，如果有对应的页面观察，就能支持文案已经显示。第三条目前只有一句保证，还缺改动范围的证据。\n\n第一条同样要对应真实日志和返回。第四条说“学员大概喜欢深色背景”，其中“大概”提示我们，这是还没确认的偏好。",
-        "【操作提示｜推进第 3 步，指向“尚未证实”】\n\n第三条先记成“尚未证实”就可以，不必硬塞进刚才的四类。我们能确认的是 AI 说过这句话，至于它说的是否成立，还要继续查。\n\n记录时可以写得很具体：“缺少完整 Diff，暂时不能确认改动范围。”这样下一步要补什么就清楚了。"
+        "【操作提示｜推进第 3 步，指向“尚未证实”】\n\n第三条先记成“尚未证实”就可以，不必硬塞进刚才的四类。我们能确认的是 AI 说过这句话，至于它说的是否成立，还要继续查。\n\n记录时可以写得很具体：“缺少完整 git diff 输出，暂时不能确认改动范围。”这样下一步要补什么就清楚了。"
       ],
       "segment": "判断信息",
       "seconds": 65,
@@ -364,21 +364,21 @@ window.lesson = {
       ],
       "notes": "",
       "source": "index.html#p11-judge",
-      "closing": "第三条可以记成“缺少完整 diff，暂时不能确认改动范围”。AI 确实说过这句话，与它说的内容已经得到验证，是两个判断。"
+      "closing": "第三条可以记成“缺少完整 git diff 输出，暂时不能确认改动范围”。AI 确实说过这句话，与它说的内容已经得到验证，是两个判断。"
     },
     {
       "id": "p11-more",
       "label": "建议与决定",
       "title": "一句建议，什么时候变成任务？",
-      "lead": "“建议先看 diff”和“可以扩大字号”只是可选做法；“只改欢迎语”“不新增依赖”在有人明确确认的前提下，才是本次任务的决定。对应自己的任务时，要能找到实际确认记录。",
-      "html": "<div class=\"statement-grid\"><article class=\"statement\"><span class=\"card-quote\">⑤ “建议先看 Diff。”</span><div data-reveal=\"1\" class=\"card-answer agent\"><b>建议</b><p>提出验证做法；还不表示已经执行</p></div></article><article class=\"statement\"><span class=\"card-quote\">⑥ “可以考虑扩大标题字号。”</span><div data-reveal=\"1\" class=\"card-answer agent\"><b>建议</b><p>可选改动，需要人决定，不能擅自扩范围</p></div></article><article class=\"statement\"><span class=\"card-quote\">⑦ 教师已批准：“只改欢迎语。”</span><div data-reveal=\"1\" class=\"card-answer ink\"><b>决定</b><p>需有明确确认记录；它约束可修改范围</p></div></article><article class=\"statement\"><span class=\"card-quote\">⑧ 教师决定：“这次不新增依赖。”</span><div data-reveal=\"1\" class=\"card-answer ink\"><b>决定</b><p>需有明确确认记录；后续执行遵守这一边界</p></div></article></div><div data-reveal=\"2\" class=\"conclusion \"><p>还缺什么？目标文案 / 指定文件 / 完成标准 —— 任选一项写清</p></div>",
+      "lead": "“建议先看 git diff 输出”和“可以扩大字号”只是可选做法；“只改欢迎语”“不新增依赖”在有人明确确认的前提下，才是本次任务的决定。对应自己的任务时，要能找到实际确认记录。",
+      "html": "<div class=\"statement-grid\"><article class=\"statement\"><span class=\"card-quote\">⑤ “建议先看 git diff 输出。”</span><div data-reveal=\"1\" class=\"card-answer agent\"><b>建议</b><p>提出验证做法；还不表示已经执行</p></div></article><article class=\"statement\"><span class=\"card-quote\">⑥ “可以考虑扩大标题字号。”</span><div data-reveal=\"1\" class=\"card-answer agent\"><b>建议</b><p>可选改动，需要人决定，不能擅自扩范围</p></div></article><article class=\"statement\"><span class=\"card-quote\">⑦ 教师已批准：“只改欢迎语。”</span><div data-reveal=\"1\" class=\"card-answer ink\"><b>决定</b><p>需有明确确认记录；它约束可修改范围</p></div></article><article class=\"statement\"><span class=\"card-quote\">⑧ 教师决定：“这次不新增依赖。”</span><div data-reveal=\"1\" class=\"card-answer ink\"><b>决定</b><p>需有明确确认记录；后续执行遵守这一边界</p></div></article></div><div data-reveal=\"2\" class=\"conclusion \"><p>还缺什么？目标文案 / 指定文件 / 完成标准 —— 任选一项写清</p></div>",
       "steps": [
         "先区分建议与已确认决定",
         "揭晓四条，指出确认记录",
         "指出一条缺失信息，留给 1.4"
       ],
       "script": [
-        "【操作提示｜课件 p11-more 第 1 步，先不揭晓答案】\n\n再看后四条。“建议先看 Diff”，说明已经看过了吗？“可以考虑扩大标题字号”，说明已经允许修改字号了吗？\n\n这两句都在提出可选做法。先分清它们和下面两句明确批准的范围有什么不同。",
+        "【操作提示｜课件 p11-more 第 1 步，先不揭晓答案】\n\n再看后四条。“建议先看 git diff 输出”，说明已经看过了吗？“可以考虑扩大标题字号”，说明已经允许修改字号了吗？\n\n这两句都在提出可选做法。先分清它们和下面两句明确批准的范围有什么不同。",
         "【操作提示｜推进第 2 步，指向⑤⑥和⑦⑧】\n\n第五、第六条是建议。第七、第八条有教师明确批准或决定的前提，所以可以作为这次任务的边界。\n\n对应自己的任务时，要找到实际确认记录。比如“不新增依赖”，就不能因为实现过程中觉得方便，直接装一个新的库。",
         "【操作提示｜推进第 3 步 → 切 VS Code，打开练习副本 docs/evidence/CH01_PROMPT_EXPERIMENT.md，在已有记录后补“缺失信息、依据、准备补充的要求”；无缺项时用课件变式示范并标明，不虚构本人经历。完成后回课件】\n\n现在回到自己的任务说明，找一项应该补清楚的信息。比如只说“改得友好一点”，却没给目标文字；或者说“改个人主页”，却没指定文件。\n\n把缺的那一项写下来，再补一句准备怎样说明。自己的任务已经写清楚了，也可以用课件里的变式练习，但要标明是练习例子。一点四我们会接着用这条记录。"
       ],
@@ -404,7 +404,7 @@ window.lesson = {
       "label": "三个常见缺口",
       "title": "出错了，先找缺的是哪一环",
       "lead": "这里列出三种可能的失败：任务信息不足，改动超出范围，只收到完成说明却没有检查结果。先选一种，写出具体纠正动作，再写怎样重新检查；这些情况不表示首次任务已经全部发生过。",
-      "html": "<div class=\"failure-grid\"><article class=\"failure-case\"><div class=\"failure-head\"><span>01 · 任务输入</span><h3>AI 自己编了文案</h3></div><div data-reveal=\"1\" class=\"\"><div class=\"repair\"><b>纠正</b><p>补目标文字、位置、完成标准</p><b>复验</b><p>对照要求重新核对页面与 Diff</p></div></div></article><article class=\"failure-case\"><div class=\"failure-head\"><span>02 · 执行范围</span><h3>文字改了，样式也改了</h3></div><div data-reveal=\"2\" class=\"\"><div class=\"repair\"><b>纠正</b><p>识别并撤销本次越界改动，保留原有工作</p><b>复验</b><p>重看完整 Diff，确认只留允许改动</p></div></div></article><article class=\"failure-case\"><div class=\"failure-head\"><span>03 · 结果检查</span><h3>只有一句“已完成”</h3></div><div data-reveal=\"3\" class=\"\"><div class=\"repair\"><b>纠正</b><p>打开正确页面，并查看完整 Diff</p><b>复验</b><p>同时核对显示结果和改动范围</p></div></div></article></div><p class=\"source-note\">三种可能场景，不表示 1.1 已经全部发生；纠正后必须复验</p>",
+      "html": "<div class=\"failure-grid\"><article class=\"failure-case\"><div class=\"failure-head\"><span>01 · 任务输入</span><h3>AI 自己编了文案</h3></div><div data-reveal=\"1\" class=\"\"><div class=\"repair\"><b>纠正</b><p>补目标文字、位置、完成标准</p><b>复验</b><p>对照要求重新核对页面与 git diff 输出</p></div></div></article><article class=\"failure-case\"><div class=\"failure-head\"><span>02 · 执行范围</span><h3>文字改了，样式也改了</h3></div><div data-reveal=\"2\" class=\"\"><div class=\"repair\"><b>纠正</b><p>识别并撤销本次越界改动，保留原有工作</p><b>复验</b><p>重看完整 git diff 输出，确认只留允许改动</p></div></div></article><article class=\"failure-case\"><div class=\"failure-head\"><span>03 · 结果检查</span><h3>只有一句“已完成”</h3></div><div data-reveal=\"3\" class=\"\"><div class=\"repair\"><b>纠正</b><p>打开正确页面，并查看完整 git diff 输出</p><b>复验</b><p>同时核对显示结果和改动范围</p></div></div></article></div><p class=\"source-note\">三种可能场景，不表示 1.1 已经全部发生；纠正后必须复验</p>",
       "steps": [
         "只给三个现象，请先选一个判断",
         "揭晓信息缺失的纠正与复验",
@@ -413,9 +413,9 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜课件 p12 第 1 步；本页为教学变式，不故意修改练习项目制造故障】\n\n知道该看什么证据之后，出错时就更容易找方向。这里有三种可能的情况：文案是 AI 自己编的，文字改了但样式也改了，或者只收到一句“已完成”。\n\n先选一种，想一想：我下一步具体要做什么？做完以后，又用什么确认问题解决了？",
-        "【操作提示｜推进第 2 步，指向信息缺失的纠正和复验】\n\n第一种，先检查任务有没有给足信息。如果没提供准确文案，就补上目标文字、位置和完成标准。\n\n补完以后再核对页面和 Diff。不能只发一句“你理解错了”，因为它仍然不知道应该改成什么。",
-        "【操作提示｜推进第 3 步，指向范围失控；此处不运行恢复或覆盖命令】\n\n第二种，先查 Diff，把这次多改的样式和原来就有的工作分开。只处理本次越界的部分，再确认剩下的都是允许修改的内容。\n\n这里尤其不要图快，把整个文件覆盖回去。那样可能连用户之前的修改也一起丢掉。",
-        "【操作提示｜推进第 4 步，指向验证缺失】\n\n第三种，缺的是检查。就回到刚才那两份证据：打开正确页面，核对实际显示；再看完整 Diff，核对内容和范围。\n\n我们可以用自己的话复述这三种情况。关键是说出一个能执行的纠正动作，再接上复验方法，而不只是“让它再试一次”。"
+        "【操作提示｜推进第 2 步，指向信息缺失的纠正和复验】\n\n第一种，先检查任务有没有给足信息。如果没提供准确文案，就补上目标文字、位置和完成标准。\n\n补完以后再核对页面和 git diff 输出。不能只发一句“你理解错了”，因为它仍然不知道应该改成什么。",
+        "【操作提示｜推进第 3 步，指向范围失控；此处不运行恢复或覆盖命令】\n\n第二种，先查 git diff 输出，把这次多改的样式和原来就有的工作分开。只处理本次越界的部分，再确认剩下的都是允许修改的内容。\n\n这里尤其不要图快，把整个文件覆盖回去。那样可能连用户之前的修改也一起丢掉。",
+        "【操作提示｜推进第 4 步，指向验证缺失】\n\n第三种，缺的是检查。就回到刚才那两份证据：打开正确页面，核对实际显示；再看完整 git diff 输出，核对内容和范围。\n\n我们可以用自己的话复述这三种情况。关键是说出一个能执行的纠正动作，再接上复验方法，而不只是“让它再试一次”。"
       ],
       "segment": "失败与纠正",
       "seconds": 80,
@@ -432,14 +432,14 @@ window.lesson = {
       ],
       "notes": "",
       "source": "index.html#p12",
-      "closing": "撤销额外修改前，要分清本次变化与原有工作。修正后仍需重新核对页面和完整 diff，不能只凭“修好了”结束。"
+      "closing": "撤销额外修改前，要分清本次变化与原有工作。修正后仍需重新核对页面和完整 git diff 输出，不能只凭“修好了”结束。"
     },
     {
       "id": "p12-trace",
       "label": "路径与引用",
       "title": "读不到，和改错地方，是两种问题",
       "lead": "“找不到文件”卡在读取阶段；“改了另一个页面的同名文字”是修改对象找错。前者先查当前目录和路径，后者先确认正在看的页面实际对应哪个文件，再根据结果处理。",
-      "html": "<div class=\"evidence-pair\"><div data-reveal=\"0\" class=\"evidence-panel risk\"><h3>工具执行失败</h3><pre><code>读取结果：找不到文件</code></pre><div data-reveal=\"1\" class=\"\"><p>核对当前目录与文件路径</p><p class=\"verification\">复验：重新读取，检查返回内容</p></div></div><div data-reveal=\"0\" class=\"evidence-panel risk\"><h3>误判代码逻辑</h3><p class=\"large-copy\">同名欢迎语，<br>却属于另一个页面</p><div data-reveal=\"2\" class=\"\"><p>沿当前页面入口确认实际引用</p><p class=\"verification\">复验：改对位置，再查页面与 Diff</p></div></div></div><p class=\"source-note\">教学变式；不在本节展开环境排障或代码架构</p>",
+      "html": "<div class=\"evidence-pair\"><div data-reveal=\"0\" class=\"evidence-panel risk\"><h3>工具执行失败</h3><pre><code>读取结果：找不到文件</code></pre><div data-reveal=\"1\" class=\"\"><p>核对当前目录与文件路径</p><p class=\"verification\">复验：重新读取，检查返回内容</p></div></div><div data-reveal=\"0\" class=\"evidence-panel risk\"><h3>误判代码逻辑</h3><p class=\"large-copy\">同名欢迎语，<br>却属于另一个页面</p><div data-reveal=\"2\" class=\"\"><p>沿当前页面入口确认实际引用</p><p class=\"verification\">复验：改对位置，再查页面与 git diff 输出</p></div></div></div><p class=\"source-note\">教学变式；不在本节展开环境排障或代码架构</p>",
       "steps": [
         "对比两种现象，不急着给答案",
         "读不到：查目录与路径",
@@ -448,7 +448,7 @@ window.lesson = {
       "script": [
         "【操作提示｜课件 p12-trace 第 1 步；留在课件比较两个假设场景】\n\n另外两种情况也容易混。左边是读取时就报“找不到文件”。右边是文件改成功了，但改的是另一个页面的同名欢迎语。\n\n一个卡在读取，一个找错了修改对象，处理方向就不一样。",
         "【操作提示｜推进第 2 步，指向路径核对；不现场伪造报错】\n\n读不到时，先看当前目录和目标路径。比如命令是在练习项目根目录运行，还是误进了另一个文件夹？\n\n路径纠正后重新读取，还要看到目标内容确实返回了，才能继续往下改。",
-        "【操作提示｜推进第 3 步，指向页面入口与实际引用】\n\n改错地方时，先从正在看的页面入口查起，确认它对应哪个文件，必要时再追实际引用。\n\n找到正确位置后，修改并重新查页面和 Diff。这样我们就能把问题说具体：是读不到，还是对象找错了。下一步也就有方向了。"
+        "【操作提示｜推进第 3 步，指向页面入口与实际引用】\n\n改错地方时，先从正在看的页面入口查起，确认它对应哪个文件，必要时再追实际引用。\n\n找到正确位置后，修改并重新查页面和 git diff 输出。这样我们就能把问题说具体：是读不到，还是对象找错了。下一步也就有方向了。"
       ],
       "segment": "失败与纠正",
       "seconds": 40,
@@ -465,7 +465,7 @@ window.lesson = {
       ],
       "notes": "",
       "source": "index.html#p12-trace",
-      "closing": "路径纠正后重新读取，位置纠正后重新检查页面和 diff。把现象和下一步对应起来，这里不展开环境排障或项目架构。"
+      "closing": "路径纠正后重新读取，位置纠正后重新检查页面和 git diff 输出。把现象和下一步对应起来，这里不展开环境排障或项目架构。"
     },
     {
       "id": "p13",
@@ -541,8 +541,8 @@ window.lesson = {
       "id": "p14-check",
       "label": "暂停自检",
       "title": "回看欢迎语修改记录，回答这三问",
-      "lead": "暂停视频，打开首次欢迎语修改时保存的协作记录，回答下面三问。解释 Agent、Tool、Context 时，结合任务要求、读取动作和返回；上下文窗口只需解释容量边界，不从日志猜数字。",
-      "html": "<div class=\"self-check\"><article><span class=\"check-number\">1</span><h3>Agent、Tool、Context、Window 各指什么？</h3><div data-reveal=\"1\" class=\"\"><p>前三项结合任务要求、读取动作和返回解释；窗口只需说明容量边界</p></div></article><article><span class=\"check-number\">2</span><h3>一句“完成了”，还缺哪些证据？</h3><div data-reveal=\"2\" class=\"\"><p>页面核对结果，Diff 核对范围；分类理由要解释得通</p></div></article><article><span class=\"check-number\">3</span><h3>至少三种失败，怎样纠正和复验？</h3><div data-reveal=\"3\" class=\"\"><p>补信息、撤销本次越界改动、补结果检查；纠正后重新验证</p></div></article></div>",
+      "lead": "暂停视频，对照首次欢迎语修改的对话、页面和自己的观察，回答下面三问。解释 Agent、Tool、Context 时，结合任务要求、读取动作和返回；上下文窗口只需解释容量边界，不从日志猜数字。",
+      "html": "<div class=\"self-check\"><article><span class=\"check-number\">1</span><h3>Agent、Tool、Context、Window 各指什么？</h3><div data-reveal=\"1\" class=\"\"><p>前三项结合任务要求、读取动作和返回解释；窗口只需说明容量边界</p></div></article><article><span class=\"check-number\">2</span><h3>一句“完成了”，还缺哪些证据？</h3><div data-reveal=\"2\" class=\"\"><p>页面核对结果，git diff 输出核对范围；分类理由要解释得通</p></div></article><article><span class=\"check-number\">3</span><h3>至少三种失败，怎样纠正和复验？</h3><div data-reveal=\"3\" class=\"\"><p>补信息、撤销本次越界改动、补结果检查；纠正后重新验证</p></div></article></div>",
       "steps": [
         "暂停，先独立作答",
         "揭晓概念自检依据",
@@ -550,9 +550,9 @@ window.lesson = {
         "揭晓失败自检依据"
       ],
       "script": [
-        "【操作提示｜课件 p14-check 第 1 步；保持答案隐藏，留暂停点】\n\n请暂停视频，拿出自己在 1.1 保存的协作记录，回答这三问。四个词分别指什么？一句“完成了”还需要哪些证据？能不能列出至少三种失败，并说明怎样纠正和复验？\n\n不用逐字背定义。能把概念和刚才的任务连起来，就有了自检的依据。",
+        "【操作提示｜课件 p14-check 第 1 步；保持答案隐藏，留暂停点】\n\n请暂停视频，对照首次欢迎语修改的对话、页面和自己的观察，回答这三问。四个词分别指什么？一句“完成了”还需要哪些证据？能不能列出至少三种失败，并说明怎样纠正和复验？\n\n不用逐字背定义。能把概念和刚才的任务连起来，就有了自检的依据。",
         "【操作提示｜推进第 2 步，指向第一问；不要求从运行日志读出上下文窗口大小】\n\n第一问，可以这样说：Agent 组织任务循环，Tool 执行具体动作，Context 是供判断使用的信息，Window 是一次处理信息的容量边界。\n\n再从记录里指出一次读取动作、对应的返回，以及当时的任务要求。窗口这一项能解释容量的意思即可，不用从日志里猜一个数字。",
-        "【操作提示｜推进第 3 步，指向第二问】\n\n第二问，要把“完成了”对应到可检查的东西。页面是否显示目标文字，完整 Diff 是否只包含允许的改动？\n\n分类记录里也要写理由。没有找到对应证据，就先保留为待验证，后面补上再判断。",
+        "【操作提示｜推进第 3 步，指向第二问】\n\n第二问，要把“完成了”对应到可检查的东西。页面是否显示目标文字，完整 git diff 输出是否只包含允许的改动？\n\n分类记录里也要写理由。没有找到对应证据，就先保留为待验证，后面补上再判断。",
         "【操作提示｜推进第 4 步 → 切 VS Code，展示同一份证据记录，将概念地图、分类理由、缺失信息与已有证据关联；未完成项明确留空或标待补，不代填成功结果】\n\n第三问，可以从信息不全、范围失控、没有验证、读取失败、找错修改位置中选三种。每一种都说清“先做什么，再看什么结果”。\n\n把概念地图和分类理由保存到这份记录里。还缺实际操作证据的地方标出来，补做以后再完善。"
       ],
       "segment": "路标与收尾",
@@ -570,7 +570,7 @@ window.lesson = {
       ],
       "notes": "",
       "source": "index.html#p14-check",
-      "closing": "缺少实际操作记录时，先回到<a href=\"../01-environment/index.html#p07\">首次欢迎语修改练习</a>补做。概念地图和分类理由写入 docs/evidence/CH01_PROMPT_EXPERIMENT.md，尚未核对的内容单列。"
+      "closing": "还没实际完成欢迎语修改时，先回到<a href=\"../01-environment/index.html#p07\">首次欢迎语修改练习</a>补做。概念地图和分类理由写入 docs/evidence/CH01_PROMPT_EXPERIMENT.md，尚未核对的内容单列。"
     },
     {
       "id": "p14-summary",

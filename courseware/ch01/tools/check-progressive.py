@@ -13,7 +13,7 @@ parser.add_argument('--output',type=Path,default=Path('/tmp/ch01-progressive-qa'
 args=parser.parse_args();args.output.mkdir(parents=True,exist_ok=True)
 root=Path(__file__).resolve().parents[1]
 names=['01-environment','03-tools','04-prompt','05-homepage','06-permissions']
-budgets=[1260,900,1200,1200,600]
+budgets=[1125,900,1200,1200,600]
 r=root/'lessons/01-environment/diagrams'
 spec=json.loads((r/'first-loop.archscribe.json').read_text());svg=(r/'first-loop.svg').read_text();mmd=(r/'first-loop.mmd').read_text()
 assert set(re.findall(r'data-node="([^"]+)"',svg))=={n['id'] for n in spec['nodes']}
@@ -22,7 +22,8 @@ for n in spec['nodes']:assert f'{n["id"]}["{n["label"]}"]' in mmd
 for e in spec['edges']:assert re.search(r'\b'+e['from']+r' -->.*\b'+e['to']+r'\b',mmd)
 # 课件页面上的节点与连线（data-node / data-edge）也须与逻辑源一致：美化不改变流程含义。
 lesson11=json.loads((root/'lessons/01-environment/lesson.js').read_text().removeprefix('window.lesson = ').strip().removesuffix(';'))
-for name in ('first-loop','environment-checks'):
+# 原 environment-checks 分支卡已合为准备总结，旧图示源仅保留作历史校样。
+for name in ('first-loop',):
     s=json.loads((r/f'{name}.archscribe.json').read_text())
     want=({n['id'] for n in s['nodes']},{e['from']+':'+e['to'] for e in s['edges']})
     assert any((set(re.findall(r'data-node="([^"]+)"',x['html'])),set(re.findall(r'data-edge="([^"]+)"',x['html'])))==want for x in lesson11['scenes']),name
@@ -64,6 +65,23 @@ with sync_playwright() as p:
         page.keyboard.press('t');assert page.locator('.step-hidden,.step-past').count()==0
         page.keyboard.press('t');assert state()['step']==len(first['steps'])-1
         page.goto(base+'?mode=slides&step=1#'+second['id']);page.reload();assert state()=={'id':second['id'],'step':1}
+        if name=='01-environment':
+            # Old preparation links must reach the merged page on load and hash changes.
+            for mode in ('scroll','slides'):
+                for old in ('p02a','p03-access'):
+                    page.goto(base+f'?mode={mode}&step=2#{old}')
+                    assert page.evaluate('location.hash')=='#p03'
+                    assert page.evaluate('new URL(location.href).searchParams.get("step")')=='0'
+                    if mode=='slides':assert state()=={'id':'p03','step':0}
+                    page.evaluate('location.hash="p01"')
+                    page.wait_for_function('location.hash==="#p01"')
+                    page.evaluate('(id)=>{location.hash=id}',old)
+                    page.wait_for_function('location.hash==="#p03"')
+                    if mode=='slides':assert state()=={'id':'p03','step':0}
+            # One forward step from the summary enters the task; back restores the summary.
+            page.goto(base+'?mode=slides#p03');page.keyboard.press('ArrowRight')
+            assert state()=={'id':'p04','step':0}
+            page.keyboard.press('ArrowLeft');assert state()=={'id':'p03','step':0}
         # A 64px logo strip sits above the full-size 1280x720 recording canvas.
         page.set_viewport_size({'width':1280,'height':784});page.keyboard.press('r')
         page.wait_for_function("document.querySelector('.scene:not([hidden])').getBoundingClientRect().width===1280")
@@ -138,6 +156,6 @@ with sync_playwright() as p:
     page.keyboard.press('ArrowLeft');assert state()=={'id':'p10','step':len(agent['steps'])-1}
     browser.close()
 assert not errors,errors
-report={'scenes':scenes,'reveal_states':states,'layout':'passed','side_by_side_and_dark_prompts':'passed','prompt_keyboard_scroll':'passed','diff_colors':'passed','legacy_tables_removed':True,'navigation':'passed','deep_links':'passed','speaker_steps':'passed','clipboard_handlers':'passed (success/failure mocks)','preview_controls':'passed (local fixture)','mobile_reading_and_practice':'passed','offline_resources':'passed','diagram_topology':'passed','agent_p10':'passed','browser_errors':errors}
+report={'scenes':scenes,'reveal_states':states,'layout':'passed','side_by_side_and_dark_prompts':'passed','prompt_keyboard_scroll':'passed','diff_colors':'passed','legacy_tables_removed':True,'navigation':'passed','deep_links':'passed','merged_preparation_links':'passed (load/hashchange, scroll/slides)','speaker_steps':'passed','clipboard_handlers':'passed (success/failure mocks)','preview_controls':'passed (local fixture)','mobile_reading_and_practice':'passed','offline_resources':'passed','diagram_topology':'passed','agent_p10':'passed','browser_errors':errors}
 (args.output/'result.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
 print(json.dumps(report,ensure_ascii=False,indent=2))

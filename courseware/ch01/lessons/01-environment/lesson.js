@@ -8,7 +8,7 @@ window.lesson = {
       "id": "p01",
       "label": "只改一句话，怎样证明改对？",
       "title": "只改一句话，怎样证明改对？",
-      "lead": "先让 Codex 替换练习页的一句欢迎语，再看页面和代码差异，确认它只改了指定文字",
+      "lead": "先让 Codex 替换练习页的一句欢迎语，再看页面和 git diff 输出，确认它只改了指定文字",
       "html": "<ol class=\"p-map\" data-reveal=\"0\"><li class=\"is-now\"><b>1.1</b>第一次 AI 协作闭环</li><li class=\"\"><b>1.2</b>Agent 执行机制与 AI 协作基础</li><li class=\"\"><b>1.3</b>工具使用与权限</li><li class=\"\"><b>1.4</b>写清个人主页任务：从模糊需求到可执行 Prompt</li><li class=\"\"><b>1.5</b>完成个人主页：从已确认 Prompt 到可验收的个人主页 v0</li><li class=\"\"><b>1.6</b>最小权限：为什么不能给 Agent 所有权限</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:18px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">修改前</span><p class=\"p-big\" style=\"font-weight:500\">你好，欢迎来到我的练习页面</p></div><div class=\"p-join\" data-reveal=\"1\"><span>只改这一句</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ok\">任务目标</span><p class=\"p-big\">你好，欢迎来到 Vibe Coding 课堂！</p></div></div>",
       "steps": [
         "看原文",
@@ -25,7 +25,7 @@ window.lesson = {
       "teaching": [
         {
           "title": "追问与预期判断",
-          "text": "只改一句话，怎样证明改对？\n\n你准备怎样证明改对了？先留下这个问题，后面用页面和 Diff 回答。"
+          "text": "只改一句话，怎样证明改对？\n\n你准备怎样证明改对了？先留下这个问题，后面用页面和 git diff 输出回答。"
         },
         {
           "title": "演示分支",
@@ -37,7 +37,7 @@ window.lesson = {
         },
         {
           "title": "讲师提示",
-          "text": "先看这一句欢迎语。这节只改它，个人主页留到 1.5。\n\n你准备怎样证明改对了？先留下这个问题，后面用页面和 Diff 回答。"
+          "text": "先看这一句欢迎语。这节只改它，个人主页留到 1.5。\n\n你准备怎样证明改对了？先留下这个问题，后面用页面和 git diff 输出回答。"
         }
       ]
     },
@@ -46,7 +46,7 @@ window.lesson = {
       "label": "先找准你要改的那一份文件",
       "title": "先找准你要改的那一份文件",
       "lead": "继续使用课前准备中克隆到本地的 course-starter 项目。终端、编辑器与浏览器都指向这份练习项目，本次只修改 setup-check/index.html。",
-      "html": "<ul class=\"p-tree\" style=\"font-size:25px;padding:22px 28px;line-height:1.9\"><li data-reveal=\"0\"><span class=\"p-path\">GitHub · course-starter</span><span class=\"p-note\">课程模板 · 克隆来源</span></li><li class=\"is-open\" data-reveal=\"1\"><span class=\"p-path\">course-starter/</span><span class=\"p-note\">本地练习项目 · 在这里打开</span><ul><li class=\"is-target\" data-reveal=\"2\"><span class=\"p-path\">setup-check/index.html</span><span class=\"p-note\">本次修改目标</span></li></ul></li></ul><p class=\"source-note\"><a href=\"../../../ch00/lessons/02-preparation/index.html#p13\">课前准备：取得练习项目</a></p>",
+      "html": "<ul class=\"p-tree\" style=\"font-size:25px;padding:22px 28px;line-height:1.9\"><li data-reveal=\"0\"><a class=\"p-path\" href=\"https://github.com/prompt-to-harness/course-starter\" target=\"_blank\" rel=\"noopener\">GitHub · course-starter</a><span class=\"p-note\">课程模板 · 克隆来源</span></li><li class=\"is-open\" data-reveal=\"1\"><span class=\"p-path\">course-starter/</span><span class=\"p-note\">本地练习项目 · 在这里打开</span><ul><li class=\"is-target\" data-reveal=\"2\"><span class=\"p-path\">setup-check/index.html</span><span class=\"p-note\">本次修改目标</span></li></ul></li></ul><p class=\"p-go\" style=\"margin:18px 0 0\"><a href=\"../../../ch00/lessons/02-preparation/index.html#p13\">取得 course-starter</a></p>",
       "steps": [
         "认准本地项目",
         "确认根目录",
@@ -67,7 +67,7 @@ window.lesson = {
         },
         {
           "title": "演示分支",
-          "text": "发现未知改动时，口播：“这里已有变化，我们先确认它的来源，再继续任务。”Git 尚未就绪者记录状态，第四页给出处理路径。"
+          "text": "发现未知改动时，口播：“这里已有变化，我们先确认它的来源，再继续任务。”Git 尚未就绪者记录状态，按下一页的课前准备入口补齐。"
         },
         {
           "title": "备课标记",
@@ -80,71 +80,29 @@ window.lesson = {
       ]
     },
     {
-      "id": "p02a",
-      "label": "工具与页面就绪，再开始修改",
-      "title": "工具与页面就绪，再开始修改",
-      "lead": "课前准备已安装工具、取得项目并启动欢迎页。这里复核当前目录和工具，缺项回到对应操作步骤。",
-      "html": "<div class=\"p-box\" data-role=\"ctx\"><h3>回到自己的项目</h3><p>工具能用 · Git 能看变化 · 页面能打开</p></div><p class=\"p-links\"><a href=\"../../../ch00/lessons/02-preparation/index.html\">返回课前准备</a></p>",
-      "steps": [
-        "复核当前状态"
-      ],
-      "script": [
-        "【操作提示｜打开课前准备时使用的项目目录与欢迎页】\n\n工具、Git 和欢迎页已经在课前准备中走过。现在回到同一项目，检查当前状态。还没有完成的部分，可以从准备小节展开相应命令补做。这次开始记录的是首次修改的过程，不要求补交课前环境作业。"
-      ],
-      "segment": "操作前复核",
-      "seconds": 30,
-      "source": "index.html#p02a",
-      "teaching": []
-    },
-    {
       "id": "p03",
-      "label": "哪些条件不满足，就不能开始？",
-      "title": "哪些条件不满足，就不能开始？",
-      "lead": "修改前复核当前页面、工作树和工具目录。只记录本次实际状态，不重复安装或提交课前准备记录。",
-      "html": "<div class=\"p-grid\" style=\"--n:3\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\" style=\"padding:16px 20px\"><h3 data-node=\"browser\">浏览器</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"browser_pass\" data-edge=\"browser:browser_pass\">打开并刷新环境页</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"browser_fail\" data-edge=\"browser:browser_fail\" class=\"p-sub\">核对路径或本地服务</p></div></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"1\" style=\"padding:16px 20px\"><h3 data-node=\"git\">Git</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"git_pass\" data-edge=\"git:git_pass\">分支、状态、Diff 可读</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"git_fail\" data-edge=\"git:git_fail\" class=\"p-sub\">补齐 Git 与仓库</p></div></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"2\" style=\"padding:16px 20px\"><h3 data-node=\"cli\">Codex CLI</h3><div style=\"display:grid;grid-template-columns:28px 1fr;gap:6px 10px;align-items:start;margin-top:8px\"><span style=\"width:26px;height:26px;border-radius:50%;background:#15803D;color:#fff;display:grid;place-items:center;font-size:15px\">✓</span><p data-node=\"cli_pass\" data-edge=\"cli:cli_pass\">从练习目录启动</p><span style=\"width:26px;height:26px;border-radius:50%;background:#D9481C;color:#fff;display:grid;place-items:center;font-size:15px\">✗</span><p data-node=\"cli_fail\" data-edge=\"cli:cli_fail\" class=\"p-sub\">补齐 Codex CLI</p></div></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">三项条件都<b>满足</b>再开始</div>",
+      "label": "沿用课前准备，开始第一次修改",
+      "title": "沿用课前准备，开始第一次修改",
+      "lead": "课前准备已完成工具接入、Git 操作与欢迎页启动。接下来把欢迎语修改交给 AI。",
+      "html": "<div class=\"p-grid\" style=\"--n:3\"><div class=\"p-box\" data-role=\"agent\"><h3>Codex CLI</h3><p>能读取目标文件</p></div><div class=\"p-box\" data-role=\"tool\"><h3>Git</h3><p>git status &amp; git diff 输出正常</p></div><div class=\"p-box\" data-role=\"ok\"><h3>欢迎页</h3><p>能打开自己的本地页面</p></div></div><p class=\"p-go\" style=\"margin:18px 0 0\"><a href=\"../../../ch00/lessons/02-preparation/index.html#p18\">回到课前准备</a></p>",
       "steps": [
-        "检查页面",
-        "检查仓库",
-        "检查 CLI"
+        "沿用准备，保留修改前状态"
       ],
       "script": [
-        "【操作提示｜打开准备好的原始环境页并刷新；录制内嵌预览时，按 0.2 启动步骤从练习根目录启动 4174 服务】\n\n先确认页面仍来自自己的练习副本，原来的欢迎语还在。保存修改前截图，等会儿对照。服务已经启动时直接复用，避免重复启动。",
-        "【操作提示｜在练习根目录运行 git branch --show-current、git status --short、git diff；有暂存改动时补看 git diff --cached】\n\n开始修改前，再看一次分支与文件变化。零点二之后你可能编辑过项目文件，把这些已有变化注明，等会儿才分得清本次改动。发现不明改动先查来源并保留。",
-        "【操作提示｜核对当前 Codex 会话的工作目录与权限】\n\n最后核对工具处理的是同一份副本，权限适合当前操作。CLI 不可用时，先补齐 CLI；可以继续看演示，自己的实操等工具恢复后再做。Codex App 是可选入口，不替代 CLI 的准备检查。工具与账号失败时回课前准备小节排查，恢复后再实操。"
+        "【操作提示｜课件 p03，一次展示三项准备结果；复用原项目、会话与服务。切已有欢迎页刷新并保存修改前截图；在同一项目的普通终端运行 git branch --show-current、git status --short、git diff，记录分支与已有改动，有暂存改动时补看 git diff --cached；核对 Codex 工作目录与权限，再回课件。不明改动先查来源并保留；会话或目录变化时按课前准备 p17 补做只读检查，失败时先处理】\n\n上一节已经准备好 Codex CLI、Git 和本地欢迎页。现在继续使用同一份项目；有缺项，就回课前准备补齐。动手前，留下页面和 Git 的当前状态，等会儿对照这次到底改了什么。接下来，我们把欢迎语修改交给 AI。"
       ],
       "segment": "操作前复核",
-      "seconds": 120,
+      "seconds": 45,
       "source": "index.html#p03",
-      "teaching": [
-        {
-          "title": "操作前复核",
-          "text": "本次修改前查看当前工作树、页面与权限；安装只在缺项时补做。"
-        }
-      ]
-    },
-    {
-      "id": "p03-access",
-      "label": "确认工具读到的是目标文件",
-      "title": "确认工具读到的是目标文件",
-      "lead": "工具读取对象应与当前欢迎页一致。会话或目录变化后，再读取一次目标文件。",
-      "html": "<div class=\"p-box\" data-role=\"ctx\"><h3>对照原始欢迎语</h3><p>setup-check/index.html<br>h1#welcome-message</p></div><div class=\"p-bar is-light\">会话或目录变化时，补做只读检查</div>",
-      "steps": [
-        "核对读取对象"
-      ],
-      "script": [
-        "【操作提示｜核对当前会话与项目目录；有变化时补做课前准备中的只读请求】\n\n确认工具读到的欢迎语与当前文件一致。会话或目录换过，就再读一次。认证或请求失败时先处理接入问题。接下来才发送正式的修改请求。"
-      ],
-      "segment": "操作前复核",
-      "seconds": 30,
-      "source": "index.html#p03-access",
-      "teaching": []
+      "teaching": [],
+      "closing": "开始修改前，保存当前欢迎页截图，记录分支和工作树状态，核对 Codex 的工作目录与权限。已有改动先辨认来源并保留，后面据此区分本次修改。换过会话或目录时，按课前准备中的<a href=\"../../../ch00/lessons/02-preparation/index.html#p17\">只读请求</a>再核对一次目标文件；读取失败时先处理，再发送正式修改请求。"
     },
     {
       "id": "p04",
       "label": "先交任务，再看计划，最后确认",
       "title": "先交任务，再看计划，最后确认",
       "lead": "第一次协作分三步：先交完整任务，请 Agent 复述目标、非目标和计划，此时不允许写入；再核对计划里有没有多出样式修改、安装或发布；三者都对，才批准这一次单文件的文字修改。",
-      "html": "<div class=\"demo-notes\"><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>任务</b><small>只改 <code>h1#welcome-message</code></small></span></li><li data-reveal=\"1\"><span><b>计划</b><small>读取 → 替换文字 → 查页面与 Diff</small></span></li><li class=\"is-ok\" data-reveal=\"2\"><span><b>人工确认</b><small>都对才批准 · 越界先停</small></span></li></ol></div>",
+      "html": "<div class=\"demo-notes\"><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>任务</b><small>只改 <code>h1#welcome-message</code></small></span></li><li data-reveal=\"1\"><span><b>计划</b><small>读取 → 替换文字 → 查页面与 git diff 输出</small></span></li><li class=\"is-ok\" data-reveal=\"2\"><span><b>人工确认</b><small>都对才批准 · 越界先停</small></span></li></ol></div>",
       "steps": [
         "提交完整请求",
         "核对计划",
@@ -158,7 +116,7 @@ window.lesson = {
       "segment": "首次执行",
       "seconds": 90,
       "source": "index.html#p04",
-      "prompt": "只读取 setup-check/index.html 和必要的仓库状态。\n\n把 h1#welcome-message 改为：\n“你好，欢迎来到 Vibe Coding 课堂！”\n\n不改其他内容、结构或样式，不改其他文件，不装依赖，不发布。\n\n先复述目标、非目标和小计划，等我确认后再修改；越界先停。\n\n完成后说明改动与页面、diff 检查方法。",
+      "prompt": "只读取 setup-check/index.html 和必要的仓库状态。\n\n把 h1#welcome-message 改为：\n“你好，欢迎来到 Vibe Coding 课堂！”\n\n不改其他内容、结构或样式，不改其他文件，不装依赖，不发布。\n\n先复述目标、非目标和小计划，等我确认后再修改；越界先停。\n\n完成后说明改动与页面、git diff 输出检查方法。",
       "teaching": [
         {
           "title": "追问与预期判断",
@@ -166,7 +124,7 @@ window.lesson = {
         },
         {
           "title": "演示分支",
-          "text": "- 理解或计划有偏差：指出具体差异，让 AI 修正理解，暂不批准写入。\n- AI 提前写入：说“它没有等确认，这个流程要求没有满足”，停止继续修改并检查已有 diff，保留真实记录。\n- 右侧页面未加载：先检查 4174 服务与项目路径，不把空白面板当成页面成功运行。"
+          "text": "- 理解或计划有偏差：指出具体差异，让 AI 修正理解，暂不批准写入。\n- AI 提前写入：说“它没有等确认，这个流程要求没有满足”，停止继续修改并检查已有 git diff 输出，保留真实记录。\n- 右侧页面未加载：先检查 4174 服务与项目路径，不把空白面板当成页面成功运行。"
         },
         {
           "title": "备课标记",
@@ -187,15 +145,15 @@ window.lesson = {
       "id": "p04-live",
       "label": "切到实操：盯住这三件事",
       "title": "切到实操：盯住这三件事",
-      "lead": "切到实操前先记住三件事：看的是不是同一份副本，是不是确认后才写入，是不是只改了指定文字。默认显示的是 Starter 原始预览，启动练习副本的 4174 服务后再连接，才是实际结果。",
-      "html": "<div class=\"demo-visual\" data-reveal=\"1\"><div class=\"welcome-demo\"><div class=\"demo-toolbar\"><span data-demo-status>Starter 原始页面 · 仅供预览</span><button type=\"button\" data-demo-connect>连接练习副本</button><button data-demo-reload=\"\" type=\"button\">刷新案例</button><a href=\"../../../../starters/personal-homepage/setup-check/index.html\" rel=\"noopener\" target=\"_blank\">独立打开 ↗</a></div><iframe loading=\"lazy\" src=\"../../../../starters/personal-homepage/setup-check/index.html\" title=\"独立练习项目的环境检查页\"></iframe><p class=\"caption\">默认是 Starter 预览。实操先启动练习副本的 4174 服务，再连接；核对同一份文件。</p></div></div><aside class=\"demo-notes\"><h3 style=\"font:400 26px/1.3 var(--p-title);margin:0 0 10px\">边看边核对</h3><ol class=\"p-watch\" data-reveal=\"0\"><li>同一份副本</li><li>确认后写入</li><li>只改指定文字</li></ol></aside>",
+      "lead": "切到实操前先记住三件事：工具和页面是否使用同一个本地 course-starter，是否确认后才写入，是否只改了指定文字。默认显示原始欢迎页；从本地 course-starter 启动 4174 服务并连接后，才能查看自己的修改结果。",
+      "html": "<div class=\"demo-visual\" data-reveal=\"1\"><div class=\"welcome-demo\"><div class=\"demo-toolbar\"><span data-demo-status>原始欢迎页 · 仅供预览</span><button type=\"button\" data-demo-connect>连接本地 course-starter</button><button data-demo-reload=\"\" type=\"button\">刷新案例</button><a href=\"../../../../starters/personal-homepage/setup-check/index.html\" rel=\"noopener\" target=\"_blank\">独立打开 ↗</a></div><iframe loading=\"lazy\" src=\"../../../../starters/personal-homepage/setup-check/index.html\" title=\"course-starter 欢迎页\"></iframe><p class=\"caption\">默认显示 course-starter 的原始欢迎页。实操前，从本地 course-starter 启动 4174 服务，再连接查看修改结果。</p></div></div><aside class=\"demo-notes\"><h3 style=\"font:400 26px/1.3 var(--p-title);margin:0 0 10px\">边看边核对</h3><ol class=\"p-watch\" data-reveal=\"0\"><li>同一个 course-starter</li><li>确认后写入</li><li>只改指定文字</li></ol></aside>",
       "steps": [
         "先给观察清单",
-        "连接真实副本"
+        "连接本地 course-starter"
       ],
       "script": [
-        "【操作提示｜课件 p04-live 第 1 步 → 确认现有“页面服务”终端仍在运行；不要重复占用 4174 端口。指向三项观察清单】\n\n切过去之前，先记住屏幕上的三件事。第一，工具和页面是不是同一份副本。第二，它有没有等我确认才写入。第三，最终是不是只改了指定文字。\n\n现在不用追着每一行日志读。先围绕这三个问题观察，看到有关的动作和输出时，我们再停下来解释。",
-        "【操作提示｜课件第 2 步点击“连接练习副本”；切 Terminal，粘贴 p04 的完整请求并发送，等待实际回复。核对复述和计划；正确才发送本次确认，偏离则先纠正。执行后切 VS Code 查看目标行，再回 Chrome 已有“练习页面”标签页刷新】\n\n我先连接练习副本。课件默认的 Starter 预览展示的是原始页面；现在连到本地服务，才是在看我们实际操作的那份文件。\n\n然后回到终端，把刚才的完整请求发出去。先看它有没有把目标和范围说对，再看计划里准备改哪里。我们根据屏幕上实际返回的内容核对。\n\n【操作提示｜此处停顿，逐项指出真实返回中的目标、范围与计划。没有返回或计划不符就先处理，不继续念成已通过；若提前写入，指出“它没有等确认，这个流程要求没有满足”，停止后检查差异】\n\n核对清楚以后，我才发送确认。修改完成后，我们回到文件，找刚才那一行，再刷新浏览器。接下来正式验收，不只看它最后那句完成说明。"
+        "【操作提示｜课件 p04-live 第 1 步 → 确认现有“页面服务”终端仍在运行；不要重复占用 4174 端口。指向三项观察清单】\n\n切过去之前，先记住屏幕上的三件事。第一，工具和页面是不是在使用同一个本地 course-starter。第二，它有没有等我确认才写入。第三，最终是不是只改了指定文字。\n\n现在不用追着每一行日志读。先围绕这三个问题观察，看到有关的动作和输出时，我们再停下来解释。",
+        "【操作提示｜课件第 2 步点击“连接本地 course-starter”；切 Terminal，粘贴 p04 的完整请求并发送，等待实际回复。核对复述和计划；正确才发送本次确认，偏离则先纠正。执行后切 VS Code 查看目标行，再回 Chrome 已有“练习页面”标签页刷新】\n\n我先连接本地 course-starter。课件默认显示原始欢迎页；连接本地服务后，看到的就是我们正在修改的文件。\n\n然后回到终端，把刚才的完整请求发出去。先看它有没有把目标和范围说对，再看计划里准备改哪里。我们根据屏幕上实际返回的内容核对。\n\n【操作提示｜此处停顿，逐项指出真实返回中的目标、范围与计划。没有返回或计划不符就先处理，不继续念成已通过；若提前写入，指出“它没有等确认，这个流程要求没有满足”，停止后检查差异】\n\n核对清楚以后，我才发送确认。修改完成后，我们回到文件，找刚才那一行，再刷新浏览器。接下来正式验收，不只看它最后那句完成说明。"
       ],
       "segment": "首次执行",
       "seconds": 90,
@@ -203,11 +161,11 @@ window.lesson = {
       "teaching": [
         {
           "title": "追问与预期判断",
-          "text": "切到实操：盯住这三件事；在练习副本启动 4174 服务，再点连接。默认 Starter 仅作原始预览；若服务未启动，不把预览当实际结果。"
+          "text": "切到实操：盯住这三件事；从本地 course-starter 启动 4174 服务，再点连接。默认欢迎页仅供预览；若服务未启动，不把预览当实际结果。"
         },
         {
           "title": "演示分支",
-          "text": "- 理解或计划有偏差：指出具体差异，让 AI 修正理解，暂不批准写入。\n- AI 提前写入：说“它没有等确认，这个流程要求没有满足”，停止继续修改并检查已有 diff，保留真实记录。\n- 右侧页面未加载：先检查 4174 服务与项目路径，不把空白面板当成页面成功运行。"
+          "text": "- 理解或计划有偏差：指出具体差异，让 AI 修正理解，暂不批准写入。\n- AI 提前写入：说“它没有等确认，这个流程要求没有满足”，停止继续修改并检查已有 git diff 输出，保留真实记录。\n- 右侧页面未加载：先检查 4174 服务与项目路径，不把空白面板当成页面成功运行。"
         },
         {
           "title": "备课标记",
@@ -219,7 +177,7 @@ window.lesson = {
         },
         {
           "title": "讲师提示",
-          "text": "接下来只看三件事：修改的是不是同一副本、有没有先确认、是否只替换文字。\n\n在练习副本启动 4174 服务，再点连接。默认 Starter 仅作原始预览；若服务未启动，不把预览当实际结果。"
+          "text": "接下来只看三件事：修改的是不是同一个本地 course-starter、有没有先确认、是否只替换文字。\n\n从本地 course-starter 启动 4174 服务，再点连接。默认欢迎页仅供预览；若服务未启动，不把预览当实际结果。"
         }
       ],
       "layout": "html-scene"
@@ -228,17 +186,17 @@ window.lesson = {
       "id": "p05",
       "label": "页面正确，还要查改动范围",
       "title": "页面正确，还要查改动范围",
-      "lead": "验收要两类证据：页面回答“改对没有”，刷新同一份副本逐字核对；Diff 回答“多改没有”，要对照初始状态看完整 Diff 和文件列表。两类都符合才接受，否则带着准确的差异去修正。",
-      "html": "<div class=\"p-pair\"><div class=\"p-box\" data-role=\"ok\" data-reveal=\"0\"><div class=\"p-head\"><h3>页面证据</h3><span class=\"p-tag\" data-role=\"ok\">对不对</span></div><div class=\"p-page\"><div class=\"p-page-bar\"><i></i><i></i><i></i><span>setup-check · 同一副本</span></div><div class=\"p-page-body\" style=\"font-size:23px\">你好，欢迎来到 Vibe Coding 课堂！</div></div></div><div class=\"p-join\" data-reveal=\"1\"><b>+</b></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><div class=\"p-head\"><h3>Diff 证据</h3><span class=\"p-tag\" data-role=\"gate\">多没多</span></div><div class=\"p-term\" data-copy=\"git diff -- setup-check/index.html\">git diff -- setup-check/index.html</div></div></div><ol class=\"p-watch is-row\" data-reveal=\"2\"><li class=\"is-done\">同一副本</li><li class=\"is-done\">确认后写入</li><li class=\"is-done\">指定文字变化</li></ol>",
+      "lead": "验收要两类证据：页面回答“改对没有”，刷新本地 course-starter 逐字核对；git diff 输出回答“多改没有”，要对照初始状态看完整 git diff 输出和文件列表。两类都符合才接受，否则带着准确的差异去修正。",
+      "html": "<div class=\"p-pair\"><div class=\"p-box\" data-role=\"ok\" data-reveal=\"0\"><div class=\"p-head\"><h3>页面证据</h3><span class=\"p-tag\" data-role=\"ok\">对不对</span></div><div class=\"p-page\"><div class=\"p-page-bar\"><i></i><i></i><i></i><span>course-starter/setup-check/index.html</span></div><div class=\"p-page-body\" style=\"font-size:23px\">你好，欢迎来到 Vibe Coding 课堂！</div></div></div><div class=\"p-join\" data-reveal=\"1\"><b>+</b></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><div class=\"p-head\"><h3>检查代码改动</h3><span class=\"p-tag\" data-role=\"gate\">多没多</span></div><div class=\"p-term\" style=\"white-space:pre-wrap\" data-copy=\"git status --short\ngit diff\ngit diff --cached\">git status --short\ngit diff\ngit diff --cached</div></div></div><ol class=\"p-watch is-row\" data-reveal=\"2\"><li class=\"is-done\">改了没有</li><li class=\"is-done\">改对没有</li><li class=\"is-done\">多改没有</li></ol>",
       "steps": [
         "观察运行结果",
         "审查所有改动",
         "作出判断"
       ],
       "script": [
-        "【操作提示｜课件 p05 第 1 步 → Chrome 已有“练习页面”标签页，刷新 http://localhost:4174/setup-check/；与修改前截图比较，不新开另一份文件】\n\n先检查页面。地址还是刚才那个地址，服务也还是同一份副本。我们刷新后，拿任务卡的完整文字来对照：你好，欢迎来到 Vibe Coding 课堂！空格、文字和最后的标点都看一遍。\n\n再看看周围的页面。标题以外的内容有没有变化，布局有没有明显移动。把这个画面和修改前的截图放在一起，就更容易发现差异。\n\n如果刷新后还是旧文字，先核对服务目录、文件是否已经保存，以及打开的地址。确认检查对象没找错，再决定要不要让 AI 修正。",
-        "【操作提示｜切 Terminal 的“仓库检查”标签页，依次运行 git status --short、git diff --stat、git diff；补看 git diff --cached，以覆盖暂存区。若 status 出现未跟踪文件，切 VS Code 检查其内容。对照修改前记录】\n\n然后看代码改动。先用 status 看有哪些文件变化，再用 diff 看里面具体改了什么。带减号的一行表示删除，带加号的一行表示新增。\n\n我们要找到原来的欢迎语被替换成目标文案的地方，也要继续往下看完整输出，确认有没有附带修改其他内容。\n\n普通 git diff 显示的是尚未暂存的修改。已经暂存的部分要另外看，新增但还没被 Git 跟踪的文件也要从状态列表里检查，不能因为某段 diff 很短就跳过去。\n\n最后对照开工前的记录，把原来就有的变化与这次修改区分开。",
-        "【操作提示｜回课件 p05 第 3 步；依实际结果选择结论：全部符合则说明通过；有问题则指出具体位置，并保留给 p06 修正】\n\n现在可以回答开头的问题了。浏览器帮助我们确认用户实际看到的文字和布局，完整差异和文件状态帮助我们确认改动范围。\n\n再回看操作记录，它是否等到确认后才修改。三个问题都有对应证据，才可以接受这次结果。\n\n如果发现漏字或者多余修改，就把准确的位置和现象留下来，下一步据此修正。如果都符合，就如实记录通过。接着我们用课件上的一小段 diff，看看它单独能支持什么判断。"
+        "【操作提示｜课件 p05 第 1 步 → Chrome 已有“练习页面”标签页，刷新 http://localhost:4174/setup-check/；与修改前截图比较，不新开另一份文件】\n\n先检查页面。地址还是刚才那个地址，服务也还是从同一个本地 course-starter 启动的。我们刷新后，拿任务卡的完整文字来对照：你好，欢迎来到 Vibe Coding 课堂！空格、文字和最后的标点都看一遍。\n\n再看看周围的页面。标题以外的内容有没有变化，布局有没有明显移动。把这个画面和修改前的截图放在一起，就更容易发现差异。\n\n如果刷新后还是旧文字，先核对服务目录、文件是否已经保存，以及打开的地址。确认检查对象没找错，再决定要不要让 AI 修正。",
+        "【操作提示｜切 Terminal 的“仓库检查”标签页，依次运行 git status --short、git diff --stat、git diff；补看 git diff --cached，以覆盖暂存区。若 status 出现未跟踪文件，切 VS Code 检查其内容。对照修改前记录】\n\n然后看代码改动。先用 status 看有哪些文件变化，再查看 git diff 输出，了解具体改了什么。带减号的一行表示删除，带加号的一行表示新增。\n\n我们要找到原来的欢迎语被替换成目标文案的地方，也要继续往下看完整输出，确认有没有附带修改其他内容。\n\n普通 git diff 显示的是尚未暂存的修改。已经暂存的部分要另外看，新增但还没被 Git 跟踪的文件也要从状态列表里检查，不能因为某段 git diff 输出很短就跳过去。\n\n最后对照开工前的记录，把原来就有的变化与这次修改区分开。",
+        "【操作提示｜回课件 p05 第 3 步；依实际结果选择结论：全部符合则说明通过；有问题则指出具体位置，并保留给 p06 修正】\n\n现在可以回答开头的问题了。浏览器帮助我们确认用户实际看到的文字和布局，完整差异和文件状态帮助我们确认改动范围。\n\n再回看操作记录，它是否等到确认后才修改。三个问题都有对应证据，才可以接受这次结果。\n\n如果发现漏字或者多余修改，就把准确的位置和现象留下来，下一步据此修正。如果都符合，就如实记录通过。接着我们用课件上的一份欢迎语变化示意，看看它单独能支持什么判断。"
       ],
       "segment": "检查与修正",
       "seconds": 180,
@@ -258,23 +216,24 @@ window.lesson = {
         },
         {
           "title": "讲师提示",
-          "text": "切到真实页面，刷新并逐字核对。截图要能说明当前检查的是哪份副本。\n\n对照初始状态看完整 Diff。只看一条新增行，不能证明别处没变。\n\n两类证据都符合才接受。若有多余变化或漏字，带着准确差异进入修正。"
+          "text": "切到真实页面，刷新并逐字核对。截图要能说明当前检查的是本地 course-starter。\n\n对照初始状态看完整 git diff 输出。只看一条新增行，不能证明别处没变。\n\n两类证据都符合才接受。若有多余变化或漏字，带着准确差异进入修正。"
         }
-      ]
+      ],
+      "closing": "git diff 查看已跟踪文件中尚未暂存的修改；已暂存的部分用 git diff --cached 查看。未跟踪的新文件要从 git status --short 的列表中找到，再单独打开检查内容。对照修改前的记录，区分原有变化与本次修改。"
     },
     {
       "id": "p05-diff",
-      "label": "这份 Diff 能说明什么？",
-      "title": "这份 Diff 能说明什么？",
-      "lead": "这段 Diff 是教学截取：它能说明这句文字从旧改成新，但证明不了别的文件没变。每份证据只对应它能支持的那条结论，其余部分还要看完整 Diff、文件列表和实际页面。",
-      "html": "<div class=\"p-walk\" style=\"grid-template-columns:1.35fr 1fr\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:44px\"><div class=\"p-fn\">setup-check/index.html <span class=\"add\">+1</span><span class=\"del\">−1</span></div><div class=\"p-ln del\"><i>−</i><code>你好，欢迎来到我的练习页面</code></div><div class=\"p-ln add\"><i>+</i><code>你好，欢迎来到 Vibe Coding 课堂！</code></div></div><p class=\"source-note\" style=\"margin-top:8px\">教学截取；删除为红底，新增为绿底</p></div><ol class=\"p-notes\"><li class=\"is-ok\" data-reveal=\"0\"><span><b>能说明</b><small>这段文字从旧改成新</small></span></li><li class=\"is-risk\" data-reveal=\"1\"><span><b>还不能证明</b><small>没有修改其他文件</small></span></li><li data-reveal=\"1\"><span><b>继续检查</b><small>完整 Diff、文件列表与实际页面</small></span></li></ol></div>",
+      "label": "这两行变化能说明什么？",
+      "title": "这两行变化能说明什么？",
+      "lead": "这里是欢迎语修改前后的对照示意：它能说明这句文字从旧改成新，但证明不了别的文件没变。每份证据只对应它能支持的那条结论，其余部分还要看完整 git diff 输出、文件列表和实际页面。",
+      "html": "<div class=\"p-walk\" style=\"grid-template-columns:1.35fr 1fr\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:44px\"><div class=\"p-fn\">setup-check/index.html <span class=\"add\">+1</span><span class=\"del\">−1</span></div><div class=\"p-ln del\"><i>−</i><code>你好，欢迎来到我的练习页面</code></div><div class=\"p-ln add\"><i>+</i><code>你好，欢迎来到 Vibe Coding 课堂！</code></div></div><p class=\"source-note\" style=\"margin-top:8px\">欢迎语变化示意；红底为原文，绿底为目标文字</p></div><ol class=\"p-notes\"><li class=\"is-ok\" data-reveal=\"0\"><span><b>能说明</b><small>这段文字从旧改成新</small></span></li><li class=\"is-risk\" data-reveal=\"1\"><span><b>还不能证明</b><small>没有修改其他文件</small></span></li><li data-reveal=\"1\"><span><b>继续检查</b><small>完整 git diff 输出、文件列表与实际页面</small></span></li></ol></div>",
       "steps": [
         "先判断",
         "揭示边界"
       ],
       "script": [
-        "【操作提示｜留在课件 p05-diff 第 1 步；这是教学截取，不切真实终端。停顿片刻再揭示下一步】\n\n看这两行，红色这一行是旧文字，绿色这一行是新文字。这是课件里的教学截取，不是刚才终端输出的完整记录。\n\n只拿到这两行，我们会给整个任务打上“通过”吗？可以先暂停一下，想想还有什么没看到。",
-        "【操作提示｜推进第 2 步，指向完整 Diff、文件列表和页面结果；无需新开 Chrome 标签页】\n\n这两行能说明，这一处文字按要求发生了替换。可是其他文件有没有变化，页面刷新以后显示什么，都没有出现在这张截取里。\n\n所以我们还要补上完整差异、文件状态和浏览器检查。回到刚才的实操，就能理解为什么要来回看两个地方了：每一份证据，都在回答一个具体问题。\n\n接下来，如果检查真的发现了问题，我们该怎么把它说清楚？"
+        "【操作提示｜留在课件 p05-diff 第 1 步；这是欢迎语变化示意，不切真实终端。停顿片刻再揭示下一步】\n\n看这两行，红色这一行是旧文字，绿色这一行是新文字。这是课件里的欢迎语变化示意，不是刚才终端输出的完整记录。\n\n只拿到这两行，我们会给整个任务打上“通过”吗？可以先暂停一下，想想还有什么没看到。",
+        "【操作提示｜推进第 2 步，指向完整 git diff 输出、文件列表和页面结果；无需新开 Chrome 标签页】\n\n这两行能说明，这一处文字按要求发生了替换。可是其他文件有没有变化，页面刷新以后显示什么，都没有出现在这份示意里。\n\n所以我们还要补上完整 git diff 输出、文件状态和浏览器检查。回到刚才的实操，就能理解为什么要来回看两个地方了：每一份证据，都在回答一个具体问题。\n\n接下来，如果检查真的发现了问题，我们该怎么把它说清楚？"
       ],
       "segment": "检查与修正",
       "seconds": 60,
@@ -282,7 +241,7 @@ window.lesson = {
       "teaching": [
         {
           "title": "追问与预期判断",
-          "text": "这份 Diff 能说明什么？\n\n不能。还缺完整文件差异、其他文件状态和浏览器结果；把证据对应到它能支持的结论。"
+          "text": "这两行变化能说明什么？\n\n不能。还缺完整 git diff 输出、其他文件状态和浏览器结果；把证据对应到它能支持的结论。"
         },
         {
           "title": "演示分支",
@@ -294,7 +253,7 @@ window.lesson = {
         },
         {
           "title": "讲师提示",
-          "text": "这是教学截取，不是真实执行记录。只给这两行，你能确认整个任务通过吗？\n\n不能。还缺完整文件差异、其他文件状态和浏览器结果；把证据对应到它能支持的结论。"
+          "text": "这是欢迎语变化示意，不是真实执行记录。只给这两行，你能确认整个任务通过吗？\n\n不能。还缺完整 git diff 输出、其他文件状态和浏览器结果；把证据对应到它能支持的结论。"
         }
       ]
     },
@@ -302,8 +261,8 @@ window.lesson = {
       "id": "p06",
       "label": "“不对”要改成可执行的反馈",
       "title": "“不对”要改成可执行的反馈",
-      "lead": "发现不对时，先准确说出实际和期望差在哪里，例如漏了“课堂”二字，而不是只说一句“不对”。反馈只要求补这两个字，不追加美化；修正后刷新同一页面，再复查完整 Diff。",
-      "html": "<div class=\"demo-notes\"><div style=\"display:grid;gap:12px\"><div class=\"p-box\" data-role=\"gate\" data-reveal=\"0\" style=\"padding:12px 18px\"><span class=\"p-tag\" data-role=\"gate\">实际 · 教学示例</span><p class=\"p-big\">你好，欢迎来到 Vibe Coding<span class=\"p-miss\">&nbsp;</span>！</p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\" style=\"padding:12px 18px\"><span class=\"p-tag\" data-role=\"ok\">期望</span><p class=\"p-big\">你好，欢迎来到 Vibe Coding <span class=\"p-ins\">课堂</span>！</p></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"font-size:21px\">只补“课堂”二字 → 刷新同一页面 → <b>复查完整 Diff</b></div></div></div>",
+      "lead": "发现不对时，先准确说出实际和期望差在哪里，例如漏了“课堂”二字，而不是只说一句“不对”。反馈只要求补这两个字，不追加美化；修正后刷新同一页面，再复查完整 git diff 输出。",
+      "html": "<div class=\"demo-notes\"><div style=\"display:grid;gap:12px\"><div class=\"p-box\" data-role=\"gate\" data-reveal=\"0\" style=\"padding:12px 18px\"><span class=\"p-tag\" data-role=\"gate\">实际 · 教学示例</span><p class=\"p-big\">你好，欢迎来到 Vibe Coding<span class=\"p-miss\">&nbsp;</span>！</p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\" style=\"padding:12px 18px\"><span class=\"p-tag\" data-role=\"ok\">期望</span><p class=\"p-big\">你好，欢迎来到 Vibe Coding <span class=\"p-ins\">课堂</span>！</p></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"font-size:21px\">只补“课堂”二字 → 刷新同一页面 → <b>复查完整 git diff 输出</b></div></div></div>",
       "steps": [
         "指出现象",
         "限定修正",
@@ -317,11 +276,11 @@ window.lesson = {
       "segment": "检查与修正",
       "seconds": 150,
       "source": "index.html#p06",
-      "prompt": "教学示例：页面显示“你好，欢迎来到 Vibe Coding！”；\n任务要求是“你好，欢迎来到 Vibe Coding 课堂！”。\n请只补回“课堂”二字，不改其余内容、结构或样式。\n修正后刷新同一页面，逐字核对，并检查完整 Diff。",
+      "prompt": "教学示例：页面显示“你好，欢迎来到 Vibe Coding！”；\n任务要求是“你好，欢迎来到 Vibe Coding 课堂！”。\n请只补回“课堂”二字，不改其余内容、结构或样式。\n修正后刷新同一页面，逐字核对，并检查完整 git diff 输出。",
       "teaching": [
         {
           "title": "追问与预期判断",
-          "text": "“不对”要改成可执行的反馈；修正后重新看页面和完整 Diff。若录制时一次成功，使用标明来源的失败素材，不伪造失败。"
+          "text": "“不对”要改成可执行的反馈；修正后重新看页面和完整 git diff 输出。若录制时一次成功，使用标明来源的失败素材，不伪造失败。"
         },
         {
           "title": "演示分支",
@@ -337,7 +296,7 @@ window.lesson = {
         },
         {
           "title": "讲师提示",
-          "text": "假设结果漏掉课堂二字。请学员暂停视频，准确说出实际与期望的差异。\n\n反馈只要求补两个字，不追加美化。复制完整反馈时说明这是教学示例。\n\n修正后重新看页面和完整 Diff。若录制时一次成功，使用标明来源的失败素材，不伪造失败。"
+          "text": "假设结果漏掉课堂二字。请学员暂停视频，准确说出实际与期望的差异。\n\n反馈只要求补两个字，不追加美化。复制完整反馈时说明这是教学示例。\n\n修正后重新看页面和完整 git diff 输出。若录制时一次成功，使用标明来源的失败素材，不伪造失败。"
         }
       ],
       "layout": "prompt-scene"
@@ -346,8 +305,8 @@ window.lesson = {
       "id": "p06-loop",
       "label": "什么时候继续，什么时候停？",
       "title": "什么时候继续，什么时候停？",
-      "lead": "把整条路径连起来：说明目标、复述计划、人工确认，然后才写入；写入后检查页面和 Diff。检查之后有三个出口——通过就记录，不符就限定范围修正再检查，无法验证或需要越界就记录并停下。",
-      "html": "<div class=\"p-flow\" style=\"--n:6;column-gap:28px\"><div class=\"p-node\" data-role=\"ink\" data-reveal=\"0\" data-node=\"goal\"><h3>说明目标</h3><p>范围与标准</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\" data-node=\"plan\" data-edge=\"goal:plan\"><h3>复述与计划</h3><p>核对理解</p></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"0\" data-node=\"confirm\" data-edge=\"plan:confirm\"><h3>人工确认</h3><p>写入前</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"0\" data-node=\"edit\" data-edge=\"confirm:edit\"><h3>执行修改</h3><p>指定文字</p></div><div class=\"p-node\" data-role=\"ink\" data-reveal=\"1\" data-node=\"check\" data-edge=\"edit:check\"><h3>检查结果</h3><p>页面 + Diff</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"1\" data-node=\"record\" data-edge=\"check:record\"><h3>接受并记录</h3><p>留下证据</p></div><div class=\"p-fork\" data-reveal=\"1\" style=\"grid-column:4/7;--gap:28px\"><div class=\"l\" data-reveal=\"1\" data-edge=\"check:repair\"><span>不符</span></div><div class=\"r\" data-reveal=\"2\" data-edge=\"check:stop\"><span>无法继续</span></div></div><div class=\"p-node is-row2\" data-role=\"agent\" data-reveal=\"1\" data-node=\"repair\" data-edge=\"repair:check\" style=\"grid-column:4\"><h3>反馈并修正</h3><p>限定范围</p><span class=\"p-loopnote\">↺ 修正后再检查</span></div><div class=\"p-node is-row2\" data-role=\"gate\" data-reveal=\"2\" data-node=\"stop\" style=\"grid-column:6\"><h3>停止并记录</h3><p>无法验证 · 需越界</p></div></div>",
+      "lead": "把整条路径连起来：说明目标、复述计划、人工确认，然后才写入；写入后检查页面和 git diff 输出。检查之后有三个出口——通过就记录，不符就限定范围修正再检查，无法验证或需要越界就记录并停下。",
+      "html": "<div class=\"p-flow\" style=\"--n:6;column-gap:28px\"><div class=\"p-node\" data-role=\"ink\" data-reveal=\"0\" data-node=\"goal\"><h3>说明目标</h3><p>范围与标准</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\" data-node=\"plan\" data-edge=\"goal:plan\"><h3>复述与计划</h3><p>核对理解</p></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"0\" data-node=\"confirm\" data-edge=\"plan:confirm\"><h3>人工确认</h3><p>写入前</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"0\" data-node=\"edit\" data-edge=\"confirm:edit\"><h3>执行修改</h3><p>指定文字</p></div><div class=\"p-node\" data-role=\"ink\" data-reveal=\"1\" data-node=\"check\" data-edge=\"edit:check\"><h3>检查结果</h3><p>页面<br>git diff 输出</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"1\" data-node=\"record\" data-edge=\"check:record\"><h3>接受并记录</h3><p>留下证据</p></div><div class=\"p-fork\" data-reveal=\"1\" style=\"grid-column:4/7;--gap:28px\"><div class=\"l\" data-reveal=\"1\" data-edge=\"check:repair\"><span>不符</span></div><div class=\"r\" data-reveal=\"2\" data-edge=\"check:stop\"><span>无法继续</span></div></div><div class=\"p-node is-row2\" data-role=\"agent\" data-reveal=\"1\" data-node=\"repair\" data-edge=\"repair:check\" style=\"grid-column:4\"><h3>反馈并修正</h3><p>限定范围</p><span class=\"p-loopnote\">↺ 修正后再检查</span></div><div class=\"p-node is-row2\" data-role=\"gate\" data-reveal=\"2\" data-node=\"stop\" style=\"grid-column:6\"><h3>停止并记录</h3><p>无法验证 · 需越界</p></div></div>",
       "steps": [
         "检查前提",
         "判断检查结果",
@@ -384,17 +343,17 @@ window.lesson = {
       "id": "p07",
       "label": "独立完成一次，再拿证据回答",
       "title": "独立完成一次，再拿证据回答",
-      "lead": "暂停视频，用自己的练习副本独立走一遍，不复制老师的截图。复述、计划、确认、前后截图、Diff 与修正记录写进 docs/evidence/CH01_ENVIRONMENT_AND_FIRST_LOOP.md；页面正确但 Diff 越界，不能算通过。",
-      "html": "<span class=\"p-tag\" data-role=\"us\" style=\"justify-self:start\">独立练习</span><div class=\"p-task\" style=\"grid-template-columns:repeat(3,minmax(0,1fr))\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><h3>输入与任务</h3><p>自己的副本 · 指定欢迎语</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><h3>交付</h3><p>复述 · 计划 · 确认 · 截图 · Diff · 修正记录</p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"2\"><h3>验收</h3><p>文案准确 · 范围合规 · 问题已复验</p></div></div>",
+      "lead": "暂停视频，用本地 course-starter 独立完成一次欢迎语修改。观察 Codex 的操作，核对实际页面和完整 git diff 输出，按自己的习惯记下发现和问题。页面正确但改动超出范围，仍需处理后再检查。",
+      "html": "<span class=\"p-tag\" data-role=\"us\" style=\"justify-self:start;align-self:start\">独立练习</span><div class=\"p-task\" style=\"grid-template-columns:repeat(3,minmax(0,1fr))\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><h3>输入与任务</h3><p>本地 course-starter 当中修改为你想要的欢迎语</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><h3>观察与记录</h3><p>观察 AI 的操作<br>记下检查结果和遇到的问题</p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"2\"><h3>验收</h3><p>文案准确 · 范围合规 · 问题已复验</p></div></div>",
       "steps": [
         "暂停跟做",
-        "整理记录",
+        "观察与记录",
         "对照验收"
       ],
       "script": [
         "【操作提示｜课件 p07 第 1 步，给暂停跟做提示；不等待学员反馈】\n\n现在可以暂停视频，完成自己的欢迎语修改。先检查环境，保留修改前状态，再发送请求，核对计划、确认修改，最后看页面和差异。\n\n不用复现老师屏幕上的每一行回复。只要围绕同一个任务，完成必要的操作和检查就可以。遇到问题，先把现象记下来，再按 0.2 课前准备小节的入口处理。",
-        "【操作提示｜推进第 2 步 → 切 VS Code，在练习副本创建或打开 docs/evidence/CH01_ENVIRONMENT_AND_FIRST_LOOP.md，由讲师本人整理记录；如已有内容则追加，不覆盖。此操作在欢迎语任务验收后单独进行】\n\n做完以后，我们把证据放进这个记录文件。可以按操作顺序写：开始时的环境状态、发出的请求、它的复述和计划、自己的确认，然后是修改前后截图、完整差异和检查结论。\n\nReview 就是审查结论。不要只写“看过了”，要写清楚欢迎语是否一致，布局有没有变化，文件改动有没有超出范围。\n\n这个记录文件是我们完成任务后另行整理的，不属于刚才授权 AI 修改欢迎语的范围。之后再看 Git 状态，会多出这份记录，要把它和那次单文件任务分清。\n\n如果有修正，保留修正前后的证据。没有真实修正，就写明首次任务通过；教学例子的练习另外标注来源，不填一个没有发生过的修复结果。",
-        "【操作提示｜回课件 p07 第 3 步，对照验收项；保留原始记录供下一节使用】\n\n最后给自己一个判断题：欢迎语看起来对了，但 diff 显示它还改了页面颜色，这次能通过吗？\n\n按今天的要求，还不能。因为我们明确约定只替换文字，样式变化超出了范围。要把这处额外改动反馈清楚，处理后再检查。\n\nCodex CLI 还没能实际完成任务，就写待补做，下一次从记录里的阻塞位置继续。可选 App 的操作另外记录，不替代本节的 CLI 检查。"
+        "【操作提示｜推进第 2 步，指向“观察与记录”；需要举例时回看已有的 Terminal 执行过程和页面检查，展示讲师自己的简短笔记，不新建专用文档】\n\n操作时，留意它有没有等你确认才修改，结果是否符合目标，有没有多改内容。你觉得值得留作参考的发现，可以写几句笔记，也可以截图，方式自己选。\n\n如果遇到问题，记下现象和处理结果。解决后再检查一次；暂时没法检查，就记下卡在哪一步。下一节会回看这次的对话和操作过程。",
+        "【操作提示｜回课件 p07 第 3 步，对照验收项；保留现有对话和自己的观察，下一节回看】\n\n最后给自己一个判断题：欢迎语看起来对了，但 git diff 输出显示它还改了页面颜色，这次能通过吗？\n\n按今天的要求，还不能。因为我们明确约定只替换文字，样式变化超出了范围。要把这处额外改动反馈清楚，处理后再检查。\n\nCodex CLI 还没能实际完成任务，就写待补做，下一次从记录里的阻塞位置继续。可选 App 的操作另外记录，不替代本节的 CLI 检查。"
       ],
       "segment": "独立练习",
       "seconds": 210,
@@ -402,7 +361,7 @@ window.lesson = {
       "teaching": [
         {
           "title": "追问与预期判断",
-          "text": "独立完成一次，再拿证据回答；页面正确但 Diff 越界能通过吗？不能。CLI 未完成则标待补做；App 可选，不替代 CLI 检查。"
+          "text": "独立完成一次，再拿证据回答；页面正确但 git diff 输出显示有越界改动能通过吗？不能。CLI 未完成则标待补做；App 可选，不替代 CLI 检查。"
         },
         {
           "title": "演示分支",
@@ -410,11 +369,11 @@ window.lesson = {
         },
         {
           "title": "备课标记",
-          "text": "M02、M03、M04。证据由学员另行整理到 `docs/evidence/CH01_ENVIRONMENT_AND_FIRST_LOOP.md`，该文件尚需学员创建，不扩展第五页给 AI 的单文件修改授权。"
+          "text": "M02、M03、M04。学员自行观察操作和检查结果，按习惯记录发现与问题，不指定记录文件或格式。"
         },
         {
           "title": "讲师提示",
-          "text": "用自己的副本执行，不复制教师的成功截图。录播可暂停，完成后继续。\n\n写入 docs/evidence/CH01_ENVIRONMENT_AND_FIRST_LOOP.md。没有真实修正时标明练习素材来源与尚缺证据。\n\n页面正确但 Diff 越界能通过吗？不能。CLI 未完成则标待补做；App 可选，不替代 CLI 检查。"
+          "text": "用本地 course-starter 独立完成修改，自行观察并记录发现与问题。\n\n没有真实修正时，只说明实际检查结果；教学样例标明来源。\n\n页面正确但改动超出范围时，处理后再检查。CLI 未完成则标待补做；App 可选，不替代 CLI 检查。"
         }
       ]
     },
@@ -422,8 +381,8 @@ window.lesson = {
       "id": "p07-recap",
       "label": "先确认，再修改；拿证据收尾",
       "title": "先确认，再修改；拿证据收尾",
-      "lead": "这一节只改了一句话，却完整走过了确认、执行、检查和反馈。带走一个习惯：页面和 Diff 一起看，缺证据就不写通过。下一节用这份记录，把 Agent 的执行过程拆开来看。",
-      "html": "<div class=\"p-sketch\" style=\"align-items:center\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">一个习惯</h3><div class=\"p-star\" style=\"width:270px;font-size:27px\">页面与 Diff<br>一起看</div><p class=\"p-sub\" style=\"text-align:center\">缺证据不写通过</p></div><div data-reveal=\"1\"><h3>三个出口</h3><ul class=\"p-exits\" style=\"gap:14px\"><li class=\"is-pass\">通过就记录</li><li class=\"is-fix\">不符就修正复验</li><li class=\"is-stop\">受阻就停止</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>1.2 拆开执行过程</h3></div></div></div>",
+      "lead": "这一节只改了一句话，却完整走过了确认、执行、检查和反馈。带走一个习惯：页面和 git diff 输出一起看，缺证据就不写通过。下一节用这份记录，把 Agent 的执行过程拆开来看。",
+      "html": "<div class=\"p-sketch\" style=\"align-items:center\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">一个习惯</h3><div class=\"p-star\" style=\"width:270px;font-size:27px\">页面与 git diff 输出<br>一起看</div><p class=\"p-sub\" style=\"text-align:center\">缺证据不写通过</p></div><div data-reveal=\"1\"><h3>三个出口</h3><ul class=\"p-exits\" style=\"gap:14px\"><li class=\"is-pass\">通过就记录</li><li class=\"is-fix\">不符就修正复验</li><li class=\"is-stop\">受阻就停止</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>1.2 拆开执行过程</h3></div></div></div>",
       "steps": [
         "收拢习惯",
         "区分出口",
@@ -432,7 +391,7 @@ window.lesson = {
       "script": [
         "【操作提示｜停留课件 p07-recap 第 1 步，不再切工具窗口】\n\n这一节，我们从一行欢迎语出发，看了一次任务怎样从请求走到验收。开头那个问题，现在有具体答案了：去看实际页面，再对照完整差异和文件状态。\n\n我们可以把这个习惯带到下一次小修改里。先给出明确的目标，确认要做的动作，再用实际结果判断是否完成。",
         "【操作提示｜推进第 2 步，依次指向三个出口】\n\n检查后有三个出口。符合要求，接受并记录；发现差异，反馈后重新检查；缺少条件，保留阻塞再继续。\n\n跟做暂时受阻的同学，先把卡在哪里写具体。以后回来，就知道要补哪一项，而不是重新从头试一遍。",
-        "【操作提示｜推进第 3 步，结束本节；保留 Terminal 会话、截图和首次闭环记录，下一节复用】\n\n请保留这次的请求、执行过程和检查记录。下一节我们会回到这些材料，看我们发出一句话之后，工具怎样读取文件、执行动作，又把结果返回。\n\n今天先把欢迎语任务的证据整理好。我们下一节接着看。"
+        "【操作提示｜推进第 3 步，结束本节；保留 Terminal 中的现有对话和检查结果，下一节回看；学员笔记和截图按自己的习惯保存】\n\n下一节我们会回看这次对话，看工具怎样读取文件、执行动作，又把结果返回。你也可以结合自己的观察，记下想进一步弄清的问题。我们下一节接着看。"
       ],
       "segment": "独立练习",
       "seconds": 60,
@@ -456,7 +415,7 @@ window.lesson = {
     },
     {
       "label": "操作前复核",
-      "seconds": 180
+      "seconds": 45
     },
     {
       "label": "首次执行",
