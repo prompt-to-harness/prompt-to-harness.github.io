@@ -51,3 +51,18 @@ body.interview[data-mode='scroll'] .instructor-profiles{grid-template-columns:1f
 .project-card figcaption{font-size:16px;line-height:1.45;color:#5B6573;margin-top:auto}
 .project-card .p-here{position:absolute;top:-30px;left:0}
 body[data-mode='scroll'] .project-cards{margin-top:40px}
+/* Keep the four original HTML outputs isolated and readable at a shared preview size. */
+.pelican-prompt{border-left:4px solid #9C8B66;padding:4px 16px}
+.pelican-prompt>span{display:block;font-size:18px;color:#6E6043}
+.interview .pelican-prompt blockquote{margin:4px 0 0;font-size:23px;line-height:1.4}
+.pelican-gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.pelican-example{margin:0;min-width:0}
+.pelican-preview{position:relative;aspect-ratio:3/2;overflow:hidden;border:1px solid #CFC9BC;border-radius:4px;background:#FFFDF7}
+.pelican-preview iframe{position:absolute;top:0;left:0;width:200%;height:200%;border:0;transform:scale(.5);transform-origin:top left}
+.pelican-example figcaption{padding-top:8px;font-size:20px;line-height:1.4}
+.pelican-example a{color:#243042;text-underline-offset:4px}
+.interview .pelican-source{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:18px;line-height:1.5;color:#5B6573}
+.pelican-source>span{margin-left:auto}
+body[data-mode='scroll'] .pelican-gallery{grid-template-columns:repeat(2,minmax(0,1fr));margin:20px 0}
+body[data-mode='slides'] .pelican-case .scene-content{gap:12px}
+@media(max-width:700px){body[data-mode='scroll'] .pelican-gallery{grid-template-columns:1fr}.pelican-source>span{margin-left:0}}

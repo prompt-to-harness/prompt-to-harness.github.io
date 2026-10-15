@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>鹈鹕骑自行车 · 2D 动画</title>
+<style>
+  html, body { margin: 0; padding: 0; height: 100%; }
+  body {
+    background: linear-gradient(180deg, #f0f7ff 0%, #d6ecff 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  .stage {
+    width: min(95vw, 900px);
+    aspect-ratio: 8 / 5;
+    box-shadow: 0 12px 32px rgba(0, 40, 80, 0.18);
+    border-radius: 18px;
+    overflow: hidden;
+    background: #B3E5FC;
+  }
+  svg { width: 100%; height: 100%; display: block; }
+  .caption {
+    position: fixed;
+    bottom: 14px;
+    color: #2c3e50;
+    font-size: 13px;
+    opacity: 0.7;
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="鹈鹕骑自行车的 2D 动画">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#4FC3F7"/>
+      <stop offset="100%" stop-color="#E1F5FE"/>
+    </linearGradient>
+    <linearGradient id="grass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#AED581"/>
+      <stop offset="100%" stop-color="#558B2F"/>
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%"  stop-color="#FFF59D" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#FFF59D" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect x="0" y="0" width="800" height="500" fill="url(#sky)"/>
+
+  <circle cx="660" cy="90" r="80" fill="url(#sunGlow)"/>
+  <circle cx="660" cy="90" r="38" fill="#FFEB3B">
+    <animate attributeName="r" values="38;42;38" dur="3s" repeatCount="indefinite"/>
+  </circle>
+
+  <g opacity="0.95">
+    <g>
+      <animateTransform attributeName="transform" type="translate"
+                        from="900 0" to="-260 0" dur="22s" repeatCount="indefinite"/>
+      <ellipse cx="200" cy="80" rx="42" ry="18" fill="#FFFFFF"/>
+      <ellipse cx="240" cy="70" rx="30" ry="20" fill="#FFFFFF"/>
+      <ellipse cx="170" cy="78" rx="26" ry="15" fill="#FFFFFF"/>
+    </g>
+    <g>
+      <animateTransform attributeName="transform" type="translate"
+                        from="1100 0" to="-280 0" dur="30s" begin="-8s" repeatCount="indefinite"/>
+      <ellipse cx="520" cy="130" rx="46" ry="20" fill="#FFFFFF"/>
+      <ellipse cx="560" cy="118" rx="30" ry="18" fill="#FFFFFF"/>
+      <ellipse cx="490" cy="125" rx="24" ry="14" fill="#FFFFFF"/>
+    </g>
+    <g>
+      <animateTransform attributeName="transform" type="translate"
+                        from="1000 0" to="-300 0" dur="26s" begin="-14s" repeatCount="indefinite"/>
+      <ellipse cx="380" cy="170" rx="34" ry="14" fill="#FFFFFF" opacity="0.85"/>
+      <ellipse cx="410" cy="160" rx="22" ry="12" fill="#FFFFFF" opacity="0.85"/>
+    </g>
+  </g>
+
+  <path d="M 0 360 L 120 290 L 220 340 L 340 270 L 460 330 L 580 280 L 700 340 L 800 310 L 800 380 L 0 380 Z"
+        fill="#A5D6A7" opacity="0.7"/>
+
+  <rect x="0" y="360" width="800" height="140" fill="url(#grass)"/>
+
+  <g>
+    <g>
+      <animateTransform attributeName="transform" type="translate"
+                        from="0 0" to="-160 0" dur="0.55s" repeatCount="indefinite"/>
+      <rect x="0"   y="395" width="60" height="6" fill="#6D4C41" rx="2"/>
+      <rect x="100" y="395" width="60" height="6" fill="#6D4C41" rx="2"/>
+      <rect x="200" y="395" width="60" height="6" fill="#6D4C41" rx="2"/>
+      <rect x="300" y="395" width="60" height="6" fill="#6D4C41" rx="2"/>
+      <rect x="400" y="395" width="60" height="6" fill="#6D4C41" rx="2"/>
+      <rect x="500" y="395" width="60" height="6" fill="#6D4C41" rx="2"/>
+      <rect x="600" y="395" width="60" height="6" fill="#6D4C41" rx="2"/>
+      <rect x="700" y="395" width="60" height="6" fill="#6D4C41" rx="2"/>
+      <rect x="800" y="395" width="60" height="6" fill="#6D4C41" rx="2"/>
+    </g>
+  </g>
+
+  <g transform="translate(280, 220)">
+    <animateTransform attributeName="transform" type="translate"
+                      values="280,220; 280,217; 280,220"
+                      dur="0.55s" repeatCount="indefinite"/>
+
+    <g>
+      <g>
+        <circle cx="60" cy="120" r="50" fill="none" stroke="#263238" stroke-width="5"/>
+        <circle cx="60" cy="120" r="48" fill="none" stroke="#90A4AE" stroke-width="1"/>
+        <g>
+          <animateTransform attributeName="transform" type="rotate"
+                            from="0 60 120" to="360 60 120" dur="0.9s" repeatCount="indefinite"/>
+          <line x1="60" y1="72"  x2="60" y2="168" stroke="#B0BEC5" stroke-width="1.5"/>
+          <line x1="12" y1="120" x2="108" y2="120" stroke="#B0BEC5" stroke-width="1.5"/>
+          <line x1="26" y1="86"  x2="94" y2="154" stroke="#B0BEC5" stroke-width="1.5"/>
+          <line x1="26" y1="154" x2="94" y2="86"  stroke="#B0BEC5" stroke-width="1.5"/>
+        </g>
+        <circle cx="60" cy="120" r="6" fill="#37474F"/>
+      </g>
+
+      <g>
+        <circle cx="240" cy="120" r="50" fill="none" stroke="#263238" stroke-width="5"/>
+        <circle cx="240" cy="120" r="48" fill="none" stroke="#90A4AE" stroke-width="1"/>
+        <g>
+          <animateTransform attributeName="transform" type="rotate"
+                            from="0 240 120" to="360 240 120" dur="0.9s" repeatCount="indefinite"/>
+          <line x1="240" y1="72"  x2="240" y2="168" stroke="#B0BEC5" stroke-width="1.5"/>
+          <line x1="192" y1="120" x2="288" y2="120" stroke="#B0BEC5" stroke-width="1.5"/>
+          <line x1="206" y1="86"  x2="274" y2="154" stroke="#B0BEC5" stroke-width="1.5"/>
+          <line x1="206" y1="154" x2="274" y2="86"  stroke="#B0BEC5" stroke-width="1.5"/>
+        </g>
+        <circle cx="240" cy="120" r="6" fill="#37474F"/>
+      </g>
+
+      <line x1="60"  y1="120" x2="150" y2="55"  stroke="#E53935" stroke-width="7" stroke-linecap="round"/>
+      <line x1="150" y1="55"  x2="240" y2="120" stroke="#E53935" stroke-width="7" stroke-linecap="round"/>
+      <line x1="150" y1="55"  x2="170" y2="120" stroke="#E53935" stroke-width="7" stroke-linecap="round"/>
+      <line x1="60"  y1="120" x2="170" y2="120" stroke="#E53935" stroke-width="7" stroke-linecap="round"/>
+      <line x1="60"  y1="120" x2="150" y2="55"  stroke="#FF7043" stroke-width="2" opacity="0.6"/>
+      <line x1="150" y1="55"  x2="240" y2="120" stroke="#FF7043" stroke-width="2" opacity="0.6"/>
+
+      <line x1="150" y1="55" x2="160" y2="30" stroke="#37474F" stroke-width="5" stroke-linecap="round"/>
+      <ellipse cx="160" cy="26" rx="20" ry="6" fill="#37474F"/>
+
+      <line x1="240" y1="120" x2="230" y2="40" stroke="#37474F" stroke-width="5" stroke-linecap="round"/>
+      <line x1="230" y1="40"  x2="200" y2="30" stroke="#37474F" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="200" cy="30" r="5" fill="#37474F"/>
+      <circle cx="230" cy="40" r="3" fill="#37474F"/>
+
+      <g>
+        <animateTransform attributeName="transform" type="rotate"
+                          from="0 170 120" to="360 170 120" dur="0.9s" repeatCount="indefinite"/>
+        <line x1="170" y1="120" x2="195" y2="105" stroke="#37474F" stroke-width="5" stroke-linecap="round"/>
+        <line x1="170" y1="120" x2="145" y2="135" stroke="#37474F" stroke-width="5" stroke-linecap="round"/>
+        <rect x="190" y="100" width="14" height="6" fill="#263238" rx="1"/>
+        <rect x="138" y="130" width="14" height="6" fill="#263238" rx="1"/>
+      </g>
+      <circle cx="170" cy="120" r="7" fill="#546E7A"/>
+    </g>
+
+    <g>
+      <g>
+        <line x1="160" y1="100" x2="180" y2="125" stroke="#F57C00" stroke-width="5" stroke-linecap="round"/>
+        <line x1="160" y1="100" x2="145" y2="130" stroke="#F57C00" stroke-width="5" stroke-linecap="round"/>
+        <path d="M 175 125 L 195 122 L 188 132 Z" fill="#FF9800"/>
+        <path d="M 150 130 L 132 138 L 145 134 Z" fill="#FF9800"/>
+        <animateTransform attributeName="transform" type="rotate"
+                          values="-3 160 100; 3 160 100; -3 160 100"
+                          dur="0.9s" repeatCount="indefinite"/>
+      </g>
+
+      <ellipse cx="100" cy="65" rx="65" ry="38" fill="#FFFFFF" stroke="#37474F" stroke-width="2.5"/>
+
+      <g>
+        <ellipse cx="85" cy="55" rx="40" ry="22" fill="#ECEFF1" stroke="#37474F" stroke-width="2.5"/>
+        <path d="M 60 50 Q 80 30 110 50" fill="none" stroke="#37474F" stroke-width="1.5" opacity="0.6"/>
+        <path d="M 60 60 Q 80 80 110 60" fill="none" stroke="#37474F" stroke-width="1.5" opacity="0.6"/>
+        <animateTransform attributeName="transform" type="rotate"
+                          values="-8 105 60; 6 105 60; -8 105 60"
+                          dur="0.6s" repeatCount="indefinite"/>
+      </g>
+
+      <path d="M 158 50 L 195 38 L 168 78 Z" fill="#FFFFFF" stroke="#37474F" stroke-width="2.5"/>
+
+      <path d="M 70 35 Q 35 10 -10 -5 Q -25 -10 -30 0 Q -20 25 0 30 Q 25 35 65 55 Z"
+            fill="#FFFFFF" stroke="#37474F" stroke-width="2.5"/>
+
+      <circle cx="-18" cy="-12" r="24" fill="#FFFFFF" stroke="#37474F" stroke-width="2.5"/>
+
+      <path d="M -22 -32 Q -18 -42 -12 -34" fill="none" stroke="#37474F" stroke-width="2.5" stroke-linecap="round"/>
+
+      <circle cx="-22" cy="-18" r="5" fill="#FFFFFF" stroke="#37474F" stroke-width="1.2"/>
+      <circle cx="-21" cy="-17" r="2.6" fill="#263238"/>
+      <circle cx="-20.5" cy="-17.6" r="0.8" fill="#FFFFFF"/>
+
+      <path d="M -32 -8 L -90 -3 L -90 4 L -32 1 Z" fill="#FFB300" stroke="#37474F" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M -32 1 Q -65 18 -90 10 Q -78 22 -50 16 Q -35 14 -30 5 Z"
+            fill="#FFA000" stroke="#37474F" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M -50 -1 Q -70 6 -90 4" stroke="#FFE082" stroke-width="1.5" fill="none" opacity="0.7"/>
+
+      <ellipse cx="-30" cy="-2" rx="5" ry="2.5" fill="#F8BBD0" opacity="0.8"/>
+    </g>
+  </g>
+
+  <text x="400" y="475" text-anchor="middle"
+        font-family="-apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif"
+        font-size="22" font-weight="700" fill="#37474F">
+    鹈鹕骑车兜风记 🚲
+  </text>
+</svg>
+</div>
+<div class="caption">SVG 绘制 · 纯 SMIL 动画</div>
+</body>
+</html>
