@@ -6,8 +6,8 @@ window.lesson = {
   "scenes": [
     {
       "id": "p15",
-      "label": "换入口，还要核对什么？",
-      "title": "换入口，还要核对什么？",
+      "label": "认准项目",
+      "title": "不管用 CLI 还是 App，先认准同一个项目",
       "lead": "Codex CLI 必备，Codex App 可选；换入口时核对项目、权限与结果",
       "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>1.1</b>第一次 AI 协作闭环</li><li class=\"is-done\"><b>1.2</b>Agent 执行机制与 AI 协作基础</li><li class=\"is-now\"><b>1.3</b>工具使用与权限</li><li class=\"\"><b>1.4</b>写清个人主页任务：从模糊需求到可执行 Prompt</li><li class=\"\"><b>1.5</b>完成个人主页：从已确认 Prompt 到可验收的个人主页 v0</li><li class=\"\"><b>1.6</b>最小权限：为什么不能给 Agent 所有权限</li></ol><div style=\"display:grid;grid-template-columns:3fr 2fr;gap:28px;margin-top:14px;align-items:start\"><div class=\"p-box\" data-role=\"tool\" style=\"padding:12px 20px\"><h3 style=\"font-size:24px\">Codex CLI · 本课统一使用</h3><div data-reveal=\"0\" style=\"display:grid;grid-template-columns:70px 1fr;gap:10px;padding:8px 0;border-top:1px dashed #CFCAC0\"><span class=\"p-sub\">资料</span><span style=\"font-size:21px\">从练习项目根目录启动</span></div><div data-reveal=\"1\" style=\"display:grid;grid-template-columns:70px 1fr;gap:10px;padding:8px 0;border-top:1px dashed #CFCAC0\"><span class=\"p-sub\">动作</span><span style=\"font-size:21px\">看工具返回与 git diff 输出</span></div><div data-reveal=\"2\" style=\"display:grid;grid-template-columns:70px 1fr;gap:10px;padding:8px 0;border-top:1px dashed #CFCAC0\"><span class=\"p-sub\">边界</span><span style=\"font-size:21px\"><b>本课实操与检查都用 CLI</b></span></div></div><div class=\"p-box is-dashed\" data-role=\"ink\" data-reveal=\"2\" style=\"padding:12px 20px\"><h3 style=\"font-size:20px\">也可以用图形界面</h3><p style=\"font-size:18px;line-height:1.55;margin-top:8px\">Codex App · 可选。项目操作与模型接入按实际版本、账号和配置核对，本节不演示</p></div></div>",
       "steps": [

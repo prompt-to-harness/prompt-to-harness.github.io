@@ -167,7 +167,7 @@ window.lesson = {
     {
       "id": "p10",
       "label": "给记录贴标签",
-      "title": "常见术语介绍",
+      "title": "四个常用词，刚才的任务里都有",
       "lead": "用欢迎语任务认识四个词：Prompt 是任务说明，Tool 执行读取等动作，Context 是当时供判断使用的信息，Context Window 是一次处理信息的容量边界。先对照具体要求和工具返回，再理解名字。",
       "html": "<div class=\"labelled-records\"><div data-reveal=\"0\" class=\"record ink\"><div class=\"record-label\">Prompt<br><span>提示词</span></div><div class=\"record-body\">“只改指定欢迎语，其他内容和布局保留。”<small>你给 AI 的任务说明：目标、约束、完成标准</small></div></div><div data-reveal=\"1\" class=\"record tool\"><div class=\"record-label\">Tool<br><span>工具</span></div><div class=\"record-body\">读取文件、编辑代码、运行命令的入口。<small>动作是否成功，要继续看返回</small></div></div><div data-reveal=\"2\" class=\"record ctx\"><div class=\"record-label\">Context<br><span>上下文</span></div><div class=\"record-body\">要求 + 已读取内容 + 工具返回 + 反馈。<small>当前任务中供判断使用的信息；Prompt 也是其中一部分</small></div></div><div data-reveal=\"3\" class=\"record ctx\"><div class=\"record-label\">Context Window<br><span>上下文窗口</span></div><div class=\"record-body\">模型一次能够处理的信息容量边界。<small>Context 是信息；Context Window 限制一次能处理多少信息</small></div></div></div>",
       "steps": [
