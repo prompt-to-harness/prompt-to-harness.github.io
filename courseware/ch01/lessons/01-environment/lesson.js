@@ -305,17 +305,17 @@ window.lesson = {
       "id": "p06-loop",
       "label": "什么时候继续，什么时候停？",
       "title": "什么时候继续，什么时候停？",
-      "lead": "把整条路径连起来：说明目标、复述计划、人工确认，然后才写入；写入后检查页面和 git diff 输出。检查之后有三个出口——通过就记录，不符就限定范围修正再检查，无法验证或需要越界就记录并停下。",
+      "lead": "把整条路径连起来：说明目标、复述计划、人工确认，然后才写入；写入后检查页面和 git diff 输出。检查之后有三种处理——通过就记录，不符就限定范围修正再检查，无法验证或需要越界就记录并停下。",
       "html": "<div class=\"p-flow\" style=\"--n:6;column-gap:28px\"><div class=\"p-node\" data-role=\"ink\" data-reveal=\"0\" data-node=\"goal\"><h3>说明目标</h3><p>范围与标准</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\" data-node=\"plan\" data-edge=\"goal:plan\"><h3>复述与计划</h3><p>核对理解</p></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"0\" data-node=\"confirm\" data-edge=\"plan:confirm\"><h3>人工确认</h3><p>写入前</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"0\" data-node=\"edit\" data-edge=\"confirm:edit\"><h3>执行修改</h3><p>指定文字</p></div><div class=\"p-node\" data-role=\"ink\" data-reveal=\"1\" data-node=\"check\" data-edge=\"edit:check\"><h3>检查结果</h3><p>页面<br>git diff 输出</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"1\" data-node=\"record\" data-edge=\"check:record\"><h3>接受并记录</h3><p>留下证据</p></div><div class=\"p-fork\" data-reveal=\"1\" style=\"grid-column:4/7;--gap:28px\"><div class=\"l\" data-reveal=\"1\" data-edge=\"check:repair\"><span>不符</span></div><div class=\"r\" data-reveal=\"2\" data-edge=\"check:stop\"><span>无法继续</span></div></div><div class=\"p-node is-row2\" data-role=\"agent\" data-reveal=\"1\" data-node=\"repair\" data-edge=\"repair:check\" style=\"grid-column:4\"><h3>反馈并修正</h3><p>限定范围</p><span class=\"p-loopnote\">↺ 修正后再检查</span></div><div class=\"p-node is-row2\" data-role=\"gate\" data-reveal=\"2\" data-node=\"stop\" style=\"grid-column:6\"><h3>停止并记录</h3><p>无法验证 · 需越界</p></div></div>",
       "steps": [
         "检查前提",
         "判断检查结果",
-        "保留停止出口"
+        "保留停止条件"
       ],
       "script": [
         "【操作提示｜停留课件 p06-loop 第 1 步，沿图中的目标、复述和计划、人工确认、执行依次指示】\n\n图的前半段，就是刚才修改前做的事情。先把欢迎语的目标说清楚，再核对它的理解和小计划，然后确认这一次修改。\n\n顺序很关键。确认发生在写入之前，我们才有机会在动手前发现任务理解上的偏差。",
-        "【操作提示｜推进第 2 步，指向检查后的通过出口和修正回路】\n\n执行以后，我们来到检查这里。页面和改动范围都符合要求，就接受结果、保存记录。\n\n如果有一处不符，就说清实际和期望的差异，让它在原来的范围里修正。修完还要回来检查，不能从“它说修好了”直接跳到结束。\n\n今天的任务小，检查也很具体：一句欢迎语、原来的布局，以及完整的文件改动。",
-        "【操作提示｜推进第 3 步，指向停止出口；不切窗口】\n\n还有一种情况：现在没法判断。比如实际页面打不开，或者它要求做超出本次范围的事情。这个时候先停下来，写清楚卡在哪里、已经看到什么、下一步需要补什么。\n\n我们不需要连续发“再试一次”。有明确的错误，处理错误；缺少必要条件，补齐条件后再继续。\n\n下面我们各自用自己的练习副本，把这条路径走一遍。"
+        "【操作提示｜推进第 2 步，指向检查后的通过和修正回路】\n\n执行以后，我们来到检查这里。页面和改动范围都符合要求，就接受结果、保存记录。\n\n如果有一处不符，就说清实际和期望的差异，让它在原来的范围里修正。修完还要回来检查，不能从“它说修好了”直接跳到结束。\n\n今天的任务小，检查也很具体：一句欢迎语、原来的布局，以及完整的文件改动。",
+        "【操作提示｜推进第 3 步，指向停止；不切窗口】\n\n还有一种情况：现在没法判断。比如实际页面打不开，或者它要求做超出本次范围的事情。这个时候先停下来，写清楚卡在哪里、已经看到什么、下一步需要补什么。\n\n我们不需要连续发“再试一次”。有明确的错误，处理错误；缺少必要条件，补齐条件后再继续。\n\n下面我们各自用自己的练习副本，把这条路径走一遍。"
       ],
       "segment": "检查与修正",
       "seconds": 90,
@@ -382,15 +382,15 @@ window.lesson = {
       "label": "先确认，再修改；拿证据收尾",
       "title": "先确认，再修改；拿证据收尾",
       "lead": "这一节只改了一句话，却完整走过了确认、执行、检查和反馈。带走一个习惯：页面和 git diff 输出一起看，缺证据就不写通过。下一节用这份记录，把 Agent 的执行过程拆开来看。",
-      "html": "<div class=\"p-sketch\" style=\"align-items:center\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">一个习惯</h3><div class=\"p-star\" style=\"width:270px;font-size:27px\">页面与 git diff 输出<br>一起看</div><p class=\"p-sub\" style=\"text-align:center\">缺证据不写通过</p></div><div data-reveal=\"1\"><h3>三个出口</h3><ul class=\"p-exits\" style=\"gap:14px\"><li class=\"is-pass\">通过就记录</li><li class=\"is-fix\">不符就修正复验</li><li class=\"is-stop\">受阻就停止</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>1.2 拆开执行过程</h3></div></div></div>",
+      "html": "<div class=\"p-sketch\" style=\"align-items:center\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">一个习惯</h3><div class=\"p-star\" style=\"width:270px;font-size:27px\">页面与 git diff 输出<br>一起看</div><p class=\"p-sub\" style=\"text-align:center\">缺证据不写通过</p></div><div data-reveal=\"1\"><h3>三种处理</h3><ul class=\"p-exits\" style=\"gap:14px\"><li class=\"is-pass\">通过就记录</li><li class=\"is-fix\">不符就修正复验</li><li class=\"is-stop\">受阻就停止</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>1.2 拆开执行过程</h3></div></div></div>",
       "steps": [
         "收拢习惯",
-        "区分出口",
+        "区分处理",
         "交接证据"
       ],
       "script": [
         "【操作提示｜停留课件 p07-recap 第 1 步，不再切工具窗口】\n\n这一节，我们从一行欢迎语出发，看了一次任务怎样从请求走到验收。开头那个问题，现在有具体答案了：去看实际页面，再对照完整差异和文件状态。\n\n我们可以把这个习惯带到下一次小修改里。先给出明确的目标，确认要做的动作，再用实际结果判断是否完成。",
-        "【操作提示｜推进第 2 步，依次指向三个出口】\n\n检查后有三个出口。符合要求，接受并记录；发现差异，反馈后重新检查；缺少条件，保留阻塞再继续。\n\n跟做暂时受阻的同学，先把卡在哪里写具体。以后回来，就知道要补哪一项，而不是重新从头试一遍。",
+        "【操作提示｜推进第 2 步，依次指向三种处理】\n\n检查后有三种处理。符合要求，接受并记录；发现差异，反馈后重新检查；缺少条件，保留阻塞再继续。\n\n跟做暂时受阻的同学，先把卡在哪里写具体。以后回来，就知道要补哪一项，而不是重新从头试一遍。",
         "【操作提示｜推进第 3 步，结束本节；保留 Terminal 中的现有对话和检查结果，下一节回看；学员笔记和截图按自己的习惯保存】\n\n下一节我们会回看这次对话，看工具怎样读取文件、执行动作，又把结果返回。你也可以结合自己的观察，记下想进一步弄清的问题。我们下一节接着看。"
       ],
       "segment": "独立练习",
