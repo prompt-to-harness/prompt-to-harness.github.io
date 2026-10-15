@@ -30,23 +30,23 @@
 
 ## 零件目录
 
-| 零件 | 类名 | 什么时候用 | 1.2 中的例子 |
+| 零件 | 类名 | 什么时候用 | 课件中的例子 |
 |---|---|---|---|
 | 手绘框 | `.p-box` | 一个概念、一张证据卡；变体 `is-dashed`、`is-soft`、`is-solid` | p09-request |
 | 标签 | `.p-tag` | 框内的小标签（"请求""返回"） | p09-request |
-| 框内标题行 | `.p-head` | 标题在左、标签在右，省一行高度 | p10-diff |
+| 框内标题行 | `.p-head` | 标题在左、标签在右，省一行高度 | 1.1 p05 |
 | 流程 | `.p-flow` + `.p-node` | 横向步骤；节点之间自动加箭头；`style="--n:5"` 设列数 | p09-loop |
 | 回路 / 出口 | `.p-back` / `.p-exit` | 流程第二行：回到前面某节点、从某节点退出 | p09-loop |
 | 挂点 | `.p-hang` | 把失败、说明挂在某个节点下面 | p12 |
-| 左右对照 | `.p-pair` + `.p-join` | 两者对比；中间放 `≠`、`?` 或带箭头的动作 | p10-diff、p12-trace |
+| 左右对照 | `.p-pair` + `.p-join` | 两者对比；中间放 `≠`、`?` 或带箭头的动作 | p12-trace |
 | 网格 / 2×2 | `.p-grid` / `.p-quad` | 并列若干项；四分类用 `p-quad` | p14、p11 |
 | 集合 | `.p-set` + `.p-item` | 一组条目；`is-picked` 高亮被选中的一项，`.p-mark` 盖小章 | p10-context |
 | 记录与贴纸 | `.p-log` + `.p-sticker` + `.p-frame` | 把术语贴到具体记录上；`is-brace` 用括号覆盖多行；`p-frame` 圈出范围 | p10 |
 | 暂停与题卡 | `.p-pause` + `.p-quiz` + `.p-q` + `.p-stamp` | 先给题，暂停，再逐条盖章揭晓 | p11-judge |
 | 问答列表 | `.p-qlist` + `.p-qrow` + `.p-back-to` | 自检题，答案标出"回到哪个概念" | p14-check |
-| 阶梯 | `.p-stairs` + `.p-stair` + `.p-base` | 逐层叠加的路线；`.p-here` 标当前位置 | p13 |
+| 阶梯 | `.p-stairs` + `.p-stair` + `.p-base` | 逐层叠加的路线；`.p-here` 标当前位置 | 课程首页路线 |
 | 结论条 | `.p-bar` | 每页最后一句断言；`<b>` 高亮关键词；`is-light` 为浅色版 | 多页 |
-| 证据块 | `.p-code`、`.p-term`、`.p-page` | 代码/diff（行内 `.del` `.add` `.hl`）、终端（`.err`）、页面截图框 | p09-request、p10-diff |
+| 证据块 | `.p-code`、`.p-term`、`.p-page` | 代码/diff（行内 `.del` `.add` `.hl`）、终端（`.err`）、页面截图框 | p09-request、1.1 p05 |
 | 开篇地图 | `.p-map` | 章节开篇，本章各节，当前节红圈；`.p-hand` 手写问题，`.p-chain` 三件事 | p09 |
 | 涂鸦小结 | `.p-sketch` + `.p-star` + `.p-warns` + `.p-next` | 每节最后一页：四个词、一个习惯、三种失败、下一节 | p14-summary |
 

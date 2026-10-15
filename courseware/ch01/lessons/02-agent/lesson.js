@@ -2,7 +2,7 @@ window.lesson = {
   "title": "Agent 执行机制与 AI 协作基础",
   "chapter": "第 1 章 · Prompt",
   "section": "01.02",
-  "summary": "复盘 1.1 欢迎语任务；六段主线，先证据后概念。",
+  "summary": "复盘 1.1 欢迎语任务；五段主线，先证据后概念。",
   "segments": [
     {
       "label": "执行循环",
@@ -10,7 +10,7 @@ window.lesson = {
     },
     {
       "label": "信息与术语",
-      "seconds": 180
+      "seconds": 145
     },
     {
       "label": "判断信息",
@@ -21,12 +21,8 @@ window.lesson = {
       "seconds": 120
     },
     {
-      "label": "课程路线",
-      "seconds": 90
-    },
-    {
       "label": "路标与收尾",
-      "seconds": 150
+      "seconds": 160
     }
   ],
   "scenes": [
@@ -55,6 +51,10 @@ window.lesson = {
         {
           "title": "教学边界与材料",
           "text": "对照 1.1 本人记录；本页示意不作为真实运行证据。只解释可见动作、返回与人工决定。"
+        },
+        {
+          "title": "回看历史改动",
+          "text": "若欢迎语修改已提交或工作区已有新变化，回看当时留存的完整 git diff 输出和初始状态；缺少记录时如实说明。当前 git diff 输出为空不能代替当时的检查结果。"
         }
       ],
       "notes": "",
@@ -136,7 +136,7 @@ window.lesson = {
       "label": "Model 与 Agent",
       "title": "模型提供能力，Agent 组织任务",
       "lead": "刚才的循环里，模型提供生成解释、判断和动作建议的能力。Agent 把模型、当前信息和工具组织起来，根据每次返回继续推进任务。可以用已有记录中的读取、返回和后续动作来对照这两个名字。",
-      "html": "<div class=\"model-comparison\"><div data-reveal=\"0\" class=\"evidence-panel agent\"><h3>Model · 模型</h3><p class=\"large-copy\">生成内容<br>作出判断</p><p>提出文字或动作建议</p></div><div data-reveal=\"1\" class=\"evidence-panel agent\"><h3>Agent · 智能体</h3><p class=\"large-copy\">模型 + 上下文 + 工具<br>放进执行循环</p><p>依据返回，继续推进任务</p></div></div><div data-reveal=\"2\" class=\"conclusion \"><p>模型输出有不确定性，需要用证据验证</p></div>",
+      "html": "<div class=\"agent-rings\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"lesson-diagram agent-rings-diagram\" viewBox=\"0 0 540 500\" role=\"img\" aria-labelledby=\"title-agent-rings\"><title id=\"title-agent-rings\">同心圆：Model 在中心；Agent 把模型、上下文和工具放进“提出动作、工具执行、结果返回、下一步”的执行循环</title><defs><marker id=\"arrow-agent-rings\" viewBox=\"0 0 10 10\" refX=\"8\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto\"><path d=\"M0 0L10 5L0 10z\" fill=\"#5A51D1\"/></marker></defs><g data-reveal=\"1\"><circle cx=\"270\" cy=\"250\" r=\"200\" fill=\"#F6F5FD\" stroke=\"none\"/><path d=\"M338.4 62.1A200 200 0 0 1 457.9 181.6\" fill=\"none\" stroke=\"#5A51D1\" stroke-width=\"3\" marker-end=\"url(#arrow-agent-rings)\"/><path d=\"M457.9 318.4A200 200 0 0 1 338.4 437.9\" fill=\"none\" stroke=\"#5A51D1\" stroke-width=\"3\" marker-end=\"url(#arrow-agent-rings)\"/><path d=\"M201.6 437.9A200 200 0 0 1 82.1 318.4\" fill=\"none\" stroke=\"#5A51D1\" stroke-width=\"3\" marker-end=\"url(#arrow-agent-rings)\"/><path d=\"M82.1 181.6A200 200 0 0 1 201.6 62.1\" fill=\"none\" stroke=\"#5A51D1\" stroke-width=\"3\" marker-end=\"url(#arrow-agent-rings)\"/><circle cx=\"270\" cy=\"250\" r=\"138\" fill=\"#EDEBFB\" stroke=\"#5A51D1\" stroke-width=\"2\" stroke-dasharray=\"7 6\"/><text x=\"270\" y=\"150\" text-anchor=\"middle\" font-size=\"24\" fill=\"#3E369F\">上下文</text><text x=\"270\" y=\"366\" text-anchor=\"middle\" font-size=\"24\" fill=\"#3E369F\">工具</text><rect x=\"208\" y=\"28\" width=\"124\" height=\"44\" rx=\"22\" fill=\"#FFFFFF\" stroke=\"#5A51D1\" stroke-width=\"2\"/><text x=\"270\" y=\"58\" text-anchor=\"middle\" font-size=\"22\" fill=\"#243042\">提出动作</text><rect x=\"408\" y=\"228\" width=\"124\" height=\"44\" rx=\"22\" fill=\"#FFFFFF\" stroke=\"#5A51D1\" stroke-width=\"2\"/><text x=\"470\" y=\"258\" text-anchor=\"middle\" font-size=\"22\" fill=\"#243042\">工具执行</text><rect x=\"208\" y=\"428\" width=\"124\" height=\"44\" rx=\"22\" fill=\"#FFFFFF\" stroke=\"#5A51D1\" stroke-width=\"2\"/><text x=\"270\" y=\"458\" text-anchor=\"middle\" font-size=\"22\" fill=\"#243042\">结果返回</text><rect x=\"8\" y=\"228\" width=\"124\" height=\"44\" rx=\"22\" fill=\"#FFFFFF\" stroke=\"#5A51D1\" stroke-width=\"2\"/><text x=\"70\" y=\"258\" text-anchor=\"middle\" font-size=\"22\" fill=\"#243042\">下一步</text></g><g data-reveal=\"0\"><circle cx=\"270\" cy=\"250\" r=\"74\" fill=\"#243042\"/><text class=\"diagram-title\" x=\"270\" y=\"246\" text-anchor=\"middle\" font-size=\"30\" fill=\"#FFFFFF\">Model</text><text x=\"270\" y=\"278\" text-anchor=\"middle\" font-size=\"22\" fill=\"#FFFFFF\">模型</text></g></svg><div class=\"agent-rings-notes\"><div data-reveal=\"0\" class=\"agent-rings-note model\"><h3>中心 · Model 模型</h3><p class=\"large-copy\">生成内容，作出判断</p><p>提出文字或动作建议</p></div><div data-reveal=\"1\" class=\"agent-rings-note agent\"><h3>外圈 · Agent 智能体</h3><p class=\"large-copy\">模型 + 上下文 + 工具<br>放进执行循环</p><p>依据返回，继续推进任务</p></div><div data-reveal=\"2\" class=\"conclusion \"><p>模型输出有不确定性，需要用证据验证</p></div></div></div>",
       "steps": [
         "说明模型的能力",
         "用刚才循环解释 Agent",
@@ -246,7 +246,7 @@ window.lesson = {
       "script": [
         "【操作提示｜课件 p10-window 第 1 步，逐项指向信息来源；本页不新开浏览器，不做长会话实验】\n\n刚才解决了有没有读到的问题。现在再想一步：如果项目很大，对话又很长，是不是把所有资料都放进去，就一定更好？\n\n先看这些来源：文件、历史对话、工具返回、本次要求。信息会越积越多，而一次处理的信息有容量边界。",
         "【操作提示｜推进第 2 步，指向窗口边框】\n\n这个框表示一次处理的容量。它是帮助理解的示意图，不是产品里的真实界面，也没有表示某个固定数字。\n\n所以，不能只凭“以前聊过”，就认定现在每个细节都还在参与判断。具体保留了什么，需要结合当前记录来看。",
-        "【操作提示｜推进第 3 步，回到欢迎语任务】\n\n回到我们的小任务，最有用的是哪几项？目标文字、指定文件里的原文，还有允许修改的范围。\n\n把这些相关、准确的信息给到位，比不断塞进无关材料更能帮助我们检查任务。后面项目变大，我们还会继续练习怎样管理这些信息。"
+        "【操作提示｜推进第 3 步，回到欢迎语任务】\n\n回到我们的小任务，最有用的是哪几项？目标文字、指定文件里的原文，还有允许修改的范围。\n\n把这些相关、准确的信息给到位，比不断塞进无关材料更能帮助我们检查任务。信息选出来以后，还要分清哪些已有观察支持、哪些需要确认。接下来，就用欢迎语任务中的几句话来判断。"
       ],
       "segment": "信息与术语",
       "seconds": 35,
@@ -263,40 +263,7 @@ window.lesson = {
       ],
       "notes": "",
       "source": "index.html#p10-window",
-      "closing": "欢迎语任务优先提供目标文字、相关原文和允许修改的范围。检查信息是否相关、准确、足够，比不断添加无关材料更有用。"
-    },
-    {
-      "id": "p10-diff",
-      "label": "差异与页面",
-      "title": "两份证据，回答两个问题",
-      "lead": "完整 git diff 输出用来核对文字怎样变化、有没有多改文件；浏览器用来核对目标页面实际显示什么、布局是否改变。图里只有两行差异示意，实际检查还要看文件状态，并与开始前的记录对照。",
-      "html": "<div class=\"evidence-pair\"><div data-reveal=\"0\" class=\"evidence-panel ink\"><h3>欢迎语变化示意</h3><div class=\"diff-lines\"><p class=\"minus\">− 你好，欢迎来到我的练习页面</p><p class=\"plus\">+ 你好，欢迎来到 Vibe Coding 课堂！</p></div><p class=\"small-copy\">实际检查：查看 git diff 输出</p></div><div data-reveal=\"1\" class=\"evidence-panel ink\"><h3>页面 · 显示什么</h3><div class=\"page-evidence\"><span>环境检查页</span><b>你好，欢迎来到<br>Vibe Coding 课堂！</b></div><p class=\"small-copy\">打开正确页面，刷新并核对结果</p></div></div><div data-reveal=\"2\" class=\"conclusion \"><p>“看到了新文案”，还不能单独证明“没有多改文件”</p></div><p class=\"source-note\">欢迎语变化与页面均为教学示意，非真实执行截图；正式检查需查看完整 git diff 输出</p>",
-      "steps": [
-        "核对代码改动",
-        "展示页面结果的作用",
-        "问“页面能证明没多改文件吗”"
-      ],
-      "script": [
-        "【操作提示｜课件 p10-diff 第 1 步 → 切 Terminal“仓库检查”，在同一练习副本运行 git status --short、git diff；有暂存改动补看 git diff --cached。若上一节已提交或又有新改动，展示当时保存的完整 git diff 输出和初始状态，不把当前差异冒充上一节结果】\n\n现在看两份检查证据。第一份是 git diff 输出，它显示文件修改前后的差异。\n\n我先看文件列表，再看每个改动块：欢迎语是否按要求替换了，有没有动到样式或者其他文件。课件用两行欢迎语展示变化，实际检查要看完整 git diff 输出，并和开始前的状态对照。\n\n如果现在没有差异输出，先确认改动是不是已经提交。回看一次旧任务，要找到那次任务留下的记录。",
-        "【操作提示｜推进课件第 2 步 → 在 Chrome 新开标签页“1.1 欢迎语结果”，打开 http://localhost:4174/setup-check/。录前确认服务来自同一练习副本；服务未启动时，在该副本的独立 Terminal 标签页运行 python3 -m http.server 4174 --bind 127.0.0.1。保留课件页，核对地址、刷新，检查文案与布局；若结果不符，描述实际现象，不念成功结论】\n\n第二份是浏览器里的页面。我现在新开一个标签页，打开同一份练习项目的环境页，再刷新一次。\n\n我们核对两件事：显示的文字是否是要求的那一句，原来的布局有没有变化。结果对得上，才能记录对应检查通过；对不上，就把实际现象记下来，继续定位原因。",
-        "【操作提示｜回课件第 3 步，指向两份证据；保留结果标签页供后面回看】\n\n假如页面显示了新欢迎语，能不能就此认定没有多改文件？还不能。别的文件即使被改了，也不一定会在这个页面上显示出来。\n\n所以，页面帮我们核对看见的结果，完整 git diff 输出帮我们核对改动内容和范围。接下来，我们用这个区别判断几句话。"
-      ],
-      "segment": "信息与术语",
-      "seconds": 35,
-      "layout": "",
-      "teaching": [
-        {
-          "title": "逐步呈现与提问",
-          "text": "1. 解释 git diff 输出的作用\n\n2. 展示页面结果的作用\n\n3. 问“页面能证明没多改文件吗”"
-        },
-        {
-          "title": "教学边界与材料",
-          "text": "对照 1.1 本人记录；本页示意不作为真实运行证据。只解释可见动作、返回与人工决定。"
-        }
-      ],
-      "notes": "",
-      "source": "index.html#p10-diff",
-      "closing": "页面显示新欢迎语，不能单独证明没有多改文件。已经提交的旧任务要查看留存的 git diff 输出，当前 git diff 输出为空也不能代替当时的检查结果。"
+      "closing": "欢迎语任务优先提供目标文字、相关原文和允许修改的范围。检查信息是否相关、准确、足够，比不断添加无关材料更有用。信息选出来以后，还要分清哪些已有观察支持，哪些需要确认。"
     },
     {
       "id": "p11",
@@ -415,7 +382,7 @@ window.lesson = {
         "【操作提示｜课件 p12 第 1 步；本页为教学变式，不故意修改练习项目制造故障】\n\n知道该看什么证据之后，出错时就更容易找方向。这里有三种可能的情况：文案是 AI 自己编的，文字改了但样式也改了，或者只收到一句“已完成”。\n\n先选一种，想一想：我下一步具体要做什么？做完以后，又用什么确认问题解决了？",
         "【操作提示｜推进第 2 步，指向信息缺失的纠正和复验】\n\n第一种，先检查任务有没有给足信息。如果没提供准确文案，就补上目标文字、位置和完成标准。\n\n补完以后再核对页面和 git diff 输出。不能只发一句“你理解错了”，因为它仍然不知道应该改成什么。",
         "【操作提示｜推进第 3 步，指向范围失控；此处不运行恢复或覆盖命令】\n\n第二种，先查 git diff 输出，把这次多改的样式和原来就有的工作分开。只处理本次越界的部分，再确认剩下的都是允许修改的内容。\n\n这里尤其不要图快，把整个文件覆盖回去。那样可能连用户之前的修改也一起丢掉。",
-        "【操作提示｜推进第 4 步，指向验证缺失】\n\n第三种，缺的是检查。就回到刚才那两份证据：打开正确页面，核对实际显示；再看完整 git diff 输出，核对内容和范围。\n\n我们可以用自己的话复述这三种情况。关键是说出一个能执行的纠正动作，再接上复验方法，而不只是“让它再试一次”。"
+        "【操作提示｜推进第 4 步，指向验证缺失】\n\n第三种，缺的是检查。就用上一节的两类检查：打开正确页面，核对实际显示；再看完整 git diff 输出，核对内容和范围。\n\n我们可以用自己的话复述这三种情况。关键是说出一个能执行的纠正动作，再接上复验方法，而不只是“让它再试一次”。"
       ],
       "segment": "失败与纠正",
       "seconds": 80,
@@ -468,41 +435,6 @@ window.lesson = {
       "closing": "路径纠正后重新读取，位置纠正后重新检查页面和 git diff 输出。把现象和下一步对应起来，这里不展开环境排障或项目架构。"
     },
     {
-      "id": "p13",
-      "label": "能力逐层叠加",
-      "title": "项目变复杂，协作能力逐层叠加",
-      "lead": "欢迎语任务先练习说清目标、检查结果。项目逐步变复杂后，还要根据反馈迭代，把需求和验收持续写下来，再组织可复用的规则、上下文、检查和人工确认点。这四层能力都保留人的判断。",
-      "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" class=\"lesson-diagram\" viewBox=\"0 0 1168 370\" role=\"img\" aria-labelledby=\"title-course-route\" style=\"--rough:url(#rough-course-route)\"><title id=\"title-course-route\">Prompt、Vibe Coding、SDD、Harness 逐层叠加，始终保留验证和人工判断</title><style>.diagram-arrow{fill:none;stroke:#243042;stroke-width:2.5}.sketch{filter:var(--rough)}text{font-family:Course Sans,Noto Sans SC,sans-serif}.diagram-title{font-family:Course Title,Noto Sans SC,sans-serif}</style><defs><filter id=\"rough-course-route\" filterUnits=\"userSpaceOnUse\" x=\"-30\" y=\"-30\" width=\"1228\" height=\"430\"><feTurbulence type=\"fractalNoise\" baseFrequency=\".035\" numOctaves=\"2\" seed=\"7\"/><feDisplacementMap in=\"SourceGraphic\" scale=\"2.3\"/></filter><marker id=\"arrow-course-route\" viewBox=\"0 0 10 10\" refX=\"8\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto\"><path d=\"M0 0L10 5L0 10Z\" fill=\"#243042\"/></marker></defs><g data-reveal=\"0\" class=\"\"><g data-node=\"prompt\"><rect x=\"12\" y=\"146\" width=\"272\" height=\"150\" rx=\"12\" fill=\"#F4F2EB\" stroke=\"#243042\" stroke-width=\"2\" class=\"sketch\"/><text x=\"32\" y=\"186\" text-anchor=\"start\" font-size=\"30\" fill=\"#243042\" class=\"diagram-title\"><tspan x=\"32\" dy=\"0\">Prompt</tspan></text><text x=\"32\" y=\"227\" text-anchor=\"start\" font-size=\"23\" fill=\"#243042\" class=\"\"><tspan x=\"32\" dy=\"0\">说清当前任务</tspan></text><text x=\"32\" y=\"265\" text-anchor=\"start\" font-size=\"19\" fill=\"#5B6573\" class=\"\"><tspan x=\"32\" dy=\"0\">任务说明</tspan></text></g></g><g data-reveal=\"1\" class=\"\"><g data-node=\"vibe\"><rect x=\"302\" y=\"108\" width=\"272\" height=\"150\" rx=\"12\" fill=\"#F4F2EB\" stroke=\"#243042\" stroke-width=\"2\" class=\"sketch\"/><text x=\"322\" y=\"148\" text-anchor=\"start\" font-size=\"30\" fill=\"#243042\" class=\"diagram-title\"><tspan x=\"322\" dy=\"0\">Vibe Coding</tspan></text><text x=\"322\" y=\"189\" text-anchor=\"start\" font-size=\"23\" fill=\"#243042\" class=\"\"><tspan x=\"322\" dy=\"0\">看结果再迭代</tspan></text><text x=\"322\" y=\"227\" text-anchor=\"start\" font-size=\"19\" fill=\"#5B6573\" class=\"\"><tspan x=\"322\" dy=\"0\">页面与检查记录</tspan></text></g><path data-edge=\"prompt:vibe\" d=\"M286 188H297\" class=\"diagram-arrow\" marker-end=\"url(#arrow-course-route)\"/></g><g data-reveal=\"2\" class=\"\"><g data-node=\"sdd\"><rect x=\"592\" y=\"70\" width=\"272\" height=\"150\" rx=\"12\" fill=\"#F4F2EB\" stroke=\"#243042\" stroke-width=\"2\" class=\"sketch\"/><text x=\"612\" y=\"110\" text-anchor=\"start\" font-size=\"30\" fill=\"#243042\" class=\"diagram-title\"><tspan x=\"612\" dy=\"0\">SDD</tspan></text><text x=\"612\" y=\"151\" text-anchor=\"start\" font-size=\"23\" fill=\"#243042\" class=\"\"><tspan x=\"612\" dy=\"0\">固定需求与验收</tspan></text><text x=\"612\" y=\"189\" text-anchor=\"start\" font-size=\"19\" fill=\"#5B6573\" class=\"\"><tspan x=\"612\" dy=\"0\">规格与验收条目</tspan></text></g><path data-edge=\"vibe:sdd\" d=\"M576 150H587\" class=\"diagram-arrow\" marker-end=\"url(#arrow-course-route)\"/></g><g data-reveal=\"3\" class=\"\"><g data-node=\"harness\"><rect x=\"882\" y=\"32\" width=\"272\" height=\"150\" rx=\"12\" fill=\"#F4F2EB\" stroke=\"#243042\" stroke-width=\"2\" class=\"sketch\"/><text x=\"902\" y=\"72\" text-anchor=\"start\" font-size=\"30\" fill=\"#243042\" class=\"diagram-title\"><tspan x=\"902\" dy=\"0\">Harness</tspan></text><text x=\"902\" y=\"113\" text-anchor=\"start\" font-size=\"23\" fill=\"#243042\" class=\"\"><tspan x=\"902\" dy=\"0\">复用规则与检查</tspan></text><text x=\"902\" y=\"151\" text-anchor=\"start\" font-size=\"19\" fill=\"#5B6573\" class=\"\"><tspan x=\"902\" dy=\"0\">规则与检查入口</tspan></text></g><path data-edge=\"sdd:harness\" d=\"M866 112H877\" class=\"diagram-arrow\" marker-end=\"url(#arrow-course-route)\"/></g><g data-reveal=\"3\" class=\"\"><rect x=\"12\" y=\"315\" width=\"1142\" height=\"48\" rx=\"12\" fill=\"#243042\" stroke=\"#243042\" stroke-width=\"2\" class=\"sketch\"/><text x=\"583\" y=\"347\" text-anchor=\"middle\" font-size=\"24\" fill=\"#FFFFFF\" class=\"\"><tspan x=\"583\" dy=\"0\">每一层都保留：看证据、作判断、再验证</tspan></text></g></svg>",
-      "steps": [
-        "Prompt：说清任务",
-        "Vibe Coding：根据结果持续迭代",
-        "SDD：维护需求和验收",
-        "Harness：复用规则、检查与人工确认点"
-      ],
-      "script": [
-        "【操作提示｜课件 p13 第 1 步；本页只讲路线，不新开项目或网页】\n\n把这次小任务放回课程路线。第一层是 Prompt，先把当前任务说明白。刚才我们补目标文字、指定文件、完成标准，就是在练这个能力。\n\n本章后面会做出个人主页初稿，先让一个明确任务有可以检查的结果。",
-        "【操作提示｜推进第 2 步，指向 Vibe Coding】\n\n页面做出来以后，我们可能发现标题挤了，或者按钮的行为不符合预期。接下来就要看实际结果，给出具体反馈，再修改、再验证。\n\n这就是后面要重点实践的 Vibe Coding 协作过程。人的观察、判断和检查会一直在场。",
-        "【操作提示｜推进第 3 步，指向 SDD】\n\n等需求更多、版本更多，仅靠对话里说过几句，就不方便维护了。SDD，也就是规格驱动开发，会把需求和验收写成可以持续维护的规格。\n\n例如，哪些行为必须保留，什么结果算通过，都有明确条目可以对照。前面练过的运行检查仍然继续做。",
-        "【操作提示｜推进第 4 步，指向 Harness 以及共同底座】\n\n再往后是 Harness。我们会把协作规则、需要提供的上下文、检查入口和人工确认点组织起来，方便在后续任务里复用。\n\n课程依次用个人主页、JSON Crack 和 dependency-cruiser 三个独立项目。换项目时，带过去的是协作方法。现在先把欢迎语这次小循环看明白，就有了后面继续增加能力的起点。"
-      ],
-      "segment": "课程路线",
-      "seconds": 90,
-      "layout": "",
-      "teaching": [
-        {
-          "title": "逐步呈现与提问",
-          "text": "1. Prompt：说清任务\n\n2. Vibe Coding：根据结果持续迭代\n\n3. SDD：维护需求和验收\n\n4. Harness：复用规则、检查与人工确认点"
-        },
-        {
-          "title": "教学边界与材料",
-          "text": "个人主页 v0 在 1.5 创建；这里是路线定位，不声称学员在 1.2 已完成个人主页。三个独立项目保持大纲规定。"
-        }
-      ],
-      "notes": "",
-      "source": "index.html#p13",
-      "closing": "本章先做出个人主页初稿。后续换项目时，带过去的是协作方法；当前先把这一次任务的输入、动作和结果看清楚。"
-    },
-    {
       "id": "p14",
       "label": "行业路标",
       "title": "补代码、查资料、动手、看图",
@@ -515,13 +447,13 @@ window.lesson = {
         "多模态：截图反馈；归纳能力组合的脉络"
       ],
       "script": [
-        "【操作提示｜课件 p14 第 1 步；保持口播定位，不打开外部链接演示；延伸阅读留给课后】\n\n最后用一小段时间，认几个行业里常见的名字。这部分只作路标，不练习，也不考核。\n\n代码补全，适合续写一行代码或一个函数。我们课上会做更完整的 Agent 协作；想了解局部补全，可以从卡片上的官方入门继续看。",
+        "【操作提示｜课件 p14 第 1 步；保持口播定位，不打开外部链接演示；延伸阅读留给课后】\n\n这次欢迎语任务，练的是把任务说清楚，再看结果做检查。这就是开场访谈里讲过的第一层能力 Prompt，后面的项目会在它上面继续叠加。\n\n最后用一小段时间，认几个行业里常见的名字。这部分只作路标，不练习，也不考核。\n\n代码补全，适合续写一行代码或一个函数。我们课上会做更完整的 Agent 协作；想了解局部补全，可以从卡片上的官方入门继续看。",
         "【操作提示｜推进第 2 步，指向 RAG 和已有阅读入口】\n\nRAG，叫检索增强生成。比如解释一个接口前，先检索相关资料，再根据资料生成回答。\n\n本课会给任务提供必要上下文，但不搭建检索库。想深挖这个方法，页面上留了公开入门链接。",
         "【操作提示｜推进第 3 步，指向工具调用；不重复打开循环图】\n\n工具调用就是刚才反复看到的读取文件、编辑代码、运行命令。它让任务能够执行具体动作。\n\n要判断动作是否成功，继续看返回和实际结果；需要回顾时，就看本节的执行循环图。",
         "【操作提示｜推进第 4 步，指向多模态理解和图片参考入口；不新增截图识别实操】\n\n多模态理解，是把图片等输入也纳入任务。比如后面给页面截图，请 AI 帮忙分析布局问题，再运行页面验证修改。想继续了解，可以看图片理解的参考入口。\n\n从局部补全，到问答和资料辅助，再到工具协作、图片反馈，我们可以看到能力逐步扩展的方向。这些能力可以组合使用。现在回到本节真正要掌握的判断。"
       ],
       "segment": "路标与收尾",
-      "seconds": 90,
+      "seconds": 100,
       "layout": "",
       "teaching": [
         {
