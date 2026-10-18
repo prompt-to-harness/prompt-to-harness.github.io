@@ -13,3 +13,12 @@ body[data-mode='scroll'] #p14-check .self-check,
 body[data-mode='scroll'] #p14-check .self-check article{min-width:0}
 body[data-mode='scroll'] #p14-check .self-check h3,
 body[data-mode='scroll'] #p14-check .closing{overflow-wrap:anywhere}
+/* P09-agent nests Model inside the Agent loop: rings on the left, the two definitions on the right. */
+#p09-agent .agent-rings{display:grid;grid-template-columns:minmax(0,500px) minmax(0,1fr);gap:40px;align-items:center}
+#p09-agent .agent-rings-notes{display:grid;gap:14px}
+#p09-agent .agent-rings-note{border-left:5px solid var(--tone);padding:2px 0 2px 20px}
+#p09-agent .agent-rings-note.model{--tone:#243042}
+#p09-agent .agent-rings-note h3{color:var(--tone);margin-bottom:4px}
+#p09-agent .agent-rings-note .large-copy{font-size:27px;line-height:1.45;margin:4px 0 6px}
+body[data-mode='slides'] #p09-agent .agent-rings-diagram{max-height:400px}
+@media(max-width:1100px){body[data-mode='scroll'] #p09-agent .agent-rings{grid-template-columns:1fr;gap:24px}body[data-mode='scroll'] #p09-agent .agent-rings-diagram{max-width:440px;margin:0 auto}}

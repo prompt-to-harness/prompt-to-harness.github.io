@@ -6,8 +6,8 @@ window.lesson = {
   "scenes": [
     {
       "id": "p15",
-      "label": "换入口，还要核对什么？",
-      "title": "换入口，还要核对什么？",
+      "label": "认准项目",
+      "title": "不管用 CLI 还是 App，先认准同一个项目",
       "lead": "Codex CLI 必备，Codex App 可选；换入口时核对项目、权限与结果",
       "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>1.1</b>第一次 AI 协作闭环</li><li class=\"is-done\"><b>1.2</b>Agent 执行机制与 AI 协作基础</li><li class=\"is-now\"><b>1.3</b>工具使用与权限</li><li class=\"\"><b>1.4</b>写清个人主页任务：从模糊需求到可执行 Prompt</li><li class=\"\"><b>1.5</b>完成个人主页：从已确认 Prompt 到可验收的个人主页 v0</li><li class=\"\"><b>1.6</b>最小权限：为什么不能给 Agent 所有权限</li></ol><div style=\"display:grid;grid-template-columns:3fr 2fr;gap:28px;margin-top:14px;align-items:start\"><div class=\"p-box\" data-role=\"tool\" style=\"padding:12px 20px\"><h3 style=\"font-size:24px\">Codex CLI · 本课统一使用</h3><div data-reveal=\"0\" style=\"display:grid;grid-template-columns:70px 1fr;gap:10px;padding:8px 0;border-top:1px dashed #CFCAC0\"><span class=\"p-sub\">资料</span><span style=\"font-size:21px\">从练习项目根目录启动</span></div><div data-reveal=\"1\" style=\"display:grid;grid-template-columns:70px 1fr;gap:10px;padding:8px 0;border-top:1px dashed #CFCAC0\"><span class=\"p-sub\">动作</span><span style=\"font-size:21px\">看工具返回与 git diff 输出</span></div><div data-reveal=\"2\" style=\"display:grid;grid-template-columns:70px 1fr;gap:10px;padding:8px 0;border-top:1px dashed #CFCAC0\"><span class=\"p-sub\">边界</span><span style=\"font-size:21px\"><b>本课实操与检查都用 CLI</b></span></div></div><div class=\"p-box is-dashed\" data-role=\"ink\" data-reveal=\"2\" style=\"padding:12px 20px\"><h3 style=\"font-size:20px\">也可以用图形界面</h3><p style=\"font-size:18px;line-height:1.55;margin-top:8px\">Codex App · 可选。项目操作与模型接入按实际版本、账号和配置核对，本节不演示</p></div></div>",
       "steps": [
@@ -97,7 +97,7 @@ window.lesson = {
       "label": "一句“不许越界”，限制住了吗？",
       "title": "一句“不许越界”，限制住了吗？",
       "lead": "核对动作时，分清三项内容：Prompt 写下的任务范围、Sandbox 实际设置的限制、人的批准记录。任务要求不会自动变成技术隔离，批准也不自动改变配置；是否需要授权提示，要看当前策略。",
-      "html": "<div class=\"p-flow is-big\" style=\"--n:5;column-gap:36px;--node-h:250px\"><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\"><h3>Agent 动作</h3><p>读 · 写 · 执行</p></div><div class=\"p-node\" data-role=\"ctx\" data-reveal=\"0\"><svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"color:var(--c);filter:url(#p-rough);display:block;margin:0 auto 6px\"><path d=\"M60 30 V78\"/><rect x=\"18\" y=\"6\" width=\"84\" height=\"32\" rx=\"4\" transform=\"rotate(-5 60 22)\" fill=\"#FFFDF7\" stroke-dasharray=\"7 6\"/><text x=\"60\" y=\"28\" text-anchor=\"middle\" font-size=\"16\" font-family=\"Noto Sans SC,sans-serif\" fill=\"currentColor\" stroke=\"none\" font-weight=\"700\" transform=\"rotate(-5 60 22)\">不许越界</text></svg><h3><span class=\"p-num\">1</span>任务约束</h3><p>告示牌<br>写下的意图</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"1\"><svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"color:var(--c);filter:url(#p-rough);display:block;margin:0 auto 6px\"><path d=\"M14 26 L22 14 L30 26 V76 H14 Z M46 26 L54 14 L62 26 V76 H46 Z M78 26 L86 14 L94 26 V76 H78 Z\" fill=\"var(--cl)\"/><path d=\"M6 38 H112 M6 62 H112\"/></svg><h3><span class=\"p-num\">2</span>技术限制</h3><p>围栏 · Sandbox<br>实际挡住什么</p></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"2\"><svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"color:var(--c);filter:url(#p-rough);display:block;margin:0 auto 6px\"><path d=\"M50 8 h20 v10 c0 8 8 10 8 20 h-36 c0-10 8-12 8-20 Z\" fill=\"var(--cl)\"/><rect x=\"30\" y=\"38\" width=\"60\" height=\"12\" rx=\"3\" fill=\"var(--cl)\"/><path d=\"M26 64 h68\" stroke-dasharray=\"2 0\"/><path d=\"M40 72 h40\"/></svg><h3><span class=\"p-num\">3</span>人工批准</h3><p>盖章 · Approval<br>批准这一次</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"2\"><h3>执行</h3><p>之后仍要验收</p></div></div><div class=\"p-bar\" data-reveal=\"3\" style=\"margin-top:22px\">任务请求、限制配置与批准记录，<b>分别核对</b></div>",
+      "html": "<div class=\"p-flow is-big\" style=\"--n:5;column-gap:36px;--node-h:250px\"><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\"><h3>Agent 动作</h3><p>读 · 写 · 执行</p></div><div class=\"p-node\" data-role=\"ctx\" data-reveal=\"0\"><svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"color:var(--c);filter:url(#p-rough);display:block;margin:0 auto 6px\"><path d=\"M60 30 V78\"/><rect x=\"18\" y=\"6\" width=\"84\" height=\"32\" rx=\"4\" transform=\"rotate(-5 60 22)\" fill=\"#FFFDF7\" stroke-dasharray=\"7 6\"/><text x=\"60\" y=\"28\" text-anchor=\"middle\" font-size=\"16\" font-family=\"Noto Sans SC,sans-serif\" fill=\"currentColor\" stroke=\"none\" font-weight=\"700\" transform=\"rotate(-5 60 22)\">不许越界</text></svg><h3><span class=\"p-num\">1</span>任务约束</h3><p>告示牌<br>写下的意图</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"1\"><svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"color:var(--c);filter:url(#p-rough);display:block;margin:0 auto 6px\"><path d=\"M14 26 L22 14 L30 26 V76 H14 Z M46 26 L54 14 L62 26 V76 H46 Z M78 26 L86 14 L94 26 V76 H78 Z\" fill=\"var(--cl)\"/><path d=\"M6 38 H112 M6 62 H112\"/></svg><h3><span class=\"p-num\">2</span>技术限制</h3><p>围栏 · Sandbox<br>实际挡住什么</p></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"2\"><svg viewBox=\"0 0 120 80\" width=\"120\" height=\"80\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"color:var(--c);filter:url(#p-rough);display:block;margin:0 auto 6px\"><path d=\"M50 8 h20 v10 c0 8 8 10 8 20 h-36 c0-10 8-12 8-20 Z\" fill=\"var(--cl)\"/><rect x=\"30\" y=\"38\" width=\"60\" height=\"12\" rx=\"3\" fill=\"var(--cl)\"/><path d=\"M26 64 h68\" stroke-dasharray=\"2 0\"/><path d=\"M40 72 h40\"/></svg><h3><span class=\"p-num\">3</span>人工批准</h3><p>盖章 · Approval<br>批准这一次</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"2\"><h3>执行</h3><p>之后仍要验收</p></div></div><div class=\"p-bar\" data-reveal=\"3\" style=\"margin-top:22px\">任务约束、技术限制、人工批准三项限制需<b>分别核对</b></div>",
       "steps": [
         "先看意图",
         "再看限制",
@@ -134,10 +134,10 @@ window.lesson = {
     },
     {
       "id": "p18",
-      "label": "这次同意，究竟批准了什么？",
-      "title": "这次同意，究竟批准了什么？",
-      "lead": "一次批准分三步看：请求的对象、目标文字和影响是否明确；计划是否保留布局和已有改动、实际权限是否核对过；最后只批准按当前计划修改指定文字。批准动作不等于接受结果。",
-      "html": "<div class=\"p-flow is-big\" style=\"--n:3;--node-h:190px\"><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-num\">01</span><h3>提出请求</h3><p>只改欢迎语</p></div><div class=\"p-node\" data-role=\"ctx\" data-reveal=\"1\"><span class=\"p-num\">02</span><h3>核对计划</h3><p>布局与权限已核对</p></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"2\"><span class=\"p-num\">03</span><h3>明确批准</h3><p>范围一变就停</p></div></div>",
+      "label": "同意之前，看清范围",
+      "title": "同意之前，看清范围",
+      "lead": "三步依次核对，哪一步不清楚，就先停下来问清楚",
+      "html": "<div class=\"p-flow is-big\" style=\"--n:3;--node-h:190px\"><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-num\">01</span><h3>提出请求</h3><p>改哪个文件、改成什么<br>影响多大，都说清</p></div><div class=\"p-node\" data-role=\"ctx\" data-reveal=\"1\"><span class=\"p-num\">02</span><h3>核对计划</h3><p>保留布局和已有改动<br>实际权限已核对</p></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"2\"><span class=\"p-num\">03</span><h3>明确批准</h3><p>只批准这次修改<br>不等于接受结果</p></div></div>",
       "steps": [
         "读取请求",
         "核对计划",
@@ -154,7 +154,7 @@ window.lesson = {
       "teaching": [
         {
           "title": "追问与预期判断",
-          "text": "这次同意，究竟批准了什么？\n\n批准这次动作，并不等于接受最终结果。执行后还要检查。"
+          "text": "同意之前，看清范围\n\n批准这次动作，并不等于接受最终结果。执行后还要检查。"
         },
         {
           "title": "演示分支",
@@ -172,27 +172,27 @@ window.lesson = {
     },
     {
       "id": "p18a",
-      "label": "已经批准，为什么仍可能没改成？",
-      "title": "已经批准，为什么仍可能没改成？",
-      "lead": "批准之后，工具可能返回“找不到目标文件”，也可能返回“写入成功”，这是互斥的两个分支。即使写入成功，也只是工具的报告，文字、布局和范围都还没检查，不能写“任务完成”。",
-      "html": "<div class=\"p-chain\" data-reveal=\"0\" style=\"font-size:20px\"><span>请求</span><i>→</i><span>批准</span><i>→</i><span>工具返回</span></div><div class=\"p-pair\"><div class=\"p-box\" data-role=\"gate\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"gate\">工具失败分支</span><div class=\"p-term\"><span class=\"err\">找不到目标文件</span></div></div><div class=\"p-join\" data-reveal=\"1\"><b>≠</b></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"tool\">工具成功分支</span><div class=\"p-term\">写入成功</div><p style=\"margin-top:8px\"><b>结果仍待检查</b></p></div></div><div class=\"p-bar\" data-reveal=\"2\">还不能写“<b>任务完成</b>”</div>",
+      "label": "同意之后，看清结果",
+      "title": "同意之后，看清结果",
+      "lead": "批准之后，工具可能返回失败，也可能返回成功。两种返回都只是工具的报告，不等于任务完成；要亲自检查文字、布局和范围，才能判断",
+      "html": "<div class=\"p-pair\" style=\"grid-template-columns:320px auto minmax(0,1fr);align-items:center\"><div style=\"display:grid;gap:10px\"><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"0\" style=\"padding:12px 16px\"><span class=\"p-tag\" data-role=\"gate\">失败返回</span><div class=\"p-term\" style=\"font-size:18px\"><span class=\"err\">找不到目标文件</span></div><p style=\"font-size:19px;margin-top:6px\">改动还没发生，先查路径</p></div><p data-reveal=\"1\" style=\"text-align:center;font-size:20px;font-weight:700\">或</p><div class=\"p-box is-soft\" data-role=\"tool\" data-reveal=\"1\" style=\"padding:12px 16px\"><span class=\"p-tag\" data-role=\"tool\">成功返回</span><div class=\"p-term\" style=\"font-size:18px\">写入成功</div><p style=\"font-size:19px;margin-top:6px\">只是工具自己的报告</p></div></div><div class=\"p-join\" data-reveal=\"2\"><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"0\" style=\"padding:28px 32px\"><span class=\"p-tag\" data-role=\"us\">人来判断</span><p style=\"font-size:28px;font-weight:700;margin-top:6px\">工具返回了，任务完成了吗？</p><div data-reveal=\"2\" style=\"margin-top:22px\"><p class=\"p-big\" style=\"font-size:38px;line-height:1.3\">两种返回，都<b>不等于</b>任务完成</p><p style=\"font-size:24px;margin-top:12px\">亲自检查文字、布局和范围，才能判断</p></div></div></div>",
       "steps": [
-        "看失败",
-        "看成功",
-        "等待证据"
+        "失败返回：先查原因",
+        "成功返回：还没检查",
+        "两种都要亲自检查"
       ],
       "script": [
         "【操作提示｜课件 p18a 第 1 步，先声明这是失败分支示例。若真实记录含失败，切 Terminal 指出对应错误；没有失败就留在课件，不故意改坏路径。】\n\n先看左边这个教学示例：已经批准了，工具却返回“找不到目标文件”。这说明有执行尝试，但还没有得到我们要的修改。\n\n下一步该查的是路径：当前目录对不对？目标文件存不存在？请求里的路径有没有写错？先根据这条返回定位原因，再决定要不要重试。\n\n遇到找不到文件，直接开放更大的权限，并不能说明找错路径的问题解决了。",
         "【操作提示｜课件 p18a 第 2 步 → 切 Terminal 回看真实写入返回，再切 VS Code 查看目标行。实际失败时保留失败结论，右侧仅作为另一种可能讲解。随后回课件。】\n\n再看右边，工具报告写入成功。这和左边是两个可能的分支，课件不是说每次执行都先失败、再成功。\n\n如果实际拿到的是成功返回，我们可以继续检查文件。但现在只知道工具报告完成了写入，还没核对欢迎语是否完整，也没检查有没有多余改动。\n\n接下来，把工具报告放到一边，直接看页面和文件差异。",
-        "【操作提示｜此处打开新的 Chrome 标签页“欢迎语验收”，访问 http://localhost:4174/setup-check/。先核对服务来自同一练习根目录；已有服务则复用，未启动则另开 Terminal“页面服务”，运行 python3 -m http.server 4174 --bind 127.0.0.1 并保持运行，不重复占用端口。刷新页面，对照 1.1 修改前截图。切“仓库检查”Terminal 运行 git status --short、git diff --stat、git diff、git diff --cached；未跟踪文件在 VS Code 查看。若任务已提交，用已保存的任务差异补足历史范围证据。检查后回 Chrome 课件 p18-check，保留结果标签页。】\n\n我现在另外打开一个浏览器标签页，专门检查这份练习页面。先核对地址和服务目录，再刷新，对照任务卡看完整文字，和修改前的画面比较布局。\n\n然后回到终端，查看全部文件状态和完整 git diff 输出。普通 git diff 输出之外，暂存区和未跟踪文件也要看，才能把本次变化检查完整。\n\n如果任务早已提交，当前 git diff 输出可能是空的。这时要结合首次任务留下的差异记录，核对当时究竟改了什么。当前状态和历史证据各自回答自己的问题。"
+        "【操作提示｜课件 p18a 第 3 步；不重启页面服务、不重跑检查命令。切 Terminal 回看 1.1 保留的 git status、git diff 检查结果，再切 Chrome 已有“练习页面”标签页，对照 1.1 修改前截图；缺少记录时如实说明，按 1.1 p05 的检查步骤补做。随后回课件 p18-check。】\n\n把工具报告放到一边，结果要我们自己看。这套检查第一节已经做过：刷新页面，对照任务卡看完整文字，和修改前比较布局；再看完整 git diff 输出，确认只改了这一处。\n\n这里直接回看当时留下的结果，不再重跑一遍。如果当时没有留下记录，就按第一节的检查步骤补上。"
       ],
       "segment": "授权与返回",
-      "seconds": 110,
+      "seconds": 80,
       "source": "index.html#p18a",
       "teaching": [
         {
           "title": "追问与预期判断",
-          "text": "已经批准，为什么仍可能没改成？\n\n刷新同一页面、检查完整 git diff 输出。都符合任务才接受。"
+          "text": "同意之后，看清结果\n\n刷新同一页面、检查完整 git diff 输出。都符合任务才接受。"
         },
         {
           "title": "演示分支",
@@ -210,8 +210,8 @@ window.lesson = {
     },
     {
       "id": "p18-check",
-      "label": "结果检查以后，才决定下一步",
-      "title": "结果检查以后，才决定下一步",
+      "label": "检查之后，决定下一步",
+      "title": "检查之后，决定下一步",
       "lead": "检查页面和完整 git diff 输出之后有三个去向：符合就接受并记录证据；不符就在当前范围内修正，再检查；路径不明、缺材料或需要扩大权限，就记录并停下，不靠扩大权限掩盖问题。",
       "html": "<div class=\"p-flow\" style=\"--n:3\"><div class=\"p-node\" data-role=\"ink\" style=\"grid-column:2\"><h3>检查结果</h3><p>页面 + 完整 git diff 输出</p></div><div class=\"p-fork\" style=\"grid-column:1/4\"><div class=\"l\" data-reveal=\"0\"><span>符合</span></div><div class=\"m\" data-reveal=\"1\"><span>不符</span></div><div class=\"r\" data-reveal=\"2\"><span>无法验证</span></div></div><div class=\"p-box is-row2\" data-role=\"ok\" data-reveal=\"0\" style=\"grid-row:3;grid-column:1\"><h3>接受并记录</h3></div><div class=\"p-box is-row2\" data-role=\"agent\" data-reveal=\"1\" style=\"grid-row:3;grid-column:2\"><h3>限定修正，再检查</h3></div><div class=\"p-box is-row2\" data-role=\"gate\" data-reveal=\"2\" style=\"grid-row:3;grid-column:3\"><h3>记录并停</h3></div></div>",
       "steps": [
@@ -220,8 +220,8 @@ window.lesson = {
         "看停止"
       ],
       "script": [
-        "【操作提示｜课件 p18-check 第 1 步；可短暂切回 Chrome 已有“欢迎语验收”标签页与真实差异，指出支持结论的位置。没有齐全证据时，不选择通过。】\n\n检查以后，才决定下一步。第一种情况，文字、布局和改动范围都符合要求，那就接受这次结果。\n\n记录时可以写得具体一点：欢迎语与任务卡一致，布局与修改前一致，差异中没有本次额外改动。把对应截图和差异留下，别人回看时也知道判断从哪里来。",
-        "【操作提示｜课件 p18-check 第 2 步；若真实结果有问题，切 VS Code 定位并在 Terminal 发送限定修正请求，完成后复用“欢迎语验收”标签页刷新、复查完整差异。全部符合时只讲下文假设，不制造错误。】\n\n第二种情况，检查到了具体问题。比如，假设目标文字漏了一个字，我们就指出漏在哪里、完整文字应该是什么，让它只修这一处，然后重新检查。\n\n如果发现额外改动，先分清来源，再处理本次越界的部分。不要一句“全部恢复”把我们原来做的修改也覆盖掉。修正完成后，仍然回到页面和差异来判断。",
+        "【操作提示｜课件 p18-check 第 1 步；可短暂切回 Chrome 已有“练习页面”标签页与 1.1 的检查结果，指出支持结论的位置。没有齐全证据时，不选择通过。】\n\n检查以后，才决定下一步。第一种情况，文字、布局和改动范围都符合要求，那就接受这次结果。\n\n记录时可以写得具体一点：欢迎语与任务卡一致，布局与修改前一致，差异中没有本次额外改动。把对应截图和差异留下，别人回看时也知道判断从哪里来。",
+        "【操作提示｜课件 p18-check 第 2 步；若真实结果有问题，切 VS Code 定位并在 Terminal 发送限定修正请求，完成后在“练习页面”标签页刷新、复查完整差异。全部符合时只讲下文假设，不制造错误。】\n\n第二种情况，检查到了具体问题。比如，假设目标文字漏了一个字，我们就指出漏在哪里、完整文字应该是什么，让它只修这一处，然后重新检查。\n\n如果发现额外改动，先分清来源，再处理本次越界的部分。不要一句“全部恢复”把我们原来做的修改也覆盖掉。修正完成后，仍然回到页面和差异来判断。",
         "【操作提示｜留在课件 p18-check 第 3 步；实际无法验证时，在 VS Code 既有证据单记录错误、缺项和下一步，暂停相关写入。】\n\n第三种情况，眼下无法验证。比如不知道浏览器对应哪份文件，或者缺少关键记录，没法确定改动范围。那就先把缺什么记下来，停在这里补证据。\n\n需要扩大权限才能继续时，也要重新说明动作和影响。不要为了赶到一个“完成”的结论，跳过当前还没弄清的问题。下面换成四个场景，练习怎样作出选择。"
       ],
       "segment": "授权与返回",
@@ -230,7 +230,7 @@ window.lesson = {
       "teaching": [
         {
           "title": "追问与预期判断",
-          "text": "结果检查以后，才决定下一步；不能验证或影响扩大时暂停，不靠扩大权限掩盖问题。"
+          "text": "检查之后，决定下一步；不能验证或影响扩大时暂停，不靠扩大权限掩盖问题。"
         },
         {
           "title": "演示分支",
@@ -330,7 +330,7 @@ window.lesson = {
     },
     {
       "label": "授权与返回",
-      "seconds": 300
+      "seconds": 270
     },
     {
       "label": "判断与交付",

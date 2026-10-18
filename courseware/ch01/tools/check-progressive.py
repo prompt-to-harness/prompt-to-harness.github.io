@@ -13,7 +13,7 @@ parser.add_argument('--output',type=Path,default=Path('/tmp/ch01-progressive-qa'
 args=parser.parse_args();args.output.mkdir(parents=True,exist_ok=True)
 root=Path(__file__).resolve().parents[1]
 names=['01-environment','03-tools','04-prompt','05-homepage','06-permissions']
-budgets=[1125,900,1200,1200,600]
+budgets=[1125,870,1200,1200,600]
 r=root/'lessons/01-environment/diagrams'
 spec=json.loads((r/'first-loop.archscribe.json').read_text());svg=(r/'first-loop.svg').read_text();mmd=(r/'first-loop.mmd').read_text()
 assert set(re.findall(r'data-node="([^"]+)"',svg))=={n['id'] for n in spec['nodes']}

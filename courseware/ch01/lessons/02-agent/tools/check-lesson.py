@@ -10,8 +10,8 @@ from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 lesson = json.loads((ROOT/'lesson.js').read_text().removeprefix('window.lesson = ').strip().removesuffix(';'))
-assert sum(s['seconds'] for s in lesson['scenes']) == 900
-for name in ('agent-loop','context','course-route'):
+assert sum(s['seconds'] for s in lesson['scenes']) == 785
+for name in ('agent-loop','context'):
     spec=json.loads((ROOT/'diagrams'/f'{name}.archscribe.json').read_text())
     svg=(ROOT/'diagrams'/f'{name}.svg').read_text()
     mmd=(ROOT/'diagrams'/f'{name}.mmd').read_text()
@@ -20,7 +20,7 @@ for name in ('agent-loop','context','course-route'):
     for n in spec['nodes']: assert f'{n["id"]}["{n["label"]}"]' in mmd
     for e in spec['edges']:
         assert re.search(r'\b'+e['from']+r' -->.*\b'+e['to']+r'\b', mmd)
-    # 课件用零件库重新呈现三张图：不再嵌入原 SVG，改为核对页面上的节点与连线
+    # 课件用零件库重新呈现两张图：不再嵌入原 SVG，改为核对页面上的节点与连线
     # 与逻辑源逐项一致（data-node / data-edge），保证美化不改变流程含义。
     want=({n['id'] for n in spec['nodes']},{f'{e["from"]}:{e["to"]}' for e in spec['edges']})
     assert any((set(re.findall(r'data-node="([^"]+)"',s['html'])),set(re.findall(r'data-edge="([^"]+)"',s['html'])))==want for s in lesson['scenes']),name
