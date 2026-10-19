@@ -1,17 +1,19 @@
 # 第二章：迭代并发布个人主页
 
-> 状态：课件草稿（2.1 经讲师审阅，2.2–2.5 为 2026-10-03 首版；2026-10-11 更新本行）。依据[第 2 章故事线提案](../../docs/outline/proposals/2026-10-02-ch02-adjustments.md)及其[分段分镜](../../docs/outline/proposals/2026-10-02-ch02-storyboards.md)，已于 2026-10-02 确认并合入大纲。2.1 已有讲稿与课件并经讲师审阅；2.2–2.5 于 2026-10-03 制作首版课件，尚未经讲师审阅。均未试讲、未录制。
+> 状态：2026-10-19 按[第 2 章 Context 主线提案](../../docs/outline/proposals/2026-10-19-ch02-context-storyline.md)重写了五节分镜，两份大纲已同步；课件仍是 2026-10-03 首版（2.1 经讲师审阅），要按新分镜重做。均未试讲、未录制。原[第 2 章故事线提案](../../docs/outline/proposals/2026-10-02-ch02-adjustments.md)及其[分段分镜](../../docs/outline/proposals/2026-10-02-ch02-storyboards.md)保留作决策追溯，其中的反馈卡线索和 2.4 主转折已取消。
 
-一句话主线：根据反馈改进个人主页，再发布到 GitHub Pages，让别人也能打开。
+一句话主线：把第 1 章的首页 v0 补完整并发布上线；一路打开 Codex 实际发出的请求，看清 context 长什么样、怎么变。
 
-最新审查：[docs/reviews/ch02/](../../docs/reviews/ch02/)（2026-10-05 起两份，重点 2.2–2.5）。已记录内容、跟做流程与展示问题，尚未修订课件，不代表试讲或发布验收通过。
+知识主线是 Context，每节一个项目动作配一个 context 视角；贯穿线索是同一份 claude-tap 请求记录。本章不设转折。
+
+最新审查：[docs/reviews/ch02/](../../docs/reviews/ch02/)（2026-10-05 起两份，重点 2.2–2.5）。其中依据反馈卡的条目已随本次重写失效，其余待课件重做时复核。
 
 | 小节 | 分镜 |
 | --- | --- |
-| 2.1 先听听别人怎么说 | [STORYBOARD](lessons/01-feedback/STORYBOARD.md) · [课件](lessons/01-feedback/index.html) · [说明](lessons/01-feedback/README.md) |
-| 2.2 只改一处，并证明改好了 | [STORYBOARD](lessons/02-iteration/STORYBOARD.md) · [课件](lessons/02-iteration/index.html) · [说明](lessons/02-iteration/README.md) |
-| 2.3 AI 交回的改动，收不收 | [STORYBOARD](lessons/03-review/STORYBOARD.md) · [课件](lessons/03-review/index.html) · [说明](lessons/03-review/README.md) |
-| 2.4 公开的不只是页面 | [STORYBOARD](lessons/04-publish/STORYBOARD.md) · [课件](lessons/04-publish/index.html) · [说明](lessons/04-publish/README.md) |
+| 2.1 只说了一句话，模型收到了什么 | [STORYBOARD](lessons/01-feedback/STORYBOARD.md) · [课件](lessons/01-feedback/index.html) · [说明](lessons/01-feedback/README.md) |
+| 2.2 补上项目经历，看对话怎么变长 | [STORYBOARD](lessons/02-iteration/STORYBOARD.md) · [课件](lessons/02-iteration/index.html) · [说明](lessons/02-iteration/README.md) |
+| 2.3 AI 交回的改动，要不要接受 | [STORYBOARD](lessons/03-review/STORYBOARD.md) · [课件](lessons/03-review/index.html) · [说明](lessons/03-review/README.md) |
+| 2.4 发布上线，看 Codex 怎么用 gh | [STORYBOARD](lessons/04-publish/STORYBOARD.md) · [课件](lessons/04-publish/index.html) · [说明](lessons/04-publish/README.md) |
 | 2.5 AI 说“只是重构” | [STORYBOARD](lessons/05-refactor/STORYBOARD.md) · [课件](lessons/05-refactor/index.html) · [说明](lessons/05-refactor/README.md) |
 
 ## 全章约定
@@ -21,21 +23,21 @@
 - **方式**：跟做＝学员暂停视频完成，计入验收；看懂＝机制演示，以自检为准；示例（选做）＝讲师演示，学员可按配套页自主尝试，不计入验收。
 - **时长**：分镜不做页面级时长估算，节奏由讲师录制时调整。
 - **三种视口**：360×800、768×1024、1440×900（以平台交付版第 2 章第 1 节为准，用浏览器开发者工具的设备模拟）。
-- **本章记录文件**：`docs/evidence/CH02_VIBE_ITERATIONS.md`，与第 1 章证据文件同目录。
+- **记录**：本章不设固定记录文件（2026-10-19，与第 1 章一致）。本轮目标和改动文件写进提交说明；会话选择理由和 2.5 的判断答在暂停自检题里；学员按自己的习惯记笔记或截图。
 
 ## 全章需制作的素材
 
 | 素材 | 用在 | 说明 |
 | --- | --- | --- |
-| 课程示例反馈卡 | 2.1 | 三条建议，标“课程示例反馈” |
-| 反馈分支表 | 2.1 配套页 | 能复现 / 不能复现 / 与我在 1.4 的决定不同 |
-| 讲师个人主页冻结快照 | 2.1 | 录制前核对第 1、2 条确实成立 |
-| 请求解剖页 | 2.1、2.2，3.6 与第 7 章复用 | 静态页面，用统一脱敏请求记录；逐块点开看原文片段和“如果没有它会怎样” |
-| 隔离环境与对比实验页 | 2.1、2.2 配套页 | 怎样用隔离的 HOME 启动 Codex、怎样对比两次请求；附 Codex 仓库指令历史的链接 |
-| claude-tap setup 页 | 2.1 配套页 | 学员选做；说明本地代理会经手 API 密钥、只看得到经过代理的内容 |
-| 统一脱敏请求记录 | 2.1、2.2 | 用 2.1 同一只读任务生成，标“一次运行” |
+| 统一脱敏请求记录 | 全章 | 贯穿线索。用 2.1 两步 Prompt 开始、2.2 本轮修改、2.4 设置 Pages 来源的同一次录制生成，标“一次运行” |
+| claude-tap 启动页 | 2.1 p06-tap | PPT 一页写清启动方式与三条说明（本地代理、经手 API 密钥、只看得到经过代理的内容）；不做分系统排障文档 |
+| 请求解剖页 | 2.1，3.6 与第 7 章复用 | 静态页面，用统一脱敏请求记录；逐块点开看原文片段和“如果没有它会怎样” |
+| 课程概念地图（Context 一格） | 2.1 p16a | 见[概念地图提案](../../docs/outline/proposals/2026-10-19-concept-map.md)，全图未定稿前先只做本章用到的部分 |
+| 隔离环境与对比实验配套页 | 2.1 p15，配套 | 怎样用隔离的 HOME 启动 Codex（原 p15-home）、怎样对比两次请求；收进原 2.2 p25–p26 的版本与模型指令对比 |
+| 讲师首页 v0 冻结快照 | 2.1–2.2 | 录制前冻结 |
 | 项目经历（两位讲师经历聚合） | 2.2 | 取自公开讲师简介，2026-10-05 讲师确认，见 [materials](materials/README.md) |
-| 压缩对比（备用） | 2.2 配套页 | 过满时整段移出 |
+| 压缩对比 | 2.2 p27 | 主讲用本节真实会话；会话太短时改用 `materials/compact/` 独立实验并如实说明 |
+| ~~课程示例反馈卡、反馈分支表~~ | ~~2.1~~ | 2026-10-19 随反馈卡线索取消 |
 | ~~改写历史方法说明~~ | 2.4 配套页 | 2026-10-05 讲师确认不做，口播改为指向 GitHub 官方文档 |
 | 五张分拣卡 | 2.5 | 2026-10-05 由两份教学 diff 改为五张卡；基于排练版 homepage-v1 已做并实测行为，见 [materials](materials/README.md)；录制版需重做 |
 
