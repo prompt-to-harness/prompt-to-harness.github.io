@@ -1,31 +1,31 @@
 window.lesson = {
-  "title": "公开的不只是页面",
+  "title": "发布上线，看 Codex 怎么用 gh",
   "chapter": "第 2 章 · Vibe Coding",
   "section": "02.04",
-  "summary": "第一次推送前看清即将公开的整段历史；发布后用公开 URL 证明页面可用。",
+  "summary": "第一次推送前看清即将公开的整段历史；Pages 来源交给 Codex 用 gh 设置，再在请求记录里看清这次调用；发布后用公开 URL 证明页面可用。",
   "scenes": [
     {
       "id": "p43",
       "segment": "公开之前",
       "layout": "lesson-cover",
-      "label": "推送之后谁能看到",
-      "title": "推送之后，谁能看到什么？",
-      "lead": "到现在为止，所有提交和 tag 都只在自己电脑上",
-      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>听反馈</li><li class=\"is-done\"><b>2.2</b>改一处</li><li class=\"is-done\"><b>2.3</b>审改动</li><li class=\"is-now\"><b>2.4</b>公开发布</li><li><b>2.5</b>只是重构？</li></ol><div class=\"p-grid\" style=\"--n:3;gap:16px;margin-top:22px\"><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\"><h3>页面</h3><p>公开 URL，任何人能打开</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><h3>源码</h3><p>仓库里当前的每个文件</p></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"2\"><h3>整段历史</h3><p>每一次提交，包括后来删掉的文件</p></div></div><p class=\"p-hand\" data-reveal=\"2\">公开的不只是页面，还有历史</p>",
+      "label": "这一节做哪几步",
+      "title": "这一节要做哪几步？",
+      "lead": "第 1 章只在本地提交，这是第一次推送。推送以后，页面、源码和整段提交历史都会公开",
+      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>看请求</li><li class=\"is-done\"><b>2.2</b>补经历</li><li class=\"is-done\"><b>2.3</b>审改动</li><li class=\"is-now\"><b>2.4</b>发布上线</li><li><b>2.5</b>只是重构？</li></ol><div class=\"p-flow\" style=\"--n:4;margin-top:22px\"><div class=\"p-node\" data-role=\"gate\" data-reveal=\"1\"><span class=\"p-num\">1</span><h3>看清历史</h3><p>即将公开的提交、文件、作者</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-num\">2</span><h3>审查配置</h3><p>Codex 写的部署工作流</p></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"2\"><span class=\"p-num\">3</span><h3>设置与推送</h3><p>Codex 用 gh 改设置，人来推送</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"2\"><span class=\"p-num\">4</span><h3>证明可用</h3><p>公开 URL 上查三项</p></div></div>",
       "steps": [
         "回到地图",
-        "页面和源码",
-        "还有历史"
+        "推送之前",
+        "推送与之后"
       ],
       "script": [
-        "【操作提示｜停留课件 p43 第 1 步，指向章节地图上的 2.4，不切工具窗口。录前核对：2.3 的提交已完成、git status 干净，练习仓库此前没有推送过本地提交和 tag】\n\n到现在为止，我们所有的提交都只在自己电脑上，tag 也是本地的。这一节要第一次推送到 GitHub，并把页面发布出去。",
-        "【操作提示｜推进第 2 步，留在课件；本页不打开 GitHub】\n\n推送以后，别人能看到什么？最直观的是页面，有了公开 URL，任何人都能打开。仓库是公开的，所以源码也能看到，每个文件都能点开。",
-        "【操作提示｜推进第 3 步，留在课件；讲完进入 p44 再切 Chrome】\n\n第三层最容易忘：整段提交历史。每一次提交的内容都会公开，包括某次提交里出现过、后来又删掉的文件。推送和本地提交不一样，它是我们这门课第一个对外的副作用，推出去就收不回来。所以推送之前，先看清即将公开的是什么。"
+        "【操作提示｜停留课件 p43 第 1 步，指向章节地图上的 2.4，不切工具窗口。录前核对：2.3 的提交已完成、git status 干净，练习仓库此前没有推送过本地提交和 tag】\n\n到现在为止，我们所有的提交都只在自己电脑上，tag 也是本地的。这一节要第一次推送到 GitHub，把页面发布出去。",
+        "【操作提示｜推进第 2 步，留在课件，指向前两步；本页不打开 GitHub】\n\n一共四步。推送之前先做两件事：第一，看清即将公开的历史。推送以后公开的有三样：页面、当前的源码，还有每一次提交，包括某次提交里出现过、后来又删掉的文件。第二，审查 Codex 写的部署配置。",
+        "【操作提示｜推进第 3 步，留在课件，指向后两步；讲完进入 p44 再切 Chrome】\n\n第三步，Pages 的设置交给 Codex 用 GitHub CLI，也就是 gh 命令来改，每条命令由我们批准；推送由我们自己来做，它是这门课第一个对外的副作用，推出去就收不回来。改完之后，还会回到请求记录，看看 Codex 是怎样调用 gh 的。第四步，在公开 URL 上检查页面真的能用。"
       ],
       "teaching": [
         {
           "title": "讲师提示",
-          "text": "主转折在本节：无论历史里有没有问题，“公开的不只是页面”这个认识都成立，不依赖录制时的实际内容。"
+          "text": "推送前看清整段历史是发布前的一项检查，按实际内容判断，不预设有没有问题。第 3 步之后会回到请求记录，看 Codex 怎样调用 gh。"
         }
       ],
       "source": "index.html#p43",
@@ -34,8 +34,8 @@ window.lesson = {
     {
       "id": "p44",
       "segment": "公开之前",
-      "label": "仓库是公开的吗",
-      "title": "先看一眼：仓库现在是公开还是私有",
+      "label": "推到哪里",
+      "title": "推到哪里？仓库是公开的吗？",
       "lead": "前面只把课程模板克隆到本地。发布前先在自己的 GitHub 账号下新建空仓库，核对 origin 指向自己的仓库；此时不推送。再看仓库公开范围，检查待公开内容以后才决定是否公开。",
       "html": "<div class=\"p-handoff\"><div class=\"p-handoff-card\" data-reveal=\"0\"><h3>切到 GitHub</h3><p>新建或打开自己的空仓库</p><span class=\"p-env\">Public</span><span class=\"p-env\">Private</span></div><ol class=\"p-watch\"><li data-reveal=\"1\">仓库名旁的标记<small>Public 还是 Private</small></li><li data-reveal=\"1\">远端已有什么<small>首次发布前应为空仓库</small></li><li class=\"is-miss\" data-reveal=\"2\">现在先不改<small>查清待公开内容后再决定</small></li></ol></div>",
       "steps": [
@@ -85,15 +85,15 @@ window.lesson = {
       "label": "即将公开的历史",
       "title": "列出即将公开的提交、文件和作者",
       "lead": "首次向个人空仓库推送时，当前分支的全部历史都会公开。检查每次提交改过的文件、实际内容和作者信息，包含后来删掉的文件；不能只看当前目录或与课程模板相比的新增提交。",
-      "html": "<div class=\"p-term\" data-reveal=\"0\" data-copy=\"git log --stat HEAD\ngit log -p HEAD\ngit log --format=&#x27;%an &lt;%ae&gt;&#x27; HEAD | sort -u\"><div class=\"dim\">$ git log --stat HEAD</div><div>homepage-v1: 补充项目经历</div><div>  docs/evidence/CH02_VIBE_ITERATIONS.md · src/App.tsx</div><div class=\"dim\">$ git log -p HEAD</div><div class=\"dim\">$ git log --format='%an &lt;%ae&gt;' HEAD | sort -u</div><div>示例同学 &lt;student@example.com&gt;</div></div><div class=\"p-grid\" style=\"--n:3;gap:12px;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"1\"><h3>提交作者</h3><p>每个提交都带着姓名和邮箱</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"1\"><h3>docs/evidence/</h3><p>本章的过程记录</p></div><div class=\"p-box is-soft\" data-role=\"us\" data-reveal=\"2\"><h3>2.2 的项目经历</h3><p>关于具体的人的事实</p></div></div><p class=\"source-note\">输出为示意，作者为占位；实际检查当前分支的完整历史</p>",
+      "html": "<div class=\"p-term\" data-reveal=\"0\" data-copy=\"git log --stat HEAD\ngit log -p HEAD\ngit log --format=&#x27;%an &lt;%ae&gt;&#x27; HEAD | sort -u\"><div class=\"dim\">$ git log --stat HEAD</div><div>homepage-v1: 补充项目经历</div><div>  src/App.tsx</div><div class=\"dim\">  …… 再往下是课程模板带来的提交</div><div class=\"dim\">$ git log -p HEAD</div><div class=\"dim\">$ git log --format='%an &lt;%ae&gt;' HEAD | sort -u</div><div>示例同学 &lt;student@example.com&gt;</div></div><div class=\"p-grid\" style=\"--n:3;gap:12px;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"1\"><h3>提交作者</h3><p>每个提交都带着姓名和邮箱</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"1\"><h3>课程模板带来的提交</h3><p>克隆时就有的历史，也会一起公开</p></div><div class=\"p-box is-soft\" data-role=\"us\" data-reveal=\"2\"><h3>2.2 的项目经历</h3><p>关于具体的人的事实</p></div></div><p class=\"source-note\">输出为示意，作者为占位；实际检查当前分支的完整历史</p>",
       "steps": [
         "列出提交与作者",
-        "作者与过程记录",
+        "作者与模板提交",
         "个人内容"
       ],
       "script": [
         "【操作提示｜课件 p45 第 1 步 → Terminal 在练习项目根目录依次运行 git log --stat HEAD、git log --format='%an <%ae>' HEAD | sort -u。录前离屏检查作者输出，真实邮箱不出镜；画面中的姓名和邮箱仍用占位示意。本页不以 origin/main..HEAD 限定检查范围】\n\n个人远端现在是空仓库，第一次推送会带过去当前分支的完整历史。我们先运行 git log --stat HEAD，列出这些提交和每次动过的文件。某个文件后来删掉了，早先提交里的内容仍会跟着公开。\n\n作者命令列出整段历史里的姓名和邮箱，包括课程模板原有的提交。先把将公开的范围看完整，不能只查自己后来新增的提交。",
-        "【操作提示｜回课件推进第 2 步；可切回 Terminal，在 --stat 输出里指认 docs/evidence/CH02_VIBE_ITERATIONS.md，作者行只指位置、不念出邮箱】\n\n看看列出了什么。第一样很容易被忽略：每个提交都记着作者的姓名和邮箱，那是本机 Git 配置里写的，推送以后所有人都能看到。第二样是 docs/evidence 下本章的过程记录，这是我们的工作过程，也一起公开。",
+        "【操作提示｜回课件推进第 2 步；可切回 Terminal，在 --stat 输出里指认课程模板带来的较早提交，作者行只指位置、不念出邮箱】\n\n看看列出了什么。第一样很容易被忽略：每个提交都记着作者的姓名和邮箱，那是本机 Git 配置里写的，推送以后所有人都能看到。第二样是课程模板带来的提交：克隆时就在历史里，不是我们写的，但推送以后也一起公开。",
         "【操作提示｜推进第 3 步 → 同一 Terminal 运行 git log -p HEAD，翻到 src/App.tsx 里项目经历的新增行，按 q 退出分页；历史里有截图等二进制文件时另行打开查看。说完暂停提示后回课件】\n\n还有 2.2 刚写进去的项目经历，这是关于具体的人的事实。文件列表只能告诉我们“有什么”，不能告诉我们“能不能公开”。所以还要运行第三条，git log -p，把每一处实际改动的文字展开读一遍。截图这类二进制文件，要另外打开看。请暂停视频，在自己的项目里运行这几条命令。"
       ],
       "teaching": [
@@ -103,7 +103,7 @@ window.lesson = {
         },
         {
           "title": "讲师提示",
-          "text": "本页只依赖本章产生的内容（提交作者、CH02 记录、2.2 的项目经历），不要求学员保留之前各章的证据文件；学员仓库里有更早的记录时，一并按同样方法检查。画面中的作者用占位，不展示讲师真实邮箱。"
+          "text": "本页只依赖本章产生的内容（提交作者、课程模板带来的提交、2.2 的项目经历），不要求学员保留之前各章的证据文件；学员仓库里有更早的记录文件时，一并按同样方法检查。画面中的作者用占位，不展示讲师真实邮箱。"
         }
       ],
       "repro": {
@@ -154,7 +154,7 @@ window.lesson = {
         "【操作提示｜停留课件 p46 第 1 步，指向左侧 Author；不现场改 git config，不演示改写历史。官方文档链接在阅读模式本页底部，录制时不打开】\n\n先看刚才列出的作者。每个提交里都写着作者的姓名和邮箱，来自本机的 Git 配置。如果那是私人邮箱，推送以后它就挂在公开历史里了。不想公开，就先停下，把 Git 的邮箱换成 GitHub 提供的 noreply 邮箱。注意，改配置只影响之后的提交，已经做过的提交还带着旧邮箱，要换掉它们就得改写历史。改写历史不在本课范围，GitHub 官方文档有说明，链接放在阅读模式这一页的底部。",
         "【操作提示｜推进第 2 步；需要举证时切回 Terminal 的 git log -p 输出，按实际内容逐项判断，不预写“没有”。发现 secret 立即停录处理，不展示具体值】\n\n再对照判断清单，前三项要确认“没有”：有没有 secret，比如 API 密钥、令牌，或者整份配置文件；有没有未经同意的他人信息，比如别人的姓名、联系方式、经历和照片；截图里有没有隐私，比如桌面上的文件名、弹出的通知。2.2 的项目经历借用了我们两位讲师的经历，这是本人同意公开的；我们如果写了别人的事，要先问过对方。",
         "【操作提示｜推进第 3 步，留在课件；按讲师本人的实际意愿判断，不预写“可以公开”】\n\n第四项是本人愿不愿意公开，作者邮箱也算在里面。这是每个人对自己内容的判断，没有标准答案：有人愿意用常用邮箱，有人只用 noreply，都合理。",
-        "【操作提示｜推进第 4 步 → 切 VS Code 打开 docs/evidence/CH02_VIBE_ITERATIONS.md，写推送前检查记录：列出的提交、文件与作者，四项判断，结论（推送 / 暂停及原因）。实际结论是暂停时如实保留，后续推送不录】\n\n只要有一项不行，就先停下，不推送。推出去就收不回来了。怎样从历史里去掉一个文件、换掉旧邮箱，看 GitHub 官方文档；那些操作会改写历史，不在本课范围，做之前要人工复核。请暂停视频，逐项判断自己的内容，把结论写进记录。"
+        "【操作提示｜推进第 4 步，留在课件。实际结论是暂停时如实说明，后续推送不录】\n\n只要有一项不行，就先停下，不推送。推出去就收不回来了。怎样从历史里去掉一个文件、换掉旧邮箱，看 GitHub 官方文档；那些操作会改写历史，不在本课范围，做之前要人工复核。请暂停视频，逐项判断自己的内容，决定推送还是先停下。"
       ],
       "teaching": [
         {
@@ -171,7 +171,7 @@ window.lesson = {
         },
         {
           "title": "跟做产出",
-          "text": "推送前检查记录：列出的提交、文件与作者，四项判断结果，结论（推送 / 暂停及原因）。"
+          "text": "做过推送前检查：终端输出自己看过即可，不写记录文件；四项判断由自己作出，结论是推送还是暂停。"
         }
       ],
       "source": "index.html#p46",
@@ -231,7 +231,7 @@ window.lesson = {
         },
         {
           "title": "跟做产出",
-          "text": "工作流与 Vite 配置的审查结论，随推送前检查记录一起写。"
+          "text": "工作流与 Vite 配置的审查结论：四项是否都对，不对的让 Codex 改完再审。"
         }
       ],
       "source": "index.html#p48",
@@ -240,18 +240,18 @@ window.lesson = {
     {
       "id": "p49",
       "segment": "推送与发布",
-      "label": "推送并启用 Pages",
-      "title": "Codex 设来源，人来推送",
+      "label": "设置来源并推送",
+      "title": "Codex 改 Pages 设置，推送由我们来做",
       "lead": "提交部署配置，再用推送前检查的命令看一遍最终要公开的提交。仓库需要公开时现在再改。Pages 的来源交给 Codex 用 GitHub CLI 设为 GitHub Actions：每条命令弹出批准框，读过再批；改完在网页上刷新确认。最后由人把当前分支推到自己的 origin、看 Actions 日志。首次部署若失败，按日志、build 输出、Network 的顺序定位出在哪一环。",
-      "html": "<div class=\"p-flow\" style=\"--n:4\"><div class=\"p-node\" data-role=\"us\" data-reveal=\"0\"><span class=\"p-num\">1</span><h3>提交配置</h3><p>审过的两处改动</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"0\"><span class=\"p-num\">2</span><h3>再看历史</h3><p>待推送的全部提交</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-num\">3</span><h3>Codex 设来源</h3><p>每条命令由你批准</p></div><div class=\"p-node\" data-role=\"gate\" data-reveal=\"2\"><span class=\"p-num\">4</span><h3>人来推送</h3><p class=\"p-mono\">git push -u origin HEAD</p></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:16px\" data-reveal=\"1\"><div class=\"p-box is-soft\" data-role=\"gate\"><h3>批准框里看什么</h3><p>命令和理由；修改类命令看清方法和对象</p></div><div class=\"p-box is-soft\" data-role=\"ok\"><h3>网页上确认</h3><p>Settings → Pages，刷新后来源是 GitHub Actions</p></div></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"3\" style=\"margin-top:12px\"><h3>失败时出在哪一环</h3><p>Actions 日志 → build 输出 → Network 里哪个资源 404</p></div>",
+      "html": "<div class=\"p-flow\" style=\"--n:4\"><div class=\"p-node\" data-role=\"us\" data-reveal=\"0\"><span class=\"p-num\">1</span><h3>提交配置</h3><p>审过的两处改动</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"0\"><span class=\"p-num\">2</span><h3>再看历史</h3><p>待推送的全部提交</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-num\">3</span><h3>Codex 改设置</h3><p>每条命令由你批准</p></div><div class=\"p-node\" data-role=\"gate\" data-reveal=\"2\"><span class=\"p-num\">4</span><h3>人来推送</h3><p class=\"p-mono\">git push -u origin HEAD</p></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:16px\" data-reveal=\"1\"><div class=\"p-box is-soft\" data-role=\"gate\"><h3>批准框里看什么</h3><p>命令和理由；修改类命令看清方法和对象</p></div><div class=\"p-box is-soft\" data-role=\"ok\"><h3>网页上确认</h3><p>Settings → Pages，刷新后来源是 GitHub Actions</p></div></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"3\" style=\"margin-top:12px\"><h3>失败时出在哪一环</h3><p>Actions 日志 → build 输出 → Network 里哪个资源 404</p></div>",
       "steps": [
         "提交并复查",
-        "Codex 设来源",
+        "Codex 改设置",
         "人来推送",
         "失败时"
       ],
       "script": [
-        "【操作提示｜课件 p49 第 1 步 → Terminal 在练习项目根目录 git add 审过的工作流文件和 vite.config.ts（写明路径，不用 git add .），git diff --cached 看过再提交，提交说明按实际写；然后重跑 p45 的三条推送前检查命令，新增内容补进推送前检查记录】\n\n检查都过了，先提交部署配置。提交以后，再运行一遍推送前检查的那几条命令：这次列出的才是最终要公开的全部提交，包括刚提交的工作流和配置。",
+        "【操作提示｜课件 p49 第 1 步 → Terminal 在练习项目根目录 git add 审过的工作流文件和 vite.config.ts（写明路径，不用 git add .），git diff --cached 看过再提交，提交说明按实际写；然后重跑 p45 的三条推送前检查命令，核对新增的提交】\n\n检查都过了，先提交部署配置。提交以后，再运行一遍推送前检查的那几条命令：这次列出的才是最终要公开的全部提交，包括刚提交的工作流和配置。",
         "【操作提示｜推进第 2 步。录前确认 gh 已由讲师本人登录（gh auth login --scopes workflow），令牌不放环境变量、不贴进对话。仓库需公开时，先在 Chrome“GitHub 仓库”标签页的 Settings 改可见性。Terminal 另开标签页，在练习项目根目录新开 Codex 会话，粘贴本页“请求原文”第 1 条；每个批准框先读命令和理由，只批本次、不选以后不再询问，修改类命令核对方法和仓库。若个人空仓库暂时不能启用来源，先由讲师执行第 3 步的已审查推送，再完成来源设置，并在 Actions 重新运行部署；目标必须是个人 origin。完成后回 Chrome 打开 Settings → Pages 并刷新，确认 Source 为 GitHub Actions。批准次数以当天为准，不预告；没装 gh 的分支只讲，在该页手动选择。界面按录制时的 GitHub 版本核对】\n\n推送之前先把 GitHub 这边准备好。仓库如果还是私有的，现在才在网页上改成公开，因为待公开的内容已经看过了。然后要把 Pages 的来源设成 GitHub Actions，工作流要在启用之后才能部署。这一步交给 Codex：新开一个会话，用页面上“请求原文”里的这段话。仓库设置不只能在网页上点，GitHub CLI 也能改。Codex 要访问 GitHub，会弹出批准框，每次一条命令，写着命令和它给的理由。查询类的读一遍就批；修改类的看清楚方法和对象：改的是不是自己的仓库、是不是 Pages。讲师预检那一次，它说完“先告诉你要运行的命令”，紧接着就去执行了，真正停住它的是批准框。若空仓库暂时不能启用来源，就先由我们推送已检查的内容，再完成来源设置，并在 Actions 重新运行部署。设置完成后，它会用命令再查一次，但它看不到网页：我们自己打开 Settings 里的 Pages，刷新，看到来源变成 GitHub Actions。没装 GitHub CLI 的同学，就在这个页面上手动选。",
         "【操作提示｜推进第 3 步 → 回练习项目根目录的 Terminal，由讲师本人执行 git push -u origin HEAD，不交给 Codex；推送 .github/workflows/ 被拒时核对 gh 登录是否带 workflow 权限。若第 2 步已为初始化空仓库推送过，直接查看重新运行的结果，不重复推送。随后在 Chrome“GitHub 仓库”标签页打开 Actions，点进本次运行看各步日志】\n\n最后由我们自己在终端执行 git push -u origin HEAD，把当前分支推到自己的仓库，并建立后续使用的跟踪关系。切到 Actions 页，能看到工作流正在运行，点进去可以看每一步的日志。",
         "【操作提示｜推进第 4 步；实际失败时保留真实过程，按 Actions 日志 → 本地 npm run build → Network 的顺序定位。若先推送后才设来源导致失败，在 Actions 页对失败的运行点 Re-run 并确认新运行成功。没有失败只讲课件，不伪造】\n\n第一次部署不一定成功。失败了，按顺序找出在哪一环：Actions 日志里哪一步红了；同样的 build 在本地能不能复现；页面打开了，Network 面板里哪个资源是 404。"
@@ -284,6 +284,34 @@ window.lesson = {
       "seconds": 120
     },
     {
+      "id": "p49a",
+      "segment": "推送与发布",
+      "label": "Codex 怎样调用 gh",
+      "title": "刚才 Codex 是怎样调用 gh 的？",
+      "lead": "打开同一份请求记录，找到设置 Pages 来源的那几次请求。模型发出的工具调用里是一条完整的 gh 命令；工具返回是 gh 的输出；下一次请求把这段返回带上，模型据此决定下一步。批准不在模型那边，发生在我们本地终端的批准框里：模型只提出调用，执行由 Codex 这层 Harness 负责，批不批由我们定。",
+      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-walk\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:40px\"><div class=\"p-fn\">设置 Pages 来源的几次请求（示意）</div><div class=\"p-ln\"><i>1</i><code>user · 设置 Pages 来源的请求原文</code></div><div class=\"p-ln add\"><i>2</i><code>模型 · 调用工具：gh api …</code></div><div class=\"p-ln add\" data-reveal=\"1\"><i>3</i><code>工具返回 · gh 的输出</code></div><div class=\"p-ln\" data-reveal=\"2\"><i>4</i><code>下一次请求 · 1–3 原样带上</code></div><div class=\"p-ln add\" data-reveal=\"2\"><i>5</i><code>模型 · 下一条 gh 命令，或回答</code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>完整命令</b><small>模型提出的调用，一字不差</small></span></li><li data-reveal=\"1\"><span><b>工具返回</b><small>gh 的输出原样带回</small></span></li><li data-reveal=\"2\"><span><b>下一次请求带上返回</b><small>模型据此决定下一步</small></span></li><li class=\"is-risk\" data-reveal=\"3\"><span><b>批准在本地终端</b><small>批准框由 Codex 弹出，人来批</small></span></li></ol></div><p class=\"source-note\">请求记录为结构示意，录制时按实际记录替换；条目名为中文概括</p>",
+      "steps": [
+        "完整命令",
+        "工具返回",
+        "下一次请求",
+        "批准在哪里"
+      ],
+      "script": [
+        "【操作提示｜课件 p49a 第 1 步 → 切浏览器的 claude-tap 查看器，打开 p49 设置 Pages 来源那次会话的请求，指认第一条 gh 工具调用里的完整命令；画面是结构示意，按实际记录讲。截图前检查 gh 输出里的账号信息，令牌不出镜】\n\n刚才 Pages 的设置是 Codex 用 gh 改的。回到请求记录，找到那几次请求。模型这一侧发出的是一个工具调用，里面是一条完整的 gh 命令，一字不差，可以和刚才批准框里看到的那条对一对。",
+        "【操作提示｜在查看器里指认这次调用的工具返回；内容按实际记录讲，不念画面示意】\n\n命令执行完，工具返回里是 gh 的输出，原样带回。顺带一提，请求里不只有命令和返回，读过的文件内容也一样会发给模型。",
+        "【操作提示｜在查看器里打开下一次请求，指认上一条命令和返回出现在请求里】\n\n再看下一次请求：上一条命令和它的返回都被带上了。模型就是看着这段返回，决定下一步是再查一次、改设置，还是告诉我们做完了。这就是第 1 章拆开执行过程时看过的那个循环。",
+        "【操作提示｜推进课件第 4 步；批准在记录里是否留下痕迹、以什么形式出现，按实际记录讲，不预设】\n\n那批准在哪里？批准框是在我们本地终端里弹出来的，由 Codex 这层 Harness 拦下命令、等我们点头。模型只提出调用，执行由 Codex 负责，批不批由我们定。记录里能不能看到批准留下的痕迹，以讲师这份记录为准。"
+      ],
+      "teaching": [
+        {
+          "title": "讲师提示",
+          "text": "画面是结构示意。录制时在 claude-tap 里打开 p49 那次会话的请求，按实际记录逐条指认命令和返回；命令写法、调用次数以记录为准。批准在记录里是否留下痕迹、以什么形式出现，录制时按实际记录讲，不预设。截图前检查 gh 输出里的账号信息、路径和用户名，令牌不能出镜。"
+        }
+      ],
+      "source": "index.html#p49a",
+      "seconds": 120
+    },
+    {
       "id": "p50",
       "segment": "推送与发布",
       "label": "Actions 绿了就行吗",
@@ -300,7 +328,7 @@ window.lesson = {
         "【操作提示｜课件 p50 第 1 步；可切 Chrome“GitHub 仓库”标签页的 Actions，指认本次运行的实际绿色对勾，再回课件。录前从仓库 Settings → Pages 记下实际公开 URL】\n\nActions 显示绿色对勾，部署流程成功完成。接下来打开公开 URL，检查实际访问和资源加载。比如 base 写错时，部署流程可能完成，页面却因为资源路径错误显示为空白。",
         "【操作提示｜推进第 2 步 → Chrome 新开无痕窗口，打开公开 URL，不登录 GitHub；页面实际空白或走样时如实展示，进入第 3 步定位】\n\n第一项，用浏览器的无痕窗口，也就是未登录状态，打开公开 URL。别人第一次访问时看到的就是这个样子。",
         "【操作提示｜推进第 3 步 → 在无痕窗口打开开发者工具的 Network 面板，刷新一次，按 Status 查 404；有 404 就指认资源路径，回到 p48 的 base 检查】\n\n第二项，打开开发者工具的 Network 面板，刷新一次，看有没有状态是 404 的资源。CSS、JS 有一个没加载上，页面就会走样。",
-        "【操作提示｜推进第 4 步 → 同一面板勾选 Disable cache 再刷新。切 VS Code 在 docs/evidence/CH02_VIBE_ITERATIONS.md 写下公开 URL 和三项检查结果；关闭无痕窗口，回课件】\n\n第三项，在 Network 面板勾选 Disable cache，也就是停用缓存，再刷新一次，页面仍然正常。普通刷新可能还在用浏览器缓存里的旧文件，停用缓存以后，看到的才是服务器上现在的版本。三项都过了，才能说发布成功。把结果写进记录。"
+        "【操作提示｜推进第 4 步 → 同一面板勾选 Disable cache 再刷新。记下公开 URL；关闭无痕窗口，回课件】\n\n第三项，在 Network 面板勾选 Disable cache，也就是停用缓存，再刷新一次，页面仍然正常。普通刷新可能还在用浏览器缓存里的旧文件，停用缓存以后，看到的才是服务器上现在的版本。三项都过了，才能说发布成功。记下自己的公开 URL 和这三项的结果。"
       ],
       "teaching": [
         {
@@ -341,16 +369,16 @@ window.lesson = {
       "id": "p52",
       "segment": "推送与发布",
       "label": "本节小结",
-      "title": "公开的不只是页面，还有历史",
-      "lead": "本节留下推送前检查记录、审过的部署配置、公开 URL、三项发布检查结果和 ch02-homepage-live tag。",
-      "html": "<div class=\"p-flow\" style=\"--n:4\"><div class=\"p-node\" data-role=\"gate\" data-reveal=\"0\"><h3>看清历史</h3><p>提交、文件、作者</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\"><h3>审查配置</h3><p>base、权限、分支</p></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"0\"><h3>人来推送</h3><p>设置交给 Codex，人批准</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"0\"><h3>证明可用</h3><p>三项检查与 tag</p></div></div><div class=\"p-bar\" data-reveal=\"1\" style=\"margin-top:18px\">推送前先看历史 · <b>发布后检查访问、资源与刷新</b></div>",
+      "title": "从本地提交到公开 URL",
+      "lead": "本节推送前看过完整历史，留下审过的部署配置、公开 URL、三项发布检查结果和 ch02-homepage-live tag。还在请求记录里看清了一次 gh 调用：模型提出命令，我们在终端批准，返回再带进下一次请求。",
+      "html": "<div class=\"p-flow\" style=\"--n:4\"><div class=\"p-node\" data-role=\"gate\" data-reveal=\"0\"><h3>看清历史</h3><p>提交、文件、作者</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\"><h3>审查配置</h3><p>base、权限、分支</p></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"0\"><h3>设置与推送</h3><p>Codex 用 gh 改设置，人批准、推送</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"0\"><h3>证明可用</h3><p>三项检查与 tag</p></div></div><div class=\"p-bar\" data-reveal=\"1\" style=\"margin-top:18px\">一次 gh 调用：<b>模型提出命令 → 我们批准 → 返回带进下一次请求</b></div>",
       "steps": [
         "本节做了什么",
-        "两个认识"
+        "一次 CLI 调用"
       ],
       "script": [
-        "【操作提示｜停留课件 p52 第 1 步，不切工具窗口】\n\n回看这一节：推送之前，先列出即将公开的提交、文件和作者，由人判断能不能公开；Codex 写的部署配置逐项审过再提交；Pages 来源交给 Codex 设置，每条命令由我们批准、在网页上确认，再由我们自己推送；最后用三项检查证明页面可用，只推送 ch02-homepage-live 这一个 tag。个人主页现在有了一个公开 URL。",
-        "【操作提示｜推进第 2 步，留在课件；本节到此结束，不预告 2.5】\n\n推送之前，检查即将公开的文件和整段历史。部署完成后，再用未登录窗口访问、资源加载和停用缓存后刷新这三项检查确认发布结果。"
+        "【操作提示｜停留课件 p52 第 1 步，不切工具窗口】\n\n回看这一节：推送之前，先列出即将公开的提交、文件和作者，由人判断能不能公开；Codex 写的部署配置逐项审过再提交；Pages 来源交给 Codex 用 gh 设置，每条命令由我们批准、在网页上确认，再由我们自己推送；最后用三项检查证明页面可用，只推送 ch02-homepage-live 这一个 tag。首页现在有了一个公开 URL。",
+        "【操作提示｜推进第 2 步，留在课件；本节到此结束，不预告 2.5】\n\n我们还在请求记录里看清了一次 gh 调用：模型提出一条命令，我们在终端批准，执行的输出作为工具返回，带进下一次请求。以后让 Codex 替你跑命令，都可以这样看。"
       ],
       "teaching": [],
       "source": "index.html#p52",
@@ -372,7 +400,7 @@ window.lesson = {
     },
     {
       "label": "推送与发布",
-      "seconds": 390
+      "seconds": 510
     }
   ]
 };

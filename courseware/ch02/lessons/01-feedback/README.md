@@ -1,25 +1,27 @@
-# 2.1 先听听别人怎么说
+# 2.1 只说了一句话，模型收到了什么
 
 [打开课件](index.html) · [逐步讲稿](speaker.html) · [分镜](STORYBOARD.md) · [验证记录](VALIDATION.md)
 
-用课程示例反馈卡建立反馈基线；借一次只读核对，看懂 Codex 实际发给模型的请求由哪几块组成，以及它为什么随环境和权限变化。依据[内部大纲](../../../../docs/outline/course-outline-internal.md) 2.1 与[第 2 章提案](../../../../docs/outline/proposals/2026-10-02-ch02-adjustments.md)。未试讲。
+用 claude-tap 启动 Codex，分两步发 Prompt：先发一句与项目无关的话，看 Codex 实际发给模型的请求由哪几块组成；再问一个与项目相关的只读问题，看工具调用和返回怎样进入 context。最后对比同一句话在不同权限、不同 HOME 下的请求，归纳“这些加在一起就是 context”。16 页。依据[内部大纲](../../../../docs/outline/course-outline-internal.md) 2.1 与[第 2 章 Context 主线提案](../../../../docs/outline/proposals/2026-10-19-ch02-context-storyline.md)。2026-10-20 按重写后的分镜重做，未试讲、未录制。
 
 ## 维护
 
-`tools/build-lesson.py` 是本节唯一的内容源：页面 HTML、分步、逐字稿、阅读模式导语和讲师提示都写在里面，生成 `lesson.js`。不要直接改生成物。全章共用的页面登记、章节地图、窄屏样式和输出写在 [`../../tools/lessonkit.py`](../../tools/lessonkit.py)；改它会影响五节，改完逐节重新生成并比对。
+`tools/build-lesson.py` 是本节唯一的内容源：页面 HTML、分步、阅读模式导语和讲师提示都写在里面，口播写在 `script.json`，两者生成 `lesson.js`。不要直接改生成物。全章共用的页面登记、章节地图、窄屏样式和输出写在 [`../../tools/lessonkit.py`](../../tools/lessonkit.py)；改它会影响五节，改完逐节重新生成并比对。
 
 ```sh
 python3 courseware/ch02/lessons/01-feedback/tools/build-lesson.py
-python3 courseware/tools/check-courseware.py
+uv run courseware/tools/check-courseware.py
 ```
 
 - 页面零件来自 `courseware/shared/parts/`；字体来自 `courseware/shared/fonts/`；播放器画布和章节条使用各章共用的 `courseware/shared/presentation.css`、`evidence.css` 与 `presentation.js`（改动这些文件时要回看第 0、1、2 章）。
 - 每页的 `seconds` 只用于章节条的宽度比例，按步骤数计算，不是时长估算；讲述节奏由讲师录制时调整。
-- 本节暂无练习页；跟做产出写入学员仓库的 `docs/evidence/CH02_VIBE_ITERATIONS.md`。
+- 本节没有练习页，也不写记录文件（第 2 章不设固定记录文件）；跟做只有 p02 重启开发服务器。
 
 ## 素材状态
 
-- 请求组成的字符数、token 数、隔离环境与权限对比，来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，`codex exec`），见提案“实测记录”。录制时用冻结版本重新生成统一脱敏记录，并按实际数字更新画面。
-- p07 之后的 Codex 回复与 p14 的工具调用以录制实际为准，讲师提示里写了两个分支。
+- p08 的 token 数与字符数、p16 的权限说明字符数是占位（画面显示“〔按录制记录〕”），录制时按冻结的统一脱敏记录替换；旧的“34 字读标题任务、约 1.15 万 token”来自另一个 Prompt，不沿用。
+- p09、p11、p15 中与提问内容无关的数字（各块字符数、工具个数、Skills 列表大小）沿用 2026-10-02 讲师机器上的一次运行（Codex 0.160.0 + MiniMax，`codex exec`），标注“一次运行”，录制时按冻结记录核对。
+- p07 的 Codex 回复与 p14 的工具调用以录制实际为准，p14 讲师提示里写了分支；画面不预写回复。
+- p16a 的官方 context 解释尚未选定，画面留虚线框占位；最后一行是概念地图的保底版本，地图定稿后替换。
 - p10 只引用 Codex 开源仓库基础指令的章节目录（中文意译），不大段引用原文。
-- 课程示例反馈卡、分支表、claude-tap setup 页、隔离环境与对比实验页、请求解剖页尚未制作。
+- 原 p15-home 的隔离 HOME 做法改为 p15 的“自己对比一次”折叠步骤，使用仓库里的 `tools/clean-codex.sh`。

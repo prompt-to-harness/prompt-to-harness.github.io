@@ -113,7 +113,7 @@ scene(
 diff_items = E.get("review", [])
 scene(
     id="p35", segment="评审",
-    label="改动收不收", title="交回来的改动，收不收",
+    label="改动要不要接受", title="交回来的改动，要不要接受",
     lead="沿用 2.3：先看范围，再看内容。这一次多查三项：有没有新依赖；离开页面或组件卸载时，计时器、键盘监听和游戏实例有没有清理；首页和记忆翻牌有没有被改动。",
     html=(
         '<div class="p-term" data-reveal="0"><div class="dim">$ git diff --stat</div>' + "".join(f"<div>{escape(r)}</div>" for r in E.get("diffstat", ["（排练 diff 待补）"])) + '</div>'

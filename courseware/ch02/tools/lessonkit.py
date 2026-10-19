@@ -2,7 +2,7 @@
 
 每节的 tools/build-lesson.py 只写本节内容：
 
-    lesson = Lesson(__file__, "2.3", "AI 交回的改动，收不收", summary="…")
+    lesson = Lesson(__file__, "2.3", "AI 交回的改动，要不要接受", summary="…")
     scene = lesson.scene
     scene(id="p35", …)
     lesson.write()
@@ -15,7 +15,7 @@ from html import escape
 from pathlib import Path
 
 CHAPTER = "第 2 章 · Vibe Coding"
-SECTIONS = [("2.1", "听反馈"), ("2.2", "改一处"), ("2.3", "审改动"), ("2.4", "公开发布"), ("2.5", "只是重构？")]
+SECTIONS = [("2.1", "看请求"), ("2.2", "补经历"), ("2.3", "审改动"), ("2.4", "发布上线"), ("2.5", "只是重构？")]
 
 MEASURED = "数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。"
 

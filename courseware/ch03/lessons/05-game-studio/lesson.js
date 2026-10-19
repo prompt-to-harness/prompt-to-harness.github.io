@@ -159,8 +159,8 @@ window.lesson = {
     {
       "id": "p35",
       "segment": "评审",
-      "label": "改动收不收",
-      "title": "交回来的改动，收不收",
+      "label": "改动要不要接受",
+      "title": "交回来的改动，要不要接受",
       "lead": "沿用 2.3：先看范围，再看内容。这一次多查三项：有没有新依赖；离开页面或组件卸载时，计时器、键盘监听和游戏实例有没有清理；首页和记忆翻牌有没有被改动。",
       "html": "<div class=\"p-term\" data-reveal=\"0\"><div class=\"dim\">$ git diff --stat</div><div>6 files changed, 1049 insertions(+), 4 deletions(-)</div><div>新建：DodgeGame.tsx、dodge-game.css、game/dodge/</div><div>改：App.tsx +14、index.css 12 行</div></div><ul class=\"p-checks\" style=\"margin-top:12px\"><li class=\"\" data-reveal=\"0\">范围<small>只动约定的 6 个文件；记忆翻牌一个字节没动</small></li><li class=\"\" data-reveal=\"1\">新依赖<small>没有；首页产物 gzip 61.2 → 64.9 KB</small></li><li class=\"\" data-reveal=\"2\">清理<small>帧循环 cancelAnimationFrame；尺寸观察器 disconnect；键盘监听挂在游戏区元素上</small></li><li class=\"\" data-reveal=\"3\">它自己验证了什么<small>build + 18 项纯逻辑测试（Node 里跑）；没开浏览器，试玩交给人</small></li></ul><p class=\"source-note\">计划与改动来自排练（courseware/ch03/materials/mainline/run-v3.sh，基线为 3.3 修复后的记忆翻牌）。来自讲师机器上的排练运行（2026-10-06，Codex 0.160.0–0.160.1 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。</p>",
       "steps": [

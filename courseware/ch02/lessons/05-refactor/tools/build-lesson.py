@@ -246,7 +246,7 @@ scene(
 scene(
     id="p56", segment="看行为",
     label="凭什么这样分", title="凭什么这样分",
-    lead="Martin Fowler 在《重构》里给的定义：在不改变可观察行为的前提下，改善代码的内部结构。可观察行为就是用户能看到、能操作的东西；“只是重构”这句话和 diff 大小都不算数。⑤ 看起来回应了 2.1 的第 2 条反馈，它也是行为变化，要拆出来由人确认。",
+    lead="Martin Fowler 在《重构》里给的定义：在不改变可观察行为的前提下，改善代码的内部结构。可观察行为就是用户能看到、能操作的东西；“只是重构”这句话和 diff 大小都不算数。第 1 章定过项目卡不跳转；⑤ 让项目卡能被 Tab 聚焦，哪怕看起来是改进，也是行为变化，要拆出来由人确认。",
     html=(
         '<div class="p-bar" data-reveal="0">重构 = <b>可观察行为不变</b>，内部结构变好</div>'
         '<div class="p-pair" data-reveal="1" style="grid-template-columns:1fr auto 1fr;margin-top:12px">'
@@ -254,10 +254,10 @@ scene(
         '<div class="p-join"><span>和大小无关</span></div>'
         '<div class="p-box" data-role="gate"><span class="p-tag" data-role="gate">③ 1 行</span><p>顺序变了</p></div></div>'
         '<div class="p-grid" style="--n:2;gap:14px;margin-top:12px">'
-        '<div class="p-box is-soft" data-role="us" data-reveal="2"><h3>⑤ 与 2.1 第 2 条</h3><p>能聚焦了，按回车仍没反应<br>拆开：行为变化由人确认，再作为需求去做</p></div>'
+        '<div class="p-box is-soft" data-role="us" data-reveal="2"><h3>⑤ 与第 1 章的决定</h3><p>项目卡定为不跳转；能聚焦了，按回车仍没反应<br>拆开：行为变化由人确认，再作为需求去做</p></div>'
         '<div class="p-box is-soft" data-role="ctx" data-reveal="3"><h3>回看 2.2</h3><p>补充项目经历是需求变化，也不是重构</p></div></div>'
     ),
-    steps=["定义", "和大小无关", "第 2 条", "回看 2.2"],
+    steps=["定义", "和大小无关", "第 1 章的决定", "回看 2.2"],
 )
 
 scene(
@@ -272,26 +272,33 @@ scene(
         '<div data-reveal="2"><p>文字与顺序、和原页面并排比样式、点击项目卡、Tab、三种视口；没查的项标“待验证”<span class="p-back-to" data-role="ok">回到 2.2 检查</span></p></div></div></div></div>'
     ),
     steps=["暂停", "第 1 题", "第 2 题"],
-    teaching=teach(("跟做产出", "在 CH02_VIBE_ITERATIONS.md 写下哪几张只是重构，每张引用一条具体行为证据（顺序、样式、Tab 等）。")),
+    teaching=teach(("跟做产出", "暂停时在自己的笔记里写下哪几张只是重构，每张引用一条具体行为证据（顺序、样式、Tab 等）。")),
 )
+
+SECTION_QS = [
+    ("2.1", "只说了一句话，模型收到了什么", "us"),
+    ("2.2", "补上项目经历，看对话怎么变长", "agent"),
+    ("2.3", "AI 交回的改动，要不要接受", "tool"),
+    ("2.4", "发布上线，看 Codex 怎么用 gh", "ok"),
+    ("2.5", "AI 说“只是重构”", "gate"),
+]
 
 scene(
     id="p58", segment="收尾",
     label="每次都手工查吗", title="每次都这样手工重查吗？",
-    lead="现在的项目没有覆盖这些行为的自动测试。确认“行为不变”只能把文字与顺序、样式、点击、键盘和三种视口全部手工查一遍，每改一次就重复一次。验证很贵，这是后面规格与 Harness 章节要解决的问题。本章交付物：迭代记录、审过的提交、推送前检查记录、公开 URL 和 ch02-homepage-live tag。",
+    lead="现在的项目没有覆盖这些行为的自动测试。确认“行为不变”只能把文字与顺序、样式、点击、键盘和三种视口全部手工查一遍，每改一次就重复一次。Codex 判断“行为没变”，也只能依据 context 里看得到的东西，而 context 里没有测试。把“行为”写成能放进 context、能自动检查的东西，是后面规格与测试章节要解决的问题。回看本章：同一份请求记录回答了五节的五个问题；项目上留下审过的提交、公开 URL 和 ch02-homepage-live tag。",
     html=(
         '<div class="p-grid" style="--n:2;gap:16px;align-items:stretch">'
         '<div class="p-box is-soft" data-role="gate" data-reveal="0"><h3>每次都要重查</h3><p>文字与顺序 · 并排比样式 · 点击 · Tab · 三种视口</p></div>'
-        '<div class="p-bar" data-reveal="1" style="display:flex;align-items:center">没有测试，<b>验证很贵</b></div></div>'
-        '<div class="p-flow" style="--n:5;margin-top:16px">'
-        '<div class="p-node" data-role="us" data-reveal="2"><h3>2.1 反馈</h3><p>带证据的清单</p></div>'
-        '<div class="p-node" data-role="agent" data-reveal="2"><h3>2.2 小改</h3><p>一轮一个结果</p></div>'
-        '<div class="p-node" data-role="tool" data-reveal="2"><h3>2.3 审查</h3><p>可回退的提交</p></div>'
-        '<div class="p-node" data-role="ok" data-reveal="2"><h3>2.4 发布</h3><p>公开 URL 与 tag</p></div>'
-        '<div class="p-node" data-role="gate" data-reveal="2"><h3>2.5 重构</h3><p>看可观察行为</p></div></div>'
-        '<div class="p-bar is-light" data-reveal="3" style="margin-top:14px">下一章 · 第 3 章：给个人主页加一个小游戏</div>'
+        '<div class="p-bar" data-reveal="1" style="display:flex;flex-direction:column;justify-content:center;align-items:flex-start">'
+        '<span>Codex 只能看 context，<b>context 里没有测试</b></span><span>手工重查，<b>验证很贵</b></span></div></div>'
+        '<p class="p-sub" data-reveal="2" style="margin-top:12px">同一份请求记录回答过的五个问题</p>'
+        '<div class="p-flow" style="--n:5;margin-top:8px">'
+        + "".join(f'<div class="p-node" data-role="{role}" data-reveal="2"><h3>{num}</h3><p>{q}</p></div>' for num, q, role in SECTION_QS) +
+        '</div>'
+        '<div class="p-bar is-light" data-reveal="3" style="margin-top:10px">下一章 · 第 3 章：给首页加一个小游戏</div>'
     ),
-    steps=["手工清单", "验证很贵", "回看本章", "下一章"],
+    steps=["手工清单", "context 里没有测试", "回看本章", "下一章"],
     teaching=teach(("讲师提示", "伏笔只点到为止，不提前讲测试框架。第 3 章预告按第 3 章定稿调整。全章回顾 2026-10-05 起从 2.4 p52 移到本页（讲师确认）。")),
 )
 

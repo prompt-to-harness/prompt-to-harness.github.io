@@ -11,7 +11,7 @@ window.lesson = {
       "label": "只是重构，能信吗",
       "title": "AI 说“只是重构”，能信吗？",
       "lead": "AI 交回改动时常说“只是重构”，五张卡里哪几张是真的？",
-      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>听反馈</li><li class=\"is-done\"><b>2.2</b>改一处</li><li class=\"is-done\"><b>2.3</b>审改动</li><li class=\"is-done\"><b>2.4</b>公开发布</li><li class=\"is-now\"><b>2.5</b>只是重构？</li></ol><div style=\"display:flex;align-items:center;gap:36px;margin-top:22px\"><p class=\"p-bubble is-ai\" data-reveal=\"1\" style=\"margin:0\">只是重构了一下，没改功能</p><p class=\"p-hand\" data-reveal=\"2\" style=\"margin:0\">怎么判断？</p></div>",
+      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>看请求</li><li class=\"is-done\"><b>2.2</b>补经历</li><li class=\"is-done\"><b>2.3</b>审改动</li><li class=\"is-done\"><b>2.4</b>发布上线</li><li class=\"is-now\"><b>2.5</b>只是重构？</li></ol><div style=\"display:flex;align-items:center;gap:36px;margin-top:22px\"><p class=\"p-bubble is-ai\" data-reveal=\"1\" style=\"margin:0\">只是重构了一下，没改功能</p><p class=\"p-hand\" data-reveal=\"2\" style=\"margin:0\">怎么判断？</p></div>",
       "steps": [
         "最后一节",
         "AI 的说明",
@@ -46,7 +46,7 @@ window.lesson = {
       "script": [
         "【操作提示｜课件 p54 第 1 步，只出现 ①② 两张卡；指向每张卡的改动大小（2 个文件 +16 −4、+15 −14）。五张卡是教学材料，提交说明是写好的，不是真实运行输出；不切窗口】\n\n先看五张卡的说明。第一张，AI 说把项目卡抽成了 ProjectCard 组件，改了两个文件，16 行新增、4 行删除。第二张，把项目数据移到 projects.ts，也是两个文件，加起来 29 行。",
         "【操作提示｜推进第 2 步，出现 ③④⑤，指向三张卡都是 1 个文件 +1 −1，以及五张卡相同的结尾“只是重构，行为不变”】\n\n后三张都只改了一行。第三张说项目列表按名称排序；第四张说把类名缩短了；第五张说给项目卡加了 tabIndex，键盘也能聚焦。五张的结尾都是同一句：只是重构，行为不变。",
-        "【操作提示｜推进第 3 步，停在“暂停 · 每张怎么查”，不提前揭示任何一张的结论。留出暂停视频的时间；不切到 VS Code 演示填写 docs/evidence/CH02_VIBE_ITERATIONS.md】\n\n请暂停视频。先别急着判断变没变，给每张卡选一种检查办法：读说明就够、要读 diff、要打开页面、要和原页面并排比，还是要按 Tab。拿不准就写“证据不足”。写进 CH02_VIBE_ITERATIONS.md，接下来一张一张看。"
+        "【操作提示｜推进第 3 步，停在“暂停 · 每张怎么查”，不提前揭示任何一张的结论。留出暂停视频的时间；不切窗口演示填写笔记】\n\n请暂停视频。先别急着判断变没变，给每张卡选一种检查办法：读说明就够、要读 diff、要打开页面、要和原页面并排比，还是要按 Tab。拿不准就写“证据不足”。写在自己的笔记里，接下来一张一张看。"
       ],
       "teaching": [
         {
@@ -166,7 +166,7 @@ window.lesson = {
         "【操作提示｜课件 p55-5 第 1 步，指向 ⑤ 的说明和 tabIndex={0} 那一行 diff；不切窗口】\n\n第五张。AI 说：给项目卡加上 tabIndex，键盘也能聚焦，只是重构。diff 只有一行，在列表项上加了 tabIndex 等于 0。和第三张一样，说明里“键盘也能聚焦”就是一个新行为。",
         "【操作提示｜推进第 2 步，指向“改前”方框；此步不演示按键】\n\n如果只看页面，什么都发现不了：截图和原来一模一样，点击项目卡也还是没反应。改前，按完“查看项目”再按 Tab，焦点就离开了页面。",
         "【操作提示｜推进第 3 步，指向“按第 2 次 Tab”“按第 3 次 Tab”两张截图里的焦点框。画面为排练截图（evidence/card5-tab2.png、card5-tab3.png），不现场重跑；如改为现场演示，提前在 Chrome 打开改后的构建产物，从页面顶部点一下再连续按 Tab，焦点框样式以实际浏览器为准】\n\n现在从页面顶部连续按 Tab。第一次停在“查看项目”，第二次停在第一张卡上，出现了蓝色的焦点框；第三次停在第二张卡上。三张卡依次都会停一次。",
-        "【操作提示｜推进第 4 步，出现“行为变了”章和结论条；不展开第 2 条反馈，讲完进入 p56】\n\n结论：行为变了。键盘用户要多按三次 Tab，停在卡上按回车，什么也不会发生。这个变化不按 Tab 根本看不出来。至于它是不是在回应 2.1 的第 2 条反馈，下一页再说。"
+        "【操作提示｜推进第 4 步，出现“行为变了”章和结论条；不展开第 1 章的决定，讲完进入 p56】\n\n结论：行为变了。键盘用户要多按三次 Tab，停在卡上按回车，什么也不会发生。这个变化不按 Tab 根本看不出来。这和第 1 章对项目卡定下的决定是什么关系，下一页再说。"
       ],
       "teaching": [
         {
@@ -182,18 +182,18 @@ window.lesson = {
       "segment": "看行为",
       "label": "凭什么这样分",
       "title": "凭什么这样分",
-      "lead": "Martin Fowler 在《重构》里给的定义：在不改变可观察行为的前提下，改善代码的内部结构。可观察行为就是用户能看到、能操作的东西；“只是重构”这句话和 diff 大小都不算数。⑤ 看起来回应了 2.1 的第 2 条反馈，它也是行为变化，要拆出来由人确认。",
-      "html": "<div class=\"p-bar\" data-reveal=\"0\">重构 = <b>可观察行为不变</b>，内部结构变好</div><div class=\"p-pair\" data-reveal=\"1\" style=\"grid-template-columns:1fr auto 1fr;margin-top:12px\"><div class=\"p-box\" data-role=\"ok\"><span class=\"p-tag\" data-role=\"ok\">② 29 行</span><p>行为没变</p></div><div class=\"p-join\"><span>和大小无关</span></div><div class=\"p-box\" data-role=\"gate\"><span class=\"p-tag\" data-role=\"gate\">③ 1 行</span><p>顺序变了</p></div></div><div class=\"p-grid\" style=\"--n:2;gap:14px;margin-top:12px\"><div class=\"p-box is-soft\" data-role=\"us\" data-reveal=\"2\"><h3>⑤ 与 2.1 第 2 条</h3><p>能聚焦了，按回车仍没反应<br>拆开：行为变化由人确认，再作为需求去做</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"3\"><h3>回看 2.2</h3><p>补充项目经历是需求变化，也不是重构</p></div></div>",
+      "lead": "Martin Fowler 在《重构》里给的定义：在不改变可观察行为的前提下，改善代码的内部结构。可观察行为就是用户能看到、能操作的东西；“只是重构”这句话和 diff 大小都不算数。第 1 章定过项目卡不跳转；⑤ 让项目卡能被 Tab 聚焦，哪怕看起来是改进，也是行为变化，要拆出来由人确认。",
+      "html": "<div class=\"p-bar\" data-reveal=\"0\">重构 = <b>可观察行为不变</b>，内部结构变好</div><div class=\"p-pair\" data-reveal=\"1\" style=\"grid-template-columns:1fr auto 1fr;margin-top:12px\"><div class=\"p-box\" data-role=\"ok\"><span class=\"p-tag\" data-role=\"ok\">② 29 行</span><p>行为没变</p></div><div class=\"p-join\"><span>和大小无关</span></div><div class=\"p-box\" data-role=\"gate\"><span class=\"p-tag\" data-role=\"gate\">③ 1 行</span><p>顺序变了</p></div></div><div class=\"p-grid\" style=\"--n:2;gap:14px;margin-top:12px\"><div class=\"p-box is-soft\" data-role=\"us\" data-reveal=\"2\"><h3>⑤ 与第 1 章的决定</h3><p>项目卡定为不跳转；能聚焦了，按回车仍没反应<br>拆开：行为变化由人确认，再作为需求去做</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"3\"><h3>回看 2.2</h3><p>补充项目经历是需求变化，也不是重构</p></div></div>",
       "steps": [
         "定义",
         "和大小无关",
-        "第 2 条",
+        "第 1 章的决定",
         "回看 2.2"
       ],
       "script": [
         "【操作提示｜课件 p56 第 1 步，指向定义条“可观察行为不变”；不切窗口，不打开外部链接】\n\n现在给出定义。Martin Fowler 在《重构》里说：重构，是在不改变可观察行为的前提下，改善代码的内部结构。可观察行为，就是用户能看到、能操作的东西：文字、顺序、样式、点击、键盘。按这个定义，只有第一、二张是重构。",
         "【操作提示｜推进第 2 步，指向“② 29 行 / ③ 1 行”的对照】\n\n分拣时，很容易按 diff 大小判断：改得多就危险，改得少就安全。这五张卡正好反过来：第二张 29 行，行为没变；第三张一行，顺序就变了。说明能帮上一部分忙：第三、五张的说明自己就写出了新行为，对照定义就知道不是重构；第四张的说明听起来无害；第一、二张的说明是真的，可也要查完才知道。“只是重构”这句话本身，不能当证据。",
-        "【操作提示｜推进第 3 步，指向“⑤ 与 2.1 第 2 条”方框；如需回看反馈原文，只在课件中提一句，不切到 2.1 的记录文件】\n\n第五张最容易让人想收。回想 2.1 的第 2 条反馈：项目卡看着能点，点了没反应。它是既有决定，改不改由人决定。第五张让卡片能聚焦，看上去在回应这条反馈，可聚焦以后按回车仍然没有反应，键盘用户只是多停了三次。处理方式是拆开：行为变化单独提出来，由人决定要不要、怎么做，再作为一次需求变化去做。",
+        "【操作提示｜推进第 3 步，指向“⑤ 与第 1 章的决定”方框；就地复述决定，不切到第 1 章的课件或文件】\n\n第五张最容易让人想接受。第 1 章做首页时定过一个决定：项目卡不跳转，点了没有反应是有意的。第五张让卡片能被 Tab 聚焦，看上去像是改进，可聚焦以后按回车仍然没有反应，键盘用户只是多停了三次。这是行为变化，哪怕看起来是改进，也要拆开：单独提出来，由人决定要不要、怎么做，再作为一次需求变化去做。",
         "【操作提示｜推进第 4 步，指向“回看 2.2”方框；讲完进入 p57】\n\n顺便回看 2.2：我们补充项目经历，改的是页面内容，那是需求变化，也不是重构。重构只有一种：行为不变，结构变了。"
       ],
       "teaching": [],
@@ -220,7 +220,7 @@ window.lesson = {
       "teaching": [
         {
           "title": "跟做产出",
-          "text": "在 CH02_VIBE_ITERATIONS.md 写下哪几张只是重构，每张引用一条具体行为证据（顺序、样式、Tab 等）。"
+          "text": "暂停时在自己的笔记里写下哪几张只是重构，每张引用一条具体行为证据（顺序、样式、Tab 等）。"
         }
       ],
       "source": "index.html#p57",
@@ -231,19 +231,19 @@ window.lesson = {
       "segment": "收尾",
       "label": "每次都手工查吗",
       "title": "每次都这样手工重查吗？",
-      "lead": "现在的项目没有覆盖这些行为的自动测试。确认“行为不变”只能把文字与顺序、样式、点击、键盘和三种视口全部手工查一遍，每改一次就重复一次。验证很贵，这是后面规格与 Harness 章节要解决的问题。本章交付物：迭代记录、审过的提交、推送前检查记录、公开 URL 和 ch02-homepage-live tag。",
-      "html": "<div class=\"p-grid\" style=\"--n:2;gap:16px;align-items:stretch\"><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"0\"><h3>每次都要重查</h3><p>文字与顺序 · 并排比样式 · 点击 · Tab · 三种视口</p></div><div class=\"p-bar\" data-reveal=\"1\" style=\"display:flex;align-items:center\">没有测试，<b>验证很贵</b></div></div><div class=\"p-flow\" style=\"--n:5;margin-top:16px\"><div class=\"p-node\" data-role=\"us\" data-reveal=\"2\"><h3>2.1 反馈</h3><p>带证据的清单</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"2\"><h3>2.2 小改</h3><p>一轮一个结果</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"2\"><h3>2.3 审查</h3><p>可回退的提交</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"2\"><h3>2.4 发布</h3><p>公开 URL 与 tag</p></div><div class=\"p-node\" data-role=\"gate\" data-reveal=\"2\"><h3>2.5 重构</h3><p>看可观察行为</p></div></div><div class=\"p-bar is-light\" data-reveal=\"3\" style=\"margin-top:14px\">下一章 · 第 3 章：给个人主页加一个小游戏</div>",
+      "lead": "现在的项目没有覆盖这些行为的自动测试。确认“行为不变”只能把文字与顺序、样式、点击、键盘和三种视口全部手工查一遍，每改一次就重复一次。Codex 判断“行为没变”，也只能依据 context 里看得到的东西，而 context 里没有测试。把“行为”写成能放进 context、能自动检查的东西，是后面规格与测试章节要解决的问题。回看本章：同一份请求记录回答了五节的五个问题；项目上留下审过的提交、公开 URL 和 ch02-homepage-live tag。",
+      "html": "<div class=\"p-grid\" style=\"--n:2;gap:16px;align-items:stretch\"><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"0\"><h3>每次都要重查</h3><p>文字与顺序 · 并排比样式 · 点击 · Tab · 三种视口</p></div><div class=\"p-bar\" data-reveal=\"1\" style=\"display:flex;flex-direction:column;justify-content:center;align-items:flex-start\"><span>Codex 只能看 context，<b>context 里没有测试</b></span><span>手工重查，<b>验证很贵</b></span></div></div><p class=\"p-sub\" data-reveal=\"2\" style=\"margin-top:12px\">同一份请求记录回答过的五个问题</p><div class=\"p-flow\" style=\"--n:5;margin-top:8px\"><div class=\"p-node\" data-role=\"us\" data-reveal=\"2\"><h3>2.1</h3><p>只说了一句话，模型收到了什么</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"2\"><h3>2.2</h3><p>补上项目经历，看对话怎么变长</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"2\"><h3>2.3</h3><p>AI 交回的改动，要不要接受</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"2\"><h3>2.4</h3><p>发布上线，看 Codex 怎么用 gh</p></div><div class=\"p-node\" data-role=\"gate\" data-reveal=\"2\"><h3>2.5</h3><p>AI 说“只是重构”</p></div></div><div class=\"p-bar is-light\" data-reveal=\"3\" style=\"margin-top:10px\">下一章 · 第 3 章：给首页加一个小游戏</div>",
       "steps": [
         "手工清单",
-        "验证很贵",
+        "context 里没有测试",
         "回看本章",
         "下一章"
       ],
       "script": [
         "【操作提示｜课件 p58 第 1 步，指向“每次都要重查”方框；不切窗口】\n\n最后想一个问题：分拣这五张卡，我们用到了文字与顺序、并排比样式、点击、Tab 和三种视口。这个项目没有覆盖这些行为的自动测试，所以每改一次，就得手工全部重查一次。",
-        "【操作提示｜推进第 2 步，指向“没有测试，验证很贵”；只点到为止，不展开测试框架】\n\n这一章我们一直在手工验证，每一轮都是。验证很贵，而且越往后改动越多，越容易漏。怎样把“行为”写下来、让检查自动跑起来，是后面规格和 Harness 章节要解决的问题。",
-        "【操作提示｜推进第 3 步，五个节点一起出现，按 2.1 到 2.5 的顺序逐个指认】\n\n回看这一章：2.1 先听反馈，留下带证据的清单；2.2 只改一处，并证明没弄坏别的；2.3 读懂 diff 再收，留下可回退的提交；2.4 看清历史再推送，发布后用三项检查证明页面可用；2.5 判断重构，看的是可观察行为，不是提交说明和 diff 大小。原本只在本地运行的个人主页，现在有了公开 URL。",
-        "【操作提示｜推进第 4 步，指向底部的第 3 章预告；第 2 章到此结束，不再切工具窗口】\n\n第 2 章到这里结束。下一章，我们给个人主页加一个小游戏，体验更快的迭代，也会遇到第一个需要真正调试的问题。"
+        "【操作提示｜推进第 2 步，指向“context 里没有测试”；只点到为止，不展开测试框架】\n\n这一章我们一直在手工验证，每一轮都是。Codex 也一样：它说“行为没变”，只能依据 context 里看得到的东西，而这个项目没有测试，context 里就没有能证明行为的东西。验证很贵，而且越往后改动越多，越容易漏。怎样把“行为”写下来，放进 context，让检查自动跑起来，是后面规格和测试章节要解决的问题。",
+        "【操作提示｜推进第 3 步，五个节点一起出现，按 2.1 到 2.5 的顺序逐个指认】\n\n回看这一章，我们一直在看同一份请求记录，它回答了五个问题。2.1，只说了一句话，模型收到了什么；2.2，补上项目经历，看对话怎么变长、怎么清；2.3，AI 交回的改动，要不要接受，先看它当时看到了什么；2.4，发布上线，看 Codex 怎么用 gh；2.5，AI 说“只是重构”，而 context 里没有测试。项目上，首页 v0 变成了一个有公开 URL 的 v1。",
+        "【操作提示｜推进第 4 步，指向底部的第 3 章预告；第 2 章到此结束，不再切工具窗口】\n\n第 2 章到这里结束。下一章，我们给首页加一个小游戏，体验更快的迭代，也会遇到第一个需要真正调试的问题。"
       ],
       "teaching": [
         {
