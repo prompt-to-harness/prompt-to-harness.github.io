@@ -260,15 +260,15 @@ window.lesson = {
       "id": "p23-done",
       "label": "每条完成标准，都有检查动作",
       "title": "每条完成标准，都有检查动作",
-      "lead": "每条完成标准都配一个检查动作：文字与按钮靠逐字核对和实际点击；构建靠运行 npm run build 看输出和控制台；改动范围靠文件状态、完整 git diff 输出及新增文件内容；构建产物另行检查，确认没有环境页、secret 或私人资料。",
-      "html": "<div style=\"display:grid;gap:14px\"><div style=\"display:grid;grid-template-columns:1fr 60px 1fr;font-size:18px;color:#5B6573\"><span>完成标准</span><span></span><span>检查动作</span></div><div data-reveal=\"0\" style=\"display:grid;grid-template-columns:1fr 60px 1fr;align-items:center\"><div class=\"p-box\" data-role=\"ok\" style=\"padding:12px 18px\"><p class=\"p-big\" style=\"font-size:22px\">文字与按钮符合要求</p></div><i class=\"p-arrow\" style=\"display:block;width:60px;height:22px;background:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 22'%3E%3Cpath d='M2 11C20 10 34 12 48 11' fill='none' stroke='%23243042' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M44 4l14 7-14 7z' fill='%23243042'/%3E%3C/svg%3E&quot;) no-repeat center/contain\"></i><div class=\"p-box\" data-role=\"tool\" style=\"padding:12px 18px\"><p style=\"font-size:21px\">逐字核对 · 点击观察</p></div></div><div data-reveal=\"1\" style=\"display:grid;grid-template-columns:1fr 60px 1fr;align-items:center\"><div class=\"p-box\" data-role=\"ok\" style=\"padding:12px 18px\"><p class=\"p-big\" style=\"font-size:22px\">构建成功、无明显错误</p></div><i class=\"p-arrow\" style=\"display:block;width:60px;height:22px;background:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 22'%3E%3Cpath d='M2 11C20 10 34 12 48 11' fill='none' stroke='%23243042' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M44 4l14 7-14 7z' fill='%23243042'/%3E%3C/svg%3E&quot;) no-repeat center/contain\"></i><div class=\"p-box\" data-role=\"tool\" style=\"padding:12px 18px\"><p style=\"font-size:21px\">build 输出 · 控制台</p></div></div><div data-reveal=\"2\" style=\"display:grid;grid-template-columns:1fr 60px 1fr;align-items:center\"><div class=\"p-box\" data-role=\"ok\" style=\"padding:12px 18px\"><p class=\"p-big\" style=\"font-size:22px\">范围与产物合规</p></div><i class=\"p-arrow\" style=\"display:block;width:60px;height:22px;background:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 22'%3E%3Cpath d='M2 11C20 10 34 12 48 11' fill='none' stroke='%23243042' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M44 4l14 7-14 7z' fill='%23243042'/%3E%3C/svg%3E&quot;) no-repeat center/contain\"></i><div class=\"p-box\" data-role=\"tool\" style=\"padding:12px 18px\"><p style=\"font-size:21px\">检查全部改动 · 查看构建产物</p></div></div></div>",
+      "lead": "完成标准先写具体，再给每条配一个检查动作：文字与确认稿逐项一致、按钮跳到项目区，靠逐字核对和实际点击；构建靠运行 npm run build 看输出和控制台；改动范围靠文件状态、完整 git diff 输出及新增文件内容；构建产物另行检查，确认没有环境页、secret 或私人资料。",
+      "html": "<div style=\"display:grid;gap:14px\"><div style=\"display:grid;grid-template-columns:1fr 60px 1fr;font-size:18px;color:#5B6573\"><span>完成标准</span><span></span><span>检查动作</span></div><div data-reveal=\"0\" style=\"display:grid;grid-template-columns:1fr 60px 1fr;align-items:center\"><div class=\"p-box\" data-role=\"ok\" style=\"padding:12px 18px\"><p class=\"p-big\" style=\"font-size:22px\">文字与确认稿逐项一致；按钮跳到项目区</p></div><i class=\"p-arrow\" style=\"display:block;width:60px;height:22px;background:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 22'%3E%3Cpath d='M2 11C20 10 34 12 48 11' fill='none' stroke='%23243042' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M44 4l14 7-14 7z' fill='%23243042'/%3E%3C/svg%3E&quot;) no-repeat center/contain\"></i><div class=\"p-box\" data-role=\"tool\" style=\"padding:12px 18px\"><p style=\"font-size:21px\">逐字核对 · 点击观察</p></div></div><div data-reveal=\"1\" style=\"display:grid;grid-template-columns:1fr 60px 1fr;align-items:center\"><div class=\"p-box\" data-role=\"ok\" style=\"padding:12px 18px\"><p class=\"p-big\" style=\"font-size:22px\">npm run build 成功；控制台无明显错误</p></div><i class=\"p-arrow\" style=\"display:block;width:60px;height:22px;background:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 22'%3E%3Cpath d='M2 11C20 10 34 12 48 11' fill='none' stroke='%23243042' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M44 4l14 7-14 7z' fill='%23243042'/%3E%3C/svg%3E&quot;) no-repeat center/contain\"></i><div class=\"p-box\" data-role=\"tool\" style=\"padding:12px 18px\"><p style=\"font-size:21px\">build 输出 · 控制台</p></div></div><div data-reveal=\"2\" style=\"display:grid;grid-template-columns:1fr 60px 1fr;align-items:center\"><div class=\"p-box\" data-role=\"ok\" style=\"padding:12px 18px\"><p class=\"p-big\" style=\"font-size:22px\">改动不超出文件清单；产物无环境页与私人资料</p></div><i class=\"p-arrow\" style=\"display:block;width:60px;height:22px;background:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 22'%3E%3Cpath d='M2 11C20 10 34 12 48 11' fill='none' stroke='%23243042' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M44 4l14 7-14 7z' fill='%23243042'/%3E%3C/svg%3E&quot;) no-repeat center/contain\"></i><div class=\"p-box\" data-role=\"tool\" style=\"padding:12px 18px\"><p style=\"font-size:21px\">检查全部改动 · 查看构建产物</p></div></div></div>",
       "steps": [
         "行为",
         "构建",
         "范围"
       ],
       "script": [
-        "【操作提示｜停留课件 p23-done 第 1 步，讲解下一节的浏览器检查方案；本节不启动开发服务器、不新开 localhost 页面】\n\n先看内容和行为。文字要符合要求，我们就拿确认稿逐项对照姓名、简介、项目名称和描述。按钮要跳到项目区，就实际点一次，看页面到了哪里。项目卡不跳转，也要检查有没有被加上链接。\n\n这些操作等下一节页面生成以后，在 Chrome 里做。现在把它们写下来，是让我们在开工前就知道怎样验收，而不是看到成品后临时改标准。",
+        "【操作提示｜停留课件 p23-done 第 1 步，讲解下一节的浏览器检查方案；本节不启动开发服务器、不新开 localhost 页面】\n\n先看第一条标准：文字与确认稿逐项一致，按钮跳到项目区。它写清了对照什么、点了以后应该去哪，检查动作就跟着出来：拿确认稿逐项对照姓名、简介、项目名称和描述；实际点一次按钮，看页面到了哪里。项目卡不跳转，也要检查有没有被加上链接。\n\n如果只写“文字和按钮符合要求”，检查的人就不知道该对照什么、点了以后算对还是算错。\n\n这些操作等下一节页面生成以后，在 Chrome 里做。现在把它们写下来，是让我们在开工前就知道怎样验收，而不是看到成品后临时改标准。",
         "【操作提示｜推进第 2 步，指向 npm run build 与控制台；这里只说明后续 Terminal、Chrome 检查位置，不执行构建】\n\n再看构建。下一节会在项目目录运行 npm run build，查看实际输出，确认构建流程有没有成功完成。浏览器里的控制台，则用来观察页面运行时有没有明显错误。\n\n这两处看的对象不同。终端构建通过以后，我们仍然要打开页面核对文字和按钮。把这几个动作分别写出来，检查时就不容易漏掉。\n\n如果某项还没执行，就记成未检查；如果报错，就保留实际报错，先处理问题。",
         "【操作提示｜推进第 3 步，指向全部改动和构建产物检查；回看草稿标准，不展示伪造的通过记录】\n\n最后检查改动范围和产物。下一节要看完整 git diff 输出，也要检查新增文件内容。Git 状态里出现的未跟踪文件，普通 git diff 不会展示它们的内容，需要另行打开核对。\n\n同时检查正式应用和构建产物里，有没有混进环境检查页、密钥或私人资料。我们做的是将来可以公开的个人主页，哪些内容会被带出去，要由自己看清楚。\n\n到这里，每条标准都能接上一个动作：看文字、点按钮、运行构建、查差异和产物。下面用一个不完整的任务，练习把标准补清楚。"
       ],
@@ -300,19 +300,19 @@ window.lesson = {
     },
     {
       "id": "p24",
-      "label": "把“项目区正确”改到能验收",
-      "title": "把“项目区正确”改到能验收",
-      "lead": "练习：依据自己的项目说明补齐 Prompt，未知项单列，保存为 PROMPT_V1.md。挑一条完成标准，自己写出打开哪个页面、对照什么内容、点击哪里、应该看到什么；写不清就继续修改。同伴复述可选。",
-      "html": "<div class=\"p-prompt\" style=\"grid-template-columns:1.1fr 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\" style=\"padding:12px 18px\"><h3 style=\"margin-bottom:6px\">待补全 Prompt</h3><div class=\"p-replies\" style=\"gap:8px;--rf:19px\"><div class=\"p-reply is-missing\" data-key=\"goal\" style=\"--cl:#E8EAEE;--ct:#243042\"><span class=\"p-chip\" data-key=\"goal\">Goal</span><span>做一个好看的主页</span><span class=\"p-ask\">做给谁、显示什么？</span></div><div class=\"p-reply is-missing\" data-key=\"ctx\"><span class=\"p-chip\" data-key=\"ctx\">Context</span><span>〔材料〕</span></div><div class=\"p-reply is-missing\" data-key=\"limit\"><span class=\"p-chip\" data-key=\"limit\">Constraints</span><span>〔边界〕</span></div><div class=\"p-reply is-missing\" data-key=\"done\"><span class=\"p-chip\" data-key=\"done\">Done when</span><span>项目区正确</span><span class=\"p-ask\">怎样算正确？</span></div></div></div><div style=\"display:grid;gap:14px;align-content:start\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><h3>你的交付</h3><p>补齐四要素 · 未知项单列</p><p style=\"margin-top:6px\"><code class=\"p-mono\">PROMPT_V1.md</code></p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ok\">参考</span><p>内容与确认稿一致 · 链接跳到确认的位置</p></div></div></div>",
+      "label": "明确 “Done when” 标准",
+      "title": "明确 “Done when” 标准",
+      "lead": "练习：在练习项目根目录用编辑器新建 PROMPT_V1.md（前面已复制示例的，就改那份草稿），照完整示例的结构写，内容换成 PROJECT_BRIEF.md 里的材料和自己的决定；没定的事列为待确认。这一节 Codex 只读，文件由自己保存。重点改完成标准：“项目区正确”没说几项、显示什么、点击后怎样。挑一条标准，写出打开哪个页面、对照什么文字、点击哪里、应该看到什么；写不出来就继续改。",
+      "html": "<div class=\"p-prompt\" style=\"grid-template-columns:1.1fr 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\" style=\"padding:12px 18px\"><h3 style=\"margin-bottom:6px\">我的 PROMPT_V1.md</h3><div class=\"p-replies\" style=\"gap:8px;--rf:19px\"><div class=\"p-reply\" data-key=\"goal\" style=\"--cl:#E8EAEE;--ct:#243042;opacity:.6\"><span class=\"p-chip\" data-key=\"goal\">Goal</span><span>照示例结构，换成自己的内容</span></div><div class=\"p-reply\" data-key=\"ctx\" style=\"opacity:.6\"><span class=\"p-chip\" data-key=\"ctx\">Context</span><span>PROJECT_BRIEF.md + 自己的决定</span></div><div class=\"p-reply\" data-key=\"limit\" style=\"opacity:.6\"><span class=\"p-chip\" data-key=\"limit\">Constraints</span><span>没定的事列为待确认</span></div><div class=\"p-reply is-missing\" data-key=\"done\"><span class=\"p-chip\" data-key=\"done\">Done when</span><span class=\"p-ask\">几项？显示什么？点了怎样？</span></div></div></div><div style=\"display:grid;gap:14px;align-content:start\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><h3>写出具体检查项</h3><p>打开哪个页面 → 对照什么文字 → 点击哪里 → 应该看到什么</p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ok\">参考示例</span><p>标准：项目区 1 张卡片（学习笔记），文字与确认稿一致，点击不跳转</p><p style=\"margin-top:6px\">检查：打开主页 → 逐字对照 → 点卡片，页面不动</p></div></div></div>",
       "steps": [
-        "独立补写",
-        "自查标准",
-        "揭晓解析"
+        "找出缺口",
+        "写检查动作",
+        "对照参考"
       ],
       "script": [
-        "【操作提示｜停留课件 p24 第 1 步，不提前揭晓；录播留短暂停顿，提示学员自行暂停。讲师准备 VS Code 草稿，不要求现场互动】\n\n看左边这个没写完的请求：目标是“做一个好看的主页”，上下文和约束空着，完成标准只有“项目区正确”。\n\n请先暂停视频，用自己的项目说明补一下。尤其想一想，“项目区正确”要检查什么？有几项内容，每项显示什么，点击以后怎么表现？\n\n两分钟可以先写一个草稿。材料没有答案的地方，单独列出问题，不急着填满。写好以后再继续看下面的对照。",
-        "【操作提示｜推进第 2 步 → VS Code 展示 PROMPT_V1.md 草稿；挑一条 Done when 写出对应检查动作，手动保存；随后回课件】\n\n写完以后，我们换一个角度，假设自己现在要验收这份页面。先挑一条标准，试着说出具体动作：我打开哪个页面，对照哪段文字，点击哪里，应该看到什么？\n\n如果读到“项目区正确”就停住了，说明标准还缺内容。把它补到另一个人只拿着这份文档，也知道该怎么检查。\n\n独立学习时，自己隔一会儿再读一遍就可以；如果有人帮忙看，也可以请他复述检查动作。最终保存为 PROMPT_V1.md，待确认的问题和已经作出的决定都留下。",
-        "【操作提示｜推进第 3 步，展示参考解析；必要时切回草稿修改，再回课件 p25】\n\n参考写法可以是：项目区只展示已经确认的一项学习笔记，名称和描述与确认稿一致；“查看项目”跳到本页项目区，项目卡不跳转。\n\n这一版同时给出了数量、内容和行为。要是自己的项目有两项，就按自己的决定写两项；要是链接去哪还没定，就把它作为问题保留。\n\n参考答案帮助我们找到缺口，具体内容仍然来自自己的材料。现在四个部分都有了，是不是就可以开工？我们再看一个候选状态。"
+        "【操作提示｜停留课件 p24 第 1 步，不提前揭晓；VS Code 打开练习项目根目录的 PROMPT_V1.md 草稿（p23 已复制完整示例；没有则新建），指向 Done when 一行。录播留短暂停顿，提示学员自行暂停】\n\n前面我们看完了一份完整的示例请求，现在轮到自己写。在练习项目的根目录，用编辑器新建一个 PROMPT_V1.md；刚才已经把示例复制过去的，就在那份草稿上改。结构照着示例，目标、上下文、约束里的内容，换成自己 PROJECT_BRIEF.md 里的材料和刚才作出的决定。这份文件由我们自己保存，这一节 Codex 只读，不写文件。\n\n四项里最容易写空的是完成标准。看左边这一条：“项目区正确”。项目区放几项？每项显示什么字？点了以后怎么样？这三件事都没说，验收的人只能凭感觉判断。\n\n请先暂停视频，花两分钟把自己的完成标准改一改。材料里没有答案的，单独列成待确认，不急着填满。",
+        "【操作提示｜推进第 2 步 → VS Code 在 PROMPT_V1.md 草稿里挑一条 Done when，写出对应检查动作，手动保存；随后回课件】\n\n写完以后，我们换一个角度，假设自己现在要验收这份页面。挑一条标准，试着说出具体动作：我打开哪个页面，对照哪段文字，点击哪里，应该看到什么？\n\n如果读到“项目区正确”就停住了，说明标准还缺内容。把它补到另一个人只拿着这份文档，也知道该怎么检查。\n\n独立学习时，自己隔一会儿再读一遍就可以；如果有人帮忙看，也可以请他复述检查动作。保存时，待确认的问题和已经作出的决定都留在文件里。",
+        "【操作提示｜推进第 3 步，展示参考解析；必要时切回草稿修改，再回课件 p25】\n\n参考写法可以是：项目区只展示已经确认的一项学习笔记，名称和描述与确认稿一致；点击项目卡，页面不跳转。对应的检查动作是：打开主页，逐字对照卡片文字，再点一下卡片，看页面有没有跳走。\n\n这一版同时给出了数量、内容和行为。要是自己的项目有两项，就按自己的决定写两项；要是链接去哪还没定，就把它作为问题保留。\n\n参考答案帮助我们找到缺口，具体内容仍然来自自己的材料。现在四个部分都有了，是不是就可以开工？我们再看一个候选状态。"
       ],
       "segment": "练习与确认",
       "seconds": 240,
@@ -332,7 +332,7 @@ window.lesson = {
         },
         {
           "title": "讲师提示",
-          "text": "先暂停两分钟起草，不先看参考解析。不要照抄教师的内容决定。\n\n选一条 Done when，自己写出实际检查动作；写不出来就继续改写。同伴复述可选。\n\n数量、内容、行为不明确时先问，不得填猜测。草稿可以保存，不能标成已批准。"
+          "text": "先暂停两分钟起草，不先看参考解析。结构照示例，内容不照抄教师的决定。\n\n重点是完成标准：选一条 Done when，自己写出实际检查动作；写不出来就继续改写。同伴复述可选。\n\nPROMPT_V1.md 由学员在练习项目根目录用编辑器保存，不交给 Codex 写。数量、内容、行为不明确时先问，不得填猜测。草稿可以保存，不能标成已批准。"
         }
       ]
     },
@@ -340,17 +340,17 @@ window.lesson = {
       "id": "p25",
       "label": "现在可以开工了吗？",
       "title": "现在可以开工了吗？",
-      "lead": "四要素都写了，但按钮行为还是“待定”——这时不开工。关键未知项会改变实现，格式完整不等于可以执行；确认关键决定后，核对任务版本、范围和计划，再由人确认具体版本。",
-      "html": "<div class=\"p-claim\" style=\"grid-template-columns:1fr 1fr\"><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">候选状态</span><ul class=\"p-checks\" style=\"margin-top:10px\"><li>四要素已写</li><li class=\"is-no\">按钮行为仍为“待定”</li></ul></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"1\"><span class=\"p-stamp\" data-role=\"gate\" style=\"position:static;display:inline-block;transform:rotate(-4deg);font-size:30px\">暂不开工</span><p style=\"margin-top:12px\">关键决定确认后再开工</p></div></div><div class=\"p-q\" data-reveal=\"2\"><p class=\"p-say\" style=\"padding-right:0;font-size:23px\">说出你批准的范围，以及一个必须停止的条件</p></div>",
+      "lead": "四要素都写了，但“查看项目”按钮点了去哪，还写着“待定”。这个决定会改变实现，先确认再开工。最后在 PROMPT_V1.md 里写下状态：哪些决定已确认，还缺哪一项；执行计划留到下一节核对后再授权",
+      "html": "<div class=\"p-claim\" style=\"grid-template-columns:1fr 1fr\"><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">候选状态</span><ul class=\"p-checks\" style=\"margin-top:10px\"><li>四要素已写</li><li class=\"is-no\">“查看项目”按钮去向：待定</li></ul></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"1\"><span class=\"p-stamp\" data-role=\"gate\" style=\"position:static;display:inline-block;transform:rotate(-4deg);font-size:30px\">暂不开工</span><p style=\"margin-top:12px\">关键决定确认后再开工</p></div></div><div class=\"p-q\" data-reveal=\"2\"><p class=\"p-say\" style=\"padding-right:0;font-size:23px\">在 PROMPT_V1.md 写下状态：已确认什么，还缺什么</p></div>",
       "steps": [
         "先判断",
         "再解释",
-        "记录交接"
+        "记录状态"
       ],
       "script": [
-        "【操作提示｜停留课件 p25 第 1 步，展示“按钮行为待定”的候选状态；停顿后继续讲解】\n\n这份任务的四个标题都填上了，目标有了，范围也有了，但按钮行为还写着“待定”。\n\n如果现在让它实现，它就得自己选择：跳到项目区，打开新页面，还是先做一个点了没反应的按钮。三个结果差别很大。\n\n那这份任务我们会怎么处理？可以先暂停一下，给出自己的判断，再看下一步。",
-        "【操作提示｜推进第 2 步，说明暂不开工；如真实任务仍缺决定，在 VS Code 标“待确认”，不要在 CLI 发送批准】\n\n我的判断是，先把按钮行为确认下来，再开工。这个未知项会直接改变实现，四个标题写全了，也不能替代这个决定。\n\n决定补齐以后，再核对完整任务、文件范围和小计划。它是不是准备按我们确认的内容做？有没有额外加入功能？这些都对上，才有明确的执行依据。\n\n如果计划更新了，我们也要看更新后的版本。不能前面同意的是一版，后面执行的却多出了别的事情。",
-        "【操作提示｜推进第 3 步 → VS Code 在 PROMPT_V1.md 记录当前版本、人工决定和状态；已明确者记“需求已确认，执行确认留到 1.5”，未明确者列待确认项。本节不向 CLI 发送实现授权。回课件 p25-recap】\n\n交接时，把状态也写清楚。需求已经明确，就记录哪些内容已确认，下一节再核对执行计划并授权；还缺决定，就明确写出缺哪一项。\n\n比如，我们可以说：“这次只做首屏和项目区，文件范围按当前清单；需要改到清单以外时，先停下来说明。”这句话把允许的动作和停止条件都指了出来。\n\n保存之后，下一次继续工作就有一份能对照的依据，不必只靠回忆刚才聊过什么。"
+        "【操作提示｜停留课件 p25 第 1 步，展示“查看项目按钮去向待定”的候选状态；停顿后继续讲解】\n\n这份任务的四个标题都填上了，目标有了，范围也有了，但首屏“查看项目”这个按钮点了去哪，还写着“待定”。\n\n如果现在让它实现，它就得自己选择：跳到项目区，打开新页面，还是先做一个点了没反应的按钮。三个结果差别很大。\n\n那这份任务我们会怎么处理？可以先暂停一下，给出自己的判断，再看下一步。",
+        "【操作提示｜推进第 2 步，说明暂不开工；停留课件，不切窗口，不在 CLI 发送批准】\n\n我的判断是，先把按钮去向确认下来，再开工。这个未知项会直接改变实现，四个标题写全了，也不能替代这个决定。\n\n决定补齐以后，也还不是马上动手。下一节会先让它给出计划，我们核对计划和这份任务对得上，再授权执行。",
+        "【操作提示｜推进第 3 步 → VS Code 在 PROMPT_V1.md 末尾写状态：演示项目记“需求已确认：‘查看项目’跳到项目区；执行确认留到 1.5”。本节不向 CLI 发送实现授权。回课件 p25-recap】\n\n最后，把这份任务现在的状态写进 PROMPT_V1.md。\n\n我们的示例项目，按钮去向在前面已经决定了：点“查看项目”跳到项目区。所以这里写“需求已确认”，再注明执行计划下一节核对。要是你的按钮去向还没定，就写“待确认：按钮点了去哪”，先把这个决定补上。\n\n保存之后，下一次继续工作就有一份能对照的依据，不必只靠回忆刚才聊过什么。"
       ],
       "segment": "练习与确认",
       "seconds": 100,
@@ -358,11 +358,11 @@ window.lesson = {
       "teaching": [
         {
           "title": "追问与预期判断",
-          "text": "现在可以开工了吗？\n\n实际任务已明确时记录批准；尚未明确就记录待确认，不能把两条分支都讲成已发生。"
+          "text": "现在可以开工了吗？\n\n不能。“查看项目”按钮的去向会改变实现，先确认；本节只记录状态，不授权执行。"
         },
         {
           "title": "演示分支",
-          "text": "不满足条件时只读待确认分支，不同时读成已经批准。确认记录必须对应具体版本，而非笼统的“都同意”。"
+          "text": "演示项目在 p22-answers 已决定“查看项目”跳到项目区，第 3 步只读“需求已确认”这一支；“待定”是本页的候选状态，不在演示项目里制造。学员按自己的实际情况二选一记录，不把两条分支都讲成已发生。"
         },
         {
           "title": "备课标记",
@@ -370,7 +370,7 @@ window.lesson = {
         },
         {
           "title": "讲师提示",
-          "text": "请学员暂停视频，先写下接受或继续澄清的结论，并说明依据。\n\n关键未知会改变实现，不因 Prompt 格式完整就开工。确认必须指向具体版本。\n\n实际任务已明确时记录批准；尚未明确就记录待确认，不能把两条分支都讲成已发生。"
+          "text": "请学员暂停视频，先写下接受或继续澄清的结论，并说明依据。\n\n关键未知会改变实现，不因 Prompt 格式完整就开工。执行确认留到下一节，再对照具体版本的计划。"
         }
       ]
     },
