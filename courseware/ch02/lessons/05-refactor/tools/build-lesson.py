@@ -14,7 +14,8 @@ lesson = Lesson(__file__, "2.5", "AI 说“只是重构”", summary="判断一�
 scene = lesson.scene
 
 CARDS = Path(__file__).resolve().parents[3] / "materials" / "refactor-cards"
-MATERIAL = "教学材料：五张卡基于 homepage-v1 制作（courseware/ch02/materials/refactor-cards/），每张单独应用；页面截图与数值来自个人主页发布候选，2026-10-06 在 1440×900 下用浏览器实测（shoot.py）。录制版基于讲师冻结的 homepage-v1 重新制作、重新拍摄。"
+MATERIAL = "教学材料：五张卡基于 homepage-v1 制作（courseware/ch02/materials/refactor-cards/），每张单独应用；页面截图与数值 2026-10-06 在 1440×900 下用浏览器实测（shoot.py）。"
+RECORDING = "截图来自 v1 冻结候选；录制版基于讲师冻结的 homepage-v1 重新制作、重新拍摄。"
 
 # 五张卡：AI 交回时的说明（教学材料里写的，不是某次真实运行的输出）与 git diff --stat
 SAY = {
@@ -84,7 +85,7 @@ scene(
         '<p class="p-hand" data-reveal="2" style="margin:0">怎么判断？</p></div>'
     ),
     steps=["最后一节", "AI 的说明", "问题"],
-    teaching=teach(("讲师提示", "五张卡是标明的教学判断题，不属于伪造的现场失败（决定 7）。" + MATERIAL)),
+    teaching=teach(("讲师提示", "五张卡是标明的教学判断题，不属于伪造的现场失败（决定 7）。" + MATERIAL + RECORDING)),
 )
 
 
@@ -108,7 +109,7 @@ scene(
         + '<div data-reveal="2" style="display:grid;align-content:center;gap:10px;padding:6px 4px">'
         '<span class="p-pause">暂停 · 每张怎么查</span>'
         '<p style="margin:0;font-size:18px;line-height:1.55">读说明 · 读 diff · 打开页面 · 并排比 · 按 Tab<br>拿不准：证据不足</p></div></div>'
-        '<p class="source-note">' + MATERIAL + '</p>'
+        '<p class="source-note">' + MATERIAL.rstrip("。") + '</p>'
     ),
     steps=["①②", "③④⑤", "暂停"],
     teaching=teach(("讲师提示", "学员看讲师提供的卡片与证据判断，不要求在自己项目上复现（分段分镜默认取舍 4）。评价看检查办法和理由，不看猜中几张。五张卡的完整 diff 在各自页面的“完整 diff”弹窗里，原文件见 courseware/ch02/materials/refactor-cards/。")),
@@ -137,21 +138,21 @@ CARD2 = excerpt("src/App.tsx · 另新建 projects.ts", "②", [
 
 scene(
     id="p55-12", segment="看行为",
-    label="①② 提取组件、移动数据", title="①② 改了 30 来行，行为呢？",
-    lead="两张卡都改了两个文件、30 行上下。页面上只放关键几行，完整改动点“完整 diff”查看；行为要逐项对照才能下结论。",
+    label="①② 提取组件、移动数据", title="①② 各改了二三十行，行为呢？",
+    lead="两张卡都改了两个文件，各 20 到 30 行。页面上只放关键几行，完整改动点“完整 diff”查看；行为要逐项对照才能下结论。",
     html=(
         NARROW + f'<div class="p-aside" style="{TWO.format(l=1, r=1)}">'
-        '<div style="display:grid;gap:8px;justify-items:start">' + say("①", 0)
+        '<div style="display:grid;gap:8px;justify-items:start;min-width:0;grid-template-columns:minmax(0,1fr)">' + say("①", 0)
         + '<div style="position:relative;justify-self:stretch">' + CARD1 + stamp("行为没变", GREEN, 3) + '</div>'
         + full("①", "01-extract-component.diff", 0) + '</div>'
-        '<div style="display:grid;gap:8px;justify-items:start">' + say("②", 1)
+        '<div style="display:grid;gap:8px;justify-items:start;min-width:0;grid-template-columns:minmax(0,1fr)">' + say("②", 1)
         + '<div style="position:relative;justify-self:stretch">' + CARD2 + stamp("行为没变", GREEN, 3) + '</div>'
         + full("②", "02-move-data.diff", 1) + '</div></div>'
         '<div data-reveal="2" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px">'
         '<span style="font-size:17px;font-weight:700;margin-right:4px">逐项对照：</span>'
         + check("文字与顺序") + check("并排比样式") + check("点击项目卡") + check("Tab") + check("三种视口")
         + '<span style="font-size:16px;color:#5B6573">渲染出的页面结构与改前逐字相同</span></div>'
-        '<div class="p-bar" data-reveal="3" style="margin-top:10px;font-size:17px;padding:8px 14px">改了 30 来行，行为一点没变；但只有逐项查完，才能说“没变”</div>'
+        '<div class="p-bar" data-reveal="3" style="margin-top:10px;font-size:17px;padding:8px 14px">改了二三十行，行为一点没变；但只有逐项查完，才能说“没变”</div>'
     ),
     steps=["① 提取组件", "② 移动数据", "逐项对照", "结论"],
     teaching=teach(
@@ -173,7 +174,7 @@ scene(
     lead="这张卡的说明自己就写出了新行为：用户看到的顺序会变。对照重构的定义，读说明就能发现它不是重构；打开页面再确认一遍。",
     html=(
         NARROW + f'<div class="p-aside" style="{TWO.format(l=1.2, r=.8)}">'
-        '<div style="display:grid;gap:8px;justify-items:start">' + say("③", 0) + CARD3
+        '<div style="display:grid;gap:8px;justify-items:start;min-width:0;grid-template-columns:minmax(0,1fr)">' + say("③", 0) + CARD3
         + '<div class="p-box is-soft" data-role="gate" data-reveal="1" style="justify-self:stretch;padding:10px 14px"><p style="font-size:18px;line-height:1.5">说明里写的是<b>新行为</b>：排序会改变用户看到的顺序。<br>“只是重构”和“按名称排序”自相矛盾</p></div>'
         '<div class="p-bar" data-reveal="3" style="justify-self:stretch;font-size:17px;padding:8px 14px">只改了一行，顺序就变了；构建照样通过</div></div>'
         '<div data-reveal="2" style="position:relative;display:grid;grid-template-columns:1fr 1fr;gap:10px">'
@@ -204,7 +205,7 @@ scene(
     lead="说明听起来完全无害，diff 也只换了一个名字。顺着类名去找样式，再和原页面并排比，才看得出描述的样式整段丢了。",
     html=(
         NARROW + f'<div class="p-aside" style="{TWO.format(l=1.13, r=.87)}">'
-        '<div style="display:grid;gap:8px;justify-items:start">' + say("④", 0) + CARD4 + CSS4
+        '<div style="display:grid;gap:8px;justify-items:start;min-width:0;grid-template-columns:minmax(0,1fr)">' + say("④", 0) + CARD4 + CSS4
         + '<div class="p-bar" data-reveal="3" style="justify-self:stretch;font-size:17px;padding:8px 14px">新类名没有样式规则，描述的样式整段丢了；<b>构建照样通过</b></div></div>'
         '<div data-reveal="2" style="position:relative;display:grid;gap:10px">'
         + shot("card4-before.png", "改前的第一张项目卡", "改前 · 卡高 127px", "ok")
@@ -231,7 +232,7 @@ scene(
     lead="说明同样写出了新行为。截图、点击都和原来一样，只有按 Tab 才看得到：焦点多停了三次，按回车却没有任何反应。",
     html=(
         NARROW + f'<div class="p-aside" style="{TWO.format(l=1.05, r=.95)}">'
-        '<div style="display:grid;gap:8px;justify-items:start">' + say("⑤", 0) + CARD5
+        '<div style="display:grid;gap:8px;justify-items:start;min-width:0;grid-template-columns:minmax(0,1fr)">' + say("⑤", 0) + CARD5
         + '<div class="p-box is-soft" data-role="ctx" data-reveal="1" style="justify-self:stretch;padding:10px 14px"><p style="font-size:17px;line-height:1.5">改前：按完“查看项目”再按 Tab，焦点就离开了页面。<br>截图和点击，前后完全一样</p></div>'
         '<div class="p-bar" data-reveal="3" style="justify-self:stretch;font-size:17px;padding:8px 14px">焦点多停三次，按回车没反应；不按 Tab 看不出来</div></div>'
         '<div data-reveal="2" style="position:relative;display:grid;gap:10px">'
@@ -255,7 +256,7 @@ scene(
         '<div class="p-box" data-role="gate"><span class="p-tag" data-role="gate">③ 1 行</span><p>顺序变了</p></div></div>'
         '<div class="p-grid" style="--n:2;gap:14px;margin-top:12px">'
         '<div class="p-box is-soft" data-role="us" data-reveal="2"><h3>⑤ 与第 1 章的决定</h3><p>项目卡定为不跳转；能聚焦了，按回车仍没反应<br>拆开：行为变化由人确认，再作为需求去做</p></div>'
-        '<div class="p-box is-soft" data-role="ctx" data-reveal="3"><h3>回看 2.2</h3><p>补充项目经历是需求变化，也不是重构</p></div></div>'
+        '<div class="p-box is-soft" data-role="ctx" data-reveal="3"><h3>回看补项目经历那一轮</h3><p>补充项目经历是需求变化，也不是重构</p></div></div>'
     ),
     steps=["定义", "和大小无关", "第 1 章的决定", "回看 2.2"],
 )
@@ -286,13 +287,13 @@ SECTION_QS = [
 scene(
     id="p58", segment="收尾",
     label="每次都手工查吗", title="每次都这样手工重查吗？",
-    lead="现在的项目没有覆盖这些行为的自动测试。确认“行为不变”只能把文字与顺序、样式、点击、键盘和三种视口全部手工查一遍，每改一次就重复一次。Codex 判断“行为没变”，也只能依据 context 里看得到的东西，而 context 里没有测试。把“行为”写成能放进 context、能自动检查的东西，是后面规格与测试章节要解决的问题。回看本章：同一份请求记录回答了五节的五个问题；项目上留下审过的提交、公开 URL 和 ch02-homepage-live tag。",
+    lead="现在的项目没有覆盖这些行为的自动测试。确认“行为不变”只能把文字与顺序、样式、点击、键盘和三种视口全部手工查一遍，每改一次就重复一次。Codex 判断“行为没变”，也只能依据 context 里看得到的东西，而 context 里没有测试。把“行为”写成能放进 context、能自动检查的东西，是后面规格与测试章节要解决的问题。回看本章：前四节都在同一份请求记录里找答案，这一节看到的是 context 里缺了什么；项目上留下审过的提交、公开 URL 和 ch02-homepage-live tag。",
     html=(
         '<div class="p-grid" style="--n:2;gap:16px;align-items:stretch">'
         '<div class="p-box is-soft" data-role="gate" data-reveal="0"><h3>每次都要重查</h3><p>文字与顺序 · 并排比样式 · 点击 · Tab · 三种视口</p></div>'
         '<div class="p-bar" data-reveal="1" style="display:flex;flex-direction:column;justify-content:center;align-items:flex-start">'
         '<span>Codex 只能看 context，<b>context 里没有测试</b></span><span>手工重查，<b>验证很贵</b></span></div></div>'
-        '<p class="p-sub" data-reveal="2" style="margin-top:12px">同一份请求记录回答过的五个问题</p>'
+        '<p class="p-sub" data-reveal="2" style="margin-top:12px">本章五节，五个问题</p>'
         '<div class="p-flow" style="--n:5;margin-top:8px">'
         + "".join(f'<div class="p-node" data-role="{role}" data-reveal="2"><h3>{num}</h3><p>{q}</p></div>' for num, q, role in SECTION_QS) +
         '</div>'

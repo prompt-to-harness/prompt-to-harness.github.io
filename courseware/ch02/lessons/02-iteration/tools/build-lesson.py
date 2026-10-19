@@ -29,8 +29,8 @@ Context：首页 v0 的项目区目前只有占位内容；
 项目内容（原文照用）：<每行一条：项目名称：一句描述>
 Constraints：只用上面的文字，不补写；不加链接、依赖；
 只改项目区；先说计划，等我确认再改。
-Done when：我在浏览器查 360/768/1440 宽可读、Tab 顺序不变；
-你跑 build 成功；diff 只含项目区。"""
+Done when：我在浏览器查 360/768/1440 宽可读、
+Tab 顺序不变；你跑 build 成功；diff 只含项目区。"""
 
 
 # ---------- 会话里存了什么 ----------
@@ -51,7 +51,7 @@ scene(
 
 scene(
     id="p21", segment="会话里存了什么",
-    label="三种状态", title="模型、会话、文件与进程，各记住什么",
+    label="三种状态", title="关掉终端再回来，什么还在，什么没了",
     lead="模型本身不保存任何状态；会话由 Harness 保存，每次请求时重发；文件和运行中的程序独立存在于电脑上。上一节开头要重启开发服务器，就是第三栏的事。",
     html=(
         '<div class="p-grid" style="--n:3;gap:16px">'
@@ -93,7 +93,7 @@ scene(
         '<div class="p-ln add" data-reveal="1"><i>5</i><code>user · 第二句：只读任务…</code></div></div></div>'
         '<ol class="p-notes"><li data-reveal="0"><span><b>前 3 项原样重发</b><small>不是“接着上次”，而是从头再发</small></span></li>'
         '<li data-reveal="1"><span><b>新增在末尾</b><small>上一轮的回答和这一句</small></span></li>'
-        '<li class="is-risk" data-reveal="2"><span><b>只在这次运行里看到</b><small>MiniMax 配置下 store 为 false</small></span></li></ol></div>'
+        '<li class="is-risk" data-reveal="2"><span><b>在讲师的配置下看到</b><small>MiniMax 自定义 provider，store 为 false；换服务可能不同</small></span></li></ol></div>'
         '<p class="source-note">示意图：条目名为中文概括。“前几项原样重发、新增接在末尾”来自讲师 2026-10-02 一次运行（Codex 0.160.0 + MiniMax，codex exec）中同一提问的相邻两次请求，那次新增的是工具调用和工具返回</p>'
     ),
     steps=["第一步的请求", "第二步多了什么", "适用范围"],
@@ -107,7 +107,7 @@ scene(
 scene(
     id="p23", segment="重发的代价",
     label="每次都重发，贵不贵", title="每次都重发，代价是 token 和注意力",
-    lead="一次提问产生了 4 次请求，input 从 3 项涨到 10 项。重复的开头部分可以被缓存，算起来更便宜；但模型每次仍要读完整段历史，注意力不会因为缓存而变多。" + MEASURED,
+    lead="一次提问产生了 4 次请求，input 从 3 项涨到 10 项。重复的开头部分可以被缓存，算起来更便宜；但模型每次仍要读完整段历史，这份注意力上的负担，缓存帮不上。" + MEASURED,
     html=(
         '<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr)">'
         '<div class="is-head" data-reveal="0"><span>请求</span><span>input 项数</span><span>缓存命中</span></div>'
@@ -128,16 +128,16 @@ scene(
 
 scene(
     id="p24", segment="重发的代价",
-    label="弯路也会被重发", title="走过的弯路，也跟着每次重发",
-    lead="开场访谈里看过，同一个 Prompt，结果会变；这里看到，过程也会变。同一句只读提问跑了两次：第一次 4 次请求，中途调用了一个不存在的 read_file 工具，报错后改用 cat；第二次只用了 2 次请求。第一次那个失败的调用和报错，之后每次请求都带着重发：它对完成任务没有用，却一直占着 context。" + MEASURED,
+    label="弯路也会被重发", title="走过的弯路，也留在历史里",
+    lead="开场访谈里看过，同一个 Prompt，结果会变；这里看到，过程也会变。同一句只读提问跑了两次：第一次 4 次请求，中途调用了一个不存在的 read_file 工具，报错后改用 cat；第二次只用了 2 次请求。那次记录没有逐项列出后几次请求的内容；按前一页看到的重发方式，第一次那个失败的调用和报错会留在历史里，之后每次请求都带着：它对完成任务没有用，却一直占着 context。" + MEASURED,
     html=(
         '<div class="p-pair" style="grid-template-columns:1fr auto 1fr">'
         '<div class="p-box" data-role="ink" data-reveal="0"><span class="p-tag" data-role="ink">第一次运行 · 4 次请求</span>'
         '<div class="p-term" style="margin-top:10px"><div style="color:#8A93A0">模型 → 调用 read_file</div><div class="err">错误：没有这个工具</div><div style="color:#8A93A0">模型 → 改用 cat index.html</div><div>返回文件内容</div></div></div>'
         '<div class="p-join" data-reveal="1"><span>同一句话</span><i class="p-arrow"></i></div>'
         '<div class="p-box" data-role="ink" data-reveal="1"><span class="p-tag" data-role="ink">第二次运行 · 2 次请求</span><p class="p-big" style="margin-top:10px">直接读到文件</p><p class="p-sub">没有报错</p></div></div>'
-        '<div class="p-bar" data-reveal="2">失败的调用和报错，<b>之后每次请求都带着</b></div>'
-        '<p class="source-note">' + MEASURED[:-1] + ' 第一次运行的 input 从 3 项涨到 10 项，失败的调用和报错在其中，按前一页看到的重发方式留到最后一次请求</p>'
+        '<div class="p-bar" data-reveal="2">按前面的重发方式推断：失败的调用和报错，<b>之后每次请求都带着</b></div>'
+        '<p class="source-note">' + MEASURED[:-1] + '。第一次运行的 input 从 3 项涨到 10 项；那次只记了第 1、4 次请求的项数，没有逐项登记中间各次。失败的调用和报错留在之后每次请求里，是按前一页的重发方式推断的</p>'
     ),
     steps=["第一次", "第二次", "弯路也被重发"],
     teaching=teach(
@@ -179,9 +179,9 @@ scene(
     html=(
         '<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1.4fr) minmax(0,1.4fr) minmax(0,1.2fr)">'
         '<div class="is-head" data-reveal="0"><span>做法</span><span>适合</span><span>风险</span><span>讲师这次</span></div>'
-        '<div data-reveal="0"><span>继续</span><span>刚做完、内容集中</span><span>无关历史越积越多</span><span>不选：全是探索</span></div>'
+        '<div data-reveal="0"><span>继续</span><span>刚做完、内容集中</span><span>无关历史越积越多</span><span>不选：里面全是看请求</span></div>'
         '<div data-reveal="0" class="is-key"><span>/clear</span><span>换一件事，前面用不上</span><span>需要的信息得重新给</span><span>选它</span></div>'
-        '<div data-reveal="1"><span>压缩后继续</span><span>历史长，还在做同一件事</span><span>原始内容变成摘要</span><span>不需要：换的是事</span></div>'
+        '<div data-reveal="1"><span>压缩后继续</span><span>历史长，还在做同一件事</span><span>原始内容变成摘要</span><span>不需要：本轮换了一件事</span></div>'
         '<div data-reveal="1"><span>新建 + 交接</span><span>换一件事，要带上部分结论</span><span>交接内容要写清</span><span>也合理</span></div></div>'
         '<div class="p-bar is-light" data-reveal="2">讲师这次：<b>/clear</b>，上一节的会话和本轮修改无关</div>'
     ),
@@ -274,14 +274,14 @@ scene(
 scene(
     id="p27", segment="压缩",
     label="压缩一下继续", title="压缩以后，模型看到的是摘要",
-    lead="本轮会话已经有了计划、读文件、构建输出。对它执行 /compact，再比较压缩前后的请求。在讲师的配置下，/compact 让模型写一份“交接摘要”；按 Codex 源码，压缩后的历史只留用户消息、这份摘要和重新插入的初始上下文，工具调用和返回都被移走。原始内容还剩多少，取决于摘要怎么写。下方方框的数字来自另一次专门做的压缩实验。",
+    lead="本轮会话已经有了计划、读文件、构建输出。对它执行 /compact，再比较压缩前后的请求。在讲师的配置下，/compact 让模型写一份“交接摘要”；按 Codex 源码，压缩后的历史只留用户消息、这份摘要和重新插入的初始内容，工具调用和返回都被移走。原始内容还剩多少，取决于摘要怎么写。下方方框的数字来自另一次专门做的压缩实验。",
     html=(
         '<div class="p-pair" style="grid-template-columns:1fr auto 1fr">'
         '<div class="p-box" data-role="ink" data-reveal="0"><span class="p-tag" data-role="ink">压缩前</span>'
         '<p style="line-height:1.7">我们的提问 · 模型的工具调用<br><b>工具返回的原文</b>（文件内容、命令输出）<br>模型的回答</p></div>'
         '<div class="p-join" data-reveal="1"><span>/compact</span><i class="p-arrow"></i></div>'
         '<div class="p-box" data-role="ctx" data-reveal="1"><span class="p-tag" data-role="ctx">压缩后</span>'
-        '<p style="line-height:1.7">我们发过的用户消息<br><b>一份交接摘要</b><br>初始上下文（重新插入）</p></div></div>'
+        '<p style="line-height:1.7">我们发过的用户消息<br><b>一份交接摘要</b><br>初始内容（重新插入）</p></div></div>'
         '<div class="p-box is-soft" data-role="gate" data-reveal="2" style="margin-top:14px"><h3>另一次专门做的实验：讲师跑了 5 次</h3><p>grep 的 10 行原文：4 次摘要只留下行号或计数，追问时模型答不出；1 次摘要整段抄了下来。我们写下的决定是用户消息，5 次原文都在</p></div>'
         '<p class="source-note">压缩后保留什么由源码决定（core/src/compact.rs）；方框里的结果来自讲师的独立实验，不是本轮会话：2026-10-05，Codex 0.160.0，clean-codex.sh（MiniMax，本地压缩），见 ch02/materials/compact</p>'
     ),
@@ -338,7 +338,7 @@ scene(
         '<div class="p-qrow"><span class="p-n">2</span><div><h3>执行 /clear 之后，刚才改过的文件还在吗？</h3>'
         '<div data-reveal="2"><p>还在。/clear 清的是对话，文件和开发服务器不受影响<span class="p-back-to" data-role="tool">回到 /clear 之后还剩什么</span></p></div></div></div>'
         '<div class="p-qrow"><span class="p-n">3</span><div><h3>压缩以后，模型看不到哪些原始信息？</h3>'
-        '<div data-reveal="3"><p>工具调用和返回的原文，比如读到的文件内容、命令输出；只剩用户消息和一份摘要<span class="p-back-to" data-role="gate">回到 压缩一下继续</span></p></div></div></div>'
+        '<div data-reveal="3"><p>工具调用和返回的原文，比如读到的文件内容、命令输出；留下的是用户消息、一份摘要和初始内容<span class="p-back-to" data-role="gate">回到 压缩一下继续</span></p></div></div></div>'
         '<div class="p-qrow"><span class="p-n">4</span><div><h3>你这一轮为什么选继续、/clear、压缩还是新建？</h3>'
         '<div data-reveal="4"><p>没有唯一答案，理由要说出会话里的具体状态<span class="p-back-to" data-role="ok">回到 这次该怎么选</span></p></div></div></div></div>'
     ),
@@ -348,13 +348,13 @@ scene(
 scene(
     id="p34", segment="小结",
     label="本节小结", title="对话会变长，文件不跟着变",
-    lead="本节留下一轮内容迭代和三项检查结果。对话每多一轮，前面的内容连同弯路都会重发；/clear 清的是对话、不是文件；压缩后留下的是摘要。下一节：AI 交回的改动，要不要接受？课后可以再做 0–2 轮，不计分。",
+    lead="本节留下一轮内容迭代和三项检查结果。对话每多一轮，前面的内容连同弯路都会重发；/clear 清的是对话、不是文件；压缩后，工具调用和返回换成了一份摘要。下一节：AI 交回的改动，要不要接受？课后可以再做 0–2 轮，不计分。",
     html=(
         '<div class="p-sketch" style="align-items:start"><div><div data-reveal="0"><h3>三种状态</h3>'
         '<ul class="p-exits" style="gap:8px"><li class="is-point">模型不记</li><li class="is-point">会话由 Harness 重发</li><li class="is-point">文件与进程各自存在</li></ul></div>'
         '<div data-reveal="1" style="margin-top:14px"><h3>context 怎么变</h3>'
-        '<ul class="p-exits" style="gap:8px"><li class="is-point">每轮都重发，弯路也在</li><li class="is-point">/clear 清对话，不清文件</li><li class="is-point">压缩后只剩摘要</li></ul></div></div>'
-        '<div data-reveal="2"><h3 style="text-align:center">一个习惯</h3><div class="p-star" style="width:260px;font-size:23px">一轮一个结果<br>引用当前页面<br>与文件</div></div>'
+        '<ul class="p-exits" style="gap:8px"><li class="is-point">每轮都重发，弯路也在</li><li class="is-point">/clear 清对话，不清文件</li><li class="is-point">压缩后看到的是摘要</li></ul></div></div>'
+        '<div data-reveal="2"><h3 style="text-align:center">一个习惯</h3><div class="p-star" style="width:260px;font-size:23px">一轮一个结果<br>Prompt 写清<br>现状</div></div>'
         '<div class="p-next" data-reveal="3"><h3>下一节</h3><div class="p-box" data-role="us"><h3>2.3 审改动</h3><p>AI 交回的改动，要不要接受？</p></div></div></div>'
     ),
     steps=["三种状态", "context 怎么变", "一个习惯", "下一节"],

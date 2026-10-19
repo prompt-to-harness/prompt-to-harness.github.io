@@ -95,7 +95,7 @@ window.lesson = {
       "label": "用 claude-tap 启动 Codex",
       "title": "怎样看到 Codex 实际发出的请求？",
       "lead": "claude-tap 是一个开源的本地代理，夹在 Codex 和模型服务之间，把每一次请求记录下来；启动之后，Codex 的用法和平时一样。它会经手 API 密钥，也只看得到经过它的内容。这一节由讲师演示，自己运行是选做。",
-      "html": "<div class=\"p-term\" data-copy=\"uvx claude-tap --tap-client codex --tap-target https://api.minimax.cn/v1\" data-reveal=\"0\"><div class=\"dim\">$ uvx claude-tap --tap-client codex \\</div><div class=\"dim\">    --tap-target https://api.minimax.cn/v1</div></div><div class=\"p-grid\" style=\"--n:3;gap:12px;margin-top:16px\"><div class=\"p-box is-soft\" data-role=\"tool\" data-reveal=\"1\"><h3>本地代理</h3><p>夹在 Codex 和模型服务之间</p></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"1\"><h3>会经手 API 密钥</h3><p>画面上不露配置和密钥</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"1\"><h3>只看得到经过它的</h3><p>Codex 发出的请求和模型的返回</p></div></div><ol class=\"p-watch is-row\" style=\"margin-top:16px\"><li data-reveal=\"2\">切到终端<small>用它启动 Codex</small></li><li data-reveal=\"3\">打开查看器<small>每次请求都被记下来</small></li></ol>",
+      "html": "<div class=\"p-term\" data-copy=\"uvx claude-tap --tap-client codex --tap-target https://api.minimax.cn/v1\" data-reveal=\"0\"><div class=\"dim\">$ uvx claude-tap --tap-client codex \\</div><div class=\"dim\">    --tap-target https://api.minimax.cn/v1</div></div><div class=\"p-grid\" style=\"--n:3;gap:12px;margin-top:16px\"><div class=\"p-box is-soft\" data-role=\"tool\" data-reveal=\"1\"><h3>本地代理</h3><p>夹在 Codex 和模型服务之间</p></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"1\"><h3>会经手 API 密钥</h3><p>请求连同鉴权信息都从它这里过</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"1\"><h3>只看得到经过它的</h3><p>Codex 发出的请求和模型的返回</p></div></div><ol class=\"p-watch is-row\" style=\"margin-top:16px\"><li data-reveal=\"2\">切到终端<small>用它启动 Codex</small></li><li data-reveal=\"3\">打开查看器<small>每次请求都被记下来</small></li></ol>",
       "refs": [
         {
           "kind": "live",
@@ -112,7 +112,7 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜停留课件 p06-tap 第 1 步，指向画面上的 uvx claude-tap 命令；不切窗口】\n\n这一章要一路看 Codex 实际发给模型的内容，所以这次换一种方式启动 Codex。画面上是 claude-tap 的启动命令。claude-tap 是一个开源工具，项目主页的链接放在页面最下面。",
-        "【操作提示｜推进第 2 步，依次指三张卡片；留在课件】\n\n先说清它是什么。第一，它是一个本地代理，夹在 Codex 和模型服务之间，把每一次请求记下来。第二，正因为夹在中间，它会经手我们的 API 密钥，所以画面上不会出现配置文件和密钥。第三，它只看得到经过它的内容，也就是 Codex 发出的请求和模型的返回。这一节由我来演示，大家自己运行算选做，不计入验收。",
+        "【操作提示｜推进第 2 步，依次指三张卡片；留在课件】\n\n先说清它是什么。第一，它是一个本地代理，夹在 Codex 和模型服务之间，把每一次请求记下来。第二，正因为夹在中间，它会经手我们的 API 密钥，请求连同鉴权信息都从它这里过，所以画面上不会出现配置文件和密钥。第三，它只看得到经过它的内容，也就是 Codex 发出的请求和模型的返回。这一节由我来演示，大家自己运行算选做，不计入验收。",
         "【操作提示｜推进第 3 步 → 切 Terminal 新开标签页“claude-tap”，在练习项目根目录运行画面命令（录制用隔离 HOME，做法见讲师提示）；Codex 启动后停在输入处，本页不提交 Prompt。画面不出现 config.toml 或完整密钥】\n\n切到终端，在项目目录运行这条命令。它会替我们启动 Codex，启动之后，Codex 用起来和平时完全一样。",
         "【操作提示｜推进第 4 步；查看器地址以 claude-tap 实际输出为准，先指出地址，本页不打开，等 p08 的回答结束再看；随后进入 p08】\n\nclaude-tap 还会给出一个本地查看器的地址。等 Codex 回答完，打开它，就能一条一条看到刚才的请求。"
       ],
@@ -136,8 +136,8 @@ window.lesson = {
       "prompt": "你好，用一句话介绍你能帮我做什么。",
       "label": "只说了一句话",
       "title": "只说了一句话，模型收到了什么？",
-      "lead": "先发一句和项目无关的话，再打开查看器，看 Codex 为这句话实际发出的请求。我们写的那句只占很小一部分，排在最末尾。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:.8fr auto 1.3fr\"><div class=\"p-box\" data-role=\"us\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"us\">我们写的</span><p class=\"p-big\">一句话</p><p class=\"p-sub\">17 个字</p><p class=\"p-sub\" data-reveal=\"2\"><b>排在整份请求的最末尾</b></p></div><div class=\"p-join\" data-reveal=\"1\"><span>Codex 发出</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">这一次请求</span><p class=\"p-big\">远不止这一句</p><p class=\"p-sub\">约 〔按录制记录〕 token · 〔按录制记录〕 字符</p></div></div>",
+      "lead": "先发一句和项目无关的话，再打开查看器，看 Codex 为这句话实际发出的请求。我们写的那句只占很小一部分，排在最末尾。讲师用的是 Codex 接 MiniMax 模型，换模型、换配置，请求的内容会有差别。",
+      "html": "<div class=\"p-pair\" style=\"grid-template-columns:.8fr auto 1.3fr\"><div class=\"p-box\" data-role=\"us\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"us\">我们写的</span><p class=\"p-big\">一句话</p><p class=\"p-sub\">17 个字</p><p class=\"p-sub\" data-reveal=\"2\"><b>排在整份请求的最末尾</b></p></div><div class=\"p-join\" data-reveal=\"1\"><span>Codex 发出</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">这一次请求</span><p class=\"p-big\">远不止这一句</p><p class=\"p-sub\">约 〔实测〕 token · 〔实测〕 字符</p></div></div>",
       "steps": [
         "只发一句话",
         "实际发出",
@@ -170,16 +170,16 @@ window.lesson = {
       "segment": "逐块拆开",
       "label": "拆开这份请求",
       "title": "拆开这份请求：六块内容",
-      "lead": "Harness 是包在模型外面的那一层程序，Codex 就是一个 Harness：它管着系统指令、工具和上下文，把它们组装成请求。这份请求可以拆成六块：系统指令、工具定义、Skills 列表、环境信息、权限说明，最后才是我们写的话。下面几页逐块回答“如果没有它会怎样”。数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。",
-      "html": "<style>.x-stack{display:flex;gap:6px;height:64px}.x-stack>div{position:relative;border:2.5px solid var(--c);background:var(--cl);border-radius:10px 8px 11px 9px;display:flex;align-items:center;justify-content:center;font-size:19px;color:var(--ct);min-width:14px;overflow:hidden;white-space:nowrap}.x-key{display:flex;justify-content:flex-end;align-items:center;gap:18px;margin:8px 0 0;font-size:18px;color:var(--p-muted)}.x-key i{display:inline-block;width:9px;height:24px;margin-right:7px;vertical-align:-6px;border:2.5px solid var(--c);background:var(--cl);border-radius:4px 3px 4px 3px}</style><div class=\"p-grid\" style=\"--n:3;gap:12px\" data-reveal=\"0\"><div class=\"p-box is-soft\" data-role=\"agent\"><h3>系统指令</h3><p>怎么做事</p></div><div class=\"p-box is-soft\" data-role=\"tool\"><h3>工具</h3><p>能做什么</p></div><div class=\"p-box is-soft\" data-role=\"ctx\"><h3>上下文</h3><p>这一次的情况</p></div></div><p class=\"p-sub\" data-reveal=\"0\" style=\"margin:6px 0 14px\">Codex 这层 Harness 组装请求时管的三样</p><div class=\"x-stack\" data-reveal=\"1\"><div data-role=\"agent\" style=\"flex:17\">系统指令 ≈1.7 万字符</div><div data-role=\"tool\" style=\"flex:18\">工具定义 9 个 ≈1.8 万</div><div data-role=\"ctx\" style=\"flex:12\">Skills 列表 ≈1.2 万</div><div data-role=\"ink\" style=\"flex:1.2\" title=\"环境信息\"></div><div data-role=\"gate\" style=\"flex:1\" title=\"权限说明\"></div><div data-role=\"us\" style=\"flex:.6\" title=\"我们的话\"></div></div><p class=\"x-key\" data-reveal=\"1\">末尾三小格：<span data-role=\"ink\"><i></i>环境信息</span><span data-role=\"gate\"><i></i>权限说明</span><span data-role=\"us\"><i></i>我们的话</span></p><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:16px\">我们写的，只是<b>最右边最小的一格</b></div><p class=\"source-note\">下排是讲师日常环境的一次记录，宽度大致对应大小；右侧三小格依次是环境信息（约 600 字符）、权限说明（约 340 字符）和我们的话。数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。</p>",
+      "lead": "Harness 是包在模型外面的那一层程序，Codex 就是一个 Harness：它把系统指令、工具和这一次的情况组装成请求。这份请求可以拆成六块：系统指令、工具定义、Skills 列表、环境信息、权限说明，最后才是我们写的话。下面几页逐块回答“如果没有它会怎样”。数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。",
+      "html": "<style>.x-stack{display:flex;gap:6px;height:64px}.x-stack>div{position:relative;border:2.5px solid var(--c);background:var(--cl);border-radius:10px 8px 11px 9px;display:flex;align-items:center;justify-content:center;font-size:19px;color:var(--ct);min-width:14px;overflow:hidden;white-space:nowrap}.x-key{display:flex;justify-content:flex-end;align-items:center;gap:18px;margin:8px 0 0;font-size:18px;color:var(--p-muted)}.x-key i{display:inline-block;width:9px;height:24px;margin-right:7px;vertical-align:-6px;border:2.5px solid var(--c);background:var(--cl);border-radius:4px 3px 4px 3px}@media(max-width:600px){body[data-mode=scroll] .x-stack{height:96px}body[data-mode=scroll] .x-stack>div{white-space:normal;font-size:14px;line-height:1.25;text-align:center;padding:2px}}</style><div class=\"p-grid\" style=\"--n:3;gap:12px\" data-reveal=\"0\"><div class=\"p-box is-soft\" data-role=\"agent\"><h3>系统指令</h3><p>怎么做事</p></div><div class=\"p-box is-soft\" data-role=\"tool\"><h3>工具</h3><p>能做什么</p></div><div class=\"p-box is-soft\" data-role=\"ctx\"><h3>本次情况</h3><p>目录、权限、我们的话</p></div></div><p class=\"p-sub\" data-reveal=\"0\" style=\"margin:6px 0 14px\">Codex 这层 Harness 组装请求时管的三样</p><div class=\"x-stack\" data-reveal=\"1\"><div data-role=\"agent\" style=\"flex:17\">系统指令 ≈1.7 万字符</div><div data-role=\"tool\" style=\"flex:18\">工具定义 9 个 ≈1.8 万</div><div data-role=\"ctx\" style=\"flex:12\">Skills 列表 ≈1.2 万</div><div data-role=\"ink\" style=\"flex:1.2\" title=\"环境信息\"></div><div data-role=\"gate\" style=\"flex:1\" title=\"权限说明\"></div><div data-role=\"us\" style=\"flex:.6\" title=\"我们的话\"></div></div><p class=\"x-key\" data-reveal=\"1\">末尾三小格：<span data-role=\"ink\"><i></i>环境信息</span><span data-role=\"gate\"><i></i>权限说明</span><span data-role=\"us\"><i></i>我们的话</span></p><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:16px\">我们写的，只是<b>最右边最小的一格</b></div><p class=\"source-note\">下排是讲师日常环境的一次记录，宽度大致对应大小；右侧三小格依次是环境信息（约 600 字符）、权限说明（约 340 字符）和我们的话。数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。</p>",
       "steps": [
         "Harness 管的三样",
         "逐块标注",
         "我们那一格"
       ],
       "script": [
-        "【操作提示｜停留课件 p09 第 1 步，先指三个框说清它们管什么，再说出“Harness”这个名字；不切查看器】\n\n1.2 我们说过，Agent 是模型加上下文加工具的循环。包在模型外面、把这些组装成请求、再去执行工具的那一层程序，叫 Harness，Codex 就是一个 Harness。它管三样：系统指令，告诉模型怎么做事；工具，告诉模型能做什么；还有上下文，这一次的具体情况。",
-        "【操作提示｜推进第 2 步，从左到右指请求带上的三大块，再指右侧三小格的图例；数字来自讲师日常环境的一次运行】\n\n落到这份请求上，可以拆成六块，宽度大致对应大小。最大的三块是系统指令，大约 1.7 万字符；工具定义，9 个工具，大约 1.8 万字符；还有 Skills 列表，大约 1.2 万字符。右边还有三小格：环境信息、权限说明，和我们的话。",
+        "【操作提示｜停留课件 p09 第 1 步，先指三个框说清它们管什么，再说出“Harness”这个名字；不切查看器】\n\n第 1 章我们说过，Agent 把模型、当前可用的信息和工具组织起来，让任务一轮一轮往前推进。包在模型外面、把这些组装成请求、再去执行工具的那一层程序，叫 Harness，Codex 就是一个 Harness。组装请求时它管三样：系统指令，告诉模型怎么做事；工具，告诉模型能做什么；还有这一次的情况，比如在哪个目录、有什么权限、我们说了什么。",
+        "【操作提示｜推进第 2 步，从左到右指请求带上的三大块，再指右侧三小格的图例；数字来自讲师日常环境的一次运行】\n\n落到请求上，可以拆成六块。下面这条是讲师日常环境里的一次记录，宽度大致对应大小；结构和刚才那份一样，各块的大小会因环境不同而不同。最大的三块是系统指令，大约 1.7 万字符；工具定义，9 个工具，大约 1.8 万字符；还有 Skills 列表，大约 1.2 万字符。右边还有三小格：环境信息、权限说明，和我们的话。",
         "【操作提示｜推进第 3 步，指向最右那一小格和底部横条；留在课件】\n\n我们写的那句话，是最右边最小的一格。模型看到的，从来不只是我们写的话，而是 Harness 组装好的整份请求。那每一块为什么非有不可？我们一块一块问：如果没有它，会怎样。"
       ],
       "teaching": [
@@ -202,7 +202,7 @@ window.lesson = {
       "label": "如果没有系统指令",
       "title": "如果没有系统指令，模型不知道自己是谁",
       "lead": "模型本身只会接着往下写。系统指令告诉它：你是一个在终端里写代码的 Agent，该怎样工作、怎样验证、怎样汇报。Codex 是开源的，它的基础指令就放在公开仓库里。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:.9fr auto 1.3fr\"><div class=\"p-box is-dashed\" data-role=\"gate\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"gate\">没有它</span><p class=\"p-big\" style=\"font-weight:500\">只会接着往下写</p><p class=\"p-sub\">不知道要读仓库、改文件、停下来请示</p></div><div class=\"p-join\" data-reveal=\"1\"><span>Codex 基础指令</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">章节目录（摘出几节）</span><p style=\"margin-top:10px;line-height:1.8\">工作方式 · 性格<br><b>AGENTS.md 规范</b><br>计划 · 执行任务<br>验证工作 · 汇报进度与结果</p></div></div><div class=\"p-bar\" data-reveal=\"2\">同一个模型，换一个 Harness，<b>行为就不同</b></div><p class=\"source-note\">来源：openai/codex 仓库 codex-rs/protocol/src/prompts/base_instructions/default.md（Apache-2.0），2026-10-02 核对；章节名为中文意译</p>",
+      "html": "<div class=\"p-pair\" style=\"grid-template-columns:.9fr auto 1.3fr\"><div class=\"p-box is-dashed\" data-role=\"gate\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"gate\">没有它</span><p class=\"p-big\" style=\"font-weight:500\">只会接着往下写</p><p class=\"p-sub\">不知道要读仓库、改文件、停下来请示</p></div><div class=\"p-join\" data-reveal=\"1\"><span>Codex 基础指令</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">章节目录（摘出几节）</span><p style=\"margin-top:10px;line-height:1.8\">工作方式 · 性格<br><b>AGENTS.md 规范</b><br>执行任务 · 验证工作<br>汇报进度与结果</p></div></div><div class=\"p-bar\" data-reveal=\"2\">同一个模型，换一个 Harness，<b>行为就不同</b></div><p class=\"source-note\">来源：openai/codex 仓库 codex-rs/protocol/src/prompts/base_instructions/default.md（Apache-2.0），2026-10-02 核对；章节名为中文意译</p>",
       "steps": [
         "没有它",
         "Codex 的基础指令",
@@ -210,13 +210,13 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜停留课件 p10 第 1 步，指向左侧“没有它”虚线框；不切工具窗口】\n\n先问最大的一块：如果没有系统指令会怎样？模型本身只会根据前文接着往下写。它不知道自己是一个写代码的 Agent，不知道要先读仓库、要改文件、遇到风险要停下来请示。",
-        "【操作提示｜推进第 2 步，指向右侧章节目录里的“AGENTS.md 规范”一行；不打开仓库原文、不朗读原文】\n\nCodex 是开源的，它的基础指令就放在公开仓库里，谁都能看。原文很长，我们只看它的章节目录，摘出其中几节：工作方式、性格、计划、执行任务、验证工作、汇报进度和结果。注意中间有一节，专门讲 AGENTS.md 规范，告诉模型项目里可能有这种文件、该怎么对待它。这一点后面还会用到。",
-        "【操作提示｜推进第 3 步，指向底部横条；留在课件】\n\n所以我们感受到的“Codex 很谨慎”“它会先列计划”，很大一部分来自这份指令。同一个模型，换一个 Harness、换一份指令，表现就会不一样。系统指令说清了“怎么做事”，可模型真要做事，还得有手。"
+        "【操作提示｜推进第 2 步，指向右侧章节目录里的“AGENTS.md 规范”一行；不打开仓库原文、不朗读原文】\n\nCodex 是开源的，它的基础指令就放在公开仓库里，谁都能看。原文很长，我们只看它的章节目录，摘出其中几节：工作方式、性格、执行任务、验证工作、汇报进度和结果。注意中间有一节，专门讲 AGENTS.md 规范，告诉模型项目里可能有这种文件、该怎么对待它。这一点后面还会用到。",
+        "【操作提示｜推进第 3 步，指向底部横条；留在课件】\n\n所以我们感受到的“Codex 很谨慎”“改完会说明做了什么”，很大一部分来自这份指令。同一个模型，换一个 Harness、换一份指令，表现就会不一样。系统指令说清了“怎么做事”，可模型真要做事，还得有手。"
       ],
       "teaching": [
         {
           "title": "核对记录",
-          "text": "讲师环境实际发出的指令与 default.md 一致，只少了 Planning 及其示例和 update_plan 两节：0.160.0 默认关闭计划工具，Harness 发送前删掉讲计划工具的章节（core/src/session/mod.rs，prompts/src/update_plan_instructions.rs）。若学员问起，可作为“指令和工具保持一致”的例子。画面以实际请求为准，仓库文件作对照。"
+          "text": "讲师环境实际发出的指令与 default.md 一致，只少了 Planning 及其示例和 update_plan 两节：0.160.0 默认关闭计划工具，Harness 发送前删掉讲计划工具的章节（core/src/session/mod.rs，prompts/src/update_plan_instructions.rs）。若学员问起，可作为“指令和工具保持一致”的例子。画面以实际请求为准，仓库文件作对照，所以画面和口播都不列“计划”一节，也不说“先列计划”来自这份指令。"
         },
         {
           "title": "讲师提示",
@@ -231,7 +231,7 @@ window.lesson = {
       "segment": "逐块拆开",
       "label": "如果没有工具定义",
       "title": "如果没有工具定义，模型只能说，不能做",
-      "lead": "工具定义用 JSON 结构写清名字、用途和参数。模型只能可靠地调用被描述过的工具；它只是提出调用，真正执行的是 Harness。数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。",
+      "lead": "这次请求里有 9 个工具，每个都用 JSON 结构写清名字、用途和参数。模型只能可靠地调用被描述过的工具；它只是提出调用，真正执行的是 Harness。数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。",
       "html": "<div class=\"p-pair\" style=\"grid-template-columns:1.25fr 1fr\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"tool\">一个工具的定义（只摘几行）</span><pre class=\"p-code\" style=\"margin-top:8px;font-size:17px;line-height:1.55\">{ \"name\": \"exec_command\",\n  \"description\": \"Runs a command …\",\n  \"parameters\": { \"cmd\": \"string\", … } }</pre></div><div class=\"p-box is-dashed\" data-role=\"gate\" data-reveal=\"1\" style=\"align-self:start\"><span class=\"p-tag\" data-role=\"gate\">没有它</span><p class=\"p-big\" style=\"font-weight:500\">只能说，不能做</p><p class=\"p-sub\">没描述过的工具，调用不可靠</p></div></div><div class=\"p-bar\" data-reveal=\"1\">模型提出调用，<b>Harness 执行</b>，再把结果放回下一次请求</div>",
       "steps": [
         "工具长什么样",
@@ -239,7 +239,7 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜停留课件 p11 第 1 步，依次指向左侧定义里的 name、description 和 cmd 参数；不切工具窗口】\n\n第二块，工具定义。这次请求里有 9 个工具，每个都用一段 JSON 写清楚：叫什么名字、做什么用、要哪些参数。左边是其中执行命令的那个，名字叫 exec_command。原文很长，这里只摘了几行：名字、一句用途说明，和最重要的参数，也就是要执行的命令。",
-        "【操作提示｜推进第 2 步，指向右侧“没有它”，再指底部横条；留在课件】\n\n如果没有工具定义，模型就只能“说”，不能“做”，而且它只能可靠地调用被描述过的工具。还要记住一点：模型只是提出调用，真正执行的是 Harness，执行结果再放进下一次请求交给模型，这就是 1.2 的那个循环。工具是手，那装了那么多 Skills，是不是也都整份塞进请求里了？"
+        "【操作提示｜推进第 2 步，指向右侧“没有它”，再指底部横条；留在课件】\n\n如果没有工具定义，模型就只能“说”，不能“做”，而且它只能可靠地调用被描述过的工具。还要记住一点：模型只是提出调用，真正执行的是 Harness，执行结果再放进下一次请求交给模型，这就是第 1 章讲过的 Agent 循环。工具是手，那装了那么多 Skills，是不是也都整份塞进请求里了？"
       ],
       "teaching": [
         {
@@ -279,19 +279,19 @@ window.lesson = {
     {
       "id": "p13",
       "segment": "逐块拆开",
-      "label": "环境信息与权限说明",
+      "label": "环境和权限也写成文字",
       "title": "模型不知道它在哪台电脑、今天几号",
       "lead": "模型的知识停在训练截止的时候，也看不到我们的电脑。Harness 要把当前目录、Shell、日期、时区，以及这次的沙箱和审批设置写成文字放进请求。权限说明只是文字，真正的限制由本地沙箱执行。",
       "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ink\">环境信息</span><pre class=\"p-code\" style=\"margin-top:8px;font-size:17px;line-height:1.55\">&lt;cwd&gt;…/work&lt;/cwd&gt;\n&lt;shell&gt;zsh&lt;/shell&gt;\n&lt;current_date&gt;2026-10-02&lt;/current_date&gt;\n&lt;timezone&gt;Asia/Shanghai&lt;/timezone&gt;</pre></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"gate\">权限说明（摘一句）</span><p class=\"p-mono\" style=\"margin-top:8px;line-height:1.55\">`sandbox_mode` is `read-only`: The sandbox only permits reading files.</p></div></div><div class=\"p-bar\" data-reveal=\"2\">权限说明是<b>写给模型看的文字</b> · 真正拦住越界的是本地沙箱</div><p class=\"source-note\">取自 2026-10-02 隔离环境的一次运行，路径已缩写</p>",
       "steps": [
         "环境信息",
         "权限说明",
-        "回扣 1.6"
+        "只是文字"
       ],
       "script": [
         "【操作提示｜停留课件 p13 第 1 步，按行指 cwd、shell、current_date、timezone；画面取自 2026-10-02 隔离环境的一次运行，路径已缩写，不切窗口】\n\n第四块，环境信息。模型的知识停在它训练截止的那一天，也看不到我们的电脑。所以 Harness 会写一小段文字告诉它：当前目录在哪，用的什么 Shell，今天几号，什么时区。没有这一段，它连“今天”是哪天都不知道。",
         "【操作提示｜推进第 2 步，指向右侧 sandbox_mode 那一句；留在课件】\n\n第五块，权限说明。右边这一句告诉模型：这次的沙箱模式是只读，只允许读文件。",
-        "【操作提示｜推进第 3 步，指向底部横条；留在课件，下一页切回 Terminal】\n\n回想 1.6：权限说明只是写给模型看的文字，让它知道边界在哪；真正拦住越界操作的，是本地沙箱。模型就算没理会这段话，沙箱照样会拒绝写入。到这里，六块都看过了。刚才那句话跟项目无关，Codex 一个文件也没读。下面换一个和项目有关的问题，看请求会多出什么。"
+        "【操作提示｜推进第 3 步，指向底部横条；留在课件，下一页切回 Terminal】\n\n第 1 章讲最小权限时说过：权限说明只是写给模型看的文字，让它知道边界在哪；真正拦住越界操作的，是本地沙箱。模型就算没理会这段话，沙箱照样会拒绝写入。到这里，六块都看过了。刚才那句话跟项目无关，Codex 一个文件也没读。下面换一个和项目有关的问题，看请求会多出什么。"
       ],
       "teaching": [
         {
@@ -306,7 +306,7 @@ window.lesson = {
       "id": "p07",
       "segment": "工具调用",
       "layout": "prompt-scene",
-      "prompt": "只读任务，不修改任何文件。\n这个首页 v0 当初定了哪些要求和完成标准？\n请说明依据来自哪个文件的哪一段；\n不确定就写“不确定”，不要猜。",
+      "prompt": "只读任务，不修改任何文件。\n这个个人主页 v0 当初定了哪些要求和完成标准？\n请说明依据来自哪个文件的哪一段；\n不确定就写“不确定”，不要猜。",
       "label": "问一个项目问题",
       "title": "问一个和项目有关的问题，请求会多出什么？",
       "lead": "第二步换一个和项目有关的只读问题。Prompt 不提示文件名，Codex 要自己去找依据；回答里说出的文件，就是下一页在记录里要找的东西。",
@@ -317,9 +317,9 @@ window.lesson = {
         "圈出依据"
       ],
       "script": [
-        "【操作提示｜课件 p07 第 1 步 → 切 Terminal“claude-tap”标签页，在同一个 Codex 里粘贴画面上的只读 Prompt 并提交】\n\n第二步，问一个和项目有关的问题：这个首页 v0 当初定了哪些要求和完成标准？依据来自哪个文件的哪一段，不确定就说不确定。注意，我们没告诉它去看哪个文件，它得自己去找。这一步只读，不修改任何文件。",
+        "【操作提示｜课件 p07 第 1 步 → 切 Terminal“claude-tap”标签页，在同一个 Codex 里粘贴画面上的只读 Prompt 并提交】\n\n第二步，问一个和项目有关的问题：这个个人主页 v0 当初定了哪些要求和完成标准？依据来自哪个文件的哪一段，不确定就说不确定。注意，我们没告诉它去看哪个文件，它得自己去找。这一步只读，不修改任何文件。",
         "【操作提示｜推进第 2 步，等回答结束，在 Terminal 里逐句指回复：哪句是要求、哪句是完成标准、哪句说了不确定；按实际回复讲】\n\n回答出来了。我们一句一句看：哪些是它说的要求，哪些是完成标准，有没有哪句它说不确定。",
-        "【操作提示｜推进第 3 步，圈出回复里提到的依据文件名和段落；没有提到就如实说明，留到下一页查记录】\n\n再看它说依据在哪。它说出的这个文件，我们并没有告诉过它。那它是怎么知道的？回到请求记录里找。"
+        "【操作提示｜推进第 3 步，圈出回复里提到的依据文件名和段落；没有提到就如实说明，留到下一页查记录】\n\n再看它说依据在哪。如果它说出了文件名，这个文件我们并没有告诉过它，那它是怎么知道的？回到请求记录里找。"
       ],
       "teaching": [
         {
@@ -340,7 +340,7 @@ window.lesson = {
       "label": "它是怎么知道的",
       "title": "它到底是怎么“知道”的？",
       "lead": "回到请求记录：Codex 提出读文件的工具调用，Harness 执行后把返回的内容放进下一次请求，模型再据此回答。工具调用和返回也进了 context。再对照回答，看它有没有正确使用这段返回。",
-      "html": "<div class=\"p-flow\" style=\"--n:3\"><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\"><h3>提出调用</h3><p class=\"p-mono\">读 PROMPT_V1.md</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"0\"><h3>Harness 执行</h3><p>返回文件内容</p></div><div class=\"p-node\" data-role=\"ctx\" data-reveal=\"1\"><h3>下一次请求</h3><p>带上这段返回</p></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"2\"><h3>读到了</h3><p>对照返回和回答，看理解对不对</p></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"2\"><h3>没读到</h3><p>回答缺了依据，所以要它说明依据</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">下一步从<b>上一步的返回</b>里来</div>",
+      "html": "<div class=\"p-flow\" style=\"--n:3\"><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\"><h3>提出调用</h3><p>读项目里的文件</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"0\"><h3>Harness 执行</h3><p>返回文件内容</p></div><div class=\"p-node\" data-role=\"ctx\" data-reveal=\"1\"><h3>下一次请求</h3><p>带上这段返回</p></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"2\"><h3>读到了</h3><p>对照返回和回答，看理解对不对</p></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"2\"><h3>没读到</h3><p>回答没有依据：要它说明依据，就是为了看出这一点</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">下一步从<b>上一步的返回</b>里来</div>",
       "steps": [
         "调用和返回",
         "进入下一次请求",
@@ -348,7 +348,7 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜课件 p14 第 1 步 → 切 Chrome 查看器，打开 p07 这次提问的记录，找 Codex 提出读文件的那次工具调用和它的返回；画面上的文件名按实际读取的文件改口】\n\n回到请求记录。在这次提问里，模型先提出了一次工具调用：读某个文件。Harness 执行它，把文件内容作为返回交了回去。画面以这次运行的记录为准。",
-        "【操作提示｜推进第 2 步 → 在查看器里打开下一次请求，定位刚才那段返回的内容并停留；没有读文件就如实说明，直接进入第 3 步】\n\n再打开下一次请求。刚才那段返回，就出现在这里，跟着整份请求一起发给了模型。工具调用和返回也进了 context。这就是 1.2 的循环：下一步，从上一步的返回里来。",
+        "【操作提示｜推进第 2 步 → 在查看器里打开下一次请求，定位刚才那段返回的内容并停留；没有读文件就如实说明，直接进入第 3 步】\n\n再打开下一次请求。刚才那段返回，就出现在这里，跟着整份请求一起发给了模型。工具调用和返回也进了 context。这就是第 1 章讲过的 Agent 循环：下一步，从上一步的返回里来。",
         "【操作提示｜回课件推进第 3 步，按“读到了 / 没读到”中实际那一支讲；保留原始记录，不重跑凑结果。之后进入 p16】\n\n最后对照回答。读到了，还要核对它有没有正确理解这段返回；没读到，回答就缺了依据，这正是我们在 Prompt 里要它说明依据的原因。我们按实际记录判断，不预设它一定答对或答错。"
       ],
       "teaching": [
@@ -358,7 +358,7 @@ window.lesson = {
         },
         {
           "title": "讲师提示",
-          "text": "画面上的文件名按实际读取的文件替换；学员的要求和完成标准可能记在 PROMPT_V1.md 或其他文件里。回扣 1.2 的循环。"
+          "text": "画面写“读项目里的文件”，不预写文件名；录制后可换成实际读取的文件名。学员的要求和完成标准可能记在 PROMPT_V1.md 或其他文件里。回扣第 1 章的 Agent 循环。"
         }
       ],
       "source": "index.html#p14",
@@ -370,7 +370,7 @@ window.lesson = {
       "label": "换个权限",
       "title": "同一句话，换个权限，说明文字也变了",
       "lead": "第一步那句话，用只读和可写各发一次，权限说明是两段不同的文字；可写时还会列出可写目录，环境信息也随之变长。Codex 按配置从不同模板拼出这段说明。这是讲师示例，可自主尝试。",
-      "html": "<style>.x-w16{grid-template-columns:1.5fr 1fr}@media(max-width:600px){body[data-mode=scroll] .x-w16{grid-template-columns:1fr}body[data-mode=scroll] .x-w16 code{white-space:pre-wrap;overflow-wrap:anywhere}}</style><div class=\"p-term\" data-reveal=\"0\" style=\"margin-bottom:12px;font-size:17px\" data-copy=\"uvx claude-tap --tap-client codex --tap-target https://api.minimax.cn/v1 -s read-only\"><div class=\"dim\">$ uvx claude-tap --tap-client codex --tap-target … -s read-only</div><div class=\"dim\">$ uvx claude-tap --tap-client codex --tap-target … -s workspace-write</div></div><div class=\"p-walk x-w16\"><div data-reveal=\"1\"><div class=\"p-src\" style=\"--lh:40px\"><div class=\"p-fn\">permissions instructions <span class=\"add\">+1</span><span class=\"del\">−1</span></div><div class=\"p-ln del\"><i>−</i><code>`sandbox_mode` is `read-only`: … only permits reading files.</code></div><div class=\"p-ln add\"><i>+</i><code>`sandbox_mode` is `workspace-write`: … editing files in `cwd` …</code></div><div class=\"p-ln add\"><i>+</i><code>The writable roots are `…/work`, …</code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"1\"><span><b>〔按录制记录〕 → 〔按录制记录〕 字符</b><small>可写时多出可写目录</small></span></li><li class=\"is-ok\" data-reveal=\"2\"><span><b>按配置拼装</b><small>仓库里按沙箱模式分模板</small></span></li></ol></div><p class=\"source-note\" data-reveal=\"2\">模板位置：openai/codex 仓库 codex-rs/prompts/templates/permissions/</p>",
+      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><style>.x-w16{grid-template-columns:1.5fr 1fr}</style><div class=\"p-term\" data-reveal=\"0\" style=\"margin-bottom:12px;font-size:17px\" data-copy=\"uvx claude-tap --tap-client codex --tap-target https://api.minimax.cn/v1 -s read-only\"><div class=\"dim\">$ uvx claude-tap --tap-client codex --tap-target … -s read-only</div><div class=\"dim\">$ uvx claude-tap --tap-client codex --tap-target … -s workspace-write</div></div><div class=\"p-walk x-w16\"><div data-reveal=\"1\"><div class=\"p-src\" style=\"--lh:40px\"><div class=\"p-fn\">permissions instructions <span class=\"add\">+1</span><span class=\"del\">−1</span></div><div class=\"p-ln del\"><i>−</i><code>`sandbox_mode` is `read-only`: … only permits reading files.</code></div><div class=\"p-ln add\"><i>+</i><code>`sandbox_mode` is `workspace-write`: … editing files in `cwd` …</code></div><div class=\"p-ln add\"><i>+</i><code>The writable roots are `…/work`, …</code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"1\"><span><b>〔实测〕 → 〔实测〕 字符</b><small>可写时多出可写目录</small></span></li><li class=\"is-ok\" data-reveal=\"2\"><span><b>按配置拼装</b><small>仓库里按沙箱模式分模板</small></span></li></ol></div><p class=\"source-note\" data-reveal=\"2\">模板位置：openai/codex 仓库 codex-rs/prompts/templates/permissions/</p>",
       "repro": {
         "label": "复现这个实验",
         "steps": [
@@ -401,7 +401,7 @@ window.lesson = {
       "script": [
         "【操作提示｜停留课件 p16 第 1 步，指两条命令末尾的 -s 参数；画面为讲师录制的两次运行，不现场重跑】\n\n看完了请求的组成，再换一个维度：权限。还是第一步那句话，一次用只读，一次用可写。怎么切？启动时在命令最后加上 -s read-only 或者 -s workspace-write，claude-tap 会把它不认识的参数原样交给 Codex。两次各开一个新会话，这样两份请求只差权限这一处。",
         "【操作提示｜推进第 2 步，指上方说明的删除行与新增行，再指右侧字符数；数字按实际记录读】\n\n看权限说明的差异：只读时说沙箱只允许读文件；可写时变成允许编辑当前目录，还多了一行，列出哪些目录可写。说明变长了，环境信息也跟着变长。",
-        "【操作提示｜推进第 3 步，指向“按配置拼装”和模板位置；留在课件】\n\n这段文字不是写死的。Codex 的仓库里，按沙箱模式和审批策略分别放了模板，Harness 按这次的配置拼出来。这就接上了 1.3 和 1.6：我们做的权限选择，会变成请求里的一段文字，同时变成本地沙箱的实际限制。"
+        "【操作提示｜推进第 3 步，指向“按配置拼装”和模板位置；留在课件】\n\n这段文字不是写死的。Codex 的仓库里，按沙箱模式和审批策略分别放了模板，Harness 按这次的配置拼出来。这就接上了第 1 章选权限时的做法：我们做的权限选择，会变成请求里的一段文字，同时变成本地沙箱的实际限制。"
       ],
       "teaching": [
         {
@@ -425,7 +425,7 @@ window.lesson = {
       "segment": "换个配置",
       "label": "换个 HOME 目录",
       "title": "同一句话，换个干净的 HOME 目录，请求就变了",
-      "lead": "请求由三层来源拼成：个人（~/.codex 的配置、登录、全局 AGENTS.md，~/.agents/skills 的个人 Skills）、项目（仓库里的 AGENTS.md 与 .agents/skills）、本次（目录、日期、权限）。换一个隔离的 HOME 运行，个人那一层就没了，所以你在自己电脑上看到的请求会和讲师的不同。这是讲师的环境对比示例，不要求跟做。数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。",
+      "lead": "请求由三层来源拼成：个人（~/.codex 的配置、登录、全局 AGENTS.md，~/.agents/skills 的个人 Skills）、项目（仓库里的 AGENTS.md 与 .agents/skills）、本次（目录、日期、权限）。换一个隔离的 HOME 运行，个人那一层就没了，所以每个人在自己电脑上看到的请求都会和讲师的不同。这是讲师的环境对比示例，不要求跟做。数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。",
       "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ink\">日常环境</span><p>Skills 列表 ≈1.24 万字符</p><p class=\"p-sub\">含讲师的个人 Skills</p></div><div class=\"p-join\" data-reveal=\"0\"><span>隔离 HOME</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ok\">隔离环境</span><p>Skills 列表 ≈2 千字符</p><p class=\"p-sub\">只剩 Codex 自带的，请求变短</p></div></div><div class=\"p-grid\" style=\"--n:3;gap:12px;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"us\" data-reveal=\"1\"><h3>个人</h3><p>~/.codex · ~/.agents/skills</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"1\"><h3>项目</h3><p>AGENTS.md · .agents/skills</p></div><div class=\"p-box is-soft\" data-role=\"tool\" data-reveal=\"1\"><h3>本次</h3><p>目录 · 日期 · 权限</p></div></div><div class=\"p-bar is-light\" data-reveal=\"1\">换掉 HOME，<b>个人那一层</b>就不在请求里了</div>",
       "repro": {
         "label": "自己对比一次",
@@ -455,7 +455,7 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜停留课件 p15 第 1 步，指向两组对比数字；画面为讲师 2026-10-02 的日常与隔离两次运行记录，不现场重跑，不打开日常环境的 Skills 列表】\n\n换权限会变，换环境呢？讲师做了一个对比：同一句话，一次在日常环境里跑，一次换了一个干净的、隔离的 HOME 目录。Skills 列表从大约 1.24 万字符降到大约 2 千，剩下的只有 Codex 自带的几个，整份请求也跟着变短。",
-        "【操作提示｜推进第 2 步，依次指向个人、项目、本次三格；留在课件】\n\n为什么会这样？因为请求的内容有三层来源。个人这一层，来自我们自己的用户目录：~/.codex 里的配置、登录信息和全局 AGENTS.md，还有 ~/.agents/skills 里的个人 Skills。项目这一层，来自仓库里的 AGENTS.md 和 .agents/skills。本次这一层，是当前目录、日期和这次的权限设置。所以，你在自己电脑上看到的请求，会和讲师的不一样。想自己对比一次，步骤在页面上方。"
+        "【操作提示｜推进第 2 步，依次指向个人、项目、本次三格；留在课件】\n\n为什么会这样？因为请求的内容有三层来源。个人这一层，来自我们自己的用户目录：~/.codex 里的配置、登录信息和全局 AGENTS.md，还有 ~/.agents/skills 里的个人 Skills。项目这一层，来自仓库里的 AGENTS.md 和 .agents/skills。本次这一层，是当前目录、日期和这次的权限设置。所以，大家在自己电脑上看到的请求，会和讲师的不一样。想自己对比一次，步骤在页面上方。"
       ],
       "teaching": [
         {
@@ -480,7 +480,7 @@ window.lesson = {
       "label": "这些加在一起",
       "title": "这些加在一起，就是 context",
       "lead": "系统指令、工具定义、Skills 列表、环境信息、权限说明、我们的话，再加上工具调用和返回，模型这一次能看到的全部内容，就是 context。第 1 章说 context 里该放什么，这里第一次看到它的实际样子；后面四节都回到这份记录。",
-      "html": "<div class=\"p-box\" data-role=\"ctx\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">这一次请求</span><div class=\"p-chain\" style=\"margin-top:10px;font-size:20px\"><span>系统指令</span><i>·</i><span>工具定义</span><i>·</i><span>Skills 列表</span><i>·</i><span>环境信息</span><i>·</i><span>权限说明</span><i>·</i><span>工具调用和返回</span><i>·</i><span>我们的话</span></div></div><div class=\"p-bar\" data-reveal=\"1\" style=\"margin-top:14px\"><b>Context</b>：模型这一次能看到的全部内容</div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box is-dashed\" data-role=\"ink\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ink\">官方说法</span><p class=\"p-sub\">引用待选定，录制前核对</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"3\"><span class=\"p-tag\" data-role=\"ctx\">课程地图</span><p>第 1 章：Agent 循环 · 权限<br><b>第 2 章：Context</b> 点亮<br><span class=\"p-sub\">后面几章还没走到</span></p></div></div>",
+      "html": "<div class=\"p-box\" data-role=\"ctx\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">这一次请求</span><div class=\"p-chain\" style=\"margin-top:4px;font-size:20px\"><span>系统指令</span><i>·</i><span>工具定义</span><i>·</i><span>Skills 列表</span><i>·</i><span>环境信息</span><i>·</i><span>权限说明</span><i>·</i><span>工具调用和返回</span><i>·</i><span>我们的话</span></div></div><div class=\"p-bar\" data-reveal=\"1\" style=\"margin-top:10px\"><b>Context</b>：模型这一次能看到的全部内容</div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:10px\"><div class=\"p-box is-dashed\" data-role=\"ink\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ink\">官方说法</span><p class=\"p-sub\">〔官方解释原文〕</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"3\"><span class=\"p-tag\" data-role=\"ctx\">课程地图</span><p>第 1 章：Agent 循环 · 权限<br><b>第 2 章：Context</b> 点亮<span class=\"p-sub\">，后面几章还没走到</span></p></div></div>",
       "steps": [
         "整体框起",
         "叫它 context",
@@ -534,15 +534,15 @@ window.lesson = {
       "label": "本节小结",
       "title": "模型收到的，远不止我们那句话",
       "lead": "只说一句话，Codex 发出的请求里有系统指令、工具定义、Skills 列表、环境信息和权限说明；工具调用和返回也会进入 context；换权限、换环境，同一句话的 context 就不同。下一节回答：对话多几轮，context 怎么变？",
-      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">一张地图</h3><div class=\"p-star\" style=\"width:260px;font-size:24px\">Context<br>= 六块 + 返回</div><p class=\"p-sub\" style=\"text-align:center\">我们的话只是最后一格</p></div><div><h3 data-reveal=\"1\">两个认识</h3><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-point\" data-reveal=\"1\">工具调用和返回也会进入 context</li><li class=\"is-point\" data-reveal=\"2\">换权限、换环境，context 就不同</li></ul></div><div class=\"p-next\" data-reveal=\"3\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>2.2 补上项目经历</h3><p>对话多几轮，context 怎么变？</p></div></div></div>",
+      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">一张地图</h3><div class=\"p-star\" style=\"width:260px;font-size:24px\">Context<br>六块，加上工具返回</div><p class=\"p-sub\" style=\"text-align:center\">我们的话只是最后一格</p></div><div><h3 data-reveal=\"1\">两个认识</h3><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-point\" data-reveal=\"1\">工具调用和返回也会进入 context</li><li class=\"is-point\" data-reveal=\"2\">换权限、换环境，context 就不同</li></ul></div><div class=\"p-next\" data-reveal=\"3\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>2.2 补上项目经历</h3><p>对话多几轮，context 怎么变？</p></div></div></div>",
       "steps": [
-        "请求解剖地图",
+        "拆开的请求",
         "工具调用也进来",
         "换配置就不同",
         "下一节"
       ],
       "script": [
-        "【操作提示｜停留课件 p19 第 1 步，指向“Context = 六块 + 返回”；不切工具窗口】\n\n这一节我们没有改一行代码，只说了一句话，就看到了模型实际收到的东西：六块内容，我们那句话只是最后一格。这些加在一起，就是 context。",
+        "【操作提示｜停留课件 p19 第 1 步，指向星形里的 Context；不切工具窗口】\n\n这一节我们没有改一行代码，只说了一句话，就看到了模型实际收到的东西：六块内容，我们那句话只是最后一格。",
         "【操作提示｜推进第 2 步，指向第一条要点】\n\n问一个项目问题时，工具调用和它的返回也会进入 context，模型的下一步从这里来。",
         "【操作提示｜推进第 3 步，指向第二条要点】\n\n同一句话，换个权限、换个环境，context 就不同。",
         "【操作提示｜推进第 4 步，指向“2.2 补上项目经历”卡片。不退出 Terminal 中本节的 Codex 会话与开发服务器，2.2 要回看这次会话】\n\n下一节，我们要补上项目经历，和 Codex 多聊几轮。对话多了，context 会怎么变？我们接着看这份记录。"

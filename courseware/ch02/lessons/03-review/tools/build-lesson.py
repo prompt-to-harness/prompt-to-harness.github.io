@@ -10,12 +10,12 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
 from lessonkit import Lesson, NARROW, chapter_map, repro, teach  # noqa: E402
 
-lesson = Lesson(__file__, "2.3", "AI 交回的改动，要不要接受", summary="先看范围再看内容，回看 Codex 当时看到了什么，再决定接受、缩小还是拒绝；用提交让“拒绝”变便宜。")
+lesson = Lesson(__file__, "2.3", "AI 交回的改动，要不要接受", summary="先看范围再看内容，回看 Codex 当时看到了什么，再决定接受、缩小还是拒绝；提交以后，接受错了也能撤回。")
 scene = lesson.scene
 
 
-SAMPLE = "画面中的命令输出来自排练版 homepage-v1（courseware/ch02/materials/homepage-v1.diff）在 Git 2.50.1 下的一次运行；录制时换成 2.2 的真实 diff。"
-RECORD = "请求记录为结构示意，录制时按实际记录替换；条目名为中文概括"
+SAMPLE = "画面中的命令输出来自排练版 homepage-v1（courseware/ch02/materials/homepage-v1.diff）在 Git 2.50.1 下的一次运行；你的输出以自己的 diff 为准。"
+RECORD = "请求记录为结构示意，条目名为中文概括；实际的工具名、命令和次数以记录为准"
 
 
 # ---------- 拿到 diff ----------
@@ -102,7 +102,7 @@ scene(
 scene(
     id="p38a", segment="回看请求记录",
     label="它是根据什么改的", title="Codex 是根据什么改的？",
-    lead="打开 2.1 起一直在看的那份请求记录，找到 2.2 这一轮的工具调用。看三件事：Codex 读了哪些文件；diff 里改动的每个文件，改之前读过没有；每处改动的依据，来自 Prompt 原文，还是读到的文件。判断看这一轮的记录，不看它上一次怎么做。范围扩大时，常能在这里找到原因：多读了无关内容，或者 Prompt 里缺了本轮目标。记录里找不到依据的改动，按“无法解释”处理。",
+    lead="打开 2.1 起一直在看的那份请求记录，找到 2.2 这一轮的工具调用。看三件事：Codex 读了哪些文件；diff 里改动的每个文件，改之前读过没有；每处改动的依据，来自 Prompt 原文，还是读到的文件。同一个 Prompt，每次走的过程都可能不同，所以判断看这一轮的记录。范围扩大时，常能在这里找到原因：多读了无关内容，或者 Prompt 里缺了本轮目标。记录里找不到依据的改动，按“无法解释”处理。",
     html=(
         NARROW +
         '<div class="p-walk"><div data-reveal="0"><div class="p-src" style="--lh:40px">'
@@ -155,7 +155,7 @@ scene(
         '<div class="p-term" data-reveal="2" style="margin-top:8px" data-copy="' + escape(COMMIT) + '"><div class="dim">$ git commit -m "homepage-v1: 补充项目经历" \\</div>'
         '<div class="dim">    -m "本轮目标：在项目区呈现我的项目经历。改动文件：src/App.tsx"</div><div class="ok">[main 7ce0e9f] homepage-v1: 补充项目经历</div></div>'
         '<div class="p-term" data-reveal="3" style="margin-top:8px" data-copy="git log --oneline -1"><div class="dim">$ git log --oneline -1</div><div>7ce0e9f (HEAD -&gt; main) homepage-v1: 补充项目经历</div></div>'
-        '<p class="source-note">' + SAMPLE + ' 提交哈希每次不同。</p>'
+        '<p class="source-note">' + SAMPLE + ' 7ce0e9f 是排练时的短哈希，每次提交都不同。</p>'
     ),
     steps=["暂存", "再看一遍", "提交并写清说明", "回退点"],
     teaching=teach(
@@ -167,7 +167,7 @@ scene(
 scene(
     id="p41", segment="回到检查点",
     label="接受错了怎么回去", title="万一接受错了，怎样回去",
-    lead="还没提交：用 git restore 放弃选定文件还没暂存的修改，已经 git add 的先用 git restore --staged 取消暂存；它不处理未跟踪的新文件，放弃的内容也找不回来。已经提交：用 git revert 加提交哈希，新建一个“撤回提交”，历史保留，不改写。不教 git reset --hard：2.4 要公开历史。/clear 和压缩改的是对话，不会撤销文件改动；回退靠 git。",
+    lead="还没提交：用 git restore 放弃选定文件还没暂存的修改，已经 git add 的先用 git restore --staged 取消暂存；它不处理未跟踪的新文件，放弃的内容也找不回来。已经提交：用 git revert 加提交哈希，新建一个“撤回提交”，历史保留，不改写。这里不用 git reset --hard：下一节要公开整段历史，改写历史容易出事。/clear 和压缩改的是对话，不会撤销文件改动；回退靠 git。",
     html=(
         '<div class="p-chain" data-reveal="0"><span>改动</span><i>→</i><span>审查</span><i>→</i><span>提交 = 检查点</span></div>'
         '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:14px">'
@@ -176,8 +176,8 @@ scene(
         '<p class="p-sub" style="margin-top:8px">已 add 的先 --staged · 新文件不管 · 放弃了就找不回</p></div>'
         '<div class="p-box" data-role="ctx" data-reveal="2"><span class="p-tag" data-role="ctx">已经提交</span>'
         '<div class="p-term" data-copy="git revert --no-edit 7ce0e9f" style="margin-top:8px"><div class="dim">$ git revert --no-edit 7ce0e9f</div><div class="ok">Revert "homepage-v1: 补充项目经历"</div></div>'
-        '<p class="p-sub" style="margin-top:8px">新增一个撤回提交 · 原来的提交还在历史里</p></div></div>'
-        '<div class="p-bar" data-reveal="3">commit 让<b>“拒绝”变便宜</b> · /clear 和压缩不撤销文件，回退靠 git</div>'
+        '<p class="p-sub" style="margin-top:8px">新增一个撤回提交 · 原来的提交还在历史里<br>7ce0e9f 是示例，换成自己的回退点</p></div></div>'
+        '<div class="p-bar" data-reveal="3">提交过的改动，<b>接受错了也能撤回</b> · /clear 和压缩不撤销文件，回退靠 git</div>'
     ),
     repro=repro([
         ("在课程仓库根目录，用第 1 章参考快照建一个练习仓库，不动你自己的个人主页", "cp -R starters/personal-homepage/ch01-complete lab-runs/revert && cd lab-runs/revert\ngit init -q -b main && git add -A && git commit -qm baseline"),
@@ -195,14 +195,14 @@ scene(
 scene(
     id="p42", segment="回到检查点",
     label="本节小结", title="读懂再接受，接受了也能退",
-    lead="本节留下一个审过、可回退的 homepage-v1 提交和一条评审结论。接受之前先看范围再看内容，再回看请求记录：Codex 当时看到了什么。提交以后，接受错了也能用 git 退回去；/clear 和压缩只动对话，不动文件。2.3 判断范围：该不该接受；2.5 判断性质：是不是保持了行为。检查分三层：自动检查、自动 Review、人工 Review。本章已有构建这一项自动检查，Review 全靠人工。下一节：发布上线。",
+    lead="本节留下一个审过、可回退的 homepage-v1 提交和一条评审结论。接受之前先看范围再看内容，再回看请求记录：Codex 当时看到了什么。提交以后，接受错了也能用 git 退回去；/clear 和压缩只动对话，不动文件。这一节判断范围：该不该接受；本章最后一节判断性质：AI 说“只是重构”时，行为变没变。检查分三层：自动检查、自动 Review、人工 Review。本章已有构建这一项自动检查，Review 全靠人工。下一节：发布上线。",
     html=(
         '<div class="p-sketch" style="align-items:start"><div data-reveal="0"><h3 style="text-align:center">接受之前</h3>'
         '<div class="p-star" style="width:260px;font-size:24px">先看范围<br>再看内容</div>'
         '<p class="p-sub" style="text-align:center;margin-top:10px">回看记录：它当时看到了什么</p>'
         '<p class="p-sub" data-reveal="1" style="text-align:center;margin-top:6px"><b>接受之后</b> · 回退靠 git，不靠对话</p></div>'
         '<div data-reveal="2"><h3>三层检查</h3><ul class="p-exits" style="gap:12px"><li class="is-pass">自动检查 · 本章只有构建</li><li class="is-stop">自动 Review · 以后</li><li class="is-pass">人工 Review · 本章</li></ul></div>'
-        '<div class="p-next" data-reveal="3"><h3>下一节</h3><div class="p-box" data-role="us"><h3>2.4 发布上线</h3><p>看 Codex 怎么用 gh</p></div></div></div>'
+        '<div class="p-next" data-reveal="3"><h3>下一节</h3><div class="p-box" data-role="us"><h3>2.4 发布上线</h3><p>看 Codex 用 GitHub CLI 改设置</p></div></div></div>'
     ),
     steps=["接受之前", "接受之后", "三层检查", "下一节"],
 )

@@ -12,7 +12,7 @@ from lessonkit import Lesson, NARROW, chapter_map, ref, repro, teach  # noqa: E4
 
 lesson = Lesson(__file__, "2.4", "发布上线，看 Codex 怎么用 gh", summary="第一次推送前看清即将公开的整段历史；Pages 来源交给 Codex 用 gh 设置，再在请求记录里看清这次调用；发布后用公开 URL 证明页面可用。")
 
-RECORD = "请求记录为结构示意，录制时按实际记录替换；条目名为中文概括"
+RECORD = "请求记录为结构示意，条目名为中文概括；实际的命令写法和调用次数以记录为准"
 scene = lesson.scene
 
 
@@ -40,7 +40,7 @@ scene(
         '<div class="p-flow" style="--n:4;margin-top:22px">'
         '<div class="p-node" data-role="gate" data-reveal="1"><span class="p-num">1</span><h3>看清历史</h3><p>即将公开的提交、文件、作者</p></div>'
         '<div class="p-node" data-role="agent" data-reveal="1"><span class="p-num">2</span><h3>审查配置</h3><p>Codex 写的部署工作流</p></div>'
-        '<div class="p-node" data-role="us" data-reveal="2"><span class="p-num">3</span><h3>设置与推送</h3><p>Codex 用 gh 改设置，人来推送</p></div>'
+        '<div class="p-node" data-role="us" data-reveal="2"><span class="p-num">3</span><h3>设置与推送</h3><p>Codex 改设置<br>人来推送</p></div>'
         '<div class="p-node" data-role="ok" data-reveal="2"><span class="p-num">4</span><h3>证明可用</h3><p>公开 URL 上查三项</p></div></div>'
     ),
     steps=["回到地图", "推送之前", "推送与之后"],
@@ -99,12 +99,12 @@ scene(
 scene(
     id="p46", segment="推送前检查",
     label="能让所有人看到吗", title="这些内容，可以让所有人看到吗？",
-    lead="逐项对照判断清单，由人决定。以提交作者邮箱为例：它是不是你愿意公开的邮箱？不愿意，就先停下，不推送。项目经历借用了两位讲师的经历，是本人同意公开的内容。",
+    lead="逐项对照判断清单，由人决定。以提交作者邮箱为例：它是不是你愿意公开的邮箱？不愿意，就先停下，不推送。改用 GitHub 的 noreply 邮箱只影响之后的提交，已有提交里的邮箱要改写历史才能换掉，做法见本页链接。讲师演示里的项目经历借自两位讲师，本人同意公开；写到别人的事，要先问过对方。",
     html=(
         NARROW +
         '<div class="p-claim" style="grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)">'
         '<div class="p-box" data-role="gate" data-reveal="0"><span class="p-tag" data-role="gate">每个提交里都有</span>'
-        '<p class="p-mono" style="margin-top:8px;line-height:1.6">Author: 示例同学<br>&lt;<b>你的邮箱</b>&gt;</p><p class="p-sub">不想公开：先停，换成 GitHub 的 noreply 邮箱</p></div>'
+        '<p class="p-mono" style="margin-top:8px;line-height:1.6">Author: 示例同学<br>&lt;<b>你的邮箱</b>&gt;</p><p class="p-sub">不想公开：先停；换 noreply 只管以后的提交</p></div>'
         '<ul class="p-checks"><li class="is-no" data-reveal="1">有没有 secret<small>API 密钥、令牌、配置文件</small></li>'
         '<li class="is-no" data-reveal="1">有没有未经同意的他人信息<small>别人的姓名、联系方式、经历、照片</small></li>'
         '<li class="is-no" data-reveal="1">截图里有没有隐私<small>桌面、通知、浏览器标签</small></li>'
@@ -162,7 +162,7 @@ scene(
         '<li data-reveal="1"><span><b>资源路径</b><small>build 后，资源路径以 /&lt;仓库名&gt;/ 开头</small></span></li>'
         '<li data-reveal="2"><span><b>权限只要发布所需</b><small>读代码、写 Pages、取部署身份</small></span></li>'
         '<li class="is-risk" data-reveal="3"><span><b>触发分支</b><small>等于自己的默认分支</small></span></li></ol></div>'
-        '<p class="source-note">左侧为常见结构的示意，不是 Codex 的实际输出；字段与写法以录制时生成的文件为准</p>'
+        '<p class="source-note">左侧为常见结构的示意，不是 Codex 的实际输出；字段与写法以你的 Codex 实际生成的文件为准</p>'
     ),
     steps=["base", "资源路径", "权限", "触发分支"],
     teaching=teach(
@@ -175,17 +175,17 @@ scene(
 scene(
     id="p49", segment="推送与发布",
     label="设置来源并推送", title="Codex 改 Pages 设置，推送由我们来做",
-    lead="提交部署配置，再用推送前检查的命令看一遍最终要公开的提交。仓库需要公开时现在再改。Pages 的来源交给 Codex 用 GitHub CLI 设为 GitHub Actions：每条命令弹出批准框，读过再批；改完在网页上刷新确认。最后由人把当前分支推到自己的 origin、看 Actions 日志。首次部署若失败，按日志、build 输出、Network 的顺序定位出在哪一环。",
+    lead="提交部署配置，再用推送前检查的命令看一遍最终要公开的提交。仓库需要公开时现在再改。Pages 的来源交给 Codex 用 GitHub CLI（命令是 gh）设为 GitHub Actions：每条命令弹出批准框，读过再批；改完在网页上刷新确认。最后由人把当前分支推到自己的 origin、看 Actions 日志。首次部署若失败，按日志、build 输出、Network 的顺序定位出在哪一环。",
     html=(
         '<div class="p-flow" style="--n:4">'
         '<div class="p-node" data-role="us" data-reveal="0"><span class="p-num">1</span><h3>提交配置</h3><p>审过的两处改动</p></div>'
         '<div class="p-node" data-role="tool" data-reveal="0"><span class="p-num">2</span><h3>再看历史</h3><p>待推送的全部提交</p></div>'
         '<div class="p-node" data-role="agent" data-reveal="1"><span class="p-num">3</span><h3>Codex 改设置</h3><p>每条命令由你批准</p></div>'
         '<div class="p-node" data-role="gate" data-reveal="2"><span class="p-num">4</span><h3>人来推送</h3><p class="p-mono">git push -u origin HEAD</p></div></div>'
-        '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:16px" data-reveal="1">'
-        '<div class="p-box is-soft" data-role="gate"><h3>批准框里看什么</h3><p>命令和理由；修改类命令看清方法和对象</p></div>'
-        '<div class="p-box is-soft" data-role="ok"><h3>网页上确认</h3><p>Settings → Pages，刷新后来源是 GitHub Actions</p></div></div>'
-        '<div class="p-box is-soft" data-role="gate" data-reveal="3" style="margin-top:12px"><h3>失败时出在哪一环</h3><p>Actions 日志 → build 输出 → Network 里哪个资源 404</p></div>'
+        '<div class="p-grid" style="--n:3;gap:14px;margin-top:16px">'
+        '<div class="p-box is-soft" data-role="gate" data-reveal="1"><h3>批准框里看什么</h3><p>命令和理由；修改类命令看清方法和对象</p></div>'
+        '<div class="p-box is-soft" data-role="ok" data-reveal="1"><h3>网页上确认</h3><p>Settings → Pages，刷新后来源是 GitHub Actions</p></div>'
+        '<div class="p-box is-soft" data-role="gate" data-reveal="3"><h3>失败时出在哪一环</h3><p>Actions 日志 → build 输出 → Network 里哪个资源 404</p></div></div>'
     ),
     steps=["提交并复查", "Codex 改设置", "人来推送", "失败时"],
     teaching=teach(
@@ -263,7 +263,7 @@ scene(
         '<div class="p-flow" style="--n:4">'
         '<div class="p-node" data-role="gate" data-reveal="0"><h3>看清历史</h3><p>提交、文件、作者</p></div>'
         '<div class="p-node" data-role="agent" data-reveal="0"><h3>审查配置</h3><p>base、权限、分支</p></div>'
-        '<div class="p-node" data-role="us" data-reveal="0"><h3>设置与推送</h3><p>Codex 用 gh 改设置，人批准、推送</p></div>'
+        '<div class="p-node" data-role="us" data-reveal="0"><h3>设置与推送</h3><p>Codex 改设置<br>人批准、人推送</p></div>'
         '<div class="p-node" data-role="ok" data-reveal="0"><h3>证明可用</h3><p>三项检查与 tag</p></div></div>'
         '<div class="p-bar" data-reveal="1" style="margin-top:18px">一次 gh 调用：<b>模型提出命令 → 我们批准 → 返回带进下一次请求</b></div>'
     ),
