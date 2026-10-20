@@ -2,7 +2,7 @@
 
 [打开课件](index.html) · [逐步讲稿](speaker.html) · [分镜](STORYBOARD.md) · [验证记录](VALIDATION.md)
 
-用 claude-tap 启动 Codex，分两步发 Prompt：先发一句与项目无关的话，看 Codex 实际发给模型的请求由哪几块组成；再问一个与项目相关的只读问题，看工具调用和返回怎样进入 context。最后对比同一句话在不同权限、不同 HOME 下的请求，归纳“这些加在一起就是 context”。16 页。依据[内部大纲](../../../../docs/outline/course-outline-internal.md) 2.1 与[第 2 章 Context 主线提案](../../../../docs/outline/proposals/2026-10-19-ch02-context-storyline.md)。2026-10-20 按重写后的分镜重做，未试讲、未录制。
+用 claude-tap 启动 Codex，分两步发 Prompt：先发一句与项目无关的话，看 Codex 实际发给模型的请求由哪几块组成；再问一个与项目相关的只读问题，看工具调用和返回怎样进入 context。最后对比同一句话在不同权限、不同模型配置（能力目录开 / 关）下的请求，归纳“这些加在一起就是 context”。16 页。依据[内部大纲](../../../../docs/outline/course-outline-internal.md) 2.1 与[第 2 章 Context 主线提案](../../../../docs/outline/proposals/2026-10-19-ch02-context-storyline.md)。2026-10-20 按重写后的分镜重做，未试讲、未录制。
 
 ## 维护
 
@@ -19,9 +19,8 @@ uv run courseware/tools/check-courseware.py
 
 ## 素材状态
 
-- p08 的 token 数与字符数、p16 的权限说明字符数是占位（画面显示“〔实测〕”），录制时按冻结的统一脱敏记录替换；旧的“34 字读标题任务、约 1.15 万 token”来自另一个 Prompt，不沿用。
-- p09、p11、p15 中与提问内容无关的数字（各块字符数、工具个数、Skills 列表大小）沿用 2026-10-02 讲师机器上的一次运行（Codex 0.160.0 + MiniMax，`codex exec`），标注“一次运行”，录制时按冻结记录核对。
+- p07–p16 与 p15b 的数字来自 2026-10-20 15:16 课程基线（隔离 HOME，能力目录开、推理档位 max，Codex 0.163.0 + MiniMax-M3.1-Flash，`codex exec`）的一次运行，标注“一次运行”；p15b 的对照组是同一句话在能力目录关时的记录。较早那次能力目录关的数字不再用于画面。录制时按冻结记录核对。
 - p07 的 Codex 回复与 p14 的工具调用以录制实际为准，p14 讲师提示里写了分支；画面不预写回复。
 - p16a 的官方 context 解释尚未选定，画面留虚线框占位；最后一行是概念地图的保底版本，地图定稿后替换。
-- p10 只引用 Codex 开源仓库基础指令的章节目录（中文意译），不大段引用原文。
-- 原 p15-home 的隔离 HOME 做法改为 p15 的“自己对比一次”折叠步骤，使用仓库里的 `tools/clean-codex.sh`。
+- p10 展示这次真实系统指令的中文意译；内置基础指令只在 p15b 列章节名的中文意译，不大段引用原文。
+- 原 p15（隔离 HOME 与三层来源）换成 p15b（能力目录开 / 关对比），“自己对比一次”用 `CLEAN_CODEX_CATALOG=0` 与 `tools/clean-codex.sh`；三层来源与隔离 HOME 对比移到配套页。
