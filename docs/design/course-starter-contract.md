@@ -51,7 +51,8 @@ ch03-start-v1    第 3 章参考起点（待制作）
 - npm 与 `package-lock.json`
 - 默认只提供 `npm run dev`、`npm run build`、`npm run preview`
 - 静态本地运行，不依赖后端、数据库、登录、外部 API、远程字体或远程图片
-- 初始版本不引入 Tailwind、UI 组件库、动画库、MCP、Skill、`AGENTS.md` 或其他 Harness 配置
+- 初始版本（`main`）不预置 Tailwind、UI 组件库、动画库、MCP、Skill、`AGENTS.md` 或其他 Harness 配置，让学员从干净起点看清每样东西由谁加入
+- 第 2 章起由学员按需自建项目 `AGENTS.md`（第一条规则），讲师在 `course-run` 记录这一步（2026-10-20 讲师确认）；之后各章参考起点标签按 `course-run` 实际内容包含它，录制前核对
 
 Node 版本、依赖安装和构建命令在 Starter 首次发布前必须真实试跑并记录。若环境验证需要调整版本，以实际可复现结果更新本契约和仓库文档。
 
