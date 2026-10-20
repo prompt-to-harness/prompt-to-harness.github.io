@@ -15,6 +15,9 @@
 #                        例如在另一个目录 codex exec resume；不设时每次运行都用一个新的 HOME
 #   CLEAN_CODEX_KEEP_CONFIG=1 配合 CLEAN_CODEX_HOME：已有 config.toml 时不重写，保留 Codex 自己写入的设置
 #                        （如 plugin marketplace add、插件开关）；不设时每次启动都重写为只含 MiniMax 的配置
+#   CLEAN_CODEX_CATALOG  默认 1：写入 MiniMax 官方的模型能力目录（tools/codex-model-catalog.json）和 512K 窗口；
+#                        设 0 则不写，Codex 找不到模型元数据，改用内置兜底配置（会提示 "Model metadata ... not found"）。
+#                        两者的请求不同：系统指令、工具集、reasoning 参数都变（第 2 章配套实验对比过）
 #   CLEAN_CODEX_NO_OPEN=1 配合 --tap：不自动在浏览器打开请求面板（批量运行用），记录照常保存
 #
 # 密钥只通过环境变量传给 Codex，配置文件里没有密钥，可以放心展示。
@@ -67,18 +70,23 @@ cleanup() {
 }
 trap cleanup EXIT
 
-mkdir -p "$SIM_HOME/.codex/model-catalogs"
 # 模型能力目录：没有它，Codex 查不到 MiniMax 模型的元数据，会用兜底配置并警告 "Model metadata ... not found"。
 # 内容照 MiniMax 官方文档「配置模型能力目录（可选）」：https://platform.minimax.cn/docs/m-plan/codex
-cp "$(dirname "$0")/codex-model-catalog.json" "$SIM_HOME/.codex/model-catalogs/custom-catalog.json"
+mkdir -p "$SIM_HOME/.codex"
+CATALOG_LINES=""
+if [ "${CLEAN_CODEX_CATALOG:-1}" = 1 ]; then
+  mkdir -p "$SIM_HOME/.codex/model-catalogs"
+  cp "$(dirname "$0")/codex-model-catalog.json" "$SIM_HOME/.codex/model-catalogs/custom-catalog.json"
+  CATALOG_LINES="model_context_window = 524288
+model_catalog_json = \"$SIM_HOME/.codex/model-catalogs/custom-catalog.json\""
+fi
 if [ "${CLEAN_CODEX_KEEP_CONFIG:-0}" = 1 ] && [ -f "$SIM_HOME/.codex/config.toml" ]; then
   echo "保留已有配置：$SIM_HOME/.codex/config.toml" >&2
 else
 cat > "$SIM_HOME/.codex/config.toml" <<EOF
 model = "$MODEL"
 model_provider = "minimax"
-model_context_window = 524288
-model_catalog_json = "$SIM_HOME/.codex/model-catalogs/custom-catalog.json"
+$CATALOG_LINES
 forced_login_method = "api"
 
 [model_providers.minimax]

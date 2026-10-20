@@ -41,7 +41,8 @@ run_step() {  # run_step <运行目录> <名称> <catalog 0|1> <exec 参数…>�
   pid=$!
   while kill -0 "$pid" 2>/dev/null; do
     if [ $((SECONDS - start)) -ge "$STEP_TIMEOUT" ]; then
-      pkill -P "$pid" 2>/dev/null || true; kill "$pid" 2>/dev/null || true; echo timeout > "$run/$name.timeout"; break
+      # 命令行里带着 -o <这一步的输出文件>，据此连 codex 子进程一起杀，否则会留下仍在写会话的进程
+      pkill -f "$run/$name.answer.md" 2>/dev/null || true; kill "$pid" 2>/dev/null || true; echo timeout > "$run/$name.timeout"; break
     fi
     sleep 2
   done
