@@ -179,7 +179,7 @@ window.lesson = {
         "label": "复现这个实验",
         "steps": [
           {
-            "text": "在课程仓库根目录，用第 1 章参考快照建一个练习仓库，不动你自己的首页",
+            "text": "在课程仓库根目录，用第 1 章参考快照建一个练习仓库，不动你自己的个人主页",
             "code": "cp -R starters/personal-homepage/ch01-complete lab-runs/revert && cd lab-runs/revert\ngit init -q -b main && git add -A && git commit -qm baseline"
           },
           {

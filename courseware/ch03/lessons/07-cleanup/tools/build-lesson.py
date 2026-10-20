@@ -13,7 +13,7 @@ from lessonkit import Lesson, chapter_map, repro, teach  # noqa: E402
 lesson = Lesson(__file__, "3.7", "重开时，还有什么要清理", summary="界面重置不等于资源重置；谁创建计时器和实例，谁负责清理。")
 scene = lesson.scene
 
-PREP = "教学预备版本：在 3.3 修复后的 v1 上删掉一行清理代码（courseware/ch03/materials/prepared/stale-timer.diff），2026-10-06 用脚本核对一次。不是自然出现的缺陷。"
+PREP = "教学预备版本：在 3.3 修复后的记忆翻牌上删掉一行清理代码（courseware/ch03/materials/prepared/stale-timer.diff），2026-10-06 用脚本核对一次。不是自然出现的缺陷。"
 
 scene(
     id="p45", segment="开篇", layout="lesson-cover",
@@ -31,18 +31,18 @@ scene(
 scene(
     id="p46", segment="我们的实现",
     label="我们的实现有这个问题吗", title="我们的实现，其实都清理了",
-    lead="排练的 6 份实现，重开时都清理了计时器。为了看清没清理会怎样，我们用一份明确标注的预备版本：在修好的 v1 上删掉一行。这不是自然出现的事故。",
+    lead="排练的 6 份实现，重开时都清理了计时器。为了看清没清理会怎样，我们用一份明确标注的预备版本：在修复后的记忆翻牌上删掉一行。这不是自然出现的事故。",
     html=(
-        '<div class="p-code" data-reveal="0"><div class="p-code-head"><span>v1 · 等待翻回的 effect</span></div>'
+        '<div class="p-code" data-reveal="0"><div class="p-code-head"><span>有计时器清理 · 等待翻回的 effect</span></div>'
         '<pre><span style="display:block">const timer = window.setTimeout(() =&gt; { …翻回、清空“已翻开” }, 900)</span>'
         '<span class="hl">return () =&gt; window.clearTimeout(timer)   // 清理</span></pre></div>'
-        '<div class="p-code" data-reveal="1" style="margin-top:12px"><div class="p-code-head"><span>预备版本（教学用）</span><span>−1 行</span></div>'
+        '<div class="p-code" data-reveal="1" style="margin-top:12px"><div class="p-code-head"><span>教学预备版本（未清理计时器）</span><span>−1 行</span></div>'
         '<pre><span style="display:block">window.setTimeout(() =&gt; { …翻回、清空“已翻开” }, 900)</span>'
         '<span class="del">-return () =&gt; window.clearTimeout(timer)</span></pre></div>'
-        '<p class="p-links" data-reveal="1" style="margin-top:12px"><a href="../../practice/memory-v1/index.html" target="_blank" rel="noopener">v1</a><a href="../../practice/memory-stale-timer/index.html" target="_blank" rel="noopener">预备版本（教学用）</a></p>'
+        '<p class="p-links" data-reveal="1" style="margin-top:12px"><a href="../../practice/memory-v1/index.html" target="_blank" rel="noopener">试玩有清理的版本</a><a href="../../practice/memory-stale-timer/index.html" target="_blank" rel="noopener">试玩未清理的教学预备版本</a></p>'
         '<p class="source-note">' + PREP + '</p>'
     ),
-    steps=["v1 的清理", "预备版本"],
+    steps=["计时器清理", "教学预备版本"],
     teaching=teach(("讲师提示", "画面和口播都要说明“教学预备”；不把它说成现场发现。")),
 )
 
@@ -58,14 +58,14 @@ scene(
         '<div class="p-node" data-role="gate" data-reveal="2"><b>900 ms</b><small>旧回调：清空“已翻开”</small></div>'
         '<div class="p-node" data-role="gate" data-reveal="3"><b>之后</b><small>翻第 2 张：两张一直朝上</small></div></div>'
         '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:14px" data-reveal="3">'
-        '<div class="p-box is-soft" data-role="ok"><h3>v1</h3><p>“不是一对”，两张翻回</p></div>'
-        '<div class="p-box is-soft" data-role="gate"><h3>预备版本</h3><p>两张一直朝上，提示不变</p></div></div>'
+        '<div class="p-box is-soft" data-role="ok"><h3>有计时器清理</h3><p>“不是一对”，两张翻回</p></div>'
+        '<div class="p-box is-soft" data-role="gate"><h3>教学预备：未清理</h3><p>两张一直朝上，提示不变</p></div></div>'
     ),
     steps=["翻错后重开", "新一局翻一张", "旧回调", "结果"],
     repro=repro([
-        ("在课程仓库根目录，基于修好的 v1 做出预备版本并构建", "cp -R <记忆翻牌 v1 目录> lab-runs/ch03-prepared && cd lab-runs/ch03-prepared\ngit apply ../../courseware/ch03/materials/prepared/stale-timer.diff && npm ci && npm run build && cd ../.."),
+        ("在课程仓库根目录，基于修复后的记忆翻牌做出教学预备版本并构建", "cp -R <记忆翻牌 v1 目录> lab-runs/ch03-prepared && cd lab-runs/ch03-prepared\ngit apply ../../courseware/ch03/materials/prepared/stale-timer.diff && npm ci && npm run build && cd ../.."),
         ("按“翻错 → 重开 → 翻一张 → 等 1.2 秒 → 再翻一张”核对每一刻的牌面", "uv run courseware/ch03/materials/prepared/stale-timer-check.py lab-runs/ch03-prepared"),
-    ], note="v1 目录指 3.3 修复后的记忆翻牌；对照时把同一条命令用在 v1 上。"),
+    ], note="命令中的 <记忆翻牌 v1 目录> 指 3.3 修复后的记忆翻牌目录；对照时把同一条核对命令用在有清理的版本上。"),
 )
 
 scene(

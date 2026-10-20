@@ -150,7 +150,7 @@ scene(
         '<div class="p-bar" data-reveal="3">commit 让<b>“拒绝”变便宜</b></div>'
     ),
     repro=repro([
-        ("在课程仓库根目录，用第 1 章参考快照建一个练习仓库，不动你自己的首页", "cp -R starters/personal-homepage/ch01-complete lab-runs/revert && cd lab-runs/revert\ngit init -q -b main && git add -A && git commit -qm baseline"),
+        ("在课程仓库根目录，用第 1 章参考快照建一个练习仓库，不动你自己的个人主页", "cp -R starters/personal-homepage/ch01-complete lab-runs/revert && cd lab-runs/revert\ngit init -q -b main && git add -A && git commit -qm baseline"),
         ("提交一次代码改动（homepage-v1），再单独提交一份记录", "git apply ../../courseware/ch02/materials/homepage-v1.diff && git commit -qam homepage-v1\necho '# 本轮记录' > CH02_VIBE_ITERATIONS.md && git add CH02_VIBE_ITERATIONS.md && git commit -qm 'docs: 本轮记录'"),
         ("在演示分支上撤回代码那次提交（记录之前的那一次，即 HEAD~1）", "git switch -c demo-revert && git revert --no-edit HEAD~1 && git log --oneline -3 && git show --stat HEAD"),
         ("检查：撤回只改了 src/App.tsx，记录文件还在；然后回到 main，删掉演示分支", "ls CH02_VIBE_ITERATIONS.md && git switch main && git branch -D demo-revert"),

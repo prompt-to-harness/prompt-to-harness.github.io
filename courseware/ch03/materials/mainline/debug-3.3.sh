@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 第 3 章 3.3 排练：在第 8 轮的记忆翻牌 v0 上（牌组配不成对、步数只在配对时加），先只调查，人定规则后最小修复。
+# 第 3 章 3.3 排练：在第 8 轮修复前的记忆翻牌 上（牌组配不成对、步数只在配对时加），先只调查，人定规则后最小修复。
 # 用法：courseware/ch03/materials/mainline/debug-3.3.sh [运行目录]   BASE=<仓库> 默认 v2-run8/repo
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"; REPO="$(cd "$HERE/../../../.." && pwd)"

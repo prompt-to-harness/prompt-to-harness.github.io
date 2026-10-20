@@ -4,7 +4,7 @@
 
 ## 做法
 
-在 3.3 修复后的记忆翻牌 v1（排练第 8 轮 + `../mainline/reference/3.3-fix.diff`）上应用 [`stale-timer.diff`](stale-timer.diff)：删掉等待翻回那个 effect 的清理函数 `return () => window.clearTimeout(timer)`，一行。
+在 3.3 修复后的记忆翻牌（排练第 8 轮 + `../mainline/reference/3.3-fix.diff`）上应用 [`stale-timer.diff`](stale-timer.diff)：删掉等待翻回那个 effect 的清理函数 `return () => window.clearTimeout(timer)`，一行。
 
 ```bash
 cp -R <记忆翻牌 v1 目录> lab-runs/ch03-prepared && cd lab-runs/ch03-prepared
@@ -16,7 +16,7 @@ cd ../.. && uv run courseware/ch03/materials/prepared/stale-timer-check.py lab-r
 
 步骤：翻开两张不同的牌 → 立刻点“重新开始” → 新一局翻开第 1 张 → 等 1.2 秒（旧计时器 900ms 已到点）→ 翻开第 2 张 → 再等 1.5 秒。
 
-| 时刻 | v1（有清理） | 预备版本（无清理） |
+| 时刻 | 有计时器清理的版本 | 教学预备版本（未清理计时器） |
 | --- | --- | --- |
 | 新一局翻开第 1 张 | 1 张朝上 | 1 张朝上 |
 | 旧计时器到点后 | 1 张朝上 | 1 张朝上（看不出变化） |

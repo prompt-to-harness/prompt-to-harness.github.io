@@ -25,7 +25,7 @@ window.lesson = {
       "teaching": [
         {
           "title": "讲师提示",
-          "text": "五张卡是标明的教学判断题，不属于伪造的现场失败（决定 7）。教学材料：五张卡基于 homepage-v1 制作（courseware/ch02/materials/refactor-cards/），每张单独应用；页面截图与数值来自 v1 冻结候选，2026-10-06 在 1440×900 下用浏览器实测（shoot.py）。录制版基于讲师冻结的 homepage-v1 重新制作、重新拍摄。"
+          "text": "五张卡是标明的教学判断题，不属于伪造的现场失败（决定 7）。教学材料：五张卡基于 homepage-v1 制作（courseware/ch02/materials/refactor-cards/），每张单独应用；页面截图与数值来自个人主页发布候选，2026-10-06 在 1440×900 下用浏览器实测（shoot.py）。录制版基于讲师冻结的 homepage-v1 重新制作、重新拍摄。"
         }
       ],
       "source": "index.html#p53",
@@ -37,7 +37,7 @@ window.lesson = {
       "label": "五张卡，怎么查",
       "title": "五张卡，你打算怎么查？",
       "lead": "五张卡都基于 homepage-v1，每张单独应用，AI 交回时都说“只是重构，行为不变”。先只看说明和改动大小，给每张选一种检查办法；拿不准就写“证据不足”。",
-      "html": "<div class=\"p-quiz\" style=\"grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 14px\"><div class=\"p-q\" data-reveal=\"0\" style=\"min-height:0;padding:10px 14px\"><p style=\"margin:0 0 6px;display:flex;align-items:baseline;gap:8px\"><span style=\"font:400 28px/1 var(--p-title);color:#243042\">①</span><span style=\"font-size:15px;color:#4A5260\">refactor · 2 个文件 +16 −4</span></p><p style=\"margin:0;font-size:18px;font-weight:700;line-height:1.45\">抽出 ProjectCard 组件，App.tsx 更清爽。只是重构，行为不变。</p></div><div class=\"p-q\" data-reveal=\"0\" style=\"min-height:0;padding:10px 14px\"><p style=\"margin:0 0 6px;display:flex;align-items:baseline;gap:8px\"><span style=\"font:400 28px/1 var(--p-title);color:#243042\">②</span><span style=\"font-size:15px;color:#4A5260\">refactor · 2 个文件 +15 −14</span></p><p style=\"margin:0;font-size:18px;font-weight:700;line-height:1.45\">把项目数据移到 projects.ts，数据和页面分开。只是重构，行为不变。</p></div><div class=\"p-q\" data-reveal=\"1\" style=\"min-height:0;padding:10px 14px\"><p style=\"margin:0 0 6px;display:flex;align-items:baseline;gap:8px\"><span style=\"font:400 28px/1 var(--p-title);color:#243042\">③</span><span style=\"font-size:15px;color:#4A5260\">refactor · 1 个文件 +1 −1</span></p><p style=\"margin:0;font-size:18px;font-weight:700;line-height:1.45\">项目列表按名称排序，找起来更方便。只是重构，行为不变。</p></div><div class=\"p-q\" data-reveal=\"1\" style=\"min-height:0;padding:10px 14px\"><p style=\"margin:0 0 6px;display:flex;align-items:baseline;gap:8px\"><span style=\"font:400 28px/1 var(--p-title);color:#243042\">④</span><span style=\"font-size:15px;color:#4A5260\">refactor · 1 个文件 +1 −1</span></p><p style=\"margin:0;font-size:18px;font-weight:700;line-height:1.45\">统一类名风格，把 __description 缩短为 __desc。只是重构，行为不变。</p></div><div class=\"p-q\" data-reveal=\"1\" style=\"min-height:0;padding:10px 14px\"><p style=\"margin:0 0 6px;display:flex;align-items:baseline;gap:8px\"><span style=\"font:400 28px/1 var(--p-title);color:#243042\">⑤</span><span style=\"font-size:15px;color:#4A5260\">refactor · 1 个文件 +1 −1</span></p><p style=\"margin:0;font-size:18px;font-weight:700;line-height:1.45\">给项目卡加上 tabIndex，键盘也能聚焦。只是重构，行为不变。</p></div><div data-reveal=\"2\" style=\"display:grid;align-content:center;gap:10px;padding:6px 4px\"><span class=\"p-pause\">暂停 · 每张怎么查</span><p style=\"margin:0;font-size:18px;line-height:1.55\">读说明 · 读 diff · 打开页面 · 并排比 · 按 Tab<br>拿不准：证据不足</p></div></div><p class=\"source-note\">教学材料：五张卡基于 homepage-v1 制作（courseware/ch02/materials/refactor-cards/），每张单独应用；页面截图与数值来自 v1 冻结候选，2026-10-06 在 1440×900 下用浏览器实测（shoot.py）。录制版基于讲师冻结的 homepage-v1 重新制作、重新拍摄。</p>",
+      "html": "<div class=\"p-quiz\" style=\"grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 14px\"><div class=\"p-q\" data-reveal=\"0\" style=\"min-height:0;padding:10px 14px\"><p style=\"margin:0 0 6px;display:flex;align-items:baseline;gap:8px\"><span style=\"font:400 28px/1 var(--p-title);color:#243042\">①</span><span style=\"font-size:15px;color:#4A5260\">refactor · 2 个文件 +16 −4</span></p><p style=\"margin:0;font-size:18px;font-weight:700;line-height:1.45\">抽出 ProjectCard 组件，App.tsx 更清爽。只是重构，行为不变。</p></div><div class=\"p-q\" data-reveal=\"0\" style=\"min-height:0;padding:10px 14px\"><p style=\"margin:0 0 6px;display:flex;align-items:baseline;gap:8px\"><span style=\"font:400 28px/1 var(--p-title);color:#243042\">②</span><span style=\"font-size:15px;color:#4A5260\">refactor · 2 个文件 +15 −14</span></p><p style=\"margin:0;font-size:18px;font-weight:700;line-height:1.45\">把项目数据移到 projects.ts，数据和页面分开。只是重构，行为不变。</p></div><div class=\"p-q\" data-reveal=\"1\" style=\"min-height:0;padding:10px 14px\"><p style=\"margin:0 0 6px;display:flex;align-items:baseline;gap:8px\"><span style=\"font:400 28px/1 var(--p-title);color:#243042\">③</span><span style=\"font-size:15px;color:#4A5260\">refactor · 1 个文件 +1 −1</span></p><p style=\"margin:0;font-size:18px;font-weight:700;line-height:1.45\">项目列表按名称排序，找起来更方便。只是重构，行为不变。</p></div><div class=\"p-q\" data-reveal=\"1\" style=\"min-height:0;padding:10px 14px\"><p style=\"margin:0 0 6px;display:flex;align-items:baseline;gap:8px\"><span style=\"font:400 28px/1 var(--p-title);color:#243042\">④</span><span style=\"font-size:15px;color:#4A5260\">refactor · 1 个文件 +1 −1</span></p><p style=\"margin:0;font-size:18px;font-weight:700;line-height:1.45\">统一类名风格，把 __description 缩短为 __desc。只是重构，行为不变。</p></div><div class=\"p-q\" data-reveal=\"1\" style=\"min-height:0;padding:10px 14px\"><p style=\"margin:0 0 6px;display:flex;align-items:baseline;gap:8px\"><span style=\"font:400 28px/1 var(--p-title);color:#243042\">⑤</span><span style=\"font-size:15px;color:#4A5260\">refactor · 1 个文件 +1 −1</span></p><p style=\"margin:0;font-size:18px;font-weight:700;line-height:1.45\">给项目卡加上 tabIndex，键盘也能聚焦。只是重构，行为不变。</p></div><div data-reveal=\"2\" style=\"display:grid;align-content:center;gap:10px;padding:6px 4px\"><span class=\"p-pause\">暂停 · 每张怎么查</span><p style=\"margin:0;font-size:18px;line-height:1.55\">读说明 · 读 diff · 打开页面 · 并排比 · 按 Tab<br>拿不准：证据不足</p></div></div><p class=\"source-note\">教学材料：五张卡基于 homepage-v1 制作（courseware/ch02/materials/refactor-cards/），每张单独应用；页面截图与数值来自个人主页发布候选，2026-10-06 在 1440×900 下用浏览器实测（shoot.py）。录制版基于讲师冻结的 homepage-v1 重新制作、重新拍摄。</p>",
       "steps": [
         "①②",
         "③④⑤",
@@ -73,7 +73,7 @@ window.lesson = {
       "script": [
         "【操作提示｜课件 p55-12 第 1 步，指向 ① 的说明和 App.tsx 关键几行；点开 ① 的“完整 diff”弹窗，滚到 ProjectCard.tsx 对一遍类名与标签，再关闭弹窗。弹窗内容读自 refactor-cards/01-extract-component.diff，不切 VS Code】\n\n先看第一张。AI 说：抽出 ProjectCard 组件，App.tsx 更清爽，只是重构。左边是 App.tsx 的关键几行：原来写在列表里的四行卡片，换成了一行 ProjectCard；这四行搬进了新文件 ProjectCard.tsx。新文件的内容在“完整 diff”里，点开可以逐行对：类名、标签、顺序都和原来一样。",
         "【操作提示｜推进第 2 步，指向 ② 删掉的数组（折叠行）和新增的 import；需要时点开 ② 的“完整 diff”核对 projects.ts，看完关闭】\n\n第二张。AI 说：把项目数据移到 projects.ts，数据和页面分开。App.tsx 顶部整段删掉了三个项目的数组，换成一行 import；新文件 projects.ts 里是同样的数组，多了一个 export。删掉的和新加的是不是逐字相同，同样在完整 diff 里核对。",
-        "【操作提示｜推进第 3 步，逐个指向五个勾和“渲染出的页面结构与改前逐字相同”。画面为排练记录（shoot.py 2026-10-06，v1 冻结候选），不现场重跑；录制版若换成讲师冻结的 homepage-v1 重跑，以其输出为准】\n\n读完 diff，我们有理由相信行为没变，但这还只是推断。拿 2.2 的清单逐项对照：文字和顺序、和原页面并排比样式、点击项目卡、按 Tab、三种视口，全都一样。我们还对比了浏览器渲染出来的页面结构，和改前逐字相同。",
+        "【操作提示｜推进第 3 步，逐个指向五个勾和“渲染出的页面结构与改前逐字相同”。画面为排练记录（shoot.py 2026-10-06，个人主页发布候选），不现场重跑；录制版若换成讲师冻结的 homepage-v1 重跑，以其输出为准】\n\n读完 diff，我们有理由相信行为没变，但这还只是推断。拿 2.2 的清单逐项对照：文字和顺序、和原页面并排比样式、点击项目卡、按 Tab、三种视口，全都一样。我们还对比了浏览器渲染出来的页面结构，和改前逐字相同。",
         "【操作提示｜推进第 4 步，出现两个“行为没变”章和底部结论条；讲完进入 p55-3】\n\n结论：两张都没改行为，是重构。第二张删了 14 行、加了 15 行，行为一点没变；改动多，不等于危险。但“没变”这个结论，是逐项查完才得到的，不是因为说明里写了“只是重构”。"
       ],
       "teaching": [
@@ -83,7 +83,7 @@ window.lesson = {
         },
         {
           "title": "核对记录",
-          "text": "shoot.py 2026-10-06：v1 冻结候选分别应用 ①②，构建后导出的 #root 与改前逐字相同，index.css 未改；卡高、顺序、Tab 落点均与改前一致。"
+          "text": "shoot.py 2026-10-06：个人主页发布候选分别应用 ①②，构建后导出的 #root 与改前逐字相同，index.css 未改；卡高、顺序、Tab 落点均与改前一致。"
         }
       ],
       "source": "index.html#p55-12",
@@ -111,7 +111,7 @@ window.lesson = {
       "teaching": [
         {
           "title": "核对记录",
-          "text": "shoot.py 2026-10-06：v1 冻结候选应用 ③，顺序由“红绿灯感知量产、端侧多模态推理引擎、RoboHarness”变为“端侧多模态推理引擎、红绿灯感知量产、RoboHarness”；卡高与 Tab 落点不变。截图为 1440×900 下项目列表左侧。"
+          "text": "shoot.py 2026-10-06：个人主页发布候选应用 ③，顺序由“红绿灯感知量产、端侧多模态推理引擎、RoboHarness”变为“端侧多模态推理引擎、红绿灯感知量产、RoboHarness”；卡高与 Tab 落点不变。截图为 1440×900 下项目列表左侧。"
         }
       ],
       "source": "index.html#p55-3",
@@ -232,7 +232,7 @@ window.lesson = {
       "label": "每次都手工查吗",
       "title": "每次都这样手工重查吗？",
       "lead": "现在的项目没有覆盖这些行为的自动测试。确认“行为不变”只能把文字与顺序、样式、点击、键盘和三种视口全部手工查一遍，每改一次就重复一次。验证很贵，这是后面规格与 Harness 章节要解决的问题。本章交付物：迭代记录、审过的提交、推送前检查记录、公开 URL 和 ch02-homepage-live tag。",
-      "html": "<div class=\"p-grid\" style=\"--n:2;gap:16px;align-items:stretch\"><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"0\"><h3>每次都要重查</h3><p>文字与顺序 · 并排比样式 · 点击 · Tab · 三种视口</p></div><div class=\"p-bar\" data-reveal=\"1\" style=\"display:flex;align-items:center\">没有测试，<b>验证很贵</b></div></div><div class=\"p-flow\" style=\"--n:5;margin-top:16px\"><div class=\"p-node\" data-role=\"us\" data-reveal=\"2\"><h3>2.1 反馈</h3><p>带证据的清单</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"2\"><h3>2.2 小改</h3><p>一轮一个结果</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"2\"><h3>2.3 审查</h3><p>可回退的提交</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"2\"><h3>2.4 发布</h3><p>公开 URL 与 tag</p></div><div class=\"p-node\" data-role=\"gate\" data-reveal=\"2\"><h3>2.5 重构</h3><p>看可观察行为</p></div></div><div class=\"p-bar is-light\" data-reveal=\"3\" style=\"margin-top:14px\">下一章 · 第 3 章：给首页加一个小游戏</div>",
+      "html": "<div class=\"p-grid\" style=\"--n:2;gap:16px;align-items:stretch\"><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"0\"><h3>每次都要重查</h3><p>文字与顺序 · 并排比样式 · 点击 · Tab · 三种视口</p></div><div class=\"p-bar\" data-reveal=\"1\" style=\"display:flex;align-items:center\">没有测试，<b>验证很贵</b></div></div><div class=\"p-flow\" style=\"--n:5;margin-top:16px\"><div class=\"p-node\" data-role=\"us\" data-reveal=\"2\"><h3>2.1 反馈</h3><p>带证据的清单</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"2\"><h3>2.2 小改</h3><p>一轮一个结果</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"2\"><h3>2.3 审查</h3><p>可回退的提交</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"2\"><h3>2.4 发布</h3><p>公开 URL 与 tag</p></div><div class=\"p-node\" data-role=\"gate\" data-reveal=\"2\"><h3>2.5 重构</h3><p>看可观察行为</p></div></div><div class=\"p-bar is-light\" data-reveal=\"3\" style=\"margin-top:14px\">下一章 · 第 3 章：给个人主页加一个小游戏</div>",
       "steps": [
         "手工清单",
         "验证很贵",
@@ -242,8 +242,8 @@ window.lesson = {
       "script": [
         "【操作提示｜课件 p58 第 1 步，指向“每次都要重查”方框；不切窗口】\n\n最后想一个问题：分拣这五张卡，我们用到了文字与顺序、并排比样式、点击、Tab 和三种视口。这个项目没有覆盖这些行为的自动测试，所以每改一次，就得手工全部重查一次。",
         "【操作提示｜推进第 2 步，指向“没有测试，验证很贵”；只点到为止，不展开测试框架】\n\n这一章我们一直在手工验证，每一轮都是。验证很贵，而且越往后改动越多，越容易漏。怎样把“行为”写下来、让检查自动跑起来，是后面规格和 Harness 章节要解决的问题。",
-        "【操作提示｜推进第 3 步，五个节点一起出现，按 2.1 到 2.5 的顺序逐个指认】\n\n回看这一章：2.1 先听反馈，留下带证据的清单；2.2 只改一处，并证明没弄坏别的；2.3 读懂 diff 再收，留下可回退的提交；2.4 看清历史再推送，发布后用三项检查证明页面可用；2.5 判断重构，看的是可观察行为，不是提交说明和 diff 大小。首页 v0 变成了一个有公开 URL 的 v1。",
-        "【操作提示｜推进第 4 步，指向底部的第 3 章预告；第 2 章到此结束，不再切工具窗口】\n\n第 2 章到这里结束。下一章，我们给首页加一个小游戏，体验更快的迭代，也会遇到第一个需要真正调试的问题。"
+        "【操作提示｜推进第 3 步，五个节点一起出现，按 2.1 到 2.5 的顺序逐个指认】\n\n回看这一章：2.1 先听反馈，留下带证据的清单；2.2 只改一处，并证明没弄坏别的；2.3 读懂 diff 再收，留下可回退的提交；2.4 看清历史再推送，发布后用三项检查证明页面可用；2.5 判断重构，看的是可观察行为，不是提交说明和 diff 大小。原本只在本地运行的个人主页，现在有了公开 URL。",
+        "【操作提示｜推进第 4 步，指向底部的第 3 章预告；第 2 章到此结束，不再切工具窗口】\n\n第 2 章到这里结束。下一章，我们给个人主页加一个小游戏，体验更快的迭代，也会遇到第一个需要真正调试的问题。"
       ],
       "teaching": [
         {

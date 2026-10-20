@@ -20,7 +20,7 @@ scene = lesson.scene
 
 READONLY_PROMPT = """只读任务，不修改任何文件。
 先读取 docs/evidence/CH02_VIBE_ITERATIONS.md，
-里面是别人对我首页的三条建议，以及我的核对记录。
+里面是别人对我个人主页的三条建议，以及我的核对记录。
 
 请逐条说明：
 1. 它对应哪些文件和代码；
@@ -39,13 +39,13 @@ HOME="$CLEAN_HOME" codex"""
 scene(
     id="p01", segment="收到反馈", layout="lesson-cover",
     label="能拿给熟人看了吗？", title="能拿给熟人看了吗？",
-    lead="把只在本机运行的首页 v0，变成能拿给熟人看、能公开访问的 v1",
+    lead="根据反馈改进个人主页，再发布到 GitHub Pages，让别人也能打开",
     html=(
         chapter_map(1) +
         '<div class="p-pair" style="grid-template-columns:1fr auto 1fr;margin-top:14px">'
-        '<div class="p-box" data-role="ink" data-reveal="0"><span class="p-tag" data-role="ink">现在</span><p class="p-big" style="font-weight:500">首页 v0 · 只在本机</p></div>'
+        '<div class="p-box" data-role="ink" data-reveal="0"><span class="p-tag" data-role="ink">现在</span><p class="p-big" style="font-weight:500">个人主页 · 只在本机</p></div>'
         '<div class="p-join" data-reveal="1"><span>本章</span><i class="p-arrow"></i></div>'
-        '<div class="p-box" data-role="us" data-reveal="1"><span class="p-tag" data-role="us">目标</span><p class="p-big" style="font-weight:500">v1 · 公开 URL</p></div></div>'
+        '<div class="p-box" data-role="us" data-reveal="1"><span class="p-tag" data-role="us">目标</span><p class="p-big" style="font-weight:500">发布后 · 公开 URL</p></div></div>'
         '<p class="p-hand" data-reveal="2">先别急着改：别人的建议，哪些是真问题？</p>'
     ),
     repro=repro([
@@ -57,14 +57,14 @@ scene(
         ("让 Codex 起草这次补齐的记录；你逐句核对，改成你确认过的内容", "把这次补齐写进 docs/evidence/CH02_START.md：对照了哪个参考起点、补了什么、保留了什么。注明由 Codex 起草、待我核对；不要写本机路径和用户名。"),
         ("核对无误后提交", "git add -A && git commit -m \"对照 ch02-start-v1 补齐第 2 章前提\""),
     ], note="没做完第 1 章、或想直接从第 2 章开始时用；已经做完的跳过。参考起点是 course-starter 的 ch02-start-v1 标签，只放在临时目录里对照，不进你的仓库。不想用 Codex 时，可在 GitHub 上下载这个标签的 ZIP 对照。讲师 2026-10-06 用三种起点各试两次，Codex 都能判断对；笼统地说“按你的建议执行”时，它会连可选建议一起做，所以要只确认必需项。", label="从这一章开始？"),
-    steps=["回到 v0", "本章目标", "本节问题"],
+    steps=["回到个人主页", "本章目标", "本节问题"],
     teaching=teach(("讲师提示", "本章只有这一处开篇地图；后续各节开篇沿用同一张地图，只移动当前位置。")),
 )
 
 scene(
     id="p02", segment="收到反馈",
     label="昨天的页面去哪了", title="昨天的页面，怎么打不开了？",
-    lead="隔了一天回到项目，本地地址打不开。开发服务器是一个运行中的程序，昨天关掉终端，它就停了；代码文件还在，但程序要重新启动。命令在第 1 章做出首页 v0 的那个项目目录里运行。",
+    lead="隔了一天回到项目，本地地址打不开。开发服务器是一个运行中的程序，昨天关掉终端，它就停了；代码文件还在，但程序要重新启动。命令在第 1 章做出个人主页的那个项目目录里运行。",
     html=(
         '<div class="p-pair" style="grid-template-columns:1fr auto 1fr">'
         '<div class="p-box" data-role="gate" data-reveal="0"><span class="p-tag" data-role="gate">浏览器</span>'
@@ -83,7 +83,7 @@ scene(
 scene(
     id="p03", segment="收到反馈",
     label="给熟人看了一眼", title="给熟人看了一眼",
-    lead="把首页给熟人看，收到三条建议。最自然的反应是全部交给 AI 去改，但这三条的性质并不一样。",
+    lead="把个人主页给熟人看，收到三条建议。最自然的反应是全部交给 AI 去改，但这三条的性质并不一样。",
     html=(
         '<div class="p-comic">'
         '<div class="p-panel" data-reveal="0"><span class="p-cap">在我电脑上</span><p class="p-bubble">帮我看看我的个人主页？</p><span class="p-avatar">我们</span></div>'
@@ -109,7 +109,7 @@ scene(
     ),
     steps=["示例反馈卡", "四要素", "先不算问题"],
     teaching=teach(
-        ("讲师提示", "核对分支直接见 p06、p17、p18。录制前须冻结讲师首页 v0，并核对反馈是否成立；目前不能把待准备素材写成已验证结果。"),
+        ("讲师提示", "核对分支直接见 p06、p17、p18。录制前须冻结讲师个人主页，并核对反馈是否成立；目前不能把待准备素材写成已验证结果。"),
     ),
 )
 
@@ -134,7 +134,7 @@ scene(
 scene(
     id="p05-live", segment="逐条核对",
     label="切到浏览器核对", title="切到浏览器：在自己的页面里打开设备工具栏",
-    lead="设备模拟只作用于当前标签页，所以要先在自己首页的标签页里打开，再逐条核对。每条只看相关的视口和操作，不做全量巡检。",
+    lead="设备模拟只作用于当前标签页，所以要先在自己的个人主页标签页里打开，再逐条核对。每条只看相关的视口和操作，不做全量巡检。",
     html=(
         '<style>body[data-mode=slides] .x-p05{grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:28px}</style>'
         '<div class="p-handoff x-p05"><div class="p-handoff-card" data-reveal="0" style="padding:20px 26px"><h3 style="font-size:34px">先打开自己的页面</h3>'
@@ -146,8 +146,8 @@ scene(
     ),
     steps=["打开自己的页面", "第 1 条", "第 2 条", "第 3 条"],
     teaching=teach(
-        ("切到实操", "在讲师冻结的首页 v0 上操作，完整演示一遍：新开标签页打开本地地址 → ⌥⌘I → ⇧⌘M → 选 Responsive 填 360×800 → 观察 → 改填 1440×900。镜头要让标签页地址栏和设备工具栏同时入画，说明模拟的是这个标签页。设备模拟入口按录制时浏览器版本核对；Tab 焦点要让画面看得清楚，必要时放大。"),
-        ("讲师提示", "常见卡点：在别的标签页里开了设备工具栏；缩放比例不是 100% 误以为页面变小；页面缺少 viewport meta 时手机视口会按约 980px 排版再缩小，看起来“挤”，核对前先确认首页 v0 带有该标签。"),
+        ("切到实操", "在讲师冻结的个人主页上操作，完整演示一遍：新开标签页打开本地地址 → ⌥⌘I → ⇧⌘M → 选 Responsive 填 360×800 → 观察 → 改填 1440×900。镜头要让标签页地址栏和设备工具栏同时入画，说明模拟的是这个标签页。设备模拟入口按录制时浏览器版本核对；Tab 焦点要让画面看得清楚，必要时放大。"),
+        ("讲师提示", "常见卡点：在别的标签页里开了设备工具栏；缩放比例不是 100% 误以为页面变小；页面缺少 viewport meta 时手机视口会按约 980px 排版再缩小，看起来“挤”，核对前先确认个人主页带有该标签。"),
     ),
 )
 
@@ -165,7 +165,7 @@ scene(
     ),
     steps=["第 1 条", "第 2 条", "第 3 条"],
     teaching=teach(
-        ("讲师提示", "第 2 条的“焦点跳过卡片”以讲师冻结的 v0 为准；学员实现不同，按自己页面的实际结果记录。回想 1.4 只是让学员想起决定，不剧透 Codex 会怎样判断：p07 问的是 Prompt 没提时它能否发现。"),
+        ("讲师提示", "第 2 条的“焦点跳过卡片”以讲师冻结的个人主页为准；学员实现不同，按自己页面的实际结果记录。回想 1.4 只是让学员想起决定，不剧透 Codex 会怎样判断：p07 问的是 Prompt 没提时它能否发现。"),
         ("跟做产出", "本页新建 docs/evidence/CH02_VIBE_ITERATIONS.md，写入三条原话与核对记录；p07 让 Codex 读取它，p17 补上性质标签。"),
     ),
 )

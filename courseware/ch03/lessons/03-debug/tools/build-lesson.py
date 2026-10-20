@@ -134,7 +134,7 @@ scene(
         '<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start">'
         '<div><div class="p-term" data-reveal="0"><div class="dim">$ git diff --stat</div>' + stat_rows + '</div>'
         '<div data-reveal="0" style="margin-top:8px">' + pop("修复的完整 diff", "看完整 diff", NARROW + fix_html) + '</div>'
-        '<p class="p-links" data-reveal="3" style="margin-top:12px"><a href="../../practice/memory-v0/index.html" target="_blank" rel="noopener">v0：复现</a><a href="../../practice/memory-v1/index.html" target="_blank" rel="noopener">v1：修好之后</a></p>'
+        '<p class="p-links" data-reveal="3" style="margin-top:12px"><a href="../../practice/memory-v0/index.html" target="_blank" rel="noopener">试玩修复前的版本</a><a href="../../practice/memory-v1/index.html" target="_blank" rel="noopener">试玩修复后的版本</a></p>'
         '</div>'
         '<ul class="p-checks">'
         '<li data-reveal="1">翻错一次<small>步数 1</small></li>'
@@ -154,15 +154,15 @@ scene(
 scene(
     id="p22", segment="小结",
     label="本节小结", title="调查常常比报告看得更深",
-    lead="本节留下记忆翻牌 v1、一份缺陷记录和一条我们自己定的规则（步数怎么算）。代码和记录分两次提交。下一节：做第二个游戏前，先看看做游戏的经验有没有人打包好了。",
+    lead="本节留下修复后的记忆翻牌、一份缺陷记录和一条我们自己定的规则（步数怎么算）。代码和记录分两次提交。下一节：做第二个游戏前，先看看做游戏的经验有没有人打包好了。",
     html=(
         '<div class="p-sketch" style="align-items:start"><div data-reveal="0"><h3 style="text-align:center">五步</h3>'
         '<div class="p-flow" style="--n:5;font-size:18px"><div class="p-node"><b>复现</b></div><div class="p-node"><b>只读调查</b></div><div class="p-node" data-role="us"><b>人定规则</b></div><div class="p-node"><b>最小修改</b></div><div class="p-node" data-role="ok"><b>复验</b></div></div></div>'
-        '<div data-reveal="1"><h3>留下的</h3><ul class="p-exits" style="gap:10px"><li class="is-pass">记忆翻牌 v1</li><li class="is-pass">缺陷记录：观察与推断分开</li><li class="is-pass">规则：步数怎么算</li></ul></div>'
+        '<div data-reveal="1"><h3>留下的</h3><ul class="p-exits" style="gap:10px"><li class="is-pass">修复后的记忆翻牌</li><li class="is-pass">缺陷记录：观察与推断分开</li><li class="is-pass">规则：步数怎么算</li></ul></div>'
         '<div class="p-next" data-reveal="2"><h3>下一节</h3><div class="p-box" data-role="tool"><h3>3.4 审插件</h3><p>做游戏的经验，有人打包好了吗？</p></div></div></div>'
     ),
     steps=["五步", "留下的", "下一节"],
-    teaching=teach(("跟做产出", "缺陷记录（复现步骤、观察与推断、假设、根因、修复、复验）；定下的规则；记忆翻牌 v1 的代码提交与记录提交。")),
+    teaching=teach(("跟做产出", "缺陷记录（复现步骤、观察与推断、假设、根因、修复、复验）；定下的规则；修复后的记忆翻牌的代码提交与记录提交。")),
 )
 
 lesson.write()

@@ -10,7 +10,7 @@ window.lesson = {
       "layout": "lesson-cover",
       "label": "一句话，能加出一个小游戏吗",
       "title": "一句话，能加个游戏吗？",
-      "lead": "本章把首页变成能玩两个小游戏的实验室",
+      "lead": "本章给个人主页加入两个小游戏",
       "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>3.1</b>加个游戏</li><li><b>3.2</b>谁定的规则</li><li><b>3.3</b>按证据修</li><li><b>3.4</b>审插件</li><li><b>3.5</b>插件的主张</li><li><b>3.6</b>说明在哪</li><li><b>3.7</b>重开清理</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:18px\"><div class=\"p-box\" data-role=\"us\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"us\">3.1–3.3</span><h3>记忆翻牌</h3><p>一句话需求 · 普通 Vibe Coding</p></div><div class=\"p-join\" data-reveal=\"2\"><span>再加一个</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"tool\">3.4–3.5</span><h3>60 秒躲避与收集</h3><p>用 Game Studio 插件</p></div></div><div class=\"p-bar is-light\" data-reveal=\"3\">贯穿全章的问题：<b>这条规则是谁定的？</b></div>",
       "repro": {
         "label": "从这一章开始？",
@@ -21,7 +21,7 @@ window.lesson = {
           },
           {
             "text": "在仓库根目录启动 Codex，粘贴这段 Prompt",
-            "code": "先只读检查，不修改我的项目文件。\n课程第 3 章的参考起点在 https://github.com/prompt-to-harness/course-starter.git 的 ch03-start-v1 标签。\n请把它克隆到临时目录（不要放进我的项目），只用来对照。\n请检查我的项目是否满足第 3 章开始前的前提：\n1. 有能 npm run build 的首页 v1：项目区已经按第 2 章补充，第 2 章的改动和记录都已提交；\n2. 有 GitHub Pages 的发布配置（Vite 的 base 与部署工作流），可以再次发布；\n3. 工作区是干净的。\n逐条说明：已满足 / 缺少 / 与参考不同但不影响，并给出依据。\n我的个人内容（姓名、简介、项目、仓库名、已有的决定）一律保留，\n不要换成参考里的示例文字，也不要照抄参考里的仓库名。\n列出建议补上的改动，等我确认后再改。"
+            "code": "先只读检查，不修改我的项目文件。\n课程第 3 章的参考起点在 https://github.com/prompt-to-harness/course-starter.git 的 ch03-start-v1 标签。\n请把它克隆到临时目录（不要放进我的项目），只用来对照。\n请检查我的项目是否满足第 3 章开始前的前提：\n1. 个人主页能 npm run build：项目区已经按第 2 章补充，第 2 章的改动和记录都已提交；\n2. 有 GitHub Pages 的发布配置（Vite 的 base 与部署工作流），可以再次发布；\n3. 工作区是干净的。\n逐条说明：已满足 / 缺少 / 与参考不同但不影响，并给出依据。\n我的个人内容（姓名、简介、项目、仓库名、已有的决定）一律保留，\n不要换成参考里的示例文字，也不要照抄参考里的仓库名。\n列出建议补上的改动，等我确认后再改。"
           },
           {
             "text": "Codex 可能申请联网克隆参考起点、在临时目录里试构建。看清整条命令作用在哪个目录，只动临时目录的再同意；不要选“以后不再问”",
@@ -49,7 +49,7 @@ window.lesson = {
         "贯穿的问题"
       ],
       "script": [
-        "【操作提示｜停留课件 p01 第 1 步，指向章节地图上的 3.1；不切窗口。录前确认个人首页 v1 练习仓库在本地、工作区干净（git status --short 无输出）；从第 3 章开始的学员走本页“从这一章开始？”配套步骤，录制时不演示】\n\n第 2 章结束时，我们有了一个公开发布的个人首页 v1。这一章在它上面加两个小游戏，把它变成一个小游戏实验室。",
+        "【操作提示｜停留课件 p01 第 1 步，指向章节地图上的 3.1；不切窗口。录前确认第 2 章的个人主页项目在本地、工作区干净（git status --short 无输出）；从第 3 章开始的学员走本页“从这一章开始？”配套步骤，录制时不演示】\n\n第 2 章结束时，我们有了一个公开发布的个人主页。这一章在它上面加两个小游戏，把它变成一个小游戏实验室。",
         "【操作提示｜推进课件第 2 步，指向“记忆翻牌”卡片（3.1–3.3）】\n\n第一个是记忆翻牌：翻开两张牌，相同就配对。我们用最普通的 Vibe Coding 来做，一句话需求，不写规格。",
         "【操作提示｜推进第 3 步，指向“60 秒躲避与收集”卡片（3.4–3.5）；不在此处打开或安装插件】\n\n第二个是一个 60 秒躲避与收集的小游戏。做它的时候，我们会发现有人已经把“做游戏的经验”打包成了插件，就是 Game Studio。",
         "【操作提示｜推进第 4 步，指向底部“这条规则是谁定的？”；讲完进入 p02】\n\n贯穿全章的是一个问题：游戏里那些规则，是谁定的？是我们，是 AI，还是插件？它们写在哪里，下次还在不在？带着这个问题开始。"
@@ -85,7 +85,7 @@ window.lesson = {
         "【操作提示｜课件 p02 第 1 步，指向 Goal 段；不切窗口。请求原文在本页“请求原文”配套里，录制时从那里复制，不现场改写】\n\n这一次的请求只有一句话：在主页加入一个记忆翻牌小游戏。我们刻意不写规格，先体验一下 Vibe Coding 有多快。",
         "【操作提示｜推进第 2 步，指向 Constraints 段的“最多问三个”“附上推荐做法”】\n\n但保留两个习惯。第一，先给计划，等我们确认再动手；需要我们决定的问题最多问三个，每个附上它推荐的做法。问题太多，一句话需求就变成了填问卷。",
         "【操作提示｜推进第 3 步，指向 Done when 段的分工】\n\n第二，完成标准写清分工：build 由 Codex 跑，浏览器里的试玩和三种宽度的检查由我们做。这一句来自 2.2：排练时不写这句，Codex 会花十几分钟自己想办法打开浏览器。",
-        "【操作提示｜推进第 4 步，指向“没写的”条。之后切 Terminal，在个人首页练习仓库根目录启动新的 Codex 会话，粘贴“请求原文”发送；等计划返回、不作确认，再回课件 p03】\n\n请注意我们没写的东西：怎么玩、怎么计分、两张不一样时怎么办。这些都要有人定。谁来定？下一页看 Codex 的计划。请暂停视频，在自己的项目里用同一句话开一个新会话。"
+        "【操作提示｜推进第 4 步，指向“没写的”条。之后切 Terminal，在个人主页练习仓库根目录启动新的 Codex 会话，粘贴“请求原文”发送；等计划返回、不作确认，再回课件 p03】\n\n请注意我们没写的东西：怎么玩、怎么计分、两张不一样时怎么办。这些都要有人定。谁来定？下一页看 Codex 的计划。请暂停视频，在自己的项目里用同一句话开一个新会话。"
       ],
       "teaching": [
         {
@@ -176,8 +176,8 @@ window.lesson = {
       "segment": "小结",
       "label": "本节小结",
       "title": "能玩了，然后呢",
-      "lead": "本节留下记忆翻牌 v0：能翻、能配对、能重开，build 成功。照 2.3 的做法，代码和记录分两次提交；记录里写下请求、它问的三个问题和它自己定的规则。“能玩”是起点，不是验收。下一节：换几种玩法试试。",
-      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">一个判断</h3><div class=\"p-star\" style=\"width:260px;font-size:24px\">能玩<br>≠ 验收</div></div><div data-reveal=\"1\"><h3>留下的</h3><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-pass\">记忆翻牌 v0 提交</li><li class=\"is-pass\">记录：它问的、它定的</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>3.2 谁定的规则</h3><p>第二张还没翻回去，我又点了第三张</p></div></div></div>",
+      "lead": "本节留下记忆翻牌：能翻、能配对、能重开，build 成功。照 2.3 的做法，代码和记录分两次提交；记录里写下请求、它问的三个问题和它自己定的规则。“能玩”是起点，不是验收。下一节：换几种玩法试试。",
+      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">一个判断</h3><div class=\"p-star\" style=\"width:260px;font-size:24px\">能玩<br>≠ 验收</div></div><div data-reveal=\"1\"><h3>留下的</h3><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-pass\">记忆翻牌提交</li><li class=\"is-pass\">记录：它问的、它定的</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>3.2 谁定的规则</h3><p>第二张还没翻回去，我又点了第三张</p></div></div></div>",
       "steps": [
         "一个判断",
         "留下的",
@@ -191,7 +191,7 @@ window.lesson = {
       "teaching": [
         {
           "title": "跟做产出",
-          "text": "记忆翻牌 v0 的代码提交与记录提交；记录里有请求、三个问题与回答、它自己定的规则。"
+          "text": "记忆翻牌的代码提交与记录提交；记录里有请求、三个问题与回答、它自己定的规则。"
         }
       ],
       "source": "index.html#p06",
