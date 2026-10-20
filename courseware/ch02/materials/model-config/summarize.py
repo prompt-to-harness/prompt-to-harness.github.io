@@ -105,9 +105,9 @@ def collect(run):
 
 def main():
     root = Path(sys.argv[1])
-    rows = {"on": [], "off": []}
+    rows = {"on": [], "med": [], "off": []}
     print(f"{'运行':<7}{'build':<7}{'等确认':<7}{'项目文字':<9}{'文件':<5}{'+行/-行':<9}{'新链接':<7}{'依赖':<5}{'新增中文':<9}{'命令数':<7}{'秒':<6}{'token':<9}合格")
-    for run in sorted(p for p in root.iterdir() if p.is_dir() and re.match(r"(on|off)-\d+$", p.name)):
+    for run in sorted(p for p in root.iterdir() if p.is_dir() and re.match(r"(on|med|off)-\d+$", p.name)):
         m = collect(run)
         rows[run.name.split("-")[0]].append(m)
         v = {True: "是", False: "否", None: "-"}[m["verdict"]]
