@@ -6,7 +6,9 @@
 
 3.6 的独立实验：让 Codex 自己记住一条规则，下次新会话里它知道吗？知道的还对吗？依赖后台整理、跨会话状态和隔离的 Codex home，学员项目未必具备，所以独立做；学员看懂即可，重跑选做。起点用第 2 章冻结候选（没有记忆翻牌代码），只借项目背景。
 
-## 由代码决定的部分（子模块 `third_party/codex`，`b741e480`）
+## 由代码决定的部分（子模块 `third_party/codex`，`rust-v0.163.0`）
+
+> 2026-10-20 子模块由 `b741e480`（2026-10-03，main）改为 `rust-v0.163.0`。已比较下表和后文引用的源码位置：记忆提取与整理的逻辑、模板和常量（6 小时闲置、整理冷却、每次启动 2 个会话、10 天、2500 token、32 KiB、默认 v1）没有变化；`config/src/types.rs` 与 `core/src/config/mod.rs` 的改动与记忆无关，行号可能有偏移（如 `types.rs` 的默认值行）。比较的是源码，没有重跑实验；第 1–9 轮的实测仍是在 Codex 0.160.0–0.160.1 上做的。
 
 | 行为 | 源码位置 |
 | --- | --- |
@@ -58,7 +60,7 @@
 
 ## 6 小时的限制下，Memory 平时到底用不用得上
 
-由代码决定（子模块 `b741e480`）：
+由代码决定（子模块 `rust-v0.163.0`）：
 
 | 来源 | 什么时候进记忆 |
 | --- | --- |
@@ -122,7 +124,7 @@ RESUME=1 courseware/ch03/materials/memory/run-memory.sh <同一目录>      # 6 
 
 ## 三家记忆机制对比（2026-10-07 核查）
 
-讲师追问“为什么要等 6 小时才起作用”后的核查。Codex 一列依据子模块 `b741e480` 源码；Claude Code 一列依据[官方文档](https://code.claude.com/docs/en/memory.md)原文；Claude 应用一列依据[官方 release notes](https://support.claude.com/en/articles/12138966-release-notes) 与[帮助中心](https://support.claude.com/en/articles/11817273)。均为文档与源码阅读，Claude 两列未实测。
+讲师追问“为什么要等 6 小时才起作用”后的核查。Codex 一列依据子模块 `rust-v0.163.0` 源码；Claude Code 一列依据[官方文档](https://code.claude.com/docs/en/memory.md)原文；Claude 应用一列依据[官方 release notes](https://support.claude.com/en/articles/12138966-release-notes) 与[帮助中心](https://support.claude.com/en/articles/11817273)。均为文档与源码阅读，Claude 两列未实测。
 
 | | Codex 本地 Memories | Claude 应用 Memory | Claude Code auto memory |
 | --- | --- | --- | --- |
@@ -141,7 +143,7 @@ RESUME=1 courseware/ch03/materials/memory/run-memory.sh <同一目录>      # 6 
 源码补充：
 
 - **ad_hoc 笔记不会被 7 天清理删掉。** `memories/write/src/extensions/prune.rs` 只删 `extensions/<扩展>/resources/` 下带时间戳的 `.md`（`RETENTION_DAYS = 7`，`memories/write/src/lib.rs`）；笔记在 `extensions/ad_hoc/notes/`，整理说明还要求 “Never delete a note file”（`memories/write/templates/extensions/ad_hoc/instructions.md`）。
-- **默认值随版本变**：PR #12231 时每次启动处理 16 个会话，`b741e480` 是 2 个、只看 10 天内（`config/src/types.rs`）。课件只引用固定提交的值并注明版本。
+- **默认值随版本变**：PR #12231 时每次启动处理 16 个会话，`b741e480` 与 `rust-v0.163.0` 都是 2 个、只看 10 天内（`config/src/types.rs`）。课件只引用固定提交的值并注明版本。
 
 对 3.6 的含义：同一句“记住这条规则”，三个产品生效的时间和位置都不同。Claude 应用曾经也是批量汇总，后来改成随写随用并加了逐条编辑——延迟换来的是总结更完整、不占对话额度，代价是“刚定的规则下次不一定在”。无论哪一家，人定下的项目规则都应该写进仓库（`AGENTS.md` 或规格文件）；Codex 官方文档也这样建议。
 

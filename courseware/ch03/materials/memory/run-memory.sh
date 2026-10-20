@@ -6,7 +6,7 @@
 #       会话零和会话一启动时都会整理一次，所以要等会话一之后满 6 小时
 # 旁观（另开终端，只读）：tmux attach -r -t <会话名>（启动时打印）。需要 tmux、MINIMAX_API_KEY、uv。
 #
-# 依据（子模块 third_party/codex，b741e480）：
+# 依据（子模块 third_party/codex，rust-v0.163.0）：
 # - 记忆说明只在 memory_summary.md 非空时注入（ext/memories/src/prompts.rs），所以先开一次会话让后台初始化；
 # - 整理成功后 6 小时内不再整理（state/src/runtime/memories.rs 的 PHASE2_SUCCESS_COOLDOWN_SECONDS），
 #   默认把上次完成时间改到 6 小时前继续——这是人工构造的条件，记录在 steps.log；
