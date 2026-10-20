@@ -76,4 +76,5 @@ gh api --method PUT repos/<owner>/<repo>/pages -f build_type=workflow   # 改回
 - 条件：讲师个人账号下的临时公开仓库（`main` 上已有部署 workflow 和 Vite `base`，已推送一次，Pages 尚未开启）；Codex CLI 0.163.0，MiniMax-M3.1-Flash-Preview，交互界面，默认权限；HOME 真实（gh 用钥匙串登录），`CODEX_HOME` 指向只含 MiniMax 配置的独立目录；经 claude-tap 记录请求。Prompt 用 2.4 p49 的原话。人的部分由讲师代答，每次只选 “Yes, proceed”。
 - 结果：10 次对话请求、14 次工具调用，7 次申请在沙箱外运行（读 Pages 设置、仓库信息、登录状态、workflow 列表、修改、创建、复查）。先用 `PUT` 返回 404（站点还不存在），Codex 自己改用 `POST … -f build_type=workflow` 创建成功，复查为 `workflow`。列出命令后没有停下等人。
 - 请求记录里，需要批准的调用参数带 `sandbox_permissions: "require_escalated"`、`justification`（批准框里的中文理由）和 `prefix_rule`；人点的同意本身不出现在请求里，只能从随后的工具返回看出命令执行了。用在 2.4 p49a。
-- 未测：推送后实际部署与三项发布检查；学员自己的仓库结构。临时仓库由讲师在实验后删除。
+- 同日在 `prompt-to-harness` 组织下的临时仓库重跑一次，Prompt 改为 p49 现在的写法（加了“先查有没有 Pages 站点：没有就用 POST 创建，已有就用 PUT 修改，都设 build_type=workflow”）：8 次对话请求、10 次工具调用、6 次批准，查到 404 后直接 `POST` 成功，没有 `PUT` 的弯路。沙箱里 `gh auth status` 误报登录无效（读不到钥匙串），Codex 申请过一条含 `gh auth token` 的命令来确认登录，自己用 `sed` 只露出前 4 个字符和长度，记录里没有完整令牌；读令牌的命令在批准框前值得停一下。
+- 未测：推送后实际部署与三项发布检查；学员自己的仓库结构。两个临时仓库由讲师在实验后手动删除。
