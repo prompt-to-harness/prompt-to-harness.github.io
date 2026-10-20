@@ -8,7 +8,7 @@
 #   tools/clean-codex.sh -- exec "只读：这个目录里有什么文件？"   # -- 之后的参数交给 codex
 #
 # 环境变量：
-#   MINIMAX_API_KEY      MiniMax 的 API 密钥，需要事先 export（例如写进 ~/.zshrc）；脚本不读取任何 Codex 配置文件
+#   MINIMAX_API_KEY      MiniMax 的 API 密钥，需要事先 export；脚本不读取任何 Codex 配置文件
 #   CLEAN_CODEX_MODEL    模型名，默认 MiniMax-M3.1-Flash-Preview
 #   CLEAN_CODEX_DELETE=1 退出后删除本次的 HOME（默认保留，位于 ~/.cache/clean-codex/）
 #   CLEAN_CODEX_HOME     固定用这个目录作 HOME（不存在就新建，不会删除），多次运行共享会话记录，
@@ -37,7 +37,7 @@ while [ $# -gt 0 ]; do
 done
 
 if [ -z "${MINIMAX_API_KEY:-}" ]; then
-  echo "没有找到 MiniMax 密钥：请在 ~/.zshrc 里加 export MINIMAX_API_KEY=\"...\"，然后新开终端" >&2
+  echo "没有找到 MiniMax 密钥：请在 ~/.zshenv 里加 export MINIMAX_API_KEY=\"...\"，然后新开终端" >&2
   exit 1
 fi
 export MINIMAX_API_KEY

@@ -4,7 +4,7 @@
 #       SKIP_COMPACT=1 …/run-tmux.sh   # 对照组：跳过 /compact，其余步骤相同
 #       LAB_SESSION=compact-demo LAB_HOLD=60 …/run-tmux.sh   # 固定会话名便于旁观，结束后停留 60 秒
 # 旁观（另开终端，只读）：tmux attach -r -t <会话名>
-# 需要：tmux、MINIMAX_API_KEY（在当前 shell 或 ~/.zshrc 中）、uv（claude-tap 记录请求）。
+# 需要：tmux、MINIMAX_API_KEY（在当前 shell 或 ~/.zshenv 中）、uv（claude-tap 记录请求）。
 # 结束后打印 claude-tap 的会话 id；请求存在 ~/.local/share/claude-tap/traces.sqlite3。
 set -euo pipefail
 
