@@ -63,3 +63,10 @@ Tab 顺序不变；你跑 build 成功；diff 只含项目区。
 - 已核实（0.160.0，MiniMax 配置）：`/compact` 走本地压缩，用一段“交接摘要”提示让模型写摘要，保留最近用户消息；`codex exec resume` 恢复后按当前目录与配置追加新的环境信息和权限说明；`--last` 默认只在当前目录的会话中挑选。
 - `/clear` 与 `/new`：2026-10-19 在 openai/codex main 的 `codex-rs/tui/src/slash_command.rs` 中核对，`/clear` 描述为“清屏并开始新对话”，`/new` 为“开始新对话”。p27a 的“请求只剩初始内容”待录制时实测。
 - p25–p26 的仓库数据核对于 2026-10-02 与 2026-10-05，移到配套页时保留出处：通用指令 `codex-rs/protocol/src/prompts/base_instructions/default.md`；按模型的指令来自 `codex-rs/models-manager/models.json`。
+- 2026-10-20 交互界面实测（课程基线 `tools/clean-codex.sh --tap`，隔离 HOME，Codex 0.163.0 + MiniMax-M3.1-Flash-Preview，用 `tools/lab-lib.sh` 的 tmux 驱动；运行目录 `lab-runs/ch02-context/2.2-20261020-104407/`，不提交）。同一会话依次：2.1 两步 → `/clear` → 第一句 → p29 Prompt → “确认” → `/compact` → 不读文件追问。结果：
+  - p22：第二句的请求前 4 项与第一句逐字相同，末尾多了 reasoning、回答和第二句（4 → 7 项）。
+  - p23：第二句那一问 6 次请求，input 7 → 34 项、11354 → 25242 token，缓存命中 11305 → 24337。
+  - p27a：`/clear` 后的请求 4 项，与会话第一次请求逐字相同，请求元数据 `history_initialization` 变为 `cleared`。
+  - p27：压缩前 61 项、31171 token、17 次工具调用；压缩后 8 项、12502 token，只剩系统指令、3 条用户消息原文、Skills 与权限说明、环境信息、约 3800 字符的交接摘要和新问题。追问 build 输出最后一行时，模型说只有摘要转述，没有编造。
+  - 交互界面里 Skills 与权限说明那条 developer 消息约 7500 字符、环境信息约 1350 字符，都比 `codex exec` 长；界面还会另发“给会话起标题”的短请求，看记录时跳过。
+  - 本轮修改 Codex 改了 `src/App.tsx` 与 `src/index.css`（项目列表栅格），diff +23 −2。Prompt 写明浏览器由人检查，它仍申请起本地开发服务器并用 `curl` 核对页面（批准了 3 次），和 2026-10-06 排练看到的一致；2.3 看 diff 时可以就地用。

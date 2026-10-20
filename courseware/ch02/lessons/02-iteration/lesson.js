@@ -96,26 +96,26 @@ window.lesson = {
       "segment": "会话里存了什么",
       "label": "第二句话带上了什么",
       "title": "第二句话发出去，带上了第一句的全部内容",
-      "lead": "上一节分两步发了两句话。把这两次请求放在一起比：第二次请求的开头，和第一次一模一样；第一句话和 Codex 的回答也原样带上，最后才是第二句话。模型“接得上话”，是因为 Harness 每次都把历史重新发给它。图是按讲师一次运行里相邻两次请求的结构画的示意，两步的实际记录以录制为准。",
-      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-walk\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:40px\"><div class=\"p-fn\">第一步 → 第二步请求的 input <span class=\"add\">+2</span>（示意）</div><div class=\"p-ln\"><i>1</i><code>developer · 权限说明、Skills 列表</code></div><div class=\"p-ln\"><i>2</i><code>user · 环境信息</code></div><div class=\"p-ln\"><i>3</i><code>user · 第一句：你好，用一句话介绍…</code></div><div class=\"p-ln add\" data-reveal=\"1\"><i>4</i><code>assistant · Codex 对第一句的回答</code></div><div class=\"p-ln add\" data-reveal=\"1\"><i>5</i><code>user · 第二句：只读任务…</code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>前 3 项原样重发</b><small>不是“接着上次”，而是从头再发</small></span></li><li data-reveal=\"1\"><span><b>新增在末尾</b><small>上一轮的回答和这一句</small></span></li><li class=\"is-risk\" data-reveal=\"2\"><span><b>在讲师的配置下看到</b><small>MiniMax 自定义 provider，store 为 false；换服务可能不同</small></span></li></ol></div><p class=\"source-note\">示意图：条目名为中文概括。“前几项原样重发、新增接在末尾”来自讲师 2026-10-02 一次运行（Codex 0.160.0 + MiniMax，codex exec）中同一提问的相邻两次请求，那次新增的是工具调用和工具返回</p>",
+      "lead": "上一节分两步发了两句话。把这两次请求放在一起比：第二次请求的开头，和第一次一模一样；第一句话和 Codex 的回答也原样带上，最后才是第二句话。模型“接得上话”，是因为 Harness 每次都把历史重新发给它。",
+      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-walk\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:40px\"><div class=\"p-fn\">第一步 → 第二步请求的 input <span class=\"add\">+3</span></div><div class=\"p-ln\"><i>1</i><code>developer · 系统指令</code></div><div class=\"p-ln\"><i>2</i><code>developer · Skills 列表、权限说明</code></div><div class=\"p-ln\"><i>3</i><code>user · 环境信息</code></div><div class=\"p-ln\"><i>4</i><code>user · 第一句：你好，用一句话介绍…</code></div><div class=\"p-ln add\" data-reveal=\"1\"><i>5</i><code>reasoning · 模型对第一句的推理摘要</code></div><div class=\"p-ln add\" data-reveal=\"1\"><i>6</i><code>assistant · Codex 对第一句的回答</code></div><div class=\"p-ln add\" data-reveal=\"1\"><i>7</i><code>user · 第二句：只读任务…</code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>前 4 项逐字相同</b><small>不是“接着上次”，而是从头再发</small></span></li><li data-reveal=\"1\"><span><b>新增在末尾</b><small>上一轮的推理摘要、回答和这一句</small></span></li><li class=\"is-risk\" data-reveal=\"2\"><span><b>在讲师的配置下看到</b><small>MiniMax 自定义 provider，store 为 false；换服务可能不同</small></span></li></ol></div><p class=\"source-note\">条目名为中文概括。数字来自讲师用课程基线（隔离 HOME）在交互界面里的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash-Preview）；随版本、模型、配置和任务变化，只说明结构</p>",
       "steps": [
         "第一步的请求",
         "第二步多了什么",
         "适用范围"
       ],
       "script": [
-        "【操作提示｜停留课件 p22 第 1 步，指向 input 前 3 项。当前画面是示意图；录制版若已换成 claude-tap 里 2.1 两步相邻请求的 diff 截图就指截图，按实际条目讲。要现场看就切 Chrome 打开 claude-tap 查看器（地址以启动输出为准）。截图前检查本机路径和个人 Skills 名称】\n\n回到上一节那份请求记录。我们分两步发了两句话，现在把这两次请求放在一起比。先看第一次：input 里是权限说明和 Skills 列表，环境信息，最后是我们第一句话。",
-        "【操作提示｜推进第 2 步，第 4、5 行（+2）出现；在查看器里时指认第二次请求末尾新增的项，与示意不一致就按实际所见讲】\n\n第二次请求，前三项原样都在，第一句话也还在。末尾多了 Codex 对第一句的回答，然后才是我们的第二句话。模型并没有“记得”刚才聊过什么，是 Harness 把整段历史重新发了一遍。",
+        "【操作提示｜停留课件 p22 第 1 步，指向 input 前 4 项；要现场看就切 Chrome 打开 claude-tap 查看器（地址以启动输出为准），截图前检查本机路径和个人 Skills 名称】\n\n回到上一节那份请求记录。我们分两步发了两句话，现在把这两次请求放在一起比。先看第一次：input 里是系统指令，Skills 列表和权限说明，环境信息，最后是我们第一句话，一共 4 项。",
+        "【操作提示｜推进第 2 步，第 5–7 行（+3）出现；在查看器里时指认第二次请求末尾新增的项，与画面不一致就按实际所见讲】\n\n第二次请求，前 4 项逐字没变，第一句话也还在。末尾多了三项：模型对第一句的推理摘要，它的回答，然后才是我们的第二句话。模型并没有“记得”刚才聊过什么，是 Harness 把整段历史重新发了一遍。",
         "【操作提示｜推进第 3 步，指向“只在这次运行里看到”一项；回到课件，不打开 config.toml，不让密钥入画】\n\n有一个范围要说清：这是我们在讲师的配置下看到的。讲师用的是 MiniMax 自定义 provider，请求里 store 是 false，也没有引用上一次响应的编号，所以每次都带上完整输入。换别的服务或登录方式，细节可能不同。"
       ],
       "teaching": [
         {
           "title": "核对记录",
-          "text": "现有证据只有 2026-10-02 那次“读 index.html 标题”任务里相邻两次请求的对比：第 2 次请求的 input 前 3 项与第 1 次相同，末尾多了 exec_command 调用和工具返回。2.1 两步 Prompt 的相邻请求还没有录到，画面第 4、5 行按同样的结构推出，是示意。MiniMax 配置下请求体 store 为 false、没有 previous_response_id；OpenAI 官方 provider 与 ChatGPT 登录未核实。"
+          "text": "2026-10-20 交互界面实测：第一句的请求 input 4 项（约 1.12 万 token）；第二句的请求 7 项（约 1.14 万 token），前 4 项与第一次逐字相同，末尾多了 reasoning（模型的推理摘要，约 120 字符）、assistant 回答和第二句。交互界面里 Skills 与权限说明这条 developer 消息约 7500 字符，比 codex exec 的约 2300 长；环境信息也更长（约 1350 字符），所以 token 数和 2.1 p08 不同。界面还会另发几次“给会话起标题”的短请求（约 4.6 千 token），不属于对话本身，看记录时跳过。MiniMax 配置下请求体 store 为 false、没有 previous_response_id；OpenAI 官方 provider 与 ChatGPT 登录未核实。"
         },
         {
           "title": "讲师提示",
-          "text": "录制时用 claude-tap 选 2.1 两步的相邻请求做 diff，截图替换示意图，并按实际条目改第 4、5 行和口播；截图前检查路径和个人 Skills 名称。"
+          "text": "录制时用 claude-tap 选 2.1 两步的相邻请求做 diff 截图；截图前检查路径和个人 Skills 名称。条目和本页不同就按实际改。reasoning 一项只点一句：模型的推理摘要也会被重发。"
         }
       ],
       "source": "index.html#p22",
@@ -126,22 +126,22 @@ window.lesson = {
       "segment": "重发的代价",
       "label": "每次都重发，贵不贵",
       "title": "每次都重发，代价是 token 和注意力",
-      "lead": "一次提问产生了 4 次请求，input 从 3 项涨到 10 项。重复的开头部分可以被缓存，算起来更便宜；但模型每次仍要读完整段历史，这份注意力上的负担，缓存帮不上。数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。",
-      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>请求</span><span>input 项数</span><span>缓存命中</span></div><div data-reveal=\"0\"><span>第 1 次</span><span>3 项</span><span>约 1 千 token</span></div><div data-reveal=\"0\"><span class=\"p-sub\">第 2、3 次</span><span>未记录</span><span>未记录</span></div><div data-reveal=\"0\" class=\"is-key\"><span>第 4 次</span><span>10 项</span><span>约 1.18 万 token</span></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"1\"><h3>token</h3><p>重复的前缀能被缓存，按更低的价格算</p></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"2\"><h3>注意力</h3><p>历史越长，早先的需求越容易被淹没</p></div></div><p class=\"source-note\">数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构</p>",
+      "lead": "2.1 第二步那一问产生了 6 次请求，input 从 7 项涨到 34 项，输入 token 翻了一倍多。重复的开头部分可以被缓存，算起来更便宜；但模型每次仍要读完整段历史，这份注意力上的负担，缓存帮不上。",
+      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>请求</span><span>input 项数 · token</span><span>缓存命中</span></div><div data-reveal=\"0\"><span>第 1 次</span><span>7 项 · 约 1.14 万</span><span>约 1.13 万 token</span></div><div data-reveal=\"0\"><span>第 3 次</span><span>19 项 · 约 1.75 万</span><span>约 1.27 万 token</span></div><div data-reveal=\"0\" class=\"is-key\"><span>第 6 次</span><span>34 项 · 约 2.52 万</span><span>约 2.43 万 token</span></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"1\"><h3>token</h3><p>重复的前缀能被缓存，按更低的价格算</p></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"2\"><h3>注意力</h3><p>历史越长，早先的需求越容易被淹没</p></div></div><p class=\"source-note\">数字来自讲师用课程基线（隔离 HOME）在交互界面里的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash-Preview）；随版本、模型、配置和任务变化，只说明结构</p>",
       "steps": [
-        "4 次请求",
+        "6 次请求",
         "token 与缓存",
         "注意力"
       ],
       "script": [
-        "【操作提示｜停留课件 p23 第 1 步，指表格第 1 次和第 4 次两行；第 2、3 次画面写“未记录”，不口头补数字。数字来自 2026-10-02 单次运行，不现场重跑】\n\n既然每次都重发，那贵不贵？看讲师之前跑过的一次只读提问：让 Codex 读 index.html 的标题。只问了一句，Codex 一共发了 4 次请求。input 从第一次的 3 项，涨到第四次的 10 项。缓存命中从大约 1 千 token，涨到大约 1.18 万。",
+        "【操作提示｜停留课件 p23 第 1 步，指表格第 1、3、6 次三行；数字来自 2026-10-20 讲师的一次运行，不现场重跑】\n\n既然每次都重发，那贵不贵？就看上一节第二步那一问：问 Codex 这个首页当初定了哪些要求。只问了一句，它一边读文件一边发了 6 次请求。input 从第一次的 7 项，涨到第六次的 34 项；输入 token 从一万一千多，涨到两万五千多。缓存命中也跟着涨，到最后两万四千多。",
         "【操作提示｜推进第 2 步，指向“token”方框；计费细节不展开，不切窗口】\n\n代价有两种。第一种是 token。好在重复的开头部分可以被缓存：服务端认出“这一段上次发过”，就按更低的价格算。所以历史变长，账单不一定同比例变高。具体怎么计费，看各自用的服务，这里不展开。",
         "【操作提示｜推进第 3 步，指向“注意力”方框；不切窗口，接 p24】\n\n第二种代价是注意力，缓存帮不上忙。模型每次都得把整段历史读一遍，历史越长，早先说过的需求越容易被淹没在大量工具输出里。这是我们后面挑会话时真正要考虑的。"
       ],
       "teaching": [
         {
           "title": "数字来源",
-          "text": "数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。 中间两次请求的数字未在提案中记录，画面写“未记录”，不推断它们的走势；录制时可从 claude-tap 记录补齐。"
+          "text": "2026-10-20 交互界面实测，2.1 第二步那一问的 6 次请求：input 7、13、19、25、31、34 项；input_tokens 11354、12452、17472、21093、24039、25242；其中缓存命中 11305、11566、12707、18071、21553、24337。画面取第 1、3、6 次。2026-10-02 在 0.160.0 上另一问的旧记录是 4 次请求、3 项涨到 10 项，不再上屏。录制版本定下后复测。"
         },
         {
           "title": "讲师提示",
@@ -186,8 +186,8 @@ window.lesson = {
       "segment": "选在哪个会话里改",
       "label": "/clear 之后还剩什么",
       "title": "执行 /clear 之后，还剩什么",
-      "lead": "在上一节的会话里执行 /clear，再发一句话。Codex 对这条命令的说明是“清屏并开始新对话”；另一条 /new 是“开始新对话”，不清屏。新对话不带前面的历史，请求里应只剩初始内容。开发服务器和改过的文件不受影响：/clear 清的是对话，不是文件。下方请求结构是示意。",
-      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-walk\"><div data-reveal=\"0\"><div class=\"p-term\">› /clear<br><span style=\"color:#8A93A0\">（屏幕清空，开始新对话）</span><br>› 再发一句话</div></div><div data-reveal=\"1\"><div class=\"p-src\" style=\"--lh:40px\"><div class=\"p-fn\">/clear 之后这次请求的 input（示意）</div><div class=\"p-ln\"><i>1</i><code>developer · 权限说明、Skills 列表</code></div><div class=\"p-ln\"><i>2</i><code>user · 环境信息</code></div><div class=\"p-ln add\"><i>3</i><code>user · 刚发的这一句</code></div><div class=\"p-ln del\"><i>–</i><code>上一节的两句话、工具调用和返回</code></div></div></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"1\"><h3>对话</h3><p>前面的历史不再随请求发出</p></div><div class=\"p-box is-soft\" data-role=\"tool\" data-reveal=\"2\"><h3>文件与开发服务器</h3><p>都还在，页面照常打开</p></div></div><p class=\"source-note\">命令说明见 openai/codex main 的 codex-rs/tui/src/slash_command.rs（2026-10-19 核对）；请求结构为示意，不是实际记录</p>",
+      "lead": "在上一节的会话里执行 /clear，再发一句话。Codex 对这条命令的说明是“清屏并开始新对话”；另一条 /new 是“开始新对话”，不清屏。讲师实测：/clear 之后再发第一句那句话，请求只有 4 项，和这个会话的第一次请求逐字相同，前面两步的问答、工具调用和返回都没了。开发服务器和改过的文件不受影响：/clear 清的是对话，不是文件。",
+      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-walk\"><div data-reveal=\"0\"><div class=\"p-term\">› /clear<br><span style=\"color:#8A93A0\">（屏幕清空，开始新对话）</span><br>› 再发一句话</div></div><div data-reveal=\"1\"><div class=\"p-src\" style=\"--lh:40px\"><div class=\"p-fn\">/clear 之后的请求：4 项</div><div class=\"p-ln\"><i>1</i><code>developer · 系统指令</code></div><div class=\"p-ln\"><i>2</i><code>developer · Skills 列表、权限说明</code></div><div class=\"p-ln\"><i>3</i><code>user · 环境信息</code></div><div class=\"p-ln add\"><i>4</i><code>user · 刚发的这一句</code></div></div></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"1\"><h3>对话</h3><p>前面两步的问答、工具调用和返回，共 30 项，不再随请求发出</p></div><div class=\"p-box is-soft\" data-role=\"tool\" data-reveal=\"2\"><h3>文件与开发服务器</h3><p>都还在，页面照常打开</p></div></div><p class=\"source-note\">命令说明见 openai/codex main 的 codex-rs/tui/src/slash_command.rs（2026-10-19 核对）。数字来自讲师用课程基线（隔离 HOME）在交互界面里的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash-Preview）；随版本、模型、配置和任务变化，只说明结构</p>",
       "steps": [
         "执行 /clear",
         "清空后的请求",
@@ -195,17 +195,17 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜停留课件 p27a 第 1 步 → 切 Terminal，回到 2.1 的 Codex 会话，输入 /clear 回车，再发一句与项目无关的话；回课件】\n\n既然历史会越积越多，能不能清掉？在上一节那个会话里输入 /clear。Codex 对这条命令的说明是：清屏，并开始新对话。还有一条 /new，只开始新对话，不清屏。清完以后，再随便发一句话。",
-        "【操作提示｜推进第 2 步 → 切 Chrome 的 claude-tap 查看器，打开 /clear 之后那次请求；画面是示意，按实际记录讲，与示意不同就如实说】\n\n看这次请求。开头还是权限说明、Skills 列表和环境信息，后面直接就是刚发的这一句。上一节的两句话、工具调用和返回，都不在了。新对话从初始内容重新开始。",
+        "【操作提示｜推进第 2 步 → 切 Chrome 的 claude-tap 查看器，打开 /clear 之后那次请求，按实际记录讲，与画面不同就如实说】\n\n看这次请求。只有 4 项：系统指令，Skills 列表和权限说明，环境信息，后面直接就是刚发的这一句。讲师对过，这 4 项和这个会话最开始那次请求一字不差。上一节的两步问答、工具调用和返回，都不在了。新对话从初始内容重新开始。",
         "【操作提示｜推进第 3 步 → 切 Chrome 首页标签页刷新，页面照常打开；回课件】\n\n那文件呢？切到浏览器刷新首页，页面照常打开，开发服务器还在跑，项目文件也一个没少。/clear 清的是对话，不是文件。"
       ],
       "teaching": [
         {
           "title": "核对记录",
-          "text": "2026-10-19 在 openai/codex main 的 codex-rs/tui/src/slash_command.rs 中核对：/clear 的描述为“clear the terminal and start a new chat”，/new 为“start a new chat during a conversation”。录制所用版本再确认一次。“清空后请求只剩初始内容”还没有实测，画面是示意。"
+          "text": "2026-10-19 在 openai/codex main 的 codex-rs/tui/src/slash_command.rs 中核对：/clear 的描述为“clear the terminal and start a new chat”，/new 为“start a new chat during a conversation”。录制所用版本再确认一次。2026-10-20 交互界面实测：/clear 前最后一次请求 34 项、约 2.52 万 token；/clear 后再发第一句那句话，请求 4 项、约 1.12 万 token，四项文字与这个会话的第一次请求完全相同；请求元数据里 history_initialization 由 new 变为 cleared。"
         },
         {
           "title": "切到实操",
-          "text": "在 2.1 的会话里执行 /clear，再发一句与项目无关的话；切 claude-tap 查看器看这次请求，对照画面。录制时按实际记录替换示意图，结果和示意不同就按实际讲。最后切浏览器刷新首页，说明开发服务器和文件都不受影响。"
+          "text": "在 2.1 的会话里执行 /clear，再发一句与项目无关的话；切 claude-tap 查看器看这次请求，对照画面；结果和画面不同就按实际讲。最后切浏览器刷新首页，说明开发服务器和文件都不受影响。"
         }
       ],
       "source": "index.html#p27a",
@@ -374,8 +374,8 @@ window.lesson = {
       "segment": "压缩",
       "label": "压缩一下继续",
       "title": "压缩以后，模型看到的是摘要",
-      "lead": "本轮会话已经有了计划、读文件、构建输出。对它执行 /compact，再比较压缩前后的请求。在讲师的配置下，/compact 让模型写一份“交接摘要”；按 Codex 源码，压缩后的历史只留用户消息、这份摘要和重新插入的初始内容，工具调用和返回都被移走。原始内容还剩多少，取决于摘要怎么写。下方方框的数字来自另一次专门做的压缩实验。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ink\">压缩前</span><p style=\"line-height:1.7\">我们的提问 · 模型的工具调用<br><b>工具返回的原文</b>（文件内容、命令输出）<br>模型的回答</p></div><div class=\"p-join\" data-reveal=\"1\"><span>/compact</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ctx\">压缩后</span><p style=\"line-height:1.7\">我们发过的用户消息<br><b>一份交接摘要</b><br>初始内容（重新插入）</p></div></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"2\" style=\"margin-top:14px\"><h3>另一次专门做的实验：讲师跑了 5 次</h3><p>grep 的 10 行原文：4 次摘要只留下行号或计数，追问时模型答不出；1 次摘要整段抄了下来。我们写下的决定是用户消息，5 次原文都在</p></div><p class=\"source-note\">压缩后保留什么由源码决定（core/src/compact.rs）；方框里的结果来自讲师的独立实验，不是本轮会话：2026-10-05，Codex 0.160.0，clean-codex.sh（MiniMax，本地压缩），见 ch02/materials/compact</p>",
+      "lead": "本轮会话已经有了计划、读文件、改文件、构建输出。对它执行 /compact：Codex 先把整段历史连同一段“写交接摘要”的要求发给模型，再用这份摘要换掉历史。讲师这次的结果：压缩前最后一次请求 61 项、约 3.1 万 token；压缩后只剩 8 项、约 1.25 万 token。我们发过的消息原文都在，17 次工具调用和返回都没了。",
+      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ink\">压缩前</span><p style=\"line-height:1.7\">我们的提问 · 17 次工具调用<br><b>工具返回的原文</b>（文件内容、build 输出）<br>模型的回答 · 61 项</p></div><div class=\"p-join\" data-reveal=\"1\"><span>/compact</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ctx\">压缩后</span><p style=\"line-height:1.7\">我们发过的 3 条消息（原文）<br><b>一份交接摘要</b>（约 3800 字符）<br>初始内容（重新插入）· 8 项</p></div></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"2\" style=\"margin-top:14px\"><h3>追问：npm run build 的最后一行是什么？</h3><p>它答不出原文，只能转述摘要里的“29 modules，built in 261ms”，并说明要重跑才能确认；三条项目经历是我们的消息，原文都答对了</p></div><p class=\"source-note\">压缩后保留什么由源码决定（core/src/compact.rs）。数字来自讲师用课程基线（隔离 HOME）在交互界面里的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash-Preview）；随版本、模型、配置和任务变化，只说明结构</p>",
       "refs": [
         {
           "kind": "live",
@@ -426,9 +426,9 @@ window.lesson = {
         "被换成摘要的内容"
       ],
       "script": [
-        "【操作提示｜停留课件 p27 第 1 步，指左侧“压缩前”。优先用本节真实会话：切 Terminal 的本轮 Codex 对话，先在 claude-tap 查看器里指出压缩前最后一次请求里的工具调用和返回。会话太短、压缩前后看不出差别时，改用 materials/compact/ 的独立实验，口播改说“讲师另做了一个专门的实验”，不说成本轮会话】\n\n本轮改完，会话已经不短了：有计划，有 Codex 读的文件内容，还有构建的输出。如果还想在这个会话里接着做，可以输入 /compact，压缩一下再继续。先看压缩前，历史里有我们的提问、模型的工具调用、工具返回的原文，还有模型的回答。",
-        "【操作提示｜推进第 2 步 → 在本轮对话里输入 /compact，等它完成；切 Chrome 的 claude-tap 查看器，依次指压缩前、压缩请求、压缩后三次请求；看完回课件。卡在 Working 超过 5 分钟就打开 courseware/ch02/materials/compact/compare.html，并说明那是独立实验的记录】\n\n输入 /compact。在讲师的配置下，Codex 让模型按一段固定提示，写一份给“下一个接手的模型”的交接摘要：进度、关键决定、约束、下一步。压缩后的历史只剩三样：我们发过的用户消息，这份摘要，和重新插入的初始内容，也就是权限说明和环境信息这些。这一步是 Codex 源码写定的：工具调用和工具返回，都不会留下。",
-        "【操作提示｜推进第 3 步，先在本轮压缩后的请求里指出哪些具体内容被换成了摘要（如 src/App.tsx 的原文、build 输出），按实际讲；再指下方“另一次专门做的实验”方框，说明它不是本轮会话。若用的是独立实验，只讲方框】\n\n那原始内容还剩多少？要看摘要怎么写。讲师另做过一个专门的实验，同样的步骤跑了 5 次：grep 输出了 10 行，其中 4 次摘要只留下行号或“共 10 处匹配”，追问第 1 行是什么，模型说手里没有原文，写不出来；只有 1 次，摘要把 10 行整段抄了下来。我们自己写下的决定是用户消息，5 次都原样留着。所以压缩后模型看到的是摘要，不是原始内容；需要原文，就让它重新读。摘要每次写得不一样，好不好，我们得自己读一遍才知道。"
+        "【操作提示｜停留课件 p27 第 1 步，指左侧“压缩前”。切 Terminal 的本轮 Codex 对话，先在 claude-tap 查看器里指出压缩前最后一次请求里的工具调用和返回。上游卡住时改用 materials/compact/ 的独立实验，口播改说“讲师另做了一个专门的实验”】\n\n本轮改完，会话已经不短了：有计划，有 Codex 读的文件内容，有改动，还有构建的输出。讲师这次，压缩前最后一次请求有 61 项，大约三万一千 token，里面光工具调用就有 17 次。如果还想在这个会话里接着做，可以输入 /compact，压缩一下再继续。",
+        "【操作提示｜推进第 2 步 → 在本轮对话里输入 /compact，等它完成；切 Chrome 的 claude-tap 查看器，依次指压缩前、压缩请求、压缩后三次请求；看完回课件。卡在 Working 超过 5 分钟就打开 courseware/ch02/materials/compact/compare.html，并说明那是独立实验的记录】\n\n输入 /compact。Codex 先把整段历史连同一段固定的要求发给模型：给“下一个接手的模型”写一份交接摘要，写进度、关键决定、约束、下一步。然后用这份摘要换掉历史。看压缩后的请求，只剩 8 项、大约一万二千五百 token：系统指令，我们发过的 3 条消息原文，Skills 和权限说明、环境信息这些初始内容，再加这份摘要。17 次工具调用和返回，一个都没留下。",
+        "【操作提示｜推进第 3 步，先在压缩后的请求里指出哪些具体内容被换成了摘要（如 build 输出），再在本轮对话里追问“不读文件、不跑命令，build 输出最后一行是什么”，按实际回答讲】\n\n那原始内容还剩多少？要看摘要怎么写。讲师压缩完追问了一句：不读文件、不跑命令，npm run build 输出的最后一行是什么？它答不出原文，只能转述摘要里的“29 个模块，用时 261 毫秒”，还说要确认得重跑一次。三条项目经历是我们自己发的消息，原文都答对了。所以压缩后模型看到的是摘要，不是原始内容；需要原文，就让它重新读。摘要每次写得不一样，好不好，我们得自己读一遍才知道。"
       ],
       "teaching": [
         {
@@ -437,7 +437,11 @@ window.lesson = {
         },
         {
           "title": "切到实操",
-          "text": "录制时优先用本节真实会话：在本轮修改的会话里执行 /compact，切 claude-tap 查看器对比压缩前、压缩请求、压缩后三次请求，指出本轮哪些具体内容（如读到的 src/App.tsx、build 输出）被换成了摘要，并据此改写下方方框和口播。会话太短、压缩前后看不出差别时，改用 materials/compact/ 的独立实验（复现按钮第 1–5 步，或第 6 步的 compare.html），画面和口播如实说明“这是另一次专门做的实验”，不说成本轮会话。"
+          "text": "在本轮修改的会话里执行 /compact，切 claude-tap 查看器对比压缩前、压缩请求、压缩后三次请求，指出本轮哪些具体内容（如读到的 src/App.tsx、build 输出）被换成了摘要；再问一句“不读文件、不跑命令，build 输出最后一行是什么”。结果和画面不同就按实际讲。上游卡住或压缩失败时，改用 materials/compact/ 的独立实验（复现按钮第 1–5 步，或第 6 步的 compare.html），画面和口播如实说明“这是另一次专门做的实验”。"
+        },
+        {
+          "title": "实测记录",
+          "text": "2026-10-20 交互界面，本节真实会话：压缩前最后一次请求 61 项、31171 token（17 次工具调用）；压缩请求 request_kind 为 compaction，带全部 64 项加一段“CONTEXT CHECKPOINT COMPACTION”提示；压缩后的请求 8 项、12502 token：系统指令、3 条用户消息原文（/clear 后的第一句、本轮 Prompt、“确认”）、Skills 与权限说明、环境信息、交接摘要（约 3800 字符，作为 user 消息，开头说明“另一个模型已经开始解决这个问题”）和新问题。摘要写了改动文件、行号、断点值、build 结果的转述，没有抄 build 原始输出。追问时模型逐条区分了“亲眼看到的原文”和“只凭摘要推断的”，没有编造 build 输出。/clear 之前的问答不在压缩后的历史里。"
         },
         {
           "title": "备用画面",
