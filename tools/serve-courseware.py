@@ -3,7 +3,8 @@
 
 Local only: speaker.html pages can also save narration edits. Each lesson's narration lives
 in its script.json (the single source); a save rewrites that file and rebuilds lesson.js
-through courseware/tools/rebuild-lesson.py. The published site is static, so the
+through courseware/tools/rebuild-lesson.py. A lesson's opening (lesson.js `intro`, hand-written
+lessons only) is not tied to any page, so its edits go straight into lesson.js. The published site is static, so the
 edit endpoint does not exist there and the pages stay read-only.
 """
 import argparse
@@ -22,6 +23,7 @@ COURSEWARE = ROOT / 'courseware'
 REBUILD = COURSEWARE / 'tools' / 'rebuild-lesson.py'
 EDIT_PATH = '/__script/edit'
 PING_PATH = '/__script/ping'
+LESSON_PREFIX = 'window.lesson = '  # 与 rebuild-lesson.py 写出的格式一致
 LOCAL_HOSTS = {'127.0.0.1', 'localhost'}
 EDIT_LOCK = threading.Lock()
 
@@ -49,6 +51,8 @@ def apply_edit(payload):
     old, new = payload['old'], ' '.join(payload['new'].split())
     if not new:
         raise EditError('不能把一句口播改成空的；要删句请改源文件')
+    if payload.get('intro') is not None:
+        return apply_intro_edit(lesson_dir, payload['intro'], old, new)
     original = path.read_text()
     scripts = json.loads(original)
     if payload['scene'] not in scripts:
@@ -70,6 +74,26 @@ def apply_edit(payload):
     except Exception:
         path.write_text(original)
         rebuild(lesson_dir)
+        raise
+    return {'source': str(path.relative_to(ROOT)), 'text': new}
+
+
+def apply_intro_edit(lesson_dir, index, old, new):
+    # 开场白只在手写 lesson.js 里；由构建脚本生成的节没有 intro，这里也改不到
+    path = lesson_dir / 'lesson.js'
+    if (lesson_dir / 'tools' / 'build-lesson.py').exists():
+        raise EditError('这一节的 lesson.js 由构建脚本生成，开场白请改源文件')
+    original = path.read_text()
+    lesson = json.loads(original.removeprefix(LESSON_PREFIX).strip().removesuffix(';'))
+    intro = lesson.get('intro', [])
+    if not 0 <= index < len(intro) or intro[index] != old:
+        raise EditError('这句话已经在别处被改过，请刷新页面后再改')
+    intro[index] = new
+    path.write_text(LESSON_PREFIX + json.dumps(lesson, ensure_ascii=False, indent=2) + ';\n')
+    try:
+        rebuild(lesson_dir)  # 顺带核对 script.json 与 lesson.js 仍然一致
+    except Exception:
+        path.write_text(original)
         raise
     return {'source': str(path.relative_to(ROOT)), 'text': new}
 
@@ -111,7 +135,8 @@ class Handler(SimpleHTTPRequestHandler):
             return self.send_json(HTTPStatus.CONFLICT, {'error': str(error)})
         except (KeyError, ValueError, TypeError, subprocess.TimeoutExpired) as error:
             return self.send_json(HTTPStatus.BAD_REQUEST, {'error': f'请求无效：{error!r}'})
-        print(f'edited {result["source"]} · {payload["scene"]} 第 {payload["step"] + 1} 步', flush=True)
+        where = f'开场白第 {payload["intro"] + 1} 段' if payload.get('intro') is not None else f'{payload["scene"]} 第 {payload["step"] + 1} 步'
+        print(f'edited {result["source"]} · {where}', flush=True)
         self.send_json(HTTPStatus.OK, result)
 
 
