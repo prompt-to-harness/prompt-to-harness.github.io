@@ -25,3 +25,9 @@
 - 跟做：评审结论（接受 / 缩小 / 拒绝及理由）；homepage-v1 提交，提交说明写明本轮目标与改动文件；能说出本次回退点及回到它的命令。
 - 看懂：能在讲师请求记录里指出 Codex 改某个文件前读过什么。
 - 验收沿用大纲：修改目的与影响面可解释；无无关依赖、整页重写或未说明的行为变化。
+
+## 事实边界与素材
+
+- 2026-10-20 起 p36、p37、p38a、p40 用 2.2 的一次实录替换排练版（Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max，交互界面，课程基线 `tools/clean-codex.sh`；运行目录 `lab-runs/ch02-context/2.2-20261020-155759/`，不提交）。工作区未提交，`git status --short` 只有 ` M src/App.tsx`，`git diff --stat` 为 +10 −2，diff 与 `materials/homepage-v1.diff` 逐字相同，所以 p36、p37 的画面输出不变，只改出处。
+- p38a 取自同一次的请求记录：出计划前 6 次调用读了 11 个文件（`package.json`、`PLACEHOLDER_CONTENT.md`、`src/App.tsx`、`src/index.css`、`PROJECT_BRIEF.md`、`PROMPT_V1.md`、`CHECKPOINTS.md`、`README.md`、`index.html`、`.nvmrc`、`.gitignore`）；“确认”之后第 1 次调用就是 `apply_patch` 改 `src/App.tsx`，改前没有再读，第 2 次是改后复查。
+- p40 的 `git add` 与 `git diff --cached --stat` 输出按这份 diff 写出；这次运行没有提交，提交行和 `7ce0e9f` 是示例。p38 右侧的检查结果仍是排练版文字，待按 2.2 p31 的实录核对。

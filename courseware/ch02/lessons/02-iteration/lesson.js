@@ -164,22 +164,22 @@ window.lesson = {
       "segment": "重发的代价",
       "label": "弯路也会被重发",
       "title": "走过的弯路，也留在历史里",
-      "lead": "开场访谈里看过，同一个 Prompt，结果会变；过程也一样，每次走的弯路不同。讲师这次加项目经历，Codex 在确认之后调用了 39 次工具，其中有不少弯路：自己起预览服务器失败、写的截图脚本有语法错、截图文件没生成。这些失败的返回和成功的一样，留在之后每一次请求里，对完成任务没有用，却一直占着 context。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ink\">这一轮的几次弯路</span><div class=\"p-term\" style=\"margin-top:10px\"><div style=\"color:#8A93A0\">npm run preview --port 4173</div><div class=\"err\">退出码 1</div><div style=\"color:#8A93A0\">截图脚本</div><div class=\"err\">SyntaxError</div><div style=\"color:#8A93A0\">ls /tmp/shot-360.png</div><div class=\"err\">No such file</div></div></div><div class=\"p-join\" data-reveal=\"1\"><span>之后每次请求</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ink\">最后一次请求</span><p class=\"p-big\" style=\"margin-top:10px\">135 项 · 约 5.9 万 token</p><p class=\"p-sub\">39 次调用的返回都在里面，失败的也在</p></div></div><div class=\"p-bar\" data-reveal=\"2\">返回有没有用，<b>之后每次请求都带着</b></div><p class=\"source-note\">数字来自讲师用课程基线（隔离 HOME）在交互界面里的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max）；随版本、模型、配置和任务变化，只说明结构。弯路的次数只是这一次运行的观察；返回会一直留在后面的请求里，是每次都一样的规则</p>",
+      "lead": "开场访谈里看过，同一个 Prompt，结果会变；过程也一样，每次走的弯路不同。讲师这次加项目经历，Codex 在确认之后调用了 33 次工具，其中有不少弯路：自己起预览服务器失败、写的截图脚本有语法错、截图文件没生成。这些失败的返回和成功的一样，留在之后每一次请求里，对完成任务没有用，却一直占着 context。",
+      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ink\">这一轮的几次弯路</span><div class=\"p-term\" style=\"margin-top:10px\"><div style=\"color:#8A93A0\">npm run preview --port 4173</div><div class=\"err\">退出码 1</div><div style=\"color:#8A93A0\">截图脚本</div><div class=\"err\">SyntaxError</div><div style=\"color:#8A93A0\">ls /tmp/shot-360.png</div><div class=\"err\">No such file</div></div></div><div class=\"p-join\" data-reveal=\"1\"><span>之后每次请求</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ink\">最后一次请求</span><p class=\"p-big\" style=\"margin-top:10px\">135 项 · 约 5.9 万 token</p><p class=\"p-sub\">前面 39 次调用的返回都在里面，失败的也在</p></div></div><div class=\"p-bar\" data-reveal=\"2\">返回有没有用，<b>之后每次请求都带着</b></div><p class=\"source-note\">数字来自讲师用课程基线（隔离 HOME）在交互界面里的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max）；随版本、模型、配置和任务变化，只说明结构。弯路的次数只是这一次运行的观察；返回会一直留在后面的请求里，是每次都一样的规则</p>",
       "steps": [
         "这一轮的弯路",
         "之后每次都带着",
         "弯路也被重发"
       ],
       "script": [
-        "【操作提示｜停留课件 p24 第 1 步，指左卡的三次失败；画面是 2026-10-20 讲师的一次运行，不现场重跑】\n\n开场访谈里，我们看过鹈鹕骑自行车的例子：同一个 Prompt，结果每次不一样。过程也一样，每次走的弯路不同。讲师这次加项目经历，确认之后 Codex 调用了 39 次工具。Prompt 里写明了浏览器由我们来查，它还是自己去起预览服务器、写脚本截图，失败了好几次：端口起不来、脚本有语法错、截图没生成。",
-        "【操作提示｜推进第 2 步，箭头和右卡出现；指向“135 项”】\n\n这些失败的返回去哪了？看这一轮最后一次请求：135 项，大约五万九千 token。39 次调用的返回都在里面，失败的也在。",
+        "【操作提示｜停留课件 p24 第 1 步，指左卡的三次失败；画面是 2026-10-20 讲师的一次运行，不现场重跑】\n\n开场访谈里，我们看过鹈鹕骑自行车的例子：同一个 Prompt，结果每次不一样。过程也一样，每次走的弯路不同。讲师这次加项目经历，确认之后 Codex 调用了 33 次工具。Prompt 里写明了浏览器由我们来查，它还是自己去起预览服务器、写脚本截图，失败了好几次：端口起不来、脚本有语法错、截图没生成。",
+        "【操作提示｜推进第 2 步，箭头和右卡出现；指向“135 项”】\n\n这些失败的返回去哪了？看这一轮最后一次请求：135 项，大约五万九千 token。前面 39 次调用的返回都在里面，失败的也在。",
         "【操作提示｜推进第 3 步，指向底部结论条；录制时弯路不同就按当次记录指认】\n\n返回有没有用，之后每一次请求都带着。弯路的次数每次不一样，但这条规则每次都一样。对完成任务没用的东西，也一直占着 context；对话越长，这样的东西就越多。"
       ],
       "teaching": [
         {
           "title": "核对记录",
-          "text": "2026-10-20 交互界面实测（能力目录开、推理档位 max），2.2 本轮“确认”之后：39 次工具调用，其中至少 9 次失败或白跑（npm run preview 两次退出码 1、shell 脚本被当成 JavaScript 报 SyntaxError、截图文件不存在、CDP 脚本解析错等），全部是 Codex 自己为了查视口而做的，Prompt 写明了浏览器由人检查。每次请求都带着之前全部调用和返回，最后一次请求 135 项、59271 token。原来的 read_file 例子来自 2026-10-02 能力目录关的运行，已不再上屏。"
+          "text": "2026-10-20 交互界面实测（能力目录开、推理档位 max），2.2 本轮“确认”之后：33 次工具调用（加上出计划那一轮的 6 次，会话里累计 39 次），其中至少 9 次失败或白跑（npm run preview 两次退出码 1、shell 脚本被当成 JavaScript 报 SyntaxError、截图文件不存在、CDP 脚本解析错等），全部是 Codex 自己为了查视口而做的，Prompt 写明了浏览器由人检查。每次请求都带着之前全部调用和返回，最后一次请求 135 项、59271 token。原来的 read_file 例子来自 2026-10-02 能力目录关的运行，已不再上屏。"
         },
         {
           "title": "讲师提示",
@@ -288,8 +288,8 @@ window.lesson = {
       "segment": "补上项目经历",
       "label": "确认计划再执行",
       "title": "先看计划，再让它动手",
-      "lead": "Codex 先回复计划。确认三件事再放行：计划只涉及项目区；要放进页面的内容和我们给的原文一致；没有新依赖、没有链接。小改动的计划可能只有一两句，这正常。",
-      "html": "<div class=\"p-handoff\"><div class=\"p-handoff-card\" data-reveal=\"0\"><h3>看 Codex 的计划</h3><p>它说要改哪些文件、怎么改</p><span class=\"p-env\">/clear 之后的新对话</span><span class=\"p-env\">workspace-write</span></div><ol class=\"p-watch\"><li data-reveal=\"1\">只涉及项目区<small>预期只改 src/App.tsx 的项目数据</small></li><li data-reveal=\"2\">内容与原文一致<small>一个字一个字对</small></li><li data-reveal=\"3\">没有新依赖、没有链接<small>有就先停，问清楚</small></li></ol></div>",
+      "lead": "Codex 先回复计划。确认三件事再放行：计划只涉及项目区；要放进页面的内容和我们给的原文一致；没有新依赖、没有链接。讲师这次的计划说：只改 src/App.tsx 里的 projects 数组，把 1 条占位换成 3 条；按原文第一个冒号拆成标题和描述，其余一字不改；卡片结构不变，不加链接、按钮和依赖；首屏、index.html 和样式都不动。三件事都对得上。小改动的计划可能只有一两句，这也正常。",
+      "html": "<div class=\"p-handoff\"><div class=\"p-handoff-card\" data-reveal=\"0\"><h3>Codex 的计划</h3><p style=\"font-size:19px;line-height:1.6;margin-bottom:14px\">只改 src/App.tsx 的 projects 数组：1 条占位换成 3 条<br>按原文第一个“：”拆成标题和描述，其余一字不改<br>卡片沿用 h3 + p，不加链接、按钮、依赖<br>首屏、index.html、CSS 都不动</p><span class=\"p-env\">/clear 之后的新对话</span></div><ol class=\"p-watch\"><li class=\"is-done\" data-reveal=\"1\">只涉及项目区<small>只动 App.tsx 里的项目数据</small></li><li class=\"is-done\" data-reveal=\"2\">内容与原文一致<small>计划里列出的三条，逐字对过</small></li><li class=\"is-done\" data-reveal=\"3\">没有新依赖、没有链接<small>计划写明不加；有的话先停，问清楚</small></li></ol></div><p class=\"source-note\">计划节选并压缩自讲师用课程基线在交互界面里的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max）；你的计划以自己收到的回复为准</p>",
       "steps": [
         "看计划",
         "范围",
@@ -297,10 +297,10 @@ window.lesson = {
         "依赖与链接"
       ],
       "script": [
-        "【操作提示｜停留课件 p30 第 1 步 → 切 Terminal 的 Codex 对话，展示它实际回复的计划；计划很短也照实展示】\n\n提交以后，Codex 会先回复计划：要改哪些文件、怎么改。这一轮改动很小，计划可能只有一两句话，这很正常，不必为了走流程写一大段。",
-        "【操作提示｜回课件推进第 2 步，再切回计划核对改动文件。排练预估只改 src/App.tsx（materials/homepage-v1.diff）；计划越界就当场让它收窄，保留原始回复给 2.3 用，不事先准备越界计划】\n\n第一看范围。讲师的首页里，项目数据就在 src/App.tsx 顶部的一个数组里，预期只改这一处。计划里要是出现了样式重写、新组件，先问它为什么。",
-        "【操作提示｜推进第 3 步，对照计划里的文字和 courseware/ch02/materials/README.md 的三条原文逐字核对；有改写就如实指出，要求原文照用】\n\n第二看内容。它准备放进页面的文字，和我们给的原文一致吗？有没有被改写成更漂亮的说法？",
-        "【操作提示｜推进第 4 步，核对有无新依赖或链接。三项都通过才在 Codex 会话回复确认（排练用“确认，按计划执行。”）；执行结束后回课件 p30a】\n\n第三看有没有新依赖、有没有链接。我们明确说了不加。有的话，先停下来问清楚，不放行。三项都没问题，再让它动手。"
+        "【操作提示｜停留课件 p30 第 1 步 → 切 Terminal 的 Codex 对话，展示它实际回复的计划；计划很短也照实展示】\n\n提交以后，Codex 先回复计划：要改哪些文件、怎么改。讲师这次的计划不长：只改 src/App.tsx 里的 projects 数组，把 1 条占位换成 3 条，首屏、index.html 和样式都不动。我们按三件事来核对。",
+        "【操作提示｜回课件推进第 2 步，再切回计划核对改动文件；计划越界就当场让它收窄，保留原始回复给 2.3 用，不事先准备越界计划】\n\n第一看范围。讲师的首页里，项目数据就在 src/App.tsx 顶部的一个数组里，计划也只动这一处。计划里要是出现了样式重写、新组件，先问它为什么。",
+        "【操作提示｜推进第 3 步，对照计划里列出的三条和 courseware/ch02/materials/README.md 的原文逐字核对；有改写就如实指出，要求原文照用】\n\n第二看内容。计划里把三条原文都列了出来，按第一个冒号拆成标题和描述，说其余一字不改。逐字对过，和我们给的一致，没有被改写成更漂亮的说法。",
+        "【操作提示｜推进第 4 步，核对有无新依赖或链接。三项都通过才在 Codex 会话回复确认（这次用的是“确认，按你的计划改。”）；执行结束后回课件 p30a】\n\n第三看有没有新依赖、有没有链接。计划里写明了：卡片结构不变，不加链接、按钮和依赖。有的话，先停下来问清楚，不放行。三项都对得上，再让它动手。"
       ],
       "teaching": [
         {
@@ -308,8 +308,12 @@ window.lesson = {
           "text": "Codex 的计划以录制实际为准。若计划越界，就地让它收窄并保留原始回复，2.3 可作为“范围扩大”的真实素材；不准备越界的计划。"
         },
         {
-          "title": "备课参考",
-          "text": "按排练快照预估，内容迭代只改 src/App.tsx：10 行新增、2 行删除（materials/homepage-v1.diff）。真实 diff 以录制为准。"
+          "title": "核对记录",
+          "text": "2026-10-20 15:58 那次运行（能力目录开）：计划前 Codex 调用 6 次工具读仓库，计划正文列出三条原文并写明只改 src/App.tsx 的 projects 数组；它还写了“两个不打算自作主张的点”：默认不改 CSS、不更新 PROMPT_V1.md / CHECKPOINTS.md。计划的“验收怎么做”里，它打算自己起 npm run preview、用无头 Chrome 截三档宽度、用 DOM 快照核对焦点顺序，超出了 Prompt 里“浏览器由人查”的分工；讲师照常回复“确认，按你的计划改。”，之后的弯路见本节“走过的弯路”那页。实际 diff 只改 src/App.tsx（+10 −2），与 materials/homepage-v1.diff 逐字相同。"
+        },
+        {
+          "title": "讲师提示",
+          "text": "录制时若计划里也出现“自己开浏览器验收”，可以指一句它和 Prompt 的分工不一致，再决定是否让它去掉；不展开。"
         }
       ],
       "source": "index.html#p30",
@@ -350,8 +354,8 @@ window.lesson = {
       "segment": "补上项目经历",
       "label": "改好了吗",
       "title": "改好了吗？有没有弄坏别的？",
-      "lead": "改完由人检查，不只看新内容：三种视口下内容完整可读；Tab 焦点顺序与改前一致；npm run build 成功。内容变多后出现的新问题，比如手机上出现横向滚动，记为剩余问题，不在这一轮顺手修。",
-      "html": "<div class=\"p-rec\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1.1fr) minmax(0,1.3fr);row-gap:12px;--rf:21px\"><div class=\"is-head\" data-reveal=\"0\"><span>检查</span><span>结果</span><span>能说明什么</span></div><div data-reveal=\"0\"><span class=\"p-cell\">360 · 768 · 1440</span><span class=\"p-cell\">三条经历都完整显示</span><span class=\"p-why\">文字和排版没被挤坏</span></div><div data-reveal=\"1\"><span class=\"p-cell\">Tab 键</span><span class=\"p-cell\">仍只停在“查看项目”</span><span class=\"p-why\">键盘行为与改前一致</span></div><div data-reveal=\"2\"><span class=\"p-cell p-mono\">npm run build</span><span class=\"p-cell\">退出码 0</span><span class=\"p-why\">构建流程成功完成</span></div></div><div class=\"p-bar is-light\" data-reveal=\"3\">新出现的问题：<b>记下来，不顺手修</b></div>",
+      "lead": "改完要检查，不只看新内容：三种视口下内容完整可读；Tab 焦点顺序与改前一致；npm run build 成功。讲师这次三项都通过：三种宽度都没有横向滚动，360 宽时每条描述折成两行；能用 Tab 停下的仍只有“查看项目”；构建完成。其中视口和 Tab 的结果是 Codex 自己用无头 Chrome 查的，Prompt 里这两项写的是由人查，前面看到的那些弯路就出在这里；自己的页面要在浏览器里亲手查。内容变多后出现的新问题，比如手机上出现横向滚动，记为剩余问题，不在这一轮顺手修。",
+      "html": "<div class=\"p-rec\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) minmax(0,1.1fr);row-gap:12px;--rf:21px\"><div class=\"is-head\" data-reveal=\"0\"><span>检查</span><span>讲师这次的结果</span><span>能说明什么</span></div><div data-reveal=\"0\"><span class=\"p-cell\">360 · 768 · 1440</span><span class=\"p-cell\">都没有横向滚动；360 宽时描述折成两行</span><span class=\"p-why\">文字和排版没被挤坏</span></div><div data-reveal=\"1\"><span class=\"p-cell\">Tab 键</span><span class=\"p-cell\">能停下的仍只有“查看项目”</span><span class=\"p-why\">键盘行为与改前一致</span></div><div data-reveal=\"2\"><span class=\"p-cell p-mono\">npm run build</span><span class=\"p-cell\">tsc 与 vite 都通过：✓ built</span><span class=\"p-why\">构建流程成功完成</span></div></div><div class=\"p-bar is-light\" data-reveal=\"3\">新出现的问题：<b>记下来，不顺手修</b></div><p class=\"source-note\">结果来自讲师用课程基线在交互界面里的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max）；视口和 Tab 这两项是 Codex 自己查的，Prompt 里写的是由人查</p>",
       "steps": [
         "三种视口",
         "键盘",
@@ -359,19 +363,19 @@ window.lesson = {
         "新问题"
       ],
       "script": [
-        "【操作提示｜推进课件 p31 第 1 步 → 切 Chrome 首页标签页（设备工具栏已开），Responsive 依次填 360×800、768×1024、1440×900 并刷新，看项目区。按实际显示讲，截断或挤坏如实说】\n\nCodex 说改完了。我们自己检查，不只看新内容有没有出来。在刚才那个标签页里依次切三种视口：360、768、1440，三条经历都完整显示，没有被截断或挤坏。",
-        "【操作提示｜推进第 2 步 → 同一标签页从页面开头按 Tab，必要时放大，让焦点框看得清；结果和“只停在查看项目”不同就如实记录】\n\n再按 Tab。改之前，焦点只会停在“查看项目”按钮上，现在还是一样。键盘行为没有变，这正是我们要的。",
-        "【操作提示｜推进第 3 步 → Terminal 另开“构建检查”标签页，在首页项目根目录运行 npm run build，再用 echo $? 看退出码（PowerShell 用 $LASTEXITCODE），保留开发服务器终端。失败就展示首个报错，不念“成功”】\n\n最后在终端运行 npm run build，退出码是 0，构建流程成功完成。三项检查各有对象：视口检查文字和排版，Tab 检查焦点顺序，build 检查项目能否生成构建产物。三项结果都记下来，下一节审改动时还要用。",
-        "【操作提示｜推进第 4 步 → 回 Chrome 用 360×800 看有无横向滚动（排练版没有）；出现就记为剩余问题，不在本轮修。留出暂停后回课件】\n\n内容变多了，手机上会不会挤出横向滚动？讲师的页面在 360 下没有。如果自己的页面出现了，记成剩余问题，留到下一轮。这一轮只解决一个结果。请暂停视频，按这三项检查自己的页面。"
+        "【操作提示｜推进课件 p31 第 1 步 → 切 Chrome 首页标签页（设备工具栏已开），Responsive 依次填 360×800、768×1024、1440×900 并刷新，看项目区。按实际显示讲，截断或挤坏如实说】\n\nCodex 说改完了。我们自己检查，不只看新内容有没有出来。在刚才那个标签页里依次切三种视口：360、768、1440。三种宽度都没有横向滚动，360 宽时每条描述折成了两行，文字都完整。",
+        "【操作提示｜推进第 2 步 → 同一标签页从页面开头按 Tab，必要时放大，让焦点框看得清；结果和“只停在查看项目”不同就如实记录】\n\n再按 Tab。改之前，焦点只会停在“查看项目”按钮上，现在还是一样。新加的项目卡没有可以聚焦的东西，键盘行为没有变，这正是我们要的。",
+        "【操作提示｜推进第 3 步 → Terminal 另开“构建检查”标签页，在首页项目根目录运行 npm run build，再用 echo $? 看退出码（PowerShell 用 $LASTEXITCODE），保留开发服务器终端。失败就展示首个报错，不念“成功”】\n\n最后在终端运行 npm run build，类型检查和打包都通过，构建流程成功完成。三项检查各有对象：视口检查文字和排版，Tab 检查焦点顺序，build 检查项目能否生成构建产物。顺带说一句，这次视口和 Tab 的结果，Codex 自己也查了一遍，用的是无头 Chrome，前面看到的那些弯路就是这么来的。Prompt 里这两项写的是由我们查，所以还是要自己在浏览器里看。",
+        "【操作提示｜推进第 4 步 → 回 Chrome 用 360×800 看有无横向滚动（这次运行没有）；出现就记为剩余问题，不在本轮修。留出暂停后回课件】\n\n内容变多了，手机上会不会挤出横向滚动？讲师的页面在 360 下没有。如果自己的页面出现了，记成剩余问题，留到下一轮。这一轮只解决一个结果。三项结果都记下来，下一节审改动时还要用。请暂停视频，按这三项检查自己的页面。"
       ],
       "teaching": [
         {
-          "title": "备课参考",
-          "text": "排练版 homepage-v1（materials/homepage-v1.diff）2026-10-03 核对：360×800 下页面高 827px、无横向滚动；Tab 只停在“查看项目”；build 成功。"
+          "title": "核对记录",
+          "text": "2026-10-20 15:58 那次运行（能力目录开）：npm run build（tsc -b && vite build）输出“✓ built in 265ms”。视口：Codex 发现 macOS 无头 Chrome 的 --window-size=360 实际得到 500px 宽，改用同源 iframe 测，360 / 768 / 1440 下 scrollWidth 等于视口宽、无横向溢出，卡片宽 320 / 720 / 860，描述 2 / 1 / 1 行。Tab：渲染后全页只有 1 个可聚焦元素（首屏“查看项目”链接），项目卡内 0 个。截图存在临时目录，未保留。"
         },
         {
           "title": "讲师提示",
-          "text": "检查由人完成；让 AI 打开浏览器自验证留到 Harness 章节（决定 10）。结果列以录制实际为准。"
+          "text": "录制时视口和 Tab 由讲师在 Chrome 里亲手查，结果列按实际显示讲；让 AI 打开浏览器自验证留到 Harness 章节（决定 10）。Codex 这次自己查了，只点一句，不展开。"
         }
       ],
       "source": "index.html#p31",
@@ -449,7 +453,7 @@ window.lesson = {
         },
         {
           "title": "实测记录",
-          "text": "2026-10-20 交互界面，本节真实会话（能力目录开、推理档位 max）：确认之后 Codex 一共调用 39 次工具，除了改 src/App.tsx、跑 build，还自己起预览服务器、驱动无头 Chrome 去查三种视口（Prompt 写明了浏览器由人检查）。压缩前最后一次请求 135 项、59271 token；压缩请求 request_kind 为 compaction，带全部 138 项加一段 CONTEXT CHECKPOINT COMPACTION 提示；压缩后的请求 10 项、10635 token：系统指令、3 条用户消息原文（/clear 后的第一句、本轮 Prompt、“确认”）、Skills 与权限说明、团队说明、多代理开关说明、环境信息、交接摘要（约 3400 字符，作为 user 消息，开头说明“另一个模型已经开始解决这个问题”）和新问题。追问 build 输出最后一行时，模型说摘要里只记了 build 成功，没有编造；它还把答案分成“亲眼看到的原文”“只来自摘要的”“不知道的”三类。/clear 之前的问答不在压缩后的历史里。"
+          "text": "2026-10-20 交互界面，本节真实会话（能力目录开、推理档位 max）：确认之后 Codex 调用 33 次工具（会话累计 39 次），除了改 src/App.tsx、跑 build，还自己起预览服务器、驱动无头 Chrome 去查三种视口（Prompt 写明了浏览器由人检查）。压缩前最后一次请求 135 项、59271 token；压缩请求 request_kind 为 compaction，带全部 138 项加一段 CONTEXT CHECKPOINT COMPACTION 提示；压缩后的请求 10 项、10635 token：系统指令、3 条用户消息原文（/clear 后的第一句、本轮 Prompt、“确认”）、Skills 与权限说明、团队说明、多代理开关说明、环境信息、交接摘要（约 3400 字符，作为 user 消息，开头说明“另一个模型已经开始解决这个问题”）和新问题。追问 build 输出最后一行时，模型说摘要里只记了 build 成功，没有编造；它还把答案分成“亲眼看到的原文”“只来自摘要的”“不知道的”三类。/clear 之前的问答不在压缩后的历史里。"
         },
         {
           "title": "备用画面",

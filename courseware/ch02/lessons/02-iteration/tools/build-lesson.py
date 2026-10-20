@@ -133,19 +133,19 @@ scene(
 scene(
     id="p24", segment="重发的代价",
     label="弯路也会被重发", title="走过的弯路，也留在历史里",
-    lead="开场访谈里看过，同一个 Prompt，结果会变；过程也一样，每次走的弯路不同。讲师这次加项目经历，Codex 在确认之后调用了 39 次工具，其中有不少弯路：自己起预览服务器失败、写的截图脚本有语法错、截图文件没生成。这些失败的返回和成功的一样，留在之后每一次请求里，对完成任务没有用，却一直占着 context。",
+    lead="开场访谈里看过，同一个 Prompt，结果会变；过程也一样，每次走的弯路不同。讲师这次加项目经历，Codex 在确认之后调用了 33 次工具，其中有不少弯路：自己起预览服务器失败、写的截图脚本有语法错、截图文件没生成。这些失败的返回和成功的一样，留在之后每一次请求里，对完成任务没有用，却一直占着 context。",
     html=(
         '<div class="p-pair" style="grid-template-columns:1fr auto 1fr">'
         '<div class="p-box" data-role="ink" data-reveal="0"><span class="p-tag" data-role="ink">这一轮的几次弯路</span>'
         '<div class="p-term" style="margin-top:10px"><div style="color:#8A93A0">npm run preview --port 4173</div><div class="err">退出码 1</div><div style="color:#8A93A0">截图脚本</div><div class="err">SyntaxError</div><div style="color:#8A93A0">ls /tmp/shot-360.png</div><div class="err">No such file</div></div></div>'
         '<div class="p-join" data-reveal="1"><span>之后每次请求</span><i class="p-arrow"></i></div>'
-        '<div class="p-box" data-role="ink" data-reveal="1"><span class="p-tag" data-role="ink">最后一次请求</span><p class="p-big" style="margin-top:10px">135 项 · 约 5.9 万 token</p><p class="p-sub">39 次调用的返回都在里面，失败的也在</p></div></div>'
+        '<div class="p-box" data-role="ink" data-reveal="1"><span class="p-tag" data-role="ink">最后一次请求</span><p class="p-big" style="margin-top:10px">135 项 · 约 5.9 万 token</p><p class="p-sub">前面 39 次调用的返回都在里面，失败的也在</p></div></div>'
         '<div class="p-bar" data-reveal="2">返回有没有用，<b>之后每次请求都带着</b></div>'
         '<p class="source-note">' + RUN1020 + '。弯路的次数只是这一次运行的观察；返回会一直留在后面的请求里，是每次都一样的规则</p>'
     ),
     steps=["这一轮的弯路", "之后每次都带着", "弯路也被重发"],
     teaching=teach(
-        ("核对记录", "2026-10-20 交互界面实测（能力目录开、推理档位 max），2.2 本轮“确认”之后：39 次工具调用，其中至少 9 次失败或白跑（npm run preview 两次退出码 1、shell 脚本被当成 JavaScript 报 SyntaxError、截图文件不存在、CDP 脚本解析错等），全部是 Codex 自己为了查视口而做的，Prompt 写明了浏览器由人检查。每次请求都带着之前全部调用和返回，最后一次请求 135 项、59271 token。原来的 read_file 例子来自 2026-10-02 能力目录关的运行，已不再上屏。"),
+        ("核对记录", "2026-10-20 交互界面实测（能力目录开、推理档位 max），2.2 本轮“确认”之后：33 次工具调用（加上出计划那一轮的 6 次，会话里累计 39 次），其中至少 9 次失败或白跑（npm run preview 两次退出码 1、shell 脚本被当成 JavaScript 报 SyntaxError、截图文件不存在、CDP 脚本解析错等），全部是 Codex 自己为了查视口而做的，Prompt 写明了浏览器由人检查。每次请求都带着之前全部调用和返回，最后一次请求 135 项、59271 token。原来的 read_file 例子来自 2026-10-02 能力目录关的运行，已不再上屏。"),
         ("讲师提示", "不重讲随机性，只回指开场访谈的鹈鹕例子。录制时弯路不一定一样：按当次记录指认就行，没有弯路也没关系，要讲的是“返回会一直留着”这条规则。“它为什么自己去查浏览器”可以留给 2.3 看范围时就地用。"),
     ),
 )
@@ -214,21 +214,27 @@ scene(
     ),
 )
 
+# p30、p31 的计划与检查结果来自 2026-10-20 15:58 那次运行（能力目录开），见分镜“事实边界”
+RUN22 = "讲师用课程基线在交互界面里的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max）"
+
 scene(
     id="p30", segment="补上项目经历",
     label="确认计划再执行", title="先看计划，再让它动手",
-    lead="Codex 先回复计划。确认三件事再放行：计划只涉及项目区；要放进页面的内容和我们给的原文一致；没有新依赖、没有链接。小改动的计划可能只有一两句，这正常。",
+    lead="Codex 先回复计划。确认三件事再放行：计划只涉及项目区；要放进页面的内容和我们给的原文一致；没有新依赖、没有链接。讲师这次的计划说：只改 src/App.tsx 里的 projects 数组，把 1 条占位换成 3 条；按原文第一个冒号拆成标题和描述，其余一字不改；卡片结构不变，不加链接、按钮和依赖；首屏、index.html 和样式都不动。三件事都对得上。小改动的计划可能只有一两句，这也正常。",
     html=(
-        '<div class="p-handoff"><div class="p-handoff-card" data-reveal="0"><h3>看 Codex 的计划</h3><p>它说要改哪些文件、怎么改</p>'
-        '<span class="p-env">/clear 之后的新对话</span><span class="p-env">workspace-write</span></div>'
-        '<ol class="p-watch"><li data-reveal="1">只涉及项目区<small>预期只改 src/App.tsx 的项目数据</small></li>'
-        '<li data-reveal="2">内容与原文一致<small>一个字一个字对</small></li>'
-        '<li data-reveal="3">没有新依赖、没有链接<small>有就先停，问清楚</small></li></ol></div>'
+        '<div class="p-handoff"><div class="p-handoff-card" data-reveal="0"><h3>Codex 的计划</h3>'
+        '<p style="font-size:19px;line-height:1.6;margin-bottom:14px">只改 src/App.tsx 的 projects 数组：1 条占位换成 3 条<br>按原文第一个“：”拆成标题和描述，其余一字不改<br>卡片沿用 h3 + p，不加链接、按钮、依赖<br>首屏、index.html、CSS 都不动</p>'
+        '<span class="p-env">/clear 之后的新对话</span></div>'
+        '<ol class="p-watch"><li class="is-done" data-reveal="1">只涉及项目区<small>只动 App.tsx 里的项目数据</small></li>'
+        '<li class="is-done" data-reveal="2">内容与原文一致<small>计划里列出的三条，逐字对过</small></li>'
+        '<li class="is-done" data-reveal="3">没有新依赖、没有链接<small>计划写明不加；有的话先停，问清楚</small></li></ol></div>'
+        '<p class="source-note">计划节选并压缩自' + RUN22 + '；你的计划以自己收到的回复为准</p>'
     ),
     steps=["看计划", "范围", "内容", "依赖与链接"],
     teaching=teach(
         ("切到实操", "Codex 的计划以录制实际为准。若计划越界，就地让它收窄并保留原始回复，2.3 可作为“范围扩大”的真实素材；不准备越界的计划。"),
-        ("备课参考", "按排练快照预估，内容迭代只改 src/App.tsx：10 行新增、2 行删除（materials/homepage-v1.diff）。真实 diff 以录制为准。"),
+        ("核对记录", "2026-10-20 15:58 那次运行（能力目录开）：计划前 Codex 调用 6 次工具读仓库，计划正文列出三条原文并写明只改 src/App.tsx 的 projects 数组；它还写了“两个不打算自作主张的点”：默认不改 CSS、不更新 PROMPT_V1.md / CHECKPOINTS.md。计划的“验收怎么做”里，它打算自己起 npm run preview、用无头 Chrome 截三档宽度、用 DOM 快照核对焦点顺序，超出了 Prompt 里“浏览器由人查”的分工；讲师照常回复“确认，按你的计划改。”，之后的弯路见本节“走过的弯路”那页。实际 diff 只改 src/App.tsx（+10 −2），与 materials/homepage-v1.diff 逐字相同。"),
+        ("讲师提示", "录制时若计划里也出现“自己开浏览器验收”，可以指一句它和 Prompt 的分工不一致，再决定是否让它去掉；不展开。"),
     ),
 )
 
@@ -257,19 +263,20 @@ scene(
 scene(
     id="p31", segment="补上项目经历",
     label="改好了吗", title="改好了吗？有没有弄坏别的？",
-    lead="改完由人检查，不只看新内容：三种视口下内容完整可读；Tab 焦点顺序与改前一致；npm run build 成功。内容变多后出现的新问题，比如手机上出现横向滚动，记为剩余问题，不在这一轮顺手修。",
+    lead="改完要检查，不只看新内容：三种视口下内容完整可读；Tab 焦点顺序与改前一致；npm run build 成功。讲师这次三项都通过：三种宽度都没有横向滚动，360 宽时每条描述折成两行；能用 Tab 停下的仍只有“查看项目”；构建完成。其中视口和 Tab 的结果是 Codex 自己用无头 Chrome 查的，Prompt 里这两项写的是由人查，前面看到的那些弯路就出在这里；自己的页面要在浏览器里亲手查。内容变多后出现的新问题，比如手机上出现横向滚动，记为剩余问题，不在这一轮顺手修。",
     html=(
-        '<div class="p-rec" style="grid-template-columns:minmax(0,1fr) minmax(0,1.1fr) minmax(0,1.3fr);row-gap:12px;--rf:21px">'
-        '<div class="is-head" data-reveal="0"><span>检查</span><span>结果</span><span>能说明什么</span></div>'
-        '<div data-reveal="0"><span class="p-cell">360 · 768 · 1440</span><span class="p-cell">三条经历都完整显示</span><span class="p-why">文字和排版没被挤坏</span></div>'
-        '<div data-reveal="1"><span class="p-cell">Tab 键</span><span class="p-cell">仍只停在“查看项目”</span><span class="p-why">键盘行为与改前一致</span></div>'
-        '<div data-reveal="2"><span class="p-cell p-mono">npm run build</span><span class="p-cell">退出码 0</span><span class="p-why">构建流程成功完成</span></div></div>'
+        '<div class="p-rec" style="grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) minmax(0,1.1fr);row-gap:12px;--rf:21px">'
+        '<div class="is-head" data-reveal="0"><span>检查</span><span>讲师这次的结果</span><span>能说明什么</span></div>'
+        '<div data-reveal="0"><span class="p-cell">360 · 768 · 1440</span><span class="p-cell">都没有横向滚动；360 宽时描述折成两行</span><span class="p-why">文字和排版没被挤坏</span></div>'
+        '<div data-reveal="1"><span class="p-cell">Tab 键</span><span class="p-cell">能停下的仍只有“查看项目”</span><span class="p-why">键盘行为与改前一致</span></div>'
+        '<div data-reveal="2"><span class="p-cell p-mono">npm run build</span><span class="p-cell">tsc 与 vite 都通过：✓ built</span><span class="p-why">构建流程成功完成</span></div></div>'
         '<div class="p-bar is-light" data-reveal="3">新出现的问题：<b>记下来，不顺手修</b></div>'
+        '<p class="source-note">结果来自' + RUN22 + '；视口和 Tab 这两项是 Codex 自己查的，Prompt 里写的是由人查</p>'
     ),
     steps=["三种视口", "键盘", "构建", "新问题"],
     teaching=teach(
-        ("备课参考", "排练版 homepage-v1（materials/homepage-v1.diff）2026-10-03 核对：360×800 下页面高 827px、无横向滚动；Tab 只停在“查看项目”；build 成功。"),
-        ("讲师提示", "检查由人完成；让 AI 打开浏览器自验证留到 Harness 章节（决定 10）。结果列以录制实际为准。"),
+        ("核对记录", "2026-10-20 15:58 那次运行（能力目录开）：npm run build（tsc -b && vite build）输出“✓ built in 265ms”。视口：Codex 发现 macOS 无头 Chrome 的 --window-size=360 实际得到 500px 宽，改用同源 iframe 测，360 / 768 / 1440 下 scrollWidth 等于视口宽、无横向溢出，卡片宽 320 / 720 / 860，描述 2 / 1 / 1 行。Tab：渲染后全页只有 1 个可聚焦元素（首屏“查看项目”链接），项目卡内 0 个。截图存在临时目录，未保留。"),
+        ("讲师提示", "录制时视口和 Tab 由讲师在 Chrome 里亲手查，结果列按实际显示讲；让 AI 打开浏览器自验证留到 Harness 章节（决定 10）。Codex 这次自己查了，只点一句，不展开。"),
     ),
 )
 
@@ -304,7 +311,7 @@ scene(
     teaching=teach(
         ("核对记录", "压缩提示位于 codex-rs/prompts/templates/compact/prompt.md（要求写进度与决定、约束、下一步、关键数据）；本地压缩保留最近用户消息（上限约 2 万 token）、摘要和重新插入的初始上下文；OpenAI 与 Azure provider 走远程压缩（model-provider/src/provider.rs）。"),
         ("切到实操", "在本轮修改的会话里执行 /compact，切 claude-tap 查看器对比压缩前、压缩请求、压缩后三次请求，指出本轮哪些具体内容（如读到的 src/App.tsx、build 输出）被换成了摘要；再问一句“不读文件、不跑命令，build 输出最后一行是什么”。结果和画面不同就按实际讲。上游卡住或压缩失败时，改用 materials/compact/ 的独立实验（复现按钮第 1–5 步，或第 6 步的 compare.html），画面和口播如实说明“这是另一次专门做的实验”。"),
-        ("实测记录", "2026-10-20 交互界面，本节真实会话（能力目录开、推理档位 max）：确认之后 Codex 一共调用 39 次工具，除了改 src/App.tsx、跑 build，还自己起预览服务器、驱动无头 Chrome 去查三种视口（Prompt 写明了浏览器由人检查）。压缩前最后一次请求 135 项、59271 token；压缩请求 request_kind 为 compaction，带全部 138 项加一段 CONTEXT CHECKPOINT COMPACTION 提示；压缩后的请求 10 项、10635 token：系统指令、3 条用户消息原文（/clear 后的第一句、本轮 Prompt、“确认”）、Skills 与权限说明、团队说明、多代理开关说明、环境信息、交接摘要（约 3400 字符，作为 user 消息，开头说明“另一个模型已经开始解决这个问题”）和新问题。追问 build 输出最后一行时，模型说摘要里只记了 build 成功，没有编造；它还把答案分成“亲眼看到的原文”“只来自摘要的”“不知道的”三类。/clear 之前的问答不在压缩后的历史里。"),
+        ("实测记录", "2026-10-20 交互界面，本节真实会话（能力目录开、推理档位 max）：确认之后 Codex 调用 33 次工具（会话累计 39 次），除了改 src/App.tsx、跑 build，还自己起预览服务器、驱动无头 Chrome 去查三种视口（Prompt 写明了浏览器由人检查）。压缩前最后一次请求 135 项、59271 token；压缩请求 request_kind 为 compaction，带全部 138 项加一段 CONTEXT CHECKPOINT COMPACTION 提示；压缩后的请求 10 项、10635 token：系统指令、3 条用户消息原文（/clear 后的第一句、本轮 Prompt、“确认”）、Skills 与权限说明、团队说明、多代理开关说明、环境信息、交接摘要（约 3400 字符，作为 user 消息，开头说明“另一个模型已经开始解决这个问题”）和新问题。追问 build 输出最后一行时，模型说摘要里只记了 build 成功，没有编造；它还把答案分成“亲眼看到的原文”“只来自摘要的”“不知道的”三类。/clear 之前的问答不在压缩后的历史里。"),
         ("备用画面", "上游卡住（界面停在 Working 超过 5 分钟）时，打开复现按钮第 6 步的 compare.html：用独立实验第 1 次运行的真实记录并排列出压缩前 25 条和压缩后 7 条，标出保留、移走、新增、重新注入，不调用模型。"),
         ("实验记录", "独立实验 2026-10-05 压缩 5 次、不压缩对照 2 次（另有 2 次因上游超时或脚本出错不计入）。5 次压缩后都是 7 条 input：3 条用户消息、摘要、权限说明与 Skills、环境信息、新问题，没有工具调用和返回，与 compact.rs 一致。摘要：4 次只留行号或计数，1 次抄下 grep 原文；5 次追问都没有编造。对照组 2 次都答出了 grep 原文。汇总表与参考记录见 materials/compact/。"),
     ),

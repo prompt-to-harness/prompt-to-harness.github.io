@@ -14,8 +14,10 @@ lesson = Lesson(__file__, "2.3", "AI 交回的改动，要不要接受", summary
 scene = lesson.scene
 
 
-SAMPLE = "画面中的命令输出来自排练版 homepage-v1（courseware/ch02/materials/homepage-v1.diff）在 Git 2.50.1 下的一次运行；你的输出以自己的 diff 为准。"
-RECORD = "请求记录为结构示意，条目名为中文概括；实际的工具名、命令和次数以记录为准"
+# 2026-10-20 15:58 那次 2.2 运行（能力目录开）留下的工作区与请求记录，见分镜“事实边界与素材”
+RUN = "讲师用课程基线在交互界面里的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max）"
+SAMPLE = "画面中的命令输出来自" + RUN + "留下的工作区，Git 2.50.1；你的输出以自己的 diff 为准。"
+RECORD = "来自同一次运行的请求记录，命令有删节；工具名、命令和次数随每次运行变化"
 
 
 # ---------- 拿到 diff ----------
@@ -50,6 +52,7 @@ scene(
     steps=["status", "diff --stat", "对得上吗"],
     teaching=teach(
         ("命令说明", "未跟踪文件所在目录整个都是新的时，git status --short 只显示目录名（如 ?? src/components/），加 --untracked-files=all 可列出目录里的每个文件。"),
+        ("核对记录", "2026-10-20 15:58 那次运行结束后，在它的工作区运行 git status --short 和 git diff --stat，输出与画面一致：只改 src/App.tsx，+10 −2，没有未跟踪文件。这份 diff 与 materials/homepage-v1.diff 逐字相同。"),
         ("讲师提示", "若 2.2 的真实 diff 出现了无关文件或 package.json 变化，在这里就地指出，并在 p39 走“缩小”或“拒绝”。"),
     ),
 )
@@ -78,7 +81,7 @@ scene(
     ),
     steps=["数据", "渲染", "样式", "文字"],
     teaching=teach(
-        ("讲师提示", "按 2.2 的真实 diff 讲，不预设结构。若 Codex 改了渲染或样式，就在第 2、3 步指出，并说清它对三种视口和键盘的影响。"),
+        ("讲师提示", "按 2.2 的真实 diff 讲，不预设结构。若 Codex 改了渲染或样式，就在第 2、3 步指出，并说清它对三种视口和键盘的影响。2026-10-20 能力目录关的那次运行改过 src/index.css（项目列表栅格，+23 −2），录制时遇到类似情况就在第 3 步讲。"),
     ),
 )
 
@@ -102,25 +105,30 @@ scene(
 scene(
     id="p38a", segment="回看请求记录",
     label="它是根据什么改的", title="Codex 是根据什么改的？",
-    lead="打开 2.1 起一直在看的那份请求记录，找到 2.2 这一轮的工具调用。看三件事：Codex 读了哪些文件；diff 里改动的每个文件，改之前读过没有；每处改动的依据，来自 Prompt 原文，还是读到的文件。同一个 Prompt，每次走的过程都可能不同，所以判断看这一轮的记录。范围扩大时，常能在这里找到原因：多读了无关内容，或者 Prompt 里缺了本轮目标。记录里找不到依据的改动，按“无法解释”处理。",
+    lead="打开 2.1 起一直在看的那份请求记录，找到 2.2 这一轮的工具调用。看三件事：Codex 读了哪些文件；diff 里改动的每个文件，改之前读过没有；每处改动的依据，来自 Prompt 原文，还是读到的文件。讲师这次的记录里，读文件都发生在出计划之前：6 次调用读了 11 个文件，包括 src/App.tsx 和 index.css，也读了 PROMPT_V1.md 这类和本轮无关的文档。“确认”之后的第一次调用就是修改 src/App.tsx，没有再读；它用的是计划那一轮读到的内容，这些内容一直留在 context 里。diff 里只有 App.tsx，改前读过；三条文字来自 Prompt 原文，数组的位置和结构来自读到的 App.tsx。多读的文档没有让范围扩大。同一个 Prompt，每次走的过程都可能不同，所以判断看这一轮的记录。范围扩大时，常能在这里找到原因：多读了无关内容，或者 Prompt 里缺了本轮目标。记录里找不到依据的改动，按“无法解释”处理。",
     html=(
         NARROW +
-        '<div class="p-walk"><div data-reveal="0"><div class="p-src" style="--lh:40px">'
-        '<div class="p-fn">2.2 本轮的几次请求（示意）</div>'
-        '<div class="p-ln"><i>1</i><code>user · 本轮 Prompt：目标、项目经历原文</code></div>'
-        '<div class="p-ln add" data-reveal="1"><i>2</i><code>模型 · 调用工具：读 src/App.tsx</code></div>'
-        '<div class="p-ln add" data-reveal="1"><i>3</i><code>工具返回 · App.tsx 的内容</code></div>'
-        '<div class="p-ln" data-reveal="2"><i>4</i><code>模型 · 调用工具：改 src/App.tsx</code></div>'
-        '<div class="p-ln" data-reveal="3"><i>5</i><code>模型 · 完成报告</code></div></div></div>'
-        '<ol class="p-notes"><li data-reveal="1"><span><b>读了哪些文件</b><small>多读了无关文件，范围容易扩大</small></span></li>'
-        '<li data-reveal="2"><span><b>改的文件，之前读过吗</b><small>对照 diff 里的文件逐个找</small></span></li>'
-        '<li data-reveal="3"><span><b>依据从哪来</b><small>Prompt 原文，还是读到的文件</small></span></li>'
-        '<li class="is-risk" data-reveal="3"><span><b>找不到依据</b><small>按“无法解释”处理</small></span></li></ol></div>'
-        '<p class="source-note">' + RECORD + '</p>'
+        '<div class="p-walk"><div data-reveal="0"><div class="p-src" style="--lh:34px">'
+        '<div class="p-fn">2.2 本轮的工具调用（节选）</div>'
+        '<div class="p-ln"><i>1</i><code>ls -la · git status · git log</code></div>'
+        '<div class="p-ln"><i>2</i><code>find src docs … · cat package.json PLACEHOLDER_CONTENT.md</code></div>'
+        '<div class="p-ln add"><i>3</i><code>cat src/App.tsx src/index.css</code></div>'
+        '<div class="p-ln"><i>4</i><code>cat PROJECT_BRIEF.md PROMPT_V1.md CHECKPOINTS.md</code></div>'
+        '<div class="p-ln"><i>5</i><code>cat README.md index.html .nvmrc</code></div>'
+        '<div class="p-ln"><i>6</i><code>cat .gitignore · ls .traces · 找 Chrome</code></div>'
+        '<div class="p-ln" data-reveal="1"><i>·</i><code>回复计划 → 我们回复“确认”</code></div>'
+        '<div class="p-ln del" data-reveal="2"><i>7</i><code>apply_patch：改 src/App.tsx</code></div>'
+        '<div class="p-ln" data-reveal="2"><i>8</i><code>cat src/App.tsx · git diff（改后复查）</code></div></div></div>'
+        '<ol class="p-notes"><li data-reveal="0"><span><b>读了哪些文件</b><small>出计划前读了 11 个，含几份无关文档</small></span></li>'
+        '<li data-reveal="1"><span><b>确认之后</b><small>没有再读，第一次调用就是修改</small></span></li>'
+        '<li class="is-ok" data-reveal="2"><span><b>改的文件，之前读过吗</b><small>diff 只有 App.tsx，第 3 次调用读过</small></span></li>'
+        '<li class="is-ok" data-reveal="3"><span><b>依据从哪来</b><small>文字：Prompt 原文 · 位置和结构：读到的 App.tsx</small></span></li></ol></div>'
+        '<p class="source-note">' + RECORD + '；' + RUN + '</p>'
     ),
-    steps=["找到本轮请求", "读了哪些文件", "改前读过吗", "依据从哪来"],
+    steps=["读了哪些文件", "确认之后", "改前读过吗", "依据从哪来"],
     teaching=teach(
-        ("讲师提示", "画面是结构示意。录制时打开 claude-tap 里 2.2 本轮那几次请求，按实际的工具调用和返回逐条指认，工具名、命令和次数以记录为准，截图前检查路径和用户名。讲师的 diff 干净时，本页说明“每处改动都找得到依据”即可；记录里真的有多读或缺目标的情况，就地指出，留到 p39 处置。"),
+        ("核对记录", "取自 2026-10-20 15:58 那次运行的请求记录（能力目录开时工具调用是 custom_tool_call，命令在 tools.exec_command 的 cmd 里），跳过界面“给会话起标题”的旁路请求。出计划前 6 次调用读的 11 个文件：package.json、PLACEHOLDER_CONTENT.md、src/App.tsx、src/index.css、PROJECT_BRIEF.md、PROMPT_V1.md、CHECKPOINTS.md、README.md、index.html、.nvmrc、.gitignore；另有 ls、find、git log、node -v 等列目录和查环境的命令，第 6 次还在找本机的 Chrome。“确认”之后第 1 次调用就是 apply_patch 改 src/App.tsx，改前没有再读任何文件；第 2 次 cat src/App.tsx 并看 git diff，是改后复查。确认之后共 33 次调用，加上计划那一轮的 6 次，最后一次请求里一共 39 次。"),
+        ("讲师提示", "录制时打开 claude-tap 里 2.2 本轮那几次请求，按实际的工具调用和返回逐条指认，工具名、命令和次数以当次记录为准，截图前检查路径和用户名。讲师的 diff 干净时，本页说明“每处改动都找得到依据”即可；记录里真的有多读或缺目标的情况，就地指出，留到 p39 处置。"),
     ),
 )
 
@@ -155,11 +163,11 @@ scene(
         '<div class="p-term" data-reveal="2" style="margin-top:8px" data-copy="' + escape(COMMIT) + '"><div class="dim">$ git commit -m "homepage-v1: 补充项目经历" \\</div>'
         '<div class="dim">    -m "本轮目标：在项目区呈现我的项目经历。改动文件：src/App.tsx"</div><div class="ok">[main 7ce0e9f] homepage-v1: 补充项目经历</div></div>'
         '<div class="p-term" data-reveal="3" style="margin-top:8px" data-copy="git log --oneline -1"><div class="dim">$ git log --oneline -1</div><div>7ce0e9f (HEAD -&gt; main) homepage-v1: 补充项目经历</div></div>'
-        '<p class="source-note">' + SAMPLE + ' 7ce0e9f 是排练时的短哈希，每次提交都不同。</p>'
+        '<p class="source-note">' + SAMPLE + ' 这次运行没有提交，7ce0e9f 是示例短哈希，每次提交都不同。</p>'
     ),
     steps=["暂存", "再看一遍", "提交并写清说明", "回退点"],
     teaching=teach(
-        ("讲师提示", "哈希每次不同，按实际输出讲。分支名以学员仓库为准，course-starter 默认分支为 main。提交说明的第二段写本轮目标和改动文件，用 git log -1 能完整看到。"),
+        ("讲师提示", "哈希每次不同，按实际输出讲。分支名以学员仓库为准，course-starter 默认分支为 main。提交说明的第二段写本轮目标和改动文件，用 git log -1 能完整看到。2026-10-20 那次运行的改动停在工作区，git add 与 git diff --cached --stat 的输出按它的 diff 写出，提交行与哈希是示例。"),
     ),
 )
 
