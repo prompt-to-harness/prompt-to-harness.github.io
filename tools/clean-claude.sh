@@ -29,7 +29,7 @@ claude_args=()
 while [ $# -gt 0 ]; do
   case "$1" in
     --tap) use_tap=1 ;;
-    -h|--help) sed -n '2,22p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    -h|--help) awk 'NR>1 && /^#/ {sub(/^# ?/,""); print; next} NR>1 {exit}' "$0"; exit 0 ;;
     --) shift; claude_args=("$@"); break ;;
     *) echo "未知参数：$1（把要交给 claude 的参数放在 -- 之后）" >&2; exit 2 ;;
   esac
@@ -89,13 +89,15 @@ fi
 # 跳过首次启动的主题与登录引导（这些是界面步骤，不影响模型行为）；已有文件不覆盖
 [ -f "$SIM_HOME/.claude.json" ] || echo '{"hasCompletedOnboarding": true}' > "$SIM_HOME/.claude.json"
 
-# 密钥以 Bearer 方式交给 Claude Code；不保留 MINIMAX_API_KEY 这个名字
+# 密钥：Claude Code 只认 ANTHROPIC_AUTH_TOKEN（Bearer），所以改名传入；MINIMAX_API_KEY 这个名字不再保留
 export ANTHROPIC_AUTH_TOKEN="$MINIMAX_API_KEY"
 # 接口地址走进程环境而不写进 settings.json：settings 里的 env 会盖过 claude-tap 注入的代理地址
 export ANTHROPIC_BASE_URL="$BASE_URL"
 # 密钥只给 Claude Code 本身用，从它启动的 Bash、hook、MCP 子进程环境里去掉（对应 clean-codex.sh 的 shell_environment_policy）
 export CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1
+# 清掉本客户端的其他凭据，以及 Codex 的变量（与 clean-codex.sh 对称），避免日常 shell 里的串进来
 unset MINIMAX_API_KEY ANTHROPIC_API_KEY CLAUDE_CONFIG_DIR CLAUDE_CODE_OAUTH_TOKEN
+unset OPENAI_API_KEY OPENAI_BASE_URL CODEX_HOME
 export HOME="$SIM_HOME"
 
 echo "干净 Claude Code：HOME=$SIM_HOME  工作目录=$PWD  模型=$MODEL" >&2

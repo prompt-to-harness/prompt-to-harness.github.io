@@ -19,6 +19,12 @@
 #                        设 0 则不写，Codex 找不到模型元数据，改用内置兜底配置（会提示 "Model metadata ... not found"）。
 #                        两者的请求不同：系统指令、工具集、reasoning 参数都变（第 2 章配套实验对比过）
 #   CLEAN_CODEX_NO_OPEN=1 配合 --tap：不自动在浏览器打开请求面板（批量运行用），记录照常保存
+#   CLEAN_CODEX_AUTH=chatgpt 讲师实验用：不配 MiniMax，改用你自己的 ChatGPT 登录。干净 HOME 里的 auth.json
+#                        是指向 ~/.codex/auth.json 的软链接，不是副本：ChatGPT 的刷新令牌会轮换，副本先刷新会让
+#                        日常那份失效；Codex（0.163 / main，2026-10-20 核对 login/src/auth/storage.rs）原地改写
+#                        auth.json，刷新后的令牌写回同一个文件。只适用于文件方式存登录（不是 keyring）。
+#                        Skills、插件、MCP 和其他配置仍不带进来；CLEAN_CODEX_MODEL 不设时用 Codex 的默认模型。
+#                        暂不支持 --tap（未核实 claude-tap 能否代理 ChatGPT 登录的流量）
 #
 # 密钥只通过环境变量传给 Codex，配置文件里没有密钥，可以放心展示。
 set -euo pipefail
@@ -32,18 +38,31 @@ codex_args=()
 while [ $# -gt 0 ]; do
   case "$1" in
     --tap) use_tap=1 ;;
-    -h|--help) sed -n '2,20p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    -h|--help) awk 'NR>1 && /^#/ {sub(/^# ?/,""); print; next} NR>1 {exit}' "$0"; exit 0 ;;
     --) shift; codex_args=("$@"); break ;;
     *) echo "未知参数：$1（把要交给 codex 的参数放在 -- 之后）" >&2; exit 2 ;;
   esac
   shift
 done
 
-if [ -z "${MINIMAX_API_KEY:-}" ]; then
-  echo "没有找到 MiniMax 密钥：请在 ~/.zshenv 里加 export MINIMAX_API_KEY=\"...\"，然后新开终端" >&2
-  exit 1
-fi
-export MINIMAX_API_KEY
+AUTH="${CLEAN_CODEX_AUTH:-minimax}"
+case "$AUTH" in
+  minimax)
+    if [ -z "${MINIMAX_API_KEY:-}" ]; then
+      echo "没有找到 MiniMax 密钥：请在 ~/.zshenv 里加 export MINIMAX_API_KEY=\"...\"，然后新开终端" >&2
+      exit 1
+    fi ;;
+  chatgpt)
+    if [ ! -f "$REAL_HOME/.codex/auth.json" ]; then
+      echo "没有找到 ~/.codex/auth.json：先在日常环境运行 codex login（文件方式存登录）" >&2
+      exit 1
+    fi
+    if [ "$use_tap" = 1 ]; then
+      echo "CLEAN_CODEX_AUTH=chatgpt 暂不支持 --tap" >&2
+      exit 2
+    fi ;;
+  *) echo "CLEAN_CODEX_AUTH 只能是 minimax 或 chatgpt：$AUTH" >&2; exit 2 ;;
+esac
 
 command -v codex >/dev/null || { echo "找不到 codex，请先安装 Codex CLI" >&2; exit 1; }
 if [ "$use_tap" = 1 ]; then
@@ -73,6 +92,8 @@ trap cleanup EXIT
 # 模型能力目录：没有它，Codex 查不到 MiniMax 模型的元数据，会用兜底配置并警告 "Model metadata ... not found"。
 # 内容照 MiniMax 官方文档「配置模型能力目录（可选）」：https://platform.minimax.cn/docs/m-plan/codex
 mkdir -p "$SIM_HOME/.codex"
+# 同一个 CLEAN_CODEX_HOME 先后用两种模式时，MiniMax 模式不能带着讲师的登录
+if [ -L "$SIM_HOME/.codex/auth.json" ]; then rm "$SIM_HOME/.codex/auth.json"; fi
 CATALOG_LINES=""
 if [ "${CLEAN_CODEX_CATALOG:-1}" = 1 ]; then
   mkdir -p "$SIM_HOME/.codex/model-catalogs"
@@ -82,6 +103,11 @@ model_catalog_json = \"$SIM_HOME/.codex/model-catalogs/custom-catalog.json\""
 fi
 if [ "${CLEAN_CODEX_KEEP_CONFIG:-0}" = 1 ] && [ -f "$SIM_HOME/.codex/config.toml" ]; then
   echo "保留已有配置：$SIM_HOME/.codex/config.toml" >&2
+elif [ "$AUTH" = chatgpt ]; then
+  {
+    [ -n "${CLEAN_CODEX_MODEL:-}" ] && echo "model = \"$CLEAN_CODEX_MODEL\""
+    echo 'forced_login_method = "chatgpt"'
+  } > "$SIM_HOME/.codex/config.toml"
 else
 cat > "$SIM_HOME/.codex/config.toml" <<EOF
 model = "$MODEL"
@@ -101,10 +127,21 @@ exclude = ["MINIMAX_API_KEY"]
 EOF
 fi
 
-export HOME="$SIM_HOME"
+# 密钥：Codex 按 config.toml 的 env_key 读 MINIMAX_API_KEY（与学员配置一致），这里保持原名不动，
+# 并在 shell_environment_policy 里排除，不传给它执行的命令。
+# 清掉本客户端的其他凭据，以及 Claude Code 的变量（与 clean-claude.sh 对称），避免日常 shell 里的串进来
 unset CODEX_HOME OPENAI_API_KEY OPENAI_BASE_URL
+unset ANTHROPIC_API_KEY ANTHROPIC_AUTH_TOKEN ANTHROPIC_BASE_URL CLAUDE_CONFIG_DIR CLAUDE_CODE_OAUTH_TOKEN
+if [ "$AUTH" = chatgpt ]; then
+  unset MINIMAX_API_KEY
+  ln -sfn "$REAL_HOME/.codex/auth.json" "$SIM_HOME/.codex/auth.json"
+  MODEL="${CLEAN_CODEX_MODEL:-Codex 默认}"
+else
+  export MINIMAX_API_KEY
+fi
+export HOME="$SIM_HOME"
 
-echo "学员视角：HOME=$SIM_HOME  工作目录=$PWD  模型=$MODEL" >&2
+echo "学员视角：HOME=$SIM_HOME  工作目录=$PWD  模型=$MODEL  登录=$AUTH" >&2
 
 if [ "$use_tap" = 1 ]; then
   # 临时 HOME 会让 uv 缓存和 claude-tap 的 trace 目录跟着消失，所以把它们指回真实位置。
