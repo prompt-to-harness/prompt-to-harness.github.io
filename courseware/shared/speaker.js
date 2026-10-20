@@ -20,7 +20,11 @@
   };
   if (window.lesson.intro?.length) {
     const intro = document.createElement('div'); intro.id = 'chapter-intro';
-    window.lesson.intro.forEach(paragraph => addParagraph(intro, paragraph));
+    // 开场白不属于任何页面，存在 lesson.js 的 intro 里；可编辑，但没有对应画面
+    window.lesson.intro.forEach((paragraph, index) => {
+      addParagraph(intro, paragraph, 'narration');
+      intro.lastChild.dataset.intro = index;
+    });
     root.append(intro);
   }
   window.lesson.scenes.forEach((scene, index) => {
@@ -92,21 +96,36 @@
       if (location.protocol === 'file:') addBanner('当前是只读页面。要改口播，运行 sh tools/edit-courseware.sh，从打开的浏览器进入逐字稿页。');
       return;
     }
-    makeEditable(async ({ scene, step, part, old, text }) => {
+    makeEditable(async ({ intro, scene, step, part, old, text }) => {
       const response = await fetch('/__script/edit', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ page: location.pathname, scene, step, part, old, new: text }),
+        body: JSON.stringify({ page: location.pathname, intro, scene, step, part, old, new: text }),
       });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error);
       return { text: result.text, note: `已写回 ${result.source}` };
-    }, '本地编辑：点任一句口播直接改，Enter 或点别处保存，Esc 撤销；每句下方可展开对应的画面对照。保存会写回本节 script.json 并重建 lesson.js。只能改句子，增删步骤请改源文件。');
+    }, '本地编辑：点任一句口播直接改，Enter 或点别处保存，Esc 撤销；每句下方可展开对应的画面对照。保存会写回本节 script.json 并重建 lesson.js（开场白直接写回 lesson.js）。只能改句子，增删步骤请改源文件。');
   }
 
   function addBanner(text) {
     const banner = document.createElement('p');
     banner.className = 'edit-banner'; banner.textContent = text;
     document.querySelector('.script-page header')?.append(banner);
+  }
+
+  function peekButton(p) {
+    const peek = document.createElement('button');
+    peek.type = 'button'; peek.className = 'peek'; peek.textContent = '对照画面';
+    peek.addEventListener('click', () => {
+      const open = p.parentElement.querySelector(`iframe[data-scene="${p.dataset.scene}"][data-step="${p.dataset.step}"]`);
+      if (open) { open.remove(); peek.textContent = '对照画面'; return; }
+      const frame = document.createElement('iframe');
+      frame.className = 'peek-frame'; frame.title = `第 ${Number(p.dataset.step) + 1} 步的画面`;
+      frame.dataset.scene = p.dataset.scene; frame.dataset.step = p.dataset.step;
+      frame.src = `${document.body.dataset.lessonPage || 'index.html'}?mode=slides&step=${p.dataset.step}#${p.dataset.scene}`;
+      peek.after(frame); peek.textContent = '收起画面';
+    });
+    return peek;
   }
 
   function makeEditable(save, bannerText) {
@@ -116,18 +135,8 @@
       p.contentEditable = 'plaintext-only';
       p.spellcheck = false;
       let saved = p.textContent;
-      const peek = document.createElement('button');
-      peek.type = 'button'; peek.className = 'peek'; peek.textContent = '对照画面';
-      peek.addEventListener('click', () => {
-        const open = p.parentElement.querySelector(`iframe[data-scene="${p.dataset.scene}"][data-step="${p.dataset.step}"]`);
-        if (open) { open.remove(); peek.textContent = '对照画面'; return; }
-        const frame = document.createElement('iframe');
-        frame.className = 'peek-frame'; frame.title = `第 ${Number(p.dataset.step) + 1} 步的画面`;
-        frame.dataset.scene = p.dataset.scene; frame.dataset.step = p.dataset.step;
-        frame.src = `${document.body.dataset.lessonPage || 'index.html'}?mode=slides&step=${p.dataset.step}#${p.dataset.scene}`;
-        peek.after(frame); peek.textContent = '收起画面';
-      });
-      p.after(peek);
+      const intro = p.dataset.intro === undefined ? undefined : Number(p.dataset.intro);
+      if (intro === undefined) p.after(peekButton(p));
       p.addEventListener('focus', () => { p.dataset.state = 'editing'; });
       p.addEventListener('keydown', event => {
         if (event.key === 'Escape') { p.textContent = saved; p.blur(); }
@@ -138,7 +147,7 @@
         if (text === saved) { p.textContent = saved; delete p.dataset.state; return; }
         p.dataset.state = 'saving';
         try {
-          const result = await save({ scene: p.dataset.scene, step: Number(p.dataset.step), part: Number(p.dataset.part), old: saved, text });
+          const result = await save({ intro, scene: p.dataset.scene, step: Number(p.dataset.step), part: Number(p.dataset.part), old: saved, text });
           p.textContent = saved = result.text;
           p.dataset.state = 'saved'; p.title = result.note;
         } catch (error) {
