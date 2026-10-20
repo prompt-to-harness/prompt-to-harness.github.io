@@ -67,13 +67,18 @@ cleanup() {
 }
 trap cleanup EXIT
 
-mkdir -p "$SIM_HOME/.codex"
+mkdir -p "$SIM_HOME/.codex/model-catalogs"
+# 模型能力目录：没有它，Codex 查不到 MiniMax 模型的元数据，会用兜底配置并警告 "Model metadata ... not found"。
+# 内容照 MiniMax 官方文档「配置模型能力目录（可选）」：https://platform.minimax.cn/docs/m-plan/codex
+cp "$(dirname "$0")/codex-model-catalog.json" "$SIM_HOME/.codex/model-catalogs/custom-catalog.json"
 if [ "${CLEAN_CODEX_KEEP_CONFIG:-0}" = 1 ] && [ -f "$SIM_HOME/.codex/config.toml" ]; then
   echo "保留已有配置：$SIM_HOME/.codex/config.toml" >&2
 else
 cat > "$SIM_HOME/.codex/config.toml" <<EOF
 model = "$MODEL"
 model_provider = "minimax"
+model_context_window = 524288
+model_catalog_json = "$SIM_HOME/.codex/model-catalogs/custom-catalog.json"
 forced_login_method = "api"
 
 [model_providers.minimax]

@@ -13,6 +13,7 @@
   tools/bench-models.py                         # 默认模型，short+long 各 3 次
   tools/bench-models.py -n 5 -m MiniMax-M3.1-Flash -m 另一个模型
   tools/bench-models.py --base-url https://api.minimaxi.com/v1   # 对比国际站
+  tools/bench-models.py --effort max --max-out 4000   # 带模型目录时 Codex 发的就是 max
 
 密钥读环境变量 MINIMAX_API_KEY（可用 --key-env 改名），不打印、不写文件。
 """
@@ -33,9 +34,11 @@ def long_prompt(kchars):
     return f"下面是一段代码，读完后用三句话概括它的结构，不要逐行复述。\n\n{filler}"
 
 
-def one_run(base, key, model, prompt, timeout):
-    body = json.dumps({"model": model, "input": prompt, "stream": True,
-                       "max_output_tokens": 400}).encode()
+def one_run(base, key, model, prompt, timeout, effort=None, max_out=400):
+    payload = {"model": model, "input": prompt, "stream": True, "max_output_tokens": max_out}
+    if effort:
+        payload["reasoning"] = {"effort": effort}
+    body = json.dumps(payload).encode()
     req = urllib.request.Request(
         base.rstrip("/") + "/responses", data=body, method="POST",
         headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"})
@@ -101,6 +104,8 @@ def main():
     ap.add_argument("--key-env", default="MINIMAX_API_KEY")
     ap.add_argument("--long-k", type=int, default=12, help="long 档输入的千字符数（默认 12，约 4–6k token）")
     ap.add_argument("--timeout", type=int, default=120)
+    ap.add_argument("--effort", help="发送 reasoning.effort（如 medium、max）；不设则不发，对应没有模型目录时的 Codex")
+    ap.add_argument("--max-out", type=int, default=400, help="max_output_tokens（默认 400；推理档位高时要调大，否则推理就占满）")
     a = ap.parse_args()
 
     key = os.environ.get(a.key_env)
@@ -108,11 +113,11 @@ def main():
         sys.exit(f"没有找到 {a.key_env}：请先 export（见 tools/clean-codex.sh 的说明）")
     loads = [("short", SHORT), (f"long~{a.long_k}k字符", long_prompt(a.long_k))]
 
-    print(f"端点 {a.base_url}  每档 {a.n} 次  （时间单位：秒）")
+    print(f"端点 {a.base_url}  每档 {a.n} 次  effort={a.effort or '(不发)'}  （时间单位：秒）")
     print(f"{'模型':<30}{'负载':<14}{'首事件':>8}{'首token':>9}{'总耗时':>8}{'tok/s':>8}{'最慢总耗时':>11}  失败")
     for model in a.model or [DEFAULT_MODEL]:
         for name, prompt in loads:
-            runs = [one_run(a.base_url, key, model, prompt, a.timeout) for _ in range(a.n)]
+            runs = [one_run(a.base_url, key, model, prompt, a.timeout, a.effort, a.max_out) for _ in range(a.n)]
             ok = [r for r in runs if "error" not in r]
             errs = [r["error"] for r in runs if "error" in r]
             est = " (tokens 为估算)" if any(r["est"] for r in ok) else ""
