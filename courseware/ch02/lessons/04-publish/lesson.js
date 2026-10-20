@@ -11,7 +11,7 @@ window.lesson = {
       "label": "这一节做哪几步",
       "title": "这一节要做哪几步？",
       "lead": "第 1 章只在本地提交，这是第一次推送。推送以后，页面、源码和整段提交历史都会公开",
-      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>看请求</li><li class=\"is-done\"><b>2.2</b>补经历</li><li class=\"is-done\"><b>2.3</b>审改动</li><li class=\"is-now\"><b>2.4</b>发布上线</li><li><b>2.5</b>只是重构？</li></ol><div class=\"p-flow\" style=\"--n:4;margin-top:22px\"><div class=\"p-node\" data-role=\"gate\" data-reveal=\"1\"><span class=\"p-num\">1</span><h3>看清历史</h3><p>即将公开的提交、文件、作者</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-num\">2</span><h3>审查配置</h3><p>Codex 写的部署工作流</p></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"2\"><span class=\"p-num\">3</span><h3>设置与推送</h3><p>Codex 改设置<br>人来推送</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"2\"><span class=\"p-num\">4</span><h3>证明可用</h3><p>公开 URL 上查三项</p></div></div>",
+      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>看请求</li><li class=\"is-done\"><b>2.2</b>补经历</li><li class=\"is-done\"><b>2.3</b>审改动</li><li class=\"is-now\"><b>2.4</b>发布上线</li><li><b>2.5</b>只是重构？</li></ol><div class=\"p-flow\" style=\"--n:4;margin-top:22px\"><div class=\"p-node\" data-role=\"gate\" data-reveal=\"1\"><span class=\"p-num\">1</span><h3>看清历史</h3><p>即将公开的提交、文件、作者</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-num\">2</span><h3>审查配置</h3><p>Codex 写的部署工作流</p></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"2\"><span class=\"p-num\">3</span><h3>设置与推送</h3><p>Codex 用 GitHub CLI（gh）改设置，人来推送</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"2\"><span class=\"p-num\">4</span><h3>证明可用</h3><p>公开 URL 上查三项</p></div></div>",
       "steps": [
         "回到地图",
         "推送之前",
@@ -129,7 +129,7 @@ window.lesson = {
       "label": "能让所有人看到吗",
       "title": "这些内容，可以让所有人看到吗？",
       "lead": "逐项对照判断清单，由人决定。以提交作者邮箱为例：它是不是你愿意公开的邮箱？不愿意，就先停下，不推送。改用 GitHub 的 noreply 邮箱只影响之后的提交，已有提交里的邮箱要改写历史才能换掉，做法见本页链接。讲师演示里的项目经历借自两位讲师，本人同意公开；写到别人的事，要先问过对方。",
-      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-claim\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)\"><div class=\"p-box\" data-role=\"gate\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"gate\">每个提交里都有</span><p class=\"p-mono\" style=\"margin-top:8px;line-height:1.6\">Author: 示例同学<br>&lt;<b>你的邮箱</b>&gt;</p><p class=\"p-sub\">不想公开：先停；换 noreply 只管以后的提交</p></div><ul class=\"p-checks\"><li class=\"is-no\" data-reveal=\"1\">有没有 secret<small>API 密钥、令牌、配置文件</small></li><li class=\"is-no\" data-reveal=\"1\">有没有未经同意的他人信息<small>别人的姓名、联系方式、经历、照片</small></li><li class=\"is-no\" data-reveal=\"1\">截图里有没有隐私<small>桌面、通知、浏览器标签</small></li><li data-reveal=\"2\">本人愿意公开<small>包括作者邮箱</small></li></ul></div><div class=\"p-bar\" data-reveal=\"3\">有一项不行，<b>先停下，不推送</b></div>",
+      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-claim\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)\"><div class=\"p-box\" data-role=\"gate\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"gate\">每个提交里都有</span><p class=\"p-mono\" style=\"margin-top:8px;line-height:1.6\">Author: 示例同学<br>&lt;<b>你的邮箱</b>&gt;</p><p class=\"p-sub\">不想公开：先停；换 noreply 只管以后的提交</p></div><ul class=\"p-checks\" style=\"gap:6px\"><li class=\"is-no\" data-reveal=\"1\">有没有 secret<small>API 密钥、令牌、配置文件</small></li><li class=\"is-no\" data-reveal=\"1\">有没有未经同意的他人信息<small>别人的姓名、联系方式、经历、照片</small></li><li class=\"is-no\" data-reveal=\"1\">截图里有没有隐私<small>桌面、通知、浏览器标签</small></li><li data-reveal=\"2\">首屏的名字和简介，是你自己的吗<small>还是课程示例里的“示例同学”</small></li><li data-reveal=\"2\">本人愿意公开<small>包括作者邮箱</small></li></ul></div><div class=\"p-bar\" data-reveal=\"3\">有一项不行，<b>先停下，不推送</b></div>",
       "refs": [
         {
           "kind": "read",
@@ -147,13 +147,13 @@ window.lesson = {
       "steps": [
         "作者邮箱",
         "三项排查",
-        "本人意愿",
+        "是不是你自己的",
         "停止条件"
       ],
       "script": [
         "【操作提示｜停留课件 p46 第 1 步，指向左侧 Author；不现场改 git config，不演示改写历史。官方文档链接在阅读模式本页底部，录制时不打开】\n\n先看刚才列出的作者。每个提交里都写着作者的姓名和邮箱，来自本机的 Git 配置。如果那是私人邮箱，推送以后它就挂在公开历史里了。不想公开，就先停下，把 Git 的邮箱换成 GitHub 提供的 noreply 邮箱。注意，改配置只影响之后的提交，已经做过的提交还带着旧邮箱，要换掉它们就得改写历史。改写历史不在本课范围，GitHub 官方文档有说明，链接放在阅读模式这一页的底部。",
         "【操作提示｜推进第 2 步；需要举证时切回 Terminal 的 git log -p 输出，按实际内容逐项判断，不预写“没有”。发现 secret 立即停录处理，不展示具体值】\n\n再对照判断清单，前三项要确认“没有”：有没有 secret，比如 API 密钥、令牌，或者整份配置文件；有没有未经同意的他人信息，比如别人的姓名、联系方式、经历和照片；截图里有没有隐私，比如桌面上的文件名、弹出的通知。2.2 的项目经历借用了我们两位讲师的经历，这是本人同意公开的；我们如果写了别人的事，要先问过对方。",
-        "【操作提示｜推进第 3 步，留在课件；按讲师本人的实际意愿判断，不预写“可以公开”】\n\n第四项是本人愿不愿意公开，作者邮箱也算在里面。这是每个人对自己内容的判断，没有标准答案：有人愿意用常用邮箱，有人只用 noreply，都合理。",
+        "【操作提示｜推进第 3 步，留在课件；按讲师本人的实际意愿判断，不预写“可以公开”。讲师演示的首屏沿用课程示例，如实说明】\n\n接下来两项，问的是你自己。第一项：首屏的名字和简介，是你自己的，还是课程示例里的“示例同学”？讲师演示的首屏沿用的是课程示例；你的页面要公开，首屏写的应该是你自己。\n\n最后一项，是本人愿不愿意公开，作者邮箱也算在里面。这是每个人对自己内容的判断，没有标准答案：有人愿意用常用邮箱，有人只用 noreply，都合理。",
         "【操作提示｜推进第 4 步，留在课件。实际结论是暂停时如实说明，后续推送不录】\n\n只要有一项不行，就先停下，不推送。推出去就收不回来了。怎样从历史里去掉一个文件、换掉旧邮箱，看 GitHub 官方文档；那些操作会改写历史，不在本课范围，做之前要人工复核。请暂停视频，逐项判断自己的内容，决定推送还是先停下。"
       ],
       "teaching": [
@@ -171,7 +171,7 @@ window.lesson = {
         },
         {
           "title": "跟做产出",
-          "text": "做过推送前检查：终端输出自己看过即可，不写记录文件；四项判断由自己作出，结论是推送还是暂停。"
+          "text": "做过推送前检查：终端输出自己看过即可，不写记录文件；五项判断由自己作出，结论是推送还是暂停。"
         }
       ],
       "source": "index.html#p46",
@@ -246,7 +246,7 @@ window.lesson = {
       "segment": "推送与发布",
       "label": "设置来源并推送",
       "title": "Codex 改 Pages 设置，推送由我们来做",
-      "lead": "提交部署配置，再用推送前检查的命令看一遍最终要公开的提交。仓库需要公开时现在再改。Pages 的来源交给 Codex 用 GitHub CLI（命令是 gh）设为 GitHub Actions：每条命令弹出批准框，读过再批；改完在网页上刷新确认。最后由人把当前分支推到自己的 origin、看 Actions 日志。首次部署若失败，按日志、build 输出、Network 的顺序定位出在哪一环。",
+      "lead": "提交部署配置，再用推送前检查的命令看一遍最终要公开的提交。仓库需要公开时现在再改。Pages 的来源交给 Codex 用 gh 设为 GitHub Actions：每条命令弹出批准框，读过再批；改完在网页上刷新确认。最后由人把当前分支推到自己的 origin、看 Actions 日志。首次部署若失败，按日志、build 输出、Network 的顺序定位出在哪一环。",
       "html": "<div class=\"p-flow\" style=\"--n:4\"><div class=\"p-node\" data-role=\"us\" data-reveal=\"0\"><span class=\"p-num\">1</span><h3>提交配置</h3><p>审过的两处改动</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"0\"><span class=\"p-num\">2</span><h3>再看历史</h3><p>待推送的全部提交</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-num\">3</span><h3>Codex 改设置</h3><p>每条命令由你批准</p></div><div class=\"p-node\" data-role=\"gate\" data-reveal=\"2\"><span class=\"p-num\">4</span><h3>人来推送</h3><p class=\"p-mono\">git push -u origin HEAD</p></div></div><div class=\"p-grid\" style=\"--n:3;gap:14px;margin-top:16px\"><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"1\"><h3>批准框里看什么</h3><p>命令和理由；修改类命令看清方法和对象</p></div><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"1\"><h3>网页上确认</h3><p>Settings → Pages，刷新后来源是 GitHub Actions</p></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"3\"><h3>失败时出在哪一环</h3><p>Actions 日志 → build 输出 → Network 里哪个资源 404</p></div></div>",
       "steps": [
         "提交并复查",
@@ -256,7 +256,7 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜课件 p49 第 1 步 → Terminal 在练习项目根目录 git add 审过的工作流文件和 vite.config.ts（写明路径，不用 git add .），git diff --cached 看过再提交，提交说明按实际写；然后重跑 p45 的三条推送前检查命令，核对新增的提交】\n\n检查都过了，先提交部署配置。提交以后，再运行一遍推送前检查的那几条命令：这次列出的才是最终要公开的全部提交，包括刚提交的工作流和配置。",
-        "【操作提示｜推进第 2 步。录前确认 gh 已由讲师本人登录（gh auth login --scopes workflow），令牌不放环境变量、不贴进对话。仓库需公开时，先在 Chrome“GitHub 仓库”标签页的 Settings 改可见性。Terminal 另开标签页，在练习项目根目录新开 Codex 会话，粘贴本页“请求原文”第 1 条；每个批准框先读命令和理由，只批本次、不选以后不再询问，修改类命令核对方法和仓库。若个人空仓库暂时不能启用来源，先由讲师执行第 3 步的已审查推送，再完成来源设置，并在 Actions 重新运行部署；目标必须是个人 origin。完成后回 Chrome 打开 Settings → Pages 并刷新，确认 Source 为 GitHub Actions。批准次数以当天为准，不预告；没装 gh 的分支只讲，在该页手动选择。界面按录制时的 GitHub 版本核对】\n\n推送之前先把 GitHub 这边准备好。仓库如果还是私有的，现在才在网页上改成公开，因为待公开的内容已经看过了。然后要把 Pages 的来源设成 GitHub Actions，工作流要在启用之后才能部署。这一步交给 Codex：新开一个会话，用页面上“请求原文”里的这段话。仓库设置不只能在网页上点，GitHub CLI 也能改。Codex 要访问 GitHub，会弹出批准框，每次一条命令，写着命令和它给的理由。查询类的读一遍就批；修改类的看清楚方法和对象：改的是不是自己的仓库、是不是 Pages。讲师预检那一次，它说完“先告诉你要运行的命令”，紧接着就去执行了，真正停住它的是批准框。若空仓库暂时不能启用来源，就先由我们推送已检查的内容，再完成来源设置，并在 Actions 重新运行部署。设置完成后，它会用命令再查一次，但它看不到网页：我们自己打开 Settings 里的 Pages，刷新，看到来源变成 GitHub Actions。没装 GitHub CLI 的同学，就在这个页面上手动选。",
+        "【操作提示｜推进第 2 步。录前确认 gh 已由讲师本人登录（gh auth login --scopes workflow），令牌不放环境变量、不贴进对话。仓库需公开时，先在 Chrome“GitHub 仓库”标签页的 Settings 改可见性。Terminal 另开标签页，在练习项目根目录新开 Codex 会话，粘贴本页“请求原文”第 1 条；每个批准框先读命令和理由，只批本次、不选以后不再询问，修改类命令核对方法和仓库。若个人空仓库暂时不能启用来源，先由讲师执行第 3 步的已审查推送，再完成来源设置，并在 Actions 重新运行部署；目标必须是个人 origin；这一分支口播不讲。完成后回 Chrome 打开 Settings → Pages 并刷新，确认 Source 为 GitHub Actions。批准次数以当天为准，不预告。没装 gh 时在网页手动设置的做法只在展开步骤里，口播不讲。界面按录制时的 GitHub 版本核对】\n\n推送之前，先把 GitHub 这边准备好。仓库如果还是私有的，现在再改成公开，因为待公开的内容已经看过了。\n\n接着把 Pages 的来源设成 GitHub Actions，工作流要在启用之后才能部署。这一步交给 Codex：新开一个会话，发送页面上“请求原文”里的这段话。\n\nCodex 每次访问 GitHub，都会弹出批准框，写着一条命令和它给的理由。查询类的，读一遍就批。修改类的，看清方法和对象：改的是不是自己的仓库，是不是 Pages。\n\n改完以后，它会用命令再查一次，但它看不到网页。我们自己打开 Settings 里的 Pages，刷新，确认来源已经是 GitHub Actions。",
         "【操作提示｜推进第 3 步 → 回练习项目根目录的 Terminal，由讲师本人执行 git push -u origin HEAD，不交给 Codex；推送 .github/workflows/ 被拒时核对 gh 登录是否带 workflow 权限。若第 2 步已为初始化空仓库推送过，直接查看重新运行的结果，不重复推送。随后在 Chrome“GitHub 仓库”标签页打开 Actions，点进本次运行看各步日志】\n\n最后由我们自己在终端执行 git push -u origin HEAD，把当前分支推到自己的仓库，并建立后续使用的跟踪关系。切到 Actions 页，能看到工作流正在运行，点进去可以看每一步的日志。",
         "【操作提示｜推进第 4 步；实际失败时保留真实过程，按 Actions 日志 → 本地 npm run build → Network 的顺序定位。若先推送后才设来源导致失败，在 Actions 页对失败的运行点 Re-run 并确认新运行成功。没有失败只讲课件，不伪造】\n\n第一次部署不一定成功。失败了，按顺序找出在哪一环：Actions 日志里哪一步红了；同样的 build 在本地能不能复现；页面打开了，Network 面板里哪个资源是 404。"
       ],
@@ -292,7 +292,7 @@ window.lesson = {
       "segment": "推送与发布",
       "label": "Codex 怎样调用 gh",
       "title": "刚才 Codex 是怎样调用 gh 的？",
-      "lead": "打开同一份请求记录，找到设置 Pages 来源的那几次请求。模型发出的工具调用里是一条完整的 gh 命令；需要批准的调用，还带着“要在沙箱外运行”的标记和一句理由，就是批准框里显示的那句。我们点了同意，记录里看不到这一下，只看到命令随后执行、返回了输出；下一次请求把这段返回带上，模型据此决定下一步。",
+      "lead": "打开刚才设置 Pages 来源那次会话的请求记录，找到相关的那几次请求。模型发出的工具调用里是一条完整的 gh 命令；需要批准的调用，还带着“要在沙箱外运行”的标记和一句理由，就是批准框里显示的那句。我们点了同意，记录里看不到这一下，只看到命令随后执行、返回了输出；下一次请求把这段返回带上，模型据此决定下一步。",
       "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-walk\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:40px\"><div class=\"p-fn\">记录里的一次 gh 调用（exec 里的一段代码）</div><div class=\"p-ln\"><i>1</i><code>exec_command({ cmd: \"gh api repos/…/pages\",</code></div><div class=\"p-ln add\" data-reveal=\"1\"><i>2</i><code>sandbox_permissions: \"require_escalated\",</code></div><div class=\"p-ln add\" data-reveal=\"1\"><i>3</i><code>justification: \"Allow gh CLI to query … Pages …?\" })</code></div><div class=\"p-ln\" data-reveal=\"2\"><i>4</i><code>返回：{\"message\":\"Not Found\", … \"404\"}</code></div><div class=\"p-ln add\" data-reveal=\"2\"><i>5</i><code>下一次：用 POST 创建站点，再查一次</code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>完整命令</b><small>模型提出的调用，一字不差</small></span></li><li data-reveal=\"1\"><span><b>批准申请写在调用里</b><small>标记加理由，批准框照着显示</small></span></li><li data-reveal=\"2\"><span><b>下一次请求带上返回</b><small>模型据此决定下一步</small></span></li><li class=\"is-risk\" data-reveal=\"3\"><span><b>点同意的是我们</b><small>记录里只看到命令执行了；这次批了 9 次</small></span></li></ol></div><p class=\"source-note\">字段名照记录原样，值有删节。讲师在组织下临时仓库上的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max，交互界面）；命令写法和调用次数随版本、模型和仓库状态变化</p>",
       "steps": [
         "完整命令",

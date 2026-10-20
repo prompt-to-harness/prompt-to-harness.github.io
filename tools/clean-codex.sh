@@ -144,11 +144,12 @@ export HOME="$SIM_HOME"
 echo "学员视角：HOME=$SIM_HOME  工作目录=$PWD  模型=$MODEL  登录=$AUTH" >&2
 
 if [ "$use_tap" = 1 ]; then
+  # claude-tap 固定版本（2026-10-20 讲师决定：它经手 API 密钥，不跟随最新版）
   # 临时 HOME 会让 uv 缓存和 claude-tap 的 trace 目录跟着消失，所以把它们指回真实位置。
   export UV_CACHE_DIR="${UV_CACHE_DIR:-$REAL_HOME/.cache/uv}"
   export XDG_DATA_HOME="${XDG_DATA_HOME:-$REAL_HOME/.local/share}"
   tap_opts=(); [ "${CLEAN_CODEX_NO_OPEN:-0}" = 1 ] && tap_opts=(--tap-no-open)
-  uvx claude-tap --tap-client codex --tap-target "$BASE_URL" ${tap_opts[@]+"${tap_opts[@]}"} -- ${codex_args[@]+"${codex_args[@]}"}
+  uvx claude-tap@0.1.146 --tap-client codex --tap-target "$BASE_URL" ${tap_opts[@]+"${tap_opts[@]}"} -- ${codex_args[@]+"${codex_args[@]}"}
 else
   codex ${codex_args[@]+"${codex_args[@]}"}
 fi

@@ -93,100 +93,10 @@ window.lesson = {
         },
         {
           "title": "讲师提示",
-          "text": "这一页只建立三栏。会话里“存了什么、怎么发”下一页用请求对比展示。"
+          "text": "这一页只建立三栏。会话里“存了什么、怎么发”，等本轮改完，在“第二句话带上了什么”那页用请求对比展示。"
         }
       ],
       "source": "index.html#p21",
-      "seconds": 90
-    },
-    {
-      "id": "p22",
-      "segment": "会话里存了什么",
-      "label": "第二句话带上了什么",
-      "title": "第二句话发出去，带上了第一句的全部内容",
-      "lead": "同一个会话里先后发两句话，把这两次请求放在一起比：第二次请求的开头，和第一次一模一样；第一句话和 Codex 的回答也原样带上，最后才是第二句话。模型“接得上话”，是因为 Harness 每次都把历史重新发给它。",
-      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-walk\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:40px\"><div class=\"p-fn\">第一句 → 第二句请求的 input <span class=\"add\">+2</span></div><div class=\"p-ln\"><i>1–4</i><code>developer · 系统指令、Skills 与权限、团队说明…</code></div><div class=\"p-ln\"><i>5</i><code>user · 环境信息</code></div><div class=\"p-ln\"><i>6</i><code>user · 第一句：你好，用一句话介绍…</code></div><div class=\"p-ln add\" data-reveal=\"1\"><i>7</i><code>assistant · Codex 对第一句的回答</code></div><div class=\"p-ln add\" data-reveal=\"1\"><i>8</i><code>user · 第二句：Goal：在项目区呈现…</code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>前 6 项逐字相同</b><small>不是“接着上次”，而是从头再发</small></span></li><li data-reveal=\"1\"><span><b>新增在末尾</b><small>上一轮的回答和这一句</small></span></li><li class=\"is-risk\" data-reveal=\"2\"><span><b>在讲师的配置下看到</b><small>MiniMax 自定义 provider，store 为 false；换服务可能不同</small></span></li></ol></div><p class=\"source-note\">条目名为中文概括。数字来自讲师用课程基线（隔离 HOME）在交互界面里的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max）；随版本、模型、配置和任务变化，只说明结构</p>",
-      "steps": [
-        "第一步的请求",
-        "第二步多了什么",
-        "适用范围"
-      ],
-      "script": [
-        "【操作提示｜停留课件 p22 第 1 步，指向 input 前 6 项；要现场看就切 Chrome 打开 claude-tap 查看器（地址以启动输出为准），截图前检查本机路径和个人 Skills 名称】\n\n先看同一个会话里先后两句话的请求。第一次：系统指令，Skills 和权限说明，团队说明这些，环境信息，最后是我们第一句话，一共 6 项。",
-        "【操作提示｜推进第 2 步，第 7、8 行（+2）出现；在查看器里时指认第二次请求末尾新增的项，与画面不一致就按实际所见讲】\n\n第二次请求，前 6 项逐字没变，第一句话也还在。末尾多了两项：Codex 对第一句的回答，然后才是我们的第二句话。模型并没有“记得”刚才聊过什么，是 Harness 把整段历史重新发了一遍。",
-        "【操作提示｜推进第 3 步，指向“只在这次运行里看到”一项；回到课件，不打开 config.toml，不让密钥入画】\n\n有一个范围要说清：这是我们在讲师的配置下看到的。讲师用的是 MiniMax 自定义 provider，请求里 store 是 false，也没有引用上一次响应的编号，所以每次都带上完整输入。换别的服务或登录方式，细节可能不同。"
-      ],
-      "teaching": [
-        {
-          "title": "核对记录",
-          "text": "2026-10-20 交互界面实测（能力目录开）：/clear 之后的第一句“你好”请求 6 项（约 8.9 千 token）；接着发本轮 Prompt，请求 8 项（约 9.1 千 token），前 6 项与上一次逐字相同，末尾多了 assistant 回答和新的一句。能力目录开时 Skills 与权限说明那条 developer 消息约 7500 字符，比 codex exec 长，所以 token 数和 2.1 p08 不同。界面另发的“给会话起标题”请求，在能力目录开时也会自己调用工具、越涨越长，看记录时一律跳过。MiniMax 配置下请求体 store 为 false、没有 previous_response_id。"
-        },
-        {
-          "title": "讲师提示",
-          "text": "录制时用 claude-tap 选 2.1 两步的相邻请求做 diff 截图；截图前检查路径和个人 Skills 名称。条目和本页不同就按实际改。带工具调用的轮次里，模型的推理摘要（reasoning）也会被重发，可以在 p23 指一下。"
-        }
-      ],
-      "source": "index.html#p22",
-      "seconds": 90
-    },
-    {
-      "id": "p23",
-      "segment": "重发的代价",
-      "label": "每次都重发，贵不贵",
-      "title": "每次都重发，代价是 token 和注意力",
-      "lead": "2.1 第二步那一问产生了 6 次请求，input 从 6 项涨到 27 项，输入 token 涨到将近 3 倍。重复的开头部分可以被缓存，算起来更便宜；但模型每次仍要读完整段历史，这份注意力上的负担，缓存帮不上。",
-      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>请求</span><span>input 项数 · token</span><span>缓存命中</span></div><div data-reveal=\"0\"><span>第 1 次</span><span>6 项 · 约 8.9 千</span><span>约 230 token</span></div><div data-reveal=\"0\"><span>第 3 次</span><span>16 项 · 约 1.72 万</span><span>约 1.21 万 token</span></div><div data-reveal=\"0\" class=\"is-key\"><span>第 6 次</span><span>27 项 · 约 2.42 万</span><span>约 2.31 万 token</span></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"1\"><h3>token</h3><p>重复的前缀能被缓存，按更低的价格算</p></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"2\"><h3>注意力</h3><p>历史越长，早先的需求越容易被淹没</p></div></div><p class=\"source-note\">数字来自讲师用课程基线（隔离 HOME）在交互界面里的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max）；随版本、模型、配置和任务变化，只说明结构</p>",
-      "steps": [
-        "6 次请求",
-        "token 与缓存",
-        "注意力"
-      ],
-      "script": [
-        "【操作提示｜停留课件 p23 第 1 步，指表格第 1、3、6 次三行；数字来自 2026-10-20 讲师的一次运行，不现场重跑】\n\n既然每次都重发，那贵不贵？就看上一节第二步那一问：问 Codex 这个首页当初定了哪些要求。只问了一句，它一边读文件一边发了 6 次请求。input 从第一次的 6 项，涨到第六次的 27 项；输入 token 从八千九，涨到两万四千多。再看缓存命中：每一次，都正好命中上一次的全部输入。",
-        "【操作提示｜推进第 2 步，指向“token”方框；计费细节不展开，不切窗口】\n\n代价有两种。第一种是 token。好在重复的开头部分可以被缓存：服务端认出“这一段上次发过”，就按更低的价格算。所以历史变长，账单不一定同比例变高。具体怎么计费，看各自用的服务，这里不展开。",
-        "【操作提示｜推进第 3 步，指向“注意力”方框；不切窗口，接 p24】\n\n第二种代价是注意力，缓存帮不上忙。模型每次都得把整段历史读一遍，历史越长，早先说过的需求越容易被淹没在大量工具输出里。这是我们后面挑会话时真正要考虑的。"
-      ],
-      "teaching": [
-        {
-          "title": "数字来源",
-          "text": "2026-10-20 交互界面实测（能力目录开），2.1 第二步那一问的 6 次请求：input 6、11、16、21、24、27 项；input_tokens 8892、12052、17229、20632、23108、24207；缓存命中 229、8892、12052、17229、20632、23108——每次都正好命中上一次的全部输入。第 1 次只有 229，是会话里第一条请求，缓存还是冷的。画面取第 1、3、6 次。录制版本定下后复测。"
-        },
-        {
-          "title": "讲师提示",
-          "text": "前缀缓存的计费细节放配套页，主课只讲“重复部分更便宜，注意力不变”。不要据此断言每次费用一定增加。"
-        }
-      ],
-      "source": "index.html#p23",
-      "seconds": 90
-    },
-    {
-      "id": "p24",
-      "segment": "重发的代价",
-      "label": "弯路也会被重发",
-      "title": "走过的弯路，也留在历史里",
-      "lead": "开场访谈里看过，同一个 Prompt，结果会变；过程也一样，每次走的弯路不同。讲师这次加项目经历，Codex 在确认之后调用了 33 次工具，其中有不少弯路：自己起预览服务器失败、写的截图脚本有语法错、截图文件没生成。这些失败的返回和成功的一样，留在之后每一次请求里，对完成任务没有用，却一直占着 context。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ink\">这一轮的几次弯路</span><div class=\"p-term\" style=\"margin-top:10px\"><div style=\"color:#8A93A0\">npm run preview --port 4173</div><div class=\"err\">退出码 1</div><div style=\"color:#8A93A0\">截图脚本</div><div class=\"err\">SyntaxError</div><div style=\"color:#8A93A0\">ls /tmp/shot-360.png</div><div class=\"err\">No such file</div></div></div><div class=\"p-join\" data-reveal=\"1\"><span>之后每次请求</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ink\">最后一次请求</span><p class=\"p-big\" style=\"margin-top:10px\">135 项 · 约 5.9 万 token</p><p class=\"p-sub\">前面 39 次调用的返回都在里面，失败的也在</p></div></div><div class=\"p-bar\" data-reveal=\"2\">返回有没有用，<b>之后每次请求都带着</b></div><p class=\"source-note\">数字来自讲师用课程基线（隔离 HOME）在交互界面里的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max）；随版本、模型、配置和任务变化，只说明结构。弯路的次数只是这一次运行的观察；返回会一直留在后面的请求里，是每次都一样的规则</p>",
-      "steps": [
-        "这一轮的弯路",
-        "之后每次都带着",
-        "弯路也被重发"
-      ],
-      "script": [
-        "【操作提示｜停留课件 p24 第 1 步，指左卡的三次失败；画面是 2026-10-20 讲师的一次运行，不现场重跑】\n\n开场访谈里，我们看过鹈鹕骑自行车的例子：同一个 Prompt，结果每次不一样。过程也一样，每次走的弯路不同。讲师这次加项目经历，确认之后 Codex 调用了 33 次工具。Prompt 里写明了浏览器由我们来查，它还是自己去起预览服务器、写脚本截图，失败了好几次：端口起不来、脚本有语法错、截图没生成。",
-        "【操作提示｜推进第 2 步，箭头和右卡出现；指向“135 项”】\n\n这些失败的返回去哪了？看这一轮最后一次请求：135 项，大约五万九千 token。前面 39 次调用的返回都在里面，失败的也在。",
-        "【操作提示｜推进第 3 步，指向底部结论条；录制时弯路不同就按当次记录指认】\n\n返回有没有用，之后每一次请求都带着。弯路的次数每次不一样，但这条规则每次都一样。对完成任务没用的东西，也一直占着 context；对话越长，这样的东西就越多。"
-      ],
-      "teaching": [
-        {
-          "title": "核对记录",
-          "text": "2026-10-20 交互界面实测（能力目录开、推理档位 max），2.2 本轮“确认”之后：33 次工具调用（加上出计划那一轮的 6 次，会话里累计 39 次），其中至少 9 次失败或白跑（npm run preview 两次退出码 1、shell 脚本被当成 JavaScript 报 SyntaxError、截图文件不存在、CDP 脚本解析错等），全部是 Codex 自己为了查屏幕尺寸而做的，Prompt 写明了浏览器由人检查。每次请求都带着之前全部调用和返回，最后一次请求 135 项、59271 token。原来的 read_file 例子来自 2026-10-02 能力目录关的运行，已不再上屏。"
-        },
-        {
-          "title": "讲师提示",
-          "text": "不重讲随机性，只回指开场访谈的鹈鹕例子。录制时弯路不一定一样：按当次记录指认就行，没有弯路也没关系，要讲的是“返回会一直留着”这条规则。“它为什么自己去查浏览器”可以留给 2.3 看范围时就地用。"
-        }
-      ],
-      "source": "index.html#p24",
       "seconds": 90
     },
     {
@@ -194,7 +104,7 @@ window.lesson = {
       "segment": "选在哪个会话里改",
       "label": "/clear 之后还剩什么",
       "title": "执行 /clear 之后，还剩什么",
-      "lead": "在上一节的会话里执行 /clear，再发一句话。Codex 对这条命令的说明是“清屏并开始新对话”；另一条 /new 是“开始新对话”，不清屏。讲师实测：/clear 之后再发第一句那句话，请求只有 6 项：前 5 项和这个会话最开始那次请求逐字相同，最后一项是刚发的这句话；前面两步的问答、工具调用和返回都没了。开发服务器和改过的文件不受影响：/clear 清的是对话，不是文件。",
+      "lead": "本轮修改从一个清空的对话开始：讲师在上一节的会话里执行 /clear，再发一句话；为什么这样选、你该怎么选，下一页讲。Codex 对这条命令的说明是“清屏并开始新对话”；另一条 /new 是“开始新对话”，不清屏。讲师实测：/clear 之后再发第一句那句话，请求只有 6 项：前 5 项和这个会话最开始那次请求逐字相同，最后一项是刚发的这句话；前面两步的问答、工具调用和返回都没了。开发服务器和改过的文件不受影响：/clear 清的是对话，不是文件。",
       "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-walk\"><div data-reveal=\"0\"><div class=\"p-term\">› /clear<br><span style=\"color:#8A93A0\">（屏幕清空，开始新对话）</span><br>› 再发一句话</div></div><div data-reveal=\"1\"><div class=\"p-src\" style=\"--lh:40px\"><div class=\"p-fn\">/clear 之后的请求：6 项</div><div class=\"p-ln\"><i>1–4</i><code>developer · 初始内容 4 条</code></div><div class=\"p-ln\"><i>5</i><code>user · 环境信息</code></div><div class=\"p-ln add\"><i>6</i><code>user · 刚发的这一句</code></div></div></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"1\"><h3>对话</h3><p>前面的问答、工具调用和返回，共 21 项，不再随请求发出</p></div><div class=\"p-box is-soft\" data-role=\"tool\" data-reveal=\"2\"><h3>文件与开发服务器</h3><p>都还在，页面照常打开</p></div></div><p class=\"source-note\">命令说明见 openai/codex main 的 codex-rs/tui/src/slash_command.rs（2026-10-19 核对）。数字来自讲师用课程基线（隔离 HOME）在交互界面里的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max）；随版本、模型、配置和任务变化，只说明结构</p>",
       "steps": [
         "执行 /clear",
@@ -202,8 +112,8 @@ window.lesson = {
         "文件和服务器"
       ],
       "script": [
-        "【操作提示｜停留课件 p27a 第 1 步 → 切 Terminal，回到 2.1 的 Codex 会话，输入 /clear 回车，再发一句与项目无关的话；回课件】\n\n既然历史会越积越多，能不能清掉？在上一节那个会话里输入 /clear。Codex 对这条命令的说明是：清屏，并开始新对话。还有一条 /new，只开始新对话，不清屏。清完以后，再随便发一句话。",
-        "【操作提示｜推进第 2 步 → 切 Chrome 的 claude-tap 查看器，打开 /clear 之后那次请求，按实际记录讲，与画面不同就如实说】\n\n看这次请求。只有 6 项：前 5 项是系统指令、Skills 和权限、团队说明、环境信息这些初始内容，和这个会话最开始那次请求一字不差；最后一项就是刚发的这一句。前面的问答、工具调用和返回，都不在了。新对话从初始内容重新开始。",
+        "【操作提示｜停留课件 p27a 第 1 步 → 切 Terminal，回到 2.1 的 Codex 会话，输入 /clear 回车，再发一句与项目无关的话；回课件】\n\n分清了会话和文件，就开始本轮修改。上一节那个会话还开着，里面是上一节看请求的两步问答，和这一轮要做的事无关。讲师这一轮从一个清空的对话开始：在那个会话里输入 /clear。Codex 对这条命令的说明是：清屏，并开始新对话。还有一条 /new，只开始新对话，不清屏。清完以后，再随便发一句话。为什么这样选、你该怎么选，下一页再说。",
+        "【操作提示｜推进第 2 步 → 切 Chrome 的 claude-tap 查看器，打开 /clear 之后那次请求，按实际记录讲，与画面不同就如实说】\n\n看这次请求。只有 6 项：前 5 项是系统指令、Skills 和权限、团队说明、环境信息这些初始内容，和这个会话最开始那次请求一字不差；最后一项就是刚发的这一句。前面的问答、工具调用和返回，都不在了。新对话从初始内容重新开始，本轮就在这里做。",
         "【操作提示｜推进第 3 步 → 切 Chrome 首页标签页刷新，页面照常打开；回课件】\n\n那文件呢？切到浏览器刷新首页，页面照常打开，开发服务器还在跑，项目文件也一个没少。/clear 清的是对话，不是文件。"
       ],
       "teaching": [
@@ -224,7 +134,7 @@ window.lesson = {
       "segment": "选在哪个会话里改",
       "label": "这次该怎么选",
       "title": "四种做法，这一次选哪个",
-      "lead": "继续、/clear、压缩后继续、新建并交接，各有适用的情况。先看上一节会话里有什么再决定：讲师的那个会话全是看请求的探索，和本轮修改无关，用 /clear 或新建都合理，讲师用 /clear 开始本轮。理由要说出会话里的具体状态。",
+      "lead": "继续、/clear、压缩后继续、新建并交接，各有适用的情况。讲师刚才选了 /clear：上一节的会话里只有看请求的两步问答，Codex 读过几个项目文件、没有改过文件，和本轮修改无关，所以 /clear 或新建都合理。你的会话不一定一样：先在 Codex 界面里往回翻，看这个会话已经读过哪些文件、做过哪些事，再据此选。不需要看 token 或请求项数。",
       "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1.4fr) minmax(0,1.4fr) minmax(0,1.2fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>做法</span><span>适合</span><span>风险</span><span>讲师这次</span></div><div data-reveal=\"0\"><span>继续</span><span>刚做完、内容集中</span><span>无关历史越积越多</span><span>不选：里面全是看请求</span></div><div data-reveal=\"0\" class=\"is-key\"><span>/clear</span><span>换一件事，前面用不上</span><span>需要的信息得重新给</span><span>选它</span></div><div data-reveal=\"1\"><span>压缩后继续</span><span>历史长，还在做同一件事</span><span>原始内容变成摘要</span><span>不需要：本轮换了一件事</span></div><div data-reveal=\"1\"><span>新建 + 交接</span><span>换一件事，要带上部分结论</span><span>交接内容要写清</span><span>也合理</span></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">讲师这次：<b>/clear</b>，上一节的会话和本轮修改无关</div>",
       "steps": [
         "继续与 /clear",
@@ -232,18 +142,18 @@ window.lesson = {
         "这一次"
       ],
       "script": [
-        "【操作提示｜停留课件 p28 第 1 步，指继续、/clear 两行；不切窗口】\n\n现在可以做选择了：本轮修改在哪个会话里做？把四种做法放在一起。继续，适合刚做完、内容还集中的时候，风险是无关历史越积越多。/clear，适合换一件事、前面的对话用不上的时候，代价是需要的信息得重新告诉它。",
+        "【操作提示｜停留课件 p28 第 1 步，指继续、/clear 两行；不切窗口】\n\n刚才讲师直接用 /clear 开始了本轮。为什么这样选？把四种做法放在一起看。继续，适合刚做完、内容还集中的时候，风险是无关历史越积越多。/clear，适合换一件事、前面的对话用不上的时候，代价是需要的信息得重新告诉它。",
         "【操作提示｜推进第 2 步，指压缩后继续、新建 + 交接两行；不切窗口】\n\n压缩后继续，适合历史很长、但还在做同一件事的时候，代价是原始内容变成摘要，这个等本轮改完，我们在真实会话上看。新建加交接，适合换一件事、又要带上前面部分结论的时候，前提是交接内容写清楚。",
-        "【操作提示｜推进第 3 步，指底部“讲师这次：/clear”。可短暂切 Terminal 回看 2.1 会话的实际内容作为理由；留出暂停】\n\n讲师上一节的会话，全是看请求的探索，和“往项目区加内容”没关系。所以 /clear 或者新建都合理，讲师刚才已经 /clear 了，就在这个新对话里开始本轮。如果你的会话很短、很集中，继续也可以。请暂停视频，在自己的笔记里写下你的选择，理由要说出会话里的具体状态，比如“上一节的会话里全是看请求，和本轮修改无关”。"
+        "【操作提示｜推进第 3 步，指底部“讲师这次：/clear”。可短暂切 Terminal，在 /clear 之前的屏幕记录里回看 2.1 会话做过的事作为理由（看不到就只口述）；留出暂停】\n\n讲师上一节的会话里，只有看请求的两步问答：Codex 为了回答读过几个项目文件，没有改过任何文件，和“往项目区加内容”没关系。所以 /clear 或者新建都合理，讲师选了 /clear。你的会话不一定一样，如果很短、很集中，继续也可以。请暂停视频，在 Codex 界面里往回翻一翻：这个会话已经读过哪些文件、做过哪些事？据此选继续、/clear、压缩还是新建，把选择和理由写在笔记里，比如“上一节的会话里只读过几个项目文件、没改过文件，和本轮修改无关”。不需要去看 token 或请求的项数。"
       ],
       "teaching": [
         {
           "title": "讲师提示",
-          "text": "不预设唯一正确答案；看理由是否引用具体状态（会话里有什么、历史多长、文件是否已更新），不看选了哪一种。压缩在本轮修改之后用真实会话演示，这里只列出。"
+          "text": "不预设唯一正确答案；看理由是否落在 Codex 界面里看得到的东西上（这个会话读过哪些文件、跑过哪些命令、改过什么，和本轮修改有没有关系），不看选了哪一种，也不要求引用 token 或请求项数（学员不装 claude-tap，2026-10-20 讲师决定）。压缩在本轮修改之后用真实会话演示，这里只列出。"
         },
         {
           "title": "跟做",
-          "text": "学员暂停，写下自己的选择和理由，答在自己的笔记里（自检第 4 题回到这一页）。"
+          "text": "学员暂停，在 Codex 界面里往回翻自己的会话，说出它已经读过哪些文件、做过哪些事，据此写下选择和理由，答在自己的笔记里（自检第 4 题回到这一页）。"
         }
       ],
       "source": "index.html#p28",
@@ -300,7 +210,7 @@ window.lesson = {
         "【操作提示｜停留课件 p30 第 1 步 → 切 Terminal 的 Codex 对话，展示它实际回复的计划；计划很短也照实展示】\n\n提交以后，Codex 先回复计划：要改哪些文件、怎么改。讲师这次的计划不长：只改 src/App.tsx 里的 projects 数组，把 1 条占位换成 3 条，首屏、index.html 和样式都不动。我们按三件事来核对。",
         "【操作提示｜回课件推进第 2 步，再切回计划核对改动文件；计划越界就当场让它收窄，保留原始回复给 2.3 用，不事先准备越界计划】\n\n第一看范围。讲师的首页里，项目数据就在 src/App.tsx 顶部的一个数组里，计划也只动这一处。计划里要是出现了样式重写、新组件，先问它为什么。",
         "【操作提示｜推进第 3 步，对照计划里列出的三条和 courseware/ch02/materials/README.md 的原文逐字核对；有改写就如实指出，要求原文照用】\n\n第二看内容。计划里把三条原文都列了出来，按第一个冒号拆成标题和描述，说其余一字不改。逐字对过，和我们给的一致，没有被改写成更漂亮的说法。",
-        "【操作提示｜推进第 4 步，核对有无新依赖或链接。三项都通过才在 Codex 会话回复确认（这次用的是“确认，按你的计划改。”）；执行结束后回课件 p30a】\n\n第三看有没有新依赖、有没有链接。计划里写明了：卡片结构不变，不加链接、按钮和依赖。有的话，先停下来问清楚，不放行。三项都对得上，再让它动手。"
+        "【操作提示｜推进第 4 步，核对有无新依赖或链接。三项都通过才在 Codex 会话回复确认（这次用的是“确认，按你的计划改。”）；执行中 Codex 申请运行命令时，看清整条命令再决定；执行结束后回课件 p22】\n\n第三看有没有新依赖、有没有链接。计划里写明了：卡片结构不变，不加链接、按钮和依赖。有的话，先停下来问清楚，不放行。三项都对得上，再让它动手。"
       ],
       "teaching": [
         {
@@ -320,8 +230,98 @@ window.lesson = {
       "seconds": 120
     },
     {
+      "id": "p22",
+      "segment": "回看这一轮的请求",
+      "label": "第二句话带上了什么",
+      "title": "第二句话发出去，带上了第一句的全部内容",
+      "lead": "同一个会话里先后发两句话，把这两次请求放在一起比：第二次请求的开头，和第一次一模一样；第一句话和 Codex 的回答也原样带上，最后才是第二句话。模型“接得上话”，是因为 Harness 每次都把历史重新发给它。",
+      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-walk\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:40px\"><div class=\"p-fn\">第一句 → 第二句请求的 input <span class=\"add\">+2</span></div><div class=\"p-ln\"><i>1–4</i><code>developer · 系统指令、Skills 与权限、团队说明…</code></div><div class=\"p-ln\"><i>5</i><code>user · 环境信息</code></div><div class=\"p-ln\"><i>6</i><code>user · 第一句：你好，用一句话介绍…</code></div><div class=\"p-ln add\" data-reveal=\"1\"><i>7</i><code>assistant · Codex 对第一句的回答</code></div><div class=\"p-ln add\" data-reveal=\"1\"><i>8</i><code>user · 第二句：Goal：在项目区呈现…</code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>前 6 项逐字相同</b><small>不是“接着上次”，而是从头再发</small></span></li><li data-reveal=\"1\"><span><b>新增在末尾</b><small>上一轮的回答和这一句</small></span></li><li class=\"is-risk\" data-reveal=\"2\"><span><b>在讲师的配置下看到</b><small>MiniMax 自定义 provider，store 为 false；换服务可能不同</small></span></li></ol></div><p class=\"source-note\">条目名为中文概括。数字来自讲师用课程基线（隔离 HOME）在交互界面里的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max）；随版本、模型、配置和任务变化，只说明结构</p>",
+      "steps": [
+        "第一步的请求",
+        "第二步多了什么",
+        "适用范围"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p22 第 1 步，指向 input 前 6 项；要现场看就切 Chrome 打开 claude-tap 查看器（地址以启动输出为准），截图前检查本机路径和个人 Skills 名称】\n\nCodex 说改完了。检查之前，先打开这一轮的请求记录，看看刚才这几句话发出去时，请求是怎么变的。先看 /clear 之后相邻的两句话：第一句是那句问候，第二句是本轮 Prompt。第一次请求：系统指令，Skills 和权限说明，团队说明这些，环境信息，最后是我们第一句话，一共 6 项。",
+        "【操作提示｜推进第 2 步，第 7、8 行（+2）出现；在查看器里时指认第二次请求末尾新增的项，与画面不一致就按实际所见讲】\n\n第二次请求，前 6 项逐字没变，第一句话也还在。末尾多了两项：Codex 对第一句的回答，然后才是我们的第二句话。模型并没有“记得”刚才聊过什么，是 Harness 把整段历史重新发了一遍。",
+        "【操作提示｜推进第 3 步，指向“只在这次运行里看到”一项；回到课件，不打开 config.toml，不让密钥入画】\n\n有一个范围要说清：这是我们在讲师的配置下看到的。讲师用的是 MiniMax 自定义 provider，请求里 store 是 false，也没有引用上一次响应的编号，所以每次都带上完整输入。换别的服务或登录方式，细节可能不同。"
+      ],
+      "teaching": [
+        {
+          "title": "核对记录",
+          "text": "2026-10-20 交互界面实测（能力目录开）：/clear 之后的第一句“你好”请求 6 项（约 8.9 千 token）；接着发本轮 Prompt，请求 8 项（约 9.1 千 token），前 6 项与上一次逐字相同，末尾多了 assistant 回答和新的一句。能力目录开时 Skills 与权限说明那条 developer 消息约 7500 字符，比 codex exec 长，所以 token 数和 2.1 p08 不同。界面另发的“给会话起标题”请求，在能力目录开时也会自己调用工具、越涨越长，看记录时一律跳过。MiniMax 配置下请求体 store 为 false、没有 previous_response_id。"
+        },
+        {
+          "title": "讲师提示",
+          "text": "录制时用 claude-tap 选 /clear 之后第一句和本轮 Prompt 这两次相邻请求做 diff 截图；截图前检查路径和个人 Skills 名称。条目和本页不同就按实际改。带工具调用的轮次里，模型的推理摘要（reasoning）也会被重发，可以在 p23 指一下。"
+        }
+      ],
+      "source": "index.html#p22",
+      "seconds": 90
+    },
+    {
+      "id": "p23",
+      "segment": "回看这一轮的请求",
+      "label": "每次都重发，贵不贵",
+      "title": "每次都重发，代价是 token 和注意力",
+      "lead": "提交本轮 Prompt 之后、Codex 回复计划之前，它读了几次仓库里的文件，一共发了 7 次请求：input 从 8 项涨到 25 项，输入 token 涨到将近 2 倍。重复的开头部分可以被缓存，算起来更便宜；但模型每次仍要读完整段历史，这份注意力上的负担，缓存帮不上。",
+      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>请求</span><span>input 项数 · token</span><span>缓存命中</span></div><div data-reveal=\"0\"><span>第 1 次</span><span>8 项 · 约 9.1 千</span><span>约 8.9 千 token</span></div><div data-reveal=\"0\"><span>第 4 次</span><span>16 项 · 约 1.17 万</span><span>约 1.06 万 token</span></div><div data-reveal=\"0\" class=\"is-key\"><span>第 7 次</span><span>25 项 · 约 1.73 万</span><span>约 1.59 万 token</span></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"1\"><h3>token</h3><p>重复的前缀能被缓存，按更低的价格算</p></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"2\"><h3>注意力</h3><p>历史越长，早先的需求越容易被淹没</p></div></div><p class=\"source-note\">数字来自讲师用课程基线（隔离 HOME）在交互界面里的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max）；随版本、模型、配置和任务变化，只说明结构</p>",
+      "steps": [
+        "7 次请求",
+        "token 与缓存",
+        "注意力"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p23 第 1 步，指表格第 1、4、7 次三行；数字来自 2026-10-20 讲师的一次运行，不现场重跑】\n\n既然每次都重发，那贵不贵？就看本轮 Prompt 提交以后、Codex 回复计划之前这一段：只发了一句，它读了几次仓库里的文件，一共发了 7 次请求。input 从第一次的 8 项，涨到第七次的 25 项；输入 token 从九千一，涨到一万七千多。再看缓存命中：每一次，都正好命中上一次的全部输入。",
+        "【操作提示｜推进第 2 步，指向“token”方框；计费细节不展开，不切窗口】\n\n代价有两种。第一种是 token。好在重复的开头部分可以被缓存：服务端认出“这一段上次发过”，就按更低的价格算。所以历史变长，账单不一定同比例变高。具体怎么计费，看各自用的服务，这里不展开。",
+        "【操作提示｜推进第 3 步，指向“注意力”方框；不切窗口，接 p24】\n\n第二种代价是注意力，缓存帮不上忙。模型每次都得把整段历史读一遍，历史越长，早先说过的需求越容易被淹没在大量工具输出里。刚才挑会话时说的“无关历史越积越多”，代价就在这里。"
+      ],
+      "teaching": [
+        {
+          "title": "数字来源",
+          "text": "2026-10-20 15:58 交互界面实测（能力目录开），本轮 Prompt 提交后到 Codex 回复计划的 7 次请求（6 次工具调用）：input 8、11、14、16、19、22、25 项；input_tokens 9087、9999、10622、11690、14423、15880、17280；缓存命中 8863、9087、9999、10622、11690、14423、15880——每次都正好命中上一次的全部输入（第 1 次命中的是 /clear 后那句话的请求）。画面取第 1、4、7 次。2026-10-20 讲师决定改为边做边看，这页改用本轮的请求，原来 2.1 第二步那一问的数字不再上屏。录制版本定下后复测。"
+        },
+        {
+          "title": "讲师提示",
+          "text": "前缀缓存的计费细节放配套页，主课只讲“重复部分更便宜，注意力不变”。不要据此断言每次费用一定增加。"
+        }
+      ],
+      "source": "index.html#p23",
+      "seconds": 90
+    },
+    {
+      "id": "p24",
+      "segment": "回看这一轮的请求",
+      "label": "弯路也会被重发",
+      "title": "走过的弯路，也留在历史里",
+      "lead": "开场访谈里看过，同一个 Prompt，结果会变；过程也一样，每次走的弯路不同。讲师这次加项目经历，Codex 在确认之后调用了 33 次工具，其中有不少弯路：自己起预览服务器失败、写的截图脚本有语法错、截图文件没生成。这些失败的返回和成功的一样，留在之后每一次请求里，对完成任务没有用，却一直占着 context。",
+      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ink\">这一轮的几次弯路</span><div class=\"p-term\" style=\"margin-top:10px\"><div style=\"color:#8A93A0\">npm run preview --port 4173</div><div class=\"err\">退出码 1</div><div style=\"color:#8A93A0\">截图脚本</div><div class=\"err\">SyntaxError</div><div style=\"color:#8A93A0\">ls /tmp/shot-360.png</div><div class=\"err\">No such file</div></div></div><div class=\"p-join\" data-reveal=\"1\"><span>之后每次请求</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ink\">最后一次请求</span><p class=\"p-big\" style=\"margin-top:10px\">135 项 · 约 5.9 万 token</p><p class=\"p-sub\">前面 39 次调用的返回都在里面，失败的也在</p></div></div><div class=\"p-bar\" data-reveal=\"2\">返回有没有用，<b>之后每次请求都带着</b></div><p class=\"source-note\">数字来自讲师用课程基线（隔离 HOME）在交互界面里的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max）；随版本、模型、配置和任务变化，只说明结构。弯路的次数只是这一次运行的观察；返回会一直留在后面的请求里，是每次都一样的规则</p>",
+      "steps": [
+        "这一轮的弯路",
+        "之后每次都带着",
+        "弯路也被重发"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p24 第 1 步，指左卡的三次失败；画面是 2026-10-20 讲师的一次运行，不现场重跑】\n\n开场访谈里，我们看过鹈鹕骑自行车的例子：同一个 Prompt，结果每次不一样。过程也一样，每次走的弯路不同。讲师这次加项目经历，确认之后 Codex 调用了 33 次工具。Prompt 里写明了浏览器由我们来查，它还是自己去起预览服务器、写脚本截图，失败了好几次：端口起不来、脚本有语法错、截图没生成。",
+        "【操作提示｜推进第 2 步，箭头和右卡出现；指向“135 项”】\n\n这些失败的返回去哪了？看这一轮最后一次请求：135 项，大约五万九千 token。前面 39 次调用的返回都在里面，失败的也在。",
+        "【操作提示｜推进第 3 步，指向底部结论条；录制时弯路不同就按当次记录指认；随后进入 p30a】\n\n返回有没有用，之后每一次请求都带着。弯路的次数每次不一样，但这条规则每次都一样。对完成任务没用的东西，也一直占着 context；对话越长，这样的东西就越多。回到项目上：Codex 说改完了，改得对不对、有没有弄坏别的，我们自己来查。"
+      ],
+      "teaching": [
+        {
+          "title": "核对记录",
+          "text": "2026-10-20 交互界面实测（能力目录开、推理档位 max），2.2 本轮“确认”之后：33 次工具调用（加上出计划那一轮的 6 次，会话里累计 39 次），其中至少 9 次失败或白跑（npm run preview 两次退出码 1、shell 脚本被当成 JavaScript 报 SyntaxError、截图文件不存在、CDP 脚本解析错等），全部是 Codex 自己为了查屏幕尺寸而做的，Prompt 写明了浏览器由人检查。每次请求都带着之前全部调用和返回，最后一次请求 135 项、59271 token。原来的 read_file 例子来自 2026-10-02 能力目录关的运行，已不再上屏。"
+        },
+        {
+          "title": "讲师提示",
+          "text": "不重讲随机性，只回指开场访谈的鹈鹕例子。录制时弯路不一定一样：按当次记录指认就行，没有弯路也没关系，要讲的是“返回会一直留着”这条规则。“它为什么自己去查浏览器”可以留给 2.3 看范围时就地用。"
+        }
+      ],
+      "source": "index.html#p24",
+      "seconds": 90
+    },
+    {
       "id": "p30a",
-      "segment": "补上项目经历",
+      "segment": "检查有没有弄坏别的",
       "label": "三种屏幕尺寸",
       "title": "三种屏幕尺寸：在电脑上模拟手机和平板",
       "lead": "屏幕尺寸指浏览器里网页实际能显示的区域，浏览器里也叫视口（viewport）。不用找真机，Chrome 开发者工具的设备工具栏可以把它改成指定宽高。尺寸用的是 CSS 像素，不是屏幕的物理像素。自带机型的尺寸和这三种不一致，所以选 Responsive 手填宽高；常用的话可以加成自定义设备，选做。设备模拟只作用于当前标签页，要在自己首页的标签页里打开。",
@@ -332,7 +332,7 @@ window.lesson = {
         "在自己的页面上演示"
       ],
       "script": [
-        "【操作提示｜停留课件 p30a 第 1 步，按行指向三种尺寸；不切窗口】\n\nCodex 改完以后，我们要在三种屏幕尺寸下看页面。先说清楚什么是屏幕尺寸：浏览器里网页实际能显示的那块区域，开发者工具里也叫视口，英文是 viewport。我们用三种尺寸：360 乘 800，模拟手机竖屏，也是最容易挤的；768 乘 1024，是平板竖屏；1440 乘 900，是常见的笔记本屏幕。这里的尺寸是 CSS 像素，不是屏幕的物理像素。这三种尺寸在电脑的浏览器里就能模拟，不用真的找一部手机。",
+        "【操作提示｜停留课件 p30a 第 1 步，按行指向三种尺寸；不切窗口】\n\n先在三种屏幕尺寸下看页面。先说清楚什么是屏幕尺寸：浏览器里网页实际能显示的那块区域，开发者工具里也叫视口，英文是 viewport。我们用三种尺寸：360 乘 800，模拟手机竖屏，也是最容易挤的；768 乘 1024，是平板竖屏；1440 乘 900，是常见的笔记本屏幕。这里的尺寸是 CSS 像素，不是屏幕的物理像素。这三种尺寸在电脑的浏览器里就能模拟，不用真的找一部手机。",
         "【操作提示｜推进第 2 步，指右侧四步；不切窗口，快捷键以录制时 Chrome 版本为准】\n\n怎么切？用 Chrome 开发者工具的设备工具栏。顶部下拉菜单里有不少自带机型，可它们的尺寸和这三种不一样，所以直接选 Responsive，手填宽高。经常用的话，可以把三种尺寸加成自定义设备，这是选做。",
         "【操作提示｜推进第 3 步 → 切 Chrome 新开标签页，粘贴 npm run dev 实际打印的 Local 地址；就在该标签页按 ⌥⌘I、⇧⌘M，选 Responsive 填 360×800，页面不变就 ⌘R 刷新，再改填 1440×900。让地址栏与设备工具栏同时入画，页面缩放保持 100%；回课件 p31】\n\n切到浏览器演示一遍。新开一个标签页，打开 npm run dev 给出的本地地址，确认是自己的首页。就在这个标签页里按 Option、Command、I 打开开发者工具，再按 Shift、Command、M 打开设备工具栏。选 Responsive，填 360 乘 800。页面没跟着变，就按 Command、R 刷新一次。注意，设备模拟只作用于当前标签页，在课件页里开，模拟的就是课件，不是我们的首页。"
       ],
@@ -351,7 +351,7 @@ window.lesson = {
     },
     {
       "id": "p31",
-      "segment": "补上项目经历",
+      "segment": "检查有没有弄坏别的",
       "label": "改好了吗",
       "title": "改好了吗？有没有弄坏别的？",
       "lead": "改完要检查，不只看新内容：三种屏幕尺寸下内容完整可读；Tab 焦点顺序与改前一致；npm run build 成功。讲师这次三项都通过：三种宽度都没有横向滚动，360 宽时每条描述折成两行；能用 Tab 停下的仍只有“查看项目”；构建完成。其中屏幕尺寸和 Tab 的结果是 Codex 自己用无头 Chrome 查的，Prompt 里这两项写的是由人查，前面看到的那些弯路就出在这里；自己的页面要在浏览器里亲手查。内容变多后出现的新问题，比如手机上出现横向滚动，记为剩余问题，不在这一轮顺手修。",
@@ -497,7 +497,7 @@ window.lesson = {
       "label": "暂停自检",
       "title": "暂停自检",
       "lead": "先独立作答，再看解析。答案后面标出回到哪一页。第 4 题答在自己的笔记里。",
-      "html": "<span class=\"p-pause\" data-reveal=\"0\">暂停 · 先独立作答</span><div class=\"p-qlist\"><div class=\"p-qrow\"><span class=\"p-n\">1</span><div><h3>关掉终端再恢复会话，页面会自动回来吗？</h3><div data-reveal=\"1\"><p>不会。会话由 Harness 保存，开发服务器是另一个程序，要重新 npm run dev<span class=\"p-back-to\" data-role=\"ctx\">回到 三种状态</span></p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">2</span><div><h3>执行 /clear 之后，刚才改过的文件还在吗？</h3><div data-reveal=\"2\"><p>还在。/clear 清的是对话，文件和开发服务器不受影响<span class=\"p-back-to\" data-role=\"tool\">回到 /clear 之后还剩什么</span></p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">3</span><div><h3>压缩以后，模型看不到哪些原始信息？</h3><div data-reveal=\"3\"><p>工具调用和返回的原文，比如读到的文件内容、命令输出；留下的是用户消息、一份摘要和初始内容<span class=\"p-back-to\" data-role=\"gate\">回到 压缩一下继续</span></p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">4</span><div><h3>你这一轮为什么选继续、/clear、压缩还是新建？</h3><div data-reveal=\"4\"><p>没有唯一答案，理由要说出会话里的具体状态<span class=\"p-back-to\" data-role=\"ok\">回到 这次该怎么选</span></p></div></div></div></div>",
+      "html": "<span class=\"p-pause\" data-reveal=\"0\">暂停 · 先独立作答</span><div class=\"p-qlist\"><div class=\"p-qrow\"><span class=\"p-n\">1</span><div><h3>关掉终端再恢复会话，页面会自动回来吗？</h3><div data-reveal=\"1\"><p>不会。会话由 Harness 保存，开发服务器是另一个程序，要重新 npm run dev<span class=\"p-back-to\" data-role=\"ctx\">回到 三种状态</span></p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">2</span><div><h3>执行 /clear 之后，刚才改过的文件还在吗？</h3><div data-reveal=\"2\"><p>还在。/clear 清的是对话，文件和开发服务器不受影响<span class=\"p-back-to\" data-role=\"tool\">回到 /clear 之后还剩什么</span></p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">3</span><div><h3>压缩以后，模型看不到哪些原始信息？</h3><div data-reveal=\"3\"><p>工具调用和返回的原文，比如读到的文件内容、命令输出；留下的是用户消息、一份摘要和初始内容<span class=\"p-back-to\" data-role=\"gate\">回到 压缩一下继续</span></p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">4</span><div><h3>这一轮你选了继续、/clear、压缩还是新建？依据是什么？</h3><div data-reveal=\"4\"><p>没有唯一答案。依据是 Codex 界面里看得到的：这个会话已经读过哪些文件、做过哪些事，和本轮修改有没有关系；不需要 token 或请求项数<span class=\"p-back-to\" data-role=\"ok\">回到 这次该怎么选</span></p></div></div></div></div>",
       "steps": [
         "暂停",
         "第 1 题",
@@ -506,11 +506,11 @@ window.lesson = {
         "第 4 题"
       ],
       "script": [
-        "【操作提示｜停留课件 p33 第 1 步，只露四道题面，不揭示答案；留出暂停，不切窗口】\n\n暂停一下，回答四个问题。第一，关掉终端再恢复会话，页面会自动回来吗？第二，执行 /clear 之后，刚才改过的文件还在吗？第三，压缩以后，模型看不到哪些原始信息？第四，你这一轮为什么选继续、/clear、压缩还是新建？第四题答在自己的笔记里。",
+        "【操作提示｜停留课件 p33 第 1 步，只露四道题面，不揭示答案；留出暂停，不切窗口】\n\n暂停一下，回答四个问题。第一，关掉终端再恢复会话，页面会自动回来吗？第二，执行 /clear 之后，刚才改过的文件还在吗？第三，压缩以后，模型看不到哪些原始信息？第四，这一轮你选了继续、/clear、压缩还是新建？依据是什么？第四题答在自己的笔记里。",
         "【操作提示｜推进第 2 步，揭示第 1 题，指“回到 三种状态”】\n\n第一题，不会。会话由 Harness 保存，开发服务器是另一个程序，关掉终端就停了，要重新运行 npm run dev。恢复对话，不等于恢复文件或服务。",
         "【操作提示｜推进第 3 步，揭示第 2 题，指“回到 /clear 之后还剩什么”】\n\n第二题，还在。/clear 清的是对话，文件在硬盘上，开发服务器也照常跑。",
         "【操作提示｜推进第 4 步，揭示第 3 题，指“回到 压缩一下继续”】\n\n第三题，工具调用和工具返回都会被移走，比如读到的文件内容、命令的输出，这是 Codex 源码写定的。剩下的是用户消息和一份交接摘要；原始内容还能留下多少，要看摘要有没有抄进去。",
-        "【操作提示｜推进第 5 步，揭示第 4 题，指“回到 这次该怎么选”】\n\n第四题没有唯一答案。对照你刚才写下的理由：它有没有说出会话里的具体状态，比如里面都是什么内容、和本轮修改有没有关系、历史有多长？"
+        "【操作提示｜推进第 5 步，揭示第 4 题，指“回到 这次该怎么选”】\n\n第四题没有唯一答案。对照你刚才写下的理由：它有没有说出 Codex 界面里看得到的东西，比如这个会话已经读过哪些文件、做过哪些事，和本轮修改有没有关系？不需要 token 或请求项数这些数字。"
       ],
       "teaching": [],
       "source": "index.html#p33",
@@ -543,10 +543,6 @@ window.lesson = {
   "segments": [
     {
       "label": "会话里存了什么",
-      "seconds": 270
-    },
-    {
-      "label": "重发的代价",
       "seconds": 180
     },
     {
@@ -555,7 +551,15 @@ window.lesson = {
     },
     {
       "label": "补上项目经历",
-      "seconds": 450
+      "seconds": 240
+    },
+    {
+      "label": "回看这一轮的请求",
+      "seconds": 270
+    },
+    {
+      "label": "检查有没有弄坏别的",
+      "seconds": 210
     },
     {
       "label": "压缩",

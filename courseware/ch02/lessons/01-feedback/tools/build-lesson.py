@@ -31,7 +31,7 @@ READONLY_PROMPT = """只读任务，不修改任何文件。
 请说明依据来自哪个文件的哪一段；
 不确定就写“不确定”，不要猜。"""
 
-TAP_CMD = "uvx claude-tap --tap-client codex --tap-target https://api.minimax.cn/v1"
+TAP_CMD = "uvx claude-tap@0.1.146 --tap-client codex --tap-target https://api.minimax.cn/v1"
 
 
 # ---------- 开始这一章 ----------
@@ -89,7 +89,7 @@ scene(
     label="用 claude-tap 启动 Codex", title="怎样看到 Codex 实际发出的请求？",
     lead="claude-tap 是一个开源的本地代理，夹在 Codex 和模型服务之间，把每一次请求记录下来；启动之后，Codex 的用法和平时一样。它会经手 API 密钥，也只看得到经过它的内容。这一节由讲师演示，自己运行是选做。",
     html=(
-        '<div class="p-term" data-copy="' + TAP_CMD + '" data-reveal="0"><div class="dim">$ uvx claude-tap --tap-client codex \\</div><div class="dim">    --tap-target https://api.minimax.cn/v1</div></div>'
+        '<div class="p-term" data-copy="' + TAP_CMD + '" data-reveal="0"><div class="dim">$ uvx claude-tap@0.1.146 --tap-client codex \\</div><div class="dim">    --tap-target https://api.minimax.cn/v1</div></div>'
         '<div class="p-grid" style="--n:3;gap:12px;margin-top:16px">'
         '<div class="p-box is-soft" data-role="tool" data-reveal="1"><h3>本地代理</h3><p>夹在 Codex 和模型服务之间</p></div>'
         '<div class="p-box is-soft" data-role="gate" data-reveal="1"><h3>会经手 API 密钥</h3><p>请求连同鉴权信息都从它这里过</p></div>'
@@ -100,7 +100,7 @@ scene(
     refs=[ref("liaohch3/claude-tap", "https://github.com/liaohch3/claude-tap", "项目主页")],
     steps=["启动方式", "三条说明", "启动 Codex", "打开查看器"],
     teaching=teach(
-        ("切到实操", "画面命令已于 2026-10-02 在 Codex 0.160.0 + MiniMax 自定义 provider 下实测，trace 写入 ~/.local/share/claude-tap/traces.sqlite3。需要先装好 uv。命令以录制时的 claude-tap 版本为准；录制用隔离 HOME 启动（做法见 tools/clean-codex.sh 的 --tap），查看器地址以工具输出为准。"),
+        ("切到实操", "画面命令已于 2026-10-02 在 Codex 0.160.0 + MiniMax 自定义 provider 下实测，trace 写入 ~/.local/share/claude-tap/traces.sqlite3。需要先装好 uv。命令固定 claude-tap 0.1.146（2026-10-20 全章实测用的版本，讲师 2026-10-20 决定），换版本前先复测；录制用隔离 HOME 启动（做法见 tools/clean-codex.sh 的 --tap），查看器地址以工具输出为准。"),
         ("讲师提示", "API 密钥会经过本地代理；claude-tap 导出与存储时只保留鉴权头前缀。画面上不要出现 config.toml 或完整密钥。学员自己运行算选做，不计入验收，不另做排障文档。"),
     ),
 )
@@ -292,8 +292,8 @@ scene(
         NARROW +
         '<style>.x-w16{grid-template-columns:1.5fr 1fr}</style>'
         '<div class="p-term" data-reveal="0" style="margin-bottom:12px;font-size:17px" data-copy="' + TAP_CMD + ' -s read-only">'
-        '<div class="dim">$ uvx claude-tap --tap-client codex --tap-target … -s read-only</div>'
-        '<div class="dim">$ uvx claude-tap --tap-client codex --tap-target … -s workspace-write</div></div>'
+        '<div class="dim">$ uvx claude-tap@0.1.146 --tap-client codex --tap-target … -s read-only</div>'
+        '<div class="dim">$ uvx claude-tap@0.1.146 --tap-client codex --tap-target … -s workspace-write</div></div>'
         '<div class="p-walk x-w16"><div data-reveal="1"><div class="p-src" style="--lh:40px">'
         '<div class="p-fn">permissions instructions <span class="add">+1</span><span class="del">−1</span></div>'
         '<div class="p-ln del"><i>−</i><code>`sandbox_mode` is `read-only`: … only permits reading files.</code></div>'
@@ -349,7 +349,7 @@ scene(
 scene(
     id="p16a", segment="小结",
     label="这些加在一起", title="这些加在一起，就是 context",
-    lead="系统指令、工具定义、Skills 列表、环境信息、权限说明、我们的话，再加上工具调用和返回，模型这一次能看到的全部内容，就是 context。第 1 章说 context 里该放什么，这里第一次看到它的实际样子；后面四节都回到这份记录。",
+    lead="系统指令、工具定义、Skills 列表、环境信息、权限说明、我们的话，再加上工具调用和返回，模型这一次能看到的全部内容，就是 context。第 1 章说 context 里该放什么，这里第一次看到它的实际样子；后面四节都用同一套配置录下的请求记录来看。",
     html=(
         '<div class="p-box" data-role="ctx" data-reveal="0"><span class="p-tag" data-role="ctx">这一次请求</span>'
         '<div class="p-chain" style="margin-top:4px;font-size:20px"><span>系统指令</span><i>·</i><span>工具定义</span><i>·</i><span>Skills 列表</span><i>·</i><span>环境信息</span><i>·</i><span>权限说明</span><i>·</i><span>工具调用和返回</span><i>·</i><span>我们的话</span></div></div>'
@@ -376,10 +376,12 @@ scene(
         '<span class="p-pause" data-reveal="0">暂停 · 先独立作答</span><div class="p-qlist">'
         '<div class="p-qrow"><span class="p-n">1</span><div><h3>从请求记录中指出四类不是你写的内容，缺了其中一类会怎样？</h3>'
         '<div data-reveal="1"><p>系统指令、工具定义、Skills 列表、环境信息、权限说明，任选四类说出后果<span class="p-back-to" data-role="agent">回到 拆开这份请求</span></p></div></div></div>'
-        '<div class="p-qrow"><span class="p-n">2</span><div><h3>同一句话，你的请求里系统指令很长、有 9 个工具，讲师的只有一句话和 5 个工具。最可能是哪里不同？</h3>'
-        '<div data-reveal="2"><p>最可能是模型配置不同：你的 Codex 没有为这个模型写入能力目录（启动时会提示找不到模型元数据），用的是后备的系统指令和工具。只改这一项，请求就大不相同<span class="p-back-to" data-role="us">回到 换个模型能力目录</span></p></div></div></div></div>'
+        '<div class="p-qrow"><span class="p-n">2</span><div><h3>同一句话，有位同学的请求里系统指令很长、有 9 个工具，讲师的只有一句话和 5 个工具。最可能是哪里不同？</h3>'
+        '<div data-reveal="2"><p>最可能是模型配置不同：他的 Codex 没有为这个模型写入能力目录（启动时会提示找不到模型元数据），用的是后备的系统指令和工具。只改这一项，请求就大不相同<span class="p-back-to" data-role="us">回到 换个模型能力目录</span></p></div></div></div>'
+        '<div class="p-qrow"><span class="p-n">3</span><div><h3>讲师第二步的记录里，模型是从哪里知道完成标准的？它在记录里的什么位置？</h3>'
+        '<div data-reveal="3"><p>从读文件那次工具调用的返回：exec 里调 exec_command 跑 cat -n PROJECT_BRIEF.md 等，返回带行号的内容。调用后面紧跟着它的返回，之后每次请求都带着；回答里的“首页 v0 的验收依据”（第 31–39 行）就出自这段返回<span class="p-back-to" data-role="ctx">回到 它是怎么知道的</span></p></div></div></div></div>'
     ),
-    steps=["暂停", "第 1 题", "第 2 题"],
+    steps=["暂停", "第 1 题", "第 2 题", "第 3 题"],
 )
 
 scene(

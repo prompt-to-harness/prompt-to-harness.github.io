@@ -106,7 +106,7 @@ if [ "$use_tap" = 1 ]; then
   export UV_CACHE_DIR="${UV_CACHE_DIR:-$REAL_HOME/.cache/uv}"
   export XDG_DATA_HOME="${XDG_DATA_HOME:-$REAL_HOME/.local/share}"
   tap_opts=(); [ "${CLEAN_CLAUDE_NO_OPEN:-0}" = 1 ] && tap_opts=(--tap-no-open)
-  uvx claude-tap --tap-client claude --tap-target "$BASE_URL" ${tap_opts[@]+"${tap_opts[@]}"} -- ${claude_args[@]+"${claude_args[@]}"}
+  uvx claude-tap@0.1.146 --tap-client claude --tap-target "$BASE_URL" ${tap_opts[@]+"${tap_opts[@]}"} -- ${claude_args[@]+"${claude_args[@]}"}
 else
   claude ${claude_args[@]+"${claude_args[@]}"}
 fi
