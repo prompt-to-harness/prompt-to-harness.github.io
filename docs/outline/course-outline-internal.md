@@ -418,8 +418,8 @@ dependency-cruiser 的课程材料另行提供两个带校验和的中性补丁�
 
 #### 0.2 课前准备：工具、账号与练习项目
 
-- **范围（2026-10-10 确认，2026-10-12 更新工具与项目路径）**：三个连续演示：安装必需的 Codex CLI 并接入 MiniMax M3，Codex App 可选；安装 Git、直接克隆 course-starter 作为本地练习项目、练习 status/diff；本地启动欢迎页。发布前再建立个人远端。保留 0.1 访谈与 0.2 准备编号。
-- **平台与配置**：macOS 主演示、附 Windows 差异。CLI 使用讲师指定的 `MiniMax-M3`；服务配置参考仓库 `tools/clean-codex.sh` 的 `https://api.minimax.cn/v1`、Responses 与 `MINIMAX_API_KEY`，本轮未实测 M3 调用；App 接入单独核验，不预设相同配置与环境变量机制。
+- **范围（2026-10-10 确认，2026-10-12 更新工具与项目路径）**：三个连续演示：安装必需的 Codex CLI 并接入 MiniMax M3.1 Flash，Codex App 可选；安装 Git、直接克隆 course-starter 作为本地练习项目、练习 status/diff；本地启动欢迎页。发布前再建立个人远端。保留 0.1 访谈与 0.2 准备编号。
+- **平台与配置**：macOS 主演示、附 Windows 差异。CLI 使用 `MiniMax-M3.1-Flash`（2026-10-20 讲师确认，正在测试，调用结果待记录）；服务配置参考仓库 `tools/clean-codex.sh` 的 `https://api.minimax.cn/v1`、Responses 与 `MINIMAX_API_KEY`；App 接入单独核验，不预设相同配置与环境变量机制。
 - **时长**：当前逐页预算 14 分 15 秒（约 15 分钟），9 页，未试录；安装下载不计作视频等待时间。页面沿用原 id，按教学顺序先安装再取得项目；2026-10-11 按讲师要求复用 p12 路线页，新增 p14a、p15a，依次圈出「安装 & 接入」「Git 与项目」「启动 course-starter」，作为三部分入口；将原 p19 的章节过渡合并到 p18 的自检之后，保留 #p19 到合并页末步的兼容定位。
 - **演示一**：安装 App；准备 Node/npm 并安装 CLI；编辑用户配置、隐藏输入密钥；取得项目后分别用只读请求核对实际读取和返回。App 与 Windows 具体接入未测，不作为已走通流程。
 - **演示二**：安装 Git，直接克隆课程 Starter；README 末尾添加一行，status 看文件、diff 看内容；只删回自己添加的练习行，保留原有改动。
