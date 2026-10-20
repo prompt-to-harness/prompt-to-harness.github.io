@@ -31,15 +31,15 @@ window.lesson = {
       "segment": "我们的实现",
       "label": "我们的实现有这个问题吗",
       "title": "我们的实现，其实都清理了",
-      "lead": "排练的 6 份实现，重开时都清理了计时器。为了看清没清理会怎样，我们用一份明确标注的预备版本：在修好的 v1 上删掉一行。这不是自然出现的事故。",
-      "html": "<div class=\"p-code\" data-reveal=\"0\"><div class=\"p-code-head\"><span>v1 · 等待翻回的 effect</span></div><pre><span style=\"display:block\">const timer = window.setTimeout(() =&gt; { …翻回、清空“已翻开” }, 900)</span><span class=\"hl\">return () =&gt; window.clearTimeout(timer)   // 清理</span></pre></div><div class=\"p-code\" data-reveal=\"1\" style=\"margin-top:12px\"><div class=\"p-code-head\"><span>预备版本（教学用）</span><span>−1 行</span></div><pre><span style=\"display:block\">window.setTimeout(() =&gt; { …翻回、清空“已翻开” }, 900)</span><span class=\"del\">-return () =&gt; window.clearTimeout(timer)</span></pre></div><p class=\"p-links\" data-reveal=\"1\" style=\"margin-top:12px\"><a href=\"../../practice/memory-v1/index.html\" target=\"_blank\" rel=\"noopener\">v1</a><a href=\"../../practice/memory-stale-timer/index.html\" target=\"_blank\" rel=\"noopener\">预备版本（教学用）</a></p><p class=\"source-note\">教学预备版本：在 3.3 修复后的 v1 上删掉一行清理代码（courseware/ch03/materials/prepared/stale-timer.diff），2026-10-06 用脚本核对一次。不是自然出现的缺陷。</p>",
+      "lead": "排练的 6 份实现，重开时都清理了计时器。为了看清没清理会怎样，我们用一份明确标注的预备版本：在修复后的记忆翻牌上删掉一行。这不是自然出现的事故。",
+      "html": "<div class=\"p-code\" data-reveal=\"0\"><div class=\"p-code-head\"><span>有计时器清理 · 等待翻回的 effect</span></div><pre><span style=\"display:block\">const timer = window.setTimeout(() =&gt; { …翻回、清空“已翻开” }, 900)</span><span class=\"hl\">return () =&gt; window.clearTimeout(timer)   // 清理</span></pre></div><div class=\"p-code\" data-reveal=\"1\" style=\"margin-top:12px\"><div class=\"p-code-head\"><span>教学预备版本（未清理计时器）</span><span>−1 行</span></div><pre><span style=\"display:block\">window.setTimeout(() =&gt; { …翻回、清空“已翻开” }, 900)</span><span class=\"del\">-return () =&gt; window.clearTimeout(timer)</span></pre></div><p class=\"p-links\" data-reveal=\"1\" style=\"margin-top:12px\"><a href=\"../../practice/memory-v1/index.html\" target=\"_blank\" rel=\"noopener\">试玩有清理的版本</a><a href=\"../../practice/memory-stale-timer/index.html\" target=\"_blank\" rel=\"noopener\">试玩未清理的教学预备版本</a></p><p class=\"source-note\">教学预备版本：在 3.3 修复后的记忆翻牌上删掉一行清理代码（courseware/ch03/materials/prepared/stale-timer.diff），2026-10-06 用脚本核对一次。不是自然出现的缺陷。</p>",
       "steps": [
-        "v1 的清理",
-        "预备版本"
+        "计时器清理",
+        "教学预备版本"
       ],
       "script": [
-        "【操作提示｜课件 p46 第 1 步，指向上方 v1 代码里高亮的清理行。如需展示源码，切 VS Code 打开 v1 的 src/components/MemoryGame.tsx 定位这个 effect，看完回课件；“6 份实现都清理了”按 materials/mainline 排练记录念】\n\n先看我们自己的实现。v1 等待翻回的那段代码：建一个 900 毫秒的计时器，到点后翻回两张牌、清空“已翻开”的记录；下面一行是清理：这段逻辑结束或重新执行时，取消计时器。讲师排练的 6 份实现，重开时都做了清理。",
-        "【操作提示｜推进第 2 步，指向下方预备版本里删掉的那一行和“预备版本（教学用）”标签；这是 materials/prepared/stale-timer.diff 构造的教学预备，不说成现场发现。本页两个链接此时不点开，留到 p47 之后】\n\n为了看清楚没清理会怎样，讲师准备了一份预备版本：在修好的 v1 上删掉这一行。请记住，这是教学用的，不是 AI 自然写出来的事故。"
+        "【操作提示｜课件 p46 第 1 步，指向上方有计时器清理的代码里高亮的清理行。如需展示源码，切 VS Code 打开修复后的记忆翻牌的 src/components/MemoryGame.tsx 定位这个 effect，看完回课件；“6 份实现都清理了”按 materials/mainline 排练记录念】\n\n先看我们自己的实现。有计时器清理的版本里，等待翻回的代码会建一个 900 毫秒的计时器，到点后翻回两张牌、清空“已翻开”的记录；下面一行是清理：这段逻辑结束或重新执行时，取消计时器。讲师排练的 6 份实现，重开时都做了清理。",
+        "【操作提示｜推进第 2 步，指向下方预备版本里删掉的那一行和“教学预备版本（未清理计时器）”标签；这是 materials/prepared/stale-timer.diff 构造的教学预备，不说成现场发现。本页两个链接此时不点开，留到 p47 之后】\n\n为了看清楚没清理会怎样，讲师准备了一份预备版本：在修复后的记忆翻牌上删掉这一行。请记住，这是教学用的，不是 AI 自然写出来的事故。"
       ],
       "teaching": [
         {
@@ -56,7 +56,7 @@ window.lesson = {
       "label": "旧计时器做了什么",
       "title": "先预测，再看：旧计时器做了什么",
       "lead": "翻错 → 计时器开始倒数 → 立刻重开 → 新一局翻开一张 → 900ms 到，旧回调执行：它清空的是新一局的“已翻开”记录 → 再翻一张，游戏不再比较这两张，它们一直朝上。",
-      "html": "<div class=\"p-flow\" style=\"--n:5;font-size:18px\"><div class=\"p-node\" data-reveal=\"0\"><b>0 ms</b><small>翻错，计时器开始</small></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"0\"><b>约 50 ms</b><small>点重开</small></div><div class=\"p-node\" data-reveal=\"1\"><b>约 100 ms</b><small>新一局翻开第 1 张</small></div><div class=\"p-node\" data-role=\"gate\" data-reveal=\"2\"><b>900 ms</b><small>旧回调：清空“已翻开”</small></div><div class=\"p-node\" data-role=\"gate\" data-reveal=\"3\"><b>之后</b><small>翻第 2 张：两张一直朝上</small></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\" data-reveal=\"3\"><div class=\"p-box is-soft\" data-role=\"ok\"><h3>v1</h3><p>“不是一对”，两张翻回</p></div><div class=\"p-box is-soft\" data-role=\"gate\"><h3>预备版本</h3><p>两张一直朝上，提示不变</p></div></div>",
+      "html": "<div class=\"p-flow\" style=\"--n:5;font-size:18px\"><div class=\"p-node\" data-reveal=\"0\"><b>0 ms</b><small>翻错，计时器开始</small></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"0\"><b>约 50 ms</b><small>点重开</small></div><div class=\"p-node\" data-reveal=\"1\"><b>约 100 ms</b><small>新一局翻开第 1 张</small></div><div class=\"p-node\" data-role=\"gate\" data-reveal=\"2\"><b>900 ms</b><small>旧回调：清空“已翻开”</small></div><div class=\"p-node\" data-role=\"gate\" data-reveal=\"3\"><b>之后</b><small>翻第 2 张：两张一直朝上</small></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\" data-reveal=\"3\"><div class=\"p-box is-soft\" data-role=\"ok\"><h3>有计时器清理</h3><p>“不是一对”，两张翻回</p></div><div class=\"p-box is-soft\" data-role=\"gate\"><h3>教学预备：未清理</h3><p>两张一直朝上，提示不变</p></div></div>",
       "steps": [
         "翻错后重开",
         "新一局翻一张",
@@ -67,13 +67,13 @@ window.lesson = {
         "【操作提示｜课件 p47 第 1 步，指向时间线前两格（0 ms、约 50 ms）；不切窗口。时间线来自 materials/prepared/README.md 的 2026-10-06 核对记录，时刻按记录中的约数念】\n\n先预测，再看结果。时间线从翻错开始：计时器开始倒数 900 毫秒。几十毫秒后，我们点了重开。",
         "【操作提示｜推进第 2 步，指向“约 100 ms 新一局翻开第 1 张”】\n\n新的一局，我们翻开第一张。画面一切正常。",
         "【操作提示｜推进第 3 步，指向“900 ms 旧回调”格；强调画面上看不出变化】\n\n到了 900 毫秒，上一局的计时器到点了，它的回调照常执行：翻回上一局那两张、清空“已翻开”的记录。可现在的“已翻开”是新一局的：它把我们刚翻开的那一张从记录里抹掉了，画面上却看不出来。",
-        "【操作提示｜推进第 4 步，指向下方 v1 与预备版本两张对照卡，留出暂停视频的时间。如需现场对照，从 p46 的两个链接在 Chrome 各新开一个标签页（practice/memory-v1、practice/memory-stale-timer），按“翻错、立刻重开、翻一张、等 1.2 秒、再翻一张”操作；手速差异导致现象不同就如实说明，以 stale-timer-check.py 的核对记录为准，之后回课件】\n\n再翻第二张。v1 会说“不是一对”，两张翻回。预备版本里，两张一直朝上，提示不变，游戏已经不记得第一张了。请暂停视频，先写下你的预测，再打开配套材料看结果。"
+        "【操作提示｜推进第 4 步，指向下方有计时器清理的版本与教学预备版本两张对照卡，留出暂停视频的时间。如需现场对照，从 p46 的两个链接在 Chrome 各新开一个标签页（practice/memory-v1、practice/memory-stale-timer），按“翻错、立刻重开、翻一张、等 1.2 秒、再翻一张”操作；手速差异导致现象不同就如实说明，以 stale-timer-check.py 的核对记录为准，之后回课件】\n\n再翻第二张。有计时器清理的版本会说“不是一对”，两张翻回。预备版本里，两张一直朝上，提示不变，游戏已经不记得第一张了。请暂停视频，先写下你的预测，再打开配套材料看结果。"
       ],
       "repro": {
         "label": "复现这个实验",
         "steps": [
           {
-            "text": "在课程仓库根目录，基于修好的 v1 做出预备版本并构建",
+            "text": "在课程仓库根目录，基于修复后的记忆翻牌做出教学预备版本并构建",
             "code": "cp -R <记忆翻牌 v1 目录> lab-runs/ch03-prepared && cd lab-runs/ch03-prepared\ngit apply ../../courseware/ch03/materials/prepared/stale-timer.diff && npm ci && npm run build && cd ../.."
           },
           {
@@ -81,7 +81,7 @@ window.lesson = {
             "code": "uv run courseware/ch03/materials/prepared/stale-timer-check.py lab-runs/ch03-prepared"
           }
         ],
-        "note": "v1 目录指 3.3 修复后的记忆翻牌；对照时把同一条命令用在 v1 上。"
+        "note": "命令中的 <记忆翻牌 v1 目录> 指 3.3 修复后的记忆翻牌目录；对照时把同一条核对命令用在有清理的版本上。"
       },
       "teaching": [],
       "source": "index.html#p47",

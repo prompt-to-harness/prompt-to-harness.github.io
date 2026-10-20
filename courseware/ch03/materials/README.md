@@ -4,7 +4,7 @@
 
 | 目录 | 预检 | 内容 |
 | --- | --- | --- |
-| [`mainline/`](mainline/README.md) | A | 主线重跑：首页 v1 → 3.1 记忆翻牌 v0，及 3.2 的固定探查 |
+| [`mainline/`](mainline/README.md) | A | 主线重跑：已发布的个人主页 → 3.1 记忆翻牌，及 3.2 的固定探查 |
 | [`memory/`](memory/README.md) | B | 3.6 Memory 独立实验：在课程基线下写入、整理、使用、关闭对照 |
 | [`plugin/`](plugin/README.md) | C | Game Studio 在 API key 登录下的安装、生效、停用与卸载 |
 | [`bundle/`](bundle/README.md) | F | 3.5 的引擎体积对比：不用引擎、Phaser、React Three Fiber |

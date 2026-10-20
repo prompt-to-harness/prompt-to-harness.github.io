@@ -9,7 +9,7 @@ window.lesson = {
       "label": "只改一句话，怎样证明改对？",
       "title": "只改一句话，怎样证明改对？",
       "lead": "先让 Codex 替换练习页的一句欢迎语，再看页面和 git diff 输出，确认它只改了指定文字",
-      "html": "<ol class=\"p-map\" data-reveal=\"0\"><li class=\"is-now\"><b>1.1</b>第一次 AI 协作闭环</li><li class=\"\"><b>1.2</b>Agent 执行机制与 AI 协作基础</li><li class=\"\"><b>1.3</b>工具使用与权限</li><li class=\"\"><b>1.4</b>写清个人主页任务：从模糊需求到可执行 Prompt</li><li class=\"\"><b>1.5</b>完成个人主页：从已确认 Prompt 到可验收的个人主页 v0</li><li class=\"\"><b>1.6</b>最小权限：为什么不能给 Agent 所有权限</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:18px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">修改前</span><p class=\"p-big\" style=\"font-weight:500\">你好，欢迎来到我的练习页面</p></div><div class=\"p-join\" data-reveal=\"1\"><span>只改这一句</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ok\">任务目标</span><p class=\"p-big\">你好，欢迎来到 Vibe Coding 课堂！</p></div></div>",
+      "html": "<ol class=\"p-map\" data-reveal=\"0\"><li class=\"is-now\"><b>1.1</b>第一次 AI 协作闭环</li><li class=\"\"><b>1.2</b>Agent 执行机制与 AI 协作基础</li><li class=\"\"><b>1.3</b>工具使用与权限</li><li class=\"\"><b>1.4</b>写清个人主页的需求</li><li class=\"\"><b>1.5</b>生成并检查个人主页</li><li class=\"\"><b>1.6</b>最小权限：为什么不能给 Agent 所有权限</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:18px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">修改前</span><p class=\"p-big\" style=\"font-weight:500\">你好，欢迎来到我的练习页面</p></div><div class=\"p-join\" data-reveal=\"1\"><span>只改这一句</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ok\">任务目标</span><p class=\"p-big\">你好，欢迎来到 Vibe Coding 课堂！</p></div></div>",
       "steps": [
         "看原文",
         "比较目标"
@@ -431,9 +431,9 @@ window.lesson = {
     }
   ],
   "intro": [
-    "大家好，欢迎来到第一章。从这一章开始，我们要动手做一个自己的个人主页啦。你可以先想一个很简单的画面：有人打开这个页面，能看到你是谁、你在做什么，以及你想展示的作品。我们会从这个想法出发，一步一步把个人主页原型做出来。",
+    "大家好，欢迎来到第一章。从这一章开始，我们要动手做一个自己的个人主页啦。你可以先想一个很简单的画面：有人打开这个页面，能看到你是谁、你在做什么，以及你想展示的作品。我们会从这个想法出发，一步一步把个人主页做出来。",
     "如果现在让你对 AI 说“帮我做一个个人主页”，它可能马上就开始写代码。不过，这句话里还有不少事情没有说清楚：页面要放哪些内容，哪些文件可以修改，做到什么程度才算完成？这一章，我们就围绕这个小项目，练习怎样把这些要求讲清楚，再检查 AI 交回来的结果。",
-    "我们需要的工具与环境在零点二小节已经准备完成了。本章从一个小修改开始。然后回过头看 AI 是怎样读取文件、执行动作的，以及什么时候需要我们确认。等这些环节看明白了，再把 个人主页 的 需求 整理成一份明确的请求，交给它执行，最后一起检查页面和代码改动，并验证我们的项目能否成功构建。",
+    "我们需要的工具与环境在零点二小节已经准备完成了。本章从一个小修改开始。然后回过头看 AI 是怎样读取文件、执行动作的，以及什么时候需要我们确认。等这些环节看明白了，再把 个人主页的 需求 整理成一份明确的请求，交给它执行，最后一起检查页面和代码改动，并验证我们的项目能否成功构建。",
     "你可以跟着 视频 暂停操作，也可以先看一遍，再用自己的项目练习。遇到报错或者结果和预期不一样，我们就把具体问题找出来，带着证据继续修改。现在先从一个容易看清结果的任务开始：请 AI 帮我们换掉页面上的一句欢迎语。"
   ]
 };

@@ -27,7 +27,7 @@ python3 courseware/ch02/materials/catchup/evaluate.py lab-runs/catchup/*-r*
 | 起点 | 状态 |
 | --- | --- |
 | (a) `a-personal` | 做完第 1 章，姓名、简介、项目换成自己的（“林小雨 / 摄影日记”） |
-| (b) `b-only-1.4` | 只做到 1.4：改了欢迎语、写了 `PROMPT_V1.md`，没有首页应用 |
+| (b) `b-only-1.4` | 只做到 1.4：改了欢迎语、写了 `PROMPT_V1.md`，没有个人主页应用 |
 | (c) `c-card-links` | 做完第 1 章，项目卡标题链接到作品页；`PROMPT_V1.md` 决定表改了，旧 Prompt 段仍写“项目卡不跳转” |
 
 本地实验用 `file://` 的本地仓库代替 course-starter，克隆不需要联网；联网申请在交互界面单独测试。
@@ -68,7 +68,7 @@ python3 courseware/ch02/materials/catchup/evaluate.py lab-runs/catchup/*-r*
 
 ## 用真实标签完整跑一遍（2026-10-06）
 
-起点 (c)：学员仓库由最新的 course-starter `main`（`4a8b82c`）建立，只叠加自己的首页代码与作品链接。在交互界面里按课件 2.1 p01 按钮的 7 步、逐字使用按钮中的文字：
+起点 (c)：学员仓库由最新的 course-starter `main`（`4a8b82c`）建立，只叠加自己的个人主页代码与作品链接。在交互界面里按课件 2.1 p01 按钮的 7 步、逐字使用按钮中的文字：
 
 1. 提交当前工作：没有改动，提示无可提交，不影响后续。
 2. 粘贴 Prompt：Codex 先读本地项目，再申请克隆。

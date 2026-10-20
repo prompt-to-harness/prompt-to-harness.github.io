@@ -14,7 +14,7 @@ lesson = Lesson(__file__, "2.5", "AI 说“只是重构”", summary="判断一�
 scene = lesson.scene
 
 CARDS = Path(__file__).resolve().parents[3] / "materials" / "refactor-cards"
-MATERIAL = "教学材料：五张卡基于 homepage-v1 制作（courseware/ch02/materials/refactor-cards/），每张单独应用；页面截图与数值来自 v1 冻结候选，2026-10-06 在 1440×900 下用浏览器实测（shoot.py）。录制版基于讲师冻结的 homepage-v1 重新制作、重新拍摄。"
+MATERIAL = "教学材料：五张卡基于 homepage-v1 制作（courseware/ch02/materials/refactor-cards/），每张单独应用；页面截图与数值来自个人主页发布候选，2026-10-06 在 1440×900 下用浏览器实测（shoot.py）。录制版基于讲师冻结的 homepage-v1 重新制作、重新拍摄。"
 
 # 五张卡：AI 交回时的说明（教学材料里写的，不是某次真实运行的输出）与 git diff --stat
 SAY = {
@@ -156,7 +156,7 @@ scene(
     steps=["① 提取组件", "② 移动数据", "逐项对照", "结论"],
     teaching=teach(
         ("讲师提示", "①② 合一页；页面只放关键几行，完整 diff 用页内弹窗（演示模式盖住正文区，阅读模式原地展开），弹窗内容由 refactor-cards/ 的原始 diff 生成。录制时可点开 ① 的完整 diff，滚到 ProjectCard.tsx 对一遍类名。"),
-        ("核对记录", "shoot.py 2026-10-06：v1 冻结候选分别应用 ①②，构建后导出的 #root 与改前逐字相同，index.css 未改；卡高、顺序、Tab 落点均与改前一致。"),
+        ("核对记录", "shoot.py 2026-10-06：个人主页发布候选分别应用 ①②，构建后导出的 #root 与改前逐字相同，index.css 未改；卡高、顺序、Tab 落点均与改前一致。"),
     ),
 )
 
@@ -181,7 +181,7 @@ scene(
         + stamp("行为变了", RED, 3, "top:auto;bottom:-16px;right:-6px") + '</div></div>'
     ),
     steps=["说明与 diff", "读说明就能发现", "打开页面", "结论"],
-    teaching=teach(("核对记录", "shoot.py 2026-10-06：v1 冻结候选应用 ③，顺序由“红绿灯感知量产、端侧多模态推理引擎、RoboHarness”变为“端侧多模态推理引擎、红绿灯感知量产、RoboHarness”；卡高与 Tab 落点不变。截图为 1440×900 下项目列表左侧。")),
+    teaching=teach(("核对记录", "shoot.py 2026-10-06：个人主页发布候选应用 ③，顺序由“红绿灯感知量产、端侧多模态推理引擎、RoboHarness”变为“端侧多模态推理引擎、红绿灯感知量产、RoboHarness”；卡高与 Tab 落点不变。截图为 1440×900 下项目列表左侧。")),
 )
 
 CARD4 = excerpt("src/App.tsx", "④", [
@@ -289,7 +289,7 @@ scene(
         '<div class="p-node" data-role="tool" data-reveal="2"><h3>2.3 审查</h3><p>可回退的提交</p></div>'
         '<div class="p-node" data-role="ok" data-reveal="2"><h3>2.4 发布</h3><p>公开 URL 与 tag</p></div>'
         '<div class="p-node" data-role="gate" data-reveal="2"><h3>2.5 重构</h3><p>看可观察行为</p></div></div>'
-        '<div class="p-bar is-light" data-reveal="3" style="margin-top:14px">下一章 · 第 3 章：给首页加一个小游戏</div>'
+        '<div class="p-bar is-light" data-reveal="3" style="margin-top:14px">下一章 · 第 3 章：给个人主页加一个小游戏</div>'
     ),
     steps=["手工清单", "验证很贵", "回看本章", "下一章"],
     teaching=teach(("讲师提示", "伏笔只点到为止，不提前讲测试框架。第 3 章预告按第 3 章定稿调整。全章回顾 2026-10-05 起从 2.4 p52 移到本页（讲师确认）。")),

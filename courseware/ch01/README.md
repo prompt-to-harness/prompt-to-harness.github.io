@@ -1,4 +1,4 @@
-# 第一章：从环境搭建到个人主页原型
+# 第一章：做出个人主页
 
 第一章正式课件工作区。按小节集中维护演示、讲稿和练习，保留阅读/演示切换、目录、请求复制、展开解析、讲解全文、人像辅助框及专注演示。目录正式化不代表所有实操材料或录制核验已完成。
 
@@ -14,11 +14,11 @@ python3 tools/serve-courseware.py
 
 | 小节 | 演示 |
 | --- | --- |
-| 1.1 环境搭建与第一次 AI 协作闭环 | [打开](lessons/01-environment/index.html) |
+| 1.1 第一次 AI 协作闭环 | [打开](lessons/01-environment/index.html) |
 | 1.2 Agent 执行机制与 AI 协作基础 | [打开](lessons/02-agent/index.html) |
 | 1.3 工具使用与权限 | [打开](lessons/03-tools/index.html) |
-| 1.4 写清个人主页任务：从模糊需求到可执行 Prompt | [打开](lessons/04-prompt/index.html) |
-| 1.5 完成个人主页：从已确认 Prompt 到可验收的个人主页 v0 | [打开](lessons/05-homepage/index.html) |
+| 1.4 写清个人主页的需求 | [打开](lessons/04-prompt/index.html) |
+| 1.5 生成并检查个人主页 | [打开](lessons/05-homepage/index.html) |
 | 1.6 最小权限：为什么不能给 Agent 所有权限 | [打开](lessons/06-permissions/index.html) |
 
 页面与步骤以各节 `lesson.js` 为准，口播以同目录的 `script.json` 为准；时长仍待计时试讲。URL 使用 `?mode=slides#p04` 进入演示并定位；省略参数为阅读模式。
@@ -49,7 +49,7 @@ ch01/
 
 - Codex CLI 是必需的实操与检查入口，Codex App 可选；CLI 受阻时先观察演示，补齐后再实操。
 - 1.1 修改独立的 `setup-check/index.html` 欢迎语，检查页面与 git diff 输出，按证据反馈修正。
-- 1.4 读取 Brief、提出问题并确认四段式 Prompt；1.5 创建 React + TypeScript + Vite 骨架与首页，验证后建立 `ch01-prompt-baseline` 检查点。
+- 1.4 读取 Brief、提出问题并确认四段式 Prompt；1.5 创建 React + TypeScript + Vite 骨架与个人主页，验证后建立 `ch01-prompt-baseline` 检查点。
 - 1.6 使用“仅核对本地链接，不发布”任务判断最小权限。
 - [首次任务与验收](preparation.html)、[0.2 课前准备](../ch00/lessons/02-preparation/index.html#p12)与当前内容同步。
 - [Starter 源文件说明](https://github.com/prompt-to-harness/course-starter)在独立的 `course-starter` 仓库维护；0.2 直接克隆到本地作为练习项目，1.1 继续使用同一目录，发布前再建立个人远端。`PROJECT_BRIEF.md`、`PLACEHOLDER_CONTENT.md`、`docs/setup/TOOLCHAIN.md` 均在项目中。目录与获取步骤见[工作目录约定](../../WORKSPACE.md)。课程统一发布 commit 仍待录制冻结。

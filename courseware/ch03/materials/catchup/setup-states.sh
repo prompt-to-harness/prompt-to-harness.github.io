@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # 第 3 章追赶实验的起点：本地“课程起点仓库”（代替 course-starter，带 ch03-start-v1 标签）与两种学员仓库。
 # 用法：courseware/ch03/materials/catchup/setup-states.sh <目标目录>   # 默认 <本仓库>/lab-runs/ch03-catchup/base
-# ch03-start-v1 用第 2 章冻结候选（首页 v1）加一份标准的 Pages 发布配置，是讲师构造的草案：
+# ch03-start-v1 用第 2 章冻结候选（个人主页）加一份标准的 Pages 发布配置，是讲师构造的草案：
 # 真实标签要等第 2 章录制版发布后由讲师制作。
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
@@ -57,7 +57,7 @@ jobs:
 YML
 }
 
-# 课程起点仓库：ch03-start-v1 = 首页 v1 + 发布配置（仓库名用课程示例 my-homepage）
+# 课程起点仓库：ch03-start-v1 = 第 2 章的个人主页 + 发布配置（仓库名用课程示例 my-homepage）
 "${GIT[@]}" init -q --bare "$OUT/course-starter.git"
 W="$OUT/work"; cp -R "$V1" "$W"; rm -rf "$W/node_modules" "$W/dist"
 add_pages "$W" my-homepage

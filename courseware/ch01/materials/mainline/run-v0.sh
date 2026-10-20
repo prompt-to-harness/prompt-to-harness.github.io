@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 从 course-starter 出发，按第 1 章课件真实跑一遍 1.1 → 1.4 → 1.5，得到首页 v0 候选与全部记录。可重复运行，每次一个新目录。
+# 从 course-starter 出发，按第 1 章课件真实跑一遍 1.1 → 1.4 → 1.5，得到个人主页候选与全部记录。可重复运行，每次一个新目录。
 # 用法：courseware/ch01/materials/mainline/run-v0.sh [运行目录]   # 默认 <本仓库>/lab-runs/mainline/v0-<时间>
 #       STARTER=<course-starter 检出目录> STARTER_REF=<提交> …/run-v0.sh
 #       默认用本仓库下的 course-starter/（已被 git 忽略）的 main；10-03 排练用的是 2106e575f9d0。

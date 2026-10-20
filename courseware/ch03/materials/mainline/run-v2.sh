@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 第 3 章预检 A：从首页 v1 出发，按 3.1 的一句话需求真实运行 Codex，得到记忆翻牌 v0 与全部记录。可重复运行，每次一个新目录。
+# 第 3 章预检 A：从第 2 章的个人主页出发，按 3.1 的一句话需求真实运行 Codex，得到记忆翻牌 与全部记录。可重复运行，每次一个新目录。
 # 用法：courseware/ch03/materials/mainline/run-v2.sh [运行目录]   # 默认 <本仓库>/lab-runs/ch03-mainline/v2-<时间>
 #       V1=<首页目录> …/run-v2.sh                                 # 换一个 v1（默认第 2 章冻结候选 ch02-candidate）
 # 需要：MINIMAX_API_KEY、Node/npm、uv。不发布，不推送。之后用 probe.py 对构建产物做 3.2 的固定探查。

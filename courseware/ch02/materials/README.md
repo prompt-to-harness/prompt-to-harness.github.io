@@ -1,6 +1,6 @@
 # 第 2 章教学材料
 
-> 状态：草稿（2026-10-03）。基于[第 1 章排练快照](../../../starters/personal-homepage/ch01-complete-notes.md)生成，**不是录制版**。录制时讲师首页 v0 与 homepage-v1 冻结后，按下文步骤重新生成并复核行为。本目录不进 Pages 站点（`tools/build-site.py` 跳过 `materials/`）。
+> 状态：草稿（2026-10-03）。基于[第 1 章排练快照](../../../starters/personal-homepage/ch01-complete-notes.md)生成，**不是录制版**。录制时讲师个人主页与 homepage-v1 冻结后，按下文步骤重新生成并复核行为。本目录不进 Pages 站点（`tools/build-site.py` 跳过 `materials/`）。
 
 ## 文件
 
@@ -33,7 +33,7 @@ Node 24.15.0，`npm ci` 后可以 `npm run build`。homepage-v1 在 360×800 下
 
 ### 2.5 证据图与复测（2026-10-06，shoot.py，单次）
 
-`uv run python courseware/ch02/materials/refactor-cards/shoot.py [homepage-v1 目录]`：默认基线是 v1 冻结候选（`starters/personal-homepage/ch02-candidate`），工作目录 `lab-runs/refactor-cards/`。每张卡复制基线、`patch -p1` 应用、`npm ci`、`npm run build`，Playwright Chromium 在 1440×900、DPR 2 下打开构建产物，打印核对结果并截图到 `courseware/ch02/lessons/05-refactor/evidence/`。2026-10-06 的结果与下表一致：①② 的 `#root` 与基线逐字相同；③ 顺序变为端侧、红绿灯、RoboHarness；④ 卡高 127 → 144px；⑤ Tab 依次停在三张卡上（基线按完“查看项目”再按 Tab 焦点离开页面）。录制版换成讲师冻结的 homepage-v1 重跑本脚本，并按输出更新 2.5 口播里的数字。
+`uv run python courseware/ch02/materials/refactor-cards/shoot.py [homepage-v1 目录]`：默认基线是个人主页发布候选（`starters/personal-homepage/ch02-candidate`），工作目录 `lab-runs/refactor-cards/`。每张卡复制基线、`patch -p1` 应用、`npm ci`、`npm run build`，Playwright Chromium 在 1440×900、DPR 2 下打开构建产物，打印核对结果并截图到 `courseware/ch02/lessons/05-refactor/evidence/`。2026-10-06 的结果与下表一致：①② 的 `#root` 与基线逐字相同；③ 顺序变为端侧、红绿灯、RoboHarness；④ 卡高 127 → 144px；⑤ Tab 依次停在三张卡上（基线按完“查看项目”再按 Tab 焦点离开页面）。录制版换成讲师冻结的 homepage-v1 重跑本脚本，并按输出更新 2.5 口播里的数字。
 
 ### 2.5 的五张卡（2026-10-05，讲师机器，单次）
 

@@ -4,7 +4,7 @@
 
 ## 做什么
 
-Game Studio 对 2D 默认推荐 Phaser，3D 推荐 React Three Fiber 或 Three.js（见插件 Skill 原文）。在同一个首页（记忆翻牌 v1）上分别懒加载一个最小场景，看构建产物多了什么：
+Game Studio 对 2D 默认推荐 Phaser，3D 推荐 React Three Fiber 或 Three.js（见插件 Skill 原文）。在同一个首页（修复后的记忆翻牌）上分别懒加载一个最小场景，看构建产物多了什么：
 
 ```bash
 courseware/ch03/materials/bundle/compare.sh lab-runs/ch03-mainline/v2-run2/repo

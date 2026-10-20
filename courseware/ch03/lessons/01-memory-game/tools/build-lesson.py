@@ -28,7 +28,7 @@ PROMPT = (
 scene(
     id="p01", segment="开篇", layout="lesson-cover",
     label="一句话，能加出一个小游戏吗", title="一句话，能加个游戏吗？",
-    lead="本章把首页变成能玩两个小游戏的实验室",
+    lead="本章给个人主页加入两个小游戏",
     html=(
         chapter_map(1) +
         '<div class="p-pair" style="grid-template-columns:1fr auto 1fr;margin-top:18px">'
@@ -122,15 +122,15 @@ scene(
 scene(
     id="p06", segment="小结",
     label="本节小结", title="能玩了，然后呢",
-    lead="本节留下记忆翻牌 v0：能翻、能配对、能重开，build 成功。照 2.3 的做法，代码和记录分两次提交；记录里写下请求、它问的三个问题和它自己定的规则。“能玩”是起点，不是验收。下一节：换几种玩法试试。",
+    lead="本节留下记忆翻牌：能翻、能配对、能重开，build 成功。照 2.3 的做法，代码和记录分两次提交；记录里写下请求、它问的三个问题和它自己定的规则。“能玩”是起点，不是验收。下一节：换几种玩法试试。",
     html=(
         '<div class="p-sketch" style="align-items:start"><div data-reveal="0"><h3 style="text-align:center">一个判断</h3>'
         '<div class="p-star" style="width:260px;font-size:24px">能玩<br>≠ 验收</div></div>'
-        '<div data-reveal="1"><h3>留下的</h3><ul class="p-exits" style="gap:12px"><li class="is-pass">记忆翻牌 v0 提交</li><li class="is-pass">记录：它问的、它定的</li></ul></div>'
+        '<div data-reveal="1"><h3>留下的</h3><ul class="p-exits" style="gap:12px"><li class="is-pass">记忆翻牌提交</li><li class="is-pass">记录：它问的、它定的</li></ul></div>'
         '<div class="p-next" data-reveal="2"><h3>下一节</h3><div class="p-box" data-role="us"><h3>3.2 谁定的规则</h3><p>第二张还没翻回去，我又点了第三张</p></div></div></div>'
     ),
     steps=["一个判断", "留下的", "下一节"],
-    teaching=teach(("跟做产出", "记忆翻牌 v0 的代码提交与记录提交；记录里有请求、三个问题与回答、它自己定的规则。")),
+    teaching=teach(("跟做产出", "记忆翻牌的代码提交与记录提交；记录里有请求、三个问题与回答、它自己定的规则。")),
 )
 
 lesson.write()

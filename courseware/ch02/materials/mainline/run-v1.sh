@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 从首页 v0 出发，按第 2 章课件真实跑一遍主线 2.1 → 2.2 → 2.3，得到 v1 候选与全部记录。可重复运行，每次一个新目录。
+# 从本地个人主页出发，按第 2 章课件真实跑一遍主线 2.1 → 2.2 → 2.3，得到个人主页发布候选与全部记录。可重复运行，每次一个新目录。
 # 用法：courseware/ch02/materials/mainline/run-v1.sh [运行目录]   # 默认 <本仓库>/lab-runs/mainline/v1-<时间>
 #       V0=<首页目录> …/run-v1.sh                                # 换一个 v0（默认第 1 章参考快照 ch01-complete）
 # 需要：MINIMAX_API_KEY、Node/npm、uv（claude-tap 与浏览器检查）。不发布，不推送。

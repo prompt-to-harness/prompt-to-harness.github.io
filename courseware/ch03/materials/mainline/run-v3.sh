@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 第 3 章预检 E：在记忆翻牌 v1 上装好 Game Studio（本地市场），按 3.5 的 Brief 真实运行 Codex。
+# 第 3 章预检 E：在修复后的记忆翻牌 上装好 Game Studio（本地市场），按 3.5 的 Brief 真实运行 Codex。
 # 用法：courseware/ch03/materials/mainline/run-v3.sh [运行目录]
 #       BASE=<带记忆翻牌的仓库> …   # 默认 lab-runs/ch03-mainline/v2-run2/repo（扩展探查未发现缺陷的一份）
 # 需要：MINIMAX_API_KEY、Node/npm、uv、网络（首次准备本地市场）。观察：计划选什么技术栈、是否新建项目或路由、

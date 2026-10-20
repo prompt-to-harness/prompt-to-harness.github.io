@@ -4,9 +4,9 @@
 
 ## 做什么
 
-从首页 v0 出发，按课件跑一遍 2.1 → 2.2 → 2.3，得到 v1 候选（`homepage-v1` 提交）和全部记录。每次运行用一个新目录，可以反复跑，用来：
+从个人主页出发，按课件跑一遍 2.1 → 2.2 → 2.3，得到个人主页发布候选（`homepage-v1` 提交）和全部记录。每次运行用一个新目录，可以反复跑，用来：
 
-- 冻结录制前的真实主线产物（v1、真实 diff、本轮记录）；
+- 冻结录制前的真实主线产物（个人主页、真实 diff、本轮记录）；
 - 多跑几次，看 Codex 的回答和改动在哪些地方会变，为课上演示准备分支；
 - v0 换了（例如第 1 章录制版）之后，重跑得到对应的 v1。
 
@@ -16,7 +16,7 @@
 
 ```bash
 courseware/ch02/materials/mainline/run-v1.sh                    # 运行目录默认 lab-runs/mainline/v1-<时间>
-V0=<另一个首页目录> courseware/ch02/materials/mainline/run-v1.sh  # 换一个 v0
+V0=<另一个个人主页目录> courseware/ch02/materials/mainline/run-v1.sh  # 换一个 v0
 python3 courseware/ch02/materials/mainline/summarize.py lab-runs/mainline/v1-*   # 多轮对照表
 ```
 
@@ -41,7 +41,7 @@ python3 courseware/ch02/materials/mainline/summarize.py lab-runs/mainline/v1-*  
 
 每轮目录下：
 
-- `repo/`：首页仓库，`main` 上依次是 `v0：起点`、`homepage-v1: 补充项目经历`（打 `homepage-v1` 标签）、`记录第 1 轮`；
+- `repo/`：个人主页仓库，`main` 上依次是 `v0：起点`、`homepage-v1: 补充项目经历`（打 `homepage-v1` 标签）、`记录第 1 轮`；
 - `logs/`：每次 Codex 运行的事件（`*.events.jsonl`）、最终回答（`*.answer.md`）、claude-tap 会话 id，以及 diff、构建日志、浏览器检查、评审结果和 `steps.log`；
 - `home/`：本轮 Codex 用的隔离 HOME（会话记录）。
 

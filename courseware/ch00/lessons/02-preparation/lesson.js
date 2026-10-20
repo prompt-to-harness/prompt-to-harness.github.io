@@ -355,7 +355,7 @@ window.lesson = {
       "label": "Recheck 三个准备项",
       "title": "Recheck 三个准备项",
       "lead": "开始首次修改前，确认 Codex CLI 能读取目标文件、Git 能查看变化、浏览器能打开自己的欢迎页。缺项先补齐，App 的可选操作不计入必需检查。",
-      "html": "<div class=\"p-grid\" style=\"--n:3\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><h3>模型能响应</h3><p>Codex CLI 正常安装<br>只读请求返回与原文一致</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><h3>Git 能看变化</h3><p>git 命令正常使用<br>git diff &amp; status 均正常查看</p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"2\"><h3>欢迎页能打开</h3><p>本地正常启动 http serve<br>本地正常打开欢迎页</p></div></div><div class=\"p-bar is-light preparation-next\" data-reveal=\"3\"><h3>第一次修改：VibeCoding 的 \"Hello world!\"</h3><p class=\"preparation-lead\">保留当前准备，进入第一章第一小节(1.1节)完成第一次修改、检查与反馈</p><p><b>第一章：从环境搭建到个人主页原型</b></p></div>",
+      "html": "<div class=\"p-grid\" style=\"--n:3\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><h3>模型能响应</h3><p>Codex CLI 正常安装<br>只读请求返回与原文一致</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><h3>Git 能看变化</h3><p>git 命令正常使用<br>git diff &amp; status 均正常查看</p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"2\"><h3>欢迎页能打开</h3><p>本地正常启动 http serve<br>本地正常打开欢迎页</p></div></div><div class=\"p-bar is-light preparation-next\" data-reveal=\"3\"><h3>第一次修改：VibeCoding 的 \"Hello world!\"</h3><p class=\"preparation-lead\">保留当前准备，进入第一章第一小节(1.1节)完成第一次修改、检查与反馈</p><p><b>第一章：做出个人主页</b></p></div>",
       "steps": [
         "检查接入",
         "检查 Git",

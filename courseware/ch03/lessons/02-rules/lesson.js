@@ -193,7 +193,7 @@ window.lesson = {
       "label": "本节小结",
       "title": "只走成功路径，不等于验证",
       "lead": "本节留下状态图和分两栏的问题清单。“没出错”也可能只是 AI 替你做了决定。下一节：挑一个缺陷，按证据修。",
-      "html": "<div class=\"p-pause\" data-reveal=\"0\"><h3>暂停自检</h3><div class=\"p-qlist\"><div class=\"p-qrow\"><span>“等待期点不开第三张”是缺陷吗？</span><span class=\"p-back-to\" data-reveal=\"1\">不是：AI 定的规则，合理，但要记下来</span></div><div class=\"p-qrow\"><span>没写期望来源的记录，能判断对错吗？</span><span class=\"p-back-to\" data-reveal=\"1\">不能：先补上期望和来源</span></div></div></div><div class=\"p-next\" data-reveal=\"2\" style=\"margin-top:14px\"><div class=\"p-box\" data-role=\"us\"><h3>3.3 按证据修</h3><p>先复现，再让 Codex 只调查</p></div></div><p class=\"p-links\" data-reveal=\"2\" style=\"margin-top:12px\"><a href=\"../../practice/memory-v0/index.html\" target=\"_blank\" rel=\"noopener\">试玩讲师的 v0（带缺陷）</a></p>",
+      "html": "<span class=\"p-pause\" data-reveal=\"0\">暂停自检</span><div class=\"p-qlist\" data-reveal=\"0\"><div class=\"p-qrow\"><span class=\"p-n\">1</span><div><h3>“等待期点不开第三张”是缺陷吗？</h3><p data-reveal=\"1\">不是：AI 定的规则，合理，但要记下来</p></div></div><div class=\"p-qrow\"><span class=\"p-n\">2</span><div><h3>没写期望来源的记录，能判断对错吗？</h3><p data-reveal=\"1\">不能：先补上期望和来源</p></div></div></div><div class=\"p-grid\" data-reveal=\"2\" style=\"--n:2;align-items:center\"><div class=\"p-next\" style=\"margin-top:0\"><div class=\"p-box\" data-role=\"us\"><h3>3.3 按证据修</h3><p>先复现，再让 Codex 只调查</p></div></div><p class=\"p-links\"><a href=\"../../practice/memory-v0/index.html\" target=\"_blank\" rel=\"noopener\">试玩修复前的版本</a></p></div>",
       "steps": [
         "两道题",
         "答案",
@@ -202,7 +202,7 @@ window.lesson = {
       "script": [
         "【操作提示｜停留课件 p14 第 1 步，只显示两道题，不揭示答案；念完暂停提示后留白几秒】\n\n暂停一下，自己回答两道题。第一，“等待期点不开第三张”是缺陷吗？第二，一条没写期望来源的记录，能判断对错吗？",
         "【操作提示｜推进课件 p14 第 2 步，揭示两条答案；不切窗口】\n\n第一题：不是缺陷，是 AI 定的规则。它很合理，但要记下来，因为没人问过我们。第二题：不能。先补上期望和它的来源，再判断。",
-        "【操作提示｜推进课件 p14 第 3 步，指向“3.3 按证据修”卡；“试玩讲师的 v0”链接不在本节点开。本节到此结束】\n\n这一节的问题清单里，讲师最先看到的现象是“翻错时步数不动”。下一节就从它开始：先复现，再让 Codex 只调查、不改代码，看看能查到什么。"
+        "【操作提示｜推进课件 p14 第 3 步，指向“3.3 按证据修”卡；“试玩修复前的版本”链接不在本节点开。本节到此结束】\n\n这一节的问题清单里，讲师最先看到的现象是“翻错时步数不动”。下一节就从它开始：先复现，再让 Codex 只调查、不改代码，看看能查到什么。"
       ],
       "teaching": [
         {

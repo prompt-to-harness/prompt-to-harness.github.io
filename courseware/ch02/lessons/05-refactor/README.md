@@ -15,7 +15,7 @@ uv run courseware/tools/check-courseware.py
 
 ## 素材状态
 
-- 证据图在 [`evidence/`](evidence/)，由 [`../../materials/refactor-cards/shoot.py`](../../materials/refactor-cards/shoot.py) 生成（2026-10-06，v1 冻结候选，1440×900、DPR 2）；脚本同时打印行为核对结果。录制版换成讲师冻结的 homepage-v1 重跑，并按输出更新口播数字。
+- 证据图在 [`evidence/`](evidence/)，由 [`../../materials/refactor-cards/shoot.py`](../../materials/refactor-cards/shoot.py) 生成（2026-10-06，个人主页发布候选，1440×900、DPR 2）；脚本同时打印行为核对结果。录制版换成讲师冻结的 homepage-v1 重跑，并按输出更新口播数字。
 - ①② 的“完整 diff”弹窗（零件 `.p-pop`）在构建时直接读取 `materials/refactor-cards/` 的原始 diff。
 - 五张卡的 diff 与行为核对见 [`../../materials/README.md`](../../materials/README.md)（2026-10-05，排练版 homepage-v1，单次）：①② 渲染结果与 homepage-v1 逐字相同；③ 顺序变了；④ 描述样式丢失、卡片变高，构建仍成功；⑤ 三张卡进入 Tab 顺序。
 - 录制版基于讲师冻结的 homepage-v1 重新制作五张卡，并按 materials README 重做检查；p54 的行数、p55-3–p55-5 的顺序与尺寸随之更新。静态证据图已有；如果录制时想换成现场操作（③ 同屏、④ 并排、⑤ 连续按 Tab），按 p55-4 的“切到实操”提示做。

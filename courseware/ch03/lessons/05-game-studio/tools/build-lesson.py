@@ -20,7 +20,7 @@ REF = MAT / "mainline" / "reference"
 BRIEF = (MAT / "mainline" / "fixtures" / "brief-3.5.md").read_text().strip()
 PROMPT = (MAT / "mainline" / "fixtures" / "prompt-3.5.txt").read_text().strip()
 E = json.loads((REF / "3.5-summary.json").read_text()) if (REF / "3.5-summary.json").exists() else {}
-RUN = "计划与改动来自排练（courseware/ch03/materials/mainline/run-v3.sh，基线为 3.3 修复后的 v1）。" + MEASURED
+RUN = "计划与改动来自排练（courseware/ch03/materials/mainline/run-v3.sh，基线为 3.3 修复后的记忆翻牌）。" + MEASURED
 
 
 def li(items):
