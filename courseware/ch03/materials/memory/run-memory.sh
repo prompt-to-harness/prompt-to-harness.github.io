@@ -24,7 +24,7 @@ APP="$RUN/repo"; HOMEDIR="$RUN/home"; MEM="$HOMEDIR/.codex/memories"
 LOG="$HOME/.cache/ch03-memory-logs/$(basename "$RUN")"
 mkdir -p "$LOG"
 trap 'mkdir -p "$RUN/logs" && cp -R "$LOG"/. "$RUN/logs/"' EXIT
-MODEL="${CLEAN_CODEX_MODEL:-MiniMax-M3.1-Flash-Preview}"
+MODEL="${CLEAN_CODEX_MODEL:-MiniMax-M3.1-Flash}"
 
 if [ "${RESUME:-0}" != 1 ]; then
   cp -R "${APP_SRC:-$REPO/starters/personal-homepage/ch02-candidate}" "$APP"

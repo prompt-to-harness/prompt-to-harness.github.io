@@ -9,7 +9,7 @@
 #
 # 环境变量：
 #   MINIMAX_API_KEY      MiniMax 的 API 密钥，需要事先 export；脚本不读取任何 Codex 配置文件
-#   CLEAN_CODEX_MODEL    模型名，默认 MiniMax-M3.1-Flash-Preview
+#   CLEAN_CODEX_MODEL    模型名，默认 MiniMax-M3.1-Flash
 #   CLEAN_CODEX_DELETE=1 退出后删除本次的 HOME（默认保留，位于 ~/.cache/clean-codex/）
 #   CLEAN_CODEX_HOME     固定用这个目录作 HOME（不存在就新建，不会删除），多次运行共享会话记录，
 #                        例如在另一个目录 codex exec resume；不设时每次运行都用一个新的 HOME
@@ -21,7 +21,7 @@
 set -euo pipefail
 
 BASE_URL="https://api.minimax.cn/v1"
-MODEL="${CLEAN_CODEX_MODEL:-MiniMax-M3.1-Flash-Preview}"
+MODEL="${CLEAN_CODEX_MODEL:-MiniMax-M3.1-Flash}"
 REAL_HOME="$HOME"
 
 use_tap=0

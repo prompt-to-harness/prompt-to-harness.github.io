@@ -10,7 +10,7 @@
 #
 # 环境变量：
 #   MINIMAX_API_KEY       MiniMax 的 API 密钥，需要事先 export；脚本不读取任何 Claude 配置文件
-#   CLEAN_CLAUDE_MODEL    模型名，默认 MiniMax-M3.1-Flash-Preview（主模型、子代理与后台小任务都用它）
+#   CLEAN_CLAUDE_MODEL    模型名，默认 MiniMax-M3.1-Flash（主模型、子代理与后台小任务都用它）
 #   CLEAN_CLAUDE_DELETE=1 退出后删除本次的 HOME（默认保留，位于 ~/.cache/clean-claude/）
 #   CLEAN_CLAUDE_HOME     固定用这个目录作 HOME（不存在就新建，不会删除），多次运行共享会话记录与 auto memory，
 #                         例如之后 claude --continue；不设时每次运行都用一个新的 HOME
@@ -21,7 +21,7 @@
 set -euo pipefail
 
 BASE_URL="https://api.minimax.cn/anthropic"
-MODEL="${CLEAN_CLAUDE_MODEL:-MiniMax-M3.1-Flash-Preview}"
+MODEL="${CLEAN_CLAUDE_MODEL:-MiniMax-M3.1-Flash}"
 REAL_HOME="$HOME"
 
 use_tap=0
