@@ -68,3 +68,12 @@ gh api --method PUT repos/<owner>/<repo>/pages -f build_type=workflow   # 改回
 - token 不放进环境变量，也不贴进对话；用 gh 自带的登录（钥匙串）。
 - 来回切换只在“期间不推送”时无害；忘了改回又推送，线上会被替换，改回后还要重跑部署。
 - 未测：首次开启 Pages（仓库还没有 Pages 时用 `POST .../pages -f build_type=workflow`）由 Codex 执行；学员仓库结构下的请求次数；网页设置页的实际显示（本次只用 API 复查）；Windows 与 Linux 上 gh 的凭据存储。
+
+## 补测：首次开启 Pages（2026-10-20）
+
+补上“结论与边界”里未测的第一项：仓库还没有 Pages 时，由 Codex 开启并设为 GitHub Actions。
+
+- 条件：讲师个人账号下的临时公开仓库（`main` 上已有部署 workflow 和 Vite `base`，已推送一次，Pages 尚未开启）；Codex CLI 0.163.0，MiniMax-M3.1-Flash-Preview，交互界面，默认权限；HOME 真实（gh 用钥匙串登录），`CODEX_HOME` 指向只含 MiniMax 配置的独立目录；经 claude-tap 记录请求。Prompt 用 2.4 p49 的原话。人的部分由讲师代答，每次只选 “Yes, proceed”。
+- 结果：10 次对话请求、14 次工具调用，7 次申请在沙箱外运行（读 Pages 设置、仓库信息、登录状态、workflow 列表、修改、创建、复查）。先用 `PUT` 返回 404（站点还不存在），Codex 自己改用 `POST … -f build_type=workflow` 创建成功，复查为 `workflow`。列出命令后没有停下等人。
+- 请求记录里，需要批准的调用参数带 `sandbox_permissions: "require_escalated"`、`justification`（批准框里的中文理由）和 `prefix_rule`；人点的同意本身不出现在请求里，只能从随后的工具返回看出命令执行了。用在 2.4 p49a。
+- 未测：推送后实际部署与三项发布检查；学员自己的仓库结构。临时仓库由讲师在实验后删除。

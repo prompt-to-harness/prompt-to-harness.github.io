@@ -288,24 +288,28 @@ window.lesson = {
       "segment": "推送与发布",
       "label": "Codex 怎样调用 gh",
       "title": "刚才 Codex 是怎样调用 gh 的？",
-      "lead": "打开同一份请求记录，找到设置 Pages 来源的那几次请求。模型发出的工具调用里是一条完整的 gh 命令；工具返回是 gh 的输出；下一次请求把这段返回带上，模型据此决定下一步。批准不在模型那边，发生在我们本地终端的批准框里：模型只提出调用，执行由 Codex 这层 Harness 负责，批不批由我们定。",
-      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-walk\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:40px\"><div class=\"p-fn\">设置 Pages 来源的几次请求（示意）</div><div class=\"p-ln\"><i>1</i><code>user · 设置 Pages 来源的请求原文</code></div><div class=\"p-ln add\"><i>2</i><code>模型 · 调用工具：gh api …</code></div><div class=\"p-ln add\" data-reveal=\"1\"><i>3</i><code>工具返回 · gh 的输出</code></div><div class=\"p-ln\" data-reveal=\"2\"><i>4</i><code>下一次请求 · 1–3 原样带上</code></div><div class=\"p-ln add\" data-reveal=\"2\"><i>5</i><code>模型 · 下一条 gh 命令，或回答</code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>完整命令</b><small>模型提出的调用，一字不差</small></span></li><li data-reveal=\"1\"><span><b>工具返回</b><small>gh 的输出原样带回</small></span></li><li data-reveal=\"2\"><span><b>下一次请求带上返回</b><small>模型据此决定下一步</small></span></li><li class=\"is-risk\" data-reveal=\"3\"><span><b>批准在本地终端</b><small>批准框由 Codex 弹出，人来批</small></span></li></ol></div><p class=\"source-note\">请求记录为结构示意，条目名为中文概括；实际的命令写法和调用次数以记录为准</p>",
+      "lead": "打开同一份请求记录，找到设置 Pages 来源的那几次请求。模型发出的工具调用里是一条完整的 gh 命令；需要批准的调用，还带着“要在沙箱外运行”的标记和一句理由，就是批准框里显示的那句。我们点了同意，记录里看不到这一下，只看到命令随后执行、返回了输出；下一次请求把这段返回带上，模型据此决定下一步。",
+      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-walk\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:40px\"><div class=\"p-fn\">记录里的一次 gh 调用</div><div class=\"p-ln\"><i>1</i><code>cmd: gh api repos/:owner/:repo/pages</code></div><div class=\"p-ln add\" data-reveal=\"1\"><i>2</i><code>sandbox_permissions: require_escalated</code></div><div class=\"p-ln add\" data-reveal=\"1\"><i>3</i><code>justification: 需要联网调用 GitHub API 读取…</code></div><div class=\"p-ln\" data-reveal=\"2\"><i>4</i><code>返回：{\"message\":\"Not Found\", … \"404\"}</code></div><div class=\"p-ln add\" data-reveal=\"2\"><i>5</i><code>下一次：用 POST 创建站点，再查一次</code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>完整命令</b><small>模型提出的调用，一字不差</small></span></li><li data-reveal=\"1\"><span><b>批准申请写在调用里</b><small>标记加理由，批准框照着显示</small></span></li><li data-reveal=\"2\"><span><b>下一次请求带上返回</b><small>模型据此决定下一步</small></span></li><li class=\"is-risk\" data-reveal=\"3\"><span><b>点同意的是我们</b><small>记录里只看到命令执行了；这次批了 7 次</small></span></li></ol></div><p class=\"source-note\">字段名照记录原样，值有删节。讲师在临时仓库上的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash-Preview，交互界面）；命令写法和调用次数随版本、模型和仓库状态变化</p>",
       "steps": [
         "完整命令",
-        "工具返回",
+        "批准申请",
         "下一次请求",
-        "批准在哪里"
+        "谁点的同意"
       ],
       "script": [
-        "【操作提示｜课件 p49a 第 1 步 → 切浏览器的 claude-tap 查看器，打开 p49 设置 Pages 来源那次会话的请求，指认第一条 gh 工具调用里的完整命令；画面是结构示意，按实际记录讲。截图前检查 gh 输出里的账号信息，令牌不出镜】\n\n刚才 Pages 的设置是 Codex 用 gh 改的。回到请求记录，找到那几次请求。模型这一侧发出的是一个工具调用，里面是一条完整的 gh 命令，一字不差，可以和刚才批准框里看到的那条对一对。",
-        "【操作提示｜在查看器里指认这次调用的工具返回；内容按实际记录讲，不念画面示意】\n\n命令执行完，工具返回里是 gh 的输出，原样带回。顺带一提，请求里不只有命令和返回，读过的文件内容也一样会发给模型。",
-        "【操作提示｜在查看器里打开下一次请求，指认上一条命令和返回出现在请求里】\n\n再看下一次请求：上一条命令和它的返回都被带上了。模型就是看着这段返回，决定下一步是再查一次、改设置，还是告诉我们做完了。这就是第 1 章拆开执行过程时看过的那个循环。",
-        "【操作提示｜推进课件第 4 步；批准在记录里是否留下痕迹、以什么形式出现，按实际记录讲，不预设】\n\n那批准在哪里？批准框是在我们本地终端里弹出来的，由 Codex 这层 Harness 拦下命令、等我们点头。模型只提出调用，执行由 Codex 负责，批不批由我们定。记录里能不能看到批准留下的痕迹，以讲师这份记录为准。"
+        "【操作提示｜课件 p49a 第 1 步 → 切浏览器的 claude-tap 查看器，打开 p49 设置 Pages 来源那次会话的请求，指认一条 gh 工具调用里的完整命令；按实际记录讲。截图前检查 gh 输出里的账号信息和域名，令牌不出镜】\n\n刚才 Pages 的设置是 Codex 用 gh 改的。回到请求记录，找到那几次请求。模型这一侧发出的是一个工具调用，里面是一条完整的 gh 命令，一字不差，可以和刚才批准框里看到的那条对一对。",
+        "【操作提示｜推进第 2 步，在查看器里指认这次调用参数里的 sandbox_permissions 和 justification 两个字段】\n\n再看这条调用的参数。除了命令，还多了两样：一个标记，说要在沙箱外运行；一句理由，“需要联网调用 GitHub API 读取当前的 Pages 设置，是否允许”。这就是批准框里显示的那句话。默认沙箱没有网络，所以连只读的查询，也要我们批准。",
+        "【操作提示｜推进第 3 步，在查看器里打开下一次请求，指认上一条命令和返回出现在请求里】\n\n命令执行完，返回的是 gh 的输出：这次是 404，站点还不存在。再看下一次请求：这条命令和它的返回都被带上了。模型就是看着这段返回，决定下一步：讲师这次，它先用 PUT 去改，又碰到 404，于是自己换成 POST，把站点创建出来，再查一次确认。这就是第 1 章拆开执行过程时看过的那个循环。",
+        "【操作提示｜推进课件第 4 步；按讲师这份记录讲，录制版本不同就按实际说】\n\n那我们点的同意在哪里？记录里找不到这一下。我们只能看到，批准之后命令真的执行了，返回了输出。讲师这次一共批了 7 次。还有一点：Prompt 里说了“执行修改前告诉我要运行的命令”，它列出命令以后并没有停下来等我们回话，真正让它停住的，是批准框。模型只提出调用，执行由 Codex 负责，批不批由我们定。"
       ],
       "teaching": [
         {
+          "title": "实测记录",
+          "text": "2026-10-20 在临时公开仓库（Pages 尚未开启）上用交互界面发 p49 的原话：10 次对话请求、14 次工具调用，其中 7 次申请在沙箱外运行，都由人批准。过程：先在沙箱里跑 gh api，连不上 api.github.com；改为申请在沙箱外运行，查到 Pages 还不存在（404）；又查了仓库信息、登录状态、workflow 列表和文件；列出要执行的命令后没有停下等人，直接申请执行 PUT；PUT 返回 404（站点还不存在，PUT 只能更新），它自己改用 POST 创建并设为 workflow；最后复查 build_type 为 workflow，并说明工作区没有改动。需要批准的调用，参数里带 sandbox_permissions: require_escalated、justification（批准框里那句中文理由）和 prefix_rule；批准这一下本身不出现在请求里。"
+        },
+        {
           "title": "讲师提示",
-          "text": "画面是结构示意。录制时在 claude-tap 里打开 p49 那次会话的请求，按实际记录逐条指认命令和返回；命令写法、调用次数以记录为准。批准在记录里是否留下痕迹、以什么形式出现，录制时按实际记录讲，不预设。截图前检查 gh 输出里的账号信息、路径和用户名，令牌不能出镜。"
+          "text": "录制时在 claude-tap 里打开 p49 那次会话的请求，按实际记录逐条指认；命令写法、调用次数和 PUT/POST 的先后以录制为准。复查返回里的 html_url 会露出账号或自定义域名，截图前检查；gh auth status 的输出含账号名，令牌不能出镜。“执行修改前告诉我”没有让它停下，真正停住它的是批准框：这一句可以回扣 1.3。"
         }
       ],
       "source": "index.html#p49a",

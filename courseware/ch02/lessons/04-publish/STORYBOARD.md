@@ -67,3 +67,7 @@ Done when：本地 npm run build 成功；我能逐项解释工作流做了什�
 2. 新增前置：course-starter 环境检查单加 GitHub CLI 一行，学员本人运行 `gh auth login --scopes workflow`（gh 默认登录不含 `workflow`，Git 若用 gh 的登录推送 `.github/workflows/` 会被拒绝，2026-10-07 实测）。没装 gh 的学员在网页设置，p49 口播与请求原文都给了这条路。
 3. 默认沙箱没有网络，交互界面会逐条请求在沙箱外运行 gh（2026-10-07 实测：临时仓库上 13 次请求，修改命令先用错 `POST`、自己改成 `PUT`；“先告诉我再执行”没有停下等人，停住它的是批准框）。批准框可以作为本节的人机边界来讲；请求次数要在录制仓库复测。
 4. 凭据边界：token 不放环境变量、不贴进对话（预检中 Codex 检查环境变量的命令会把 token 原文打印出来）。
+
+## 2026-10-20 p49a 实测
+
+用 2.4 p49 的原话在临时公开仓库上跑了一次（交互界面，真实 HOME + 独立 `CODEX_HOME`，经 claude-tap）：7 次批准，`PUT` 404 后自己改用 `POST` 开启 Pages；需要批准的调用在记录里带 `require_escalated` 标记和 `justification` 理由，人点的同意不在记录里。p49a 已按这份记录改写，细节见 [`materials/pages-source/`](../../materials/pages-source/README.md)。隔离 HOME 下 gh 读不到钥匙串登录，所以这一节不能用 `tools/clean-codex.sh` 的隔离 HOME 录。

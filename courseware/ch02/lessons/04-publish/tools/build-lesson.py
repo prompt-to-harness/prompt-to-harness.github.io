@@ -13,6 +13,8 @@ from lessonkit import Lesson, NARROW, chapter_map, ref, repro, teach  # noqa: E4
 lesson = Lesson(__file__, "2.4", "发布上线，看 Codex 怎么用 gh", summary="第一次推送前看清即将公开的整段历史；Pages 来源交给 Codex 用 gh 设置，再在请求记录里看清这次调用；发布后用公开 URL 证明页面可用。")
 
 RECORD = "请求记录为结构示意，条目名为中文概括；实际的命令写法和调用次数以记录为准"
+# 2026-10-20 实测：临时公开仓库 + 真实 HOME（gh 用钥匙串登录）+ 独立 CODEX_HOME（MiniMax），交互界面；p49a 用它
+RUN1020 = "讲师在临时仓库上的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash-Preview，交互界面）；命令写法和调用次数随版本、模型和仓库状态变化"
 scene = lesson.scene
 
 
@@ -200,25 +202,26 @@ scene(
 scene(
     id="p49a", segment="推送与发布",
     label="Codex 怎样调用 gh", title="刚才 Codex 是怎样调用 gh 的？",
-    lead="打开同一份请求记录，找到设置 Pages 来源的那几次请求。模型发出的工具调用里是一条完整的 gh 命令；工具返回是 gh 的输出；下一次请求把这段返回带上，模型据此决定下一步。批准不在模型那边，发生在我们本地终端的批准框里：模型只提出调用，执行由 Codex 这层 Harness 负责，批不批由我们定。",
+    lead="打开同一份请求记录，找到设置 Pages 来源的那几次请求。模型发出的工具调用里是一条完整的 gh 命令；需要批准的调用，还带着“要在沙箱外运行”的标记和一句理由，就是批准框里显示的那句。我们点了同意，记录里看不到这一下，只看到命令随后执行、返回了输出；下一次请求把这段返回带上，模型据此决定下一步。",
     html=(
         NARROW +
         '<div class="p-walk"><div data-reveal="0"><div class="p-src" style="--lh:40px">'
-        '<div class="p-fn">设置 Pages 来源的几次请求（示意）</div>'
-        '<div class="p-ln"><i>1</i><code>user · 设置 Pages 来源的请求原文</code></div>'
-        '<div class="p-ln add"><i>2</i><code>模型 · 调用工具：gh api …</code></div>'
-        '<div class="p-ln add" data-reveal="1"><i>3</i><code>工具返回 · gh 的输出</code></div>'
-        '<div class="p-ln" data-reveal="2"><i>4</i><code>下一次请求 · 1–3 原样带上</code></div>'
-        '<div class="p-ln add" data-reveal="2"><i>5</i><code>模型 · 下一条 gh 命令，或回答</code></div></div></div>'
+        '<div class="p-fn">记录里的一次 gh 调用</div>'
+        '<div class="p-ln"><i>1</i><code>cmd: gh api repos/:owner/:repo/pages</code></div>'
+        '<div class="p-ln add" data-reveal="1"><i>2</i><code>sandbox_permissions: require_escalated</code></div>'
+        '<div class="p-ln add" data-reveal="1"><i>3</i><code>justification: 需要联网调用 GitHub API 读取…</code></div>'
+        '<div class="p-ln" data-reveal="2"><i>4</i><code>返回：{"message":"Not Found", … "404"}</code></div>'
+        '<div class="p-ln add" data-reveal="2"><i>5</i><code>下一次：用 POST 创建站点，再查一次</code></div></div></div>'
         '<ol class="p-notes"><li data-reveal="0"><span><b>完整命令</b><small>模型提出的调用，一字不差</small></span></li>'
-        '<li data-reveal="1"><span><b>工具返回</b><small>gh 的输出原样带回</small></span></li>'
+        '<li data-reveal="1"><span><b>批准申请写在调用里</b><small>标记加理由，批准框照着显示</small></span></li>'
         '<li data-reveal="2"><span><b>下一次请求带上返回</b><small>模型据此决定下一步</small></span></li>'
-        '<li class="is-risk" data-reveal="3"><span><b>批准在本地终端</b><small>批准框由 Codex 弹出，人来批</small></span></li></ol></div>'
-        '<p class="source-note">' + RECORD + '</p>'
+        '<li class="is-risk" data-reveal="3"><span><b>点同意的是我们</b><small>记录里只看到命令执行了；这次批了 7 次</small></span></li></ol></div>'
+        '<p class="source-note">字段名照记录原样，值有删节。' + RUN1020 + '</p>'
     ),
-    steps=["完整命令", "工具返回", "下一次请求", "批准在哪里"],
+    steps=["完整命令", "批准申请", "下一次请求", "谁点的同意"],
     teaching=teach(
-        ("讲师提示", "画面是结构示意。录制时在 claude-tap 里打开 p49 那次会话的请求，按实际记录逐条指认命令和返回；命令写法、调用次数以记录为准。批准在记录里是否留下痕迹、以什么形式出现，录制时按实际记录讲，不预设。截图前检查 gh 输出里的账号信息、路径和用户名，令牌不能出镜。"),
+        ("实测记录", "2026-10-20 在临时公开仓库（Pages 尚未开启）上用交互界面发 p49 的原话：10 次对话请求、14 次工具调用，其中 7 次申请在沙箱外运行，都由人批准。过程：先在沙箱里跑 gh api，连不上 api.github.com；改为申请在沙箱外运行，查到 Pages 还不存在（404）；又查了仓库信息、登录状态、workflow 列表和文件；列出要执行的命令后没有停下等人，直接申请执行 PUT；PUT 返回 404（站点还不存在，PUT 只能更新），它自己改用 POST 创建并设为 workflow；最后复查 build_type 为 workflow，并说明工作区没有改动。需要批准的调用，参数里带 sandbox_permissions: require_escalated、justification（批准框里那句中文理由）和 prefix_rule；批准这一下本身不出现在请求里。"),
+        ("讲师提示", "录制时在 claude-tap 里打开 p49 那次会话的请求，按实际记录逐条指认；命令写法、调用次数和 PUT/POST 的先后以录制为准。复查返回里的 html_url 会露出账号或自定义域名，截图前检查；gh auth status 的输出含账号名，令牌不能出镜。“执行修改前告诉我”没有让它停下，真正停住它的是批准框：这一句可以回扣 1.3。"),
     ),
 )
 
