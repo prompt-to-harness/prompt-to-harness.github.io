@@ -68,6 +68,14 @@ window.lesson = {
         ],
         "note": "讲师 2026-10-05 实测：模型答出 index.html 和它的第一行；目录 B 里没有这个文件，服务器关掉后页面打不开。问到端口时，模型两次都说无法确认、只记得“你说过它开着”；其他运行也可能直接说还开着。会话、文件、进程三者各自存在。"
       },
+      "refs": [
+        {
+          "kind": "read",
+          "group": "OpenAI 文档",
+          "text": "Conversation state：每次请求独立、无状态，历史要再发一遍",
+          "url": "https://developers.openai.com/api/docs/guides/conversation-state"
+        }
+      ],
       "steps": [
         "三栏",
         "上一节开头那一幕",

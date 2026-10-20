@@ -488,7 +488,15 @@ window.lesson = {
       "label": "这些加在一起",
       "title": "这些加在一起，就是 context",
       "lead": "系统指令、工具定义、Skills 列表、环境信息、权限说明、我们的话，再加上工具调用和返回，模型这一次能看到的全部内容，就是 context。第 1 章说 context 里该放什么，这里第一次看到它的实际样子；后面四节都回到这份记录。",
-      "html": "<div class=\"p-box\" data-role=\"ctx\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">这一次请求</span><div class=\"p-chain\" style=\"margin-top:4px;font-size:20px\"><span>系统指令</span><i>·</i><span>工具定义</span><i>·</i><span>Skills 列表</span><i>·</i><span>环境信息</span><i>·</i><span>权限说明</span><i>·</i><span>工具调用和返回</span><i>·</i><span>我们的话</span></div></div><div class=\"p-bar\" data-reveal=\"1\" style=\"margin-top:10px\"><b>Context</b>：模型这一次能看到的全部内容</div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:10px\"><div class=\"p-box is-dashed\" data-role=\"ink\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ink\">官方说法</span><p class=\"p-sub\">〔官方解释原文〕</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"3\"><span class=\"p-tag\" data-role=\"ctx\">课程地图</span><p>第 1 章：Agent 循环 · 权限<br><b>第 2 章：Context</b> 点亮<span class=\"p-sub\">，后面几章还没走到</span></p></div></div>",
+      "html": "<div class=\"p-box\" data-role=\"ctx\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">这一次请求</span><div class=\"p-chain\" style=\"margin-top:4px;font-size:20px\"><span>系统指令</span><i>·</i><span>工具定义</span><i>·</i><span>Skills 列表</span><i>·</i><span>环境信息</span><i>·</i><span>权限说明</span><i>·</i><span>工具调用和返回</span><i>·</i><span>我们的话</span></div></div><div class=\"p-bar\" data-reveal=\"1\" style=\"margin-top:10px\"><b>Context</b>：模型这一次能看到的全部内容</div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:10px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ink\">Anthropic 的说法</span><p>Context 是从大模型采样时包含的那一组 token</p><p class=\"p-sub\">包括系统指令、工具、MCP、外部数据、消息历史等 · 2025-09</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"3\"><span class=\"p-tag\" data-role=\"ctx\">课程地图</span><p>第 1 章：Agent 循环 · 权限<br><b>第 2 章：Context</b> 点亮<span class=\"p-sub\">，后面几章还没走到</span></p></div></div>",
+      "refs": [
+        {
+          "kind": "read",
+          "group": "Anthropic，2025-09-29",
+          "text": "Effective context engineering for AI agents",
+          "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents"
+        }
+      ],
       "steps": [
         "整体框起",
         "叫它 context",
@@ -498,13 +506,13 @@ window.lesson = {
       "script": [
         "【操作提示｜停留课件 p16a 第 1 步，用手势框住整排内容；不切窗口】\n\n把这一节看到的放在一起：系统指令、工具定义、Skills 列表、环境信息、权限说明、工具调用和返回，最后才是我们的话。",
         "【操作提示｜推进第 2 步，指向结论条】\n\n这些加在一起，就是 context：模型这一次能看到的全部内容。第 1 章我们讲过 context 里该放什么，这是第一次看到它实际长什么样。",
-        "【操作提示｜推进第 3 步，指向官方说法；录制前替换成已核对的引文并读出来源】\n\n官方文档对 context 也有一段解释，我们对照着看一下。",
+        "【操作提示｜推进第 3 步，指向官方说法，读出来源；原文链接在阅读模式和讲解全文的参考链接里】\n\nAnthropic 有一篇讲 context 的文章，给的定义是：从大模型采样时包含的那一组 token。它还列了这一组里有什么：系统指令、工具、外部数据、消息历史。和我们刚才一块块拆出来的，基本对得上。",
         "【操作提示｜推进第 4 步，指向点亮的 Context；留在课件】\n\n在课程地图上，第 2 章点亮的就是 Context。后面四节，我们都会回到这份请求记录，看它怎么变长、怎么清空，又怎样影响 Codex 的改动。"
       ],
       "teaching": [
         {
           "title": "讲师提示",
-          "text": "“模型这一次能看到的全部内容”是我们自己的一句话定义。官方对 context 的解释尚未选定：定稿时选一份，引用不超过一两句，写明来源，录制前核对原文后替换虚线框；不自造引文。"
+          "text": "“模型这一次能看到的全部内容”是我们自己的一句话定义。官方说法取自 Anthropic 2025-09-29 的文章 Effective context engineering for AI agents，画面是中文意译：原句把 context 定义为从大模型采样时包含的那一组 token，并列出 context 状态里有系统指令、工具、MCP、外部数据、消息历史等。2026-10-20 核对原文。可以顺带说一句：这篇文章讲的“context engineering”就是第 1 章说的“context 里该放什么”，本课后面几章还会用到。"
         },
         {
           "title": "讲师提示",

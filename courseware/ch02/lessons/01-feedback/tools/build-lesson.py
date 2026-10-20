@@ -352,12 +352,13 @@ scene(
         '<div class="p-chain" style="margin-top:4px;font-size:20px"><span>系统指令</span><i>·</i><span>工具定义</span><i>·</i><span>Skills 列表</span><i>·</i><span>环境信息</span><i>·</i><span>权限说明</span><i>·</i><span>工具调用和返回</span><i>·</i><span>我们的话</span></div></div>'
         '<div class="p-bar" data-reveal="1" style="margin-top:10px"><b>Context</b>：模型这一次能看到的全部内容</div>'
         '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:10px">'
-        '<div class="p-box is-dashed" data-role="ink" data-reveal="2"><span class="p-tag" data-role="ink">官方说法</span><p class="p-sub">〔官方解释原文〕</p></div>'
+        '<div class="p-box" data-role="ink" data-reveal="2"><span class="p-tag" data-role="ink">Anthropic 的说法</span><p>Context 是从大模型采样时包含的那一组 token</p><p class="p-sub">包括系统指令、工具、MCP、外部数据、消息历史等 · 2025-09</p></div>'
         '<div class="p-box is-soft" data-role="ctx" data-reveal="3"><span class="p-tag" data-role="ctx">课程地图</span><p>第 1 章：Agent 循环 · 权限<br><b>第 2 章：Context</b> 点亮<span class="p-sub">，后面几章还没走到</span></p></div></div>'
     ),
+    refs=[ref("Effective context engineering for AI agents", "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents", "Anthropic，2025-09-29", kind="read")],
     steps=["整体框起", "叫它 context", "官方说法", "点亮地图"],
     teaching=teach(
-        ("讲师提示", "“模型这一次能看到的全部内容”是我们自己的一句话定义。官方对 context 的解释尚未选定：定稿时选一份，引用不超过一两句，写明来源，录制前核对原文后替换虚线框；不自造引文。"),
+        ("讲师提示", "“模型这一次能看到的全部内容”是我们自己的一句话定义。官方说法取自 Anthropic 2025-09-29 的文章 Effective context engineering for AI agents，画面是中文意译：原句把 context 定义为从大模型采样时包含的那一组 token，并列出 context 状态里有系统指令、工具、MCP、外部数据、消息历史等。2026-10-20 核对原文。可以顺带说一句：这篇文章讲的“context engineering”就是第 1 章说的“context 里该放什么”，本课后面几章还会用到。"),
         ("讲师提示", "最后一行是课程概念地图的保底版本，地图定稿后换成地图局部，只点亮 Context。"),
     ),
     expressive="把 p09 的请求带整体框起来，再接上课程概念地图，点亮 Context 这座城市",
