@@ -231,7 +231,7 @@ window.lesson = {
         },
         {
           "title": "实测记录",
-          "text": "2026-10-20 课程基线（能力目录开、推理档位 max，codex exec -s workspace-write）在 2.2 改好的首页上跑 p47 的 Prompt，仓库名填 my-homepage：只改了 vite.config.ts（加 base: '/my-homepage/'，并附中文注释）和新增 .github/workflows/deploy.yml。权限是 contents: read、pages: write、id-token: write，每项都写了理由；触发是推送 main 和手动触发；Node 版本读 .nvmrc；还自己加了一步“核对资源前缀与 Pages 路径一致”的检查。它用网页搜索工具打开各个 action 的 GitHub releases/latest，确认用 checkout v7、setup-node v7、configure-pages v6、upload-pages-artifact v5、deploy-pages v5（讲师同日用 gh 核对，与最新版本一致）。本地 npm run build 通过，产物资源以 /my-homepage/assets/ 开头。那次运行里依赖目录因讲师准备失误不完整，Codex 为补齐依赖读过工作区外的目录（另一个项目的 node_modules 和 ~/.npm 缓存）：可写权限限制的是写入位置，读取几乎不受限。"
+          "text": "2026-10-20 课程基线（能力目录开、推理档位 max，codex exec -s workspace-write）在 2.2 改好的首页上跑 p47 的 Prompt，仓库名填 my-homepage：只改了 vite.config.ts（加 base: '/my-homepage/'，并附中文注释）和新增 .github/workflows/deploy.yml。权限是 contents: read、pages: write、id-token: write，每项都写了理由；触发是推送 main 和手动触发；Node 版本读 .nvmrc；还自己加了一步“核对资源前缀与 Pages 路径一致”的检查。它调用了 14 次网页搜索工具（其中 5 次打开各个 action 的 GitHub releases/latest，其余查了官方 starter 工作流和 configure-pages 的说明），确认用 checkout v7、setup-node v7、configure-pages v6、upload-pages-artifact v5、deploy-pages v5（讲师同日用 gh 核对，与最新版本一致）。本地 npm run build 通过，产物资源以 /my-homepage/assets/ 开头。那次运行里依赖目录因讲师准备失误不完整，Codex 为补齐依赖读过工作区外的目录（另一个项目的 node_modules 和 ~/.npm 缓存）：可写权限限制的是写入位置，读取几乎不受限。"
         },
         {
           "title": "跟做产出",
