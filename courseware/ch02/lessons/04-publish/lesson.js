@@ -211,7 +211,7 @@ window.lesson = {
       "label": "工作流能直接用吗",
       "title": "Codex 写的配置，逐项审查再推送",
       "lead": "四项逐一核对：base 是否等于自己的仓库名；资源路径会不会因此对上；工作流权限是不是只要了发布所需的；触发分支是不是自己的默认分支。有一项不对就不推送，让 Codex 改。",
-      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-walk\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:34px\"><div class=\"p-fn\">vite.config.ts · .github/workflows/deploy.yml（示意）</div><div class=\"p-ln\"><i>1</i><code>base: <span class=\"s\">'/&lt;仓库名&gt;/'</span>,</code></div><div class=\"p-ln\"><i>2</i><code>on:</code></div><div class=\"p-ln\"><i>3</i><code>  push:</code></div><div class=\"p-ln\"><i>4</i><code>    branches: [main]</code></div><div class=\"p-ln\"><i>5</i><code>permissions:</code></div><div class=\"p-ln\"><i>6</i><code>  contents: read</code></div><div class=\"p-ln\"><i>7</i><code>  pages: write</code></div><div class=\"p-ln\"><i>8</i><code>  id-token: write</code></div><div class=\"p-ln\"><i>9</i><code><span class=\"c\"># … npm ci → npm run build → 上传 dist</span></code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>base = 自己的仓库名</b><small>前后都有斜杠</small></span></li><li data-reveal=\"1\"><span><b>资源路径</b><small>build 后，资源路径以 /&lt;仓库名&gt;/ 开头</small></span></li><li data-reveal=\"2\"><span><b>权限只要发布所需</b><small>读代码、写 Pages、取部署身份</small></span></li><li class=\"is-risk\" data-reveal=\"3\"><span><b>触发分支</b><small>等于自己的默认分支</small></span></li></ol></div><p class=\"source-note\">左侧为常见结构的示意，不是 Codex 的实际输出；字段与写法以你的 Codex 实际生成的文件为准</p>",
+      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-walk\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:34px\"><div class=\"p-fn\">vite.config.ts · .github/workflows/deploy.yml（摘录）</div><div class=\"p-ln\"><i>1</i><code>base: <span class=\"s\">'/my-homepage/'</span>,</code></div><div class=\"p-ln\"><i>2</i><code>on:</code></div><div class=\"p-ln\"><i>3</i><code>  push:</code></div><div class=\"p-ln\"><i>4</i><code>    branches: [main]</code></div><div class=\"p-ln\"><i>5</i><code>permissions:</code></div><div class=\"p-ln\"><i>6</i><code>  contents: read</code></div><div class=\"p-ln\"><i>7</i><code>  pages: write</code></div><div class=\"p-ln\"><i>8</i><code>  id-token: write</code></div><div class=\"p-ln\"><i>9</i><code><span class=\"c\"># … npm ci → build → 核对前缀 → 上传 dist</span></code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>base = 自己的仓库名</b><small>前后都有斜杠</small></span></li><li data-reveal=\"1\"><span><b>资源路径</b><small>build 后，资源路径以 /&lt;仓库名&gt;/ 开头</small></span></li><li data-reveal=\"2\"><span><b>权限只要发布所需</b><small>读代码、写 Pages、取部署身份</small></span></li><li class=\"is-risk\" data-reveal=\"3\"><span><b>触发分支</b><small>等于自己的默认分支</small></span></li></ol></div><p class=\"source-note\">左侧摘自 Codex 按 p47 的 Prompt 实际生成的文件（仓库名用示例 my-homepage）；2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开。你的文件写法会不同，按实际审</p>",
       "steps": [
         "base",
         "资源路径",
@@ -219,15 +219,19 @@ window.lesson = {
         "触发分支"
       ],
       "script": [
-        "【操作提示｜课件 p48 第 1 步 → 切 VS Code 打开 Codex 实际改动的 vite.config.ts，指认 base 的值；左侧代码是常见结构示意，不是实际输出，按实际文件讲】\n\nCodex 生成了两处改动。第一项看 vite.config.ts 里的 base。页面发布后的地址是“用户名点 github 点 io 斜杠仓库名”，所以 base 必须是斜杠、自己的仓库名、斜杠。抄错一个字母，页面就会白屏。",
+        "【操作提示｜课件 p48 第 1 步 → 切 VS Code 打开 Codex 实际改动的 vite.config.ts，指认 base 的值；左侧是一次实际生成的摘录，按当次文件讲】\n\nCodex 生成了两处改动。第一项看 vite.config.ts 里的 base。页面发布后的地址是“用户名点 github 点 io 斜杠仓库名”，所以 base 必须是斜杠、自己的仓库名、斜杠。抄错一个字母，页面就会白屏。",
         "【操作提示｜推进第 2 步 → Terminal 在练习项目根目录运行 npm run build，VS Code 打开 dist/index.html，指认 CSS、JS 引用是否以 /<仓库名>/ 开头；build 失败时展示第一条有用报错，让 Codex 在原范围内修，修完重跑】\n\n第二项，资源路径。本地运行 npm run build，打开 dist/index.html，看引用的 CSS 和 JS 路径是不是以斜杠仓库名开头。这是检查 base 有没有生效的直接证据。",
-        "【操作提示｜推进第 3 步 → VS Code 打开 .github/workflows/ 下实际生成的工作流文件（文件名以实际为准），指认 permissions 段，对照 Codex 回复里的权限说明；多出写权限就地追问。Node 版本与 .nvmrc 不一致也在这里指出】\n\n第三项，工作流权限。常见的是三项：读取仓库内容；写入 Pages；获取部署用的身份令牌。每一项都应该能说出用途，这就是我们让 Codex 解释权限的原因。多出来的写权限，比如能改仓库内容，要问清楚为什么。",
+        "【操作提示｜推进第 3 步 → VS Code 打开 .github/workflows/ 下实际生成的工作流文件（文件名以实际为准），指认 permissions 段，对照 Codex 回复里的权限说明；多出写权限就地追问。Node 版本与 .nvmrc 不一致也在这里指出】\n\n第三项，工作流权限。常见的是三项：读取仓库内容；写入 Pages；获取部署用的身份令牌。每一项都应该能说出用途，这就是我们让 Codex 解释权限的原因。多出来的写权限，比如能改仓库内容，要问清楚为什么。讲师这次，Codex 在文件里给每项权限都写了一句理由，正好对照着读。",
         "【操作提示｜推进第 4 步，同一文件定位 on → push → branches，与 Terminal 的 git branch --show-current 核对；有一项不对就回 Codex 改，改完重审。随后回课件 p49】\n\n第四项，触发分支：推送到哪个分支时运行。要和仓库的默认分支一致，course-starter 默认是 main。四项有一项不对，就不推送，让 Codex 改，改完再审一遍。工作流和配置也是即将公开的内容，下一页提交以后，还要再看一遍待推送的提交。"
       ],
       "teaching": [
         {
           "title": "讲师提示",
-          "text": "左侧示意采用 GitHub 官方 Pages 工作流的常见权限组合，录制时换成 Codex 实际生成的文件并逐行讲。Node 版本若与 .nvmrc 不一致，也在这里指出。不准备错误的 base 分支（决定 7）。"
+          "text": "左侧是 2026-10-20 一次实际生成的摘录，录制时换成当次生成的文件逐行讲。Node 版本若与 .nvmrc 不一致，也在这里指出。不准备错误的 base 分支（决定 7）。"
+        },
+        {
+          "title": "实测记录",
+          "text": "2026-10-20 课程基线（能力目录开、推理档位 max，codex exec -s workspace-write）在 2.2 改好的首页上跑 p47 的 Prompt，仓库名填 my-homepage：只改了 vite.config.ts（加 base: '/my-homepage/'，并附中文注释）和新增 .github/workflows/deploy.yml。权限是 contents: read、pages: write、id-token: write，每项都写了理由；触发是推送 main 和手动触发；Node 版本读 .nvmrc；还自己加了一步“核对资源前缀与 Pages 路径一致”的检查。它用网页搜索工具打开各个 action 的 GitHub releases/latest，确认用 checkout v7、setup-node v7、configure-pages v6、upload-pages-artifact v5、deploy-pages v5（讲师同日用 gh 核对，与最新版本一致）。本地 npm run build 通过，产物资源以 /my-homepage/assets/ 开头。那次运行里依赖目录因讲师准备失误不完整，Codex 为补齐依赖读过工作区外的目录（另一个项目的 node_modules 和 ~/.npm 缓存）：可写权限限制的是写入位置，读取几乎不受限。"
         },
         {
           "title": "跟做产出",

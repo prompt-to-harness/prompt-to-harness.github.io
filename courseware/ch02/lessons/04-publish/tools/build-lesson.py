@@ -150,8 +150,8 @@ scene(
     html=(
         NARROW +
         '<div class="p-walk"><div data-reveal="0"><div class="p-src" style="--lh:34px">'
-        '<div class="p-fn">vite.config.ts · .github/workflows/deploy.yml（示意）</div>'
-        '<div class="p-ln"><i>1</i><code>base: <span class="s">\'/&lt;仓库名&gt;/\'</span>,</code></div>'
+        '<div class="p-fn">vite.config.ts · .github/workflows/deploy.yml（摘录）</div>'
+        '<div class="p-ln"><i>1</i><code>base: <span class="s">\'/my-homepage/\'</span>,</code></div>'
         '<div class="p-ln"><i>2</i><code>on:</code></div>'
         '<div class="p-ln"><i>3</i><code>  push:</code></div>'
         '<div class="p-ln"><i>4</i><code>    branches: [main]</code></div>'
@@ -159,16 +159,17 @@ scene(
         '<div class="p-ln"><i>6</i><code>  contents: read</code></div>'
         '<div class="p-ln"><i>7</i><code>  pages: write</code></div>'
         '<div class="p-ln"><i>8</i><code>  id-token: write</code></div>'
-        '<div class="p-ln"><i>9</i><code><span class="c"># … npm ci → npm run build → 上传 dist</span></code></div></div></div>'
+        '<div class="p-ln"><i>9</i><code><span class="c"># … npm ci → build → 核对前缀 → 上传 dist</span></code></div></div></div>'
         '<ol class="p-notes"><li data-reveal="0"><span><b>base = 自己的仓库名</b><small>前后都有斜杠</small></span></li>'
         '<li data-reveal="1"><span><b>资源路径</b><small>build 后，资源路径以 /&lt;仓库名&gt;/ 开头</small></span></li>'
         '<li data-reveal="2"><span><b>权限只要发布所需</b><small>读代码、写 Pages、取部署身份</small></span></li>'
         '<li class="is-risk" data-reveal="3"><span><b>触发分支</b><small>等于自己的默认分支</small></span></li></ol></div>'
-        '<p class="source-note">左侧为常见结构的示意，不是 Codex 的实际输出；字段与写法以你的 Codex 实际生成的文件为准</p>'
+        '<p class="source-note">左侧摘自 Codex 按 p47 的 Prompt 实际生成的文件（仓库名用示例 my-homepage）；2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开。你的文件写法会不同，按实际审</p>'
     ),
     steps=["base", "资源路径", "权限", "触发分支"],
     teaching=teach(
-        ("讲师提示", "左侧示意采用 GitHub 官方 Pages 工作流的常见权限组合，录制时换成 Codex 实际生成的文件并逐行讲。Node 版本若与 .nvmrc 不一致，也在这里指出。不准备错误的 base 分支（决定 7）。"),
+        ("讲师提示", "左侧是 2026-10-20 一次实际生成的摘录，录制时换成当次生成的文件逐行讲。Node 版本若与 .nvmrc 不一致，也在这里指出。不准备错误的 base 分支（决定 7）。"),
+        ("实测记录", "2026-10-20 课程基线（能力目录开、推理档位 max，codex exec -s workspace-write）在 2.2 改好的首页上跑 p47 的 Prompt，仓库名填 my-homepage：只改了 vite.config.ts（加 base: '/my-homepage/'，并附中文注释）和新增 .github/workflows/deploy.yml。权限是 contents: read、pages: write、id-token: write，每项都写了理由；触发是推送 main 和手动触发；Node 版本读 .nvmrc；还自己加了一步“核对资源前缀与 Pages 路径一致”的检查。它用网页搜索工具打开各个 action 的 GitHub releases/latest，确认用 checkout v7、setup-node v7、configure-pages v6、upload-pages-artifact v5、deploy-pages v5（讲师同日用 gh 核对，与最新版本一致）。本地 npm run build 通过，产物资源以 /my-homepage/assets/ 开头。那次运行里依赖目录因讲师准备失误不完整，Codex 为补齐依赖读过工作区外的目录（另一个项目的 node_modules 和 ~/.npm 缓存）：可写权限限制的是写入位置，读取几乎不受限。"),
         ("跟做产出", "工作流与 Vite 配置的审查结论：四项是否都对，不对的让 Codex 改完再审。"),
     ),
 )

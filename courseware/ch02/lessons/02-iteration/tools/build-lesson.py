@@ -63,7 +63,7 @@ scene(
         '<div class="p-box" data-role="tool" data-reveal="0"><span class="p-tag" data-role="tool">文件与进程</span><p class="p-big">在电脑上，与会话无关</p></div></div>'
         '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:14px">'
         '<div class="p-box is-soft" data-role="tool" data-reveal="1"><h3>上一节开头</h3><p>关掉终端 → 开发服务器停了 → 代码文件还在</p></div>'
-        '<div class="p-box is-soft" data-role="gate" data-reveal="2"><h3>换个目录恢复会话</h3><p>它仍答得出上轮读的是 index.html<br>可新目录里没有这个文件</p></div></div>'
+        '<div class="p-box is-soft" data-role="gate" data-reveal="2"><h3>换个目录恢复会话</h3><p>它答得出上轮读的是 index.html 和第一行<br>可新目录里没有这个文件，服务器也已关掉</p></div></div>'
         '<div class="p-bar" data-reveal="2">恢复对话，<b>不等于恢复文件或服务</b></div>'
     ),
     repro=repro([
@@ -73,11 +73,11 @@ scene(
         ("到第二个终端按 Ctrl-C 关掉服务器，相当于关掉终端或第二天重新开机", None),
         ("换到空目录 B，恢复刚才的会话再问；--all 取消“只找当前目录的会话”", "mkdir -p ../resume-b && cd ../resume-b && git init -q\nCLEAN_CODEX_HOME=~/.cache/clean-codex/resume ../../tools/clean-codex.sh -- exec resume --last --all \"不要运行命令，只凭记忆回答：刚才你读的是哪个文件？它的第一行是什么？8765 端口上的那个页面现在还能打开吗？\" < /dev/null"),
         ("核对：目录 B 里有没有这个文件，页面还能不能打开（000 表示打不开）", "ls -A; curl -s -o /dev/null -w \"%{http_code}\\n\" localhost:8765 || true"),
-    ], note="讲师 2026-10-05 实测：模型答出 index.html 和它的第一行；目录 B 里没有这个文件，服务器关掉后页面打不开。问到端口时，模型两次都说无法确认、只记得“你说过它开着”；其他运行也可能直接说还开着。会话、文件、进程三者各自存在。"),
+    ], note="讲师 2026-10-20 实测（2026-10-05 在旧版本上也测过，结果一致）：模型答出 index.html 和它的第一行；目录 B 里没有这个文件，服务器关掉后页面打不开。问到端口时，模型说无法确认、只是推测还开着；其他运行也可能直接说还开着。会话、文件、进程三者各自存在。"),
     refs=[ref("Conversation state：每次请求独立、无状态，历史要再发一遍", "https://developers.openai.com/api/docs/guides/conversation-state", "OpenAI 文档", kind="read")],
     steps=["三栏", "上一节开头那一幕", "恢复会话的实验"],
     teaching=teach(
-        ("核对记录", "Codex 0.160.0，MiniMax 自定义 provider：在另一目录 codex exec resume <会话 id>，模型仍答出 index.html；Harness 追加了新的权限说明和新的环境信息，cwd 已是新目录。--last 默认只在当前目录的会话中挑选，--all 取消过滤。见 2026-10-02 第 2 章提案“第二轮实测”。"),
+        ("核对记录", "2026-10-20 课程基线（能力目录开、推理档位 max，codex exec）按本页复现步骤实测：目录 A 读 index.html 并告诉它 8765 端口开着，关掉服务器后在空目录 B 用 exec resume --last --all 恢复。恢复后的请求 21 项，带着目录 A 那一轮的全部历史，末尾追加了新的环境信息（cwd 已是目录 B）和新问题。模型答出 index.html 和第一行 <h1>hello</h1>；问到端口，它说不能确认、只是推测还开着；实际上服务器已关（curl 返回 000），目录 B 里也没有这个文件。--last 默认只在当前目录的会话中挑选，--all 取消过滤。2026-10-05 在 0.160.0 上的结果一致。"),
         ("讲师提示", "这一页只建立三栏。会话里“存了什么、怎么发”下一页用请求对比展示。"),
     ),
 )
