@@ -12,7 +12,6 @@ from lessonkit import Lesson, NARROW, chapter_map, ref, repro, teach  # noqa: E4
 
 lesson = Lesson(__file__, "2.4", "发布上线，看 Codex 怎么用 gh", summary="第一次推送前看清即将公开的整段历史；Pages 来源交给 Codex 用 gh 设置，再在请求记录里看清这次调用；发布后用公开 URL 证明页面可用。")
 
-RECORD = "请求记录为结构示意，条目名为中文概括；实际的命令写法和调用次数以记录为准"
 # 2026-10-20 实测：临时公开仓库 + 真实 HOME（gh 用钥匙串登录）+ 独立 CODEX_HOME（MiniMax），交互界面；p49a 用它
 RUN1020 = "讲师在组织下临时仓库上的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max，交互界面）；命令写法和调用次数随版本、模型和仓库状态变化"
 scene = lesson.scene
@@ -104,7 +103,7 @@ scene(
     lead="逐项对照判断清单，由人决定。以提交作者邮箱为例：它是不是你愿意公开的邮箱？不愿意，就先停下，不推送。改用 GitHub 的 noreply 邮箱只影响之后的提交，已有提交里的邮箱要改写历史才能换掉，做法见本页链接。讲师演示里的项目经历借自两位讲师，本人同意公开；写到别人的事，要先问过对方。",
     html=(
         NARROW +
-        '<div class="p-claim" style="grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)">'
+        '<div class="p-claim" style="grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr)">'
         '<div class="p-box" data-role="gate" data-reveal="0"><span class="p-tag" data-role="gate">每个提交里都有</span>'
         '<p class="p-mono" style="margin-top:8px;line-height:1.6">Author: 示例同学<br>&lt;<b>你的邮箱</b>&gt;</p><p class="p-sub">不想公开：先停；换 noreply 只管以后的提交</p></div>'
         '<ul class="p-checks" style="gap:6px"><li class="is-no" data-reveal="1">有没有 secret<small>API 密钥、令牌、配置文件</small></li>'
@@ -225,7 +224,7 @@ scene(
         ("实测记录", "2026-10-20 在组织下的临时公开仓库（Pages 尚未开启）上用交互界面发 p49 的原话，能力目录开、推理档位 max：15 次对话请求、16 次工具调用，其中 9 次申请在沙箱外运行，都由人批准。能力目录开时是 code mode：每次调用是 exec 工具里的一小段 JavaScript，调 tools.exec_command，申请批准的标记 sandbox_permissions: require_escalated、justification（这次是英文）、prefix_rule 写在这段代码的参数里。过程：沙箱里 gh auth status 误报登录无效、gh api 连不上网；检查环境变量时自己用 sed 把值遮住；申请在沙箱外运行后确认仓库权限，查到 Pages 还不存在（404）；看了 workflow 文件；列出要执行的命令后没有停下等人；第一次 POST 把参数写成 gh 不支持的 -d，看到报错后改成 -f，创建成功；复查 build_type 为 workflow；还主动查了推送时那次失败的部署和日志。批准这一下本身不出现在请求里。同日能力目录关的两次运行：个人仓库 7 次批准（先 PUT 404 再 POST），组织仓库 6 次批准（直接 POST）。"),
 
 
-        ("讲师提示", "录制时在 claude-tap 里打开 p49 那次会话的请求，按实际记录逐条指认；命令写法、调用次数和 PUT/POST 的先后以录制为准。复查返回里的 html_url 会露出账号或域名，截图前检查；gh auth status 和 gh api user 的输出含账号名，令牌不能出镜。实测中它为确认登录申请过一条含 gh auth token 的命令（自己接了 sed 只露前 4 个字符和长度，没有泄露）：读到令牌的命令哪怕看起来做了遮盖，也值得在批准框前停一下，这是本页“批不批由我们定”最好的例子；录制时出现就就地讲，不出现不提。“执行修改前告诉我”没有让它停下，真正停住它的是批准框：这一句可以回扣 1.3。"),
+        ("讲师提示", "录制时在 claude-tap 里打开 p49 那次会话的请求，按实际记录逐条指认；命令写法、调用次数和 PUT/POST 的先后以录制为准。复查返回里的 html_url 会露出账号或域名，截图前检查；gh auth status 和 gh api user 的输出含账号名，令牌不能出镜。同日一次能力目录关的运行里，它为确认登录申请过一条含 gh auth token 的命令（自己接了 sed 只露前 4 个字符和长度，没有泄露）：读到令牌的命令哪怕看起来做了遮盖，也值得在批准框前停一下，这是本页“批不批由我们定”最好的例子；录制时出现就就地讲，不出现不提。“执行修改前告诉我”没有让它停下，真正停住它的是批准框：这一句可以回扣 1.3。"),
     ),
 )
 

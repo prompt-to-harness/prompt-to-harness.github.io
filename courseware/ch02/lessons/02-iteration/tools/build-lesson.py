@@ -82,11 +82,11 @@ scene(
     ),
 )
 
-# ---------- 选在哪个会话里改 ----------
+# ---------- 选哪个会话 ----------
 scene(
-    id="p27a", segment="选在哪个会话里改",
+    id="p27a", segment="选哪个会话",
     label="/clear 之后还剩什么", title="执行 /clear 之后，还剩什么",
-    lead="本轮修改从一个清空的对话开始：讲师在上一节的会话里执行 /clear，再发一句话；为什么这样选、你该怎么选，下一页讲。Codex 对这条命令的说明是“清屏并开始新对话”；另一条 /new 是“开始新对话”，不清屏。讲师实测：/clear 之后再发第一句那句话，请求只有 6 项：前 5 项和这个会话最开始那次请求逐字相同，最后一项是刚发的这句话；前面两步的问答、工具调用和返回都没了。开发服务器和改过的文件不受影响：/clear 清的是对话，不是文件。",
+    lead="本轮修改从一个清空的对话开始：讲师在上一节的会话里执行 /clear，再发一句话；为什么这样选、你该怎么选，下一页讲。Codex 对这条命令的说明是“清屏并开始新对话”；另一条 /new 是“开始新对话”，不清屏。讲师实测：/clear 之后再发第一句那句话，请求只有 6 项：前 5 项和这个会话最开始那次请求逐字相同，最后一项是刚发的这句话；前面两步的问答、工具调用和返回都没了。开发服务器和项目文件不受影响：/clear 清的是对话，不是文件。",
     html=(
         NARROW +
         '<div class="p-walk"><div data-reveal="0"><div class="p-term">› /clear<br><span style="color:#8A93A0">（屏幕清空，开始新对话）</span><br>› 再发一句话</div></div>'
@@ -97,7 +97,7 @@ scene(
         '<div class="p-ln add"><i>6</i><code>user · 刚发的这一句</code></div>'
         '</div></div></div>'
         '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:14px">'
-        '<div class="p-box is-soft" data-role="ctx" data-reveal="1"><h3>对话</h3><p>前面的问答、工具调用和返回，共 21 项，不再随请求发出</p></div>'
+        '<div class="p-box is-soft" data-role="ctx" data-reveal="1"><h3>对话</h3><p>前面的提问、工具调用和返回，共 22 项，不再随请求发出</p></div>'
         '<div class="p-box is-soft" data-role="tool" data-reveal="2"><h3>文件与开发服务器</h3><p>都还在，页面照常打开</p></div></div>'
         '<p class="source-note">命令说明见 openai/codex main 的 codex-rs/tui/src/slash_command.rs（2026-10-19 核对）。' + RUN1020 + '</p>'
     ),
@@ -109,7 +109,7 @@ scene(
 )
 
 scene(
-    id="p28", segment="选在哪个会话里改",
+    id="p28", segment="选哪个会话",
     label="这次该怎么选", title="四种做法，这一次选哪个",
     lead="继续、/clear、压缩后继续、新建并交接，各有适用的情况。讲师刚才选了 /clear：上一节的会话里只有看请求的两步问答，Codex 读过几个项目文件、没有改过文件，和本轮修改无关，所以 /clear 或新建都合理。你的会话不一定一样：先在 Codex 界面里往回翻，看这个会话已经读过哪些文件、做过哪些事，再据此选。不需要看 token 或请求项数。",
     html=(
@@ -175,7 +175,7 @@ scene(
 scene(
     id="p22", segment="回看这一轮的请求",
     label="第二句话带上了什么", title="第二句话发出去，带上了第一句的全部内容",
-    lead="同一个会话里先后发两句话，把这两次请求放在一起比：第二次请求的开头，和第一次一模一样；第一句话和 Codex 的回答也原样带上，最后才是第二句话。模型“接得上话”，是因为 Harness 每次都把历史重新发给它。",
+    lead="/clear 之后，同一个会话里先后发了两句话：那句问候和本轮 Prompt。把这两次请求放在一起比：第二次请求的开头，和第一次一模一样；第一句话和 Codex 的回答也原样带上，最后才是第二句话。模型“接得上话”，是因为 Harness 每次都把历史重新发给它。",
     html=(
         NARROW +
         '<div class="p-walk"><div data-reveal="0"><div class="p-src" style="--lh:40px">'
@@ -228,7 +228,7 @@ scene(
         '<div class="p-box" data-role="ink" data-reveal="0"><span class="p-tag" data-role="ink">这一轮的几次弯路</span>'
         '<div class="p-term" style="margin-top:10px"><div style="color:#8A93A0">npm run preview --port 4173</div><div class="err">退出码 1</div><div style="color:#8A93A0">截图脚本</div><div class="err">SyntaxError</div><div style="color:#8A93A0">ls /tmp/shot-360.png</div><div class="err">No such file</div></div></div>'
         '<div class="p-join" data-reveal="1"><span>之后每次请求</span><i class="p-arrow"></i></div>'
-        '<div class="p-box" data-role="ink" data-reveal="1"><span class="p-tag" data-role="ink">最后一次请求</span><p class="p-big" style="margin-top:10px">135 项 · 约 5.9 万 token</p><p class="p-sub">前面 39 次调用的返回都在里面，失败的也在</p></div></div>'
+        '<div class="p-box" data-role="ink" data-reveal="1"><span class="p-tag" data-role="ink">最后一次请求</span><p class="p-big" style="margin-top:10px">135 项 · 约 5.9 万 token</p><p class="p-sub">前面 39 次调用（含出计划前的 6 次）的返回都在里面，失败的也在</p></div></div>'
         '<div class="p-bar" data-reveal="2">返回有没有用，<b>之后每次请求都带着</b></div>'
         '<p class="source-note">' + RUN1020 + '。弯路的次数只是这一次运行的观察；返回会一直留在后面的请求里，是每次都一样的规则</p>'
     ),
@@ -348,7 +348,7 @@ scene(
         '<span class="p-pause" data-reveal="0">暂停 · 先独立作答</span><div class="p-qlist">'
         '<div class="p-qrow"><span class="p-n">1</span><div><h3>关掉终端再恢复会话，页面会自动回来吗？</h3>'
         '<div data-reveal="1"><p>不会。会话由 Harness 保存，开发服务器是另一个程序，要重新 npm run dev<span class="p-back-to" data-role="ctx">回到 三种状态</span></p></div></div></div>'
-        '<div class="p-qrow"><span class="p-n">2</span><div><h3>执行 /clear 之后，刚才改过的文件还在吗？</h3>'
+        '<div class="p-qrow"><span class="p-n">2</span><div><h3>改完项目经历再执行 /clear，改过的文件还在吗？</h3>'
         '<div data-reveal="2"><p>还在。/clear 清的是对话，文件和开发服务器不受影响<span class="p-back-to" data-role="tool">回到 /clear 之后还剩什么</span></p></div></div></div>'
         '<div class="p-qrow"><span class="p-n">3</span><div><h3>压缩以后，模型看不到哪些原始信息？</h3>'
         '<div data-reveal="3"><p>工具调用和返回的原文，比如读到的文件内容、命令输出；留下的是用户消息、一份摘要和初始内容<span class="p-back-to" data-role="gate">回到 压缩一下继续</span></p></div></div></div>'

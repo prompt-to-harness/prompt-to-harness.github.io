@@ -114,7 +114,7 @@ scene(
         '<div class="p-walk"><div data-reveal="0"><div class="p-src" style="--lh:31px">'
         '<div class="p-fn">2.2 本轮的工具调用（节选）</div>'
         '<div class="p-ln"><i>1</i><code>ls -la · git status · git log</code></div>'
-        '<div class="p-ln"><i>2</i><code>find src docs … · cat package.json PLACEHOLDER_CONTENT.md</code></div>'
+        '<div class="p-ln"><i>2</i><code>find … · cat package.json PLACEHOLDER_CONTENT.md</code></div>'
         '<div class="p-ln add"><i>3</i><code>cat src/App.tsx src/index.css</code></div>'
         '<div class="p-ln"><i>4</i><code>cat PROJECT_BRIEF.md PROMPT_V1.md CHECKPOINTS.md</code></div>'
         '<div class="p-ln"><i>5</i><code>cat README.md index.html .nvmrc</code></div>'
@@ -225,14 +225,14 @@ GIT_MAP_STYLE = (
     '@media(max-width:600px){body[data-mode=scroll] .x-git{grid-template-columns:minmax(0,1fr)}'
     'body[data-mode=scroll] .x-git>*{grid-column:auto!important;grid-row:auto!important}'
     'body[data-mode=scroll] .x-span{height:auto;margin:0;border:0}body[data-mode=scroll] .x-span>span{position:static;transform:none;white-space:normal}'
-    'body[data-mode=scroll] .x-edge .p-arrow{transform:rotate(90deg);margin:20px 0}body[data-mode=scroll] .x-back .p-arrow{transform:rotate(-90deg)}'
+    'body[data-mode=scroll] .x-edge .p-arrow{transform:rotate(90deg);margin:36px 0}body[data-mode=scroll] .x-back .p-arrow{transform:rotate(-90deg)}'
     'body[data-mode=scroll] .x-git .p-hang::after{display:none}}'
     '</style>'
 )
 
 scene(
     id="p41a", segment="回到检查点",
-    label="这些命令在哪两处之间", title="这一节的 Git 命令，各走哪一段",
+    label="Git 命令各走哪一段", title="这一节的 Git 命令，各走哪一段",
     lead="改动在 Git 里会经过四个位置：工作区是正在改的文件；暂存区放下次提交要带上的改动；本地提交是存在自己电脑上的检查点；远端是 GitHub 上的仓库。git add <路径> 把工作区的修改放进暂存区，git commit 把暂存区存成一次提交。git diff 比较工作区和暂存区，也就是还没 add 的修改；git diff --cached 比较暂存区和最近一次提交，也就是将要提交的内容；git status 一次列出这几处之间哪些文件不同，包括还没被跟踪的新文件。往回走：git restore <路径> 用暂存区里的版本盖掉工作区里还没 add 的修改；已经提交的，用 git revert <哈希> 再加一个撤回提交，原来的提交留在历史里，这一条看讲师演示即可。git push 把本地提交推到远端，下一节再做。本节自己动手的是六条：git status、git diff、git add <路径>、git diff --cached、git commit、git restore。",
     html=(
         GIT_MAP_STYLE +

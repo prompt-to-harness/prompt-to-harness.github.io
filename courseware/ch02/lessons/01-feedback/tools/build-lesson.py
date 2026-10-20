@@ -130,7 +130,8 @@ stack = (
     'display:flex;align-items:center;justify-content:center;font-size:19px;color:var(--ct);min-width:14px;overflow:hidden;white-space:nowrap}'
     '.x-key{display:flex;justify-content:flex-end;align-items:center;gap:18px;margin:8px 0 0;font-size:18px;color:var(--p-muted)}'
     '.x-key i{display:inline-block;width:9px;height:24px;margin-right:7px;vertical-align:-6px;border:2.5px solid var(--c);background:var(--cl);border-radius:4px 3px 4px 3px}'
-    '@media(max-width:600px){body[data-mode=scroll] .x-stack{height:96px}body[data-mode=scroll] .x-stack>div{white-space:normal;font-size:14px;line-height:1.25;text-align:center;padding:2px}}</style>'
+    '@media(max-width:600px){body[data-mode=scroll] .x-stack{height:96px}body[data-mode=scroll] .x-stack>div{white-space:normal;font-size:14px;line-height:1.25;text-align:center;padding:2px}'
+    'body[data-mode=scroll] .x-key{flex-wrap:wrap;justify-content:flex-start;gap:4px 14px;font-size:15px}body[data-mode=scroll] .x-key span{white-space:nowrap}}</style>'
 )
 scene(
     id="p09", segment="逐块拆开",
@@ -198,7 +199,7 @@ scene(
     steps=["工具长什么样", "谁在执行"],
     teaching=teach(
         ("数字来源", "2026-10-20 15:16 课程基线（能力目录开）：顶层 tools 共 5 个，22028 字符：exec 14276（type 为 custom，code mode）、collaboration 4874、request_user_input 1425、wait 1391、web_search 52。exec 描述里写了嵌套工具 exec_command、apply_patch、write_stdin、view_image、create_goal / get_goal / update_goal 和 MCP 资源工具的用法。画面代码只摘结构，description 用省略号，不是原文。"),
-        ("讲师提示", "调用了不存在的工具会怎样（read_file 一例），留到 2.2 p24，这里不展开。能力目录关时工具是 9 个普通函数工具，exec_command 直接是顶层工具，对比放在 p15b。"),
+        ("讲师提示", "失败的工具调用和返回会怎样，留到 2.2 p24（走过的弯路），这里不展开。能力目录关时工具是 9 个普通函数工具，exec_command 直接是顶层工具，对比放在 p15b。"),
     ),
 )
 
@@ -313,21 +314,21 @@ scene(
     teaching=teach(
         ("数字来源", "2026-10-20 15:16 课程基线（能力目录开）实测第一步那句话：权限说明 341 → 630 字符，环境信息 550 → 1306 字符（可写时 permission_profile 里多出可写路径）；input_tokens 7519 → 7899；系统指令、工具定义、Skills 列表、多代理说明两次完全相同。较早一次能力目录关的记录是 341 → 676、642 → 1628，不再使用。录制版本定下后复测。"),
         ("核对记录", "模板位于 codex-rs/prompts/templates/permissions/（sandbox_mode/*.md、approval_policy/*.md），2026-01 起由固定段落改为按配置拼装（提交 87f7226cca）。旧数据来自 codex exec，审批策略为 never；交互界面中的审批文字会不同。"),
-        ("命令说明", "已核对：Codex 0.160.0 的 -s/--sandbox 取值为 read-only、workspace-write、danger-full-access；claude-tap 0.1.145 的帮助写明未列出的参数会转发给所启动的客户端。复制按钮复制的是只读那一条，可写时把最后一个参数换掉。会话中途也能在 Codex 界面里改权限，但前面的对话仍在上下文里，对比不干净，所以用启动参数，两次各开新会话。"),
+        ("命令说明", "已核对：Codex 0.160.0 与 0.163.0 的 -s/--sandbox 取值为 read-only、workspace-write、danger-full-access；claude-tap 0.1.145 的帮助写明未列出的参数会转发给所启动的客户端；2026-10-20 用课程固定的 0.1.146 按这两条命令实测，-s 参数同样转给了 Codex。复制按钮复制的是只读那一条，可写时把最后一个参数换掉。会话中途也能在 Codex 界面里改权限，但前面的对话仍在上下文里，对比不干净，所以用启动参数，两次各开新会话。"),
     ),
 )
 
 scene(
     id="p15b", segment="换个配置",
     label="换个模型能力目录", title="同一句话，换一份模型能力目录，请求大变样",
-    lead="Codex 要为所用的模型找一份元数据，我们叫它模型能力目录：这个模型配哪套系统指令、哪种工具、什么推理档位。课程默认写入 MiniMax 官方 Codex 接入文档给的那份目录；去掉它再发同一句话，Codex 启动时提示找不到模型元数据，改用后备值，请求就大不一样。请求还会随你的个人配置（~/.codex、个人 Skills）、项目里的 AGENTS.md 和这次的权限变化，所以你在自己电脑上看到的会和讲师的不同。这是讲师的对比示例，可自主尝试。",
+    lead="Codex 要为所用的模型找一份元数据，我们叫它模型能力目录：这个模型配哪套系统指令、哪种工具、什么推理档位。课程默认写入 MiniMax 官方 Codex 接入文档给的那份目录；去掉它再发同一句话，Codex 启动时提示找不到模型元数据，改用后备值，请求就大不一样。请求还会随个人配置（~/.codex、个人 Skills）、项目里的 AGENTS.md 和这次的权限变化，所以每个人在自己电脑上看到的都会和讲师的不同。这是讲师的对比示例，可自主尝试。",
     html=(
         '<div class="p-pair" style="grid-template-columns:1fr auto 1fr">'
         '<div class="p-box" data-role="ok" data-reveal="0"><span class="p-tag" data-role="ok">能力目录开（课程默认）</span>'
-        '<p style="margin-top:8px;line-height:1.6">系统指令：一句话 + 团队说明<br>工具 5 个 ≈2.2 万字符（code mode）<br>推理档位 max<br><b>约 7.5 千 token</b></p></div>'
+        '<p style="margin-top:8px;line-height:1.6">系统指令：一句话 + 团队说明<br>工具 5 个 ≈2.2 万字符（命令套在 exec 里）<br>推理档位 max<br><b>约 7.5 千 token</b></p></div>'
         '<div class="p-join" data-reveal="1"><span>只改这一项</span><i class="p-arrow"></i></div>'
         '<div class="p-box" data-role="gate" data-reveal="1"><span class="p-tag" data-role="gate">能力目录关</span>'
-        '<p style="margin-top:8px;line-height:1.6">启动提示：找不到模型元数据<br>系统指令 ≈1.7 万字符<br>工具 9 个 ≈1.8 万字符（普通函数）<br>不发推理档位<br><b>约 9 千 token</b></p>'
+        '<p style="margin-top:8px;line-height:1.6">启动提示：找不到模型元数据<br>系统指令 ≈1.7 万字符<br>工具 9 个 ≈1.8 万字符（不套 exec）<br>不发推理档位<br><b>约 9 千 token</b></p>'
         '<p class="p-sub" style="margin-top:6px">基础指令的章节：工作方式 · 性格 · AGENTS.md 规范 · 执行任务 · 验证 · 汇报</p></div></div>'
         '<div class="p-bar" data-reveal="2">只改了一项配置，<b>模型看到的 context 就大不相同</b> · 课程默认打开能力目录</div>'
         '<p class="source-note">两次都是讲师用课程基线（隔离 HOME）发第一步那句话（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，codex exec），只差是否写入模型能力目录；章节名为中文意译</p>'
@@ -377,9 +378,9 @@ scene(
         '<div class="p-qrow"><span class="p-n">1</span><div><h3>从请求记录中指出四类不是你写的内容，缺了其中一类会怎样？</h3>'
         '<div data-reveal="1"><p>系统指令、工具定义、Skills 列表、环境信息、权限说明，任选四类说出后果<span class="p-back-to" data-role="agent">回到 拆开这份请求</span></p></div></div></div>'
         '<div class="p-qrow"><span class="p-n">2</span><div><h3>同一句话，有位同学的请求里系统指令很长、有 9 个工具，讲师的只有一句话和 5 个工具。最可能是哪里不同？</h3>'
-        '<div data-reveal="2"><p>最可能是模型配置不同：他的 Codex 没有为这个模型写入能力目录（启动时会提示找不到模型元数据），用的是后备的系统指令和工具。只改这一项，请求就大不相同<span class="p-back-to" data-role="us">回到 换个模型能力目录</span></p></div></div></div>'
+        '<div data-reveal="2"><p>最可能是他的 Codex 没有为这个模型写入能力目录（启动时会提示找不到模型元数据），用了后备的系统指令和工具<span class="p-back-to" data-role="us">回到 换个模型能力目录</span></p></div></div></div>'
         '<div class="p-qrow"><span class="p-n">3</span><div><h3>讲师第二步的记录里，模型是从哪里知道完成标准的？它在记录里的什么位置？</h3>'
-        '<div data-reveal="3"><p>从读文件那次工具调用的返回：exec 里调 exec_command 跑 cat -n PROJECT_BRIEF.md 等，返回带行号的内容。调用后面紧跟着它的返回，之后每次请求都带着；回答里的“首页 v0 的验收依据”（第 31–39 行）就出自这段返回<span class="p-back-to" data-role="ctx">回到 它是怎么知道的</span></p></div></div></div></div>'
+        '<div data-reveal="3"><p>从读文件那次工具调用的返回：cat -n PROJECT_BRIEF.md 返回带行号的内容，紧跟在调用后面，之后每次请求都带着；回答里的“首页 v0 的验收依据”（第 31–39 行）就出自这里<span class="p-back-to" data-role="ctx">回到 它是怎么知道的</span></p></div></div></div></div>'
     ),
     steps=["暂停", "第 1 题", "第 2 题", "第 3 题"],
 )

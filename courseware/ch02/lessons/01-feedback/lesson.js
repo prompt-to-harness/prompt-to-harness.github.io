@@ -171,7 +171,7 @@ window.lesson = {
       "label": "拆开这份请求",
       "title": "拆开这份请求：六块内容",
       "lead": "Harness 是包在模型外面的那一层程序，Codex 就是一个 Harness：它把系统指令、工具和这一次的情况组装成请求。这份请求可以拆成六块：系统指令、工具定义、Skills 列表、环境信息、权限说明，最后才是我们写的话。下面几页逐块回答“如果没有它会怎样”。数字来自讲师用课程基线（隔离 HOME）的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，写入模型能力目录，推理档位 max，codex exec）；随版本、模型、配置和任务变化，只说明结构。",
-      "html": "<style>.x-stack{display:flex;gap:6px;height:64px}.x-stack>div{position:relative;border:2.5px solid var(--c);background:var(--cl);border-radius:10px 8px 11px 9px;display:flex;align-items:center;justify-content:center;font-size:19px;color:var(--ct);min-width:14px;overflow:hidden;white-space:nowrap}.x-key{display:flex;justify-content:flex-end;align-items:center;gap:18px;margin:8px 0 0;font-size:18px;color:var(--p-muted)}.x-key i{display:inline-block;width:9px;height:24px;margin-right:7px;vertical-align:-6px;border:2.5px solid var(--c);background:var(--cl);border-radius:4px 3px 4px 3px}@media(max-width:600px){body[data-mode=scroll] .x-stack{height:96px}body[data-mode=scroll] .x-stack>div{white-space:normal;font-size:14px;line-height:1.25;text-align:center;padding:2px}}</style><div class=\"p-grid\" style=\"--n:3;gap:12px\" data-reveal=\"0\"><div class=\"p-box is-soft\" data-role=\"agent\"><h3>系统指令</h3><p>怎么做事</p></div><div class=\"p-box is-soft\" data-role=\"tool\"><h3>工具</h3><p>能做什么</p></div><div class=\"p-box is-soft\" data-role=\"ctx\"><h3>本次情况</h3><p>目录、权限、我们的话</p></div></div><p class=\"p-sub\" data-reveal=\"0\" style=\"margin:6px 0 14px\">Codex 这层 Harness 组装请求时管的三样</p><div class=\"x-stack\" data-reveal=\"1\"><div data-role=\"agent\" style=\"flex:2.7\">系统指令</div><div data-role=\"tool\" style=\"flex:22\">工具定义 5 个 ≈2.2 万字符</div><div data-role=\"ctx\" style=\"flex:2\" title=\"Skills 列表\"></div><div data-role=\"ink\" style=\"flex:.55\" title=\"环境信息\"></div><div data-role=\"gate\" style=\"flex:.34\" title=\"权限说明\"></div><div data-role=\"us\" style=\"flex:.1\" title=\"我们的话\"></div></div><p class=\"x-key\" data-reveal=\"1\"><span data-role=\"agent\"><i></i>系统指令 ≈2.7 千（含多代理团队说明）</span><span data-role=\"ctx\"><i></i>Skills 列表 ≈2 千</span><span data-role=\"ink\"><i></i>环境信息</span><span data-role=\"gate\"><i></i>权限说明</span><span data-role=\"us\"><i></i>我们的话</span></p><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:16px\">我们写的，只是<b>最右边最小的一格</b></div><p class=\"source-note\">下排是讲师用课程基线的一次记录，宽度大致对应大小：系统指令约 2.7 千字符（含多代理团队说明），工具定义约 2.2 万字符；右侧小格依次是 Skills 列表（约 2 千字符）、环境信息（约 550 字符）、权限说明（341 字符）和我们的话（17 个字）。数字来自讲师用课程基线（隔离 HOME）的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，写入模型能力目录，推理档位 max，codex exec）；随版本、模型、配置和任务变化，只说明结构。</p>",
+      "html": "<style>.x-stack{display:flex;gap:6px;height:64px}.x-stack>div{position:relative;border:2.5px solid var(--c);background:var(--cl);border-radius:10px 8px 11px 9px;display:flex;align-items:center;justify-content:center;font-size:19px;color:var(--ct);min-width:14px;overflow:hidden;white-space:nowrap}.x-key{display:flex;justify-content:flex-end;align-items:center;gap:18px;margin:8px 0 0;font-size:18px;color:var(--p-muted)}.x-key i{display:inline-block;width:9px;height:24px;margin-right:7px;vertical-align:-6px;border:2.5px solid var(--c);background:var(--cl);border-radius:4px 3px 4px 3px}@media(max-width:600px){body[data-mode=scroll] .x-stack{height:96px}body[data-mode=scroll] .x-stack>div{white-space:normal;font-size:14px;line-height:1.25;text-align:center;padding:2px}body[data-mode=scroll] .x-key{flex-wrap:wrap;justify-content:flex-start;gap:4px 14px;font-size:15px}body[data-mode=scroll] .x-key span{white-space:nowrap}}</style><div class=\"p-grid\" style=\"--n:3;gap:12px\" data-reveal=\"0\"><div class=\"p-box is-soft\" data-role=\"agent\"><h3>系统指令</h3><p>怎么做事</p></div><div class=\"p-box is-soft\" data-role=\"tool\"><h3>工具</h3><p>能做什么</p></div><div class=\"p-box is-soft\" data-role=\"ctx\"><h3>本次情况</h3><p>目录、权限、我们的话</p></div></div><p class=\"p-sub\" data-reveal=\"0\" style=\"margin:6px 0 14px\">Codex 这层 Harness 组装请求时管的三样</p><div class=\"x-stack\" data-reveal=\"1\"><div data-role=\"agent\" style=\"flex:2.7\">系统指令</div><div data-role=\"tool\" style=\"flex:22\">工具定义 5 个 ≈2.2 万字符</div><div data-role=\"ctx\" style=\"flex:2\" title=\"Skills 列表\"></div><div data-role=\"ink\" style=\"flex:.55\" title=\"环境信息\"></div><div data-role=\"gate\" style=\"flex:.34\" title=\"权限说明\"></div><div data-role=\"us\" style=\"flex:.1\" title=\"我们的话\"></div></div><p class=\"x-key\" data-reveal=\"1\"><span data-role=\"agent\"><i></i>系统指令 ≈2.7 千（含多代理团队说明）</span><span data-role=\"ctx\"><i></i>Skills 列表 ≈2 千</span><span data-role=\"ink\"><i></i>环境信息</span><span data-role=\"gate\"><i></i>权限说明</span><span data-role=\"us\"><i></i>我们的话</span></p><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:16px\">我们写的，只是<b>最右边最小的一格</b></div><p class=\"source-note\">下排是讲师用课程基线的一次记录，宽度大致对应大小：系统指令约 2.7 千字符（含多代理团队说明），工具定义约 2.2 万字符；右侧小格依次是 Skills 列表（约 2 千字符）、环境信息（约 550 字符）、权限说明（341 字符）和我们的话（17 个字）。数字来自讲师用课程基线（隔离 HOME）的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，写入模型能力目录，推理档位 max，codex exec）；随版本、模型、配置和任务变化，只说明结构。</p>",
       "steps": [
         "Harness 管的三样",
         "逐块标注",
@@ -211,7 +211,7 @@ window.lesson = {
       "script": [
         "【操作提示｜停留课件 p10 第 1 步，指向左侧“没有它”虚线框；不切工具窗口】\n\n先问最大的一块：如果没有系统指令会怎样？模型本身只会根据前文接着往下写。它不知道自己是一个写代码的 Agent，不知道要先读仓库、要改文件、遇到风险要停下来请示。",
         "【操作提示｜推进第 2 步，指向右侧中文意译，再指下面一行团队说明；不朗读英文原文】\n\n这次请求里的系统指令只有一句话，原文是英文，意思是：你是 Codex，一个基于 MiniMax-M3.1-Flash 的编程 Agent，你和用户共用同一个工作区，一起完成用户的目标。另外还有一段多代理团队说明，告诉它：你是总负责的那个代理，可以派出子代理分头做事。",
-        "【操作提示｜推进第 3 步，指向底部横条；留在课件】\n\n那命令怎么跑、文件怎么改，这些细节写在哪？这次写进了工具定义的说明里，下一页就看。系统指令也不总是这么短，换一份模型配置，它会变成一万多字符的长篇，这一节最后再对比。系统指令说清了它是谁，可模型真要做事，还得有手。"
+        "【操作提示｜推进第 3 步，指向底部横条；留在课件】\n\n那命令怎么跑、文件怎么改，这些细节写在哪？这次写进了工具定义的说明里，下一页就看。系统指令也不总是这么短，换一份模型能力目录，它会变成一万多字符的长篇，这一节最后再对比。系统指令说清了它是谁，可模型真要做事，还得有手。"
       ],
       "teaching": [
         {
@@ -239,7 +239,7 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜停留课件 p11 第 1 步，依次指向左侧定义里的 type、name 和 description，再指下面一行另外 4 个工具；不切工具窗口】\n\n第二块，工具定义。这次请求里有 5 个工具，每个都写清楚叫什么名字、做什么用、怎么调用。最大的一个叫 exec，光它的说明就有一万四千多字符。它的 type 是 custom：模型不是只填几个参数，而是在里面写一小段 JavaScript，调用 exec_command 跑命令、apply_patch 改文件。这些嵌套工具怎么用，都写在 exec 的说明里，上一页说的命令怎么跑、文件怎么改，就在这里。",
-        "【操作提示｜推进第 2 步，指向右侧“没有它”，再指底部横条；留在课件】\n\n如果没有工具定义，模型就只能“说”，不能“做”，而且它只能可靠地调用被描述过的工具。还要记住一点：模型只是提出调用，真正执行的是 Harness，执行结果再放进下一次请求交给模型，这就是第 1 章讲过的 Agent 循环。工具是手，那装了那么多 Skills，是不是也都整份塞进请求里了？"
+        "【操作提示｜推进第 2 步，指向右侧“没有它”，再指底部横条；留在课件】\n\n如果没有工具定义，模型就只能“说”，不能“做”，而且它只能可靠地调用被描述过的工具。还要记住一点：模型只是提出调用，真正执行的是 Harness，执行结果再放进下一次请求交给模型，这就是第 1 章讲过的 Agent 循环。工具是手。那 Skills 呢，是不是也整份塞进了请求里？"
       ],
       "teaching": [
         {
@@ -248,7 +248,7 @@ window.lesson = {
         },
         {
           "title": "讲师提示",
-          "text": "调用了不存在的工具会怎样（read_file 一例），留到 2.2 p24，这里不展开。能力目录关时工具是 9 个普通函数工具，exec_command 直接是顶层工具，对比放在 p15b。"
+          "text": "失败的工具调用和返回会怎样，留到 2.2 p24（走过的弯路），这里不展开。能力目录关时工具是 9 个普通函数工具，exec_command 直接是顶层工具，对比放在 p15b。"
         }
       ],
       "source": "index.html#p11",
@@ -426,7 +426,7 @@ window.lesson = {
         },
         {
           "title": "命令说明",
-          "text": "已核对：Codex 0.160.0 的 -s/--sandbox 取值为 read-only、workspace-write、danger-full-access；claude-tap 0.1.145 的帮助写明未列出的参数会转发给所启动的客户端。复制按钮复制的是只读那一条，可写时把最后一个参数换掉。会话中途也能在 Codex 界面里改权限，但前面的对话仍在上下文里，对比不干净，所以用启动参数，两次各开新会话。"
+          "text": "已核对：Codex 0.160.0 与 0.163.0 的 -s/--sandbox 取值为 read-only、workspace-write、danger-full-access；claude-tap 0.1.145 的帮助写明未列出的参数会转发给所启动的客户端；2026-10-20 用课程固定的 0.1.146 按这两条命令实测，-s 参数同样转给了 Codex。复制按钮复制的是只读那一条，可写时把最后一个参数换掉。会话中途也能在 Codex 界面里改权限，但前面的对话仍在上下文里，对比不干净，所以用启动参数，两次各开新会话。"
         }
       ],
       "source": "index.html#p16",
@@ -437,8 +437,8 @@ window.lesson = {
       "segment": "换个配置",
       "label": "换个模型能力目录",
       "title": "同一句话，换一份模型能力目录，请求大变样",
-      "lead": "Codex 要为所用的模型找一份元数据，我们叫它模型能力目录：这个模型配哪套系统指令、哪种工具、什么推理档位。课程默认写入 MiniMax 官方 Codex 接入文档给的那份目录；去掉它再发同一句话，Codex 启动时提示找不到模型元数据，改用后备值，请求就大不一样。请求还会随你的个人配置（~/.codex、个人 Skills）、项目里的 AGENTS.md 和这次的权限变化，所以你在自己电脑上看到的会和讲师的不同。这是讲师的对比示例，可自主尝试。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr\"><div class=\"p-box\" data-role=\"ok\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ok\">能力目录开（课程默认）</span><p style=\"margin-top:8px;line-height:1.6\">系统指令：一句话 + 团队说明<br>工具 5 个 ≈2.2 万字符（code mode）<br>推理档位 max<br><b>约 7.5 千 token</b></p></div><div class=\"p-join\" data-reveal=\"1\"><span>只改这一项</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"gate\">能力目录关</span><p style=\"margin-top:8px;line-height:1.6\">启动提示：找不到模型元数据<br>系统指令 ≈1.7 万字符<br>工具 9 个 ≈1.8 万字符（普通函数）<br>不发推理档位<br><b>约 9 千 token</b></p><p class=\"p-sub\" style=\"margin-top:6px\">基础指令的章节：工作方式 · 性格 · AGENTS.md 规范 · 执行任务 · 验证 · 汇报</p></div></div><div class=\"p-bar\" data-reveal=\"2\">只改了一项配置，<b>模型看到的 context 就大不相同</b> · 课程默认打开能力目录</div><p class=\"source-note\">两次都是讲师用课程基线（隔离 HOME）发第一步那句话（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，codex exec），只差是否写入模型能力目录；章节名为中文意译</p>",
+      "lead": "Codex 要为所用的模型找一份元数据，我们叫它模型能力目录：这个模型配哪套系统指令、哪种工具、什么推理档位。课程默认写入 MiniMax 官方 Codex 接入文档给的那份目录；去掉它再发同一句话，Codex 启动时提示找不到模型元数据，改用后备值，请求就大不一样。请求还会随个人配置（~/.codex、个人 Skills）、项目里的 AGENTS.md 和这次的权限变化，所以每个人在自己电脑上看到的都会和讲师的不同。这是讲师的对比示例，可自主尝试。",
+      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr\"><div class=\"p-box\" data-role=\"ok\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ok\">能力目录开（课程默认）</span><p style=\"margin-top:8px;line-height:1.6\">系统指令：一句话 + 团队说明<br>工具 5 个 ≈2.2 万字符（命令套在 exec 里）<br>推理档位 max<br><b>约 7.5 千 token</b></p></div><div class=\"p-join\" data-reveal=\"1\"><span>只改这一项</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"gate\">能力目录关</span><p style=\"margin-top:8px;line-height:1.6\">启动提示：找不到模型元数据<br>系统指令 ≈1.7 万字符<br>工具 9 个 ≈1.8 万字符（不套 exec）<br>不发推理档位<br><b>约 9 千 token</b></p><p class=\"p-sub\" style=\"margin-top:6px\">基础指令的章节：工作方式 · 性格 · AGENTS.md 规范 · 执行任务 · 验证 · 汇报</p></div></div><div class=\"p-bar\" data-reveal=\"2\">只改了一项配置，<b>模型看到的 context 就大不相同</b> · 课程默认打开能力目录</div><p class=\"source-note\">两次都是讲师用课程基线（隔离 HOME）发第一步那句话（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，codex exec），只差是否写入模型能力目录；章节名为中文意译</p>",
       "repro": {
         "label": "自己对比一次",
         "steps": [
@@ -468,7 +468,7 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜停留课件 p15b 第 1 步，依次指左栏四行；画面为讲师 2026-10-20 的两次运行记录，不现场重跑】\n\n换权限会变，换模型配置呢？Codex 要为所用的模型找一份元数据，我们叫它模型能力目录，里面写着这个模型配哪套系统指令、哪种工具、什么推理档位。课程默认写入 MiniMax 官方 Codex 接入文档给的那份目录，前面几页看到的就是这种情况：系统指令一句话加团队说明，5 个工具约 2.2 万字符，推理档位是 max，整份请求大约七千五百 token。",
-        "【操作提示｜推进第 2 步，指中间“只改这一项”，再依次指右栏各行和章节名；留在课件】\n\n现在只去掉这份目录，再发同一句话。Codex 启动时提示找不到这个模型的元数据，改用后备值。请求马上变了：系统指令换成 Codex 内置的基础指令，大约 1.7 万字符，章节有工作方式、性格、AGENTS.md 规范、执行任务、验证、汇报；工具变成 9 个普通的函数工具，大约 1.8 万字符；请求里不再带推理档位；整份大约九千 token。",
+        "【操作提示｜推进第 2 步，指中间“只改这一项”，再依次指右栏各行和章节名；留在课件】\n\n现在只去掉这份目录，再发同一句话。Codex 启动时提示找不到这个模型的元数据，改用后备值。请求马上变了：系统指令换成 Codex 内置的基础指令，大约 1.7 万字符，章节有工作方式、性格、AGENTS.md 规范、执行任务、验证、汇报；工具变成 9 个，exec_command 这些直接列成工具，不再套在 exec 里，大约 1.8 万字符；请求里不再带推理档位；整份大约九千 token。",
         "【操作提示｜推进第 3 步，指向底部横条，再指页面上方“自己对比一次”入口，不展开；之后进入 p16a】\n\n只改了一项配置，模型看到的 context 就大不相同。课程默认打开能力目录，这是 MiniMax 官方 Codex 接入文档给的配置。请求的来源还不止这一项：你自己的 ~/.codex 配置和个人 Skills、项目里的 AGENTS.md、这次的权限，都会让请求不同，所以大家在自己电脑上看到的，会和讲师的不一样。想自己对比一次，步骤在页面上方。"
       ],
       "teaching": [
@@ -535,7 +535,7 @@ window.lesson = {
       "label": "暂停自检",
       "title": "暂停自检",
       "lead": "先独立作答，再看解析。答案后面标出回到哪一页。",
-      "html": "<span class=\"p-pause\" data-reveal=\"0\">暂停 · 先独立作答</span><div class=\"p-qlist\"><div class=\"p-qrow\"><span class=\"p-n\">1</span><div><h3>从请求记录中指出四类不是你写的内容，缺了其中一类会怎样？</h3><div data-reveal=\"1\"><p>系统指令、工具定义、Skills 列表、环境信息、权限说明，任选四类说出后果<span class=\"p-back-to\" data-role=\"agent\">回到 拆开这份请求</span></p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">2</span><div><h3>同一句话，有位同学的请求里系统指令很长、有 9 个工具，讲师的只有一句话和 5 个工具。最可能是哪里不同？</h3><div data-reveal=\"2\"><p>最可能是模型配置不同：他的 Codex 没有为这个模型写入能力目录（启动时会提示找不到模型元数据），用的是后备的系统指令和工具。只改这一项，请求就大不相同<span class=\"p-back-to\" data-role=\"us\">回到 换个模型能力目录</span></p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">3</span><div><h3>讲师第二步的记录里，模型是从哪里知道完成标准的？它在记录里的什么位置？</h3><div data-reveal=\"3\"><p>从读文件那次工具调用的返回：exec 里调 exec_command 跑 cat -n PROJECT_BRIEF.md 等，返回带行号的内容。调用后面紧跟着它的返回，之后每次请求都带着；回答里的“首页 v0 的验收依据”（第 31–39 行）就出自这段返回<span class=\"p-back-to\" data-role=\"ctx\">回到 它是怎么知道的</span></p></div></div></div></div>",
+      "html": "<span class=\"p-pause\" data-reveal=\"0\">暂停 · 先独立作答</span><div class=\"p-qlist\"><div class=\"p-qrow\"><span class=\"p-n\">1</span><div><h3>从请求记录中指出四类不是你写的内容，缺了其中一类会怎样？</h3><div data-reveal=\"1\"><p>系统指令、工具定义、Skills 列表、环境信息、权限说明，任选四类说出后果<span class=\"p-back-to\" data-role=\"agent\">回到 拆开这份请求</span></p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">2</span><div><h3>同一句话，有位同学的请求里系统指令很长、有 9 个工具，讲师的只有一句话和 5 个工具。最可能是哪里不同？</h3><div data-reveal=\"2\"><p>最可能是他的 Codex 没有为这个模型写入能力目录（启动时会提示找不到模型元数据），用了后备的系统指令和工具<span class=\"p-back-to\" data-role=\"us\">回到 换个模型能力目录</span></p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">3</span><div><h3>讲师第二步的记录里，模型是从哪里知道完成标准的？它在记录里的什么位置？</h3><div data-reveal=\"3\"><p>从读文件那次工具调用的返回：cat -n PROJECT_BRIEF.md 返回带行号的内容，紧跟在调用后面，之后每次请求都带着；回答里的“首页 v0 的验收依据”（第 31–39 行）就出自这里<span class=\"p-back-to\" data-role=\"ctx\">回到 它是怎么知道的</span></p></div></div></div></div>",
       "steps": [
         "暂停",
         "第 1 题",
