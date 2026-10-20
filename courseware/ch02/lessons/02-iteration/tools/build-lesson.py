@@ -11,7 +11,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
 from lessonkit import Lesson, MEASURED, NARROW, chapter_map, ref, repro, teach  # noqa: E402
 
-lesson = Lesson(__file__, "2.2", "补上项目经历，看对话怎么变长", summary="对话每多一轮，前面的内容都会被重发；清空和压缩之后还剩什么，在请求记录里看得到。项目上，把自己的项目经历加进首页，并用三种视口、键盘和构建证明没弄坏别的。")
+lesson = Lesson(__file__, "2.2", "补上项目经历，看对话怎么变长", summary="对话每多一轮，前面的内容都会被重发；清空和压缩之后还剩什么，在请求记录里看得到。项目上，把自己的项目经历加进首页，并用三种屏幕尺寸、键盘和构建证明没弄坏别的。")
 scene = lesson.scene
 
 # openai/codex 的固定版本链接（完整哈希，内容不随 main 变化）
@@ -145,7 +145,7 @@ scene(
     ),
     steps=["这一轮的弯路", "之后每次都带着", "弯路也被重发"],
     teaching=teach(
-        ("核对记录", "2026-10-20 交互界面实测（能力目录开、推理档位 max），2.2 本轮“确认”之后：33 次工具调用（加上出计划那一轮的 6 次，会话里累计 39 次），其中至少 9 次失败或白跑（npm run preview 两次退出码 1、shell 脚本被当成 JavaScript 报 SyntaxError、截图文件不存在、CDP 脚本解析错等），全部是 Codex 自己为了查视口而做的，Prompt 写明了浏览器由人检查。每次请求都带着之前全部调用和返回，最后一次请求 135 项、59271 token。原来的 read_file 例子来自 2026-10-02 能力目录关的运行，已不再上屏。"),
+        ("核对记录", "2026-10-20 交互界面实测（能力目录开、推理档位 max），2.2 本轮“确认”之后：33 次工具调用（加上出计划那一轮的 6 次，会话里累计 39 次），其中至少 9 次失败或白跑（npm run preview 两次退出码 1、shell 脚本被当成 JavaScript 报 SyntaxError、截图文件不存在、CDP 脚本解析错等），全部是 Codex 自己为了查屏幕尺寸而做的，Prompt 写明了浏览器由人检查。每次请求都带着之前全部调用和返回，最后一次请求 135 项、59271 token。原来的 read_file 例子来自 2026-10-02 能力目录关的运行，已不再上屏。"),
         ("讲师提示", "不重讲随机性，只回指开场访谈的鹈鹕例子。录制时弯路不一定一样：按当次记录指认就行，没有弯路也没关系，要讲的是“返回会一直留着”这条规则。“它为什么自己去查浏览器”可以留给 2.3 看范围时就地用。"),
     ),
 )
@@ -205,7 +205,7 @@ scene(
         '<li data-reveal="0"><span><b>写清现状</b><small>项目区目前只有占位内容</small></span></li>'
         '<li class="is-risk" data-reveal="1"><span><b>内容由人提供</b><small>讲师演示借用两位讲师的经历</small></span></li>'
         '<li data-reveal="2"><span><b>只写愿意公开的</b><small>2.4 之后所有人都看得到</small></span></li>'
-        '<li class="is-ok" data-reveal="3"><span><b>可检查的完成标准</b><small>视口 · 键盘 · build · diff 范围</small></span></li></ol></div>'
+        '<li class="is-ok" data-reveal="3"><span><b>可检查的完成标准</b><small>屏幕尺寸 · 键盘 · build · diff 范围</small></span></li></ol></div>'
     ),
     steps=["写清现状", "内容由人提供", "只写愿意公开的", "完成标准"],
     teaching=teach(
@@ -240,8 +240,8 @@ scene(
 
 scene(
     id="p30a", segment="补上项目经历",
-    label="三种视口", title="三种视口：在电脑上模拟手机和平板",
-    lead="视口是浏览器里网页实际能显示的区域。不用找真机，Chrome 开发者工具的设备工具栏可以把视口改成指定宽高。尺寸用的是 CSS 像素，不是屏幕的物理像素。自带机型的尺寸和这三种不一致，所以选 Responsive 手填宽高；常用的话可以加成自定义设备，选做。设备模拟只作用于当前标签页，要在自己首页的标签页里打开。",
+    label="三种屏幕尺寸", title="三种屏幕尺寸：在电脑上模拟手机和平板",
+    lead="屏幕尺寸指浏览器里网页实际能显示的区域，浏览器里也叫视口（viewport）。不用找真机，Chrome 开发者工具的设备工具栏可以把它改成指定宽高。尺寸用的是 CSS 像素，不是屏幕的物理像素。自带机型的尺寸和这三种不一致，所以选 Responsive 手填宽高；常用的话可以加成自定义设备，选做。设备模拟只作用于当前标签页，要在自己首页的标签页里打开。",
     html=(
         '<div class="p-pair" style="grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:28px;align-items:start">'
         '<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)">'
@@ -256,14 +256,14 @@ scene(
     steps=["三种尺寸", "怎么切", "在自己的页面上演示"],
     teaching=teach(
         ("切到实操", "在讲师首页上完整演示一遍：新开标签页打开本地地址 → ⌥⌘I → ⇧⌘M → 选 Responsive 填 360×800 → 观察 → 改填 1440×900。镜头要让标签页地址栏和设备工具栏同时入画。设置入口与快捷键按录制时 Chrome 版本核对。"),
-        ("讲师提示", "常见卡点：在别的标签页里开了设备工具栏；缩放比例不是 100% 误以为页面变小；页面缺少 viewport meta 时手机视口会按约 980px 排版再缩小，看起来“挤”。自定义设备在开发者工具设置 → Devices → Add custom device，选做。原 2.1 p05、p05-live 合并移来。"),
+        ("讲师提示", "常见卡点：在别的标签页里开了设备工具栏；缩放比例不是 100% 误以为页面变小；页面缺少 viewport meta 时手机浏览器会按约 980px 排版再缩小，看起来“挤”。自定义设备在开发者工具设置 → Devices → Add custom device，选做。原 2.1 p05、p05-live 合并移来。"),
     ),
 )
 
 scene(
     id="p31", segment="补上项目经历",
     label="改好了吗", title="改好了吗？有没有弄坏别的？",
-    lead="改完要检查，不只看新内容：三种视口下内容完整可读；Tab 焦点顺序与改前一致；npm run build 成功。讲师这次三项都通过：三种宽度都没有横向滚动，360 宽时每条描述折成两行；能用 Tab 停下的仍只有“查看项目”；构建完成。其中视口和 Tab 的结果是 Codex 自己用无头 Chrome 查的，Prompt 里这两项写的是由人查，前面看到的那些弯路就出在这里；自己的页面要在浏览器里亲手查。内容变多后出现的新问题，比如手机上出现横向滚动，记为剩余问题，不在这一轮顺手修。",
+    lead="改完要检查，不只看新内容：三种屏幕尺寸下内容完整可读；Tab 焦点顺序与改前一致；npm run build 成功。讲师这次三项都通过：三种宽度都没有横向滚动，360 宽时每条描述折成两行；能用 Tab 停下的仍只有“查看项目”；构建完成。其中屏幕尺寸和 Tab 的结果是 Codex 自己用无头 Chrome 查的，Prompt 里这两项写的是由人查，前面看到的那些弯路就出在这里；自己的页面要在浏览器里亲手查。内容变多后出现的新问题，比如手机上出现横向滚动，记为剩余问题，不在这一轮顺手修。",
     html=(
         '<div class="p-rec" style="grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) minmax(0,1.1fr);row-gap:12px;--rf:21px">'
         '<div class="is-head" data-reveal="0"><span>检查</span><span>讲师这次的结果</span><span>能说明什么</span></div>'
@@ -271,12 +271,12 @@ scene(
         '<div data-reveal="1"><span class="p-cell">Tab 键</span><span class="p-cell">能停下的仍只有“查看项目”</span><span class="p-why">键盘行为与改前一致</span></div>'
         '<div data-reveal="2"><span class="p-cell p-mono">npm run build</span><span class="p-cell">tsc 与 vite 都通过：✓ built</span><span class="p-why">构建流程成功完成</span></div></div>'
         '<div class="p-bar is-light" data-reveal="3">新出现的问题：<b>记下来，不顺手修</b></div>'
-        '<p class="source-note">结果来自' + RUN22 + '；视口和 Tab 这两项是 Codex 自己查的，Prompt 里写的是由人查</p>'
+        '<p class="source-note">结果来自' + RUN22 + '；屏幕尺寸和 Tab 这两项是 Codex 自己查的，Prompt 里写的是由人查</p>'
     ),
-    steps=["三种视口", "键盘", "构建", "新问题"],
+    steps=["三种屏幕尺寸", "键盘", "构建", "新问题"],
     teaching=teach(
-        ("核对记录", "2026-10-20 15:58 那次运行（能力目录开）：npm run build（tsc -b && vite build）输出“✓ built in 265ms”。视口：Codex 发现 macOS 无头 Chrome 的 --window-size=360 实际得到 500px 宽，改用同源 iframe 测，360 / 768 / 1440 下 scrollWidth 等于视口宽、无横向溢出，卡片宽 320 / 720 / 860，描述 2 / 1 / 1 行。Tab：渲染后全页只有 1 个可聚焦元素（首屏“查看项目”链接），项目卡内 0 个。截图存在临时目录，未保留。"),
-        ("讲师提示", "录制时视口和 Tab 由讲师在 Chrome 里亲手查，结果列按实际显示讲；让 AI 打开浏览器自验证留到 Harness 章节（决定 10）。Codex 这次自己查了，只点一句，不展开。"),
+        ("核对记录", "2026-10-20 15:58 那次运行（能力目录开）：npm run build（tsc -b && vite build）输出“✓ built in 265ms”。屏幕尺寸：Codex 发现 macOS 无头 Chrome 的 --window-size=360 实际得到 500px 宽，改用同源 iframe 测，360 / 768 / 1440 下 scrollWidth 等于可显示区域的宽度、无横向溢出，卡片宽 320 / 720 / 860，描述 2 / 1 / 1 行。Tab：渲染后全页只有 1 个可聚焦元素（首屏“查看项目”链接），项目卡内 0 个。截图存在临时目录，未保留。"),
+        ("讲师提示", "录制时屏幕尺寸和 Tab 由讲师在 Chrome 里亲手查，结果列按实际显示讲；让 AI 打开浏览器自验证留到 Harness 章节（决定 10）。Codex 这次自己查了，只点一句，不展开。"),
     ),
 )
 
@@ -311,7 +311,7 @@ scene(
     teaching=teach(
         ("核对记录", "压缩提示位于 codex-rs/prompts/templates/compact/prompt.md（要求写进度与决定、约束、下一步、关键数据）；本地压缩保留最近用户消息（上限约 2 万 token）、摘要和重新插入的初始上下文；OpenAI 与 Azure provider 走远程压缩（model-provider/src/provider.rs）。"),
         ("切到实操", "在本轮修改的会话里执行 /compact，切 claude-tap 查看器对比压缩前、压缩请求、压缩后三次请求，指出本轮哪些具体内容（如读到的 src/App.tsx、build 输出）被换成了摘要；再问一句“不读文件、不跑命令，build 输出最后一行是什么”。结果和画面不同就按实际讲。上游卡住或压缩失败时，改用 materials/compact/ 的独立实验（复现按钮第 1–5 步，或第 6 步的 compare.html），画面和口播如实说明“这是另一次专门做的实验”。"),
-        ("实测记录", "2026-10-20 交互界面，本节真实会话（能力目录开、推理档位 max）：确认之后 Codex 调用 33 次工具（会话累计 39 次），除了改 src/App.tsx、跑 build，还自己起预览服务器、驱动无头 Chrome 去查三种视口（Prompt 写明了浏览器由人检查）。压缩前最后一次请求 135 项、59271 token；压缩请求 request_kind 为 compaction，带全部 138 项加一段 CONTEXT CHECKPOINT COMPACTION 提示；压缩后的请求 10 项、10635 token：系统指令、3 条用户消息原文（/clear 后的第一句、本轮 Prompt、“确认”）、Skills 与权限说明、团队说明、多代理开关说明、环境信息、交接摘要（约 3400 字符，作为 user 消息，开头说明“另一个模型已经开始解决这个问题”）和新问题。追问 build 输出最后一行时，模型说摘要里只记了 build 成功，没有编造；它还把答案分成“亲眼看到的原文”“只来自摘要的”“不知道的”三类。/clear 之前的问答不在压缩后的历史里。"),
+        ("实测记录", "2026-10-20 交互界面，本节真实会话（能力目录开、推理档位 max）：确认之后 Codex 调用 33 次工具（会话累计 39 次），除了改 src/App.tsx、跑 build，还自己起预览服务器、驱动无头 Chrome 去查三种屏幕尺寸（Prompt 写明了浏览器由人检查）。压缩前最后一次请求 135 项、59271 token；压缩请求 request_kind 为 compaction，带全部 138 项加一段 CONTEXT CHECKPOINT COMPACTION 提示；压缩后的请求 10 项、10635 token：系统指令、3 条用户消息原文（/clear 后的第一句、本轮 Prompt、“确认”）、Skills 与权限说明、团队说明、多代理开关说明、环境信息、交接摘要（约 3400 字符，作为 user 消息，开头说明“另一个模型已经开始解决这个问题”）和新问题。追问 build 输出最后一行时，模型说摘要里只记了 build 成功，没有编造；它还把答案分成“亲眼看到的原文”“只来自摘要的”“不知道的”三类。/clear 之前的问答不在压缩后的历史里。"),
         ("备用画面", "上游卡住（界面停在 Working 超过 5 分钟）时，打开复现按钮第 6 步的 compare.html：用独立实验第 1 次运行的真实记录并排列出压缩前 25 条和压缩后 7 条，标出保留、移走、新增、重新注入，不调用模型。"),
         ("实验记录", "独立实验 2026-10-05 压缩 5 次、不压缩对照 2 次（另有 2 次因上游超时或脚本出错不计入）。5 次压缩后都是 7 条 input：3 条用户消息、摘要、权限说明与 Skills、环境信息、新问题，没有工具调用和返回，与 compact.rs 一致。摘要：4 次只留行号或计数，1 次抄下 grep 原文；5 次追问都没有编造。对照组 2 次都答出了 grep 原文。汇总表与参考记录见 materials/compact/。"),
     ),
@@ -327,7 +327,7 @@ scene(
         '<div class="p-box" data-role="ctx" data-reveal="0"><span class="p-tag" data-role="ctx">可以记</span>'
         '<ol class="p-notes" style="margin-top:10px"><li><span><b>本轮目标</b><small>这一轮只解决的那一个结果</small></span></li>'
         '<li><span><b>会话选择与理由</b><small>继续、/clear、压缩还是新建，为什么</small></span></li>'
-        '<li><span><b>验证结果</b><small>三种视口、Tab、build</small></span></li>'
+        '<li><span><b>验证结果</b><small>三种屏幕尺寸、Tab、build</small></span></li>'
         '<li><span><b>剩余问题</b><small>发现了、但这一轮没修的</small></span></li></ol></div>'
         '<div style="display:grid;gap:12px"><div class="p-box is-soft" data-role="tool" data-reveal="1"><h3>2.3 的提交说明</h3><p>写进本轮目标和改动文件</p></div>'
         '<div class="p-box is-soft" data-role="ok" data-reveal="1"><h3>不计入验收</h3><p>笔记或截图都行</p></div></div></div>'

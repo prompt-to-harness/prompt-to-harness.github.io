@@ -70,7 +70,7 @@ window.lesson = {
       "segment": "走读 diff",
       "label": "改动做了什么",
       "title": "再看内容：每一处改动做了什么",
-      "lead": "git diff 显示逐行改动。按“数据在哪 → 怎样渲染 → 影响哪些样式”读：这一轮只改了项目数组里的数据，渲染逻辑和样式都没动。排版规则没变，但内容变多了，有没有挤坏仍以 2.2 的视口检查为准。",
+      "lead": "git diff 显示逐行改动。按“数据在哪 → 怎样渲染 → 影响哪些样式”读：这一轮只改了项目数组里的数据，渲染逻辑和样式都没动。排版规则没变，但内容变多了，有没有挤坏仍以 2.2 的屏幕尺寸检查为准。",
       "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-walk\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:36px\"><div class=\"p-fn\">src/App.tsx <span class=\"add\">+10</span><span class=\"del\">−2</span></div><div class=\"p-ln\"><i>1</i><code>const projects = [</code></div><div class=\"p-ln del\"><i>3</i><code>    name: <span class=\"s\">'学习笔记'</span>,</code></div><div class=\"p-ln del\"><i>4</i><code>    description: <span class=\"s\">'记录课程练习'</span>,</code></div><div class=\"p-ln add\"><i>3</i><code>    name: <span class=\"s\">'红绿灯感知量产'</span>,</code></div><div class=\"p-ln add\"><i>4</i><code>    description: <span class=\"s\">'城市 NOA 红绿灯…'</span>,</code></div><div class=\"p-ln add\"><i>6</i><code>  { name: <span class=\"s\">'端侧多模态推理引擎'</span>, … },</code></div><div class=\"p-ln add\"><i>10</i><code>  { name: <span class=\"s\">'RoboHarness'</span>, … },</code></div><div class=\"p-ln\"><i>15</i><code>]</code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>数据</b><small>换掉一条，又加了两条</small></span></li><li data-reveal=\"1\"><span><b>渲染</b><small>projects.map 那段没动</small></span></li><li data-reveal=\"2\"><span><b>样式</b><small>index.css 没动 · 挤没挤坏看 2.2 的检查</small></span></li><li class=\"is-ok\" data-reveal=\"3\"><span><b>文字与原文一致</b><small>逐字对过</small></span></li></ol></div><p class=\"source-note\">新增的两项各占 4 行，画面折叠为一行。画面中的命令输出来自讲师用课程基线在交互界面里的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max）留下的工作区，Git 2.50.1；你的输出以自己的 diff 为准。</p>",
       "steps": [
         "数据",
@@ -80,14 +80,14 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜课件 p37 第 1 步 → 切 Terminal 运行 git diff，指认 src/App.tsx 顶部 projects 数组的删除行与新增行；画面代码来自讲师 2026-10-20 那次运行的 diff，按录制时的实际 diff 讲，不预设结构】\n\n运行 git diff，看逐行改动。按三个问题读。第一，数据在哪？项目信息放在 App.tsx 顶部的 projects 数组里。红色两行是旧的那一条，“学习笔记：记录课程练习”，被整条换掉了；绿色是新的第一条。后面又加了两条项目，画面上各折成了一行。",
-        "【操作提示｜切 VS Code 打开 src/App.tsx，定位 projects.map 那段；实际 diff 若改了渲染，在这一步指出，并说清对三种视口和键盘的影响】\n\n第二，怎样渲染？页面下方用 projects.map 把数组里的每一项变成一张卡片。这段代码这次没有出现在 diff 里，说明渲染方式没变，只是多了两项数据。",
-        "【操作提示｜回课件推进第 3 步；可切 Terminal 对照 git status --short，确认 src/index.css 不在列表里。实际改了样式时就地指出，对照 2.2 的视口检查结果】\n\n第三，影响哪些样式？index.css 没有改动，排版规则和原来一样。文字和卡片变多后，会占用更多空间；是否被截断或挤坏，要对照 2.2 在三种视口下的检查结果。",
+        "【操作提示｜切 VS Code 打开 src/App.tsx，定位 projects.map 那段；实际 diff 若改了渲染，在这一步指出，并说清对三种屏幕尺寸和键盘的影响】\n\n第二，怎样渲染？页面下方用 projects.map 把数组里的每一项变成一张卡片。这段代码这次没有出现在 diff 里，说明渲染方式没变，只是多了两项数据。",
+        "【操作提示｜回课件推进第 3 步；可切 Terminal 对照 git status --short，确认 src/index.css 不在列表里。实际改了样式时就地指出，对照 2.2 的屏幕尺寸检查结果】\n\n第三，影响哪些样式？index.css 没有改动，排版规则和原来一样。文字和卡片变多后，会占用更多空间；是否被截断或挤坏，要对照 2.2 在三种屏幕尺寸下的检查结果。",
         "【操作提示｜推进第 4 步 → VS Code 并排打开 2.2 Prompt 里给出的项目经历原文和 src/App.tsx，逐字核对；不一致时如实指出，留到 p39 处置。随后回课件 p38】\n\n最后逐字对一遍文字，和我们给的原文一致，没有被润色。一处很小的改动，用这三个问题读完，就能说清它的目的和影响面。"
       ],
       "teaching": [
         {
           "title": "讲师提示",
-          "text": "按 2.2 的真实 diff 讲，不预设结构。若 Codex 改了渲染或样式，就在第 2、3 步指出，并说清它对三种视口和键盘的影响。2026-10-20 能力目录关的那次运行改过 src/index.css（项目列表栅格，+23 −2），录制时遇到类似情况就在第 3 步讲。"
+          "text": "按 2.2 的真实 diff 讲，不预设结构。若 Codex 改了渲染或样式，就在第 2、3 步指出，并说清它对三种屏幕尺寸和键盘的影响。2026-10-20 能力目录关的那次运行改过 src/index.css（项目列表栅格，+23 −2），录制时遇到类似情况就在第 3 步讲。"
         }
       ],
       "source": "index.html#p37",
@@ -99,7 +99,7 @@ window.lesson = {
       "label": "对得上本轮目标吗",
       "title": "逐项对照本轮的完成标准",
       "lead": "把 2.2 Prompt 的 Done when 逐项拿来对照：前三项看 2.2 做过的检查，第四项看刚读过的 diff。四项都对得上，再回看 Codex 是根据什么改的。",
-      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-claim\" style=\"grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"agent\">Done when</span><p style=\"margin-top:8px;line-height:1.7\">三种视口可读<br>Tab 顺序不变<br>build 成功<br>diff 只含项目区</p></div><ul class=\"p-checks\"><li data-reveal=\"1\">三种视口<small>2.2 检查：三条经历完整显示</small></li><li data-reveal=\"1\">键盘<small>2.2 检查：Tab 仍只停在“查看项目”</small></li><li data-reveal=\"1\">构建<small>2.2 检查：退出码 0</small></li><li data-reveal=\"2\">diff 范围<small>刚才读过：只有 App.tsx 的项目数据</small></li></ul></div>",
+      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-claim\" style=\"grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"agent\">Done when</span><p style=\"margin-top:8px;line-height:1.7\">三种屏幕尺寸可读<br>Tab 顺序不变<br>build 成功<br>diff 只含项目区</p></div><ul class=\"p-checks\"><li data-reveal=\"1\">三种屏幕尺寸<small>2.2 检查：三条经历完整显示</small></li><li data-reveal=\"1\">键盘<small>2.2 检查：Tab 仍只停在“查看项目”</small></li><li data-reveal=\"1\">构建<small>2.2 检查：退出码 0</small></li><li data-reveal=\"2\">diff 范围<small>刚才读过：只有 App.tsx 的项目数据</small></li></ul></div>",
       "steps": [
         "完成标准",
         "检查结果",
@@ -107,7 +107,7 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜课件 p38 第 1 步 → 切 Terminal 里 2.2 的 Codex 会话（已 /clear 时看自己的笔记或课件 2.2 的 Prompt 页），指认 Done when 四项，再回课件】\n\n回到 2.2 我们写的 Done when，一共四项。它当时是给 Codex 的要求，现在变成我们的验收清单。",
-        "【操作提示｜推进第 2 步；右侧是 2026-10-20 那次实录的检查结果，录制时按讲师 2.2 的实际检查结果讲；没做的项标待补，不打勾】\n\n前三项，三种视口、键盘、构建，2.2 都亲手检查过，结果对得上。",
+        "【操作提示｜推进第 2 步；右侧是 2026-10-20 那次实录的检查结果，录制时按讲师 2.2 的实际检查结果讲；没做的项标待补，不打勾】\n\n前三项，三种屏幕尺寸、键盘、构建，2.2 都亲手检查过，结果对得上。",
         "【操作提示｜推进第 3 步，留在课件；第四项依据 p36–p37 已读过的实际 diff 判断，不再切工具窗口】\n\n第四项，diff 只含项目区相关改动，证据就是刚才读过的 diff。如果自己的 diff 多出了无关文件、改了样式，或者加了依赖，这一项就打叉，那就是范围扩大。四项都对得上，还差一步：看看 Codex 是根据什么改的。"
       ],
       "teaching": [],

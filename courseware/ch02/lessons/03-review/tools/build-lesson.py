@@ -60,7 +60,7 @@ scene(
 scene(
     id="p37", segment="走读 diff",
     label="改动做了什么", title="再看内容：每一处改动做了什么",
-    lead="git diff 显示逐行改动。按“数据在哪 → 怎样渲染 → 影响哪些样式”读：这一轮只改了项目数组里的数据，渲染逻辑和样式都没动。排版规则没变，但内容变多了，有没有挤坏仍以 2.2 的视口检查为准。",
+    lead="git diff 显示逐行改动。按“数据在哪 → 怎样渲染 → 影响哪些样式”读：这一轮只改了项目数组里的数据，渲染逻辑和样式都没动。排版规则没变，但内容变多了，有没有挤坏仍以 2.2 的屏幕尺寸检查为准。",
     html=(
         NARROW +
         '<div class="p-walk"><div data-reveal="0"><div class="p-src" style="--lh:36px">'
@@ -81,7 +81,7 @@ scene(
     ),
     steps=["数据", "渲染", "样式", "文字"],
     teaching=teach(
-        ("讲师提示", "按 2.2 的真实 diff 讲，不预设结构。若 Codex 改了渲染或样式，就在第 2、3 步指出，并说清它对三种视口和键盘的影响。2026-10-20 能力目录关的那次运行改过 src/index.css（项目列表栅格，+23 −2），录制时遇到类似情况就在第 3 步讲。"),
+        ("讲师提示", "按 2.2 的真实 diff 讲，不预设结构。若 Codex 改了渲染或样式，就在第 2、3 步指出，并说清它对三种屏幕尺寸和键盘的影响。2026-10-20 能力目录关的那次运行改过 src/index.css（项目列表栅格，+23 −2），录制时遇到类似情况就在第 3 步讲。"),
     ),
 )
 
@@ -93,8 +93,8 @@ scene(
         NARROW +
         '<div class="p-claim" style="grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)">'
         '<div class="p-box" data-role="agent" data-reveal="0"><span class="p-tag" data-role="agent">Done when</span>'
-        '<p style="margin-top:8px;line-height:1.7">三种视口可读<br>Tab 顺序不变<br>build 成功<br>diff 只含项目区</p></div>'
-        '<ul class="p-checks"><li data-reveal="1">三种视口<small>2.2 检查：三条经历完整显示</small></li>'
+        '<p style="margin-top:8px;line-height:1.7">三种屏幕尺寸可读<br>Tab 顺序不变<br>build 成功<br>diff 只含项目区</p></div>'
+        '<ul class="p-checks"><li data-reveal="1">三种屏幕尺寸<small>2.2 检查：三条经历完整显示</small></li>'
         '<li data-reveal="1">键盘<small>2.2 检查：Tab 仍只停在“查看项目”</small></li>'
         '<li data-reveal="1">构建<small>2.2 检查：退出码 0</small></li>'
         '<li data-reveal="2">diff 范围<small>刚才读过：只有 App.tsx 的项目数据</small></li></ul></div>'

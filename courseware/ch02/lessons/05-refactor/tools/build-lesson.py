@@ -150,7 +150,7 @@ scene(
         + full("②", "02-move-data.diff", 1) + '</div></div>'
         '<div data-reveal="2" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px">'
         '<span style="font-size:17px;font-weight:700;margin-right:4px">逐项对照：</span>'
-        + check("文字与顺序") + check("并排比样式") + check("点击项目卡") + check("Tab") + check("三种视口")
+        + check("文字与顺序") + check("并排比样式") + check("点击项目卡") + check("Tab") + check("三种屏幕尺寸")
         + '<span style="font-size:16px;color:#5B6573">渲染出的页面结构与改前逐字相同</span></div>'
         '<div class="p-bar" data-reveal="3" style="margin-top:10px;font-size:17px;padding:8px 14px">改了二三十行，行为一点没变；但只有逐项查完，才能说“没变”</div>'
     ),
@@ -270,7 +270,7 @@ scene(
         '<div class="p-qrow"><span class="p-n">1</span><div><h3>AI 交回 ④ 时说“构建通过，没有报错”。这能说明行为没变吗？</h3>'
         '<div data-reveal="1"><p>不能。④ 实测构建成功，样式却丢了；类名写错不会报错，构建只说明代码能打包<span class="p-back-to" data-role="gate">回到 ④</span></p></div></div></div>'
         '<div class="p-qrow"><span class="p-n">2</span><div><h3>要确认 ① 没有改变行为，你需要重查哪些项目？</h3>'
-        '<div data-reveal="2"><p>文字与顺序、和原页面并排比样式、点击项目卡、Tab、三种视口；没查的项标“待验证”<span class="p-back-to" data-role="ok">回到 2.2 检查</span></p></div></div></div></div>'
+        '<div data-reveal="2"><p>文字与顺序、和原页面并排比样式、点击项目卡、Tab、三种屏幕尺寸；没查的项标“待验证”<span class="p-back-to" data-role="ok">回到 2.2 检查</span></p></div></div></div></div>'
     ),
     steps=["暂停", "第 1 题", "第 2 题"],
     teaching=teach(("跟做产出", "暂停时在自己的笔记里写下哪几张只是重构，每张引用一条具体行为证据（顺序、样式、Tab 等）。")),
@@ -287,10 +287,10 @@ SECTION_QS = [
 scene(
     id="p58", segment="收尾",
     label="每次都手工查吗", title="每次都这样手工重查吗？",
-    lead="现在的项目没有覆盖这些行为的自动测试。确认“行为不变”只能把文字与顺序、样式、点击、键盘和三种视口全部手工查一遍，每改一次就重复一次。Codex 判断“行为没变”，也只能依据 context 里看得到的东西，而 context 里没有测试。把“行为”写成能放进 context、能自动检查的东西，是后面规格与测试章节要解决的问题。回看本章：前四节都在同一份请求记录里找答案，这一节看到的是 context 里缺了什么；项目上留下审过的提交、公开 URL 和 ch02-homepage-live tag。",
+    lead="现在的项目没有覆盖这些行为的自动测试。确认“行为不变”只能把文字与顺序、样式、点击、键盘和三种屏幕尺寸全部手工查一遍，每改一次就重复一次。Codex 判断“行为没变”，也只能依据 context 里看得到的东西，而 context 里没有测试。把“行为”写成能放进 context、能自动检查的东西，是后面规格与测试章节要解决的问题。回看本章：前四节都在同一份请求记录里找答案，这一节看到的是 context 里缺了什么；项目上留下审过的提交、公开 URL 和 ch02-homepage-live tag。",
     html=(
         '<div class="p-grid" style="--n:2;gap:16px;align-items:stretch">'
-        '<div class="p-box is-soft" data-role="gate" data-reveal="0"><h3>每次都要重查</h3><p>文字与顺序 · 并排比样式 · 点击 · Tab · 三种视口</p></div>'
+        '<div class="p-box is-soft" data-role="gate" data-reveal="0"><h3>每次都要重查</h3><p>文字与顺序 · 并排比样式 · 点击 · Tab · 屏幕尺寸</p></div>'
         '<div class="p-bar" data-reveal="1" style="display:flex;flex-direction:column;justify-content:center;align-items:flex-start">'
         '<span>Codex 只能看 context，<b>context 里没有测试</b></span><span>手工重查，<b>验证很贵</b></span></div></div>'
         '<p class="p-sub" data-reveal="2" style="margin-top:12px">本章五节，五个问题</p>'
