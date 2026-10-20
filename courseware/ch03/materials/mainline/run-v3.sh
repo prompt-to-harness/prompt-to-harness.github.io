@@ -7,19 +7,18 @@
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 REPO="$(cd "$HERE/../../../.." && pwd)"
+source "$REPO/tools/lab-lib.sh"
 BASE="${BASE:-$REPO/lab-runs/ch03-mainline/v2-run2/repo}"
-RUN="${1:-$REPO/lab-runs/ch03-mainline/v3-$(date +%Y%m%d-%H%M%S)}"
-mkdir -p "$(dirname "$RUN")"; RUN="$(cd "$(dirname "$RUN")" && pwd)/$(basename "$RUN")"
-[ -e "$RUN" ] && { echo "运行目录已存在：$RUN" >&2; exit 1; }
-APP="$RUN/repo"; LOG="$RUN/logs"; H="$RUN/home"; MKT="$REPO/lab-runs/ch03-plugin/mkt-e"
-mkdir -p "$LOG"
-say() { echo "[$(date +%H:%M:%S)] $*" | tee -a "$LOG/steps.log" >&2; }
-cc() { (cd "$APP" && CLEAN_CODEX_KEEP_CONFIG=1 CLEAN_CODEX_HOME="$H" CLEAN_CODEX_NO_OPEN=1 "$REPO/tools/clean-codex.sh" "$@"); }
+lab_run_dir "$REPO/lab-runs/ch03-mainline/v3-$(date +%Y%m%d-%H%M%S)" "${1:-}"
+H="$RUN/home"; MKT="$REPO/lab-runs/ch03-plugin/mkt-e"
+# 保留 Codex 安装插件时写进 config.toml 的设置；首次运行还没有配置文件，clean-codex.sh 照常生成
+export CLEAN_CODEX_KEEP_CONFIG=1
+cc() { (cd "$APP" && CLEAN_CODEX_HOME="$H" CLEAN_CODEX_NO_OPEN=1 "$REPO/tools/clean-codex.sh" "$@"); }
 
 say "起点：复制 $BASE"
 cp -R "$BASE" "$APP"; rm -rf "$APP/node_modules" "$APP/dist"
 mkdir -p "$APP/docs/briefs"; cp "$HERE/fixtures/brief-3.5.md" "$APP/docs/briefs/CH03_DODGE_BRIEF.md"
-git -C "$APP" add -A && git -c user.name=讲师排练 -c user.email=rehearsal@example.invalid -C "$APP" commit -qm "Brief：60 秒躲避与收集"
+"${LAB_GIT[@]}" -C "$APP" add -A && "${LAB_GIT[@]}" -C "$APP" commit -qm "Brief：60 秒躲避与收集"
 (cd "$APP" && npm ci --no-audit --no-fund > "$LOG/npm-ci.log" 2>&1)
 [ -d "$MKT" ] || "$REPO/courseware/ch03/materials/plugin/setup-marketplace.sh" "$MKT" > "$LOG/setup-marketplace.log"
 CLEAN_CODEX_HOME="$H" "$REPO/tools/clean-codex.sh" -- plugin list > /dev/null 2>&1 < /dev/null || true
@@ -27,23 +26,11 @@ cc -- plugin marketplace add "$MKT" > "$LOG/plugin.log" 2>&1 < /dev/null
 cc -- plugin add game-studio@course-lab >> "$LOG/plugin.log" 2>&1 < /dev/null
 say "已安装 Game Studio（本地市场）"
 
-step() {  # step <名字> <exec 参数…>
-  local name="$1"; shift; local start=$SECONDS
-  cc --tap -- exec "$@" --json -o "$LOG/$name.answer.md" < /dev/null > "$LOG/$name.out" 2> "$LOG/$name.err" || say "$name 退出码非 0"
-  grep -o 'Trace session: [0-9a-f-]*' "$LOG/$name.out" "$LOG/$name.err" 2>/dev/null | head -1 | awk '{print $3}' > "$LOG/$name.tap-session" || true
-  grep '^{' "$LOG/$name.out" > "$LOG/$name.events.jsonl" || true
-  echo $((SECONDS - start)) > "$LOG/$name.seconds"; say "$name 完成，用时 $((SECONDS - start)) 秒"
-}
-# 上游先 502、重发得 400 时回合中断：续一次“继续”，最多两次，记在日志里
-retry() { local name="$1"
-  for i in 1 2; do grep -q '"turn.failed"' "$LOG/$name.events.jsonl" 2>/dev/null || return 0
-    say "$name 回合中断（上游错误），第 $i 次续跑"; mv "$LOG/$name.events.jsonl" "$LOG/$name.failed$i.events.jsonl"
-    step "$name" resume --last -c sandbox_mode='"workspace-write"' "刚才的回合因为网络错误中断了，请接着完成上一个请求。"; done; }
-step 3.5-plan -s workspace-write "$(cat "$HERE/fixtures/prompt-3.5.txt")"; retry 3.5-plan
+codex_step 3.5-plan -s workspace-write "$(cat "$HERE/fixtures/prompt-3.5.txt")"
 if [ -n "$(git -C "$APP" status --porcelain)" ]; then say "没等确认就改了文件"; else
-  step 3.5-exec resume --last -c sandbox_mode='"workspace-write"' "确认，按计划执行。"; retry 3.5-exec; fi
+  codex_step 3.5-exec resume --last -c sandbox_mode='"workspace-write"' "确认，按计划执行。"; fi
 set +e; (cd "$APP" && npm run build > "$LOG/build.log" 2>&1); echo $? > "$LOG/build.exit"; set -e
 git -C "$APP" add -A; git -C "$APP" diff --cached --stat > "$LOG/diffstat.txt"; git -C "$APP" diff --cached -- package.json > "$LOG/package.diff"
-git -c user.name=讲师排练 -c user.email=rehearsal@example.invalid -C "$APP" commit -qm "第二个小游戏（预检 E，未评审）" || true
+"${LAB_GIT[@]}" -C "$APP" commit -qm "第二个小游戏（预检 E，未评审）" || true
 du -sh "$APP/dist/assets" > "$LOG/dist-size.txt" 2>/dev/null || true
 say "build 退出码 $(cat "$LOG/build.exit")；完成：$RUN"

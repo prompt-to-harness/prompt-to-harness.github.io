@@ -15,6 +15,7 @@ set -euo pipefail
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
 REPO="$(cd "$HERE/../../../.." && pwd)"
+source "$REPO/tools/lab-lib.sh"
 RUN="${1:-$REPO/lab-runs/ch03-memory/$(date +%Y%m%d-%H%M%S)}"
 mkdir -p "$RUN"; RUN="$(cd "$RUN" && pwd)"
 APP="$RUN/repo"; HOMEDIR="$RUN/home"; MEM="$HOMEDIR/.codex/memories"
@@ -24,7 +25,6 @@ LOG="$HOME/.cache/ch03-memory-logs/$(basename "$RUN")"
 mkdir -p "$LOG"
 trap 'mkdir -p "$RUN/logs" && cp -R "$LOG"/. "$RUN/logs/"' EXIT
 MODEL="${CLEAN_CODEX_MODEL:-MiniMax-M3.1-Flash-Preview}"
-say() { echo "[$(date +%H:%M:%S)] $*" | tee -a "$LOG/steps.log" >&2; }
 
 if [ "${RESUME:-0}" != 1 ]; then
   cp -R "${APP_SRC:-$REPO/starters/personal-homepage/ch02-candidate}" "$APP"
@@ -32,54 +32,21 @@ if [ "${RESUME:-0}" != 1 ]; then
   git -c user.name=rehearsal -c user.email=r@example.invalid -C "$APP" commit -qm start
 fi
 
-launcher() {  # launcher <use_memories true|false>：写一个启动脚本，tmux 里执行
-  local f="$LOG/start-$1.sh"
-  cat > "$f" <<EOF
-#!/bin/zsh
-cd $(printf %q "$APP") && CLEAN_CODEX_KEEP_CONFIG=${KEEP_CONFIG:-0} CLEAN_CODEX_HOME=$(printf %q "$HOMEDIR") CLEAN_CODEX_NO_OPEN=1 $(printf %q "$REPO/tools/clean-codex.sh") --tap -- \\
-  -c features.memories=true -c memories.generate_memories=true -c memories.use_memories=$1 \\
-  -c 'memories.extract_model="$MODEL"' -c 'memories.consolidation_model="$MODEL"'
-sleep 5
-EOF
-  chmod +x "$f"; echo "$f"
-}
-screen() { tmux capture-pane -t "$1" -p; }          # 只看当前画面：滚动历史里有旧的“esc to interrupt”
-scrollback() { tmux capture-pane -t "$1" -p -S -500; }
-wait_for() { for _ in $(seq 1 60); do sleep 2; screen "$1" | grep -q "$2" && return 0; done; echo "等待超时：$2" >&2; return 1; }
-# 连续 4 次（约 12 秒）看到输入框、且没有“esc to interrupt”才算回答结束；申请画面里没有输入框。
-# 遇到运行命令的申请就同意一次（只会是写入记忆目录），记在日志里
-wait_idle() {
-  local idle=0; sleep 5
-  for _ in $(seq 1 400); do
-    if screen "$1" | grep -q "Yes, proceed"; then
-      say "$1：Codex 申请运行命令，同意一次（见屏幕记录）"; screen "$1" >> "$LOG/$1.approval.txt"
-      tmux send-keys -t "$1" Enter; sleep 3; idle=0; continue
-    fi
-    if screen "$1" | grep -q "Ask Codex" && ! screen "$1" | grep -q "esc to interrupt"; then
-      idle=$((idle + 1)); [ "$idle" -ge 4 ] && return 0
-    else idle=0; fi
-    sleep 3
-  done; echo "等待回答超时" >&2; return 1
-}
+# 遇到运行命令的申请就同意一次（只会是写入记忆目录），画面记在 <会话名>.approval.txt
+export LAB_TMUX_APPROVE=1
 session() {  # session <名字> <use_memories> <停留秒数> <输入>
   local name="$1" use="$2" hold="$3" msg="$4"
   local s="mem-$name-$$"
-  tmux new-session -d -s "$s" -x 200 -y 50 "zsh -ic $(printf %q "$(launcher "$use")")"
-  say "$name：tmux attach -r -t $s"
-  wait_for "$s" "Trust this folder\|Ask Codex"
-  screen "$s" | grep -q "Trust this folder" && { tmux send-keys -t "$s" Enter; wait_for "$s" "Ask Codex"; }
-  tmux send-keys -t "$s" -l "$msg"; sleep 1; tmux send-keys -t "$s" Enter
-  wait_idle "$s" || true
+  lab_tmux_start "$s" -c features.memories=true -c memories.generate_memories=true -c "memories.use_memories=$use" \
+    -c "memories.extract_model=\"$MODEL\"" -c "memories.consolidation_model=\"$MODEL\""
+  lab_tmux_send "$s" "$msg" || true
   # 会话一：Codex 有时只说“需要权限”就结束本轮，不发申请。人回一句同意（代答，记在日志里）
   if [ -n "${FOLLOWUP:-}" ] && [ -z "$(ls "$MEM/extensions/ad_hoc/notes" 2>/dev/null)" ]; then
     say "$name：没有写出笔记，人回复“$FOLLOWUP”（代答）"
-    tmux send-keys -t "$s" -l "$FOLLOWUP"; sleep 1; tmux send-keys -t "$s" Enter
-    wait_idle "$s" || true
+    lab_tmux_send "$s" "$FOLLOWUP" || true
   fi
   sleep "$hold"
-  scrollback "$s" > "$LOG/$name.screen.txt"
-  tmux send-keys -t "$s" C-c; sleep 1; tmux send-keys -t "$s" C-c; sleep 6
-  tmux kill-session -t "$s" 2>/dev/null || true
+  lab_tmux_stop "$s" "$name.screen.txt"
   say "$name 结束；summary $(wc -c < "$MEM/memory_summary.md" 2>/dev/null || echo 0) 字节；笔记 $(ls "$MEM/extensions/ad_hoc/notes" 2>/dev/null | wc -l | tr -d ' ') 份"
 }
 wait_consolidated() {  # 等后台整理把笔记写进 memory_summary.md
@@ -133,7 +100,7 @@ extends = ":workspace"
 EOF
 } > "$CFG.new" && mv "$CFG.new" "$CFG"
 say "会话四：权限配置禁止读取运行目录、本课程仓库和记忆目录"
-KEEP_CONFIG=1 session s4 false 5 "记忆翻牌里，等待翻回期间的点击，我们是怎么定的？"
+CLEAN_CODEX_KEEP_CONFIG=1 session s4 false 5 "记忆翻牌里，等待翻回期间的点击，我们是怎么定的？"
 cp -R "$MEM" "$LOG/memories-final" 2>/dev/null || true
 [ -f "$APP/AGENTS.md" ] && cp "$APP/AGENTS.md" "$LOG/repo-AGENTS.md"
 say "完成：$RUN"

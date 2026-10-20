@@ -6,22 +6,12 @@
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 REPO="$(cd "$HERE/../../../.." && pwd)"
+source "$REPO/tools/lab-lib.sh"
 SRC="$(cd "$1" && pwd)"
 BASE="$(dirname "$SRC")"
 URL="${URL:-file://$BASE/course-starter.git}"
 TAG="${TAG:-ch02-start-v1}"
-RUN="${2:-$REPO/lab-runs/catchup/$(basename "$SRC")-$(date +%H%M%S)}"
-mkdir -p "$(dirname "$RUN")"; RUN="$(cd "$(dirname "$RUN")" && pwd)/$(basename "$RUN")"
-[ -e "$RUN" ] && { echo "已存在：$RUN" >&2; exit 1; }
-APP="$RUN/repo"; LOG="$RUN/logs"; mkdir -p "$LOG"
-say() { echo "[$(date +%H:%M:%S)] $*" | tee -a "$LOG/steps.log" >&2; }
-codex_step() {
-  local name="$1"; shift; local start=$SECONDS
-  (cd "$APP" && CLEAN_CODEX_HOME="$RUN/home" CLEAN_CODEX_NO_OPEN=1 "$REPO/tools/clean-codex.sh" --tap -- exec "$@" \
-      --json -o "$LOG/$name.answer.md" < /dev/null > "$LOG/$name.out" 2> "$LOG/$name.err") || say "$name 退出码非 0"
-  grep '^{' "$LOG/$name.out" > "$LOG/$name.events.jsonl" || true
-  say "$name 完成，用时 $((SECONDS - start)) 秒"
-}
+lab_run_dir "$REPO/lab-runs/catchup/$(basename "$SRC")-$(date +%H%M%S)" "${2:-}"
 
 cp -R "$SRC" "$APP"
 [ -f "$APP/package-lock.json" ] && (cd "$APP" && npm ci --no-audit --no-fund > "$LOG/npm-ci.log" 2>&1) && say "学员原有依赖已安装"

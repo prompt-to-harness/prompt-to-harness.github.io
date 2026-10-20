@@ -10,33 +10,15 @@ set -euo pipefail
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
 REPO="$(cd "$HERE/../../../.." && pwd)"
+source "$REPO/tools/lab-lib.sh"
 V1="${V1:-$REPO/starters/personal-homepage/ch02-candidate}"
-RUN="${1:-$REPO/lab-runs/ch03-mainline/v2-$(date +%Y%m%d-%H%M%S)}"
-mkdir -p "$(dirname "$RUN")"
-RUN="$(cd "$(dirname "$RUN")" && pwd)/$(basename "$RUN")"
-APP="$RUN/repo"; LOG="$RUN/logs"
-[ -e "$RUN" ] && { echo "运行目录已存在：$RUN" >&2; exit 1; }
-mkdir -p "$LOG"
-GIT=(git -c user.name="讲师排练" -c user.email=rehearsal@example.invalid)
-say() { echo "[$(date +%H:%M:%S)] $*" | tee -a "$LOG/steps.log" >&2; }
-
-codex_step() {  # codex_step <名字> <exec 参数…>：记录事件、最后回答与 claude-tap 会话
-  local name="$1"; shift
-  local start=$SECONDS
-  (cd "$APP" && CLEAN_CODEX_HOME="$RUN/home" CLEAN_CODEX_NO_OPEN=1 "$REPO/tools/clean-codex.sh" --tap -- exec "$@" \
-      --json -o "$LOG/$name.answer.md" < /dev/null > "$LOG/$name.out" 2> "$LOG/$name.err") || say "$name 退出码非 0"
-  grep -o 'Trace session: [0-9a-f-]*' "$LOG/$name.out" "$LOG/$name.err" 2>/dev/null | head -1 | awk '{print $3}' > "$LOG/$name.tap-session" || true
-  grep '^{' "$LOG/$name.out" > "$LOG/$name.events.jsonl" || true
-  echo $((SECONDS - start)) > "$LOG/$name.seconds"
-  say "$name 完成，用时 $((SECONDS - start)) 秒"
-}
+lab_run_dir "$REPO/lab-runs/ch03-mainline/v2-$(date +%Y%m%d-%H%M%S)" "${1:-}"
 
 # ---------- 起点：v1 ----------
 say "起点：复制 v1（$V1）"
 cp -R "$V1" "$APP"
 rm -rf "$APP/node_modules" "$APP/dist"
-"${GIT[@]}" -C "$APP" init -q -b main
-"${GIT[@]}" -C "$APP" add -A && "${GIT[@]}" -C "$APP" commit -qm "v1：起点"
+lab_commit_start "v1：起点"
 (cd "$APP" && npm ci --no-audit --no-fund > "$LOG/npm-ci.log" 2>&1)
 say "npm ci 完成（Node $(node -v)）"
 
@@ -57,10 +39,10 @@ set +e
 (cd "$APP" && npm run build > "$LOG/build.log" 2>&1); BUILD=$?
 set -e
 echo "$BUILD" > "$LOG/build.exit"
-"${GIT[@]}" -C "$APP" add -A
+"${LAB_GIT[@]}" -C "$APP" add -A
 git -C "$APP" diff --cached --stat > "$LOG/diffstat.txt"
 git -C "$APP" diff --cached > "$LOG/memory-v0.diff"
-"${GIT[@]}" -C "$APP" commit -qm "记忆翻牌 v0（预检 A，未经人工评审）" || true
+"${LAB_GIT[@]}" -C "$APP" commit -qm "记忆翻牌 v0（预检 A，未经人工评审）" || true
 say "build 退出码 $BUILD；diff 见 logs/memory-v0.diff"
 say "完成：$RUN"
 echo "$RUN"
