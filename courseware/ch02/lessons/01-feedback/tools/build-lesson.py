@@ -19,6 +19,9 @@ scene = lesson.scene
 # 录制时还没有实际记录的数字，画面上统一用这个占位（只写占的是什么，不写给讲师的指令），讲师提示里写明按记录替换
 TBD = "〔实测〕"
 
+# 2026-10-20 课程基线（tools/clean-codex.sh --tap，隔离 HOME）实测第一步那句话；p08、p09、p16 用它
+RUN1020 = "数字来自讲师用课程基线（隔离 HOME）的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash-Preview，codex exec）；随版本、模型、配置和任务变化，只说明结构。"
+
 # 第一步：与项目无关的一句话，只看 context 的基本组成（分镜“两步 Prompt”）
 FIRST_PROMPT = "你好，用一句话介绍你能帮我做什么。"
 
@@ -110,12 +113,13 @@ scene(
         '<div class="p-pair" style="grid-template-columns:.8fr auto 1.3fr">'
         f'<div class="p-box" data-role="us" data-reveal="0"><span class="p-tag" data-role="us">我们写的</span><p class="p-big">一句话</p><p class="p-sub">{len(FIRST_PROMPT)} 个字</p><p class="p-sub" data-reveal="2"><b>排在整份请求的最末尾</b></p></div>'
         '<div class="p-join" data-reveal="1"><span>Codex 发出</span><i class="p-arrow"></i></div>'
-        f'<div class="p-box" data-role="agent" data-reveal="1"><span class="p-tag" data-role="agent">这一次请求</span><p class="p-big">远不止这一句</p><p class="p-sub">约 {TBD} token · {TBD} 字符</p></div></div>'
+        f'<div class="p-box" data-role="agent" data-reveal="1"><span class="p-tag" data-role="agent">这一次请求</span><p class="p-big">远不止这一句</p><p class="p-sub">约 9 千 token · 约 3.8 万字符</p></div></div>'
+        '<p class="source-note">' + RUN1020.rstrip("。") + '</p>'
     ),
     steps=["只发一句话", "实际发出", "我们那句在末尾"],
     teaching=teach(
         ("切到实操", "在 p06-tap 启动的 Codex 中提交这句话，等回答结束，打开查看器里这一次请求。录制前确认这一句在冻结版本下不会触发读文件；若触发，换成更短的问候并记下原因。"),
-        ("数字来源", "画面上的 token 数和字符数录制时按实际记录替换，标“一次运行”。旧版“34 字读标题任务、约 1.15 万 token”来自另一个 Prompt，不沿用。"),
+        ("数字来源", "2026-10-20 实测：1 次请求，没有工具调用；input_tokens 9042（模型服务返回的计数），各块字符合计约 3.77 万：系统指令 16979、工具定义 17767、Skills 列表 1985、权限说明 341、环境信息 642、我们的话 17。Codex 0.163.0 对这个模型名报“找不到模型元数据，使用后备值”，录制版本和模型名定下后复测一次，有出入按实际记录替换。旧版“34 字读标题任务、约 1.15 万 token”来自另一个 Prompt，不沿用。"),
         ("讲师提示", "画面截图需检查本机路径、用户名和个人 Skills 名称。这一页先让学员看到“远不止这句话”，不急着命名。"),
     ),
 )
@@ -131,7 +135,7 @@ stack = (
 scene(
     id="p09", segment="逐块拆开",
     label="拆开这份请求", title="拆开这份请求：六块内容",
-    lead="Harness 是包在模型外面的那一层程序，Codex 就是一个 Harness：它把系统指令、工具和这一次的情况组装成请求。这份请求可以拆成六块：系统指令、工具定义、Skills 列表、环境信息、权限说明，最后才是我们写的话。下面几页逐块回答“如果没有它会怎样”。" + MEASURED,
+    lead="Harness 是包在模型外面的那一层程序，Codex 就是一个 Harness：它把系统指令、工具和这一次的情况组装成请求。这份请求可以拆成六块：系统指令、工具定义、Skills 列表、环境信息、权限说明，最后才是我们写的话。下面几页逐块回答“如果没有它会怎样”。" + RUN1020,
     html=(
         stack +
         '<div class="p-grid" style="--n:3;gap:12px" data-reveal="0">'
@@ -142,17 +146,17 @@ scene(
         '<div class="x-stack" data-reveal="1">'
         '<div data-role="agent" style="flex:17">系统指令 ≈1.7 万字符</div>'
         '<div data-role="tool" style="flex:18">工具定义 9 个 ≈1.8 万</div>'
-        '<div data-role="ctx" style="flex:12">Skills 列表 ≈1.2 万</div>'
+        '<div data-role="ctx" style="flex:2.2" title="Skills 列表"></div>'
         '<div data-role="ink" style="flex:1.2" title="环境信息"></div>'
         '<div data-role="gate" style="flex:1" title="权限说明"></div>'
         '<div data-role="us" style="flex:.6" title="我们的话"></div></div>'
-        '<p class="x-key" data-reveal="1">末尾三小格：<span data-role="ink"><i></i>环境信息</span><span data-role="gate"><i></i>权限说明</span><span data-role="us"><i></i>我们的话</span></p>'
+        '<p class="x-key" data-reveal="1">右侧小格：<span data-role="ctx"><i></i>Skills 列表 ≈2 千</span><span data-role="ink"><i></i>环境信息</span><span data-role="gate"><i></i>权限说明</span><span data-role="us"><i></i>我们的话</span></p>'
         '<div class="p-bar is-light" data-reveal="2" style="margin-top:16px">我们写的，只是<b>最右边最小的一格</b></div>'
-        '<p class="source-note">下排是讲师日常环境的一次记录，宽度大致对应大小；右侧三小格依次是环境信息（约 600 字符）、权限说明（约 340 字符）和我们的话。' + MEASURED + '</p>'
+        '<p class="source-note">下排是讲师用课程基线的一次记录，宽度大致对应大小；右侧小格依次是 Skills 列表（约 2 千字符）、环境信息（约 640 字符）、权限说明（约 340 字符）和我们的话（17 个字）。' + RUN1020 + '</p>'
     ),
     steps=["Harness 管的三样", "逐块标注", "我们那一格"],
     teaching=teach(
-        ("数字来源", "字符数来自讲师日常环境的一次 claude-tap 记录：instructions 16979 字符，tools 的 JSON 约 17767 字符，Skills 说明 12431 字符，环境信息约 622 字符，权限说明 341 字符。这几块和用户输入无关，换成第一步那句话仍然成立；录制时按冻结记录核对，有出入就按实际记录替换。Skills 列表大是因为讲师装了较多个人 Skills，p15 会对比隔离环境。"),
+        ("数字来源", "字符数来自 2026-10-20 课程基线（隔离 HOME）发第一步那句话的 claude-tap 记录：系统指令 16979 字符，是 input 里第一条 developer 消息（请求顶层的 instructions 字段为空，不要在面板里找那个字段）；工具定义 tools 的 JSON 17767 字符，9 个；Skills 列表 1985 字符，只有 Codex 自带的；权限说明 341 字符，和 Skills 列表放在第二条 developer 消息里；环境信息 642 字符，是 user 消息；我们的话 17 字。讲师日常环境的 Skills 列表约 1.24 万字符（2026-10-02），差别在 p15 讲。录制时按冻结记录核对，有出入就按实际记录替换。"),
         ("讲师提示", "第一次正式出现“Harness”这个词，先指着图说它做了什么，再给名字。这张图是本节的请求解剖地图，后面几页逐块放大，p16a 再整体框起来。"),
     ),
     expressive="按大小比例排开的一条请求带，后续页逐块放大",
@@ -242,11 +246,13 @@ scene(
         '<div class="demo-notes"><ol class="p-notes">'
         '<li data-reveal="0"><span><b>只读，不给文件名</b><small>让它自己去找</small></span></li>'
         '<li data-reveal="1"><span><b>回复逐句看</b><small>哪句是要求，哪句是完成标准，哪句不确定</small></span></li>'
-        '<li data-reveal="2"><span><b>它说依据在哪</b><small>圈出回答里的文件名和段落</small></span></li></ol></div>'
+        '<li data-reveal="2"><span><b>它说依据在哪</b><small>这次：PROJECT_BRIEF.md 的“首页 v0 的验收依据”、PROMPT_V1.md 的 Done when，带行号</small></span></li></ol></div>'
+        '<p class="source-note">' + RUN1020 + ' 回答还标出了两处“不确定”。</p>'
     ),
     steps=["只读提问", "看回复", "圈出依据"],
     teaching=teach(
-        ("切到实操", "在同一个 claude-tap 启动的 Codex 里提交此 Prompt，保留完整记录供 p14 使用。Codex 的回复录制时按实际记录截图，逐句贴标签，高亮它说出的依据文件；画面不预写回复。"),
+        ("切到实操", "在同一个 claude-tap 启动的 Codex 里提交此 Prompt，保留完整记录供 p14 使用。Codex 的回复录制时按实际记录截图，逐句贴标签，高亮它说出的依据文件。"),
+        ("实测记录", "2026-10-20 课程基线（隔离 HOME，Codex 0.163.0 + MiniMax，codex exec -s read-only）在 starter 的 ch01-complete 快照上跑过一次：回答说要求在 PROJECT_BRIEF.md 的“已确定的目标与范围”，完成标准在同文件“首页 v0 的验收依据”五条，PROMPT_V1.md 的 Done when 是压缩版，都给了行号；还标了两处“不确定”：快照里的 PROMPT_V1.md 自称排练记录，以及没有本地 tag、没跑构建，只能确认标准、不能确认是否通过。讲师自己的仓库录制时内容会不同，按实际回复讲。工作区没有被修改。"),
         ("讲师提示", "Prompt 不出现 PROMPT_V1.md 等文件名，这样“它是怎么知道的”这个问题才是真的。只读，不修改文件。"),
     ),
 )
@@ -257,18 +263,20 @@ scene(
     lead="回到请求记录：Codex 提出读文件的工具调用，Harness 执行后把返回的内容放进下一次请求，模型再据此回答。工具调用和返回也进了 context。再对照回答，看它有没有正确使用这段返回。",
     html=(
         '<div class="p-flow" style="--n:3">'
-        '<div class="p-node" data-role="agent" data-reveal="0"><h3>提出调用</h3><p>读项目里的文件</p></div>'
-        '<div class="p-node" data-role="tool" data-reveal="0"><h3>Harness 执行</h3><p>返回文件内容</p></div>'
-        '<div class="p-node" data-role="ctx" data-reveal="1"><h3>下一次请求</h3><p>带上这段返回</p></div></div>'
+        '<div class="p-node" data-role="agent" data-reveal="0"><h3>提出调用</h3><p>exec_command：<code>cat PROJECT_BRIEF.md</code></p></div>'
+        '<div class="p-node" data-role="tool" data-reveal="0"><h3>Harness 执行</h3><p>返回文件内容，约 1300 字符</p></div>'
+        '<div class="p-node" data-role="ctx" data-reveal="1"><h3>下一次请求</h3><p>带上这段调用和返回</p></div></div>'
         '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:14px">'
-        '<div class="p-box is-soft" data-role="ok" data-reveal="2"><h3>读到了</h3><p>对照返回和回答，看理解对不对</p></div>'
-        '<div class="p-box is-soft" data-role="gate" data-reveal="2"><h3>没读到</h3><p>回答没有依据：要它说明依据，就是为了看出这一点</p></div></div>'
+        '<div class="p-box is-soft" data-role="ok" data-reveal="1"><h3>这一问：7 次请求</h3><p>12 次调用，都是 exec_command 跑 ls、cat、git log；input 从 4 项涨到 39 项</p></div>'
+        '<div class="p-box is-soft" data-role="ok" data-reveal="2"><h3>读到了</h3><p>回答里的文件和行号，都能在返回里找到；再看它理解得对不对</p></div></div>'
         '<div class="p-bar is-light" data-reveal="2">下一步从<b>上一步的返回</b>里来</div>'
+        '<p class="source-note">' + RUN1020.rstrip("。") + '</p>'
     ),
     steps=["调用和返回", "进入下一次请求", "对照回答"],
     teaching=teach(
         ("演示分支", "按录制实际选用：\n\n读到了：在记录中指认读取文件的那次工具调用、工具返回，以及下一次请求中出现的文件内容；再对照回答，检查来源与理解是否相符。\n\n没读文件，凭目录名或代码猜：核对完整请求与工具返回后指出依据缺失，这正是 Prompt 要求“说明依据”的原因。\n\n读到了但理解错了，或没找到依据、回答不确定或继续查找：均按实际结果讲。仅凭没有读取某一个文件，不能断言所有来源中都没有依据。保留原始记录，不重跑凑结果。"),
-        ("讲师提示", "画面写“读项目里的文件”，不预写文件名；录制后可换成实际读取的文件名。学员的要求和完成标准可能记在 PROMPT_V1.md 或其他文件里。回扣第 1 章的 Agent 循环。"),
+        ("实测记录", "2026-10-20 课程基线一次运行：7 次请求、12 次工具调用（每次请求并行两次），全部是 exec_command 执行 shell 命令：ls、find、cat PROJECT_BRIEF.md、cat PROMPT_V1.md 等、git log、grep -n 取行号；没有专门的读文件工具，读文件就是跑 cat。每次请求的 input 都带上前面全部的调用和返回：4、10、16、22、28、34、39 项；input_tokens 从 9070 涨到 21986，其中缓存命中从 8376 涨到 20482。录制版本或讲师仓库不同，次数和数字会变，按实际记录改。"),
+        ("讲师提示", "学员的要求和完成标准可能记在 PROMPT_V1.md 或其他文件里。回扣第 1 章的 Agent 循环。“input 一项项变长”只点一句，2.2 p22–p23 再展开。"),
     ),
 )
 
@@ -288,19 +296,19 @@ scene(
         '<div class="p-ln del"><i>−</i><code>`sandbox_mode` is `read-only`: … only permits reading files.</code></div>'
         '<div class="p-ln add"><i>+</i><code>`sandbox_mode` is `workspace-write`: … editing files in `cwd` …</code></div>'
         '<div class="p-ln add"><i>+</i><code>The writable roots are `…/work`, …</code></div></div></div>'
-        f'<ol class="p-notes"><li data-reveal="1"><span><b>{TBD} → {TBD} 字符</b><small>可写时多出可写目录</small></span></li>'
+        '<ol class="p-notes"><li data-reveal="1"><span><b>341 → 676 字符</b><small>可写时多出可写目录；环境信息 642 → 1628</small></span></li>'
         '<li class="is-ok" data-reveal="2"><span><b>按配置拼装</b><small>仓库里按沙箱模式分模板</small></span></li></ol></div>'
-        '<p class="source-note" data-reveal="2">模板位置：openai/codex 仓库 codex-rs/prompts/templates/permissions/</p>'
+        '<p class="source-note" data-reveal="2">模板位置：openai/codex 仓库 codex-rs/prompts/templates/permissions/。' + RUN1020 + '</p>'
     ),
     repro=repro([
         ("在课程仓库根目录建一个带 Git 的练习目录；有自己的 .git，Codex 才不会读到课程仓库的 AGENTS.md", "mkdir -p lab-runs/perm && cd lab-runs/perm && git init -q && echo '<h1>hello</h1>' > index.html"),
         ("用课程基线（隔离 HOME + MiniMax）以只读权限跑一次；需要 MINIMAX_API_KEY，浏览器会打开请求面板", f"../../tools/clean-codex.sh --tap -- exec -s read-only \"{FIRST_PROMPT}\" < /dev/null"),
         ("同一句话换成可写权限再跑一次", f"../../tools/clean-codex.sh --tap -- exec -s workspace-write \"{FIRST_PROMPT}\" < /dev/null"),
         ("在面板里对照两次请求：developer 消息中 <permissions instructions> 一段，以及环境信息里的可写目录", None),
-    ], note="讲师 2026-10-05 用另一句只读提问按这几步在 Codex 0.160.0 上实测过；权限说明与提问内容无关。字符数随版本和配置变化，只看两段说明的差别。末尾的 < /dev/null 让 codex exec 不再等待额外输入。"),
+    ], note="讲师 2026-10-20 在 Codex 0.163.0 上按这几步用第一步那句话实测过（2026-10-05 在 0.160.0 上用另一句只读提问也测过）；权限说明与提问内容无关。字符数随版本和配置变化，只看两段说明的差别。末尾的 < /dev/null 让 codex exec 不再等待额外输入。"),
     steps=["两次启动", "两段说明", "按配置拼装"],
     teaching=teach(
-        ("数字来源", "字符数录制时按实际记录替换（2026-10-02 的旧记录约 340 → 670，来自另一个 Prompt，不沿用）。"),
+        ("数字来源", "2026-10-20 课程基线实测第一步那句话：权限说明 341 → 676 字符，环境信息 642 → 1628 字符（可写时 permission_profile 里多出可写路径）；系统指令、工具定义两次完全相同。2026-10-02 在 0.160.0 上另一个 Prompt 的旧记录约 340 → 670，量级一致。录制版本定下后复测。"),
         ("核对记录", "模板位于 codex-rs/prompts/templates/permissions/（sandbox_mode/*.md、approval_policy/*.md），2026-01 起由固定段落改为按配置拼装（提交 87f7226cca）。旧数据来自 codex exec，审批策略为 never；交互界面中的审批文字会不同。"),
         ("命令说明", "已核对：Codex 0.160.0 的 -s/--sandbox 取值为 read-only、workspace-write、danger-full-access；claude-tap 0.1.145 的帮助写明未列出的参数会转发给所启动的客户端。复制按钮复制的是只读那一条，可写时把最后一个参数换掉。会话中途也能在 Codex 界面里改权限，但前面的对话仍在上下文里，对比不干净，所以用启动参数，两次各开新会话。"),
     ),

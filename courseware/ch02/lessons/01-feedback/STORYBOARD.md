@@ -72,3 +72,4 @@
 - 已核实：环境信息与 `AGENTS.md` 都以 user 角色注入，p09 不能只按消息角色划分“我写的 / Harness 加的”；Skills 列表与权限说明是 developer 角色。
 - 本地会话记录里的基础指令是删减前的全文，与实际发出的不同；画面一律用代理记录。
 - p16a 引用的官方解释未选定；不自造定义，不大段引用。
+- 2026-10-20 实测（课程基线 `tools/clean-codex.sh --tap`，隔离 HOME，Codex 0.163.0 + MiniMax-M3.1-Flash-Preview，`codex exec`，在 starter 的 ch01-complete 快照上）：第一步那句话 1 次请求、没有工具调用，input_tokens 9042；系统指令是 input 里第一条 developer 消息（请求顶层 `instructions` 字段为空），16979 字符；工具 9 个，17767 字符；Skills 列表 1985 字符；权限说明 341（只读）/ 676（可写）字符；环境信息 642 / 1628 字符。第二步只读 Prompt 7 次请求、12 次工具调用，全是 `exec_command` 跑 shell 命令（没有专门的读文件工具），读到了 `PROJECT_BRIEF.md` 与 `PROMPT_V1.md` 并给出行号。Codex 0.163.0 对这个模型名报“找不到模型元数据，使用后备值”，录制版本和模型名定下后复测。原始记录在讲师本机 claude-tap 数据库，含本机路径，不提交。
