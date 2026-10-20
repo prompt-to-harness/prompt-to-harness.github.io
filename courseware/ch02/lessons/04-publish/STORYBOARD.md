@@ -71,3 +71,5 @@ Done when：本地 npm run build 成功；我能逐项解释工作流做了什�
 ## 2026-10-20 p49a 实测
 
 在临时公开仓库上跑了两次（交互界面，真实 HOME + 独立 `CODEX_HOME`，经 claude-tap）。第一次 Prompt 没写 POST/PUT：7 次批准，`PUT` 404 后自己改用 `POST`。讲师决定不要这段弯路，p49 Prompt 加上“没有就用 POST 创建，已有就用 PUT 修改”；第二次在组织仓库上 6 次批准，直接 `POST` 成功。两次都是需要批准的调用在记录里带 `require_escalated` 标记和 `justification` 理由，人点的同意不在记录里。p49a 已按这份记录改写，细节见 [`materials/pages-source/`](../../materials/pages-source/README.md)。隔离 HOME 下 gh 读不到钥匙串登录，所以这一节不能用 `tools/clean-codex.sh` 的隔离 HOME 录。
+
+2026-10-20 16:14 按全章新基线（能力目录开、推理档位 max）重跑，p49a 已按这次更新：9 次批准，批准标记写在 code mode 那段代码的参数里，第一次 POST 参数写错（`-d`）后自己改成 `-f`。

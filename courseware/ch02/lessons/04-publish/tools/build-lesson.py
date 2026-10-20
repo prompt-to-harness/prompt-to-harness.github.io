@@ -14,7 +14,7 @@ lesson = Lesson(__file__, "2.4", "发布上线，看 Codex 怎么用 gh", summar
 
 RECORD = "请求记录为结构示意，条目名为中文概括；实际的命令写法和调用次数以记录为准"
 # 2026-10-20 实测：临时公开仓库 + 真实 HOME（gh 用钥匙串登录）+ 独立 CODEX_HOME（MiniMax），交互界面；p49a 用它
-RUN1020 = "讲师在临时仓库上的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash-Preview，交互界面）；命令写法和调用次数随版本、模型和仓库状态变化"
+RUN1020 = "讲师在组织下临时仓库上的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max，交互界面）；命令写法和调用次数随版本、模型和仓库状态变化"
 scene = lesson.scene
 
 
@@ -206,21 +206,22 @@ scene(
     html=(
         NARROW +
         '<div class="p-walk"><div data-reveal="0"><div class="p-src" style="--lh:40px">'
-        '<div class="p-fn">记录里的一次 gh 调用</div>'
-        '<div class="p-ln"><i>1</i><code>cmd: gh api repos/:owner/:repo/pages</code></div>'
-        '<div class="p-ln add" data-reveal="1"><i>2</i><code>sandbox_permissions: require_escalated</code></div>'
-        '<div class="p-ln add" data-reveal="1"><i>3</i><code>justification: 需要联网调用 GitHub API 读取…</code></div>'
+        '<div class="p-fn">记录里的一次 gh 调用（exec 里的一段代码）</div>'
+        '<div class="p-ln"><i>1</i><code>exec_command({ cmd: "gh api repos/…/pages",</code></div>'
+        '<div class="p-ln add" data-reveal="1"><i>2</i><code>sandbox_permissions: "require_escalated",</code></div>'
+        '<div class="p-ln add" data-reveal="1"><i>3</i><code>justification: "Allow gh CLI to query … Pages …?" })</code></div>'
         '<div class="p-ln" data-reveal="2"><i>4</i><code>返回：{"message":"Not Found", … "404"}</code></div>'
         '<div class="p-ln add" data-reveal="2"><i>5</i><code>下一次：用 POST 创建站点，再查一次</code></div></div></div>'
         '<ol class="p-notes"><li data-reveal="0"><span><b>完整命令</b><small>模型提出的调用，一字不差</small></span></li>'
         '<li data-reveal="1"><span><b>批准申请写在调用里</b><small>标记加理由，批准框照着显示</small></span></li>'
         '<li data-reveal="2"><span><b>下一次请求带上返回</b><small>模型据此决定下一步</small></span></li>'
-        '<li class="is-risk" data-reveal="3"><span><b>点同意的是我们</b><small>记录里只看到命令执行了；这次批了 6 次</small></span></li></ol></div>'
+        '<li class="is-risk" data-reveal="3"><span><b>点同意的是我们</b><small>记录里只看到命令执行了；这次批了 9 次</small></span></li></ol></div>'
         '<p class="source-note">字段名照记录原样，值有删节。' + RUN1020 + '</p>'
     ),
     steps=["完整命令", "批准申请", "下一次请求", "谁点的同意"],
     teaching=teach(
-        ("实测记录", "2026-10-20 在组织下的临时公开仓库（Pages 尚未开启）上用交互界面发 p49 的原话（已写明“没有就用 POST 创建，已有就用 PUT 修改”）：8 次对话请求、10 次工具调用，其中 6 次申请在沙箱外运行，都由人批准。过程：先在沙箱里跑 gh api，连不上 api.github.com，gh auth status 也误报登录无效（沙箱里读不到钥匙串）；申请在沙箱外运行后查到 Pages 还不存在（404），确认仓库公开、自己有 admin 权限；列出要执行的命令后没有停下等人，直接申请执行 POST … -f build_type=workflow，一次成功；复查 build_type 为 workflow，并查了 workflow 列表。需要批准的调用，参数里带 sandbox_permissions: require_escalated、justification（批准框里那句理由）和 prefix_rule；批准这一下本身不出现在请求里。同日个人仓库上的一次运行（Prompt 没写 POST/PUT）先用 PUT 得到 404，再自己改用 POST，批准 7 次；所以 Prompt 里写明了做法。"),
+        ("实测记录", "2026-10-20 在组织下的临时公开仓库（Pages 尚未开启）上用交互界面发 p49 的原话，能力目录开、推理档位 max：15 次对话请求、16 次工具调用，其中 9 次申请在沙箱外运行，都由人批准。能力目录开时是 code mode：每次调用是 exec 工具里的一小段 JavaScript，调 tools.exec_command，申请批准的标记 sandbox_permissions: require_escalated、justification（这次是英文）、prefix_rule 写在这段代码的参数里。过程：沙箱里 gh auth status 误报登录无效、gh api 连不上网；检查环境变量时自己用 sed 把值遮住；申请在沙箱外运行后确认仓库权限，查到 Pages 还不存在（404）；看了 workflow 文件；列出要执行的命令后没有停下等人；第一次 POST 把参数写成 gh 不支持的 -d，看到报错后改成 -f，创建成功；复查 build_type 为 workflow；还主动查了推送时那次失败的部署和日志。批准这一下本身不出现在请求里。同日能力目录关的两次运行：个人仓库 7 次批准（先 PUT 404 再 POST），组织仓库 6 次批准（直接 POST）。"),
+
 
         ("讲师提示", "录制时在 claude-tap 里打开 p49 那次会话的请求，按实际记录逐条指认；命令写法、调用次数和 PUT/POST 的先后以录制为准。复查返回里的 html_url 会露出账号或域名，截图前检查；gh auth status 和 gh api user 的输出含账号名，令牌不能出镜。实测中它为确认登录申请过一条含 gh auth token 的命令（自己接了 sed 只露前 4 个字符和长度，没有泄露）：读到令牌的命令哪怕看起来做了遮盖，也值得在批准框前停一下，这是本页“批不批由我们定”最好的例子；录制时出现就就地讲，不出现不提。“执行修改前告诉我”没有让它停下，真正停住它的是批准框：这一句可以回扣 1.3。"),
     ),

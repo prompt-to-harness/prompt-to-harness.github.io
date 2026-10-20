@@ -78,3 +78,4 @@ gh api --method PUT repos/<owner>/<repo>/pages -f build_type=workflow   # 改回
 - 请求记录里，需要批准的调用参数带 `sandbox_permissions: "require_escalated"`、`justification`（批准框里的中文理由）和 `prefix_rule`；人点的同意本身不出现在请求里，只能从随后的工具返回看出命令执行了。用在 2.4 p49a。
 - 同日在 `prompt-to-harness` 组织下的临时仓库重跑一次，Prompt 改为 p49 现在的写法（加了“先查有没有 Pages 站点：没有就用 POST 创建，已有就用 PUT 修改，都设 build_type=workflow”）：8 次对话请求、10 次工具调用、6 次批准，查到 404 后直接 `POST` 成功，没有 `PUT` 的弯路。沙箱里 `gh auth status` 误报登录无效（读不到钥匙串），Codex 申请过一条含 `gh auth token` 的命令来确认登录，自己用 `sed` 只露出前 4 个字符和长度，记录里没有完整令牌；读令牌的命令在批准框前值得停一下。
 - 未测：推送后实际部署与三项发布检查；学员自己的仓库结构。两个临时仓库由讲师在实验后手动删除。
+- 同日 16:14 按全章新基线（能力目录开、推理档位 max）在组织下另一个临时仓库再跑一次：15 次对话请求、16 次工具调用、9 次批准。能力目录开时是 code mode，批准标记 `sandbox_permissions: "require_escalated"` 和 `justification`（这次是英文）写在 `exec` 工具里那段 JavaScript 的参数中。第一次 `POST` 把参数写成 gh 不支持的 `-d`，看到报错后改用 `-f` 成功；还主动查了推送时那次失败的部署日志。2.4 p49a 以这次为准。
