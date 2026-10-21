@@ -11,7 +11,7 @@ window.lesson = {
       "label": "换一位讲师",
       "title": "平时怎么用好 context？",
       "lead": "换一位讲师，分享三条平时的做法",
-      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>看请求</li><li class=\"is-done\"><b>2.2</b>补经历</li><li class=\"is-done\"><b>2.3</b>审改动</li><li class=\"is-done\"><b>2.4</b>发布上线</li><li class=\"is-now\"><b>2.5</b>用好 context</li></ol><div class=\"p-grid\" style=\"--n:3;gap:14px;margin-top:22px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ink\">一</span><h3>看懂重发的代价</h3><p>一问花了多少，缓存省了多少</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ctx\">二</span><h3>换会话时自己写交接</h3><p>决定下一轮带上什么</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"tool\">三</span><h3>换一个工具看请求</h3><p>同一句话，context 不一样</p></div></div><p class=\"p-hand\" data-reveal=\"1\" style=\"margin-top:14px\">这一节看懂即可，不设练习</p>",
+      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>看请求</li><li class=\"is-done\"><b>2.2</b>补经历</li><li class=\"is-done\"><b>2.3</b>审改动</li><li class=\"is-done\"><b>2.4</b>发布上线</li><li class=\"is-now\"><b>2.5</b>用好 context</li></ol><div class=\"p-grid\" style=\"--n:3;gap:14px;margin-top:22px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ink\">一</span><h3>看懂重发的代价</h3><p>一问花了多少，缓存省了多少</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ctx\">二</span><h3>换会话时自己写交接</h3><p>决定下一轮带上什么</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"tool\">三</span><h3>换一个工具看请求</h3><p>同一句话，context 不一样</p></div></div>",
       "steps": [
         "最后一节",
         "换一位讲师",
@@ -19,7 +19,7 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜停留课件 p59 第 1 步，章节地图上 2.1–2.4 已标完成；指向 2.5，不切工具窗口】\n\n第 2 章的最后一节。前面四节，我们一直在打开请求记录：看它由什么组成，怎么变长，Codex 依据什么改，怎样调用 gh。",
-        "【操作提示｜推进第 2 步，讲师切换（按录制约定显示讲师小窗），指向“看懂即可”】\n\n这一节换我来讲。不再做新的项目任务，也不设练习，分享几条我平时用好 context 的做法，看懂就行。",
+        "【操作提示｜推进第 2 步，讲师切换（按录制约定显示讲师小窗）】\n\n这一节换我来讲，分享几条我平时用好 context 的做法。",
         "【操作提示｜推进第 3 步，三张卡一起出现，依次指认】\n\n一共三条：第一，看懂重发的代价；第二，换会话的时候，自己写一份交接；第三，换一个工具，看看同一句话发出去是什么样。每一条都回到这一章看过的请求记录。"
       ],
       "teaching": [
@@ -37,7 +37,7 @@ window.lesson = {
       "label": "重发的代价",
       "title": "一问花了多少，缓存省了多少",
       "lead": "2.1 第二步只问了一句，Codex 读了一圈文件，前后发了 8 次请求；每次都把前面的内容重发，输入一次比一次长，但大部分命中了缓存。按 MiniMax 官方价格算，这一问大约 0.055 元；没有缓存，大约 0.15 元。缓存让重复的部分便宜，但不是免费，模型也仍要读完整段历史。所以话题换了就 /clear，长期规则写进 AGENTS.md，不要指望一个长会话记住一切。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:22px;align-items:start\"><div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,0.8fr) minmax(0,1fr) minmax(0,1fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>2.1 那一问</span><span>输入 token</span><span>其中缓存命中</span></div><div data-reveal=\"0\"><span>第 1 次</span><span>约 7.6 千</span><span>约 5.1 千</span></div><div data-reveal=\"0\"><span>第 4 次</span><span>约 1.55 万</span><span>约 1.11 万</span></div><div data-reveal=\"0\"><span>第 8 次</span><span>约 2.50 万</span><span>约 2.33 万</span></div><div data-reveal=\"0\" class=\"is-key\"><span>8 次合计</span><span>约 12.6 万</span><span>约 11.1 万</span></div></div><div class=\"p-grid\" style=\"--n:1;gap:10px\"><div class=\"p-box is-soft\" data-role=\"ink\" data-reveal=\"1\"><h3>官方价格（元 / 百万 token）</h3><p>输入 1.00 · 缓存命中 0.10 · 输出 4.00</p></div><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"1\"><h3>这一问约 0.055 元</h3><p>没有缓存约 0.15 元</p></div></div></div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:14px\">话题换了就 <b>/clear</b>，长期规则写进 <b>AGENTS.md</b></div><p class=\"source-note\">数字来自讲师的一次运行（2026-10-21，课程基线，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开）；随版本、模型、配置和任务变化，只说明结构。费用按“输入 token 含缓存命中部分”估算，以录制当天的价格页为准</p>",
+      "html": "<div class=\"p-pair\" style=\"grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:22px;align-items:start\"><div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,0.8fr) minmax(0,1fr) minmax(0,1fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>2.1 那一问</span><span>输入 token</span><span>其中缓存命中</span></div><div data-reveal=\"0\"><span>第 1 次</span><span>约 7.6 千</span><span>约 5.1 千</span></div><div data-reveal=\"0\"><span>第 4 次</span><span>约 1.55 万</span><span>约 1.11 万</span></div><div data-reveal=\"0\"><span>第 8 次</span><span>约 2.50 万</span><span>约 2.33 万</span></div><div data-reveal=\"0\" class=\"is-key\"><span>8 次合计</span><span>约 12.6 万</span><span>约 11.1 万</span></div></div><div class=\"p-grid\" style=\"--n:1;gap:10px\"><div class=\"p-box is-soft\" data-role=\"ink\" data-reveal=\"1\"><h3>官方价格（元 / 百万 token）</h3><p>输入 1.00 · 缓存命中 0.10 · 输出 4.00</p></div><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"1\"><h3>这一问约 0.055 元</h3><p>没有缓存约 0.15 元</p></div></div></div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:14px\">话题换了就 <b>/clear</b>，长期规则写进 <b>AGENTS.md</b></div><p class=\"source-note\">数字来自讲师的一次运行（2026-10-21，课程基线，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开）；随版本、模型、配置和任务变化，只说明结构</p>",
       "refs": [
         {
           "kind": "live",
@@ -53,7 +53,7 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜停留课件 p60 第 1 步，指左边表格从第 1 次到第 8 次，再指合计行；录制时如重跑，按当天记录讲】\n\n先看代价。2.1 第二步，我们只问了一句“这个个人主页当初定了哪些要求”，Codex 读了一圈文件，前后发了 8 次请求。每次都把前面的内容重发，输入从七千多 token 涨到两万五。8 次加起来，输入大约十二万六千 token，其中十一万左右命中了缓存。",
-        "【操作提示｜推进第 2 步，指右边价格和金额；价格以录制当天的定价页为准，变了就按新价格讲】\n\n按 MiniMax 官方价格，每百万 token 输入 1 块钱，缓存命中 1 毛，输出 4 块钱。这么算，这一问大约 5 分 5 厘钱；要是没有缓存，大约 1 毛 5。缓存让重复的部分便宜很多，但不是免费，模型也照样要读完整段历史。",
+        "【操作提示｜推进第 2 步，指右边价格和金额】\n\n按 MiniMax 官方价格，每百万 token 输入 1 块钱，缓存命中 1 毛，输出 4 块钱。这么算，这一问大约 5 分 5 厘钱；要是没有缓存，大约 1 毛 5。缓存让重复的部分便宜很多，但不是免费，模型也照样要读完整段历史。",
         "【操作提示｜推进第 3 步，指底部横条】\n\n所以我的习惯是：话题换了，就 /clear，开一段新对话；需要一直遵守的规则，写进 AGENTS.md，每次新对话都会带上。不要指望一个越来越长的会话，替你记住所有事情。"
       ],
       "teaching": [
@@ -123,7 +123,7 @@ window.lesson = {
         },
         {
           "title": "讲师提示",
-          "text": "只做对照，不比较哪个工具更好，不要求学员安装 Claude Code。截图前检查请求里有没有个人信息：从另一个 Claude Code 会话里跑脚本时，会继承 CLAUDE_CODE_USER_EMAIL 等变量，Claude Code 会把邮箱写进请求；两个 clean-*.sh 2026-10-21 起已清掉这些变量，录制仍用讲师自己的终端。Claude Code 读取规则文件的范围按录制版本的官方文档核对。"
+          "text": "只做对照，不比较哪个工具更好，不要求学员安装 Claude Code。截图前检查请求里有没有个人信息：从另一个 Claude Code 会话里跑脚本时，会继承 CLAUDE_CODE_USER_EMAIL 等变量，Claude Code 会把邮箱写进请求；两个 clean-*.sh 2026-10-21 起已清掉这些变量，录制仍用讲师自己的终端。Claude Code 读取上级目录的规则文件是官方文档写明的行为（How Claude remembers your project：从当前目录逐层往上读 CLAUDE.md，没有 CLAUDE.md 时读 AGENTS.md；可用 claudeMdExcludes 排除），不是 clean-claude.sh 隔离不够：脚本隔离的是 HOME 下的个人配置。"
         }
       ],
       "source": "index.html#p62",

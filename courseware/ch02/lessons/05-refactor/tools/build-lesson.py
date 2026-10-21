@@ -45,7 +45,6 @@ scene(
         '<div class="p-box" data-role="ink" data-reveal="2"><span class="p-tag" data-role="ink">一</span><h3>看懂重发的代价</h3><p>一问花了多少，缓存省了多少</p></div>'
         '<div class="p-box" data-role="ctx" data-reveal="2"><span class="p-tag" data-role="ctx">二</span><h3>换会话时自己写交接</h3><p>决定下一轮带上什么</p></div>'
         '<div class="p-box" data-role="tool" data-reveal="2"><span class="p-tag" data-role="tool">三</span><h3>换一个工具看请求</h3><p>同一句话，context 不一样</p></div></div>'
-        '<p class="p-hand" data-reveal="1" style="margin-top:14px">这一节看懂即可，不设练习</p>'
     ),
     steps=["最后一节", "换一位讲师", "三条做法"],
     teaching=teach(
@@ -70,7 +69,7 @@ scene(
         '<div class="p-box is-soft" data-role="ink" data-reveal="1"><h3>官方价格（元 / 百万 token）</h3><p>输入 1.00 · 缓存命中 0.10 · 输出 4.00</p></div>'
         '<div class="p-box is-soft" data-role="ok" data-reveal="1"><h3>这一问约 0.055 元</h3><p>没有缓存约 0.15 元</p></div></div></div>'
         '<div class="p-bar" data-reveal="2" style="margin-top:14px">话题换了就 <b>/clear</b>，长期规则写进 <b>AGENTS.md</b></div>'
-        '<p class="source-note">' + RUN + '。费用按“输入 token 含缓存命中部分”估算，以录制当天的价格页为准</p>'
+        '<p class="source-note">' + RUN + '</p>'
     ),
     refs=[PRICE],
     steps=["一问的 8 次请求", "按价格换算", "一个习惯"],
@@ -125,7 +124,7 @@ scene(
     steps=["同一句问候", "规则文件从哪找", "结论"],
     teaching=teach(
         ("实测记录", "2026-10-21，同一目录（课程仓库之外，第 1 章参考快照的副本），同一句“你好，用一句话介绍你能帮我做什么。”：tools/clean-claude.sh --tap -- -p 与 tools/clean-codex.sh --tap -- exec -s read-only。Claude Code 第一次请求：system 3 段约 5800 字符，12 个工具约 2.8 万字符，整份约 4.5 万字符，输入 10830 token；Codex：系统指令 145 字符，5 个工具约 2.2 万字符，整份约 3 万字符，输入 7510 token。第一次把实验目录放在 lab-runs/ 下时，Claude Code 的请求里出现了“Contents of …/prompt-to-harness.github.io/AGENTS.md”。"),
-        ("讲师提示", "只做对照，不比较哪个工具更好，不要求学员安装 Claude Code。截图前检查请求里有没有个人信息：从另一个 Claude Code 会话里跑脚本时，会继承 CLAUDE_CODE_USER_EMAIL 等变量，Claude Code 会把邮箱写进请求；两个 clean-*.sh 2026-10-21 起已清掉这些变量，录制仍用讲师自己的终端。Claude Code 读取规则文件的范围按录制版本的官方文档核对。"),
+        ("讲师提示", "只做对照，不比较哪个工具更好，不要求学员安装 Claude Code。截图前检查请求里有没有个人信息：从另一个 Claude Code 会话里跑脚本时，会继承 CLAUDE_CODE_USER_EMAIL 等变量，Claude Code 会把邮箱写进请求；两个 clean-*.sh 2026-10-21 起已清掉这些变量，录制仍用讲师自己的终端。Claude Code 读取上级目录的规则文件是官方文档写明的行为（How Claude remembers your project：从当前目录逐层往上读 CLAUDE.md，没有 CLAUDE.md 时读 AGENTS.md；可用 claudeMdExcludes 排除），不是 clean-claude.sh 隔离不够：脚本隔离的是 HOME 下的个人配置。"),
     ),
 )
 
