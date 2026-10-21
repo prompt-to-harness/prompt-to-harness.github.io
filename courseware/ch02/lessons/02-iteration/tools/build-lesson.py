@@ -86,25 +86,31 @@ scene(
 scene(
     id="p27a", segment="选哪个会话",
     label="/clear 之后还剩什么", title="执行 /clear 之后，还剩什么",
-    lead="本轮修改从一个清空的对话开始：讲师在上一节的会话里执行 /clear，再发一句话；为什么这样选、你该怎么选，下一页讲。Codex 对这条命令的说明是“清屏并开始新对话”；另一条 /new 是“开始新对话”，不清屏。讲师实测：/clear 之后再发第一句那句话，请求只有 6 项：前 5 项和这个会话最开始那次请求逐字相同，最后一项是刚发的这句话；前面两步的问答、工具调用和返回都没了。开发服务器和项目文件不受影响：/clear 清的是对话，不是文件。",
+    lead="本轮修改从一个清空的对话开始。动手前，讲师先在项目根目录写一份两三行的 AGENTS.md，把这个项目的规则写进文件；然后在上一节的会话里执行 /clear，再发一句话。Codex 对这条命令的说明是“清屏并开始新对话”；另一条 /new 是“开始新对话”，不清屏。清空后的请求只剩初始内容和刚发的这句话，前面的问答、工具调用和返回都没了；AGENTS.md 的内容出现在环境信息那一条里。对话清空了，文件里的规则还在，新对话一开始就读到它；会话中途才写的文件，同一个对话里看不到。为什么这样选、你该怎么选，下一页讲。",
     html=(
         NARROW +
-        '<div class="p-walk"><div data-reveal="0"><div class="p-term">› /clear<br><span style="color:#8A93A0">（屏幕清空，开始新对话）</span><br>› 再发一句话</div></div>'
-        '<div data-reveal="1"><div class="p-src" style="--lh:40px">'
+        '<div class="p-walk">'
+        '<div data-reveal="0"><div class="p-src" style="--lh:28px"><div class="p-fn">AGENTS.md（项目根目录）</div>'
+        '<div class="p-ln"><i>1</i><code># 项目规则</code></div>'
+        '<div class="p-ln"><i>2</i><code>- 改完代码后运行 npm run build，在回复里给出结果</code></div>'
+        '<div class="p-ln"><i>3</i><code>- 不新增依赖</code></div></div></div>'
+        '<div data-reveal="1"><div class="p-term">› /clear<br><span style="color:#8A93A0">（屏幕清空，开始新对话）</span><br>› 再发一句话</div></div>'
+        '<div data-reveal="2"><div class="p-src" style="--lh:28px">'
         '<div class="p-fn">/clear 之后的请求：6 项</div>'
         '<div class="p-ln"><i>1–4</i><code>developer · 初始内容 4 条</code></div>'
-        '<div class="p-ln"><i>5</i><code>user · 环境信息</code></div>'
-        '<div class="p-ln add"><i>6</i><code>user · 刚发的这一句</code></div>'
+        '<div class="p-ln add"><i>5</i><code>user · AGENTS.md 的规则 + 环境信息</code></div>'
+        '<div class="p-ln"><i>6</i><code>user · 刚发的这一句</code></div>'
         '</div></div></div>'
-        '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:14px">'
-        '<div class="p-box is-soft" data-role="ctx" data-reveal="1"><h3>对话</h3><p>前面的提问、工具调用和返回，共 22 项，不再随请求发出</p></div>'
-        '<div class="p-box is-soft" data-role="tool" data-reveal="2"><h3>文件与开发服务器</h3><p>都还在，页面照常打开</p></div></div>'
-        '<p class="source-note">命令说明见 openai/codex main 的 codex-rs/tui/src/slash_command.rs（2026-10-19 核对）。' + RUN1020 + '</p>'
+        '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:8px">'
+        '<div class="p-box is-soft" data-role="ctx" data-reveal="2"><h3>对话</h3><p>前面的提问、工具调用和返回，不再随请求发出</p></div>'
+        '<div class="p-box is-soft" data-role="tool" data-reveal="3"><h3>文件与开发服务器</h3><p>都还在；AGENTS.md 也是文件，新对话一开始就读它</p></div></div>'
+        '<p class="source-note">命令说明见 openai/codex main 的 codex-rs/tui/src/slash_command.rs（2026-10-19 核对）。' + RUN1020 + '；AGENTS.md 那一项来自 2026-10-21 另一次运行（同一套配置，起点是第 1 章参考快照）。</p>'
     ),
-    steps=["执行 /clear", "清空后的请求", "文件和服务器"],
+    steps=["写一份规则文件", "执行 /clear", "清空后的请求", "文件和服务器"],
     teaching=teach(
-        ("核对记录", "2026-10-19 在 openai/codex main 的 codex-rs/tui/src/slash_command.rs 中核对：/clear 的描述为“clear the terminal and start a new chat”，/new 为“start a new chat during a conversation”。录制所用版本再确认一次。2026-10-20 交互界面实测（能力目录开）：/clear 前最后一次请求 27 项、约 2.42 万 token；/clear 后再发第一句那句话，请求 6 项、约 8.9 千 token，前 5 项（系统指令、Skills 与权限、团队说明、多代理开关说明、环境信息）与会话最开始那次请求逐字相同；请求元数据里 history_initialization 由 new 变为 cleared。"),
-        ("切到实操", "在 2.1 的会话里执行 /clear，再发一句与项目无关的话；切 claude-tap 查看器看这次请求，对照画面；结果和画面不同就按实际讲。最后切浏览器刷新个人主页，说明开发服务器和文件都不受影响。"),
+        ("核对记录", "2026-10-19 在 openai/codex main 的 codex-rs/tui/src/slash_command.rs 中核对：/clear 的描述为“clear the terminal and start a new chat”，/new 为“start a new chat during a conversation”。录制所用版本再确认一次。2026-10-20 交互界面实测（能力目录开）：/clear 前最后一次请求 27 项、约 2.42 万 token；/clear 后再发第一句那句话，请求 6 项、约 8.9 千 token，前 5 项（系统指令、Skills 与权限、团队说明、多代理开关说明、环境信息）与会话最开始那次请求逐字相同；请求元数据里 history_initialization 由 new 变为 cleared。2026-10-21 交互界面实测（同一套配置，lab-runs/ch02-context/agents-clear-20261021-132320，不提交）：会话中途从外面写入三行 AGENTS.md，同一对话里再问，请求里没有它；/clear 之后再问，请求第 5 项以“# AGENTS.md instructions for 项目目录”开头，规则包在 INSTRUCTIONS 标签里，和环境信息在同一条 user 消息里，请求仍是 6 项。源码依据：/clear 新开一个会话（tui/src/app/event_dispatch.rs 的 ClearUi 调用 start_fresh_session），新会话启动时读取 AGENTS.md（core/src/session/session.rs）。"),
+        ("切到实操", "先在 VS Code 里新建项目根目录的 AGENTS.md，写下画面上的三行并保存（顺序不能反：先写文件，再 /clear）。然后在 2.1 的会话里执行 /clear，再发一句与项目无关的话；切 claude-tap 查看器看这次请求，指出第 5 项里的 AGENTS.md；结果和画面不同就按实际讲。最后切浏览器刷新个人主页，说明开发服务器和文件都不受影响。"),
+        ("讲师提示", "这里只讲 AGENTS.md 在请求里的位置和“它是文件，对话清空了还在”这一点；怎样写好规则、全局与项目的区别，留到第 7 章。学员可以照着写同样两三行，选做，不计入验收。"),
     ),
 )
 
@@ -348,8 +354,8 @@ scene(
         '<span class="p-pause" data-reveal="0">暂停 · 先独立作答</span><div class="p-qlist">'
         '<div class="p-qrow"><span class="p-n">1</span><div><h3>关掉终端再恢复会话，页面会自动回来吗？</h3>'
         '<div data-reveal="1"><p>不会。会话由 Harness 保存，开发服务器是另一个程序，要重新 npm run dev<span class="p-back-to" data-role="ctx">回到 三种状态</span></p></div></div></div>'
-        '<div class="p-qrow"><span class="p-n">2</span><div><h3>改完项目经历再执行 /clear，改过的文件还在吗？</h3>'
-        '<div data-reveal="2"><p>还在。/clear 清的是对话，文件和开发服务器不受影响<span class="p-back-to" data-role="tool">回到 /clear 之后还剩什么</span></p></div></div></div>'
+        '<div class="p-qrow"><span class="p-n">2</span><div><h3>改完项目经历再 /clear，改过的文件还在吗？会话中途写的 AGENTS.md 呢？</h3>'
+        '<div data-reveal="2"><p>都还在，/clear 清的是对话；但中途写的 AGENTS.md 要等新对话才读到<span class="p-back-to" data-role="tool">回到 /clear 之后还剩什么</span></p></div></div></div>'
         '<div class="p-qrow"><span class="p-n">3</span><div><h3>压缩以后，模型看不到哪些原始信息？</h3>'
         '<div data-reveal="3"><p>工具调用和返回的原文，比如读到的文件内容、命令输出；留下的是用户消息、一份摘要和初始内容<span class="p-back-to" data-role="gate">回到 压缩一下继续</span></p></div></div></div>'
         '<div class="p-qrow"><span class="p-n">4</span><div><h3>这一轮你选了继续、/clear、压缩还是新建？依据是什么？</h3>'
@@ -361,12 +367,12 @@ scene(
 scene(
     id="p34", segment="小结",
     label="本节小结", title="对话会变长，文件不跟着变",
-    lead="本节留下一轮内容迭代和三项检查结果。对话每多一轮，前面的内容连同弯路都会重发；/clear 清的是对话、不是文件；压缩后，工具调用和返回换成了一份摘要。下一节：AI 交回的改动，要不要接受？课后可以再做 0–2 轮，不计分。",
+    lead="本节留下一轮内容迭代和三项检查结果。对话每多一轮，前面的内容连同弯路都会重发；/clear 清的是对话、不是文件，写在 AGENTS.md 里的规则还在；压缩后，工具调用和返回换成了一份摘要。下一节：AI 交回的改动，要不要接受？课后可以再做 0–2 轮，不计分。",
     html=(
         '<div class="p-sketch" style="align-items:start"><div><div data-reveal="0"><h3>三种状态</h3>'
         '<ul class="p-exits" style="gap:8px"><li class="is-point">模型不记</li><li class="is-point">会话由 Harness 重发</li><li class="is-point">文件与进程各自存在</li></ul></div>'
         '<div data-reveal="1" style="margin-top:14px"><h3>context 怎么变</h3>'
-        '<ul class="p-exits" style="gap:8px"><li class="is-point">每轮都重发，弯路也在</li><li class="is-point">/clear 清对话，不清文件</li><li class="is-point">压缩后看到的是摘要</li></ul></div></div>'
+        '<ul class="p-exits" style="gap:8px"><li class="is-point">每轮都重发，弯路也在</li><li class="is-point">/clear 清对话，不清文件，AGENTS.md 还在</li><li class="is-point">压缩后看到的是摘要</li></ul></div></div>'
         '<div data-reveal="2"><h3 style="text-align:center">一个习惯</h3><div class="p-star" style="width:260px;font-size:23px">一轮一个结果<br>Prompt 写清<br>现状</div></div>'
         '<div class="p-next" data-reveal="3"><h3>下一节</h3><div class="p-box" data-role="us"><h3>2.3 审改动</h3><p>AI 交回的改动，要不要接受？</p></div></div></div>'
     ),
