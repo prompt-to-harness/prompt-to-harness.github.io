@@ -375,7 +375,7 @@ window.lesson = {
         },
         {
           "title": "讲师提示",
-          "text": "录制时屏幕尺寸和 Tab 由讲师在 Chrome 里亲手查，结果列按实际显示讲；让 AI 打开浏览器自验证留到 Harness 章节（决定 10）。Codex 这次自己查了，只点一句，不展开。"
+          "text": "录制时屏幕尺寸和 Tab 由讲师在 Chrome 里亲手查，结果列按实际显示讲；让 AI 打开浏览器自己检查留到第 3 章讲 Skill 时。Codex 这次自己查了，只点一句，不展开。"
         }
       ],
       "source": "index.html#p31",

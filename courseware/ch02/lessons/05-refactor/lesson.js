@@ -27,7 +27,7 @@ window.lesson = {
       "teaching": [
         {
           "title": "讲师提示",
-          "text": "开头是课程设定的情境，五张卡是标明的教学判断题，不说成一次真实运行，也不属于伪造的现场失败（决定 7）。教学材料：五张卡基于 homepage-v1 制作（courseware/ch02/materials/refactor-cards/），每张单独应用；页面截图与数值 2026-10-06 在 1440×900 下用浏览器实测（shoot.py）。截图来自个人主页发布候选；录制版基于讲师冻结的 homepage-v1 重新制作、重新拍摄。"
+          "text": "开头是课程设定的情境，五张卡是标明的教学判断题，不说成一次真实运行，也不属于伪造的现场失败。教学材料：五张卡基于 homepage-v1 制作（courseware/ch02/materials/refactor-cards/），每张单独应用；页面截图与数值 2026-10-06 在 1440×900 下用浏览器实测（shoot.py）。截图来自个人主页发布候选；录制版基于讲师冻结的 homepage-v1 重新制作、重新拍摄。"
         }
       ],
       "source": "index.html#p53",

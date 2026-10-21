@@ -2,7 +2,7 @@
 
 - 日期：2026-10-20
 - 审查者：Claude（claude-opus-5-5；课程设计层通读，未用 lesson-polish，未修改课件）
-- 范围：[第 2 章 Context 主线提案](../../outline/proposals/2026-10-19-ch02-context-storyline.md)、内部大纲第 2 章及 §3.1、§6.1、§6.3、§6.4、平台交付版第 2 章、`courseware/ch02/README.md`、2.1–2.5 全部 STORYBOARD（含其中 2026-10-20 的实测段落）
+- 范围：第 2 章 Context 主线提案（已并入[第 2 章文件](../../chapters/ch02.md)）、内部大纲第 2 章及 §3.1、§6.1、§6.3、§6.4、平台交付版第 2 章、`courseware/ch02/README.md`、2.1–2.5 全部 STORYBOARD（含其中 2026-10-20 的实测段落）
 - 基于提交：906f248（工作区有未提交的 `tools/clean-codex.sh` 改动，本次未读）
 - 已参考：本目录今天的五份 `*-context-polish-claude.md`，以及 [2026-10-06-ch02-design-claude.md](2026-10-06-ch02-design-claude.md)、[2026-10-05-ch02-design-claude.md](2026-10-05-ch02-design-claude.md)。页面级措辞和展示问题由今天的逐节记录覆盖，这里不重复；只写跨节、影响故事线和验收的问题
 - 检查方式：已人工对照（提案、大纲、分镜、分镜内实测记录）；未检查（课件页面、口播、浏览器展示、试讲、出声试读、Codex 或 claude-tap 重跑、ChatGPT 登录下的 claude-tap）

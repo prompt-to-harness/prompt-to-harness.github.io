@@ -2,7 +2,7 @@
 
 [打开课件](index.html) · [逐步讲稿](speaker.html) · [分镜](STORYBOARD.md) · [验证记录](VALIDATION.md)
 
-用 claude-tap 启动 Codex，分两步发 Prompt：先发一句与项目无关的话，看 Codex 实际发给模型的请求由哪几块组成；再问一个与项目相关的只读问题，看工具调用和返回怎样进入 context。最后对比同一句话在不同权限、不同模型配置（能力目录开 / 关）下的请求，归纳“这些加在一起就是 context”。16 页。依据[内部大纲](../../../../docs/outline/course-outline-internal.md) 2.1 与[第 2 章 Context 主线提案](../../../../docs/outline/proposals/2026-10-19-ch02-context-storyline.md)。2026-10-20 按重写后的分镜重做，未试讲、未录制。
+用 claude-tap 启动 Codex，分两步发 Prompt：先发一句与项目无关的话，看 Codex 实际发给模型的请求由哪几块组成；再问一个与项目相关的只读问题，看工具调用和返回怎样进入 context。最后对比同一句话在不同权限、不同模型配置（能力目录开 / 关）下的请求，归纳“这些加在一起就是 context”。16 页。依据[第 2 章文件](../../../../docs/chapters/ch02.md) 2.1。2026-10-20 按重写后的分镜重做，未试讲、未录制。
 
 ## 维护
 

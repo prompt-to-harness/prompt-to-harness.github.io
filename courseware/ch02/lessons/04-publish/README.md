@@ -2,7 +2,7 @@
 
 [打开课件](index.html) · [逐步讲稿](speaker.html) · [分镜](STORYBOARD.md)
 
-第一次推送前看清即将公开的整段历史，由人判断能否公开；审查 Codex 写的部署配置，Pages 来源交给 Codex 用 gh 设置、人批准每条命令，再在请求记录里看清这次 gh 调用的命令、返回和批准；推送后用三项检查证明页面可用，只推送 ch02-homepage-live 一个 tag。11 页。依据[内部大纲](../../../../docs/outline/course-outline-internal.md)与[第 2 章 Context 主线提案](../../../../docs/outline/proposals/2026-10-19-ch02-context-storyline.md)。首版（2026-10-03），2026-10-20 按 Context 主线改版；未经讲师审阅，未试讲、未录制。
+第一次推送前看清即将公开的整段历史，由人判断能否公开；审查 Codex 写的部署配置，Pages 来源交给 Codex 用 gh 设置、人批准每条命令，再在请求记录里看清这次 gh 调用的命令、返回和批准；推送后用三项检查证明页面可用，只推送 ch02-homepage-live 一个 tag。11 页。依据[第 2 章文件](../../../../docs/chapters/ch02.md)。首版（2026-10-03），2026-10-20 按 Context 主线改版；未经讲师审阅，未试讲、未录制。
 
 ## 维护
 
@@ -20,5 +20,5 @@ uv run courseware/tools/check-courseware.py
 - p49a 取自 2026-10-20 16:14 在组织下临时仓库的一次实测（能力目录开，9 次批准）：需要批准的调用带 `require_escalated` 标记和理由，人点的同意不在记录里；细节见 [`materials/pages-source/`](../../materials/pages-source/README.md)。录制时按 p49 那次会话的实际请求讲。
 - 画面输出为示意，作者用占位；示范例子仍是提交作者邮箱，不依赖之前各章的证据文件；noreply 邮箱的事实依据见 p46 核对记录。
 - p48 左侧摘自 2026-10-20 Codex 按 p47 的 Prompt 实际生成的文件（仓库名用示例 my-homepage，细节见 p48 实测记录）；录制时按当次生成的文件逐行讲。
-- p49 的 Pages 设置界面按录制时 GitHub 版本核对；首次部署若自然失败，保留真实过程（决定 7）。
+- p49 的 Pages 设置界面按录制时 GitHub 版本核对；首次部署若自然失败，保留真实过程（C2-05）。
 - 不做“改写历史方法说明”配套页（2026-10-05 讲师确认）：p46 口播指向 GitHub 官方文档，链接在讲解全文的“参考链接”；2.3 p41 只说明改写历史不在本课范围。

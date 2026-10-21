@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Mechanical checks for docs/production/editorial-checklist.md (ED-001, ED-007/010, ED-011, ED-013).
+"""Mechanical checks for docs/production/editorial-checklist.md (ED-001, ED-007/010, ED-011, ED-012, ED-013).
 
 Errors fail the run; hints are printed but never fail. Judgment rules live in the
 checklist and are applied by the courseware-editorial skill, not here.
@@ -82,11 +82,13 @@ for path in sorted(courseware.rglob('script.json')):
         hints.append(f'ED-013 {path.relative_to(repo)} 演示形态未定（条件式现场分支）：' + '、'.join(pages))
 
 # ED-011: relative Markdown links must resolve (catches residue after deleting a page)
-md_roots = [courseware, repo / 'docs' / 'production', repo / 'docs' / 'design']
+md_roots = [courseware, repo / 'docs' / 'production', repo / 'docs' / 'design',
+            repo / 'docs' / 'chapters', repo / 'docs' / 'agents', repo / 'docs' / 'outline']
 link = re.compile(r'\[[^\]]*\]\(([^)#?\s]+)(?:[#?][^)]*)?\)')
 for root in md_roots:
     for path in sorted(root.rglob('*.md')):
-        if 'archive' in path.parts:
+        # 提案是讨论稿，可能链到其他人尚未提交的记录，不在这里拦
+        if 'archive' in path.parts or 'proposals' in path.parts:
             continue
         for m in link.finditer(path.read_text()):
             target = m.group(1)
@@ -94,6 +96,28 @@ for root in md_roots:
                 continue
             if not (path.parent / target).exists():
                 errors.append(f'ED-011 {path.relative_to(repo)} 链接不存在：{target}')
+
+# ED-012: retired wording listed in docs/production/terminology.md must not come back in current sources
+terms_doc = (repo / 'docs' / 'production' / 'terminology.md').read_text()
+retired_section = terms_doc.split('## 已废弃的说法', 1)[1] if '## 已废弃的说法' in terms_doc else ''
+retired = []
+for row in retired_section.splitlines():
+    cells = [c.strip() for c in row.strip().strip('|').split('|')]
+    if len(cells) == 3 and cells[0] and cells[0] not in ('废弃说法', '---'):
+        retired.append((cells[0], cells[1], cells[2]))
+current = sorted((repo / 'docs' / 'chapters').glob('ch*.md'))
+current += sorted(courseware.glob('ch*/lessons/*/script.json'))
+current += sorted(courseware.glob('ch*/lessons/*/tools/build-lesson.py'))
+for path in current:
+    section = ''
+    for no, line in enumerate(path.read_text().splitlines(), 1):
+        if line.startswith('## '):
+            section = line[3:].strip()
+        if section in ('决策记录', '实测记录'):
+            continue
+        for old, new, keep in retired:
+            if old in line and not (keep and keep in line):
+                errors.append(f'ED-012 {path.relative_to(repo)}:{no} 已废弃的说法“{old}”，改用“{new}”')
 
 # ED-007 / ED-010: filler phrases are a prompt to ask "does this add information", not a ban
 fillers = ['这样做是为了', '这里练习的就是', '大家看', '对吧', '其实']

@@ -87,7 +87,7 @@ scene(
         '<p class="p-hand" data-reveal="3" style="margin:0">推上去所有人都会看到。依据在哪？</p></div>'
     ),
     steps=["最后一节", "发布之后", "AI 的说明", "依据在哪"],
-    teaching=teach(("讲师提示", "开头是课程设定的情境，五张卡是标明的教学判断题，不说成一次真实运行，也不属于伪造的现场失败（决定 7）。" + MATERIAL + RECORDING)),
+    teaching=teach(("讲师提示", "开头是课程设定的情境，五张卡是标明的教学判断题，不说成一次真实运行，也不属于伪造的现场失败。" + MATERIAL + RECORDING)),
 )
 
 
