@@ -19,6 +19,7 @@ GH = "https://github.com/openai/codex"
 
 # 2026-10-20 15:58 课程基线在交互界面里的一次运行（lab-runs/ch02-context/2.2-20261020-155759，不提交）：p22、p23、p24、p27a、p27 用它
 RUN1020 = "数字来自讲师用课程基线（隔离 HOME）在交互界面里的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max）；随版本、模型、配置和任务变化，只说明结构"
+RUN1021 = "数字来自讲师按新流程重录的一次运行（2026-10-21，先写 AGENTS.md 再 /clear；课程基线、交互界面，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max）；随版本、模型、配置和任务变化，只说明结构"
 V160 = "a956835d020762cb2b570053af06f643a11c0ecc"  # rust-v0.160.0，讲师机器上的 codex-cli 版本
 
 
@@ -27,7 +28,7 @@ def blob(commit, path):
 
 
 ROUND_PROMPT = """Goal：在项目区呈现我的项目经历。
-Context：首页 v0 的项目区目前只有占位内容；
+Context：个人主页的项目区目前只有占位内容；
 项目卡不跳转，本轮不改。
 项目内容（原文照用）：<每行一条：项目名称：一句描述>
 Constraints：只用上面的文字，不补写；不加链接、依赖；
@@ -104,11 +105,11 @@ scene(
         '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:8px">'
         '<div class="p-box is-soft" data-role="ctx" data-reveal="2"><h3>对话</h3><p>前面的提问、工具调用和返回，不再随请求发出</p></div>'
         '<div class="p-box is-soft" data-role="tool" data-reveal="3"><h3>文件与开发服务器</h3><p>都还在；AGENTS.md 也是文件，新对话一开始就读它</p></div></div>'
-        '<p class="source-note">命令说明见 openai/codex main 的 codex-rs/tui/src/slash_command.rs（2026-10-19 核对）。' + RUN1020 + '；AGENTS.md 那一项来自 2026-10-21 另一次运行（同一套配置，起点是第 1 章参考快照）。</p>'
+        '<p class="source-note">命令说明见 openai/codex main 的 codex-rs/tui/src/slash_command.rs（2026-10-19 核对）。' + RUN1021 + '</p>'
     ),
     steps=["写一份规则文件", "执行 /clear", "清空后的请求", "文件和服务器"],
     teaching=teach(
-        ("核对记录", "2026-10-19 在 openai/codex main 的 codex-rs/tui/src/slash_command.rs 中核对：/clear 的描述为“clear the terminal and start a new chat”，/new 为“start a new chat during a conversation”。录制所用版本再确认一次。2026-10-20 交互界面实测（能力目录开）：/clear 前最后一次请求 27 项、约 2.42 万 token；/clear 后再发第一句那句话，请求 6 项、约 8.9 千 token，前 5 项（系统指令、Skills 与权限、团队说明、多代理开关说明、环境信息）与会话最开始那次请求逐字相同；请求元数据里 history_initialization 由 new 变为 cleared。2026-10-21 交互界面实测（同一套配置，lab-runs/ch02-context/agents-clear-20261021-132320，不提交）：会话中途从外面写入三行 AGENTS.md，同一对话里再问，请求里没有它；/clear 之后再问，请求第 5 项以“# AGENTS.md instructions for 项目目录”开头，规则包在 INSTRUCTIONS 标签里，和环境信息在同一条 user 消息里，请求仍是 6 项。源码依据：/clear 新开一个会话（tui/src/app/event_dispatch.rs 的 ClearUi 调用 start_fresh_session），新会话启动时读取 AGENTS.md（core/src/session/session.rs）。"),
+        ("核对记录", "2026-10-19 在 openai/codex main 的 codex-rs/tui/src/slash_command.rs 中核对：/clear 的描述为“clear the terminal and start a new chat”，/new 为“start a new chat during a conversation”。录制所用版本再确认一次。2026-10-20 交互界面实测（能力目录开）：/clear 前最后一次请求 27 项、约 2.42 万 token；/clear 后再发第一句那句话，请求 6 项、约 8.9 千 token，前 5 项（系统指令、Skills 与权限、团队说明、多代理开关说明、环境信息）与会话最开始那次请求逐字相同；请求元数据里 history_initialization 由 new 变为 cleared。2026-10-21 按新流程重录（lab-runs/ch02-context/2.2-agents-20261021-162241，不提交）：/clear 前最后一次请求 29 项、约 2.32 万 token；/clear 后再发第一句，请求 6 项、约 9.0 千 token，前 4 项与会话第一次请求逐字相同，第 5 项环境信息从 1397 字符变成 1607 字符，多出来的就是 AGENTS.md。另一次单独实测（lab-runs/ch02-context/agents-clear-20261021-132320）：会话中途从外面写入三行 AGENTS.md，同一对话里再问，请求里没有它；/clear 之后再问，请求第 5 项以“# AGENTS.md instructions for 项目目录”开头，规则包在 INSTRUCTIONS 标签里，和环境信息在同一条 user 消息里，请求仍是 6 项。源码依据：/clear 新开一个会话（tui/src/app/event_dispatch.rs 的 ClearUi 调用 start_fresh_session），新会话启动时读取 AGENTS.md（core/src/session/session.rs）。"),
         ("切到实操", "先在 VS Code 里新建项目根目录的 AGENTS.md，写下画面上的三行并保存（顺序不能反：先写文件，再 /clear）。然后在 2.1 的会话里执行 /clear，再发一句与项目无关的话；切 claude-tap 查看器看这次请求，指出第 5 项里的 AGENTS.md；结果和画面不同就按实际讲。最后切浏览器刷新个人主页，说明开发服务器和文件都不受影响。"),
         ("讲师提示", "这里只讲 AGENTS.md 在请求里的位置和“它是文件，对话清空了还在”这一点；怎样写好规则、全局与项目的区别，留到第 7 章。学员可以照着写同样两三行，选做，不计入验收。"),
     ),
@@ -194,11 +195,11 @@ scene(
         '<ol class="p-notes"><li data-reveal="0"><span><b>前 6 项逐字相同</b><small>不是“接着上次”，而是从头再发</small></span></li>'
         '<li data-reveal="1"><span><b>新增在末尾</b><small>上一轮的回答和这一句</small></span></li>'
         '<li class="is-risk" data-reveal="2"><span><b>在讲师的配置下看到</b><small>MiniMax 自定义 provider，store 为 false；换服务可能不同</small></span></li></ol></div>'
-        '<p class="source-note">条目名为中文概括。' + RUN1020 + '</p>'
+        '<p class="source-note">条目名为中文概括。' + RUN1021 + '</p>'
     ),
     steps=["第一步的请求", "第二步多了什么", "适用范围"],
     teaching=teach(
-        ("核对记录", "2026-10-20 交互界面实测（能力目录开）：/clear 之后的第一句“你好”请求 6 项（约 8.9 千 token）；接着发本轮 Prompt，请求 8 项（约 9.1 千 token），前 6 项与上一次逐字相同，末尾多了 assistant 回答和新的一句。能力目录开时 Skills 与权限说明那条 developer 消息约 7500 字符，比 codex exec 长，所以 token 数和 2.1 p08 不同。界面另发的“给会话起标题”请求，在能力目录开时也会自己调用工具、越涨越长，看记录时一律跳过。MiniMax 配置下请求体 store 为 false、没有 previous_response_id。"),
+        ("核对记录", "2026-10-21 重录（先写 AGENTS.md 再 /clear）：/clear 之后的第一句“你好”请求 6 项（约 9.0 千 token，第 5 项环境信息里带着 AGENTS.md）；接着发本轮 Prompt，请求 8 项（约 9.2 千 token），前 6 项与上一次逐字相同，末尾多了 assistant 回答和新的一句。2026-10-20 那次：6 项约 8.9 千 → 8 项约 9.1 千，结构相同。旧记录：2026-10-20 交互界面实测（能力目录开）：/clear 之后的第一句“你好”请求 6 项（约 8.9 千 token）；接着发本轮 Prompt，请求 8 项（约 9.1 千 token），前 6 项与上一次逐字相同，末尾多了 assistant 回答和新的一句。能力目录开时 Skills 与权限说明那条 developer 消息约 7500 字符，比 codex exec 长，所以 token 数和 2.1 p08 不同。界面另发的“给会话起标题”请求，在能力目录开时也会自己调用工具、越涨越长，看记录时一律跳过。MiniMax 配置下请求体 store 为 false、没有 previous_response_id。"),
         ("讲师提示", "录制时用 claude-tap 选 /clear 之后第一句和本轮 Prompt 这两次相邻请求做 diff 截图；截图前检查路径和个人 Skills 名称。条目和本页不同就按实际改。带工具调用的轮次里，模型的推理摘要（reasoning）也会被重发，可以在 p23 指一下。"),
     ),
 )
@@ -206,21 +207,21 @@ scene(
 scene(
     id="p23", segment="回看这一轮的请求",
     label="每次都重发，贵不贵", title="每次都重发，代价是 token 和注意力",
-    lead="提交本轮 Prompt 之后、Codex 回复计划之前，它读了几次仓库里的文件，一共发了 7 次请求：input 从 8 项涨到 25 项，输入 token 涨到将近 2 倍。重复的开头部分可以被缓存，算起来更便宜；但模型每次仍要读完整段历史，这份注意力上的负担，缓存帮不上。",
+    lead="提交本轮 Prompt 之后、Codex 回复计划之前，它读了几次仓库里的文件，一共发了 11 次请求：input 从 8 项涨到 37 项，输入 token 涨到 2 倍多。重复的开头部分可以被缓存，算起来更便宜；但模型每次仍要读完整段历史，这份注意力上的负担，缓存帮不上。",
     html=(
         '<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr)">'
         '<div class="is-head" data-reveal="0"><span>请求</span><span>input 项数 · token</span><span>缓存命中</span></div>'
-        '<div data-reveal="0"><span>第 1 次</span><span>8 项 · 约 9.1 千</span><span>约 8.9 千 token</span></div>'
-        '<div data-reveal="0"><span>第 4 次</span><span>16 项 · 约 1.17 万</span><span>约 1.06 万 token</span></div>'
-        '<div data-reveal="0" class="is-key"><span>第 7 次</span><span>25 项 · 约 1.73 万</span><span>约 1.59 万 token</span></div></div>'
+        '<div data-reveal="0"><span>第 1 次</span><span>8 项 · 约 9.2 千</span><span>约 8.8 千 token</span></div>'
+        '<div data-reveal="0"><span>第 6 次</span><span>22 项 · 约 1.47 万</span><span>约 1.28 万 token</span></div>'
+        '<div data-reveal="0" class="is-key"><span>第 11 次</span><span>37 项 · 约 2.11 万</span><span>约 1.98 万 token</span></div></div>'
         '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:14px">'
         '<div class="p-box is-soft" data-role="ok" data-reveal="1"><h3>token</h3><p>重复的前缀能被缓存，按更低的价格算</p></div>'
         '<div class="p-box is-soft" data-role="gate" data-reveal="2"><h3>注意力</h3><p>历史越长，早先的需求越容易被淹没</p></div></div>'
-        '<p class="source-note">' + RUN1020 + '</p>'
+        '<p class="source-note">' + RUN1021 + '</p>'
     ),
-    steps=["7 次请求", "token 与缓存", "注意力"],
+    steps=["11 次请求", "token 与缓存", "注意力"],
     teaching=teach(
-        ("数字来源", "2026-10-20 15:58 交互界面实测（能力目录开），本轮 Prompt 提交后到 Codex 回复计划的 7 次请求（6 次工具调用）：input 8、11、14、16、19、22、25 项；input_tokens 9087、9999、10622、11690、14423、15880、17280；缓存命中 8863、9087、9999、10622、11690、14423、15880——每次都正好命中上一次的全部输入（第 1 次命中的是 /clear 后那句话的请求）。画面取第 1、4、7 次。2026-10-20 讲师决定改为边做边看，这页改用本轮的请求，原来 2.1 第二步那一问的数字不再上屏。录制版本定下后复测。"),
+        ("数字来源", "2026-10-21 重录：本轮 Prompt 提交后到 Codex 回复计划的 11 次请求（10 次工具调用）：input 8、12、14、17、20、22、25、28、31、34、37 项；input_tokens 9241 起，第 6 次 14675，第 11 次 21090；缓存命中接近上一次的输入（第 11 次 19840），不再每次正好相等。画面取第 1、6、11 次。旧记录：2026-10-20 15:58 交互界面实测（能力目录开），本轮 Prompt 提交后到 Codex 回复计划的 7 次请求（6 次工具调用）：input 8、11、14、16、19、22、25 项；input_tokens 9087、9999、10622、11690、14423、15880、17280；缓存命中 8863、9087、9999、10622、11690、14423、15880——每次都正好命中上一次的全部输入（第 1 次命中的是 /clear 后那句话的请求）。画面取第 1、4、7 次。2026-10-20 讲师决定改为边做边看，这页改用本轮的请求，原来 2.1 第二步那一问的数字不再上屏。录制版本定下后复测。"),
         ("讲师提示", "前缀缓存的计费细节放配套页，主课只讲“重复部分更便宜，注意力不变”。不要据此断言每次费用一定增加。"),
     ),
 )
@@ -228,7 +229,7 @@ scene(
 scene(
     id="p24", segment="回看这一轮的请求",
     label="弯路也会被重发", title="走过的弯路，也留在历史里",
-    lead="开场访谈里看过，同一个 Prompt，结果会变；过程也一样，每次走的弯路不同。讲师这次加项目经历，Codex 在确认之后调用了 33 次工具，其中有不少弯路：自己起预览服务器失败、写的截图脚本有语法错、截图文件没生成。这些失败的返回和成功的一样，留在之后每一次请求里，对完成任务没有用，却一直占着 context。",
+    lead="开场访谈里看过，同一个 Prompt，结果会变；过程也一样，每次走的弯路不同。讲师有一次加项目经历（另一次运行），Codex 在确认之后调用了 33 次工具，其中有不少弯路：自己起预览服务器失败、写的截图脚本有语法错、截图文件没生成。这些失败的返回和成功的一样，留在之后每一次请求里，对完成任务没有用，却一直占着 context。",
     html=(
         '<div class="p-pair" style="grid-template-columns:1fr auto 1fr">'
         '<div class="p-box" data-role="ink" data-reveal="0"><span class="p-tag" data-role="ink">这一轮的几次弯路</span>'
@@ -240,7 +241,7 @@ scene(
     ),
     steps=["这一轮的弯路", "之后每次都带着", "弯路也被重发"],
     teaching=teach(
-        ("核对记录", "2026-10-20 交互界面实测（能力目录开、推理档位 max），2.2 本轮“确认”之后：33 次工具调用（加上出计划那一轮的 6 次，会话里累计 39 次），其中至少 9 次失败或白跑（npm run preview 两次退出码 1、shell 脚本被当成 JavaScript 报 SyntaxError、截图文件不存在、CDP 脚本解析错等），全部是 Codex 自己为了查屏幕尺寸而做的，Prompt 写明了浏览器由人检查。每次请求都带着之前全部调用和返回，最后一次请求 135 项、59271 token。原来的 read_file 例子来自 2026-10-02 能力目录关的运行，已不再上屏。"),
+        ("核对记录", "本页素材来自 2026-10-20 那次运行，画面标明是另一次运行。2026-10-21 按新流程重录时，确认之后只有 8 次工具调用（起开发服务器、curl 核对、改文件、build），没有明显弯路，最后一次请求 63 项、约 2.58 万 token；同日另外几次没跑完的重录里，Codex 又自己开无头 Chrome 去查屏幕尺寸，十几次尝试，和 2026-10-20 一样。弯路有没有、有多少，每次不同。2026-10-20 交互界面实测（能力目录开、推理档位 max），2.2 本轮“确认”之后：33 次工具调用（加上出计划那一轮的 6 次，会话里累计 39 次），其中至少 9 次失败或白跑（npm run preview 两次退出码 1、shell 脚本被当成 JavaScript 报 SyntaxError、截图文件不存在、CDP 脚本解析错等），全部是 Codex 自己为了查屏幕尺寸而做的，Prompt 写明了浏览器由人检查。每次请求都带着之前全部调用和返回，最后一次请求 135 项、59271 token。原来的 read_file 例子来自 2026-10-02 能力目录关的运行，已不再上屏。"),
         ("讲师提示", "不重讲随机性，只回指开场访谈的鹈鹕例子。录制时弯路不一定一样：按当次记录指认就行，没有弯路也没关系，要讲的是“返回会一直留着”这条规则。“它为什么自己去查浏览器”可以留给 2.3 看范围时就地用。"),
     ),
 )
@@ -292,7 +293,7 @@ scene(
 scene(
     id="p27", segment="压缩",
     label="压缩一下继续", title="压缩以后，模型看到的是摘要",
-    lead="本轮会话已经有了计划、读文件、改文件、构建输出。对它执行 /compact：Codex 先把整段历史连同一段“写交接摘要”的要求发给模型，再用这份摘要换掉历史。讲师这次的结果：压缩前最后一次请求 135 项、约 5.9 万 token；压缩后只剩 10 项、约 1.06 万 token。我们发过的消息原文都在，39 次工具调用和返回都没了。",
+    lead="本轮会话已经有了计划、读文件、改文件、构建输出。对它执行 /compact：Codex 先把整段历史连同一段“写交接摘要”的要求发给模型，再用这份摘要换掉历史。讲师一次长会话的结果（另一次运行）：压缩前最后一次请求 135 项、约 5.9 万 token；压缩后只剩 10 项、约 1.06 万 token。我们发过的消息原文都在，39 次工具调用和返回都没了。",
     html=(
         '<div class="p-pair" style="grid-template-columns:1fr auto 1fr">'
         '<div class="p-box" data-role="ink" data-reveal="0"><span class="p-tag" data-role="ink">压缩前</span>'
@@ -319,6 +320,7 @@ scene(
     teaching=teach(
         ("核对记录", "压缩提示位于 codex-rs/prompts/templates/compact/prompt.md（要求写进度与决定、约束、下一步、关键数据）；本地压缩保留最近用户消息（上限约 2 万 token）、摘要和重新插入的初始上下文；OpenAI 与 Azure provider 走远程压缩（model-provider/src/provider.rs）。"),
         ("切到实操", "在本轮修改的会话里执行 /compact，切 claude-tap 查看器对比压缩前、压缩请求、压缩后三次请求，指出本轮哪些具体内容（如读到的 src/App.tsx、build 输出）被换成了摘要；再问一句“不读文件、不跑命令，build 输出最后一行是什么”。结果和画面不同就按实际讲。上游卡住或压缩失败时，改用 materials/compact/ 的独立实验（复现按钮第 1–5 步，或第 6 步的 compare.html），画面和口播如实说明“这是另一次专门做的实验”。"),
+        ("实测记录（重录）", "2026-10-21 按新流程重录：会话短得多，压缩前 66 项、约 2.09 万 token，压缩后 10 项、约 1.03 万 token，交接摘要约 2550 字符；AGENTS.md 在压缩后作为单独一项重新插入。追问 build 最后一行时，它把回答分成“亲眼看到的原文”和“只来自摘要的”两类。画面仍用 2026-10-20 那次长会话，标明是另一次运行。"),
         ("实测记录", "2026-10-20 交互界面，本节真实会话（能力目录开、推理档位 max）：确认之后 Codex 调用 33 次工具（会话累计 39 次），除了改 src/App.tsx、跑 build，还自己起预览服务器、驱动无头 Chrome 去查三种屏幕尺寸（Prompt 写明了浏览器由人检查）。压缩前最后一次请求 135 项、59271 token；压缩请求 request_kind 为 compaction，带全部 138 项加一段 CONTEXT CHECKPOINT COMPACTION 提示；压缩后的请求 10 项、10635 token：系统指令、3 条用户消息原文（/clear 后的第一句、本轮 Prompt、“确认”）、Skills 与权限说明、团队说明、多代理开关说明、环境信息、交接摘要（约 3400 字符，作为 user 消息，开头说明“另一个模型已经开始解决这个问题”）和新问题。追问 build 输出最后一行时，模型说摘要里只记了 build 成功，没有编造；它还把答案分成“亲眼看到的原文”“只来自摘要的”“不知道的”三类。/clear 之前的问答不在压缩后的历史里。"),
         ("备用画面", "上游卡住（界面停在 Working 超过 5 分钟）时，打开复现按钮第 6 步的 compare.html：用独立实验第 1 次运行的真实记录并排列出压缩前 25 条和压缩后 7 条，标出保留、移走、新增、重新注入，不调用模型。"),
         ("实验记录", "独立实验 2026-10-05 压缩 5 次、不压缩对照 2 次（另有 2 次因上游超时或脚本出错不计入）。5 次压缩后都是 7 条 input：3 条用户消息、摘要、权限说明与 Skills、环境信息、新问题，没有工具调用和返回，与 compact.rs 一致。摘要：4 次只留行号或计数，1 次抄下 grep 原文；5 次追问都没有编造。对照组 2 次都答出了 grep 原文。汇总表与参考记录见 materials/compact/。"),

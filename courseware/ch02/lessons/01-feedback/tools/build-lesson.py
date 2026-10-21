@@ -21,13 +21,14 @@ TBD = "〔实测〕"
 
 # 2026-10-20 15:16 课程基线（tools/clean-codex.sh --tap，隔离 HOME，能力目录开，推理档位 max）实测；p07–p16 用它
 RUN1020 = "数字来自讲师用课程基线（隔离 HOME）的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，写入模型能力目录，推理档位 max，codex exec）；随版本、模型、配置和任务变化，只说明结构。"
+RUN1021 = "数字来自讲师用课程基线（隔离 HOME）的一次运行（2026-10-21，codex exec，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max）；随版本、模型、配置和任务变化，只说明结构。"
 
 # 第一步：与项目无关的一句话，只看 context 的基本组成（分镜“两步 Prompt”）
 FIRST_PROMPT = "你好，用一句话介绍你能帮我做什么。"
 
 # 第二步：与项目相关的只读问题，不提示文件名
 READONLY_PROMPT = """只读任务，不修改任何文件。
-这个个人主页 v0 当初定了哪些要求和完成标准？
+这个个人主页当初定了哪些要求和完成标准？
 请说明依据来自哪个文件的哪一段；
 不确定就写“不确定”，不要猜。"""
 
@@ -271,15 +272,16 @@ scene(
         '<div class="p-node" data-role="tool" data-reveal="0"><h3>Harness 执行</h3><p>返回带行号的文件内容</p></div>'
         '<div class="p-node" data-role="ctx" data-reveal="1"><h3>下一次请求</h3><p>带上这段调用和返回</p></div></div>'
         '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:14px">'
-        '<div class="p-box is-soft" data-role="ok" data-reveal="1"><h3>这一问：7 次请求</h3><p>6 次调用，都是 exec 里调 exec_command 跑 cat -n、git log 等；input 从 6 项涨到 24 项</p></div>'
+        '<div class="p-box is-soft" data-role="ok" data-reveal="1"><h3>这一问：8 次请求</h3><p>15 次调用，都是 exec 里调 exec_command 跑 cat、git log 等；input 从 6 项涨到 43 项</p></div>'
         '<div class="p-box is-soft" data-role="ok" data-reveal="2"><h3>读到了</h3><p>回答里的文件和行号，都能在返回里找到；再看它理解得对不对</p></div></div>'
         '<div class="p-bar is-light" data-reveal="2">下一步从<b>上一步的返回</b>里来</div>'
-        '<p class="source-note">' + RUN1020.rstrip("。") + '</p>'
+        '<p class="source-note">' + RUN1021.rstrip("。") + '</p>'
     ),
     steps=["调用和返回", "进入下一次请求", "对照回答"],
     teaching=teach(
         ("演示分支", "按录制实际选用：\n\n读到了：在记录中指认读取文件的那次工具调用、工具返回，以及下一次请求中出现的文件内容；再对照回答，检查来源与理解是否相符。\n\n没读文件，凭目录名或代码猜：核对完整请求与工具返回后指出依据缺失，这正是 Prompt 要求“说明依据”的原因。\n\n读到了但理解错了，或没找到依据、回答不确定或继续查找：均按实际结果讲。仅凭没有读取某一个文件，不能断言所有来源中都没有依据。保留原始记录，不重跑凑结果。"),
-        ("实测记录", "2026-10-20 15:16 课程基线（能力目录开）一次运行：7 次请求、6 次工具调用，全部是 exec 里的 JavaScript 调 tools.exec_command：pwd / ls / git log；cat -n PROJECT_BRIEF.md、PROMPT_V1.md、CHECKPOINTS.md、TASK_01_01.md；README.md、PLACEHOLDER_CONTENT.md；docs/setup/TOOLCHAIN.md 与 git tag；grep；git status。没有专门的读文件工具，读文件就是跑 cat。每次请求的 input 都带上前面全部的调用和返回：6、9、12、15、18、21、24 项；input_tokens 7603、8450、11778、13852、16630、18198、18896，其中缓存命中 6395、7765、8614、12118、14438、17591、18815。录制版本或讲师仓库不同，次数和数字会变，按实际记录改。"),
+        ("实测记录", "2026-10-21 课程基线（能力目录开）重跑，问句去掉“v0”：8 次请求、15 次工具调用，都是 exec 里调 exec_command：ls、find、逐个 cat PROJECT_BRIEF.md、PROMPT_V1.md、CHECKPOINTS.md、README.md 等，git log / tag / status，再读 index.html、package.json、src/ 和 setup-check，最后 cat -n 几份要求文件取行号。input 6、11、20、27、32、37、40、43 项；input_tokens 7610 → 24961，缓存命中 5063 → 23328。回答仍引用 PROJECT_BRIEF.md“首页 v0 的验收依据”第 31–39 行和 PROMPT_V1.md 的人工决定表，比上一次铺得更开（还列了未完成的证据文件、缺失的 tag）。运行目录 lab-runs/ch02-context/2.1-step2-20261021-150635，不提交。"
+         "上一次：2026-10-20 15:16 课程基线（能力目录开）一次运行：7 次请求、6 次工具调用，全部是 exec 里的 JavaScript 调 tools.exec_command：pwd / ls / git log；cat -n PROJECT_BRIEF.md、PROMPT_V1.md、CHECKPOINTS.md、TASK_01_01.md；README.md、PLACEHOLDER_CONTENT.md；docs/setup/TOOLCHAIN.md 与 git tag；grep；git status。没有专门的读文件工具，读文件就是跑 cat。每次请求的 input 都带上前面全部的调用和返回：6、9、12、15、18、21、24 项；input_tokens 7603、8450、11778、13852、16630、18198、18896，其中缓存命中 6395、7765、8614、12118、14438、17591、18815。录制版本或讲师仓库不同，次数和数字会变，按实际记录改。"),
         ("讲师提示", "学员的要求和完成标准可能记在 PROMPT_V1.md 或其他文件里。回扣第 1 章的 Agent 循环。“input 一项项变长”只点一句，2.2 p22–p23 再展开。"),
     ),
 )

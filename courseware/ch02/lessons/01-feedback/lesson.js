@@ -310,7 +310,7 @@ window.lesson = {
       "id": "p07",
       "segment": "工具调用",
       "layout": "prompt-scene",
-      "prompt": "只读任务，不修改任何文件。\n这个个人主页 v0 当初定了哪些要求和完成标准？\n请说明依据来自哪个文件的哪一段；\n不确定就写“不确定”，不要猜。",
+      "prompt": "只读任务，不修改任何文件。\n这个个人主页当初定了哪些要求和完成标准？\n请说明依据来自哪个文件的哪一段；\n不确定就写“不确定”，不要猜。",
       "label": "问一个项目问题",
       "title": "问一个和项目有关的问题，请求会多出什么？",
       "lead": "第二步换一个和项目有关的只读问题。Prompt 不提示文件名，Codex 要自己去找依据；回答里说出的文件，就是下一页在记录里要找的东西。",
@@ -321,7 +321,7 @@ window.lesson = {
         "圈出依据"
       ],
       "script": [
-        "【操作提示｜课件 p07 第 1 步 → 切 Terminal“claude-tap”标签页，在同一个 Codex 里粘贴画面上的只读 Prompt 并提交】\n\n第二步，问一个和项目有关的问题：这个个人主页 v0 当初定了哪些要求和完成标准？依据来自哪个文件的哪一段，不确定就说不确定。注意，我们没告诉它去看哪个文件，它得自己去找。这一步只读，不修改任何文件。",
+        "【操作提示｜课件 p07 第 1 步 → 切 Terminal“claude-tap”标签页，在同一个 Codex 里粘贴画面上的只读 Prompt 并提交】\n\n第二步，问一个和项目有关的问题：这个个人主页当初定了哪些要求和完成标准？依据来自哪个文件的哪一段，不确定就说不确定。注意，我们没告诉它去看哪个文件，它得自己去找。这一步只读，不修改任何文件。",
         "【操作提示｜推进第 2 步，等回答结束，在 Terminal 里逐句指回复：哪句是要求、哪句是完成标准、哪句说了不确定；按实际回复讲】\n\n回答出来了。我们一句一句看：哪些是它说的要求，哪些是完成标准，有没有哪句它说不确定。",
         "【操作提示｜推进第 3 步，圈出回复里提到的依据文件名和段落；没有提到就如实说明，留到下一页查记录】\n\n再看它说依据在哪。讲师这次运行里，它说要求在 PROMPT_V1.md 的“人工决定”和“任务”两段，完成标准在 PROJECT_BRIEF.md 的“首页 v0 的验收依据”，第 31 到 39 行，连行号都给了。这些文件我们并没有告诉过它，那它是怎么知道的？回到请求记录里找。"
       ],
@@ -348,7 +348,7 @@ window.lesson = {
       "label": "它是怎么知道的",
       "title": "它到底是怎么“知道”的？",
       "lead": "回到请求记录：Codex 提出读文件的工具调用，Harness 执行后把返回的内容放进下一次请求，模型再据此回答。工具调用和返回也进了 context。再对照回答，看它有没有正确使用这段返回。",
-      "html": "<div class=\"p-flow\" style=\"--n:3\"><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\"><h3>提出调用</h3><p>exec 里调用 exec_command：<code>cat -n PROJECT_BRIEF.md</code> 等</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"0\"><h3>Harness 执行</h3><p>返回带行号的文件内容</p></div><div class=\"p-node\" data-role=\"ctx\" data-reveal=\"1\"><h3>下一次请求</h3><p>带上这段调用和返回</p></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"1\"><h3>这一问：7 次请求</h3><p>6 次调用，都是 exec 里调 exec_command 跑 cat -n、git log 等；input 从 6 项涨到 24 项</p></div><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"2\"><h3>读到了</h3><p>回答里的文件和行号，都能在返回里找到；再看它理解得对不对</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">下一步从<b>上一步的返回</b>里来</div><p class=\"source-note\">数字来自讲师用课程基线（隔离 HOME）的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，写入模型能力目录，推理档位 max，codex exec）；随版本、模型、配置和任务变化，只说明结构</p>",
+      "html": "<div class=\"p-flow\" style=\"--n:3\"><div class=\"p-node\" data-role=\"agent\" data-reveal=\"0\"><h3>提出调用</h3><p>exec 里调用 exec_command：<code>cat -n PROJECT_BRIEF.md</code> 等</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"0\"><h3>Harness 执行</h3><p>返回带行号的文件内容</p></div><div class=\"p-node\" data-role=\"ctx\" data-reveal=\"1\"><h3>下一次请求</h3><p>带上这段调用和返回</p></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"1\"><h3>这一问：8 次请求</h3><p>15 次调用，都是 exec 里调 exec_command 跑 cat、git log 等；input 从 6 项涨到 43 项</p></div><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"2\"><h3>读到了</h3><p>回答里的文件和行号，都能在返回里找到；再看它理解得对不对</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">下一步从<b>上一步的返回</b>里来</div><p class=\"source-note\">数字来自讲师用课程基线（隔离 HOME）的一次运行（2026-10-21，codex exec，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max）；随版本、模型、配置和任务变化，只说明结构</p>",
       "steps": [
         "调用和返回",
         "进入下一次请求",
@@ -356,7 +356,7 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜课件 p14 第 1 步 → 切 Chrome 查看器，打开 p07 这次提问的记录，找 Codex 提出读文件的那次工具调用和它的返回；画面上的命令和文件名按录制当次的记录改口】\n\n回到请求记录。在这次提问里，模型提出了工具调用：在 exec 里写一小段 JavaScript，调用 exec_command 跑 cat -n PROJECT_BRIEF.md。注意，它没有专门的“读文件”工具，读文件就是跑一条 shell 命令。Harness 执行它，把文件内容作为返回交了回去。",
-        "【操作提示｜推进第 2 步 → 在查看器里打开下一次请求，定位刚才那段返回的内容并停留；没有读文件就如实说明，直接进入第 3 步】\n\n再打开下一次请求。刚才那段调用和返回，就出现在这里，跟着整份请求一起发给了模型。工具调用和返回也进了 context。讲师这一问一共发了 7 次请求，6 次工具调用，每一次请求都比上一次多带几项调用和返回。这就是第 1 章讲过的 Agent 循环：下一步，从上一步的返回里来。",
+        "【操作提示｜推进第 2 步 → 在查看器里打开下一次请求，定位刚才那段返回的内容并停留；没有读文件就如实说明，直接进入第 3 步】\n\n再打开下一次请求。刚才那段调用和返回，就出现在这里，跟着整份请求一起发给了模型。工具调用和返回也进了 context。讲师这一问一共发了 8 次请求，15 次工具调用，每一次请求都比上一次多带几项调用和返回。这就是第 1 章讲过的 Agent 循环：下一步，从上一步的返回里来。",
         "【操作提示｜回课件推进第 3 步，按录制当次实际那一支讲；保留原始记录，不重跑凑结果。之后进入 p16】\n\n最后对照回答。这次它读到了：回答里引的文件和行号，都能在返回里找到。读到了还不够，还要核对它理解得对不对。要是它没读文件就作答，回答就缺了依据，这正是我们在 Prompt 里要它说明依据的原因。"
       ],
       "teaching": [
@@ -366,7 +366,7 @@ window.lesson = {
         },
         {
           "title": "实测记录",
-          "text": "2026-10-20 15:16 课程基线（能力目录开）一次运行：7 次请求、6 次工具调用，全部是 exec 里的 JavaScript 调 tools.exec_command：pwd / ls / git log；cat -n PROJECT_BRIEF.md、PROMPT_V1.md、CHECKPOINTS.md、TASK_01_01.md；README.md、PLACEHOLDER_CONTENT.md；docs/setup/TOOLCHAIN.md 与 git tag；grep；git status。没有专门的读文件工具，读文件就是跑 cat。每次请求的 input 都带上前面全部的调用和返回：6、9、12、15、18、21、24 项；input_tokens 7603、8450、11778、13852、16630、18198、18896，其中缓存命中 6395、7765、8614、12118、14438、17591、18815。录制版本或讲师仓库不同，次数和数字会变，按实际记录改。"
+          "text": "2026-10-21 课程基线（能力目录开）重跑，问句去掉“v0”：8 次请求、15 次工具调用，都是 exec 里调 exec_command：ls、find、逐个 cat PROJECT_BRIEF.md、PROMPT_V1.md、CHECKPOINTS.md、README.md 等，git log / tag / status，再读 index.html、package.json、src/ 和 setup-check，最后 cat -n 几份要求文件取行号。input 6、11、20、27、32、37、40、43 项；input_tokens 7610 → 24961，缓存命中 5063 → 23328。回答仍引用 PROJECT_BRIEF.md“首页 v0 的验收依据”第 31–39 行和 PROMPT_V1.md 的人工决定表，比上一次铺得更开（还列了未完成的证据文件、缺失的 tag）。运行目录 lab-runs/ch02-context/2.1-step2-20261021-150635，不提交。上一次：2026-10-20 15:16 课程基线（能力目录开）一次运行：7 次请求、6 次工具调用，全部是 exec 里的 JavaScript 调 tools.exec_command：pwd / ls / git log；cat -n PROJECT_BRIEF.md、PROMPT_V1.md、CHECKPOINTS.md、TASK_01_01.md；README.md、PLACEHOLDER_CONTENT.md；docs/setup/TOOLCHAIN.md 与 git tag；grep；git status。没有专门的读文件工具，读文件就是跑 cat。每次请求的 input 都带上前面全部的调用和返回：6、9、12、15、18、21、24 项；input_tokens 7603、8450、11778、13852、16630、18198、18896，其中缓存命中 6395、7765、8614、12118、14438、17591、18815。录制版本或讲师仓库不同，次数和数字会变，按实际记录改。"
         },
         {
           "title": "讲师提示",

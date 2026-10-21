@@ -41,7 +41,7 @@
 
 ```text
 只读任务，不修改任何文件。
-这个个人主页 v0 当初定了哪些要求和完成标准？
+这个个人主页当初定了哪些要求和完成标准？
 请说明依据来自哪个文件的哪一段；
 不确定就写“不确定”，不要猜。
 ```
@@ -74,3 +74,4 @@
 - p16a 引用的官方解释：Anthropic 2025-09-29 的 Effective context engineering for AI agents，画面为中文意译，2026-10-20 核对原文；不自造定义，不大段引用。
 - 2026-10-20 较早一次实测（能力目录关，后备元数据；课程基线 `tools/clean-codex.sh --tap`，隔离 HOME，Codex 0.163.0 + MiniMax-M3.1-Flash-Preview，`codex exec`，在 starter 的 ch01-complete 快照上）：第一步那句话 1 次请求、没有工具调用，input_tokens 9042；系统指令是 input 里第一条 developer 消息（请求顶层 `instructions` 字段为空），16979 字符；工具 9 个，17767 字符；Skills 列表 1985 字符；权限说明 341（只读）/ 676（可写）字符；环境信息 642 / 1628 字符。第二步只读 Prompt 7 次请求、12 次工具调用，全是 `exec_command` 跑 shell 命令（没有专门的读文件工具），读到了 `PROJECT_BRIEF.md` 与 `PROMPT_V1.md` 并给出行号。Codex 0.163.0 对这个模型名报“找不到模型元数据，使用后备值”。这组数字已被下一条替换，只作 p15b 对照组的参考。原始记录在讲师本机 claude-tap 数据库，含本机路径，不提交。
 - 2026-10-20 15:16 实测（全章基线：能力目录开、推理档位 max；`tools/clean-codex.sh --tap -- exec`，隔离 HOME，Codex 0.163.0 + MiniMax-M3.1-Flash，starter `ch01-complete` 快照，没有 AGENTS.md）：第一步那句话 1 次请求、没有工具调用，input_tokens 7519，各块合计约 2.76 万字符；请求顶层 `instructions` 为空，`reasoning` 为 `{"effort": "max"}`；input 6 项：系统指令 145（一句话）、Skills 1985 + 权限 341、多代理团队说明 2235、`<multi_agent_mode>` 271、环境信息 550、我们的话 17；工具 5 个 22028 字符（exec 14276，custom，code mode）。可写权限：权限说明 341 → 630、环境信息 550 → 1306，input_tokens 7899。同一句话能力目录关（`CLEAN_CODEX_CATALOG=0`）：input_tokens 8994，系统指令 16979，9 个函数工具 17767 字符，不发档位。第二步 7 次请求、6 次调用（全是 exec 里调 `exec_command`），input 6 → 24 项，input_tokens 7603 → 18896，缓存命中 6395 → 18815；回答引用 `PROJECT_BRIEF.md`“首页 v0 的验收依据”第 31–39 行、`PROMPT_V1.md`“人工决定”“任务”两段，工作区未修改。原始记录在讲师本机 claude-tap 数据库与 `lab-runs/ch02-context/on-2.1-151654/`，不提交。
+- 2026-10-21 重跑第二步（问句去掉“v0”，其余同上，`lab-runs/ch02-context/2.1-step2-20261021-150635/`）：8 次请求、15 次调用，input 6 → 43 项，input_tokens 7610 → 24961，缓存命中 5063 → 23328；回答引用的段落和行号不变，p14 已按这次更新。
