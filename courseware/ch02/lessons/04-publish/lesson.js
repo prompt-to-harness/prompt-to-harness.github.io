@@ -267,7 +267,7 @@ window.lesson = {
         },
         {
           "title": "讲师提示",
-          "text": "推送由人执行；设置交给 Codex 时，批准框就是人机边界（回扣 1.6）。gh 由学员本人登录（环境检查单），令牌不贴进对话、不放环境变量。Codex 用 CLEAN_CODEX_GH=1 tools/clean-codex.sh 启动，干净环境里才读得到本机的 gh 登录（2026-10-21 实测）；不带开关时 gh 报未登录，Codex 会自己申请运行 gh auth login，这一条要拒绝。预检见 courseware/ch02/materials/pages-source/：临时仓库上 13 次批准，修改命令先错用 POST 再改 PUT；录制仓库的实际次数和说法以当天为准，画面不预告。"
+          "text": "推送由人执行；设置交给 Codex 时，批准框就是人机边界（回扣 1.6）。gh 由学员本人登录（环境检查单），令牌不贴进对话、不放环境变量。2026-10-21 实测时，Codex 设好来源后还申请了 gh workflow run 去补跑之前失败的部署：这不违反“不推送、不改文件”，但超出了请求的范围，批准框就是说“不”的地方，录制时出现就停一下讲。Codex 用 CLEAN_CODEX_GH=1 tools/clean-codex.sh 启动，干净环境里才读得到本机的 gh 登录（2026-10-21 实测）；不带开关时 gh 报未登录，Codex 会自己申请运行 gh auth login，这一条要拒绝。预检见 courseware/ch02/materials/pages-source/：临时仓库上 13 次批准，修改命令先错用 POST 再改 PUT；录制仓库的实际次数和说法以当天为准，画面不预告。"
         }
       ],
       "repro": {
@@ -293,7 +293,7 @@ window.lesson = {
       "label": "Codex 怎样调用 gh",
       "title": "刚才 Codex 是怎样调用 gh 的？",
       "lead": "打开刚才设置 Pages 来源那次会话的请求记录，找到相关的那几次请求。模型发出的工具调用里是一条完整的 gh 命令；需要批准的调用，还带着“要在沙箱外运行”的标记和一句理由，就是批准框里显示的那句。我们点了同意，记录里看不到这一下，只看到命令随后执行、返回了输出；下一次请求把这段返回带上，模型据此决定下一步。",
-      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-walk\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:40px\"><div class=\"p-fn\">记录里的一次 gh 调用（exec 里的一段代码）</div><div class=\"p-ln\"><i>1</i><code>exec_command({ cmd: \"gh api repos/…/pages\",</code></div><div class=\"p-ln add\" data-reveal=\"1\"><i>2</i><code>sandbox_permissions: \"require_escalated\",</code></div><div class=\"p-ln add\" data-reveal=\"1\"><i>3</i><code>justification: \"Allow gh CLI to query … Pages …?\" })</code></div><div class=\"p-ln\" data-reveal=\"2\"><i>4</i><code>返回：{\"message\":\"Not Found\", … \"404\"}</code></div><div class=\"p-ln add\" data-reveal=\"2\"><i>5</i><code>下一次：用 POST 创建站点，再查一次</code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>完整命令</b><small>模型提出的调用，一字不差</small></span></li><li data-reveal=\"1\"><span><b>批准申请写在调用里</b><small>标记加理由，批准框照着显示</small></span></li><li data-reveal=\"2\"><span><b>下一次请求带上返回</b><small>模型据此决定下一步</small></span></li><li class=\"is-risk\" data-reveal=\"3\"><span><b>点同意的是我们</b><small>记录里只看到命令执行了；这次批了 9 次</small></span></li></ol></div><p class=\"source-note\">字段名照记录原样，值有删节。讲师在组织下临时仓库上的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max，交互界面）；命令写法和调用次数随版本、模型和仓库状态变化</p>",
+      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-walk\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:40px\"><div class=\"p-fn\">记录里的一次 gh 调用（exec 里的一段代码）</div><div class=\"p-ln\"><i>1</i><code>exec_command({ cmd: \"gh api repos/…/pages\",</code></div><div class=\"p-ln add\" data-reveal=\"1\"><i>2</i><code>sandbox_permissions: \"require_escalated\",</code></div><div class=\"p-ln add\" data-reveal=\"1\"><i>3</i><code>justification: \"查询该仓库是否已存在 GitHub Pages 站点…\" })</code></div><div class=\"p-ln\" data-reveal=\"2\"><i>4</i><code>返回：{\"message\":\"Not Found\", … \"404\"}</code></div><div class=\"p-ln add\" data-reveal=\"2\"><i>5</i><code>下一次：用 POST 创建站点，再查一次</code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>完整命令</b><small>模型提出的调用，一字不差</small></span></li><li data-reveal=\"1\"><span><b>批准申请写在调用里</b><small>标记加理由，批准框照着显示</small></span></li><li data-reveal=\"2\"><span><b>下一次请求带上返回</b><small>模型据此决定下一步</small></span></li><li class=\"is-risk\" data-reveal=\"3\"><span><b>点同意的是我们</b><small>记录里只看到命令执行了；这次批了 13 次</small></span></li></ol></div><p class=\"source-note\">字段名照记录原样，值有删节。来自讲师在组织下临时公开仓库上的一次运行（2026-10-21，CLEAN_CODEX_GH=1 tools/clean-codex.sh --tap，交互界面，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max）；调用次数和写法每次不同，只说明结构</p>",
       "steps": [
         "完整命令",
         "批准申请",
@@ -302,13 +302,17 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜课件 p49a 第 1 步 → 切浏览器的 claude-tap 查看器，打开 p49 设置 Pages 来源那次会话的请求，指认一条 gh 工具调用里的完整命令；按实际记录讲。截图前检查 gh 输出里的账号信息和域名，令牌不出镜】\n\n刚才 Pages 的设置是 Codex 用 gh 改的。回到请求记录，找到那几次请求。模型这一侧发出的是一个工具调用，里面是一条完整的 gh 命令，一字不差，可以和刚才批准框里看到的那条对一对。",
-        "【操作提示｜推进第 2 步，在查看器里指认这段代码参数里的 sandbox_permissions 和 justification 两个字段】\n\n再看这条调用的参数。讲师用的配置下，模型写的是一小段代码，去调用执行命令的工具；除了命令本身，参数里还多了两样：一个标记，说要在沙箱外运行；一句理由，大意是“允许 gh 访问 GitHub 去查 Pages 设置吗”。这就是批准框里显示的那句话。默认沙箱没有网络，所以连只读的查询，也要我们批准。",
-        "【操作提示｜推进第 3 步，在查看器里打开下一次请求，指认上一条命令和返回出现在请求里】\n\n命令执行完，返回的是 gh 的输出：这次是 404，站点还不存在。再看下一次请求：这条命令和它的返回都被带上了。模型就是看着这段返回，决定下一步：站点还不存在，就按我们 Prompt 里写的，用 POST 把它创建出来。讲师这次，它第一次把参数写错了，看到 gh 的报错，自己改对了，再查一次确认。这就是第 1 章拆开执行过程时看过的那个循环。",
-        "【操作提示｜推进课件第 4 步；按讲师这份记录讲，录制版本不同就按实际说】\n\n那我们点的同意在哪里？记录里找不到这一下。我们只能看到，批准之后命令真的执行了，返回了输出。讲师这次一共批了 9 次，连只读的查询也要批。还有一点：Prompt 里说了“执行修改前告诉我要运行的命令”，它列出命令以后并没有停下来等我们回话，真正让它停住的，是批准框。模型只提出调用，执行由 Codex 负责，批不批由我们定。"
+        "【操作提示｜推进第 2 步，在查看器里指认这段代码参数里的 sandbox_permissions 和 justification 两个字段】\n\n再看这条调用的参数。讲师用的配置下，模型写的是一小段代码，去调用执行命令的工具；除了命令本身，参数里还多了两样：一个标记，说要在沙箱外运行；一句理由，大意是“查询这个仓库有没有 Pages 站点”。这就是批准框里显示的那句话。默认沙箱没有网络，所以连只读的查询，也要我们批准。",
+        "【操作提示｜推进第 3 步，在查看器里打开下一次请求，指认上一条命令和返回出现在请求里】\n\n命令执行完，返回的是 gh 的输出：这次是 404，站点还不存在。再看下一次请求：这条命令和它的返回都被带上了。模型就是看着这段返回，决定下一步：站点还不存在，就按我们 Prompt 里写的，用 POST 把它创建出来。创建成功以后，它又查了一次确认。模型提出动作，工具执行，结果返回，再决定下一步，就是这个循环。",
+        "【操作提示｜推进课件第 4 步；按讲师这份记录讲，录制版本不同就按实际说】\n\n那我们点的同意在哪里？记录里找不到这一下。我们只能看到，批准之后命令真的执行了，返回了输出。讲师这次一共批了 13 次，连只读的查询也要批。其中有一次，它要触发部署工作流，去补跑之前失败的那次部署，这已经超出了我们请它做的事；批不批，由我们看清楚再定。还有一点：Prompt 里说了“执行修改前告诉我要运行的命令”，它列出命令以后并没有停下来等我们回话，真正让它停住的，是批准框。模型只提出调用，执行由 Codex 负责，批不批由我们定。"
       ],
       "teaching": [
         {
           "title": "实测记录",
+          "text": "2026-10-21 用 CLEAN_CODEX_GH=1 tools/clean-codex.sh 在组织下的临时公开仓库（Pages 尚未开启，推送时已触发过一次失败的部署）上发 p49 原话：16 次对话请求、15 次工具调用，13 次申请在沙箱外运行，都由人批准，没有出现 gh auth login。先 GET /pages 得到 404，直接 POST 创建（build_type=workflow），复查为 workflow；理由都是中文。它还自己查了上次失败的运行，并用 gh workflow run 触发了一次部署、等它跑完，再 curl 线上页面（200）。最后一次请求 62 项、约 2.17 万 token。运行目录 lab-runs/ch02-context/2.4-gh-20261021-150831，不提交。"
+        },
+        {
+          "title": "实测记录（上一版）",
           "text": "2026-10-20 在组织下的临时公开仓库（Pages 尚未开启）上用交互界面发 p49 的原话，能力目录开、推理档位 max：15 次对话请求、16 次工具调用，其中 9 次申请在沙箱外运行，都由人批准。能力目录开时是 code mode：每次调用是 exec 工具里的一小段 JavaScript，调 tools.exec_command，申请批准的标记 sandbox_permissions: require_escalated、justification（这次是英文）、prefix_rule 写在这段代码的参数里。过程：沙箱里 gh auth status 误报登录无效、gh api 连不上网；检查环境变量时自己用 sed 把值遮住；申请在沙箱外运行后确认仓库权限，查到 Pages 还不存在（404）；看了 workflow 文件；列出要执行的命令后没有停下等人；第一次 POST 把参数写成 gh 不支持的 -d，看到报错后改成 -f，创建成功；复查 build_type 为 workflow；还主动查了推送时那次失败的部署和日志。批准这一下本身不出现在请求里。同日能力目录关的两次运行：个人仓库 7 次批准（先 PUT 404 再 POST），组织仓库 6 次批准（直接 POST）。"
         },
         {

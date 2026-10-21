@@ -13,8 +13,9 @@ from lessonkit import Lesson, NARROW, chapter_map, ref, repro, teach  # noqa: E4
 lesson = Lesson(__file__, "2.4", "发布上线，看 Codex 怎么用 gh", summary="第一次推送前看清即将公开的整段历史；Pages 来源交给 Codex 用 gh 设置，再在请求记录里看清这次调用；发布后用公开 URL 证明页面可用。")
 
 # 2026-10-20 实测：临时公开仓库 + 真实 HOME（gh 用钥匙串登录）+ 独立 CODEX_HOME（MiniMax），交互界面；p49a 用它。
-# 2026-10-21 起改用 CLEAN_CODEX_GH=1 tools/clean-codex.sh（章文件 C2-39），录制时按新方式重录 p49a
+# 2026-10-21 起改用 CLEAN_CODEX_GH=1 tools/clean-codex.sh（章文件 C2-39），p49a 已按 2026-10-21 那次运行更新（RUN1021）
 RUN1020 = "讲师在组织下临时仓库上的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max，交互界面）；命令写法和调用次数随版本、模型和仓库状态变化"
+RUN1021 = "来自讲师在组织下临时公开仓库上的一次运行（2026-10-21，CLEAN_CODEX_GH=1 tools/clean-codex.sh --tap，交互界面，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max）；调用次数和写法每次不同，只说明结构"
 scene = lesson.scene
 
 
@@ -194,7 +195,7 @@ scene(
     steps=["提交并复查", "Codex 改设置", "人来推送", "失败时"],
     teaching=teach(
         ("切到实操", "顺序是提交 → 复查待推送提交 → 必要时改为公开 → Codex 设置 Pages 来源（人批准、网页确认）→ 推送；GitHub 文档要求先为仓库启用自定义工作流（2026-10-05 查阅 Using custom workflows with GitHub Pages）。若录制时先推送了，在 Actions 页对失败的运行点 Re-run，并确认新运行成功。Pages 来源设置界面按录制时 GitHub 版本核对。讲师录制时若真的失败，失败过程保留在本页。首次部署若自然出错，就地从 Actions 日志、build 输出和 Network 定位并保留；没有出错不伪造。"),
-        ("讲师提示", "推送由人执行；设置交给 Codex 时，批准框就是人机边界（回扣 1.6）。gh 由学员本人登录（环境检查单），令牌不贴进对话、不放环境变量。Codex 用 CLEAN_CODEX_GH=1 tools/clean-codex.sh 启动，干净环境里才读得到本机的 gh 登录（2026-10-21 实测）；不带开关时 gh 报未登录，Codex 会自己申请运行 gh auth login，这一条要拒绝。预检见 courseware/ch02/materials/pages-source/：临时仓库上 13 次批准，修改命令先错用 POST 再改 PUT；录制仓库的实际次数和说法以当天为准，画面不预告。"),
+        ("讲师提示", "推送由人执行；设置交给 Codex 时，批准框就是人机边界（回扣 1.6）。gh 由学员本人登录（环境检查单），令牌不贴进对话、不放环境变量。2026-10-21 实测时，Codex 设好来源后还申请了 gh workflow run 去补跑之前失败的部署：这不违反“不推送、不改文件”，但超出了请求的范围，批准框就是说“不”的地方，录制时出现就停一下讲。Codex 用 CLEAN_CODEX_GH=1 tools/clean-codex.sh 启动，干净环境里才读得到本机的 gh 登录（2026-10-21 实测）；不带开关时 gh 报未登录，Codex 会自己申请运行 gh auth login，这一条要拒绝。预检见 courseware/ch02/materials/pages-source/：临时仓库上 13 次批准，修改命令先错用 POST 再改 PUT；录制仓库的实际次数和说法以当天为准，画面不预告。"),
     ),
     repro=repro([("用 CLEAN_CODEX_GH=1 tools/clean-codex.sh 新开 Codex 会话（让它用上本机的 gh 登录），发送这段请求；每条命令弹出批准框时先读命令和理由", SOURCE_PROMPT),
                  ("改完在网页上确认（没装 GitHub CLI 时直接在这里手动选择 GitHub Actions）", "仓库页 → Settings → Pages → Build and deployment → Source")],
@@ -211,18 +212,19 @@ scene(
         '<div class="p-fn">记录里的一次 gh 调用（exec 里的一段代码）</div>'
         '<div class="p-ln"><i>1</i><code>exec_command({ cmd: "gh api repos/…/pages",</code></div>'
         '<div class="p-ln add" data-reveal="1"><i>2</i><code>sandbox_permissions: "require_escalated",</code></div>'
-        '<div class="p-ln add" data-reveal="1"><i>3</i><code>justification: "Allow gh CLI to query … Pages …?" })</code></div>'
+        '<div class="p-ln add" data-reveal="1"><i>3</i><code>justification: "查询该仓库是否已存在 GitHub Pages 站点…" })</code></div>'
         '<div class="p-ln" data-reveal="2"><i>4</i><code>返回：{"message":"Not Found", … "404"}</code></div>'
         '<div class="p-ln add" data-reveal="2"><i>5</i><code>下一次：用 POST 创建站点，再查一次</code></div></div></div>'
         '<ol class="p-notes"><li data-reveal="0"><span><b>完整命令</b><small>模型提出的调用，一字不差</small></span></li>'
         '<li data-reveal="1"><span><b>批准申请写在调用里</b><small>标记加理由，批准框照着显示</small></span></li>'
         '<li data-reveal="2"><span><b>下一次请求带上返回</b><small>模型据此决定下一步</small></span></li>'
-        '<li class="is-risk" data-reveal="3"><span><b>点同意的是我们</b><small>记录里只看到命令执行了；这次批了 9 次</small></span></li></ol></div>'
-        '<p class="source-note">字段名照记录原样，值有删节。' + RUN1020 + '</p>'
+        '<li class="is-risk" data-reveal="3"><span><b>点同意的是我们</b><small>记录里只看到命令执行了；这次批了 13 次</small></span></li></ol></div>'
+        '<p class="source-note">字段名照记录原样，值有删节。' + RUN1021 + '</p>'
     ),
     steps=["完整命令", "批准申请", "下一次请求", "谁点的同意"],
     teaching=teach(
-        ("实测记录", "2026-10-20 在组织下的临时公开仓库（Pages 尚未开启）上用交互界面发 p49 的原话，能力目录开、推理档位 max：15 次对话请求、16 次工具调用，其中 9 次申请在沙箱外运行，都由人批准。能力目录开时是 code mode：每次调用是 exec 工具里的一小段 JavaScript，调 tools.exec_command，申请批准的标记 sandbox_permissions: require_escalated、justification（这次是英文）、prefix_rule 写在这段代码的参数里。过程：沙箱里 gh auth status 误报登录无效、gh api 连不上网；检查环境变量时自己用 sed 把值遮住；申请在沙箱外运行后确认仓库权限，查到 Pages 还不存在（404）；看了 workflow 文件；列出要执行的命令后没有停下等人；第一次 POST 把参数写成 gh 不支持的 -d，看到报错后改成 -f，创建成功；复查 build_type 为 workflow；还主动查了推送时那次失败的部署和日志。批准这一下本身不出现在请求里。同日能力目录关的两次运行：个人仓库 7 次批准（先 PUT 404 再 POST），组织仓库 6 次批准（直接 POST）。"),
+        ("实测记录", "2026-10-21 用 CLEAN_CODEX_GH=1 tools/clean-codex.sh 在组织下的临时公开仓库（Pages 尚未开启，推送时已触发过一次失败的部署）上发 p49 原话：16 次对话请求、15 次工具调用，13 次申请在沙箱外运行，都由人批准，没有出现 gh auth login。先 GET /pages 得到 404，直接 POST 创建（build_type=workflow），复查为 workflow；理由都是中文。它还自己查了上次失败的运行，并用 gh workflow run 触发了一次部署、等它跑完，再 curl 线上页面（200）。最后一次请求 62 项、约 2.17 万 token。运行目录 lab-runs/ch02-context/2.4-gh-20261021-150831，不提交。"),
+        ("实测记录（上一版）", "2026-10-20 在组织下的临时公开仓库（Pages 尚未开启）上用交互界面发 p49 的原话，能力目录开、推理档位 max：15 次对话请求、16 次工具调用，其中 9 次申请在沙箱外运行，都由人批准。能力目录开时是 code mode：每次调用是 exec 工具里的一小段 JavaScript，调 tools.exec_command，申请批准的标记 sandbox_permissions: require_escalated、justification（这次是英文）、prefix_rule 写在这段代码的参数里。过程：沙箱里 gh auth status 误报登录无效、gh api 连不上网；检查环境变量时自己用 sed 把值遮住；申请在沙箱外运行后确认仓库权限，查到 Pages 还不存在（404）；看了 workflow 文件；列出要执行的命令后没有停下等人；第一次 POST 把参数写成 gh 不支持的 -d，看到报错后改成 -f，创建成功；复查 build_type 为 workflow；还主动查了推送时那次失败的部署和日志。批准这一下本身不出现在请求里。同日能力目录关的两次运行：个人仓库 7 次批准（先 PUT 404 再 POST），组织仓库 6 次批准（直接 POST）。"),
 
 
         ("讲师提示", "录制时在 claude-tap 里打开 p49 那次会话的请求，按实际记录逐条指认；命令写法、调用次数和 PUT/POST 的先后以录制为准。复查返回里的 html_url 会露出账号或域名，截图前检查；gh auth status 和 gh api user 的输出含账号名，令牌不能出镜。同日一次能力目录关的运行里，它为确认登录申请过一条含 gh auth token 的命令（自己接了 sed 只露前 4 个字符和长度，没有泄露）：读到令牌的命令哪怕看起来做了遮盖，也值得在批准框前停一下，这是本页“批不批由我们定”最好的例子；录制时出现就就地讲，不出现不提。“执行修改前告诉我”没有让它停下，真正停住它的是批准框：这一句可以回扣 1.3。"),

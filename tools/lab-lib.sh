@@ -138,7 +138,7 @@ _lab_wait_for() {  # _lab_wait_for <会话> <文字>：最多等 2 分钟
 lab_tmux_start() {
   local s="$1"; shift
   local f="$LOG/$s.start.sh" arg
-  LAB_TAP_BEFORE="$(_lab_tap_query "select coalesce(max(started_at),'') from sessions" || true)"
+  LAB_TAP_SID=""; LAB_TAP_BEFORE="$(_lab_tap_query "select coalesce(max(started_at),'') from sessions" || true)"
   {
     echo "#!/bin/zsh"
     printf 'cd %q && CLEAN_CODEX_HOME=%q CLEAN_CODEX_KEEP_CONFIG=%q CLEAN_CODEX_GH=%q CLEAN_CODEX_NO_OPEN=1 %q --tap' \
@@ -156,8 +156,15 @@ lab_tmux_start() {
   fi
 }
 
-lab_tap_session() {  # 本次 lab_tmux_start 之后最新的 claude-tap 会话 id
-  _lab_tap_query "select id from sessions where started_at > '${LAB_TAP_BEFORE:-}' order by started_at desc limit 1"
+# lab_tap_session：本次运行的 claude-tap 会话 id。按请求里环境信息的 <cwd>（即 $APP）认，不按“最新的会话”猜：
+# 同时跑几个实验时，最新的会话可能是别人的（2026-10-21 实测错认过一次）。找到后缓存在 LAB_TAP_SID
+lab_tap_session() {
+  if [ -z "${LAB_TAP_SID:-}" ]; then
+    local since="started_at > '${LAB_TAP_BEFORE:-}'" cwd="%<cwd>$APP</cwd>%"
+    LAB_TAP_SID="$(_lab_tap_query "select session_id from records where session_id in (select id from sessions where $since) and payload_json like '$cwd'
+      union select session_id from record_blobs where session_id in (select id from sessions where $since) and payload_json like '$cwd' limit 1")"
+  fi
+  echo "$LAB_TAP_SID"
 }
 
 _lab_tap_pending() {  # claude-tap 记录里还有发出但没返回的请求：交互界面有时在两次请求之间看起来已空闲

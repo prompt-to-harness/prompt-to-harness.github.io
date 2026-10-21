@@ -88,4 +88,4 @@ Done when：本地 npm run build 成功；我能逐项解释工作流做了什�
 
 - p49 用 `CLEAN_CODEX_GH=1 tools/clean-codex.sh` 启动 Codex（讲师录制加 `--tap`），和全章同一套干净配置；不再用真实 HOME。操作提示、讲师提示和展开步骤已改，口播加一句启动时带开关。
 - 实测（交互界面，只读的 `gh api repos/…/pages`，运行目录 `lab-runs/ch02-context/gh-login-*`，不提交）：开关打开时，沙箱里先报连不上网络，申请到沙箱外运行，批准后用上登录；关着时 gh 报未登录（退出码 4），Codex 自己申请运行 `gh auth login --web`，要人拒绝。
-- p49a 的画面和数字来自 2026-10-20 真实 HOME 那次运行，录制前按新方式在组织下的临时仓库重跑 p49 的 Prompt（写操作还没实测），按实际记录更新。
+- 2026-10-21 已按新方式在组织下的临时仓库 `ch02-pages-lab-20261021` 重跑 p49（写操作）：16 次对话请求、13 次批准，GET 404 后直接 POST 创建，复查为 workflow，没有出现 `gh auth login`；理由是中文。Codex 还自己用 `gh workflow run` 补跑了之前失败的部署，超出请求范围，p49 讲师提示已加上。p49a 的理由原文和批准次数已按这次更新。临时仓库用后由讲师删除。

@@ -23,6 +23,9 @@ set -euo pipefail
 BASE_URL="https://api.minimax.cn/anthropic"
 MODEL="${CLEAN_CLAUDE_MODEL:-MiniMax-M3.1-Flash}"
 REAL_HOME="$HOME"
+# 从另一个 Claude Code 会话里启动时（例如讲师让 agent 跑实验），会继承它的 CLAUDE_CODE_* 变量，
+# 其中 CLAUDE_CODE_USER_EMAIL 会被 Claude Code 写进请求、发给模型服务（2026-10-21 实测）；先全部清掉
+for v in $(env | grep -oE '^(CLAUDE_CODE_[A-Za-z0-9_]*|CLAUDECODE)=' | tr -d =); do unset "$v"; done
 
 use_tap=0
 claude_args=()
