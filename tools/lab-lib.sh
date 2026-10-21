@@ -141,8 +141,8 @@ lab_tmux_start() {
   LAB_TAP_BEFORE="$(_lab_tap_query "select coalesce(max(started_at),'') from sessions" || true)"
   {
     echo "#!/bin/zsh"
-    printf 'cd %q && CLEAN_CODEX_HOME=%q CLEAN_CODEX_KEEP_CONFIG=%q CLEAN_CODEX_NO_OPEN=1 %q --tap' \
-      "$APP" "${CLEAN_CODEX_HOME:-$RUN/home}" "${CLEAN_CODEX_KEEP_CONFIG:-0}" "$LAB_REPO/tools/clean-codex.sh"
+    printf 'cd %q && CLEAN_CODEX_HOME=%q CLEAN_CODEX_KEEP_CONFIG=%q CLEAN_CODEX_GH=%q CLEAN_CODEX_NO_OPEN=1 %q --tap' \
+      "$APP" "${CLEAN_CODEX_HOME:-$RUN/home}" "${CLEAN_CODEX_KEEP_CONFIG:-0}" "${CLEAN_CODEX_GH:-0}" "$LAB_REPO/tools/clean-codex.sh"
     if [ $# -gt 0 ]; then printf ' --'; for arg in "$@"; do printf ' %q' "$arg"; done; fi
     printf '\nsleep 5\n'
   } > "$f"

@@ -25,6 +25,11 @@
 #                        auth.json，刷新后的令牌写回同一个文件。只适用于文件方式存登录（不是 keyring）。
 #                        Skills、插件、MCP 和其他配置仍不带进来；CLEAN_CODEX_MODEL 不设时用 Codex 的默认模型。
 #                        暂不支持 --tap（未核实 claude-tap 能否代理 ChatGPT 登录的流量）
+#   CLEAN_CODEX_GH=1     让 Codex 能用你本机已登录的 GitHub CLI（2.4 设置 Pages 来源用）。干净 HOME 里读不到
+#                        ~/.config/gh 和 macOS 钥匙串，gh 会显示未登录；打开后用 GH_CONFIG_DIR 指回 ~/.config/gh，
+#                        并把干净 HOME 的 Library/Keychains 软链接到真实位置（2026-10-21 在交互界面实测：Codex 申请到沙箱外
+#                        运行 gh api，批准后用上了登录；不开时 Codex 会自己发起 gh auth login，要人拒绝）。
+#                        只影响 gh 和其他读钥匙串的程序，不带进 Codex 的配置、Skills 或插件
 #
 # 密钥只通过环境变量传给 Codex，配置文件里没有密钥，可以放心展示。
 set -euo pipefail
@@ -138,6 +143,15 @@ if [ "$AUTH" = chatgpt ]; then
   MODEL="${CLEAN_CODEX_MODEL:-Codex 默认}"
 else
   export MINIMAX_API_KEY
+fi
+if [ "${CLEAN_CODEX_GH:-0}" = 1 ]; then
+  command -v gh >/dev/null || { echo "CLEAN_CODEX_GH=1 需要先安装 GitHub CLI（gh）" >&2; exit 1; }
+  export GH_CONFIG_DIR="${GH_CONFIG_DIR:-$REAL_HOME/.config/gh}"
+  # gh 把令牌存在钥匙串里，按 HOME 找 ~/Library/Keychains
+  if [ -d "$REAL_HOME/Library/Keychains" ] && [ ! -e "$SIM_HOME/Library/Keychains" ]; then
+    mkdir -p "$SIM_HOME/Library"
+    ln -s "$REAL_HOME/Library/Keychains" "$SIM_HOME/Library/Keychains"
+  fi
 fi
 export HOME="$SIM_HOME"
 
