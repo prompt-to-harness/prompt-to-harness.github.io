@@ -52,7 +52,7 @@
 ### 章文件的骨架
 
 ```markdown
-# 第 2 章：Vibe Coding - 迭代首页并发布 GitHub Pages
+# 第 2 章：Vibe Coding - 迭代并发布个人主页
 
 > 状态、负责讲师、对外版本链接
 

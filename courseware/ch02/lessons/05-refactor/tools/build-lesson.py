@@ -15,7 +15,7 @@ scene = lesson.scene
 
 CARDS = Path(__file__).resolve().parents[3] / "materials" / "refactor-cards"
 MATERIAL = "教学材料：五张卡基于 homepage-v1 制作（courseware/ch02/materials/refactor-cards/），每张单独应用；页面截图与数值 2026-10-06 在 1440×900 下用浏览器实测（shoot.py）。"
-RECORDING = "截图来自 v1 冻结候选；录制版基于讲师冻结的 homepage-v1 重新制作、重新拍摄。"
+RECORDING = "截图来自个人主页发布候选；录制版基于讲师冻结的 homepage-v1 重新制作、重新拍摄。"
 
 # 五张卡：AI 交回时的说明（教学材料里写的，不是某次真实运行的输出）与 git diff --stat
 SAY = {

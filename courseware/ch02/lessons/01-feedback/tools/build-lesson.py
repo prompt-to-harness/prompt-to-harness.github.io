@@ -38,7 +38,7 @@ TAP_CMD = "uvx claude-tap@0.1.146 --tap-client codex --tap-target https://api.mi
 scene(
     id="p01", segment="开始这一章", layout="lesson-cover",
     label="这一章做什么", title="补完整，发布上线",
-    lead="把个人主页 v0 补完整、发布上线，一路打开请求看清 context",
+    lead="把个人主页补完整、发布上线，一路打开请求看清 context",
     html=(
         chapter_map(1) +
         '<div class="p-chain" data-reveal="1" style="margin-top:12px;font-size:20px"><span>补完整</span><i>→</i><span>发布上线</span><i>·</i><span>一路看清 context</span></div>'
@@ -67,7 +67,7 @@ scene(
 scene(
     id="p02", segment="开始这一章",
     label="昨天的页面去哪了", title="昨天的页面，怎么打不开了？",
-    lead="隔了一天回到项目，本地地址打不开。在第 1 章做出个人主页 v0 的那个项目目录里重新运行 npm run dev，页面就回来了。为什么要重新启动，下一节再讲。",
+    lead="隔了一天回到项目，本地地址打不开。在第 1 章做出个人主页的那个项目目录里重新运行 npm run dev，页面就回来了。为什么要重新启动，下一节再讲。",
     html=(
         '<div class="p-pair" style="grid-template-columns:1fr auto 1fr">'
         '<div class="p-box" data-role="gate" data-reveal="0"><span class="p-tag" data-role="gate">浏览器</span>'

@@ -231,7 +231,7 @@ window.lesson = {
         },
         {
           "title": "实测记录",
-          "text": "2026-10-20 课程基线（能力目录开、推理档位 max，codex exec -s workspace-write）在 2.2 改好的首页上跑 p47 的 Prompt，仓库名填 my-homepage：只改了 vite.config.ts（加 base: '/my-homepage/'，并附中文注释）和新增 .github/workflows/deploy.yml。权限是 contents: read、pages: write、id-token: write，每项都写了理由；触发是推送 main 和手动触发；Node 版本读 .nvmrc；还自己加了一步“核对资源前缀与 Pages 路径一致”的检查。它调用了 14 次网页搜索工具（其中 5 次打开各个 action 的 GitHub releases/latest，其余查了官方 starter 工作流和 configure-pages 的说明），确认用 checkout v7、setup-node v7、configure-pages v6、upload-pages-artifact v5、deploy-pages v5（讲师同日用 gh 核对，与最新版本一致）。本地 npm run build 通过，产物资源以 /my-homepage/assets/ 开头。那次运行里依赖目录因讲师准备失误不完整，Codex 为补齐依赖读过工作区外的目录（另一个项目的 node_modules 和 ~/.npm 缓存）：可写权限限制的是写入位置，读取几乎不受限。"
+          "text": "2026-10-20 课程基线（能力目录开、推理档位 max，codex exec -s workspace-write）在 2.2 改好的个人主页上跑 p47 的 Prompt，仓库名填 my-homepage：只改了 vite.config.ts（加 base: '/my-homepage/'，并附中文注释）和新增 .github/workflows/deploy.yml。权限是 contents: read、pages: write、id-token: write，每项都写了理由；触发是推送 main 和手动触发；Node 版本读 .nvmrc；还自己加了一步“核对资源前缀与 Pages 路径一致”的检查。它调用了 14 次网页搜索工具（其中 5 次打开各个 action 的 GitHub releases/latest，其余查了官方 starter 工作流和 configure-pages 的说明），确认用 checkout v7、setup-node v7、configure-pages v6、upload-pages-artifact v5、deploy-pages v5（讲师同日用 gh 核对，与最新版本一致）。本地 npm run build 通过，产物资源以 /my-homepage/assets/ 开头。那次运行里依赖目录因讲师准备失误不完整，Codex 为补齐依赖读过工作区外的目录（另一个项目的 node_modules 和 ~/.npm 缓存）：可写权限限制的是写入位置，读取几乎不受限。"
         },
         {
           "title": "跟做产出",
@@ -385,7 +385,7 @@ window.lesson = {
         "一次 CLI 调用"
       ],
       "script": [
-        "【操作提示｜停留课件 p52 第 1 步，不切工具窗口】\n\n回看这一节：推送之前，先列出即将公开的提交、文件和作者，由人判断能不能公开；Codex 写的部署配置逐项审过再提交；Pages 来源交给 Codex 用 gh 设置，每条命令由我们批准、在网页上确认，再由我们自己推送；最后用三项检查证明页面可用，只推送 ch02-homepage-live 这一个 tag。首页现在有了一个公开 URL。",
+        "【操作提示｜停留课件 p52 第 1 步，不切工具窗口】\n\n回看这一节：推送之前，先列出即将公开的提交、文件和作者，由人判断能不能公开；Codex 写的部署配置逐项审过再提交；Pages 来源交给 Codex 用 gh 设置，每条命令由我们批准、在网页上确认，再由我们自己推送；最后用三项检查证明页面可用，只推送 ch02-homepage-live 这一个 tag。个人主页现在有了一个公开 URL。",
         "【操作提示｜推进第 2 步，留在课件；本节到此结束，不预告 2.5】\n\n我们还在请求记录里看清了一次 gh 调用：模型提出一条命令，我们在终端批准，执行的输出作为工具返回，带进下一次请求。以后让 Codex 替你跑命令，都可以这样看。"
       ],
       "teaching": [],
