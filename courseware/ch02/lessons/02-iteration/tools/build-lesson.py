@@ -2,7 +2,7 @@
 """2.2 补上项目经历，看对话怎么变长：本节唯一的内容源，生成 lesson.js。
 
 分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch02/tools/lessonkit.py。
-页序按分镜（id 不按页序；2026-10-20 讲师决定改为边做边看）：p20 p21 p27a p28 p29 p30 p22 p23 p24 p30a p31 p27 p32 p33 p34。
+页序按分镜（id 不按页序；2026-10-20 讲师决定改为边做边看）：p20 p21 p27a p28 p29 p30 p22 p23 p24 p31 p27 p27b p33 p34。
 原 p25、p26（Codex 版本与模型指令对比）已移出主课，素材与核对记录见 git 历史和分镜“移到配套页的内容”。
 """
 import sys
@@ -248,44 +248,20 @@ scene(
 
 # ---------- 检查有没有弄坏别的 ----------
 scene(
-    id="p30a", segment="检查有没有弄坏别的",
-    label="三种屏幕尺寸", title="三种屏幕尺寸：在电脑上模拟手机和平板",
-    lead="屏幕尺寸指浏览器里网页实际能显示的区域，浏览器里也叫视口（viewport）。不用找真机，Chrome 开发者工具的设备工具栏可以把它改成指定宽高。尺寸用的是 CSS 像素，不是屏幕的物理像素。自带机型的尺寸和这三种不一致，所以选 Responsive 手填宽高；常用的话可以加成自定义设备，选做。设备模拟只作用于当前标签页，要在自己个人主页的标签页里打开。",
-    html=(
-        '<div class="p-pair" style="grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:28px;align-items:start">'
-        '<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)">'
-        '<div class="is-head" data-reveal="0"><span>尺寸</span><span>模拟</span></div>'
-        '<div data-reveal="0"><span class="p-mono">360×800</span><span>手机竖屏</span></div>'
-        '<div data-reveal="0"><span class="p-mono">768×1024</span><span>平板竖屏</span></div>'
-        '<div data-reveal="0"><span class="p-mono">1440×900</span><span>笔记本</span></div></div>'
-        '<div class="p-handoff-card" data-reveal="1" style="padding:20px 26px"><h3>在自己的页面上切</h3>'
-        '<p style="font-size:20px;line-height:1.6">① 新标签页打开 npm run dev 给出的本地地址<br>② 就在这个标签页按 ⌥⌘I，再按 ⇧⌘M<br>③ 顶部选 Responsive，手填宽高<br>④ 页面没变化就 ⌘R 刷新一次</p></div></div>'
-        '<div class="p-bar is-light" data-reveal="2">只模拟<b>当前标签页</b>：在课件页里开，模拟的就是课件</div>'
-    ),
-    steps=["三种尺寸", "怎么切", "在自己的页面上演示"],
-    teaching=teach(
-        ("切到实操", "在讲师的个人主页上完整演示一遍：新开标签页打开本地地址 → ⌥⌘I → ⇧⌘M → 选 Responsive 填 360×800 → 观察 → 改填 1440×900。镜头要让标签页地址栏和设备工具栏同时入画。设置入口与快捷键按录制时 Chrome 版本核对。"),
-        ("讲师提示", "常见卡点：在别的标签页里开了设备工具栏；缩放比例不是 100% 误以为页面变小；页面缺少 viewport meta 时手机浏览器会按约 980px 排版再缩小，看起来“挤”。自定义设备在开发者工具设置 → Devices → Add custom device，选做。原 2.1 p05、p05-live 合并移来。"),
-    ),
-)
-
-scene(
-    id="p31", segment="检查有没有弄坏别的",
+    id="p31", segment="检查",
     label="改好了吗", title="改好了吗？有没有弄坏别的？",
-    lead="改完要检查，不只看新内容：三种屏幕尺寸下内容完整可读；Tab 焦点顺序与改前一致；npm run build 成功。讲师这次三项都通过：三种宽度都没有横向滚动，360 宽时每条描述折成两行；能用 Tab 停下的仍只有“查看项目”；构建完成。其中屏幕尺寸和 Tab 的结果是 Codex 自己用无头 Chrome 查的，Prompt 里这两项写的是由人查，前面看到的那些弯路就出在这里；自己的页面要在浏览器里亲手查。内容变多后出现的新问题，比如手机上出现横向滚动，记为剩余问题，不在这一轮顺手修。",
+    lead="改完自己看一眼：在浏览器里打开个人主页，三条经历都在、文字完整、别的地方没被挤乱；再运行 npm run build，构建成功。讲师这次页面正常，构建通过。新发现的问题记下来，不在这一轮顺手修。",
     html=(
         '<div class="p-rec" style="grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) minmax(0,1.1fr);row-gap:12px;--rf:21px">'
         '<div class="is-head" data-reveal="0"><span>检查</span><span>讲师这次的结果</span><span>能说明什么</span></div>'
-        '<div data-reveal="0"><span class="p-cell">360 · 768 · 1440</span><span class="p-cell">都没有横向滚动；360 宽时描述折成两行</span><span class="p-why">文字和排版没被挤坏</span></div>'
-        '<div data-reveal="1"><span class="p-cell">Tab 键</span><span class="p-cell">能停下的仍只有“查看项目”</span><span class="p-why">键盘行为与改前一致</span></div>'
-        '<div data-reveal="2"><span class="p-cell p-mono">npm run build</span><span class="p-cell">tsc 与 vite 都通过：✓ built</span><span class="p-why">构建流程成功完成</span></div></div>'
-        '<div class="p-bar is-light" data-reveal="3">新出现的问题：<b>记下来，不顺手修</b></div>'
-        '<p class="source-note">结果来自' + RUN22 + '；屏幕尺寸和 Tab 这两项是 Codex 自己查的，Prompt 里写的是由人查</p>'
+        '<div data-reveal="0"><span class="p-cell">打开页面看一眼</span><span class="p-cell">三条经历都在，文字完整</span><span class="p-why">内容放对了，没挤坏别的</span></div>'
+        '<div data-reveal="1"><span class="p-cell p-mono">npm run build</span><span class="p-cell">tsc 与 vite 都通过：✓ built</span><span class="p-why">构建流程成功完成</span></div></div>'
+        '<div class="p-bar is-light" data-reveal="2">新出现的问题：<b>记下来，不顺手修</b></div>'
+        '<p class="source-note">结果来自' + RUN22 + '</p>'
     ),
-    steps=["三种屏幕尺寸", "键盘", "构建", "新问题"],
+    steps=["看一眼页面", "构建", "新问题"],
     teaching=teach(
-        ("核对记录", "2026-10-20 15:58 那次运行（能力目录开）：npm run build（tsc -b && vite build）输出“✓ built in 265ms”。屏幕尺寸：Codex 发现 macOS 无头 Chrome 的 --window-size=360 实际得到 500px 宽，改用同源 iframe 测，360 / 768 / 1440 下 scrollWidth 等于可显示区域的宽度、无横向溢出，卡片宽 320 / 720 / 860，描述 2 / 1 / 1 行。Tab：渲染后全页只有 1 个可聚焦元素（首屏“查看项目”链接），项目卡内 0 个。截图存在临时目录，未保留。"),
-        ("讲师提示", "录制时屏幕尺寸和 Tab 由讲师在 Chrome 里亲手查，结果列按实际显示讲；让 AI 打开浏览器自己检查留到第 3 章讲 Skill 时。Codex 这次自己查了，只点一句，不展开。"),
+        ("讲师提示", "页面由人看；想看手机上的样子，可以在 Chrome 开发者工具的设备工具栏里切到 360×800，一句带过，不单独教。Codex 自己开无头 Chrome 去查页面的事，留到 2.3“它看不见什么”再讲。"),
     ),
 )
 
@@ -327,27 +303,28 @@ scene(
     ),
 )
 
-# ---------- 小结 ----------
 scene(
-    id="p32", segment="小结",
-    label="记下本轮", title="想下次接得上，可以记下这几项",
-    lead="这是一页建议，不计入验收。用笔记还是截图，按自己的习惯。本轮目标和改动文件，2.3 提交时写进提交说明。",
+    id="p27b", segment="压缩",
+    label="还剩多少，满了会怎样", title="还剩多少？满了会怎样？",
+    lead="不装请求查看工具，也能看 context 的状态：在 Codex 里输入 /status，“Context window” 一行写着现在用了多少、窗口一共多大；“Token usage” 是整个会话累计用掉的，两者不是一回事。窗口快满时，Codex 会自己压缩：默认在用到窗口的 90% 时触发，讲师的配置下窗口约 50 万 token。为了看清楚，讲师把触发线调低到 1 万再跑：读到第二个文件时它就自动压缩了，任务照样做完；之后问它 README.md 第一行的原文，它说只看到摘要，没见过原文，要原文得重新读。",
     html=(
-        '<div class="p-pair" style="grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:20px;align-items:start">'
-        '<div class="p-box" data-role="ctx" data-reveal="0"><span class="p-tag" data-role="ctx">可以记</span>'
-        '<ol class="p-notes" style="margin-top:10px"><li><span><b>本轮目标</b><small>这一轮只解决的那一个结果</small></span></li>'
-        '<li><span><b>会话选择与理由</b><small>继续、/clear、压缩还是新建，为什么</small></span></li>'
-        '<li><span><b>验证结果</b><small>三种屏幕尺寸、Tab、build</small></span></li>'
-        '<li><span><b>剩余问题</b><small>发现了、但这一轮没修的</small></span></li></ol></div>'
-        '<div style="display:grid;gap:12px"><div class="p-box is-soft" data-role="tool" data-reveal="1"><h3>2.3 的提交说明</h3><p>写进本轮目标和改动文件</p></div>'
-        '<div class="p-box is-soft" data-role="ok" data-reveal="1"><h3>不计入验收</h3><p>笔记或截图都行</p></div></div></div>'
+        '<div class="p-term" data-reveal="0"><div class="dim">› /status</div>'
+        '<div>Token usage:      24.6K total (22.3K input + 2.36K output)</div>'
+        '<div class="ok">Context window:   100% left (10.5K used / 498K)</div></div>'
+        '<div class="p-grid" style="--n:3;gap:12px;margin-top:12px">'
+        '<div class="p-box is-soft" data-role="ink" data-reveal="0" style="padding:8px 14px"><h3>Context window</h3><p>现在 context 里有多少</p></div>'
+        '<div class="p-box is-soft" data-role="ctx" data-reveal="1" style="padding:8px 14px"><h3>到 90% 自动压缩</h3><p>中途压缩，任务接着做</p></div>'
+        '<div class="p-box is-soft" data-role="gate" data-reveal="2" style="padding:8px 14px"><h3>压缩之后</h3><p>“我只看到摘要，没见过原文”</p></div></div>'
+        '<p class="source-note">数字来自讲师的两次运行（2026-10-21，课程基线，交互界面，只读沙箱）；自动压缩那次把触发线调低到 1 万（-c model_auto_compact_token_limit=10000），只为演示；默认规则见 Codex 源码 protocol/src/openai_models.rs</p>'
     ),
-    steps=["可以记哪几项", "提交说明"],
+    steps=["/status 看还剩多少", "满了自动压缩", "压缩之后"],
     teaching=teach(
-        ("讲师提示", "第 2 章不设固定记录文件（2026-10-19）。不要求学员建文件或按格式填写；这一页只给建议。"),
+        ("实测记录", "2026-10-21 交互界面，只读沙箱，起点第 1 章参考快照（lab-runs/ch02-context/status-compact-20261021-194853 与 -195134）。/status 在会话开头显示“Context window: 100% left (8.56K used / 498K)”；窗口显示 498K（能力目录写的是 512K）。百分比按整数显示，用得少时一直是 100%，看“used”那个数。调低触发线到 1 万后，让它依次 cat 8 个文件：读到第 2 个时（那次请求约 9.1 千 token）它在任务中途发出压缩请求，界面显示“Context compacted”，接着带着交接摘要读完了全部文件；/status 此时 Token usage 24.6K total，Context window 10.5K used。之后不读文件追问 README.md 第一行，它回答没亲眼看到、只有摘要，要原文请允许它 head -1。源码：自动压缩线取配置值与窗口 90% 中较小的一个（Codex 0.163.0）。"),
+        ("讲师提示", "调低触发线只是为了在课上看到自动压缩，学员不用改这个配置。重点讲两件事：/status 看的是 Context window 那一行；自动压缩和手动压缩一样，原文换成了摘要。"),
     ),
 )
 
+# ---------- 小结 ----------
 scene(
     id="p33", segment="小结",
     label="暂停自检", title="暂停自检",
@@ -369,14 +346,14 @@ scene(
 scene(
     id="p34", segment="小结",
     label="本节小结", title="对话会变长，文件不跟着变",
-    lead="本节留下一轮内容迭代和三项检查结果。对话每多一轮，前面的内容连同弯路都会重发；/clear 清的是对话、不是文件，写在 AGENTS.md 里的规则还在；压缩后，工具调用和返回换成了一份摘要。下一节：AI 交回的改动，要不要接受？课后可以再做 0–2 轮，不计分。",
+    lead="本节留下一轮内容迭代和三项检查结果。对话每多一轮，前面的内容连同弯路都会重发；/clear 清的是对话、不是文件，写在 AGENTS.md 里的规则还在；压缩后，工具调用和返回换成了一份摘要。下一节：它看到了什么，才这样改？课后可以再做 0–2 轮，不计分。",
     html=(
         '<div class="p-sketch" style="align-items:start"><div><div data-reveal="0"><h3>三种状态</h3>'
         '<ul class="p-exits" style="gap:8px"><li class="is-point">模型不记</li><li class="is-point">会话由 Harness 重发</li><li class="is-point">文件与进程各自存在</li></ul></div>'
         '<div data-reveal="1" style="margin-top:14px"><h3>context 怎么变</h3>'
         '<ul class="p-exits" style="gap:8px"><li class="is-point">每轮都重发，弯路也在</li><li class="is-point">/clear 清对话，不清文件，AGENTS.md 还在</li><li class="is-point">压缩后看到的是摘要</li></ul></div></div>'
         '<div data-reveal="2"><h3 style="text-align:center">一个习惯</h3><div class="p-star" style="width:260px;font-size:23px">一轮一个结果<br>Prompt 写清<br>现状</div></div>'
-        '<div class="p-next" data-reveal="3"><h3>下一节</h3><div class="p-box" data-role="us"><h3>2.3 审改动</h3><p>AI 交回的改动，要不要接受？</p></div></div></div>'
+        '<div class="p-next" data-reveal="3"><h3>下一节</h3><div class="p-box" data-role="us"><h3>2.3 审改动</h3><p>它看到了什么，才这样改？</p></div></div></div>'
     ),
     steps=["三种状态", "context 怎么变", "一个习惯", "下一节"],
 )

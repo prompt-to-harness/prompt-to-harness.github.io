@@ -8,7 +8,7 @@
 | --- | --- |
 | 2.1 只说了一句话，模型收到了什么 | [STORYBOARD](lessons/01-feedback/STORYBOARD.md) · [课件](lessons/01-feedback/index.html) · [说明](lessons/01-feedback/README.md) |
 | 2.2 补上项目经历，看对话怎么变长 | [STORYBOARD](lessons/02-iteration/STORYBOARD.md) · [课件](lessons/02-iteration/index.html) · [说明](lessons/02-iteration/README.md) |
-| 2.3 AI 交回的改动，要不要接受 | [STORYBOARD](lessons/03-review/STORYBOARD.md) · [课件](lessons/03-review/index.html) · [说明](lessons/03-review/README.md) |
+| 2.3 它看到了什么，才这样改 | [STORYBOARD](lessons/03-review/STORYBOARD.md) · [课件](lessons/03-review/index.html) · [说明](lessons/03-review/README.md) |
 | 2.4 发布上线，看 Codex 怎么用 gh | [STORYBOARD](lessons/04-publish/STORYBOARD.md) · [课件](lessons/04-publish/index.html) · [说明](lessons/04-publish/README.md) |
 | 2.5 AI 说“只是重构” | [STORYBOARD](lessons/05-refactor/STORYBOARD.md) · [课件](lessons/05-refactor/index.html) · [说明](lessons/05-refactor/README.md) |
 

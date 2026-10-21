@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""2.3 AI 交回的改动，要不要接受：本节唯一的内容源，生成 lesson.js。
+"""2.3 它看到了什么，才这样改：本节唯一的内容源，生成 lesson.js。
 
 分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch02/tools/lessonkit.py。
 """
@@ -10,7 +10,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
 from lessonkit import Lesson, NARROW, chapter_map, repro, teach  # noqa: E402
 
-lesson = Lesson(__file__, "2.3", "AI 交回的改动，要不要接受", summary="先看范围再看内容，回看 Codex 当时看到了什么，再决定接受、缩小还是拒绝；提交以后，接受错了也能撤回。")
+lesson = Lesson(__file__, "2.3", "它看到了什么，才这样改", summary="审 Codex 交回的改动：先看范围再看内容，再回看它当时看到了什么、看全了没有、有什么看不见，然后决定接受、缩小还是拒绝，提交一次留下检查点。")
 scene = lesson.scene
 
 
@@ -18,13 +18,14 @@ scene = lesson.scene
 RUN = "讲师用课程基线在交互界面里的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max）"
 SAMPLE = "画面中的命令输出来自" + RUN + "留下的工作区，Git 2.50.1；你的输出以自己的 diff 为准。"
 RECORD = "来自产生这份 diff 的那次运行的请求记录，命令有删节；工具名、命令和次数随每次运行变化"
+RUN1021 = "讲师用课程基线的一次运行（2026-10-21，codex exec，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开）"
 
 
 # ---------- 拿到 diff ----------
 scene(
     id="p35", segment="拿到 diff", layout="lesson-cover",
-    label="说完成了，就能接受吗", title="Codex 说完成了，就能接受吗？",
-    lead="改动还在工作区：先读懂 diff，回看它当时看到了什么，再决定接受、缩小还是拒绝",
+    label="它看到了什么", title="它看到了什么，才这样改？",
+    lead="改动还在工作区：先读懂 diff，再回看它当时看到了什么、看全了没有、有什么看不见",
     html=(
         chapter_map(3) +
         '<div class="p-pair" style="grid-template-columns:1fr auto 1fr;margin-top:18px">'
@@ -140,6 +141,48 @@ scene(
 )
 
 scene(
+    id="p38b", segment="回看请求记录",
+    label="它看全了吗", title="它说看过了，看全了吗？",
+    lead="工具返回进 context 之前，太长的会被截断。讲师让 Codex 只运行一条 cat package-lock.json：这个文件 6 万多字节，原本约 1.7 万 token；返回里先是一句“输出被截断，原来约 17178 token”，中间插着“…7178 tokens truncated…”，只留下头尾大约 1 万 token。Codex 自己也说，中间那段它看不到。所以它说“我检查过了”时，可以追问一句：检查的东西，它看全了吗？长的构建日志、大文件，都可能只看到一部分。",
+    html=(
+        NARROW +
+        '<div class="p-walk"><div data-reveal="0"><div class="p-src" style="--lh:36px">'
+        '<div class="p-fn">cat package-lock.json 的返回（进 context 的样子）</div>'
+        '<div class="p-ln add"><i>1</i><code>Warning: truncated output (original token count: 17178)</code></div>'
+        '<div class="p-ln"><i>2</i><code>{ "name": "personal-homepage", … 开头约 5 千 token</code></div>'
+        '<div class="p-ln add" data-reveal="1"><i>3</i><code>…7178 tokens truncated…</code></div>'
+        '<div class="p-ln"><i>4</i><code>… 结尾约 5 千 token … }</code></div></div></div>'
+        '<ol class="p-notes"><li data-reveal="0"><span><b>原本约 1.7 万 token</b><small>文件 6 万多字节</small></span></li>'
+        '<li data-reveal="1"><span><b>中间 7 千多 token 没进 context</b><small>Codex 自己说中间那段看不到</small></span></li>'
+        '<li class="is-risk" data-reveal="2"><span><b>它说“检查过了”</b><small>追问：它看全了吗？</small></span></li></ol></div>'
+        '<p class="source-note">' + RUN1021 + '；截断规则见 Codex 源码 core/src/unified_exec/mod.rs（默认上限约 1 万 token）</p>'
+    ),
+    steps=["返回的开头和结尾", "中间被截掉", "追问一句"],
+    teaching=teach(
+        ("实测记录", "2026-10-21 codex exec -s read-only，起点第 1 章参考快照（lab-runs/ch02-context/views-20261021-194716/trunc）：Prompt 要求只运行 cat package-lock.json（62257 字节），再说出最后一行、中间有没有省略。工具返回开头是 Warning: truncated output (original token count: 17178)，中间是 …7178 tokens truncated…；Codex 回答最后一行是 }，并说明“是工具或输出通道截断的，不是文件本身省略，中间部分我无法看到”。源码：unified_exec 的 DEFAULT_MAX_OUTPUT_TOKENS 为 10000（Codex 0.163.0）。"),
+        ("讲师提示", "这页只讲“返回会被截断”，不展开截断算法。可以提一句：要看全，就让它分段看，或者用 grep 只取需要的几行。"),
+    ),
+)
+
+scene(
+    id="p38c", segment="回看请求记录",
+    label="它看不见什么", title="有些东西，它根本看不见",
+    lead="模型只看得到进了 context 的东西。没读的文件，它不知道；浏览器里的页面，它也看不见。2.2 的几次运行里，Prompt 写明屏幕尺寸和键盘由我们来查，Codex 还是自己起预览服务器、开无头 Chrome 去截图，有一次前后试了十几次，就是想把“页面长什么样”搬进 context。我们在浏览器里看到的，不在它的 context 里；它说“页面没问题”，依据要看它实际拿到了什么。",
+    html=(
+        '<div class="p-grid" style="--n:3;gap:14px">'
+        '<div class="p-box" data-role="ink" data-reveal="0"><span class="p-tag" data-role="ink">没读的文件</span><p>不在请求里，它就不知道；点名问它，它会说“不确定”</p></div>'
+        '<div class="p-box" data-role="gate" data-reveal="1"><span class="p-tag" data-role="gate">浏览器里的页面</span><p>没有截图或页面源码进 context，它就看不见；它会自己开无头 Chrome 去补</p></div>'
+        '<div class="p-box" data-role="ok" data-reveal="1"><span class="p-tag" data-role="ok">我们看到的</span><p>浏览器里查的屏幕尺寸、按 Tab 的结果，都不在它的 context 里</p></div></div>'
+        '<div class="p-bar" data-reveal="2" style="margin-top:14px">它说“没问题”时，先问：<b>它实际拿到了什么</b></div>'
+        '<p class="source-note">2.2 的讲师运行：2026-10-20 一次确认之后 33 次工具调用，其中至少 9 次是起服务器、截图失败；2026-10-21 几次重录里同样开无头 Chrome，十几次尝试；另一次改用 curl 取页面源码</p>'
+    ),
+    steps=["没读的文件", "看不见的页面", "先问它拿到了什么"],
+    teaching=teach(
+        ("讲师提示", "不要讲成 Codex 不听话：它想补上看不见的那部分，只是代价在请求里。第 3 章讲 Skill 时，会把屏幕尺寸和键盘检查做成 Codex 能自己跑、结果能回到 context 的检查。"),
+    ),
+)
+
+scene(
     id="p39", segment="处置",
     label="接受、缩小还是拒绝", title="接受、缩小，还是拒绝",
     lead="接受还是不接受，看两件事：改动是否都在本轮目标之内、说得清依据；越界或说不清的部分能不能单独去掉。讲师这次的 diff 干净，选接受；Codex 自己多做的那些检查没有留下文件改动，不影响这次接受，下次在它的计划里看到，就让它去掉。范围扩大真的出现时，就地处理，不为了教学去制造。",
@@ -162,38 +205,14 @@ COMMIT = 'git commit -m "homepage-v1: 补充项目经历" -m "本轮目标：在
 
 scene(
     id="p40", segment="处置",
-    label="留下检查点", title="提交，留下一个检查点",
-    lead="和第 1 章保存检查点时一样：只暂存审过的文件，用 git diff --cached 再看一遍待提交内容，然后提交。第一个 -m 是标题，第二个 -m 写本轮目标和改动文件。这次提交就是新的检查点：提交时输出的那一行里有它的短哈希。提交完再用 git status 看一遍，应该没有剩下的改动。以后要再找这个哈希，可以用 git log --oneline。",
+    label="留下检查点", title="提交一次，留下检查点",
+    lead="审过了就提交：只暂存审过的文件，再看一遍待提交的内容，然后提交，提交说明写本轮目标和改动文件。这次提交就是检查点。接受错了也回得去：还没提交的用 git restore 放弃修改，已经提交的用 git revert 加一个撤回提交，原来的提交留在历史里。/clear 和压缩只动对话，不动文件；回退靠 git。",
     html=(
-        '<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:start">'
-        '<div class="p-term" data-reveal="0" data-copy="git add src/App.tsx"><div class="dim">$ git add src/App.tsx</div></div>'
-        '<div class="p-term" data-reveal="1" data-copy="git diff --cached --stat"><div class="dim">$ git diff --cached --stat</div><div> src/App.tsx | 12 ++++++++++--</div></div></div>'
-        '<div class="p-term" data-reveal="2" style="margin-top:8px" data-copy="' + escape(COMMIT) + '"><div class="dim">$ git commit -m "homepage-v1: 补充项目经历" \\</div>'
+        '<div class="p-term" data-reveal="0" data-copy="git add src/App.tsx"><div class="dim">$ git add src/App.tsx</div><div class="dim">$ git diff --cached --stat</div><div> src/App.tsx | 12 ++++++++++--</div></div>'
+        '<div class="p-term" data-reveal="1" style="margin-top:8px" data-copy="' + escape(COMMIT) + '"><div class="dim">$ git commit -m "homepage-v1: 补充项目经历" \\</div>'
         '<div class="dim">    -m "本轮目标：在项目区呈现我的项目经历。改动文件：src/App.tsx"</div><div class="ok">[main 7ce0e9f] homepage-v1: 补充项目经历</div></div>'
-        '<div class="p-term" data-reveal="3" style="margin-top:8px" data-copy="git status"><div class="dim">$ git status</div><div>On branch main</div><div class="ok">nothing to commit, working tree clean</div></div>'
-        '<p class="source-note">' + SAMPLE + ' 这次运行没有提交，7ce0e9f 是示例短哈希，每次提交都不同。</p>'
-    ),
-    steps=["暂存", "再看一遍", "提交并写清说明", "检查点"],
-    teaching=teach(
-        ("讲师提示", "哈希每次不同，按实际输出讲。分支名以学员仓库为准，course-starter 默认分支为 main。提交说明的第二段写本轮目标和改动文件，用 git log -1 能完整看到（讲师可演示，不计入跟做命令）。第 4 步原为 git log --oneline -1，2026-10-20 按讲师决定把跟做命令收到六条，改为提交输出里的短哈希加 git status。2026-10-20 那次运行的改动停在工作区，git add 与 git diff --cached --stat 的输出按它的 diff 写出，提交行与哈希是示例。"),
-    ),
-)
-
-# ---------- 回到检查点 ----------
-scene(
-    id="p41", segment="回到检查点",
-    label="接受错了怎么回去", title="万一接受错了，怎样回去",
-    lead="还没提交：用 git restore 放弃选定文件还没暂存的修改，已经 git add 的先用 git restore --staged 取消暂存；它不处理未跟踪的新文件，放弃的内容也找不回来。已经提交：用 git revert 加提交哈希，新建一个“撤回提交”，历史保留，不改写；这一条讲师在临时分支上演示，看懂即可。这里不用 git reset --hard：下一节要公开整段历史，改写历史容易出事。/clear 和压缩改的是对话，不会撤销文件改动；回退靠 git。",
-    html=(
-        '<div class="p-chain" data-reveal="0"><span>改动</span><i>→</i><span>审查</span><i>→</i><span>提交 = 检查点</span></div>'
-        '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:14px">'
-        '<div class="p-box" data-role="gate" data-reveal="1"><span class="p-tag" data-role="gate">还没提交</span>'
-        '<div class="p-term" data-copy="git restore -- src/App.tsx" style="margin-top:8px"><div class="dim">$ git restore -- src/App.tsx</div></div>'
-        '<p class="p-sub" style="margin-top:8px">已 add 的先 --staged · 新文件不管 · 放弃了就找不回</p></div>'
-        '<div class="p-box" data-role="ctx" data-reveal="2"><span class="p-tag" data-role="ctx">已经提交</span>'
-        '<div class="p-term" data-copy="git revert --no-edit 7ce0e9f" style="margin-top:8px"><div class="dim">$ git revert --no-edit 7ce0e9f</div><div class="ok">Revert "homepage-v1: 补充项目经历"</div></div>'
-        '<p class="p-sub" style="margin-top:8px">新增一个撤回提交 · 原来的提交还在历史里<br>7ce0e9f 是示例，换成自己的检查点</p></div></div>'
-        '<div class="p-bar" data-reveal="3">提交过的改动，<b>接受错了也能撤回</b> · /clear 和压缩不撤销文件，回退靠 git</div>'
+        '<div class="p-bar is-light" data-reveal="2" style="margin-top:10px">接受错了：还没提交用 <b>git restore</b>，已经提交用 <b>git revert</b> · 回退靠 git，不靠对话</div>'
+        '<p class="source-note">' + SAMPLE + ' 7ce0e9f 是示例短哈希，每次提交都不同。</p>'
     ),
     repro=repro([
         ("在课程仓库根目录，用第 1 章参考快照建一个练习仓库，不动你自己的个人主页", "cp -R starters/personal-homepage/ch01-complete lab-runs/revert && cd lab-runs/revert\ngit init -q -b main && git add -A && git commit -qm baseline"),
@@ -201,80 +220,24 @@ scene(
         ("在演示分支上撤回这次提交", "git switch -c demo-revert && git revert --no-edit HEAD && git log --oneline -3 && git show --stat HEAD"),
         ("检查：撤回提交只改了 src/App.tsx，原来的提交还在历史里；然后回到 main，删掉演示分支", "git switch main && git branch -D demo-revert"),
     ], note="讲师 2026-10-20 按此实测（Git 2.50.1）。需要已配置 git user.name 与 user.email。"),
-    steps=["主流程", "还没提交", "已经提交", "为什么要提交"],
+    steps=["暂存并再看一遍", "提交并写清说明", "接受错了怎么回去"],
     teaching=teach(
-        ("切到实操", "在临时分支演示，不在学员主线上做，开始前 git status 必须干净：git switch -c demo-revert → git revert --no-edit <homepage-v1 的短哈希> → git log --oneline -3 → git show --stat HEAD → git switch main → git branch -D demo-revert（-D 用于删除未合并的演示分支）。2026-10-20 在临时仓库按“一次提交”实测：撤回提交只改 App.tsx（+2 −10），原提交保留在历史里。2026-10-05 另测过：已暂存的修改 git restore 不生效，先 git restore --staged 再 restore 生效。"),
-        ("讲师提示", "改写历史的方法（reset、amend、filter 类工具）不进主课；需要时参考 GitHub 官方文档，用之前人工复核。"),
-    ),
-)
-
-GIT_MAP_STYLE = (
-    '<style>'
-    '.x-git{display:grid;grid-template-columns:minmax(0,1fr) 196px minmax(0,1fr) 196px minmax(0,1fr) 120px minmax(0,1fr);row-gap:6px;align-items:center;margin-top:0}'
-    '.x-git .p-node{grid-row:2}'
-    '.x-git .p-node{padding:10px 8px}.x-git .p-node h3{margin:0 0 2px}.x-git .p-node p{font-size:19px}'
-    '.x-edge{grid-row:2;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}'
-    '.x-edge .p-join{min-width:0;gap:0}'
-    '.x-edge .p-join small,.x-look small,.x-git .p-hang small{display:block;font-size:17px;color:var(--p-muted);line-height:1.3}'
-    '.x-edge .p-mono{font-size:17px}.x-back .p-arrow{transform:scaleX(-1)}'
-    '.x-look{border-top:2px dashed #9AA0A8;padding-top:2px;line-height:1.25}'
-    '.x-span{grid-row:1;grid-column:1/6;position:relative;height:18px;margin:16px 9% 0;border:2px dashed #5B6573;border-bottom:0;border-radius:12px 12px 0 0}'
-    '.x-span>span{position:absolute;left:50%;top:-16px;transform:translateX(-50%);white-space:nowrap;background:var(--p-paper);padding:0 10px;font-size:18px;color:var(--p-muted)}'
-    '.x-git .p-hang{grid-row:3;grid-column:4/7;justify-self:center;width:300px;margin-top:14px}'
-    '.x-git .p-hang .p-box{padding:4px 12px;text-align:center}'
-    '@media(max-width:600px){body[data-mode=scroll] .x-git{grid-template-columns:minmax(0,1fr)}'
-    'body[data-mode=scroll] .x-git>*{grid-column:auto!important;grid-row:auto!important}'
-    'body[data-mode=scroll] .x-span{height:auto;margin:0;border:0}body[data-mode=scroll] .x-span>span{position:static;transform:none;white-space:normal}'
-    'body[data-mode=scroll] .x-edge .p-arrow{transform:rotate(90deg);margin:36px 0}body[data-mode=scroll] .x-back .p-arrow{transform:rotate(-90deg)}'
-    'body[data-mode=scroll] .x-git .p-hang::after{display:none}}'
-    '</style>'
-)
-
-scene(
-    id="p41a", segment="回到检查点",
-    label="Git 命令各走哪一段", title="这一节的 Git 命令，各走哪一段",
-    lead="改动在 Git 里会经过四个位置：工作区是正在改的文件；暂存区放下次提交要带上的改动；本地提交是存在自己电脑上的检查点；远端是 GitHub 上的仓库。git add <路径> 把工作区的修改放进暂存区，git commit 把暂存区存成一次提交。git diff 比较工作区和暂存区，也就是还没 add 的修改；git diff --cached 比较暂存区和最近一次提交，也就是将要提交的内容；git status 一次列出这几处之间哪些文件不同，包括还没被跟踪的新文件。往回走：git restore <路径> 用暂存区里的版本盖掉工作区里还没 add 的修改；已经提交的，用 git revert <哈希> 再加一个撤回提交，原来的提交留在历史里，这一条看讲师演示即可。git push 把本地提交推到远端，下一节再做。本节自己动手的是六条：git status、git diff、git add <路径>、git diff --cached、git commit、git restore。",
-    html=(
-        GIT_MAP_STYLE +
-        '<div class="x-git">'
-        '<div class="x-span" data-reveal="1"><span><span class="p-mono">git status</span> · 这三处之间哪些文件不同</span></div>'
-        '<div class="p-node" data-role="ink" data-node="work" data-reveal="0" style="grid-column:1"><h3>工作区</h3><p>正在改的文件</p></div>'
-        '<div class="x-edge" style="grid-column:2">'
-        '<div class="p-join" data-edge="work:stage" data-reveal="0"><span class="p-mono">git add &lt;路径&gt;</span><i class="p-arrow"></i></div>'
-        '<div class="p-join x-back" data-edge="stage:work" data-reveal="2"><i class="p-arrow"></i><span class="p-mono">git restore &lt;路径&gt;</span><small>放弃还没 add 的修改</small></div>'
-        '<div class="x-look" data-reveal="1"><span class="p-mono">git diff</span><small>比较这两处</small></div></div>'
-        '<div class="p-node" data-role="ink" data-node="stage" data-reveal="0" style="grid-column:3"><h3>暂存区</h3><p>下次要提交的</p></div>'
-        '<div class="x-edge" style="grid-column:4">'
-        '<div class="p-join" data-edge="stage:commit" data-reveal="0"><span class="p-mono">git commit</span><i class="p-arrow"></i></div>'
-        '<div class="x-look" data-reveal="1"><span class="p-mono">git diff --cached</span><small>比较这两处</small></div></div>'
-        '<div class="p-node" data-role="ok" data-node="commit" data-reveal="0" style="grid-column:5"><h3>本地提交</h3><p>本机的检查点</p></div>'
-        '<div class="x-edge" style="grid-column:6">'
-        '<div class="p-join" data-edge="commit:remote" data-reveal="3"><span class="p-mono">git push</span><i class="p-arrow"></i><small>下一节</small></div></div>'
-        '<div class="p-node" data-role="ink" data-node="remote" data-reveal="3" style="grid-column:7"><h3>远端</h3><p>GitHub 仓库</p></div>'
-        '<div class="p-hang" data-role="gate" data-edge="commit:commit" data-reveal="2"><div class="p-box is-soft" data-role="gate"><span class="p-mono">git revert &lt;哈希&gt;</span><small>再加一个撤回提交 · 看讲师演示</small></div></div>'
-        '</div>'
-        '<div class="p-bar is-light" data-reveal="3" style="margin-top:10px;padding-top:8px;padding-bottom:8px">自己动手的六条：<b>status · diff · add · diff --cached · commit · restore</b></div>'
-    ),
-    steps=["往前走", "看差异", "往回走", "下一节"],
-    teaching=teach(
-        ("核对记录", "节点与边按 Git 语义写：git add <路径> 把工作区的修改写进暂存区（index）；git commit 把暂存区存成新提交；git diff 无参数时比较工作区与暂存区；git diff --cached 比较暂存区与 HEAD；git status 同时报告这两组差异和未跟踪文件；git restore <路径> 默认用暂存区的内容覆盖工作区（暂存区与 HEAD 一致时，就是回到最近一次提交的版本）；git restore --staged <路径> 用 HEAD 覆盖暂存区，p40、p41 里作为取消暂存的办法提到，不画在图上；git revert 在当前分支上新增一个反向提交，不移动也不删除已有提交；git push 把本地提交推到远端，2.4 用的是 git push -u origin HEAD。git status --short、git diff --stat、git diff --cached --stat 是同一条命令换一种输出，不另算。git log、git switch、git branch -D 只在讲师演示里出现。仓库规范要求流程图用 pretty-mermaid 制作，本次环境没有这个 skill，图用现有页面零件拼成，节点与边上标了 data-node / data-edge，没有 .mmd 逻辑源。"),
-        ("讲师提示", "这一页是回顾，不再切工具窗口。按步骤讲：先讲 p36–p40 走过的往前两步，再讲三条看差异的命令，再讲 p41 往回的两条，最后指一下下一节的 push。"),
+        ("讲师提示", "这一页只讲提交一次留检查点；restore 和 revert 各一句，revert 的完整步骤在页面上的复现按钮里，讲师可在临时分支演示，学员看懂即可。不教改写历史（reset、amend）。哈希每次不同，按实际输出讲。"),
     ),
 )
 
 scene(
     id="p42", segment="回到检查点",
-    label="本节小结", title="读懂再接受，接受了也能退",
-    lead="本节留下一个审过、可回退的 homepage-v1 提交和一条评审结论。接受之前先看范围再看内容，再回看请求记录：Codex 当时看到了什么。提交以后，接受错了也能用 git 退回去；/clear 和压缩只动对话，不动文件。这一节判断范围：该不该接受；本章最后一节判断性质：AI 说“只是重构”时，行为变没变。检查分三层：自动检查、自动 Review、人工 Review。本章已有构建这一项自动检查，Review 全靠人工。下一节：发布上线。",
+    label="本节小结", title="先问它看到了什么，再决定接受",
+    lead="本节留下一个审过、可回退的 homepage-v1 提交。接受之前先看范围再看内容，再回看请求记录：它依据什么改，看全了没有，有什么看不见。接受错了也能用 git 退回去；/clear 和压缩只动对话，不动文件。下一节：发布上线。",
     html=(
         '<div class="p-sketch" style="align-items:start"><div data-reveal="0"><h3 style="text-align:center">接受之前</h3>'
         '<div class="p-star" style="width:260px;font-size:24px">先看范围<br>再看内容</div>'
-        '<p class="p-sub" style="text-align:center;margin-top:10px">回看记录：它当时看到了什么</p>'
-        '<p class="p-sub" data-reveal="1" style="text-align:center;margin-top:6px"><b>接受之后</b> · 回退靠 git，不靠对话</p></div>'
-        '<div data-reveal="2"><h3>三层检查</h3><ul class="p-exits" style="gap:12px"><li class="is-pass">自动检查 · 本章只有构建</li><li class="is-stop">自动 Review · 以后</li><li class="is-pass">人工 Review · 本章</li></ul></div>'
-        '<div class="p-next" data-reveal="3"><h3>下一节</h3><div class="p-box" data-role="us"><h3>2.4 发布上线</h3><p>看 Codex 用 GitHub CLI 改设置</p></div></div></div>'
+        '<p class="p-sub" style="text-align:center;margin-top:10px">回退靠 git，不靠对话</p></div>'
+        '<div data-reveal="1"><h3>它看到了什么</h3><ul class="p-exits" style="gap:12px"><li class="is-point">依据：请求里读了哪些文件</li><li class="is-point">看全了吗：长输出会被截断</li><li class="is-point">看不见：没读的文件、浏览器里的页面</li></ul></div>'
+        '<div class="p-next" data-reveal="2"><h3>下一节</h3><div class="p-box" data-role="us"><h3>2.4 发布上线</h3><p>context 发给了谁，又怎样送出去</p></div></div></div>'
     ),
-    steps=["接受之前", "接受之后", "三层检查", "下一节"],
+    steps=["接受之前", "它看到了什么", "下一节"],
 )
 
 

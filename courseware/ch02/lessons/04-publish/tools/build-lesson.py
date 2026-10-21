@@ -128,6 +128,25 @@ scene(
     ),
 )
 
+scene(
+    id="p46a", segment="推送前检查",
+    label="context 发给了谁", title="推送之前，context 早就发出去了",
+    lead="推送是把仓库公开给所有人，由我们决定、先看历史。context 不一样：Codex 读过的文件、命令的输出，每次请求都原样发给模型服务，不用等推送。讲师这一章用的是 MiniMax：2.1 那一问读的 PROJECT_BRIEF.md、PROMPT_V1.md 全文，2.2 读的 App.tsx，都已经随请求到了 api.minimax.cn。所以 secret、别人的信息，不只是不能推送，也不该让它读进 context。",
+    html=(
+        '<div class="p-pair" style="grid-template-columns:1fr 1fr;gap:18px">'
+        '<div class="p-box" data-role="us" data-reveal="0" style="padding:10px 16px"><span class="p-tag" data-role="us">推送</span><h3>公开给所有人</h3><p>由我们决定什么时候推；推之前看清整段历史</p></div>'
+        '<div class="p-box" data-role="ctx" data-reveal="1" style="padding:10px 16px"><span class="p-tag" data-role="ctx">context</span><h3>发给模型服务</h3><p>它读过的文件、命令输出，每次请求都发出去；不用等推送</p></div></div>'
+        '<div class="p-term" data-reveal="1" style="margin-top:10px"><div>POST https://api.minimax.cn/v1/responses</div><div class="dim">input 里：PROJECT_BRIEF.md、PROMPT_V1.md、src/App.tsx 的全文 …</div></div>'
+        '<div class="p-bar" data-reveal="2" style="margin-top:10px">secret 和别人的信息：<b>不推送，也别让它读进 context</b></div>'
+        '<p class="source-note">讲师用课程基线（MiniMax 自定义 provider）的请求记录；换服务，发往的地址不同，道理一样</p>'
+    ),
+    steps=["推送公开给谁", "context 发给谁", "两边都要管"],
+    teaching=teach(
+        ("核对记录", "课程基线的 provider 地址见 tools/clean-codex.sh（api.minimax.cn/v1，Responses 接口），claude-tap 记录里每次请求都是 POST /v1/responses；2.1、2.2 的请求记录里，工具返回中的文件全文原样在 input 里。服务端怎样保存和使用这些数据，以服务商的条款为准，本页不展开。"),
+        ("讲师提示", "这一页只讲“context 会离开本机”，不讲各家服务的数据政策细节。学员用别的服务时，道理一样：读进 context 的，就发给了那个服务。"),
+    ),
+)
+
 # ---------- 部署配置 ----------
 scene(
     id="p47", segment="部署配置", layout="prompt-scene", prompt=DEPLOY_PROMPT,
@@ -148,7 +167,7 @@ scene(
 scene(
     id="p48", segment="部署配置",
     label="工作流能直接用吗", title="Codex 写的配置，逐项审查再推送",
-    lead="四项逐一核对：base 是否等于自己的仓库名；资源路径会不会因此对上；工作流权限是不是只要了发布所需的；触发分支是不是自己的默认分支。有一项不对就不推送，让 Codex 改。",
+    lead="四项逐一核对：base 是否等于自己的仓库名；资源路径会不会因此对上；工作流权限是不是只要了发布所需的；触发分支是不是自己的默认分支。有一项不对就不推送，让 Codex 改。顺带看一眼请求记录：它写工作流时调用了 14 次网页搜索，查各个 action 的最新版本，搜到的结果也进了 context；它说“版本核对过”，依据就在这里。",
     html=(
         NARROW +
         '<div class="p-walk"><div data-reveal="0"><div class="p-src" style="--lh:34px">'

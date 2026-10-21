@@ -377,6 +377,36 @@ window.lesson = {
       "seconds": 90
     },
     {
+      "id": "p14a",
+      "segment": "工具调用",
+      "label": "放什么由谁决定",
+      "title": "点名文件，和让它自己找，差多少？",
+      "lead": "刚才那一问没告诉它看哪个文件，它自己找了一圈。换个问法，在 Prompt 里点名“要求在 PROJECT_BRIEF.md，人工决定在 PROMPT_V1.md”，再问一次：请求从 8 次降到 3 次，工具调用从 15 次降到 2 次，输入 token 合计只有原来的五分之一左右；回答引用的段落和行号没变。没读的文件，它直接说不确定。往 context 里放什么，可以由我们来决定。",
+      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>同一个问题</span><span>不点名，让它自己找</span><span>点名两个文件</span></div><div data-reveal=\"0\"><span>请求</span><span>8 次</span><span>3 次</span></div><div data-reveal=\"0\"><span>工具调用</span><span>15 次</span><span>2 次</span></div><div data-reveal=\"0\" class=\"is-key\"><span>输入 token 合计</span><span>约 12.6 万</span><span>约 2.6 万</span></div><div data-reveal=\"1\"><span>回答的依据</span><span>两个文件的同几段</span><span>同上；没读的直接说“不确定”</span></div></div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:10px\">往 context 里放什么，<b>可以由我们来决定</b></div><p class=\"source-note\">数字来自讲师用课程基线（隔离 HOME）的一次运行（2026-10-21，codex exec，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max）；随版本、模型、配置和任务变化，只说明结构；两次各一次运行</p>",
+      "steps": [
+        "两次对比",
+        "依据一样吗",
+        "放什么由谁决定"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p14a 第 1 步，按行指认表格；点名那次的记录可在 claude-tap 里另开】\n\n刚才那一问，我们没告诉它看哪个文件，它自己找了一圈：8 次请求，15 次工具调用，输入加起来十二万多 token。换个问法：在 Prompt 里点名，要求在 PROJECT_BRIEF.md，人工决定在 PROMPT_V1.md，只读这两个文件。再问一次：3 次请求，2 次工具调用，输入两万六左右，大约五分之一。",
+        "【操作提示｜推进第 2 步，指“回答的依据”“没读的文件”两行】\n\n回答呢？引用的还是那两个文件的同几段，行号也一样。两个文件里没有的东西，比如具体用什么颜色，它直接说不确定，没有去猜。",
+        "【操作提示｜推进第 3 步，指底部横条】\n\n这不是说一定要点名。不知道该看哪里的时候，让它自己找也合理，代价就在请求里。要记住的是：往 context 里放什么，我们可以决定。"
+      ],
+      "teaching": [
+        {
+          "title": "实测记录",
+          "text": "2026-10-21 课程基线 codex exec -s read-only，起点第 1 章参考快照。不点名：本页前面那一问（lab-runs/ch02-context/2.1-step2-20261021-150635），8 次请求、15 次调用，claude-tap 汇总输入 126,466 token。点名：问句加上“要求在 PROJECT_BRIEF.md，人工决定在 PROMPT_V1.md，只读这两个文件回答”（lab-runs/ch02-context/views-20261021-194716/named），3 次请求、2 次调用（ls 与 wc、cat -n 两个文件），输入 25,656 token；回答引用 PROJECT_BRIEF.md“首页 v0 的验收依据”与 PROMPT_V1.md 人工决定表，和不点名时一致；颜色等两个文件里没有的内容，它写“不确定，引用源需看别的文件”。"
+        },
+        {
+          "title": "讲师提示",
+          "text": "不点名不是错：不知道该看哪里时，让它找也合理，代价就在请求里。只讲“放什么可以由我们决定”，不推成“永远要点名”。"
+        }
+      ],
+      "source": "index.html#p14a",
+      "seconds": 90
+    },
+    {
       "id": "p16",
       "segment": "换个配置",
       "label": "换个权限",
@@ -591,7 +621,7 @@ window.lesson = {
     },
     {
       "label": "工具调用",
-      "seconds": 180
+      "seconds": 270
     },
     {
       "label": "换个配置",

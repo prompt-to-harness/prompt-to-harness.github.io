@@ -2,7 +2,7 @@
 
 每节的 tools/build-lesson.py 只写本节内容：
 
-    lesson = Lesson(__file__, "2.3", "AI 交回的改动，要不要接受", summary="…")
+    lesson = Lesson(__file__, "2.3", "它看到了什么，才这样改", summary="…")
     scene = lesson.scene
     scene(id="p35", …)
     lesson.write()

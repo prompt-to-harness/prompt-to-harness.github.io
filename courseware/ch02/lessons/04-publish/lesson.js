@@ -178,6 +178,36 @@ window.lesson = {
       "seconds": 120
     },
     {
+      "id": "p46a",
+      "segment": "推送前检查",
+      "label": "context 发给了谁",
+      "title": "推送之前，context 早就发出去了",
+      "lead": "推送是把仓库公开给所有人，由我们决定、先看历史。context 不一样：Codex 读过的文件、命令的输出，每次请求都原样发给模型服务，不用等推送。讲师这一章用的是 MiniMax：2.1 那一问读的 PROJECT_BRIEF.md、PROMPT_V1.md 全文，2.2 读的 App.tsx，都已经随请求到了 api.minimax.cn。所以 secret、别人的信息，不只是不能推送，也不该让它读进 context。",
+      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;gap:18px\"><div class=\"p-box\" data-role=\"us\" data-reveal=\"0\" style=\"padding:10px 16px\"><span class=\"p-tag\" data-role=\"us\">推送</span><h3>公开给所有人</h3><p>由我们决定什么时候推；推之前看清整段历史</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\" style=\"padding:10px 16px\"><span class=\"p-tag\" data-role=\"ctx\">context</span><h3>发给模型服务</h3><p>它读过的文件、命令输出，每次请求都发出去；不用等推送</p></div></div><div class=\"p-term\" data-reveal=\"1\" style=\"margin-top:10px\"><div>POST https://api.minimax.cn/v1/responses</div><div class=\"dim\">input 里：PROJECT_BRIEF.md、PROMPT_V1.md、src/App.tsx 的全文 …</div></div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:10px\">secret 和别人的信息：<b>不推送，也别让它读进 context</b></div><p class=\"source-note\">讲师用课程基线（MiniMax 自定义 provider）的请求记录；换服务，发往的地址不同，道理一样</p>",
+      "steps": [
+        "推送公开给谁",
+        "context 发给谁",
+        "两边都要管"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p46a 第 1 步，指左边“推送”】\n\n推送前我们查了这么多，因为推送是把仓库公开给所有人。什么时候推、推什么，由我们决定。",
+        "【操作提示｜推进第 2 步，指右边“context”和下面的请求去向；可切 claude-tap 指一次请求的地址和 input 里的文件全文】\n\n可还有一样东西，早就发出去了：context。Codex 读过的文件、命令的输出，每一次请求都原样发给模型服务。讲师这一章用的是 MiniMax，2.1 读的需求文件全文、2.2 读的 App.tsx，都已经随请求发到了它的服务器上，根本不用等推送。",
+        "【操作提示｜推进第 3 步，指底部横条】\n\n所以 secret、别人的信息，不只是不能推送，也别让它读进 context。换别的模型服务，地址不同，道理一样。"
+      ],
+      "teaching": [
+        {
+          "title": "核对记录",
+          "text": "课程基线的 provider 地址见 tools/clean-codex.sh（api.minimax.cn/v1，Responses 接口），claude-tap 记录里每次请求都是 POST /v1/responses；2.1、2.2 的请求记录里，工具返回中的文件全文原样在 input 里。服务端怎样保存和使用这些数据，以服务商的条款为准，本页不展开。"
+        },
+        {
+          "title": "讲师提示",
+          "text": "这一页只讲“context 会离开本机”，不讲各家服务的数据政策细节。学员用别的服务时，道理一样：读进 context 的，就发给了那个服务。"
+        }
+      ],
+      "source": "index.html#p46a",
+      "seconds": 90
+    },
+    {
       "id": "p47",
       "segment": "部署配置",
       "layout": "prompt-scene",
@@ -210,7 +240,7 @@ window.lesson = {
       "segment": "部署配置",
       "label": "工作流能直接用吗",
       "title": "Codex 写的配置，逐项审查再推送",
-      "lead": "四项逐一核对：base 是否等于自己的仓库名；资源路径会不会因此对上；工作流权限是不是只要了发布所需的；触发分支是不是自己的默认分支。有一项不对就不推送，让 Codex 改。",
+      "lead": "四项逐一核对：base 是否等于自己的仓库名；资源路径会不会因此对上；工作流权限是不是只要了发布所需的；触发分支是不是自己的默认分支。有一项不对就不推送，让 Codex 改。顺带看一眼请求记录：它写工作流时调用了 14 次网页搜索，查各个 action 的最新版本，搜到的结果也进了 context；它说“版本核对过”，依据就在这里。",
       "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-walk\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:34px\"><div class=\"p-fn\">vite.config.ts · .github/workflows/deploy.yml（摘录）</div><div class=\"p-ln\"><i>1</i><code>base: <span class=\"s\">'/my-homepage/'</span>,</code></div><div class=\"p-ln\"><i>2</i><code>on:</code></div><div class=\"p-ln\"><i>3</i><code>  push:</code></div><div class=\"p-ln\"><i>4</i><code>    branches: [main]</code></div><div class=\"p-ln\"><i>5</i><code>permissions:</code></div><div class=\"p-ln\"><i>6</i><code>  contents: read</code></div><div class=\"p-ln\"><i>7</i><code>  pages: write</code></div><div class=\"p-ln\"><i>8</i><code>  id-token: write</code></div><div class=\"p-ln\"><i>9</i><code><span class=\"c\"># … npm ci → build → 核对前缀 → 上传 dist</span></code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>base = 自己的仓库名</b><small>前后都有斜杠</small></span></li><li data-reveal=\"1\"><span><b>资源路径</b><small>build 后，资源路径以 /&lt;仓库名&gt;/ 开头</small></span></li><li data-reveal=\"2\"><span><b>权限只要发布所需</b><small>读代码、写 Pages、取部署身份</small></span></li><li class=\"is-risk\" data-reveal=\"3\"><span><b>触发分支</b><small>等于自己的默认分支</small></span></li></ol></div><p class=\"source-note\">左侧摘自 Codex 按 p47 的 Prompt 实际生成的文件（仓库名用示例 my-homepage）；2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开。你的文件写法会不同，按实际审</p>",
       "steps": [
         "base",
@@ -219,7 +249,7 @@ window.lesson = {
         "触发分支"
       ],
       "script": [
-        "【操作提示｜课件 p48 第 1 步 → 切 VS Code 打开 Codex 实际改动的 vite.config.ts，指认 base 的值；左侧是一次实际生成的摘录，按当次文件讲】\n\nCodex 生成了两处改动。第一项看 vite.config.ts 里的 base。页面发布后的地址是“用户名点 github 点 io 斜杠仓库名”，所以 base 必须是斜杠、自己的仓库名、斜杠。抄错一个字母，页面就会白屏。",
+        "【操作提示｜课件 p48 第 1 步 → 切 VS Code 打开 Codex 实际改动的 vite.config.ts，指认 base 的值；左侧是一次实际生成的摘录，按当次文件讲】\n\nCodex 生成了两处改动。第一项看 vite.config.ts 里的 base。页面发布后的地址是“用户名点 github 点 io 斜杠仓库名”，所以 base 必须是斜杠、自己的仓库名、斜杠。抄错一个字母，页面就会白屏。\n\n顺带看一眼请求记录：它写这份工作流的时候，调用了 14 次网页搜索，去查每个 action 的最新版本。搜到的结果也进了 context，它说“版本核对过”，依据就在这里。外面的信息，也会这样进到 context 里。",
         "【操作提示｜推进第 2 步 → Terminal 在练习项目根目录运行 npm run build，VS Code 打开 dist/index.html，指认 CSS、JS 引用是否以 /<仓库名>/ 开头；build 失败时展示第一条有用报错，让 Codex 在原范围内修，修完重跑】\n\n第二项，资源路径。本地运行 npm run build，打开 dist/index.html，看引用的 CSS 和 JS 路径是不是以斜杠仓库名开头。这是检查 base 有没有生效的直接证据。",
         "【操作提示｜推进第 3 步 → VS Code 打开 .github/workflows/ 下实际生成的工作流文件（文件名以实际为准），指认 permissions 段，对照 Codex 回复里的权限说明；多出写权限就地追问。Node 版本与 .nvmrc 不一致也在这里指出】\n\n第三项，工作流权限。常见的是三项：读取仓库内容；写入 Pages；获取部署用的身份令牌。每一项都应该能说出用途，这就是我们让 Codex 解释权限的原因。多出来的写权限，比如能改仓库内容，要问清楚为什么。讲师这次，Codex 在文件里给每项权限都写了一句理由，正好对照着读。",
         "【操作提示｜推进第 4 步，同一文件定位 on → push → branches，与 Terminal 的 git branch --show-current 核对；有一项不对就回 Codex 改，改完重审。随后回课件 p49】\n\n第四项，触发分支：推送到哪个分支时运行。要和仓库的默认分支一致，course-starter 默认是 main。四项有一项不对，就不推送，让 Codex 改，改完再审一遍。工作流和配置也是即将公开的内容，下一页提交以后，还要再看一遍待推送的提交。"
@@ -404,7 +434,7 @@ window.lesson = {
     },
     {
       "label": "推送前检查",
-      "seconds": 210
+      "seconds": 300
     },
     {
       "label": "部署配置",

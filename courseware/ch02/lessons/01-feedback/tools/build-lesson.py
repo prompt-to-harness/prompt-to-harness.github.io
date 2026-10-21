@@ -288,6 +288,27 @@ scene(
 
 # ---------- 换个配置 ----------
 scene(
+    id="p14a", segment="工具调用",
+    label="放什么由谁决定", title="点名文件，和让它自己找，差多少？",
+    lead="刚才那一问没告诉它看哪个文件，它自己找了一圈。换个问法，在 Prompt 里点名“要求在 PROJECT_BRIEF.md，人工决定在 PROMPT_V1.md”，再问一次：请求从 8 次降到 3 次，工具调用从 15 次降到 2 次，输入 token 合计只有原来的五分之一左右；回答引用的段落和行号没变。没读的文件，它直接说不确定。往 context 里放什么，可以由我们来决定。",
+    html=(
+        '<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)">'
+        '<div class="is-head" data-reveal="0"><span>同一个问题</span><span>不点名，让它自己找</span><span>点名两个文件</span></div>'
+        '<div data-reveal="0"><span>请求</span><span>8 次</span><span>3 次</span></div>'
+        '<div data-reveal="0"><span>工具调用</span><span>15 次</span><span>2 次</span></div>'
+        '<div data-reveal="0" class="is-key"><span>输入 token 合计</span><span>约 12.6 万</span><span>约 2.6 万</span></div>'
+        '<div data-reveal="1"><span>回答的依据</span><span>两个文件的同几段</span><span>同上；没读的直接说“不确定”</span></div></div>'
+        '<div class="p-bar" data-reveal="2" style="margin-top:10px">往 context 里放什么，<b>可以由我们来决定</b></div>'
+        '<p class="source-note">' + RUN1021.rstrip("。") + '；两次各一次运行</p>'
+    ),
+    steps=["两次对比", "依据一样吗", "放什么由谁决定"],
+    teaching=teach(
+        ("实测记录", "2026-10-21 课程基线 codex exec -s read-only，起点第 1 章参考快照。不点名：本页前面那一问（lab-runs/ch02-context/2.1-step2-20261021-150635），8 次请求、15 次调用，claude-tap 汇总输入 126,466 token。点名：问句加上“要求在 PROJECT_BRIEF.md，人工决定在 PROMPT_V1.md，只读这两个文件回答”（lab-runs/ch02-context/views-20261021-194716/named），3 次请求、2 次调用（ls 与 wc、cat -n 两个文件），输入 25,656 token；回答引用 PROJECT_BRIEF.md“首页 v0 的验收依据”与 PROMPT_V1.md 人工决定表，和不点名时一致；颜色等两个文件里没有的内容，它写“不确定，引用源需看别的文件”。"),
+        ("讲师提示", "不点名不是错：不知道该看哪里时，让它找也合理，代价就在请求里。只讲“放什么可以由我们决定”，不推成“永远要点名”。"),
+    ),
+)
+
+scene(
     id="p16", segment="换个配置",
     label="换个权限", title="同一句话，换个权限，说明文字也变了",
     lead="第一步那句话，用只读和可写各发一次，权限说明是两段不同的文字；可写时还会列出可写目录，环境信息也随之变长。Codex 按配置从不同模板拼出这段说明。这是讲师示例，可自主尝试。",

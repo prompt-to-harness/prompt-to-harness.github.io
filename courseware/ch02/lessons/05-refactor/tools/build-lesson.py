@@ -20,7 +20,7 @@ PRICE = ref("MiniMax 开放平台：定价", "https://platform.minimax.cn/docs/g
 SECTION_QS = [
     ("2.1", "只说了一句话，模型收到了什么", "us"),
     ("2.2", "补上项目经历，看对话怎么变长", "agent"),
-    ("2.3", "AI 交回的改动，要不要接受", "tool"),
+    ("2.3", "它看到了什么，才这样改", "tool"),
     ("2.4", "发布上线，看 Codex 怎么用 gh", "ok"),
     ("2.5", "用好 context 的三个做法", "ctx"),
 ]
