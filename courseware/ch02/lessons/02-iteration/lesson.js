@@ -296,6 +296,37 @@ window.lesson = {
       "seconds": 90
     },
     {
+      "id": "p23a",
+      "segment": "回看这一轮的请求",
+      "layout": "evidence-scene",
+      "label": "越长越不稳",
+      "title": "越长越不稳：Context Rot",
+      "lead": "Chroma 在 2025 年 7 月的报告《Context Rot》里，让 18 个模型做同一个很简单的任务：把一段重复的词照抄出来。输入从几十个 token 加到上万，几个主流模型的得分都一路往下。这就是上一页说的注意力代价：缓存让重复部分便宜，但模型还是要读完整段，越长越容易出错。",
+      "html": "<div class=\"p-shot\" data-reveal=\"0\"><svg style=\"display:block;max-width:100%;height:auto;max-height:440px\" xmlns=\"http://www.w3.org/2000/svg\" class=\"lesson-diagram\" viewBox=\"0 0 840 444\" width=\"840\" height=\"444\"><defs><marker id=\"rd-arrow\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M0 0L10 5L0 10z\" fill=\"#5B6573\"/></marker></defs><text x=\"0\" y=\"22\" style=\"font-family:'Course Title','Course Sans',sans-serif\" font-size=\"25\" font-weight=\"400\" fill=\"#243042\" text-anchor=\"start\">同一个简单任务，输入越长越做不好</text><line x1=\"70\" y1=\"334.66666666666663\" x2=\"630\" y2=\"334.66666666666663\" stroke=\"#E2DED3\" stroke-width=\"1\"/><text x=\"60\" y=\"340.66666666666663\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"16\" font-weight=\"400\" fill=\"#5B6573\" text-anchor=\"end\">0.5</text><line x1=\"70\" y1=\"278.0\" x2=\"630\" y2=\"278.0\" stroke=\"#E2DED3\" stroke-width=\"1\"/><text x=\"60\" y=\"284.0\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"16\" font-weight=\"400\" fill=\"#5B6573\" text-anchor=\"end\">0.6</text><line x1=\"70\" y1=\"221.33333333333334\" x2=\"630\" y2=\"221.33333333333334\" stroke=\"#E2DED3\" stroke-width=\"1\"/><text x=\"60\" y=\"227.33333333333334\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"16\" font-weight=\"400\" fill=\"#5B6573\" text-anchor=\"end\">0.7</text><line x1=\"70\" y1=\"164.66666666666663\" x2=\"630\" y2=\"164.66666666666663\" stroke=\"#E2DED3\" stroke-width=\"1\"/><text x=\"60\" y=\"170.66666666666663\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"16\" font-weight=\"400\" fill=\"#5B6573\" text-anchor=\"end\">0.8</text><line x1=\"70\" y1=\"107.99999999999999\" x2=\"630\" y2=\"107.99999999999999\" stroke=\"#E2DED3\" stroke-width=\"1\"/><text x=\"60\" y=\"113.99999999999999\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"16\" font-weight=\"400\" fill=\"#5B6573\" text-anchor=\"end\">0.9</text><line x1=\"70\" y1=\"51.33333333333334\" x2=\"630\" y2=\"51.33333333333334\" stroke=\"#E2DED3\" stroke-width=\"1\"/><text x=\"60\" y=\"57.33333333333334\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"16\" font-weight=\"400\" fill=\"#5B6573\" text-anchor=\"end\">1.0</text><line x1=\"170.25000591384298\" y1=\"40\" x2=\"170.25000591384298\" y2=\"380\" stroke=\"#E2DED3\" stroke-width=\"1\"/><text x=\"170.25000591384298\" y=\"404\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"16\" font-weight=\"400\" fill=\"#5B6573\" text-anchor=\"middle\">100</text><line x1=\"361.9770684856725\" y1=\"40\" x2=\"361.9770684856725\" y2=\"380\" stroke=\"#E2DED3\" stroke-width=\"1\"/><text x=\"361.9770684856725\" y=\"404\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"16\" font-weight=\"400\" fill=\"#5B6573\" text-anchor=\"middle\">1 千</text><line x1=\"553.7041310575019\" y1=\"40\" x2=\"553.7041310575019\" y2=\"380\" stroke=\"#E2DED3\" stroke-width=\"1\"/><text x=\"553.7041310575019\" y=\"404\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"16\" font-weight=\"400\" fill=\"#5B6573\" text-anchor=\"middle\">1 万</text><line x1=\"70\" y1=\"380\" x2=\"630\" y2=\"380\" stroke=\"#243042\" stroke-width=\"1.5\"/><text x=\"350.0\" y=\"432\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"18\" font-weight=\"400\" fill=\"#243042\" text-anchor=\"middle\">输入长度（token，对数刻度）</text><text x=\"18\" y=\"210.0\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"18\" font-weight=\"400\" fill=\"#243042\" text-anchor=\"middle\" transform=\"rotate(-90 18 210.0)\">得分（1 = 完全对）</text><polyline points=\"94.0,51.3 166.0,51.3 239.6,51.3 313.7,76.8 387.0,85.3 461.4,279.7 535.1,334.7 607.1,334.7\" fill=\"none\" stroke=\"#C2410C\" stroke-width=\"3.5\" stroke-linejoin=\"round\"/><line x1=\"656\" y1=\"70\" x2=\"686\" y2=\"70\" stroke=\"#C2410C\" stroke-width=\"4\"/><text x=\"696\" y=\"76\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"18\" font-weight=\"400\" fill=\"#243042\" text-anchor=\"start\">Claude Sonnet 4</text><polyline points=\"94.0,54.2 166.0,63.8 239.6,96.7 313.7,197.5 387.0,245.1 461.4,303.5 535.1,334.7\" fill=\"none\" stroke=\"#5A51D1\" stroke-width=\"3.5\" stroke-linejoin=\"round\"/><line x1=\"656\" y1=\"104\" x2=\"686\" y2=\"104\" stroke=\"#5A51D1\" stroke-width=\"4\"/><text x=\"696\" y=\"110\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"18\" font-weight=\"400\" fill=\"#243042\" text-anchor=\"start\">Qwen3-32B</text><polyline points=\"94.0,92.7 166.0,236.6 239.6,211.1 313.7,284.8 387.0,310.3 461.4,334.7 535.1,334.7 607.1,334.7\" fill=\"none\" stroke=\"#0B6B5F\" stroke-width=\"3.5\" stroke-linejoin=\"round\"/><line x1=\"656\" y1=\"138\" x2=\"686\" y2=\"138\" stroke=\"#0B6B5F\" stroke-width=\"4\"/><text x=\"696\" y=\"144\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"18\" font-weight=\"400\" fill=\"#243042\" text-anchor=\"start\">GPT-4.1</text><polyline points=\"94.0,80.8 166.0,233.8 239.6,228.7 313.7,310.9 387.0,323.9 461.4,330.1 535.1,359.0 607.1,334.1\" fill=\"none\" stroke=\"#2563EB\" stroke-width=\"3.5\" stroke-linejoin=\"round\"/><line x1=\"656\" y1=\"172\" x2=\"686\" y2=\"172\" stroke=\"#2563EB\" stroke-width=\"4\"/><text x=\"696\" y=\"178\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"18\" font-weight=\"400\" fill=\"#243042\" text-anchor=\"start\">Gemini 2.5 Flash</text><text x=\"656\" y=\"240\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"16\" font-weight=\"400\" fill=\"#5B6573\" text-anchor=\"start\">0.5 附近 ≈ 基本做不对</text></svg><p class=\"p-shot-note\" style=\"font-size:18px\">据 Chroma《Context Rot》（2025-07-14）重复词任务重画；数据点为读图近似</p></div>",
+      "refs": [
+        {
+          "kind": "read",
+          "group": "Chroma，2025-07-14",
+          "text": "Context Rot",
+          "url": "https://www.trychroma.com/research/context-rot"
+        }
+      ],
+      "steps": [
+        "看趋势"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p23a，沿着最上面那条线从左往右指，再指 0.5 那条横线】\n\n注意力的代价有多大？Chroma 做过一个实验：让模型把一段重复的词照抄出来，任务简单到几乎不会错。可输入从几十个 token 加到上万，几个主流模型的得分都一路往下，最后掉到 0.5 附近，基本就是做不对了。缓存能让重复的开头算得便宜，但模型每次还是要把整段读一遍。对话越长，前面的需求越容易被淹没。"
+      ],
+      "teaching": [
+        {
+          "title": "讲师提示",
+          "text": "曲线据报告里 Repeated Words 任务的图重画（课程手绘风格，courseware/tools/redraw.py 生成，图元在 materials/external/redraw_figures.py），四个模型的数据点是读图近似，只讲趋势，不读具体数值。2026-10-22 核对原文：报告测了 18 个模型，任务刻意做得简单，只为看输入长度本身的影响。"
+        }
+      ],
+      "source": "index.html#p23a",
+      "seconds": 30
+    },
+    {
       "id": "p24",
       "segment": "回看这一轮的请求",
       "label": "弯路也会被重发",
@@ -535,7 +566,7 @@ window.lesson = {
     },
     {
       "label": "回看这一轮的请求",
-      "seconds": 270
+      "seconds": 300
     },
     {
       "label": "检查",

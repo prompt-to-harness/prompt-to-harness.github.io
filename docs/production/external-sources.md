@@ -1,0 +1,92 @@
+# 外部佐证：官方文章、研究与 X 帖子
+
+> 2026-10-22 起，讲师确认的方向：在合适的页面加外部佐证，形式是截图加链接，标明出处即可；有些图可以按课程风格重画（SVG 或 Excalidraw）。流程由项目 skill `external-sources` 执行，本文是规则的唯一来源。
+
+## 什么时候做
+
+在章设计阶段做，不在课件做完后补：讲透问题定下后，按问题找材料，讲师挑选后写进章文件的“外部佐证”表（问题、材料、形式、拟用在哪节），分镜再按表留页面和版式（[章设计方法](../outline/proposals/2026-10-22-chapter-design-method.md)）。已有课件的章，也先补章文件里的表，再改分镜。
+
+## 用在哪里
+
+- 一章或一节的开头，用来引出要讲的问题（例如第 2 章用 Karpathy 的帖子引出 context engineering）。
+- 讲完一个机制之后，说明“官方也是这么讲的”。来源优先选课程所用工具的官方说明（Codex、OpenAI），其次是 Anthropic 等官方文章，再其次是研究报告，最后才是个人言论。
+- 不用来替代演示：能在讲师请求记录或项目里直接看到的，先看自己的证据，外部佐证只做补充。每节最多两三处，避免变成文章摘编。
+
+## 选材标准
+
+- **一手来源**：打开原文或原帖，核对作者、日期和原话，在调研笔记里标“已核实”；只见于转述的标“二手”，不上屏。
+- **说法不夸大**：不用没有出处的口号（例如“prompt engineering is dead”）；原话比口号温和时，用原话。
+- **和本页的问题直接相关**：每条候选写清它回答本章哪个讲透问题、放在哪一页。
+- **数字标出处**：上屏的数字必须能在原文找到；团队自述的效率数字不上屏。
+
+## 放图的版式
+
+课件画布是 1280×720 的固定版面，普通页的内容区只有标题下 1168×370（顶部留给放映时隐藏的 `lede`），图片缩进去常常看不清。2026-10-22 第 2 章样稿对照后，按材料选下面一种形式，不往普通页的半栏里塞截图。画面上不放中文意译，意译和补全的原文写进逐字稿（`script.json`）：
+
+| 形式 | 适合 | 做法 |
+| --- | --- | --- |
+| 证据页：帖子 | X 帖子、一句话观点 | 单独一页放裁过的帖子截图（只截正文，去掉点赞和回复区），顶栏写作者、平台、日期 |
+| 证据页：图表 | 曲线、示意图 | 单独一页，图下最多一句话说看什么；图里的说明文字截掉 |
+| 重画 | 文章段落、细节多的示意图、要对上锚点图的 | 画成 SVG 放进证据页，底部写“据 某某 重画”。默认出两版：课程手绘（`#p-rough` 抖动）和 Excalidraw 风格，讲师挑一版上屏；数据图表的坐标和折线两版都基本工整，读图得到的数据点要注明“读图近似”。工具和写法见下文“重画工具” |
+| 现场打开原网页 | 讲师录制时要边看边讲的长文、文档 | 写进 `refs` 的 `live`，录制时浏览器放大到要讲的那一段 |
+
+证据页用版式 `evidence-scene`（`courseware/shared/presentation.css`）：放映时内容区从标题下开始，约 900×510，右边让出人像区（画布 x 956–1256、y 24–249，成片里是真人画面），标题只能一行。专注演示和全屏只是把 1280×720 的画布整体缩放，不改版面；16:10 的屏幕全屏时上下会多出空白，录制按 16:9 的区域录。图片用零件 `.p-shot`（`courseware/shared/parts/parts.css`），`--shot-h` 定图高，常用 400–450：
+
+```python
+scene(id="p04a", layout="evidence-scene", title="大家开始说：context engineering", steps=["看帖子"],
+      html='<div class="p-shot" style="--shot-h:440px" data-reveal="0"><div class="p-page">'
+           '<div class="p-page-bar"><i></i><i></i><i></i>x.com · Andrej Karpathy 引用 Tobi Lütke · 2025-06-25</div>'
+           '<img src="external/x-karpathy-context-engineering-text.png" alt="Karpathy 的帖子"></div>'
+           '<p class="p-shot-note">一句话说看什么（可省）</p></div>',
+      refs=[ref("Karpathy 的帖子", "https://x.com/karpathy/status/1937902205765607626", "X，2025-06-25")])
+```
+
+先判断截图能不能直接用：能读清、能说明问题的（帖子、曲线），用截图；读不清、要中文化或要对上锚点图的，重画。拿不准、或截图也能用但重画可能更好的，三版都做：截图、课程手绘、Excalidraw，放进证据页并排对照，交讲师选。
+
+## 重画工具
+
+`courseware/tools/redraw.py`：一张图只写一份图元清单（框、文字、箭头、曲线、折线），生成两版 SVG，课程手绘版和 Excalidraw 版（rough.js 4.6.6 画好后存成静态 SVG，需要联网取脚本）。图元写在各章的 `materials/external/redraw_figures.py`，写法见脚本开头说明：
+
+```bash
+uv run courseware/tools/redraw.py courseware/ch02/materials/external/redraw_figures.py
+```
+
+输出 `redraw-<名字>-course.svg` 和 `redraw-<名字>-excalidraw.svg`。页面里要内联 SVG（第 2 章用 `lessonkit.redrawn()` 在构建时读入），不要用 `<img>`：图片形式拿不到课件字体和抖动滤镜。字体写在 `style` 里，因为课件的 `.lesson-diagram text` 规则会盖掉 `font-family` 属性。两版都用课件字体；手写标题体是子集，图里有新字时按 [fonts.md](fonts.md) 重建子集，否则会退回无衬线字体。课程手绘版的抖动滤镜由课件页提供，单独打开文件时框线是直的。
+
+## 截图还是重画（细则）
+
+| 素材 | 做法 |
+| --- | --- |
+| X 帖子、官方文章里的一段话、产品文档的表格 | 截图。截到能说明问题的最小范围，不截整篇 |
+| 文章里的示意图、研究报告的曲线 | 截图，原图在幻灯片上看得清就直接用 |
+| 原图信息太多、需要中文化，或要和本章锚点图对齐 | 重画：SVG（手绘风格见[视觉设计规范](visual-design-system.md)）或 Excalidraw，标“据 某某 重画”，原截图留在 `materials/external/` 作对照 |
+
+- 每张截图在画面上都要看得见出处：放在截图框 `.p-page` 里，顶栏 `.p-page-bar` 写“站点 · 作者 · 日期”。`.source-note` 放映时会隐藏，所以不能只写在那里。
+- 原文链接写进本页 `refs`（见[课件制作手册的“外部链接”](lesson-authoring-playbook.md#外部链接)）：录制时要点开的用 `live`，回看用 `read`。
+- 截图里只能有公开可见的内容；不截登录后的页面，不截他人的个人信息（帖子里的回复区、头像墙等要裁掉）。
+- 帖子正文显示不全（“显示更多”）时，在逐字稿里补全，不另拼图。
+
+## 文件放在哪里
+
+- 候选截图和登记表：`courseware/<章>/materials/external/`，登记表是同目录的 `README.md`，写来源、作者、日期、截取日期、拟用在哪页和状态（候选、采用、不用、重画）。`materials/` 不进 Pages 站点，但仍在公开仓库里。
+- 采用后，把图移到对应小节的 `external/`（与 `evidence/` 同级）再在页面引用，登记表里改文件路径和状态。
+- 不用的截图删掉，登记表保留这一行和理由，避免下次重复调研。
+
+## 截图工具
+
+`courseware/tools/capture-source.py`，基于 Playwright（`make setup` 已装 Chromium）：
+
+```bash
+# X 帖子：自动改走官方嵌入页 platform.twitter.com/embed，不登录也能截
+uv run courseware/tools/capture-source.py https://x.com/<用户>/status/<id> OUT.png
+# 截某个元素
+uv run courseware/tools/capture-source.py URL OUT.png --selector figure
+# 截从一段文字到另一段文字之间的区域
+uv run courseware/tools/capture-source.py URL OUT.png --text '起点文字' --until '终点文字'
+# 站点要人工验证（如 openai.com 的 Cloudflare）：开可见窗口，由人点过，脚本等目标出现再截
+uv run courseware/tools/capture-source.py URL OUT.png --text '...' --headed
+```
+
+- 默认 2 倍像素、浅色、中文界面，截图前隐藏固定定位的浮层（Cookie 横幅、顶栏）。
+- 脚本不登录，也不绕过验证码或机器人检测；被拦下来时用 `--headed`，由人自己完成验证。
+- 每次截完，脚本会打印尺寸、截取日期和来源，抄进登记表。

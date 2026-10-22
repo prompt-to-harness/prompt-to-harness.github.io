@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from lessonkit import Lesson, MEASURED, NARROW, chapter_map, ref, repro, teach  # noqa: E402
+from lessonkit import Lesson, MEASURED, NARROW, chapter_map, redrawn, ref, repro, teach  # noqa: E402
 
 lesson = Lesson(__file__, "2.2", "补上项目经历，看对话怎么变长", summary="对话每多一轮，前面的内容都会被重发；清空和压缩之后还剩什么，在请求记录里看得到。项目上，把自己的项目经历加进个人主页，并用三种屏幕尺寸、键盘和构建证明没弄坏别的。")
 scene = lesson.scene
@@ -224,6 +224,18 @@ scene(
     teaching=teach(
         ("数字来源", "2026-10-21 20:30 重录（Codex 会话记录的 token_count，lab-runs/ch02-context/2.2-simple-20261021-203050）：本轮 Prompt 提交后到 Codex 回复计划 5 次请求、7 次工具调用（有两次一回合并行发两个调用）；输入 9305、10645、13063、14561、15652 token，缓存命中 8948、9305、10645、13063、14561，每次正好等于上一次的输入。画面取第 1、3、5 次。更早的 2026-10-21 16:22 重录：本轮 Prompt 提交后到 Codex 回复计划的 11 次请求（10 次工具调用）：input 8、12、14、17、20、22、25、28、31、34、37 项；input_tokens 9241 起，第 6 次 14675，第 11 次 21090；缓存命中接近上一次的输入（第 11 次 19840），不再每次正好相等。画面取第 1、6、11 次。旧记录：2026-10-20 15:58 交互界面实测（能力目录开），本轮 Prompt 提交后到 Codex 回复计划的 7 次请求（6 次工具调用）：input 8、11、14、16、19、22、25 项；input_tokens 9087、9999、10622、11690、14423、15880、17280；缓存命中 8863、9087、9999、10622、11690、14423、15880——每次都正好命中上一次的全部输入（第 1 次命中的是 /clear 后那句话的请求）。画面取第 1、4、7 次。2026-10-20 讲师决定改为边做边看，这页改用本轮的请求，原来 2.1 第二步那一问的数字不再上屏。录制版本定下后复测。"),
         ("讲师提示", "前缀缓存的计费细节放配套页，主课只讲“重复部分更便宜，注意力不变”。不要据此断言每次费用一定增加。"),
+    ),
+)
+
+scene(
+    id="p23a", segment="回看这一轮的请求", layout="evidence-scene",
+    label="越长越不稳", title="越长越不稳：Context Rot",
+    lead="Chroma 在 2025 年 7 月的报告《Context Rot》里，让 18 个模型做同一个很简单的任务：把一段重复的词照抄出来。输入从几十个 token 加到上万，几个主流模型的得分都一路往下。这就是上一页说的注意力代价：缓存让重复部分便宜，但模型还是要读完整段，越长越容易出错。",
+    html=redrawn("chroma-context-rot", "course", "据 Chroma《Context Rot》（2025-07-14）重复词任务重画；数据点为读图近似"),
+    refs=[ref("Context Rot", "https://www.trychroma.com/research/context-rot", "Chroma，2025-07-14", kind="read")],
+    steps=["看趋势"],
+    teaching=teach(
+        ("讲师提示", "曲线据报告里 Repeated Words 任务的图重画（课程手绘风格，courseware/tools/redraw.py 生成，图元在 materials/external/redraw_figures.py），四个模型的数据点是读图近似，只讲趋势，不读具体数值。2026-10-22 核对原文：报告测了 18 个模型，任务刻意做得简单，只为看输入长度本身的影响。"),
     ),
 )
 

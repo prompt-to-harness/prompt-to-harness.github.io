@@ -46,6 +46,7 @@
 | 问答列表 | `.p-qlist` + `.p-qrow` + `.p-back-to` | 自检题，答案标出"回到哪个概念" | p14-check |
 | 阶梯 | `.p-stairs` + `.p-stair` + `.p-base` | 逐层叠加的路线；`.p-here` 标当前位置 | 课程首页路线 |
 | 结论条 | `.p-bar` | 每页最后一句断言；`<b>` 高亮关键词；`is-light` 为浅色版 | 多页 |
+| 外部截图 | `.p-shot` 包 `.p-page`，页面用版式 `evidence-scene` | 帖子、研究曲线、官方示意图单独一页，内容区避开右上人像区，顶栏 `.p-page-bar` 写出处；用法见 [external-sources.md](external-sources.md) | 暂无已用页面（2026-10-22 第 2 章样稿） |
 | 证据块 | `.p-code`、`.p-term`、`.p-page` | 代码/diff（行内 `.del` `.add` `.hl`）、终端（`.err`）、页面截图框 | p09-request、1.1 p05 |
 | 开篇地图 | `.p-map` | 章节开篇，本章各节，当前节红圈；`.p-hand` 手写问题，`.p-chain` 三件事 | p09 |
 | 涂鸦小结 | `.p-sketch` + `.p-star` + `.p-warns` + `.p-next` | 每节最后一页：四个词、一个习惯、三种失败、下一节 | p14-summary |

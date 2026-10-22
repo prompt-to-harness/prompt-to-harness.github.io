@@ -39,6 +39,30 @@ def ref(text, url, group="", kind="live"):
     return {"kind": kind, "group": group, "text": text, "url": url}
 
 
+EXTERNAL = Path(__file__).resolve().parents[1] / "materials/external"
+
+
+def shot(src, bar, alt, height=440, note="", reveal=0):
+    """证据页（layout="evidence-scene"）里的外部截图：顶栏 bar 写“站点 · 作者 · 日期”，图片放在本节 external/。
+
+    规则见 docs/production/external-sources.md；height 是放映时的图高（--shot-h）。
+    """
+    note = f'<p class="p-shot-note">{note}</p>' if note else ""
+    return (f'<div class="p-shot" style="--shot-h:{height}px" data-reveal="{reveal}"><div class="p-page">'
+            f'<div class="p-page-bar"><i></i><i></i><i></i>{bar}</div><img src="{src}" alt="{escape(alt)}"></div>{note}</div>')
+
+
+def redrawn(name, style, source, reveal=0, max_height=440):
+    """证据页里的重画图：内联 materials/external/redraw-<name>-<style>.svg（由 courseware/tools/redraw.py 生成），
+    底部写“据 某某 重画”。内联而不用 <img>，才能用上课件字体和抖动滤镜 #p-rough。
+    """
+    assert style in ("course", "excalidraw"), style
+    svg = (EXTERNAL / f"redraw-{name}-{style}.svg").read_text().strip()
+    svg = svg.replace('<svg ', f'<svg style="display:block;max-width:100%;height:auto;max-height:{max_height}px" ', 1)
+    return (f'<div class="p-shot" data-reveal="{reveal}">{svg}'
+            f'<p class="p-shot-note" style="font-size:18px">{source}</p></div>')
+
+
 def repro(steps, note="", label="复现这个实验"):
     """页面上的折叠按钮：点开才显示复现步骤，放进 scene(repro=…)，由播放器渲染（courseware/shared/app.js）。
 

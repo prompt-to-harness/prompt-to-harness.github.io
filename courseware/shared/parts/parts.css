@@ -151,6 +151,12 @@
 .p-page-bar{display:flex;gap:6px;align-items:center;padding:6px 10px;background:#ECE8DE;border-bottom:1px solid #B9B3A6;font-size:16px;color:#4A5260}
 .p-page-bar i{width:9px;height:9px;border-radius:50%;background:#C9C3B6;display:block}
 .p-page-body{padding:14px 18px;font-size:26px;font-weight:700;line-height:1.35;color:#18202B}
+/* 外部截图 p-shot：放在 .p-page 里，顶栏 .p-page-bar 写出处；放映时按 --shot-h 定高、宽度随图，阅读模式按宽度缩放（external-sources.md） */
+.p-shot{display:flex;flex-direction:column;align-items:center;gap:10px;min-width:0}
+.p-shot .p-page{max-width:100%}
+.p-shot img{display:block;width:auto;max-width:100%;height:var(--shot-h,430px);object-fit:contain}
+body[data-mode='scroll'] .p-shot img{height:auto}
+.p-shot-note{font-size:22px;line-height:1.45;text-align:center;color:var(--p-muted)}
 
 /* ---------- 章节开篇 p-cover ---------- */
 .p-map{display:flex;gap:10px;align-items:stretch}

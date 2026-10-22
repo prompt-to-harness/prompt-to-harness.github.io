@@ -38,3 +38,5 @@ body.recording[data-mode='slides'] .recording-branding{display:flex;justify-cont
   body[data-mode='scroll'] .toolbar{padding-right:144px;min-height:66px}
   body[data-mode='scroll'] .toolbar .institution-logo{position:absolute;top:16px;right:16px;width:112px}
 }
+/* Evidence pages (layout: evidence-scene): an external screenshot or chart fills the page, so the content box starts under a one-line title, using the lede band that slides hide. It stops at x=956, left of the camera area (956-1256 x 24-249), which the real camera covers in the recording. The step counter (y=227) would sit on the image, so it is hidden; the footer still shows the step. See docs/production/external-sources.md. */
+body[data-mode='slides'] .scene.evidence-scene .scene-content{top:160px;height:510px;width:900px}body[data-mode='slides'] .scene.evidence-scene .step-status{display:none}
