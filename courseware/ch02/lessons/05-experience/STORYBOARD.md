@@ -1,4 +1,4 @@
-# 2.5 逐页分镜：工程经验分享，用好 context 的几个做法（草稿）
+# 2.5 逐页分镜：用好 context 的三个做法（经验分享）
 
 > 依据：[第 2 章文件](../../../../docs/chapters/ch02.md) 2.5（C2-37）；三条经验 2026-10-21 各实测了一次（见“实测记录”），课件已按本文重做（2026-10-21）。未试讲、未录制。
 > 原来的五张分拣卡分镜（2026-10-05 起，2026-10-20 改版）已转入[软件工程候选池](../../../../docs/software-engineering/software-engineering-problem-pool.md)第 2 题，素材在 [`materials/refactor-cards/`](../../materials/refactor-cards/)，分镜原文见 Git 历史（`git show 4c34f9a:courseware/ch02/lessons/05-refactor/STORYBOARD.md`）。

@@ -120,7 +120,7 @@
 
 ### ED-011 · 生成物与源文件保持一致，删除要清残留引用
 
-**问题**：有些页面由脚本生成（如 2.1 的 `lesson.js` 来自 `ch02/lessons/01-feedback/tools/build-lesson.py` 与本节 `script.json`；第 0、1 章 `lesson.js` 里的口播由 `rebuild-lesson.py` 从 `script.json` 合并）。只改生成物，下次生成就被覆盖；删掉一个页面或入口而不清链接、检查脚本和说明，会留下死链。
+**问题**：有些页面由脚本生成（如 2.1 的 `lesson.js` 来自 `ch02/lessons/01-request/tools/build-lesson.py` 与本节 `script.json`；第 0、1 章 `lesson.js` 里的口播由 `rebuild-lesson.py` 从 `script.json` 合并）。只改生成物，下次生成就被覆盖；删掉一个页面或入口而不清链接、检查脚本和说明，会留下死链。
 
 **处理**：先找到内容源再改；改完重新生成。删除页面时同步清入口、检查脚本、README 和构建说明。
 

@@ -297,7 +297,7 @@ window.lesson = {
         },
         {
           "title": "讲师提示",
-          "text": "推送由人执行；设置交给 Codex 时，批准框就是人机边界（回扣 1.6）。gh 由学员本人登录（环境检查单），令牌不贴进对话、不放环境变量。2026-10-21 实测时，Codex 设好来源后还申请了 gh workflow run 去补跑之前失败的部署：这不违反“不推送、不改文件”，但超出了请求的范围，批准框就是说“不”的地方，录制时出现就停一下讲。Codex 用 CLEAN_CODEX_GH=1 tools/clean-codex.sh 启动，干净环境里才读得到本机的 gh 登录（2026-10-21 实测）；不带开关时 gh 报未登录，Codex 会自己申请运行 gh auth login，这一条要拒绝。预检见 courseware/ch02/materials/pages-source/：临时仓库上 13 次批准，修改命令先错用 POST 再改 PUT；录制仓库的实际次数和说法以当天为准，画面不预告。"
+          "text": "推送、改设置、触发部署这类对外动作都由人确认：这次推送由人自己做，设置交给 Codex 时，批准框就是人机边界。gh 由学员本人登录（环境检查单），令牌不贴进对话、不放环境变量。2026-10-21 实测时，Codex 设好来源后还申请了 gh workflow run 去补跑之前失败的部署：这不违反“不推送、不改文件”，但超出了请求的范围，批准框就是说“不”的地方，录制时出现就停一下讲。Codex 用 CLEAN_CODEX_GH=1 tools/clean-codex.sh 启动，干净环境里才读得到本机的 gh 登录（2026-10-21 实测）；不带开关时 gh 报未登录，Codex 会自己申请运行 gh auth login，这一条要拒绝。预检见 courseware/ch02/materials/pages-source/：临时仓库上 13 次批准，修改命令先错用 POST 再改 PUT；录制仓库的实际次数和说法以当天为准，画面不预告。"
         }
       ],
       "repro": {

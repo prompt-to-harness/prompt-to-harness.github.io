@@ -214,7 +214,7 @@ scene(
     steps=["提交并复查", "Codex 改设置", "人来推送", "失败时"],
     teaching=teach(
         ("切到实操", "顺序是提交 → 复查待推送提交 → 必要时改为公开 → Codex 设置 Pages 来源（人批准、网页确认）→ 推送；GitHub 文档要求先为仓库启用自定义工作流（2026-10-05 查阅 Using custom workflows with GitHub Pages）。若录制时先推送了，在 Actions 页对失败的运行点 Re-run，并确认新运行成功。Pages 来源设置界面按录制时 GitHub 版本核对。讲师录制时若真的失败，失败过程保留在本页。首次部署若自然出错，就地从 Actions 日志、build 输出和 Network 定位并保留；没有出错不伪造。"),
-        ("讲师提示", "推送由人执行；设置交给 Codex 时，批准框就是人机边界（回扣 1.6）。gh 由学员本人登录（环境检查单），令牌不贴进对话、不放环境变量。2026-10-21 实测时，Codex 设好来源后还申请了 gh workflow run 去补跑之前失败的部署：这不违反“不推送、不改文件”，但超出了请求的范围，批准框就是说“不”的地方，录制时出现就停一下讲。Codex 用 CLEAN_CODEX_GH=1 tools/clean-codex.sh 启动，干净环境里才读得到本机的 gh 登录（2026-10-21 实测）；不带开关时 gh 报未登录，Codex 会自己申请运行 gh auth login，这一条要拒绝。预检见 courseware/ch02/materials/pages-source/：临时仓库上 13 次批准，修改命令先错用 POST 再改 PUT；录制仓库的实际次数和说法以当天为准，画面不预告。"),
+        ("讲师提示", "推送、改设置、触发部署这类对外动作都由人确认：这次推送由人自己做，设置交给 Codex 时，批准框就是人机边界。gh 由学员本人登录（环境检查单），令牌不贴进对话、不放环境变量。2026-10-21 实测时，Codex 设好来源后还申请了 gh workflow run 去补跑之前失败的部署：这不违反“不推送、不改文件”，但超出了请求的范围，批准框就是说“不”的地方，录制时出现就停一下讲。Codex 用 CLEAN_CODEX_GH=1 tools/clean-codex.sh 启动，干净环境里才读得到本机的 gh 登录（2026-10-21 实测）；不带开关时 gh 报未登录，Codex 会自己申请运行 gh auth login，这一条要拒绝。预检见 courseware/ch02/materials/pages-source/：临时仓库上 13 次批准，修改命令先错用 POST 再改 PUT；录制仓库的实际次数和说法以当天为准，画面不预告。"),
     ),
     repro=repro([("用 CLEAN_CODEX_GH=1 tools/clean-codex.sh 新开 Codex 会话（让它用上本机的 gh 登录），发送这段请求；每条命令弹出批准框时先读命令和理由", SOURCE_PROMPT),
                  ("改完在网页上确认（没装 GitHub CLI 时直接在这里手动选择 GitHub Actions）", "仓库页 → Settings → Pages → Build and deployment → Source")],

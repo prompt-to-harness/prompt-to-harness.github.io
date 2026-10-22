@@ -29,7 +29,7 @@ say "npm ci 完成（Node $(node -v)）"
 mkdir -p "$APP/docs/evidence"
 cp "$HERE/fixtures/feedback-record.md" "$APP/docs/evidence/CH02_VIBE_ITERATIONS.md"
 say "2.1 p06：人写下三条反馈与核对记录（课程示例，代答）"
-codex_step 2.1-p07 -s read-only "$(lab_prompt ch02 01-feedback p07)"
+codex_step 2.1-p07 -s read-only "$(lab_prompt ch02 01-request p07)"
 cat "$HERE/fixtures/labels.md" >> "$APP/docs/evidence/CH02_VIBE_ITERATIONS.md"
 say "2.1 p17：人补上性质标签，选定第 3 条（代答）"
 

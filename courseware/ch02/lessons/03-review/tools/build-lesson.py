@@ -14,8 +14,8 @@ lesson = Lesson(__file__, "2.3", "它看到了什么，才这样改", summary="�
 scene = lesson.scene
 
 
-# 2026-10-20 15:58 那次 2.2 运行（能力目录开）留下的工作区与请求记录，见分镜“事实边界与素材”
-RUN = "讲师用课程基线在交互界面里的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max）"
+# 2026-10-21 20:30 那次 2.2 运行（Done when 已简化）留下的工作区与请求记录，和 2.2 p23、p24、p27、p30、p31 是同一次，见分镜“事实边界与素材”
+RUN = "讲师用课程基线在交互界面里的一次运行（2026-10-21 20:30，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max），和 2.2 是同一次"
 SAMPLE = "画面中的命令输出来自" + RUN + "留下的工作区，Git 2.50.1；你的输出以自己的 diff 为准。"
 RECORD = "来自产生这份 diff 的那次运行的请求记录，命令有删节；工具名、命令和次数随每次运行变化"
 RUN1021 = "讲师用课程基线的一次运行（2026-10-21，codex exec，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开）"
@@ -40,20 +40,20 @@ scene(
 scene(
     id="p36", segment="拿到 diff",
     label="改了哪些文件", title="先看范围：改了哪些文件",
-    lead="先用两条命令看范围，再看内容。git status --short 列出所有变化，包括还没被 Git 跟踪的新文件；git diff --stat 只统计已跟踪文件还没暂存的修改：新文件要另外打开看，已经 git add 的改动要用 git diff --cached --stat 看。",
+    lead="先用两条命令看范围，再看内容。git status --short 列出所有变化，包括还没被 Git 跟踪的新文件；git diff --stat 只统计已跟踪文件还没暂存的修改：新文件要另外打开看，已经 git add 的改动要用 git diff --cached --stat 看。讲师这次多了一行 ?? AGENTS.md：它是 2.2 我们自己写的规则，不是 Codex 建的，--stat 里看不到它。",
     html=(
         '<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px">'
-        '<div class="p-term" data-copy="git status --short" data-reveal="0"><div class="dim">$ git status --short</div><div> M src/App.tsx</div></div>'
+        '<div class="p-term" data-copy="git status --short" data-reveal="0"><div class="dim">$ git status --short</div><div> M src/App.tsx</div><div>?? AGENTS.md</div></div>'
         '<div class="p-term" data-copy="git diff --stat" data-reveal="1"><div class="dim">$ git diff --stat</div><div> src/App.tsx | 12 ++++++++++--</div><div> 1 file changed, 10 insertions(+), 2 deletions(-)</div></div></div>'
         '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:14px">'
         '<div class="p-box is-soft" data-role="ok" data-reveal="2"><h3>src/App.tsx</h3><p>预期之内：项目数据就在这里</p></div>'
-        '<div class="p-box is-soft" data-role="ctx" data-reveal="2"><h3>没有 ?? 开头的行</h3><p>这次没有新建文件；有的话不在 --stat 里，要另外打开看</p></div></div>'
+        '<div class="p-box is-soft" data-role="ctx" data-reveal="2"><h3>?? AGENTS.md</h3><p>新文件，不在 --stat 里；是我们在 2.2 写的规则，打开看一眼，一起提交</p></div></div>'
         '<p class="source-note">' + SAMPLE[:-1] + '</p>'
     ),
     steps=["status", "diff --stat", "对得上吗"],
     teaching=teach(
         ("命令说明", "未跟踪文件所在目录整个都是新的时，git status --short 只显示目录名（如 ?? src/components/），加 --untracked-files=all 可列出目录里的每个文件。"),
-        ("核对记录", "2026-10-20 15:58 那次运行结束后，在它的工作区运行 git status --short 和 git diff --stat，输出与画面一致：只改 src/App.tsx，+10 −2，没有未跟踪文件。这份 diff 与 materials/homepage-v1.diff 逐字相同。"),
+        ("核对记录", "2026-10-21 20:30 那次运行（lab-runs/ch02-context/2.2-simple-20261021-203050）结束后，在它的工作区运行 git status --short 和 git diff --stat，输出与画面一致：改了 src/App.tsx（+10 −2），另有未跟踪的 AGENTS.md（4 行，2.2 p27a 讲师写的）。Codex 在完成报告里说明 AGENTS.md 是它开工前就存在的未跟踪文件。16:22 那次输出相同。src/App.tsx 的改动与 materials/homepage-v1.diff 逐行相同。学员没写 AGENTS.md 时没有这一行。"),
         ("讲师提示", "若 2.2 的真实 diff 出现了无关文件或 package.json 变化，在这里就地指出，并在 p39 走“缩小”或“拒绝”。"),
     ),
 )
@@ -61,7 +61,7 @@ scene(
 scene(
     id="p37", segment="走读 diff",
     label="改动做了什么", title="再看内容：每一处改动做了什么",
-    lead="git diff 显示逐行改动。按“数据在哪 → 怎样渲染 → 影响哪些样式”读：这一轮只改了项目数组里的数据，渲染逻辑和样式都没动。排版规则没变，但内容变多了，有没有挤坏仍以 2.2 的屏幕尺寸检查为准。",
+    lead="git diff 显示逐行改动。按“数据在哪 → 怎样渲染 → 影响哪些样式”读：这一轮只改了项目数组里的数据，渲染逻辑和样式都没动。排版规则没变，但内容变多了，有没有挤坏仍以 2.2 在浏览器里看过的页面为准。",
     html=(
         NARROW +
         '<div class="p-walk"><div data-reveal="0"><div class="p-src" style="--lh:36px">'
@@ -82,61 +82,58 @@ scene(
     ),
     steps=["数据", "渲染", "样式", "文字"],
     teaching=teach(
-        ("讲师提示", "按 2.2 的真实 diff 讲，不预设结构。若 Codex 改了渲染或样式，就在第 2、3 步指出，并说清它对三种屏幕尺寸和键盘的影响。2026-10-20 能力目录关的那次运行改过 src/index.css（项目列表栅格，+23 −2），录制时遇到类似情况就在第 3 步讲。"),
+        ("讲师提示", "按 2.2 的真实 diff 讲，不预设结构。若 Codex 改了渲染或样式，就在第 2、3 步指出，并回到浏览器看一眼受影响的地方。2026-10-20 能力目录关的那次运行改过 src/index.css（项目列表栅格，+23 −2），录制时遇到类似情况就在第 3 步讲。"),
     ),
 )
 
 scene(
     id="p38", segment="走读 diff",
     label="对得上本轮目标吗", title="逐项对照本轮的完成标准",
-    lead="把 2.2 Prompt 的 Done when 逐项拿来对照：前三项看 2.2 做过的检查，第四项看刚读过的 diff。再加一问：有没有做 Prompt 没让它做的事？讲师这次有：Prompt 写明浏览器由人检查，Codex 仍自己起预览服务器、用无头 Chrome 截图查三种屏幕尺寸。这些不留文件改动，diff 里看不到，下一页到请求记录里去找。",
+    lead="把 2.2 Prompt 的 Done when 逐项拿来对照：页面由我们在浏览器里看过，build 看 2.2 的结果，diff 范围看刚读过的 diff。再加一问：有没有做 Prompt 没让它做的事？讲师这次有一件：Prompt 只让它跑 build，它还起了预览服务器、用 curl 核对。这一步写在它的计划里，我们确认计划时就同意了；到沙箱外运行的两次申请，也是我们批准的。这些不留文件改动，diff 里看不到，下一页到请求记录里去找。",
     html=(
         NARROW +
         '<div class="p-claim" style="grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)">'
         '<div class="p-box" data-role="agent" data-reveal="0"><span class="p-tag" data-role="agent">Done when</span>'
-        '<p style="margin-top:8px;line-height:1.7">三种屏幕尺寸可读<br>Tab 顺序不变<br>build 成功<br>diff 只含项目区</p>'
-        '<p class="p-sub" data-reveal="3" style="margin-top:10px">Prompt 还写了：浏览器由人检查</p></div>'
-        '<ul class="p-checks"><li data-reveal="1">三种屏幕尺寸<small>2.2 检查：三条经历完整显示</small></li>'
-        '<li data-reveal="1">键盘<small>2.2 检查：Tab 仍只停在“查看项目”</small></li>'
-        '<li data-reveal="1">构建<small>2.2 检查：退出码 0</small></li>'
+        '<p style="margin-top:8px;line-height:1.7">我在浏览器里看过页面正常<br>你跑 build 成功<br>diff 只含项目区</p></div>'
+        '<ul class="p-checks"><li data-reveal="1">页面<small>2.2 由我们看过：三条经历都在</small></li>'
+        '<li data-reveal="1">构建<small>Codex 跑过：退出码 0</small></li>'
         '<li data-reveal="2">diff 范围<small>刚才读过：只有 App.tsx 的项目数据</small></li>'
-        '<li class="is-no" data-reveal="3">Prompt 没让做的事<small>有：自己起预览、截图 · diff 里看不到</small></li></ul></div>'
+        '<li class="is-no" data-reveal="3">Prompt 没让做的事<small>有：起预览服务器、curl 核对 · 计划里写了 · diff 里看不到</small></li></ul></div>'
     ),
-    steps=["完成标准", "检查结果", "diff 范围", "Prompt 之外"],
-    teaching=teach(("讲师提示", "第 4 行取自 2026-10-20 15:58 那次运行：确认之后 33 次调用里，Codex 自己起预览服务器（npm run preview 两次退出码 1）、写脚本驱动无头 Chrome 截图查三种屏幕尺寸（SyntaxError、截图文件不存在等），都不留文件改动。录制时没出现这类调用，第 4 步就说“这次没有”，不按画面讲。")),
+    steps=["完成标准", "页面与构建", "diff 范围", "Prompt 之外"],
+    teaching=teach(("讲师提示", "第 4 行取自 2026-10-21 20:30 那次运行：计划的验证步骤写了“起本地服务给你地址”；“确认”之后 9 次调用，改文件、build、看 diff 之外，Codex 起预览服务器（沙箱里 listen EPERM，再申请沙箱外运行）、curl 取首页状态码（沙箱里 000，再申请沙箱外运行），两次申请都是人批准的，都不留文件改动。16:22 那次计划里没写这一步，是改完自己加的。录制时没出现 Prompt 之外的调用，第 4 步就说“这次没有”，不按画面讲。")),
 )
 
 scene(
     id="p38a", segment="回看请求记录",
     label="它是根据什么改的", title="Codex 是根据什么改的？",
-    lead="打开 2.2 这一轮的请求记录（和 2.1 看的是同一套配置下的请求记录），找到这一轮的工具调用。看三件事：Codex 读了哪些文件；diff 里改动的每个文件，改之前读过没有；每处改动的依据，来自 Prompt 原文，还是读到的文件。讲师这次的记录里，读文件都发生在出计划之前：6 次调用读了 11 个文件，包括 src/App.tsx 和 index.css，也读了 PROMPT_V1.md 这类和本轮无关的文档。“确认”之后的第一次调用就是修改 src/App.tsx，没有再读；它用的是计划那一轮读到的内容，这些内容一直留在 context 里。diff 里只有 App.tsx，改前读过；三条文字来自 Prompt 原文，数组的位置和结构来自读到的 App.tsx。多读的文档没有让范围扩大。还有一类调用 diff 里看不到：“确认”之后一共 33 次调用，其中 Codex 自己起预览服务器（npm run preview 两次退出码 1），又写脚本驱动无头 Chrome 截图、查三种屏幕尺寸，中间报了 SyntaxError、截图文件不存在等错误。Prompt 写明浏览器由人检查，这些是它自己加的；它们不留文件改动，所以 diff 里只有 App.tsx。同一个 Prompt，每次走的过程都可能不同，所以判断看这一轮的记录。范围扩大时，常能在这里找到原因：多读了无关内容，或者 Prompt 里缺了本轮目标。记录里找不到依据的改动，按“无法解释”处理。",
+    lead="打开 2.2 这一轮的请求记录（和 2.2 回看的是同一次运行），找到这一轮的工具调用。看三件事：Codex 读了哪些文件；diff 里改动的每个文件，改之前读过没有；每处改动的依据，来自 Prompt 原文、AGENTS.md，还是读到的文件。讲师这次的记录里，读文件都发生在出计划之前：7 次调用读了 9 个文件，包括 src/App.tsx 和 index.css，也读了 README、PROMPT_V1.md 这些和本轮关系不大的文件。“确认”之后的第一次调用就是修改 src/App.tsx，没有再读；它用的是计划那一轮读到的内容，这些内容一直留在 context 里。diff 里只有 App.tsx，改前读过；三条文字来自 Prompt 原文，数组的位置和结构来自读到的 App.tsx；改完跑 build，是 Prompt 和 AGENTS.md 都要求的。"
+         "还有一类调用 diff 里看不到：改完以后，它起预览服务器、用 curl 核对，沙箱里各失败一次，申请到沙箱外运行，由我们批准；最后在构建产物里 grep 三条文字和链接。同一个 Prompt，每次走的过程都可能不同，所以判断看这一轮的记录。范围扩大时，常能在这里找到原因：多读了无关内容，或者 Prompt 里缺了本轮目标。记录里找不到依据的改动，按“无法解释”处理。",
     html=(
         NARROW +
         '<div class="p-walk"><div data-reveal="0"><div class="p-src" style="--lh:31px">'
         '<div class="p-fn">2.2 本轮的工具调用（节选）</div>'
-        '<div class="p-ln"><i>1</i><code>ls -la · git status · git log</code></div>'
-        '<div class="p-ln"><i>2</i><code>find … · cat package.json PLACEHOLDER_CONTENT.md</code></div>'
-        '<div class="p-ln add"><i>3</i><code>cat src/App.tsx src/index.css</code></div>'
-        '<div class="p-ln"><i>4</i><code>cat PROJECT_BRIEF.md PROMPT_V1.md CHECKPOINTS.md</code></div>'
-        '<div class="p-ln"><i>5</i><code>cat README.md index.html .nvmrc</code></div>'
-        '<div class="p-ln"><i>6</i><code>cat .gitignore · ls .traces · 找 Chrome</code></div>'
+        '<div class="p-ln"><i>1</i><code>ls · cat package.json · find 列文件</code></div>'
+        '<div class="p-ln add"><i>3</i><code>cat src/App.tsx · PLACEHOLDER_CONTENT.md README.md …</code></div>'
+        '<div class="p-ln"><i>5</i><code>cat src/index.css · git status · cat PROMPT_V1.md</code></div>'
+        '<div class="p-ln"><i>7</i><code>cat index.html src/main.tsx · node -v</code></div>'
         '<div class="p-ln" data-reveal="1"><i>·</i><code>回复计划 → 我们回复“确认”</code></div>'
-        '<div class="p-ln del" data-reveal="2"><i>7</i><code>apply_patch：改 src/App.tsx</code></div>'
-        '<div class="p-ln" data-reveal="2"><i>8</i><code>cat src/App.tsx · git diff（改后复查）</code></div>'
-        '<div class="p-ln del" data-reveal="4"><i>…</i><code>npm run preview ×2 → 退出码 1</code></div>'
-        '<div class="p-ln del" data-reveal="4"><i>…</i><code>脚本驱动无头 Chrome 截图 → SyntaxError</code></div>'
-        '<div class="p-ln del" data-reveal="4"><i>…</i><code>ls 截图文件 → No such file</code></div></div></div>'
-        '<ol class="p-notes"><li data-reveal="0"><span><b>读了哪些文件</b><small>出计划前读了 11 个，含几份无关文档</small></span></li>'
+        '<div class="p-ln del" data-reveal="2"><i>8</i><code>apply_patch：改 src/App.tsx</code></div>'
+        '<div class="p-ln" data-reveal="2"><i>9</i><code>npm run build · git diff（改后复查）</code></div>'
+        '<div class="p-ln del" data-reveal="4"><i>11</i><code>npm run preview → EPERM → 申请沙箱外，人批准</code></div>'
+        '<div class="p-ln del" data-reveal="4"><i>13</i><code>curl → 000 → 申请沙箱外，人批准</code></div>'
+        '<div class="p-ln" data-reveal="4"><i>15</i><code>grep 构建产物：三条文字、有没有链接</code></div></div></div>'
+        '<ol class="p-notes"><li data-reveal="0"><span><b>读了哪些文件</b><small>出计划前读了 9 个，含几份无关的</small></span></li>'
         '<li data-reveal="1"><span><b>确认之后</b><small>没有再读，第一次调用就是修改</small></span></li>'
         '<li class="is-ok" data-reveal="2"><span><b>改的文件，之前读过吗</b><small>diff 只有 App.tsx，第 3 次调用读过</small></span></li>'
-        '<li class="is-ok" data-reveal="3"><span><b>依据从哪来</b><small>文字：Prompt 原文 · 结构：读到的 App.tsx</small></span></li>'
-        '<li class="is-risk" data-reveal="4"><span><b>Prompt 没让它做的</b><small>自己起预览、截图 · diff 里看不到</small></span></li></ol></div>'
+        '<li class="is-ok" data-reveal="3"><span><b>依据从哪来</b><small>文字：Prompt 原文 · 结构：读到的 App.tsx · build：AGENTS.md</small></span></li>'
+        '<li class="is-risk" data-reveal="4"><span><b>Prompt 没让它做的</b><small>起预览服务器、curl 核对 · diff 里看不到</small></span></li></ol></div>'
         '<p class="source-note">' + RECORD + '；' + RUN + '</p>'
     ),
     steps=["读了哪些文件", "确认之后", "改前读过吗", "依据从哪来", "Prompt 之外"],
     teaching=teach(
-        ("核对记录", "取自 2026-10-20 15:58 那次运行的请求记录（能力目录开时工具调用是 custom_tool_call，命令在 tools.exec_command 的 cmd 里），跳过界面“给会话起标题”的旁路请求。出计划前 6 次调用读的 11 个文件：package.json、PLACEHOLDER_CONTENT.md、src/App.tsx、src/index.css、PROJECT_BRIEF.md、PROMPT_V1.md、CHECKPOINTS.md、README.md、index.html、.nvmrc、.gitignore；另有 ls、find、git log、node -v 等列目录和查环境的命令，第 6 次还在找本机的 Chrome。“确认”之后第 1 次调用就是 apply_patch 改 src/App.tsx，改前没有再读任何文件；第 2 次 cat src/App.tsx 并看 git diff，是改后复查。确认之后共 33 次调用，加上计划那一轮的 6 次，最后一次请求里一共 39 次。第 5 步的三行取自这 33 次里的几次：npm run preview 两次退出码 1，写脚本驱动无头 Chrome 截图查三种屏幕尺寸，出过 SyntaxError、截图文件不存在等错误；它们不留文件改动，diff 只有 src/App.tsx（+10 −2）。画面上用“…”代替序号，没有逐条标出是第几次调用。"),
-        ("讲师提示", "录制时打开 claude-tap 里 2.2 本轮那几次请求，按实际的工具调用和返回逐条指认，工具名、命令和次数以当次记录为准，截图前检查路径和用户名。讲师的 diff 干净时，本页说明“每处改动都找得到依据”即可；记录里真的有多读或缺目标的情况，就地指出，留到 p39 处置。第 5 步只讲当次记录里真的出现的、Prompt 没让它做的调用；录制时没出现，就说“这次没有”，不按画面讲。"),
+        ("核对记录", "取自 2026-10-21 20:30 那次运行（lab-runs/ch02-context/2.2-simple-20261021-203050，Codex 会话记录 rollout-2026-10-21T20-32-13-…；能力目录开时工具调用是 custom_tool_call，命令在 tools.exec_command 的 cmd 里），跳过界面“给会话起标题”的旁路请求。出计划前 7 次调用：1 ls -la、cat package.json；2 find 列出全部文件；3 cat src/App.tsx；4 cat PLACEHOLDER_CONTENT.md PROJECT_BRIEF.md README.md；5 cat src/index.css；6 git status、git branch、cat PROMPT_V1.md；7 cat index.html src/main.tsx、node -v、npm -v。读过的文件共 9 个。“确认”之后 9 次：8 apply_patch 改 src/App.tsx，改前没有再读；9 npm run build；10 git diff --stat、git diff、git status；11 npm run preview 在沙箱里报 listen EPERM（退出码 1）；12 申请沙箱外运行，批准后起来；13 curl 首页在沙箱里返回 000，同一条里 grep 构建产物；14 申请沙箱外运行，批准后返回 200；15、16 在构建产物里 grep 三条文字、旧文字和链接。画面行号是每组第一次调用的序号，同类调用合并成一行。2026-10-21 16:22 那次：出计划前 10 次、读 14 个文件，用 grep 找到 PROMPT_V1.md 的旧文字并在计划里问要不要改；确认之后 8 次，起的是开发服务器。"),
+        ("讲师提示", "录制时打开 claude-tap 里 2.2 本轮那几次请求，按实际的工具调用和返回逐条指认，工具名、命令和次数以当次记录为准，截图前检查路径和用户名。讲师的 diff 干净时，本页说明“每处改动都找得到依据”即可。第 5 步只讲当次记录里真的出现的、Prompt 没让它做的调用；录制时没出现，就说“这次没有”，不按画面讲。"),
     ),
 )
 
@@ -167,25 +164,25 @@ scene(
 scene(
     id="p38c", segment="回看请求记录",
     label="它看不见什么", title="有些东西，它根本看不见",
-    lead="模型只看得到进了 context 的东西。没读的文件，它不知道；浏览器里的页面，它也看不见。2.2 的几次运行里，Prompt 写明屏幕尺寸和键盘由我们来查，Codex 还是自己起预览服务器、开无头 Chrome 去截图，有一次前后试了十几次，就是想把“页面长什么样”搬进 context。我们在浏览器里看到的，不在它的 context 里；它说“页面没问题”，依据要看它实际拿到了什么。",
+    lead="模型只看得到进了 context 的东西。没读的文件，它不知道；浏览器里的页面，它也看不见。讲师这次，Codex 起了预览服务器，用 curl 访问首页，拿回来的只是一个状态码 200，再加上在构建产物里 grep 到的几段文字：页面长什么样，它并没有看到。别的几次运行里，它干脆自己开无头 Chrome 去截图，有一次前后试了十几次，都是想把页面搬进 context。我们在浏览器里看到的，不在它的 context 里；它说“页面没问题”，依据要看它实际拿到了什么。",
     html=(
         '<div class="p-grid" style="--n:3;gap:14px">'
         '<div class="p-box" data-role="ink" data-reveal="0"><span class="p-tag" data-role="ink">没读的文件</span><p>不在请求里，它就不知道；点名问它，它会说“不确定”</p></div>'
-        '<div class="p-box" data-role="gate" data-reveal="1"><span class="p-tag" data-role="gate">浏览器里的页面</span><p>没有截图或页面源码进 context，它就看不见；它会自己开无头 Chrome 去补</p></div>'
-        '<div class="p-box" data-role="ok" data-reveal="1"><span class="p-tag" data-role="ok">我们看到的</span><p>浏览器里查的屏幕尺寸、按 Tab 的结果，都不在它的 context 里</p></div></div>'
+        '<div class="p-box" data-role="gate" data-reveal="1"><span class="p-tag" data-role="gate">浏览器里的页面</span><p>这次它用 curl 拿到一个状态码 200，不是画面；别的运行里会开无头 Chrome 去补</p></div>'
+        '<div class="p-box" data-role="ok" data-reveal="1"><span class="p-tag" data-role="ok">我们看到的</span><p>我们在浏览器里看到的页面，不在它的 context 里</p></div></div>'
         '<div class="p-bar" data-reveal="2" style="margin-top:14px">它说“没问题”时，先问：<b>它实际拿到了什么</b></div>'
-        '<p class="source-note">2.2 的讲师运行：2026-10-20 一次确认之后 33 次工具调用，其中至少 9 次是起服务器、截图失败；2026-10-21 几次重录里同样开无头 Chrome，十几次尝试；另一次改用 curl 取页面源码</p>'
+        '<p class="source-note">2.2 的讲师运行：2026-10-21 20:30 这次起预览服务器、curl 取状态码；16:22 那次 curl 取回 App.tsx 源码；2026-10-20 一次确认之后 33 次工具调用，至少 9 次是起服务器、截图失败；2026-10-21 几次没跑完的重录里也开过无头 Chrome，十几次尝试</p>'
     ),
     steps=["没读的文件", "看不见的页面", "先问它拿到了什么"],
     teaching=teach(
-        ("讲师提示", "不要讲成 Codex 不听话：它想补上看不见的那部分，只是代价在请求里。第 3 章讲 Skill 时，会把屏幕尺寸和键盘检查做成 Codex 能自己跑、结果能回到 context 的检查。"),
+        ("讲师提示", "不要讲成 Codex 不听话：它想补上看不见的那部分，只是代价在请求里。第 3 章讲 Skill 时，会把页面检查做成 Codex 能自己跑、结果能回到 context 的检查。"),
     ),
 )
 
 scene(
     id="p39", segment="处置",
     label="接受、缩小还是拒绝", title="接受、缩小，还是拒绝",
-    lead="接受还是不接受，看两件事：改动是否都在本轮目标之内、说得清依据；越界或说不清的部分能不能单独去掉。讲师这次的 diff 干净，选接受；Codex 自己多做的那些检查没有留下文件改动，不影响这次接受，下次在它的计划里看到，就让它去掉。范围扩大真的出现时，就地处理，不为了教学去制造。",
+    lead="接受还是不接受，看两件事：改动是否都在本轮目标之内、说得清依据；越界或说不清的部分能不能单独去掉。讲师这次的 diff 干净，选接受；Codex 自己多做的那些检查没有留下文件改动，而且每次到沙箱外运行都经过我们批准，不影响这次接受，下次在它的计划里看到，就让它去掉。范围扩大真的出现时，就地处理，不为了教学去制造。",
     html=(
         '<div class="p-matrix" style="grid-template-columns:minmax(0,.7fr) minmax(0,1.4fr) minmax(0,1.6fr)">'
         '<div class="is-head" data-reveal="0"><span>处置</span><span>什么情况</span><span>怎么做</span></div>'
@@ -201,16 +198,16 @@ scene(
     ),
 )
 
-COMMIT = 'git commit -m "homepage-v1: 补充项目经历" -m "本轮目标：在项目区呈现我的项目经历。改动文件：src/App.tsx"'
+COMMIT = 'git commit -m "homepage-v1: 补充项目经历" -m "本轮目标：在项目区呈现我的项目经历。改动文件：src/App.tsx、AGENTS.md"'
 
 scene(
     id="p40", segment="处置",
     label="留下检查点", title="提交一次，留下检查点",
-    lead="审过了就提交：只暂存审过的文件，再看一遍待提交的内容，然后提交，提交说明写本轮目标和改动文件。这次提交就是检查点。接受错了也回得去：还没提交的用 git restore 放弃修改，已经提交的用 git revert 加一个撤回提交，原来的提交留在历史里。/clear 和压缩只动对话，不动文件；回退靠 git。",
+    lead="审过了就提交：只暂存审过的文件，这次是 src/App.tsx 和我们自己写的 AGENTS.md；再看一遍待提交的内容，然后提交，提交说明写本轮目标和改动文件。这次提交就是检查点。接受错了也回得去：还没提交的用 git restore 放弃修改，已经提交的用 git revert 加一个撤回提交，原来的提交留在历史里。/clear 和压缩只动对话，不动文件；回退靠 git。",
     html=(
-        '<div class="p-term" data-reveal="0" data-copy="git add src/App.tsx"><div class="dim">$ git add src/App.tsx</div><div class="dim">$ git diff --cached --stat</div><div> src/App.tsx | 12 ++++++++++--</div></div>'
+        '<div class="p-term" data-reveal="0" data-copy="git add src/App.tsx AGENTS.md"><div class="dim">$ git add src/App.tsx AGENTS.md</div><div class="dim">$ git diff --cached --stat</div><div> AGENTS.md   |  4 ++++</div><div> src/App.tsx | 12 ++++++++++--</div><div> 2 files changed, 14 insertions(+), 2 deletions(-)</div></div>'
         '<div class="p-term" data-reveal="1" style="margin-top:8px" data-copy="' + escape(COMMIT) + '"><div class="dim">$ git commit -m "homepage-v1: 补充项目经历" \\</div>'
-        '<div class="dim">    -m "本轮目标：在项目区呈现我的项目经历。改动文件：src/App.tsx"</div><div class="ok">[main 7ce0e9f] homepage-v1: 补充项目经历</div></div>'
+        '<div class="dim">    -m "本轮目标：在项目区呈现我的项目经历。改动文件：src/App.tsx、AGENTS.md"</div><div class="ok">[main 7ce0e9f] homepage-v1: 补充项目经历</div></div>'
         '<div class="p-bar is-light" data-reveal="2" style="margin-top:10px">接受错了：还没提交用 <b>git restore</b>，已经提交用 <b>git revert</b> · 回退靠 git，不靠对话</div>'
         '<p class="source-note">' + SAMPLE + ' 7ce0e9f 是示例短哈希，每次提交都不同。</p>'
     ),

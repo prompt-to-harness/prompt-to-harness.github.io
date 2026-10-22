@@ -106,5 +106,5 @@
 
 ## 已有素材（2026-10-21）
 
-- **#2 “AI 说我只做 Refactor”**：第 2 章原 2.5 的五张分拣卡（提取组件、移动数据、按名称排序、缩短类名、让卡片可聚焦），已在 homepage-v1 上实测行为，素材在 [`courseware/ch02/materials/refactor-cards/`](../../courseware/ch02/materials/refactor-cards/)，分镜原文见 `git show 4c34f9a:courseware/ch02/lessons/05-refactor/STORYBOARD.md`。第 2 章最后一节改为经验分享后（[第 2 章文件](../chapters/ch02.md) C2-37）转入这里；建议放到有测试的章节（第 5–6 章），那时“行为没变”可以用测试结果回答。
+- **#2 “AI 说我只做 Refactor”**：第 2 章原 2.5 的五张分拣卡（提取组件、移动数据、按名称排序、缩短类名、让卡片可聚焦），已在 homepage-v1 上实测行为，素材在 [`courseware/ch02/materials/refactor-cards/`](../../courseware/ch02/materials/refactor-cards/)，分镜原文见 `git show 4c34f9a:courseware/ch02/lessons/05-experience/STORYBOARD.md`。第 2 章最后一节改为经验分享后（[第 2 章文件](../chapters/ch02.md) C2-37）转入这里；建议放到有测试的章节（第 5–6 章），那时“行为没变”可以用测试结果回答。
 

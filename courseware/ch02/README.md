@@ -6,11 +6,11 @@
 
 | 小节 | 分镜 |
 | --- | --- |
-| 2.1 只说了一句话，模型收到了什么 | [STORYBOARD](lessons/01-feedback/STORYBOARD.md) · [课件](lessons/01-feedback/index.html) · [说明](lessons/01-feedback/README.md) |
+| 2.1 只说了一句话，模型收到了什么 | [STORYBOARD](lessons/01-request/STORYBOARD.md) · [课件](lessons/01-request/index.html) · [说明](lessons/01-request/README.md) |
 | 2.2 补上项目经历，看对话怎么变长 | [STORYBOARD](lessons/02-iteration/STORYBOARD.md) · [课件](lessons/02-iteration/index.html) · [说明](lessons/02-iteration/README.md) |
 | 2.3 它看到了什么，才这样改 | [STORYBOARD](lessons/03-review/STORYBOARD.md) · [课件](lessons/03-review/index.html) · [说明](lessons/03-review/README.md) |
 | 2.4 发布上线，看 Codex 怎么用 gh | [STORYBOARD](lessons/04-publish/STORYBOARD.md) · [课件](lessons/04-publish/index.html) · [说明](lessons/04-publish/README.md) |
-| 2.5 AI 说“只是重构” | [STORYBOARD](lessons/05-refactor/STORYBOARD.md) · [课件](lessons/05-refactor/index.html) · [说明](lessons/05-refactor/README.md) |
+| 2.5 用好 context 的三个做法 | [STORYBOARD](lessons/05-experience/STORYBOARD.md) · [课件](lessons/05-experience/index.html) · [说明](lessons/05-experience/README.md) |
 
 ## 全章约定
 
@@ -18,7 +18,7 @@
 - **页型**：引用[视觉设计规范](../../docs/production/visual-design-system.md)第 6 节的页型名称，不新增页型。
 - **方式**：跟做＝学员暂停视频完成，计入验收；看懂＝机制演示，以自检为准；示例（选做）＝讲师演示，学员可按配套页自主尝试，不计入验收。
 - **时长**：分镜不做页面级时长估算，节奏由讲师录制时调整。
-- **三种屏幕尺寸**：360×800、768×1024、1440×900（以平台交付版第 2 章第 1 节为准，用浏览器开发者工具的设备模拟）。
+- **页面检查**：本章由人在浏览器里看一眼页面、跑一次 build，不再列三种屏幕尺寸和键盘检查（章文件 C2-48）。2.2 p29 的 Done when 已简化，2026-10-21 20:30 按它重录。
 - **记录**：本章不设固定记录文件（2026-10-19，与第 1 章一致）。本轮目标和改动文件写进提交说明；会话选择理由和 2.5 的判断答在暂停自检题里；学员按自己的习惯记笔记或截图。
 
 ## 全章需制作的素材
@@ -39,7 +39,7 @@
 
 ## 2026-10-03 编辑审校
 
-（历史记录：2.2–2.5 课件已于同日稍后制作首版，见下一段。）保留已确认故事线与知识范围。2.1 修改内容源并重新生成课件、讲稿；2.2–2.5 只修改现有分镜，当时尚无对应成品课件。问题与修改见 [2.1 验证记录中的全章审校表](lessons/01-feedback/VALIDATION.md#2026-10-03-全章编辑审校)。
+（历史记录：2.2–2.5 课件已于同日稍后制作首版，见下一段。）保留已确认故事线与知识范围。2.1 修改内容源并重新生成课件、讲稿；2.2–2.5 只修改现有分镜，当时尚无对应成品课件。问题与修改见 [2.1 验证记录中的全章审校表](lessons/01-request/VALIDATION.md#2026-10-03-全章编辑审校)。
 
 ## 2026-10-03 2.2–2.5 首版制作
 

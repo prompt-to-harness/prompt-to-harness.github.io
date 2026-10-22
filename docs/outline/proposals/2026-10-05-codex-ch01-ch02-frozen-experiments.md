@@ -60,5 +60,5 @@
 - [录播与独立学习约定](../../design/course-design-principles.md#录播与独立学习约定)：检查点、不同实现的继续路径与运行材料标注。
 - [第一章排练快照](../../../starters/personal-homepage/ch01-complete-notes.md)：已跑过的链路、真实修正、窄屏反馈不复现及环境问题。
 - [第一章验证记录](../../../courseware/ch01/production/VALIDATION.md)：课件展示检查的覆盖与未验证边界。
-- [2.1 验证记录](../../../courseware/ch02/lessons/01-feedback/VALIDATION.md)：请求素材和配套页缺口。
+- [2.1 验证记录](../../../courseware/ch02/lessons/01-request/VALIDATION.md)：请求素材和配套页缺口。
 - [第二章材料](../../../courseware/ch02/materials/README.md)：排练 v1、A/B diff 与已有行为核对。
