@@ -203,7 +203,16 @@ lab_tmux_wait_idle() {
 # lab_tmux_send <会话> <输入> [步骤名]：输入一行，等回答结束；给了步骤名就存下画面和最近 200 行滚动记录
 # （Codex 把已结束的回答推进滚动区，只存当前画面会漏掉回答）
 lab_tmux_send() {
-  tmux send-keys -t "$1" -l "$2"; sleep 1; tmux send-keys -t "$1" Enter
+  local i
+  # 长输入会被 Codex 当成粘贴，紧跟的回车可能被吞（2026-10-21 第 3 章空等 20 分钟）：
+  # 等到出现忙碌提示或回到空输入框才算发出，否则补按回车，最多 6 次
+  tmux send-keys -t "$1" -l "$2"; sleep 3; tmux send-keys -t "$1" Enter
+  for i in 1 2 3 4 5 6; do
+    sleep 5
+    lab_tmux_screen "$1" | grep -q "$LAB_TUI_BUSY" && break
+    lab_tmux_screen "$1" | grep -q "$LAB_TUI_READY" && break
+    say "还没开始处理，补按一次回车"; tmux send-keys -t "$1" Enter
+  done
   lab_tmux_wait_idle "$1" || return 1
   [ -n "${3:-}" ] && tmux capture-pane -t "$1" -p -S -200 > "$LOG/$3.screen.txt"
   return 0
