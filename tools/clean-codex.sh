@@ -24,7 +24,7 @@
 #                        日常那份失效；Codex（0.163 / main，2026-10-20 核对 login/src/auth/storage.rs）原地改写
 #                        auth.json，刷新后的令牌写回同一个文件。只适用于文件方式存登录（不是 keyring）。
 #                        Skills、插件、MCP 和其他配置仍不带进来；CLEAN_CODEX_MODEL 不设时用 Codex 的默认模型。
-#                        暂不支持 --tap（未核实 claude-tap 能否代理 ChatGPT 登录的流量）
+#                        可以加 --tap（2026-10-22 起，上游由 claude-tap 按登录状态判断）
 #   CLEAN_CODEX_GH=1     让 Codex 能用你本机已登录的 GitHub CLI（2.4 设置 Pages 来源用）。干净 HOME 里读不到
 #                        ~/.config/gh 和 macOS 钥匙串，gh 会显示未登录；打开后用 GH_CONFIG_DIR 指回 ~/.config/gh，
 #                        并把干净 HOME 的 Library/Keychains 软链接到真实位置（2026-10-21 在交互界面实测：Codex 申请到沙箱外
@@ -65,10 +65,7 @@ case "$AUTH" in
       echo "没有找到 ~/.codex/auth.json：先在日常环境运行 codex login（文件方式存登录）" >&2
       exit 1
     fi
-    if [ "$use_tap" = 1 ]; then
-      echo "CLEAN_CODEX_AUTH=chatgpt 暂不支持 --tap" >&2
-      exit 2
-    fi ;;
+    ;;
   *) echo "CLEAN_CODEX_AUTH 只能是 minimax 或 chatgpt：$AUTH" >&2; exit 2 ;;
 esac
 
@@ -166,7 +163,9 @@ if [ "$use_tap" = 1 ]; then
   export UV_CACHE_DIR="${UV_CACHE_DIR:-$REAL_HOME/.cache/uv}"
   export XDG_DATA_HOME="${XDG_DATA_HOME:-$REAL_HOME/.local/share}"
   tap_opts=(); [ "${CLEAN_CODEX_NO_OPEN:-0}" = 1 ] && tap_opts=(--tap-no-open)
-  uvx claude-tap@0.1.146 --tap-client codex --tap-target "$BASE_URL" ${tap_opts[@]+"${tap_opts[@]}"} -- ${codex_args[@]+"${codex_args[@]}"}
+  # ChatGPT 登录时不指定上游，由 claude-tap 按登录状态自己判断（2026-10-22 试用）
+  tap_target=(); [ "$AUTH" = chatgpt ] || tap_target=(--tap-target "$BASE_URL")
+  uvx claude-tap@0.1.146 --tap-client codex ${tap_target[@]+"${tap_target[@]}"} ${tap_opts[@]+"${tap_opts[@]}"} -- ${codex_args[@]+"${codex_args[@]}"}
 else
   codex ${codex_args[@]+"${codex_args[@]}"}
 fi
