@@ -15,7 +15,7 @@ from html import escape
 from pathlib import Path
 
 CHAPTER = "第 2 章 · Vibe Coding"
-SECTIONS = [("2.1", "看请求"), ("2.2", "补经历"), ("2.3", "审改动"), ("2.4", "发布上线"), ("2.5", "用好 context")]
+SECTIONS = [("2.1", "看请求"), ("2.2", "补经历"), ("2.3", "改风格"), ("2.4", "发布上线"), ("2.5", "用好 context")]
 
 MEASURED = "数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。"
 
@@ -118,6 +118,30 @@ def pop(title, label, body):
         f'<div class="p-pop-head"><span>{title}</span>'
         "<button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div>"
         f"{body}</div></details>"
+    )
+
+
+# 全章锚点图“这一次请求里有什么”的七块（章文件 C2-53）；各节开篇按本节高亮其中几块
+ANCHOR = ["系统指令", "工具", "环境", "规则", "对话历史", "工具返回", "这一句"]
+
+
+def anchor(lit=(), outside=(), note="", reveal=None, title="这一次请求里有什么"):
+    """锚点图（零件 .p-set + .p-item）：lit 里的块高亮；outside 是画在列外、不在请求里的东西；note 是底部一句。"""
+    assert set(lit) <= set(ANCHOR), lit
+    attr = f' data-reveal="{reveal}"' if reveal is not None else ""
+    items = "".join(
+        f'<div class="p-item{" is-picked" if b in lit else ""}" style="padding:4px 10px;font-size:18px">{b}</div>' for b in ANCHOR
+    )
+    out = ""
+    if outside:
+        out = '<div class="p-foot">不在里面：' + "".join(
+            f'<span class="p-item" style="display:inline-block;margin:4px 6px 0 0;padding:2px 8px;font-size:17px;border-style:dashed">{x}</span>' for x in outside
+        ) + "</div>"
+    foot = f'<div class="p-foot">{note}</div>' if note else ""
+    return (
+        f'<div class="p-set" data-role="ctx"{attr} style="padding:10px 16px 12px">'
+        f'<h3 style="font-size:20px;margin-bottom:6px">{title}</h3>'
+        f'<div class="p-items" style="flex-direction:row;flex-wrap:wrap;gap:6px">{items}</div>{out}{foot}</div>'
     )
 
 

@@ -1,8 +1,8 @@
 window.lesson = {
-  "title": "补上项目经历，看对话怎么变长",
+  "title": "补上个人经历，看对话怎么变长",
   "chapter": "第 2 章 · Vibe Coding",
   "section": "02.02",
-  "summary": "对话每多一轮，前面的内容都会被重发；清空和压缩之后还剩什么，在请求记录里看得到。项目上，把自己的项目经历加进个人主页，并用三种屏幕尺寸、键盘和构建证明没弄坏别的。",
+  "summary": "对话每多一轮，前面的内容都会被重发；清空和压缩之后还剩什么，在请求记录里看得到。项目上，把自己写在 profile.md 里的个人信息、经历和项目加进个人主页，看过页面、跑过构建，证明没弄坏别的。",
   "scenes": [
     {
       "id": "p20",
@@ -10,8 +10,8 @@ window.lesson = {
       "layout": "lesson-cover",
       "label": "这一节做什么",
       "title": "对话多几轮，context 会怎样",
-      "lead": "补上项目经历，同时看对话怎么变长、怎么清空",
-      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>看请求</li><li class=\"is-now\"><b>2.2</b>补经历</li><li><b>2.3</b>审改动</li><li><b>2.4</b>发布上线</li><li><b>2.5</b>用好 context</li></ol><div class=\"p-grid\" style=\"--n:2;gap:16px;margin-top:22px\"><div class=\"p-box\" data-role=\"us\" data-reveal=\"1\"><h3>补上项目经历</h3><p>内容由我们提供，Codex 只负责放进项目区</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><h3>看对话怎么变长</h3><p>多聊几轮、清空、压缩，请求里各剩什么</p></div></div><p class=\"p-hand\" data-reveal=\"2\">上一节看了一次请求，这一节看多次请求之间</p>",
+      "lead": "补上个人经历，同时看对话怎么变长、怎么清空",
+      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>看请求</li><li class=\"is-now\"><b>2.2</b>补经历</li><li><b>2.3</b>改风格</li><li><b>2.4</b>发布上线</li><li><b>2.5</b>用好 context</li></ol><div class=\"p-grid\" style=\"--n:2;gap:16px;margin-top:22px\"><div class=\"p-box\" data-role=\"us\" data-reveal=\"1\"><h3>补上个人经历</h3><p>内容写在 profile.md 里，Codex 只负责放进页面</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><h3>看对话怎么变长</h3><p>多聊几轮、清空、压缩，请求里各剩什么</p></div></div><p class=\"p-hand\" data-reveal=\"2\">上一节看了一次请求，这一节看多次请求之间</p><div class=\"p-set\" data-role=\"ctx\" data-reveal=\"2\" style=\"padding:10px 16px 12px\"><h3 style=\"font-size:20px;margin-bottom:6px\">这一次请求里有什么</h3><div class=\"p-items\" style=\"flex-direction:row;flex-wrap:wrap;gap:6px\"><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">系统指令</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">工具</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">环境</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px\">规则</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px\">对话历史</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px\">工具返回</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">这一句</div></div><div class=\"p-foot\">这三块会变长、被清空、被压缩</div></div>",
       "steps": [
         "回到地图",
         "本节两件事",
@@ -19,8 +19,8 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜停留课件 p20 第 1 步，章节地图上 2.1 已标完成；指向 2.2，不切工具窗口】\n\n上一节我们只发了两句话，打开请求看到，模型收到的远不止这两句。这一节接着往下走。",
-        "【操作提示｜推进第 2 步，两张卡同时出现；依次指“补上项目经历”和“看对话怎么变长”，不切窗口】\n\n这一节做两件事。项目上，把自己的项目经历加进个人主页的项目区，内容由我们提供，Codex 只负责放进去。看请求这边，对话多聊几轮，context 会怎样变长；清空、压缩以后，请求里还剩什么。",
-        "【操作提示｜推进第 3 步，指向手写句；随后进入 p21】\n\n上一节看的是一次请求。这一节看多次请求之间发生了什么。"
+        "【操作提示｜推进第 2 步，两张卡同时出现；依次指“补上个人经历”和“看对话怎么变长”，不切窗口】\n\n这一节做两件事。项目上，把自己的个人信息、经历和项目补进主页，内容先写进一个文件，Codex 只负责放进页面。看请求这边，对话多聊几轮，context 会怎样变长；清空、压缩以后，请求里还剩什么。",
+        "【操作提示｜推进第 3 步，指向手写句，再从上到下指锚点图里高亮的三块；随后进入 p21】\n\n上一节看的是一次请求。这一节看多次请求之间发生了什么。回到上一节那一列方块：这一节要看的是规则、对话历史和工具返回这三块，它们会变长，会被清空，也会被压缩。"
       ],
       "teaching": [
         {
@@ -166,14 +166,46 @@ window.lesson = {
       "seconds": 90
     },
     {
+      "id": "p29a",
+      "segment": "补上个人经历",
+      "label": "先写 profile.md",
+      "title": "页面上的内容，先写进一个文件",
+      "lead": "动手之前，先在项目根目录新建 profile.md，把要放进主页的内容写下来：基本信息、教育、工作经历、项目与开源，每条一行。内容由我们自己写，AI 不知道这些事实，也不该替我们编。讲师这份取自自己已经公开的主页，不放联系方式。这个文件到 2.4 会和页面一起公开，只写愿意公开的；不想用真实信息，也可以写一个虚构人物。下一步的 Prompt 只点名这个文件，不把内容贴进去，让 Codex 自己去读。",
+      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-walk\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:26px\"><div class=\"p-fn\">profile.md（项目根目录，节选）</div><div class=\"p-ln\"><i>1</i><code># 个人信息</code></div><div class=\"p-ln\"><i>2</i><code> </code></div><div class=\"p-ln\"><i>3</i><code>## 基本信息</code></div><div class=\"p-ln\"><i>4</i><code>- 姓名：缪东旭（MiaoDX）</code></div><div class=\"p-ln\"><i>5</i><code>- 一句话简介：机器人系统技术负责人……</code></div><div class=\"p-ln\"><i>6</i><code> </code></div><div class=\"p-ln\"><i>7</i><code>## 教育</code></div><div class=\"p-ln\"><i>8</i><code>- 2016–2018　天津大学　软件工程硕士……</code></div><div class=\"p-ln\"><i>9</i><code> </code></div><div class=\"p-ln\"><i>10</i><code>## 工作经历</code></div><div class=\"p-ln\"><i>11</i><code>- 2025.03–2026.10　小米汽车机器人实验室……</code></div><div class=\"p-ln\"><i>12</i><code> </code></div><div class=\"p-ln\"><i>13</i><code>## 项目与开源</code></div><div class=\"p-ln\"><i>14</i><code>- RoboHarness：面向机器人研发 Agent 的……</code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"1\"><span><b>四块，每条一行</b><small>基本信息 · 教育 · 工作经历 · 项目与开源</small></span></li><li class=\"is-risk\" data-reveal=\"2\"><span><b>只写愿意公开的</b><small>2.4 推送后，文件和页面所有人都看得到</small></span></li><li class=\"is-ok\" data-reveal=\"3\"><span><b>Prompt 只点名文件</b><small>它要自己去读：请求里会多一次读文件的调用和返回</small></span></li></ol></div>",
+      "steps": [
+        "写下内容",
+        "四块",
+        "只写愿意公开的",
+        "让它自己读"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p29a 第 1 步；切 VS Code，打开项目根目录里提前放好的 profile.md（courseware/ch02/materials/profile/），从上往下扫一遍，再回课件】\n\n动手之前，先把要放进主页的内容写下来。我在项目根目录建了一个 profile.md，这是我的一份。",
+        "【操作提示｜推进第 2 步，指四块的标题】\n\n分四块：基本信息、教育、工作经历、项目与开源，每条一行。我这份取自自己已经公开的主页，联系方式没有放进来。",
+        "【操作提示｜推进第 3 步，指“只写愿意公开的”】\n\n写自己的时候多想一步：到 2.4，这个文件会和页面一起推到 GitHub 上，所有人都看得到。只写自己愿意公开的内容；不想用真实信息，也可以写一个虚构的人物。",
+        "【操作提示｜推进第 4 步，指最后一条；留在课件，进入 p29】\n\n下一步的 Prompt 里，我们只点名这个文件，不把内容贴进去。Codex 要自己去读它。回头看请求的时候，你会看到那一次读文件的调用，和读回来的内容，就是上一节看过的工具返回。请暂停视频，写好你自己的 profile.md。"
+      ],
+      "teaching": [
+        {
+          "title": "切到实操",
+          "text": "讲师的 profile.md 在 courseware/ch02/materials/profile/，录制前复制到个人主页项目的根目录，在 VS Code 里打开给学员看，不在镜头前现写。内容取自 miaodx.com 的公开内容（2026-10-22 查阅），不放联系方式。"
+        },
+        {
+          "title": "讲师提示",
+          "text": "这一页把“内容由人提供”落到一个文件上：2.3 审 diff 时可以逐句对照页面和这个文件；2.4 看历史时它也在里面。点名文件让 2.1 看过的“工具返回也进 context”在这里再出现一次，回看请求时指出读它的那次调用。"
+        }
+      ],
+      "source": "index.html#p29a",
+      "seconds": 120
+    },
+    {
       "id": "p29",
-      "segment": "补上项目经历",
+      "segment": "补上个人经历",
       "layout": "prompt-scene",
-      "prompt": "Goal：在项目区呈现我的项目经历。\nContext：个人主页的项目区目前只有占位内容；\n项目卡不跳转，本轮不改。\n项目内容（原文照用）：<每行一条：项目名称：一句描述>\nConstraints：只用上面的文字，不补写；不加链接、依赖；\n只改项目区；先说计划，等我确认再改。\nDone when：我在浏览器里看过页面正常；\n你跑 build 成功；diff 只含项目区。",
+      "prompt": "Goal：把 profile.md 里的个人信息放进个人主页。\nContext：profile.md 在项目根目录，是我写的，分四块；\n页面现在只有首屏和占位的项目区；项目卡不跳转，本轮不改。\nConstraints：只用 profile.md 里的文字，不补写；\n不加链接、依赖；先说计划，等我确认再改。\nDone when：我在浏览器里看过页面正常；你跑 build 成功；\n页面上的每一句都能在 profile.md 里找到。",
       "label": "写本轮 Prompt",
-      "title": "让 Codex 只改这一处",
-      "lead": "在 /clear 之后的新对话里提交本轮 Prompt。Context 直接写出项目区的现状；项目内容由人提供，要求原文照用；范围只到项目区；完成标准写成可以检查的三件事。讲师演示的项目区借用两位讲师的真实经历；首屏沿用第 1 章的示例，本轮不改。",
-      "html": "<div class=\"demo-notes\"><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>写清现状</b><small>项目区目前只有占位内容</small></span></li><li class=\"is-risk\" data-reveal=\"1\"><span><b>内容由人提供</b><small>讲师演示借用两位讲师的经历</small></span></li><li data-reveal=\"2\"><span><b>只写愿意公开的</b><small>2.4 之后所有人都看得到</small></span></li><li class=\"is-ok\" data-reveal=\"3\"><span><b>可检查的完成标准</b><small>看页面 · build · diff 范围</small></span></li></ol></div>",
+      "title": "让 Codex 只放这些内容",
+      "lead": "在 /clear 之后的新对话里提交本轮 Prompt。Context 点名 profile.md、写出页面的现状；内容只用这个文件里的文字；完成标准写成可以检查的三件事，最后一件是页面上的每一句都能在 profile.md 里找到。讲师演示用自己的公开信息。",
+      "html": "<div class=\"demo-notes\"><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>点名文件，写清现状</b><small>profile.md 在根目录；页面只有首屏和占位</small></span></li><li class=\"is-risk\" data-reveal=\"1\"><span><b>只用文件里的文字</b><small>不补写，不润色事实</small></span></li><li data-reveal=\"2\"><span><b>只写愿意公开的</b><small>2.4 之后所有人都看得到</small></span></li><li class=\"is-ok\" data-reveal=\"3\"><span><b>可检查的完成标准</b><small>看页面 · build · 每一句都找得到出处</small></span></li></ol></div>",
       "steps": [
         "写清现状",
         "内容由人提供",
@@ -181,15 +213,15 @@ window.lesson = {
         "完成标准"
       ],
       "script": [
-        "【操作提示｜停留课件 p29 第 1 步，指 Prompt 的 Goal 和 Context。提前写好把尖括号一行换成三条讲师经历的 Prompt（courseware/ch02/materials/README.md），不在镜头前现写】\n\n在 /clear 之后的新对话里，提交这段 Prompt。先看 Goal 和 Context：目标是在项目区呈现我的项目经历。新对话里什么历史都没有，所以 Context 直接写出现状：项目区目前只有占位内容。项目卡不跳转，这一轮不改。",
-        "【操作提示｜推进第 2 步，指“项目内容”一行和 Constraints；画面仍是尖括号模板，讲师用的三条在讲师提示里，不在课件上改】\n\n中间是项目内容，尖括号那一行换成自己的项目经历，每行一条，要求原文照用。讲师这里填的是我们两位讲师自己的三条经历，合在第 1 章那个“示例同学”的页面上。首屏还是示例同学，这一轮只改项目区，所以先不动它。项目经历是关于我们自己的事实，AI 不知道，也不该替我们编。所以 Constraints 里写死：只用上面的文字，不补写、不润色事实。",
+        "【操作提示｜停留课件 p29 第 1 步，指 Prompt 的 Goal 和 Context。Prompt 提前写好，不在镜头前现写】\n\n在 /clear 之后的新对话里，提交这段 Prompt。先看 Goal 和 Context：目标是把 profile.md 里的个人信息放进主页。新对话里什么历史都没有，所以 Context 直接点名这个文件，再写出页面的现状：只有首屏和一个占位的项目区。项目卡不跳转，这一轮不改。",
+        "【操作提示｜推进第 2 步，指 Constraints；不切窗口】\n\n内容我们已经写在 profile.md 里了，这里不再贴一遍，让 Codex 自己去读。这些是关于我们自己的事实，AI 不知道，也不该替我们编。所以 Constraints 里写死：只用 profile.md 里的文字，不补写，不润色事实。",
         "【操作提示｜推进第 3 步，指向“只写愿意公开的”；不切窗口】\n\n写自己的内容时多想一步：到 2.4，这个仓库和页面会公开，所有人都能看到。只写自己愿意公开的内容，不写别人的姓名和联系方式。",
-        "【操作提示｜推进第 4 步，指 Done when。随后切 Terminal，在 /clear 之后的 Codex 对话里（可写权限，权限设置按录制版本核对），粘贴写好的 Prompt 提交；等它回复计划后回课件 p30，这里不确认执行】\n\n最后是 Done when，三件可以检查的事：我在浏览器里看过页面正常；npm run build 成功；diff 只含项目区的改动。第一件写明由我们自己来看，后两件交给 Codex。我们还要求它先说计划、等确认再改。请暂停视频，换上自己的内容，提交 Prompt。"
+        "【操作提示｜推进第 4 步，指 Done when。随后切 Terminal，在 /clear 之后的 Codex 对话里（可写权限，权限设置按录制版本核对），粘贴写好的 Prompt 提交；等它回复计划后回课件 p30，这里不确认执行】\n\n最后是 Done when，三件可以检查的事：我在浏览器里看过页面正常；npm run build 成功；页面上的每一句都能在 profile.md 里找到。第一件写明由我们自己来看，后两件交给 Codex。我们还要求它先说计划、等确认再改。请暂停视频，写好自己的 profile.md，提交 Prompt。"
       ],
       "teaching": [
         {
           "title": "切到实操",
-          "text": "讲师在 /clear 之后的新对话中提交本 Prompt，尖括号一行替换为两位讲师经历聚合的三条（courseware/ch02/materials/README.md，取自已公开的讲师简介，2026-10-05 讲师确认），提前写好，不在镜头前现写：\n\n- 红绿灯感知量产：城市 NOA 红绿灯感知模块的量产方案设计、部署与加速\n- 端侧多模态推理引擎：在 Nvidia Orin / Thor 上从 0 到 1 搭建大模型推理引擎并量产\n- RoboHarness：把自然语言需求转成可执行、可验证、可持续迭代的研发流程"
+          "text": "讲师在 /clear 之后的新对话中提交本 Prompt，原样粘贴，不改字。profile.md 已在项目根目录（上一页）。2026-10-22 起改为读 profile.md（章文件 C2-55、C2-56），取代原来贴三条讲师经历的做法；新 Prompt 还没重录，录制前先跑一次，看它是否先读 profile.md、计划是否只动页面结构不改文字。"
         },
         {
           "title": "讲师提示",
@@ -201,7 +233,7 @@ window.lesson = {
     },
     {
       "id": "p30",
-      "segment": "补上项目经历",
+      "segment": "补上个人经历",
       "label": "确认计划再执行",
       "title": "先看计划，再让它动手",
       "lead": "Codex 先回复计划。确认三件事再放行：计划只涉及项目区；要放进页面的内容和我们给的原文一致；没有新依赖、没有链接。讲师这次的计划说：只改 src/App.tsx 顶部的 projects 数组，把 1 条占位换成 3 条，按原文的“名称：描述”拆成标题和描述，文字逐字照用；JSX 结构、index.css、首屏和 index.html 都不动；不加链接、依赖，不新增文件。三件事都对得上。计划里还有两处要留意：验证步骤里它打算自己起一个本地服务给我们地址，Prompt 没要求，确认计划就等于同意了；它还提醒首屏的“示例同学”和真实项目对不上，但按“只改项目区”不动。小改动的计划可能只有一两句，这也正常。",
@@ -508,7 +540,7 @@ window.lesson = {
       "label": "暂停自检",
       "title": "暂停自检",
       "lead": "先独立作答，再看解析。答案后面标出回到哪一页。第 4 题答在自己的笔记里。",
-      "html": "<span class=\"p-pause\" data-reveal=\"0\">暂停 · 先独立作答</span><div class=\"p-qlist\"><div class=\"p-qrow\"><span class=\"p-n\">1</span><div><h3>关掉终端再恢复会话，页面会自动回来吗？</h3><div data-reveal=\"1\"><p>不会。会话由 Harness 保存，开发服务器是另一个程序，要重新 npm run dev<span class=\"p-back-to\" data-role=\"ctx\">回到 三种状态</span></p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">2</span><div><h3>改完项目经历再 /clear，改过的文件还在吗？会话中途写的 AGENTS.md 呢？</h3><div data-reveal=\"2\"><p>都还在，/clear 清的是对话；但中途写的 AGENTS.md 要等新对话才读到<span class=\"p-back-to\" data-role=\"tool\">回到 /clear 之后还剩什么</span></p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">3</span><div><h3>压缩以后，模型看不到哪些原始信息？</h3><div data-reveal=\"3\"><p>工具调用和返回的原文，比如读到的文件内容、命令输出；留下的是用户消息、一份摘要和初始内容<span class=\"p-back-to\" data-role=\"gate\">回到 压缩一下继续</span></p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">4</span><div><h3>这一轮你选了继续、/clear、压缩还是新建？依据是什么？</h3><div data-reveal=\"4\"><p>没有唯一答案。依据是 Codex 界面里看得到的：这个会话已经读过哪些文件、做过哪些事，和本轮修改有没有关系；不需要 token 或请求项数<span class=\"p-back-to\" data-role=\"ok\">回到 这次该怎么选</span></p></div></div></div></div>",
+      "html": "<span class=\"p-pause\" data-reveal=\"0\">暂停 · 先独立作答</span><div class=\"p-qlist\"><div class=\"p-qrow\"><span class=\"p-n\">1</span><div><h3>关掉终端再恢复会话，页面会自动回来吗？</h3><div data-reveal=\"1\"><p>不会。会话由 Harness 保存，开发服务器是另一个程序，要重新 npm run dev<span class=\"p-back-to\" data-role=\"ctx\">回到 三种状态</span></p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">2</span><div><h3>改完个人经历再 /clear，改过的文件还在吗？会话中途写的 AGENTS.md 呢？</h3><div data-reveal=\"2\"><p>都还在，/clear 清的是对话；但中途写的 AGENTS.md 要等新对话才读到<span class=\"p-back-to\" data-role=\"tool\">回到 /clear 之后还剩什么</span></p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">3</span><div><h3>压缩以后，模型看不到哪些原始信息？</h3><div data-reveal=\"3\"><p>工具调用和返回的原文，比如读到的文件内容、命令输出；留下的是用户消息、一份摘要和初始内容<span class=\"p-back-to\" data-role=\"gate\">回到 压缩一下继续</span></p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">4</span><div><h3>这一轮你选了继续、/clear、压缩还是新建？依据是什么？</h3><div data-reveal=\"4\"><p>没有唯一答案。依据是 Codex 界面里看得到的：这个会话已经读过哪些文件、做过哪些事，和本轮修改有没有关系；不需要 token 或请求项数<span class=\"p-back-to\" data-role=\"ok\">回到 这次该怎么选</span></p></div></div></div></div>",
       "steps": [
         "暂停",
         "第 1 题",
@@ -532,8 +564,8 @@ window.lesson = {
       "segment": "小结",
       "label": "本节小结",
       "title": "对话会变长，文件不跟着变",
-      "lead": "本节留下一轮内容迭代和三项检查结果。对话每多一轮，前面的内容连同弯路都会重发；/clear 清的是对话、不是文件，写在 AGENTS.md 里的规则还在；压缩后，工具调用和返回换成了一份摘要。下一节：它看到了什么，才这样改？课后可以再做 0–2 轮，不计分。",
-      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div><div data-reveal=\"0\"><h3>三种状态</h3><ul class=\"p-exits\" style=\"gap:8px\"><li class=\"is-point\">模型不记</li><li class=\"is-point\">会话由 Harness 重发</li><li class=\"is-point\">文件与进程各自存在</li></ul></div><div data-reveal=\"1\" style=\"margin-top:14px\"><h3>context 怎么变</h3><ul class=\"p-exits\" style=\"gap:8px\"><li class=\"is-point\">每轮都重发，弯路也在</li><li class=\"is-point\">/clear 清对话，不清文件，AGENTS.md 还在</li><li class=\"is-point\">压缩后看到的是摘要</li></ul></div></div><div data-reveal=\"2\"><h3 style=\"text-align:center\">一个习惯</h3><div class=\"p-star\" style=\"width:260px;font-size:23px\">一轮一个结果<br>Prompt 写清<br>现状</div></div><div class=\"p-next\" data-reveal=\"3\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>2.3 审改动</h3><p>它看到了什么，才这样改？</p></div></div></div>",
+      "lead": "本节留下一轮内容迭代和三项检查结果。对话每多一轮，前面的内容连同弯路都会重发；/clear 清的是对话、不是文件，写在 AGENTS.md 里的规则还在；压缩后，工具调用和返回换成了一份摘要。下一节：参考一个主页改风格，它看到了什么？课后可以再做 0–2 轮，不计分。",
+      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div><div data-reveal=\"0\"><h3>三种状态</h3><ul class=\"p-exits\" style=\"gap:8px\"><li class=\"is-point\">模型不记</li><li class=\"is-point\">会话由 Harness 重发</li><li class=\"is-point\">文件与进程各自存在</li></ul></div><div data-reveal=\"1\" style=\"margin-top:14px\"><h3>context 怎么变</h3><ul class=\"p-exits\" style=\"gap:8px\"><li class=\"is-point\">每轮都重发，弯路也在</li><li class=\"is-point\">/clear 清对话，不清文件，AGENTS.md 还在</li><li class=\"is-point\">压缩后看到的是摘要</li></ul></div></div><div data-reveal=\"2\"><h3 style=\"text-align:center\">一个习惯</h3><div class=\"p-star\" style=\"width:260px;font-size:23px\">一轮一个结果<br>Prompt 写清<br>现状</div></div><div class=\"p-next\" data-reveal=\"3\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>2.3 参考主页改风格</h3><p>它看到了什么？</p></div></div></div>",
       "steps": [
         "三种状态",
         "context 怎么变",
@@ -544,7 +576,7 @@ window.lesson = {
         "【操作提示｜停留课件 p34 第 1 步，指“三种状态”三条；不切窗口】\n\n回顾一下。模型什么都不记；会话由 Harness 保存，在我们看到的那次运行里，每次请求都重发了完整历史；文件和运行中的程序各自存在。",
         "【操作提示｜推进第 2 步，指“context 怎么变”三条】\n\n所以对话每多一轮，前面的内容都会重发，走过的弯路也在里面。/clear 清掉的是对话，文件不受影响；AGENTS.md 也是文件，新对话一开始就读它。压缩以后，模型看到的是摘要，不是原始内容。",
         "【操作提示｜推进第 3 步，指中间星形】\n\n项目上，我们完成了一轮修改：Prompt 写清项目区的现状，内容由人提供，只改项目区，再看一眼页面、跑一次构建，确认没弄坏别的。一轮只解决一个结果，新发现的问题记下来留给下一轮。课后想再做一两轮可以，不计分。",
-        "【操作提示｜推进第 4 步，指“下一节 2.3 审改动”；结束本节，不在收尾新增操作】\n\n现在 Codex 说改完了，我们手上是一份还没提交的改动。下一节的问题是：它看到了什么，才这样改？"
+        "【操作提示｜推进第 4 步，指“下一节 2.3 参考主页改风格”；结束本节，不在收尾新增操作】\n\n现在 Codex 说改完了，我们手上是一份还没提交的改动。下一节的问题是：它看到了什么，才这样改？"
       ],
       "teaching": [],
       "source": "index.html#p34",
@@ -561,8 +593,8 @@ window.lesson = {
       "seconds": 210
     },
     {
-      "label": "补上项目经历",
-      "seconds": 240
+      "label": "补上个人经历",
+      "seconds": 360
     },
     {
       "label": "回看这一轮的请求",

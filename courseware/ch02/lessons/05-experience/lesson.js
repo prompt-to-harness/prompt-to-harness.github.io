@@ -11,7 +11,7 @@ window.lesson = {
       "label": "换一位讲师",
       "title": "平时怎么用好 context？",
       "lead": "换一位讲师，分享三条平时的做法",
-      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>看请求</li><li class=\"is-done\"><b>2.2</b>补经历</li><li class=\"is-done\"><b>2.3</b>审改动</li><li class=\"is-done\"><b>2.4</b>发布上线</li><li class=\"is-now\"><b>2.5</b>用好 context</li></ol><div class=\"p-grid\" style=\"--n:3;gap:14px;margin-top:22px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ink\">一</span><h3>看懂重发的代价</h3><p>一问花了多少，缓存省了多少</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ctx\">二</span><h3>换会话时自己写交接</h3><p>决定下一轮带上什么</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"tool\">三</span><h3>换一个工具看请求</h3><p>同一句话，context 不一样</p></div></div>",
+      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>看请求</li><li class=\"is-done\"><b>2.2</b>补经历</li><li class=\"is-done\"><b>2.3</b>改风格</li><li class=\"is-done\"><b>2.4</b>发布上线</li><li class=\"is-now\"><b>2.5</b>用好 context</li></ol><div class=\"p-grid\" style=\"--n:3;gap:14px;margin-top:22px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ink\">一</span><h3>看懂重发的代价</h3><p>一问花了多少，缓存省了多少</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ctx\">二</span><h3>换会话时自己写交接</h3><p>决定下一轮带上什么</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"tool\">三</span><h3>换一个工具看请求</h3><p>同一句话，context 不一样</p></div></div>",
       "steps": [
         "最后一节",
         "换一位讲师",
@@ -135,7 +135,7 @@ window.lesson = {
       "label": "本节小结",
       "title": "三条做法，和这一章",
       "lead": "三条做法：看懂重发的代价，换会话时自己写交接，换一个工具先看它往 context 里放了什么。回看这一章：每一节都回到请求记录里找答案；项目上留下了审过的提交、公开 URL 和 ch02-homepage-live tag。下一章，给个人主页加一个小游戏。",
-      "html": "<div class=\"p-grid\" style=\"--n:3;gap:12px\"><div class=\"p-box is-soft\" data-role=\"ink\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>看代价</h3><p>重发要钱，缓存只让它便宜</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>写交接</h3><p>留什么由我们决定</p></div><div class=\"p-box is-soft\" data-role=\"tool\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>换工具</h3><p>先看它放了什么</p></div></div><div class=\"p-flow\" style=\"--n:5;margin-top:14px\"><div class=\"p-node\" data-role=\"us\" data-reveal=\"1\"><h3>2.1</h3><p>只说了一句话，模型收到了什么</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"1\"><h3>2.2</h3><p>补上项目经历，看对话怎么变长</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"1\"><h3>2.3</h3><p>它看到了什么，才这样改</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"1\"><h3>2.4</h3><p>发布上线，看 Codex 怎么用 gh</p></div><div class=\"p-node\" data-role=\"ctx\" data-reveal=\"1\"><h3>2.5</h3><p>用好 context 的三个做法</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:14px\">下一章 · 第 3 章：给个人主页加一个小游戏</div>",
+      "html": "<div class=\"p-grid\" style=\"--n:3;gap:12px\"><div class=\"p-box is-soft\" data-role=\"ink\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>看代价</h3><p>重发要钱，缓存只让它便宜</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>写交接</h3><p>留什么由我们决定</p></div><div class=\"p-box is-soft\" data-role=\"tool\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>换工具</h3><p>先看它放了什么</p></div></div><div class=\"p-flow\" style=\"--n:5;margin-top:14px\"><div class=\"p-node\" data-role=\"us\" data-reveal=\"1\"><h3>2.1</h3><p>只说了一句话，模型收到了什么</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"1\"><h3>2.2</h3><p>补上个人经历，看对话怎么变长</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"1\"><h3>2.3</h3><p>参考一个主页改风格：它看到了什么</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"1\"><h3>2.4</h3><p>发布上线，看 Codex 怎么用 gh</p></div><div class=\"p-node\" data-role=\"ctx\" data-reveal=\"1\"><h3>2.5</h3><p>用好 context 的三个做法</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:14px\">下一章 · 第 3 章：给个人主页加一个小游戏</div>",
       "steps": [
         "三条做法",
         "回看本章",
@@ -143,8 +143,8 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜停留课件 p63 第 1 步，指三张卡】\n\n三条做法：重发要花钱，缓存只是让它便宜；换会话时自己写交接，留什么由我们决定；换工具之前，先看它往 context 里放了什么。",
-        "【操作提示｜推进第 2 步，五个节点一起出现，按 2.1 到 2.5 的顺序逐个指认】\n\n回看这一章：2.1 只发一句话，看清模型收到了什么；2.2 补上项目经历，看对话怎么变长、怎么清空和压缩；2.3 审 AI 交回的改动，看它依据什么改；2.4 发布上线，看 Codex 怎么用 gh；最后这一节，分享用好 context 的几个做法。项目上，我们留下了审过的提交、一个公开的 URL，和 ch02-homepage-live 这个 tag。",
-        "【操作提示｜推进第 3 步，指向底部的第 3 章预告；第 2 章到此结束，不再切工具窗口】\n\n第 2 章到这里结束。下一章，我们给个人主页加一个小游戏。"
+        "【操作提示｜推进第 2 步，五个节点一起出现，按 2.1 到 2.5 的顺序逐个指认】\n\n回看这一章：2.1 只发一句话，看清模型收到了什么；2.2 补上个人经历，看对话怎么变长、怎么清空和压缩；2.3 审 AI 交回的改动，看它依据什么改，再参考别人的主页改了一处风格；2.4 发布上线，看这些内容发到了哪里；最后这一节，分享用好 context 的几个做法。项目上，我们留下了审过的提交、一个公开的 URL，和 ch02-homepage-live 这个 tag。",
+        "【操作提示｜推进第 3 步，指向底部的第 3 章预告；进入 p63a】\n\n下一章，我们给个人主页加一个小游戏。走之前，先用这一章的七个问题考考自己。"
       ],
       "teaching": [
         {
@@ -153,6 +153,32 @@ window.lesson = {
         }
       ],
       "source": "index.html#p63",
+      "seconds": 90
+    },
+    {
+      "id": "p63a",
+      "segment": "小结",
+      "label": "章末自检",
+      "title": "章末自检：这一章的七个问题",
+      "lead": "这七个问题就是第 2 章的目标。先独立作答，答在自己的笔记里；哪一题答不上来，就回到右边那一节再看一遍。不计分。",
+      "html": "<span class=\"p-pause\" data-reveal=\"0\">暂停 · 先独立作答</span><style>.x-p63a span{padding:3px 10px;font-size:17px;line-height:1.35}</style><div class=\"p-matrix x-p63a\" data-reveal=\"1\" style=\"margin-top:6px;grid-template-columns:minmax(0,.2fr) minmax(0,2.4fr) minmax(0,.5fr)\"><div class=\"is-head\"><span>#</span><span>问题</span><span>回到</span></div><div><span>1</span><span>我只说了一句话，模型收到了哪些别的东西？</span><span>2.1</span></div><div><span>2</span><span>这些东西是谁、按什么规则放进去的？</span><span>2.1</span></div><div><span>3</span><span>怎样让它少读、读对？</span><span>2.1</span></div><div><span>4</span><span>第二句话发出去时，带上了什么？代价是什么？</span><span>2.2</span></div><div><span>5</span><span>/clear、压缩、新会话之后，分别还剩什么？文件呢？</span><span>2.2</span></div><div><span>6</span><span>它这样改，依据在请求里的哪一块？它看全了吗，有什么看不见？</span><span>2.3</span></div><div><span>7</span><span>这些内容最后发到了哪里？</span><span>2.4</span></div></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:8px\">答不上来的，回到那一节；第 2 章到此结束</div>",
+      "steps": [
+        "暂停",
+        "七个问题",
+        "答不上来就回去"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p63a 第 1 步，只露暂停标记；留出暂停】\n\n最后，用七个问题检查一下这一章。请暂停视频，先自己想一想。",
+        "【操作提示｜推进第 2 步，七个问题一起出现，从上到下快速读一遍题面，不讲答案】\n\n这七个问题，就是这一章的目标：只说一句话，模型收到了什么；这些是谁放进去的；怎样让它少读、读对；第二句话带上了什么；清空和压缩之后还剩什么；它依据什么改，有什么看不见；最后，这些内容发到了哪里。",
+        "【操作提示｜推进第 3 步，指结论条；第 2 章到此结束，不再切工具窗口】\n\n哪一题答不上来，就回到右边那一节再看一遍。第 2 章到这里结束，我们第 3 章见。"
+      ],
+      "teaching": [
+        {
+          "title": "讲师提示",
+          "text": "七个问题取自第 2 章文件的“讲透问题”（C2-51），改问题时两处一起改。2.5 本身不设自检，这一页属于全章。"
+        }
+      ],
+      "source": "index.html#p63a",
       "seconds": 90
     }
   ],
@@ -175,7 +201,7 @@ window.lesson = {
     },
     {
       "label": "小结",
-      "seconds": 90
+      "seconds": 180
     }
   ]
 };

@@ -2,6 +2,18 @@
 
 > 状态：2026-10-06 起用于讲师备课。脚本按课件真实运行 Codex，产物是“冻结候选”，不是录制版，也不代表试讲通过。尚未由另一位讲师复现。
 
+> 2026-10-22：`run-v1.sh` 仍是旧流程（反馈卡、三条讲师经历），新流程用 `run-2.2.sh`，见下一节。
+
+## 新流程：run-2.2.sh（2026-10-22，未运行过）
+
+按章文件 C2-55、C2-56、C2-58 跑 2.2 和 2.3 的风格参考，在 tmux 交互界面里驱动 Codex：问候 → 写 `AGENTS.md` → `/clear` → 问候 → 放入讲师的 [`profile.md`](../profile/profile.md) → p29 Prompt → 确认 → `/compact` → 追问 → 提交 homepage-v1 → p40a 风格 Prompt → 确认。两个文件都在对话进行到对应那一步时才放进工作目录，和录制时人在那一步写文件一样；Prompt 从课件 `lesson.js` 读，所以课件改了 Prompt，排练自动跟着变。
+
+```bash
+courseware/ch02/materials/mainline/run-2.2.sh
+```
+
+可选：`V0=<起点目录>` 换起点（默认第 1 章参考快照，第 2 章起点快照做好后换成它）；`REF_URL=<地址>` 换参考主页；`STYLE=0` 只跑 2.2。和录制的差别：Prompt 按一行输入，计划里申请到沙箱外运行的命令一律同意。产物在 `lab-runs/ch02-context/2.2-profile-<时间>/`（不提交）：`logs/` 里有每一步的画面、`2.2-homepage-v1.diff`、`2.3-style.diff`，claude-tap 会话 id 在 `logs/tap-session`。
+
 ## 做什么
 
 从个人主页出发，按课件跑一遍 2.1 → 2.2 → 2.3，得到个人主页发布候选（`homepage-v1` 提交）和全部记录。每次运行用一个新目录，可以反复跑，用来：

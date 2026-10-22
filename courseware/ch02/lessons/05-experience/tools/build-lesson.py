@@ -19,8 +19,8 @@ PRICE = ref("MiniMax 开放平台：定价", "https://platform.minimax.cn/docs/g
 
 SECTION_QS = [
     ("2.1", "只说了一句话，模型收到了什么", "us"),
-    ("2.2", "补上项目经历，看对话怎么变长", "agent"),
-    ("2.3", "它看到了什么，才这样改", "tool"),
+    ("2.2", "补上个人经历，看对话怎么变长", "agent"),
+    ("2.3", "参考一个主页改风格：它看到了什么", "tool"),
     ("2.4", "发布上线，看 Codex 怎么用 gh", "ok"),
     ("2.5", "用好 context 的三个做法", "ctx"),
 ]
@@ -145,6 +145,34 @@ scene(
     ),
     steps=["三条做法", "回看本章", "下一章"],
     teaching=teach(("讲师提示", "全章回看原在 2.5 p58，随本节重做移到这里。第 3 章预告按第 3 章定稿调整。")),
+)
+
+# 章末自检：讲透问题与负责的节以 docs/chapters/ch02.md 为准
+CHAPTER_QS = [
+    ("我只说了一句话，模型收到了哪些别的东西？", "2.1"),
+    ("这些东西是谁、按什么规则放进去的？", "2.1"),
+    ("怎样让它少读、读对？", "2.1"),
+    ("第二句话发出去时，带上了什么？代价是什么？", "2.2"),
+    ("/clear、压缩、新会话之后，分别还剩什么？文件呢？", "2.2"),
+    ("它这样改，依据在请求里的哪一块？它看全了吗，有什么看不见？", "2.3"),
+    ("这些内容最后发到了哪里？", "2.4"),
+]
+
+scene(
+    id="p63a", segment="小结",
+    label="章末自检", title="章末自检：这一章的七个问题",
+    lead="这七个问题就是第 2 章的目标。先独立作答，答在自己的笔记里；哪一题答不上来，就回到右边那一节再看一遍。不计分。",
+    html=(
+        '<span class="p-pause" data-reveal="0">暂停 · 先独立作答</span>'
+        '<style>.x-p63a span{padding:3px 10px;font-size:17px;line-height:1.35}</style>'
+        '<div class="p-matrix x-p63a" data-reveal="1" style="margin-top:6px;grid-template-columns:minmax(0,.2fr) minmax(0,2.4fr) minmax(0,.5fr)">'
+        '<div class="is-head"><span>#</span><span>问题</span><span>回到</span></div>'
+        + "".join(f'<div><span>{i}</span><span>{q}</span><span>{sec}</span></div>' for i, (q, sec) in enumerate(CHAPTER_QS, 1)) +
+        '</div>'
+        '<div class="p-bar is-light" data-reveal="2" style="margin-top:8px">答不上来的，回到那一节；第 2 章到此结束</div>'
+    ),
+    steps=["暂停", "七个问题", "答不上来就回去"],
+    teaching=teach(("讲师提示", "七个问题取自第 2 章文件的“讲透问题”（C2-51），改问题时两处一起改。2.5 本身不设自检，这一页属于全章。")),
 )
 
 

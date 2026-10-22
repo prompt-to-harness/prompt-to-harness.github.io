@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from lessonkit import Lesson, NARROW, chapter_map, redrawn, ref, repro, shot, teach  # noqa: E402
+from lessonkit import Lesson, NARROW, anchor, chapter_map, redrawn, ref, repro, shot, teach  # noqa: E402
 
 # 落后时进入第 2 章的追赶 Prompt：与 materials/catchup 的实验同一份，代入真实的参考起点
 CATCHUP_PROMPT = (Path(__file__).resolve().parents[3] / "materials/catchup/prompt-ch02.txt").read_text().strip() \
@@ -47,10 +47,10 @@ scene(
         '<div class="p-matrix x-p01" data-reveal="2" style="margin-top:10px;grid-template-columns:minmax(0,.35fr) minmax(0,1.2fr) minmax(0,1.6fr)">'
         '<div class="is-head"><span>节</span><span>项目动作</span><span>用请求记录回答</span></div>'
         '<div class="is-key"><span>2.1</span><span>用 claude-tap 启动 Codex</span><span>只说一句话，模型收到了什么？</span></div>'
-        '<div><span>2.2</span><span>补上项目经历</span><span>多聊几轮，context 怎么变长？</span></div>'
-        '<div><span>2.3</span><span>审查改动，决定要不要接受</span><span>它是根据哪些内容改的？</span></div>'
-        '<div><span>2.4</span><span>发布到 GitHub Pages</span><span>Codex 怎样调用 gh？</span></div>'
-        '<div><span>2.5</span><span>分拣“只是重构”的改动</span><span>没有测试，它能证明行为没变吗？</span></div></div>'
+        '<div><span>2.2</span><span>补上个人经历</span><span>多聊几轮，context 怎么变长？</span></div>'
+        '<div><span>2.3</span><span>先留检查点，参考主页改两轮风格</span><span>它依据什么改，什么看不见？</span></div>'
+        '<div><span>2.4</span><span>发布到 GitHub Pages</span><span>这些内容发到了哪里？</span></div>'
+        '<div><span>2.5</span><span>另一位讲师分享经验</span><span>平时怎样用好 context？</span></div></div>'
     ),
     repro=repro([
         ("先在自己的仓库里保存当前的工作（没有改动时会提示无可提交，不影响）", "git add -A && git commit -m \"保存：开始第 2 章之前\""),
@@ -387,10 +387,9 @@ scene(
 scene(
     id="p16a", segment="小结",
     label="这些加在一起", title="这些加在一起，就是 context",
-    lead="系统指令、工具定义、Skills 列表、环境信息、权限说明、我们的话，再加上工具调用和返回，模型这一次能看到的全部内容，就是 context。第 1 章说 context 里该放什么，这里第一次看到它的实际样子；后面四节都用同一套配置录下的请求记录来看。",
+    lead="系统指令、工具（含 Skills 列表）、环境（含权限说明）、规则、对话历史、工具返回，再加上我们这一句，模型这一次能看到的全部内容，就是 context。规则和对话历史这一次还是空的，下一节会填上。第 1 章说 context 里该放什么，这里第一次看到它的实际样子；这一列方块是全章的锚点图，后面四节都回到它。",
     html=(
-        '<div class="p-box" data-role="ctx" data-reveal="0"><span class="p-tag" data-role="ctx">这一次请求</span>'
-        '<div class="p-chain" style="margin-top:4px;font-size:20px"><span>系统指令</span><i>·</i><span>工具定义</span><i>·</i><span>Skills 列表</span><i>·</i><span>环境信息</span><i>·</i><span>权限说明</span><i>·</i><span>工具调用和返回</span><i>·</i><span>我们的话</span></div></div>'
+        anchor(lit=("系统指令", "工具", "环境", "工具返回", "这一句"), note="规则、对话历史这一次还是空的，2.2 填上", reveal=0) +
         '<div class="p-bar" data-reveal="1" style="margin-top:10px"><b>Context</b>：模型这一次能看到的全部内容</div>'
         '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:10px">'
         '<div class="p-box" data-role="ink" data-reveal="2"><span class="p-tag" data-role="ink">Anthropic 的说法</span><p>Context 是从大模型采样时包含的那一组 token</p><p class="p-sub">包括系统指令、工具、MCP、外部数据、消息历史等 · 2025-09</p></div>'
@@ -454,7 +453,7 @@ scene(
         '<div class="p-sketch" style="align-items:start"><div data-reveal="0"><h3 style="text-align:center">一张地图</h3>'
         '<div class="p-star" style="width:260px;font-size:24px">Context<br>六块，加上工具返回</div><p class="p-sub" style="text-align:center">我们的话只是最后一格</p></div>'
         '<div><h3 data-reveal="1">两个认识</h3><ul class="p-exits" style="gap:12px"><li class="is-point" data-reveal="1">工具调用和返回也会进入 context</li><li class="is-point" data-reveal="2">换权限、换模型配置，context 就不同</li></ul></div>'
-        '<div class="p-next" data-reveal="3"><h3>下一节</h3><div class="p-box" data-role="us"><h3>2.2 补上项目经历</h3><p>对话多几轮，context 怎么变？</p></div></div></div>'
+        '<div class="p-next" data-reveal="3"><h3>下一节</h3><div class="p-box" data-role="us"><h3>2.2 补上个人经历</h3><p>对话多几轮，context 怎么变？</p></div></div></div>'
     ),
     steps=["拆开的请求", "工具调用也进来", "换配置就不同", "下一节"],
 )

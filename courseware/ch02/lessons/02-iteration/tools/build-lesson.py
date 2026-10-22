@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
-"""2.2 补上项目经历，看对话怎么变长：本节唯一的内容源，生成 lesson.js。
+"""2.2 补上个人经历，看对话怎么变长：本节唯一的内容源，生成 lesson.js。
 
 分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch02/tools/lessonkit.py。
-页序按分镜（id 不按页序；2026-10-20 讲师决定改为边做边看）：p20 p21 p27a p28 p29 p30 p22 p23 p24 p31 p27 p27b p33 p34。
+页序按分镜（id 不按页序；2026-10-20 讲师决定改为边做边看）：p20 p21 p27a p28 p29a p29 p30 p22 p23 p24 p31 p27 p27b p33 p34。
 原 p25、p26（Codex 版本与模型指令对比）已移出主课，素材与核对记录见 git 历史和分镜“移到配套页的内容”。
 """
 import sys
+from html import escape
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from lessonkit import Lesson, MEASURED, NARROW, chapter_map, redrawn, ref, repro, teach  # noqa: E402
+from lessonkit import Lesson, MEASURED, NARROW, anchor, chapter_map, redrawn, ref, repro, teach  # noqa: E402
 
-lesson = Lesson(__file__, "2.2", "补上项目经历，看对话怎么变长", summary="对话每多一轮，前面的内容都会被重发；清空和压缩之后还剩什么，在请求记录里看得到。项目上，把自己的项目经历加进个人主页，并用三种屏幕尺寸、键盘和构建证明没弄坏别的。")
+lesson = Lesson(__file__, "2.2", "补上个人经历，看对话怎么变长", summary="对话每多一轮，前面的内容都会被重发；清空和压缩之后还剩什么，在请求记录里看得到。项目上，把自己写在 profile.md 里的个人信息、经历和项目加进个人主页，看过页面、跑过构建，证明没弄坏别的。")
 scene = lesson.scene
 
 # openai/codex 的固定版本链接（完整哈希，内容不随 main 变化）
@@ -28,27 +29,44 @@ def blob(commit, path):
     return f"{GH}/blob/{commit}/{path}"
 
 
-ROUND_PROMPT = """Goal：在项目区呈现我的项目经历。
-Context：个人主页的项目区目前只有占位内容；
-项目卡不跳转，本轮不改。
-项目内容（原文照用）：<每行一条：项目名称：一句描述>
-Constraints：只用上面的文字，不补写；不加链接、依赖；
-只改项目区；先说计划，等我确认再改。
-Done when：我在浏览器里看过页面正常；
-你跑 build 成功；diff 只含项目区。"""
+ROUND_PROMPT = """Goal：把 profile.md 里的个人信息放进个人主页。
+Context：profile.md 在项目根目录，是我写的，分四块；
+页面现在只有首屏和占位的项目区；项目卡不跳转，本轮不改。
+Constraints：只用 profile.md 里的文字，不补写；
+不加链接、依赖；先说计划，等我确认再改。
+Done when：我在浏览器里看过页面正常；你跑 build 成功；
+页面上的每一句都能在 profile.md 里找到。"""
+
+# 2026-10-22 按章文件 C2-55、C2-56 改：讲师演示的 profile.md 见 courseware/ch02/materials/profile/；还没按新 Prompt 重录，
+# p22–p24、p27、p30、p31 的数字和截图仍是 2026-10-21 旧 Prompt（只改项目区、三条讲师经历）的运行
+PROFILE = """# 个人信息
+
+## 基本信息
+- 姓名：缪东旭（MiaoDX）
+- 一句话简介：机器人系统技术负责人……
+
+## 教育
+- 2016–2018　天津大学　软件工程硕士……
+
+## 工作经历
+- 2025.03–2026.10　小米汽车机器人实验室……
+
+## 项目与开源
+- RoboHarness：面向机器人研发 Agent 的……"""
 
 
 # ---------- 会话里存了什么 ----------
 scene(
     id="p20", segment="会话里存了什么", layout="lesson-cover",
     label="这一节做什么", title="对话多几轮，context 会怎样",
-    lead="补上项目经历，同时看对话怎么变长、怎么清空",
+    lead="补上个人经历，同时看对话怎么变长、怎么清空",
     html=(
         chapter_map(2) +
         '<div class="p-grid" style="--n:2;gap:16px;margin-top:22px">'
-        '<div class="p-box" data-role="us" data-reveal="1"><h3>补上项目经历</h3><p>内容由我们提供，Codex 只负责放进项目区</p></div>'
+        '<div class="p-box" data-role="us" data-reveal="1"><h3>补上个人经历</h3><p>内容写在 profile.md 里，Codex 只负责放进页面</p></div>'
         '<div class="p-box" data-role="ctx" data-reveal="1"><h3>看对话怎么变长</h3><p>多聊几轮、清空、压缩，请求里各剩什么</p></div></div>'
-        '<p class="p-hand" data-reveal="2">上一节看了一次请求，这一节看多次请求之间</p>'
+        '<p class="p-hand" data-reveal="2">上一节看了一次请求，这一节看多次请求之间</p>' +
+        anchor(lit=("规则", "对话历史", "工具返回"), note="这三块会变长、被清空、被压缩", reveal=2)
     ),
     steps=["回到地图", "本节两件事", "本节问题"],
     teaching=teach(("讲师提示", "开篇地图沿用本章五节，2.1 标为已完成。")),
@@ -136,21 +154,43 @@ scene(
     ),
 )
 
-# ---------- 补上项目经历 ----------
+# ---------- 补上个人经历 ----------
 scene(
-    id="p29", segment="补上项目经历", layout="prompt-scene", prompt=ROUND_PROMPT,
-    label="写本轮 Prompt", title="让 Codex 只改这一处",
-    lead="在 /clear 之后的新对话里提交本轮 Prompt。Context 直接写出项目区的现状；项目内容由人提供，要求原文照用；范围只到项目区；完成标准写成可以检查的三件事。讲师演示的项目区借用两位讲师的真实经历；首屏沿用第 1 章的示例，本轮不改。",
+    id="p29a", segment="补上个人经历",
+    label="先写 profile.md", title="页面上的内容，先写进一个文件",
+    lead="动手之前，先在项目根目录新建 profile.md，把要放进主页的内容写下来：基本信息、教育、工作经历、项目与开源，每条一行。内容由我们自己写，AI 不知道这些事实，也不该替我们编。讲师这份取自自己已经公开的主页，不放联系方式。这个文件到 2.4 会和页面一起公开，只写愿意公开的；不想用真实信息，也可以写一个虚构人物。下一步的 Prompt 只点名这个文件，不把内容贴进去，让 Codex 自己去读。",
+    html=(
+        NARROW +
+        '<div class="p-walk">'
+        '<div data-reveal="0"><div class="p-src" style="--lh:26px"><div class="p-fn">profile.md（项目根目录，节选）</div>' +
+        "".join(f'<div class="p-ln"><i>{i}</i><code>{escape(t) or " "}</code></div>' for i, t in enumerate(PROFILE.splitlines(), 1)) +
+        '</div></div>'
+        '<ol class="p-notes">'
+        '<li data-reveal="1"><span><b>四块，每条一行</b><small>基本信息 · 教育 · 工作经历 · 项目与开源</small></span></li>'
+        '<li class="is-risk" data-reveal="2"><span><b>只写愿意公开的</b><small>2.4 推送后，文件和页面所有人都看得到</small></span></li>'
+        '<li class="is-ok" data-reveal="3"><span><b>Prompt 只点名文件</b><small>它要自己去读：请求里会多一次读文件的调用和返回</small></span></li></ol></div>'
+    ),
+    steps=["写下内容", "四块", "只写愿意公开的", "让它自己读"],
+    teaching=teach(
+        ("切到实操", "讲师的 profile.md 在 courseware/ch02/materials/profile/，录制前复制到个人主页项目的根目录，在 VS Code 里打开给学员看，不在镜头前现写。内容取自 miaodx.com 的公开内容（2026-10-22 查阅），不放联系方式。"),
+        ("讲师提示", "这一页把“内容由人提供”落到一个文件上：2.3 审 diff 时可以逐句对照页面和这个文件；2.4 看历史时它也在里面。点名文件让 2.1 看过的“工具返回也进 context”在这里再出现一次，回看请求时指出读它的那次调用。"),
+    ),
+)
+
+scene(
+    id="p29", segment="补上个人经历", layout="prompt-scene", prompt=ROUND_PROMPT,
+    label="写本轮 Prompt", title="让 Codex 只放这些内容",
+    lead="在 /clear 之后的新对话里提交本轮 Prompt。Context 点名 profile.md、写出页面的现状；内容只用这个文件里的文字；完成标准写成可以检查的三件事，最后一件是页面上的每一句都能在 profile.md 里找到。讲师演示用自己的公开信息。",
     html=(
         '<div class="demo-notes"><ol class="p-notes">'
-        '<li data-reveal="0"><span><b>写清现状</b><small>项目区目前只有占位内容</small></span></li>'
-        '<li class="is-risk" data-reveal="1"><span><b>内容由人提供</b><small>讲师演示借用两位讲师的经历</small></span></li>'
+        '<li data-reveal="0"><span><b>点名文件，写清现状</b><small>profile.md 在根目录；页面只有首屏和占位</small></span></li>'
+        '<li class="is-risk" data-reveal="1"><span><b>只用文件里的文字</b><small>不补写，不润色事实</small></span></li>'
         '<li data-reveal="2"><span><b>只写愿意公开的</b><small>2.4 之后所有人都看得到</small></span></li>'
-        '<li class="is-ok" data-reveal="3"><span><b>可检查的完成标准</b><small>看页面 · build · diff 范围</small></span></li></ol></div>'
+        '<li class="is-ok" data-reveal="3"><span><b>可检查的完成标准</b><small>看页面 · build · 每一句都找得到出处</small></span></li></ol></div>'
     ),
     steps=["写清现状", "内容由人提供", "只写愿意公开的", "完成标准"],
     teaching=teach(
-        ("切到实操", "讲师在 /clear 之后的新对话中提交本 Prompt，尖括号一行替换为两位讲师经历聚合的三条（courseware/ch02/materials/README.md，取自已公开的讲师简介，2026-10-05 讲师确认），提前写好，不在镜头前现写：\n\n- 红绿灯感知量产：城市 NOA 红绿灯感知模块的量产方案设计、部署与加速\n- 端侧多模态推理引擎：在 Nvidia Orin / Thor 上从 0 到 1 搭建大模型推理引擎并量产\n- RoboHarness：把自然语言需求转成可执行、可验证、可持续迭代的研发流程"),
+        ("切到实操", "讲师在 /clear 之后的新对话中提交本 Prompt，原样粘贴，不改字。profile.md 已在项目根目录（上一页）。2026-10-22 起改为读 profile.md（章文件 C2-55、C2-56），取代原来贴三条讲师经历的做法；新 Prompt 还没重录，录制前先跑一次，看它是否先读 profile.md、计划是否只动页面结构不改文字。"),
         ("讲师提示", "“项目卡不跳转，本轮不改”只是约束，不展开讲这条决定（2.5 再就地复述）。学员项目区已完整时，按分镜“内容已完整时的跟做分支”：Goal 改为呈现一条新确认的补充；没有补充需求时在独立练习副本使用课程合成示例。"),
     ),
 )
@@ -159,7 +199,7 @@ scene(
 RUN22 = "讲师用课程基线在交互界面里的一次运行（2026-10-21 20:30，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max），2.3 审的就是这一次"
 
 scene(
-    id="p30", segment="补上项目经历",
+    id="p30", segment="补上个人经历",
     label="确认计划再执行", title="先看计划，再让它动手",
     lead="Codex 先回复计划。确认三件事再放行：计划只涉及项目区；要放进页面的内容和我们给的原文一致；没有新依赖、没有链接。讲师这次的计划说：只改 src/App.tsx 顶部的 projects 数组，把 1 条占位换成 3 条，按原文的“名称：描述”拆成标题和描述，文字逐字照用；JSX 结构、index.css、首屏和 index.html 都不动；不加链接、依赖，不新增文件。三件事都对得上。计划里还有两处要留意：验证步骤里它打算自己起一个本地服务给我们地址，Prompt 没要求，确认计划就等于同意了；它还提醒首屏的“示例同学”和真实项目对不上，但按“只改项目区”不动。小改动的计划可能只有一两句，这也正常。",
     html=(
@@ -346,7 +386,7 @@ scene(
         '<span class="p-pause" data-reveal="0">暂停 · 先独立作答</span><div class="p-qlist">'
         '<div class="p-qrow"><span class="p-n">1</span><div><h3>关掉终端再恢复会话，页面会自动回来吗？</h3>'
         '<div data-reveal="1"><p>不会。会话由 Harness 保存，开发服务器是另一个程序，要重新 npm run dev<span class="p-back-to" data-role="ctx">回到 三种状态</span></p></div></div></div>'
-        '<div class="p-qrow"><span class="p-n">2</span><div><h3>改完项目经历再 /clear，改过的文件还在吗？会话中途写的 AGENTS.md 呢？</h3>'
+        '<div class="p-qrow"><span class="p-n">2</span><div><h3>改完个人经历再 /clear，改过的文件还在吗？会话中途写的 AGENTS.md 呢？</h3>'
         '<div data-reveal="2"><p>都还在，/clear 清的是对话；但中途写的 AGENTS.md 要等新对话才读到<span class="p-back-to" data-role="tool">回到 /clear 之后还剩什么</span></p></div></div></div>'
         '<div class="p-qrow"><span class="p-n">3</span><div><h3>压缩以后，模型看不到哪些原始信息？</h3>'
         '<div data-reveal="3"><p>工具调用和返回的原文，比如读到的文件内容、命令输出；留下的是用户消息、一份摘要和初始内容<span class="p-back-to" data-role="gate">回到 压缩一下继续</span></p></div></div></div>'
@@ -359,14 +399,14 @@ scene(
 scene(
     id="p34", segment="小结",
     label="本节小结", title="对话会变长，文件不跟着变",
-    lead="本节留下一轮内容迭代和三项检查结果。对话每多一轮，前面的内容连同弯路都会重发；/clear 清的是对话、不是文件，写在 AGENTS.md 里的规则还在；压缩后，工具调用和返回换成了一份摘要。下一节：它看到了什么，才这样改？课后可以再做 0–2 轮，不计分。",
+    lead="本节留下一轮内容迭代和三项检查结果。对话每多一轮，前面的内容连同弯路都会重发；/clear 清的是对话、不是文件，写在 AGENTS.md 里的规则还在；压缩后，工具调用和返回换成了一份摘要。下一节：参考一个主页改风格，它看到了什么？课后可以再做 0–2 轮，不计分。",
     html=(
         '<div class="p-sketch" style="align-items:start"><div><div data-reveal="0"><h3>三种状态</h3>'
         '<ul class="p-exits" style="gap:8px"><li class="is-point">模型不记</li><li class="is-point">会话由 Harness 重发</li><li class="is-point">文件与进程各自存在</li></ul></div>'
         '<div data-reveal="1" style="margin-top:14px"><h3>context 怎么变</h3>'
         '<ul class="p-exits" style="gap:8px"><li class="is-point">每轮都重发，弯路也在</li><li class="is-point">/clear 清对话，不清文件，AGENTS.md 还在</li><li class="is-point">压缩后看到的是摘要</li></ul></div></div>'
         '<div data-reveal="2"><h3 style="text-align:center">一个习惯</h3><div class="p-star" style="width:260px;font-size:23px">一轮一个结果<br>Prompt 写清<br>现状</div></div>'
-        '<div class="p-next" data-reveal="3"><h3>下一节</h3><div class="p-box" data-role="us"><h3>2.3 审改动</h3><p>它看到了什么，才这样改？</p></div></div></div>'
+        '<div class="p-next" data-reveal="3"><h3>下一节</h3><div class="p-box" data-role="us"><h3>2.3 参考主页改风格</h3><p>它看到了什么？</p></div></div></div>'
     ),
     steps=["三种状态", "context 怎么变", "一个习惯", "下一节"],
 )

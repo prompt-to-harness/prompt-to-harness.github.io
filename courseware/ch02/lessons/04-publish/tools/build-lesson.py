@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from lessonkit import Lesson, NARROW, chapter_map, ref, repro, teach  # noqa: E402
+from lessonkit import Lesson, NARROW, anchor, chapter_map, ref, repro, teach  # noqa: E402
 
 lesson = Lesson(__file__, "2.4", "发布上线，看 Codex 怎么用 gh", summary="第一次推送前看清即将公开的整段历史；Pages 来源交给 Codex 用 gh 设置，再在请求记录里看清这次调用；发布后用公开 URL 证明页面可用。")
 
@@ -44,7 +44,8 @@ scene(
         '<div class="p-node" data-role="gate" data-reveal="1"><span class="p-num">1</span><h3>看清历史</h3><p>即将公开的提交、文件、作者</p></div>'
         '<div class="p-node" data-role="agent" data-reveal="1"><span class="p-num">2</span><h3>审查配置</h3><p>Codex 写的部署工作流</p></div>'
         '<div class="p-node" data-role="us" data-reveal="2"><span class="p-num">3</span><h3>设置与推送</h3><p>Codex 用 GitHub CLI（gh）改设置，人来推送</p></div>'
-        '<div class="p-node" data-role="ok" data-reveal="2"><span class="p-num">4</span><h3>证明可用</h3><p>公开 URL 上查三项</p></div></div>'
+        '<div class="p-node" data-role="ok" data-reveal="2"><span class="p-num">4</span><h3>证明可用</h3><p>公开 URL 上查三项</p></div></div>' +
+        '<div style="margin-top:14px">' + anchor(note="这一列每次都发给模型服务；推送，是把仓库公开给所有人", reveal=2) + '</div>'
     ),
     steps=["回到地图", "推送之前", "推送与之后"],
     teaching=teach(("讲师提示", "推送前看清整段历史是发布前的一项检查，按实际内容判断，不预设有没有问题。第 3 步之后会回到请求记录，看 Codex 怎样调用 gh。")),
@@ -85,7 +86,7 @@ scene(
         '<div class="p-grid" style="--n:3;gap:12px;margin-top:14px">'
         '<div class="p-box is-soft" data-role="gate" data-reveal="1"><h3>提交作者</h3><p>每个提交都带着姓名和邮箱</p></div>'
         '<div class="p-box is-soft" data-role="ctx" data-reveal="1"><h3>课程模板带来的提交</h3><p>克隆时就有的历史，也会一起公开</p></div>'
-        '<div class="p-box is-soft" data-role="us" data-reveal="2"><h3>2.2 的项目经历</h3><p>关于具体的人的事实</p></div></div>'
+        '<div class="p-box is-soft" data-role="us" data-reveal="2"><h3>2.2 的个人信息</h3><p>关于具体的人的事实</p></div></div>'
         '<p class="source-note">输出为示意，作者为占位；实际检查当前分支的完整历史</p>'
     ),
     steps=["列出提交与作者", "作者与模板提交", "个人内容"],

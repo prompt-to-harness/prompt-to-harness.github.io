@@ -39,12 +39,12 @@
 - **阶段产出**：项目区内容迭代（候选改动，未提交）。
 - **验收**：见 [ch02.md](ch02.md) 各节要点。
 
-## 细节：2.3 它看到了什么，才这样改（可见范围）
+## 细节：2.3 参考一个主页改风格：它看到了什么（可见范围）
 
-- **时长**：15 分钟
+- **时长**：20 分钟（C2-56）
 - **知识点与 Codex 操作**：先看范围再看内容：走读候选 diff 中的内容数据、组件渲染与样式影响面，对照本轮目标决定接受、缩小或拒绝；判断看这一轮的证据。检查“有没有做 Prompt 没让它做的事”。打开本轮的请求记录，看 Codex 读了哪些文件、依据什么改；范围扩大时，常能在 context 里找到原因：多读了无关内容，或缺了本轮目标。commit 是让“拒绝”变便宜的检查点；未提交用 `git restore`，已提交用 `git revert`，不教改写历史。清空或压缩对话不会撤销文件改动，回退靠 git，呼应 2.2 的三种状态。看全了吗（p38b）：工具输出约 1 万 token 以上会被截断，中间插“…N tokens truncated…”，2026-10-21 用 `cat package-lock.json` 实测（原约 17178 token）。看不见什么（p38c）：没读的文件、浏览器里的页面不在 context 里，Codex 开无头 Chrome 是想把页面搬进来。它说“没动别的”“页面没问题”时，先问它实际拿到了什么。
 - **教师演示**：走读 2.2 的真实 diff，对照请求记录指出 Codex 的依据；范围扩大自然出现时就地处理，没有出现时在临时分支演示回到检查点。不准备坏 diff，不把演示包装成事故。Git 收成 p40 一页：`git add`、`git diff --cached`、`git commit` 提交一次，加一句 `git restore` / `git revert`；revert 的完整步骤在 p40 的复现按钮里，讲师在临时分支演示（C2-45，原 p41、p41a 状态图已删除）。
-- **学员练习**：输入为 2.2 的 diff、验证结果和本轮目标；形成评审结论，完成必要修正或回退，输出 homepage-v1 提交，提交说明写明本轮目标与改动文件。
+- **学员练习**：输入为 2.2 的 diff、验证结果和本轮目标；形成评审结论，完成必要修正或回退，输出 homepage-v1 提交，提交说明写明本轮目标与改动文件。然后找一个喜欢的主页，只改一处风格；审完接受就再提交一次，不接受就 `git restore`（C2-58）。
 - **阶段产出**：可发布的 homepage-v1 提交。
 - **验收**：见 [ch02.md](ch02.md) 各节要点。
 - **素材**：2.2 的 p23、p24、p27、p30、p31 和 2.3 全节都用 2026-10-21 20:30 那次 2.2 运行（`2.2-simple-20261021-203050`，Done when 已简化），学员在 2.2 看到的计划、弯路和压缩，就是 2.3 审的那份 diff 和请求记录（C2-50）；p22、p27a 只讲结构，仍用 16:22 那次。`git status` 里多一行 `?? AGENTS.md`（2.2 人写的规则），审过后和 `src/App.tsx` 一起提交；起预览服务器和 `curl` 核对写在计划的验证步骤里，各申请一次沙箱外运行，没有无头 Chrome。录制时按当次记录讲，不预设出现哪一种。
@@ -177,6 +177,11 @@
 | C2-55 | 2026-10-22 | 讲师演示的主页内容改用第 2 章负责讲师 MiaoDX 的公开主页（miaodx.com）：学校、工作经历、项目都取自已公开内容，不放联系方式；取代“项目区借用两位讲师的经历、首屏仍是示例内容”的做法。学员可以用自己愿意公开的信息，也可以用虚构人物。依据：真实的个人主页比三条项目更像学员真正想做的东西，也让 2.4 的推送前隐私检查有实际内容可查。重开条件：讲师不愿公开某类信息，或试讲时学员反馈示范内容门槛过高 | 2026-10-22 讨论 |
 | C2-56 | 2026-10-22 | 2.2 的内容从三条项目经历扩为个人信息、经历和项目，来源是人写的个人信息文件，分几轮放进页面；2.3 先参考一个主页改一处风格（配色、排版或某一区块），再审查和提交，时长 18 改为 20 分钟，取代 C2-50 的素材安排（2.2、2.3 要重录）。依据：2.3 的“它看不见什么”正好落在“给 URL、截图还是描述，模型拿到的不同”上。重开条件：重录后 2.3 的 diff 大到 20 分钟审不完，就把风格参考移到课后选做 | 同上 |
 | C2-57 | 2026-10-22 | 本章不用批量实验和统一实验平台；课件数字按全章基线手工跑一次，记进本文实测记录，换 Codex 版本时再跑一次。起点快照按前提清单手工准备，不靠重跑第 1 章。依据：讲透问题驱动后，课件内容不再由事先的多组实验决定。重开条件：某个数字或现象两次手工运行差异大到影响讲法 | 提案 2026-10-21-course-experiment-bench 第九节 |
+| C2-58 | 2026-10-22 | 2.3 的顺序定为：先审 2.2 的内容 diff、提交 homepage-v1，再参考主页改一处风格，审完接受就再提交一次，不接受就 `git restore` 回到 homepage-v1（细化 C2-56）。2.2 的个人信息放在项目根目录的 `profile.md`，Prompt 只点名文件、不贴内容，让读文件这次调用出现在请求记录里。分镜逐页标出层（主线、深入）和对应的讲透问题；项目动作页对应验收，不对应问题。依据：先有检查点，风格改动才敢拒绝；点名文件让 2.1 的“工具返回也进 context”在 2.2 再出现一次。重开条件：重录后两次提交让 2.3 超过 20 分钟 | 2026-10-22 讨论 |
+| C2-59 | 2026-10-22 | 2.3 审查内容 diff 的部分压缩：删掉 p37（逐处走读）、p38c（看不见的东西，并入 p40b）、p39（三种处置，移到 p40c）；内容改动只走“范围 → 每一句都在 profile.md 里吗 → 依据”，接受后提交。风格参考建议用 brittanychiang.com，备选 jonbarron.info，录制前定。排练用 `courseware/ch02/materials/mainline/run-2.2.sh` 自动放入 `AGENTS.md`、`profile.md`，跑完 2.2 和风格参考。依据：加了风格参考后，2.3 要在 20 分钟内讲两轮审查；接受、缩小、拒绝在风格改动上更可能真用上。重开条件：重录后内容 diff 出现越界，需要完整的处置页 | 2026-10-22 讨论 |
+| C2-60 | 2026-10-22 | 2.3 审查再合并：p38（逐项对照 Done when）并入 p36，p38b（长返回会被截断）只留 p38a 末尾一句口播；2.3 共 8 页：开篇、范围与出处、依据、提交，加风格参考三页和小结。依据：审查不是本课重点，讲师认为可以更激进；“看全了吗”是机制，一句话讲得清。重开条件：试讲时学员答不出 Q6 的“看全了吗” | 2026-10-22 讨论 |
+| C2-61 | 2026-10-22 | 2.3 改以调整风格为重点，节标题改为“参考一个主页改风格：它看到了什么”：审 2.2 内容只留范围与出处、提交两页；风格改两轮（p40a 按参考改一处，p40d 说清哪里不像再改），p40b 用排练里“给了地址却没取”的真实证据讲依据在哪一块；删去 p38a（依据并入 p40b）。取代 C2-58 里“先审内容再改风格”的比重安排，审查部分不再是本节重点。依据：讲师认为审查不该是课程重点，改风格对学员更有意义，也更能看清“它看到了什么”。重开条件：重录后两轮风格改动超过 20 分钟，就把第二轮放到课后选做 | 2026-10-22 讨论 |
+| C2-62 | 2026-10-22 | **更正 C2-61 与当日实测记录**：排练里 Codex 并非“没取参考地址”。当时只在画面记录里查了本地联网申请和 curl，漏掉了 web_search 这个在模型服务一侧执行的工具；回看 claude-tap 记录后更正。它用 Codex 的 web_search 工具打开了地址（brittanychiang.com 那次 4 次，jonbarron.info 那次 3 次，动作是 open_page），这个工具在模型服务那一侧执行，不经本地沙箱，也不用人批准；请求里这个工具的配置是 `external_web_access: false`。取回的只有首页摘要，brittanychiang.com 那次没拿到 Experience 区块，jonbarron.info 的 cv.html 没打开；缺的部分，它用 Prompt 里的描述加上自己“记得”的那个网站补齐（推理里写出了一段它以为的页面结构，没有核实）。取回的内容不在 claude-tap 记录的请求里，记录里只有“打开了哪个网址”。p40b 改为讲这三件事：看不见的取网页通道、拿到的不是页面的样子、缺的部分它会自己补。依据：claude-tap 会话 87745911、bf2d2e01 的请求记录。重开条件：MiniMax 一侧 web_search 的实现核实后，按实际改写“在模型服务那一侧执行” | 2026-10-22 回看记录 |
 | C2-63 | 2026-10-22 | 外部佐证（官方文章、研究、X 帖子）在章设计阶段从讲透问题出发选，写进 ch02.md 的“外部佐证”表，再流到节表和分镜，不在课件做完后补图；放图按材料选形式（证据页放帖子或图表、重画、现场打开原网页），证据页用新版式 `evidence-scene`，不往普通页半栏里塞截图；画面不放中文意译，意译写进逐字稿。依据：第 2 章先有课件再找图的样稿里，文字截图在 1168×370 的内容区读不清；“只从上往下改”（章设计方法第五节）。重开条件：证据页版式加进共享样式后，试讲时大图仍看不清，或讲师认为外部材料冲淡了演示 | 2026-10-22 讨论 |
 | C2-64 | 2026-10-22 | 外部佐证采用四条：2.1 p05a 用 Karpathy 帖子截图引出 context engineering；p16a 之后加 p16b（OpenAI 请求组成，Excalidraw 重画）和 p16c（Anthropic 对照图，Excalidraw 重画）；2.2 p23 之后加 p23a（Chroma 曲线，课程手绘重画，数据点读图近似）。四页都用证据页版式，画面不放中文意译，意译写进口播。依据：讲透问题 1、4；三版对照里截图读不清的改重画。重开条件：试讲时 2.1 超时，先砍 p16c；或讲师认为外部材料冲淡了请求记录这条主线 | 2026-10-22 讨论 |
 
@@ -225,3 +230,55 @@
 | 开 | 沙箱里先报连不上网络，Codex 申请到沙箱外运行，批准一次后成功返回 `build_type: workflow` 和网址 |
 
 教学上的含义：2.4 一定要带开关启动；没带时 Codex 会自己去登录，这一步要人拒绝。
+
+**2026-10-22 新流程排练**（`courseware/ch02/materials/mainline/run-2.2.sh`，课程基线、交互界面、Codex 0.163.0 + MiniMax-M3.1-Flash，起点第 1 章参考快照；两次同时跑，只差 p40a 的参考主页；运行目录 `lab-runs/ch02-context/2.2-profile-{bchiang,jbarron}-20261022-174731/`，不提交）：
+
+| 观察 | brittanychiang.com 那次 | jonbarron.info 那次 |
+| --- | --- | --- |
+| 2.2 是否读 `profile.md`、文字是否照抄 | 读了；计划里列出四块的原标题，不改写 | 同左 |
+| 2.2 改动 | `index.html`（标题）、`src/App.tsx`、`src/index.css`，提交后约 +180 行；首屏、教育、工作经历、项目都放进去了 | 范围相同 |
+| 2.2 Prompt 之外的动作 | 起开发服务器、`curl` 自查、自己用 `vite build --ssr` 抽出页面文字逐句对 `profile.md`（都申请到沙箱外运行，脚本一律同意） | 起开发服务器、`curl` 自查 |
+| 压缩后追问 build 最后一行 | 答 `✓ built in 279ms` | 答出耗时，说明哈希和字节数没有逐字留存，要再跑一次才能逐字复述 |
+| 2.3 p40a 是否打开参考地址 | **打开了，但只拿到首页摘要**：用 web_search 工具 open_page 4 次，没有本地联网申请；Experience 区块没取到，按描述和自己的记忆补 | **打开了，同样不全**：open_page 3 次，首页拿到、cv.html 没打开；按描述和记忆补 |
+| 2.3 风格改动 | 工作经历改成左列日期、竖线加圆点、右列职位加粗；`App.tsx`、`index.css` +114 −8 | 左列日期、右列公司职位；+61 −13；另提议去掉全角冒号，等人确认 |
+
+教学上的含义（2026-10-22 更正，见 C2-62）：它用 Codex 的 web_search 工具打开了地址（brittanychiang.com 那次 4 次，jonbarron.info 那次 3 次，动作是 open_page），这个工具在模型服务那一侧执行，不经本地沙箱，也不用人批准；请求里这个工具的配置是 `external_web_access: false`。取回的只有首页摘要，brittanychiang.com 那次没拿到 Experience 区块，jonbarron.info 的 cv.html 没打开；缺的部分，它用 Prompt 里的描述加上自己“记得”的那个网站补齐（推理里写出了一段它以为的页面结构，没有核实）。取回的内容不在 claude-tap 记录的请求里，记录里只有“打开了哪个网址”。所以 p40b 能讲三件事：参考可以从我们看不见的通道进 context；它拿到的不是我们在浏览器里看到的样子；缺的部分它会自己补，而且不说。两个参考主页的结果差别不大，主要来自描述相同和模型的随机性，比不出哪个参考更好。2.2 的改动比旧流程（+10 −2）大得多，2.3 逐行走读不现实，审查只看范围和出处（C2-59、C2-60）。
+
+**2026-10-22 截图与网页搜索实测**（`tools/clean-codex.sh -- exec -s read-only`，课程基线，Codex 0.163.0 + MiniMax-M3.1-Flash，各一次，原始记录在讲师本机，不提交）：
+
+| 实验 | 结果 |
+| --- | --- |
+| 截图：把排练生成的个人主页截图用 `-i` 传给它，问“工作经历第二条的日期和职位、职位文字的颜色、页面大标题” | 全部答对（2021.08—2025.03、感知系统团队负责人、绿色、缪东旭（MiaoDX）），没有调用任何工具，输入约 1 万 token。模型能读图；能力目录里 `input_modalities` 也写着 `["text", "image"]` |
+| 网页搜索，默认模式（`web_search` 为 cached，请求里 `external_web_access: false`）：让它打开 brittanychiang.com，说出 Experience 第一条的日期、职位和公司，拿不到就直说 | 直接打开只拿到首屏自我介绍；它又连续换了几十种办法（搜索、加锚点、archive.org、r.jina.ai、microlink 渲染代理、别人搭的镜像站），最后用代理拿到第一条的描述，日期和职位从镜像站补，职位写成 “Senior Front-End Engineer”（线上原文是 “Senior Frontend Engineer, Accessibility”）。输入约 39 万 token |
+| 同上，改成 live 模式（`-c web_search="live"`，请求里 `external_web_access: true`） | 同样只拿到首屏；试到工具调用上限，最后如实说“没能从网页上直接拿到”，只给出旧简历 PDF 和第三方来源的旁证。输入约 56 万 token |
+| 用 curl 取网页：关掉网页搜索（`-c web_search="disabled"`），打开沙箱联网（`-c sandbox_workspace_write.network_access=true`），Prompt 写“用 curl 取 HTML” | **完全答对**：取到 63 KB 的 HTML，找到 `id="experience"` 下 6 条，第一条 `2024 — Present`、`Senior Frontend Engineer, Accessibility`、`Klaviyo`；还取了 CSS，说出日期在左列（`sm:col-span-2`）、内容在右列（`sm:col-span-6`）。9 条命令，输入约 15 万 token |
+
+`external_web_access` 的含义（Codex 0.163.0 源码 `core/src/tools/hosted_spec.rs`）：`web_search` 有 disabled、cached（默认）、indexed、live 四种模式，cached 发 `external_web_access: false`，live 发 `true`；这个字段沿用 OpenAI 的网页搜索工具，false 表示只用缓存的结果、不实时访问网页。网页搜索是托管工具，由模型服务一侧执行，Codex 本地不执行，也不走本地沙箱和批准。换成 MiniMax 以后，cached 和 live 在这次实测里看不出区别：两种模式都能打开网页、都只拿到首屏；MiniMax 一侧怎样处理这个字段没有文档，没有核实。
+
+**MiniMax 官方的推荐**（2026-10-22 查阅）：[Codex 配置指南](https://platform.minimax.cn/docs/token-plan/codex-cli)只给模型和能力目录的配置（能力目录写明 `input_modalities` 含图片、`web_search_tool_type` 为 text），不讲联网和取网页；[MCP 指南](https://platform.minimax.cn/docs/token-plan/mcp-guide)的 `minimax-coding-plan-mcp` 只有 `web_search`，返回搜索结果，不取网页正文，也没有给 Codex 的配置；[MiniMax CLI](https://platform.minimax.cn/docs/m-plan/minimax-cli) 有 `mmx search query`（搜索）和 `mmx vision describe`（看图），同样没有取网页正文的命令。官方没有专门的“取网页”工具。
+
+教学上的含义（2026-10-22 更正前一版结论）：模型本身能正常读网页，问题出在取网页的通道。Codex 自带的 `web_search` 是托管工具，接 MiniMax 时打开网页只返回一段摘要（这次只有首屏），拿不到就到处找，费 token、结果也不一定准；cached 和 live 看不出区别。让它在本地用 curl 取 HTML 和 CSS，拿到的是完整原文，结果准、也更省；代价是要联网，交互界面里会申请到沙箱外运行，由人批准。截图同样可靠。所以 2.3 给参考有三条路：截图、让它用 curl 取（人批准联网）、自己写描述；只给地址、让它自己决定怎么取，最不可控。课程基线的 `web_search` 不用改成 live。
+
+**网页搜索的源码细节**（2026-10-22 读 Codex 0.163.0 源码，路径相对 `third_party/codex/codex-rs/`）：
+
+1. **不只给 GPT 模型**：`core/src/tools/spec_plan.rs` 第 697–713 行，只要服务商的能力里 `web_search` 为真，就把托管的 `web_search` 工具加进请求；`model-provider/src/capabilities.rs` 里所有服务商的默认值都是真，自定义的 MiniMax 也一样。能力目录里的 `supports_search_tool` 管的是另一个“工具搜索”功能，和网页搜索无关。自定义服务商能覆盖的只有 `external_web_access` 和远程压缩（`model-provider-info/src/capabilities.rs`），关不掉网页搜索；要关只能全局写 `web_search = "disabled"`。
+2. **Codex 自己不执行**：托管工具由收到请求的服务端执行，这里就是 MiniMax 的 Responses 兼容接口。Codex 另有一个本地执行的网页搜索扩展（`ext/web-search/src/extension.rs`），只在 OpenAI 服务商、或服务商声明 `supports_standalone_web_search` 时启用，MiniMax 用不上。所以“打开网页只返回摘要”是 MiniMax 那一侧的实现，Codex 管不到，文档里也没写。
+3. **取回的内容不进对话历史**：`protocol/src/models.rs` 里 `web_search_call` 只有 `action`（打开了哪个网址、搜了什么）和可选的 `encrypted_content`。claude-tap 记录里 MiniMax 返回的 `web_search_call` 没有带内容，而且 `core/src/client.rs` 第 1008–1017 行对非 OpenAI 服务商会清掉除推理和压缩以外所有条目的 `encrypted_content`。所以网页内容只在当次服务端的那一轮里给模型看过，下一次请求里只剩“打开了哪个网址”。这也解释了排练里它为什么同一个网址反复打开了 4 次。
+4. **`external_web_access`**：OpenAI 文档说明 false 是只用缓存、不实时访问（[Web search 文档](https://developers.openai.com/api/docs/guides/tools-web-search)）；MiniMax 怎样处理没有文档，实测两种设置看不出区别。
+
+没有找到把这件事当成已知问题的公开讨论；以上是按源码和请求记录推出来的，MiniMax 一侧的行为没有官方说明。
+
+**ChatGPT 登录与 MiniMax 的请求对比**（2026-10-22，`tools/clean-codex.sh --tap`，ChatGPT 登录这次起可以接 claude-tap；起点第 1 章参考快照，同一句只读问题“项目区现在显示什么、数据在哪个文件”，`codex exec -s read-only`，各一次，claude-tap 会话 09516be8、f8ad2b6d，不提交）：
+
+| 对照项 | ChatGPT 登录（Codex 默认的 gpt-6.1-sol） | MiniMax（课程基线） |
+| --- | --- | --- |
+| 回答 | 对：1 个项目“学习笔记”，数据在 `src/App.tsx` 第 1–6 行 | 对，内容相同，写得更长 |
+| 请求次数、输入 | 2 次模型请求，输入约 3.7 万 token | 6 次，约 7 万 token |
+| 推理参数 | `effort: low`，`context: all_turns`，另有 `verbosity: low` | `effort: max` |
+| 系统指令 | 完整的内置基础指令，约 2.2 万字符（“You are Codex, an agent based on GPT-6…”） | 能力目录里的一句话，284 字符 |
+| 工具放在哪 | 请求头带 Responses Lite 标记，工具不在 `tools` 字段，而是作为一条 `additional_tools` 消息放进输入（约 2.9 万字符：exec、wait、两种 request_user_input、sleep、6 个协作工具） | 在 `tools` 字段，5 个，其中有托管的 `web_search` |
+| 网页搜索 | 请求里没有托管网页搜索（Responses Lite 不带托管工具） | 有 |
+| 推理条目 | 这次没有推理输出（推理 token 为 0），看不到推理条目长什么样 | 每轮都有，claude-tap 里能看到推理正文，旁边另有一段密文 |
+| 服务端保存 | `store: false`，`previous_response_id` 为空，每次整段重发 | 同左 |
+
+两点没弄清：一是 ChatGPT 登录下推理条目在记录里是什么样，要换一个需要推理的任务再跑；二是第二次 ChatGPT 运行（`-c model_reasoning_effort="high"`）claude-tap 一条请求都没记到，可能是这次走了 WebSocket，claude-tap 0.1.146 的反向代理没有记录，没有核实。

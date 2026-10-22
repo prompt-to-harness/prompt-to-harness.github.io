@@ -1,14 +1,14 @@
 # 第二章：迭代并发布个人主页
 
-> 状态：第 2 章的主线、各节范围、验收和决策以[第 2 章文件](../../docs/chapters/ch02.md)为准，本文只写制作状态、全章素材和各节入口。课件是 2026-10-03 首版，2026-10-20 按 Context 主线改版；2026-10-21 已按章文件改了：2.2 p27a 加入 `AGENTS.md`、p33 加一题（C2-38），2.4 改用 `CLEAN_CODEX_GH=1` 启动（C2-39），2.5 分镜改为工程经验分享草稿（C2-37）。同日按新流程重录了 2.1 第二步、2.2 全程和 2.4 的写操作，2.1、2.2、2.4 的数字已更新（见[第 2 章文件](../../docs/chapters/ch02.md)“实测记录”）。2.5 课件同日按新分镜重做（p59–p63）。均未试讲、未录制。
+> 状态：第 2 章的主线、各节范围、验收和决策以[第 2 章文件](../../docs/chapters/ch02.md)为准，本文只写制作状态、全章素材和各节入口。课件是 2026-10-03 首版，2026-10-20 按 Context 主线改版；2026-10-21 已按章文件改了：2.2 p27a 加入 `AGENTS.md`、p33 加一题（C2-38），2.4 改用 `CLEAN_CODEX_GH=1` 启动（C2-39），2.5 分镜改为工程经验分享草稿（C2-37）。同日按新流程重录了 2.1 第二步、2.2 全程和 2.4 的写操作，2.1、2.2、2.4 的数字已更新（见[第 2 章文件](../../docs/chapters/ch02.md)“实测记录”）。2.5 课件同日按新分镜重做（p59–p63）。均未试讲、未录制。2026-10-22 按章设计方法和 C2-55 至 C2-58 改了分镜和课件结构：分镜逐页标出层和讲透问题；各节开篇和 2.1 p16a 加锚点图；2.2 新增 p29a（写 `profile.md`）并换新 Prompt；2.3 新增 p40a–p40c（参考主页改一处风格）；2.5 新增 p63a 章末自检。讲师演示的个人信息见 [`materials/profile/`](materials/profile/README.md)。2.1 第二步、2.2、2.3 要按新 Prompt 重录，依赖运行结果的页面在各节 README 里列出。
 
 最新审查：[docs/reviews/ch02/](../../docs/reviews/ch02/)（2026-10-05 起两份，重点 2.2–2.5）。其中依据反馈卡的条目已随本次重写失效，其余待课件重做时复核。
 
 | 小节 | 分镜 |
 | --- | --- |
 | 2.1 只说了一句话，模型收到了什么 | [STORYBOARD](lessons/01-request/STORYBOARD.md) · [课件](lessons/01-request/index.html) · [说明](lessons/01-request/README.md) |
-| 2.2 补上项目经历，看对话怎么变长 | [STORYBOARD](lessons/02-iteration/STORYBOARD.md) · [课件](lessons/02-iteration/index.html) · [说明](lessons/02-iteration/README.md) |
-| 2.3 它看到了什么，才这样改 | [STORYBOARD](lessons/03-review/STORYBOARD.md) · [课件](lessons/03-review/index.html) · [说明](lessons/03-review/README.md) |
+| 2.2 补上个人经历，看对话怎么变长 | [STORYBOARD](lessons/02-iteration/STORYBOARD.md) · [课件](lessons/02-iteration/index.html) · [说明](lessons/02-iteration/README.md) |
+| 2.3 参考一个主页改风格：它看到了什么 | [STORYBOARD](lessons/03-review/STORYBOARD.md) · [课件](lessons/03-review/index.html) · [说明](lessons/03-review/README.md) |
 | 2.4 发布上线，看 Codex 怎么用 gh | [STORYBOARD](lessons/04-publish/STORYBOARD.md) · [课件](lessons/04-publish/index.html) · [说明](lessons/04-publish/README.md) |
 | 2.5 用好 context 的三个做法 | [STORYBOARD](lessons/05-experience/STORYBOARD.md) · [课件](lessons/05-experience/index.html) · [说明](lessons/05-experience/README.md) |
 

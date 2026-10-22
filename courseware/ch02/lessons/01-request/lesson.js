@@ -11,7 +11,7 @@ window.lesson = {
       "label": "这一章做什么",
       "title": "补完整，发布上线",
       "lead": "把个人主页补完整、发布上线，一路打开请求看清 context",
-      "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>2.1</b>看请求</li><li><b>2.2</b>补经历</li><li><b>2.3</b>审改动</li><li><b>2.4</b>发布上线</li><li><b>2.5</b>用好 context</li></ol><div class=\"p-chain\" data-reveal=\"1\" style=\"margin-top:12px;font-size:20px\"><span>补完整</span><i>→</i><span>发布上线</span><i>·</i><span>一路看清 context</span></div><style>.x-p01 span{padding:6px 10px;font-size:19px}.x-p01 .is-head span{font-size:16px}</style><div class=\"p-matrix x-p01\" data-reveal=\"2\" style=\"margin-top:10px;grid-template-columns:minmax(0,.35fr) minmax(0,1.2fr) minmax(0,1.6fr)\"><div class=\"is-head\"><span>节</span><span>项目动作</span><span>用请求记录回答</span></div><div class=\"is-key\"><span>2.1</span><span>用 claude-tap 启动 Codex</span><span>只说一句话，模型收到了什么？</span></div><div><span>2.2</span><span>补上项目经历</span><span>多聊几轮，context 怎么变长？</span></div><div><span>2.3</span><span>审查改动，决定要不要接受</span><span>它是根据哪些内容改的？</span></div><div><span>2.4</span><span>发布到 GitHub Pages</span><span>Codex 怎样调用 gh？</span></div><div><span>2.5</span><span>分拣“只是重构”的改动</span><span>没有测试，它能证明行为没变吗？</span></div></div>",
+      "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>2.1</b>看请求</li><li><b>2.2</b>补经历</li><li><b>2.3</b>改风格</li><li><b>2.4</b>发布上线</li><li><b>2.5</b>用好 context</li></ol><div class=\"p-chain\" data-reveal=\"1\" style=\"margin-top:12px;font-size:20px\"><span>补完整</span><i>→</i><span>发布上线</span><i>·</i><span>一路看清 context</span></div><style>.x-p01 span{padding:6px 10px;font-size:19px}.x-p01 .is-head span{font-size:16px}</style><div class=\"p-matrix x-p01\" data-reveal=\"2\" style=\"margin-top:10px;grid-template-columns:minmax(0,.35fr) minmax(0,1.2fr) minmax(0,1.6fr)\"><div class=\"is-head\"><span>节</span><span>项目动作</span><span>用请求记录回答</span></div><div class=\"is-key\"><span>2.1</span><span>用 claude-tap 启动 Codex</span><span>只说一句话，模型收到了什么？</span></div><div><span>2.2</span><span>补上个人经历</span><span>多聊几轮，context 怎么变长？</span></div><div><span>2.3</span><span>先留检查点，参考主页改两轮风格</span><span>它依据什么改，什么看不见？</span></div><div><span>2.4</span><span>发布到 GitHub Pages</span><span>这些内容发到了哪里？</span></div><div><span>2.5</span><span>另一位讲师分享经验</span><span>平时怎样用好 context？</span></div></div>",
       "repro": {
         "label": "从这一章开始？",
         "steps": [
@@ -54,7 +54,7 @@ window.lesson = {
       "script": [
         "【操作提示｜停留课件 p01 第 1 步，指向章节地图上的 2.1，再指页面上方“从这一章开始？”入口，只点位置不展开其中步骤；不切工具窗口】\n\n第 1 章结束时，我们做出了个人主页：能启动、能构建，改动也能解释清楚。还没做完第 1 章也没关系：点开这一页上方的“从这一章开始？”，按步骤让 Codex 对照课程的参考起点补齐，再回来继续。",
         "【操作提示｜推进第 2 步，指向“补完整 → 发布上线 · 一路看清 context”一行；留在课件】\n\n这一章做两件事：把个人主页补完整，再发布上线，得到一个公开的网址。一路上，我们会打开 Codex 实际发给模型的请求，看清 context 到底长什么样、怎么变。第 1 章讲的是 context 里该放什么，这一章看它实际的样子。",
-        "【操作提示｜推进第 3 步，从上到下指五行，每行先指项目动作，再指右列的问题，最后停在高亮的 2.1 行；留在课件，下一页再切浏览器】\n\n五节，每节做一个项目动作，同时用请求记录回答一个问题。2.1 用 claude-tap 启动 Codex，看只说一句话时模型收到了什么；2.2 补上项目经历，看对话多了 context 怎么变长；2.3 审查改动，看它是根据哪些内容改的；2.4 发布上线，看 Codex 怎样调用 gh；2.5 回头看一次“只是重构”，没有测试，它能不能证明行为没变。先从 2.1 开始。不过在打开请求之前，先把昨天的页面重新跑起来。"
+        "【操作提示｜推进第 3 步，从上到下指五行，每行先指项目动作，再指右列的问题，最后停在高亮的 2.1 行；留在课件，下一页再切浏览器】\n\n五节，每节做一个项目动作，同时用请求记录回答一个问题。2.1 用 claude-tap 启动 Codex，看只说一句话时模型收到了什么；2.2 把自己的个人信息、经历和项目补进主页，看对话多了 context 怎么变长；2.3 先给改动留一个检查点，再参考一个喜欢的主页改两轮风格，看它依据什么改、有什么看不见；2.4 发布上线，看这些内容最后发到了哪里；2.5 由另一位讲师分享平时怎样用好 context。先从 2.1 开始。不过在打开请求之前，先把昨天的页面重新跑起来。"
       ],
       "teaching": [
         {
@@ -560,8 +560,8 @@ window.lesson = {
       "segment": "小结",
       "label": "这些加在一起",
       "title": "这些加在一起，就是 context",
-      "lead": "系统指令、工具定义、Skills 列表、环境信息、权限说明、我们的话，再加上工具调用和返回，模型这一次能看到的全部内容，就是 context。第 1 章说 context 里该放什么，这里第一次看到它的实际样子；后面四节都用同一套配置录下的请求记录来看。",
-      "html": "<div class=\"p-box\" data-role=\"ctx\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">这一次请求</span><div class=\"p-chain\" style=\"margin-top:4px;font-size:20px\"><span>系统指令</span><i>·</i><span>工具定义</span><i>·</i><span>Skills 列表</span><i>·</i><span>环境信息</span><i>·</i><span>权限说明</span><i>·</i><span>工具调用和返回</span><i>·</i><span>我们的话</span></div></div><div class=\"p-bar\" data-reveal=\"1\" style=\"margin-top:10px\"><b>Context</b>：模型这一次能看到的全部内容</div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:10px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ink\">Anthropic 的说法</span><p>Context 是从大模型采样时包含的那一组 token</p><p class=\"p-sub\">包括系统指令、工具、MCP、外部数据、消息历史等 · 2025-09</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"3\"><span class=\"p-tag\" data-role=\"ctx\">课程地图</span><p>第 1 章：Agent 循环 · 权限<br><b>第 2 章：Context</b> 点亮<span class=\"p-sub\">，后面几章还没走到</span></p></div></div>",
+      "lead": "系统指令、工具（含 Skills 列表）、环境（含权限说明）、规则、对话历史、工具返回，再加上我们这一句，模型这一次能看到的全部内容，就是 context。规则和对话历史这一次还是空的，下一节会填上。第 1 章说 context 里该放什么，这里第一次看到它的实际样子；这一列方块是全章的锚点图，后面四节都回到它。",
+      "html": "<div class=\"p-set\" data-role=\"ctx\" data-reveal=\"0\" style=\"padding:10px 16px 12px\"><h3 style=\"font-size:20px;margin-bottom:6px\">这一次请求里有什么</h3><div class=\"p-items\" style=\"flex-direction:row;flex-wrap:wrap;gap:6px\"><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px\">系统指令</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px\">工具</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px\">环境</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">规则</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">对话历史</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px\">工具返回</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px\">这一句</div></div><div class=\"p-foot\">规则、对话历史这一次还是空的，2.2 填上</div></div><div class=\"p-bar\" data-reveal=\"1\" style=\"margin-top:10px\"><b>Context</b>：模型这一次能看到的全部内容</div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:10px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ink\">Anthropic 的说法</span><p>Context 是从大模型采样时包含的那一组 token</p><p class=\"p-sub\">包括系统指令、工具、MCP、外部数据、消息历史等 · 2025-09</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"3\"><span class=\"p-tag\" data-role=\"ctx\">课程地图</span><p>第 1 章：Agent 循环 · 权限<br><b>第 2 章：Context</b> 点亮<span class=\"p-sub\">，后面几章还没走到</span></p></div></div>",
       "refs": [
         {
           "kind": "read",
@@ -577,7 +577,7 @@ window.lesson = {
         "点亮地图"
       ],
       "script": [
-        "【操作提示｜停留课件 p16a 第 1 步，用手势框住整排内容；不切窗口】\n\n把这一节看到的放在一起：系统指令、工具定义、Skills 列表、环境信息、权限说明、工具调用和返回，最后才是我们的话。",
+        "【操作提示｜停留课件 p16a 第 1 步，从上到下指这一列方块；不切窗口】\n\n把这一节看到的放在一起：系统指令、工具和 Skills 列表、环境信息和权限说明、工具返回，最后才是我们这一句。中间还有两块：规则和对话历史，这一次还是空的，下一节会填上。这一列方块，后面每一节都会回来看。",
         "【操作提示｜推进第 2 步，指向结论条】\n\n这些加在一起，就是 context：模型这一次能看到的全部内容。第 1 章我们讲过 context 里该放什么，这是第一次看到它实际长什么样。",
         "【操作提示｜推进第 3 步，指向官方说法，读出来源；原文链接在阅读模式和讲解全文的参考链接里】\n\nAnthropic 有一篇讲 context 的文章，给的定义是：从大模型采样时包含的那一组 token。它还列了这一组里有什么：系统指令、工具、外部数据、消息历史。和我们刚才一块块拆出来的，基本对得上。",
         "【操作提示｜推进第 4 步，指向点亮的 Context；留在课件】\n\n在课程地图上，第 2 章点亮的就是 Context。后面四节，我们都会用同一套配置录下的请求记录，看它怎么变长、怎么清空，又怎样影响 Codex 的改动。"
@@ -687,7 +687,7 @@ window.lesson = {
       "label": "本节小结",
       "title": "模型收到的，远不止我们那句话",
       "lead": "只说一句话，Codex 发出的请求里有系统指令、工具定义、Skills 列表、环境信息和权限说明；工具调用和返回也会进入 context；换权限、换模型配置，同一句话的 context 就不同。下一节回答：对话多几轮，context 怎么变？",
-      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">一张地图</h3><div class=\"p-star\" style=\"width:260px;font-size:24px\">Context<br>六块，加上工具返回</div><p class=\"p-sub\" style=\"text-align:center\">我们的话只是最后一格</p></div><div><h3 data-reveal=\"1\">两个认识</h3><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-point\" data-reveal=\"1\">工具调用和返回也会进入 context</li><li class=\"is-point\" data-reveal=\"2\">换权限、换模型配置，context 就不同</li></ul></div><div class=\"p-next\" data-reveal=\"3\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>2.2 补上项目经历</h3><p>对话多几轮，context 怎么变？</p></div></div></div>",
+      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">一张地图</h3><div class=\"p-star\" style=\"width:260px;font-size:24px\">Context<br>六块，加上工具返回</div><p class=\"p-sub\" style=\"text-align:center\">我们的话只是最后一格</p></div><div><h3 data-reveal=\"1\">两个认识</h3><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-point\" data-reveal=\"1\">工具调用和返回也会进入 context</li><li class=\"is-point\" data-reveal=\"2\">换权限、换模型配置，context 就不同</li></ul></div><div class=\"p-next\" data-reveal=\"3\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>2.2 补上个人经历</h3><p>对话多几轮，context 怎么变？</p></div></div></div>",
       "steps": [
         "拆开的请求",
         "工具调用也进来",
@@ -698,7 +698,7 @@ window.lesson = {
         "【操作提示｜停留课件 p19 第 1 步，指向星形里的 Context；不切工具窗口】\n\n这一节我们没有改一行代码，只说了一句话，就看到了模型实际收到的东西：六块内容，我们那句话只是最后一格。",
         "【操作提示｜推进第 2 步，指向第一条要点】\n\n问一个项目问题时，工具调用和它的返回也会进入 context，模型的下一步从这里来。",
         "【操作提示｜推进第 3 步，指向第二条要点】\n\n同一句话，换个权限、换个模型配置，context 就不同。",
-        "【操作提示｜推进第 4 步，指向“2.2 补上项目经历”卡片。不退出 Terminal 中本节的 Codex 会话与开发服务器，2.2 在这个会话里执行 /clear 开始本轮】\n\n下一节，我们要补上项目经历，和 Codex 多聊几轮。对话多了，context 会怎么变？我们接着用同一套配置看请求记录。"
+        "【操作提示｜推进第 4 步，指向“2.2 补上个人经历”卡片。不退出 Terminal 中本节的 Codex 会话与开发服务器，2.2 在这个会话里执行 /clear 开始本轮】\n\n下一节，我们要补上个人经历，和 Codex 多聊几轮。对话多了，context 会怎么变？我们接着用同一套配置看请求记录。"
       ],
       "teaching": [],
       "source": "index.html#p19",
