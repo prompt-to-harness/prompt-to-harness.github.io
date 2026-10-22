@@ -54,6 +54,7 @@
 - **每轮从相同的干净起点开始，串行运行**，记录版本、模型和日期。原始记录留在被 git 忽略的 `lab-runs/` 和 claude-tap 的本地数据库，仓库只提交一份脱敏参考记录和多轮汇总。
 - 交互界面靠读取屏幕驱动，容易误判状态；批量运行可改用 `codex exec --json` 或 app-server 的事件接口（待核验后采用），录给学员看的仍用交互界面。
 - **讲师实验脚本共用 `tools/lab-lib.sh`**（2026-10-20 讲师确认）：统一的是入口、步骤文件和日志格式，执行方式按实验选。默认用 exec 驱动（`codex exec --json`，多步用 `resume --last` 接上）；离不开交互界面的实验（`/compact` 等斜杠命令、Memory 的交互会话）才用 tmux 驱动，Codex 升级后先校准库里的屏幕文字。每轮的运行目录都是 `repo/`、`home/`、`logs/` 三部分，`logs/steps.log` 是时间线。只有几条线性输入的实验写一个步骤文件，交给 `tools/lab-steps.sh` 跑，一条 prompt 就只写一行；主线这类要按结果分支的脚本直接调用库里的 `codex_step`。学员不用这些脚本，自己用 `tools/clean-codex.sh`。
+- **结果统一成 `run.json`**（2026-10-22 讲师确认，见[课程实验台提案](../outline/proposals/2026-10-21-course-experiment-bench.md)）：一次运行结束后用 `tools/lab-collect.mjs` 收尾，写出 `run.json`、`diff.patch` 和用相对路径构建的 `dist/`，交互、模拟学员、批量运行都用它，靠 `driver` 区分；只按字段白名单输出，不含会话原文、本机路径和账号字段。要模拟学员和 Codex 多轮对话时用 `tools/lab-sim-student.sh`（学员侧是只读 Codex，人设文件放在对应章节的 `materials/`）；多次运行汇成一页可试玩的对比用 `tools/lab-gallery.py`。固定 Prompt 的批量对比用 promptfoo，Harbor 只在需要容器并行或轨迹查看器时用。
 
 #### 重跑与录制定稿
 
