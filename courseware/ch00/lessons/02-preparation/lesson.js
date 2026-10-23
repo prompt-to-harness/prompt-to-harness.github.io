@@ -41,7 +41,7 @@ window.lesson = {
       "script": [
         "【操作提示｜课件 p14 第 1 步；只展示“Codex App 官方说明”入口，说明这是可选工具，不现场安装或演示未经核验的接入；随后推进第 2 步，打开 Codex CLI 官方说明】\n\n课件中给出了两个链接入口。Codex CLI 在终端里使用，本次课程主要使用 CLI 工具演示。Codex App 提供图形界面，是可选工具，大家可以按使用习惯自由选择。\n\n这一轮先把必需的 CLI 准备好。App 的项目操作和模型接入要单独核对，不因为 CLI 配置成功就认定 App 也能使用。",
         "【操作提示｜课件 p14，第 2 步；Chrome 新建“Codex CLI 官方说明”标签页，打开课件“Codex CLI 官方说明”链接。随后切 Terminal，依次执行 node --version、npm --version。这里的 Terminal 指系统终端，也可以使用 VS Code 的集成终端；录制时统一用一套界面】\n\n接下来演示使用 npm 安装 Codex CLI 的流程。我们先打开课件中的安装步骤。我们先安装 Node npm 工具。npm 是随 Node.js 一起安装的包管理工具，等会儿用它下载和安装 CLI。\n\n我打开 Terminal，分别输入 node 和 npm 的版本检查命令。每条命令执行以后，看有没有返回版本号。如果提示找不到命令，就先补齐 Node.js。\n\n【操作提示｜缺少 Node.js 时：回课件展开“详细安装步骤参见”，在 Chrome 新建“Node.js 下载”标签页，打开课件“先安装 Node.js LTS（包含 npm）”链接，演示安装 LTS 版本；安装后重新打开 Terminal 并重查两条版本命令。已有 Node/npm 时略过这个安装分支。检查通过后执行 npm install -g @openai/codex，再执行 codex --version；等待实际输出】\n\n接着执行课件里的 npm 安装命令。命令执行结束后，再运行 codex 的版本检查。看到版本号，说明这个终端已经能找到 Codex 命令。模型能不能正常响应，还要等配置完成以后发一次请求来检查。\n\nWindows 同学在 PowerShell 里执行同样的 npm 安装命令。安装报错时，先看报错内容，确认这一步完成了，再继续配置。\n\n【操作提示｜切回 Chrome“课件”标签页 p14，推进第 3 步，展开“详细安装步骤参见”】",
-        "【操作提示｜课件 p14，第 3 步；指向展开步骤中的配置样例。切 Terminal 执行 mkdir -p ~/.codex；再切 VS Code，通过“打开文件”打开用户目录下的 .codex/config.toml。已有配置先备份并合并；仅展示不含密钥的配置区域，避免暴露私人路径与其他服务配置】\n\n接着来配课程使用的 minimax m3 模型。看课件里的这份样例，model 这一项写的是课程使用的模型 MiniMax-M3。服务地址告诉工具把请求发到哪里，env_key 则告诉它从哪个环境变量读取 API key。\n\n我们打开用户目录下的 .codex 文件夹，把课程配置放到 config.toml 里。路径开头的 ~ 表示你的用户目录。如果文件里已经有其他配置，先备份，再合并相应字段，别把原来的设置整份覆盖掉。\n\n你可以直接从课件复制配置，逐项核对。尤其留意模型 ID、服务地址，还有 MINIMAX_API_KEY 这个环境变量名。环境变量可以先理解成提供给程序的一项运行设置，这里用它来传入密钥。\n\n【操作提示｜保存配置后切回 Terminal；暂停录屏或遮住输入区域，按课件 macOS zsh 命令隐藏输入密钥并 export。不要回显变量，不展示剪贴板或真实密钥。保留这个终端，后面 p17 从这里进入项目并启动 Codex。Windows 命令展示课件已有 PowerShell 分支，不在 macOS 上执行】\n\n密钥用你自己的，按照展开步骤里的隐藏输入命令填写。真实密钥不要写进项目文件，也不要粘到对话里。这里设置的密钥只对当前终端和它启动的程序生效，所以先留着这个窗口，后面我们还要从这里启动 Codex。\n\nWindows 的配置文件位置和隐藏输入命令也放在同一组步骤里，跟着对应系统的版本操作就可以。\n\n【操作提示｜切回 Chrome“课件”标签页，收起详情。App 的 M3 接入尚待单独实测；不演示猜测的设置入口，不将 CLI 配置成功当成 App 已接入。以下口播保留实际操作所需的提醒】\n\nApp 的接入要另外检查，不能因为终端里填过密钥，就直接认为 App 也配置好了。这次先检查 CLI 的实际返回。先把练习项目下载下来，这样发请求时就有一个明确的读取对象。"
+        "【操作提示｜课件 p14，第 3 步；指向展开步骤中的配置样例。切 Terminal 执行 mkdir -p ~/.codex；再切 VS Code，通过“打开文件”打开用户目录下的 .codex/config.toml。已有配置先备份并合并；仅展示不含密钥的配置区域，避免暴露私人路径与其他服务配置】\n\n接着来配课程使用的 minimax m3.1 flash 模型。看课件里的这份样例，model 这一项写的是课程使用的模型 MiniMax-M3.1-Flash。服务地址告诉工具把请求发到哪里，env_key 则告诉它从哪个环境变量读取 API key。\n\n我们打开用户目录下的 .codex 文件夹，把课程配置放到 config.toml 里。路径开头的 ~ 表示你的用户目录。如果文件里已经有其他配置，先备份，再合并相应字段，别把原来的设置整份覆盖掉。\n\n你可以直接从课件复制配置，逐项核对。尤其留意模型 ID、服务地址，还有 MINIMAX_API_KEY 这个环境变量名。环境变量可以先理解成提供给程序的一项运行设置，这里用它来传入密钥。\n\n【操作提示｜保存配置后切回 Terminal；暂停录屏或遮住输入区域，按课件 macOS zsh 命令隐藏输入密钥并 export。不要回显变量，不展示剪贴板或真实密钥。保留这个终端，后面 p17 从这里进入项目并启动 Codex。Windows 命令展示课件已有 PowerShell 分支，不在 macOS 上执行】\n\n密钥用你自己的，按照展开步骤里的隐藏输入命令填写。真实密钥不要写进项目文件，也不要粘到对话里。这里设置的密钥只对当前终端和它启动的程序生效，所以先留着这个窗口，后面我们还要从这里启动 Codex。\n\nWindows 的配置文件位置和隐藏输入命令也放在同一组步骤里，跟着对应系统的版本操作就可以。\n\n【操作提示｜切回 Chrome“课件”标签页，收起详情。App 的 MiniMax 接入尚待单独实测；不演示猜测的设置入口，不将 CLI 配置成功当成 App 已接入。以下口播保留实际操作所需的提醒】\n\nApp 的接入要另外检查，不能因为终端里填过密钥，就直接认为 App 也配置好了。这次先检查 CLI 的实际返回。先把练习项目下载下来，这样发请求时就有一个明确的读取对象。"
       ],
       "seconds": 240,
       "segment": "安装 & 接入",
@@ -49,7 +49,7 @@ window.lesson = {
       "teaching": [
         {
           "title": "核验依据与限制",
-          "text": "2026-10-10 用户确认 macOS 主演示、附 Windows 差异；CLI 的服务配置参考 tools/clean-codex.sh，模型 ID 按讲师最新要求改为 MiniMax-M3；本轮未调用该模型，App 单独核验。CLI 0.162.1 的本机安装包 README 提供 npm install -g @openai/codex。官方在线页面访问受阻；本轮未重新安装或调用模型，App 与 Windows 路径未实测。"
+          "text": "2026-10-10 用户确认 macOS 主演示、附 Windows 差异；CLI 的服务配置参考 tools/clean-codex.sh，模型 ID 为 MiniMax-M3.1-Flash（2026-10-20 讲师确认，正在测试，调用结果待记录），App 单独核验。CLI 0.162.1 的本机安装包 README 提供 npm install -g @openai/codex。官方在线页面访问受阻；本轮未重新安装，App 与 Windows 路径未实测。"
         }
       ],
       "repro": {
@@ -78,8 +78,8 @@ window.lesson = {
             "code": "mkdir -p ~/.codex"
           },
           {
-            "text": "将以下课程 CLI 配置写入用户配置文件。服务配置沿用仓库示例，模型 ID 按课程要求使用 MiniMax-M3。",
-            "code": "model = \"MiniMax-M3\"\nmodel_provider = \"minimax\"\nforced_login_method = \"api\"\n\n[model_providers.minimax]\nname = \"MiniMax\"\nbase_url = \"https://api.minimax.cn/v1\"\nenv_key = \"MINIMAX_API_KEY\"\nwire_api = \"responses\"\n\n[shell_environment_policy]\nexclude = [\"MINIMAX_API_KEY\"]"
+            "text": "将以下课程 CLI 配置写入用户配置文件。服务配置沿用仓库示例，模型 ID 按课程要求使用 MiniMax-M3.1-Flash。",
+            "code": "model = \"MiniMax-M3.1-Flash\"\nmodel_provider = \"minimax\"\nforced_login_method = \"api\"\n\n[model_providers.minimax]\nname = \"MiniMax\"\nbase_url = \"https://api.minimax.cn/v1\"\nenv_key = \"MINIMAX_API_KEY\"\nwire_api = \"responses\"\n\n[shell_environment_policy]\nexclude = [\"MINIMAX_API_KEY\"]"
           },
           {
             "text": "macOS 默认 zsh：在终端隐藏输入自己的 MiniMax API 密钥；只对当前终端及其子进程生效，新终端需重新设置。不要把真实密钥粘进命令文本或项目文件。",

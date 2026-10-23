@@ -24,6 +24,6 @@
 
 ## 产出与核验
 
-不新增环境记录单、SHA 抄录或准备作业。README 练习恢复原文，欢迎语保持原始状态。Git 与 HTTP 欢迎页已在独立临时克隆验证；本轮未安装工具、调用模型或验证 Windows。CLI 服务配置参考仓库排练，模型 ID 按讲师要求使用 MiniMax-M3（本轮未调用）；App 的 M3 入口仍待单独实测。直接克隆官方 Starter 后，推送前需建立自己的远端。
+不新增环境记录单、SHA 抄录或准备作业。README 练习恢复原文，欢迎语保持原始状态。Git 与 HTTP 欢迎页已在独立临时克隆验证；本轮未安装工具、调用模型或验证 Windows。CLI 服务配置参考仓库排练，模型 ID 为 MiniMax-M3.1-Flash（2026-10-20 讲师确认，正在测试，调用结果待记录）；App 的接入入口仍待单独实测。直接克隆官方 Starter 后，推送前需建立自己的远端。
 
 命令使用 lesson.js 的 repro 字段；口播在本节 script.json，修改后运行 `python3 courseware/tools/rebuild-lesson.py courseware/ch00/lessons/02-preparation` 合并进 lesson.js。
