@@ -104,3 +104,27 @@ uv run courseware/tools/capture-source.py https://startbootstrap.github.io/start
 | `../../lessons/05-experience/external/phistory-codex-0.156.0-0.157.0.png` | [phistory.cc 对比页](https://phistory.cc/?agent=codex&from=0.156.0&to=0.157.0)，Codex CLI 0.156.0 → 0.157.0 默认变体，滚到第 13 行 | Phistory（WEIFENG2333）· 快照 2026-09-22 与 2026-09-25 发布 | 2026-10-23，宽 1000 视口，2 倍像素 | 2.5 p62b | 采用（C2-76） |
 
 重新截取：用 Playwright 打开上面的链接，等 `.monaco-diff-editor` 出现，再用 `monaco.editor.getDiffEditors()[0]` 的两侧编辑器 `revealLineNearTop(13)`，截整个视口。站点 README 未写许可证，只截图引用并标出处。
+
+## p09 Harness 层面与消息来源候选（2026-10-23）
+
+对应讲透问题 2，补充问题 1。见[调研报告](<../../../../docs/research/reports/第 2 章 Harness 层面与消息来源.md>)。两篇一手原文均已核实；2026-10-23 讲师确认采用课程归纳，已同步 p09 分镜、页面与口播，live 链接可现场打开原文。
+
+| 文件 / 材料 | 来源 | 作者 · 日期 | 截取 / 检查 | 拟用在 | 状态 |
+| --- | --- | --- | --- | --- | --- |
+| Codex harness 术语段（未产出原文截图） | [Codex agent loop](https://openai.com/index/unrolling-the-codex-agent-loop/) | Michael Bolin · 2026-01-23 | 2026-10-23 已核原文 | 2.1 p09，工具运行框架 | 采用：p09 课程归纳与 live 原文链接。capture-source 英文、中文目标和 headed 尝试均未找到段落；没有绕过验证 |
+| 项目约束与反馈（未产出原文截图） | [Harness engineering](https://openai.com/index/harness-engineering/) | Ryan Lopopolo · 2026-02-11 | 2026-10-23 已核原文 | 2.1 预告后续项目 Harness | 采用：p09 项目环境预告与 live 原文链接。本次 capture-source 未找到段落，没有可用原文截图 |
+| `context-engineering/preview-harness-layers.png` | 上述两篇，课程归纳 | 本课程 · 2026-10-23 | 2026-10-23 | p09 附近的解释方式候选 | 样稿，非正式课件；正文 370/370 无溢出；两条原文链接可见，标题让出右上人像区；未试讲 |
+| `context-engineering/preview-user-provenance.png` | 本次请求核验 + [初始提示说明](https://openai.com/index/unrolling-the-codex-agent-loop/) | 本课程 · 2026-10-23 | 2026-10-23 | p09 的 user 来源对照 | 样稿，非正式课件；用摘要避免原始请求里的本机路径；正文 370/370，无横向挤压；原文链接可见；未试讲 |
+
+样稿在实际本地课件页中临时替换 DOM 后截图，没有修改页面源；两张都已打开检查。首次检查发现页底链接与导航重叠，已上移重截复查。它们展示课程归纳与本次消息摘要，不冒充官方截图。复现：
+
+```bash
+uv run courseware/ch02/materials/external/context-engineering/preview_harness.py
+```
+
+失败的原文截图命令（无产物，不作为已截图材料）：
+
+```bash
+uv run courseware/tools/capture-source.py https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/ courseware/ch02/materials/external/context-engineering/openai-codex-harness-definition.png --text '本文重点探讨 Codex 的运行框架' --width 1100 --headed
+uv run courseware/tools/capture-source.py https://openai.com/zh-Hans-CN/index/harness-engineering/ courseware/ch02/materials/external/context-engineering/openai-project-harness-enforcement.png --text '每个业务域都划分为一组固定的层' --width 1100
+```

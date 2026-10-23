@@ -80,3 +80,34 @@ sh courseware/ch02/lessons/01-request/tools/demo.sh audit
 英文标题指令在已安装的 Codex CLI 0.163.0 二进制中可查到，与实际捕获请求吻合；它不是项目 `AGENTS.md`、用户额外输入或代理临时添加的提示。它要求模型为会话起一个简短名称，引用原始问候作为素材，与回答问候是两个任务。
 
 录制时通过末句和响应辨认任务；主请求与后续工具返回连起来讲，标题请求只简短解释来源。本次显示编号不能作为其他机器或下一次运行的固定定位方式；“用户输入”分组也是查看器对请求内容的归类，不表示人又输入了一句话。
+
+## 项目问题与点名对照（p07、p14、p14a）
+
+2026-10-23 已实际验证。完成一次问候后，保存这个 **Codex 会话 ID**（不是 claude-tap 代理会话 ID）。为了让两组获得相同历史，用 `codex exec fork` 分别从这份未继续追加问题的问候会话开始；点名组不接着不点名组的答案。fork 只是录前控制条件，学员无须跟做机制对照。
+
+先运行本脚本 `audit`，再到个人主页项目根目录操作。把下列 `ch02_seed` 替换为本机的问候 Codex 会话 ID，并保持与问候时相同的 `AGENT_LAB_HOME`。会话 ID 可从专用课程 HOME 的 `.codex/sessions/` 对应问候记录的 `session_meta.payload.id` 核对；不要凭“最新会话”选择，否则可能把别的实验历史带进来。
+
+```sh
+ch02_seed='替换为本机问候的 Codex 会话 ID'
+ch02_agent_source='https://github.com/prompt-to-harness/prompt-to-harness.github.io/archive/691d15c58a3b89abc36bfcf90bc6b7072423ad4c.tar.gz#subdirectory=tools/agent-lab'
+export AGENT_LAB_HOME="${AGENT_LAB_HOME:-$HOME/.local/share/agent-lab-ch02-recording}"
+cd "${CH02_DEMO_ROOT:-$HOME/course-demos}/personal-homepage"
+ch02_question='只读任务，不修改任何文件。
+这个个人主页的项目区现在显示什么？数据写在哪个文件里？
+请说明依据来自哪个文件的哪几行；
+不确定就写“不确定”，不要猜。'
+
+# 不点名组：第一次 fork
+uvx --from "$ch02_agent_source" agent-lab codex --tap -- exec -s workspace-write fork "$ch02_seed" "$ch02_question"
+
+# 点名组：仍从同一 seed fork，只增加一个文件提示
+ch02_named_question="$ch02_question
+请重点查看 src/App.tsx。"
+uvx --from "$ch02_agent_source" agent-lab codex --tap -- exec -s workspace-write fork "$ch02_seed" "$ch02_named_question"
+```
+
+这里显式保留问候的 `workspace-write` 配置，两个 Prompt 都要求只读；它不是系统级只读沙箱实验。源码确认本快照的数据与渲染均在 `src/App.tsx`，因此才提示这个路径，不把答案预先写入 Prompt。更换项目后须先核对相关路径。录前 `prepare` 留下的 `dist/`、依赖和其他文件也属于运行现场，不为制造数字差异临时删改。运行后再次 `audit` 确认项目未改。
+
+核验顺序：先看回答内容与源码行号是否相符，再看读了哪些文件、是否遗漏必要依据，最后比较本题主流程的请求与输入量。模型工具调用按响应里的调用项计数；一个 exec 内的多个 shell 命令段不重复算成模型调用。输入量以各次 API `usage.input_tokens` 求和，排除种子问候、标题等其他任务；它含重复历史，不是新增文字量或费用。fork 后 CLI 的 `turn.completed` 累计量可能包含继承会话的历史，不直接作为本题 API 累计量。
+
+本次不点名/点名分别为 7/4 次主请求、6/3 次模型工具调用、84,879/46,084 输入 token。两组都正确指出数据 1–6 行、项目区渲染 19–31 行，但也都查了额外文件；点名只是引导，没有限制只能读该文件。各一次不构成普遍节省结论，别的机器或另一次运行按实际结果讲。
