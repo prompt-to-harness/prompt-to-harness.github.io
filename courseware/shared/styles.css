@@ -235,7 +235,7 @@ a.section-card { color: var(--color-ink); }
 .section-card:hover { transform: translateY(-3px); border-color: var(--color-accent); }
 .section-card-pending { color: var(--color-muted); background: transparent; }
 .section-number { color: var(--color-accent); font-size: var(--text-sm); margin-bottom: var(--space-2xl); }
-.section-card strong { font-size: clamp(1.1rem, 1.7vw, 1.5rem); line-height: 1.5; }
+.section-card strong { font-family: "Course Title", "Course Sans", sans-serif; font-weight: 400; font-size: clamp(1.3rem, 2vw, 1.8rem); line-height: 1.5; }
 .section-card p { color: var(--color-muted); margin-top: var(--space-md); line-height: 1.75; }
 .section-card .card-status { margin-top: auto; padding-top: var(--space-lg); }
 .section-card:has(.card-links) .card-status { margin-top: var(--space-md); padding-top: 0; }
