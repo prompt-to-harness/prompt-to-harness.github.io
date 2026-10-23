@@ -2,13 +2,13 @@
 """把外部图重画成两版 SVG：课程手绘风格和 Excalidraw 风格，供讲师挑选。
 
 图写成一份图元清单（框、文字、箭头、曲线、折线），放在各章的
-materials/external/redraw_figures.py 里，变量 FIGURES = {名字: {'size': (宽, 高), 'items': [...]}}。
+materials/external/context-engineering/figures.py 里，变量 FIGURES = {名字: {'size': (宽, 高), 'items': [...]}}。
 同一份图元出两版：
 - course：框和箭头用课件的手绘抖动滤镜 #p-rough（由课件页的 parts.js 提供），折线、网格保持工整；
 - excalidraw：用 rough.js 4.6.6 画成草图风格，生成后存成静态 SVG，课件里不需要再加载脚本。
 文字在两版里都是 SVG 文本，字体用课件字体（手写标题体是子集，新字要重建子集，见 docs/production/fonts.md）。
 
-    uv run courseware/tools/redraw.py courseware/ch02/materials/external/redraw_figures.py
+    uv run courseware/tools/redraw.py courseware/ch02/materials/external/context-engineering/figures.py
     uv run courseware/tools/redraw.py SPEC.py --only openai-codex-request
 
 输出到 SPEC 所在目录：redraw-<名字>-course.svg、redraw-<名字>-excalidraw.svg。

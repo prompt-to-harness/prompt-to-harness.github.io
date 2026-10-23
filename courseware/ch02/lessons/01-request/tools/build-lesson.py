@@ -93,7 +93,7 @@ scene(
         'body[data-mode="scroll"] #p06-tap .tap-proxy-scroll{overflow-x:auto}'
         'body[data-mode="scroll"] #p06-tap .tap-proxy-content svg{min-width:1000px}'
         '</style><div class="tap-proxy-content"><div class="tap-proxy-scroll">'
-        + (Path(__file__).resolve().parents[3] / "materials/external/redraw-tap-proxy-excalidraw.svg").read_text().strip()
+        + (Path(__file__).resolve().parents[3] / "materials/external/request-capture/redraw-tap-proxy-excalidraw.svg").read_text().strip()
         + '</div><div class="p-term tap-proxy-command" data-copy="' + TAP_CMD + '" data-reveal="2">'
         '$ uvx claude-tap@0.1.146 --tap-client codex \\<br>'
         '　--tap-target https://api.minimax.cn/v1</div>'
@@ -396,11 +396,11 @@ scene(
     id="p16b", segment="小结", layout="evidence-scene",
     label="Codex 官方也这样拼", title="Codex 官方也是这样拼请求的",
     lead="OpenAI 的工程博客《深入解析 Codex 智能体循环》（2026-01-23）写了 Codex 怎样拼一次请求：先是模型的基础指令和工具，再是沙箱权限说明、AGENTS.md 与技能列表、目录和 shell 等环境信息，最后才是我们这一句。和我们从请求记录里拆出来的对得上。下一次请求会把这一整段原样再发一遍，2.2 接着看。",
-    html=redrawn("openai-codex-request", "excalidraw", "据 OpenAI《深入解析 Codex 智能体循环》（Michael Bolin，2026-01-23）重画"),
+    html=redrawn("context-engineering", "openai-codex-request", "excalidraw", "据 OpenAI《深入解析 Codex 智能体循环》（Michael Bolin，2026-01-23）重画"),
     refs=[ref("深入解析 Codex 智能体循环", "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/", "OpenAI，2026-01-23", kind="read")],
     steps=["对上锚点图"],
     teaching=teach(
-        ("讲师提示", "图按文章“构建初始提示”一节重画（Excalidraw 风格，courseware/tools/redraw.py 生成，图元在 materials/external/redraw_figures.py），2026-10-22 核对原文。文章讲的是 Codex 一般怎样拼请求；具体内容以我们这次的请求记录为准，比如文章里 AGENTS.md 合计默认上限 32 KiB。"),
+        ("讲师提示", "图按文章“构建初始提示”一节重画（Excalidraw 风格，courseware/tools/redraw.py 生成，图元在 materials/external/context-engineering/figures.py），2026-10-22 核对原文。文章讲的是 Codex 一般怎样拼请求；具体内容以我们这次的请求记录为准，比如文章里 AGENTS.md 合计默认上限 32 KiB。"),
     ),
 )
 
@@ -408,7 +408,7 @@ scene(
     id="p16c", segment="小结", layout="evidence-scene",
     label="从写 Prompt 到管 Context", title="从写 Prompt 到管 Context",
     lead="Anthropic 在《Effective context engineering for AI agents》（2025-09-29）里用一张图对比：只写 Prompt 时，窗口里是系统提示词和用户这一句；做 Agent 时，每一轮都要从文档、工具、记忆文件、对话历史里挑出要放进去的，工具返回又成了下一轮可以放的东西。这就是开头说的 context engineering。",
-    html=redrawn("anthropic-prompt-vs-context", "excalidraw", "据 Anthropic《Effective context engineering for AI agents》（2025-09-29）第一张图重画"),
+    html=redrawn("context-engineering", "anthropic-prompt-vs-context", "excalidraw", "据 Anthropic《Effective context engineering for AI agents》（2025-09-29）第一张图重画"),
     refs=[ref("Effective context engineering for AI agents", "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents", "Anthropic，2025-09-29", kind="read")],
     steps=["每一轮都挑一遍"],
     teaching=teach(

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """给外部素材（X 帖子、官方文章段落、文章里的图）截一张可复现的图。
 
-截图存进 courseware/<章>/materials/external/，登记表与用法见同目录 README.md 和
+截图存进 courseware/<章>/materials/external/<主题>/，登记表见章级 external/README.md，用法见
 docs/production/external-sources.md。不登录、不点同意横幅，只截公开可见的部分。X 帖子自动改走官方嵌入页
 （platform.twitter.com/embed），不登录也能渲染。遇到要人工验证的站点（如 openai.com
 的 Cloudflare 验证），加 --headed 开一个可见窗口，由人点过验证，脚本等目标出现再截；

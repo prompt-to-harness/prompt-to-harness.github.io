@@ -1,7 +1,7 @@
 from pathlib import Path
 from playwright.sync_api import sync_playwright
-root=Path(__file__).resolve().parents[4]
-out=root/'courseware/ch02/materials/external'
+root=Path(__file__).resolve().parents[5]
+out=root/'courseware/ch02/materials/external/request-capture'
 with sync_playwright() as p:
  b=p.chromium.launch()
  page=b.new_page(viewport={'width':1440,'height':1000},device_scale_factor=1)

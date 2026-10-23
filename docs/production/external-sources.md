@@ -45,10 +45,10 @@ scene(id="p04a", layout="evidence-scene", title="大家开始说：context engin
 
 ## 重画工具
 
-`courseware/tools/redraw.py`：一张图只写一份图元清单（框、文字、箭头、曲线、折线），生成两版 SVG，课程手绘版和 Excalidraw 版（rough.js 4.6.6 画好后存成静态 SVG，需要联网取脚本）。图元写在各章的 `materials/external/redraw_figures.py`，写法见脚本开头说明：
+`courseware/tools/redraw.py`：一张图只写一份图元清单（框、文字、箭头、曲线、折线），生成两版 SVG，课程手绘版和 Excalidraw 版（rough.js 4.6.6 画好后存成静态 SVG，需要联网取脚本）。图元按主题写在各章的 `materials/external/<主题>/figures.py`（也可保留已有的主题脚本名，如 `tap_proxy_figures.py`），写法见脚本开头说明：
 
 ```bash
-uv run courseware/tools/redraw.py courseware/ch02/materials/external/redraw_figures.py
+uv run courseware/tools/redraw.py courseware/ch02/materials/external/context-engineering/figures.py
 ```
 
 输出 `redraw-<名字>-course.svg` 和 `redraw-<名字>-excalidraw.svg`。页面里要内联 SVG（第 2 章用 `lessonkit.redrawn()` 在构建时读入），不要用 `<img>`：图片形式拿不到课件字体和抖动滤镜。字体写在 `style` 里，因为课件的 `.lesson-diagram text` 规则会盖掉 `font-family` 属性。两版都用课件字体；手写标题体是子集，图里有新字时按 [fonts.md](fonts.md) 重建子集，否则会退回无衬线字体。课程手绘版的抖动滤镜由课件页提供，单独打开文件时框线是直的。
@@ -59,7 +59,7 @@ uv run courseware/tools/redraw.py courseware/ch02/materials/external/redraw_figu
 | --- | --- |
 | X 帖子、官方文章里的一段话、产品文档的表格 | 截图。截到能说明问题的最小范围，不截整篇 |
 | 文章里的示意图、研究报告的曲线 | 截图，原图在幻灯片上看得清就直接用 |
-| 原图信息太多、需要中文化，或要和本章锚点图对齐 | 重画：SVG（手绘风格见[视觉设计规范](visual-design-system.md)）或 Excalidraw，标“据 某某 重画”，原截图留在 `materials/external/` 作对照 |
+| 原图信息太多、需要中文化，或要和本章锚点图对齐 | 重画：SVG（手绘风格见[视觉设计规范](visual-design-system.md)）或 Excalidraw，标“据 某某 重画”，原截图留在 `materials/external/<主题>/` 作对照 |
 
 - 每张截图在画面上都要看得见出处：放在截图框 `.p-page` 里，顶栏 `.p-page-bar` 写“站点 · 作者 · 日期”。`.source-note` 放映时会隐藏，所以不能只写在那里。
 - 原文链接写进本页 `refs`（见[课件制作手册的“外部链接”](lesson-authoring-playbook.md#外部链接)）：录制时要点开的用 `live`，回看用 `read`。
@@ -68,9 +68,21 @@ uv run courseware/tools/redraw.py courseware/ch02/materials/external/redraw_figu
 
 ## 文件放在哪里
 
-- 候选截图和登记表：`courseware/<章>/materials/external/`，登记表是同目录的 `README.md`，写来源、作者、日期、截取日期、拟用在哪页和状态（候选、采用、不用、重画）。`materials/` 不进 Pages 站点，但仍在公开仓库里。
-- 采用后，把图移到对应小节的 `external/`（与 `evidence/` 同级）再在页面引用，登记表里改文件路径和状态。
+按“章 → 主题”存放，避免把整章素材平铺在一个目录里。同一主题的原图、图元源文件、两版 SVG 和版式样稿放在一起，不再按文件类型拆目录。主题用简短的英文小写连字符命名，围绕要讲清的问题分组，同一个问题的新候选优先放进已有主题。
+
+```text
+courseware/ch02/materials/external/
+├── README.md                 # 本章总索引、来源、状态和复现命令
+├── request-capture/          # 请求查看
+├── context-engineering/      # Context 引入与请求组成
+└── context-rot/              # 长上下文研究
+```
+
+- 候选素材：`courseware/<章>/materials/external/<主题>/`；根目录 `README.md` 维护总索引，登记来源、作者、日期、截取日期、拟用页面和状态（候选、采用、不用、重画），文件路径包含主题。主题内容较多时再加主题说明，不必每个子目录重复建登记表。`materials/` 不进 Pages 站点，但仍是公开 git 内容。
+- 采用后的截图：移到对应小节的 `external/`（与 `evidence/` 同级），由页面直接引用，登记表改为实际路径。
+- 构建时内联的重画 SVG：与图元一起保留在章内主题目录，由页面构建脚本显式指定主题读取，不复制到小节目录；字体和分步揭示仍按本规则维护。
 - 不用的截图删掉，登记表保留这一行和理由，避免下次重复调研。
+- 迁移已有素材时，同步更新登记表、调研报告与笔记、截图与重画命令、预览脚本及页面构建脚本中的路径，再重新生成受影响的页面。核对重画输出没有意外变化，跑 `make check`。其他工作尚未登记或尚未提交的素材先核对归属，不顺手纳入迁移提交。
 
 ## 截图工具
 
@@ -78,7 +90,7 @@ uv run courseware/tools/redraw.py courseware/ch02/materials/external/redraw_figu
 
 ```bash
 # X 帖子：自动改走官方嵌入页 platform.twitter.com/embed，不登录也能截
-uv run courseware/tools/capture-source.py https://x.com/<用户>/status/<id> OUT.png
+uv run courseware/tools/capture-source.py https://x.com/<用户>/status/<id> courseware/ch02/materials/external/context-engineering/SOURCE.png
 # 截某个元素
 uv run courseware/tools/capture-source.py URL OUT.png --selector figure
 # 截从一段文字到另一段文字之间的区域

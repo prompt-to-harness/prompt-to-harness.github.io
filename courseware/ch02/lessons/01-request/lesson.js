@@ -598,7 +598,7 @@ window.lesson = {
       "teaching": [
         {
           "title": "讲师提示",
-          "text": "图按文章“构建初始提示”一节重画（Excalidraw 风格，courseware/tools/redraw.py 生成，图元在 materials/external/redraw_figures.py），2026-10-22 核对原文。文章讲的是 Codex 一般怎样拼请求；具体内容以我们这次的请求记录为准，比如文章里 AGENTS.md 合计默认上限 32 KiB。"
+          "text": "图按文章“构建初始提示”一节重画（Excalidraw 风格，courseware/tools/redraw.py 生成，图元在 materials/external/context-engineering/figures.py），2026-10-22 核对原文。文章讲的是 Codex 一般怎样拼请求；具体内容以我们这次的请求记录为准，比如文章里 AGENTS.md 合计默认上限 32 KiB。"
         }
       ],
       "source": "index.html#p16b",

@@ -74,5 +74,5 @@
 - p10 画面用实际请求里的系统指令（能力目录开时只有一句）；能力目录关时的内置基础指令只在 p15b 列章节名的中文意译，可与 Codex 开源仓库的 default.md 对照，画面以实际请求为准。
 - 已核实：环境信息与 `AGENTS.md` 都以 user 角色注入，p09 不能只按消息角色划分“我写的 / Harness 加的”；Skills 列表与权限说明是 developer 角色。
 - 本地会话记录里的基础指令是删减前的全文，与实际发出的不同；画面一律用代理记录。
-- p05a、p16b、p16c 的外部材料与原文链接见 [外部佐证登记表](../../materials/external/README.md)（C2-64）；重画图由 `courseware/tools/redraw.py` 从 `materials/external/redraw_figures.py` 生成，改图改图元，不手改 SVG。
+- p05a、p16b、p16c 的外部材料与原文链接见 [外部佐证登记表](../../materials/external/README.md)（C2-64）；重画图由 `courseware/tools/redraw.py` 从 `materials/external/context-engineering/figures.py` 生成，改图改图元，不手改 SVG。
 - p16a 引用的官方解释：Anthropic 2025-09-29 的 Effective context engineering for AI agents，画面为中文意译，2026-10-20 核对原文；不自造定义，不大段引用。

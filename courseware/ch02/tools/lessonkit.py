@@ -52,12 +52,12 @@ def shot(src, bar, alt, height=440, note="", reveal=0):
             f'<div class="p-page-bar"><i></i><i></i><i></i>{bar}</div><img src="{src}" alt="{escape(alt)}"></div>{note}</div>')
 
 
-def redrawn(name, style, source, reveal=0, max_height=440):
-    """证据页里的重画图：内联 materials/external/redraw-<name>-<style>.svg（由 courseware/tools/redraw.py 生成），
+def redrawn(topic, name, style, source, reveal=0, max_height=440):
+    """证据页里的重画图：内联 materials/external/<topic>/redraw-<name>-<style>.svg（由 courseware/tools/redraw.py 生成），
     底部写“据 某某 重画”。内联而不用 <img>，才能用上课件字体和抖动滤镜 #p-rough。
     """
     assert style in ("course", "excalidraw"), style
-    svg = (EXTERNAL / f"redraw-{name}-{style}.svg").read_text().strip()
+    svg = (EXTERNAL / topic / f"redraw-{name}-{style}.svg").read_text().strip()
     svg = svg.replace('<svg ', f'<svg style="display:block;max-width:100%;height:auto;max-height:{max_height}px" ', 1)
     return (f'<div class="p-shot" data-reveal="{reveal}">{svg}'
             f'<p class="p-shot-note" style="font-size:18px">{source}</p></div>')

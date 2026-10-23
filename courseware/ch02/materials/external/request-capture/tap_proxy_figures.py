@@ -1,6 +1,6 @@
 """p06-tap 原理图；据 claude-tap v0.1.146 README 的 How it works 整理。
 只画课程的 Codex CLI + 自定义 provider 反向代理路径；不是所有模式的总图。
-生成：uv run courseware/tools/redraw.py courseware/ch02/materials/external/tap_proxy_figures.py
+生成：uv run courseware/tools/redraw.py courseware/ch02/materials/external/request-capture/tap_proxy_figures.py
 """
 INK, MUTED, AGENT, TOOL, CTX = '#243042', '#5B6573', '#5A51D1', '#0B6B5F', '#6E6043'
 items = [

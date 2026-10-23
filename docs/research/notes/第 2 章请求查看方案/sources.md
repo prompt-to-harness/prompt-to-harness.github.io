@@ -30,11 +30,11 @@
 
 ## 样稿复现
 
-图元和输出在 courseware/ch02/materials/external/。预览脚本 preview.py 打开本地真实课件后只改浏览器 DOM，不写课件源文件。运行：
+图元和输出在 courseware/ch02/materials/external/request-capture/。同目录预览脚本 preview.py 打开本地真实课件后只改浏览器 DOM，不写课件源文件。运行：
 
 ```bash
-uv run courseware/tools/redraw.py courseware/ch02/materials/external/tap_proxy_figures.py
-uv run 'docs/research/notes/第 2 章请求查看方案/preview.py'
+uv run courseware/tools/redraw.py courseware/ch02/materials/external/request-capture/tap_proxy_figures.py
+uv run courseware/ch02/materials/external/request-capture/preview.py
 ```
 
 本机边界覆盖 Codex、代理和本地记录，远端单独放模型服务。两对箭头均核对方向；未在图里承诺请求字节完全不变，也未画代理能看见服务端检索。
