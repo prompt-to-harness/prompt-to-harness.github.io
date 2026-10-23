@@ -20,6 +20,8 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: astral-sh/setup-uv@v7
+      - name: Generate static request viewers
+        run: UV_LOCKED=1 make viewers
       - name: Check courseware links
         run: uv run --locked courseware/tools/check-courseware.py
       - name: Install browser for lesson checks

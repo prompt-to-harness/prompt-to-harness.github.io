@@ -43,4 +43,4 @@
 
 ## 验证
 
-推送前运行 `make check`（具体检查见 `Makefile`，CI 跑同样的检查）；首次使用先运行 `make setup` 安装浏览器检查依赖。
+推送前运行 `make check`（具体检查见 `Makefile`，CI 跑同样的检查）；首次使用先运行 `make setup` 安装浏览器检查依赖。2.1 的静态查看器是生成物、不提交：`make viewers` 重新生成（`make check` 已包含），不要手改或提交 `*.html` 查看器。
