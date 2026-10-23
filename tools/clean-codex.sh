@@ -6,6 +6,8 @@
 #   tools/clean-codex.sh              # 干净环境直接启动 codex
 #   tools/clean-codex.sh --tap        # 经 claude-tap 启动，可查看请求
 #   tools/clean-codex.sh -- exec "只读：这个目录里有什么文件？"   # -- 之后的参数交给 codex
+#   配合 --tap 改配置时，-c 写在 exec 前面：tools/clean-codex.sh --tap -- -c 'web_search="disabled"' exec "…"
+#                        写在 exec 后面会让 claude-tap 的服务商覆盖失效，请求直接发走、记录为空（2026-10-22 实测）
 #
 # 环境变量：
 #   MINIMAX_API_KEY      MiniMax 的 API 密钥，需要事先 export；脚本不读取任何 Codex 配置文件
@@ -172,7 +174,13 @@ if [ "$use_tap" = 1 ]; then
   tap_opts=(); [ "${CLEAN_CODEX_NO_OPEN:-0}" = 1 ] && tap_opts=(--tap-no-open)
   # ChatGPT 登录时不指定上游，由 claude-tap 按登录状态自己判断（2026-10-22 试用）
   tap_target=(); [ "$AUTH" = chatgpt ] || tap_target=(--tap-target "$BASE_URL")
-  uvx claude-tap@0.1.146 --tap-client codex ${tap_target[@]+"${tap_target[@]}"} ${tap_opts[@]+"${tap_opts[@]}"} -- ${codex_args[@]+"${codex_args[@]}"}
+  # ChatGPT 登录走 claude-tap 时，服务商被换成 claude-tap 的代理，Codex 自带的网页工具（web.run，本地执行、
+  # 结果以明文进 context）默认不启用；打开它，并放行它调用的搜索接口（2026-10-22 实测，否则 404）
+  tap_web=(); if [ "$AUTH" = chatgpt ]; then
+    tap_web=(--tap-allow-path /v1/alpha/search)
+    codex_args=(-c 'model_providers.claude-tap-openai.supports_standalone_web_search=true' ${codex_args[@]+"${codex_args[@]}"})
+  fi
+  uvx claude-tap@0.1.146 --tap-client codex ${tap_target[@]+"${tap_target[@]}"} ${tap_web[@]+"${tap_web[@]}"} ${tap_opts[@]+"${tap_opts[@]}"} -- ${codex_args[@]+"${codex_args[@]}"}
 else
   codex ${codex_args[@]+"${codex_args[@]}"}
 fi
