@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-"""Mechanical checks for docs/production/editorial-checklist.md (ED-001, ED-007/010, ED-011, ED-013).
+"""Mechanical checks for docs/production/editorial-checklist.md (ED-001, ED-007/010, ED-011, ED-012, ED-013, ED-017, ED-018).
 
 Errors fail the run; hints are printed but never fail. Judgment rules live in the
 checklist and are applied by the courseware-editorial skill, not here.
 """
 import json
+from html import unescape
+from urllib.parse import urldefrag
 import re
 import subprocess
 import sys
@@ -13,6 +15,28 @@ from pathlib import Path
 courseware = Path(__file__).resolve().parents[1]
 repo = courseware.parent
 errors, hints = [], []
+
+
+def source_hints(scene):
+    """ED-018 candidates only: reviewers decide whether two labels cite the same source."""
+    live = [ref for ref in scene.get('refs', []) if ref.get('kind', 'live') == 'live']
+    if not live:
+        return []
+    found = []
+    urls = [urldefrag(ref['url'])[0].rstrip('/') for ref in live]
+    if len(urls) != len(set(urls)):
+        found.append('同页 live 链接指向同一原文，核对是否可合并（不同段落链接可保留）')
+    captions = []
+    for m in re.finditer(r'<(p|small|figcaption)\b([^>]*)>(.*?)</\1>', scene.get('html', ''), re.S):
+        classes = re.search(r'class=[\'"]([^\'"]*)[\'"]', m[2])
+        if classes and 'source-note' in classes[1].split():
+            continue  # hidden in presentation mode; retained for readers
+        text = unescape(re.sub(r'<[^>]*>', '', m[3])).strip()
+        if re.search(r'据.{1,180}(?:整理|重画|绘制)|课程自绘|固定版本', text):
+            captions.append(text[:60])
+    if captions:
+        found.append('可见来源说明与 live 链接并存，核对是否同源并合并：' + '；'.join(captions))
+    return found
 
 # ED-001: a screen element holding a single sentence must not end with 。
 screen_files = [p for p in courseware.rglob('*') if p.name in ('index.html', 'lesson.js') and 'archive' not in p.parts]
@@ -35,6 +59,8 @@ for path in sorted(courseware.rglob('lesson.js')):
             errors.append(f'{path.relative_to(repo)} {scene["id"]} 手写了 kicker：小标题由段名自动生成，改 segment')
         if not scene.get('segment'):
             errors.append(f'{path.relative_to(repo)} {scene["id"]} 缺 segment：小标题、进度条和侧栏分组都靠它')
+        for hint in source_hints(scene):
+            hints.append(f'ED-018 {path.relative_to(repo)} {scene["id"]} {hint}')
 
 # ED-011: generated files must match their source builder
 builders = list(courseware.glob('ch*/lessons/*/tools/build-lesson.py'))
@@ -82,11 +108,13 @@ for path in sorted(courseware.rglob('script.json')):
         hints.append(f'ED-013 {path.relative_to(repo)} 演示形态未定（条件式现场分支）：' + '、'.join(pages))
 
 # ED-011: relative Markdown links must resolve (catches residue after deleting a page)
-md_roots = [courseware, repo / 'docs' / 'production', repo / 'docs' / 'design']
+md_roots = [courseware, repo / 'docs' / 'production', repo / 'docs' / 'design',
+            repo / 'docs' / 'agents', repo / 'docs' / 'outline']
 link = re.compile(r'\[[^\]]*\]\(([^)#?\s]+)(?:[#?][^)]*)?\)')
 for root in md_roots:
     for path in sorted(root.rglob('*.md')):
-        if 'archive' in path.parts:
+        # 提案是讨论稿，可能链到其他人尚未提交的记录，不在这里拦
+        if 'archive' in path.parts or 'proposals' in path.parts:
             continue
         for m in link.finditer(path.read_text()):
             target = m.group(1)
@@ -94,6 +122,63 @@ for root in md_roots:
                 continue
             if not (path.parent / target).exists():
                 errors.append(f'ED-011 {path.relative_to(repo)} 链接不存在：{target}')
+
+# ED-012: retired wording listed in docs/production/terminology.md must not come back in current sources
+terms_doc = (repo / 'docs' / 'production' / 'terminology.md').read_text()
+retired_section = terms_doc.split('## 已废弃的说法', 1)[1] if '## 已废弃的说法' in terms_doc else ''
+retired = []
+for row in retired_section.splitlines():
+    cells = [c.strip() for c in row.strip().strip('|').split('|')]
+    if len(cells) == 3 and cells[0] and cells[0] not in ('废弃说法', '---'):
+        retired.append((cells[0], cells[1], cells[2]))
+# 已迁移的章有 LOG.md；查它的章文件，LOG 本身是历史，不查
+current = sorted(p.parent / 'README.md' for p in courseware.glob('ch*/LOG.md'))
+current += sorted(courseware.glob('ch*/lessons/*/script.json'))
+current += sorted(courseware.glob('ch*/lessons/*/tools/build-lesson.py'))
+for path in current:
+    section = ''
+    for no, line in enumerate(path.read_text().splitlines(), 1):
+        if line.startswith('## '):
+            section = line[3:].strip()
+        if section in ('决策记录', '实测记录'):
+            continue
+        for old, new, keep in retired:
+            if old in line and not (keep and keep in line):
+                errors.append(f'ED-012 {path.relative_to(repo)}:{no} 已废弃的说法“{old}”，改用“{new}”')
+
+# ED-017: in a migrated chapter (has LOG.md), the chapter file, storyboards and lesson.js agree
+for log in sorted(courseware.glob('ch*/LOG.md')):
+    chapter = log.parent
+    readme = (chapter / 'README.md').read_text()
+    # 分镜先行：只在分镜里、还没做成页面的 id，在章文件“待定”里登记过就放行
+    pending = readme.split('\n## 待定', 1)[1] if '\n## 待定' in readme else ''
+    titles = {m.group(1): m.group(2) for m in
+              re.finditer(r'^\| (\d+\.\d+) (.+?)（\d+ 分钟）', readme, re.M)}
+    for lesson_js in sorted((chapter / 'lessons').glob('*/lesson.js')):
+        text = lesson_js.read_text()
+        lesson = json.loads(text[text.index('{'):text.rindex('}') + 1])
+        number = '.'.join(str(int(x)) for x in lesson['section'].split('.'))
+        board = lesson_js.parent / 'STORYBOARD.md'
+        where = board.relative_to(repo)
+        if not board.exists():
+            errors.append(f'ED-017 {lesson_js.parent.relative_to(repo)} 缺 STORYBOARD.md')
+            continue
+        lines = board.read_text().splitlines()
+        h1 = re.match(r'# \S+ 逐页分镜：(.+?)(?:（[^）]*）)?$', lines[0]) if lines else None
+        names = {'章文件': titles.get(number), 'lesson.js': lesson['title'], '分镜': h1.group(1) if h1 else None}
+        if len(set(names.values())) > 1:
+            errors.append(f'ED-017 {number} 节标题不一致：' + '；'.join(f'{k}“{v}”' for k, v in names.items()))
+        page_ids = {s['id'] for s in lesson['scenes']}
+        board_ids = set(re.findall(r'^\| (p\d[\w-]*) \|', board.read_text(), re.M))
+        undesigned = sorted(page_ids - board_ids)
+        unbuilt = sorted(i for i in board_ids - page_ids if not re.search(rf'\b{re.escape(i)}\b', pending))
+        if undesigned:
+            errors.append(f'ED-017 {where} 缺这些页面的分镜行：{undesigned}')
+        if unbuilt:
+            errors.append(f'ED-017 {where} 分镜里有、页面还没有，也没在章文件“待定”登记：{unbuilt}')
+        first_h2 = next((n for n, l in enumerate(lines) if l.startswith('## ')), len(lines))
+        if first_h2 >= len(lines) or lines[first_h2] != '## 素材状态' or sum(1 for l in lines[1:first_h2] if l.strip()) > 1:
+            errors.append(f'ED-017 {where} 开头只放一段导航，第一个二级标题应是“素材状态”（节概述和变更说明不写在分镜里）')
 
 # ED-007 / ED-010: filler phrases are a prompt to ask "does this add information", not a ban
 fillers = ['这样做是为了', '这里练习的就是', '大家看', '对吧', '其实']

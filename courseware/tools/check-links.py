@@ -50,7 +50,12 @@ def collect():
                 if UNPINNED.search(url):
                     errors.append(f'{where}: 链接指向会变的分支，改成固定提交：{url}')
                 links.append((path, scene['id'], ref.get('kind', '?'), ref.get('text', ''), url))
-            for url in HREF.findall(scene.get('html', '')):
+            # 外部佐证页（截图、重画）的原文链接要在画面上：至少一条 live（docs/production/external-sources.md）
+            html = scene.get('html', '')
+            evidence = scene.get('layout') == 'evidence-scene' or 'p-shot' in html or '重画' in html
+            if evidence and not any(ref.get('kind') == 'live' for ref in scene.get('refs', [])):
+                errors.append(f'{where}: 外部佐证页的原文链接要显示在画面上，refs 至少一条 kind="live"')
+            for url in HREF.findall(html):
                 if not skip(url):
                     links.append((path, scene['id'], 'html', '', url))
             for step in scene.get('repro', {}).get('steps', []):
