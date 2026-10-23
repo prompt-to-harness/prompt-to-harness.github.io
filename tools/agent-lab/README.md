@@ -34,6 +34,7 @@ Key 可以由终端启动配置事先导出，也可以只给本次命令设置 
 ## 保留与隔离
 
 - 新环境默认 HOME 是 `~/.local/share/agent-lab/codex`，其中 `.codex/` 保存配置和会话。再次启动复用该目录，每次重新写入固定的课程配置；不会清空历史。`-- resume --last` 接续当前项目最近的会话。
+- 课程配置固定 `tui.fullscreen_transcript = false`，保留终端自己的 scrollback，长回复能往上翻。Codex CLI 0.156.0 起提供可选的全屏 transcript、0.157.0 起成为默认，那种形态下终端历史不留，长回答读不到上文。改回全屏只需删掉生成配置里的这两行；效果需要重启 Codex 才可见。
 - 模型固定 `MiniMax-M3.1-Flash`、能力目录开启、推理档位 `max`，上游固定 `https://api.minimax.cn/v1`。缺 Key 立即退出。
 - 独立 `HOME`、`CODEX_HOME` 与 XDG 目录，清理继承的 `CODEX_*`、`OPENAI_*`、Claude 相关变量；不连接个人共享 app-server。Codex 凭据存储固定为 `file`，不使用系统钥匙串中的 Codex 登录。课程目录如出现 `auth.json` 则停止，不读取或删除它。
 - `--` 后可传 Codex 的 `exec`、`resume`、沙箱等参数；不接受模型、profile、`-c` 配置覆盖、登录与远程服务命令。课程会话的文件访问仍由 Codex 权限控制；这不是文件系统安全隔离，当前项目的 `AGENTS.md` 等内容仍可进入请求。

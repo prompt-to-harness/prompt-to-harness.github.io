@@ -19,6 +19,16 @@
 - 新安装默认使用 `~/.local/share/agent-lab/codex`；默认新目录尚不存在而旧课程目录已存在时复用旧目录，保留原有会话，不移动或删除历史。旧变量 `COURSE_CODEX_HOME` 仍兼容，不能与 `AGENT_LAB_HOME` 同时设置。
 - 本轮未重新执行 gh 的真实 API 查询与交互批准，相关证据保留下方改名前记录；其配置与钥匙串复用逻辑保留，自动化检查通过。
 
+## 终端形态核验（2026-10-23）
+
+问题：Codex CLI 0.156.0 起提供可选的全屏 transcript，0.157.0 起成为默认。全屏形态占用 alternate screen，终端的 scrollback 不再保存会话，长回复会把上文顶出可视区且无法上滚找回。课程环境改为保留终端 scrollback。
+
+- 两条启动路径的 `config.toml` 生成模板都加入 `[tui] fullscreen_transcript = false`：`agent-lab` 与 `tools/clean-codex.sh`。两个启动器每次启动都重写该文件，手工改文件无效。
+- 键名核验：在本机 Codex CLI 0.163.0 的二进制中查到 `tui` 配置结构含 `fullscreen_transcript` 字段，不是猜的键名。
+- 配置接受核验：用生成的 `config.toml` 启动 `codex --help`，退出码 0，配置被正常解析。
+- 自动化检查：`agent-lab` 的 17 项 unittest 通过，新增一项断言生成的配置含该设置；`clean-codex.sh` 用桩程序替换 `codex` 启动，核对生成的 `config.toml` 含同样两项。
+- 未核验：Linux 与 Windows 未实测；与 tmux 等多路复用器的交互未测；录屏画面对比未做。配置在启动时读取，切换后需要重启 Codex 才可见。
+
 ## 改名前已完成的开发核验
 
 下表中的 `tools/course-codex` 是当时的源码路径，当前运行命令以 [README](README.md) 为准。
@@ -52,3 +62,4 @@
 ## 本轮设计决定
 
 按讲师授权实现：默认保留课程环境，当前仅实现 Codex + MiniMax 与可选的 `--tap`，预留 Claude 入口；先做本地验证，再讨论发布和 PPT。包名和命令名采用 `agent-lab`，Python 包可从本地目录、Git 或未来的 PyPI 分发，不需要 npm。首次正式发布版本、跨平台支持范围尚未确定，暂不发布。
+

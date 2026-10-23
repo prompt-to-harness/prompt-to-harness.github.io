@@ -39,6 +39,7 @@ class IsolationTests(unittest.TestCase):
         self.assertEqual(config["forced_login_method"], "api")
         self.assertFalse(config["allow_login_shell"])
         self.assertIn("MINIMAX_API_KEY", config["shell_environment_policy"]["exclude"])
+        self.assertFalse(config["tui"]["fullscreen_transcript"])
         self.assertFalse((home / ".codex/auth.json").exists())
         for name in ("CODEX_API_KEY", "CODEX_ACCESS_TOKEN", "CODEX_SQLITE_HOME",
                      "OPENAI_API_KEY", "CLAUDE_CODE_USER_EMAIL", "ANTHROPIC_AUTH_TOKEN", "BASH_ENV"):

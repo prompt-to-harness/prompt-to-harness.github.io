@@ -120,6 +120,10 @@ requires_openai_auth = false
 [shell_environment_policy]
 inherit = "all"
 exclude = ["MINIMAX_API_KEY"]
+
+# 让终端自己保留 scrollback，长回复能往上滑；0.163.0 默认全屏 transcript，终端历史不留。
+[tui]
+fullscreen_transcript = false
 '''
     write_managed(codex_home / "config.toml", config)
     env = parent.copy()
