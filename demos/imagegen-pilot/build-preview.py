@@ -9,11 +9,11 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 SOURCES = {
     "prompt": (ROOT / "courseware/ch01/lessons/04-prompt", "p20"),
-    "comic": (ROOT / "courseware/ch02/lessons/01-feedback", "p03"),
+    "comic": (ROOT / "courseware/ch02/lessons/01-request", "p03"),
     "ch01-open": (ROOT / "courseware/ch01/lessons/01-environment", "p01"),
     "ch01-close": (ROOT / "courseware/ch01/lessons/06-permissions", "p36-recap"),
-    "ch02-open": (ROOT / "courseware/ch02/lessons/01-feedback", "p01"),
-    "ch02-close": (ROOT / "courseware/ch02/lessons/05-refactor", "p58"),
+    "ch02-open": (ROOT / "courseware/ch02/lessons/01-request", "p01"),
+    "ch02-close": (ROOT / "courseware/ch02/lessons/05-experience", "p58"),
 }
 
 PROMPT_HTML = '''<ol class="p-map"><li class="is-done"><b>1.1</b>首次闭环</li><li class="is-done"><b>1.2</b>拆开执行过程</li><li class="is-done"><b>1.3</b>工具与权限</li><li class="is-now"><b>1.4</b>写清任务</li><li><b>1.5</b>完成首页</li><li><b>1.6</b>最小权限</li></ol>

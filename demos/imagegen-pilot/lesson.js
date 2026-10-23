@@ -125,7 +125,7 @@ const pilotData = {
         "seconds": 300
       }
     ],
-    "pilotSource": "../../courseware/ch02/lessons/01-feedback/index.html"
+    "pilotSource": "../../courseware/ch02/lessons/01-request/index.html"
   },
   "ch01-open": {
     "title": "环境搭建与第一次 AI 协作闭环",
@@ -355,7 +355,7 @@ const pilotData = {
         "seconds": 300
       }
     ],
-    "pilotSource": "../../courseware/ch02/lessons/01-feedback/index.html",
+    "pilotSource": "../../courseware/ch02/lessons/01-request/index.html",
     "pilotSteps": [
       "看当前对象",
       "看任务与判断",
@@ -412,7 +412,7 @@ const pilotData = {
         "seconds": 210
       }
     ],
-    "pilotSource": "../../courseware/ch02/lessons/05-refactor/index.html",
+    "pilotSource": "../../courseware/ch02/lessons/05-experience/index.html",
     "pilotSteps": [
       "看当前对象",
       "看任务与判断",
