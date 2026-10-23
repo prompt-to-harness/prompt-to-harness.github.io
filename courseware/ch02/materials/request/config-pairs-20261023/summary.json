@@ -1,0 +1,129 @@
+{
+  "date": "2026-10-23",
+  "source": "8e9a323174411a011f87e230450b9115d09b7dea",
+  "launcher_revision": "691d15c58a3b89abc36bfcf90bc6b7072423ad4c",
+  "prompt": "你好，用一句话介绍你能帮我做什么。",
+  "codex": "0.163.0",
+  "tap": "0.1.146",
+  "model": "MiniMax-M3.1-Flash",
+  "approval": "never",
+  "arms": {
+    "perm-read": {
+      "input_tokens": 7528,
+      "output_tokens": 99,
+      "cached_input_tokens": 229,
+      "base_instruction_chars": 145,
+      "permission_chars": 286,
+      "tools_top_level": 5,
+      "tool_names": [
+        "exec",
+        "wait",
+        "request_user_input",
+        "collaboration",
+        "web_search"
+      ],
+      "reasoning": {
+        "effort": "max"
+      },
+      "permission_text": "Filesystem sandboxing defines which files can be read or written. `sandbox_mode` is `read-only`: The sandbox only permits reading files. Network access is restricted.\nApproval policy is currently never. Do not provide the `sandbox_permissions` for any reason, commands will be rejected.",
+      "base_excerpt": "You are Codex, a coding agent based on MiniMax-M3.1-Flash. You and the user share the same workspace and collaborate to achieve the user's goals.",
+      "base_sha256": "2d3be4e6cca819a690998b57feae54d118b326964b726f74d9a08e7775601c27",
+      "environment_chars": 604,
+      "seconds": 7.8,
+      "api_duration_ms": 4371,
+      "answer": "你好！我是 Codex，一个与你共享当前工作区的编程助手，可以帮你阅读和修改代码、排查调试错误、编写与重构功能、编写测试和脚本，以及解释项目结构和实现细节。\n\n需要我做什么，直接说就行。",
+      "sandbox": "read-only",
+      "catalog": true,
+      "source_unchanged": true
+    },
+    "perm-write": {
+      "input_tokens": 7889,
+      "output_tokens": 64,
+      "cached_input_tokens": 1792,
+      "base_instruction_chars": 145,
+      "permission_chars": 602,
+      "tools_top_level": 5,
+      "tool_names": [
+        "exec",
+        "wait",
+        "request_user_input",
+        "collaboration",
+        "web_search"
+      ],
+      "reasoning": {
+        "effort": "max"
+      },
+      "permission_text": "Filesystem sandboxing defines which files can be read or written. `sandbox_mode` is `workspace-write`: The sandbox permits reading files, and editing files in `cwd` and `writable_roots`. Editing files in other directories requires approval. Network access is restricted.\nApproval policy is currently never. Do not provide the `sandbox_permissions` for any reason, commands will be rejected.\n The writable roots are `[project]`, `/private/tmp`, `[temporary-directory]`.",
+      "base_excerpt": "You are Codex, a coding agent based on MiniMax-M3.1-Flash. You and the user share the same workspace and collaborate to achieve the user's goals.",
+      "base_sha256": "2d3be4e6cca819a690998b57feae54d118b326964b726f74d9a08e7775601c27",
+      "environment_chars": 1495,
+      "seconds": 8.1,
+      "api_duration_ms": 5366,
+      "answer": "你好！我可以帮你阅读和修改代码、调试报错、实现新功能、编写测试与文档,并在这个仓库里直接落地改动。\n\n当前目录看起来是 `prompt-to-harness.github.io`,如果你有具体想让我做的事(比如加个功能、修个 bug、跑一下测试),直接说就行。",
+      "sandbox": "workspace-write",
+      "catalog": true,
+      "source_unchanged": true
+    },
+    "model-on": {
+      "input_tokens": 7527,
+      "output_tokens": 81,
+      "cached_input_tokens": 6144,
+      "base_instruction_chars": 145,
+      "permission_chars": 286,
+      "tools_top_level": 5,
+      "tool_names": [
+        "exec",
+        "wait",
+        "request_user_input",
+        "collaboration",
+        "web_search"
+      ],
+      "reasoning": {
+        "effort": "max"
+      },
+      "permission_text": "Filesystem sandboxing defines which files can be read or written. `sandbox_mode` is `read-only`: The sandbox only permits reading files. Network access is restricted.\nApproval policy is currently never. Do not provide the `sandbox_permissions` for any reason, commands will be rejected.",
+      "base_excerpt": "You are Codex, a coding agent based on MiniMax-M3.1-Flash. You and the user share the same workspace and collaborate to achieve the user's goals.",
+      "base_sha256": "2d3be4e6cca819a690998b57feae54d118b326964b726f74d9a08e7775601c27",
+      "environment_chars": 604,
+      "seconds": 7.4,
+      "api_duration_ms": 4993,
+      "answer": "你好！我是 Codex，一个可以在你的代码仓库里读代码、改代码、跑测试、排查 bug 并提交可验证改动的 AI 编程助手。",
+      "sandbox": "read-only",
+      "catalog": true,
+      "source_unchanged": true
+    },
+    "model-off": {
+      "input_tokens": 8926,
+      "output_tokens": 41,
+      "cached_input_tokens": 256,
+      "base_instruction_chars": 16979,
+      "permission_chars": 286,
+      "tools_top_level": 9,
+      "tool_names": [
+        "exec_command",
+        "write_stdin",
+        "request_user_input",
+        "view_image",
+        "multi_agent_v1",
+        "get_goal",
+        "create_goal",
+        "update_goal",
+        "web_search"
+      ],
+      "reasoning": {
+        "effort": "max",
+        "summary": "auto"
+      },
+      "permission_text": "Filesystem sandboxing defines which files can be read or written. `sandbox_mode` is `read-only`: The sandbox only permits reading files. Network access is restricted.\nApproval policy is currently never. Do not provide the `sandbox_permissions` for any reason, commands will be rejected.",
+      "base_excerpt": "You are a coding agent running in the Codex CLI, a terminal-based coding assistant. Codex CLI is an open source project led by OpenAI. You are ex… [教学删节，原长度见统计]",
+      "base_sha256": "3b08633fa672906666659d764864dfda1d7af5b5111ea5817c8f46e5de4e1a8d",
+      "environment_chars": 604,
+      "seconds": 6.5,
+      "api_duration_ms": 4133,
+      "answer": "你好！我是 Codex CLI 里的编码助手，可以在你的终端仓库里读写代码、定位并修复缺陷、编写功能与测试、跑构建和 lint —— 你只要告诉我要做什么就行。",
+      "sandbox": "read-only",
+      "catalog": false,
+      "source_unchanged": true
+    }
+  }
+}

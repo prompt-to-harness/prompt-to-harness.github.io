@@ -4,6 +4,7 @@
 分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch02/tools/lessonkit.py。
 """
 import sys
+import json
 from html import escape
 from pathlib import Path
 
@@ -20,7 +21,7 @@ scene = lesson.scene
 # 录制时还没有实际记录的数字，画面上统一用这个占位（只写占的是什么，不写给讲师的指令），讲师提示里写明按记录替换
 TBD = "〔实测〕"
 
-# 2026-10-20 15:16 课程基线（tools/clean-codex.sh --tap，隔离 HOME，能力目录开，推理档位 max）实测；p07–p16 用它
+# 2026-10-20 15:16 课程基线实测；用于 p08–p13、p15b、p16 的既有对照材料
 RUN1020 = "数字来自讲师用课程基线（隔离 HOME）的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，写入模型能力目录，推理档位 max，codex exec）；随版本、模型、配置和任务变化，只说明结构。"
 RUN1021 = "数字来自讲师用课程基线（隔离 HOME）的一次运行（2026-10-21，codex exec，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max）；随版本、模型、配置和任务变化，只说明结构。"
 
@@ -29,9 +30,49 @@ FIRST_PROMPT = "你好，用一句话介绍你能帮我做什么。"
 
 # 第二步：与项目相关的只读问题，不提示文件名
 READONLY_PROMPT = """只读任务，不修改任何文件。
-这个个人主页当初定了哪些要求和完成标准？
-请说明依据来自哪个文件的哪一段；
+这个个人主页的项目区现在显示什么？数据写在哪个文件里？
+请说明依据来自哪个文件的哪几行；
 不确定就写“不确定”，不要猜。"""
+
+# 固定记录的自包含查看器来自已核验样稿；构建时发布到本节目录，不依赖服务。
+TRACE_SOURCE = Path(__file__).resolve().parents[5] / "demos/ch02-static-trace"
+
+
+def publish_static_trace():
+    import re
+    import hashlib
+    manifest = json.loads((TRACE_SOURCE / "viewer-manifest.json").read_text())
+    assert manifest["trace_sha256"] == hashlib.sha256((TRACE_SOURCE / "trace.json").read_bytes()).hexdigest(), "记录已变化：请先列候选，经讲师确认后重建静态查看器"
+    assert manifest["selection"] == json.loads((TRACE_SOURCE / "selection.json").read_text()), "依据链选择已变化：请先重建静态查看器"
+    target = lesson.here / "trace"
+    target.mkdir(exist_ok=True)
+    raw = (TRACE_SOURCE / "trace.html").read_text()
+    # Unicode escaping keeps bundled data equivalent while the native viewer owns its fonts.
+    # Authoring sources remain UTF-8; this is only the generated vendor payload serialization.
+    def script_ascii(match):
+        return match[1] + re.sub(r"[\u4e00-\u9fff]", lambda m: "\\u%04x" % ord(m[0]), match[2]) + match[3]
+    raw = re.sub(r"(<script\b[^>]*>)([\s\S]*?)(</script>)", script_ascii, raw)
+    raw = re.sub(r"[\u4e00-\u9fff]", lambda m: "&#x%x;" % ord(m[0]), raw)
+    (target / "viewer.html").write_text(raw)
+    for name in ("trace.json", "LICENSE-claude-tap.txt"):
+        (target / name).write_bytes((TRACE_SOURCE / name).read_bytes())
+
+
+# New configuration evidence and all displayed figures come from one capture summary.
+CONFIG_PAIR_SOURCE = Path(__file__).resolve().parents[3] / "materials/request/config-pairs-20261023"
+CONFIG_PAIRS = json.loads((CONFIG_PAIR_SOURCE / "summary.json").read_text())
+def config_figure(arm, field):
+    return format(CONFIG_PAIRS["arms"][arm][field], ",")
+
+def verify_config_records():
+    import hashlib
+    manifest = json.loads((CONFIG_PAIR_SOURCE / "viewer-manifest.json").read_text())
+    assert manifest["summary_sha256"] == hashlib.sha256((CONFIG_PAIR_SOURCE / "summary.json").read_bytes()).hexdigest(), "配置实测数据已变，请重建独立记录"
+    for arm in ("perm-read", "perm-write", "model-on", "model-off"):
+        assert manifest[arm]["source_sha256"] == hashlib.sha256((CONFIG_PAIR_SOURCE / f"{arm}.json").read_bytes()).hexdigest()
+    for key, name in (("permissions", "permissions-compare"), ("model", "model-compare"), *[(a,a) for a in ("perm-read", "perm-write", "model-on", "model-off")]):
+        assert manifest[key]["html_sha256"] == hashlib.sha256((lesson.here / "trace" / f"config-{name}.html").read_bytes()).hexdigest(), "独立记录输出已变，请核对来源"
+
 
 TAP_CMD = "uvx claude-tap@0.1.146 --tap-client codex --tap-target https://api.minimax.cn/v1"
 AGENT_LAB_REV = "691d15c58a3b89abc36bfcf90bc6b7072423ad4c"
@@ -246,7 +287,7 @@ scene(
     teaching=teach(
         ("与记录对应", "沿用 p08 同一份初始主请求。developer input 0 是身份；input 1 同时包含 Skills、权限、Default 模式；input 2/3 是团队说明和多代理限制。user input 4 是环境，input 5 才是问候。工具定义另在 tools 中。归成六类不等于六条消息各自对应一类。"),
         ("术语与来源", "Harness 两个使用层面据两篇官方文章归纳，先讲运行框架，再预告项目环境，不讲成两个排他定义。画面为课程整理，不是官方原图。底部链接可现场打开，不依赖文章截图。"),
-        ("转场", "第三步可切查看器核对环境和问候的 user 角色；随后回课件，先从系统指令逐块定位。p11 点出定义与实际返回的区别，p13 接项目问题，p14 查看工具结果进入下一次请求。p10–p13 与 p08 使用同一份初始主请求；p14 的旧运行数字尚未替换，不说成此次问候的结果。"),
+        ("转场", "第三步可切查看器核对环境和问候的 user 角色；随后回课件，先从系统指令逐块定位。p11 点出定义与实际返回的区别，p13 接项目问题，p07 查看工具结果进入下一次请求。p10–p13 与 p08 使用同一份初始主请求；p07 使用另一组已核对的项目问答排练，不说成此前组问候的后续结果。"),
     ),
 )
 
@@ -290,7 +331,7 @@ scene(
     steps=["定位工具定义", "区分定义与实际调用"],
     teaching=teach(
         ("记录定位", "初始主请求 tools 中找 name=exec，description 内定位 exec_command 和 cmd 参数；本次顶层有五个工具入口，但不要求记名称或数量。实际调用在这一份请求的响应中，exec 内执行 tools.exec_command，cmd 为 ls -la && cat package.json 2>/dev/null | head -40。屏幕命令按版面自动换行。"),
-        ("展示", "可切查看器先找 tools，再找这次问候的调用；不把工具定义说成执行记录。没有修改项目文件。更完整的调用、返回与回答对照留到 p14，新项目问题仍需重录。"),
+        ("展示", "可切查看器先找 tools，再找这次问候的调用；不把工具定义说成执行记录。没有修改项目文件。更完整的调用、返回与回答对照留到 p07；其新项目问题已有独立排练记录，录制当天仍核对整组证据。"),
     ),
 )
 
@@ -337,212 +378,211 @@ scene(
     steps=["核对运行环境", "核对本次权限", "区分说明与执行约束"],
     teaching=teach(
         ("记录定位", "环境为 input 4 的 user 消息，含 cwd、shell、current_date、timezone 及文件访问范围；权限在 input 1 的 developer 消息，sandbox_mode 为 workspace-write，允许读文件及在 cwd/writable_roots 中编辑，网络受限。初始请求没有加入已有批准规则；不使用旧 read-only 记录。"),
-        ("展示与转场", "录制时遮盖用户名和绝对路径，页面只缩写路径；不做越界写入实验。先区分权限说明与执行机制，再接 p07 项目只读问题；p07/p14 的旧素材尚待新问法重录，不能称为本次问候的后续结果。"),
+        ("展示与转场", "录制时遮盖用户名和绝对路径，页面只缩写路径；不做越界写入实验。先区分权限说明与执行机制，再接 p07 项目只读问题；p07 已合入原 p14，并采用另一组新问法排练记录，不能称为此前组问候的后续结果。"),
     ),
 )
 
-
-# ---------- 工具调用 ----------
+# ---------- 代码进入请求 ----------
 scene(
-    id="p07", segment="工具调用", layout="prompt-scene", prompt=READONLY_PROMPT,
-    label="问一个项目问题", title="问一个和项目有关的问题，请求会多出什么？",
-    lead="第二步换一个和项目有关的只读问题。Prompt 不提示文件名，Codex 要自己去找依据；回答里说出的文件，就是下一页在记录里要找的东西。",
+    id="p07", segment="代码进入请求",
+    label="代码怎样进入请求", title="读到的代码，怎样进入下一次请求？",
+    lead="在问候后的同一会话发出项目区只读问题。模型读完文件以后，代码怎样成为下一次请求可用的信息？本页从 2026-10-23 的真实排练里挑一条依据链来看：先看回答，再定位读取调用和后续请求中的工具返回。这轮还有其他调用。左侧入口与演示步骤对应，记录可以放大查看。",
     html=(
-        '<div class="demo-notes"><ol class="p-notes">'
-        '<li data-reveal="0"><span><b>只读，不给文件名</b><small>让它自己去找</small></span></li>'
-        '<li data-reveal="1"><span><b>回复逐句看</b><small>哪句是要求，哪句是完成标准，哪句不确定</small></span></li>'
-        '<li data-reveal="2"><span><b>它说依据在哪</b><small>这次：PROJECT_BRIEF.md 的“首页 v0 的验收依据”（第 31–39 行）、PROMPT_V1.md 的“人工决定”“任务”两段</small></span></li></ol></div>'
-        '<p class="source-note">' + RUN1020 + ' 回答还指出 PROMPT_V1.md 第 3 行自称排练记录。</p>'
+        '<div class="trace-lesson-stage">'
+        '<nav class="trace-lesson-guide" aria-label="本次记录的观察顺序"><p class="trace-chain-note">挑一条真实依据链来看<br>这轮还有其他调用</p>'
+        '<button type="button" data-trace-point="answer" aria-pressed="true"><b>① 看回答</b><span>它说了什么，引用了哪里？</span></button>'
+        '<button type="button" data-trace-point="call" aria-pressed="false"><b>② 找读取调用</b><span>模型让 Codex 去读了什么？</span></button>'
+        '<button type="button" data-trace-point="result" aria-pressed="false"><b>③ 看后续请求</b><span>返回的代码怎样带了回来？</span></button>'
+        '</nav><div class="trace-lesson-viewer">'
+        '<div class="trace-lesson-bar"><span id="trace-lesson-status">本次真实记录 · 教学脱敏</span>'
+        '<div class="trace-lesson-actions"><a data-trace-open href="trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light&amp;point=answer" target="_blank" rel="noopener">单独打开 ↗</a><button type="button" id="trace-lesson-expand" aria-haspopup="dialog">放大记录</button></div></div>'
+        '<iframe id="trace-lesson-frame" title="claude-tap 静态记录：回答、调用与工具返回" src="trace/viewer.html?embed=1&amp;hideHeader=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light"></iframe>'
+        '</div></div>'
     ),
-    steps=["只读提问", "看回复", "圈出依据"],
+    closing="这里核对的是项目名称、描述与数据位置，模型没有用浏览器验证页面。静态查看器包含本次记录的教学脱敏版；删节处有标记，调用顺序、核心代码返回与最终回答保留。核对完这一条依据，再到下一页归纳 Context。",
+    repro=repro([("在同一会话接着问；只读，不点名文件", READONLY_PROMPT)], label="本次怎样提问？", note="记录来自 2026-10-23 一次真实交互排练。想看完整结构，可在查看器中展开‘完整 JSON’；不要求记住请求编号或工具字段。"),
+    steps=["看实际回答", "找读取调用", "看返回进入请求"],
     teaching=teach(
-        ("切到实操", "在同一个 claude-tap 启动的 Codex 里提交此 Prompt，保留完整记录供 p14 使用。Codex 的回复录制时按实际记录截图，逐句贴标签，高亮它说出的依据文件。"),
-        ("实测记录", "2026-10-20 15:16 课程基线（隔离 HOME，能力目录开，推理档位 max，Codex 0.163.0 + MiniMax-M3.1-Flash，codex exec -s read-only）在 starter 的 ch01-complete 快照（没有 AGENTS.md）上跑过一次：回答说要求在 PROMPT_V1.md 的“人工决定”“任务”两段；范围在 PROJECT_BRIEF.md 的“已确定的目标与范围”“1.5 的实现范围”；完成标准在 PROJECT_BRIEF.md 的“首页 v0 的验收依据”（第 31–39 行）；还指出 PROMPT_V1.md 第 3 行自称排练记录。全部给了文件、段落和行号。讲师自己的仓库录制时内容会不同，按实际回复讲。工作区没有被修改。"),
-        ("讲师提示", "Prompt 不出现 PROMPT_V1.md 等文件名，这样“它是怎么知道的”这个问题才是真的。只读，不修改文件。"),
+        ("排练来源", "ch02-start-v1（8e9a323）、固定来源 Agent Lab 691d15c、Codex CLI 0.163.0、MiniMax-M3.1-Flash、max、read-only、claude-tap 0.1.146；与问候同一交互会话。静态记录来自 demos/ch02-static-trace，构建时复制到本节 trace/。原始数据库与终端记录不提交。"),
+        ("讲师提示", "主画面只放观察入口，代码、回复与调用交给原生静态查看器。以后重跑先列出调用、返回位置、回答候选，经讲师确认再写 selection.json；记录指纹变化时停止，不自动选第一条。方向键推进时自动定位，左侧按钮也可定位。放大后文字增大，Esc 收起；直接打开本地 index.html 可用。采用已有真实排练回放，不宣称是当场产生的新输出。以后现场演示时完整替换同一组证据。"),
+        ("事实边界", "鉴权、环境、系统说明全文和非核心工具输出已作教学删节，记录中有标记。核心 34 行代码返回与快照一致；本页挑选一条真实依据链，不是只有这一条调用；仅核对名称、描述和数据位置，不据此认可完整回复中的‘唯一数据源’等扩大判断。模型还读了其他文件，不能把教学删节当成原请求没有这些部分。"),
     ),
 )
 
 scene(
-    id="p14", segment="工具调用",
-    label="它是怎么知道的", title="它到底是怎么“知道”的？",
-    lead="回到请求记录：Codex 提出读文件的工具调用，Harness 执行后把返回的内容放进下一次请求，模型再据此回答。工具调用和返回也进了 context。再对照回答，看它有没有正确使用这段返回。",
+    id="p16a", segment="代码进入请求",
+    label="这些合起来叫 Context", title="模型这一次可用的信息，合起来叫 Context",
+    lead="问候时，我们已经拆过系统指令、工具和环境。项目问答又让我们沿着代码返回核对了回答依据。把这两次观察放到同一张图上，看看后续请求还带入了什么。",
     html=(
-        '<div class="p-flow" style="--n:3">'
-        '<div class="p-node" data-role="agent" data-reveal="0"><h3>提出调用</h3><p>exec 里调用 exec_command：<code>cat -n PROJECT_BRIEF.md</code> 等</p></div>'
-        '<div class="p-node" data-role="tool" data-reveal="0"><h3>Harness 执行</h3><p>返回带行号的文件内容</p></div>'
-        '<div class="p-node" data-role="ctx" data-reveal="1"><h3>下一次请求</h3><p>带上这段调用和返回</p></div></div>'
-        '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:14px">'
-        '<div class="p-box is-soft" data-role="ok" data-reveal="1"><h3>这一问：8 次请求</h3><p>15 次调用，都是 exec 里调 exec_command 跑 cat、git log 等；input 从 6 项涨到 43 项</p></div>'
-        '<div class="p-box is-soft" data-role="ok" data-reveal="2"><h3>读到了</h3><p>回答里的文件和行号，都能在返回里找到；再看它理解得对不对</p></div></div>'
-        '<div class="p-bar is-light" data-reveal="2">下一步从<b>上一步的返回</b>里来</div>'
-        '<p class="source-note">' + RUN1021.rstrip("。") + '</p>'
+        '<style>body[data-mode="slides"] .segment-bar .segment:first-child{min-width:90px}</style>' +
+        anchor(lit=("系统指令", "工具", "环境", "对话历史", "工具返回", "这一句"), note="对照问候与项目问答的后续请求；规则按实际记录标注", reveal=0) +
+        '<div class="p-bar" data-reveal="1" style="margin-top:10px"><b>Context</b>：模型这一次可用的信息</div>'
+        '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:10px">'
+        '<div class="p-box" data-role="ink" data-reveal="2"><span class="p-tag" data-role="ink">Anthropic 的说法</span><p>Context 是从大模型采样时包含的那一组 token</p><p class="p-sub">系统指令、工具、外部数据、消息历史等</p></div>'
+        '<div class="p-box is-soft" data-role="ctx" data-reveal="3"><span class="p-tag" data-role="ctx">课程地图</span><p>第 2 章：<b>Context</b><br>从当前请求，继续看信息怎样变化</p></div></div>'
     ),
-    steps=["调用和返回", "进入下一次请求", "对照回答"],
+    closing="锚点图按信息的作用分类，不表示请求字段必须按图排列。项目问答的后续请求已包含历史和工具返回；规则是否存在以实际记录为准。刚才没有给出源码路径，模型先查找，才拿到相关代码。既然这些信息要进入 Context，我们已经知道文件在哪里时，能不能提前告诉它，缩短查找过程？",
+    refs=[ref("Effective context engineering for AI agents", "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents", "Anthropic，2025-09-29", kind="read")],
+    steps=["合看两次观察", "叫它 Context", "对照文字定义", "定位与下一问"],
     teaching=teach(
-        ("演示分支", "按录制实际选用：\n\n读到了：在记录中指认读取文件的那次工具调用、工具返回，以及下一次请求中出现的文件内容；再对照回答，检查来源与理解是否相符。\n\n没读文件，凭目录名或代码猜：核对完整请求与工具返回后指出依据缺失，这正是 Prompt 要求“说明依据”的原因。\n\n读到了但理解错了，或没找到依据、回答不确定或继续查找：均按实际结果讲。仅凭没有读取某一个文件，不能断言所有来源中都没有依据。保留原始记录，不重跑凑结果。"),
-        ("实测记录", "2026-10-21 课程基线（能力目录开）重跑，问句去掉“v0”：8 次请求、15 次工具调用，都是 exec 里调 exec_command：ls、find、逐个 cat PROJECT_BRIEF.md、PROMPT_V1.md、CHECKPOINTS.md、README.md 等，git log / tag / status，再读 index.html、package.json、src/ 和 setup-check，最后 cat -n 几份要求文件取行号。input 6、11、20、27、32、37、40、43 项；input_tokens 7610 → 24961，缓存命中 5063 → 23328。回答仍引用 PROJECT_BRIEF.md“首页 v0 的验收依据”第 31–39 行和 PROMPT_V1.md 的人工决定表，比上一次铺得更开（还列了未完成的证据文件、缺失的 tag）。运行目录 lab-runs/ch02-context/2.1-step2-20261021-150635，不提交。"
-         "上一次：2026-10-20 15:16 课程基线（能力目录开）一次运行：7 次请求、6 次工具调用，全部是 exec 里的 JavaScript 调 tools.exec_command：pwd / ls / git log；cat -n PROJECT_BRIEF.md、PROMPT_V1.md、CHECKPOINTS.md、TASK_01_01.md；README.md、PLACEHOLDER_CONTENT.md；docs/setup/TOOLCHAIN.md 与 git tag；grep；git status。没有专门的读文件工具，读文件就是跑 cat。每次请求的 input 都带上前面全部的调用和返回：6、9、12、15、18、21、24 项；input_tokens 7603、8450、11778、13852、16630、18198、18896，其中缓存命中 6395、7765、8614、12118、14438、17591、18815。录制版本或讲师仓库不同，次数和数字会变，按实际记录改。"),
-        ("讲师提示", "学员的要求和完成标准可能记在 PROMPT_V1.md 或其他文件里。回扣第 1 章的 Agent 循环。“input 一项项变长”只点一句，2.2 p22–p23 再展开。"),
+        ("录制说明", "先指问候时已拆过的组成，再指项目问答后续请求中的历史与工具返回。锚点图是分类示意，不是新运行截图。本次实际请求没有项目 AGENTS.md 规则块，保持未点亮；历史和工具返回已由本次排练核实。录制当天仍按实际请求更新。"),
+        ("定义依据", "沿用 2026-10-20 已核对的 Anthropic 2025-09-29 文章。中文意译及列举仅用于简短对照，具体拆解留在前面的记录，不新增外部事实核验。"),
     ),
+    expressive="复用全章锚点图，对照问候与项目问答的后续请求",
 )
 
-# ---------- 换个配置 ----------
+# ---------- 同条件点名文件对照 ----------
 scene(
-    id="p14a", segment="工具调用",
-    label="放什么由谁决定", title="点名文件，和让它自己找，差多少？",
-    lead="刚才那一问没告诉它看哪个文件，它自己找了一圈。换个问法，在 Prompt 里点名“要求在 PROJECT_BRIEF.md，人工决定在 PROMPT_V1.md”，再问一次：请求从 8 次降到 3 次，工具调用从 15 次降到 2 次，输入 token 合计只有原来的五分之一左右；回答引用的段落和行号没变。没读的文件，它直接说不确定。往 context 里放什么，可以由我们来决定。",
+    id="p14a", segment="代码进入请求",
+    label="知道文件在哪", title="已经知道文件在哪，要不要告诉它？",
+    lead="刚才，模型先查找文件，才把相关代码带进 Context。如果我们已经知道路径，可以主动提供。保持源码起点和配置相同，另开两个独立新会话，只给点名组增加 src/App.tsx 路径；先核对两边的回答和依据，再比较查找过程与代价。",
+    closing="这次两边核心事实均有源码依据，点名组请求更少、累计输入较少，但仍读取其他文件。已知且相关的信息可以主动提供。刚才改变的是我们给的信息，接下来保持问句不变，看看权限配置还会怎样改变 Context。",
     html=(
-        '<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)">'
-        '<div class="is-head" data-reveal="0"><span>同一个问题</span><span>不点名，让它自己找</span><span>点名两个文件</span></div>'
-        '<div data-reveal="0"><span>请求</span><span>8 次</span><span>3 次</span></div>'
-        '<div data-reveal="0"><span>工具调用</span><span>15 次</span><span>2 次</span></div>'
-        '<div data-reveal="0" class="is-key"><span>输入 token 合计</span><span>约 12.6 万</span><span>约 2.6 万</span></div>'
-        '<div data-reveal="1"><span>回答的依据</span><span>两个文件的同几段</span><span>同上；没读的直接说“不确定”</span></div></div>'
-        '<div class="p-bar" data-reveal="2" style="margin-top:10px">往 context 里放什么，<b>可以由我们来决定</b></div>'
-        '<p class="source-note">' + RUN1021.rstrip("。") + '；两次各一次运行</p>'
+        '<style>body[data-mode="slides"] #p14a .p-matrix span{padding:7px 10px}body[data-mode="slides"] #p14a .p-refs{margin-top:12px!important}</style>'
+        '<p class="p-bar" data-reveal="0">同一起点 · 相同配置 · 两个独立新会话</p>'
+        '<p data-reveal="0" style="margin:10px 0;font-size:23px">先核对回答与依据，再比较查找过程和代价</p>'
+        '<div class="p-matrix" data-reveal="1" style="grid-template-columns:1.2fr 1fr 1fr">'
+        '<div class="is-head"><span>本次实测</span><span>不点名</span><span>给出相关文件名</span></div>'
+        '<div><span>模型请求轮次</span><span>7</span><span>4</span></div>'
+        '<div><span>累计输入 token</span><span>66,315</span><span>34,894</span></div>'
+        '<div><span>整次运行耗时</span><span>34.4 秒</span><span>17.9 秒</span></div></div>'
+        '<p class="p-refs" data-reveal="2" style="margin-top:20px">'
+        '<a href="trace/compare-plain.html" target="_blank" rel="noopener">单独打开：不点名记录</a> '
+        '<a href="trace/compare-named.html" target="_blank" rel="noopener">单独打开：点名记录</a></p>'
+        '<p class="source-note" data-reveal="1">2026-10-23，各一次；累计输入含缓存，不是单次 Context 长度；耗时为本次观察，不推固定比例</p>'
     ),
-    steps=["两次对比", "依据一样吗", "放什么由谁决定"],
+    steps=["已知路径能帮什么", "本次量化对照", "回看真实记录"],
     teaching=teach(
-        ("实测记录", "2026-10-21 课程基线 codex exec -s read-only，起点第 1 章参考快照。不点名：本页前面那一问（lab-runs/ch02-context/2.1-step2-20261021-150635），8 次请求、15 次调用，claude-tap 汇总输入 126,466 token。点名：问句加上“要求在 PROJECT_BRIEF.md，人工决定在 PROMPT_V1.md，只读这两个文件回答”（lab-runs/ch02-context/views-20261021-194716/named），3 次请求、2 次调用（ls 与 wc、cat -n 两个文件），输入 25,656 token；回答引用 PROJECT_BRIEF.md“首页 v0 的验收依据”与 PROMPT_V1.md 人工决定表，和不点名时一致；颜色等两个文件里没有的内容，它写“不确定，引用源需看别的文件”。"),
-        ("讲师提示", "不点名不是错：不知道该看哪里时，让它找也合理，代价就在请求里。只讲“放什么可以由我们决定”，不推成“永远要点名”。"),
+        ("实测记录", "2026-10-23；course-starter ch02-start-v1 源码快照 8e9a323；Codex 0.163.0、MiniMax-M3.1-Flash、能力目录开、max、read-only、claude-tap 0.1.146。两个独立 codex exec，无前置问候，同一个干净工作目录，串行运行后均无改动。不点名 7 次请求、6 次外层 exec 调用、输入合计 66,315 token；点名 4 次请求、3 次外层 exec 调用、输入合计 34,894 token。输入合计是多请求累计，包含缓存输入，不是单次 Context 长度或费用。详见 materials/request/file-choice-20261023/summary.json。"),
+        ("讲师提示", "先打开两边最后回复，核对项目名称、描述及 App.tsx 行号，再回看完整调用过程。两边核心事实有依据；模型额外的唯一数据源等断言不自动视为已核实。点名组仍读了其他文件，不点名组还查了过程文档。展示这些实际差异后才看代价，不念固定倍数，不推成永远要点名。两份完整记录没有默认挑选一条调用。"),
     ),
 )
 
 scene(
     id="p16", segment="换个配置",
     label="换个权限", title="同一句话，换个权限，说明文字也变了",
-    lead="第一步那句话，用只读和可写各发一次，权限说明是两段不同的文字；可写时还会列出可写目录，环境信息也随之变长。Codex 按配置从不同模板拼出这段说明。这是讲师示例，可自主尝试。",
+    lead="上一页改变的是我们主动提供的信息。现在保持问句不变，换只读／可写权限，观察 Codex 加入请求的说明。沙箱决定允许的操作范围，审批策略决定何时申请批准；这些配置会影响权限说明，获准执行后产生的工具返回也会进入后续 Context。本页使用 2026-10-23 重跑记录，只比较沙箱差异，审批均为 never；独立记录直接定位权限段与可写目录，统计来自同一份原始请求。",
+    closing="检查代码时可以只读；需要修改可信项目时，建议工作区可写并按需审批（Auto），超出允许范围再核对申请。课程不推荐关闭沙箱和审批的 YOLO。权限说明进入 Context，实际执行边界由本地机制落实。允许做什么已经选好；接下来看看，接入 MiniMax 后，还需要给 Codex 补上哪些模型适配信息。",
     html=(
-        NARROW +
-        '<style>.x-w16{grid-template-columns:1.5fr 1fr}</style>'
-        '<div class="p-term" data-reveal="0" style="margin-bottom:12px;font-size:17px" data-copy="' + TAP_CMD + ' -s read-only">'
-        '<div class="dim">$ uvx claude-tap@0.1.146 --tap-client codex --tap-target … -s read-only</div>'
-        '<div class="dim">$ uvx claude-tap@0.1.146 --tap-client codex --tap-target … -s workspace-write</div></div>'
-        '<div class="p-walk x-w16"><div data-reveal="1"><div class="p-src" style="--lh:40px">'
-        '<div class="p-fn">permissions instructions <span class="add">+1</span><span class="del">−1</span></div>'
-        '<div class="p-ln del"><i>−</i><code>`sandbox_mode` is `read-only`: … only permits reading files.</code></div>'
-        '<div class="p-ln add"><i>+</i><code>`sandbox_mode` is `workspace-write`: … editing files in `cwd` …</code></div>'
-        '<div class="p-ln add"><i>+</i><code>The writable roots are `…/repo`, …</code></div></div></div>'
-        '<ol class="p-notes"><li data-reveal="1"><span><b>341 → 630 字符</b><small>可写时多出可写目录；环境信息 550 → 1306</small></span></li>'
-        '<li class="is-ok" data-reveal="2"><span><b>按配置拼装</b><small>仓库里按沙箱模式分模板</small></span></li></ol></div>'
-        '<p class="source-note" data-reveal="2">模板位置：openai/codex 仓库 codex-rs/prompts/templates/permissions/。' + RUN1020 + '</p>'
+        '<div class="p-pair" style="grid-template-columns:1fr 1fr">'
+        '<div class="p-box" data-role="ink" data-reveal="0"><span class="p-tag" data-role="ink">同一句问候 · 只读</span><p>权限说明：允许读取文件</p><p class="p-sub"><code>read-only</code></p></div>'
+        '<div class="p-box" data-role="ctx" data-reveal="1"><span class="p-tag" data-role="ctx">同一句问候 · 工作区可写</span><p>权限说明：允许修改工作区文件</p><p class="p-sub"><code>workspace-write</code> · 列出可写目录</p></div></div>'
+        '<p class="p-refs" data-reveal="1" style="margin:16px 0"><a href="trace/config-permissions-compare.html#permissions" target="_blank" rel="noopener">单独打开：权限说明与可写目录差异</a></p>'
+        '<p class="p-sub" data-reveal="1">本次权限说明字符：' + config_figure("perm-read", "permission_chars") + ' → ' + config_figure("perm-write", "permission_chars") + ' · 完整统计在独立记录中</p>'
+        '<div class="p-box is-soft" data-role="ok" data-reveal="2"><p><b>改项目：Auto</b> · 工作区可写，越界按需申请批准</p><p>只做检查可用只读；课程不推荐 YOLO</p></div>'
+        '<p class="source-note">2026-10-23 两个独立会话，审批均为 never；Auto 建议据官方说明，不属于审批效率实测</p>'
     ),
-    repro=repro([
-        ("在课程仓库根目录建一个带 Git 的练习目录；有自己的 .git，Codex 才不会读到课程仓库的 AGENTS.md", "mkdir -p lab-runs/perm && cd lab-runs/perm && git init -q && echo '<h1>hello</h1>' > index.html"),
-        ("用课程基线（隔离 HOME + MiniMax）以只读权限跑一次；需要 MINIMAX_API_KEY，浏览器会打开请求面板", f"../../tools/clean-codex.sh --tap -- exec -s read-only \"{FIRST_PROMPT}\" < /dev/null"),
-        ("同一句话换成可写权限再跑一次", f"../../tools/clean-codex.sh --tap -- exec -s workspace-write \"{FIRST_PROMPT}\" < /dev/null"),
-        ("在面板里对照两次请求：developer 消息中 <permissions instructions> 一段，以及环境信息里的可写目录", None),
-    ], note="讲师 2026-10-20 在 Codex 0.163.0 上按这几步用第一步那句话实测过（课程基线默认写入模型能力目录；2026-10-05 在 0.160.0 上用另一句只读提问也测过）；权限说明与提问内容无关。字符数随版本和配置变化，只看两段说明的差别。末尾的 < /dev/null 让 codex exec 不再等待额外输入。"),
-    steps=["两次启动", "两段说明", "按配置拼装"],
+    refs=[ref("Agent approvals & security", "https://learn.chatgpt.com/docs/agent-approvals-security", "OpenAI，2026-10-23 核对", kind="read")],
+    steps=["从信息到权限", "请求说明随配置变", "按任务选择权限"],
     teaching=teach(
-        ("数字来源", "2026-10-20 15:16 课程基线（能力目录开）实测第一步那句话：权限说明 341 → 630 字符，环境信息 550 → 1306 字符（可写时 permission_profile 里多出可写路径）；input_tokens 7519 → 7899；系统指令、工具定义、Skills 列表、多代理说明两次完全相同。较早一次能力目录关的记录是 341 → 676、642 → 1628，不再使用。录制版本定下后复测。"),
+        ("权限核实", "2026-10-23 核对本机 Codex 0.163.0 --help 及 OpenAI Agent approvals & security：Auto 预设对应 workspace-write + on-request；YOLO 绕过沙箱与审批。Auto-review 只改变审批审核者，不扩大权限，与 Auto 分开。已有 exec 对照审批为 never，不能说成 Auto 审批流程实测；本页不增加未录制的审批演示。"),
+        ("新实测来源", "2026-10-23 config-pairs-20261023：同一起点、同一句问候、固定 CLI 0.163.0 / MiniMax-M3.1-Flash / tap 0.1.146，每边一个新 HOME、新会话，只改变沙箱。权限字符和 API usage 从 summary.json 读取，统计在脱敏前生成；公开文本的路径替换不影响原统计。没有审批弹窗实测。"),
         ("核对记录", "模板位于 codex-rs/prompts/templates/permissions/（sandbox_mode/*.md、approval_policy/*.md），2026-01 起由固定段落改为按配置拼装（提交 87f7226cca）。旧数据来自 codex exec，审批策略为 never；交互界面中的审批文字会不同。"),
-        ("命令说明", "已核对：Codex 0.160.0 与 0.163.0 的 -s/--sandbox 取值为 read-only、workspace-write、danger-full-access；claude-tap 0.1.145 的帮助写明未列出的参数会转发给所启动的客户端；2026-10-20 用课程固定的 0.1.146 按这两条命令实测，-s 参数同样转给了 Codex。复制按钮复制的是只读那一条，可写时把最后一个参数换掉。会话中途也能在 Codex 界面里改权限，但前面的对话仍在上下文里，对比不干净，所以用启动参数，两次各开新会话。"),
+
     ),
 )
 
 scene(
     id="p15b", segment="换个配置",
-    label="换个模型能力目录", title="同一句话，换一份模型能力目录，请求大变样",
-    lead="Codex 要为所用的模型找一份元数据，我们叫它模型能力目录：这个模型配哪套系统指令、哪种工具、什么推理档位。课程默认写入 MiniMax 官方 Codex 接入文档给的那份目录；去掉它再发同一句话，Codex 启动时提示找不到模型元数据，改用后备值，请求就大不一样。请求还会随个人配置（~/.codex、个人 Skills）、项目里的 AGENTS.md 和这次的权限变化，所以每个人在自己电脑上看到的都会和讲师的不同。这是讲师的对比示例，可自主尝试。",
+    label="配好模型接入", title="接上模型后，还需要配好什么？",
+    lead="权限决定允许做什么。我们接入的是 MiniMax，Codex 还需要对应的模型适配信息；连通 API 不代表这些信息已经齐全。MiniMax 官方提供模型能力目录，课程脚本默认写入对应配置。在 2026-10-23 固定版本对照中，缺少目录时 Codex 会采用后备信息，基础指令、工具和实际发送的推理参数随之不同。",
+    closing="推荐使用课程脚本或 MiniMax 官方接入方式，让 Codex 按明确的模型配置工作，避免无意中使用后备配置。不要求记住目录字段，也不把这次请求差异说成任务质量一定更好。回到本节的问题：除了我们的 Prompt，Codex 还按哪些规则组织模型收到的信息？",
     html=(
-        '<div class="p-pair" style="grid-template-columns:1fr auto 1fr">'
-        '<div class="p-box" data-role="ok" data-reveal="0"><span class="p-tag" data-role="ok">能力目录开（课程默认）</span>'
-        '<p style="margin-top:8px;line-height:1.6">系统指令：一句话 + 团队说明<br>工具 5 个 ≈2.2 万字符（命令套在 exec 里）<br>推理档位 max<br><b>约 7.5 千 token</b></p></div>'
-        '<div class="p-join" data-reveal="1"><span>只改这一项</span><i class="p-arrow"></i></div>'
-        '<div class="p-box" data-role="gate" data-reveal="1"><span class="p-tag" data-role="gate">能力目录关</span>'
-        '<p style="margin-top:8px;line-height:1.6">启动提示：找不到模型元数据<br>系统指令 ≈1.7 万字符<br>工具 9 个 ≈1.8 万字符（不套 exec）<br>不发推理档位<br><b>约 9 千 token</b></p>'
-        '<p class="p-sub" style="margin-top:6px">基础指令的章节：工作方式 · 性格 · AGENTS.md 规范 · 执行任务 · 验证 · 汇报</p></div></div>'
-        '<div class="p-bar" data-reveal="2">只改了一项配置，<b>模型看到的 context 就大不相同</b> · 课程默认打开能力目录</div>'
-        '<p class="source-note">两次都是讲师用课程基线（隔离 HOME）发第一步那句话（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，codex exec），只差是否写入模型能力目录；章节名为中文意译</p>'
+        '<div class="p-pair" style="grid-template-columns:1fr 1fr">'
+        '<div class="p-box" data-role="ok" data-reveal="0"><span class="p-tag" data-role="ok">配置 MiniMax 模型能力目录</span>'
+        '<p>基础指令 · 工具模式 · 推理参数</p><p class="p-sub">课程脚本默认写入对应适配信息</p></div>'
+        '<div class="p-box" data-role="gate" data-reveal="1"><span class="p-tag" data-role="gate">本次对照：缺少目录</span>'
+        '<p>Codex 找不到模型元数据，采用后备内容</p><p class="p-sub">基础说明更长；工具和推理参数也不同</p></div></div>'
+        '<div class="p-bar" data-reveal="2" style="margin-top:24px">推荐：课程脚本或官方配置 · 无需手写和记忆目录字段</div>'
+        '<p class="p-refs" data-reveal="1" style="margin-top:14px"><a href="trace/config-model-compare.html#base" target="_blank" rel="noopener">看基础指令差异</a> <a href="trace/config-model-compare.html#tools" target="_blank" rel="noopener">看工具与数量</a> <a href="trace/config-model-compare.html#reasoning" target="_blank" rel="noopener">看实际推理参数</a></p>'
+        '<p class="p-sub" data-reveal="1">本次顶层工具：' + config_figure("model-on", "tools_top_level") + ' → ' + config_figure("model-off", "tools_top_level") + ' 项 · API 输入：' + config_figure("model-on", "input_tokens") + ' → ' + config_figure("model-off", "input_tokens") + ' token</p>'
+        '<p class="p-refs" data-reveal="2"><a href="#p06-tap">回看课程脚本启动入口</a></p>'
+        '<p class="source-note">2026-10-23，每边一次；只移除目录引用，其余配置相同；数字来自同一记录，不用于质量排名</p>'
     ),
-    repro=repro([
-        ("沿用上一页的练习目录 lab-runs/perm", "cd lab-runs/perm"),
-        ("用课程基线跑一次，默认写入模型能力目录；需要 MINIMAX_API_KEY，浏览器会打开请求面板", f"../../tools/clean-codex.sh --tap -- exec -s read-only \"{FIRST_PROMPT}\" < /dev/null"),
-        ("去掉能力目录，再跑同一句；启动时会提示找不到模型元数据", f"CLEAN_CODEX_CATALOG=0 ../../tools/clean-codex.sh --tap -- exec -s read-only \"{FIRST_PROMPT}\" < /dev/null"),
-        ("在面板里对照两次请求：input 里的系统指令、顶层 tools 的个数，以及 reasoning 字段", None),
-    ], note="讲师 2026-10-20 在 Codex 0.163.0 上按这几步实测过。能力目录是仓库里的 tools/codex-model-catalog.json，来自 MiniMax 官方 Codex 接入文档；CLEAN_CODEX_CATALOG=0 时脚本不写入它。换别的模型或版本，两边的差别会不同。", label="自己对比一次"),
-    steps=["能力目录开", "能力目录关", "只改了一项"],
+    refs=[ref("MiniMax Codex 接入说明", "https://platform.minimax.cn/docs/m-plan/codex", "MiniMax，2026-10-23 核对", kind="read")],
+    steps=["接入还需要适配", "缺少时使用后备内容", "推荐的配置入口"],
     teaching=teach(
-        ("数字来源", "2026-10-20 15:16 两次运行，只差 CLEAN_CODEX_CATALOG。开：input_tokens 7519；系统指令 145 字符 + 多代理团队说明 2235 + 开关说明 271；工具 5 个 22028 字符（exec 为 custom，code mode）；reasoning 为 {\"effort\": \"max\"}。关：启动提示 Model metadata … not found，用后备元数据；input_tokens 8994；input 4 项，系统指令 16979 字符（Codex 内置完整基础指令，章节有 How you work、Personality、AGENTS.md spec、Task execution、Validating your work、Presenting your work 等），没有多代理团队说明；工具 9 个 17767 字符，都是普通函数工具：exec_command、write_stdin、request_user_input、view_image、multi_agent_v1、get_goal、create_goal、update_goal、web_search；reasoning 为 {\"summary\":\"auto\"}，不发档位。Skills 列表 1985、权限说明 341、环境信息 550、我们的话 17 两边相同。"),
-        ("讲师提示", "质量 A/B（开 / 关各 5 次，用 2.2 的 Prompt）见 courseware/ch02/materials/model-config/README.md：样本小，差异可能只是偶然，不上画面，不说哪种配置“更好”。codex exec 头部显示的 reasoning effort 与实际发出的不一致，以请求记录为准。关时的基础指令对应 openai/codex 仓库 codex-rs/protocol/src/prompts/base_instructions/default.md，只列章节名的中文意译，不大段引用原文。"),
-        ("讲师提示", "原 p15 的“个人 / 项目 / 本次”三层来源与隔离 HOME 对比移到配套页，这里只在第 3 步口播里用一句话带过。不现场重跑。"),
-    ),
-)
+        ("新实测来源", "config-pairs-20261023：独立新会话，只删除 model_catalog_json 引用，保留同样的上下文窗口与显式 max，其余配置相同。新结果：两边都发送 effort=max，后备组多 summary=auto。不能沿用旧稿未发送档位的结论。第一条基础指令、工具项数、API 输入都从 summary.json 生成；不把基础指令长度当全部系统说明长度。"),
+        ("讲师提示", "先打开对应差异锚点，不现场重跑或临时搜索；独立对照页保留原请求的摘录与原生查看器入口。原始完整系统指令和工具定义不大段公开，删节位置已标注。旧小样本质量实验不作为当前版本质量证明。课程脚本入口回 p06-tap，官方链接提供配置方式。"),
 
-scene(
-    id="p16a", segment="小结",
-    label="这些加在一起", title="这些加在一起，就是 context",
-    lead="系统指令、工具（含 Skills 列表）、环境（含权限说明）、规则、对话历史、工具返回，再加上我们这一句，模型这一次能看到的全部内容，就是 context。规则和对话历史这一次还是空的，下一节会填上。第 1 章说 context 里该放什么，这里第一次看到它的实际样子；这一列方块是全章的锚点图，后面四节都回到它。",
-    html=(
-        anchor(lit=("系统指令", "工具", "环境", "工具返回", "这一句"), note="规则、对话历史这一次还是空的，2.2 填上", reveal=0) +
-        '<div class="p-bar" data-reveal="1" style="margin-top:10px"><b>Context</b>：模型这一次能看到的全部内容</div>'
-        '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:10px">'
-        '<div class="p-box" data-role="ink" data-reveal="2"><span class="p-tag" data-role="ink">Anthropic 的说法</span><p>Context 是从大模型采样时包含的那一组 token</p><p class="p-sub">包括系统指令、工具、MCP、外部数据、消息历史等 · 2025-09</p></div>'
-        '<div class="p-box is-soft" data-role="ctx" data-reveal="3"><span class="p-tag" data-role="ctx">课程地图</span><p>第 1 章：Agent 循环 · 权限<br><b>第 2 章：Context</b> 点亮<span class="p-sub">，后面几章还没走到</span></p></div></div>'
     ),
-    refs=[ref("Effective context engineering for AI agents", "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents", "Anthropic，2025-09-29", kind="read")],
-    steps=["整体框起", "叫它 context", "官方说法", "点亮地图"],
-    teaching=teach(
-        ("讲师提示", "“模型这一次能看到的全部内容”是我们自己的一句话定义。官方说法取自 Anthropic 2025-09-29 的文章 Effective context engineering for AI agents，画面是中文意译：原句把 context 定义为从大模型采样时包含的那一组 token，并列出 context 状态里有系统指令、工具、MCP、外部数据、消息历史等。2026-10-20 核对原文。可以顺带说一句：这篇文章讲的“context engineering”就是第 1 章说的“context 里该放什么”，本课后面几章还会用到。"),
-        ("讲师提示", "最后一行是课程概念地图的保底版本，地图定稿后换成地图局部，只点亮 Context。"),
-    ),
-    expressive="把 p09 的请求带整体框起来，再接上课程概念地图，点亮 Context 这座城市",
 )
 
 # ---------- 小结 ----------
 scene(
     id="p16b", segment="小结", layout="evidence-scene",
-    label="Codex 官方也这样拼", title="Codex 官方也是这样拼请求的",
-    lead="OpenAI 的工程博客《深入解析 Codex 智能体循环》（2026-01-23）写了 Codex 怎样拼一次请求：先是模型的基础指令和工具，再是沙箱权限说明、AGENTS.md 与技能列表、目录和 shell 等环境信息，最后才是我们这一句。和我们从请求记录里拆出来的对得上。下一次请求会把这一整段原样再发一遍，2.2 接着看。",
-    html=redrawn("context-engineering", "openai-codex-request", "excalidraw", "据 OpenAI《深入解析 Codex 智能体循环》（Michael Bolin，2026-01-23）重画"),
+    label="谁组织请求", title="请求里的信息，由 Codex 组织",
+    lead="刚才看到，权限和模型适配都会改变请求。把这些观察放回整体：我们提出任务，Codex 根据模型配置、权限、项目环境和已有过程，组织发给模型的信息。OpenAI 的请求示意图为这件事提供机制上的对照，这里不再逐字段拆解。",
+    html=(
+        redrawn("context-engineering", "openai-codex-request", "excalidraw", "据 OpenAI《深入解析 Codex 智能体循环》（2026-01-23）重画；只对照本次请求的组织者", max_height=330) +
+        '<div class="p-bar" style="margin-top:12px">我们提出任务，Codex 按配置与现场信息组织请求</div>'
+    ),
+    closing="图示帮助说明 Codex 的组织作用，具体字段、角色和内容以实际版本记录为准。认出了组织者，接下来回到我们能做的事：怎样提供信息，并检查模型有没有拿到回答需要的依据。",
     refs=[ref("深入解析 Codex 智能体循环", "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/", "OpenAI，2026-01-23")],
-    steps=["对上锚点图"],
+    steps=["收住机制：谁组织请求"],
     teaching=teach(
-        ("讲师提示", "图按文章“构建初始提示”一节重画（Excalidraw 风格，courseware/tools/redraw.py 生成，图元在 materials/external/context-engineering/figures.py），2026-10-22 核对原文。文章讲的是 Codex 一般怎样拼请求；具体内容以我们这次的请求记录为准，比如文章里 AGENTS.md 合计默认上限 32 KiB。"),
+        ("讲师提示", "复用已核对的官方请求示意重画图，只指请求整体和 Codex 的组织作用，不逐字段、按角色再拆 Context，不念工具名或数量。图是文章示意，消息角色与本次记录可能不同。图底关于下一轮的提示不在本页展开，后续请求的变化留给 2.2。"),
     ),
 )
 
 scene(
     id="p16c", segment="小结", layout="evidence-scene",
-    label="从写 Prompt 到管 Context", title="从写 Prompt 到管 Context",
-    lead="Anthropic 在《Effective context engineering for AI agents》（2025-09-29）里用一张图对比：只写 Prompt 时，窗口里是系统提示词和用户这一句；做 Agent 时，每一轮都要从文档、工具、记忆文件、对话历史里挑出要放进去的，工具返回又成了下一轮可以放的东西。这就是开头说的 context engineering。",
-    html=redrawn("context-engineering", "anthropic-prompt-vs-context", "excalidraw", "据 Anthropic《Effective context engineering for AI agents》（2025-09-29）第一张图重画"),
+    label="怎样提供与核对信息", title="提供相关信息，再核对回答依据",
+    lead="知道 Codex 会组织请求以后，我们的做法也要跟上：提供已知且相关的信息，查看模型实际读到了什么，再核对回答有没有依据。Anthropic 的对照图只用来提示：除了写好一句 Prompt，还要关注任务信息怎样进入当前 Context。",
+    html=(
+        redrawn("context-engineering", "anthropic-prompt-vs-context", "excalidraw", "据 Anthropic《Effective context engineering for AI agents》（2025-09-29）第一张图重画", max_height=300) +
+        '<div class="p-bar" style="margin-top:12px">提供已知的相关信息 → 查看实际读取 → 核对回答依据</div>'
+    ),
+    closing="这些做法已在项目区问答中出现：提供相关路径，沿读取调用与返回核对“学习笔记”的依据。接下来暂时不看示意图，用刚才的实际例子检验自己能否认组成、找依据、做选择。",
     refs=[ref("Effective context engineering for AI agents", "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents", "Anthropic，2025-09-29")],
-    steps=["每一轮都挑一遍"],
+    steps=["收住做法：提供与核对"],
     teaching=teach(
-        ("讲师提示", "据原文第一张图（Prompt engineering vs. context engineering）中文重画，Excalidraw 风格，2026-10-22 核对原文。原图英文标签：System prompt、User message、Doc、Tool、Memory file、Comprehensive instructions、Domain knowledge、Message history，重画时合并为中文的几类。试讲时 2.1 超时，先砍这一页（C2-64）。"),
+        ("讲师提示", "复用已核对的对照图，只指从写一句话到关注相关任务信息的变化，不再定义 Context，也不逐个介绍文档、记忆、工具等类别。用 p07 与 p14a 的实践收住：路径是帮助定位的线索，是否相关、是否足够、回答是否有依据仍需核对。图中示例数量不作为知识点。"),
     ),
 )
 
 scene(
     id="p18", segment="小结",
-    label="暂停自检", title="暂停自检",
-    lead="先独立作答，再看解析。答案后面标出回到哪一页。",
+    label="暂停自检", title="暂停自检：认组成、找依据、做选择",
+    lead="先暂停视频，独立回答三道题，再逐步查看参考答案。不要求背工具数量、请求编号、行号或配置字段；能结合刚才的记录解释判断即可。",
     html=(
-        '<span class="p-pause" data-reveal="0">暂停 · 先独立作答</span><div class="p-qlist">'
-        '<div class="p-qrow"><span class="p-n">1</span><div><h3>从请求记录中指出四类不是你写的内容，缺了其中一类会怎样？</h3>'
-        '<div data-reveal="1"><p>系统指令、工具定义、Skills 列表、环境信息、权限说明，任选四类说出后果<span class="p-back-to" data-role="agent">回到 拆开这份请求</span></p></div></div></div>'
-        '<div class="p-qrow"><span class="p-n">2</span><div><h3>同一句话，有位同学的请求里系统指令很长、有 9 个工具，讲师的只有一句话和 5 个工具。最可能是哪里不同？</h3>'
-        '<div data-reveal="2"><p>最可能是他的 Codex 没有为这个模型写入能力目录（启动时会提示找不到模型元数据），用了后备的系统指令和工具<span class="p-back-to" data-role="us">回到 换个模型能力目录</span></p></div></div></div>'
-        '<div class="p-qrow"><span class="p-n">3</span><div><h3>讲师第二步的记录里，模型是从哪里知道完成标准的？它在记录里的什么位置？</h3>'
-        '<div data-reveal="3"><p>从读文件那次工具调用的返回：cat -n PROJECT_BRIEF.md 返回带行号的内容，紧跟在调用后面，之后每次请求都带着；回答里的“首页 v0 的验收依据”（第 31–39 行）就出自这里<span class="p-back-to" data-role="ctx">回到 它是怎么知道的</span></p></div></div></div></div>'
+        '<style>#p18 .p-qlist{gap:14px}#p18 .p-qrow h3{font-size:24px}#p18 .p-qrow p{font-size:19px;line-height:1.4}#p18 .p-pause{margin-bottom:12px}@media(max-width:600px){body[data-mode="scroll"] #p18 .p-qrow h3{font-size:20px}body[data-mode="scroll"] #p18 .p-qrow p{font-size:18px}}</style>'
+        '<span class="p-pause" data-reveal="0">暂停 · 先独立作答，再往下看解析</span><div class="p-qlist">'
+        '<div class="p-qrow"><span class="p-n">1</span><div><h3>认组成：Codex 还放进了什么信息，它们有什么用？</h3>'
+        '<div data-reveal="1"><p>例如工具定义、权限说明、环境信息；结合例子说明它们的作用'
+        '<br><a href="#p09">回看请求组成</a> · <a href="#p16b">谁组织这些信息</a></p></div></div></div>'
+        '<div class="p-qrow"><span class="p-n">2</span><div><h3>找依据：回答中的“学习笔记”，去记录哪里核对？</h3>'
+        '<div data-reveal="2"><p>找读取调用 → 看工具返回的代码及其进入后续请求 → 对照回答'
+        '<br><a href="#p07">回看项目区问答的真实依据链</a></p></div></div></div>'
+        '<div class="p-qrow"><span class="p-n">3</span><div><h3>做选择：已知相关文件，怎样帮助定位并检查结果？</h3>'
+        '<div data-reveal="3"><p>明确提供路径；先核对回答、依据与遗漏，再比较读取范围和代价'
+        '<br><a href="#p14a">回看点名文件对照</a> · 给出路径后仍需检查结果</p></div></div></div></div>'
     ),
-    steps=["暂停", "第 1 题", "第 2 题", "第 3 题"],
+    closing="能举例说明请求组成、沿真实记录核对依据，并说明什么时候主动提供路径，就完成了本节的判断练习。权限与模型配置是解释请求差异的线索，不要求凭工具数量猜配置。",
+    steps=["暂停独立作答", "认组成", "找依据", "做选择"],
+    teaching=teach(
+        ("自检验收", "第一题能举出非用户原句的信息并说明作用，不按背出类别数评分；可补一句由 Codex 按配置和现场组织。第二题要指向实际调用与代码返回、后续请求中的返回及回答，而不只是重复模型给的路径；不背固定 request 编号、call_id 或行号。第三题接受先提供已确认相关路径、必要任务说明，再检查依据与缺失项的回答；不把点名路径理解为禁止读取其他文件。"),
+        ("范围", "移除旧完成标准与 PROJECT_BRIEF.md 题目、按工具数量猜配置的题。权限和模型适配仅作解释请求可能不同的例子，不另加第四题，不要求重跑实验。参考答案逐步揭示；不依赖录播中的课堂互动。"),
+    ),
 )
 
 scene(
     id="p19", segment="小结",
-    label="本节小结", title="模型收到的，远不止我们那句话",
-    lead="只说一句话，Codex 发出的请求里有系统指令、工具定义、Skills 列表、环境信息和权限说明；工具调用和返回也会进入 context；换权限、换模型配置，同一句话的 context 就不同。下一节回答：对话多几轮，context 怎么变？",
+    label="再说一句会带上什么", title="再说一句，模型会带上什么？",
+    lead="刚才我们让 Codex 读懂了当前项目区。接下来继续做同一个个人主页，把自己的项目经历补进去。新的问题发出去时，之前的问题、回答和读过的代码，还会跟着进入下一次请求吗？",
     html=(
-        '<div class="p-sketch" style="align-items:start"><div data-reveal="0"><h3 style="text-align:center">一张地图</h3>'
-        '<div class="p-star" style="width:260px;font-size:24px">Context<br>六块，加上工具返回</div><p class="p-sub" style="text-align:center">我们的话只是最后一格</p></div>'
-        '<div><h3 data-reveal="1">两个认识</h3><ul class="p-exits" style="gap:12px"><li class="is-point" data-reveal="1">工具调用和返回也会进入 context</li><li class="is-point" data-reveal="2">换权限、换模型配置，context 就不同</li></ul></div>'
-        '<div class="p-next" data-reveal="3"><h3>下一节</h3><div class="p-box" data-role="us"><h3>2.2 补上个人经历</h3><p>对话多几轮，context 怎么变？</p></div></div></div>'
+        '<div class="p-pair" data-reveal="0" style="grid-template-columns:1fr 1fr;gap:28px">'
+        '<div class="p-box" data-role="ink"><span class="p-tag" data-role="ink">刚才</span><p class="p-big">读懂当前项目区</p></div>'
+        '<div class="p-box" data-role="us"><span class="p-tag" data-role="us">接下来 · 2.2</span><p class="p-big">补入自己的项目经历</p></div></div>'
+        '<div class="p-box is-soft" data-role="ctx" data-reveal="1" style="margin-top:30px"><p style="font-size:30px">下一次请求里，哪些是之前的，哪些是新加入的？</p></div>'
     ),
-    steps=["拆开的请求", "工具调用也进来", "换配置就不同", "下一节"],
+    closing="带着这个问题进入 2.2：继续修改个人主页，沿连续几次请求观察前面的信息怎样留下、新的信息怎样加入。本页只提出观察问题，多轮累积、清空与压缩留给下一节的实际过程。",
+    steps=["接回个人主页任务", "留下下一问"],
+    teaching=teach(("转场", "从 p18 的信息选择判断接回项目任务，不复述 Context 组成、定义、机制或做法。第一步看任务从读取到修改，第二步只问下一次请求会带什么；不在这里提前讲完历史重发、清空或压缩。末步使用播放器已有的下一节按钮进入 2.2 p20。")),
 )
 
 
+
+publish_static_trace()
+verify_config_records()
 lesson.write()

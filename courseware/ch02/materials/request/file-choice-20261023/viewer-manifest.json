@@ -1,0 +1,12 @@
+{
+  "plain": {
+    "source_sha256": "8dd97904a4ea1c7200945dd2b8e04b935fd14ab54bf517f7331fb43b32eb7eda",
+    "html_sha256": "5c7198f84c1c44cddd0bc7474de1c520cf2ea90537a9ed9db92e8875fb758e5b",
+    "requests": 7
+  },
+  "named": {
+    "source_sha256": "841d822cb4bceef96ac75254759767942583ce4bc6879ed67901da8b80d68626",
+    "html_sha256": "9fce5a932da524478d6b63fe1ba65c3b0102906b142a9eee73a7e57142df17af",
+    "requests": 4
+  }
+}
