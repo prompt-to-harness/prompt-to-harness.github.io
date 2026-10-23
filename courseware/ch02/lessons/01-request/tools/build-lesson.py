@@ -21,7 +21,7 @@ scene = lesson.scene
 # 录制时还没有实际记录的数字，画面上统一用这个占位（只写占的是什么，不写给讲师的指令），讲师提示里写明按记录替换
 TBD = "〔实测〕"
 
-# 2026-10-20 15:16 课程基线实测；用于 p08–p13、p15b、p16 的既有对照材料
+# 2026-10-20 15:16 课程基线实测；仅用于既有基线说明，不覆盖当前逐页实测材料
 RUN1020 = "数字来自讲师用课程基线（隔离 HOME）的一次运行（2026-10-20，Codex 0.163.0 + MiniMax-M3.1-Flash，写入模型能力目录，推理档位 max，codex exec）；随版本、模型、配置和任务变化，只说明结构。"
 RUN1021 = "数字来自讲师用课程基线（隔离 HOME）的一次运行（2026-10-21，codex exec，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max）；随版本、模型、配置和任务变化，只说明结构。"
 
@@ -235,11 +235,30 @@ stack = (
     '@media(max-width:600px){body[data-mode=scroll] .x-stack{height:96px}body[data-mode=scroll] .x-stack>div{white-space:normal;font-size:14px;line-height:1.25;text-align:center;padding:2px}'
     'body[data-mode=scroll] .x-key{flex-wrap:wrap;justify-content:flex-start;gap:4px 14px;font-size:15px}body[data-mode=scroll] .x-key span{white-space:nowrap}}</style>'
 )
+
+scene(
+    id="p08a", segment="逐块拆开",
+    label="连续查看同一请求", title="沿着同一份请求，连续看四处",
+    lead="刚才找到了我们写的 Prompt。现在沿同一份初始请求，看系统指令、工具定义、Skills 列表，以及环境与权限。阅读视图将长段落折叠，完整原文保留所有消息正文和工具定义。Skills 里的展开对照来自另一个实际文件，不是这次请求中已经读入的内容。",
+    html=(
+        '<style>#p08a .scene-content{display:block}#p08a .request-walk-frame{display:block;width:100%;height:420px;border:0;background:#fffdf7;border-radius:8px}body[data-mode="scroll"] #p08a .request-walk-frame{height:620px}@media(max-width:600px){body[data-mode="scroll"] #p08a .request-walk-frame{height:1050px}}body[data-mode="slides"] #p08a h2{font-size:40px}body[data-mode="slides"] #p08a .scene-content{top:160px;height:510px}body[data-mode="slides"] #p08a .request-walk-frame{height:510px}</style>'
+        '<iframe class="request-walk-frame" id="request-walk-frame" title="连续查看真实请求：阅读视图与完整原文" src="request/index.html?embed=1"></iframe>'
+    ),
+    closing="同一份请求里，有我们输入的，也有 Codex 组织的内容。接下来归纳它们的作用与来源；完整工具调用、执行返回与回答的关系，在项目问题中沿记录核对。",
+    steps=["系统指令", "工具定义", "Skills 列表与文件对照", "环境信息", "权限说明"],
+    teaching=teach(
+        ("同源与展示", "使用前半组已有真实初始请求；六条消息正文、五个顶层工具定义完整保留，仅路径占位，排除鉴权请求头、客户端关联元数据和推理内容。阅读视图只折叠不删除，完整原文为原版静态查看器，可自由展开；初始响应含真实读文件调用，不说问候没有调用工具。"),
+        ("Skills 对照", "Skills 入口展开对应 SKILL.md 的原文片段，核对列表只有名字、简述和位置；片段取自同一课程 HOME 的真实文件并核对指纹，明确它不在初始请求内，也不是本次问候实际读取。"),
+        ("来源与发布", "源在 demos/ch02-request-walkthrough，本节构建时验证数据和生成物指纹后复制到 request/；不需要服务或模型调用，不从正式页面跨目录依赖 demos。完整调用链在后面的 p07，使用另一组项目问题记录，不能说成问候后续。"),
+    ),
+)
+
+
 scene(
     id="p09", segment="逐块拆开",
     label="请求的组成与来源", title="这些内容是谁组织进去的？",
     lead="先按作用辨认初始请求的六类内容：系统与协作指令、工具定义、Skills 列表、环境信息、权限说明、用户原句。分类不等于消息条数，一条消息可以同时包含多类内容。Codex 负责组织这份请求。",
-    closing="Harness 可从两个使用层面理解：现在拆开的是 Codex 提供的运行框架；课程后面要围绕项目建设知识、工具、约束、检查与反馈环境。两者相互配合，这是课程据官方文章做的教学归纳。这次请求的环境信息与人工问候都标为 user，角色标签不能单独证明文字由谁输入。交互继续时，Codex 还会组织新的消息和工具结果；新增内容不都属于 user，也不是每轮重新读取整个项目。接下来先逐块定位初始请求，再看工具调用怎样带入新内容。",
+    closing="认出了组成与组织者，接下来回到个人主页：项目区现在显示什么、数据在哪个文件？沿一次真实项目问答，区分工具定义、实际调用和执行后带回的结果。",
     html=(
         '<style>#p09 .scene-content{gap:0}#p09 .request-map{display:grid;gap:6px;margin:0}'
         '#p09 .request-map-row{display:grid;grid-template-columns:290px minmax(0,1fr);gap:20px;align-items:center;min-height:39px;padding:3px 16px;border:1px solid var(--p-rule);border-radius:7px;background:var(--p-card)}'
@@ -287,102 +306,11 @@ scene(
     teaching=teach(
         ("与记录对应", "沿用 p08 同一份初始主请求。developer input 0 是身份；input 1 同时包含 Skills、权限、Default 模式；input 2/3 是团队说明和多代理限制。user input 4 是环境，input 5 才是问候。工具定义另在 tools 中。归成六类不等于六条消息各自对应一类。"),
         ("术语与来源", "Harness 两个使用层面据两篇官方文章归纳，先讲运行框架，再预告项目环境，不讲成两个排他定义。画面为课程整理，不是官方原图。底部链接可现场打开，不依赖文章截图。"),
-        ("转场", "第三步可切查看器核对环境和问候的 user 角色；随后回课件，先从系统指令逐块定位。p11 点出定义与实际返回的区别，p13 接项目问题，p07 查看工具结果进入下一次请求。p10–p13 与 p08 使用同一份初始主请求；p07 使用另一组已核对的项目问答排练，不说成此前组问候的后续结果。"),
+        ("转场", "第三步可切查看器核对环境和问候的 user 角色；随后进入项目问题，p07 查看工具结果进入下一次请求。p08a 与 p08 使用同一份初始主请求；p07 使用另一组已核对的项目问答排练，不说成此前组问候的后续结果。"),
     ),
 )
 
 
-scene(
-    id="p10", segment="逐块拆开",
-    label="身份与协作指令", title="系统指令在告诉模型什么？",
-    lead="回到同一份问候的初始主请求。这里把身份与协作要求归为系统与协作指令；本次身份指令实际位于一条 developer 消息中。先看它怎样描述 Codex，再定位同一请求里的团队角色、协作模式等说明。",
-    closing="本页辨认的是请求中实际存在的指令，没有做移除指令的实验。团队角色、模式与多代理限制分别有说明，不代表这次问候启动了子代理。接下来定位工具定义，看模型怎样得知工具的名字和用法。",
-    html=(
-        '<div class="p-box" data-role="agent" data-reveal="0"><span class="p-tag">身份指令 · 请求原文</span>'
-        '<p lang="en" style="font-size:27px;line-height:1.55;margin-top:10px">You are Codex, a coding agent based on MiniMax-M3.1-Flash. You and the user share the same workspace and collaborate to achieve the user\'s goals.</p></div>'
-        '<div class="p-bar is-light" data-reveal="1">同一请求还有：<b>团队角色、协作模式与多代理限制</b></div>'
-        '<div class="p-bar" data-reveal="2">要调用工具，还要知道它的<b>名字与用法</b></div>'
-        '<p class="source-note">依据：2026-10-23，ch02-start-v1 项目、专用课程 HOME，与 p08 同一份初始主请求。上框为 input 0 的 developer 身份消息全文；团队说明、模式与限制仅标出位置，见其他 developer 消息。</p>'
-    ),
-    steps=["读身份指令", "定位协作说明", "接着找工具定义"],
-    teaching=teach(
-        ("记录定位", "使用 p08 相同代理会话的 record_index 2，不用辅助标题请求。input 0 身份指令 145 字符；input 1 包含 Default 模式，input 2 为团队说明，input 3 为多代理限制。仅作为定位，不口播长度。"),
-        ("讲述边界", "系统与协作指令是按作用归类，不把它们都说成 role=system。本页没有做移除对照，不宣称没有这句话模型就只会续写或不知道身份；不推断产品内部动机，不把团队说明讲成已启动子代理。"),
-    ),
-)
-
-
-scene(
-    id="p11", segment="逐块拆开",
-    label="工具定义与执行", title="模型怎样知道工具的名字和用法？",
-    lead="同一请求的 tools 中列出了工具定义。本次用 exec 组织调用，它的说明里还描述了 exec_command 等工具怎样使用。下面把定义的结构与这次问候后实际发生的调用分开看；代码摘录只保留定位所需的几行。",
-    closing="模型根据可用的工具说明提出调用，由 Codex 执行；结果再作为工具返回项进入后续请求，通常不属于 user 消息。本页只辨认定义与调用，实际返回怎样被使用留到后面的项目问题，不要求记工具清单或 JavaScript 语法。",
-    html=(
-        '<div class="p-pair" style="grid-template-columns:1fr 1fr">'
-        '<div class="p-box" data-role="tool" data-reveal="0"><span class="p-tag">工具定义 · 结构摘录</span>'
-        '<pre class="p-code" style="margin-top:12px;font-size:21px;line-height:1.5">{ "type": "custom",\n  "name": "exec",\n  "description": "…" }</pre>'
-        '<p class="p-sub">说明里还描述了 exec_command 的命令参数和用法</p></div>'
-        '<div class="p-box" data-role="agent" data-reveal="1"><span class="p-tag">这次问候后实际发生的调用</span>'
-        '<p style="font-size:23px;line-height:1.6;margin-top:12px">exec 内调用 exec_command<br>列目录，再读 package.json</p>'
-        '<pre class="p-code" style="margin-top:12px;font-size:18px;line-height:1.5;white-space:pre-wrap">ls -la &amp;&amp; cat package.json 2&gt;/dev/null | head -40</pre></div></div>'
-        '<div class="p-bar" data-reveal="1">模型提出调用 → <b>Codex 执行</b> → 工具结果进入后续请求</div>'
-        '<p class="source-note">依据：2026-10-23 与 p08 相同的问候记录。左侧为初始请求里的定义结构，description 用省略号，不是全文；右侧为该请求之后的实际命令。</p>'
-    ),
-    steps=["定位工具定义", "区分定义与实际调用"],
-    teaching=teach(
-        ("记录定位", "初始主请求 tools 中找 name=exec，description 内定位 exec_command 和 cmd 参数；本次顶层有五个工具入口，但不要求记名称或数量。实际调用在这一份请求的响应中，exec 内执行 tools.exec_command，cmd 为 ls -la && cat package.json 2>/dev/null | head -40。屏幕命令按版面自动换行。"),
-        ("展示", "可切查看器先找 tools，再找这次问候的调用；不把工具定义说成执行记录。没有修改项目文件。更完整的调用、返回与回答对照留到 p07；其新项目问题已有独立排练记录，录制当天仍核对整组证据。"),
-    ),
-)
-
-
-scene(
-    id="p12", segment="逐块拆开",
-    label="Skills 列表与全文", title="Skills 列表等于技能全文吗？",
-    lead="这次初始请求中的 Skills 列表包含技能名、简述和文件位置。例如 skill-creator 的条目指向一个 SKILL.md 文件；实际文件还包含原则、创建步骤与验证等内容，全文没有出现在这份初始请求里。",
-    closing="本次条目来自专用课程 HOME 的内置技能目录，个人主页项目没有项目 Skills。目录与全文是两种内容：列表帮助识别可用技能，任务需要时可按说明读取全文。这里只比较本次列表与实际文件，不把所有版本都概括成同一种加载方式；使用技能留到后续章节。",
-    html=(
-        '<div class="p-pair" style="grid-template-columns:1.2fr 1fr">'
-        '<div class="p-box" data-role="ctx" data-reveal="0"><span class="p-tag">初始请求中的一条 · 实际摘录</span>'
-        '<p class="p-mono" style="font-size:20px;margin-top:12px;line-height:1.55;overflow-wrap:anywhere">skill-creator: Create or update a Codex skill with appropriately scoped instructions and any needed supporting resources.</p>'
-        '<p class="p-mono" style="font-size:19px;margin-top:10px;overflow-wrap:anywhere">file: r0/skill-creator/SKILL.md</p></div>'
-        '<div class="p-box is-dashed" data-role="ctx" data-reveal="1"><span class="p-tag">对应的 SKILL.md 文件</span>'
-        '<p style="font-size:25px;line-height:1.65;margin-top:12px">原则、创建步骤、验证……</p><p class="p-sub">全文不在这份初始请求中</p></div></div>'
-        '<div class="p-bar is-light" data-reveal="2">这次看到的是<b>内置技能列表</b> · 项目本身没有 Skills</div>'
-        '<p class="source-note">依据：2026-10-23 与 p08 同一份初始主请求中的 developer 消息及实际 skill-creator/SKILL.md。r0 是专用课程 HOME 内置目录的路径别名；项目快照和实际项目均无 .agents/skills。列表条目为原文，文件内容用中文概括。</p>'
-    ),
-    steps=["读列表条目", "对照实际文件", "辨认列表来源"],
-    teaching=teach(
-        ("文件对照", "录前打开专用课程 HOME 的 .codex/skills/.system/skill-creator/SKILL.md，核对其 Core Principles、Create or Update a Skill、Validate and Iterate 等章节；录制时与查看器中的对应条目并排，不朗读全文或展示带用户名的绝对路径。完整文件未包含于本次初始请求。"),
-        ("事实边界", "本次列表的四个条目都来自内置目录，项目没有 Skills。本次问候没有读取技能全文，不把本页文件对照说成问候实际调用。不要由条目增加直接推导固定 token 变化或每次请求必定更重。"),
-    ),
-)
-
-
-scene(
-    id="p13", segment="逐块拆开",
-    label="环境与权限", title="工作目录、日期和权限从哪里来？",
-    lead="同一请求里，Codex 用 user 消息加入环境信息，并用 developer 消息说明权限。本次运行的目录是个人主页项目，日期为 2026-10-23，沙箱模式是 workspace-write，允许读取文件和在指定范围内写入。",
-    closing="环境信息描述运行现场，权限说明告诉模型操作边界；实际约束由运行时的权限机制落实。本页核对的是请求文字，没有实测越界拒绝，不把这段说明当作所有工具的统一限制。接下来换一个需要查项目依据的问题，查看工具调用、返回和回答的关系。",
-    html=(
-        '<style>@media(max-width:600px){body[data-mode="scroll"] #p13 .p-code{font-size:17px!important}}</style>'
-        '<div class="p-pair" style="grid-template-columns:1fr 1fr">'
-        '<div class="p-box" data-role="ink" data-reveal="0"><span class="p-tag">环境信息 · user 消息摘录</span>'
-        '<pre class="p-code" style="margin-top:12px;font-size:20px;line-height:1.5">cwd: …/personal-homepage\nshell: zsh\ncurrent_date: 2026-10-23\ntimezone: Asia/Shanghai</pre></div>'
-        '<div class="p-box" data-role="gate" data-reveal="1"><span class="p-tag">权限说明 · developer 消息</span>'
-        '<p class="p-mono" style="font-size:25px;margin-top:12px">sandbox_mode: workspace-write</p>'
-        '<p style="font-size:23px;line-height:1.6;margin-top:12px">允许读取文件<br>在当前目录和指定范围内写入</p></div></div>'
-        '<div class="p-bar" data-reveal="2">文字告诉模型边界 · <b>运行时权限机制落实约束</b></div>'
-        '<p class="source-note">依据：2026-10-23 与 p08 同一份初始主请求，目录已缩写；环境字段保留原值，省略 XML 标签和文件访问范围。权限为中文摘要，原文还包含网络限制与审批等内容。这里只核对请求，未实测越界拒绝。</p>'
-    ),
-    steps=["核对运行环境", "核对本次权限", "区分说明与执行约束"],
-    teaching=teach(
-        ("记录定位", "环境为 input 4 的 user 消息，含 cwd、shell、current_date、timezone 及文件访问范围；权限在 input 1 的 developer 消息，sandbox_mode 为 workspace-write，允许读文件及在 cwd/writable_roots 中编辑，网络受限。初始请求没有加入已有批准规则；不使用旧 read-only 记录。"),
-        ("展示与转场", "录制时遮盖用户名和绝对路径，页面只缩写路径；不做越界写入实验。先区分权限说明与执行机制，再接 p07 项目只读问题；p07 已合入原 p14，并采用另一组新问法排练记录，不能称为此前组问候的后续结果。"),
-    ),
-)
-
-# ---------- 代码进入请求 ----------
 scene(
     id="p07", segment="代码进入请求",
     label="代码怎样进入请求", title="读到的代码，怎样进入下一次请求？",
@@ -583,6 +511,27 @@ scene(
 
 
 
+
+WALK_SOURCE = Path(__file__).resolve().parents[5] / "demos/ch02-request-walkthrough"
+def publish_request_walkthrough():
+    import hashlib,re
+    manifest=json.loads((WALK_SOURCE/"viewer-manifest.json").read_text())
+    for name,digest in manifest["files"].items():
+        assert hashlib.sha256((WALK_SOURCE/name).read_bytes()).hexdigest()==digest, "连续查看请求的源或生成物已变，请先重建样稿"
+    target=lesson.here/"request";target.mkdir(exist_ok=True)
+    (target/"lesson-adapter.js").write_bytes((lesson.here/"tools/request-lesson.js").read_bytes())
+    for name in ("index.html","page.js","reader.html","viewer.html","trace.json","LICENSE-claude-tap.txt"):
+        text=(WALK_SOURCE/name).read_text()
+        if name=="index.html":
+            text=text.replace("../../courseware/shared/","../../../../shared/").replace("../../courseware/ch02/lessons/01-request/index.html","../index.html")
+            text=re.sub(r'<details><summary>本页讲解与前后衔接</summary>[\s\S]*?</details>','',text)
+        if name.endswith(".html"):
+            def encode_script(m):return m[1]+re.sub(r'[\u4e00-\u9fff]',lambda x:'\\u%04x'%ord(x[0]),m[2])+m[3]
+            text=re.sub(r'(<script\b[^>]*>)([\s\S]*?)(</script>)',encode_script,text)
+            text=re.sub(r'[\u4e00-\u9fff]',lambda m:'&#x%x;'%ord(m[0]),text)
+        (target/name).write_text(text)
+
+publish_request_walkthrough()
 publish_static_trace()
 verify_config_records()
 lesson.write()

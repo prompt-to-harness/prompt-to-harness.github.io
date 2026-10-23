@@ -202,7 +202,7 @@ window.lesson = {
       "script": [
         "【操作提示｜课件 p08 第 1 步 → 切到 p06 已启动的 Codex，确认仍在个人主页项目根目录，粘贴画面上的问候并提交，等回答结束】\n\n我们还在刚才那个个人主页项目里。先发一句话：你好，用一句话介绍你能帮我做什么。等它回答完，我们打开记录，看发出这句话时，模型还收到了什么。",
         "【操作提示｜推进 p08 第 2 步 → 打开启动输出所示查看器，定位回答问候的第一份主请求：末句是问候，尚未包含工具返回；标题请求只指认，不展开排序和分组。数字以展示记录为准】\n\n这段记录里还有给会话起名字的辅助请求。我们先看回答问候的这一条，它的任务内容就是刚才那句话。这是主流程的初始请求，工具还没有执行。这里显示，这一次的输入是八千六百五十一 token。这个数字只是本次记录的旁注，先不做换算，我们去找原句。",
-        "【操作提示｜推进 p08 第 3 步 → 在同一请求中找到用户原句，再向前指认额外内容；回课件指右侧两框。本机路径及用户名录前遮盖，不展示鉴权信息】\n\n这就是刚才输入的那句话。但在它前面，还有指令、工具说明、环境等内容。这些同样发给了模型。先把这份初始请求认清，再看后面调用工具时增加了什么。下一页，我们按作用把这些内容认出来。"
+        "【操作提示｜推进 p08 第 3 步 → 在同一请求中找到用户原句，再向前指认额外内容；回课件指右侧两框。本机路径及用户名录前遮盖，不展示鉴权信息】\n\n这就是刚才输入的那句话。但在它前面，还有指令、工具说明、环境等内容。这些同样发给了模型。先把这份初始请求认清，再看后面调用工具时增加了什么。下一页，沿着同一份请求连续查看这些内容。"
       ],
       "teaching": [
         {
@@ -226,12 +226,51 @@ window.lesson = {
       "seconds": 90
     },
     {
+      "id": "p08a",
+      "segment": "逐块拆开",
+      "label": "连续查看同一请求",
+      "title": "沿着同一份请求，连续看四处",
+      "lead": "刚才找到了我们写的 Prompt。现在沿同一份初始请求，看系统指令、工具定义、Skills 列表，以及环境与权限。阅读视图将长段落折叠，完整原文保留所有消息正文和工具定义。Skills 里的展开对照来自另一个实际文件，不是这次请求中已经读入的内容。",
+      "html": "<style>#p08a .scene-content{display:block}#p08a .request-walk-frame{display:block;width:100%;height:420px;border:0;background:#fffdf7;border-radius:8px}body[data-mode=\"scroll\"] #p08a .request-walk-frame{height:620px}@media(max-width:600px){body[data-mode=\"scroll\"] #p08a .request-walk-frame{height:1050px}}body[data-mode=\"slides\"] #p08a h2{font-size:40px}body[data-mode=\"slides\"] #p08a .scene-content{top:160px;height:510px}body[data-mode=\"slides\"] #p08a .request-walk-frame{height:510px}</style><iframe class=\"request-walk-frame\" id=\"request-walk-frame\" title=\"连续查看真实请求：阅读视图与完整原文\" src=\"request/index.html?embed=1\"></iframe>",
+      "closing": "同一份请求里，有我们输入的，也有 Codex 组织的内容。接下来归纳它们的作用与来源；完整工具调用、执行返回与回答的关系，在项目问题中沿记录核对。",
+      "steps": [
+        "系统指令",
+        "工具定义",
+        "Skills 列表与文件对照",
+        "环境信息",
+        "权限说明"
+      ],
+      "script": [
+        "【操作提示｜停留 p08a 第 1 步，选择系统指令，指阅读视图的身份原文与 developer 来源；需要看细节时切完整原文，再切回阅读】\n\n刚才找到了我们输入的问候。现在沿着同一份请求，看看前面还放了什么。这两句身份指令说明，它是编程 Agent，与用户共用工作区，一起完成目标。这一条实际标为 developer；系统指令是我们按作用给它的叫法。协作模式和团队说明也可以展开查看。",
+        "【操作提示｜推进第 2 步，定位工具定义，指 exec 名称、exec_command 与命令参数；完整工具说明可展开，不逐项读】\n\n再看工具。这里叫 exec，说明里包含 exec_command 的用法和命令参数。工具定义告诉模型有哪些工具、怎样调用。模型提出调用以后，由 Codex 执行，再把结果带回来。后面的项目问题会把调用、返回和回答连起来核对。",
+        "【操作提示｜推进第 3 步，指 Skills 的名字、简述和文件位置；展开“对应 SKILL.md”对照，核对后收起】\n\nSkills 列表给了名字、简述和文件位置。比如 skill-creator，列表告诉模型它能做什么。展开对应文件的片段，还能看到原则、创建和验证等详细说明。这些是另一个实际文件里的内容，没有出现在这份初始请求中；这次问候也没有读取它。当前列表来自课程 HOME 的内置目录，个人主页项目本身没有 Skills。",
+        "【操作提示｜推进第 4 步，定位环境，指 user、目录、Shell、日期与时区；不展开文件访问范围细节】\n\n环境消息告诉模型，当前在哪个目录，用什么 Shell，日期和时区是什么。这条标为 user，但内容是 Codex 加入的，并不是我们刚才亲手输入的。",
+        "【操作提示｜推进第 5 步，定位权限，指 developer 和 workspace-write；完整审批规则按需展开；下一页进入 p09】\n\n权限说明在 developer 消息里。本次是 workspace-write，说明允许读取文件、在指定范围写入；实际执行边界由运行时落实。现在看到了同一份请求里的几种内容，它们各有什么作用，又是谁组织进去的？下一页把这些关系归纳起来。"
+      ],
+      "teaching": [
+        {
+          "title": "同源与展示",
+          "text": "使用前半组已有真实初始请求；六条消息正文、五个顶层工具定义完整保留，仅路径占位，排除鉴权请求头、客户端关联元数据和推理内容。阅读视图只折叠不删除，完整原文为原版静态查看器，可自由展开；初始响应含真实读文件调用，不说问候没有调用工具。"
+        },
+        {
+          "title": "Skills 对照",
+          "text": "Skills 入口展开对应 SKILL.md 的原文片段，核对列表只有名字、简述和位置；片段取自同一课程 HOME 的真实文件并核对指纹，明确它不在初始请求内，也不是本次问候实际读取。"
+        },
+        {
+          "title": "来源与发布",
+          "text": "源在 demos/ch02-request-walkthrough，本节构建时验证数据和生成物指纹后复制到 request/；不需要服务或模型调用，不从正式页面跨目录依赖 demos。完整调用链在后面的 p07，使用另一组项目问题记录，不能说成问候后续。"
+        }
+      ],
+      "source": "index.html#p08a",
+      "seconds": 150
+    },
+    {
       "id": "p09",
       "segment": "逐块拆开",
       "label": "请求的组成与来源",
       "title": "这些内容是谁组织进去的？",
       "lead": "先按作用辨认初始请求的六类内容：系统与协作指令、工具定义、Skills 列表、环境信息、权限说明、用户原句。分类不等于消息条数，一条消息可以同时包含多类内容。Codex 负责组织这份请求。",
-      "closing": "Harness 可从两个使用层面理解：现在拆开的是 Codex 提供的运行框架；课程后面要围绕项目建设知识、工具、约束、检查与反馈环境。两者相互配合，这是课程据官方文章做的教学归纳。这次请求的环境信息与人工问候都标为 user，角色标签不能单独证明文字由谁输入。交互继续时，Codex 还会组织新的消息和工具结果；新增内容不都属于 user，也不是每轮重新读取整个项目。接下来先逐块定位初始请求，再看工具调用怎样带入新内容。",
+      "closing": "认出了组成与组织者，接下来回到个人主页：项目区现在显示什么、数据在哪个文件？沿一次真实项目问答，区分工具定义、实际调用和执行后带回的结果。",
       "html": "<style>#p09 .scene-content{gap:0}#p09 .request-map{display:grid;gap:6px;margin:0}#p09 .request-map-row{display:grid;grid-template-columns:290px minmax(0,1fr);gap:20px;align-items:center;min-height:39px;padding:3px 16px;border:1px solid var(--p-rule);border-radius:7px;background:var(--p-card)}#p09 .request-map dt{margin:0;font-size:22px;line-height:1.3;font-weight:700;color:var(--ct)}#p09 .request-map dd{margin:0;font-size:22px;line-height:1.35}#p09 .map-caption{margin:0;font-size:24px;line-height:1.4}#p09 .p09-stage{display:grid;gap:14px}#p09 .p09-stage h3{font-size:28px}#p09 .p09-stage p{line-height:1.5}#p09 .p09-note{font-size:22px}#p09 .source-pair{display:grid;grid-template-columns:110px 180px 1fr;gap:20px;align-items:center;padding:24px;border:1px solid var(--p-rule);border-radius:9px;background:var(--p-card);font-size:24px}body[data-mode=\"slides\"] #p09 h2{font-size:42px}body[data-mode=\"slides\"] #p09 .p09-stage.step-hidden,body[data-mode=\"slides\"] #p09 .scene-content>.p-refs.step-hidden{display:none}body[data-mode=\"slides\"] #p09:has(.p09-stage[data-reveal=\"1\"]:not(.step-hidden)) .p09-stage[data-reveal=\"0\"]{display:none}body[data-mode=\"slides\"] #p09:has(.p09-stage[data-reveal=\"2\"]:not(.step-hidden)) .p09-stage[data-reveal=\"1\"]{display:none}body[data-mode=\"scroll\"] #p09 .p09-stage{margin-bottom:24px}body[data-mode=\"scroll\"] #p09 .p09-harness-refs{display:none}@media(max-width:600px){body[data-mode=\"scroll\"] #p09 .request-map-row{grid-template-columns:1fr;gap:3px;padding:9px 12px}body[data-mode=\"scroll\"] #p09 .request-map dt,body[data-mode=\"scroll\"] #p09 .request-map dd{font-size:19px}body[data-mode=\"scroll\"] #p09 .source-pair{grid-template-columns:55px 90px minmax(0,1fr);gap:10px;padding:12px;font-size:16px}body[data-mode=\"scroll\"] #p09 .map-caption,body[data-mode=\"scroll\"] #p09 .p09-note{font-size:20px}}</style><div class=\"p09-stage\" data-reveal=\"0\"><p class=\"map-caption\">Codex 组织这份请求 · 按作用认出六类内容</p><dl class=\"request-map\"><div class=\"request-map-row\" data-role=\"agent\"><dt>系统与协作指令</dt><dd>它是谁、怎样工作</dd></div><div class=\"request-map-row\" data-role=\"tool\"><dt>工具定义</dt><dd>有哪些工具、怎样调用</dd></div><div class=\"request-map-row\" data-role=\"ctx\"><dt>Skills 列表</dt><dd>有哪些技能、全文在哪里</dd></div><div class=\"request-map-row\" data-role=\"ink\"><dt>环境信息</dt><dd>当前目录、日期等现场信息</dd></div><div class=\"request-map-row\" data-role=\"gate\"><dt>权限说明</dt><dd>这次允许怎样操作</dd></div><div class=\"request-map-row\" data-role=\"us\"><dt>用户原句</dt><dd>人这次提出的要求</dd></div></dl></div><div class=\"p09-stage\" data-reveal=\"1\"><p class=\"map-caption\">Harness：两个使用层面</p><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr\"><div class=\"p-box\" data-role=\"agent\"><span class=\"p-tag\">现在：拆开 Codex</span><h3>工具的运行框架</h3><p>组织请求、调用模型<br>执行工具、带回结果</p></div><div class=\"p-box\" data-role=\"ctx\"><span class=\"p-tag\">后面：围绕项目建设</span><h3>项目的工作环境</h3><p>项目知识、工具与约束<br>检查、反馈与改进</p></div></div><p class=\"p09-note\">两个使用层面，相互配合</p><div class=\"p-refs p09-harness-refs\"><b>原文</b><a href=\"https://openai.com/index/unrolling-the-codex-agent-loop/\" target=\"_blank\" rel=\"noopener\">Codex agent loop</a><a href=\"https://openai.com/index/harness-engineering/\" target=\"_blank\" rel=\"noopener\">Harness engineering</a></div></div><div class=\"p09-stage\" data-reveal=\"2\"><p class=\"map-caption\">同样标为 <code>user</code>，文字来源可以不同</p><div class=\"source-pair\"><b>角色</b><b>来源</b><b>本次消息的内容</b><code>user</code><span>Codex 加入</span><span>当前目录、Shell、日期、时区……</span><code>user</code><span>人输入</span><span>“你好，用一句话介绍你能帮我做什么。”</span></div><p class=\"p09-note\">交互继续时，还会组织新的消息和工具结果<br>新增内容不都属于 <code>user</code></p></div><p class=\"source-note\">六类内容与来源对照来自 2026-10-23 初始主请求；没有项目 AGENTS.md 或项目 Skills。Harness 两个层面为课程据官方文章归纳，不是排他的标准定义。消息内容为摘要，未展示本机路径。</p>",
       "steps": [
         "六类内容与作用",
@@ -241,7 +280,7 @@ window.lesson = {
       "script": [
         "【操作提示｜停留 p09 第 1 步，从上到下指六类内容；留在课件，按作用讲，不逐段朗读请求】\n\n刚才那些内容，由 Codex 组织成发给模型的请求。先按作用认出六类：系统与协作指令告诉它是谁、怎样工作；工具定义告诉它有哪些工具、怎样调用；Skills 列表告诉它有哪些技能、全文在哪里。环境信息是当前目录、日期等现场情况；权限说明是这次允许怎样操作；用户原句才是我们这次提出的要求。这是按作用分类，一条消息里也可能有几类内容。",
         "【操作提示｜推进 p09 第 2 步，先指左侧运行框架，再指右侧项目环境；原文链接此步显示在页底，可点击核对，主讲不展开文章】\n\n这些信息是谁组织的？就是 Codex。Harness 经常用来指模型周围的支撑系统。现在我们拆开的是左边这一层：Codex 提供的运行框架，负责组织请求、调用模型、执行工具，再把结果带回来。课程后面还会用 Codex，围绕自己的项目建设右边的工作环境：把项目知识整理好，提供工具和约束，用检查结果形成反馈。这是同一个词的两个使用层面，两者相互配合。",
-        "【操作提示｜推进 p09 第 3 步 → 切查看器中 p08 同一份初始主请求，对照环境和问候的 user 角色；回课件指两行来源，再接 p10】\n\n再看这两条消息，它们都标着 user。第一条是 Codex 加入的环境信息，第二条才是我们输入的问候。所以 user 是消息角色，不能单凭这个标签判断文字是谁写的。你输入的只是请求的一部分。交互继续时，Codex 还会组织新的消息和工具结果；这些新增内容不都属于 user，也不是每轮重新读取整个项目。稍后我们就在工具调用里看这种变化。现在先沿着六类内容逐块找，第一块是系统指令。"
+        "【操作提示｜推进 p09 第 3 步 → 切查看器中 p08 同一份初始主请求，对照环境和问候的 user 角色；回课件指两行来源，再接项目问题 p07】\n\n再看这两条消息，它们都标着 user。第一条是 Codex 加入的环境信息，第二条才是我们输入的问候。所以 user 是消息角色，不能单凭这个标签判断文字是谁写的。你输入的只是请求的一部分。交互继续时，Codex 还会组织新的消息和工具结果；这些新增内容不都属于 user，也不是每轮重新读取整个项目。稍后我们就在工具调用里看这种变化。接下来换成个人主页的项目问题，沿真实记录核对工具调用和返回。"
       ],
       "refs": [
         {
@@ -268,132 +307,10 @@ window.lesson = {
         },
         {
           "title": "转场",
-          "text": "第三步可切查看器核对环境和问候的 user 角色；随后回课件，先从系统指令逐块定位。p11 点出定义与实际返回的区别，p13 接项目问题，p07 查看工具结果进入下一次请求。p10–p13 与 p08 使用同一份初始主请求；p07 使用另一组已核对的项目问答排练，不说成此前组问候的后续结果。"
+          "text": "第三步可切查看器核对环境和问候的 user 角色；随后进入项目问题，p07 查看工具结果进入下一次请求。p08a 与 p08 使用同一份初始主请求；p07 使用另一组已核对的项目问答排练，不说成此前组问候的后续结果。"
         }
       ],
       "source": "index.html#p09",
-      "seconds": 90
-    },
-    {
-      "id": "p10",
-      "segment": "逐块拆开",
-      "label": "身份与协作指令",
-      "title": "系统指令在告诉模型什么？",
-      "lead": "回到同一份问候的初始主请求。这里把身份与协作要求归为系统与协作指令；本次身份指令实际位于一条 developer 消息中。先看它怎样描述 Codex，再定位同一请求里的团队角色、协作模式等说明。",
-      "closing": "本页辨认的是请求中实际存在的指令，没有做移除指令的实验。团队角色、模式与多代理限制分别有说明，不代表这次问候启动了子代理。接下来定位工具定义，看模型怎样得知工具的名字和用法。",
-      "html": "<div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\">身份指令 · 请求原文</span><p lang=\"en\" style=\"font-size:27px;line-height:1.55;margin-top:10px\">You are Codex, a coding agent based on MiniMax-M3.1-Flash. You and the user share the same workspace and collaborate to achieve the user's goals.</p></div><div class=\"p-bar is-light\" data-reveal=\"1\">同一请求还有：<b>团队角色、协作模式与多代理限制</b></div><div class=\"p-bar\" data-reveal=\"2\">要调用工具，还要知道它的<b>名字与用法</b></div><p class=\"source-note\">依据：2026-10-23，ch02-start-v1 项目、专用课程 HOME，与 p08 同一份初始主请求。上框为 input 0 的 developer 身份消息全文；团队说明、模式与限制仅标出位置，见其他 developer 消息。</p>",
-      "steps": [
-        "读身份指令",
-        "定位协作说明",
-        "接着找工具定义"
-      ],
-      "script": [
-        "【操作提示｜停留 p10 第 1 步 → 切查看器里 p08 的同一份初始主请求，定位第一条 developer 身份指令；回课件依次指原文的 coding agent、same workspace、collaborate；用中文解释，不逐字朗读英文】\n\n先看这两句身份指令原文。coding agent 说明它的角色，same workspace 和 collaborate 说明它与用户的工作关系。用中文来说，就是：你是 Codex，一个基于 MiniMax-M3.1-Flash 的编程 Agent；你和用户共用同一个工作区，一起完成用户的目标。这里的系统指令是按内容作用来叫的，这一条在请求里实际标为 developer。",
-        "【操作提示｜推进 p10 第 2 步，在查看器标出团队说明、Default 协作模式与多代理限制的位置，再回课件；不逐段展开】\n\n同一请求里还放了团队角色、协作模式和多代理限制。这些都在说明它怎样与人、与其他代理协作。我们这里只认出位置，不逐段展开；看到团队说明，也不能认定这次问候就启动了子代理。",
-        "【操作提示｜推进 p10 第 3 步，指底部名字与用法，接 p11】\n\n身份与协作要求找到了。那模型如果要读文件、跑命令，它怎样知道有哪些工具、怎么调用？下一页去找工具定义。"
-      ],
-      "teaching": [
-        {
-          "title": "记录定位",
-          "text": "使用 p08 相同代理会话的 record_index 2，不用辅助标题请求。input 0 身份指令 145 字符；input 1 包含 Default 模式，input 2 为团队说明，input 3 为多代理限制。仅作为定位，不口播长度。"
-        },
-        {
-          "title": "讲述边界",
-          "text": "系统与协作指令是按作用归类，不把它们都说成 role=system。本页没有做移除对照，不宣称没有这句话模型就只会续写或不知道身份；不推断产品内部动机，不把团队说明讲成已启动子代理。"
-        }
-      ],
-      "source": "index.html#p10",
-      "seconds": 90
-    },
-    {
-      "id": "p11",
-      "segment": "逐块拆开",
-      "label": "工具定义与执行",
-      "title": "模型怎样知道工具的名字和用法？",
-      "lead": "同一请求的 tools 中列出了工具定义。本次用 exec 组织调用，它的说明里还描述了 exec_command 等工具怎样使用。下面把定义的结构与这次问候后实际发生的调用分开看；代码摘录只保留定位所需的几行。",
-      "closing": "模型根据可用的工具说明提出调用，由 Codex 执行；结果再作为工具返回项进入后续请求，通常不属于 user 消息。本页只辨认定义与调用，实际返回怎样被使用留到后面的项目问题，不要求记工具清单或 JavaScript 语法。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><span class=\"p-tag\">工具定义 · 结构摘录</span><pre class=\"p-code\" style=\"margin-top:12px;font-size:21px;line-height:1.5\">{ \"type\": \"custom\",\n  \"name\": \"exec\",\n  \"description\": \"…\" }</pre><p class=\"p-sub\">说明里还描述了 exec_command 的命令参数和用法</p></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\">这次问候后实际发生的调用</span><p style=\"font-size:23px;line-height:1.6;margin-top:12px\">exec 内调用 exec_command<br>列目录，再读 package.json</p><pre class=\"p-code\" style=\"margin-top:12px;font-size:18px;line-height:1.5;white-space:pre-wrap\">ls -la &amp;&amp; cat package.json 2&gt;/dev/null | head -40</pre></div></div><div class=\"p-bar\" data-reveal=\"1\">模型提出调用 → <b>Codex 执行</b> → 工具结果进入后续请求</div><p class=\"source-note\">依据：2026-10-23 与 p08 相同的问候记录。左侧为初始请求里的定义结构，description 用省略号，不是全文；右侧为该请求之后的实际命令。</p>",
-      "steps": [
-        "定位工具定义",
-        "区分定义与实际调用"
-      ],
-      "script": [
-        "【操作提示｜停留 p11 第 1 步 → 切同一初始请求的 tools，定位 exec 的名字与 description，再在说明中找 exec_command 和 cmd；回课件指左侧结构摘录】\n\n工具定义在请求的 tools 里。这次其中一个入口叫 exec，类型是 custom。它的说明里，还描述了 exec_command 等工具的用法：比如命令填在哪个参数里。画面只摘了结构，省略号代表没有展开的说明。这里不需要记 JavaScript 语法，先认出名字和用法在哪里。",
-        "【操作提示｜推进 p11 第 2 步 → 在问候记录中定位该请求响应提出的 exec 调用，核对 exec_command 的实际命令，再回课件；不重新运行命令】\n\n右边是这次问候后实际发生的调用：在 exec 里调用 exec_command，先列目录，再读 package.json。左边是工具的定义，右边才是模型提出的实际调用。模型提出调用，Codex 执行，结果再进入后续请求；这个结果通常是工具返回项，不是我们又输入了一条 user 消息。稍后用项目问题把调用和返回连起来看。先接着看 Skills 列表。"
-      ],
-      "teaching": [
-        {
-          "title": "记录定位",
-          "text": "初始主请求 tools 中找 name=exec，description 内定位 exec_command 和 cmd 参数；本次顶层有五个工具入口，但不要求记名称或数量。实际调用在这一份请求的响应中，exec 内执行 tools.exec_command，cmd 为 ls -la && cat package.json 2>/dev/null | head -40。屏幕命令按版面自动换行。"
-        },
-        {
-          "title": "展示",
-          "text": "可切查看器先找 tools，再找这次问候的调用；不把工具定义说成执行记录。没有修改项目文件。更完整的调用、返回与回答对照留到 p07；其新项目问题已有独立排练记录，录制当天仍核对整组证据。"
-        }
-      ],
-      "source": "index.html#p11",
-      "seconds": 60
-    },
-    {
-      "id": "p12",
-      "segment": "逐块拆开",
-      "label": "Skills 列表与全文",
-      "title": "Skills 列表等于技能全文吗？",
-      "lead": "这次初始请求中的 Skills 列表包含技能名、简述和文件位置。例如 skill-creator 的条目指向一个 SKILL.md 文件；实际文件还包含原则、创建步骤与验证等内容，全文没有出现在这份初始请求里。",
-      "closing": "本次条目来自专用课程 HOME 的内置技能目录，个人主页项目没有项目 Skills。目录与全文是两种内容：列表帮助识别可用技能，任务需要时可按说明读取全文。这里只比较本次列表与实际文件，不把所有版本都概括成同一种加载方式；使用技能留到后续章节。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1.2fr 1fr\"><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"0\"><span class=\"p-tag\">初始请求中的一条 · 实际摘录</span><p class=\"p-mono\" style=\"font-size:20px;margin-top:12px;line-height:1.55;overflow-wrap:anywhere\">skill-creator: Create or update a Codex skill with appropriately scoped instructions and any needed supporting resources.</p><p class=\"p-mono\" style=\"font-size:19px;margin-top:10px;overflow-wrap:anywhere\">file: r0/skill-creator/SKILL.md</p></div><div class=\"p-box is-dashed\" data-role=\"ctx\" data-reveal=\"1\"><span class=\"p-tag\">对应的 SKILL.md 文件</span><p style=\"font-size:25px;line-height:1.65;margin-top:12px\">原则、创建步骤、验证……</p><p class=\"p-sub\">全文不在这份初始请求中</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">这次看到的是<b>内置技能列表</b> · 项目本身没有 Skills</div><p class=\"source-note\">依据：2026-10-23 与 p08 同一份初始主请求中的 developer 消息及实际 skill-creator/SKILL.md。r0 是专用课程 HOME 内置目录的路径别名；项目快照和实际项目均无 .agents/skills。列表条目为原文，文件内容用中文概括。</p>",
-      "steps": [
-        "读列表条目",
-        "对照实际文件",
-        "辨认列表来源"
-      ],
-      "script": [
-        "【操作提示｜停留 p12 第 1 步 → 在同一初始请求的 developer 消息中定位 Available skills 下的 skill-creator 条目；回课件指名字、描述与文件位置】\n\n这次请求里，Skills 列表长这样。拿 skill-creator 这一条来说，它写了名字、用途，还给了 SKILL.md 的位置。这里的 r0 是一个目录别名，所以这条信息能指向一个实际文件。",
-        "【操作提示｜推进 p12 第 2 步 → 打开录前准备好的专用课程 HOME 内置 skill-creator/SKILL.md，与查看器条目对照，展示原则、创建和验证相关章节标题；隐藏绝对路径，回课件】\n\n打开对应文件，会看到更完整的原则、创建步骤和验证说明。这个文件的全文，没有出现在刚才那份初始请求里。列表与全文是两种内容：列表帮助识别可用技能，任务需要时，可以按说明去读取全文。这次问候没有读这个技能，我们是为了比较两者，单独把文件打开。",
-        "【操作提示｜推进 p12 第 3 步，指底部内置技能列表；留在课件，接 p13】\n\n还要认清来源：这次列出的技能来自专用课程环境的内置目录，这个个人主页项目本身没有 Skills。技能怎样使用，后面再展开。下面看环境与权限，核对它知道自己在哪个目录、这次允许怎样操作。"
-      ],
-      "teaching": [
-        {
-          "title": "文件对照",
-          "text": "录前打开专用课程 HOME 的 .codex/skills/.system/skill-creator/SKILL.md，核对其 Core Principles、Create or Update a Skill、Validate and Iterate 等章节；录制时与查看器中的对应条目并排，不朗读全文或展示带用户名的绝对路径。完整文件未包含于本次初始请求。"
-        },
-        {
-          "title": "事实边界",
-          "text": "本次列表的四个条目都来自内置目录，项目没有 Skills。本次问候没有读取技能全文，不把本页文件对照说成问候实际调用。不要由条目增加直接推导固定 token 变化或每次请求必定更重。"
-        }
-      ],
-      "source": "index.html#p12",
-      "seconds": 90
-    },
-    {
-      "id": "p13",
-      "segment": "逐块拆开",
-      "label": "环境与权限",
-      "title": "工作目录、日期和权限从哪里来？",
-      "lead": "同一请求里，Codex 用 user 消息加入环境信息，并用 developer 消息说明权限。本次运行的目录是个人主页项目，日期为 2026-10-23，沙箱模式是 workspace-write，允许读取文件和在指定范围内写入。",
-      "closing": "环境信息描述运行现场，权限说明告诉模型操作边界；实际约束由运行时的权限机制落实。本页核对的是请求文字，没有实测越界拒绝，不把这段说明当作所有工具的统一限制。接下来换一个需要查项目依据的问题，查看工具调用、返回和回答的关系。",
-      "html": "<style>@media(max-width:600px){body[data-mode=\"scroll\"] #p13 .p-code{font-size:17px!important}}</style><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"0\"><span class=\"p-tag\">环境信息 · user 消息摘录</span><pre class=\"p-code\" style=\"margin-top:12px;font-size:20px;line-height:1.5\">cwd: …/personal-homepage\nshell: zsh\ncurrent_date: 2026-10-23\ntimezone: Asia/Shanghai</pre></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"1\"><span class=\"p-tag\">权限说明 · developer 消息</span><p class=\"p-mono\" style=\"font-size:25px;margin-top:12px\">sandbox_mode: workspace-write</p><p style=\"font-size:23px;line-height:1.6;margin-top:12px\">允许读取文件<br>在当前目录和指定范围内写入</p></div></div><div class=\"p-bar\" data-reveal=\"2\">文字告诉模型边界 · <b>运行时权限机制落实约束</b></div><p class=\"source-note\">依据：2026-10-23 与 p08 同一份初始主请求，目录已缩写；环境字段保留原值，省略 XML 标签和文件访问范围。权限为中文摘要，原文还包含网络限制与审批等内容。这里只核对请求，未实测越界拒绝。</p>",
-      "steps": [
-        "核对运行环境",
-        "核对本次权限",
-        "区分说明与执行约束"
-      ],
-      "script": [
-        "【操作提示｜停留 p13 第 1 步 → 切同一主请求的 user 环境消息，定位 cwd、shell、current_date、timezone；隐藏本机用户名与绝对路径，回课件】\n\n这段环境信息是 Codex 放进来的，角色标为 user。当前目录是个人主页项目，用的是 zsh，日期是二〇二六年十月二十三日，时区是上海。画面把路径缩写了，其余几个值都来自这次请求。模型能用到这些现场信息，是因为它们被提供了进来。",
-        "【操作提示｜推进 p13 第 2 步，在同一请求的 developer 消息中定位 permissions instructions；指 workspace-write 与读写范围，不做写入实验】\n\n权限说明在另一条 developer 消息里。这次是 workspace-write：允许读文件，也允许在当前目录和指定范围里写入。它和只读模式不同。这里展示的是这次请求给模型的权限说明，具体范围要按运行时配置来判断。",
-        "【操作提示｜推进 p13 第 3 步，指底部说明与执行约束；留在课件，下一页进入项目问题。第二问的新素材尚需按分镜重录，不沿用旧记录冒充新结果】\n\n文字把操作边界告诉模型，实际约束由运行时的权限机制落实。我们这一页只核对了请求里的说明，没有做越界操作的实验。到这里，初始请求里的几类内容都找到了。刚才的问候之后，模型也读了 package.json；下面换一个需要查项目依据的问题，具体看一次工具调用和返回怎样进入后续请求。"
-      ],
-      "teaching": [
-        {
-          "title": "记录定位",
-          "text": "环境为 input 4 的 user 消息，含 cwd、shell、current_date、timezone 及文件访问范围；权限在 input 1 的 developer 消息，sandbox_mode 为 workspace-write，允许读文件及在 cwd/writable_roots 中编辑，网络受限。初始请求没有加入已有批准规则；不使用旧 read-only 记录。"
-        },
-        {
-          "title": "展示与转场",
-          "text": "录制时遮盖用户名和绝对路径，页面只缩写路径；不做越界写入实验。先区分权限说明与执行机制，再接 p07 项目只读问题；p07 已合入原 p14，并采用另一组新问法排练记录，不能称为此前组问候的后续结果。"
-        }
-      ],
-      "source": "index.html#p13",
       "seconds": 90
     },
     {
@@ -730,7 +647,7 @@ window.lesson = {
     },
     {
       "label": "逐块拆开",
-      "seconds": 420
+      "seconds": 240
     },
     {
       "label": "代码进入请求",

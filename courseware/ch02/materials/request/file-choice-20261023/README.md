@@ -1,6 +1,6 @@
 # 点名相关文件：2026-10-23 独立对照
 
-两份记录来自真实执行，各一次。PPT 只保留条件、观察顺序与入口，完整调用过程在独立静态查看器中浏览。可以直接用浏览器打开本地文件，无需服务或 API。
+本目录是当前 p14a 的主用记录。两份记录来自两个无前置问候的全新 read-only 会话，真实执行各一次。另一次问候后 fork、workspace-write 的实验只作补充，详见[复现说明](../../../lessons/01-request/tools/README-demo.md)；其 84,879/46,084 输入统计不用于本页。PPT 只保留条件、观察顺序与入口，完整调用过程在独立静态查看器中浏览。可以直接用浏览器打开本地文件，无需服务或 API。
 
 - [不点名完整记录](../../../lessons/01-request/trace/compare-plain.html)
 - [点名完整记录](../../../lessons/01-request/trace/compare-named.html)
