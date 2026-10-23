@@ -6,7 +6,7 @@
 默认基线是 starters/personal-homepage/ch02-candidate（v1 冻结候选）；录制版换成讲师冻结的 homepage-v1。
 工作目录在 lab-runs/refactor-cards/（不提交），每张卡复制基线、git apply、npm ci、npm run build，
 再用静态服务器打开构建产物，Playwright Chromium 在 1440×900、DPR 2 下截图，写到
-courseware/ch02/lessons/05-refactor/evidence/，并打印核对结果（#root 是否与基线逐字相同、卡高、Tab 落点）。
+courseware/ch02/lessons/05-experience/evidence/，并打印核对结果（#root 是否与基线逐字相同、卡高、Tab 落点）。
 """
 import shutil
 import subprocess
@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[4]
 CARDS = Path(__file__).resolve().parent
 BASE = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else ROOT / "starters/personal-homepage/ch02-candidate"
 WORK = ROOT / "lab-runs/refactor-cards"
-OUT = ROOT / "courseware/ch02/lessons/05-refactor/evidence"
+OUT = ROOT / "courseware/ch02/lessons/05-experience/evidence"
 NAMES = ["01-extract-component", "02-move-data", "03-sort-by-name", "04-short-class-name", "05-tabindex"]
 
 

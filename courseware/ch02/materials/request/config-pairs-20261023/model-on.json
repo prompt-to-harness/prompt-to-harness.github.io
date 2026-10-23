@@ -1,0 +1,139 @@
+[
+  {
+    "request_id": "model-on-1",
+    "record_index": 1,
+    "turn": 1,
+    "timestamp": "2026-10-23T11:52:15.476086+00:00",
+    "duration_ms": 4993,
+    "request": {
+      "method": "POST",
+      "path": "/v1/responses",
+      "body": {
+        "model": "MiniMax-M3.1-Flash",
+        "input": [
+          {
+            "type": "message",
+            "role": "developer",
+            "content": [
+              {
+                "type": "input_text",
+                "text": "You are Codex, a coding agent based on MiniMax-M3.1-Flash. You and the user share the same workspace and collaborate to achieve the user's goals."
+              }
+            ]
+          },
+          {
+            "type": "message",
+            "role": "developer",
+            "content": [
+              {
+                "type": "input_text",
+                "text": "[教学删节：其他说明已省略]\n<permissions instructions>\nFilesystem sandboxing defines which files can be read or written. `sandbox_mode` is `read-only`: The sandbox only permits reading files. Network access is restricted.\nApproval policy is currently never. Do not provide the `sandbox_permissions` for any reason, commands will be rejected.\n</permissions instructions>"
+              }
+            ]
+          },
+          {
+            "type": "message",
+            "role": "developer",
+            "content": [
+              {
+                "type": "input_text",
+                "text": "[教学删节：其他说明全文已省略，保留消息角色与位置]"
+              }
+            ]
+          },
+          {
+            "type": "message",
+            "role": "developer",
+            "content": [
+              {
+                "type": "input_text",
+                "text": "[教学删节：其他说明全文已省略，保留消息角色与位置]"
+              }
+            ]
+          },
+          {
+            "type": "message",
+            "role": "user",
+            "content": [
+              {
+                "type": "input_text",
+                "text": "[教学删节：环境说明已省略，工作目录为 [project]；可写目录见权限说明]"
+              }
+            ]
+          },
+          {
+            "type": "message",
+            "role": "user",
+            "content": [
+              {
+                "type": "input_text",
+                "text": "你好，用一句话介绍你能帮我做什么。"
+              }
+            ]
+          }
+        ],
+        "tools": [
+          {
+            "type": "custom",
+            "name": "exec",
+            "description": "[教学删节：完整工具定义省略；数量与名称来自原请求]"
+          },
+          {
+            "type": "function",
+            "name": "wait",
+            "description": "[教学删节：完整工具定义省略；数量与名称来自原请求]"
+          },
+          {
+            "type": "function",
+            "name": "request_user_input",
+            "description": "[教学删节：完整工具定义省略；数量与名称来自原请求]"
+          },
+          {
+            "type": "namespace",
+            "name": "collaboration",
+            "description": "[教学删节：完整工具定义省略；数量与名称来自原请求]"
+          },
+          {
+            "type": "web_search",
+            "name": "web_search",
+            "description": "[教学删节：完整工具定义省略；数量与名称来自原请求]"
+          }
+        ],
+        "reasoning": {
+          "effort": "max"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "model": "MiniMax-M3.1-Flash",
+        "output": [
+          {
+            "type": "message",
+            "status": "completed",
+            "role": "assistant",
+            "content": [
+              {
+                "type": "output_text",
+                "text": "你好！我是 Codex，一个可以在你的代码仓库里读代码、改代码、跑测试、排查 bug 并提交可验证改动的 AI 编程助手。",
+                "annotations": []
+              }
+            ]
+          }
+        ],
+        "usage": {
+          "input_tokens": 7527,
+          "output_tokens": 81,
+          "total_tokens": 7608,
+          "input_tokens_details": {
+            "cached_tokens": 6144
+          },
+          "output_tokens_details": {
+            "reasoning_tokens": 47
+          }
+        }
+      }
+    }
+  }
+]
