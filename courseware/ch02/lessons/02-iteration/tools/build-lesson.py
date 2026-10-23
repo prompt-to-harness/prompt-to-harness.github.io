@@ -272,7 +272,7 @@ scene(
     label="越长越不稳", title="越长越不稳：Context Rot",
     lead="Chroma 在 2025 年 7 月的报告《Context Rot》里，让 18 个模型做同一个很简单的任务：把一段重复的词照抄出来。输入从几十个 token 加到上万，几个主流模型的得分都一路往下。这就是上一页说的注意力代价：缓存让重复部分便宜，但模型还是要读完整段，越长越容易出错。",
     html=redrawn("context-rot", "chroma-context-rot", "course", "据 Chroma《Context Rot》（2025-07-14）重复词任务重画；数据点为读图近似"),
-    refs=[ref("Context Rot", "https://www.trychroma.com/research/context-rot", "Chroma，2025-07-14", kind="read")],
+    refs=[ref("Context Rot", "https://www.trychroma.com/research/context-rot", "Chroma，2025-07-14")],
     steps=["看趋势"],
     teaching=teach(
         ("讲师提示", "曲线据报告里 Repeated Words 任务的图重画（课程手绘风格，courseware/tools/redraw.py 生成，图元在 materials/external/context-rot/figures.py），四个模型的数据点是读图近似，只讲趋势，不读具体数值。2026-10-22 核对原文：报告测了 18 个模型，任务刻意做得简单，只为看输入长度本身的影响。"),

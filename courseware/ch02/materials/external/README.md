@@ -68,3 +68,29 @@ uv run courseware/ch02/materials/external/request-capture/preview.py
 ```
 
 曾尝试截 GitHub README 的 How it works 段落，页面目标未加载成功，没有产出截图；改截同版本公开原图。pretty-mermaid / archscribe 技能本机未找到，此次用仓库 redraw.py 生成两版，已按 README 人工核对关系；不是上述技能的执行结果。
+
+## 2.3 风格参考（2026-10-23）
+
+对应 2.3 的项目动作（改风格），不对应讲透问题；页面先让学员看到“风格能差多大”，再选一个做示例。候选由子代理从 GitHub 的 awesome 列表和常见模板里筛出，用 curl 核对过能取到正文和 CSS；许可逐条打开原文核对。四张都是首屏截图，按 1280 宽缩放后放进 `../../lessons/03-review/external/`，页面 p40a0 引用。
+
+| 文件 | 来源 | 作者 · 许可 | 截取 | 拟用在 | 状态 |
+| --- | --- | --- | --- | --- | --- |
+| `../../lessons/03-review/external/ref-hyperspace.png` | [Hyperspace 演示页](https://html5up.net/uploads/demos/hyperspace/) | HTML5 UP · CC BY 3.0（[许可页](https://html5up.net/license)，页面源码注释同），使用要署名；已核实 | 2026-10-23 | 2.3 p40a0 | 采用（示例） |
+| `../../lessons/03-review/external/ref-brittanychiang.png` | [brittanychiang.com](https://brittanychiang.com/) | Brittany Chiang · 源码仓库 [bchiang7/v4](https://github.com/bchiang7/v4) README 写明可以 fork，要注明出处、不能当成自己的作品，仓库标 MIT；已核实 README | 2026-10-23 | 2.3 p40a0 | 采用（备选） |
+| `../../lessons/03-review/external/ref-freelancer.png` | [Freelancer 演示页](https://startbootstrap.github.io/startbootstrap-freelancer/) | Start Bootstrap · MIT（[仓库](https://github.com/StartBootstrap/startbootstrap-freelancer) LICENSE 文件）；子代理已核实 | 2026-10-23 | 2.3 p40a0 | 采用（备选） |
+| `../../lessons/03-review/external/ref-jonbarron.png` | [jonbarron.info](https://jonbarron.info/) | Jon Barron · 页面上欢迎复用源码（建议用 GitHub 上的代码，不要直接抓页面）；已核实页面原话 | 2026-10-23 | 2.3 p40a0 | 采用（备选）；只截到第一篇论文，下面有他人合影，不截 |
+
+截取注意：
+
+- brittanychiang.com 左栏是固定定位，要加 `--keep-fixed`，否则会被当成浮层隐藏，只剩右栏。
+- jonbarron.info 用默认截法时几次落在页面中段（页面加载后有滚动），改用 Playwright 按页面坐标从顶部截 640 像素高。
+- 四张截图里的人物：Freelancer 是插画头像；Jon Barron 的头像是他本人主页上公开的插画；没有截第三方的照片。
+
+```bash
+uv run courseware/tools/capture-source.py https://html5up.net/uploads/demos/hyperspace/ ref-hyperspace.png --width 1280
+uv run courseware/tools/capture-source.py https://brittanychiang.com/ ref-brittanychiang.png --width 1280 --keep-fixed
+uv run courseware/tools/capture-source.py https://startbootstrap.github.io/startbootstrap-freelancer/ ref-freelancer.png --width 1280
+# 以上三张截完用 sips -Z 1280 缩到 1280 宽；jonbarron.info 用 Playwright 直接按坐标截：
+# page.goto("https://jonbarron.info/"); page.screenshot(full_page=True, clip={"x":0,"y":0,"width":1280,"height":640})，视口 1280×900、device_scale_factor=1
+```
+

@@ -72,9 +72,9 @@ scene(
     label="Context Engineering", title="从 Prompt 到 Context Engineering",
     lead="2025 年 6 月，Shopify 的 Tobi Lütke 说比起 prompt engineering，他更喜欢 context engineering 这个说法；Andrej Karpathy 转发附议：要做好的不是写一句话，而是为下一步把刚好合适的信息填进 context window。这一节就打开请求，看看 context 里到底装了什么。",
     html='<style>body[data-mode="slides"] #p05a h2{font-size:38px}</style>' + shot("external/x-karpathy-context-engineering-text.png", "x.com · Andrej Karpathy 引用 Tobi Lütke · 2025-06-25",
-              "Andrej Karpathy 的帖子：+1 for context engineering over prompt engineering，引用 Tobi Lütke 的原帖", height=440),
-    refs=[ref("Karpathy 的帖子", "https://x.com/karpathy/status/1937902205765607626", "X，2025-06-25", kind="read"),
-          ref("Tobi Lütke 的原帖", "https://x.com/tobi/status/1935533422589399127", "X，2025-06-19", kind="read")],
+              "Andrej Karpathy 的帖子：+1 for context engineering over prompt engineering，引用 Tobi Lütke 的原帖", height=400),
+    refs=[ref("Karpathy 的帖子", "https://x.com/karpathy/status/1937902205765607626", "X，2025-06-25"),
+          ref("Tobi Lütke 的原帖", "https://x.com/tobi/status/1935533422589399127", "X，2025-06-19")],
     steps=["看帖子"],
     teaching=teach(
         ("讲师提示", "截图经 X 官方嵌入页截取（courseware/tools/capture-source.py，2026-10-22），只截正文和引用的原帖；正文被折叠的后半段在口播里补，画面不放中文意译。原帖 2026-10-22 核对：Karpathy 2025-06-25，Tobi 2025-06-19。登记见 materials/external/README.md。"),
@@ -99,7 +99,7 @@ scene(
         '　--tap-target https://api.minimax.cn/v1</div>'
         '<p class="tap-proxy-source">据 liaohch3/claude-tap v0.1.146 README 整理 · 本章使用的反向代理路径</p></div>'
     ),
-    refs=[ref("claude-tap v0.1.146 原理说明", "https://github.com/liaohch3/claude-tap/blob/v0.1.146/README.md#architecture", "项目 README，固定版本", kind="read")],
+    refs=[ref("claude-tap v0.1.146 原理说明", "https://github.com/liaohch3/claude-tap/blob/v0.1.146/README.md#architecture", "项目 README，固定版本")],
     steps=["请求", "返回", "查看记录"],
     teaching=teach(
         ("切到实操", "画面命令已于 2026-10-02 在 Codex 0.160.0 + MiniMax 自定义 provider 下实测，trace 写入 ~/.local/share/claude-tap/traces.sqlite3。需要先装好 uv。命令固定 claude-tap 0.1.146（2026-10-20 全章实测用的版本，讲师 2026-10-20 决定），换版本前先复测；录制用隔离 HOME 启动（做法见 tools/clean-codex.sh 的 --tap），查看器地址以工具输出为准。"),
@@ -397,7 +397,7 @@ scene(
     label="Codex 官方也这样拼", title="Codex 官方也是这样拼请求的",
     lead="OpenAI 的工程博客《深入解析 Codex 智能体循环》（2026-01-23）写了 Codex 怎样拼一次请求：先是模型的基础指令和工具，再是沙箱权限说明、AGENTS.md 与技能列表、目录和 shell 等环境信息，最后才是我们这一句。和我们从请求记录里拆出来的对得上。下一次请求会把这一整段原样再发一遍，2.2 接着看。",
     html=redrawn("context-engineering", "openai-codex-request", "excalidraw", "据 OpenAI《深入解析 Codex 智能体循环》（Michael Bolin，2026-01-23）重画"),
-    refs=[ref("深入解析 Codex 智能体循环", "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/", "OpenAI，2026-01-23", kind="read")],
+    refs=[ref("深入解析 Codex 智能体循环", "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/", "OpenAI，2026-01-23")],
     steps=["对上锚点图"],
     teaching=teach(
         ("讲师提示", "图按文章“构建初始提示”一节重画（Excalidraw 风格，courseware/tools/redraw.py 生成，图元在 materials/external/context-engineering/figures.py），2026-10-22 核对原文。文章讲的是 Codex 一般怎样拼请求；具体内容以我们这次的请求记录为准，比如文章里 AGENTS.md 合计默认上限 32 KiB。"),
@@ -409,7 +409,7 @@ scene(
     label="从写 Prompt 到管 Context", title="从写 Prompt 到管 Context",
     lead="Anthropic 在《Effective context engineering for AI agents》（2025-09-29）里用一张图对比：只写 Prompt 时，窗口里是系统提示词和用户这一句；做 Agent 时，每一轮都要从文档、工具、记忆文件、对话历史里挑出要放进去的，工具返回又成了下一轮可以放的东西。这就是开头说的 context engineering。",
     html=redrawn("context-engineering", "anthropic-prompt-vs-context", "excalidraw", "据 Anthropic《Effective context engineering for AI agents》（2025-09-29）第一张图重画"),
-    refs=[ref("Effective context engineering for AI agents", "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents", "Anthropic，2025-09-29", kind="read")],
+    refs=[ref("Effective context engineering for AI agents", "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents", "Anthropic，2025-09-29")],
     steps=["每一轮都挑一遍"],
     teaching=teach(
         ("讲师提示", "据原文第一张图（Prompt engineering vs. context engineering）中文重画，Excalidraw 风格，2026-10-22 核对原文。原图英文标签：System prompt、User message、Doc、Tool、Memory file、Comprehensive instructions、Domain knowledge、Message history，重画时合并为中文的几类。试讲时 2.1 超时，先砍这一页（C2-64）。"),

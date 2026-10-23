@@ -3,7 +3,7 @@
 # 得到 2.2 的请求记录、2.3 要审的两份 diff。人写文件、人确认计划这些动作由脚本代做，记在 steps.log。
 # 用法：courseware/ch02/materials/mainline/run-2.2.sh [运行目录]   # 默认 <本仓库>/lab-runs/ch02-context/2.2-profile-<时间>
 #       V0=<起点目录>     换起点（默认第 1 章参考快照 ch01-complete；第 2 章起点快照做好后换成它，C2-54）
-#       REF_URL=<地址>    2.3 p40a 的参考主页（默认 https://brittanychiang.com/）
+#       REF_URL=<地址>    2.3 p40a 的参考主页（默认 https://html5up.net/uploads/demos/hyperspace/）
 #       STYLE=0           只跑 2.2，不跑 2.3 的风格参考
 # 需要：MINIMAX_API_KEY、tmux、Node/npm、uv（claude-tap）。不推送；homepage-v1 只提交在运行目录的副本里。
 # 和录制的差别：Prompt 按一行输入（tmux 逐字输入时换行会被当成发送），所以请求里的 Prompt 没有换行。
@@ -13,15 +13,14 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 REPO="$(cd "$HERE/../../../.." && pwd)"
 source "$REPO/tools/lab-lib.sh"
 V0="${V0:-$REPO/starters/personal-homepage/ch01-complete}"
-REF_URL="${REF_URL:-https://brittanychiang.com/}"
-REF_DESC="左列是日期，窄、颜色浅、字小；右列第一行是加粗的职位和公司，下一行是一句话描述"
+REF_URL="${REF_URL:-https://html5up.net/uploads/demos/hyperspace/}"
 lab_run_dir "$REPO/lab-runs/ch02-context/2.2-profile-$(date +%Y%m%d-%H%M%S)" "${1:-}"
-export LAB_TMUX_APPROVE=1  # 计划里写了起服务器、curl 这类沙箱外运行时，按讲师录制时的做法同意，画面都存在 logs/
+export LAB_TMUX_APPROVE=1  # 起服务器、p40a 的 curl 联网这类沙箱外运行，按讲师录制时的做法同意，画面都存在 logs/
 
 oneline() { tr '\n' ' ' | sed 's/  */ /g; s/ $//'; }
 GREETING="你好，用一句话介绍你能帮我做什么。"
 P29="$(lab_prompt ch02 02-iteration p29 | oneline)"
-P40A="$(lab_prompt ch02 03-review p40a | sed "s#<参考主页地址>#$REF_URL#; s#<两三行描述：[^>]*>#$REF_DESC#" | oneline)"
+P40A="$(lab_prompt ch02 03-review p40a | sed "s#https://html5up.net/uploads/demos/hyperspace/#$REF_URL#" | oneline)"
 
 # ---------- 起点 ----------
 cp -R "$V0" "$APP"

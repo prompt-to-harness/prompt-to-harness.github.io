@@ -114,32 +114,102 @@ window.lesson = {
       "seconds": 90
     },
     {
+      "id": "p40a0",
+      "segment": "改风格",
+      "label": "几个参考主页",
+      "title": "想要什么样的主页？先看几个参考",
+      "lead": "同一份 profile.md，可以做成完全不同的样子。这里有四个公开的主页或模板：整块紫色的 Hyperspace，深蓝两栏的 Brittany Chiang，青绿页头的 Freelancer，白底蓝链接的 Jon Barron。这次的示例用 Hyperspace，它和我们现在的主页差别最大，改完一眼看得出来。你可以选别的，也可以找自己喜欢的主页；参考的是风格，用的时候按各自的许可注明出处。",
+      "html": "<div class=\"p-grid\" style=\"--n:4;gap:14px\" data-reveal=\"0\"><div class=\"p-page\" style=\"position:relative;outline:3px solid #D9481C;outline-offset:3px\"><div class=\"p-page-bar\" style=\"font-size:13px\"><i></i><i></i><i></i>html5up.net · CC BY 3.0</div><img src=\"external/ref-hyperspace.png\" alt=\"Hyperspace 模板首屏：整块紫色\" style=\"display:block;width:100%;height:200px;object-fit:cover;object-position:top\"><span class=\"p-tag\" data-role=\"us\" data-reveal=\"1\" style=\"position:absolute;right:8px;top:36px\">这次用</span></div><div class=\"p-page\" style=\"position:relative\"><div class=\"p-page-bar\" style=\"font-size:13px\"><i></i><i></i><i></i>brittanychiang.com · 注明出处</div><img src=\"external/ref-brittanychiang.png\" alt=\"Brittany Chiang 的主页：深蓝两栏\" style=\"display:block;width:100%;height:200px;object-fit:cover;object-position:top\"></div><div class=\"p-page\" style=\"position:relative\"><div class=\"p-page-bar\" style=\"font-size:13px\"><i></i><i></i><i></i>Start Bootstrap · MIT</div><img src=\"external/ref-freelancer.png\" alt=\"Freelancer 模板首屏：青绿页头\" style=\"display:block;width:100%;height:200px;object-fit:cover;object-position:top\"></div><div class=\"p-page\" style=\"position:relative\"><div class=\"p-page-bar\" style=\"font-size:13px\"><i></i><i></i><i></i>jonbarron.info · 欢迎复用</div><img src=\"external/ref-jonbarron.png\" alt=\"Jon Barron 的主页：白底蓝链接\" style=\"display:block;width:100%;height:200px;object-fit:cover;object-position:top\"></div></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:16px\">学的是风格，<b>不照搬别人的代码和文字</b> · 用的时候注明出处</div>",
+      "refs": [
+        {
+          "kind": "live",
+          "group": "参考主页",
+          "text": "Hyperspace",
+          "url": "https://html5up.net/uploads/demos/hyperspace/"
+        },
+        {
+          "kind": "live",
+          "group": "参考主页",
+          "text": "Brittany Chiang",
+          "url": "https://brittanychiang.com/"
+        },
+        {
+          "kind": "live",
+          "group": "参考主页",
+          "text": "Freelancer",
+          "url": "https://startbootstrap.github.io/startbootstrap-freelancer/"
+        },
+        {
+          "kind": "live",
+          "group": "参考主页",
+          "text": "Jon Barron",
+          "url": "https://jonbarron.info/"
+        },
+        {
+          "kind": "read",
+          "group": "许可",
+          "text": "HTML5 UP 许可（CC BY 3.0）",
+          "url": "https://html5up.net/license"
+        },
+        {
+          "kind": "read",
+          "group": "许可",
+          "text": "bchiang7/v4 的 README",
+          "url": "https://github.com/bchiang7/v4"
+        },
+        {
+          "kind": "read",
+          "group": "许可",
+          "text": "startbootstrap-freelancer（MIT）",
+          "url": "https://github.com/StartBootstrap/startbootstrap-freelancer"
+        }
+      ],
+      "steps": [
+        "四个参考",
+        "这次用哪个",
+        "注明出处"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p40a0 第 1 步，四张截图一起出现，从左到右指认】\n\nhomepage-v1 提交了，我们有了一个检查点。接下来做一件更像真实做主页的事：改风格。同一份 profile.md，可以做成完全不同的样子。先看四个公开的主页和模板：整块紫色的 Hyperspace，深蓝两栏的 Brittany Chiang，青绿页头的 Freelancer，白底蓝链接的 Jon Barron。",
+        "【操作提示｜推进第 2 步，指“这次用”标记；可切浏览器打开 Hyperspace，往下滚一屏再回课件】\n\n这次的示例用 Hyperspace。它和我们现在的主页差别最大，改完一眼就看得出来。你可以选别的，也可以找一个自己喜欢的主页。",
+        "【操作提示｜推进第 3 步，指底部横条；随后进入 p40a】\n\n参考的是风格，不是照搬别人的代码和文字。这几个都允许参考，Hyperspace 要求注明出处，用的时候在页面上写一句就行。"
+      ],
+      "teaching": [
+        {
+          "title": "讲师提示",
+          "text": "四张都是首屏截图（courseware/tools/capture-source.py，2026-10-23），Jon Barron 那张只截到第一篇论文，下面的合影不截。录制时可以在浏览器里点开第一行的链接，往下滚一屏让学员看整页。可剪辑时，换一个参考再跑一组，最后把两组结果并排给学员看（分镜 p40a0）。"
+        }
+      ],
+      "source": "index.html#p40a0",
+      "seconds": 90
+    },
+    {
       "id": "p40a",
       "segment": "改风格",
       "layout": "prompt-scene",
-      "prompt": "Goal：把工作经历改成时间线样式：左列日期，右列公司、职位和一句话。\nContext：参考 <参考主页地址> 的工作经历区块。打不开就按这段描述：\n<两三行描述：左列日期窄、颜色浅；右列加粗公司名，下一行职位>\nConstraints：只改工作经历区块的结构和样式，不改文字，不加依赖；\n先说计划，等我确认再改。\nDone when：我在浏览器里看过、觉得像；你跑 build 成功；文字和 profile.md 一致。",
-      "label": "参考主页改一处",
-      "title": "参考一个喜欢的主页，只改一处",
-      "lead": "homepage-v1 提交了，有了检查点，再做一件更像真实做主页的事：找一个喜欢的主页，只学它的一处风格。讲师选工作经历这一块，改成左列日期、右列内容的时间线。Prompt 里给参考主页的地址，也写两三行描述：它打不开地址，就按描述做。不改文字，不加依赖，先说计划。参考的是风格，不照搬别人的代码和文字。",
-      "html": "<div class=\"demo-notes\"><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>只改一处</b><small>工作经历区块的结构和样式</small></span></li><li class=\"is-risk\" data-reveal=\"1\"><span><b>地址加描述</b><small>它不一定打得开地址</small></span></li><li class=\"is-ok\" data-reveal=\"2\"><span><b>文字不变</b><small>还是 profile.md 里的那些</small></span></li></ol></div>",
+      "prompt": "Goal：参考 Hyperspace 的风格，把我的主页改出新样子：配色和版式都可以改。\nContext：参考 https://html5up.net/uploads/demos/hyperspace/ 。先用 curl 取这个页面的 HTML\n和它引用的 CSS（要联网，会弹申请，我来批准），告诉我它的风格是怎样的\n（配色、各区块怎么铺、版式），再提计划，等我确认再改。\nConstraints：页面上的文字不变，每一句都要能在 profile.md 里找到；不加依赖，\n不引入远程字体和图片；改结构时尽量沿用现有组件；正文和背景的对比度要够。\nDone when：我在浏览器里看过、觉得像；你跑 build 成功；页脚注明风格参考的出处；\n告诉我改了哪些区块、为什么。",
+      "label": "照着参考改",
+      "title": "照着参考改，样子可以变，内容不能变",
+      "lead": "这次照着 Hyperspace 改，配色和版式都可以变。约束只留四条：页面上的文字不变，每一句都要能在 profile.md 里找到；不加依赖，不引入远程字体和图片；改结构时尽量沿用现有组件；正文和背景的对比度要够。守住的是“内容是我的”，不是“样子不变”。Prompt 里点明让它用 curl 取参考页面的 HTML 和 CSS，联网我们来批准；取回来以后先说看到的风格和计划，等我们确认再改。",
+      "html": "<div class=\"demo-notes\"><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>样子可以变</b><small>配色和版式都可以改</small></span></li><li class=\"is-risk\" data-reveal=\"1\"><span><b>用 curl 取 HTML 和 CSS</b><small>要联网，我们来批准</small></span></li><li class=\"is-ok\" data-reveal=\"2\"><span><b>内容不能变</b><small>文字都在 profile.md 里；先说计划</small></span></li></ol></div>",
       "steps": [
-        "只改一处",
-        "地址加描述",
-        "文字不变"
+        "样子可以变",
+        "用 curl 取",
+        "内容不能变"
       ],
       "script": [
-        "【操作提示｜停留课件 p40a 第 1 步，指 Goal 和“只改一处”；Prompt 提前写好，尖括号两处已填】\n\nhomepage-v1 提交了，我们有了一个检查点。现在做一件更像真实做主页的事：找一个喜欢的主页，学它的一处风格。我选工作经历这一块，改成左边日期、右边内容的时间线。只改这一处。",
-        "【操作提示｜推进第 2 步，指 Context 里的地址和描述】\n\nContext 里给了参考主页的地址，也写了两三行描述。为什么两样都给？它不一定打得开这个地址。打不开，就按我们的描述做。",
-        "【操作提示｜推进第 3 步，指 Constraints 和 Done when；随后切 Terminal 提交 Prompt，等计划，确认后执行，再回课件 p40b】\n\n文字一个字都不改，还是 profile.md 里的那些；不加依赖；先说计划。参考的是风格，不照搬别人的代码和文字。请暂停视频，找一个你喜欢的主页，只挑一处来改。"
+        "【操作提示｜停留课件 p40a 第 1 步，指 Goal；Prompt 提前写好】\n\n这次就照着 Hyperspace 改。配色可以变，版式也可以变，整个页面都可以换个样子。",
+        "【操作提示｜推进第 2 步，指 Context 里的地址和 curl 那一句】\n\nContext 里给了参考页面的地址，还点明让它用 curl 去取 HTML 和 CSS。为什么要点明？它默认会用网页搜索，可在我们这套配置下，网页搜索只拿得到一段摘要，看不到样子。curl 要联网，会弹出申请，我们看清它要访问哪个网址再批准。取回来以后，先让它说说看到的风格和计划，我们确认了再改。",
+        "【操作提示｜推进第 3 步，指 Constraints；随后切 Terminal 提交 Prompt，批准联网，等它说完看到的风格和计划，确认后执行，再回课件 p40b】\n\n约束只留四条：页面上的文字不变，每一句都要能在 profile.md 里找到；不加依赖，不引入远程字体和图片；改结构时尽量沿用现有组件；对比度要够。我们守住的是“内容是我的”，不是“样子不变”。请暂停视频，选一个你喜欢的参考，提交 Prompt。"
       ],
       "teaching": [
         {
           "title": "切到实操",
-          "text": "讲师的参考主页建议用 brittanychiang.com 的 Experience 区块（左列日期、右列职位与描述），录制前定；尖括号两处提前填好，排练脚本 materials/mainline/run-2.2.sh 用的是同一份。提交后等计划，确认后执行，回课件进入下一页看它拿到了什么。口播点一句出处：作者在源码仓库里允许 fork，要求注明出处，我们只学一处版式，不照搬代码和文字。"
+          "text": "参考主页用 Hyperspace（p40a0 圈出的那个），排练脚本 materials/mainline/run-2.2.sh 用的是同一份 Prompt。批准框出现时，读清它要访问的网址再同意。它说完看到的风格和计划后，确认再执行；第一轮约 9 分钟（排练：说风格和计划约 3.6 分钟，执行约 5 分钟），录制时剪掉等待，口播提一句“这一步要等几分钟”（C2-74）。页脚注明出处写进了 Done when（CC BY 3.0 要求署名，2026-10-23 排练里没要求时它没写），p40c 审查时核对。"
         },
         {
           "title": "讲师提示",
-          "text": "这一页的 Prompt 和计划都还没实测（2026-10-22 起新增，章文件 C2-56、C2-58）。学员选自己喜欢的主页，只学一处，不照搬代码和文字。"
+          "text": "2026-10-23 改为参考 Hyperspace、放开版式（C2-72）：只改颜色或只改一处时效果弱，放开后前后差别明显，文字约束都守住了（LOG.md 实测记录）。网页搜索在 MiniMax 下只拿到首屏摘要，所以仍点明用 curl。"
         }
       ],
       "source": "index.html#p40a",
@@ -150,24 +220,24 @@ window.lesson = {
       "segment": "改风格",
       "label": "它拿到了什么参考",
       "title": "它拿到的“参考”，到底是什么",
-      "lead": "我们在浏览器里看到的主页，不会自己进入 context。参考送进去有三条路：给地址，它用工具去取；给截图，它收到一张图；自己写描述，它拿到的就是那几行。讲师排练了两次：它用 web_search 工具打开了地址，这个工具在模型服务那一侧执行，不经本地沙箱，也不用我们批准；取回的只有首页摘要，没有我们想参考的那一块，缺的部分它用我们的描述和自己“记得”的样子补上，也没说出来。请求记录里只看得到它打开了哪个网址，取回了什么看不到。",
-      "html": "<div class=\"p-grid\" style=\"--n:3;gap:14px\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"tool\">给地址</span><p>默认的网页搜索只拿到摘要</p><p class=\"p-sub\">让它用 curl 取、我们批准联网，才拿到完整 HTML</p></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ink\">给截图</span><p>它收到一张图</p><p class=\"p-sub\">这个模型能读图（实测）</p></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"us\">写描述</span><p>它拿到的，就是我们写的那几行</p><p class=\"p-sub\">最可控，也最容易漏</p></div></div><div style=\"margin-top:12px\"><div class=\"p-set\" data-role=\"ctx\" data-reveal=\"2\" style=\"padding:10px 16px 12px\"><h3 style=\"font-size:20px;margin-bottom:6px\">这一次请求里有什么</h3><div class=\"p-items\" style=\"flex-direction:row;flex-wrap:wrap;gap:6px\"><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">系统指令</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">工具</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">环境</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">规则</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">对话历史</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px\">工具返回</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px\">这一句</div></div><div class=\"p-foot\">排练两次：打开了地址，只拿到首页摘要；取回的内容不在请求记录里，缺的它自己补</div></div></div><div class=\"p-bar\" data-reveal=\"3\" style=\"margin-top:10px\">我们看到的页面，<b>不等于它拿到的参考</b>；缺的部分它会自己补</div>",
+      "lead": "我们在浏览器里看到的主页，不会自己进入 context。把参考送进去有三条路：网页搜索、curl、截图。网页搜索是默认的工具，在 MiniMax 下由服务端执行，只返回首屏摘要，取回的内容也不进请求记录；这次我们让它用 curl 在本地取，联网由我们批准，取回的 HTML 和 CSS 作为工具返回进了 context，请求记录里看得见。可它拿到的是代码，不是我们看到的页面：样子要靠它读 CSS 推出来。截图正好相反，它看到的是样子，看不到代码。",
+      "html": "<div class=\"p-grid\" style=\"--n:3;gap:14px\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"tool\">网页搜索</span><p>默认工具，只拿到摘要</p><p class=\"p-sub\">服务端执行，内容不进记录</p></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"us\">curl（这次）</span><p>拿到 HTML 和 CSS</p><p class=\"p-sub\">我们批准联网，内容进记录</p></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ink\">截图</span><p>拿到的是样子</p><p class=\"p-sub\">这个模型能读图（实测）</p></div></div><div style=\"margin-top:12px\"><div class=\"p-set\" data-role=\"ctx\" data-reveal=\"2\" style=\"padding:10px 16px 12px\"><h3 style=\"font-size:20px;margin-bottom:6px\">这一次请求里有什么</h3><div class=\"p-items\" style=\"flex-direction:row;flex-wrap:wrap;gap:6px\"><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">系统指令</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">工具</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">环境</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">规则</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">对话历史</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px\">工具返回</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px\">这一句</div></div><div class=\"p-foot\">这次：curl 取回的 HTML 和 CSS 在“工具返回”这一块，记录里看得见</div></div></div><div class=\"p-bar\" data-reveal=\"3\" style=\"margin-top:10px\">它拿到的是代码，<b>不是我们看到的页面</b>；先问它看到了什么</div>",
       "steps": [
-        "给地址",
-        "截图和描述",
-        "这次走了哪条",
+        "网页搜索",
+        "curl 和截图",
+        "这次在哪一块",
         "结论"
       ],
       "script": [
-        "【操作提示｜停留课件 p40b 第 1 步，指“给地址”一栏】\n\n改之前先想一个问题：我们在浏览器里看到的那个主页，它看到了吗？没有，浏览器里的页面不会自己进 context。给地址，它得用工具去取。",
-        "【操作提示｜推进第 2 步，指另外两栏】\n\n给截图，它收到的就是一张图。这个模型能读图，我试过，图里的日期、职位，连文字是什么颜色都答得出来。自己写描述，它拿到的就是我们写的那几行，最可控，但我们没写到的，它就不知道。",
-        "【操作提示｜推进第 3 步，指锚点图；切 claude-tap 查看器，找这一轮里打开网址的那次调用，按实际记录指认，再回课件】\n\n我排练了两次。它都去打开了地址，用的是 web_search 这个工具，它在模型服务那一侧执行，不经过我们电脑上的沙箱，也没有弹出批准框。请求记录里只看得到它打开了哪个网址，取回了什么，看不到。从它后面的推理看，它只拿到了首页的摘要，没有我们想参考的那一块。",
-        "【操作提示｜推进第 4 步，指结论条；留在课件，进入 p40d】\n\n缺的那部分，它用我们写的描述，加上自己“记得”的那个网站补上了，也没告诉我们。这不是模型读不懂网页：我让它改用 curl 在本地取，我在批准框里同意联网，它拿到的是完整的 HTML 和样式，第一条的日期、职位、左右两列怎么排，全都说对了。差别在取网页的那条路。所以我们看到的页面，不等于它拿到的参考。它说“已经按参考改好了”，先问它实际拿到了什么。"
+        "【操作提示｜停留课件 p40b 第 1 步，指“网页搜索”一栏】\n\n先想一个问题：我们在浏览器里看到的那个主页，它看到了吗？没有，浏览器里的页面不会自己进 context。要把参考送进去，有三条路。第一条是网页搜索，这是它默认会用的工具。在我们这套配置下，它由模型服务那一侧执行，只拿回一段首屏的摘要，取回了什么，请求记录里也看不到。",
+        "【操作提示｜推进第 2 步，指另外两栏】\n\n第二条，就是这次用的 curl：在我们电脑上取，联网由我们批准，拿回来的是原始的 HTML 和 CSS。第三条是截图，它拿到的是样子。这个模型能读图，我试过，图里的日期、职位，连文字的颜色都答得出来。",
+        "【操作提示｜推进第 3 步，指锚点图；切 claude-tap 查看器，找 curl 的调用和返回，再找它说“看到了什么”的那段回答，按实际记录指认，再回课件】\n\n回到这一列方块。curl 取回的 HTML 和 CSS，就在工具返回这一块，记录里看得见。它刚才说的“左边日期、右边内容”，我们可以在返回里找到对应的那几行。",
+        "【操作提示｜推进第 4 步，指结论条；留在课件，进入 p40d】\n\n不过要记住：它拿到的是代码，不是我们看到的页面。页面长什么样，是它读 CSS 推出来的。所以它说“已经按参考改好了”，我们先问它看到了什么，再到浏览器里自己看一眼。"
       ],
       "teaching": [
         {
           "title": "切到实操",
-          "text": "第 3 步切 claude-tap 查看器，找这一轮里和参考有关的那一块：web_search 打开网址的调用（只有网址，没有取回的内容）、本地联网的申请，或者只有 Prompt 里的描述。按实际记录讲，不预设走了哪一条；它的推理里如果写出了自己“记得”的页面结构，可以指出来。"
+          "text": "第 3 步切 claude-tap 查看器，找这一轮里 curl 的那几次调用和返回：HTML 和 CSS 的原文就在工具返回里（长的会被截断，可以顺带指一下）。再指 p40a 那一轮它说“看到了什么”的那段回答，对照返回里的 class。如果它没用 curl、改用了网页搜索，就按实际讲：记录里只有打开的网址，内容看不到。"
         },
         {
           "title": "核对记录",
@@ -197,7 +267,7 @@ window.lesson = {
       "teaching": [
         {
           "title": "切到实操",
-          "text": "第二轮的话按录制时实际看到的差别现场说，例如“日期列太宽，缩到和参考差不多”“圆点去掉”；一次只说一两处。改完同样先看计划，再看 diff。"
+          "text": "第二轮的话按录制时实际看到的差别现场说，例如“首屏的紫色太暗”“项目卡要更像参考的三宫格”；一次只说一两处。改完同样先看计划，再看 diff。"
         },
         {
           "title": "讲师提示",
@@ -212,8 +282,8 @@ window.lesson = {
       "segment": "改风格",
       "label": "风格要不要接受",
       "title": "风格改得对吗，要不要接受",
-      "lead": "审风格改动，和审内容改动一样先看范围：是不是只动了工作经历这一块的结构和样式，文字有没有变。“好不好看”只看 diff 判断不了，要我们自己在浏览器里和参考并排看一眼。接受，就再提交一次；不接受，git restore 回到 homepage-v1。前面有检查点，拒绝也很便宜。",
-      "html": "<div class=\"p-claim\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"agent\">Codex 说</span><p class=\"p-big\" style=\"font-weight:500\">“已按参考改成时间线”</p></div><ul class=\"p-checks\"><li data-reveal=\"1\">只动了工作经历区块<small>git diff --stat 看范围</small></li><li data-reveal=\"1\">文字没变<small>和 profile.md 逐句对</small></li><li class=\"is-no\" data-reveal=\"2\">像不像参考<small>diff 里看不出来，由我们在浏览器里看</small></li></ul></div><div class=\"p-bar is-light\" data-reveal=\"3\" style=\"margin-top:12px\">接受：再提交一次 · 缩小：让它收回越界的部分 · 拒绝：<b>git restore</b> 回到 homepage-v1</div>",
+      "lead": "这一轮的 diff 会很大，不逐行读。先看范围：动了哪些文件和区块；再看文字：和 profile.md 对一遍，它说自己核对过，也要抽查；再看有没有新加的行为，比如进场动画、滚动监听、新的脚本，它说明了没有；页脚有没有注明风格参考的出处；最后看像不像，这一项 diff 里看不出来，要在浏览器里和参考并排看。接受就再提交一次；缩小，就让它收回越界或没说明的部分；拒绝，就 git restore 回到 homepage-v1。前面有检查点，拒绝也很便宜。",
+      "html": "<div class=\"p-claim\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"agent\">Codex 说</span><p class=\"p-big\" style=\"font-weight:500\">“已按参考改好了”</p></div><ul class=\"p-checks\"><li data-reveal=\"1\">动了哪些文件和区块<small>git diff --stat，对照它的改动清单</small></li><li data-reveal=\"1\">文字没变<small>和 profile.md 对，抽查</small></li><li data-reveal=\"1\">新加的行为说明了吗<small>动画、滚动监听、新脚本</small></li><li data-reveal=\"1\">出处写了吗<small>页脚注明风格参考</small></li><li class=\"is-no\" data-reveal=\"2\">像不像参考<small>diff 里看不出来，由我们在浏览器里看</small></li></ul></div><div class=\"p-bar is-light\" data-reveal=\"3\" style=\"margin-top:12px\">接受：再提交一次 · 缩小：让它收回越界的部分 · 拒绝：<b>git restore</b> 回到 homepage-v1</div>",
       "steps": [
         "它的报告",
         "范围和文字",
@@ -221,15 +291,15 @@ window.lesson = {
         "接受或放弃"
       ],
       "script": [
-        "【操作提示｜停留课件 p40c 第 1 步，切 Terminal 指 Codex 的完成报告，按实际原话讲，再回课件】\n\nCodex 说改好了。和审内容改动一样，先别急着接受。",
-        "【操作提示｜推进第 2 步，切 Terminal 运行 git diff --stat 和 git diff，指范围和文字，再回课件】\n\n先看范围：是不是只动了工作经历这一块的结构和样式。再看文字有没有变，和 profile.md 对一下。",
-        "【操作提示｜推进第 3 步，切浏览器，把自己的页面和参考主页并排，看一眼，再回课件】\n\n还有一项，diff 里看不出来：像不像，好不好看。这一项只能我们自己在浏览器里看。",
-        "【操作提示｜推进第 4 步，指结论条；按实际决定，接受就提交，不接受就 git restore，在 Terminal 执行后回课件】\n\n满意，就再提交一次；不满意，git restore 回到 homepage-v1，重新写 Prompt 再来。前面有检查点，拒绝也很便宜。"
+        "【操作提示｜停留课件 p40c 第 1 步，切 Terminal 指 Codex 的完成报告和它列的改动清单，按实际原话讲，再回课件】\n\nCodex 说改好了，还列了它改了哪些区块。和审内容改动一样，先别急着接受。",
+        "【操作提示｜推进第 2 步，切 Terminal 运行 git diff --stat，再按它的改动清单抽看 diff，回课件】\n\n这一轮的 diff 会很大，不用逐行读。先看范围：动了哪些文件、哪些区块。再看文字，和 profile.md 对一遍，它说自己核对过，我们也抽查几句。还有一项要专门看：有没有新加的行为，比如进场动画、滚动监听、新的脚本，它有没有说明。再看一眼页脚：参考了别人的风格，出处有没有写上。",
+        "【操作提示｜推进第 3 步，切浏览器，把自己的页面和参考主页并排，从上滚到下看一遍，再回课件】\n\n像不像、好不好看，diff 里看不出来，只能在浏览器里看。记得从上滚到下：有些动画要滚到那里才显现。",
+        "【操作提示｜推进第 4 步，指结论条；按实际决定，接受就提交，不接受就 git restore，在 Terminal 执行后回课件】\n\n满意，就再提交一次；有越界或没说明的部分，让它收回；不满意，git restore 回到 homepage-v1，重新写 Prompt 再来。前面有检查点，拒绝也很便宜。"
       ],
       "teaching": [
         {
           "title": "讲师提示",
-          "text": "按录制时的实际 diff 讲；改动越界就让它收回，或直接 git restore，再说明为什么。学员选做的样式改动只要求审过再决定，不要求一定接受。"
+          "text": "按录制时的实际 diff 讲。排练里出现过“滚动到才显现”的进场动画：内容默认透明，不滚动、截整页图时看起来是空白，这类改动要它说明，或者让它去掉。学员选做的样式改动只要求审过再决定，不要求一定接受。"
         },
         {
           "title": "跟做产出",
@@ -268,7 +338,7 @@ window.lesson = {
     },
     {
       "label": "改风格",
-      "seconds": 420
+      "seconds": 510
     },
     {
       "label": "小结",

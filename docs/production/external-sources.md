@@ -28,16 +28,17 @@
 | 证据页：帖子 | X 帖子、一句话观点 | 单独一页放裁过的帖子截图（只截正文，去掉点赞和回复区），顶栏写作者、平台、日期 |
 | 证据页：图表 | 曲线、示意图 | 单独一页，图下最多一句话说看什么；图里的说明文字截掉 |
 | 重画 | 文章段落、细节多的示意图、要对上锚点图的 | 画成 SVG 放进证据页，底部写“据 某某 重画”。默认出两版：课程手绘（`#p-rough` 抖动）和 Excalidraw 风格，讲师挑一版上屏；数据图表的坐标和折线两版都基本工整，读图得到的数据点要注明“读图近似”。工具和写法见下文“重画工具” |
-| 现场打开原网页 | 讲师录制时要边看边讲的长文、文档 | 写进 `refs` 的 `live`，录制时浏览器放大到要讲的那一段 |
+| 现场打开原网页 | 讲师录制时要边看边讲的长文、文档 | 写进 `refs`（`live`），录制时浏览器放大到要讲的那一段 |
 
-证据页用版式 `evidence-scene`（`courseware/shared/presentation.css`）：放映时内容区从标题下开始，约 900×510，右边让出人像区（画布 x 956–1256、y 24–249，成片里是真人画面），标题只能一行。专注演示和全屏只是把 1280×720 的画布整体缩放，不改版面；16:10 的屏幕全屏时上下会多出空白，录制按 16:9 的区域录。图片用零件 `.p-shot`（`courseware/shared/parts/parts.css`），`--shot-h` 定图高，常用 400–450：
+证据页用版式 `evidence-scene`（`courseware/shared/presentation.css`）：放映时内容区从标题下开始，约 900×510，右边让出人像区（画布 x 956–1256、y 24–249，成片里是真人画面），标题只能一行。专注演示和全屏只是把 1280×720 的画布整体缩放，不改版面；16:10 的屏幕全屏时上下会多出空白，录制按 16:9 的区域录。图片用零件 `.p-shot`（`courseware/shared/parts/parts.css`），`--shot-h` 定图高，常用 380–400（画面最下一行还要放原文链接）：
 
 ```python
 scene(id="p04a", layout="evidence-scene", title="大家开始说：context engineering", steps=["看帖子"],
-      html='<div class="p-shot" style="--shot-h:440px" data-reveal="0"><div class="p-page">'
+      html='<div class="p-shot" style="--shot-h:400px" data-reveal="0"><div class="p-page">'
            '<div class="p-page-bar"><i></i><i></i><i></i>x.com · Andrej Karpathy 引用 Tobi Lütke · 2025-06-25</div>'
            '<img src="external/x-karpathy-context-engineering-text.png" alt="Karpathy 的帖子"></div>'
            '<p class="p-shot-note">一句话说看什么（可省）</p></div>',
+      # 证据页的链接用默认的 kind="live"：画面最下一行可点，不要改成 read
       refs=[ref("Karpathy 的帖子", "https://x.com/karpathy/status/1937902205765607626", "X，2025-06-25")])
 ```
 
@@ -62,7 +63,8 @@ uv run courseware/tools/redraw.py courseware/ch02/materials/external/context-eng
 | 原图信息太多、需要中文化，或要和本章锚点图对齐 | 重画：SVG（手绘风格见[视觉设计规范](visual-design-system.md)）或 Excalidraw，标“据 某某 重画”，原截图留在 `materials/external/<主题>/` 作对照 |
 
 - 每张截图在画面上都要看得见出处：放在截图框 `.p-page` 里，顶栏 `.p-page-bar` 写“站点 · 作者 · 日期”。`.source-note` 放映时会隐藏，所以不能只写在那里。
-- 原文链接写进本页 `refs`（见[课件制作手册的“外部链接”](lesson-authoring-playbook.md#外部链接)）：录制时要点开的用 `live`，回看用 `read`。
+- 原文链接写进本页 `refs`（见[课件制作手册的“外部链接”](lesson-authoring-playbook.md#外部链接)），一律用 `kind="live"`（`lessonkit.ref` 的默认值，不要写 `kind="read"`）：链接显示在画面最下一行，随最后一步出现，录制时可以点开，学员看回放时也知道去哪找原文。`read` 放映时隐藏，只在阅读模式列出，只用于同页的第二篇延伸阅读或许可说明；证据页至少要有一条 `live`，`make check` 会检查。帖子引用了另一条帖子时，两条都列上。
+- 加了链接行后版面会少约 40px：截图的 `--shot-h` 一般不超过 400，做版式样稿和跑 `make check` 时连链接行一起看。
 - 截图里只能有公开可见的内容；不截登录后的页面，不截他人的个人信息（帖子里的回复区、头像墙等要裁掉）。
 - 帖子正文显示不全（“显示更多”）时，在逐字稿里补全，不另拼图。
 
