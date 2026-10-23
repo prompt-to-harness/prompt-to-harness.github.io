@@ -1,0 +1,6 @@
+{
+  "file": "r0/skill-creator/SKILL.md",
+  "source_sha256": "6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66",
+  "excerpt": "## Core Principles\n\n**Assume Codex is already capable.** Include only information that changes its decisions or improves its work. Remove generic advice, repeated instructions, speculative edge cases, and examples that do not materially clarify the task.\n\n[…文件中间内容省略…]\n\n## Create or Update a Skill\n\nAdapt the work to the request. Creating a complex new skill may involve understanding realistic use cases, choosing supporting resources, initializing files, writing instructions, and validating the result. A narrow update to an existing skill may require only a focused edit and validation.\n\n[…文件中间内容省略…]\n\n### Validate and Iterate\n\nValidate the completed skill with:",
+  "note": "配套文件摘录，不在这份问候的初始请求内；保留原文片段用于列表与全文对照。"
+}
