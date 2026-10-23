@@ -128,6 +128,8 @@ uv run courseware/tools/check-courseware.py
 
 ## 待定
 
+- **2.1 手动命名后的正式素材**：复现说明已采用首句前 `/rename`；现有课件保留命名前的旧记录，正式重录后核对并同步当次请求片段、数字与口播，不将旧标题任务当作新会话事实。
+
 1. **临时仓库 `prompt-to-harness/ch02-pages-lab-20261021` 待讲师删除**（2.4 写操作实测用，Pages 已开启）。
 2. **第 1 章 1.2 的“窗口边界”要不要减**：建议不改第 1 章，关闭这一条。
 3. **讲师演示用的个人信息文件**：草稿已按 miaodx.com 的公开内容挑好（[`materials/profile/`](materials/profile/README.md)，不写现在的公司），待 MiaoDX 过目后冻结；风格参考建议用 brittanychiang.com，备选 jonbarron.info，录制前定（C2-55、C2-56、C2-59）。
