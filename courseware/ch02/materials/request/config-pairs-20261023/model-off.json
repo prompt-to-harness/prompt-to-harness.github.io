@@ -1,0 +1,137 @@
+[
+  {
+    "request_id": "model-off-1",
+    "record_index": 1,
+    "turn": 1,
+    "timestamp": "2026-10-23T11:52:22.154980+00:00",
+    "duration_ms": 4133,
+    "request": {
+      "method": "POST",
+      "path": "/v1/responses",
+      "body": {
+        "model": "MiniMax-M3.1-Flash",
+        "input": [
+          {
+            "type": "message",
+            "role": "developer",
+            "content": [
+              {
+                "type": "input_text",
+                "text": "You are a coding agent running in the Codex CLI, a terminal-based coding assistant. Codex CLI is an open source project led by OpenAI. You are ex… [教学删节，原长度见统计]"
+              }
+            ]
+          },
+          {
+            "type": "message",
+            "role": "developer",
+            "content": [
+              {
+                "type": "input_text",
+                "text": "[教学删节：其他说明已省略]\n<permissions instructions>\nFilesystem sandboxing defines which files can be read or written. `sandbox_mode` is `read-only`: The sandbox only permits reading files. Network access is restricted.\nApproval policy is currently never. Do not provide the `sandbox_permissions` for any reason, commands will be rejected.\n</permissions instructions>"
+              }
+            ]
+          },
+          {
+            "type": "message",
+            "role": "user",
+            "content": [
+              {
+                "type": "input_text",
+                "text": "[教学删节：环境说明已省略，工作目录为 [project]；可写目录见权限说明]"
+              }
+            ]
+          },
+          {
+            "type": "message",
+            "role": "user",
+            "content": [
+              {
+                "type": "input_text",
+                "text": "你好，用一句话介绍你能帮我做什么。"
+              }
+            ]
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "name": "exec_command",
+            "description": "[教学删节：完整工具定义省略；数量与名称来自原请求]"
+          },
+          {
+            "type": "function",
+            "name": "write_stdin",
+            "description": "[教学删节：完整工具定义省略；数量与名称来自原请求]"
+          },
+          {
+            "type": "function",
+            "name": "request_user_input",
+            "description": "[教学删节：完整工具定义省略；数量与名称来自原请求]"
+          },
+          {
+            "type": "function",
+            "name": "view_image",
+            "description": "[教学删节：完整工具定义省略；数量与名称来自原请求]"
+          },
+          {
+            "type": "namespace",
+            "name": "multi_agent_v1",
+            "description": "[教学删节：完整工具定义省略；数量与名称来自原请求]"
+          },
+          {
+            "type": "function",
+            "name": "get_goal",
+            "description": "[教学删节：完整工具定义省略；数量与名称来自原请求]"
+          },
+          {
+            "type": "function",
+            "name": "create_goal",
+            "description": "[教学删节：完整工具定义省略；数量与名称来自原请求]"
+          },
+          {
+            "type": "function",
+            "name": "update_goal",
+            "description": "[教学删节：完整工具定义省略；数量与名称来自原请求]"
+          },
+          {
+            "type": "web_search",
+            "name": "web_search",
+            "description": "[教学删节：完整工具定义省略；数量与名称来自原请求]"
+          }
+        ],
+        "reasoning": {
+          "effort": "max",
+          "summary": "auto"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "model": "MiniMax-M3.1-Flash",
+        "output": [
+          {
+            "type": "message",
+            "status": "completed",
+            "role": "assistant",
+            "content": [
+              {
+                "type": "output_text",
+                "text": "你好！我是 Codex CLI 里的编码助手，可以在你的终端仓库里读写代码、定位并修复缺陷、编写功能与测试、跑构建和 lint —— 你只要告诉我要做什么就行。",
+                "annotations": []
+              }
+            ]
+          }
+        ],
+        "usage": {
+          "input_tokens": 8926,
+          "output_tokens": 41,
+          "total_tokens": 8967,
+          "input_tokens_details": {
+            "cached_tokens": 256
+          }
+        }
+      }
+    }
+  }
+]

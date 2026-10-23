@@ -10,4 +10,5 @@
 | [`bundle/`](bundle/README.md) | F | 3.5 的引擎体积对比：不用引擎、Phaser、React Three Fiber |
 | [`prepared/`](prepared/README.md) | — | 3.7 的教学预备版本（删一行计时器清理）与核对脚本 |
 | [`catchup/`](catchup/README.md) | G | “从第三章开始”：前提清单、本地参考起点草案、两种学员起点 |
+| [`sim-student/`](sim-student/README.md) | — | 模拟学员的人设与私下目标，用 `tools/lab-sim-student.sh` 让它和 Codex 多轮对话做 3.1 |
 | `tools/` | — | `reqscan.py`：在 claude-tap 记录里逐次请求查找文字，可写出某次请求全文 |

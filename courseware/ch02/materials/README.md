@@ -6,14 +6,15 @@
 
 | 文件 | 用在 | 内容 |
 | --- | --- | --- |
+| `profile/` | 2.2 讲师演示 | 讲师的个人信息文件 `profile.md`，取自 miaodx.com 的公开内容（C2-55，2026-10-22），录制前复制到项目根目录 |
 | `homepage-v1.diff` | 2.2、2.3 备课 | 排练快照 → 换成三条讲师经历后的 homepage-v1；代替 2.2 的真实 Codex 输出，只用于备课预估 diff 大小 |
-| `refactor-cards/` | 2.5 | 分拣题的五张卡：每张一份基于 homepage-v1 的 diff，提交说明都是“refactor: …”；`shoot.py` 把五张卡各自构建、核对行为，并拍 2.5 的证据图（写到 `lessons/05-refactor/evidence/`） |
+| `refactor-cards/` | 2.5 | 分拣题的五张卡：每张一份基于 homepage-v1 的 diff，提交说明都是“refactor: …”；`shoot.py` 把五张卡各自构建、核对行为，并拍 2.5 的证据图（写到 `lessons/05-experience/evidence/`） |
 | `compact/` | 2.2 p27 | 压缩独立实验：起点脚本、操作步骤、观察表和一次真实运行的请求记录（2026-10-05） |
 | `pages-source/` | 2.4（待确认提议） | 预检：Codex 用 `gh` 查询并修改 Pages 部署来源、再改回；改来源的副作用与凭据边界（2026-10-07） |
 
 2026-10-05 起 2.5 改用五张卡分拣（讲师确认），原来的两份 diff（`refactor-a.diff`、`refactor-b.diff`）已删除；`01-extract-component.diff` 与原 A 逐字相同。
 
-## 讲师经历聚合的项目经历（2.2 讲师演示用）
+## 讲师经历聚合的项目经历（2.2 讲师演示用，2026-10-22 起被 `profile/` 取代）
 
 2026-10-03 讲师确认：2.2 演示的项目区内容取自两位讲师的真实经历，合在第 1 章的“示例同学”页面上；讲述时直接说明“项目区借用了两位讲师的经历”，首屏沿用第 1 章示例、不在本轮修改。内容只取自已公开的[讲师简介](../../../docs/course-outline.md)，不另加图片、链接或联系方式。下表三条于 2026-10-05 经讲师确认采用。
 
@@ -33,7 +34,7 @@ Node 24.15.0，`npm ci` 后可以 `npm run build`。homepage-v1 在 360×800 下
 
 ### 2.5 证据图与复测（2026-10-06，shoot.py，单次）
 
-`uv run python courseware/ch02/materials/refactor-cards/shoot.py [homepage-v1 目录]`：默认基线是个人主页发布候选（`starters/personal-homepage/ch02-candidate`），工作目录 `lab-runs/refactor-cards/`。每张卡复制基线、`patch -p1` 应用、`npm ci`、`npm run build`，Playwright Chromium 在 1440×900、DPR 2 下打开构建产物，打印核对结果并截图到 `courseware/ch02/lessons/05-refactor/evidence/`。2026-10-06 的结果与下表一致：①② 的 `#root` 与基线逐字相同；③ 顺序变为端侧、红绿灯、RoboHarness；④ 卡高 127 → 144px；⑤ Tab 依次停在三张卡上（基线按完“查看项目”再按 Tab 焦点离开页面）。录制版换成讲师冻结的 homepage-v1 重跑本脚本，并按输出更新 2.5 口播里的数字。
+`uv run python courseware/ch02/materials/refactor-cards/shoot.py [homepage-v1 目录]`：默认基线是个人主页发布候选（`starters/personal-homepage/ch02-candidate`），工作目录 `lab-runs/refactor-cards/`。每张卡复制基线、`patch -p1` 应用、`npm ci`、`npm run build`，Playwright Chromium 在 1440×900、DPR 2 下打开构建产物，打印核对结果并截图到 `courseware/ch02/lessons/05-experience/evidence/`。2026-10-06 的结果与下表一致：①② 的 `#root` 与基线逐字相同；③ 顺序变为端侧、红绿灯、RoboHarness；④ 卡高 127 → 144px；⑤ Tab 依次停在三张卡上（基线按完“查看项目”再按 Tab 焦点离开页面）。录制版换成讲师冻结的 homepage-v1 重跑本脚本，并按输出更新 2.5 口播里的数字。
 
 ### 2.5 的五张卡（2026-10-05，讲师机器，单次）
 

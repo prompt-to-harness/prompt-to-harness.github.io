@@ -12,50 +12,27 @@ set -euo pipefail
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
 REPO="$(cd "$HERE/../../../.." && pwd)"
+source "$REPO/tools/lab-lib.sh"
 STARTER="${STARTER:-$REPO/course-starter}"
 STARTER_REF="${STARTER_REF:-main}"
 FIX_ROUNDS="${FIX_ROUNDS:-2}"
 VERIFY="$REPO/courseware/ch02/materials/mainline/verify.py"
-RUN="${1:-$REPO/lab-runs/mainline/v0-$(date +%Y%m%d-%H%M%S)}"
-mkdir -p "$(dirname "$RUN")"
-RUN="$(cd "$(dirname "$RUN")" && pwd)/$(basename "$RUN")"
-APP="$RUN/repo"; LOG="$RUN/logs"
-[ -e "$RUN" ] && { echo "运行目录已存在：$RUN" >&2; exit 1; }
-mkdir -p "$LOG" "$APP"
-GIT=(git -c user.name="讲师排练" -c user.email=rehearsal@example.invalid)
-say() { echo "[$(date +%H:%M:%S)] $*" | tee -a "$LOG/steps.log" >&2; }
+lab_run_dir "$REPO/lab-runs/mainline/v0-$(date +%Y%m%d-%H%M%S)" "${1:-}"
+mkdir -p "$APP"
 
-prompt_of() {  # 课件中某页的 prompt 字段
-  python3 - "$REPO/courseware/ch01/lessons/$1/lesson.js" "$2" <<'EOF'
-import json, sys
-s = open(sys.argv[1]).read()
-scenes = json.loads(s[s.index('{'):s.rstrip().rstrip(';').rindex('}') + 1])['scenes']
-print(next(x for x in scenes if x['id'] == sys.argv[2])['prompt'])
-EOF
-}
-
-codex_step() {  # codex_step <名字> <exec 参数…>
-  local name="$1"; shift
-  local start=$SECONDS
-  (cd "$APP" && CLEAN_CODEX_HOME="$RUN/home" CLEAN_CODEX_NO_OPEN=1 "$REPO/tools/clean-codex.sh" --tap -- exec "$@" \
-      --json -o "$LOG/$name.answer.md" < /dev/null > "$LOG/$name.out" 2> "$LOG/$name.err") || say "$name 退出码非 0"
-  grep -o 'Trace session: [0-9a-f-]*' "$LOG/$name.out" "$LOG/$name.err" 2>/dev/null | head -1 | awk '{print $3}' > "$LOG/$name.tap-session" || true
-  grep '^{' "$LOG/$name.out" > "$LOG/$name.events.jsonl" || true
-  say "$name 完成，用时 $((SECONDS - start)) 秒"
-}
 changed() { git -C "$APP" status --porcelain; }
-commit_all() { "${GIT[@]}" -C "$APP" add -A && "${GIT[@]}" -C "$APP" commit -qm "$1"; }
+commit_all() { "${LAB_GIT[@]}" -C "$APP" add -A && "${LAB_GIT[@]}" -C "$APP" commit -qm "$1"; }
 
 # ---------- 起点：course-starter ----------
 REF="$(git -C "$STARTER" rev-parse "$STARTER_REF")"
 git -C "$STARTER" archive "$REF" | tar -x -C "$APP"
-"${GIT[@]}" -C "$APP" init -q -b main && commit_all "起点：course-starter $REF"
+"${LAB_GIT[@]}" -C "$APP" init -q -b main && commit_all "起点：course-starter $REF"
 echo "$REF" > "$LOG/starter-ref"
 say "起点：course-starter $REF"
 
 # ---------- 1.1 欢迎语 ----------
 WELCOME="你好，欢迎来到 Vibe Coding 课堂！"
-codex_step 1.1-p04-plan -s workspace-write "$(prompt_of 01-environment p04)"
+codex_step 1.1-p04-plan -s workspace-write "$(lab_prompt ch01 01-environment p04)"
 if [ -z "$(changed)" ]; then
   say "1.1：人看过计划，确认（代答）"
   codex_step 1.1-p04-confirm resume --last -c sandbox_mode='"workspace-write"' "确认，按计划修改。"
@@ -71,7 +48,7 @@ commit_all "1.1：课程欢迎语"
 say "1.1：已提交，改动 $(tr '\n' ' ' < "$LOG/1.1-diffstat.txt")"
 
 # ---------- 1.4 澄清需求 ----------
-codex_step 1.4-p22 -s read-only "$(prompt_of 04-prompt p22)"
+codex_step 1.4-p22 -s read-only "$(lab_prompt ch01 04-prompt p22)"
 ANSWERS="回答你的问题（其余没问到的，按你建议的默认值处理，并在计划里标明）：
 1. 姓名与简介：示例同学；正在学习 AI 协作开发。
 2. 项目区展示：学习笔记：记录课程练习。
@@ -84,7 +61,7 @@ commit_all "1.4：PROMPT_V1（人写，取自 10-03 排练）"
 say "1.4：人写下 PROMPT_V1.md（代答，取自排练快照）"
 
 # ---------- 1.5 完成首页 ----------
-codex_step 1.5-p23-plan -s workspace-write "$(prompt_of 04-prompt p23)"
+codex_step 1.5-p23-plan -s workspace-write "$(lab_prompt ch01 04-prompt p23)"
 if [ -z "$(changed)" ]; then
   say "1.5：人看过计划，确认；依赖由人安装（代答）"
   codex_step 1.5-p23-confirm resume --last -c sandbox_mode='"workspace-write"' "确认，按计划执行。沙箱里不能联网，依赖由我来安装：你只写文件，写完告诉我要运行哪些命令，不要自己安装。"
@@ -135,7 +112,7 @@ git -C "$APP" status --porcelain > "$LOG/1.5-status.txt"
 git -C "$APP" diff --stat HEAD > "$LOG/1.5-diffstat.txt" || true
 if [ -z "$FAILED" ]; then
   commit_all "1.5：首页 v0"
-  "${GIT[@]}" -C "$APP" tag ch01-prompt-baseline
+  "${LAB_GIT[@]}" -C "$APP" tag ch01-prompt-baseline
   say "1.5：检查全部通过，已提交并打 ch01-prompt-baseline"
 else
   say "1.5：$FIX_ROUNDS 轮后仍未通过：$FAILED；停在提交之前，留给人判断"

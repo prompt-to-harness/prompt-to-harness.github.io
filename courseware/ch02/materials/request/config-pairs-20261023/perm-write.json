@@ -1,0 +1,136 @@
+[
+  {
+    "request_id": "perm-write-1",
+    "record_index": 1,
+    "turn": 1,
+    "timestamp": "2026-10-23T11:52:07.843612+00:00",
+    "duration_ms": 5366,
+    "request": {
+      "method": "POST",
+      "path": "/v1/responses",
+      "body": {
+        "model": "MiniMax-M3.1-Flash",
+        "input": [
+          {
+            "type": "message",
+            "role": "developer",
+            "content": [
+              {
+                "type": "input_text",
+                "text": "You are Codex, a coding agent based on MiniMax-M3.1-Flash. You and the user share the same workspace and collaborate to achieve the user's goals."
+              }
+            ]
+          },
+          {
+            "type": "message",
+            "role": "developer",
+            "content": [
+              {
+                "type": "input_text",
+                "text": "[教学删节：其他说明已省略]\n<permissions instructions>\nFilesystem sandboxing defines which files can be read or written. `sandbox_mode` is `workspace-write`: The sandbox permits reading files, and editing files in `cwd` and `writable_roots`. Editing files in other directories requires approval. Network access is restricted.\nApproval policy is currently never. Do not provide the `sandbox_permissions` for any reason, commands will be rejected.\n The writable roots are `[project]`, `/private/tmp`, `[temporary-directory]`.\n</permissions instructions>"
+              }
+            ]
+          },
+          {
+            "type": "message",
+            "role": "developer",
+            "content": [
+              {
+                "type": "input_text",
+                "text": "[教学删节：其他说明全文已省略，保留消息角色与位置]"
+              }
+            ]
+          },
+          {
+            "type": "message",
+            "role": "developer",
+            "content": [
+              {
+                "type": "input_text",
+                "text": "[教学删节：其他说明全文已省略，保留消息角色与位置]"
+              }
+            ]
+          },
+          {
+            "type": "message",
+            "role": "user",
+            "content": [
+              {
+                "type": "input_text",
+                "text": "[教学删节：环境说明已省略，工作目录为 [project]；可写目录见权限说明]"
+              }
+            ]
+          },
+          {
+            "type": "message",
+            "role": "user",
+            "content": [
+              {
+                "type": "input_text",
+                "text": "你好，用一句话介绍你能帮我做什么。"
+              }
+            ]
+          }
+        ],
+        "tools": [
+          {
+            "type": "custom",
+            "name": "exec",
+            "description": "[教学删节：完整工具定义省略；数量与名称来自原请求]"
+          },
+          {
+            "type": "function",
+            "name": "wait",
+            "description": "[教学删节：完整工具定义省略；数量与名称来自原请求]"
+          },
+          {
+            "type": "function",
+            "name": "request_user_input",
+            "description": "[教学删节：完整工具定义省略；数量与名称来自原请求]"
+          },
+          {
+            "type": "namespace",
+            "name": "collaboration",
+            "description": "[教学删节：完整工具定义省略；数量与名称来自原请求]"
+          },
+          {
+            "type": "web_search",
+            "name": "web_search",
+            "description": "[教学删节：完整工具定义省略；数量与名称来自原请求]"
+          }
+        ],
+        "reasoning": {
+          "effort": "max"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "model": "MiniMax-M3.1-Flash",
+        "output": [
+          {
+            "type": "message",
+            "status": "completed",
+            "role": "assistant",
+            "content": [
+              {
+                "type": "output_text",
+                "text": "你好！我可以帮你阅读和修改代码、调试报错、实现新功能、编写测试与文档,并在这个仓库里直接落地改动。\n\n当前目录看起来是 `prompt-to-harness.github.io`,如果你有具体想让我做的事(比如加个功能、修个 bug、跑一下测试),直接说就行。",
+                "annotations": []
+              }
+            ]
+          }
+        ],
+        "usage": {
+          "input_tokens": 7889,
+          "output_tokens": 64,
+          "total_tokens": 7953,
+          "input_tokens_details": {
+            "cached_tokens": 1792
+          }
+        }
+      }
+    }
+  }
+]
