@@ -1,0 +1,20 @@
+[build-system]
+requires = ["hatchling>=1.26,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "agent-lab"
+version = "0.1.0"
+description = "Isolated agent environments for the Prompt to Harness course"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["claude-tap==0.1.146"]
+
+[project.scripts]
+agent-lab = "agent_lab.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/agent_lab"]
+
+[tool.uv]
+cache-keys = [{ file = "pyproject.toml" }, { file = "src/**/*.py" }, { file = "src/**/*.json" }]
