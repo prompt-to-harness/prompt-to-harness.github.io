@@ -14,6 +14,8 @@ materials/external/redraw_figures.py 里，变量 FIGURES = {名字: {'size': (�
 输出到 SPEC 所在目录：redraw-<名字>-course.svg、redraw-<名字>-excalidraw.svg。
 Excalidraw 版需要联网从 cdn.jsdelivr.net 取 rough.js。规则见 docs/production/external-sources.md。
 
+图元选项可加 reveal=N，生成 data-reveal 分步组；未指定时始终显示。
+
 图元（坐标是 SVG 内的像素）：
     ('text', x, y, 文字, {'size': 20, 'color': INK, 'font': 'sans'|'title'|'mono', 'anchor': 'start', 'weight': 400, 'rotate': 0})
     ('box', x, y, w, h, {'stroke': INK, 'fill': '#FFFDF7', 'dash': False, 'width': 2.5, 'label': None, 'label_size': 20, 'label_weight': 700})
@@ -56,6 +58,9 @@ def course(fig):
     out = ['<defs><marker id="rd-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">'
            '<path d="M0 0L10 5L0 10z" fill="#5B6573"/></marker></defs>']
     for kind, *a in fig['items']:
+        reveal = a[-1].get('reveal')
+        if reveal is not None:
+            out.append(f'<g data-reveal="{reveal}">')
         if kind == 'text':
             out.append(text_svg(*a))
         elif kind == 'box':
@@ -77,6 +82,8 @@ def course(fig):
         elif kind == 'line':
             x1, y1, x2, y2, o = a
             out.append(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{o.get("color", "#E2DED3")}" stroke-width="{o.get("width", 1)}"/>')
+        if reveal is not None:
+            out.append('</g>')
     return f'<svg xmlns="http://www.w3.org/2000/svg" class="lesson-diagram" viewBox="0 0 {w} {h}" width="{w}" height="{h}">{"".join(out)}</svg>'
 
 
@@ -87,27 +94,30 @@ EXCALIDRAW_JS = """
   svg.setAttribute('xmlns', NS); svg.setAttribute('class', 'lesson-diagram');
   svg.setAttribute('viewBox', `0 0 ${fig.size[0]} ${fig.size[1]}`); svg.setAttribute('width', fig.size[0]); svg.setAttribute('height', fig.size[1]);
   document.body.append(svg);
-  const rc = rough.svg(svg);
   let seed = 1;
   const opt = o => ({seed: seed++, roughness: 1.3, bowing: 1, ...o});
   fig.items.forEach(([kind, ...a], i) => {
+    const reveal = a[a.length - 1].reveal;
+    const layer = reveal === undefined ? svg : document.createElementNS(NS, 'g');
+    if (reveal !== undefined) { layer.setAttribute('data-reveal', reveal); svg.append(layer); }
+    const rc = rough.svg(layer);
     if (kind === 'box') {
       const [x, y, w, h, o] = a;
       const fill = o.fill && o.fill !== 'none' ? {fill: o.fill, fillStyle: 'hachure', hachureGap: 7, fillWeight: 1.2} : {};
-      svg.append(rc.rectangle(x, y, w, h, opt({stroke: o.stroke || '#243042', strokeWidth: o.width || 2, strokeLineDash: o.dash ? [8, 6] : undefined, ...fill})));
+      layer.append(rc.rectangle(x, y, w, h, opt({stroke: o.stroke || '#243042', strokeWidth: o.width || 2, strokeLineDash: o.dash ? [8, 6] : undefined, ...fill})));
     } else if (kind === 'arrow') {
       const [x1, y1, x2, y2, o] = a; const c = o.color || '#5B6573';
       const ang = Math.atan2(y2 - y1, x2 - x1), k = 12;
-      svg.append(rc.line(x1, y1, x2, y2, opt({stroke: c, strokeWidth: 2})));
-      svg.append(rc.linearPath([[x2 - k * Math.cos(ang - .45), y2 - k * Math.sin(ang - .45)], [x2, y2], [x2 - k * Math.cos(ang + .45), y2 - k * Math.sin(ang + .45)]], opt({stroke: c, strokeWidth: 2})));
+      layer.append(rc.line(x1, y1, x2, y2, opt({stroke: c, strokeWidth: 2})));
+      layer.append(rc.linearPath([[x2 - k * Math.cos(ang - .45), y2 - k * Math.sin(ang - .45)], [x2, y2], [x2 - k * Math.cos(ang + .45), y2 - k * Math.sin(ang + .45)]], opt({stroke: c, strokeWidth: 2})));
     } else if (kind === 'curve') {
-      const [d, o] = a; svg.append(rc.path(d, opt({stroke: o.color || '#5B6573', strokeWidth: 2})));
+      const [d, o] = a; layer.append(rc.path(d, opt({stroke: o.color || '#5B6573', strokeWidth: 2})));
     } else if (kind === 'poly') {
-      const [pts, o] = a; svg.append(rc.linearPath(pts, opt({stroke: o.color || '#243042', strokeWidth: (o.width || 3.5) * .8, roughness: .6})));
+      const [pts, o] = a; layer.append(rc.linearPath(pts, opt({stroke: o.color || '#243042', strokeWidth: (o.width || 3.5) * .8, roughness: .6})));
     } else if (kind === 'line') {
-      const [x1, y1, x2, y2, o] = a; svg.append(rc.line(x1, y1, x2, y2, opt({stroke: o.color || '#E2DED3', strokeWidth: o.width || 1, roughness: .4})));
+      const [x1, y1, x2, y2, o] = a; layer.append(rc.line(x1, y1, x2, y2, opt({stroke: o.color || '#E2DED3', strokeWidth: o.width || 1, roughness: .4})));
     }
-    if (texts[i]) svg.insertAdjacentHTML('beforeend', texts[i]);
+    if (texts[i]) layer.insertAdjacentHTML('beforeend', texts[i]);
   });
   return svg.outerHTML;
 }

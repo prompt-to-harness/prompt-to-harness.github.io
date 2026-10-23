@@ -83,19 +83,24 @@ scene(
 
 scene(
     id="p06-tap", segment="打开请求",
-    label="用 claude-tap 启动 Codex", title="怎样看到 Codex 实际发出的请求？",
-    lead="claude-tap 是一个开源的本地代理，夹在 Codex 和模型服务之间，把每一次请求记录下来；启动之后，Codex 的用法和平时一样。它会经手 API 密钥，也只看得到经过它的内容。这一节由讲师演示，自己运行是选做。",
+    label="用 claude-tap 启动 Codex", title="用本地代理，看请求怎样发出去",
+    lead="claude-tap 是一个开源的本地代理。启动时，它把 Codex 的 API 地址临时指向本机：Codex 组装好的请求先到代理，再由代理发往模型服务；模型的返回也经过代理回到 Codex。代理把经过这里的请求与返回记录下来，供我们在本地浏览器查看。鉴权信息也经过代理。这一节由讲师演示，自己运行是选做。",
     html=(
-        '<div class="p-term" data-copy="' + TAP_CMD + '" data-reveal="0"><div class="dim">$ uvx claude-tap@0.1.146 --tap-client codex \\</div><div class="dim">    --tap-target https://api.minimax.cn/v1</div></div>'
-        '<div class="p-grid" style="--n:3;gap:12px;margin-top:16px">'
-        '<div class="p-box is-soft" data-role="tool" data-reveal="1"><h3>本地代理</h3><p>夹在 Codex 和模型服务之间</p></div>'
-        '<div class="p-box is-soft" data-role="gate" data-reveal="1"><h3>会经手 API 密钥</h3><p>请求连同鉴权信息都从它这里过</p></div>'
-        '<div class="p-box is-soft" data-role="ctx" data-reveal="1"><h3>只看得到经过它的</h3><p>Codex 发出的请求和模型的返回</p></div></div>'
-        '<ol class="p-watch is-row" style="margin-top:16px"><li data-reveal="2">切到终端<small>用它启动 Codex</small></li>'
-        '<li data-reveal="3">打开查看器<small>每次请求都被记下来</small></li></ol>'
+        '<style>#p06-tap .tap-proxy-content{display:flex;flex-direction:column;gap:6px}'
+        '#p06-tap .tap-proxy-content svg{display:block;width:100%;height:260px}'
+        '#p06-tap .tap-proxy-command{font-size:18px;padding:8px 16px;line-height:1.5}'
+        '#p06-tap .tap-proxy-source{font-size:14px;color:#5B6573}'
+        'body[data-mode="scroll"] #p06-tap .tap-proxy-scroll{overflow-x:auto}'
+        'body[data-mode="scroll"] #p06-tap .tap-proxy-content svg{min-width:1000px}'
+        '</style><div class="tap-proxy-content"><div class="tap-proxy-scroll">'
+        + (Path(__file__).resolve().parents[3] / "materials/external/redraw-tap-proxy-excalidraw.svg").read_text().strip()
+        + '</div><div class="p-term tap-proxy-command" data-copy="' + TAP_CMD + '" data-reveal="2">'
+        '$ uvx claude-tap@0.1.146 --tap-client codex \\<br>'
+        '　--tap-target https://api.minimax.cn/v1</div>'
+        '<p class="tap-proxy-source">据 liaohch3/claude-tap v0.1.146 README 整理 · 本章使用的反向代理路径</p></div>'
     ),
-    refs=[ref("liaohch3/claude-tap", "https://github.com/liaohch3/claude-tap", "项目主页")],
-    steps=["启动方式", "三条说明", "启动 Codex", "打开查看器"],
+    refs=[ref("claude-tap v0.1.146 原理说明", "https://github.com/liaohch3/claude-tap/blob/v0.1.146/README.md#architecture", "项目 README，固定版本", kind="read")],
+    steps=["请求", "返回", "查看记录"],
     teaching=teach(
         ("切到实操", "画面命令已于 2026-10-02 在 Codex 0.160.0 + MiniMax 自定义 provider 下实测，trace 写入 ~/.local/share/claude-tap/traces.sqlite3。需要先装好 uv。命令固定 claude-tap 0.1.146（2026-10-20 全章实测用的版本，讲师 2026-10-20 决定），换版本前先复测；录制用隔离 HOME 启动（做法见 tools/clean-codex.sh 的 --tap），查看器地址以工具输出为准。"),
         ("讲师提示", "API 密钥会经过本地代理；claude-tap 导出与存储时只保留鉴权头前缀。画面上不要出现 config.toml 或完整密钥。学员自己运行算选做，不计入验收，不另做排障文档。"),

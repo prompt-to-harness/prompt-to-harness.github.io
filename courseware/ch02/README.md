@@ -34,6 +34,7 @@
 | 问题 | 材料 | 形式 | 用在 | 状态 |
 | --- | --- | --- | --- | --- |
 | 章首引入 | Karpathy 引用 Tobi Lütke 的帖子（2025-06-25） | 证据页：帖子截图 | 2.1 p05a | 采用 |
+| 1 | claude-tap v0.1.146 README：本地代理接收、记录并转发请求与返回 | 据项目说明整理的原理图（Excalidraw），按请求、返回、查看记录揭示 | 2.1 p06-tap | 采用（2026-10-23） |
 | 1 | OpenAI《深入解析 Codex 智能体循环》（2026-01-23）里的请求组成 | 重画（Excalidraw），对上锚点图 | 2.1 p16b | 采用 |
 | 1 | Anthropic《Effective context engineering》对照图（2025-09-29） | 重画（Excalidraw）；p16a 的文字定义保留 | 2.1 p16c | 采用 |
 | 2 | 同一篇 OpenAI 文章：`AGENTS.md` 从根目录逐级拼接、默认 32 KiB 上限 | 重画 | 2.1 深入 | 候选 |

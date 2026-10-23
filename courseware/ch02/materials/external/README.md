@@ -31,3 +31,24 @@ uv run courseware/tools/capture-source.py https://www.trychroma.com/research/con
 ```
 
 openai.com 会弹 Cloudflare 人工验证，所以要加 `--headed` 开可见窗口；2026-10-22 实测时没有出现验证框，直接通过。
+
+
+## p06-tap 请求查看原理（2026-10-23）
+
+对应讲透问题 1，选材与核验见[调研报告](<../../../../docs/research/reports/第 2 章请求查看方案.md>)。讲师已选 Excalidraw 版，写入章文件、分镜和正式页面（C2-68），按请求、返回、查看记录三步揭示；本机标签改为“我们的电脑”。
+
+| 文件 | 来源 | 作者 · 日期 | 截取 | 拟用在 | 状态 |
+| --- | --- | --- | --- | --- | --- |
+| `claude-tap-architecture.png` | [固定版本架构图](https://raw.githubusercontent.com/liaohch3/claude-tap/v0.1.146/docs/architecture.png) | liaohch3/claude-tap 维护者 · v0.1.146，未核发布日期 | 2026-10-23 | 2.1 p06-tap | 候选；2200×976。已打开检查，无浮层；原图用 Claude Code / Anthropic，建议按本章路径整理为中文图 |
+| `redraw-tap-proxy-{course,excalidraw}.svg` | 据同版本 README 的 How it works 整理 | 同上 | 2026-10-23 生成 | 2.1 p06-tap | 采用 Excalidraw 版（C2-68）；课程手绘版保留作对照；图元 `tap_proxy_figures.py`，`reveal` 控制分步 |
+| `tap-proxy-preview-{course,excalidraw}.png` | 本地课件页浏览器 DOM 样稿 | 本课程 · 2026-10-23 | 2026-10-23 | 2.1 p06-tap | 对照样稿；两版已打开检查，内容区无溢出，标题不侵入人像区，文字可读；正式页已采用 Excalidraw 并另行检查三步揭示 |
+
+截图与图元可复现命令：
+
+```bash
+uv run courseware/tools/capture-source.py https://raw.githubusercontent.com/liaohch3/claude-tap/v0.1.146/docs/architecture.png courseware/ch02/materials/external/claude-tap-architecture.png --selector img --wait 1
+uv run courseware/tools/redraw.py courseware/ch02/materials/external/tap_proxy_figures.py
+uv run 'docs/research/notes/第 2 章请求查看方案/preview.py'
+```
+
+曾尝试截 GitHub README 的 How it works 段落，页面目标未加载成功，没有产出截图；改截同版本公开原图。pretty-mermaid / archscribe 技能本机未找到，此次用仓库 redraw.py 生成两版，已按 README 人工核对关系；不是上述技能的执行结果。
