@@ -234,7 +234,7 @@
       const frame = reload.closest('.welcome-demo').querySelector('iframe');
       frame.src = frame.src;
     }
-    const copy = event.target.closest('[data-copy]');
+    const copy = event.target.closest('button[data-copy]'); // 终端块 .p-term[data-copy] 由 parts.js 处理，这里只管请求框的按钮
     if (copy) {
       copy.disabled = true;
       copy.textContent = '复制中';

@@ -39,8 +39,7 @@
       const fill = document.createElement('div'); fill.className = 'segment-fill';
       track.append(fill); node.append(label, track); bar.append(node);
     });
-    const status = document.createElement('p'); status.className = 'step-status';
-    section.append(status, bar);
+    section.append(bar);
     section.querySelectorAll('.lesson-diagram').forEach(svg => {
       const wrapper = document.createElement('div'); wrapper.className = 'diagram-scroll';
       wrapper.tabIndex = 0; wrapper.setAttribute('role', 'region');
@@ -51,9 +50,6 @@
   function update() {
     const active = lesson.scenes[position.current];
     sections.forEach((section, index) => {
-      // 步数只在演示模式显示；阅读模式已展开全部内容，不再提示
-      section.querySelector('.step-status').textContent = position.mode === 'slides'
-        ? `第 ${position.step + 1} / ${active.steps.length} 步` : '';
       section.querySelectorAll('.segment').forEach((node, i) => {
         const segment = lesson.segments[i];
         const indices = lesson.scenes.map((s, n) => s.segment === segment.label ? n : -1).filter(n => n >= 0);
