@@ -185,6 +185,7 @@ def launch(tap: bool, forwarded: list[str]) -> int:
         # Avoid connecting to a personal shared app-server daemon.
         enforced = [
             f'model="{MODEL}"', 'model_provider="minimax"',
+            'tui.fullscreen_transcript=false',
             'forced_login_method="api"', 'cli_auth_credentials_store="file"',
             'allow_login_shell=false', f'model_providers.minimax.base_url="{BASE_URL}"',
             'model_providers.minimax.env_key="MINIMAX_API_KEY"',

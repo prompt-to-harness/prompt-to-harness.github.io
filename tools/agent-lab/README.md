@@ -34,7 +34,7 @@ Key 可以由终端启动配置事先导出，也可以只给本次命令设置 
 ## 保留与隔离
 
 - 新环境默认 HOME 是 `~/.local/share/agent-lab/codex`，其中 `.codex/` 保存配置和会话。再次启动复用该目录，每次重新写入固定的课程配置；不会清空历史。`-- resume --last` 接续当前项目最近的会话。
-- 课程配置固定 `tui.fullscreen_transcript = false`，保留终端自己的 scrollback，长回复能往上翻。Codex CLI 0.156.0 起提供可选的全屏 transcript、0.157.0 起成为默认，那种形态下终端历史不留，长回答读不到上文。改回全屏只需删掉生成配置里的这两行；效果需要重启 Codex 才可见。
+- 课程配置和启动参数固定 `tui.fullscreen_transcript = false`，保留终端自己的 scrollback，长回复可向上回看。全屏 transcript 使用 Codex 自己的历史视图，与终端原生回滚不同。直接修改生成配置或用 `/tui` 保存选择，会在下次课程启动时被覆盖；本工具暂不提供全屏切换，需全屏时使用日常 Codex 环境。
 - 模型固定 `MiniMax-M3.1-Flash`、能力目录开启、推理档位 `max`，上游固定 `https://api.minimax.cn/v1`。缺 Key 立即退出。
 - 独立 `HOME`、`CODEX_HOME` 与 XDG 目录，清理继承的 `CODEX_*`、`OPENAI_*`、Claude 相关变量；不连接个人共享 app-server。Codex 凭据存储固定为 `file`，不使用系统钥匙串中的 Codex 登录。课程目录如出现 `auth.json` 则停止，不读取或删除它。
 - `--` 后可传 Codex 的 `exec`、`resume`、沙箱等参数；不接受模型、profile、`-c` 配置覆盖、登录与远程服务命令。课程会话的文件访问仍由 Codex 权限控制；这不是文件系统安全隔离，当前项目的 `AGENTS.md` 等内容仍可进入请求。
@@ -58,7 +58,7 @@ uv build tools/agent-lab
 这个包属于 Python 生态，不需要发布到 npm。
 
 - 本地目录：上面的 `uvx --from` 与 `uv tool install` 已可使用。
-- Git：使用 `uvx --from 'git+https://github.com/prompt-to-harness/prompt-to-harness.github.io.git@<完整提交 SHA>#subdirectory=tools/agent-lab' agent-lab codex --tap`；`<完整提交 SHA>` 必须替换为已推送且经过核验的提交。提交可以位于独立的远程分支，无需合并 `main`；保留该分支以便持续获取这个提交。工具通过单独的分发分支提供，不包含尚待审查的课件改动。
+- Git：使用 `uvx --from 'https://github.com/prompt-to-harness/prompt-to-harness.github.io/archive/<完整提交 SHA>.tar.gz#subdirectory=tools/agent-lab' agent-lab codex --tap`；`<完整提交 SHA>` 必须替换为已推送且经过核验的提交。使用 GitHub 对应提交的源码包，避免 Git 安装自动拉取不需要的 Codex 源码子模块。提交可以位于独立的远程分支，无需合并 `main`；保留该分支以便持续获取这个提交。工具通过单独的分发分支提供，不包含尚待审查的课件改动。
 - PyPI：以后注册账号、构建 wheel/sdist 并成功上传后，才可用 `uvx agent-lab@0.1.0 codex`。2026-10-23 查询 PyPI 的[项目页](https://pypi.org/project/agent-lab/)、[JSON API](https://pypi.org/pypi/agent-lab/json) 和 [Simple API](https://pypi.org/simple/agent-lab/) 均返回 404，未查到已发布的 `agent-lab` 项目；名称未预留，最终是否允许注册以 PyPI 校验为准。本轮不发布。
 
 Git 与本地安装同样需要下载依赖；`uvx` 隔离的是 Python 包依赖，不是 Codex 的操作权限。[uv 官方文档](https://docs.astral.sh/uv/guides/tools/)

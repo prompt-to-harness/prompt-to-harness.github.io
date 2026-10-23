@@ -88,6 +88,8 @@ exclude = ["MINIMAX_API_KEY"]
 EOF
 fi
 
+# 保留旧配置时也通过启动参数启用终端回滚，不修改已有插件设置。
+codex_args=(-c 'tui.fullscreen_transcript=false' ${codex_args[@]+"${codex_args[@]}"})
 export HOME="$SIM_HOME"
 unset CODEX_HOME OPENAI_API_KEY OPENAI_BASE_URL
 

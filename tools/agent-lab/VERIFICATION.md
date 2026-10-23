@@ -21,13 +21,32 @@
 
 ## 终端形态核验（2026-10-23）
 
-问题：Codex CLI 0.156.0 起提供可选的全屏 transcript，0.157.0 起成为默认。全屏形态占用 alternate screen，终端的 scrollback 不再保存会话，长回复会把上文顶出可视区且无法上滚找回。课程环境改为保留终端 scrollback。
+问题：Codex CLI 0.156.0 起提供可选的全屏 transcript，0.157.0 起成为默认。全屏形态占用 alternate screen，终端的 scrollback 不再保存会话，长回复需要使用 Codex 内部历史功能回看，不能按终端原生回滚的方式找回。课程环境改为保留终端 scrollback。
 
-- 两条启动路径的 `config.toml` 生成模板都加入 `[tui] fullscreen_transcript = false`：`agent-lab` 与 `tools/clean-codex.sh`。两个启动器每次启动都重写该文件，手工改文件无效。
+- 两条启动路径固定 `tui.fullscreen_transcript = false`。Agent Lab 重新生成配置并追加命令行覆盖；`clean-codex.sh` 默认生成配置，`CLEAN_CODEX_KEEP_CONFIG=1` 时保留已有配置并通过启动参数覆盖 TUI 设置，不会重写插件设置。
 - 键名核验：在本机 Codex CLI 0.163.0 的二进制中查到 `tui` 配置结构含 `fullscreen_transcript` 字段，不是猜的键名。
-- 配置接受核验：用生成的 `config.toml` 启动 `codex --help`，退出码 0，配置被正常解析。
+- 配置接受核验（更正）：用生成的 `config.toml` 运行 `codex features list` 成功；故意将 `fullscreen_transcript` 改成字符串后，真实配置加载报错。`codex --help` 退出码 0 不能证明配置已解析。
 - 自动化检查：`agent-lab` 的 17 项 unittest 通过，新增一项断言生成的配置含该设置；`clean-codex.sh` 用桩程序替换 `codex` 启动，核对生成的 `config.toml` 含同样两项。
 - 未核验：Linux 与 Windows 未实测；与 tmux 等多路复用器的交互未测；录屏画面对比未做。配置在启动时读取，切换后需要重启 Codex 才可见。
+
+## Scrollback 修复前复核（2026-10-23）
+
+- 当前工作区与远程分发提交 `ebda794062bb992418d367dd4793951b94878927` 均已包含 `tui.fullscreen_transcript = false`。此前分发命令固定的 `54dffeedc755faf5aa7efd957c146851966379ca` 不含此改动，固定 SHA 不会随分支更新。
+- 重新运行工具的 17 项 unittest，全部通过。以假 Key、临时 HOME 运行不调用模型的 `codex features list`，生成配置加载成功。
+- 更正上文“配置接受核验”的证据边界：`codex --help` 不证明配置已解析。将 `fullscreen_transcript` 故意改为字符串后，`--help` 仍返回 0，而 `features list` 返回 1，明确报告该项应为 boolean。
+- 已修正：README 原写的“删掉生成配置里的两行后重启即可恢复全屏”无法生效，因为 Agent Lab 每次启动都重写配置。现已明确课程模式固定，不能通过修改生成文件切换；需全屏时使用日常 Codex 环境。
+- 已修正：`clean-codex.sh` 的 `CLEAN_CODEX_KEEP_CONFIG=1` 分支保留旧配置，不会补上新设置。以桩 Codex 和缺少 `[tui]` 的旧配置复核，启动成功，但该设置仍不存在。现已在启动参数中补上覆盖，保留旧配置时也生效；离线测试覆盖直连与 `--tap` 两种路径。
+- 本轮没有执行长回复的交互滚动验证，也没有修改启动器、PPT 或推送提交；只补充技术核验记录。
+
+## 修复与长回复实测（2026-10-23）
+
+- 修复三处：保留旧配置时以命令行覆盖启用 Scrollback；README 不再指导编辑自动生成配置切换形态；配置接受核验改用 `features list`，而非 `--help`。
+- 工具共 19 项 unittest 通过。新增的两项检查实际 Codex 配置加载及错误类型拒绝、旧配置原样保留且在直连/代理路径都收到 `exec` 前的 TUI 覆盖。
+- 真实交互：Codex CLI 0.163.0、MiniMax-M3.1-Flash、claude-tap 0.1.146，PTY 接浏览器 xterm.js 5.5.0，110 列 × 28 行。没有使用预制回复或回放；模型连续输出 80 段带编号的文本和 `SCROLL_END_OK`。
+- 终端处于 `normal` 缓冲，长回复结束时 `baseY=159`、`viewportY=159`；上翻后三屏为 `viewportY=78`，再次上翻到 `0`，画面能找回 `SCROLL_LINE_001`。回到底部后 `Shift+PageUp` 将视口移至 `127`，可见第 55 行。
+- 回到底部继续输入 `Reply only SCROLL_FOLLOWUP_OK`，同一真实会话返回该标记，终端仍可输入；此时 `baseY=viewportY=167`。
+- 范围：已验证真实交互输出与浏览器终端的滚动、返回及继续输入。原生 Terminal 自动控制被工具权限拒绝，未验证它的鼠标滚动；Linux、Windows 和 tmux 仍未测。
+- 原始 PTY 输出、请求记录与截图只保存在忽略目录 `lab-runs/scrollback-20261023/` 以及本机课程测试 HOME，不提交。源码包安装用于避免 Git 安装额外克隆课程仓库的 Codex 子模块。
 
 ## 改名前已完成的开发核验
 
