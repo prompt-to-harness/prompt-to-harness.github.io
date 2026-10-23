@@ -151,6 +151,12 @@
 .p-page-bar{display:flex;gap:6px;align-items:center;padding:6px 10px;background:#ECE8DE;border-bottom:1px solid #B9B3A6;font-size:16px;color:#4A5260}
 .p-page-bar i{width:9px;height:9px;border-radius:50%;background:#C9C3B6;display:block}
 .p-page-body{padding:14px 18px;font-size:26px;font-weight:700;line-height:1.35;color:#18202B}
+/* 外部截图 p-shot：放在 .p-page 里，顶栏 .p-page-bar 写出处；放映时按 --shot-h 定高、宽度随图，阅读模式按宽度缩放（external-sources.md） */
+.p-shot{display:flex;flex-direction:column;align-items:center;gap:10px;min-width:0}
+.p-shot .p-page{max-width:100%}
+.p-shot img{display:block;width:auto;max-width:100%;height:var(--shot-h,430px);object-fit:contain}
+body[data-mode='scroll'] .p-shot img{height:auto}
+.p-shot-note{font-size:22px;line-height:1.45;text-align:center;color:var(--p-muted)}
 
 /* ---------- 章节开篇 p-cover ---------- */
 .p-map{display:flex;gap:10px;align-items:stretch}
@@ -487,9 +493,8 @@ body[data-mode='slides'] .scene-content .source-note,
 body[data-mode='slides'] .scene-content .caption,
 body[data-mode='slides'] .scene-content .closing,
 body[data-mode='slides'] .p-q .p-why{display:none}
-/* 副标题与标题、口播重复：演示模式只在每节开篇页显示；录制视图隐藏“第几步”提示 */
+/* 副标题与标题、口播重复：演示模式只在每节开篇页显示；画布内不显示“第几步”，步数只在底部页码栏 */
 body[data-mode='slides'] .scene:not(.lesson-cover) .lede{display:none}
-body.recording[data-mode='slides'] .step-status{display:none}
 /* 收束 .closing：阅读模式页尾的一段，写本页的判断和通往下一页的过渡 */
 .closing{margin:18px 0 0;padding:10px 0 10px 16px;border-left:4px solid var(--p-muted);font-size:20px;line-height:1.7;color:var(--p-ink);max-width:40em}
 /* 原文链接 .p-refs：一行可直接打开的外部原文（证据，工整不抖）；<b> 是分组标签，<a> 自动带 ↗。
