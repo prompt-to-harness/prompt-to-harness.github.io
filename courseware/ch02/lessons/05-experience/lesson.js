@@ -1,8 +1,8 @@
 window.lesson = {
-  "title": "用好 context 的四个做法",
+  "title": "用好 context 的五个做法",
   "chapter": "第 2 章 · Vibe Coding",
   "section": "02.05",
-  "summary": "另一位讲师分享四条平时用好 context 的做法：看懂重发的代价，换会话时自己写交接，换一个工具看它往 context 里放了什么，同一个工具换一个模型服务看请求有什么不同。每条都回到本章的请求记录，看懂即可。",
+  "summary": "另一位讲师分享五条平时用好 context 的做法：看懂重发的代价，换会话时自己写交接，换一个工具看它往 context 里放了什么，同一个工具换一个模型服务看请求有什么不同，用 Phistory 看系统指令怎样随版本变。每条都回到本章的请求记录，看懂即可。",
   "scenes": [
     {
       "id": "p59",
@@ -10,22 +10,22 @@ window.lesson = {
       "layout": "lesson-cover",
       "label": "换一位讲师",
       "title": "平时怎么用好 context？",
-      "lead": "换一位讲师，分享四条平时的做法",
-      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>看请求</li><li class=\"is-done\"><b>2.2</b>补经历</li><li class=\"is-done\"><b>2.3</b>改风格</li><li class=\"is-done\"><b>2.4</b>发布上线</li><li class=\"is-now\"><b>2.5</b>用好 context</li></ol><div class=\"p-grid\" style=\"--n:4;gap:12px;margin-top:22px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ink\">一</span><h3>看懂重发的代价</h3><p>一问花了多少，缓存省了多少</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ctx\">二</span><h3>换会话时自己写交接</h3><p>决定下一轮带上什么</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"tool\">三</span><h3>换一个工具看请求</h3><p>同一句话，context 不一样</p></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"agent\">四</span><h3>换一个模型服务</h3><p>服务端也在做事</p></div></div>",
+      "lead": "换一位讲师，分享五条平时的做法",
+      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>看请求</li><li class=\"is-done\"><b>2.2</b>补经历</li><li class=\"is-done\"><b>2.3</b>改风格</li><li class=\"is-done\"><b>2.4</b>发布上线</li><li class=\"is-now\"><b>2.5</b>用好 context</li></ol><div class=\"p-grid\" style=\"--n:5;gap:10px;margin-top:22px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ink\">一</span><h3>看懂重发的代价</h3><p>一问花了多少，缓存省了多少</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ctx\">二</span><h3>换会话时自己写交接</h3><p>决定下一轮带上什么</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"tool\">三</span><h3>换一个工具看请求</h3><p>同一句话，context 不一样</p></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"agent\">四</span><h3>换一个模型服务</h3><p>服务端也在做事</p></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"gate\">五</span><h3>看系统指令的版本</h3><p>它会随版本变</p></div></div>",
       "steps": [
         "最后一节",
         "换一位讲师",
-        "四条做法"
+        "五条做法"
       ],
       "script": [
         "【操作提示｜停留课件 p59 第 1 步，章节地图上 2.1–2.4 已标完成；指向 2.5，不切工具窗口】\n\n第 2 章的最后一节。前面四节，我们一直在打开请求记录：看它由什么组成，怎么变长，Codex 依据什么改，怎样调用 gh。",
         "【操作提示｜推进第 2 步，讲师切换（按录制约定显示讲师小窗）】\n\n这一节换我来讲，分享几条我平时用好 context 的做法。",
-        "【操作提示｜推进第 3 步，四张卡一起出现，依次指认】\n\n一共四条：第一，看懂重发的代价；第二，换会话的时候，自己写一份交接；第三，换一个工具，看看同一句话发出去是什么样；第四，工具不换，换一个模型服务，看看服务端替它做了些什么。每一条都回到这一章看过的请求记录。"
+        "【操作提示｜推进第 3 步，五张卡一起出现，依次指认】\n\n一共五条：第一，看懂重发的代价；第二，换会话的时候，自己写一份交接；第三，换一个工具，看看同一句话发出去是什么样；第四，工具不换，换一个模型服务，看看服务端替它做了些什么；第五，看系统指令怎样随版本变。每一条都回到这一章看过的请求记录。"
       ],
       "teaching": [
         {
           "title": "讲师提示",
-          "text": "本节由另一位讲师讲（章文件 C2-37）。开场一句说明换了人、这一节是经验分享；讲师切换的画面衔接（小窗、开场语）按 docs/production/ 的约定，未定稿前口播一句即可。四条都只回到本章的请求记录，不要求学员安装或操作新工具。"
+          "text": "本节由另一位讲师讲（章文件 C2-37）。开场一句说明换了人、这一节是经验分享；讲师切换的画面衔接（小窗、开场语）按 docs/production/ 的约定，未定稿前口播一句即可。五条都只回到本章的请求记录，不要求学员安装或操作新工具。"
         }
       ],
       "source": "index.html#p59",
@@ -160,19 +160,60 @@ window.lesson = {
       "seconds": 90
     },
     {
+      "id": "p62b",
+      "segment": "看版本",
+      "layout": "evidence-scene",
+      "label": "系统指令的版本历史",
+      "title": "系统指令会随版本变",
+      "lead": "系统指令不是一成不变的。Phistory 是一个开源项目：对每个发布版本，装好 CLI，经 claude-tap 记下它发出的请求，把系统指令存成快照，再在 phistory.cc 上逐版本对比。这里是 Codex 的两个相邻版本：0.157.0 把“不要用工具替人发消息，除非已有明确授权”改成了“除非用户明确要求，或来自明确调用的技能或插件”，并要求在最终回复里点明是哪个技能或插件授权的。同一个 Codex，换一个版本，对外发消息这条边界就变了。",
+      "html": "<div class=\"p-shot\" style=\"--shot-h:390px\" data-reveal=\"0\"><div class=\"p-page\"><div class=\"p-page-bar\"><i></i><i></i><i></i>phistory.cc · Codex CLI 0.156.0 → 0.157.0 · 系统指令对比（OpenAI 模型下的快照）</div><img src=\"external/phistory-codex-0.156.0-0.157.0.png\" alt=\"Phistory 查看器：Codex CLI 0.156.0 与 0.157.0 系统指令的逐行对比，红色是删去的一句，绿色是改写后的一句\"></div></div>",
+      "refs": [
+        {
+          "kind": "live",
+          "group": "Codex 0.156.0 → 0.157.0",
+          "text": "Phistory 对比页",
+          "url": "https://phistory.cc/?agent=codex&from=0.156.0&to=0.157.0"
+        },
+        {
+          "kind": "live",
+          "group": "v0.1.146",
+          "text": "claude-tap README",
+          "url": "https://github.com/liaohch3/claude-tap/blob/v0.1.146/README.md#built-with-claude-tap"
+        }
+      ],
+      "steps": [
+        "看对比"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p62b 第 1 步，指截图里红色和绿色的两处；录制时可切到浏览器打开右下角的链接，改右上角的版本号】\n\n第五条。前面我们一直看一次请求里有什么，那这些系统指令会不会变？有一个开源项目叫 Phistory，对每个发布版本，装好命令行工具，用我们前面那个 claude-tap 记下它发出的请求，把系统指令存成快照，再放到网页上逐版本对比。这里是 Codex 的两个相邻版本。红色的是 0.156.0 的一句：不要用工具替人发消息，除非已经明确授权。绿色是 0.157.0 的改法：除非用户明确要求，或者来自明确调用的技能或插件；如果是技能或插件授权的，要在最终回复里点明。\n\n接着说：同一个 Codex，换了一个版本，对外发消息这条边界就变了。这正是 2.4 里我们让人来确认对外动作的那类规则。所以系统指令不是一成不变的：升级工具以后，同一句 Prompt 的表现可能不一样，可以先来这里看看改了什么。需要说明，这些快照是 OpenAI 模型下的系统指令，和我们课上用的 MiniMax 下那一句话不一样，这一点和上一条是连着的。"
+      ],
+      "teaching": [
+        {
+          "title": "核实记录",
+          "text": "2026-10-23 核实：phistory.cc 的 Codex CLI 有 105 个版本，含课程用过的 0.156.0、0.157.0、0.163.0，每个版本有 default、gpt-5.6、gpt-5.5 三个变体；站点数据取自 github.com/WEIFENG2333/phistory 的 captures/index.json。快照是 OpenAI 模型下的系统指令（default 变体的模型为 gpt-6 系列），不是课程基线 MiniMax 下那一句话的版本，要和 p62a 对上说。0.156.0 → 0.157.0 的另一处变化是模型列表改了名（gpt-6-astra 等）。第 15 行为画面所示的一处；0.163.0 里这一行与 0.157.0 相同。截图用 phistory.cc 的 ?agent=codex&from=0.156.0&to=0.157.0 在宽 1000 的视口截取，滚到第 13 行；原始数据在第三方站点，页面只放截图与出处，不转载快照全文。登记见 materials/external/README.md。"
+        },
+        {
+          "title": "讲师提示",
+          "text": "只做展示，不要求学员装多个版本，也不要求学员打开站点。录制时直接在浏览器里打开链接，改右上角的版本号，也可以切到 Claude Code 看另一个工具；站点是第三方，录制当天确认可访问。变化的含义只讲一句：这条规则正是 2.4 那类对外动作的边界，它会随版本变，所以“规则会过期”（第 7 章展开）。"
+        }
+      ],
+      "source": "index.html#p62b",
+      "seconds": 30
+    },
+    {
       "id": "p63",
       "segment": "小结",
       "label": "本节小结",
-      "title": "四条做法，和这一章",
-      "lead": "四条做法：看懂重发的代价，换会话时自己写交接，换一个工具先看它往 context 里放了什么，换一个模型服务也要看服务端替它做了什么。回看这一章：每一节都回到请求记录里找答案；项目上留下了审过的提交、公开 URL 和 ch02-homepage-live tag。下一章，给个人主页加一个小游戏。",
-      "html": "<div class=\"p-grid\" style=\"--n:4;gap:12px\"><div class=\"p-box is-soft\" data-role=\"ink\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>看代价</h3><p>重发要钱，缓存只让它便宜</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>写交接</h3><p>留什么由我们决定</p></div><div class=\"p-box is-soft\" data-role=\"tool\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>换工具</h3><p>先看它放了什么</p></div><div class=\"p-box is-soft\" data-role=\"agent\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>换服务</h3><p>服务端也在做事</p></div></div><div class=\"p-flow\" style=\"--n:5;margin-top:14px\"><div class=\"p-node\" data-role=\"us\" data-reveal=\"1\"><h3>2.1</h3><p>只说了一句话，模型收到了什么</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"1\"><h3>2.2</h3><p>补上个人经历，看对话怎么变长</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"1\"><h3>2.3</h3><p>参考一个主页改风格：它看到了什么</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"1\"><h3>2.4</h3><p>发布上线，看 Codex 怎么用 gh</p></div><div class=\"p-node\" data-role=\"ctx\" data-reveal=\"1\"><h3>2.5</h3><p>用好 context 的四个做法</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:14px\">下一章 · 第 3 章：给个人主页加一个小游戏</div>",
+      "title": "五条做法，和这一章",
+      "lead": "五条做法：看懂重发的代价，换会话时自己写交接，换一个工具先看它往 context 里放了什么，换一个模型服务也要看服务端替它做了什么，系统指令会随版本变、要看版本记录。回看这一章：每一节都回到请求记录里找答案；项目上留下了审过的提交、公开 URL 和 ch02-homepage-live tag。下一章，给个人主页加一个小游戏。",
+      "html": "<div class=\"p-grid\" style=\"--n:5;gap:10px\"><div class=\"p-box is-soft\" data-role=\"ink\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>看代价</h3><p>重发要钱，缓存只让它便宜</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>写交接</h3><p>留什么由我们决定</p></div><div class=\"p-box is-soft\" data-role=\"tool\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>换工具</h3><p>先看它放了什么</p></div><div class=\"p-box is-soft\" data-role=\"agent\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>换服务</h3><p>服务端也在做事</p></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>看版本</h3><p>指令会随版本变</p></div></div><div class=\"p-flow\" style=\"--n:5;margin-top:14px\"><div class=\"p-node\" data-role=\"us\" data-reveal=\"1\"><h3>2.1</h3><p>只说了一句话，模型收到了什么</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"1\"><h3>2.2</h3><p>补上个人经历，看对话怎么变长</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"1\"><h3>2.3</h3><p>参考一个主页改风格：它看到了什么</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"1\"><h3>2.4</h3><p>发布上线，看 Codex 怎么用 gh</p></div><div class=\"p-node\" data-role=\"ctx\" data-reveal=\"1\"><h3>2.5</h3><p>用好 context 的五个做法</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:14px\">下一章 · 第 3 章：给个人主页加一个小游戏</div>",
       "steps": [
-        "四条做法",
+        "五条做法",
         "回看本章",
         "下一章"
       ],
       "script": [
-        "【操作提示｜停留课件 p63 第 1 步，指四张卡】\n\n四条做法：重发要花钱，缓存只是让它便宜；换会话时自己写交接，留什么由我们决定；换工具之前，先看它往 context 里放了什么；换模型服务，也要看服务端替它做了什么。",
+        "【操作提示｜停留课件 p63 第 1 步，指五张卡】\n\n五条做法：重发要花钱，缓存只是让它便宜；换会话时自己写交接，留什么由我们决定；换工具之前，先看它往 context 里放了什么；换模型服务，也要看服务端替它做了什么；系统指令会随版本变，要看版本记录。",
         "【操作提示｜推进第 2 步，五个节点一起出现，按 2.1 到 2.5 的顺序逐个指认】\n\n回看这一章：2.1 只发一句话，看清模型收到了什么；2.2 补上个人经历，看对话怎么变长、怎么清空和压缩；2.3 审 AI 交回的改动，看它依据什么改，再参考别人的主页改了一处风格；2.4 发布上线，看这些内容发到了哪里；最后这一节，分享用好 context 的几个做法。项目上，我们留下了审过的提交、一个公开的 URL，和 ch02-homepage-live 这个 tag。",
         "【操作提示｜推进第 3 步，指向底部的第 3 章预告；进入 p63a】\n\n下一章，我们给个人主页加一个小游戏。走之前，先用这一章的七个问题考考自己。"
       ],
@@ -232,6 +273,10 @@ window.lesson = {
     {
       "label": "换个服务",
       "seconds": 90
+    },
+    {
+      "label": "看版本",
+      "seconds": 30
     },
     {
       "label": "小结",

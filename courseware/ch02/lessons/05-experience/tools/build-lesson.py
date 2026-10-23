@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""2.5 工程经验分享：用好 context 的四个做法。本节唯一的内容源，生成 lesson.js。
+"""2.5 工程经验分享：用好 context 的五个做法。本节唯一的内容源，生成 lesson.js。
 
 分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch02/tools/lessonkit.py。
 2026-10-21 按章文件 C2-37 重做：最后一节改为另一位讲师的经验分享，页面 id 从 p59 起新编，
@@ -9,9 +9,9 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from lessonkit import NARROW, Lesson, chapter_map, code_lines, ref, teach  # noqa: E402
+from lessonkit import NARROW, Lesson, chapter_map, code_lines, ref, shot, teach  # noqa: E402
 
-lesson = Lesson(__file__, "2.5", "用好 context 的四个做法", summary="另一位讲师分享四条平时用好 context 的做法：看懂重发的代价，换会话时自己写交接，换一个工具看它往 context 里放了什么，同一个工具换一个模型服务看请求有什么不同。每条都回到本章的请求记录，看懂即可。")
+lesson = Lesson(__file__, "2.5", "用好 context 的五个做法", summary="另一位讲师分享五条平时用好 context 的做法：看懂重发的代价，换会话时自己写交接，换一个工具看它往 context 里放了什么，同一个工具换一个模型服务看请求有什么不同，用 Phistory 看系统指令怎样随版本变。每条都回到本章的请求记录，看懂即可。")
 scene = lesson.scene
 
 RUN = "数字来自讲师的一次运行（2026-10-21，课程基线，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开）；随版本、模型、配置和任务变化，只说明结构"
@@ -22,7 +22,7 @@ SECTION_QS = [
     ("2.2", "补上个人经历，看对话怎么变长", "agent"),
     ("2.3", "参考一个主页改风格：它看到了什么", "tool"),
     ("2.4", "发布上线，看 Codex 怎么用 gh", "ok"),
-    ("2.5", "用好 context 的四个做法", "ctx"),
+    ("2.5", "用好 context 的五个做法", "ctx"),
 ]
 
 HANDOFF = [
@@ -38,18 +38,19 @@ HANDOFF = [
 scene(
     id="p59", segment="开场", layout="lesson-cover",
     label="换一位讲师", title="平时怎么用好 context？",
-    lead="换一位讲师，分享四条平时的做法",
+    lead="换一位讲师，分享五条平时的做法",
     html=(
         chapter_map(5) +
-        '<div class="p-grid" style="--n:4;gap:12px;margin-top:22px">'
+        '<div class="p-grid" style="--n:5;gap:10px;margin-top:22px">'
         '<div class="p-box" data-role="ink" data-reveal="2"><span class="p-tag" data-role="ink">一</span><h3>看懂重发的代价</h3><p>一问花了多少，缓存省了多少</p></div>'
         '<div class="p-box" data-role="ctx" data-reveal="2"><span class="p-tag" data-role="ctx">二</span><h3>换会话时自己写交接</h3><p>决定下一轮带上什么</p></div>'
         '<div class="p-box" data-role="tool" data-reveal="2"><span class="p-tag" data-role="tool">三</span><h3>换一个工具看请求</h3><p>同一句话，context 不一样</p></div>'
-        '<div class="p-box" data-role="agent" data-reveal="2"><span class="p-tag" data-role="agent">四</span><h3>换一个模型服务</h3><p>服务端也在做事</p></div></div>'
+        '<div class="p-box" data-role="agent" data-reveal="2"><span class="p-tag" data-role="agent">四</span><h3>换一个模型服务</h3><p>服务端也在做事</p></div>'
+        '<div class="p-box" data-role="gate" data-reveal="2"><span class="p-tag" data-role="gate">五</span><h3>看系统指令的版本</h3><p>它会随版本变</p></div></div>'
     ),
-    steps=["最后一节", "换一位讲师", "四条做法"],
+    steps=["最后一节", "换一位讲师", "五条做法"],
     teaching=teach(
-        ("讲师提示", "本节由另一位讲师讲（章文件 C2-37）。开场一句说明换了人、这一节是经验分享；讲师切换的画面衔接（小窗、开场语）按 docs/production/ 的约定，未定稿前口播一句即可。四条都只回到本章的请求记录，不要求学员安装或操作新工具。"),
+        ("讲师提示", "本节由另一位讲师讲（章文件 C2-37）。开场一句说明换了人、这一节是经验分享；讲师切换的画面衔接（小窗、开场语）按 docs/production/ 的约定，未定稿前口播一句即可。五条都只回到本章的请求记录，不要求学员安装或操作新工具。"),
     ),
 )
 
@@ -152,21 +153,37 @@ scene(
 )
 
 scene(
+    id="p62b", segment="看版本", layout="evidence-scene",
+    label="系统指令的版本历史", title="系统指令会随版本变",
+    lead="系统指令不是一成不变的。Phistory 是一个开源项目：对每个发布版本，装好 CLI，经 claude-tap 记下它发出的请求，把系统指令存成快照，再在 phistory.cc 上逐版本对比。这里是 Codex 的两个相邻版本：0.157.0 把“不要用工具替人发消息，除非已有明确授权”改成了“除非用户明确要求，或来自明确调用的技能或插件”，并要求在最终回复里点明是哪个技能或插件授权的。同一个 Codex，换一个版本，对外发消息这条边界就变了。",
+    html=shot("external/phistory-codex-0.156.0-0.157.0.png", "phistory.cc · Codex CLI 0.156.0 → 0.157.0 · 系统指令对比（OpenAI 模型下的快照）",
+              "Phistory 查看器：Codex CLI 0.156.0 与 0.157.0 系统指令的逐行对比，红色是删去的一句，绿色是改写后的一句", height=390),
+    refs=[ref("Phistory 对比页", "https://phistory.cc/?agent=codex&from=0.156.0&to=0.157.0", "Codex 0.156.0 → 0.157.0"),
+          ref("claude-tap README", "https://github.com/liaohch3/claude-tap/blob/v0.1.146/README.md#built-with-claude-tap", "v0.1.146")],
+    steps=["看对比"],
+    teaching=teach(
+        ("核实记录", "2026-10-23 核实：phistory.cc 的 Codex CLI 有 105 个版本，含课程用过的 0.156.0、0.157.0、0.163.0，每个版本有 default、gpt-5.6、gpt-5.5 三个变体；站点数据取自 github.com/WEIFENG2333/phistory 的 captures/index.json。快照是 OpenAI 模型下的系统指令（default 变体的模型为 gpt-6 系列），不是课程基线 MiniMax 下那一句话的版本，要和 p62a 对上说。0.156.0 → 0.157.0 的另一处变化是模型列表改了名（gpt-6-astra 等）。第 15 行为画面所示的一处；0.163.0 里这一行与 0.157.0 相同。截图用 phistory.cc 的 ?agent=codex&from=0.156.0&to=0.157.0 在宽 1000 的视口截取，滚到第 13 行；原始数据在第三方站点，页面只放截图与出处，不转载快照全文。登记见 materials/external/README.md。"),
+        ("讲师提示", "只做展示，不要求学员装多个版本，也不要求学员打开站点。录制时直接在浏览器里打开链接，改右上角的版本号，也可以切到 Claude Code 看另一个工具；站点是第三方，录制当天确认可访问。变化的含义只讲一句：这条规则正是 2.4 那类对外动作的边界，它会随版本变，所以“规则会过期”（第 7 章展开）。"),
+    ),
+)
+
+scene(
     id="p63", segment="小结",
-    label="本节小结", title="四条做法，和这一章",
-    lead="四条做法：看懂重发的代价，换会话时自己写交接，换一个工具先看它往 context 里放了什么，换一个模型服务也要看服务端替它做了什么。回看这一章：每一节都回到请求记录里找答案；项目上留下了审过的提交、公开 URL 和 ch02-homepage-live tag。下一章，给个人主页加一个小游戏。",
+    label="本节小结", title="五条做法，和这一章",
+    lead="五条做法：看懂重发的代价，换会话时自己写交接，换一个工具先看它往 context 里放了什么，换一个模型服务也要看服务端替它做了什么，系统指令会随版本变、要看版本记录。回看这一章：每一节都回到请求记录里找答案；项目上留下了审过的提交、公开 URL 和 ch02-homepage-live tag。下一章，给个人主页加一个小游戏。",
     html=(
-        '<div class="p-grid" style="--n:4;gap:12px">'
+        '<div class="p-grid" style="--n:5;gap:10px">'
         '<div class="p-box is-soft" data-role="ink" data-reveal="0" style="padding:8px 14px"><h3>看代价</h3><p>重发要钱，缓存只让它便宜</p></div>'
         '<div class="p-box is-soft" data-role="ctx" data-reveal="0" style="padding:8px 14px"><h3>写交接</h3><p>留什么由我们决定</p></div>'
         '<div class="p-box is-soft" data-role="tool" data-reveal="0" style="padding:8px 14px"><h3>换工具</h3><p>先看它放了什么</p></div>'
-        '<div class="p-box is-soft" data-role="agent" data-reveal="0" style="padding:8px 14px"><h3>换服务</h3><p>服务端也在做事</p></div></div>'
+        '<div class="p-box is-soft" data-role="agent" data-reveal="0" style="padding:8px 14px"><h3>换服务</h3><p>服务端也在做事</p></div>'
+        '<div class="p-box is-soft" data-role="gate" data-reveal="0" style="padding:8px 14px"><h3>看版本</h3><p>指令会随版本变</p></div></div>'
         '<div class="p-flow" style="--n:5;margin-top:14px">'
         + "".join(f'<div class="p-node" data-role="{role}" data-reveal="1"><h3>{num}</h3><p>{q}</p></div>' for num, q, role in SECTION_QS) +
         '</div>'
         '<div class="p-bar is-light" data-reveal="2" style="margin-top:14px">下一章 · 第 3 章：给个人主页加一个小游戏</div>'
     ),
-    steps=["四条做法", "回看本章", "下一章"],
+    steps=["五条做法", "回看本章", "下一章"],
     teaching=teach(("讲师提示", "全章回看原在 2.5 p58，随本节重做移到这里。第 3 章预告按第 3 章定稿调整。")),
 )
 

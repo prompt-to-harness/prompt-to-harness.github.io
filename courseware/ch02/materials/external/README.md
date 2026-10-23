@@ -94,3 +94,13 @@ uv run courseware/tools/capture-source.py https://startbootstrap.github.io/start
 # page.goto("https://jonbarron.info/"); page.screenshot(full_page=True, clip={"x":0,"y":0,"width":1280,"height":640})，视口 1280×900、device_scale_factor=1
 ```
 
+
+## 2.5 p62b 系统指令版本对比（2026-10-23）
+
+对应章文件 C2-76。数据取自 [WEIFENG2333/phistory](https://github.com/WEIFENG2333/phistory) 的 `captures/index.json`（2026-10-22 更新）。
+
+| 文件 | 来源 | 作者 · 日期 | 截取 | 拟用在 | 状态 |
+| --- | --- | --- | --- | --- | --- |
+| `../../lessons/05-experience/external/phistory-codex-0.156.0-0.157.0.png` | [phistory.cc 对比页](https://phistory.cc/?agent=codex&from=0.156.0&to=0.157.0)，Codex CLI 0.156.0 → 0.157.0 默认变体，滚到第 13 行 | Phistory（WEIFENG2333）· 快照 2026-09-22 与 2026-09-25 发布 | 2026-10-23，宽 1000 视口，2 倍像素 | 2.5 p62b | 采用（C2-76） |
+
+重新截取：用 Playwright 打开上面的链接，等 `.monaco-diff-editor` 出现，再用 `monaco.editor.getDiffEditors()[0]` 的两侧编辑器 `revealLineNearTop(13)`，截整个视口。站点 README 未写许可证，只截图引用并标出处。
