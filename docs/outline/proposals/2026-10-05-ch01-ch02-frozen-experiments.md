@@ -18,7 +18,7 @@
 | [第 1 章排练快照](../../../starters/personal-homepage/ch01-complete-notes.md) | 真实 Codex 排练过程、首页 v0、版本与依赖、浏览器和构建结果；包含内容列宽度异常及两轮修正的记载 | 排练版，非录制版；记录还指出后续人工调整依赖；有过程记载不等于已具备完整可重放轨迹 |
 | [检查点说明](../../../starters/personal-homepage/ch01-complete/CHECKPOINTS.md) | 学员连续做自己的仓库；可从第一章参考快照开始第二章；已有工作须先保留 | 课程发布基线与后续快照仍有未发布项 |
 | [第 2 章材料](../../../courseware/ch02/materials/README.md) | 内容迭代预估 diff、重构 A/B diff，已有一次应用、构建和行为核对记录 | `homepage-v1.diff` 为备课材料，不能标成 2.2 的真实 Codex 运行；材料目录不进入 Pages 站点 |
-| [第 2 章文件](../../chapters/ch02.md) | 请求组成、隔离环境、会话恢复和压缩的历史核验；C2-05 明确不准备坏 diff、错误 base 分支 | 依赖特定版本、provider 与单机记录；不保证未来输出一致 |
+| [第 2 章文件](../../../courseware/ch02/README.md) | 请求组成、隔离环境、会话恢复和压缩的历史核验；C2-05 明确不准备坏 diff、错误 base 分支 | 依赖特定版本、provider 与单机记录；不保证未来输出一致 |
 | [2.1 验证记录](../../../courseware/ch02/lessons/01-request/VALIDATION.md) | 已检查课件与事实引用 | 统一脱敏请求素材、实验 setup 与配套入口仍有待制作项 |
 | [2.3 分镜](../../../courseware/ch02/lessons/03-review/STORYBOARD.md) | 代码与记录分开提交；在临时仓库实测撤回代码后保留记录 | 需整理成与冻结主线对应的可重建实验 |
 | [隔离启动脚本](../../../tools/clean-codex.sh) | 已有建立独立环境并启动 Codex / 请求查看工具的入口 | 本次只读；脚本存在不等于实验已验证，仍需冻结配置与运行条件 |

@@ -83,7 +83,7 @@ for path in sorted(courseware.rglob('script.json')):
 
 # ED-011: relative Markdown links must resolve (catches residue after deleting a page)
 md_roots = [courseware, repo / 'docs' / 'production', repo / 'docs' / 'design',
-            repo / 'docs' / 'chapters', repo / 'docs' / 'agents', repo / 'docs' / 'outline']
+            repo / 'docs' / 'agents', repo / 'docs' / 'outline']
 link = re.compile(r'\[[^\]]*\]\(([^)#?\s]+)(?:[#?][^)]*)?\)')
 for root in md_roots:
     for path in sorted(root.rglob('*.md')):
@@ -105,7 +105,8 @@ for row in retired_section.splitlines():
     cells = [c.strip() for c in row.strip().strip('|').split('|')]
     if len(cells) == 3 and cells[0] and cells[0] not in ('废弃说法', '---'):
         retired.append((cells[0], cells[1], cells[2]))
-current = sorted((repo / 'docs' / 'chapters').glob('ch*.md'))
+# 已迁移的章有 LOG.md；查它的章文件，LOG 本身是历史，不查
+current = sorted(p.parent / 'README.md' for p in courseware.glob('ch*/LOG.md'))
 current += sorted(courseware.glob('ch*/lessons/*/script.json'))
 current += sorted(courseware.glob('ch*/lessons/*/tools/build-lesson.py'))
 for path in current:

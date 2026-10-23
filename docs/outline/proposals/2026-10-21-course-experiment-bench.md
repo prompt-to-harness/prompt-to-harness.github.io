@@ -65,7 +65,7 @@
 
 ### 配置
 
-- 任务：第 2 章 2.1 的两步只读 Prompt（与 [第 2 章文件](../../chapters/ch02.md) 2.1 一致）：先发“你好，用一句话介绍你能帮我做什么。”，再问“这个个人主页 v0 当初定了哪些要求和完成标准？”。第二步用 `--resume-trajectory` 接上第一步的会话。
+- 任务：第 2 章 2.1 的两步只读 Prompt（与 [第 2 章文件](../../../courseware/ch02/README.md) 2.1 一致）：先发“你好，用一句话介绍你能帮我做什么。”，再问“这个个人主页 v0 当初定了哪些要求和完成标准？”。第二步用 `--resume-trajectory` 接上第一步的会话。
 - 起点：course-starter `ch02-start-v1`（`8e9a323`），在镜像里解开后作为干净的 Git 仓库。
 - 环境：Harbor 0.24.0；Colima（vz 虚拟机，4 CPU、6 GiB）上的 Docker；镜像为 `node:22-bookworm-slim` 加预装的 `@openai/codex@0.163.0`，Harbor 发现同版本就跳过安装。
 - 检查：每步结束后 `git status --porcelain --untracked-files=all`，没有改动记 `read_only = 1`。

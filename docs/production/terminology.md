@@ -73,7 +73,7 @@
 
 ## 已废弃的说法
 
-`courseware/tools/check-editorial.py`（ED-012）在已迁移的章文件（`docs/chapters/`，“决策记录”“实测记录”两节除外）和课件内容源（`script.json`、`build-lesson.py`）里查找下表左列，出现即报错。新增一行就会生效；“保留的原文”列出确实要原样保留的片段（如已实测发出的 Prompt），含该片段的行不报。审查记录、提案和 Git 历史不查。
+`courseware/tools/check-editorial.py`（ED-012）在已迁移的章文件（`courseware/chNN/README.md`；决策和实测在 `LOG.md`，不查）和课件内容源（`script.json`、`build-lesson.py`）里查找下表左列，出现即报错。新增一行就会生效；“保留的原文”列出确实要原样保留的片段（如已实测发出的 Prompt），含该片段的行不报。审查记录、提案和 Git 历史不查。
 
 | 废弃说法 | 改用 | 保留的原文 |
 | --- | --- | --- |
