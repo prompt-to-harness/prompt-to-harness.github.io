@@ -98,13 +98,13 @@ for path in sorted(root.rglob('index.html')):
             errors.append(f'{name}: 没有加载 {asset}')
 
 # 字体缺字：全课文字中的汉字必须都在各字体子集里，否则会回退系统字体显示。
-# 覆盖表由 subset-fonts.py 生成；这里只用标准库比对，范围与 subset-fonts.py 一致。
+# 覆盖表由 subset-fonts.py 生成；这里只用标准库比对，范围与 subset-fonts.py 一致。Markdown 不发布（build-site.py 跳过），不计入。
 coverage = json.loads((courseware / 'tools' / 'font-coverage.json').read_text())
 font_text = ''.join(
     p.read_text(errors='ignore')
     for base in (courseware, resources / 'demos' / 'parts')
     for p in sorted(base.rglob('*'))
-    if p.suffix in {'.js', '.html', '.css', '.md', '.svg'} and 'archive' not in p.parts and 'fonts' not in p.parts and 'materials' not in p.parts
+    if p.suffix in {'.js', '.html', '.css', '.svg'} and 'archive' not in p.parts and 'fonts' not in p.parts and 'materials' not in p.parts
 )
 han = {c for c in font_text if '\u4e00' <= c <= '\u9fff'}
 for font_id in ('title', 'cover', 'sans'):

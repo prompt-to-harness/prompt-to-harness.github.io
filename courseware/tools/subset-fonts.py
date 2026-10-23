@@ -35,7 +35,7 @@ text = "".join(
     p.read_text(errors="ignore")
     for root in roots
     for p in sorted(root.rglob("*"))
-    if p.suffix in {".js", ".html", ".css", ".md", ".svg"} and "archive" not in p.parts and "fonts" not in p.parts and "materials" not in p.parts
+    if p.suffix in {".js", ".html", ".css", ".svg"} and "archive" not in p.parts and "fonts" not in p.parts and "materials" not in p.parts
 )
 text += "".join(chr(i) for i in range(32, 127))
 text += "←→↑↓↗＋−×÷✓✗·…—–，。；：！？“”‘’、（）「」《》【】〔〕￥％第章节上下页段步"
