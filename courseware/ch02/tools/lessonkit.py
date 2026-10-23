@@ -2,7 +2,7 @@
 
 每节的 tools/build-lesson.py 只写本节内容：
 
-    lesson = Lesson(__file__, "2.3", "AI 交回的改动，收不收", summary="…")
+    lesson = Lesson(__file__, "2.3", "它看到了什么，才这样改", summary="…")
     scene = lesson.scene
     scene(id="p35", …)
     lesson.write()
@@ -15,7 +15,7 @@ from html import escape
 from pathlib import Path
 
 CHAPTER = "第 2 章 · Vibe Coding"
-SECTIONS = [("2.1", "听反馈"), ("2.2", "改一处"), ("2.3", "审改动"), ("2.4", "公开发布"), ("2.5", "只是重构？")]
+SECTIONS = [("2.1", "看请求"), ("2.2", "补经历"), ("2.3", "改风格"), ("2.4", "发布上线"), ("2.5", "用好 context")]
 
 MEASURED = "数字来自讲师机器上的一次运行（2026-10-02，Codex 0.160.0 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。"
 
@@ -37,6 +37,33 @@ def ref(text, url, group="", kind="live"):
     assert kind in ("live", "read"), kind
     assert url.startswith("https://"), url
     return {"kind": kind, "group": group, "text": text, "url": url}
+
+
+EXTERNAL = Path(__file__).resolve().parents[1] / "materials/external"
+
+
+def shot(src, bar, alt, height=440, note="", reveal=0):
+    """证据页（layout="evidence-scene"）里的外部截图：顶栏 bar 写“站点 · 作者 · 日期”，图片放在本节 external/。
+
+    规则见 docs/production/external-sources.md；height 是放映时的图高（--shot-h）。
+    """
+    note = f'<p class="p-shot-note">{note}</p>' if note else ""
+    return (f'<div class="p-shot" style="--shot-h:{height}px" data-reveal="{reveal}"><div class="p-page">'
+            f'<div class="p-page-bar"><i></i><i></i><i></i>{bar}</div><img src="{src}" alt="{escape(alt)}"></div>{note}</div>')
+
+
+def redrawn(topic, name, style, source="", reveal=0, max_height=440, note=""):
+    """证据页里的重画图：内联 materials/external/<topic>/redraw-<name>-<style>.svg（由 courseware/tools/redraw.py 生成），
+    source 是阅读模式中的制作说明；演示来源统一由 scene 的 refs 提供。
+    note 是影响理解的可见说明（如读图近似），不作为第二条出处。
+    内联而不用 <img>，才能用上课件字体和抖动滤镜 #p-rough。
+    """
+    assert style in ("course", "excalidraw"), style
+    svg = (EXTERNAL / topic / f"redraw-{name}-{style}.svg").read_text().strip()
+    svg = svg.replace('<svg ', f'<svg style="display:block;max-width:100%;height:auto;max-height:{max_height}px" ', 1)
+    source_html = f'<p class="source-note">{escape(source)}</p>' if source else ""
+    note_html = f'<p class="p-shot-note" style="font-size:18px">{escape(note)}</p>' if note else ""
+    return f'<div class="p-shot" data-reveal="{reveal}">{svg}{note_html}{source_html}</div>'
 
 
 def repro(steps, note="", label="复现这个实验"):
@@ -94,6 +121,30 @@ def pop(title, label, body):
         f'<div class="p-pop-head"><span>{title}</span>'
         "<button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div>"
         f"{body}</div></details>"
+    )
+
+
+# 全章锚点图“这一次请求里有什么”的七块（章文件 C2-53）；各节开篇按本节高亮其中几块
+ANCHOR = ["系统指令", "工具", "环境", "规则", "对话历史", "工具返回", "这一句"]
+
+
+def anchor(lit=(), outside=(), note="", reveal=None, title="这一次请求里有什么"):
+    """锚点图（零件 .p-set + .p-item）：lit 里的块高亮；outside 是画在列外、不在请求里的东西；note 是底部一句。"""
+    assert set(lit) <= set(ANCHOR), lit
+    attr = f' data-reveal="{reveal}"' if reveal is not None else ""
+    items = "".join(
+        f'<div class="p-item{" is-picked" if b in lit else ""}" style="padding:4px 10px;font-size:18px">{b}</div>' for b in ANCHOR
+    )
+    out = ""
+    if outside:
+        out = '<div class="p-foot">不在里面：' + "".join(
+            f'<span class="p-item" style="display:inline-block;margin:4px 6px 0 0;padding:2px 8px;font-size:17px;border-style:dashed">{x}</span>' for x in outside
+        ) + "</div>"
+    foot = f'<div class="p-foot">{note}</div>' if note else ""
+    return (
+        f'<div class="p-set" data-role="ctx"{attr} style="padding:10px 16px 12px">'
+        f'<h3 style="font-size:20px;margin-bottom:6px">{title}</h3>'
+        f'<div class="p-items" style="flex-direction:row;flex-wrap:wrap;gap:6px">{items}</div>{out}{foot}</div>'
     )
 
 

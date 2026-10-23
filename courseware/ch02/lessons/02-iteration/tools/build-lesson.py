@@ -1,395 +1,212 @@
 #!/usr/bin/env python3
-"""2.2 只改一处，并证明改好了：本节唯一的内容源，生成 lesson.js。
-
-分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch02/tools/lessonkit.py。
-"""
+"""2.2 页面内容源；分镜在 STORYBOARD.md，口播唯一来源为 script.json。"""
 import sys
+from html import escape
 from pathlib import Path
-
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from lessonkit import Lesson, MEASURED, NARROW, chapter_map, ref, repro, teach  # noqa: E402
+from lessonkit import Lesson, anchor, chapter_map, redrawn, ref, teach
 
-lesson = Lesson(__file__, "2.2", "只改一处，并证明改好了", summary="先弄清模型、会话、文件与进程各记住什么，再选会话；用当前证据让 Codex 只改项目区，并用三种视口、键盘和构建证明没弄坏别的。")
+lesson = Lesson(__file__, "2.2", "补上个人经历，看对话怎么变长", summary="先把人写的个人资料放进主页，比较普通与 Plan 模式的工作过程；沿选定的 Plan 成果检查页面和构建，再回看历史、缓存与压缩，选择下一步怎样继续会话。")
 scene = lesson.scene
 
+ROUND_PROMPT = """Goal：把 profile.md 中的基本信息、教育、工作经历和项目放进个人主页，替换对应的占位内容。
+Context：profile.md 在项目根目录，由我提供个人事实与经历。当前页面已有首屏和占位项目区，项目卡不跳转。请先读取文件并检查当前实现。
+Constraints：个人事实与经历只使用 profile.md 的内容，不补写。可为呈现内容调整结构与样式；不添加链接或依赖，项目卡保持不跳转。先提出改动计划，等我确认后再修改。
+Done when：四块个人内容已呈现，事实与经历都能在 profile.md 中找到；你运行 npm run build 并报告结果；我在浏览器里检查文字与排版。"""
 
-REPO = "数据来自 openai/codex 仓库（Apache-2.0）的提交历史，2026-10-02 核对、10-03 复核、10-05 在子模块 third_party/codex 逐版重算；大小为文件字节数。"
+PLAN_FEEDBACK = """先调整计划，暂不改文件：保持原有风格和单列布局；基本信息并入首屏，姓名用“缪东旭（MiaoDX）”同一行；“现在关注”用原句一行文字，窄屏自然换行；保留“查看项目”跳到 #projects；只改页面所需文件和标题，不改 PROMPT_V1.md 或其他课程过程材料，不新增记录文件。浏览器由我检查，你只做 build 与内容、范围核对，不启动开发或预览服务、不驱动浏览器。请给出修订后的简短计划，等我确认。"""
 
-# openai/codex 中系统指令的固定版本链接（完整哈希，内容不随 main 变化）。
-# 本仓库把 openai/codex 作为子模块放在 third_party/codex，固定在 PINNED，可离线对比。
-GH = "https://github.com/openai/codex"
-PINNED = "b741e480e203f037ca726bc2a76d99a8e8668e66"
-V160 = "a956835d020762cb2b570053af06f643a11c0ecc"  # rust-v0.160.0，讲师机器上的 codex-cli 版本
-OLD_PROMPT = "codex-rs/core/prompt.md"  # 2026-01-19 起搬到 BASE_PROMPT
-BASE_PROMPT = "codex-rs/protocol/src/prompts/base_instructions/default.md"
-PROMPT_VERSIONS = [  # (标签, 提交, 路径)
-    ("2025-04 首版", "31d0d7a305305ad557035a2edcab60b6be5018d8", OLD_PROMPT),
-    ("2025-08-05", "d31e149cb1b4439f47393115d7a85b3c8ab8c90d", OLD_PROMPT),
-    ("2025-08-07 重写后", "81b148bda271615b37f7e04b3135e9d552df8111", OLD_PROMPT),
-    ("2026-10-03 当前", PINNED, BASE_PROMPT),
-]
+RUN = "2026-10-23 成对运行：Codex CLI 0.163.0、MiniMax-M3.1-Flash；Plan/medium，执行切 Default/max。单次观察，结果随任务和配置变化。"
 
+def box(title, text, step=0, role="ink"):
+    return f'<div class="p-box" data-role="{role}" data-reveal="{step}"><h3>{title}</h3><p>{text}</p></div>'
 
-def blob(commit, path):
-    return f"{GH}/blob/{commit}/{path}"
+def grid(*items, n=2):
+    return f'<div class="p-grid" style="--n:{n};gap:16px">'+''.join(items)+'</div>'
 
+def bar(text, step):
+    return f'<div class="p-bar is-light" data-reveal="{step}">{text}</div>'
 
+def term(text, step=0):
+    return f'<div class="p-term" data-reveal="{step}">{escape(text).replace(chr(10), "<br>")}</div>'
 
-ROUND_PROMPT = """Goal：在项目区呈现我的项目经历，解决反馈第 3 条。
-Context：见 docs/evidence/CH02_VIBE_ITERATIONS.md；
-项目卡不跳转是既有决定，本轮不改。
-项目内容（原文照用）：<每行一条：项目名称：一句描述>
-Constraints：只用上面的文字，不补写；不加链接、依赖；
-只改项目区；先说计划，等我确认再改。
-Done when：我在浏览器查 360/768/1440 宽可读、Tab 顺序不变；
-你跑 build 成功；diff 只含项目区。"""
+def table(head, rows):
+    cols=' '.join('minmax(0,1fr)' for _ in head)
+    s=f'<div class="p-matrix" style="grid-template-columns:{cols}"><div class="is-head" data-reveal="0">'+''.join(f'<span>{x}</span>' for x in head)+'</div>'
+    for step, row in rows:
+        s+=f'<div data-reveal="{step}">'+''.join(f'<span>{x}</span>' for x in row)+'</div>'
+    return s+'</div>'
 
-RECORD = """## 第 1 轮
+def source_note(text):
+    return f'<p class="source-note">{text}</p>'
 
-- 问题证据：反馈第 3 条；1440×900 下项目区只有一句“记录课程练习”
-- 本轮目标：在项目区呈现我提供的三条项目经历
-- 会话选择与理由：
-- 改动文件：
-- 验证结果（三种视口 / 键盘 / build）：
-- 剩余问题：
-- 回退点：本轮开始前的最后一次提交（git log --oneline -1；2.3 提交后更新）"""
-
-
-# ---------- 三种状态 ----------
 scene(
-    id="p20", segment="三种状态", layout="lesson-cover",
-    label="开始改之前", title="先决定，在哪个会话里改",
-    lead="继续 2.1 的会话、恢复它，还是新建一个？",
-    html=(
-        chapter_map(2) +
-        '<div class="p-grid" style="--n:3;gap:16px;margin-top:22px">'
-        '<div class="p-box" data-role="agent" data-reveal="1"><h3>继续</h3><p>接着 2.1 那个会话往下说</p></div>'
-        '<div class="p-box" data-role="ctx" data-reveal="1"><h3>恢复</h3><p>关掉以后再把它找回来</p></div>'
-        '<div class="p-box" data-role="ok" data-reveal="1"><h3>新建</h3><p>开一个干净的会话</p></div></div>'
-        '<p class="p-hand" data-reveal="2">要选对，先弄清：会话里到底存了什么？</p>'
-    ),
-    steps=["回到地图", "三个选项", "本节问题"],
-    teaching=teach(("讲师提示", "开篇地图沿用 2.1 的五节，2.1 标为已完成。")),
+    id='p20',
+    segment='准备个人内容',
+    title='把个人内容补进主页',
+    lead='先补内容，再看这一轮的请求怎样变化',
+    html='<ol class="p-map"><li class="is-done"><b>2.1</b>看请求</li><li class="is-now"><b>2.2</b>补经历</li><li><b>2.3</b>改风格</li><li><b>2.4</b>发布上线</li><li><b>2.5</b>用好 context</li></ol><div class="p-grid" style="--n:2;gap:16px"><div class="p-box" data-role="us" data-reveal="1"><h3>项目上</h3><p>把四块个人内容放进主页</p></div><div class="p-box" data-role="ctx" data-reveal="1"><h3>请求里</h3><p>看规则、资料与历史怎样进入</p></div></div><div class="p-set" data-role="ctx" data-reveal="2" style="padding:10px 16px 12px"><h3 style="font-size:20px;margin-bottom:6px">这一次请求里有什么</h3><div class="p-items" style="flex-direction:row;flex-wrap:wrap;gap:6px"><div class="p-item" style="padding:4px 10px;font-size:18px">系统指令</div><div class="p-item" style="padding:4px 10px;font-size:18px">工具</div><div class="p-item" style="padding:4px 10px;font-size:18px">环境</div><div class="p-item is-picked" style="padding:4px 10px;font-size:18px">规则</div><div class="p-item is-picked" style="padding:4px 10px;font-size:18px">对话历史</div><div class="p-item is-picked" style="padding:4px 10px;font-size:18px">工具返回</div><div class="p-item" style="padding:4px 10px;font-size:18px">这一句</div></div><div class="p-foot">从一次请求，看到多轮工作</div></div>',
+    steps=['接上主页', '本轮任务', '回到请求'],
+    layout='lesson-cover',
 )
 
 scene(
-    id="p21", segment="三种状态",
-    label="三种状态", title="模型、会话、文件与进程，各记住什么",
-    lead="模型本身不保存任何状态；会话由 Harness 保存，每次请求时重发；文件和运行中的程序独立存在于电脑上。2.1 开场要重启开发服务器，就是第三栏的事。",
-    html=(
-        '<div class="p-grid" style="--n:3;gap:16px">'
-        '<div class="p-box" data-role="agent" data-reveal="0"><span class="p-tag" data-role="agent">模型</span><p class="p-big">什么都不记，只看这一次请求</p></div>'
-        '<div class="p-box" data-role="ctx" data-reveal="0"><span class="p-tag" data-role="ctx">会话</span><p class="p-big">Harness 保存，下次重发</p></div>'
-        '<div class="p-box" data-role="tool" data-reveal="0"><span class="p-tag" data-role="tool">文件与进程</span><p class="p-big">在电脑上，与会话无关</p></div></div>'
-        '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:14px">'
-        '<div class="p-box is-soft" data-role="tool" data-reveal="1"><h3>2.1 开场</h3><p>关掉终端 → 开发服务器停了 → 代码文件还在</p></div>'
-        '<div class="p-box is-soft" data-role="gate" data-reveal="2"><h3>换个目录恢复会话</h3><p>它仍答得出上轮读的是 index.html<br>可新目录里没有这个文件</p></div></div>'
-        '<div class="p-bar" data-reveal="2">恢复对话，<b>不等于恢复文件或服务</b></div>'
-    ),
-    repro=repro([
-        ("在课程仓库根目录建目录 A，放一个文件；目录要有自己的 .git", "mkdir -p lab-runs/resume-a && cd lab-runs/resume-a && git init -q && echo '<h1>hello</h1>' > index.html"),
-        ("另开一个终端，在目录 A 启动一个本地服务器（相当于 npm run dev），浏览器打开 localhost:8765 能看到页面", "cd lab-runs/resume-a && python3 -m http.server 8765"),
-        ("回到第一个终端，用固定的 HOME 让 Codex 读文件，并告诉它服务器开着；固定 HOME 才能在后面找到这次会话。需要 MINIMAX_API_KEY", "CLEAN_CODEX_HOME=~/.cache/clean-codex/resume ../../tools/clean-codex.sh -- exec \"只读：读一下 index.html，告诉我它的第一行。另外记住：这个页面我已经用 python3 -m http.server 在 8765 端口打开了。\" < /dev/null"),
-        ("到第二个终端按 Ctrl-C 关掉服务器，相当于关掉终端或第二天重新开机", None),
-        ("换到空目录 B，恢复刚才的会话再问；--all 取消“只找当前目录的会话”", "mkdir -p ../resume-b && cd ../resume-b && git init -q\nCLEAN_CODEX_HOME=~/.cache/clean-codex/resume ../../tools/clean-codex.sh -- exec resume --last --all \"不要运行命令，只凭记忆回答：刚才你读的是哪个文件？它的第一行是什么？8765 端口上的那个页面现在还能打开吗？\" < /dev/null"),
-        ("核对：目录 B 里有没有这个文件，页面还能不能打开（000 表示打不开）", "ls -A; curl -s -o /dev/null -w \"%{http_code}\\n\" localhost:8765 || true"),
-    ], note="讲师 2026-10-05 实测：模型答出 index.html 和它的第一行；目录 B 里没有这个文件，服务器关掉后页面打不开。问到端口时，模型两次都说无法确认、只记得“你说过它开着”；其他运行也可能直接说还开着。会话、文件、进程三者各自存在。"),
-    steps=["三栏", "开场那一幕", "恢复会话的实验"],
+    id='p29a',
+    segment='准备个人内容',
+    title='页面上的事实，先写进 profile.md',
+    lead='在项目根目录准备 profile.md，分基本信息、教育、工作经历、项目与开源四块。内容由人提供，Codex 负责呈现。讲师用自己已公开的信息；学员只写愿意公开的，也可用虚构人物。这个文件到发布时会随仓库公开。',
+    html='<div class="p-grid" style="--n:2;gap:16px"><div style="font-size:18px;line-height:1.25" class="p-term" data-reveal="0"># 个人信息<br><br>## 基本信息<br>姓名：缪东旭（MiaoDX）<br><br>## 教育<br>……<br>## 工作经历<br>……<br>## 项目与开源<br>……</div><div style="display:flex;flex-direction:column;gap:14px"><div class="p-box" data-role="us" data-reveal="0"><h3>人准备内容</h3><p>基本信息 · 教育<br>工作经历 · 项目与开源</p></div><div class="p-box" data-role="gate" data-reveal="1"><h3>只写愿意公开的</h3><p>也可以用虚构人物练习</p></div></div></div><div class="p-bar is-light" data-reveal="2">Prompt 点名文件，Codex 再读取正文</div>',
+    steps=['看资料文件', '公开边界', '点名再读取'],
+)
+
+scene(
+    id='p21',
+    segment='准备个人内容',
+    title='这轮修改，用到会话、文件和页面',
+    lead='眼前有 Codex 中的读取与操作历史、项目目录中的资料与代码，以及浏览器显示的主页。Codex 把已有对话和工具返回组织进下一次请求；文件内容要通过读取进入。浏览器效果由人检查，需要反馈时再明确提供。',
+    html='<div class="p-grid" style="--n:3;gap:16px"><div class="p-box" data-role="ctx" data-reveal="0"><h3>Codex 会话</h3><p>上一轮的读取与问答<br>供后续工作参考</p></div><div class="p-box" data-role="tool" data-reveal="1"><h3>项目文件</h3><p>profile.md · 页面代码<br>读取后进入请求</p></div><div class="p-box" data-role="us" data-reveal="2"><h3>浏览器页面</h3><p>人查看文字与排版<br>把发现的问题说清楚</p></div></div>',
+    steps=['看会话', '看文件', '看页面'],
+)
+
+scene(
+    id='p27a',
+    segment='准备个人内容',
+    title='先保存项目规则，再 /clear',
+    lead='接着上一节“规则进入请求”的观察，在根目录保存 AGENTS.md：改代码后运行并报告 build，不新增依赖。本轮选 /clear 开始新对话，随后直接发内容任务。本次 0.163.0 核验中，新对话首个任务请求含这些规则；中途新增文件未自动装入同一对话。清空没有撤销项目文件。学员写规则仍为选做。',
+    html='<div class="p-grid" style="--n:2;gap:16px"><div class="p-term" data-reveal="0"># 项目规则<br>- 不新增依赖<br>- 修改代码后运行 npm run build，并报告结果</div><div class="p-box" data-role="ctx" data-reveal="1"><h3>保存后 /clear</h3><p>开始新对话<br>下一条直接提交内容任务</p></div></div><div class="p-bar is-light" data-reveal="2">首个任务请求：初始内容 + 项目规则 + 本轮 Prompt</div>',
+    steps=['把规则存成文件', '开始新对话', '在任务请求里看规则'],
+)
+
+scene(
+    id='p29',
+    segment='内容迭代',
+    title='同一起点，同一个四要素 Prompt',
+    lead='两份独立项目副本使用相同起点、profile.md、AGENTS.md 与 Prompt。沿用第一章 Goal、Context、Constraints、Done when 四要素；两边都要求先出计划、等确认再改，区别在工作模式。双跑由讲师演示，学员无需重复。完整 Prompt 可复制。',
+    html='<div class="demo-notes"><div class="p-box" data-role="tool" data-reveal="0"><h3>两份独立副本</h3><p>相同代码、资料、规则与任务</p></div><div class="p-box" data-role="us" data-reveal="1"><h3>两边都先计划</h3><p>等人确认后再修改</p></div><div class="p-box" data-role="ctx" data-reveal="2"><h3>只改变工作模式</h3><p>普通模式 ↔ Plan 模式</p></div></div>',
+    steps=['目标与背景', '约束', '完成标准与对照'],
+    layout='prompt-scene',
+    prompt='Goal：把 profile.md 中的基本信息、教育、工作经历和项目放进个人主页，替换对应的占位内容。\nContext：profile.md 在项目根目录，由我提供个人事实与经历。当前页面已有首屏和占位项目区，项目卡不跳转。请先读取文件并检查当前实现。\nConstraints：个人事实与经历只使用 profile.md 的内容，不补写。可为呈现内容调整结构与样式；不添加链接或依赖，项目卡保持不跳转。先提出改动计划，等我确认后再修改。\nDone when：四块个人内容已呈现，事实与经历都能在 profile.md 中找到；你运行 npm run build 并报告结果；我在浏览器里检查文字与排版。',
+)
+
+scene(
+    id='p29b',
+    segment='内容迭代',
+    title='普通模式，也可以先给计划再等确认',
+    lead='普通模式收到相同 Prompt 后，读取资料和当前实现，给出文字计划，末尾询问按钮、关注内容呈现、姓名排版三项选择，并等待人确认。本次并未直接修改。我们在两边都追加相同的呈现与范围要求后再执行。',
+    html='<div class="p-grid" style="--n:2;gap:16px"><div class="p-box" data-role="agent" data-reveal="0"><h3>普通模式 · 本次记录</h3><p>读取资料与代码<br>列出文字计划</p></div><div class="p-box" data-role="us" data-reveal="1"><h3>末尾请人选择</h3><p>按钮怎么处理<br>关注内容怎么排<br>姓名怎样显示</p></div></div><div class="p-bar is-light" data-reveal="2">已按 Prompt 等待；接着看 Plan 的交互过程</div>',
+    steps=['读取与文字计划', '三个选择', '对照下一份'],
+)
+
+scene(
+    id='p29c',
+    segment='内容迭代',
+    title='Plan：先问清，再呈现可确认的计划',
+    lead='在另一份相同起点的清空副本中输入 /plan，提交相同 Prompt。本次先出现两项交互题：保留查看项目按钮、基本信息并入首屏，再出现 Proposed Plan。初版计划还提议更新 PROMPT_V1.md，需人在确认前收窄范围。Plan 阶段本次为 medium。',
+    html='<div class="p-grid" style="--n:2;gap:16px"><div class="p-term" data-reveal="0">› /plan<br>› 同一段四要素 Prompt</div><div class="p-box" data-role="us" data-reveal="1"><h3>交互提问 · 本次两题</h3><p>查看项目 → 保留 #projects<br>基本信息 → 并入首屏</p></div></div><div class="p-bar is-light" data-reveal="2">Proposed Plan 出来后，先审范围与呈现要求</div>',
+    steps=['独立副本切 Plan', '回答两道交互题', '看 Proposed Plan'],
+)
+
+scene(
+    id='p30',
+    segment='内容迭代',
+    title='先修订计划，再确认执行',
+    lead='选择 No, stay in Plan mode，追加共同的修订要求，普通对照也收到同一原文。要求保留风格和单列、姓名同一行、关注内容用原句、保留 #projects，只改页面与标题，不改课程过程材料；浏览器由人检查。修订后看范围、事实和验证方式，再选 Yes, implement this plan；本次自动切到 Default/max，发送 Implement the plan.。',
+    html='<div class="p-grid" style="--n:2;gap:16px"><div class="p-box" data-role="us" data-reveal="0"><h3>先留下讨论</h3><p>No, stay in Plan mode<br>补呈现要求、收窄文件范围</p></div><div class="p-box" data-role="ctx" data-reveal="1"><h3>再看修订后的计划</h3><p>页面与标题 · 事实出处<br>build 由它做，浏览器由人看</p></div></div><div class="p-term" data-reveal="2">Yes, implement this plan<br>→ Default · Implement the plan.</div><details class="p-pop"><summary>查看完整修订要求</summary><div class="p-pop-body"><div class="p-pop-head"><span>共同修订原文</span><button type="button" onclick="this.closest(\'details\').open=false">关闭</button></div><p style="font-size:20px;line-height:1.6">先调整计划，暂不改文件：保持原有风格和单列布局；基本信息并入首屏，姓名用“缪东旭（MiaoDX）”同一行；“现在关注”用原句一行文字，窄屏自然换行；保留“查看项目”跳到 #projects；只改页面所需文件和标题，不改 PROMPT_V1.md 或其他课程过程材料，不新增记录文件。浏览器由我检查，你只做 build 与内容、范围核对，不启动开发或预览服务、不驱动浏览器。请给出修订后的简短计划，等我确认。</p></div></details>',
+    steps=['修订而非立刻执行', '核对修订后的计划', '确认后自动切执行'],
+    teaching=[{'title': '共同修订原文', 'text': '先调整计划，暂不改文件：保持原有风格和单列布局；基本信息并入首屏，姓名用“缪东旭（MiaoDX）”同一行；“现在关注”用原句一行文字，窄屏自然换行；保留“查看项目”跳到 #projects；只改页面所需文件和标题，不改 PROMPT_V1.md 或其他课程过程材料，不新增记录文件。浏览器由我检查，你只做 build 与内容、范围核对，不启动开发或预览服务、不驱动浏览器。请给出修订后的简短计划，等我确认。'}],
+)
+
+scene(
+    id='p31',
+    segment='内容迭代',
+    title='先看主页，再看 build 输出',
+    lead='沿选定的 Plan 成果看首屏、教育、工作经历、项目与开源，检查文字和排版，再看本轮实际 build 输出。普通和 Plan 两份都构建成功、浏览器检查无溢出；其布局实现有差异，单次结果不足以推断普遍质量高低。这里只收住本轮结果，逐句出处与改动范围的快速审查留到下一节。',
+    html='<style>.x-result{width:100%;height:300px;object-fit:contain;object-position:top;border:1px solid var(--p-ink)}body[data-mode="scroll"] .x-result{height:auto;max-height:550px}</style><div class="p-grid" style="--n:2;gap:16px"><div data-reveal="0"><img class="x-result" src="assets/plan-homepage.png" alt="本次 Plan 成果：缪东旭个人主页的首屏、教育、工作经历与项目"></div><div style="display:flex;flex-direction:column;gap:14px"><div class="p-box" data-role="ok" data-reveal="1"><h3>Plan 主线 · 实际结果</h3><p>四块内容已呈现<br>npm run build 通过</p></div><div class="p-box" data-role="ink" data-reveal="2"><h3>普通对照 · 简短回看</h3><p>同样完成并通过检查<br>教育与工作经历的布局不同</p></div></div></div>',
+    steps=['人看页面', '核对构建', '两份结果与主线选择'],
+)
+
+scene(
+    id='p22',
+    segment='回看请求',
+    title='补充一句要求，前面的工作也随请求发出',
+    lead='回看选定 Plan 运行的主任务记录 4、7、14、18。初始任务含规则与 Prompt；读取后 profile.md 正文进入工具返回；修订要求前仍保留之前的文件返回、交互选择与计划；实施时再加入模式切换指令和 Implement the plan.。记录 4 的前 6 项与记录 7 前 6 项逐项相同。项数仅供定位，不是固定格式。',
+    html='<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)"><div class="is-head" data-reveal="0"><span>本轮位置</span><span>这次请求里可见的内容</span></div><div data-reveal="0"><span>初始任务</span><span>规则 + Prompt；尚无资料正文</span></div><div data-reveal="1"><span>读过资料</span><span>前面的内容 + 读文件的调用与返回</span></div><div data-reveal="2"><span>补充呈现要求</span><span>已有资料、选择和计划 + 新要求</span></div><div data-reveal="3"><span>确认实施</span><span>前面的历史 + Implement the plan.</span></div></div>',
+    steps=['初始任务', '资料进入', '追加要求', '进入执行'],
+)
+
+scene(
+    id='p23',
+    segment='回看请求',
+    title='输入增长和缓存命中，分开看',
+    lead='取同一 Plan 阶段、环境准备故障前的三次请求。输入从 10,451 增到 15,759 token；服务另报告缓存命中。缓存命中不表示这些历史从 input 消失。实际计费按所用服务规则核对，这里不作价格换算；再用下一页研究看长输入可能带来的表现变化。',
+    html='<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)"><div class="is-head" data-reveal="0"><span>本轮位置</span><span>本次请求输入</span><span>其中报告为缓存命中</span></div><div data-reveal="0"><span>初始任务</span><span>10,451 token</span><span>189 token</span></div><div data-reveal="0"><span>已读个人资料</span><span>11,821 token</span><span>10,450 token</span></div><div data-reveal="0"><span>初版计划生成前</span><span>15,759 token</span><span>15,109 token</span></div></div><div class="p-bar is-light" data-reveal="1">缓存命中后，历史仍在 input 中</div><p class="source-note">2026-10-23 成对运行：Codex CLI 0.163.0、MiniMax-M3.1-Flash；Plan/medium，执行切 Default/max。单次观察，结果随任务和配置变化。三条均为 Plan/medium；不是整轮总用量。</p>',
+    steps=['看输入量', '再看缓存'],
+)
+
+scene(
+    id="p23a", segment='回看请求', layout="evidence-scene",
+    label="长输入的表现", title="长输入下，表现可能变化",
+    lead="Chroma《Context Rot》控制任务条件、改变输入长度，观察到表现会变化，长输入下可能变得不稳定。本页为其中的重复词任务，数据点为读图近似，只看趋势。这份研究提醒我们关注 Context 的长度和内容；本次主页是否改对，仍要检查文件和实际页面。",
+    html=redrawn("context-rot", "chroma-context-rot", "course", "据 Chroma《Context Rot》（2025-07-14）重复词任务重画", note="数据点为读图近似").replace("同一个简单任务，输入越长越做不好", "重复词任务：不同输入长度下的表现").replace("0.5 附近 ≈ 基本做不对", ""),
+    refs=[ref("Context Rot", "https://www.trychroma.com/research/context-rot", "Chroma，2025-07-14")],
+    steps=["看趋势"],
     teaching=teach(
-        ("核对记录", "Codex 0.160.0，MiniMax 自定义 provider：在另一目录 codex exec resume <会话 id>，模型仍答出 index.html；Harness 追加了新的权限说明和新的环境信息，cwd 已是新目录。--last 默认只在当前目录的会话中挑选，--all 取消过滤。见提案“第二轮实测”。"),
-        ("讲师提示", "这一页只建立三栏。会话里“存了什么、怎么发”下一页用请求对比展示。"),
+        ("讲师提示", "曲线据报告里 Repeated Words 任务的图重画（课程手绘风格，courseware/tools/redraw.py 生成，图元在 materials/external/context-rot/figures.py），四个模型的数据点是读图近似，只讲趋势，不读具体数值。2026-10-22 核对原文：报告测了 18 个模型，任务刻意做得简单，只为看输入长度本身的影响。"),
     ),
 )
 
 scene(
-    id="p22", segment="三种状态",
-    label="会话保存了什么", title="下一次请求，带上了前面的全部历史",
-    lead="把同一次任务里相邻两次请求放在一起比：后一次把前一次的内容原样带上，再接上模型的工具调用和工具返回。模型之所以“接得上话”，是因为 Harness 每次都把历史重新发给它。" + MEASURED,
-    html=(
-        NARROW +
-        '<div class="p-walk"><div data-reveal="0"><div class="p-src" style="--lh:40px">'
-        '<div class="p-fn">第 1 次 → 第 2 次请求的 input <span class="add">+2</span></div>'
-        '<div class="p-ln"><i>1</i><code>developer · 权限说明、Skills 列表</code></div>'
-        '<div class="p-ln"><i>2</i><code>user · 环境信息</code></div>'
-        '<div class="p-ln"><i>3</i><code>user · 我们的那句话</code></div>'
-        '<div class="p-ln add" data-reveal="1"><i>4</i><code>模型 · 调用 exec_command: cat index.html</code></div>'
-        '<div class="p-ln add" data-reveal="1"><i>5</i><code>工具返回 · index.html 的内容</code></div></div></div>'
-        '<ol class="p-notes"><li data-reveal="0"><span><b>前 3 项原样重发</b><small>不是“接着上次”，而是从头再发</small></span></li>'
-        '<li data-reveal="1"><span><b>新增在末尾</b><small>调用和返回都进了历史</small></span></li>'
-        '<li class="is-risk" data-reveal="2"><span><b>只在这次运行里看到</b><small>MiniMax 配置下 store 为 false</small></span></li></ol></div>'
-        '<p class="source-note">示意图按记录结构整理，条目名为中文概括。' + MEASURED + '</p>'
-    ),
-    steps=["第 1 次请求", "第 2 次多了什么", "适用范围"],
-    teaching=teach(
-        ("核对记录", "MiniMax 配置下请求体 store 为 false、没有 previous_response_id；OpenAI 官方 provider 与 ChatGPT 登录未核实（决定 28 不作为本章核实项）。前 3 项的角色划分见 2.1 p13 的核对记录。"),
-        ("讲师提示", "画面用 claude-tap 的相邻请求 diff 视图截图替换示意图；截图前检查路径和个人 Skills 名称。"),
-    ),
+    id='p24',
+    segment='回看请求',
+    title='工具的失败输出，也可能成为后续输入',
+    lead='另一次独立运行中，预览服务启动返回 listen EPERM。在之后的请求记录中仍能找到同一失败返回。本页只说明失败输出也进入历史，与本次成对运行及其 token 表分开。成功和失败的过程都可能成为后续输入，具体保留内容要看实际记录。',
+    html='<div class="p-tag" data-role="gate" data-reveal="0">另一次独立运行</div><div class="p-grid" style="--n:2;gap:16px"><div class="p-term" data-reveal="0">预览服务启动<br>listen EPERM · 退出失败</div><div class="p-box" data-role="ctx" data-reveal="1"><h3>之后的请求记录</h3><p>input 中仍有<br>这段失败的工具返回</p></div></div><div class="p-bar is-light" data-reveal="2">回看历史，也看实际走过哪些步骤</div>',
+    steps=['独立运行的失败', '之后仍有返回', '看实际过程'],
 )
 
 scene(
-    id="p23", segment="代价与不确定",
-    label="每次都重发，贵不贵", title="每次都重发，代价是 token 和注意力",
-    lead="一次提问产生了 4 次请求，input 从 3 项涨到 10 项。重复的开头部分可以被缓存，算起来更便宜；但模型每次仍要读完整段历史，注意力不会因为缓存而变多。" + MEASURED,
-    html=(
-        '<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr)">'
-        '<div class="is-head" data-reveal="0"><span>请求</span><span>input 项数</span><span>缓存命中</span></div>'
-        '<div data-reveal="0"><span>第 1 次</span><span>3 项</span><span>约 1 千 token</span></div>'
-        '<div data-reveal="0"><span class="p-sub">第 2、3 次</span><span>未记录</span><span>未记录</span></div>'
-        '<div data-reveal="0" class="is-key"><span>第 4 次</span><span>10 项</span><span>约 1.18 万 token</span></div></div>'
-        '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:14px">'
-        '<div class="p-box is-soft" data-role="ok" data-reveal="1"><h3>token</h3><p>重复的前缀能被缓存，按更低的价格算</p></div>'
-        '<div class="p-box is-soft" data-role="gate" data-reveal="2"><h3>注意力</h3><p>历史越长，早先的需求越容易被淹没</p></div></div>'
-        '<p class="source-note">' + MEASURED[:-1] + '</p>'
-    ),
-    steps=["4 次请求", "token 与缓存", "注意力"],
-    teaching=teach(
-        ("数字来源", MEASURED + " 中间两次请求的数字未在提案中记录，画面写“未记录”，不推断它们的走势；录制时可从 claude-tap 记录补齐。"),
-        ("讲师提示", "前缀缓存的计费细节放配套页，主课只讲“重复部分更便宜，注意力不变”。不要据此断言每次费用一定增加。"),
-    ),
+    id='p27',
+    segment='压缩与继续',
+    title='压缩换成摘要，要原文就重新读取',
+    lead='在已选 Plan 会话中手动 /compact，观察已有历史怎样交接，而非窗口已满。本次压缩后原工具调用与返回换成摘要，部分任务与约束保留，项目规则重新装入。摘要没保留 DeepMotion.ai 经历的完整文字：禁止工具时答不出逐字原文，允许重读 profile.md 后正确引用。文件哈希与 tracked diff 均未改变。',
+    html='<div class="p-grid" style="--n:2;gap:16px"><div class="p-box" data-role="tool" data-reveal="0"><h3>压缩前</h3><p>读文件的原始返回<br>计划、修改与构建过程</p></div><div class="p-box" data-role="ctx" data-reveal="1"><h3>压缩后</h3><p>摘要承接过程<br>任务约束与重新装入的规则</p></div></div><div class="p-box" data-role="us" data-reveal="2"><h3>本次追问经历原文</h3><p>只凭摘要：无法逐字给出 → 重读 profile.md：找到原文</p></div><div class="p-bar is-light" data-reveal="3">请求里的历史表示变了，项目文件仍可读取</div>',
+    steps=['已有历史', '观察 /compact', '追问并重读', '文件仍在'],
 )
 
 scene(
-    id="p24", segment="代价与不确定",
-    label="再问一次，一样吗", title="同一个问题再问一次，过程不一样",
-    lead="同一句只读提问跑了两次：第一次 4 次请求，中途还调用了一个不存在的工具；第二次只用了 2 次请求。模型的输出有不确定性，所以判断要看这一次的证据，而不是“上次是这样”。" + MEASURED,
-    html=(
-        '<div class="p-pair" style="grid-template-columns:1fr auto 1fr">'
-        '<div class="p-box" data-role="ink" data-reveal="0"><span class="p-tag" data-role="ink">第一次运行</span><p class="p-big">4 次请求</p><p class="p-sub">先调用 read_file 报错，再改用 cat</p></div>'
-        '<div class="p-join" data-reveal="1"><span>同一句话</span><i class="p-arrow"></i></div>'
-        '<div class="p-box" data-role="ink" data-reveal="1"><span class="p-tag" data-role="ink">第二次运行</span><p class="p-big">2 次请求</p><p class="p-sub">直接读到文件，没有报错</p></div></div>'
-        '<div class="p-bar" data-reveal="2">看这一次的证据，<b>不靠“上次是这样”</b></div>'
-        '<p class="source-note">' + MEASURED[:-1] + '</p>'
-    ),
-    steps=["第一次", "第二次", "结论"],
+    id='p27b',
+    segment='压缩与继续',
+    title='/status：当前占用和累计用量分别看',
+    lead='同一恢复会话手动压缩前后，Context window 报告从 31.8K used / 498K 变为 4.23K used / 498K；Token usage 从 60.1K total 变为 86.7K total。累计口径和当前窗口不同，压缩本身也调用模型。这些是本次界面读数，不是整节费用基准。另一次自动压缩实验把触发线调低到 10,000，便于观察任务中途压缩后继续，不能当默认配置。',
+    html='<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)"><div class="is-head" data-reveal="0"><span>/status</span><span>压缩前</span><span>压缩后</span></div><div data-reveal="0"><span>Context window</span><span>31.8K used / 498K</span><span>4.23K used / 498K</span></div><div data-reveal="1"><span>Token usage</span><span>60.1K total</span><span>86.7K total</span></div></div><div class="p-box" data-role="ctx" data-reveal="2"><h3>另一次自动压缩实验</h3><p>调低触发线到 10,000 用于演示：中途压缩，任务继续</p></div>',
+    steps=['当前窗口', '累计用量', '自动压缩的独立片段'],
 )
 
 scene(
-    id="p25", segment="请求会变",
-    label="Codex 自己也在变", title="不只输出会变，系统指令也在变",
-    lead="Codex 的通用系统指令在开源仓库里有完整历史。它没有一路变短：2025 年 8 月一次重写后变成原来的两倍多，此后在 21–24 KB 间波动；权限说明后来拆成按配置拼装的模板。" + REPO,
-    html=(
-        '<div class="p-flow" style="--n:4">'
-        '<div class="p-node" data-role="ink" data-reveal="0"><span class="p-num">2025-04</span><h3>≈5.7 KB</h3><p>首版</p></div>'
-        '<div class="p-node" data-role="ink" data-reveal="0"><span class="p-num">2025-08-05</span><h3>≈9.8 KB</h3><p>逐步补充</p></div>'
-        '<div class="p-node" data-role="agent" data-reveal="1"><span class="p-num">2025-08-07</span><h3>≈23.6 KB</h3><p>重写：工作方式、性格、汇报格式</p></div>'
-        '<div class="p-node" data-role="ink" data-reveal="1"><span class="p-num">之后</span><h3>21–24 KB</h3><p>2026-01 约 20.9 KB</p></div></div>'
-        '<div class="p-box is-soft" data-role="gate" data-reveal="2" style="margin-top:18px"><h3>2026-01-12 · 权限说明拆出去</h3><p>从固定段落改为按沙箱模式、审批策略分别放模板，运行时拼装（2.1 p16 看过的那段文字）</p></div>'
-        + '<p class="source-note">' + REPO[:-1] + '</p>'
-    ),
-    refs=[ref(label, blob(c, path), "原文") for label, c, path in PROMPT_VERSIONS] + [
-        ref("重写", f"{GH}/commit/81b148bda271615b37f7e04b3135e9d552df8111", "diff"),
-        ref("权限拆出", f"{GH}/commit/87f7226cca12df04596938f58625de84e976309a", "diff"),
-    ],
-    repro=repro([
-        ("在课程仓库根目录取下 Codex 子模块的当前版本（只取一个提交）", "git submodule update --init --depth 1 third_party/codex"),
-        ("再取 2025-04 首版所在的那次提交", "git -C third_party/codex fetch --depth 1 origin 31d0d7a305305ad557035a2edcab60b6be5018d8"),
-        ("对比首版和当前的系统指令；文件在 2026-01 搬过位置，所以两边路径不同", "git -C third_party/codex diff 31d0d7a305305ad557035a2edcab60b6be5018d8:codex-rs/core/prompt.md HEAD:codex-rs/protocol/src/prompts/base_instructions/default.md"),
-    ], note="讲师 2026-10-05 在一份新克隆上实测，两步下载在讲师的网络下约 12 分钟。不想等的话，画面底部的链接可以直接看各版本原文和重写那次提交的 diff。"),
-    steps=["早期", "一次重写", "权限说明拆出"],
-    teaching=teach(
-        ("核对记录", "首版到 2025-08-05 的大小、重写提交 81b148bda2（“update system prompt”）、按模型分文件提交 916fdc2a37、权限模板化提交 87f7226cca，见提案“Codex 开源仓库中的系统指令”。通用指令当前位于 codex-rs/protocol/src/prompts/base_instructions/default.md；2026-10-03 复核 main（b741e48）大小为 20903 字节。"),
-        ("原文与 diff", "每个版本的原文和两次关键提交的 diff，在画面底部有直达链接（固定到完整提交哈希）。重写那次提交 81b148bda2 只改了 prompt.md 一个文件（+270 −80），GitHub 的提交页就是“重写前 vs 重写后”的文件 diff。\n\n本仓库把 openai/codex 作为子模块放在 third_party/codex（固定在 b741e48），离线对比的命令见页面上的“复现这个实验”；只取需要的两个提交，比取下完整历史快得多。"),
-        ("切到实操", "可在录制时打开重写那次提交的 GitHub 页面，滚动展示新增的章节标题；不逐行读。"),
-        ("讲师提示", "这一页与下一页是“版本线”示例，看懂即可，不要求学员背数字；想看原文的学员从画面底部的链接打开。"),
-    ),
+    id='p28',
+    segment='选择怎样继续',
+    title='下一步要做什么，再选怎样继续会话',
+    lead='先回看自己会话的读取与操作历史，再判断下一任务需要什么。继续、清空、压缩、新建交接都可能合理。普通/Plan 是工作模式，本页四项是会话选择。讲师仍做同一主页，沿选定成果继续，需要逐句事实时重读文件；学员用界面中可见的一条依据说明自己的选择。',
+    html='<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)"><div class="is-head" data-reveal="0"><span>做法</span><span>当前要接着做什么 / 哪些信息要带过去</span></div><div data-reveal="0"><span>继续</span><span>同一件事，已有历史集中且有用</span></div><div data-reveal="0"><span>/clear</span><span>重新说明任务与所需文件，文件改动还在</span></div><div data-reveal="1"><span>压缩后继续</span><span>进度由摘要承接，需要原文时再读</span></div><div data-reveal="1"><span>新建并交接</span><span>人说明结论、约束、文件和下一步</span></div></div><div class="p-bar is-light" data-reveal="2">暂停：写下你的选择 + 一条可见的依据</div>',
+    steps=['继续或清空', '压缩或交接', '自己的判断'],
 )
 
 scene(
-    id="p26", segment="请求会变",
-    label="换个模型名", title="同一个 Codex，换个模型名，指令换了一份",
-    lead="Codex 按模型名在自带的模型目录（models.json）里查指令。讲师用 claude-tap 抓了两次请求，配置相同，只改模型名：目录里没有的 MiniMax-M3 拿到通用指令，目录里的 gpt-5.5 拿到为它单独写的一份。" + REPO,
-    html=(
-        '<div class="p-pair" style="grid-template-columns:1fr 1fr">'
-        '<div class="p-box" data-role="ink" data-reveal="0"><span class="p-tag" data-role="ink">MiniMax-M3 · 不在目录 · 通用指令</span>'
-        '<p style="margin-top:8px;line-height:1.6">工作方式 · 性格 · <b>AGENTS.md 规范</b><br>响应 · 执行任务 · <b>验证工作</b> · 目标与精度<br>进度更新 · 汇报 · <b>工具指南</b></p>'
-        '<p class="p-sub">约 1.7 万字符 · “You are a coding agent running in the Codex CLI”</p></div>'
-        '<div class="p-box" data-role="agent" data-reveal="1"><span class="p-tag" data-role="agent">gpt-5.5 · 目录里的专属指令</span>'
-        '<p style="margin-top:8px;line-height:1.6">性格 · 通用 · <b>工程判断</b> · <b>前端指南</b><br>编辑约束 · 特殊请求 · 自主与坚持<br><b>与用户协作</b> · 格式规则 · 最终回答</p>'
-        '<p class="p-sub">约 2.1 万字符 · “You are Codex, a coding agent based on GPT-5”</p></div></div>'
-        '<div class="p-bar is-light" data-reveal="2">换一个模型，Codex 配给它的<b>指令内容也会变化</b></div>'
-        '<p class="source-note">两份指令都是 2026-10-05 在隔离 HOME 下用 claude-tap 抓到的真实请求（Codex 0.160.0，--tap-export-prompt 本地应答、不访问上游）；章节名为中文意译。抓到的内容与源码只差 update_plan 相关段落：codex exec 下未启用 update_plan，Codex 会删去这些段落。</p>'
-    ),
-    refs=[
-        ref("通用指令 prompt.md", blob(V160, "codex-rs/models-manager/prompt.md"), "0.160.0 源码"),
-        ref("模型目录 models.json", blob(V160, "codex-rs/models-manager/models.json"), "0.160.0 源码"),
-    ] + [ref(t, blob(PINNED, "codex-rs/core/" + f), "2026-01 前按文件分模型（已不使用）", kind="read") for t, f in (("GPT-5.2", "gpt_5_2_prompt.md"), ("GPT-5.2-Codex", "gpt-5.2-codex_prompt.md"))],
-    repro=repro([
-        ("在课程仓库根目录建练习目录，准备两个临时 HOME，配置只差模型名", "mkdir -p lab-runs/model-name && cd lab-runs/model-name\nfor m in MiniMax-M3 gpt-5.5; do mkdir -p home-$m/.codex; printf 'model = \"%s\"\\nmodel_provider = \"minimax\"\\n[model_providers.minimax]\\nname = \"MiniMax\"\\nbase_url = \"https://api.minimax.cn/v1\"\\nenv_key = \"MINIMAX_API_KEY\"\\nwire_api = \"responses\"\\n' $m > home-$m/.codex/config.toml; done"),
-        ("各跑一次并导出请求；导出模式只在本地应答、不访问 MiniMax，密钥写假值即可", "for m in MiniMax-M3 gpt-5.5; do MINIMAX_API_KEY=fake HOME=$PWD/home-$m UV_CACHE_DIR=~/.cache/uv XDG_DATA_HOME=~/.local/share uvx claude-tap --tap-client codex --tap-no-open --tap-target https://api.minimax.cn/v1 --tap-export-prompt $PWD/$m.md -- exec --skip-git-repo-check -s read-only \"Reply with OK only.\" < /dev/null; done"),
-        ("对照两份导出的开头和章节", "head -5 MiniMax-M3.md gpt-5.5.md"),
-    ], note="讲师 2026-10-05 按此实测：MiniMax-M3 开头是 “You are a coding agent running in the Codex CLI”，gpt-5.5 是 “You are Codex, a coding agent based on GPT-5”。每次约 1–3 分钟。"),
-    steps=["不在目录的模型", "目录里的 gpt-5.5", "模型与指令配置"],
-    teaching=teach(
-        ("核对记录", "2026-10-05 本机 codex-cli 0.160.0，隔离 HOME，自定义 provider 写法与 MiniMax 相同、密钥为假值，claude-tap 0.1.145 以 --tap-export-prompt 本地应答，不访问上游；codex exec -s read-only，各 1 次请求。MiniMax-M3：instructions 16979 字符，与 2.1 的记录一致，等于 rust-v0.160.0 的 models-manager/prompt.md 删去 Planning、Examples、update_plan 三段（逐字相同）。gpt-5.5：21299 字符，等于 models.json 中 gpt-5.5 的 instructions_template 删去一行更新清单状态的说明。删段落的规则见 codex-rs/prompts/src/update_plan_instructions.rs。按模型名查目录的逻辑见 models-manager/src/manager.rs 的 construct_model_info_from_candidates（最长前缀匹配，与 provider 无关）。"),
-        ("原文与 diff", "源码链接在画面底部，固定在 rust-v0.160.0（a956835d02）。复现命令见页面上的“复现这个实验”。把模型名写成目录里的名字只用于查看请求：真实发给 MiniMax 时，它不认识这个模型名。2026-01 之前 Codex 按文件给模型配指令（codex-rs/core/gpt_*_prompt.md），这些文件仍留在仓库里但已无代码引用，链接放在延伸阅读。"),
-        ("切到实操", "录制时现场跑这两次，或打开 claude-tap 导出的两份 Markdown 并排展示 instructions 开头和章节；画面截图前检查路径与用户名。"),
-        ("讲师提示", "只讲两份指令可见的差异。文件长度和目录没有提供模型能力评测或设计动机的证据；如另讲这些问题，应补相应证据。"),
-    ),
+    id='p33',
+    segment='选择怎样继续',
+    title='暂停自检：把判断落回这一轮操作',
+    lead='四道自检允许暂停作答：区分点名文件与读取正文；说明清空后所需任务和文件；需要事实原文时重读；用当前界面的读取与操作解释会话选择。不要求代理、token 数、请求项数，也不要求普通/Plan 双跑。',
+    html='<style>body[data-mode="slides"] #p33 .x-answer{display:none}body[data-mode="slides"] #p33 .p-qrow h3{font-size:24px}body[data-mode="slides"] #p33 .p-back-to{font-size:16px}</style><div class="p-qlist"><div class="p-qrow" data-reveal="0"><span class="p-n">1</span><div><h3>只点名 profile.md，正文什么时候进入？</h3><p class="x-answer">读取返回加入历史后</p><span class="p-back-to">回到 p22</span></div></div><div class="p-qrow" data-reveal="1"><span class="p-n">2</span><div><h3>改完再 /clear，下一轮要给什么？文件呢？</h3><p class="x-answer">重新说明任务、约束和文件；文件改动仍在</p><span class="p-back-to">回到 p27a</span></div></div><div class="p-qrow" data-reveal="2"><span class="p-n">3</span><div><h3>摘要只记经历已完成，怎样逐字核对？</h3><p class="x-answer">重读资料和页面代码，对照原文</p><span class="p-back-to">回到 p27</span></div></div><div class="p-qrow" data-reveal="3"><span class="p-n">4</span><div><h3>继续、清空、压缩或新建，依据是什么？</h3><p class="x-answer">说出自己会话里可见的读取或操作</p><span class="p-back-to">回到 p28</span></div></div></div>',
+    steps=['文件正文', '清空以后', '原文依据', '会话理由'],
 )
 
 scene(
-    id="p27", segment="压缩与交接",
-    label="压缩一下继续", title="压缩以后，模型看到的是摘要",
-    lead="主线会话通常不够长，压缩单独做一个小实验看。在讲师的配置下，/compact 让模型自己写一份“交接摘要”。按 Codex 源码，压缩后的历史只留用户消息、这份摘要和重新插入的初始上下文，工具调用和返回全部移走；原始证据还剩多少，取决于摘要怎么写。",
-    html=(
-        '<div class="p-pair" style="grid-template-columns:1fr auto 1fr">'
-        '<div class="p-box" data-role="ink" data-reveal="0"><span class="p-tag" data-role="ink">压缩前</span>'
-        '<p style="line-height:1.7">我们的提问 · 模型的工具调用<br><b>工具返回的原文</b>（文件内容、命令输出）<br>模型的回答</p></div>'
-        '<div class="p-join" data-reveal="1"><span>/compact</span><i class="p-arrow"></i></div>'
-        '<div class="p-box" data-role="ctx" data-reveal="1"><span class="p-tag" data-role="ctx">压缩后</span>'
-        '<p style="line-height:1.7">我们发过的用户消息<br><b>一份交接摘要</b><br>初始上下文（重新插入）</p></div></div>'
-        '<div class="p-box is-soft" data-role="gate" data-reveal="2" style="margin-top:14px"><h3>讲师跑了 5 次</h3><p>grep 的 10 行原文：4 次摘要只留下行号或计数，追问时模型答不出；1 次摘要整段抄了下来。我们写下的决定是用户消息，5 次原文都在</p></div>'
-        '<p class="source-note">压缩后保留什么由源码决定（core/src/compact.rs）；摘要内容来自讲师独立实验，2026-10-05，Codex 0.160.0，clean-codex.sh（MiniMax，本地压缩），见 ch02/materials/compact</p>'
-    ),
-    refs=[
-        ref("压缩逻辑 compact.rs", blob(V160, "codex-rs/core/src/compact.rs"), "0.160.0 源码"),
-        ref("压缩提示 prompt.md", blob(V160, "codex-rs/prompts/templates/compact/prompt.md"), "0.160.0 源码"),
-    ],
-    repro=repro([
-        ("下载课程仓库，以下命令都在仓库根目录运行", "git clone --depth 1 https://github.com/prompt-to-harness/prompt-to-harness.github.io.git && cd prompt-to-harness.github.io"),
-        ("建一个独立的实验目录（在 lab-runs/ 下，不会提交）", "courseware/ch02/materials/compact/setup.sh"),
-        ("用课程基线启动 Codex；需要 MINIMAX_API_KEY，浏览器会打开请求面板", "cd lab-runs/compact-lab && ../../tools/clean-codex.sh --tap"),
-        ("依次输入 steps.txt 的五行，每条等回答结束再发；第 4 行是 /compact", "cat courseware/ch02/materials/compact/steps.txt"),
-        ("或者自动跑一轮，另开终端只读旁观", "LAB_SESSION=compact-demo LAB_HOLD=60 courseware/ch02/materials/compact/run-tmux.sh\ntmux attach -r -t compact-demo"),
-        ("不跑也能看：用浏览器打开讲师运行的前后对照", "courseware/ch02/materials/compact/compare.html"),
-    ], note="完整说明、5 次运行的汇总和超时处理见 courseware/ch02/materials/compact/README.md。界面停在 Working 时，Codex 会在 5 分钟后自动重试。"),
-    steps=["压缩前", "压缩后", "丢掉了什么"],
-    teaching=teach(
-        ("核对记录", "压缩提示位于 codex-rs/prompts/templates/compact/prompt.md（要求写进度与决定、约束、下一步、关键数据）；本地压缩保留最近用户消息（上限约 2 万 token）、摘要和重新插入的初始上下文；OpenAI 与 Azure provider 走远程压缩（model-provider/src/provider.rs）。"),
-        ("切到实操", "不在 2.1 的主线会话上执行。命令都在页面上方的“复现这个实验”按钮里：手动跑用第 1–4 步，现场演示用第 5 步自动运行，另开终端只读旁观，浏览器看本机 19527 端口的 claude-tap 面板（只在运行期间有）。重点截取三次请求：压缩前、压缩请求、压缩后。摘要每次不同；若本次保留了 grep 原文或模型编出了原文，如实改写右下方框和口播。"),
-        ("备用画面", "不想现场跑，或上游卡住（界面停在 Working 超过 5 分钟）时，打开按钮第 6 步的 compare.html：用第 1 次运行的真实记录并排列出压缩前 25 条和压缩后 7 条，标出保留、移走、新增、重新注入，不调用模型。参考记录更新后运行同目录的 compare.py 重新生成。"),
-        ("实验记录", "2026-10-05 压缩 5 次、不压缩对照 2 次（另有 2 次因上游超时或脚本出错不计入）。5 次压缩后都是 7 条 input：3 条用户消息、摘要、权限说明与 Skills、环境信息、新问题，没有工具调用和返回，与 compact.rs 一致（手动压缩用 DoNotInject，下一轮再注入初始上下文；用户消息从新往旧最多保留约 2 万 token）。摘要：4 次只留行号或计数，1 次抄下 grep 原文；5 次追问都没有编造。对照组 2 次都答出了 grep 原文。汇总表与参考记录见 materials/compact/。"),
-        ("讲师提示", "本页是试讲过满时第一个移到配套页的内容；移走时同步移走 p33 第 2 题，并在 p28 给出配套页入口。"),
-    ),
+    id='p34',
+    segment='选择怎样继续',
+    title='带着这份内容，进入审查与风格调整',
+    lead='本轮用人提供的资料补齐主页，沿选定 Plan 成果查看页面和 build，再看规则、文件返回和对话历史如何进入请求。清空开始新对话，压缩用摘要承接历史，项目文件仍可读取。下一节先审内容与范围、保存 homepage-v1，再参考主页改风格。',
+    html='<div class="p-grid" style="--n:2;gap:16px"><div class="p-box" data-role="ok" data-reveal="0"><h3>这一轮</h3><p>个人内容已呈现<br>页面与 build 已看过</p></div><div class="p-box" data-role="us" data-reveal="1"><h3>下一节</h3><p>审内容和范围<br>保存 homepage-v1<br>参考主页改风格</p></div></div><div class="p-bar is-light" data-reveal="1">继续使用选定的 Plan 成果</div>',
+    steps=['收住本轮', '交接下一节'],
 )
-
-scene(
-    id="p28", segment="压缩与交接",
-    label="这次该怎么选", title="四种做法，这一次选哪个",
-    lead="继续、恢复、压缩后继续、新建并交接，各有适用情境。先看 2.1 的实际会话再决定：与修改无关的探索很多，就新建，用反馈清单交接；上下文仍然集中，继续也合理。把选择和理由写进本轮记录。",
-    html=(
-        '<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1.5fr) minmax(0,1.5fr)">'
-        '<div class="is-head" data-reveal="0"><span>做法</span><span>适合</span><span>风险</span></div>'
-        '<div data-reveal="0"><span>继续</span><span>刚做完、上下文集中</span><span>无关历史越积越多</span></div>'
-        '<div data-reveal="0"><span>恢复</span><span>中断后接着同一件事</span><span>文件和服务不会跟着回来</span></div>'
-        '<div data-reveal="1"><span>压缩后继续</span><span>历史长、但方向没变</span><span>原始证据变成摘要</span></div>'
-        '<div data-reveal="1" class="is-key"><span>新建 + 交接</span><span>换了一件事、前面多是探索</span><span>交接文件要写清</span></div></div>'
-        '<div class="p-bar is-light" data-reveal="2">讲师这次：<b>新建</b>，用 CH02_VIBE_ITERATIONS.md 交接</div>'
-    ),
-    steps=["继续与恢复", "压缩与新建", "这一次"],
-    teaching=teach(
-        ("讲师提示", "不预设唯一正确答案；验收看理由是否引用具体状态（会话内容、历史长度、文件是否已更新），不看选了哪一种。"),
-        ("跟做产出", "本轮记录的“会话选择与理由”一项。"),
-    ),
-)
-
-# ---------- 本轮迭代 ----------
-scene(
-    id="p29", segment="本轮迭代", layout="prompt-scene", prompt=ROUND_PROMPT,
-    label="写本轮 Prompt", title="让 Codex 只改这一处",
-    lead="在新会话里提交本轮 Prompt。它引用反馈清单这份当前证据，项目内容由人提供并要求原文照用，范围只到项目区，完成标准写成可以检查的四件事。讲师演示的项目区借用两位讲师的真实经历；首屏沿用第 1 章的示例，本轮不改。",
-    html=(
-        '<div class="demo-notes"><ol class="p-notes">'
-        '<li data-reveal="0"><span><b>引用当前证据</b><small>反馈清单第 3 条</small></span></li>'
-        '<li class="is-risk" data-reveal="1"><span><b>内容由人提供</b><small>讲师演示借用两位讲师的经历</small></span></li>'
-        '<li data-reveal="2"><span><b>只写愿意公开的</b><small>2.4 之后所有人都看得到</small></span></li>'
-        '<li class="is-ok" data-reveal="3"><span><b>可检查的完成标准</b><small>视口 · 键盘 · build · diff 范围</small></span></li></ol></div>'
-    ),
-    steps=["引用证据", "内容由人提供", "只写愿意公开的", "完成标准"],
-    teaching=teach(
-        ("切到实操", "讲师在新会话中提交本 Prompt，尖括号一行替换为两位讲师经历聚合的三条（courseware/ch02/materials/README.md，取自已公开的讲师简介，2026-10-05 讲师确认），提前写好，不在镜头前现写：\n\n- 红绿灯感知量产：城市 NOA 红绿灯感知模块的量产方案设计、部署与加速\n- 端侧多模态推理引擎：在 Nvidia Orin / Thor 上从 0 到 1 搭建大模型推理引擎并量产\n- RoboHarness：把自然语言需求转成可执行、可验证、可持续迭代的研发流程"),
-        ("讲师提示", "学员项目区已完整时，按分镜“内容已完整时的跟做分支”：Goal 改为呈现一条新批准的补充，不追认原页面有缺陷；没有补充需求时在独立练习副本使用课程合成示例。"),
-    ),
-)
-
-scene(
-    id="p30", segment="本轮迭代",
-    label="确认计划再执行", title="先看计划，再让它动手",
-    lead="Codex 先回复计划。确认三件事再放行：计划只涉及项目区；要放进页面的内容和我们给的原文一致；没有新依赖、没有链接。小改动的计划可能只有一两句，这正常。",
-    html=(
-        '<div class="p-handoff"><div class="p-handoff-card" data-reveal="0"><h3>看 Codex 的计划</h3><p>它说要改哪些文件、怎么改</p>'
-        '<span class="p-env">新会话</span><span class="p-env">workspace-write</span></div>'
-        '<ol class="p-watch"><li data-reveal="1">只涉及项目区<small>预期只改 src/App.tsx 的项目数据</small></li>'
-        '<li data-reveal="2">内容与原文一致<small>一个字一个字对</small></li>'
-        '<li data-reveal="3">没有新依赖、没有链接<small>有就先停，问清楚</small></li></ol></div>'
-    ),
-    steps=["看计划", "范围", "内容", "依赖与链接"],
-    teaching=teach(
-        ("切到实操", "Codex 的计划以录制实际为准。若计划越界，就地让它收窄并保留原始回复，2.3 可作为“范围扩大”的真实素材；不准备越界的计划。"),
-        ("备课参考", "按排练快照预估，内容迭代只改 src/App.tsx：10 行新增、2 行删除（materials/homepage-v1.diff）。真实 diff 以录制为准。"),
-    ),
-)
-
-scene(
-    id="p31", segment="本轮迭代",
-    label="改好了吗", title="改好了吗？有没有弄坏别的？",
-    lead="改完由人检查，不只看新内容：三种视口下内容完整可读；Tab 焦点顺序与改前一致；npm run build 成功。内容变多后第 1 条“手机上挤”若出现，记为剩余问题，不在这一轮顺手修。",
-    html=(
-        '<div class="p-rec" style="grid-template-columns:minmax(0,1fr) minmax(0,1.1fr) minmax(0,1.3fr);row-gap:12px;--rf:21px">'
-        '<div class="is-head" data-reveal="0"><span>检查</span><span>结果</span><span>能说明什么</span></div>'
-        '<div data-reveal="0"><span class="p-cell">360 · 768 · 1440</span><span class="p-cell">三条经历都完整显示</span><span class="p-why">第 3 条已解决；布局没被挤坏</span></div>'
-        '<div data-reveal="1"><span class="p-cell">Tab 键</span><span class="p-cell">仍只停在“查看项目”</span><span class="p-why">键盘行为与改前一致</span></div>'
-        '<div data-reveal="2"><span class="p-cell p-mono">npm run build</span><span class="p-cell">退出码 0</span><span class="p-why">构建流程成功完成</span></div></div>'
-        '<div class="p-bar is-light" data-reveal="3">新出现的问题：<b>记下来，不顺手修</b></div>'
-    ),
-    steps=["三种视口", "键盘", "构建", "新问题"],
-    teaching=teach(
-        ("备课参考", "排练版 homepage-v1（materials/homepage-v1.diff）2026-10-03 核对：360×800 下页面高 827px、无横向滚动；Tab 只停在“查看项目”；build 成功。"),
-        ("讲师提示", "检查由人完成；让 AI 打开浏览器自验证留到 Harness 章节（决定 10）。结果列以录制实际为准。"),
-    ),
-)
-
-scene(
-    id="p32", segment="本轮迭代",
-    label="记录本轮", title="写下本轮，下一次才接得上",
-    lead="在 CH02_VIBE_ITERATIONS.md 末尾追加本轮记录。它是下一轮的交接，也是 2.3 审查 diff 时要对照的目标。回退点此时是本轮开始前的最后一次提交，2.3 提交后更新。",
-    html=(
-        NARROW +
-        '<div class="p-aside" style="display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:16px;align-items:start">'
-        '<div class="p-code" data-reveal="0"><div class="p-code-head"><span>docs/evidence/CH02_VIBE_ITERATIONS.md</span><span>追加</span></div>'
-        '<pre style="color:inherit">## 第 1 轮\n- 问题证据：反馈第 3 条；项目区只有一句\n- 本轮目标：呈现我提供的三条项目经历\n'
-        '<span class="hl">- 会话选择与理由：新建；2.1 会话多为请求查看</span>- 改动文件：src/App.tsx\n'
-        '- 验证结果：视口完整 / Tab 不变 / build 成功\n<span class="hl">- 剩余问题：无（第 1 条在 360 下未复现）</span>'
-        '- 回退点：本轮开始前的提交</pre></div>'
-        '<div style="display:grid;gap:12px"><div class="p-box is-soft" data-role="ctx" data-reveal="1"><p><b>下一轮</b> · 新会话的交接文件</p></div>'
-        '<div class="p-box is-soft" data-role="tool" data-reveal="1"><p><b>2.3</b> · 审查 diff 的对照目标</p></div></div></div>'
-    ),
-    steps=["逐项填写", "它用来做什么"],
-    teaching=teach(
-        ("跟做产出", "本轮记录七项：问题证据、本轮目标、会话选择与理由、改动文件、验证结果、剩余问题、回退点。模板（前两项为讲师示例）：\n\n```markdown\n" + RECORD + "\n```"),
-        ("讲师提示", "画面上的记录是讲师示例，各项以录制实际为准。"),
-    ),
-)
-
-# ---------- 小结 ----------
-scene(
-    id="p33", segment="小结",
-    label="暂停自检", title="暂停自检",
-    lead="先独立作答，再看解析。答案后面标出回到哪一页。",
-    html=(
-        '<span class="p-pause" data-reveal="0">暂停 · 先独立作答</span><div class="p-qlist">'
-        '<div class="p-qrow"><span class="p-n">1</span><div><h3>关掉终端，第二天恢复 Codex 会话，页面会自动回来吗？</h3>'
-        '<div data-reveal="1"><p>不会。会话由 Harness 保存，开发服务器是另一个程序，要重新 npm run dev<span class="p-back-to" data-role="ctx">回到 三种状态</span></p></div></div></div>'
-        '<div class="p-qrow"><span class="p-n">2</span><div><h3>压缩以后，模型不再看到哪些原始信息？</h3>'
-        '<div data-reveal="2"><p>工具返回的原文和中间过程，只剩用户消息和一份摘要<span class="p-back-to" data-role="gate">回到 压缩</span></p></div></div></div>'
-        '<div class="p-qrow"><span class="p-n">3</span><div><h3>对话越来越长，每次花的钱一定越来越多吗？</h3>'
-        '<div data-reveal="3"><p>不一定。input 在变长，但重复前缀可被缓存；费用要看服务的计费，不能只凭对话长度断言<span class="p-back-to" data-role="ok">回到 代价</span></p></div></div></div></div>'
-    ),
-    steps=["暂停", "第 1 题", "第 2 题", "第 3 题"],
-)
-
-scene(
-    id="p34", segment="小结",
-    label="本节小结", title="一轮，一个结果，一份证据",
-    lead="本节留下一轮内容迭代、三项检查结果和一份本轮记录。下一节：Codex 说完成了，手上是一份 diff，收不收？课后可以再做 0–2 轮，不计分。",
-    html=(
-        '<div class="p-sketch" style="align-items:start"><div data-reveal="0"><h3>三种状态</h3>'
-        '<ul class="p-exits" style="gap:12px"><li class="is-point">模型不记</li><li class="is-point">会话由 Harness 重发</li><li class="is-point">文件与进程各自存在</li></ul></div>'
-        '<div data-reveal="1"><h3 style="text-align:center">一个习惯</h3><div class="p-star" style="width:260px;font-size:24px">一轮一个结果<br>引用当前证据</div></div>'
-        '<div class="p-next" data-reveal="2"><h3>下一节</h3><div class="p-box" data-role="us"><h3>2.3 审改动</h3><p>Codex 说完成了，收不收？</p></div></div></div>'
-    ),
-    steps=["三种状态", "一个习惯", "下一节"],
-)
-
 
 lesson.write()

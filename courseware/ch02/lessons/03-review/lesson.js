@@ -1,31 +1,31 @@
 window.lesson = {
-  "title": "AI 交回的改动，收不收",
+  "title": "参考一个主页改风格：它看到了什么",
   "chapter": "第 2 章 · Vibe Coding",
   "section": "02.03",
-  "summary": "先看范围再看内容，决定接受、缩小还是拒绝；用提交让“拒绝”变便宜。",
+  "summary": "先给 2.2 的内容留一个检查点：只看范围和出处，提交 homepage-v1。再找一个喜欢的主页，分两轮改出自己的风格；每一轮都回到请求记录，看它拿到的参考到底是什么、有什么看不见，审过再提交或 git restore。",
   "scenes": [
     {
       "id": "p35",
-      "segment": "拿到 diff",
+      "segment": "先留检查点",
       "layout": "lesson-cover",
-      "label": "说完成了，就能收吗",
-      "title": "Codex 说完成了，就能收吗？",
-      "lead": "改动还在工作区：先读懂 diff，再决定接受、缩小还是拒绝",
-      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>听反馈</li><li class=\"is-done\"><b>2.2</b>改一处</li><li class=\"is-now\"><b>2.3</b>审改动</li><li><b>2.4</b>公开发布</li><li><b>2.5</b>只是重构？</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:18px\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">Codex 说</span><p class=\"p-big\" style=\"font-weight:500\">“已完成，项目区已更新”</p></div><div class=\"p-join\" data-reveal=\"2\"><span>还差</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"us\">我们要做</span><p class=\"p-big\" style=\"font-weight:500\">读懂 diff，再决定</p></div></div>",
+      "label": "这一节做什么",
+      "title": "参考主页，改出自己的风格",
+      "lead": "先给 2.2 留检查点，再参考主页改风格；每一轮都问它看到了什么",
+      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>看请求</li><li class=\"is-done\"><b>2.2</b>补经历</li><li class=\"is-now\"><b>2.3</b>改风格</li><li><b>2.4</b>发布上线</li><li><b>2.5</b>用好 context</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:18px\"><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ok\">先</span><p class=\"p-big\" style=\"font-weight:500\">看范围和出处，提交 homepage-v1</p></div><div class=\"p-join\" data-reveal=\"2\"><span>再</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"us\">重点</span><p class=\"p-big\" style=\"font-weight:500\">参考一个主页，改两轮风格</p></div></div><div style=\"margin-top:14px\"><div class=\"p-set\" data-role=\"ctx\" data-reveal=\"2\" style=\"padding:10px 16px 12px\"><h3 style=\"font-size:20px;margin-bottom:6px\">这一次请求里有什么</h3><div class=\"p-items\" style=\"flex-direction:row;flex-wrap:wrap;gap:6px\"><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">系统指令</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">工具</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">环境</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px\">规则</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">对话历史</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px\">工具返回</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px\">这一句</div></div><div class=\"p-foot\">不在里面：<span class=\"p-item\" style=\"display:inline-block;margin:4px 6px 0 0;padding:2px 8px;font-size:17px;border-style:dashed\">没读的文件</span><span class=\"p-item\" style=\"display:inline-block;margin:4px 6px 0 0;padding:2px 8px;font-size:17px;border-style:dashed\">浏览器里的页面</span><span class=\"p-item\" style=\"display:inline-block;margin:4px 6px 0 0;padding:2px 8px;font-size:17px;border-style:dashed\">参考主页</span></div></div></div>",
       "steps": [
         "回到地图",
-        "Codex 的报告",
-        "我们的决定"
+        "先留检查点",
+        "再改风格"
       ],
       "script": [
-        "【操作提示｜停留课件 p35 第 1 步，指向章节地图上的 2.3，不切工具窗口。录前在练习项目核对：2.2 的改动仍在工作区，未暂存、未提交】\n\n2.2 我们完成了一轮迭代，三项检查也都过了。不过到现在为止，改动只在工作区里，还没有提交。",
-        "【操作提示｜推进第 2 步；有 2.2 录制时 Codex 的实际完成报告就切 Terminal 的 Codex 会话指认最后一句，按实际原话讲，随后回课件；没有记录就留在课件，按概括讲】\n\nCodex 的最后一句话大概是：已完成，项目区已更新。这是它对自己工作的描述。",
-        "【操作提示｜推进第 3 步，留在课件；讲完进入 p36 再切 Terminal】\n\n前面的检查核对了内容呈现、键盘行为和构建；接下来读 diff，核对改动的文件、具体内容和任务范围。这一节先读懂 diff，再决定：接受、缩小，还是拒绝。"
+        "【操作提示｜停留课件 p35 第 1 步，指向章节地图上的 2.3，不切工具窗口。录前在练习项目核对：2.2 的改动仍在工作区，未暂存、未提交】\n\n2.2 我们把个人信息放进了主页，页面看过了，build 也通过了。不过改动还只在工作区里，没有提交。",
+        "【操作提示｜推进第 2 步，指左边的“先”】\n\n这一节先花几分钟给它留一个检查点：看看改了哪些文件，页面上的每一句是不是都来自 profile.md，然后提交。",
+        "【操作提示｜推进第 3 步，指右边的“重点”，再指下方锚点图和列外三样；讲完进入 p36 再切 Terminal】\n\n然后是这一节的重点：找一个喜欢的主页，参考它改出自己的风格，改两轮。每一轮我们都回到这一列方块问一句：它看到了什么？画在列外的，浏览器里的页面、我们看的参考主页，它都看不见。"
       ],
       "teaching": [
         {
           "title": "讲师提示",
-          "text": "Codex 的完成报告以 2.2 录制实际为准。"
+          "text": "本节重点是改风格（章文件 C2-61）；审 2.2 内容只看范围和出处，两页带过。"
         }
       ],
       "source": "index.html#p35",
@@ -33,148 +33,45 @@ window.lesson = {
     },
     {
       "id": "p36",
-      "segment": "拿到 diff",
-      "label": "改了哪些文件",
-      "title": "先看范围：改了哪些文件",
-      "lead": "先用两条命令看范围，再看内容。git status --short 列出所有变化，包括还没被 Git 跟踪的新文件；git diff --stat 只统计已跟踪文件还没暂存的修改：新文件要另外打开看，已经 git add 的改动要用 git diff --cached --stat 看。",
-      "html": "<div style=\"display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px\"><div class=\"p-term\" data-copy=\"git status --short\" data-reveal=\"0\"><div class=\"dim\">$ git status --short</div><div> M src/App.tsx</div><div>?? docs/evidence/CH02_…</div></div><div class=\"p-term\" data-copy=\"git diff --stat\" data-reveal=\"1\"><div class=\"dim\">$ git diff --stat</div><div> src/App.tsx | 12 ++++++++++--</div><div> 1 file changed, 10 insertions(+), 2 deletions(-)</div></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"2\"><h3>src/App.tsx</h3><p>预期之内：项目数据就在这里</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"2\"><h3>?? 记录文件</h3><p>我们自己在 2.1 新建的，不在 --stat 里</p></div></div><p class=\"source-note\">画面中的命令输出来自排练版 homepage-v1（courseware/ch02/materials/homepage-v1.diff）在 Git 2.50.1 下的一次运行；录制时换成 2.2 的真实 diff</p>",
+      "segment": "先留检查点",
+      "label": "范围和出处",
+      "title": "先看范围和出处",
+      "lead": "先用两条命令看范围，再对照 Done when 看内容：页面上的每一句，都能在 profile.md 里找到吗？git status --short 列出所有变化，包括还没被 Git 跟踪的新文件；git diff --stat 只统计已跟踪文件还没暂存的修改：新文件要另外打开看，已经 git add 的改动要用 git diff --cached --stat 看。讲师这次多了一行 ?? AGENTS.md：它是 2.2 我们自己写的规则，不是 Codex 建的，--stat 里看不到它。",
+      "html": "<div style=\"display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px\"><div class=\"p-term\" data-copy=\"git status --short\" data-reveal=\"0\"><div class=\"dim\">$ git status --short</div><div> M src/App.tsx</div><div>?? AGENTS.md</div></div><div class=\"p-term\" data-copy=\"git diff --stat\" data-reveal=\"1\"><div class=\"dim\">$ git diff --stat</div><div> src/App.tsx | 12 ++++++++++--</div><div> 1 file changed, 10 insertions(+), 2 deletions(-)</div></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"2\"><h3>src/App.tsx</h3><p>预期之内：项目数据就在这里</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"2\"><h3>?? AGENTS.md</h3><p>新文件，不在 --stat 里；是我们在 2.2 写的规则，打开看一眼，一起提交</p></div></div><p class=\"source-note\">画面中的命令输出来自讲师用课程基线在交互界面里的一次运行（2026-10-21 20:30，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max），和 2.2 是同一次留下的工作区，Git 2.50.1；你的输出以自己的 diff 为准</p>",
       "steps": [
         "status",
         "diff --stat",
         "对得上吗"
       ],
       "script": [
-        "【操作提示｜课件 p36 第 1 步 → 切 Terminal，在练习项目根目录运行 git status --short。课件画面是排练版 homepage-v1 的输出，按实际输出指认 M 与 ?? 两行；docs/evidence/ 整个是新目录时只显示目录名，如实说明】\n\n先看范围，再看内容。在项目目录运行 git status --short。M 开头的是已跟踪文件被修改了，这里是 src/App.tsx；两个问号开头的是 Git 还没跟踪的新文件，这里是我们在 2.1 新建的记录文件。",
-        "【操作提示｜同一 Terminal 运行 git diff --stat，指认文件名与增删行数；实际数字与口播的 10 行、2 行不同时按实际数字说，不念画面数字】\n\n再运行 git diff --stat，它统计每个文件改了多少行：App.tsx 新增 10 行、删除 2 行。注意，它只统计已跟踪、而且还没暂存的修改：问号那个新文件不在里面，如果 Codex 新建了文件，只看 --stat 就会漏掉；已经 git add 过的改动也不在里面，要加 --cached 才看得到。我们现在还没暂存任何东西。",
-        "【操作提示｜回课件 p36 第 3 步；实际列出无关文件或 package.json 变化时就地指出，并在 p39 走缩小或拒绝。说完暂停提示后再进入 p37】\n\n对照本轮目标：App.tsx 是项目数据所在的文件，预期之内；记录文件是我们自己写的。没有出现别的文件，没有 package.json 的变化，也就没有新依赖。范围对得上，再看内容。请暂停视频，在自己的项目里运行这两条命令。"
+        "【操作提示｜课件 p36 第 1 步 → 切 Terminal，在练习项目根目录运行 git status --short。课件画面是讲师 2026-10-21 20:30 那次运行（和 2.2 同一次）的输出，按录制时的实际输出指认；出现 ?? 开头的行就打开看是谁建的】\n\n先看范围，再看内容。在项目目录运行 git status --short。M 开头的是已跟踪文件被修改了，这里是 src/App.tsx。下面还有一行，两个问号开头：AGENTS.md。问号表示这是一个 Git 还没跟踪的新文件。它不是 Codex 建的，是我们在 2.2 自己写的那几行规则。",
+        "【操作提示｜同一 Terminal 运行 git diff --stat，指认文件名与增删行数；实际数字与口播的 10 行、2 行不同时按实际数字说，不念画面数字】\n\n再运行 git diff --stat，它统计每个文件改了多少行：App.tsx 新增 10 行、删除 2 行。注意，AGENTS.md 不在这里。--stat 只统计已跟踪、而且还没暂存的修改：新建的文件不在里面，只看 --stat 就会漏掉；已经 git add 过的改动也不在里面，要加 --cached 才看得到。",
+        "【操作提示｜回课件 p36 第 3 步；可切 VS Code 打开 AGENTS.md 看一眼。实际列出无关文件、Codex 新建的文件或 package.json 变化时就地指出，在提交前让它收回或放弃。说完暂停提示后再进入 p40】\n\n对照本轮目标：App.tsx 是项目数据所在的文件，预期之内。AGENTS.md 是我们自己写的，打开看一眼，还是那几行，等会儿一起提交。没有别的文件，也没有 package.json 的变化，就没有新依赖。范围对得上，再看内容。请暂停视频，在自己的项目里运行这两条命令；没写 AGENTS.md 的话，你不会看到那一行。"
       ],
       "teaching": [
         {
           "title": "命令说明",
-          "text": "未跟踪文件所在目录整个都是新的时，git status --short 只显示目录名（如 ?? docs/evidence/），加 --untracked-files=all 可列出目录里的每个文件。docs/evidence/ 里已有被跟踪的文件时（例如之前各章留下的记录），会直接显示具体文件名。"
+          "text": "未跟踪文件所在目录整个都是新的时，git status --short 只显示目录名（如 ?? src/components/），加 --untracked-files=all 可列出目录里的每个文件。"
+        },
+        {
+          "title": "核对记录",
+          "text": "2026-10-21 20:30 那次运行（lab-runs/ch02-context/2.2-simple-20261021-203050）结束后，在它的工作区运行 git status --short 和 git diff --stat，输出与画面一致：改了 src/App.tsx（+10 −2），另有未跟踪的 AGENTS.md（4 行，2.2 p27a 讲师写的）。Codex 在完成报告里说明 AGENTS.md 是它开工前就存在的未跟踪文件。16:22 那次输出相同。src/App.tsx 的改动与 materials/homepage-v1.diff 逐行相同。学员没写 AGENTS.md 时没有这一行。"
         },
         {
           "title": "讲师提示",
-          "text": "若 2.2 的真实 diff 出现了无关文件或 package.json 变化，在这里就地指出，并在 p39 走“缩小”或“拒绝”。"
+          "text": "若 2.2 的真实 diff 出现了无关文件或 package.json 变化，在这里就地指出，并在 p40 之前走“缩小”或“拒绝”（三种处置见 p40c）。"
         }
       ],
       "source": "index.html#p36",
       "seconds": 90
     },
     {
-      "id": "p37",
-      "segment": "走读 diff",
-      "label": "改动做了什么",
-      "title": "再看内容：每一处改动做了什么",
-      "lead": "git diff 显示逐行改动。按“数据在哪 → 怎样渲染 → 影响哪些样式”读：这一轮只改了项目数组里的数据，渲染逻辑和样式都没动。排版规则没变，但内容变多了，有没有挤坏仍以 2.2 的视口检查为准。",
-      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-walk\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:36px\"><div class=\"p-fn\">src/App.tsx <span class=\"add\">+10</span><span class=\"del\">−2</span></div><div class=\"p-ln\"><i>1</i><code>const projects = [</code></div><div class=\"p-ln del\"><i>3</i><code>    name: <span class=\"s\">'学习笔记'</span>,</code></div><div class=\"p-ln del\"><i>4</i><code>    description: <span class=\"s\">'记录课程练习'</span>,</code></div><div class=\"p-ln add\"><i>3</i><code>    name: <span class=\"s\">'红绿灯感知量产'</span>,</code></div><div class=\"p-ln add\"><i>4</i><code>    description: <span class=\"s\">'城市 NOA 红绿灯…'</span>,</code></div><div class=\"p-ln add\"><i>6</i><code>  { name: <span class=\"s\">'端侧多模态推理引擎'</span>, … },</code></div><div class=\"p-ln add\"><i>10</i><code>  { name: <span class=\"s\">'RoboHarness'</span>, … },</code></div><div class=\"p-ln\"><i>15</i><code>]</code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>数据</b><small>换掉一条，又加了两条</small></span></li><li data-reveal=\"1\"><span><b>渲染</b><small>projects.map 那段没动</small></span></li><li data-reveal=\"2\"><span><b>样式</b><small>index.css 没动 · 挤没挤坏看 2.2 的检查</small></span></li><li class=\"is-ok\" data-reveal=\"3\"><span><b>文字与原文一致</b><small>逐字对过</small></span></li></ol></div><p class=\"source-note\">新增的两项各占 4 行，画面折叠为一行。画面中的命令输出来自排练版 homepage-v1（courseware/ch02/materials/homepage-v1.diff）在 Git 2.50.1 下的一次运行；录制时换成 2.2 的真实 diff。</p>",
-      "steps": [
-        "数据",
-        "渲染",
-        "样式",
-        "文字"
-      ],
-      "script": [
-        "【操作提示｜课件 p37 第 1 步 → 切 Terminal 运行 git diff，指认 src/App.tsx 顶部 projects 数组的删除行与新增行；画面代码是排练版 homepage-v1，按实际 diff 讲，不预设结构】\n\n运行 git diff，看逐行改动。按三个问题读。第一，数据在哪？项目信息放在 App.tsx 顶部的 projects 数组里。红色两行是旧的那一条，“学习笔记：记录课程练习”，被整条换掉了；绿色是新的第一条。后面又加了两条项目，画面上各折成了一行。",
-        "【操作提示｜切 VS Code 打开 src/App.tsx，定位 projects.map 那段；实际 diff 若改了渲染，在这一步指出，并说清对三种视口和键盘的影响】\n\n第二，怎样渲染？页面下方用 projects.map 把数组里的每一项变成一张卡片。这段代码这次没有出现在 diff 里，说明渲染方式没变，只是多了两项数据。",
-        "【操作提示｜回课件推进第 3 步；可切 Terminal 对照 git status --short，确认 src/index.css 不在列表里。实际改了样式时就地指出，对照 2.2 的视口检查结果】\n\n第三，影响哪些样式？index.css 没有改动，排版规则和原来一样。文字和卡片变多后，会占用更多空间；是否被截断或挤坏，要对照 2.2 在三种视口下的检查结果。",
-        "【操作提示｜推进第 4 步 → VS Code 并排打开 2.2 Prompt 里给出的项目经历原文和 src/App.tsx，逐字核对；不一致时如实指出，留到 p39 处置。随后回课件 p38】\n\n最后逐字对一遍文字，和我们给的原文一致，没有被润色。一处很小的改动，用这三个问题读完，就能说清它的目的和影响面。"
-      ],
-      "teaching": [
-        {
-          "title": "讲师提示",
-          "text": "按 2.2 的真实 diff 讲，不预设结构。若 Codex 改了渲染或样式，就在第 2、3 步指出，并说清它对三种视口和键盘的影响。"
-        }
-      ],
-      "source": "index.html#p37",
-      "seconds": 120
-    },
-    {
-      "id": "p38",
-      "segment": "走读 diff",
-      "label": "对得上本轮目标吗",
-      "title": "逐项对照本轮的完成标准",
-      "lead": "把 2.2 Prompt 的 Done when 逐项拿来对照：前三项看本轮记录里的检查结果，第四项看刚读过的 diff。四项都有证据，才进入处置判断。",
-      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-claim\" style=\"grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"agent\">Done when</span><p style=\"margin-top:8px;line-height:1.7\">三种视口可读<br>Tab 顺序不变<br>build 成功<br>diff 只含项目区</p></div><ul class=\"p-checks\"><li data-reveal=\"1\">三种视口<small>本轮记录：三条经历完整显示</small></li><li data-reveal=\"1\">键盘<small>本轮记录：Tab 仍只停在“查看项目”</small></li><li data-reveal=\"1\">构建<small>本轮记录：退出码 0</small></li><li data-reveal=\"2\">diff 范围<small>刚才读过：只有 App.tsx 的项目数据</small></li></ul></div>",
-      "steps": [
-        "完成标准",
-        "检查结果",
-        "diff 范围"
-      ],
-      "script": [
-        "【操作提示｜课件 p38 第 1 步 → 切 VS Code 打开 docs/evidence/CH02_VIBE_ITERATIONS.md，指认 2.2 Prompt 的 Done when 四项，再回课件】\n\n回到 2.2 我们写的 Done when，一共四项。它当时是给 Codex 的要求，现在变成我们的验收清单。",
-        "【操作提示｜推进第 2 步；可回到同一记录文件指认三种视口、键盘、构建的实际检查结果。右侧文字是排练版，按实际记录讲；缺项标待补，不打勾】\n\n前三项，三种视口、键盘、构建，证据在本轮记录里，2.2 都检查过。",
-        "【操作提示｜推进第 3 步，留在课件；第四项依据 p36–p37 已读过的实际 diff 判断，不再切工具窗口】\n\n第四项，diff 只含项目区相关改动，证据就是刚才读过的 diff。四项都有证据，才进入下一步：决定怎么处置。如果自己的 diff 多出了无关文件、改了样式，或者加了依赖，这一项就打叉，那就是范围扩大。"
-      ],
-      "teaching": [],
-      "source": "index.html#p38",
-      "seconds": 90
-    },
-    {
-      "id": "p39",
-      "segment": "处置",
-      "label": "接受、缩小还是拒绝",
-      "title": "接受、缩小，还是拒绝",
-      "lead": "三种处置看两个条件：改动是否都在目标之内，越界的部分能不能单独去掉。讲师这次的 diff 干净，选接受。范围扩大真的出现时，就地处理，不为了教学去制造。",
-      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,.7fr) minmax(0,1.4fr) minmax(0,1.6fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>处置</span><span>什么情况</span><span>怎么做</span></div><div data-reveal=\"0\" class=\"is-key\"><span>接受</span><span>都在目标内，四项有证据</span><span>暂存、检查、提交</span></div><div data-reveal=\"1\"><span>缩小</span><span>主体对，夹带了无关修改</span><span>放弃越界的文件，或让 Codex 收回</span></div><div data-reveal=\"1\"><span>拒绝</span><span>方向错，或改得太多读不懂</span><span>放弃全部改动，重写 Prompt</span></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">本次：<b>接受</b> · 理由写进记录</div>",
-      "steps": [
-        "接受",
-        "缩小与拒绝",
-        "本次结论"
-      ],
-      "script": [
-        "【操作提示｜停留课件 p39 第 1 步，不切工具窗口；真实 diff 干净时本页快速带过，重点留给 p41】\n\n处置有三种。接受：改动都在目标之内，四项完成标准都有证据。那就暂存、检查、提交。",
-        "【操作提示｜推进第 2 步，留在课件；不准备坏 diff，也不现场制造越界改动】\n\n缩小：主体是对的，但夹带了无关的修改，比如顺手改了样式或别的文件。可以放弃越界的那部分，或者让 Codex 把它收回。拒绝：方向错了，或者改得太多，我们读不懂。那就放弃全部改动，重新写 Prompt，怎么回去本节最后会讲。",
-        "【操作提示｜推进第 3 步 → VS Code 在 docs/evidence/CH02_VIBE_ITERATIONS.md 追加评审结论（接受 / 缩小 / 拒绝）与理由并保存，暂不提交。实际 diff 若有范围扩大，按实际写缩小或拒绝，p40 不按接受流程录。随后回课件】\n\n讲师这次的 diff 很干净，只改了项目数据，选接受。如果自己的 diff 出现了范围扩大，这里就是处理它的时候。把结论和理由写进本轮记录，然后提交。"
-      ],
-      "teaching": [
-        {
-          "title": "讲师提示",
-          "text": "不准备坏 diff（决定 7）。真实 diff 干净时，本页快速带过，2.3 以 p41 演示回到检查点为主（决定 21）。"
-        },
-        {
-          "title": "跟做产出",
-          "text": "评审结论：接受 / 缩小 / 拒绝及理由，追加到本轮记录。"
-        }
-      ],
-      "source": "index.html#p39",
-      "seconds": 90
-    },
-    {
       "id": "p40",
-      "segment": "处置",
+      "segment": "先留检查点",
       "label": "留下检查点",
-      "title": "提交，留下一个检查点",
-      "lead": "和第 1 章保存检查点时一样：只暂存审过的文件，用 git diff --cached 再看一遍待提交内容，然后提交。代码和记录分两次提交：代码那次就是新的回退点，它的短哈希写进记录，再单独提交记录。",
-      "html": "<div class=\"p-term\" data-reveal=\"0\" data-copy=\"git add src/App.tsx\"><div class=\"dim\">$ git add src/App.tsx</div></div><div class=\"p-term\" data-reveal=\"1\" style=\"margin-top:8px\" data-copy=\"git diff --cached --stat\"><div class=\"dim\">$ git diff --cached --stat</div><div> src/App.tsx | 12 ++++++++++--</div></div><div class=\"p-term\" data-reveal=\"2\" style=\"margin-top:8px\" data-copy=\"git commit -m &quot;homepage-v1: 补充项目经历&quot;\"><div class=\"dim\">$ git commit -m \"homepage-v1: 补充项目经历\"</div><div class=\"ok\">[main 85c5fcb] homepage-v1: 补充项目经历</div></div><div class=\"p-term\" data-reveal=\"3\" style=\"margin-top:8px\" data-copy=\"git add docs/evidence/CH02_VIBE_ITERATIONS.md &amp;&amp; git commit -m &quot;记录第 1 轮&quot;\"><div class=\"dim\">$ git add docs/evidence/CH02_VIBE_ITERATIONS.md &amp;&amp; git commit -m \"记录第 1 轮\"</div><div class=\"ok\">[main 3e1d0a7] 记录第 1 轮</div></div><p class=\"source-note\">画面中的命令输出来自排练版 homepage-v1（courseware/ch02/materials/homepage-v1.diff）在 Git 2.50.1 下的一次运行；录制时换成 2.2 的真实 diff。 提交哈希每次不同。</p>",
-      "steps": [
-        "暂存代码",
-        "再看一遍",
-        "提交代码",
-        "单独提交记录"
-      ],
-      "script": [
-        "【操作提示｜课件 p40 第 1 步 → Terminal 在练习项目根目录运行 git add src/App.tsx；录前先确认没有其他已暂存的改动（git diff --cached 为空）】\n\n决定接受，就提交。做法和第 1 章保存检查点时一样：只暂存审过的文件，写清楚文件名，不用 git add 点号一把全加。先只暂存代码：src/App.tsx。",
-        "【操作提示｜推进第 2 步，同一 Terminal 运行 git diff --cached --stat；列出的不止 src/App.tsx 时先用 git restore --staged 取消多余文件，再重看】\n\n暂存以后运行 git diff --cached --stat，看看即将提交的是不是只有 App.tsx。这一步能拦住手滑多加的文件。",
-        "【操作提示｜推进第 3 步，运行 git commit -m \"homepage-v1: 补充项目经历\"；分支名和短哈希以实际输出为准，画面中的 85c5fcb 是排练记录】\n\n然后提交，提交说明写清楚这一轮做了什么：homepage-v1，补充项目经历。",
-        "【操作提示｜推进第 4 步 → VS Code 把代码那次的实际短哈希写进记录的“回退点”并保存；Terminal 运行 git add docs/evidence/CH02_VIBE_ITERATIONS.md && git commit -m \"记录第 1 轮\"，再 git status 确认干净。随后回课件】\n\n这个提交就是新的回退点。把终端显示的短哈希写进记录的“回退点”一项，评审结论也写进去，然后单独提交记录文件。代码一次、记录一次，一次提交只放一件事，下一页撤回时就能看到好处。提交完，git status 应该是干净的。请暂停视频，完成自己的两次提交。"
-      ],
-      "teaching": [
-        {
-          "title": "讲师提示",
-          "text": "两次提交的哈希每次不同；记录提交里的回退点写代码那次的哈希。分支名以学员仓库为准，course-starter 默认分支为 main。"
-        }
-      ],
-      "source": "index.html#p40",
-      "seconds": 120
-    },
-    {
-      "id": "p41",
-      "segment": "回到检查点",
-      "label": "收错了怎么回去",
-      "title": "万一收错了，怎样回去",
-      "lead": "还没提交：用 git restore 放弃选定文件还没暂存的修改，已经 git add 的先用 git restore --staged 取消暂存；它不处理未跟踪的新文件，放弃的内容也找不回来。已经提交：用 git revert 加提交哈希，新建一个“撤回提交”，历史保留，不改写。不教 git reset --hard：2.4 要公开历史。",
-      "html": "<div class=\"p-chain\" data-reveal=\"0\"><span>改动</span><i>→</i><span>审查</span><i>→</i><span>提交 = 检查点</span></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box\" data-role=\"gate\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"gate\">还没提交</span><div class=\"p-term\" data-copy=\"git restore -- src/App.tsx\" style=\"margin-top:8px\"><div class=\"dim\">$ git restore -- src/App.tsx</div></div><p class=\"p-sub\" style=\"margin-top:8px\">已 add 的先 --staged · 新文件不管 · 放弃了就找不回</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ctx\">已经提交</span><div class=\"p-term\" data-copy=\"git revert --no-edit 85c5fcb\" style=\"margin-top:8px\"><div class=\"dim\">$ git revert --no-edit 85c5fcb</div><div class=\"ok\">Revert \"homepage-v1: 补充项目经历\"</div></div><p class=\"p-sub\" style=\"margin-top:8px\">新增一个撤回提交 · 只撤回代码那次</p></div></div><div class=\"p-bar\" data-reveal=\"3\">commit 让<b>“拒绝”变便宜</b></div>",
+      "title": "提交一次，留下检查点",
+      "lead": "范围对、每处改动都找得到依据、Prompt 之外的动作也都经过我们同意，就接受；三种处置（接受、缩小、拒绝）留到后面的风格改动再细讲，那里更可能用上。审过了就提交：只暂存审过的文件，这次是 src/App.tsx 和我们自己写的 AGENTS.md；再看一遍待提交的内容，然后提交，提交说明写本轮目标和改动文件。这次提交就是检查点。接受错了也回得去：还没提交的用 git restore 放弃修改，已经提交的用 git revert 加一个撤回提交，原来的提交留在历史里。/clear 和压缩只动对话，不动文件；回退靠 git。",
+      "html": "<div class=\"p-term\" data-reveal=\"0\" data-copy=\"git add src/App.tsx AGENTS.md\"><div class=\"dim\">$ git add src/App.tsx AGENTS.md</div><div class=\"dim\">$ git diff --cached --stat</div><div> AGENTS.md   |  4 ++++</div><div> src/App.tsx | 12 ++++++++++--</div><div> 2 files changed, 14 insertions(+), 2 deletions(-)</div></div><div class=\"p-term\" data-reveal=\"1\" style=\"margin-top:8px\" data-copy=\"git commit -m &quot;homepage-v1: 补充项目经历&quot; -m &quot;本轮目标：在项目区呈现我的项目经历。改动文件：src/App.tsx、AGENTS.md&quot;\"><div class=\"dim\">$ git commit -m \"homepage-v1: 补充项目经历\" \\</div><div class=\"dim\">    -m \"本轮目标：在项目区呈现我的项目经历。改动文件：src/App.tsx、AGENTS.md\"</div><div class=\"ok\">[main 7ce0e9f] homepage-v1: 补充项目经历</div></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:10px\">接受错了：还没提交用 <b>git restore</b>，已经提交用 <b>git revert</b> · 回退靠 git，不靠对话</div><p class=\"source-note\">画面中的命令输出来自讲师用课程基线在交互界面里的一次运行（2026-10-21 20:30，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max），和 2.2 是同一次留下的工作区，Git 2.50.1；你的输出以自己的 diff 为准。 7ce0e9f 是示例短哈希，每次提交都不同。</p>",
       "repro": {
         "label": "复现这个实验",
         "steps": [
@@ -183,61 +80,251 @@ window.lesson = {
             "code": "cp -R starters/personal-homepage/ch01-complete lab-runs/revert && cd lab-runs/revert\ngit init -q -b main && git add -A && git commit -qm baseline"
           },
           {
-            "text": "提交一次代码改动（homepage-v1），再单独提交一份记录",
-            "code": "git apply ../../courseware/ch02/materials/homepage-v1.diff && git commit -qam homepage-v1\necho '# 本轮记录' > CH02_VIBE_ITERATIONS.md && git add CH02_VIBE_ITERATIONS.md && git commit -qm 'docs: 本轮记录'"
+            "text": "应用 homepage-v1 的改动并提交一次，提交说明写本轮目标与改动文件",
+            "code": "git apply ../../courseware/ch02/materials/homepage-v1.diff && git add src/App.tsx\ngit commit -q -m 'homepage-v1: 补充项目经历' -m '本轮目标：在项目区呈现我的项目经历。改动文件：src/App.tsx'"
           },
           {
-            "text": "在演示分支上撤回代码那次提交（记录之前的那一次，即 HEAD~1）",
-            "code": "git switch -c demo-revert && git revert --no-edit HEAD~1 && git log --oneline -3 && git show --stat HEAD"
+            "text": "在演示分支上撤回这次提交",
+            "code": "git switch -c demo-revert && git revert --no-edit HEAD && git log --oneline -3 && git show --stat HEAD"
           },
           {
-            "text": "检查：撤回只改了 src/App.tsx，记录文件还在；然后回到 main，删掉演示分支",
-            "code": "ls CH02_VIBE_ITERATIONS.md && git switch main && git branch -D demo-revert"
+            "text": "检查：撤回提交只改了 src/App.tsx，原来的提交还在历史里；然后回到 main，删掉演示分支",
+            "code": "git switch main && git branch -D demo-revert"
           }
         ],
-        "note": "讲师 2026-10-05 按此实测。需要已配置 git user.name 与 user.email。"
+        "note": "讲师 2026-10-20 按此实测（Git 2.50.1）。需要已配置 git user.name 与 user.email。"
       },
       "steps": [
-        "主流程",
-        "还没提交",
-        "已经提交",
-        "为什么要提交"
+        "暂存并再看一遍",
+        "提交并写清说明",
+        "接受错了怎么回去"
       ],
       "script": [
-        "【操作提示｜停留课件 p41 第 1 步，不切工具窗口。录前核对：p40 的两次提交都已完成，工作区干净，记录里有代码提交的短哈希】\n\n最后一个问题：万一收错了，怎样回去？先看主流程：改动、审查、提交。回去的方法取决于走到了哪一步。",
-        "【操作提示｜推进第 2 步，留在课件；git restore 只讲解不现场执行，主线上没有要放弃的修改】\n\n还没提交，想放弃某个文件的修改，用 git restore，后面写清楚文件路径。先确认路径对，再执行。它放弃的是还没暂存的修改；如果已经 git add 过，要先用 git restore --staged 取消暂存，再 restore。还有两个边界：一是只管 Git 已经跟踪的文件，Codex 新建的文件它不管；二是放弃的内容找不回来，想留的先另存。",
-        "【操作提示｜推进第 3 步 → 切 Terminal，在练习项目根目录先 git status 确认干净，再依次运行 git switch -c demo-revert、git revert --no-edit <homepage-v1 的短哈希>、git log --oneline -3、git show --stat HEAD，指认只改了 src/App.tsx、记录文件还在；然后 git switch main、git branch -D demo-revert。不在 main 上 revert，不运行 git reset --hard】\n\n已经提交了，用 git revert，后面跟要撤回的那次提交的短哈希，也就是记录里写的回退点。它不会把那次提交从历史里抹掉，而是新建一个“撤回提交”，内容正好相反。讲师在一个临时分支上演示一下。它撤回的是整次提交：因为代码和记录分开提交，撤回只影响 App.tsx，记录文件还在。这就是一次提交只放一件事的好处。为什么不教 git reset --hard？因为下一节要公开整段历史，改写历史容易出事，不在本课范围。",
-        "【操作提示｜回课件推进第 4 步；切回前确认已回到 main、演示分支已删除】\n\n回头看，commit 的价值在这里：它让“拒绝”变得便宜。有了检查点，接受一份改动就不再是不可回头的决定。能说出本次的回退点和回到它的命令，是这一节的验收要求。"
+        "【操作提示｜停留课件 p40 第 1 步 → 切 Terminal，在练习项目根目录 git add src/App.tsx AGENTS.md（写明路径，不用 git add .；没写 AGENTS.md 的只加 src/App.tsx），再 git diff --cached --stat；回课件】\n\n审过了，就提交。只暂存审过的文件：App.tsx，加上我们自己写的 AGENTS.md。再用 git diff --cached 看一遍，确认要提交的就是这两个文件。",
+        "【操作提示｜推进第 2 步 → Terminal 里提交，第一个 -m 写标题，第二个 -m 写本轮目标和改动文件；哈希按实际输出讲】\n\n然后提交。第一个 -m 是标题，第二个 -m 写本轮目标和改动了哪些文件，这次是 App.tsx 和 AGENTS.md。提交时输出的那一行里，有这次提交的短哈希：这就是我们的检查点。",
+        "【操作提示｜推进第 3 步，指底部横条；revert 的完整步骤在页面的复现按钮里，讲师在临时分支演示，不在学员主线上做】\n\n万一接受错了，也回得去。还没提交的，用 git restore 放弃修改；已经提交的，用 git revert 再加一个撤回提交，原来的提交还留在历史里。记住一点：/clear 和压缩只动对话，不动文件，回退靠 git。"
+      ],
+      "teaching": [
+        {
+          "title": "讲师提示",
+          "text": "这一页只讲提交一次留检查点；restore 和 revert 各一句，revert 的完整步骤在页面上的复现按钮里，讲师可在临时分支演示，学员看懂即可。不教改写历史（reset、amend）。哈希每次不同，按实际输出讲。"
+        }
+      ],
+      "source": "index.html#p40",
+      "seconds": 90
+    },
+    {
+      "id": "p40a0",
+      "segment": "改风格",
+      "label": "几个参考主页",
+      "title": "想要什么样的主页？先看几个参考",
+      "lead": "同一份 profile.md，可以做成完全不同的样子。这里有四个公开的主页或模板：整块紫色的 Hyperspace，深蓝两栏的 Brittany Chiang，青绿页头的 Freelancer，白底蓝链接的 Jon Barron。这次的示例用 Hyperspace，它和我们现在的主页差别最大，改完一眼看得出来。你可以选别的，也可以找自己喜欢的主页；参考的是风格，用的时候按各自的许可注明出处。",
+      "html": "<div class=\"p-grid\" style=\"--n:4;gap:14px\" data-reveal=\"0\"><div class=\"p-page\" style=\"position:relative;outline:3px solid #D9481C;outline-offset:3px\"><div class=\"p-page-bar\" style=\"font-size:13px\"><i></i><i></i><i></i>html5up.net · CC BY 3.0</div><img src=\"external/ref-hyperspace.png\" alt=\"Hyperspace 模板首屏：整块紫色\" style=\"display:block;width:100%;height:200px;object-fit:cover;object-position:top\"><span class=\"p-tag\" data-role=\"us\" data-reveal=\"1\" style=\"position:absolute;right:8px;top:36px\">这次用</span></div><div class=\"p-page\" style=\"position:relative\"><div class=\"p-page-bar\" style=\"font-size:13px\"><i></i><i></i><i></i>brittanychiang.com · 注明出处</div><img src=\"external/ref-brittanychiang.png\" alt=\"Brittany Chiang 的主页：深蓝两栏\" style=\"display:block;width:100%;height:200px;object-fit:cover;object-position:top\"></div><div class=\"p-page\" style=\"position:relative\"><div class=\"p-page-bar\" style=\"font-size:13px\"><i></i><i></i><i></i>Start Bootstrap · MIT</div><img src=\"external/ref-freelancer.png\" alt=\"Freelancer 模板首屏：青绿页头\" style=\"display:block;width:100%;height:200px;object-fit:cover;object-position:top\"></div><div class=\"p-page\" style=\"position:relative\"><div class=\"p-page-bar\" style=\"font-size:13px\"><i></i><i></i><i></i>jonbarron.info · 欢迎复用</div><img src=\"external/ref-jonbarron.png\" alt=\"Jon Barron 的主页：白底蓝链接\" style=\"display:block;width:100%;height:200px;object-fit:cover;object-position:top\"></div></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:16px\">学的是风格，<b>不照搬别人的代码和文字</b> · 用的时候注明出处</div>",
+      "refs": [
+        {
+          "kind": "live",
+          "group": "参考主页",
+          "text": "Hyperspace",
+          "url": "https://html5up.net/uploads/demos/hyperspace/"
+        },
+        {
+          "kind": "live",
+          "group": "参考主页",
+          "text": "Brittany Chiang",
+          "url": "https://brittanychiang.com/"
+        },
+        {
+          "kind": "live",
+          "group": "参考主页",
+          "text": "Freelancer",
+          "url": "https://startbootstrap.github.io/startbootstrap-freelancer/"
+        },
+        {
+          "kind": "live",
+          "group": "参考主页",
+          "text": "Jon Barron",
+          "url": "https://jonbarron.info/"
+        },
+        {
+          "kind": "read",
+          "group": "许可",
+          "text": "HTML5 UP 许可（CC BY 3.0）",
+          "url": "https://html5up.net/license"
+        },
+        {
+          "kind": "read",
+          "group": "许可",
+          "text": "bchiang7/v4 的 README",
+          "url": "https://github.com/bchiang7/v4"
+        },
+        {
+          "kind": "read",
+          "group": "许可",
+          "text": "startbootstrap-freelancer（MIT）",
+          "url": "https://github.com/StartBootstrap/startbootstrap-freelancer"
+        }
+      ],
+      "steps": [
+        "四个参考",
+        "这次用哪个",
+        "注明出处"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p40a0 第 1 步，四张截图一起出现，从左到右指认】\n\nhomepage-v1 提交了，我们有了一个检查点。接下来做一件更像真实做主页的事：改风格。同一份 profile.md，可以做成完全不同的样子。先看四个公开的主页和模板：整块紫色的 Hyperspace，深蓝两栏的 Brittany Chiang，青绿页头的 Freelancer，白底蓝链接的 Jon Barron。",
+        "【操作提示｜推进第 2 步，指“这次用”标记；可切浏览器打开 Hyperspace，往下滚一屏再回课件】\n\n这次的示例用 Hyperspace。它和我们现在的主页差别最大，改完一眼就看得出来。你可以选别的，也可以找一个自己喜欢的主页。",
+        "【操作提示｜推进第 3 步，指底部横条；随后进入 p40a】\n\n参考的是风格，不是照搬别人的代码和文字。这几个都允许参考，Hyperspace 要求注明出处，用的时候在页面上写一句就行。"
+      ],
+      "teaching": [
+        {
+          "title": "讲师提示",
+          "text": "四张都是首屏截图（courseware/tools/capture-source.py，2026-10-23），Jon Barron 那张只截到第一篇论文，下面的合影不截。录制时可以在浏览器里点开第一行的链接，往下滚一屏让学员看整页。可剪辑时，换一个参考再跑一组，最后把两组结果并排给学员看（分镜 p40a0）。"
+        }
+      ],
+      "source": "index.html#p40a0",
+      "seconds": 90
+    },
+    {
+      "id": "p40a",
+      "segment": "改风格",
+      "layout": "prompt-scene",
+      "prompt": "Goal：参考 Hyperspace 的风格，把我的主页改出新样子：配色和版式都可以改。\nContext：参考 https://html5up.net/uploads/demos/hyperspace/ 。先用 curl 取这个页面的 HTML\n和它引用的 CSS（要联网，会弹申请，我来批准），告诉我它的风格是怎样的\n（配色、各区块怎么铺、版式），再提计划，等我确认再改。\nConstraints：页面上的文字不变，每一句都要能在 profile.md 里找到；不加依赖，\n不引入远程字体和图片；改结构时尽量沿用现有组件；正文和背景的对比度要够。\nDone when：我在浏览器里看过、觉得像；你跑 build 成功；页脚注明风格参考的出处；\n告诉我改了哪些区块、为什么。",
+      "label": "照着参考改",
+      "title": "照着参考改，样子可以变，内容不能变",
+      "lead": "这次照着 Hyperspace 改，配色和版式都可以变。约束只留四条：页面上的文字不变，每一句都要能在 profile.md 里找到；不加依赖，不引入远程字体和图片；改结构时尽量沿用现有组件；正文和背景的对比度要够。守住的是“内容是我的”，不是“样子不变”。Prompt 里点明让它用 curl 取参考页面的 HTML 和 CSS，联网我们来批准；取回来以后先说看到的风格和计划，等我们确认再改。",
+      "html": "<div class=\"demo-notes\"><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>样子可以变</b><small>配色和版式都可以改</small></span></li><li class=\"is-risk\" data-reveal=\"1\"><span><b>用 curl 取 HTML 和 CSS</b><small>要联网，我们来批准</small></span></li><li class=\"is-ok\" data-reveal=\"2\"><span><b>内容不能变</b><small>文字都在 profile.md 里；先说计划</small></span></li></ol></div>",
+      "steps": [
+        "样子可以变",
+        "用 curl 取",
+        "内容不能变"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p40a 第 1 步，指 Goal；Prompt 提前写好】\n\n这次就照着 Hyperspace 改。配色可以变，版式也可以变，整个页面都可以换个样子。",
+        "【操作提示｜推进第 2 步，指 Context 里的地址和 curl 那一句】\n\nContext 里给了参考页面的地址，还点明让它用 curl 去取 HTML 和 CSS。为什么要点明？它默认会用网页搜索，可在我们这套配置下，网页搜索只拿得到一段摘要，看不到样子。curl 要联网，会弹出申请，我们看清它要访问哪个网址再批准。取回来以后，先让它说说看到的风格和计划，我们确认了再改。",
+        "【操作提示｜推进第 3 步，指 Constraints；随后切 Terminal 提交 Prompt，批准联网，等它说完看到的风格和计划，确认后执行，再回课件 p40b】\n\n约束只留四条：页面上的文字不变，每一句都要能在 profile.md 里找到；不加依赖，不引入远程字体和图片；改结构时尽量沿用现有组件；对比度要够。我们守住的是“内容是我的”，不是“样子不变”。请暂停视频，选一个你喜欢的参考，提交 Prompt。"
       ],
       "teaching": [
         {
           "title": "切到实操",
-          "text": "在临时分支演示，不在学员主线上做，开始前 git status 必须干净：git switch -c demo-revert → git revert --no-edit <homepage-v1 的短哈希> → git log --oneline -3 → git switch main → git branch -D demo-revert（-D 用于删除未合并的演示分支）。2026-10-05 在临时仓库按“代码、记录分两次提交”实测：撤回只改 App.tsx，记录文件保留；已暂存的修改 git restore 不生效，先 git restore --staged 再 restore 生效。"
+          "text": "参考主页用 Hyperspace（p40a0 圈出的那个），排练脚本 materials/mainline/run-2.2.sh 用的是同一份 Prompt。批准框出现时，读清它要访问的网址再同意。它说完看到的风格和计划后，确认再执行；第一轮约 9 分钟（排练：说风格和计划约 3.6 分钟，执行约 5 分钟），录制时剪掉等待，口播提一句“这一步要等几分钟”（C2-74）。页脚注明出处写进了 Done when（CC BY 3.0 要求署名，2026-10-23 排练里没要求时它没写），p40c 审查时核对。"
         },
         {
           "title": "讲师提示",
-          "text": "改写历史的方法（reset、amend、filter 类工具）不进主课；需要时参考 GitHub 官方文档，用之前人工复核。"
+          "text": "2026-10-23 改为参考 Hyperspace、放开版式（C2-72）：只改颜色或只改一处时效果弱，放开后前后差别明显，文字约束都守住了（LOG.md 实测记录）。网页搜索在 MiniMax 下只拿到首屏摘要，所以仍点明用 curl。"
         }
       ],
-      "source": "index.html#p41",
+      "source": "index.html#p40a",
+      "seconds": 90
+    },
+    {
+      "id": "p40b",
+      "segment": "改风格",
+      "label": "它拿到了什么参考",
+      "title": "它拿到的“参考”，到底是什么",
+      "lead": "我们在浏览器里看到的主页，不会自己进入 context。把参考送进去有三条路：网页搜索、curl、截图。网页搜索是默认的工具，在 MiniMax 下由服务端执行，只返回首屏摘要，取回的内容也不进请求记录；这次我们让它用 curl 在本地取，联网由我们批准，取回的 HTML 和 CSS 作为工具返回进了 context，请求记录里看得见。可它拿到的是代码，不是我们看到的页面：样子要靠它读 CSS 推出来。截图正好相反，它看到的是样子，看不到代码。",
+      "html": "<div class=\"p-grid\" style=\"--n:3;gap:14px\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"tool\">网页搜索</span><p>默认工具，只拿到摘要</p><p class=\"p-sub\">服务端执行，内容不进记录</p></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"us\">curl（这次）</span><p>拿到 HTML 和 CSS</p><p class=\"p-sub\">我们批准联网，内容进记录</p></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ink\">截图</span><p>拿到的是样子</p><p class=\"p-sub\">这个模型能读图（实测）</p></div></div><div style=\"margin-top:12px\"><div class=\"p-set\" data-role=\"ctx\" data-reveal=\"2\" style=\"padding:10px 16px 12px\"><h3 style=\"font-size:20px;margin-bottom:6px\">这一次请求里有什么</h3><div class=\"p-items\" style=\"flex-direction:row;flex-wrap:wrap;gap:6px\"><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">系统指令</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">工具</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">环境</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">规则</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">对话历史</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px\">工具返回</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px\">这一句</div></div><div class=\"p-foot\">这次：curl 取回的 HTML 和 CSS 在“工具返回”这一块，记录里看得见</div></div></div><div class=\"p-bar\" data-reveal=\"3\" style=\"margin-top:10px\">它拿到的是代码，<b>不是我们看到的页面</b>；先问它看到了什么</div>",
+      "steps": [
+        "网页搜索",
+        "curl 和截图",
+        "这次在哪一块",
+        "结论"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p40b 第 1 步，指“网页搜索”一栏】\n\n先想一个问题：我们在浏览器里看到的那个主页，它看到了吗？没有，浏览器里的页面不会自己进 context。要把参考送进去，有三条路。第一条是网页搜索，这是它默认会用的工具。在我们这套配置下，它由模型服务那一侧执行，只拿回一段首屏的摘要，取回了什么，请求记录里也看不到。",
+        "【操作提示｜推进第 2 步，指另外两栏】\n\n第二条，就是这次用的 curl：在我们电脑上取，联网由我们批准，拿回来的是原始的 HTML 和 CSS。第三条是截图，它拿到的是样子。这个模型能读图，我试过，图里的日期、职位，连文字的颜色都答得出来。",
+        "【操作提示｜推进第 3 步，指锚点图；切 claude-tap 查看器，找 curl 的调用和返回，再找它说“看到了什么”的那段回答，按实际记录指认，再回课件】\n\n回到这一列方块。curl 取回的 HTML 和 CSS，就在工具返回这一块，记录里看得见。它刚才说的“左边日期、右边内容”，我们可以在返回里找到对应的那几行。",
+        "【操作提示｜推进第 4 步，指结论条；留在课件，进入 p40d】\n\n不过要记住：它拿到的是代码，不是我们看到的页面。页面长什么样，是它读 CSS 推出来的。所以它说“已经按参考改好了”，我们先问它看到了什么，再到浏览器里自己看一眼。"
+      ],
+      "teaching": [
+        {
+          "title": "切到实操",
+          "text": "第 3 步切 claude-tap 查看器，找这一轮里 curl 的那几次调用和返回：HTML 和 CSS 的原文就在工具返回里（长的会被截断，可以顺带指一下）。再指 p40a 那一轮它说“看到了什么”的那段回答，对照返回里的 class。如果它没用 curl、改用了网页搜索，就按实际讲：记录里只有打开的网址，内容看不到。"
+        },
+        {
+          "title": "核对记录",
+          "text": "2026-10-22 讲师机器上用 curl 实测两个主页：brittanychiang.com 的 HTML 里有经历的文字（服务端渲染），但版式靠 Tailwind 的 class 名和 CSS 文件，HTML 本身看不出长什么样；miaodx.com 的在线简历页 HTML 里没有正文，只有“浏览器未启用 JavaScript”的提示，正文由脚本渲染。默认沙箱不联网见 2.4 的实测（2026-10-07）。2026-10-22 用 run-2.2.sh 排练两次（参考 brittanychiang.com、jonbarron.info，lab-runs/ch02-context/2.2-profile-*-20261022-174731，claude-tap 会话 87745911、bf2d2e01）：它用 Codex 的 web_search 工具打开了地址（brittanychiang.com 那次 4 次，jonbarron.info 那次 3 次，动作是 open_page），这个工具在模型服务那一侧执行，不经本地沙箱，也不用人批准；请求里这个工具的配置是 `external_web_access: false`。取回的只有首页摘要，brittanychiang.com 那次没拿到 Experience 区块，jonbarron.info 的 cv.html 没打开；缺的部分，它用 Prompt 里的描述加上自己“记得”的那个网站补齐（推理里写出了一段它以为的页面结构，没有核实）。取回的内容不在 claude-tap 记录的请求里，记录里只有“打开了哪个网址”。两次做出的时间线样式相近。最初只看画面记录，误记为“没有取地址”，已按请求记录更正（章文件 C2-62）。截图：2026-10-22 用 codex exec -i 实测，MiniMax-M3.1-Flash 读出了截图里的日期、职位和文字颜色，没调用工具，约 1 万 token；交互界面里怎样贴图录制前核对。网页搜索 cached 与 live 两种模式在 MiniMax 下实测看不出区别；关掉网页搜索、打开联网让它用 curl 取，Experience 第一条和左右两列的 class 全部答对，约 15 万 token。见章文件实测记录。录制时可以把 p40a 的 Prompt 写成“用 curl 取这个地址的 HTML 和 CSS”，人在批准框里同意联网。"
+        }
+      ],
+      "source": "index.html#p40b",
+      "seconds": 120
+    },
+    {
+      "id": "p40d",
+      "segment": "改风格",
+      "label": "第二轮：说清哪里不像",
+      "title": "第二轮：说清哪里不像",
+      "lead": "第一轮改完，在浏览器里把自己的页面和参考并排看。哪里不像，用话说出来：哪一块、差在哪、想要什么样子，一次只说一两处。它看不见我们的浏览器，也看不见参考页面，我们说出来的这几句，就是它这一轮能拿到的全部参考。第二轮的请求会带着第一轮的对话历史，所以不用重复上一轮的要求。",
+      "html": "<div class=\"p-flow\" style=\"--n:3\"><div class=\"p-node\" data-role=\"us\" data-reveal=\"0\"><span class=\"p-num\">1</span><h3>并排看</h3><p>自己的页面和参考</p></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"1\"><span class=\"p-num\">2</span><h3>说清差别</h3><p>哪一块、差在哪、要什么样</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-num\">3</span><h3>再改一轮</h3><p>还是先说计划</p></div></div><div style=\"margin-top:14px\"><div class=\"p-set\" data-role=\"ctx\" data-reveal=\"2\" style=\"padding:10px 16px 12px\"><h3 style=\"font-size:20px;margin-bottom:6px\">这一次请求里有什么</h3><div class=\"p-items\" style=\"flex-direction:row;flex-wrap:wrap;gap:6px\"><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">系统指令</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">工具</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">环境</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">规则</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px\">对话历史</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px\">工具返回</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px\">这一句</div></div><div class=\"p-foot\">不在里面：<span class=\"p-item\" style=\"display:inline-block;margin:4px 6px 0 0;padding:2px 8px;font-size:17px;border-style:dashed\">浏览器里的效果</span><span class=\"p-item\" style=\"display:inline-block;margin:4px 6px 0 0;padding:2px 8px;font-size:17px;border-style:dashed\">参考页面</span></div><div class=\"p-foot\">第二轮：对话历史里有第一轮，这一句是我们说的差别</div></div></div>",
+      "steps": [
+        "并排看",
+        "说清差别",
+        "第二轮带着什么"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p40d 第 1 步；切浏览器，把自己的页面和参考主页左右并排，看一眼，再回课件】\n\n第一轮改完了，先在浏览器里把自己的页面和参考并排放着看。",
+        "【操作提示｜推进第 2 步；切 Terminal，在同一个对话里用一两句话说出差别，按实际看到的说；等它回复计划，确认后执行，再回课件】\n\n哪里不像，用话说出来：哪一块，差在哪，想要什么样子。一次只说一两处。它看不见我们的浏览器，也看不见参考页面，我们说的这几句，就是它这一轮能拿到的全部参考。",
+        "【操作提示｜推进第 3 步，指锚点图高亮的两块；留在课件，进入 p40c】\n\n这一轮的请求里，对话历史带着第一轮的全部内容，所以不用把上一轮的要求再说一遍；新加的只有我们说的差别。"
+      ],
+      "teaching": [
+        {
+          "title": "切到实操",
+          "text": "第二轮的话按录制时实际看到的差别现场说，例如“首屏的紫色太暗”“项目卡要更像参考的三宫格”；一次只说一两处。改完同样先看计划，再看 diff。"
+        },
+        {
+          "title": "讲师提示",
+          "text": "截图实测能读（2026-10-22，codex exec -i）；交互界面里怎样贴图录制前核对，核对后第二轮可以直接贴参考和自己页面的截图。第二轮还没排练过（run-2.2.sh 只跑了第一轮）。"
+        }
+      ],
+      "source": "index.html#p40d",
+      "seconds": 90
+    },
+    {
+      "id": "p40c",
+      "segment": "改风格",
+      "label": "风格要不要接受",
+      "title": "风格改得对吗，要不要接受",
+      "lead": "这一轮的 diff 会很大，不逐行读。先看范围：动了哪些文件和区块；再看文字：和 profile.md 对一遍，它说自己核对过，也要抽查；再看有没有新加的行为，比如进场动画、滚动监听、新的脚本，它说明了没有；页脚有没有注明风格参考的出处；最后看像不像，这一项 diff 里看不出来，要在浏览器里和参考并排看。接受就再提交一次；缩小，就让它收回越界或没说明的部分；拒绝，就 git restore 回到 homepage-v1。前面有检查点，拒绝也很便宜。",
+      "html": "<div class=\"p-claim\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"agent\">Codex 说</span><p class=\"p-big\" style=\"font-weight:500\">“已按参考改好了”</p></div><ul class=\"p-checks\"><li data-reveal=\"1\">动了哪些文件和区块<small>git diff --stat，对照它的改动清单</small></li><li data-reveal=\"1\">文字没变<small>和 profile.md 对，抽查</small></li><li data-reveal=\"1\">新加的行为说明了吗<small>动画、滚动监听、新脚本</small></li><li data-reveal=\"1\">出处写了吗<small>页脚注明风格参考</small></li><li class=\"is-no\" data-reveal=\"2\">像不像参考<small>diff 里看不出来，由我们在浏览器里看</small></li></ul></div><div class=\"p-bar is-light\" data-reveal=\"3\" style=\"margin-top:12px\">接受：再提交一次 · 缩小：让它收回越界的部分 · 拒绝：<b>git restore</b> 回到 homepage-v1</div>",
+      "steps": [
+        "它的报告",
+        "范围和文字",
+        "好不好看",
+        "接受或放弃"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p40c 第 1 步，切 Terminal 指 Codex 的完成报告和它列的改动清单，按实际原话讲，再回课件】\n\nCodex 说改好了，还列了它改了哪些区块。和审内容改动一样，先别急着接受。",
+        "【操作提示｜推进第 2 步，切 Terminal 运行 git diff --stat，再按它的改动清单抽看 diff，回课件】\n\n这一轮的 diff 会很大，不用逐行读。先看范围：动了哪些文件、哪些区块。再看文字，和 profile.md 对一遍，它说自己核对过，我们也抽查几句。还有一项要专门看：有没有新加的行为，比如进场动画、滚动监听、新的脚本，它有没有说明。再看一眼页脚：参考了别人的风格，出处有没有写上。",
+        "【操作提示｜推进第 3 步，切浏览器，把自己的页面和参考主页并排，从上滚到下看一遍，再回课件】\n\n像不像、好不好看，diff 里看不出来，只能在浏览器里看。记得从上滚到下：有些动画要滚到那里才显现。",
+        "【操作提示｜推进第 4 步，指结论条；按实际决定，接受就提交，不接受就 git restore，在 Terminal 执行后回课件】\n\n满意，就再提交一次；有越界或没说明的部分，让它收回；不满意，git restore 回到 homepage-v1，重新写 Prompt 再来。前面有检查点，拒绝也很便宜。"
+      ],
+      "teaching": [
+        {
+          "title": "讲师提示",
+          "text": "按录制时的实际 diff 讲。排练里出现过“滚动到才显现”的进场动画：内容默认透明，不滚动、截整页图时看起来是空白，这类改动要它说明，或者让它去掉。学员选做的样式改动只要求审过再决定，不要求一定接受。"
+        },
+        {
+          "title": "跟做产出",
+          "text": "风格改动的处置：接受并提交，或用 git restore 放弃。"
+        }
+      ],
+      "source": "index.html#p40c",
       "seconds": 120
     },
     {
       "id": "p42",
-      "segment": "回到检查点",
+      "segment": "小结",
       "label": "本节小结",
-      "title": "读懂再收，收了也能退",
-      "lead": "本节留下一个审过、可回退的 homepage-v1 提交和一条评审结论。2.3 判断范围：该不该收；2.5 判断性质：是不是保持了行为。检查分三层：自动检查、自动 Review、人工 Review。本章已有构建这一项自动检查，Review 全靠人工。下一节：第一次推送。",
-      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">一个习惯</h3><div class=\"p-star\" style=\"width:260px;font-size:24px\">先看范围<br>再看内容</div></div><div data-reveal=\"1\"><h3>三层检查</h3><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-pass\">自动检查 · 本章只有构建</li><li class=\"is-stop\">自动 Review · 以后</li><li class=\"is-pass\">人工 Review · 本章</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>2.4 公开发布</h3><p>推送之后，谁能看到什么？</p></div></div></div>",
+      "title": "改风格之前，先问它看到了什么",
+      "lead": "本节先留下 homepage-v1 这个检查点，再参考一个主页，分两轮改出了自己的风格。我们看到的参考页面和浏览器里的效果，都不在它的 context 里；给了地址，它取到的也不是我们看到的样子，缺的它会自己补。每一轮都先问它实际拿到了什么，审过再提交，不满意就 git restore。下一节：发布上线。",
+      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">先留检查点</h3><div class=\"p-star\" style=\"width:260px;font-size:24px\">范围和出处<br>提交一次</div><p class=\"p-sub\" style=\"text-align:center;margin-top:10px\">回退靠 git，不靠对话</p></div><div data-reveal=\"1\"><h3>它看到了什么</h3><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-point\">参考：取到的不是我们看到的样子</li><li class=\"is-point\">看不见：浏览器里的效果、参考页面</li><li class=\"is-point\">第二轮：带着第一轮，说清差别</li><li class=\"is-point\">看全了吗：长输出会被截断</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>2.4 发布上线</h3><p>context 发给了谁，又怎样送出去</p></div></div></div>",
       "steps": [
-        "一个习惯",
-        "三层检查",
+        "先留检查点",
+        "它看到了什么",
         "下一节"
       ],
       "script": [
-        "【操作提示｜停留课件 p42 第 1 步，不切工具窗口】\n\n这一节的习惯只有一句：先看范围，再看内容。status 和 --stat 看范围，diff 看内容，再对照完成标准决定怎么处置。提交以后，收错了也能退回去。",
-        "【操作提示｜推进第 2 步，留在课件，指向“三层检查”；不演示测试或自动 Review】\n\n检查可以有三层：自动检查，比如测试和构建脚本；自动 Review，让另一个程序或 Agent 审代码；还有人工 Review。本章的自动检查只有 npm run build，它只证明能构建；Review 全靠人工。行为测试和自动 Review，后面的章节再补上。另外，这一节判断的是范围，该不该收；2.5 会判断性质，AI 说“只是重构”时，行为到底变没变。",
-        "【操作提示｜推进第 3 步，留在课件；本节不推送，讲完进入 2.4】\n\n现在我们有了一个审过的提交。但它还只在自己电脑上。下一节第一次推送到公开仓库：推送之后，谁能看到什么？"
+        "【操作提示｜停留课件 p42 第 1 步，指左侧星形】\n\n回顾一下。改风格之前，我们先给 2.2 的内容留了一个检查点：看范围和出处，提交一次。之后怎么改，都回得去。",
+        "【操作提示｜推进第 2 步，指中间四条】\n\n这一节最想留下的还是那个问题：它看到了什么？给了参考地址，它取到的也不是我们看到的样子，缺的它会自己补；浏览器里的效果、参考页面，它都看不见；第二轮的请求带着第一轮，我们只要说清差别。它说检查过了，还可以追问一句：看全了吗？",
+        "【操作提示｜推进第 3 步，指“下一节 2.4”；结束本节】\n\n下一节，我们把个人主页发布上线，也看看 context 发给了谁，又是怎样把动作送出去的。"
       ],
       "teaching": [],
       "source": "index.html#p42",
@@ -246,20 +333,16 @@ window.lesson = {
   ],
   "segments": [
     {
-      "label": "拿到 diff",
-      "seconds": 180
+      "label": "先留检查点",
+      "seconds": 270
     },
     {
-      "label": "走读 diff",
-      "seconds": 210
+      "label": "改风格",
+      "seconds": 510
     },
     {
-      "label": "处置",
-      "seconds": 210
-    },
-    {
-      "label": "回到检查点",
-      "seconds": 210
+      "label": "小结",
+      "seconds": 90
     }
   ]
 };
