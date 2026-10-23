@@ -49,7 +49,7 @@
 - word、ppt、excel 处理；markdown 转网页 PPT
 - 体检报告分析、邮箱整理
 - awesome skills 推荐
-- 复制某些网页设计的 skill 支持
+- 复制某些网页设计的 skill 支持（2026-10-23 补：2.3 现在只给 Codex 一个网址、让它用 curl 取 HTML 和 CSS 自己找风格，结果见 `courseware/ch02/LOG.md` 2026-10-23 的几组实测；社区有专门做网站克隆和风格提取的 Skill，可以作为对照实验：同一个参考、同一份 profile.md，有没有这个 Skill 效果差多少。放第 3 章讲 Skill 时最顺，也可以放第 2 章最后的经验分享；未选具体 Skill，未定去向）
 - python 环境：uv、pip、conda，国内源
 
 ### 第 4 章：SDD 与需求澄清

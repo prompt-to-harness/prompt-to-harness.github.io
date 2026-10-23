@@ -1,8 +1,8 @@
 window.lesson = {
-  "title": "用好 context 的三个做法",
+  "title": "用好 context 的四个做法",
   "chapter": "第 2 章 · Vibe Coding",
   "section": "02.05",
-  "summary": "另一位讲师分享三条平时用好 context 的做法：看懂重发的代价，换会话时自己写交接，换一个工具看它往 context 里放了什么。每条都回到本章的请求记录，看懂即可。",
+  "summary": "另一位讲师分享四条平时用好 context 的做法：看懂重发的代价，换会话时自己写交接，换一个工具看它往 context 里放了什么，同一个工具换一个模型服务看请求有什么不同。每条都回到本章的请求记录，看懂即可。",
   "scenes": [
     {
       "id": "p59",
@@ -10,22 +10,22 @@ window.lesson = {
       "layout": "lesson-cover",
       "label": "换一位讲师",
       "title": "平时怎么用好 context？",
-      "lead": "换一位讲师，分享三条平时的做法",
-      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>看请求</li><li class=\"is-done\"><b>2.2</b>补经历</li><li class=\"is-done\"><b>2.3</b>改风格</li><li class=\"is-done\"><b>2.4</b>发布上线</li><li class=\"is-now\"><b>2.5</b>用好 context</li></ol><div class=\"p-grid\" style=\"--n:3;gap:14px;margin-top:22px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ink\">一</span><h3>看懂重发的代价</h3><p>一问花了多少，缓存省了多少</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ctx\">二</span><h3>换会话时自己写交接</h3><p>决定下一轮带上什么</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"tool\">三</span><h3>换一个工具看请求</h3><p>同一句话，context 不一样</p></div></div>",
+      "lead": "换一位讲师，分享四条平时的做法",
+      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>看请求</li><li class=\"is-done\"><b>2.2</b>补经历</li><li class=\"is-done\"><b>2.3</b>改风格</li><li class=\"is-done\"><b>2.4</b>发布上线</li><li class=\"is-now\"><b>2.5</b>用好 context</li></ol><div class=\"p-grid\" style=\"--n:4;gap:12px;margin-top:22px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ink\">一</span><h3>看懂重发的代价</h3><p>一问花了多少，缓存省了多少</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ctx\">二</span><h3>换会话时自己写交接</h3><p>决定下一轮带上什么</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"tool\">三</span><h3>换一个工具看请求</h3><p>同一句话，context 不一样</p></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"agent\">四</span><h3>换一个模型服务</h3><p>服务端也在做事</p></div></div>",
       "steps": [
         "最后一节",
         "换一位讲师",
-        "三条做法"
+        "四条做法"
       ],
       "script": [
         "【操作提示｜停留课件 p59 第 1 步，章节地图上 2.1–2.4 已标完成；指向 2.5，不切工具窗口】\n\n第 2 章的最后一节。前面四节，我们一直在打开请求记录：看它由什么组成，怎么变长，Codex 依据什么改，怎样调用 gh。",
         "【操作提示｜推进第 2 步，讲师切换（按录制约定显示讲师小窗）】\n\n这一节换我来讲，分享几条我平时用好 context 的做法。",
-        "【操作提示｜推进第 3 步，三张卡一起出现，依次指认】\n\n一共三条：第一，看懂重发的代价；第二，换会话的时候，自己写一份交接；第三，换一个工具，看看同一句话发出去是什么样。每一条都回到这一章看过的请求记录。"
+        "【操作提示｜推进第 3 步，四张卡一起出现，依次指认】\n\n一共四条：第一，看懂重发的代价；第二，换会话的时候，自己写一份交接；第三，换一个工具，看看同一句话发出去是什么样；第四，工具不换，换一个模型服务，看看服务端替它做了些什么。每一条都回到这一章看过的请求记录。"
       ],
       "teaching": [
         {
           "title": "讲师提示",
-          "text": "本节由另一位讲师讲（章文件 C2-37）。开场一句说明换了人、这一节是经验分享；讲师切换的画面衔接（小窗、开场语）按 docs/production/ 的约定，未定稿前口播一句即可。三条都只回到本章的请求记录，不要求学员安装或操作新工具。"
+          "text": "本节由另一位讲师讲（章文件 C2-37）。开场一句说明换了人、这一节是经验分享；讲师切换的画面衔接（小窗、开场语）按 docs/production/ 的约定，未定稿前口播一句即可。四条都只回到本章的请求记录，不要求学员安装或操作新工具。"
         }
       ],
       "source": "index.html#p59",
@@ -130,19 +130,49 @@ window.lesson = {
       "seconds": 90
     },
     {
+      "id": "p62a",
+      "segment": "换个服务",
+      "label": "换一个模型服务",
+      "title": "同一个 Codex，换一个模型服务",
+      "lead": "还是 Codex，还是同一句只读问题，一次接课程用的 MiniMax，一次用讲师自己的 ChatGPT 登录，都经 claude-tap 记录。两边都答对了，可请求差得很多：ChatGPT 这边系统指令是完整的内置指令，工具不放在工具字段，而是作为一条消息放进输入，没有网页搜索；推理只返回一段密文，我们看不懂，MiniMax 的推理能看到正文。两边相同的一点是都不让服务端保存对话，每次整段重发。模型服务不只是模型：网页搜索、推理加密、压缩这些事，有一部分是服务端在做。",
+      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,.9fr) minmax(0,1.2fr) minmax(0,1.3fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>同一句只读问题</span><span>MiniMax（课程基线）</span><span>ChatGPT 登录</span></div><div data-reveal=\"0\"><span>系统指令</span><span>一句话，约 280 字符</span><span>完整内置指令，约 2.2 万字符</span></div><div data-reveal=\"0\"><span>工具</span><span>工具字段里 5 个，含网页搜索</span><span>作为一条消息放进输入，没有网页搜索</span></div><div data-reveal=\"1\"><span>推理</span><span>能看到正文，另有一段密文</span><span>只有密文，看不懂</span></div><div data-reveal=\"1\" class=\"is-key\"><span>对话保存</span><span>不让服务端存，每次整段重发</span><span>同左</span></div></div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:12px\">模型服务<b>不只是模型</b>：网页搜索、推理加密、压缩，有一部分在服务端</div><p class=\"source-note\">数字来自讲师的各一次运行（2026-10-22，Codex 0.163.0，同一个起点和问题；ChatGPT 登录用讲师自己的订阅）；随版本、账号和模型变化，只说明结构</p>",
+      "steps": [
+        "系统指令和工具",
+        "推理和保存",
+        "结论"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p62a 第 1 步，指表格前两行；不要求学员有 ChatGPT 订阅】\n\n第四条。工具不换，还是 Codex，还是同一句只读问题；这次换模型服务：一次接我们课上用的 MiniMax，一次用我自己的 ChatGPT 登录，都用 claude-tap 记下来。两边都答对了，可发出去的请求差得很多：ChatGPT 这边的系统指令是完整的内置指令，两万多字；工具也不放在工具字段里，而是作为一条消息塞进输入，而且没有网页搜索。",
+        "【操作提示｜推进第 2 步，指“推理”“对话保存”两行】\n\n再看推理。MiniMax 的推理，在记录里能看到它是怎么想的；ChatGPT 的推理只给一段密文，下次原样带回去，只有服务端能解开，我们看不懂。两边相同的是，都不让服务端保存对话，每次把整段历史重发一遍，这就是 2.2 看到的“每次重发”。",
+        "【操作提示｜推进第 3 步，指底部横条】\n\n所以模型服务不只是一个模型。网页搜索在服务端执行，推理加了密，压缩也有服务端做的版本。换一个模型服务，不只是换了个模型，这些事也跟着变了。"
+      ],
+      "teaching": [
+        {
+          "title": "实测记录",
+          "text": "2026-10-22，第 1 章参考快照的副本，同一句“只读任务……项目区现在显示什么？数据写在哪个文件里？”。CLEAN_CODEX_AUTH=chatgpt tools/clean-codex.sh --tap -- exec -s read-only（模型 gpt-6.1-sol，推理档位 low，2 次模型请求、约 3.7 万 token）与课程基线（MiniMax-M3.1-Flash，推理档位 max，6 次、约 7 万 token）。ChatGPT 这边请求头带 Responses Lite 标记，工具作为 additional_tools 消息放进输入（约 2.9 万字符）；推理条目另补跑一次推理档位 high（推理 148 token），摘要和正文都是空的，只有 encrypted_content。两边都是 store: false、previous_response_id 为空。细节和源码依据见章文件实测记录、可讲点清单第 38–45 点。"
+        },
+        {
+          "title": "讲师提示",
+          "text": "只做对照，不比较哪家更好，也不要求学员有 ChatGPT 订阅。截图前遮掉请求头里的 chatgpt-account-id 等账号信息。用 claude-tap 时 -c 要写在 exec 前面，否则记录为空（见 tools/clean-codex.sh 开头）。"
+        }
+      ],
+      "source": "index.html#p62a",
+      "seconds": 90
+    },
+    {
       "id": "p63",
       "segment": "小结",
       "label": "本节小结",
-      "title": "三条做法，和这一章",
-      "lead": "三条做法：看懂重发的代价，换会话时自己写交接，换一个工具先看它往 context 里放了什么。回看这一章：每一节都回到请求记录里找答案；项目上留下了审过的提交、公开 URL 和 ch02-homepage-live tag。下一章，给个人主页加一个小游戏。",
-      "html": "<div class=\"p-grid\" style=\"--n:3;gap:12px\"><div class=\"p-box is-soft\" data-role=\"ink\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>看代价</h3><p>重发要钱，缓存只让它便宜</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>写交接</h3><p>留什么由我们决定</p></div><div class=\"p-box is-soft\" data-role=\"tool\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>换工具</h3><p>先看它放了什么</p></div></div><div class=\"p-flow\" style=\"--n:5;margin-top:14px\"><div class=\"p-node\" data-role=\"us\" data-reveal=\"1\"><h3>2.1</h3><p>只说了一句话，模型收到了什么</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"1\"><h3>2.2</h3><p>补上个人经历，看对话怎么变长</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"1\"><h3>2.3</h3><p>参考一个主页改风格：它看到了什么</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"1\"><h3>2.4</h3><p>发布上线，看 Codex 怎么用 gh</p></div><div class=\"p-node\" data-role=\"ctx\" data-reveal=\"1\"><h3>2.5</h3><p>用好 context 的三个做法</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:14px\">下一章 · 第 3 章：给个人主页加一个小游戏</div>",
+      "title": "四条做法，和这一章",
+      "lead": "四条做法：看懂重发的代价，换会话时自己写交接，换一个工具先看它往 context 里放了什么，换一个模型服务也要看服务端替它做了什么。回看这一章：每一节都回到请求记录里找答案；项目上留下了审过的提交、公开 URL 和 ch02-homepage-live tag。下一章，给个人主页加一个小游戏。",
+      "html": "<div class=\"p-grid\" style=\"--n:4;gap:12px\"><div class=\"p-box is-soft\" data-role=\"ink\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>看代价</h3><p>重发要钱，缓存只让它便宜</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>写交接</h3><p>留什么由我们决定</p></div><div class=\"p-box is-soft\" data-role=\"tool\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>换工具</h3><p>先看它放了什么</p></div><div class=\"p-box is-soft\" data-role=\"agent\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>换服务</h3><p>服务端也在做事</p></div></div><div class=\"p-flow\" style=\"--n:5;margin-top:14px\"><div class=\"p-node\" data-role=\"us\" data-reveal=\"1\"><h3>2.1</h3><p>只说了一句话，模型收到了什么</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"1\"><h3>2.2</h3><p>补上个人经历，看对话怎么变长</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"1\"><h3>2.3</h3><p>参考一个主页改风格：它看到了什么</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"1\"><h3>2.4</h3><p>发布上线，看 Codex 怎么用 gh</p></div><div class=\"p-node\" data-role=\"ctx\" data-reveal=\"1\"><h3>2.5</h3><p>用好 context 的四个做法</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:14px\">下一章 · 第 3 章：给个人主页加一个小游戏</div>",
       "steps": [
-        "三条做法",
+        "四条做法",
         "回看本章",
         "下一章"
       ],
       "script": [
-        "【操作提示｜停留课件 p63 第 1 步，指三张卡】\n\n三条做法：重发要花钱，缓存只是让它便宜；换会话时自己写交接，留什么由我们决定；换工具之前，先看它往 context 里放了什么。",
+        "【操作提示｜停留课件 p63 第 1 步，指四张卡】\n\n四条做法：重发要花钱，缓存只是让它便宜；换会话时自己写交接，留什么由我们决定；换工具之前，先看它往 context 里放了什么；换模型服务，也要看服务端替它做了什么。",
         "【操作提示｜推进第 2 步，五个节点一起出现，按 2.1 到 2.5 的顺序逐个指认】\n\n回看这一章：2.1 只发一句话，看清模型收到了什么；2.2 补上个人经历，看对话怎么变长、怎么清空和压缩；2.3 审 AI 交回的改动，看它依据什么改，再参考别人的主页改了一处风格；2.4 发布上线，看这些内容发到了哪里；最后这一节，分享用好 context 的几个做法。项目上，我们留下了审过的提交、一个公开的 URL，和 ch02-homepage-live 这个 tag。",
         "【操作提示｜推进第 3 步，指向底部的第 3 章预告；进入 p63a】\n\n下一章，我们给个人主页加一个小游戏。走之前，先用这一章的七个问题考考自己。"
       ],
@@ -197,6 +227,10 @@ window.lesson = {
     },
     {
       "label": "换个工具",
+      "seconds": 90
+    },
+    {
+      "label": "换个服务",
       "seconds": 90
     },
     {

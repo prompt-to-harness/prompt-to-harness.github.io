@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""2.5 工程经验分享：用好 context 的三个做法。本节唯一的内容源，生成 lesson.js。
+"""2.5 工程经验分享：用好 context 的四个做法。本节唯一的内容源，生成 lesson.js。
 
 分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch02/tools/lessonkit.py。
 2026-10-21 按章文件 C2-37 重做：最后一节改为另一位讲师的经验分享，页面 id 从 p59 起新编，
@@ -11,7 +11,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
 from lessonkit import NARROW, Lesson, chapter_map, code_lines, ref, teach  # noqa: E402
 
-lesson = Lesson(__file__, "2.5", "用好 context 的三个做法", summary="另一位讲师分享三条平时用好 context 的做法：看懂重发的代价，换会话时自己写交接，换一个工具看它往 context 里放了什么。每条都回到本章的请求记录，看懂即可。")
+lesson = Lesson(__file__, "2.5", "用好 context 的四个做法", summary="另一位讲师分享四条平时用好 context 的做法：看懂重发的代价，换会话时自己写交接，换一个工具看它往 context 里放了什么，同一个工具换一个模型服务看请求有什么不同。每条都回到本章的请求记录，看懂即可。")
 scene = lesson.scene
 
 RUN = "数字来自讲师的一次运行（2026-10-21，课程基线，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开）；随版本、模型、配置和任务变化，只说明结构"
@@ -22,7 +22,7 @@ SECTION_QS = [
     ("2.2", "补上个人经历，看对话怎么变长", "agent"),
     ("2.3", "参考一个主页改风格：它看到了什么", "tool"),
     ("2.4", "发布上线，看 Codex 怎么用 gh", "ok"),
-    ("2.5", "用好 context 的三个做法", "ctx"),
+    ("2.5", "用好 context 的四个做法", "ctx"),
 ]
 
 HANDOFF = [
@@ -38,17 +38,18 @@ HANDOFF = [
 scene(
     id="p59", segment="开场", layout="lesson-cover",
     label="换一位讲师", title="平时怎么用好 context？",
-    lead="换一位讲师，分享三条平时的做法",
+    lead="换一位讲师，分享四条平时的做法",
     html=(
         chapter_map(5) +
-        '<div class="p-grid" style="--n:3;gap:14px;margin-top:22px">'
+        '<div class="p-grid" style="--n:4;gap:12px;margin-top:22px">'
         '<div class="p-box" data-role="ink" data-reveal="2"><span class="p-tag" data-role="ink">一</span><h3>看懂重发的代价</h3><p>一问花了多少，缓存省了多少</p></div>'
         '<div class="p-box" data-role="ctx" data-reveal="2"><span class="p-tag" data-role="ctx">二</span><h3>换会话时自己写交接</h3><p>决定下一轮带上什么</p></div>'
-        '<div class="p-box" data-role="tool" data-reveal="2"><span class="p-tag" data-role="tool">三</span><h3>换一个工具看请求</h3><p>同一句话，context 不一样</p></div></div>'
+        '<div class="p-box" data-role="tool" data-reveal="2"><span class="p-tag" data-role="tool">三</span><h3>换一个工具看请求</h3><p>同一句话，context 不一样</p></div>'
+        '<div class="p-box" data-role="agent" data-reveal="2"><span class="p-tag" data-role="agent">四</span><h3>换一个模型服务</h3><p>服务端也在做事</p></div></div>'
     ),
-    steps=["最后一节", "换一位讲师", "三条做法"],
+    steps=["最后一节", "换一位讲师", "四条做法"],
     teaching=teach(
-        ("讲师提示", "本节由另一位讲师讲（章文件 C2-37）。开场一句说明换了人、这一节是经验分享；讲师切换的画面衔接（小窗、开场语）按 docs/production/ 的约定，未定稿前口播一句即可。三条都只回到本章的请求记录，不要求学员安装或操作新工具。"),
+        ("讲师提示", "本节由另一位讲师讲（章文件 C2-37）。开场一句说明换了人、这一节是经验分享；讲师切换的画面衔接（小窗、开场语）按 docs/production/ 的约定，未定稿前口播一句即可。四条都只回到本章的请求记录，不要求学员安装或操作新工具。"),
     ),
 )
 
@@ -130,20 +131,42 @@ scene(
 
 # ---------- 小结 ----------
 scene(
-    id="p63", segment="小结",
-    label="本节小结", title="三条做法，和这一章",
-    lead="三条做法：看懂重发的代价，换会话时自己写交接，换一个工具先看它往 context 里放了什么。回看这一章：每一节都回到请求记录里找答案；项目上留下了审过的提交、公开 URL 和 ch02-homepage-live tag。下一章，给个人主页加一个小游戏。",
+    id="p62a", segment="换个服务",
+    label="换一个模型服务", title="同一个 Codex，换一个模型服务",
+    lead="还是 Codex，还是同一句只读问题，一次接课程用的 MiniMax，一次用讲师自己的 ChatGPT 登录，都经 claude-tap 记录。两边都答对了，可请求差得很多：ChatGPT 这边系统指令是完整的内置指令，工具不放在工具字段，而是作为一条消息放进输入，没有网页搜索；推理只返回一段密文，我们看不懂，MiniMax 的推理能看到正文。两边相同的一点是都不让服务端保存对话，每次整段重发。模型服务不只是模型：网页搜索、推理加密、压缩这些事，有一部分是服务端在做。",
     html=(
-        '<div class="p-grid" style="--n:3;gap:12px">'
+        '<div class="p-matrix" style="grid-template-columns:minmax(0,.9fr) minmax(0,1.2fr) minmax(0,1.3fr)">'
+        '<div class="is-head" data-reveal="0"><span>同一句只读问题</span><span>MiniMax（课程基线）</span><span>ChatGPT 登录</span></div>'
+        '<div data-reveal="0"><span>系统指令</span><span>一句话，约 280 字符</span><span>完整内置指令，约 2.2 万字符</span></div>'
+        '<div data-reveal="0"><span>工具</span><span>工具字段里 5 个，含网页搜索</span><span>作为一条消息放进输入，没有网页搜索</span></div>'
+        '<div data-reveal="1"><span>推理</span><span>能看到正文，另有一段密文</span><span>只有密文，看不懂</span></div>'
+        '<div data-reveal="1" class="is-key"><span>对话保存</span><span>不让服务端存，每次整段重发</span><span>同左</span></div></div>'
+        '<div class="p-bar" data-reveal="2" style="margin-top:12px">模型服务<b>不只是模型</b>：网页搜索、推理加密、压缩，有一部分在服务端</div>'
+        '<p class="source-note">数字来自讲师的各一次运行（2026-10-22，Codex 0.163.0，同一个起点和问题；ChatGPT 登录用讲师自己的订阅）；随版本、账号和模型变化，只说明结构</p>'
+    ),
+    steps=["系统指令和工具", "推理和保存", "结论"],
+    teaching=teach(
+        ("实测记录", "2026-10-22，第 1 章参考快照的副本，同一句“只读任务……项目区现在显示什么？数据写在哪个文件里？”。CLEAN_CODEX_AUTH=chatgpt tools/clean-codex.sh --tap -- exec -s read-only（模型 gpt-6.1-sol，推理档位 low，2 次模型请求、约 3.7 万 token）与课程基线（MiniMax-M3.1-Flash，推理档位 max，6 次、约 7 万 token）。ChatGPT 这边请求头带 Responses Lite 标记，工具作为 additional_tools 消息放进输入（约 2.9 万字符）；推理条目另补跑一次推理档位 high（推理 148 token），摘要和正文都是空的，只有 encrypted_content。两边都是 store: false、previous_response_id 为空。细节和源码依据见章文件实测记录、可讲点清单第 38–45 点。"),
+        ("讲师提示", "只做对照，不比较哪家更好，也不要求学员有 ChatGPT 订阅。截图前遮掉请求头里的 chatgpt-account-id 等账号信息。用 claude-tap 时 -c 要写在 exec 前面，否则记录为空（见 tools/clean-codex.sh 开头）。"),
+    ),
+)
+
+scene(
+    id="p63", segment="小结",
+    label="本节小结", title="四条做法，和这一章",
+    lead="四条做法：看懂重发的代价，换会话时自己写交接，换一个工具先看它往 context 里放了什么，换一个模型服务也要看服务端替它做了什么。回看这一章：每一节都回到请求记录里找答案；项目上留下了审过的提交、公开 URL 和 ch02-homepage-live tag。下一章，给个人主页加一个小游戏。",
+    html=(
+        '<div class="p-grid" style="--n:4;gap:12px">'
         '<div class="p-box is-soft" data-role="ink" data-reveal="0" style="padding:8px 14px"><h3>看代价</h3><p>重发要钱，缓存只让它便宜</p></div>'
         '<div class="p-box is-soft" data-role="ctx" data-reveal="0" style="padding:8px 14px"><h3>写交接</h3><p>留什么由我们决定</p></div>'
-        '<div class="p-box is-soft" data-role="tool" data-reveal="0" style="padding:8px 14px"><h3>换工具</h3><p>先看它放了什么</p></div></div>'
+        '<div class="p-box is-soft" data-role="tool" data-reveal="0" style="padding:8px 14px"><h3>换工具</h3><p>先看它放了什么</p></div>'
+        '<div class="p-box is-soft" data-role="agent" data-reveal="0" style="padding:8px 14px"><h3>换服务</h3><p>服务端也在做事</p></div></div>'
         '<div class="p-flow" style="--n:5;margin-top:14px">'
         + "".join(f'<div class="p-node" data-role="{role}" data-reveal="1"><h3>{num}</h3><p>{q}</p></div>' for num, q, role in SECTION_QS) +
         '</div>'
         '<div class="p-bar is-light" data-reveal="2" style="margin-top:14px">下一章 · 第 3 章：给个人主页加一个小游戏</div>'
     ),
-    steps=["三条做法", "回看本章", "下一章"],
+    steps=["四条做法", "回看本章", "下一章"],
     teaching=teach(("讲师提示", "全章回看原在 2.5 p58，随本节重做移到这里。第 3 章预告按第 3 章定稿调整。")),
 )
 

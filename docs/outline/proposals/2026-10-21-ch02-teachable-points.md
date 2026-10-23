@@ -85,11 +85,11 @@
 | 38 | 托管工具：请求里声明、由服务端执行，Codex 不执行，也不走本地沙箱和批准。网页搜索就是一个：Codex 对所有服务商默认都附上，MiniMax 收到后自己执行 | 机制 | `core/src/tools/spec_plan.rs`、`model-provider/src/capabilities.rs`；2026-10-22 请求记录 | 2.3 p40b（一句） | 2.4 深入“发到了哪里”；第 7 章 |
 | 39 | 图片生成也是托管工具，但只在 OpenAI 登录时出现；课程基线的请求里没有它 | 机制 | `core/src/tools/spec_plan.rs` 的 `image_generation_available`；请求的工具列表 | — | 第 3 章做图时提一句 |
 | 40 | 远程压缩：OpenAI 和 Azure 默认把压缩交给服务端做，其他服务商（包括 MiniMax）在本地用一段交接提示让模型写摘要 | 机制 | `model-provider/src/capabilities.rs` 的 `remote_compaction`；2.2 已核实走本地压缩 | 2.2 讲师提示 | 2.2 深入；第 7 章 |
-| 41 | 推理过程：请求带 `include: ["reasoning.encrypted_content"]`，服务端除了推理正文，还返回一段密文，Codex 下次原样带回，只有服务端能解开。MiniMax 的推理条目在 claude-tap 里**能看到正文**（`reasoning_text`），旁边另有约 500 字符的密文；OpenAI 默认不返回推理正文，只有密文和可选的摘要（ChatGPT 登录下的实际样子见第 45 点） | 机制 | `core/src/client.rs` 第 1034 行；2026-10-22 请求记录 | — | 2.5 经验分享；第 7 章 |
+| 41 | 推理过程：请求带 `include: ["reasoning.encrypted_content"]`，服务端除了推理正文，还返回一段密文，Codex 下次原样带回，只有服务端能解开。MiniMax 的推理条目在 claude-tap 里**能看到正文**（`reasoning_text`），旁边另有约 500 字符的密文；ChatGPT 登录下 2026-10-22 实测：推理条目的摘要和正文都是空的，只有密文，claude-tap 里看不懂 | 机制 | `core/src/client.rs` 第 1034 行；2026-10-22 请求记录 | — | 2.5 经验分享；第 7 章 |
 | 42 | 提示词缓存：重复的前缀由服务端缓存，计费更便宜；`prompt_cache_key` 由 Codex 发，缓存在服务端 | 机制 | `core/src/client.rs`；2.2 p23 的缓存命中数 | 2.2 p23、2.5 经验一 | — |
 | 43 | 托管工具的结果不进对话历史：网页搜索调用只记“做了什么”，内容给模型看过就没了；对非 OpenAI 服务商，Codex 还会清掉条目上的加密内容 | 机制 | `protocol/src/models.rs`；`core/src/client.rs` 第 1008–1017 行；排练里同一网址打开 4 次 | 2.3 p40b | 2.4 深入；第 7 章 |
 | 44 | 服务端保存对话：Codex 每次请求都写死 `store: false`（`core/src/client.rs` 第 1079 行），不让服务端存；走 OpenAI 的 WebSocket 时，同一条连接里用 `previous_response_id` 只发新增部分，上一轮的状态只放在这条连接的内存里，断了就整段重发（[OpenAI WebSocket 模式文档](https://developers.openai.com/api/docs/guides/websocket-mode)）。Responses API 默认 `store` 为真、保存 30 天（[Conversation state](https://developers.openai.com/api/docs/guides/conversation-state)）。课程基线（MiniMax、HTTP）每次整段重发，`previous_response_id` 为空 | 机制 | 源码；2026-10-22 请求记录 | 2.2 p22–p23（每次重发） | 2.2 深入；2.5 经验分享 |
-| 45 | 同一句话，ChatGPT 登录和 MiniMax 发出的请求差很多：系统指令 2.2 万字符对一句话；工具放进输入里的一条消息（Responses Lite）对放在 `tools` 字段；ChatGPT 这边没有托管网页搜索、多了 `context: all_turns`；两边都是 `store: false`、每次整段重发 | 机制（随版本、账号变） | 2026-10-22 实测，章文件实测记录 | — | 2.5 经验分享（换一个模型服务看同一句话）；第 7 章 |
+| 45 | 同一句话，ChatGPT 登录和 MiniMax 发出的请求差很多：系统指令 2.2 万字符对一句话；工具放进输入里的一条消息（Responses Lite）对放在 `tools` 字段；ChatGPT 这边没有托管网页搜索、多了 `context: all_turns`，推理只有密文（MiniMax 能看到正文）；两边都是 `store: false`、每次整段重发 | 机制（随版本、账号变） | 2026-10-22 实测，章文件实测记录 | 2.5 p62a（经验四） | 第 7 章 |
 
 ## 待讨论
 
