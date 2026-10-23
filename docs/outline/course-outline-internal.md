@@ -142,6 +142,7 @@ React、TypeScript 和 Vite 会服务于课程目标，但不能让前端语法�
 | 项目栈 | 个人主页使用 React、TypeScript、Vite；上游项目保留固定 Release 的原生工具链 | 分别运行每个仓库已核验的安装、开发、检查和构建命令 |
 | 验证工具 | 按风险和仓库既有工具选择 lint、类型检查、单元、组件、E2E、构建及架构门禁 | 运行每个仓库自己的统一检查入口，不假设三者命令相同 |
 | 发布环境 | GitHub Pages、GitHub Actions | Actions 成功且公开 URL 可访问 |
+| 终端形态 | 课程环境保留终端 scrollback（`tui.fullscreen_transcript = false`）；Codex CLI 0.157.0 起默认全屏 transcript，终端历史不留 | 启动后确认终端能向上滚动保留长回复；见[课程终端形态](../production/terminal-mode.md) |
 
 #### 入门路径与降级规则
 

@@ -9,6 +9,7 @@
 - [屏幕短文字的常见别扭说法](wording-patterns.md)：W1–W8 模式、高频词和节标题句式，`lesson-polish` 定期对照（编辑规则 ED-014）
 - [外部佐证](external-sources.md)：官方文章、研究与 X 帖子的选材标准，截图还是重画，文件放哪，截图工具 `capture-source.py`
 - [课件字体](fonts.md)：字体选择理由、来源、子集生成与更换步骤
+- [课程终端形态](terminal-mode.md)：Codex 全屏 transcript 与终端 scrollback 的差异，课程为什么保留终端 scrollback
 - [外部设计 skill 评估：impeccable](impeccable-evaluation.md)：采纳了哪些方法，detector 试扫结果和待复核的问题
 - [生图使用提案](imagegen-pilot-proposal.md)：待讨论的章首／章末复用安排、选页标准与统一风格；尚未替代现有视觉规范
 - [三猫姿态研究](cat-pose-research.md)：参考图研究与最新头颈／猫爪／章节互动约定；旧无互动方向已标为历史探索

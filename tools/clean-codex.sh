@@ -112,6 +112,9 @@ elif [ "$AUTH" = chatgpt ]; then
   {
     [ -n "${CLEAN_CODEX_MODEL:-}" ] && echo "model = \"$CLEAN_CODEX_MODEL\""
     echo 'forced_login_method = "chatgpt"'
+    # 保留终端自己的 scrollback；Codex CLI 0.157.0 起默认全屏 transcript，终端历史不留
+    echo '[tui]'
+    echo 'fullscreen_transcript = false'
   } > "$SIM_HOME/.codex/config.toml"
 else
 cat > "$SIM_HOME/.codex/config.toml" <<EOF
@@ -129,6 +132,10 @@ wire_api = "responses"
 # 密钥只给 Codex 本身用，不传给它执行的命令（否则模型能用 shell 读到密钥）
 [shell_environment_policy]
 exclude = ["MINIMAX_API_KEY"]
+
+# 保留终端自己的 scrollback；Codex CLI 0.157.0 起默认全屏 transcript，终端历史不留
+[tui]
+fullscreen_transcript = false
 EOF
 fi
 
