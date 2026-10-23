@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Mechanical checks for docs/production/editorial-checklist.md (ED-001, ED-007/010, ED-011, ED-012, ED-013).
+"""Mechanical checks for docs/production/editorial-checklist.md (ED-001, ED-007/010, ED-011, ED-012, ED-013, ED-017).
 
 Errors fail the run; hints are printed but never fail. Judgment rules live in the
 checklist and are applied by the courseware-editorial skill, not here.
@@ -119,6 +119,40 @@ for path in current:
         for old, new, keep in retired:
             if old in line and not (keep and keep in line):
                 errors.append(f'ED-012 {path.relative_to(repo)}:{no} 已废弃的说法“{old}”，改用“{new}”')
+
+# ED-017: in a migrated chapter (has LOG.md), the chapter file, storyboards and lesson.js agree
+for log in sorted(courseware.glob('ch*/LOG.md')):
+    chapter = log.parent
+    readme = (chapter / 'README.md').read_text()
+    # 分镜先行：只在分镜里、还没做成页面的 id，在章文件“待定”里登记过就放行
+    pending = readme.split('\n## 待定', 1)[1] if '\n## 待定' in readme else ''
+    titles = {m.group(1): m.group(2) for m in
+              re.finditer(r'^\| (\d+\.\d+) (.+?)（\d+ 分钟）', readme, re.M)}
+    for lesson_js in sorted((chapter / 'lessons').glob('*/lesson.js')):
+        text = lesson_js.read_text()
+        lesson = json.loads(text[text.index('{'):text.rindex('}') + 1])
+        number = '.'.join(str(int(x)) for x in lesson['section'].split('.'))
+        board = lesson_js.parent / 'STORYBOARD.md'
+        where = board.relative_to(repo)
+        if not board.exists():
+            errors.append(f'ED-017 {lesson_js.parent.relative_to(repo)} 缺 STORYBOARD.md')
+            continue
+        lines = board.read_text().splitlines()
+        h1 = re.match(r'# \S+ 逐页分镜：(.+?)(?:（[^）]*）)?$', lines[0]) if lines else None
+        names = {'章文件': titles.get(number), 'lesson.js': lesson['title'], '分镜': h1.group(1) if h1 else None}
+        if len(set(names.values())) > 1:
+            errors.append(f'ED-017 {number} 节标题不一致：' + '；'.join(f'{k}“{v}”' for k, v in names.items()))
+        page_ids = {s['id'] for s in lesson['scenes']}
+        board_ids = set(re.findall(r'^\| (p\d[\w-]*) \|', board.read_text(), re.M))
+        undesigned = sorted(page_ids - board_ids)
+        unbuilt = sorted(i for i in board_ids - page_ids if not re.search(rf'\b{re.escape(i)}\b', pending))
+        if undesigned:
+            errors.append(f'ED-017 {where} 缺这些页面的分镜行：{undesigned}')
+        if unbuilt:
+            errors.append(f'ED-017 {where} 分镜里有、页面还没有，也没在章文件“待定”登记：{unbuilt}')
+        first_h2 = next((n for n, l in enumerate(lines) if l.startswith('## ')), len(lines))
+        if first_h2 >= len(lines) or lines[first_h2] != '## 素材状态' or sum(1 for l in lines[1:first_h2] if l.strip()) > 1:
+            errors.append(f'ED-017 {where} 开头只放一段导航，第一个二级标题应是“素材状态”（节概述和变更说明不写在分镜里）')
 
 # ED-007 / ED-010: filler phrases are a prompt to ask "does this add information", not a ban
 fillers = ['这样做是为了', '这里练习的就是', '大家看', '对吧', '其实']
