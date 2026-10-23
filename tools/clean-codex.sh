@@ -162,6 +162,9 @@ if [ "${CLEAN_CODEX_GH:-0}" = 1 ]; then
     ln -s "$REAL_HOME/Library/Keychains" "$SIM_HOME/Library/Keychains"
   fi
 fi
+# 即使 KEEP_CONFIG 保留了旧配置，也统一使用课程的终端回滚形态。
+# 写在 exec 前面，兼容 claude-tap 的命令行覆盖。
+codex_args=(-c 'tui.fullscreen_transcript=false' ${codex_args[@]+"${codex_args[@]}"})
 export HOME="$SIM_HOME"
 
 echo "学员视角：HOME=$SIM_HOME  工作目录=$PWD  模型=$MODEL  登录=$AUTH" >&2

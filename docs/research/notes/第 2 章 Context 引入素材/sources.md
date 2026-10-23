@@ -89,3 +89,10 @@
 ### OpenAI：Harness engineering（二手，留给后面章节）
 
 - [原文](https://openai.com/index/harness-engineering/)，Ryan Lopopolo，2026-02-11。五个月、产品代码全部由 Codex 写；“人掌舵，agent 执行”。与第 2 章关系不大，记在这里给第 7 章。
+
+## 2026-10-23 p05a 概览补充
+
+- 已核对 Claude Academy 的训练知识与当前 Context 教程：https://academy.claude.com/tutorials/parametric-memory-and-context 。从回答来源切入，区分模型参数中学到的知识与这次任务的信息；作为课程自绘概览的依据。
+- 已核对 Working Memory：https://academy.claude.com/courses/ai-capabilities-and-limitations/working-memory ，以当前工作记忆解释 Context Window。本次没有逐段观看视频。
+- 已核对 Claude Code 101 第 2 课：https://academy.claude.com/courses/claude-code-101/how-claude-code-works ，先给 Agent 循环概览，再讲 Context。
+- 讲师选定左图右帖，保留熟悉的 Karpathy；具体取舍见 C2-77 和 p05a 审查记录。图为课程自绘，不冒充官方原图。

@@ -4,6 +4,7 @@
 分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch02/tools/lessonkit.py。
 """
 import sys
+from html import escape
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
@@ -33,25 +34,33 @@ READONLY_PROMPT = """只读任务，不修改任何文件。
 不确定就写“不确定”，不要猜。"""
 
 TAP_CMD = "uvx claude-tap@0.1.146 --tap-client codex --tap-target https://api.minimax.cn/v1"
+AGENT_LAB_REV = "691d15c58a3b89abc36bfcf90bc6b7072423ad4c"
+AGENT_LAB_CMD = (
+    "uvx --from 'https://github.com/prompt-to-harness/prompt-to-harness.github.io/archive/"
+    + AGENT_LAB_REV + ".tar.gz#subdirectory=tools/agent-lab' agent-lab codex --tap"
+)
 
 
 # ---------- 开始这一章 ----------
 scene(
     id="p01", segment="开始这一章", layout="lesson-cover",
-    label="这一章做什么", title="补完整，发布上线",
-    lead="把个人主页补完整、发布上线，一路打开请求看清 context",
-    closing="先在个人主页项目目录运行 npm run dev，用终端输出的 Local 地址打开主页，看看首屏和项目区。接下来关注模型每一步能拿到哪些信息。",
+    label="这一章做什么", title="补完整，改风格，发布上线",
+    lead="补入自己的内容，参考主页改风格，再发布成公开网址",
+    closing="在自己的个人主页项目目录运行 npm run dev，用终端输出的 Local 地址查看首屏和项目区。接下来给 Codex 写 Prompt 时，我们还会查看模型实际拿到了哪些信息。",
     html=(
         chapter_map(1) +
-        '<div class="p-chain" data-reveal="1" style="margin-top:12px;font-size:20px"><span>补完整</span><i>→</i><span>发布上线</span><i>·</i><span>一路看清 context</span></div>'
-        '<style>.x-p01 span{padding:6px 10px;font-size:19px}.x-p01 .is-head span{font-size:16px}</style>'
-        '<div class="p-matrix x-p01" data-reveal="2" style="margin-top:10px;grid-template-columns:minmax(0,.35fr) minmax(0,1.2fr) minmax(0,1.6fr)">'
-        '<div class="is-head"><span>节</span><span>项目动作</span><span>用请求记录回答</span></div>'
-        '<div class="is-key"><span>2.1</span><span>用 claude-tap 启动 Codex</span><span>只说一句话，模型收到了什么？</span></div>'
-        '<div><span>2.2</span><span>补上个人经历</span><span>多聊几轮，context 怎么变长？</span></div>'
-        '<div><span>2.3</span><span>先留检查点，参考主页改两轮风格</span><span>它依据什么改，什么看不见？</span></div>'
-        '<div><span>2.4</span><span>发布到 GitHub Pages</span><span>这些内容发到了哪里？</span></div>'
-        '<div><span>2.5</span><span>经验分享</span><span>平时怎样用好 context？</span></div></div>'
+        '<style>#p01 .opening-start{margin-top:16px;padding:12px 18px;border:2px dashed #9C8B66;border-radius:10px}'
+        '#p01 .opening-start p{margin:0;font-size:22px}'
+        '#p01 .opening-start code{font-size:22px}'
+        '#p01 .opening-goal{margin-top:16px;font-size:25px}'
+        '#p01 .opening-question{margin-top:18px;padding:14px 18px;background:#F2EDE1;border:2px solid #9C8B66;border-radius:10px}'
+        '#p01 .opening-question p{margin:0;font-size:25px}'
+        'body[data-mode="slides"] #p01 h2{font-size:46px}'
+        '@media(max-width:600px){#p01 .opening-start p,#p01 .opening-start code,#p01 .opening-question p{font-size:19px}}'
+        '</style>'
+        '<div class="opening-start" data-reveal="1"><p><code>npm run dev</code> → 打开 Local 地址 → 看首屏和项目区</p></div>'
+        '<div class="p-chain opening-goal" data-reveal="2"><span>补入自己的内容</span><i>→</i><span>参考主页改风格</span><i>→</i><span>发布上线</span></div>'
+        '<div class="opening-question" data-reveal="3"><p>除了我们写的 Prompt，模型每一步还拿到了什么？</p></div>'
     ),
     repro=repro([
         ("先在自己的仓库里保存当前的工作（没有改动时会提示无可提交，不影响）", "git add -A && git commit -m \"保存：开始第 2 章之前\""),
@@ -62,47 +71,82 @@ scene(
         ("让 Codex 在回复里说明这次补齐的情况，不新建记录文件；你逐句核对，只留下确认过的内容", "在回复里说明这次补齐：对照了哪个参考起点、补了什么、保留了什么。不要新建记录文件，不要写本机路径和用户名。"),
         ("核对无误后提交，把确认过的补齐情况写进提交说明的正文", "git add -A && git commit -m \"对照 ch02-start-v1 补齐第 2 章前提\" -m \"补了什么、保留了什么（换成你核对过的内容）\""),
     ], note="没做完第 1 章、或想直接从第 2 章开始时用；已经做完的跳过。参考起点是 course-starter 的 ch02-start-v1 标签，只放在临时目录里对照，不进你的仓库。不想用 Codex 时，可在 GitHub 上下载这个标签的 ZIP 对照。讲师 2026-10-06 用三种起点各试两次，Codex 都能判断对；笼统地说“按你的建议执行”时，它会连可选建议一起做，所以要只确认必需项。", label="从这一章开始？"),
-    steps=["本章地图", "一句话主线", "五节各做什么", "打开个人主页"],
-    teaching=teach(("讲师提示", "本章只有这一处开篇地图；后续各节开篇沿用同一张地图，只移动当前位置。直接交代目标，不铺情节。")),
+    steps=["本章地图", "打开个人主页", "这一章做什么", "从 Prompt 看信息"],
+    teaching=teach(("讲师提示", "讲师先用现有 ch02-start-v1 checkpoint（8e9a323）查看主页；已验证安装、开发服务与构建，浏览器效果录制前另核对。依赖录前安装好，服务已运行时用实际 Local 地址。先打开主页再回课件讲本章成果，地图只定位、不逐行念。学员继续自己的项目。")),
 )
 
 # ---------- 打开请求 ----------
 scene(
     id="p05a", segment="打开请求", layout="evidence-scene",
-    label="Context Engineering", title="从 Prompt 到 Context Engineering",
-    lead="2025 年 6 月，Shopify 的 Tobi Lütke 说比起 prompt engineering，他更喜欢 context engineering 这个说法；Andrej Karpathy 转发附议：要做好的不是写一句话，而是为下一步把刚好合适的信息填进 context window。这一节就打开请求，看看 context 里到底装了什么。",
-    html='<style>body[data-mode="slides"] #p05a h2{font-size:38px}</style>' + shot("external/x-karpathy-context-engineering-text.png", "x.com · Andrej Karpathy 引用 Tobi Lütke · 2025-06-25",
-              "Andrej Karpathy 的帖子：+1 for context engineering over prompt engineering，引用 Tobi Lütke 的原帖", height=400),
-    refs=[ref("Karpathy 的帖子", "https://x.com/karpathy/status/1937902205765607626", "X，2025-06-25"),
-          ref("Tobi Lütke 的原帖", "https://x.com/tobi/status/1935533422589399127", "X，2025-06-19")],
-    steps=["看帖子"],
+    label="Context Engineering", title="模型版本既定，任务信息由我们组织",
+    lead="模型训练时学到的知识与能力，与这次任务能用的信息是两回事。使用既定模型版本时，普通对话不会实时改写模型参数；我们的目标、当前代码和相关材料，需要进入当前 Context，才能参与这一步的回答或行动。我们与 Codex 一起组织这些信息。Karpathy 的帖子也用 Context Engineering 描述为模型每一步组织合适信息的工作。",
+    closing="模型每一步实际拿到的，只有我们主动提供的这些吗？下一页用本地代理记录一次请求，随后打开记录核对。",
+    html=(
+        '<style>'
+        '#p05a .p05a-overview{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:32px;align-items:center}'
+        '#p05a .p05a-overview>*{min-width:0}'
+        '#p05a .p05a-tweet-label{font-size:19px;color:#5B6573;margin:0 0 7px}'
+        '#p05a .p05a-tweet img{display:block;width:100%;height:auto;border:1px solid #D5D0C5;border-radius:9px}'
+        '#p05a .p05a-caption{font-size:20px;color:#6E6043;margin:12px 0 0}'
+        'body[data-mode="slides"] #p05a h2{font-size:40px}'
+        'body[data-mode="slides"] #p05a .scene-content{width:1168px;height:510px}'
+        'body[data-mode="slides"] #p05a .p05a-overview{display:block;position:relative;height:480px}'
+        'body[data-mode="slides"] #p05a .p05a-diagram{position:absolute;left:0;top:30px;width:460px}'
+        'body[data-mode="slides"] #p05a .p05a-diagram .p-shot-note{display:none}'
+        'body[data-mode="slides"] #p05a .p05a-tweet{position:absolute;left:574px;top:60px;width:530px}'
+        'body[data-mode="slides"] #p05a .p05a-tweet img{position:absolute;top:32px}'
+        'body[data-mode="slides"] #p05a .p05a-caption{position:absolute;left:0;top:478px;margin:0}'
+        'body[data-mode="slides"] #p05a .p-refs:not(.source-note){position:absolute;left:574px;top:480px;margin:0;font-size:17px}'
+        'body[data-mode="slides"] #p05a .p-refs a{padding:1px 8px;line-height:1.3}'
+        '@media(max-width:700px){body[data-mode="scroll"] #p05a .p05a-overview{grid-template-columns:minmax(0,1fr);gap:20px}body[data-mode="scroll"] #p05a .lesson-diagram{min-width:0;width:100%}}'
+        '</style>'
+        '<div class="p05a-overview">'
+        '<div class="p05a-diagram">' +
+        redrawn("context-engineering", "context-vertical", "course", "课程自绘概览，参考 Claude Academy 对训练知识与当前 Context 的区分", max_height=446) +
+        '</div><div class="p05a-tweet" data-reveal="1">'
+        '<p class="p05a-tweet-label">Andrej Karpathy · X · 2025-06-25</p>'
+        '<img src="external/x-karpathy-context-engineering-text.png" alt="Karpathy 关于 Context Engineering 的帖子，包含他引用的 Tobi 原帖">'
+        '</div><p class="p05a-caption" data-reveal="2">Context Engineering：组织当前可用的信息</p></div>'
+    ),
+    refs=[ref("Karpathy 原帖", "https://x.com/karpathy/status/1937902205765607626", "X · 2025-06-25"),
+          ref("Tobi Lütke 原帖", "https://x.com/tobi/status/1935533422589399127", "X · 2025-06-19", kind="read"),
+          ref("训练知识与当前 Context", "https://academy.claude.com/tutorials/parametric-memory-and-context", "Claude Academy", kind="read")],
+    steps=["模型与任务信息", "看 Karpathy 的说法", "打开一次实际请求"],
     teaching=teach(
-        ("讲师提示", "截图经 X 官方嵌入页截取（courseware/tools/capture-source.py，2026-10-22），只截正文和引用的原帖；正文被折叠的后半段在口播里补，画面不放中文意译。原帖 2026-10-22 核对：Karpathy 2025-06-25，Tobi 2025-06-19。登记见 materials/external/README.md。"),
+        ("讲师提示", "先讲左图，再揭示右侧帖子。先指模型解释既定版本，再指左图上方的当前任务信息；Context 不只由人手写，后面用请求实录拆开。右帖保留现有截图，作者与日期可见，简短意译，不逐行翻译。概览是课程自绘，不是 Karpathy 的原图；普通对话不实时改写参数的区分依据 Claude Academy，不把它说成帖子的结论。模型更新与微调不在本页展开。"),
     ),
 )
 
 scene(
     id="p06-tap", segment="打开请求",
-    label="用 claude-tap 启动 Codex", title="用本地代理，看请求怎样发出去",
-    lead="claude-tap 是一个开源的本地代理。启动时，它把 Codex 的 API 地址临时指向本机：Codex 组装好的请求先到代理，再由代理发往模型服务；模型的返回也经过代理回到 Codex。代理把经过这里的请求与返回记录下来，供我们在本地浏览器查看。鉴权信息也经过代理。这一节由讲师演示，自己运行是选做。",
+    label="用本地代理记录请求", title="用本地代理，看请求怎样发出去",
+    lead="要核对模型实际收到什么，我们用 claude-tap 这个本地代理记录请求。Codex 组装的请求先到代理，再到模型服务；返回也经过代理回到 Codex。本地查看器读取这些记录。讲师使用下面的 Agent Lab 命令准备课程独立 MiniMax 环境，--tap 接入代理。鉴权信息也会经过代理，它只记录经过这里的内容；学员运行选做。",
     html=(
         '<style>#p06-tap .tap-proxy-content{display:flex;flex-direction:column;gap:6px}'
-        '#p06-tap .tap-proxy-content svg{display:block;width:100%;height:260px}'
-        '#p06-tap .tap-proxy-command{font-size:18px;padding:8px 16px;line-height:1.5}'
-        '#p06-tap .tap-proxy-source{font-size:14px;color:#5B6573}'
+        '#p06-tap .tap-proxy-content svg{display:block;width:100%;height:220px}'
+        '#p06-tap .tap-proxy-command{font-size:17px;padding:8px 90px 8px 14px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-all}'
+        '#p06-tap .tap-proxy-source{font-size:14px;color:#5B6573;margin:0}'
         'body[data-mode="scroll"] #p06-tap .tap-proxy-scroll{overflow-x:auto}'
         'body[data-mode="scroll"] #p06-tap .tap-proxy-content svg{min-width:1000px}'
         '</style><div class="tap-proxy-content"><div class="tap-proxy-scroll">'
         + (Path(__file__).resolve().parents[3] / "materials/external/request-capture/redraw-tap-proxy-excalidraw.svg").read_text().strip()
-        + '</div><div class="p-term tap-proxy-command" data-copy="' + TAP_CMD + '" data-reveal="2">'
-        '$ uvx claude-tap@0.1.146 --tap-client codex \\<br>'
-        '　--tap-target https://api.minimax.cn/v1</div>'
-        '<p class="tap-proxy-source">据 liaohch3/claude-tap v0.1.146 README 整理 · 本章使用的反向代理路径</p></div>'
+        + '</div><div class="p-term tap-proxy-command" data-copy="' + escape(AGENT_LAB_CMD, quote=True) + '" data-reveal="2">'
+        + '$ ' + escape(AGENT_LAB_CMD) + '</div>'
+        '<p class="tap-proxy-source" data-reveal="2">Agent Lab 准备课程环境 · --tap 接入 claude-tap 0.1.146</p>'
+        '</div>'
     ),
-    refs=[ref("claude-tap v0.1.146 原理说明", "https://github.com/liaohch3/claude-tap/blob/v0.1.146/README.md#architecture", "项目 README，固定版本")],
+    refs=[ref("claude-tap 原理说明", "https://github.com/liaohch3/claude-tap/blob/v0.1.146/README.md#architecture")],
     steps=["请求", "返回", "查看记录"],
+    repro=repro([
+        ("先装好 uv、Codex CLI，并在当前终端设置 MINIMAX_API_KEY；不要把 Key 粘进对话或录屏", None),
+        ("在个人主页项目目录启动课程独立环境，同时记录请求", AGENT_LAB_CMD),
+        ("先找到启动输出中的查看器地址；在 Codex 发完问候、回答结束后，再打开查看器", None),
+        ("若已有配置好的 MiniMax 环境，也可直接启动代理；讲师演示使用上面的课程环境命令", TAP_CMD),
+    ], note="Agent Lab 固定 MiniMax 课程配置并调用 claude-tap 0.1.146，课程会话单独保留；它减少个人配置混入，不提供额外的文件安全沙箱。请求记录可能包含项目内容，不公开分享未经检查的记录。", label="使用课程独立环境"),
     teaching=teach(
-        ("切到实操", "画面命令已于 2026-10-02 在 Codex 0.160.0 + MiniMax 自定义 provider 下实测，trace 写入 ~/.local/share/claude-tap/traces.sqlite3。需要先装好 uv。命令固定 claude-tap 0.1.146（2026-10-20 全章实测用的版本，讲师 2026-10-20 决定），换版本前先复测；录制用隔离 HOME 启动（做法见 tools/clean-codex.sh 的 --tap），查看器地址以工具输出为准。"),
+        ("图示来源", "据 liaohch3/claude-tap v0.1.146 README 整理，只展示本章使用的反向代理路径；来源与图元已在章素材登记表留存。演示只显示一条可点击原理说明链接。"),
+        ("课程启动器", "讲师与学员可用“使用课程独立环境”里的固定 SHA 命令。当前从独立分发提交安装；本组正式合入并确认 main 包含工具修复后，再更新为 main 的源码包地址。不要提前使用 main；主线数字仍取原实测，不因更换启动入口自动视为重录。"),
+        ("切到实操", "主画面、复制内容、展开入口与口播统一使用 AGENT_LAB_CMD 的固定分发提交；直接启动代理只作为展开入口中的备选。沿用工具验证记录，不把原直接启动命令的旧实测日期套在新入口上。录前准备 uv、Codex CLI 与终端密钥，命令在个人主页项目根目录执行；停在输入处并指出实际查看器地址，下一页发问候后才查看记录。"),
         ("讲师提示", "API 密钥会经过本地代理；claude-tap 导出与存储时只保留鉴权头前缀。画面上不要出现 config.toml 或完整密钥。学员自己运行算选做，不计入验收，不另做排障文档。"),
     ),
 )

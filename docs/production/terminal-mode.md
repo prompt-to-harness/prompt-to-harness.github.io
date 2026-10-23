@@ -11,7 +11,7 @@ Codex CLI 的会话可以有两种显示方式：
 | 全屏 transcript（Fullscreen） | 占用 alternate screen，鼠标被捕获 | 只在 Codex 自己的 transcript 视图里；终端的 scrollback 不再保存 |
 | 终端 scrollback（Scrollback） | 像普通命令行输出一样打印 | 终端自己的回滚缓冲，可以往上翻 |
 
-全屏形态下，长回答会把上面的内容顶出可视区，而终端没法往上滚找回。2026-10-23 讲师在本机遇到的就是这个问题：Codex 的长回复读不到上文。
+全屏形态下，终端原生回滚与 Codex 内部历史视图是两套机制；前者不能直接找回当前全屏视图之外的内容，需要使用 Codex 内部的滚动与历史功能。2026-10-23 讲师在本机遇到长回复无法按惯用方式上翻的问题，因此课程选择终端原生回滚。
 
 ## Codex 为什么改
 
@@ -34,12 +34,15 @@ Codex CLI 的会话可以有两种显示方式：
 | `tools/agent-lab` | 讲师与学员的课程 Codex 环境，可选 `--tap` 记录请求 | `AGENT_LAB_HOME/codex/.codex/config.toml` |
 | `tools/clean-codex.sh` | 讲师录屏与实验的隔离环境 | `$CLEAN_CODEX_HOME/.codex/config.toml` |
 
-两个启动器每次启动都会重写 `config.toml`，所以手工改文件无效，要改生成模板。改回全屏只需删掉模板里的这两行。
+Agent Lab 每次启动重写课程配置，并通过命令行固定 Scrollback；直接编辑生成文件或在 `/tui` 保存选择，会在下次启动被覆盖。本工具暂不提供全屏切换，需全屏时使用日常 Codex 环境。
+
+`clean-codex.sh` 默认生成配置；`CLEAN_CODEX_KEEP_CONFIG=1` 则保留已有配置和插件设置，同时在 `exec` 前追加 `-c tui.fullscreen_transcript=false`。这样旧环境无需改写配置，也能获得课程默认的回滚形态。
 
 ## 核验方式
 
 - 键名 `tui.fullscreen_transcript` 已在 Codex CLI 0.163.0 的本地二进制中确认存在（`tui` 配置结构里有该字段），不是猜的键名。
-- 两个启动器生成的 `config.toml` 都已核对；用该配置启动 `codex --help` 退出码 0，配置被正常接受。
+- 生成配置与启动参数均已核对。配置接受核验使用实际加载配置的 `codex features list`：boolean 值成功，故意改成字符串则报告类型错误。`codex --help` 不加载此配置，不能作为接受依据。
+- 真实交互核验使用 Codex 0.163.0 + MiniMax + claude-tap，通过 PTY 连接浏览器中的 xterm.js 终端，输出 80 段长回复，验证上翻找回开头、回到底部和继续对话。细节见 `tools/agent-lab/VERIFICATION.md`。原生 Terminal 的自动控制被工具权限拒绝，未核验它的鼠标滚动。
 - 效果需要重启 Codex 才可见：配置在启动时读取，当前会话不会中途切换。`/tui` 选择 Scrollback 也是只写配置、不切当前会话。
 
 ## 事实边界

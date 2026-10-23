@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-"""Mechanical checks for docs/production/editorial-checklist.md (ED-001, ED-007/010, ED-011, ED-012, ED-013, ED-017).
+"""Mechanical checks for docs/production/editorial-checklist.md (ED-001, ED-007/010, ED-011, ED-012, ED-013, ED-017, ED-018).
 
 Errors fail the run; hints are printed but never fail. Judgment rules live in the
 checklist and are applied by the courseware-editorial skill, not here.
 """
 import json
+from html import unescape
+from urllib.parse import urldefrag
 import re
 import subprocess
 import sys
@@ -13,6 +15,28 @@ from pathlib import Path
 courseware = Path(__file__).resolve().parents[1]
 repo = courseware.parent
 errors, hints = [], []
+
+
+def source_hints(scene):
+    """ED-018 candidates only: reviewers decide whether two labels cite the same source."""
+    live = [ref for ref in scene.get('refs', []) if ref.get('kind', 'live') == 'live']
+    if not live:
+        return []
+    found = []
+    urls = [urldefrag(ref['url'])[0].rstrip('/') for ref in live]
+    if len(urls) != len(set(urls)):
+        found.append('同页 live 链接指向同一原文，核对是否可合并（不同段落链接可保留）')
+    captions = []
+    for m in re.finditer(r'<(p|small|figcaption)\b([^>]*)>(.*?)</\1>', scene.get('html', ''), re.S):
+        classes = re.search(r'class=[\'"]([^\'"]*)[\'"]', m[2])
+        if classes and 'source-note' in classes[1].split():
+            continue  # hidden in presentation mode; retained for readers
+        text = unescape(re.sub(r'<[^>]*>', '', m[3])).strip()
+        if re.search(r'据.{1,180}(?:整理|重画|绘制)|课程自绘|固定版本', text):
+            captions.append(text[:60])
+    if captions:
+        found.append('可见来源说明与 live 链接并存，核对是否同源并合并：' + '；'.join(captions))
+    return found
 
 # ED-001: a screen element holding a single sentence must not end with 。
 screen_files = [p for p in courseware.rglob('*') if p.name in ('index.html', 'lesson.js') and 'archive' not in p.parts]
@@ -35,6 +59,8 @@ for path in sorted(courseware.rglob('lesson.js')):
             errors.append(f'{path.relative_to(repo)} {scene["id"]} 手写了 kicker：小标题由段名自动生成，改 segment')
         if not scene.get('segment'):
             errors.append(f'{path.relative_to(repo)} {scene["id"]} 缺 segment：小标题、进度条和侧栏分组都靠它')
+        for hint in source_hints(scene):
+            hints.append(f'ED-018 {path.relative_to(repo)} {scene["id"]} {hint}')
 
 # ED-011: generated files must match their source builder
 builders = list(courseware.glob('ch*/lessons/*/tools/build-lesson.py'))

@@ -52,15 +52,18 @@ def shot(src, bar, alt, height=440, note="", reveal=0):
             f'<div class="p-page-bar"><i></i><i></i><i></i>{bar}</div><img src="{src}" alt="{escape(alt)}"></div>{note}</div>')
 
 
-def redrawn(topic, name, style, source, reveal=0, max_height=440):
+def redrawn(topic, name, style, source="", reveal=0, max_height=440, note=""):
     """证据页里的重画图：内联 materials/external/<topic>/redraw-<name>-<style>.svg（由 courseware/tools/redraw.py 生成），
-    底部写“据 某某 重画”。内联而不用 <img>，才能用上课件字体和抖动滤镜 #p-rough。
+    source 是阅读模式中的制作说明；演示来源统一由 scene 的 refs 提供。
+    note 是影响理解的可见说明（如读图近似），不作为第二条出处。
+    内联而不用 <img>，才能用上课件字体和抖动滤镜 #p-rough。
     """
     assert style in ("course", "excalidraw"), style
     svg = (EXTERNAL / topic / f"redraw-{name}-{style}.svg").read_text().strip()
     svg = svg.replace('<svg ', f'<svg style="display:block;max-width:100%;height:auto;max-height:{max_height}px" ', 1)
-    return (f'<div class="p-shot" data-reveal="{reveal}">{svg}'
-            f'<p class="p-shot-note" style="font-size:18px">{source}</p></div>')
+    source_html = f'<p class="source-note">{escape(source)}</p>' if source else ""
+    note_html = f'<p class="p-shot-note" style="font-size:18px">{escape(note)}</p>' if note else ""
+    return f'<div class="p-shot" data-reveal="{reveal}">{svg}{note_html}{source_html}</div>'
 
 
 def repro(steps, note="", label="复现这个实验"):

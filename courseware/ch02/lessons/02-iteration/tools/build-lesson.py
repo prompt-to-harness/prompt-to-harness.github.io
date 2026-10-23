@@ -271,7 +271,7 @@ scene(
     id="p23a", segment="回看这一轮的请求", layout="evidence-scene",
     label="越长越不稳", title="越长越不稳：Context Rot",
     lead="Chroma 在 2025 年 7 月的报告《Context Rot》里，让 18 个模型做同一个很简单的任务：把一段重复的词照抄出来。输入从几十个 token 加到上万，几个主流模型的得分都一路往下。这就是上一页说的注意力代价：缓存让重复部分便宜，但模型还是要读完整段，越长越容易出错。",
-    html=redrawn("context-rot", "chroma-context-rot", "course", "据 Chroma《Context Rot》（2025-07-14）重复词任务重画；数据点为读图近似"),
+    html=redrawn("context-rot", "chroma-context-rot", "course", "据 Chroma《Context Rot》（2025-07-14）重复词任务重画", note="数据点为读图近似"),
     refs=[ref("Context Rot", "https://www.trychroma.com/research/context-rot", "Chroma，2025-07-14")],
     steps=["看趋势"],
     teaching=teach(

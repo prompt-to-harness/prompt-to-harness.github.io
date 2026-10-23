@@ -18,12 +18,13 @@
 | --- | --- | --- | --- | --- | --- |
 | `context-engineering/x-karpathy-context-engineering.png` | [X 帖子](https://x.com/karpathy/status/1937902205765607626)（经官方嵌入页截取，含引用的 [Tobi 原帖](https://x.com/tobi/status/1935533422589399127)） | Andrej Karpathy · 2025-06-25 | 2026-10-22 | 章首 / 2.1 开头 | 不用：改用只截正文的版本 |
 | `context-engineering/openai-codex-request-input.png` | [深入解析 Codex 智能体循环](https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/)“构建初始提示”一节 | Michael Bolin（OpenAI）· 2026-01-23 | 2026-10-22 | 2.1 锚点图之后“官方怎么说” | 候选；样稿：截图上屏看不清，建议重画（按文章顺序列出请求组成，对上锚点图） |
-| `../../lessons/01-request/external/x-karpathy-context-engineering-text.png` | 同上，只截正文和引用的原帖，去掉点赞和回复区 | 同上 | 2026-10-22 | 2.1 p05a | 采用（C2-64） |
+| `../../lessons/01-request/external/x-karpathy-context-engineering-text.png` | 同上，只截正文和引用的原帖，去掉点赞和回复区 | 同上 | 2026-10-22 | 2.1 p05a | 采用（C2-64）；2026-10-23 继续保留，置于 p05a 右侧，与竖向概览并列（C2-77） |
 | `context-engineering/anthropic-prompt-vs-context.png` | [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) 第一张图 | Anthropic Applied AI · 2025-09-29 | 2026-10-22 | 2.1 p16a | 候选；样稿：原图的小标签在页面上读不清，只能看出大体结构；不如现在的文字版，或改成中文重画 |
 | `context-rot/chroma-context-rot-repeated-words.png` | [Context Rot](https://www.trychroma.com/research/context-rot) 重复词任务曲线 | Kelly Hong 等（Chroma）· 2025-07-14 | 2026-10-22 | 2.2 p23 注意力一侧 | 候选；样稿：曲线一路往下，一眼能看懂，效果最好；截图要去掉图下的说明文字 |
 | `context-engineering/redraw-openai-codex-request-{course,excalidraw}.svg` | 据 OpenAI 文章重画：请求按顺序拼成，对上锚点图 | 同上 | 2026-10-22 | 2.1 p16b | 采用 Excalidraw 版（C2-64）；截图版读不清 |
 | `context-rot/redraw-chroma-context-rot-{course,excalidraw}.svg` | 据 Chroma 重复词任务重画，中文坐标；数据点为读图近似 | 同上 | 2026-10-22 | 2.2 p23a | 采用课程手绘版（C2-64） |
 | `context-engineering/redraw-anthropic-prompt-vs-context-{course,excalidraw}.svg` | 据 Anthropic 第一张图重画，中文标签 | 同上 | 2026-10-22 | 2.1 p16c | 采用 Excalidraw 版（C2-64）；截图版小标签读不清 |
+| `context-engineering/redraw-context-vertical-{course,excalidraw}.svg` | 课程自绘，参考 [Claude Academy](https://academy.claude.com/tutorials/parametric-memory-and-context) 对训练知识与当前 Context 的区分；不是官方原图的复刻 | 课程图元 · 2026-10-23 | 2026-10-23 原文核对 | 2.1 p05a 左侧竖向概览 | 采用课程手绘版（C2-77），右侧保留 Karpathy 截图；图元 `context-engineering/context_overview_figures.py`，样稿检查见对应审查记录 |
 
 采用的重画图不复制：页面构建时由 `courseware/ch02/tools/lessonkit.py` 的 `redrawn()` 从本目录读出 SVG 内联进页面。图元按主题存放在 `context-engineering/figures.py` 和 `context-rot/figures.py`，分别运行下列命令，生成该主题的两版 SVG：
 
@@ -104,6 +105,16 @@ uv run courseware/tools/capture-source.py https://startbootstrap.github.io/start
 | `../../lessons/05-experience/external/phistory-codex-0.156.0-0.157.0.png` | [phistory.cc 对比页](https://phistory.cc/?agent=codex&from=0.156.0&to=0.157.0)，Codex CLI 0.156.0 → 0.157.0 默认变体，滚到第 13 行 | Phistory（WEIFENG2333）· 快照 2026-09-22 与 2026-09-25 发布 | 2026-10-23，宽 1000 视口，2 倍像素 | 2.5 p62b | 采用（C2-76） |
 
 重新截取：用 Playwright 打开上面的链接，等 `.monaco-diff-editor` 出现，再用 `monaco.editor.getDiffEditors()[0]` 的两侧编辑器 `revealLineNearTop(13)`，截整个视口。站点 README 未写许可证，只截图引用并标出处。
+
+## p05a 概览的依据与复现
+
+- 已核对 [Claude Academy 的训练知识与 Context 教程](https://academy.claude.com/tutorials/parametric-memory-and-context)：先区分模型参数中学到的知识和当前提供的信息，再讨论窗口与附加内容。另核对 [Working Memory](https://academy.claude.com/courses/ai-capabilities-and-limitations/working-memory)。概览为课程自己的教学归纳；Karpathy 的帖子只佐证 Context Engineering 关注信息组织，不作为模型参数是否变化的依据。
+- 采用的竖图与原截图均在实际 p05a 页面检查；1280×720 画布左图右帖，避开右上讲师框；正文阅读模式窄屏按上下排列。未试讲。
+
+```sh
+uv run courseware/tools/redraw.py courseware/ch02/materials/external/context-engineering/context_overview_figures.py
+python3 courseware/ch02/lessons/01-request/tools/build-lesson.py
+```
 
 ## p09 Harness 层面与消息来源候选（2026-10-23）
 

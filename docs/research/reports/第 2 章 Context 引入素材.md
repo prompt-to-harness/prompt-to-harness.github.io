@@ -31,3 +31,16 @@
 2. **`AGENTS.md` 压缩后还在不在，要实测**。2.2 深入写“`AGENTS.md` 在清空和压缩后重新进入”。Codex 的 `AGENTS.md` 文档只说启动时构建、改了要重启或开新会话；OpenAI 那篇文章说压缩会替换整段 `input`，而 `AGENTS.md` 就在 `input` 里。Claude Code 的文档明确写了压缩后会从磁盘重新注入，但那是另一个工具。重录 2.2 时用请求记录确认，再定这句的写法。
 3. **2.1 的锚点图是否按 OpenAI 文章的顺序画**。文章里的顺序是：系统消息（服务器端）→ 工具 → 基础指令 → 沙箱权限 → `AGENTS.md` 与技能 → 环境信息 → 用户这句话。现在的锚点图是“系统指令、工具、环境、规则、对话历史、工具返回、这一句”，大体一致，但“规则”和“环境”的先后与文章相反。建议以讲师请求记录为准，和文章不一致时在讲师提示里说明原因。
 4. **Cognition 和 HumanLayer 两条没有逐字核对原文**，用到时再看一遍；HumanLayer 的效率数字是自述，不上屏。
+
+## 2026-10-23 补充：p05a 采用概览与 Karpathy 并列
+
+讲师确认左侧使用课程手绘竖图，表达“当前任务信息（Context）→ 既定模型版本 → 回答或动作”，右侧继续使用已登记的 Karpathy 引用 Tobi 截图。先用概览建立观察问题，随后拆真实请求；本页不提前列出完整组成。
+
+本次核对的官方教学顺序：
+
+- [Claude Academy：How context affects Claude's performance and cost](https://academy.claude.com/tutorials/parametric-memory-and-context)：从回答的信息来源入手，区分训练知识、当前提供的信息和工具查找，再讲窗口与附加内容。
+- [Claude Code 101：How Claude Code works](https://academy.claude.com/courses/claude-code-101/how-claude-code-works)：先给收集信息、行动、验证的循环概览，再解释 Context、工具与权限。
+- [Working Memory](https://academy.claude.com/courses/ai-capabilities-and-limitations/working-memory)：以工作记忆解释窗口，并用有无相关材料的对照练习建立直觉。
+- [OpenAI Academy：Codex 101](https://academy.openai.com/en/public/clubs/builders-etkn1/resources/codex-101-introduction-and-onboarding-2026-03-18)：课程入口与所附材料已核对；先讲 Agent 循环与形成历史，再引入 Context 工作记忆。
+
+这些是公开页面与材料的文字核对，没有完整观看视频或验证交互练习。概览为课程自绘的教学归纳，不标为官方原图；“普通对话不实时改写既定模型参数”也不归为 Karpathy 帖子的结论。截图、图元与两版 SVG 的现行路径见章素材索引。
