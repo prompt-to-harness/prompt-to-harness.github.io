@@ -1,14 +1,21 @@
 [project]
 name = "prompt-to-harness"
 version = "0.0.0"
-description = "Course repository tooling (standard library only; Playwright is a dev dependency for browser checks)"
+description = "Course repository tooling (standard library only; Playwright and the viewer builders are dev dependencies)"
 requires-python = ">=3.12"
 dependencies = []
 
 [tool.uv]
 package = false
+default-groups = ["dev", "viewers"]
 
 [dependency-groups]
 dev = [
     "playwright>=1.63.0",
+]
+
+# 由 make viewers 生成静态查看器：claude-tap 固定版本，生成脚本会断言版本
+viewers = [
+    "claude-tap==0.1.146",
+    "markdown-it-py>=3",
 ]
