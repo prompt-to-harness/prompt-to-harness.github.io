@@ -40,6 +40,7 @@ scene(
     id="p01", segment="开始这一章", layout="lesson-cover",
     label="这一章做什么", title="补完整，发布上线",
     lead="把个人主页补完整、发布上线，一路打开请求看清 context",
+    closing="先在个人主页项目目录运行 npm run dev，用终端输出的 Local 地址打开主页，看看首屏和项目区。接下来关注模型每一步能拿到哪些信息。",
     html=(
         chapter_map(1) +
         '<div class="p-chain" data-reveal="1" style="margin-top:12px;font-size:20px"><span>补完整</span><i>→</i><span>发布上线</span><i>·</i><span>一路看清 context</span></div>'
@@ -50,7 +51,7 @@ scene(
         '<div><span>2.2</span><span>补上个人经历</span><span>多聊几轮，context 怎么变长？</span></div>'
         '<div><span>2.3</span><span>先留检查点，参考主页改两轮风格</span><span>它依据什么改，什么看不见？</span></div>'
         '<div><span>2.4</span><span>发布到 GitHub Pages</span><span>这些内容发到了哪里？</span></div>'
-        '<div><span>2.5</span><span>另一位讲师分享经验</span><span>平时怎样用好 context？</span></div></div>'
+        '<div><span>2.5</span><span>经验分享</span><span>平时怎样用好 context？</span></div></div>'
     ),
     repro=repro([
         ("先在自己的仓库里保存当前的工作（没有改动时会提示无可提交，不影响）", "git add -A && git commit -m \"保存：开始第 2 章之前\""),
@@ -61,35 +62,16 @@ scene(
         ("让 Codex 在回复里说明这次补齐的情况，不新建记录文件；你逐句核对，只留下确认过的内容", "在回复里说明这次补齐：对照了哪个参考起点、补了什么、保留了什么。不要新建记录文件，不要写本机路径和用户名。"),
         ("核对无误后提交，把确认过的补齐情况写进提交说明的正文", "git add -A && git commit -m \"对照 ch02-start-v1 补齐第 2 章前提\" -m \"补了什么、保留了什么（换成你核对过的内容）\""),
     ], note="没做完第 1 章、或想直接从第 2 章开始时用；已经做完的跳过。参考起点是 course-starter 的 ch02-start-v1 标签，只放在临时目录里对照，不进你的仓库。不想用 Codex 时，可在 GitHub 上下载这个标签的 ZIP 对照。讲师 2026-10-06 用三种起点各试两次，Codex 都能判断对；笼统地说“按你的建议执行”时，它会连可选建议一起做，所以要只确认必需项。", label="从这一章开始？"),
-    steps=["本章地图", "一句话主线", "五节各做什么"],
+    steps=["本章地图", "一句话主线", "五节各做什么", "打开个人主页"],
     teaching=teach(("讲师提示", "本章只有这一处开篇地图；后续各节开篇沿用同一张地图，只移动当前位置。直接交代目标，不铺情节。")),
-)
-
-scene(
-    id="p02", segment="开始这一章",
-    label="昨天的页面去哪了", title="昨天的页面，怎么打不开了？",
-    lead="隔了一天回到项目，本地地址打不开。在第 1 章做出个人主页的那个项目目录里重新运行 npm run dev，页面就回来了。为什么要重新启动，下一节再讲。",
-    html=(
-        '<div class="p-pair" style="grid-template-columns:1fr auto 1fr">'
-        '<div class="p-box" data-role="gate" data-reveal="0"><span class="p-tag" data-role="gate">浏览器</span>'
-        '<div class="p-term" style="margin-top:10px"><div class="err">localhost 拒绝连接</div></div></div>'
-        '<div class="p-join" data-reveal="1"><span>终端</span><i class="p-arrow"></i></div>'
-        '<div class="p-box" data-role="ok" data-reveal="1"><span class="p-tag" data-role="ok">重新启动</span>'
-        '<div class="p-term" data-copy="npm run dev" style="margin-top:10px"><div class="dim">$ npm run dev</div><div class="ok">Local: http://localhost:5173/</div></div></div></div>'
-        '<div class="p-bar is-light" data-reveal="1">在自己的项目目录里，重新运行 <b>npm run dev</b></div>'
-    ),
-    steps=["打不开", "重新启动"],
-    teaching=teach(
-        ("讲师提示", "开发服务器的端口以学员自己的 Vite 输出为准，画面上的 5173 是常见默认值。这里只操作，为什么要重启留到 2.2 p21。"),
-    ),
 )
 
 # ---------- 打开请求 ----------
 scene(
     id="p05a", segment="打开请求", layout="evidence-scene",
-    label="大家开始说 context engineering", title="大家开始说：context engineering",
+    label="Context Engineering", title="从 Prompt 到 Context Engineering",
     lead="2025 年 6 月，Shopify 的 Tobi Lütke 说比起 prompt engineering，他更喜欢 context engineering 这个说法；Andrej Karpathy 转发附议：要做好的不是写一句话，而是为下一步把刚好合适的信息填进 context window。这一节就打开请求，看看 context 里到底装了什么。",
-    html=shot("external/x-karpathy-context-engineering-text.png", "x.com · Andrej Karpathy 引用 Tobi Lütke · 2025-06-25",
+    html='<style>body[data-mode="slides"] #p05a h2{font-size:38px}</style>' + shot("external/x-karpathy-context-engineering-text.png", "x.com · Andrej Karpathy 引用 Tobi Lütke · 2025-06-25",
               "Andrej Karpathy 的帖子：+1 for context engineering over prompt engineering，引用 Tobi Lütke 的原帖", height=440),
     refs=[ref("Karpathy 的帖子", "https://x.com/karpathy/status/1937902205765607626", "X，2025-06-25", kind="read"),
           ref("Tobi Lütke 的原帖", "https://x.com/tobi/status/1935533422589399127", "X，2025-06-19", kind="read")],

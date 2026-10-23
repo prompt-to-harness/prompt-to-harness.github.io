@@ -11,7 +11,8 @@ window.lesson = {
       "label": "这一章做什么",
       "title": "补完整，发布上线",
       "lead": "把个人主页补完整、发布上线，一路打开请求看清 context",
-      "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>2.1</b>看请求</li><li><b>2.2</b>补经历</li><li><b>2.3</b>改风格</li><li><b>2.4</b>发布上线</li><li><b>2.5</b>用好 context</li></ol><div class=\"p-chain\" data-reveal=\"1\" style=\"margin-top:12px;font-size:20px\"><span>补完整</span><i>→</i><span>发布上线</span><i>·</i><span>一路看清 context</span></div><style>.x-p01 span{padding:6px 10px;font-size:19px}.x-p01 .is-head span{font-size:16px}</style><div class=\"p-matrix x-p01\" data-reveal=\"2\" style=\"margin-top:10px;grid-template-columns:minmax(0,.35fr) minmax(0,1.2fr) minmax(0,1.6fr)\"><div class=\"is-head\"><span>节</span><span>项目动作</span><span>用请求记录回答</span></div><div class=\"is-key\"><span>2.1</span><span>用 claude-tap 启动 Codex</span><span>只说一句话，模型收到了什么？</span></div><div><span>2.2</span><span>补上个人经历</span><span>多聊几轮，context 怎么变长？</span></div><div><span>2.3</span><span>先留检查点，参考主页改两轮风格</span><span>它依据什么改，什么看不见？</span></div><div><span>2.4</span><span>发布到 GitHub Pages</span><span>这些内容发到了哪里？</span></div><div><span>2.5</span><span>另一位讲师分享经验</span><span>平时怎样用好 context？</span></div></div>",
+      "closing": "先在个人主页项目目录运行 npm run dev，用终端输出的 Local 地址打开主页，看看首屏和项目区。接下来关注模型每一步能拿到哪些信息。",
+      "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>2.1</b>看请求</li><li><b>2.2</b>补经历</li><li><b>2.3</b>改风格</li><li><b>2.4</b>发布上线</li><li><b>2.5</b>用好 context</li></ol><div class=\"p-chain\" data-reveal=\"1\" style=\"margin-top:12px;font-size:20px\"><span>补完整</span><i>→</i><span>发布上线</span><i>·</i><span>一路看清 context</span></div><style>.x-p01 span{padding:6px 10px;font-size:19px}.x-p01 .is-head span{font-size:16px}</style><div class=\"p-matrix x-p01\" data-reveal=\"2\" style=\"margin-top:10px;grid-template-columns:minmax(0,.35fr) minmax(0,1.2fr) minmax(0,1.6fr)\"><div class=\"is-head\"><span>节</span><span>项目动作</span><span>用请求记录回答</span></div><div class=\"is-key\"><span>2.1</span><span>用 claude-tap 启动 Codex</span><span>只说一句话，模型收到了什么？</span></div><div><span>2.2</span><span>补上个人经历</span><span>多聊几轮，context 怎么变长？</span></div><div><span>2.3</span><span>先留检查点，参考主页改两轮风格</span><span>它依据什么改，什么看不见？</span></div><div><span>2.4</span><span>发布到 GitHub Pages</span><span>这些内容发到了哪里？</span></div><div><span>2.5</span><span>经验分享</span><span>平时怎样用好 context？</span></div></div>",
       "repro": {
         "label": "从这一章开始？",
         "steps": [
@@ -49,12 +50,14 @@ window.lesson = {
       "steps": [
         "本章地图",
         "一句话主线",
-        "五节各做什么"
+        "五节各做什么",
+        "打开个人主页"
       ],
       "script": [
         "【操作提示｜停留课件 p01 第 1 步，指向章节地图上的 2.1，再指页面上方“从这一章开始？”入口，只点位置不展开其中步骤；不切工具窗口】\n\n第 1 章结束时，我们做出了个人主页：能启动、能构建，改动也能解释清楚。还没做完第 1 章也没关系：点开这一页上方的“从这一章开始？”，按步骤让 Codex 对照课程的参考起点补齐，再回来继续。",
         "【操作提示｜推进第 2 步，指向“补完整 → 发布上线 · 一路看清 context”一行；留在课件】\n\n这一章做两件事：把个人主页补完整，再发布上线，得到一个公开的网址。一路上，我们会打开 Codex 实际发给模型的请求，看清 context 到底长什么样、怎么变。第 1 章讲的是 context 里该放什么，这一章看它实际的样子。",
-        "【操作提示｜推进第 3 步，从上到下指五行，每行先指项目动作，再指右列的问题，最后停在高亮的 2.1 行；留在课件，下一页再切浏览器】\n\n五节，每节做一个项目动作，同时用请求记录回答一个问题。2.1 用 claude-tap 启动 Codex，看只说一句话时模型收到了什么；2.2 把自己的个人信息、经历和项目补进主页，看对话多了 context 怎么变长；2.3 先给改动留一个检查点，再参考一个喜欢的主页改两轮风格，看它依据什么改、有什么看不见；2.4 发布上线，看这些内容最后发到了哪里；2.5 由另一位讲师分享平时怎样用好 context。先从 2.1 开始。不过在打开请求之前，先把昨天的页面重新跑起来。"
+        "【操作提示｜推进第 3 步，从上到下指五行，每行先指项目动作，再指右列的问题，最后停在高亮的 2.1 行；留在课件，下一步启动并打开个人主页】\n\n五节，每节做一个项目动作，同时用请求记录回答一个问题。2.1 用 claude-tap 启动 Codex，看只说一句话时模型收到了什么；2.2 把自己的个人信息、经历和项目补进主页，看对话多了 context 怎么变长；2.3 先给改动留一个检查点，再参考一个喜欢的主页改两轮风格，看它依据什么改、有什么看不见；2.4 发布上线，看这些内容最后发到了哪里；最后分享平时怎样用好 context 的经验。先从 2.1 开始，我们先打开个人主页，看看现在的效果。",
+        "【操作提示｜推进第 4 步 → 切 Terminal 的“个人主页开发服务”标签页，在个人主页练习项目根目录运行 npm run dev 并保持运行；若服务已运行，直接使用其输出的 Local 地址。切 Chrome 打开该地址，查看首屏，点击“查看项目”并检查项目区；之后回课件 p05a。报找不到 package.json 时先核对目录】\n\n在自己的个人主页项目目录里运行 npm run dev，再用终端输出的 Local 地址打开页面。大家跟做时也先把自己的主页打开。先看首屏，再点“查看项目”，看看项目区现在的内容。接下来，我们会在这个基础上补上个人信息、经历和项目，再调整风格、发布上线。"
       ],
       "teaching": [
         {
@@ -63,40 +66,16 @@ window.lesson = {
         }
       ],
       "source": "index.html#p01",
-      "seconds": 90
-    },
-    {
-      "id": "p02",
-      "segment": "开始这一章",
-      "label": "昨天的页面去哪了",
-      "title": "昨天的页面，怎么打不开了？",
-      "lead": "隔了一天回到项目，本地地址打不开。在第 1 章做出个人主页的那个项目目录里重新运行 npm run dev，页面就回来了。为什么要重新启动，下一节再讲。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr\"><div class=\"p-box\" data-role=\"gate\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"gate\">浏览器</span><div class=\"p-term\" style=\"margin-top:10px\"><div class=\"err\">localhost 拒绝连接</div></div></div><div class=\"p-join\" data-reveal=\"1\"><span>终端</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ok\">重新启动</span><div class=\"p-term\" data-copy=\"npm run dev\" style=\"margin-top:10px\"><div class=\"dim\">$ npm run dev</div><div class=\"ok\">Local: http://localhost:5173/</div></div></div></div><div class=\"p-bar is-light\" data-reveal=\"1\">在自己的项目目录里，重新运行 <b>npm run dev</b></div>",
-      "steps": [
-        "打不开",
-        "重新启动"
-      ],
-      "script": [
-        "【操作提示｜课件 p02 第 1 步 → 切 Chrome 新开标签页，访问第 1 章首页的本地地址（画面示例 http://localhost:5173/，以第 1 章实际 Vite 输出为准）。录前确认开发服务器确已停止，如实展示拒绝连接页；保留课件标签页】\n\n隔了一天回到项目，我们先打开昨天的本地地址。浏览器说拒绝连接，页面打不开。代码明明都还在，这是怎么回事？",
-        "【操作提示｜回课件推进第 2 步 → 切 Terminal 新开标签页“个人主页开发服务”，进入第 1 章做出个人主页的练习项目根目录（不是课程原始起点），运行 npm run dev 并保持运行；用实际打印的 Local 地址刷新刚才的 Chrome 标签页，页面恢复后回课件 p06-tap。报找不到 package.json 时先核对目录】\n\n回到第 1 章做出个人主页的那个项目目录，重新运行 npm run dev，页面就回来了。注意是我们自己的项目，不是课程刚发下来的原始起点，那里还没有应用，npm run dev 会报找不到 package.json。为什么要重新启动，下一节再讲。大家跟做时也先做这一步，把页面打开。"
-      ],
-      "teaching": [
-        {
-          "title": "讲师提示",
-          "text": "开发服务器的端口以学员自己的 Vite 输出为准，画面上的 5173 是常见默认值。这里只操作，为什么要重启留到 2.2 p21。"
-        }
-      ],
-      "source": "index.html#p02",
-      "seconds": 60
+      "seconds": 120
     },
     {
       "id": "p05a",
       "segment": "打开请求",
       "layout": "evidence-scene",
-      "label": "大家开始说 context engineering",
-      "title": "大家开始说：context engineering",
+      "label": "Context Engineering",
+      "title": "从 Prompt 到 Context Engineering",
       "lead": "2025 年 6 月，Shopify 的 Tobi Lütke 说比起 prompt engineering，他更喜欢 context engineering 这个说法；Andrej Karpathy 转发附议：要做好的不是写一句话，而是为下一步把刚好合适的信息填进 context window。这一节就打开请求，看看 context 里到底装了什么。",
-      "html": "<div class=\"p-shot\" style=\"--shot-h:440px\" data-reveal=\"0\"><div class=\"p-page\"><div class=\"p-page-bar\"><i></i><i></i><i></i>x.com · Andrej Karpathy 引用 Tobi Lütke · 2025-06-25</div><img src=\"external/x-karpathy-context-engineering-text.png\" alt=\"Andrej Karpathy 的帖子：+1 for context engineering over prompt engineering，引用 Tobi Lütke 的原帖\"></div></div>",
+      "html": "<style>body[data-mode=\"slides\"] #p05a h2{font-size:38px}</style><div class=\"p-shot\" style=\"--shot-h:440px\" data-reveal=\"0\"><div class=\"p-page\"><div class=\"p-page-bar\"><i></i><i></i><i></i>x.com · Andrej Karpathy 引用 Tobi Lütke · 2025-06-25</div><img src=\"external/x-karpathy-context-engineering-text.png\" alt=\"Andrej Karpathy 的帖子：+1 for context engineering over prompt engineering，引用 Tobi Lütke 的原帖\"></div></div>",
       "refs": [
         {
           "kind": "read",
@@ -115,7 +94,7 @@ window.lesson = {
         "看帖子"
       ],
       "script": [
-        "【操作提示｜停留课件 p05a，指向帖子顶栏的作者和日期；不切窗口】\n\n在打开请求之前，先看一条帖子。2025 年 6 月，Shopify 的 CEO Tobi Lütke 说，比起 prompt engineering，他更喜欢 context engineering 这个说法：真正的本事，是把任务需要的上下文都给到模型，让它有可能把事做成。Andrej Karpathy 转发附议，说得更具体：一说 prompt，大家想到的是日常随手打的一句话；而在正经的 LLM 应用里，要做的是为下一步，把刚好合适的信息填进 context window。给少了，模型做不好；给多了、给偏了，成本上去，效果反而下来。那 Codex 每一步到底往里填了什么？我们打开看看。"
+        "【操作提示｜停留课件 p05a，指向帖子顶栏的作者和日期；不切窗口】\n\n主页打开了。接下来，我们还会关注模型每一步能拿到哪些信息。这就是 context engineering 要处理的问题。先看一条帖子。2025 年 6 月，Shopify 的 CEO Tobi Lütke 说，比起 prompt engineering，他更喜欢 context engineering 这个说法：真正的本事，是把任务需要的上下文都给到模型，让它有可能把事做成。Andrej Karpathy 转发附议，说得更具体：一说 prompt，大家想到的是日常随手打的一句话；而在正经的 LLM 应用里，要做的是为下一步，把刚好合适的信息填进 context window。给少了，模型做不好；给多了、给偏了，成本上去，效果反而下来。那 Codex 每一步到底往里填了什么？我们打开看看。"
       ],
       "teaching": [
         {
@@ -708,7 +687,7 @@ window.lesson = {
   "segments": [
     {
       "label": "开始这一章",
-      "seconds": 150
+      "seconds": 120
     },
     {
       "label": "打开请求",
