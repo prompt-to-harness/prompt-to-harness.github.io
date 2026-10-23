@@ -1,5 +1,7 @@
 # p07 静态记录与本节适配
 
+> viewer.html、compare-*.html（plain/named）、config-*.html（model/perm 四份）是生成物，不提交；新检出后运行 `make viewers` 生成，输出与输入固定，重复生成逐字节一致。
+
 p07 将原 p14 的依据追踪合入一页，p16a 继续归纳 Context；没有修改其他页面的知识范围。
 
 - viewer.html、trace.json、LICENSE-claude-tap.txt：本节 build-lesson.py 从已核验的 demos/ch02-static-trace/ 生成或复制，不手改。
