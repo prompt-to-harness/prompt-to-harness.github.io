@@ -88,7 +88,7 @@ ED-002 的连接检查：反馈核对以自己的首页为对象，以观察与�
 
 ## 2026-10-05 第二章成品审查（已迁出）
 
-独立 agent 对第二章（重点 2.2–2.5）的审查记录已迁到 [docs/reviews/ch02/2026-10-05-ch02-agent.md](../../../../docs/reviews/ch02/2026-10-05-ch02-agent.md)。之后的审查按 [docs/reviews/README.md](../../../../docs/reviews/README.md) 一次一个文件。
+独立 agent 对第二章（重点 2.2–2.5）的审查记录已迁到 [docs/reviews/ch02/2026-10-05-ch02-agent.md](../../../../docs/reviews/ch02/2026-10-05-ch02-agent.md)。之后的正式审查按 [docs/reviews/README.md](../../../../docs/reviews/README.md) 的触发条件留档。
 
 ## 2026-10-05 按审查 R1–R6 修改
 
