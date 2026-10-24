@@ -212,7 +212,7 @@
       "section": "section_messages",
       "needle": "## Handoff Summary",
       "button": "压缩后的请求",
-      "hint": "只剩交接摘要，没有工具返回",
+      "hint": "我们发的话还在，过程换成摘要",
       "reading": [
         {
           "title": "交接摘要 · 原文节选",
