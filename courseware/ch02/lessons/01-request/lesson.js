@@ -242,7 +242,7 @@ window.lesson = {
           "kind": "live",
           "group": "MiniMax · 模型能力目录",
           "text": "MiniMax Codex 接入说明",
-          "url": "https://platform.minimax.cn/docs/m-plan/codex"
+          "url": "https://platform.minimax.cn/docs/m-plan/codex#%E9%85%8D%E7%BD%AE-minimax-api"
         },
         {
           "kind": "read",
@@ -280,7 +280,7 @@ window.lesson = {
         },
         {
           "title": "系统指令首句",
-          "text": "“You are Codex, a coding agent based on MiniMax-M3.1-Flash…”是模型能力目录里 base_instructions 的原文，与 MiniMax 官方说明“配置模型能力目录（可选）”一节的示例一致（2026-10-24 核对）。不配目录时是 Codex 默认的长指令，学员记录可能不同。只对照这一句，不教配置。团队说明与多代理限制在第一步的展开里，口播一句交代。"
+          "text": "“You are Codex, a coding agent based on MiniMax-M3.1-Flash…”是模型能力目录里 base_instructions 的原文，与 MiniMax 官方说明“配置模型能力目录（可选）”一节的示例一致（2026-10-24 核对）。这一节在“方式二：手动配置”标签页里，链接只能停在上面的“配置 MiniMax API”，现场打开后点方式二。不配目录时是 Codex 默认的长指令，学员记录可能不同。只对照这一句，不教配置。团队说明与多代理限制在第一步的展开里，口播一句交代。"
         },
         {
           "title": "为什么没有 system",
@@ -345,7 +345,7 @@ window.lesson = {
           "kind": "live",
           "group": "OpenAI，2026-01-23",
           "text": "深入解析 Codex 智能体循环",
-          "url": "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/"
+          "url": "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/#:~:text=%E5%85%B6%E6%A0%B8%E5%BF%83%E9%83%BD%E6%98%AF%E4%B8%80%E5%A5%97%E7%A7%B0%E4%B8%BA"
         }
       ],
       "steps": [
@@ -439,7 +439,7 @@ window.lesson = {
           "kind": "read",
           "group": "Anthropic，2025-09-29",
           "text": "Effective context engineering for AI agents",
-          "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents"
+          "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents#context-engineering-vs-prompt-engineering"
         }
       ],
       "steps": [
@@ -517,7 +517,7 @@ window.lesson = {
           "kind": "live",
           "group": "OpenAI，2026-01-23",
           "text": "深入解析 Codex 智能体循环",
-          "url": "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/"
+          "url": "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/#:~:text=%E5%9C%A8%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E6%B6%88%E6%81%AF%E4%B9%8B%E5%89%8D"
         }
       ],
       "steps": [

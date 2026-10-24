@@ -7,7 +7,7 @@
 - 采用 2026-10-24 单一 Plan 流程重跑（C2-95）：同一会话先跑 2.1 的两步（`/rename`、问候、项目问题），再放入 AGENTS.md 与 profile.md、`/clear`、`/plan`、提交 p29；三道交互题都选推荐项，计划没有越界，直接接受。没有依赖准备故障。原始记录在私有仓库 prompt-to-harness/lab-runs 的 `ch02/2.2-20261024/`，记录编号见那里的 README；10-23 成对运行（`ch02/2.2-20261023/`）只存档（C2-92）。
 - 固定条件：起点 ch02-start-v1 新克隆；CLI 0.163.0、MiniMax-M3.1-Flash；Agent Lab 从 main 的 tools/agent-lab 运行（`01-request/tools/demo.sh codex`）；claude-tap 0.1.146；全新 AGENT_LAB_HOME。驱动是 [`materials/mainline/pty/`](../../materials/mainline/pty/) 的 PTY 脚本，每步先看屏幕再发送。
 - p22、p23、p27、p27b、p29c、p30 的数字与讲法都来自这一次；p31 的 assets/plan-homepage.png 是这次 `vite preview` 下 1280 宽的整页截图，无账号界面或本机路径。p24 用这次运行里自然出现的 SyntaxError，配 Manus“保留错误的内容”配图右半的重画（[`keep_errors_figures.py`](../../materials/external/cache-compaction/keep_errors_figures.py)）。2026-10-21 调低触发线到 10,000 的自动压缩实验只留在 p27b 讲师提示，不拼入主线 token 数列（C2-97）。
-- p22、p27 嵌入本节静态记录（阅读节选 / 原始记录双视图，支持放大与 Esc 返回）：公开数据在 [`materials/iteration/run-20261024/`](../../materials/iteration/run-20261024/README.md)，观察点、按钮文字和阅读节选在 [`trace/evidence.json`](trace/evidence.json)（全课共用零件 `.p-evidence`，见[零件库](../../../../docs/production/parts.md)），`make viewers` 生成 `trace/viewer.html`。p28 的四列对照是课程自绘示意（[`session_states_figures.py`](../../materials/external/cache-compaction/session_states_figures.py)），据记录 14、6、28，方块长短不代表 token 数。
+- p22、p24、p27 嵌入本节静态记录（阅读节选 / 原始记录双视图，支持放大与 Esc 返回）：公开数据在 [`materials/iteration/run-20261024/`](../../materials/iteration/run-20261024/README.md)，观察点、按钮文字和阅读节选在 [`trace/evidence.json`](trace/evidence.json)（全课共用零件 `.p-evidence`，见[零件库](../../../../docs/production/parts.md)），`make viewers` 生成 `trace/viewer.html`。p28 的四列对照是课程自绘示意（[`session_states_figures.py`](../../materials/external/cache-compaction/session_states_figures.py)），据记录 14、6、28，方块长短不代表 token 数。
 - 正式录制按当天输出替换实例；交互题、计划、摘要与耗时不要求和本次相同。
 - [个人资料](../../materials/profile/README.md)已于 2026-10-24 冻结，与本次运行所用版本相同（C2-94）。尚未出声计时、试讲或由另一位讲师复现。
 
@@ -25,7 +25,7 @@
 | p30 | 人在哪一步决定范围并放行？ | 看文件范围 → 看事实与验证 → 确认后自动切执行（越界时留在 Plan 修订，讲师提示） | 跟做 | 主线 | 项目（验收） |
 | p31 | 改完的页面怎样？ | 人看页面 → 核对构建 → 留给下一节 | 跟做 | 主线 | 项目（验收） |
 | p22 | 补充一句话，依据从哪里来？ | 静态记录逐步定位：清空后的第一个请求（规则在，上一节问答不在） → 读到资料（上一节见过的追加，一句带过） → 回答交互题：同一对话里前面的都跟着发 → 进入执行：模式指令也追加在末尾 | 看懂 | 主线 | Q4 |
-| p24 | 失败的返回也会跟着发吗？ | Manus 图重画：失败留在 context 里，再试一次成功 → 本轮实例：SyntaxError、换写法重读，一直留到压缩前 | 看懂 | 主线 | Q4 |
+| p24 | 失败的返回也会跟着发吗？ | 左：Manus 图重画（失败留在 context 里，再试一次成功），同时静态记录定位本轮脚本报错 → 它自己换写法再读；一直留到压缩前在 p27 核对 | 看懂 | 主线 | Q4 |
 | p23 | 输入增长与缓存各说明什么？ | 看输入量 → 缓存为什么命中、省了什么 | 看懂 | 主线 | Q4 |
 | p23a | 长输入可能带来什么影响？ | 看重复词任务趋势 | 看懂 | 主线 | Q4 |
 | p27 | 摘要没有原文时怎么办？ | 静态记录逐步定位：压缩前的历史（资料原文与那条报错都在） → 压缩后：我们发的话和规则还在，过程换成摘要 → 只凭摘要追问 → 重读文件，文件仍在 | 看懂 | 主线 | Q5 |
@@ -49,7 +49,7 @@
 - p27b：对照 used 值与 total，勿用取整百分比推算。本次压缩后没有单独看 /status，“压缩并追问两次后”那一列含两次追问。第 3 步引 OpenAI 原文：超过 auto_compact_limit 自动压缩、用更小的列表替换历史；本课看到的是明文交接摘要，不说成文章里的加密压缩端点。10-21 调低触发线到 10,000 的实验只在讲师提示，不教作默认值。
 - p28：对照图据记录 14（继续）、6（/clear）、28（压缩后）示意，新建交接按 /clear 加人写的交接画；方块长短不代表 token 数，不调 anchor()，不算锚点图（C2-97）。会话选择用学员自己界面可见的读取与操作作理由；Plan 属于工作模式，不混进会话的四种选择。
 
-- p22、p27：先用阅读视图认清原文，再切原始记录核对位置；两种视图共用同一观察点。放大后继续用窗口内按钮切换，Esc 收起保留视图与观察点。阅读节选直接从 10-24 公开记录生成，可展开该项完整原文。
+- p22、p24、p27：先用阅读视图认清原文，再切原始记录核对位置（p24 查看器只占右栏，窗内原始记录会变成 claude-tap 的手机布局，先放大再切）；两种视图共用同一观察点。放大后继续用窗口内按钮切换，Esc 收起保留视图与观察点。阅读节选直接从 10-24 公开记录生成，可展开该项完整原文。
 - p33：四道情境自检只暂停思考，不现场制造错误；第二题使用本次确实出现的“四个独立分区”选择，不引用旧运行的计划修订。会话选择的个人理由仍在 p28 完成。
 
 ## 跟做分支与录制备用

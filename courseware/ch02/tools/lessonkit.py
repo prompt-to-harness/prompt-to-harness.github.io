@@ -11,6 +11,7 @@ steps 与 script 一一对应；data-reveal 最大值 = 步骤数 - 1。
 scene["seconds"] 只用于章节条的宽度比例（按步骤数计算），不是时长估算。
 """
 import json
+import urllib.parse
 from html import escape
 from pathlib import Path
 
@@ -27,15 +28,22 @@ def teach(*pairs):
     return [{"title": t, "text": x} for t, x in pairs]
 
 
-def ref(text, url, group="", kind="live"):
+def ref(text, url, group="", kind="live", quote=""):
     """一条原文链接，放进 scene(refs=[…])，由播放器渲染（courseware/shared/app.js）。
 
     kind="live"：画面最下一行（零件 .p-refs），随最后一步出现，录制时点开；
     kind="read"：不上画面，只在阅读模式与讲解全文列出。
     同一 group 的相邻链接合成一组。网址固定到具体版本，不指向会变的 main。
+    quote：本页引用的是长文的某一段时，写那段开头的几个字（原文照抄、页面里唯一），拼成文本片段链接
+    #:~:text=…，打开后滚到那段并高亮；页面有稳定的标题锚点时直接在 url 里写 #锚点，不用 quote。
+    规则见 docs/production/external-sources.md“链接到段落”。
     """
     assert kind in ("live", "read"), kind
     assert url.startswith("https://"), url
+    if quote:
+        assert "#" not in url, ("quote 和 #锚点只用一种", url)
+        # 文本片段里的 - , & 是分隔符，必须转义（quote 默认不转义 -）
+        url += "#:~:text=" + urllib.parse.quote(quote, safe="").replace("-", "%2D")
     return {"kind": kind, "group": group, "text": text, "url": url}
 
 

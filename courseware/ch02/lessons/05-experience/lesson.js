@@ -43,7 +43,7 @@ window.lesson = {
           "kind": "live",
           "group": "价格（2026-10-21 查阅）",
           "text": "MiniMax 开放平台：定价",
-          "url": "https://platform.minimax.cn/docs/guides/pricing"
+          "url": "https://platform.minimax.cn/docs/pricing/overview#%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B"
         }
       ],
       "steps": [

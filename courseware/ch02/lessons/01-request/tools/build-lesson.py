@@ -210,13 +210,13 @@ scene(
         + EVIDENCE.stage("p08a", note="同一份初始请求", reading=greeting_reading())
     ),
     closing="同一份请求里，有我们输入的一句，也有 Codex 组织的大部分内容；这次模型一次就答完了。接下来按作用归类，看哪些不是我们写的。",
-    refs=[ref("MiniMax Codex 接入说明", "https://platform.minimax.cn/docs/m-plan/codex", "MiniMax · 模型能力目录"),
+    refs=[ref("MiniMax Codex 接入说明", "https://platform.minimax.cn/docs/m-plan/codex#%E9%85%8D%E7%BD%AE-minimax-api", "MiniMax · 模型能力目录"),
           ref("developer 取代 system 消息", "https://developers.openai.com/api/reference/resources/chat", "OpenAI API 参考", kind="read"),
           ref("Codex：基础指令改为 developer 消息", "https://github.com/openai/codex/pull/51156", "openai/codex PR #51156", kind="read")],
     steps=["系统指令", "Skills 列表", "权限说明", "环境信息", "工具定义", "这一次的返回"],
     teaching=teach(
         ("同源与展示", "使用 2026-10-24 重跑交互会话的问候请求；六条消息正文、五个顶层工具定义完整保留，仅路径占位，排除鉴权请求头、缓存与会话标识。阅读视图只折叠不删除，完整原文为原版静态查看器，可自由展开。顺序按请求实际排列：developer 身份 → developer（Skills、权限、Default 模式）→ developer 团队说明 → developer 多代理限制 → user 环境 → user 问候，tools 在 input 之后。"),
-        ("系统指令首句", "“You are Codex, a coding agent based on MiniMax-M3.1-Flash…”是模型能力目录里 base_instructions 的原文，与 MiniMax 官方说明“配置模型能力目录（可选）”一节的示例一致（2026-10-24 核对）。不配目录时是 Codex 默认的长指令，学员记录可能不同。只对照这一句，不教配置。团队说明与多代理限制在第一步的展开里，口播一句交代。"),
+        ("系统指令首句", "“You are Codex, a coding agent based on MiniMax-M3.1-Flash…”是模型能力目录里 base_instructions 的原文，与 MiniMax 官方说明“配置模型能力目录（可选）”一节的示例一致（2026-10-24 核对）。这一节在“方式二：手动配置”标签页里，链接只能停在上面的“配置 MiniMax API”，现场打开后点方式二。不配目录时是 Codex 默认的长指令，学员记录可能不同。只对照这一句，不教配置。团队说明与多代理限制在第一步的展开里，口播一句交代。"),
         ("为什么没有 system", "第一步口播顺带一句，不上屏：你可能听说过 system、developer、user 三种消息；在 OpenAI 的 API 里，开发者写的指令逐渐统一叫 developer（o1 及更新的模型用它取代 system 消息），Codex 0.162 起也把基础指令作为第一条 developer 消息（PR #51156）。口播限定为“在 OpenAI 的 API 和这个 Codex 版本里”；不说 o1 的具体日期，不推断 MiniMax 服务端是否另加 system。两处原文作为阅读链接。"),
         ("彩蛋", "环境里的时区 Asia/Shanghai 可以口播一句：社区常讨论工具能否判断用户在哪，这类字段确实可能透露信息。只说“可能”，不说 Codex 实际这样用，不上屏。"),
         ("这一次的返回", "这次的响应直接是文字回答，没有工具调用（10-23 那次曾先读 package.json）。读文件引出多次请求，留到 p07-loop 用项目问题讲。"),
@@ -278,7 +278,7 @@ scene(
         redrawn("agent-loop", "codex-agent-loop", "excalidraw", "据 OpenAI《深入解析 Codex 智能体循环》的循环图与 Snapshot 2 重画；中文标签，不抄字段名", max_height=380)
     ),
     closing="下一页在真实记录里对比相邻两次请求：前面不变，末尾多了模型的推理、一条工具调用和一条工具返回。developer、user、assistant 是消息的角色；工具调用和工具返回是单独的条目，上一问的回答以 assistant 进入后面的请求。",
-    refs=[ref("深入解析 Codex 智能体循环", "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/", "OpenAI，2026-01-23")],
+    refs=[ref("深入解析 Codex 智能体循环", "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/", "OpenAI，2026-01-23", quote="其核心都是一套称为")],
     steps=["一句话怎样变成几次请求", "第 1 次请求", "第 2 次：前面不变，后面追加", "第 3 次，直到最终回答"],
     teaching=teach(
         ("讲师提示", "先讲左侧循环，再依次揭示右侧三次请求。图是示意，轮数以实际记录为准。2026-10-24 重跑记录里每轮在末尾追加三条：reasoning（推理）、custom_tool_call、custom_tool_call_output，与文章 Snapshot 2 一致；旧的 10-23 公开记录删掉了推理，看起来像两条，不再沿用。图例不用 System，避免和本次只有 developer、user 的记录对不上。"),
@@ -317,7 +317,7 @@ scene(
         '<div class="p-box is-soft" data-role="ctx" data-reveal="3"><span class="p-tag" data-role="ctx">课程地图</span><p>第 2 章：<b>Context</b><br>从当前请求，继续看信息怎样变化</p></div></div>'
     ),
     closing="锚点图按信息的作用分类，不表示请求字段必须按图排列。项目问答的后续请求已包含历史和工具返回；规则是否存在以实际记录为准。刚才没有给出源码路径，模型先查找，才拿到相关代码。Context 是有限的资源，既然这些信息要进入 Context，我们已经知道文件在哪里时，能不能提前告诉它，缩短查找过程？",
-    refs=[ref("Effective context engineering for AI agents", "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents", "Anthropic，2025-09-29", kind="read")],
+    refs=[ref("Effective context engineering for AI agents", "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents#context-engineering-vs-prompt-engineering", "Anthropic，2025-09-29", kind="read")],
     steps=["合看两次观察", "叫它 Context", "对照文字定义", "定位与下一问"],
     teaching=teach(
         ("录制说明", "先指问候时已拆过的组成，再指项目问答后续请求中的历史与工具返回。锚点图是分类示意，不是新运行截图。本次实际请求没有项目 AGENTS.md，规则块画成虚线“这次没有”；历史和工具返回已由本次排练核实。录制当天仍按实际请求更新。"),
@@ -366,7 +366,7 @@ scene(
         '<div class="p-bar" style="margin-top:12px">提供已知的相关信息 → 查看实际读取 → 核对回答依据</div>'
     ),
     closing="图示帮助说明 Codex 的组织作用，具体字段、角色和内容以实际版本记录为准。接下来暂停一下，用刚才的实际例子检验自己。",
-    refs=[ref("深入解析 Codex 智能体循环", "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/", "OpenAI，2026-01-23")],
+    refs=[ref("深入解析 Codex 智能体循环", "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/", "OpenAI，2026-01-23", quote="在添加用户消息之前")],
     steps=["谁组织，我们做什么"],
     teaching=teach(
         ("讲师提示", "复用已核对的官方请求示意重画图，只画文章的顺序，不再对到锚点图（C2-88），只指请求整体和 Codex 的组织作用，不逐字段、按角色再拆 Context，不念工具名或数量。图里第一行 instructions 是 1 月文章的写法，现在基础指令在第一条 developer 消息，图旁已注明。底部做法条用 p07 与 p14a 收住：路径是帮助定位的线索，是否相关、是否足够、回答是否有依据仍需核对。"),
