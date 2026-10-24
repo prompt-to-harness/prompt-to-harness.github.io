@@ -29,7 +29,7 @@ python3 courseware/ch02/materials/request/run-20261024/export-public.py ~/ws/lab
 uv run courseware/ch02/materials/request/run-20261024/build-records.py
 ```
 
-第一条从私有原始记录生成本目录的公开 JSON；第二条生成 p14a 的两份独立记录（`make viewers` 已包含）。p08a 的连续查看由 `demos/ch02-request-walkthrough/extract-private.py` 取 `interactive.json` 第 1 条，p07 的静态记录由 `demos/ch02-static-trace/` 取整份 `interactive.json`，依据链见那里的 `selection.json`。
+第一条从私有原始记录生成本目录的公开 JSON；第二条生成 p14a 的两份独立记录（`make viewers` 已包含）。p08a（第 1 条，问候）和 p07（整份项目问题）直接用 `interactive.json`：观察点在 [`lessons/01-request/trace/evidence.json`](../../../lessons/01-request/trace/evidence.json)，`make viewers` 生成嵌入的查看器。`skill-file-excerpt.json` 是 p08a 阅读视图里“对应 SKILL.md 里还有什么”的对照片段，来自同一课程 HOME 的实际 skill-creator 文件，不是请求的一部分。
 
 ## 观察要点
 

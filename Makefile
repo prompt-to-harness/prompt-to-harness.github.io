@@ -4,14 +4,11 @@
 setup:
 	uv run playwright install chromium
 
-# 生成不提交的静态查看器（claude-tap 0.1.146，不调用模型）。顺序有依赖：先原始记录和样稿，最后 01-request 把它们收进本节。
+# 生成不提交的静态查看器（claude-tap 0.1.146，不调用模型）：单独打开的对照记录，以及各节 evidence.json 的嵌入查看器（courseware/tools/tracekit.py）。
 viewers:
-	uv run demos/ch02-static-trace/build-viewer.py
-	uv run demos/ch02-request-walkthrough/build-viewer.py
 	uv run courseware/ch02/materials/request/config-pairs-20261023/build-records.py
 	uv run courseware/ch02/materials/request/run-20261024/build-records.py
-	uv run courseware/ch02/lessons/01-request/tools/build-lesson.py
-	uv run courseware/tools/tracekit.py courseware/ch02/lessons/02-iteration/trace/evidence.json
+	uv run courseware/tools/tracekit.py courseware/ch02/lessons/01-request/trace/evidence.json courseware/ch02/lessons/02-iteration/trace/evidence.json
 
 check: viewers
 	uv run courseware/tools/check-courseware.py

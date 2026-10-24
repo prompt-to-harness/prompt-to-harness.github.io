@@ -160,6 +160,10 @@ with sync_playwright() as p:
             if not reported(page, first):
                 errors.append(f'{where}: 原始记录没有定位到第一个观察点 {first}')
             page.evaluate("window.__ev=[]")
+            # 分组的点（2.1 p07 的 A/C/D）先点分组标签，再点组里的按钮
+            group = stage.locator(f'[data-ev-key="{last}"]').get_attribute('data-ev-in')
+            if group:
+                stage.locator(f'[data-ev-group="{group}"]').click()
             stage.locator(f'[data-ev-key="{last}"]').click()
             if not reported(page, last):
                 errors.append(f'{where}: 点观察点后原始记录没有定位到 {last}')

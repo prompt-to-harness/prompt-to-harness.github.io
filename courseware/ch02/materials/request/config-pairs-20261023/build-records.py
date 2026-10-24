@@ -1,20 +1,16 @@
-"""uv run --with claude-tap==0.1.146 python <this file>. No model calls."""
-import json,re,hashlib
+"""uv run <this file>（make viewers 已包含）. No model calls."""
+import json,re,hashlib,sys
 from pathlib import Path
 from html import escape as e
-from importlib.metadata import version
-from claude_tap.viewer import _generate_html_viewer_from_records
-assert version('claude-tap')=='0.1.146'
-here=Path(__file__).resolve().parent;target=here.parents[2]/'lessons/01-request/trace';s=json.loads((here/'summary.json').read_text());manifest={}
+here=Path(__file__).resolve().parent;sys.path.insert(0,str(here.parents[3]/'tools'))
+from tracekit import render_viewer  # 全课共用的渲染：固定 claude-tap 版本、默认中文、供应商脚本中文转义
+target=here.parents[2]/'lessons/01-request/trace';s=json.loads((here/'summary.json').read_text());manifest={}
 def serialize(raw):
  def script(m):return m[1]+re.sub(r'[\u4e00-\u9fff]',lambda x:'\\u%04x'%ord(x[0]),m[2])+m[3]
  raw=re.sub(r'(<script\b[^>]*>)([\s\S]*?)(</script>)',script,raw)
  return re.sub(r'[\u4e00-\u9fff]',lambda x:'&#x%x;'%ord(x[0]),raw)
 for arm,stats in s['arms'].items():
- source=here/f'{arm}.json';records=json.loads(source.read_text());lines=[json.dumps(x,ensure_ascii=True) for x in records];name='config-'+arm;out=target/(name+'.html');(target/(name+'.jsonl')).write_text('\n'.join(lines)+'\n');_generate_html_viewer_from_records(lines,out,display_trace_path=name+'.jsonl',display_html_path=name+'.html')
- raw=out.read_text().replace("let currentLang = safeLocalStorageGet('claude-tap-lang') || detectLang();","let currentLang = 'zh-CN';")
- raw=raw.replace('</body>', '''<script>
-selectEntry(0);
+ source=here/f'{arm}.json';records=json.loads(source.read_text());lines=[json.dumps(x,ensure_ascii=True) for x in records];name='config-'+arm;out=target/(name+'.html');(target/(name+'.jsonl')).write_text('\n'.join(lines)+'\n');render_viewer(lines,out,name+'.jsonl',script='''selectEntry(0);
 requestAnimationFrame(()=>{
  const point=new URLSearchParams(location.search).get('point')||'permissions';
  const title=point==='tools'?t('section_tools'):point==='reasoning'?t('section_json'):t('section_messages');
@@ -27,7 +23,7 @@ requestAnimationFrame(()=>{
  const target=point==='reasoning'?[...document.querySelectorAll('#detail .jk')].find(k=>k.textContent==='\"reasoning\"')?.parentElement:msg;
  if(target){target.scrollIntoView({block:'start'});target.style.outline='2px solid #ad8c43';}
 });
-</script></body>''');out.write_text(serialize(raw));manifest[arm]={'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'html_sha256':hashlib.sha256(out.read_bytes()).hexdigest()}
+''');manifest[arm]={'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'html_sha256':hashlib.sha256(out.read_bytes()).hexdigest()}
 style='body{font:18px/1.6 system-ui,sans-serif;color:#243042;background:#f7f5ef;margin:0;padding:28px;max-width:1200px;margin:auto}h1{font-size:30px}h2{font-size:24px;scroll-margin-top:20px}a{color:#176149}nav{display:flex;flex-wrap:wrap;gap:20px;margin:20px 0}.pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}.card{background:white;border:1px solid #c9c6bd;border-radius:10px;padding:18px;min-width:0}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:16px/1.6 ui-monospace,monospace}table{border-collapse:collapse;width:100%;background:white}td,th{padding:10px;border-bottom:1px solid #ccc;text-align:left}small{color:#596575}section{margin:32px 0}@media(max-width:650px){.pair{grid-template-columns:1fr}body{padding:16px;font-size:16px}}'
 def pair(arms,key,point):
  return '<div class="pair">'+''.join('<div class="card"><h3>'+label+'</h3><pre>'+e(json.dumps(s['arms'][arm][key],ensure_ascii=False,indent=2) if isinstance(s['arms'][arm][key],(dict,list)) else str(s['arms'][arm][key]))+'</pre><a href="config-'+arm+'.html?point='+point+'" target="_blank" rel="noopener">定位到原请求 ↗</a></div>' for arm,label in arms)+'</div>'

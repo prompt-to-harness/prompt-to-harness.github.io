@@ -9,7 +9,10 @@ from html import escape
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from lessonkit import Lesson, NARROW, anchor, chapter_map, keep_scroll_inside, redrawn, ref, repro, shot, teach  # noqa: E402
+from lessonkit import Lesson, NARROW, anchor, chapter_map, redrawn, ref, repro, shot, teach  # noqa: E402
+sys.path.insert(0, str(Path(__file__).resolve().parents[4] / "tools"))
+from tracekit import Evidence  # noqa: E402
+from request_reading import greeting_reading  # noqa: E402
 
 # 落后时进入第 2 章的追赶 Prompt：与 materials/catchup 的实验同一份，代入真实的参考起点
 CATCHUP_PROMPT = (Path(__file__).resolve().parents[3] / "materials/catchup/prompt-ch02.txt").read_text().strip() \
@@ -34,28 +37,9 @@ READONLY_PROMPT = """只读任务，不修改任何文件。
 请说明依据来自哪个文件的哪几行；
 不确定就写“不确定”，不要猜。"""
 
-# 固定记录的自包含查看器来自已核验样稿；构建时发布到本节目录，不依赖服务。
-TRACE_SOURCE = Path(__file__).resolve().parents[5] / "demos/ch02-static-trace"
-
-
-def publish_static_trace():
-    import re
-    import hashlib
-    manifest = json.loads((TRACE_SOURCE / "viewer-manifest.json").read_text())
-    assert manifest["trace_sha256"] == hashlib.sha256((TRACE_SOURCE / "trace.json").read_bytes()).hexdigest(), "记录已变化：请先列候选，经讲师确认后重建静态查看器"
-    assert manifest["selection"] == json.loads((TRACE_SOURCE / "selection.json").read_text()), "依据链选择已变化：请先重建静态查看器"
-    target = lesson.here / "trace"
-    target.mkdir(exist_ok=True)
-    raw = keep_scroll_inside((TRACE_SOURCE / "trace.html").read_text())
-    # Unicode escaping keeps bundled data equivalent while the native viewer owns its fonts.
-    # Authoring sources remain UTF-8; this is only the generated vendor payload serialization.
-    def script_ascii(match):
-        return match[1] + re.sub(r"[\u4e00-\u9fff]", lambda m: "\\u%04x" % ord(m[0]), match[2]) + match[3]
-    raw = re.sub(r"(<script\b[^>]*>)([\s\S]*?)(</script>)", script_ascii, raw)
-    raw = re.sub(r"[\u4e00-\u9fff]", lambda m: "&#x%x;" % ord(m[0]), raw)
-    (target / "viewer.html").write_text(raw)
-    for name in ("trace.json", "LICENSE-claude-tap.txt"):
-        (target / name).write_bytes((TRACE_SOURCE / name).read_bytes())
+# p08a、p07 的真实记录：同一份 materials/request/run-20261024/interactive.json，观察点在 trace/evidence.json，
+# 页面零件是全课共用的 .p-evidence（shared/parts/evidence-trace.js），查看器由 make viewers 生成
+EVIDENCE = Evidence(Path(__file__).resolve().parents[1] / "trace/evidence.json")
 
 
 TAP_CMD = "uvx claude-tap@0.1.146 --tap-client codex --tap-target https://api.minimax.cn/v1"
@@ -222,8 +206,8 @@ scene(
     label="按顺序看同一请求", title="沿着同一份请求，按顺序往下看",
     lead="刚才找到了我们写的 Prompt。现在沿同一份初始请求，按它实际的顺序往下看：系统指令、Skills 列表、权限说明、环境信息，然后是我们的问候；消息之后是工具定义，最后看这一次的返回。阅读视图将长段落折叠，完整原文保留所有消息正文和工具定义。系统指令的首句来自模型能力目录，可对照 MiniMax 官方接入说明。",
     html=(
-        '<style>#p08a .scene-content{display:block}#p08a .request-walk-frame{display:block;width:100%;height:420px;border:0;background:#fffdf7;border-radius:8px}body[data-mode="scroll"] #p08a .request-walk-frame{height:680px}@media(max-width:600px){body[data-mode="scroll"] #p08a .request-walk-frame{height:1150px}}body[data-mode="slides"] #p08a h2{font-size:40px}body[data-mode="slides"] #p08a .scene-content{top:160px;height:455px}body[data-mode="slides"] #p08a .request-walk-frame{height:455px}</style>'
-        '<iframe class="request-walk-frame" id="request-walk-frame" title="连续查看真实请求：阅读视图与完整原文" src="request/index.html?embed=1"></iframe>'
+        '<style>#p08a .scene-content{display:block}body[data-mode="scroll"] #p08a .p-evidence{height:680px}body[data-mode="slides"] #p08a h2{font-size:40px}body[data-mode="slides"] #p08a .scene-content{top:160px;height:455px}body[data-mode="slides"] #p08a .p-evidence{height:455px}</style>'
+        + EVIDENCE.stage("p08a", note="同一份初始请求", reading=greeting_reading())
     ),
     closing="同一份请求里，有我们输入的一句，也有 Codex 组织的大部分内容；这次模型一次就答完了。接下来按作用归类，看哪些不是我们写的。",
     refs=[ref("MiniMax Codex 接入说明", "https://platform.minimax.cn/docs/m-plan/codex", "MiniMax · 模型能力目录"),
@@ -236,7 +220,7 @@ scene(
         ("为什么没有 system", "第一步口播顺带一句，不上屏：你可能听说过 system、developer、user 三种消息；在 OpenAI 的 API 里，开发者写的指令逐渐统一叫 developer（o1 及更新的模型用它取代 system 消息），Codex 0.162 起也把基础指令作为第一条 developer 消息（PR #51156）。口播限定为“在 OpenAI 的 API 和这个 Codex 版本里”；不说 o1 的具体日期，不推断 MiniMax 服务端是否另加 system。两处原文作为阅读链接。"),
         ("彩蛋", "环境里的时区 Asia/Shanghai 可以口播一句：社区常讨论工具能否判断用户在哪，这类字段确实可能透露信息。只说“可能”，不说 Codex 实际这样用，不上屏。"),
         ("这一次的返回", "这次的响应直接是文字回答，没有工具调用（10-23 那次曾先读 package.json）。读文件引出多次请求，留到 p07-loop 用项目问题讲。"),
-        ("来源与发布", "源在 demos/ch02-request-walkthrough，本节构建时验证数据和生成物指纹后复制到 request/；不需要服务或模型调用。完整调用链在后面的 p07，使用另一组项目问题记录，不能说成问候后续。"),
+        ("来源与发布", "与 p07 同一份 materials/request/run-20261024/interactive.json，问候是第 1 条；观察点在 trace/evidence.json，阅读视图由 tools/request_reading.py 生成，原始记录是 make viewers 生成的静态查看器，不需要服务或模型调用。原始记录的侧栏里也能看到同一会话后面的项目问题；完整调用链在 p07 讲，不在这里展开。"),
     ),
 )
 
@@ -307,17 +291,7 @@ scene(
     label="代码怎样进入请求", title="读到的代码，怎样进入下一次请求？",
     lead="在问候后的同一会话发出项目区只读问题。按刚才的循环，模型读完文件以后，代码作为工具返回进入下一次请求。本页从 2026-10-24 的真实记录里挑三条依据链：A 项目卡写在哪（src/App.tsx），C 页面标题写在哪（index.html），D 内容从哪来（PLACEHOLDER_CONTENT.md）。每一条都可以按“看回答 → 找读取调用 → 看后续请求”核对；放大后同样可以切换。",
     html=(
-        '<div class="trace-lesson-stage">'
-        '<nav class="trace-lesson-guide" aria-label="本次记录的观察顺序"><p class="trace-chain-note">三条真实依据链</p>'
-        '<div class="trace-chain-tabs" role="group" aria-label="依据链"><button type="button" data-trace-chain="A" aria-pressed="true" title="项目卡写在哪">A 项目卡</button><button type="button" data-trace-chain="C" aria-pressed="false" title="页面标题写在哪">C 标题</button><button type="button" data-trace-chain="D" aria-pressed="false" title="内容从哪来">D 来源</button></div>'
-        '<button type="button" data-trace-point="answer" aria-pressed="true"><b>① 看回答</b><span>它说了什么，引用了哪里？</span></button>'
-        '<button type="button" data-trace-point="call" aria-pressed="false"><b>② 找读取调用</b><span>模型让 Codex 去读了什么？</span></button>'
-        '<button type="button" data-trace-point="result" aria-pressed="false"><b>③ 看后续请求</b><span>返回的代码怎样带了回来？</span></button>'
-        '</nav><div class="trace-lesson-viewer">'
-        '<div class="trace-lesson-bar"><span id="trace-lesson-status">本次真实记录</span>'
-        '<div class="trace-lesson-actions"><a data-trace-open href="trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light&amp;point=A-answer" target="_blank" rel="noopener">单独打开 ↗</a><button type="button" id="trace-lesson-expand" aria-haspopup="dialog">放大记录</button></div></div>'
-        '<iframe id="trace-lesson-frame" title="claude-tap 静态记录：回答、调用与工具返回" src="trace/viewer.html?embed=1&amp;hideHeader=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light"></iframe>'
-        '</div></div>'
+        EVIDENCE.stage("p07")
     ),
     closing="这里核对的是回答里的三处引用，模型没有用浏览器验证页面。记录完整保留请求、调用、返回与回答，只去掉了鉴权、本机路径、会话标识和推理的加密部分。核对完依据，再到下一页归纳 Context。",
     repro=repro([("在同一会话接着问；只读，不点名文件", READONLY_PROMPT)], label="本次怎样提问？", note="记录来自 2026-10-24 的一次真实交互会话：问候之后接着问。想看完整结构，可在查看器中展开‘完整 JSON’；不要求记住请求编号或工具字段。"),
@@ -325,7 +299,7 @@ scene(
     teaching=teach(
         ("排练来源", "2026-10-24 重跑：ch02-start-v1（8e9a323）新克隆、Agent Lab 从 main 运行、Codex CLI 0.163.0、MiniMax-M3.1-Flash、max、claude-tap 0.1.146；交互会话首句前 /rename，问候后接项目问题。项目问题 8 次请求、7 次工具调用。公开数据见 materials/request/run-20261024/，原始记录在私有仓库 prompt-to-harness/lab-runs。"),
         ("三条依据链", "讲师 2026-10-24 选定：A 读 App.tsx（第 4 次请求提出调用，第 5 次请求带回代码，回答引用 src/App.tsx:1-6）；C 读 index.html（第 3 次提出，第 4 次带回，回答引用 index.html:6）；D 读 PLACEHOLDER_CONTENT.md（第 5 次提出，第 6 次带回，回答引用 PLACEHOLDER_CONTENT.md:9-10）。编号是这次记录的位置，不口播。播放器 5 步：A 走完三步，再直接看 C、D 的返回；需要时点上方标签和按钮看 C、D 的回答与调用。模型还自己拿 dist 和源码比对（第 6–8 次），可一句带过。"),
-        ("讲师提示", "主画面只放观察入口，代码、回复与调用交给原生静态查看器。以后重跑先运行 build-viewer.py --list-candidates 列出调用、返回与回答，经讲师确认再写 selection.json；记录指纹变化时停止，不自动沿用。放大后文字增大，顶部同样有 A/C/D 和三个定位按钮，Esc 收起。"),
+        ("讲师提示", "主画面只放观察入口，代码、回复与调用交给原生静态查看器。以后重跑先运行 uv run courseware/tools/tracekit.py courseware/ch02/lessons/01-request/trace/evidence.json --list-candidates 列出调用、返回与回答，经讲师确认再改 trace/evidence.json；记录指纹变化时停止，不自动沿用。放大后文字增大，顶部同样有 A/C/D 和三个定位按钮，Esc 收起。"),
         ("事实边界", "记录无教学删节：推理只去掉加密部分，可读的推理文字保留。回答里“唯一数据源”“dist 未落后于 src”等扩大判断不因本页的三条依据而视为已核实。"),
     ),
 )
@@ -443,27 +417,4 @@ scene(
 
 
 
-WALK_SOURCE = Path(__file__).resolve().parents[5] / "demos/ch02-request-walkthrough"
-def publish_request_walkthrough():
-    import hashlib,re
-    manifest=json.loads((WALK_SOURCE/"viewer-manifest.json").read_text())
-    for name,digest in manifest["files"].items():
-        assert hashlib.sha256((WALK_SOURCE/name).read_bytes()).hexdigest()==digest, "连续查看请求的源或生成物已变，请先重建样稿"
-    target=lesson.here/"request";target.mkdir(exist_ok=True)
-    (target/"lesson-adapter.js").write_bytes((lesson.here/"tools/request-lesson.js").read_bytes())
-    for name in ("index.html","page.js","reader.html","viewer.html","trace.json","LICENSE-claude-tap.txt"):
-        text=(WALK_SOURCE/name).read_text()
-        if name=="index.html":
-            text=text.replace("../../courseware/shared/","../../../../shared/").replace("../../courseware/ch02/lessons/01-request/index.html","../index.html")
-            text=re.sub(r'<details><summary>本页讲解与前后衔接</summary>[\s\S]*?</details>','',text)
-        if name=="viewer.html":
-            text=keep_scroll_inside(text)
-        if name.endswith(".html"):
-            def encode_script(m):return m[1]+re.sub(r'[\u4e00-\u9fff]',lambda x:'\\u%04x'%ord(x[0]),m[2])+m[3]
-            text=re.sub(r'(<script\b[^>]*>)([\s\S]*?)(</script>)',encode_script,text)
-            text=re.sub(r'[\u4e00-\u9fff]',lambda m:'&#x%x;'%ord(m[0]),text)
-        (target/name).write_text(text)
-
-publish_request_walkthrough()
-publish_static_trace()
 lesson.write()
