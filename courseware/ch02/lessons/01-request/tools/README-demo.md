@@ -39,6 +39,10 @@ sh courseware/ch02/lessons/01-request/tools/demo.sh audit
 
 检查覆盖项目起点、工作区改动、项目及上级的 `AGENTS.md` / `AGENTS.override.md` / `.agents/skills`，以及专用课程 HOME 的全局规则和保存的批准规则。发现影响实验的内容时报告路径并停止，不删除它们。真实个人 HOME 的 Skills 不等于专用课程 HOME 的 Skills，最终仍需从实际请求确认来源。
 
+## 原始记录放哪里
+
+每组实验的原始记录（claude-tap 数据库、解码后的完整请求、Codex 会话、终端输出）放进私有仓库 [prompt-to-harness/lab-runs](https://github.com/prompt-to-harness/lab-runs)，按 `章/节-日期/` 存放并写 README；只提交课件实际采用的那一组。公开仓库只放去掉鉴权、本机路径、会话标识和推理加密部分后的数据，做法见 [run-20261024](../../../materials/request/run-20261024/README.md)。驱动交互会话时，每次按键前先看清屏幕：Codex 启动时可能弹出“有新版本”，Enter 会直接全局升级 Codex，要选 Skip（C2-90）。
+
 ## 录制采用的查看器
 
 第二章统一使用启动器固定的原版 claude-tap 0.1.146，不加载本地用途分类、统一编号或命名整链归组补丁；本地试用版仅保留作研究备查。录制前核对打开的是本次终端给出的原版查看器地址，不使用旧的本地补丁预览页。

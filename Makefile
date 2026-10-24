@@ -9,7 +9,7 @@ viewers:
 	uv run demos/ch02-static-trace/build-viewer.py
 	uv run demos/ch02-request-walkthrough/build-viewer.py
 	uv run courseware/ch02/materials/request/config-pairs-20261023/build-records.py
-	uv run courseware/ch02/materials/request/file-choice-20261023/build-records.py
+	uv run courseware/ch02/materials/request/run-20261024/build-records.py
 	uv run courseware/ch02/lessons/01-request/tools/build-lesson.py
 
 check: viewers

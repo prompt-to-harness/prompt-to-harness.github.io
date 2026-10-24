@@ -3,7 +3,7 @@
   const channel = 'ch02-static-trace-v1';
   const guide = __COURSE_GUIDE_POINTS__;
   const style = document.createElement('style');
-  style.textContent = '.pre-text,.tool-input-view{font-size:14px!important;line-height:1.55!important}body.course-expanded .pre-text,body.course-expanded .tool-input-view{font-size:20px!important;max-height:none!important}';
+  style.textContent = '::highlight(course-evidence){background:#f5d97a;color:inherit}.pre-text,.tool-input-view{font-size:14px!important;line-height:1.55!important}.msg .pre-text{max-height:none!important;overflow:visible!important}body.course-expanded .pre-text,body.course-expanded .tool-input-view{font-size:20px!important;max-height:none!important}';
   document.head.append(style);
   // The parent can be a file: page with an opaque origin. Validate the sender window.
   window.addEventListener('message', event => {
@@ -26,21 +26,37 @@
         if (open) chosen = section;
       }
       let target = chosen;
-      if (key === 'result' && chosen) {
-        target = [...chosen.querySelectorAll('.msg')].find(el => el.textContent.includes("name: '学习笔记'")) || chosen;
-      }
-      // Unwrap the original input_text blocks for reading; Full JSON keeps the wire structure.
-      if (key === 'result' && target) {
+      const step = key.split('-').pop();
+      // Return points: show the matching tool output's input_text blocks as plain text, then find the quoted line.
+      if (step === 'result' && chosen) {
         const item = filtered[idx].request.body.input.find(item => item.type === 'custom_tool_call_output' && item.call_id === point.callId);
-        if (Array.isArray(item?.output)) {
+        const msgs = [...chosen.querySelectorAll('.msg')];
+        const holder = msgs.find(el => el.textContent.includes('result (' + point.callId)) ||
+                       msgs.find(el => el.textContent.includes(point.callId) && el.textContent.includes(point.needle));
+        if (holder && Array.isArray(item?.output)) {
           const text = item.output.filter(block => block.type === 'input_text').map(block => block.text).join('\n');
           const pre = document.createElement('div');pre.className='pre-text';pre.textContent=text;
-          target.querySelectorAll('pre,.pre-text').forEach(node=>node.remove());target.append(pre);
+          holder.querySelectorAll('pre,.pre-text').forEach(node=>node.remove());holder.append(pre);
+        }
+        target = holder || chosen;
+      }
+      if (step === 'call') {
+        const blocks = [...(chosen?.querySelectorAll('.tool-input-toggle') || [])];
+        blocks.forEach(b => b.click());
+      }
+      // Answer and return points: scroll to the quoted line itself; long outputs are one text node.
+      const detail = document.getElementById('detail');
+      let mark;
+      if (point.needle && target) {
+        const walker = document.createTreeWalker(target, NodeFilter.SHOW_TEXT);
+        for (let node; (node = walker.nextNode());) {
+          const at = node.textContent.indexOf(point.needle);
+          if (at >= 0) { mark = document.createRange(); mark.setStart(node, at); mark.setEnd(node, at + point.needle.length); break; }
         }
       }
-      if (key === 'call') chosen?.querySelector('.tool-input-toggle')?.click();
-      const detail = document.getElementById('detail');
-      if (detail && target) detail.scrollTop += target.getBoundingClientRect().top - detail.getBoundingClientRect().top - 12;
+      const box = (mark || target)?.getBoundingClientRect();
+      if (detail && box) detail.scrollTop += box.top - detail.getBoundingClientRect().top - (mark ? 120 : 12);
+      if (mark && CSS.highlights) { CSS.highlights.set('course-evidence', new Highlight(mark)); }
       target?.animate([{outline:'3px solid #c2a76e'},{outline:'3px solid transparent'}],{duration:1100});
       parent.postMessage({channel,ready:true,key},'*');
     });

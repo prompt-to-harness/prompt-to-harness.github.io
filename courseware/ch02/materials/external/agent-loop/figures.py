@@ -25,7 +25,7 @@ def codex_agent_loop():
         ('text', 330, 26, '每次请求：上一次的全部 + 新增', {**h, 'reveal': 1}),
     ]
     col = lambda n: 330 + n * 190
-    top, unit, w = 50, 34, 170
+    top, unit, w = 50, 28, 170
 
     def head(n, label, reveal):
         return ('text', col(n) + w / 2, top + 16, label, {'size': 17, 'weight': 700, 'anchor': 'middle', 'reveal': reveal})
@@ -39,22 +39,19 @@ def codex_agent_loop():
     items += [head(0, '第 1 次', 1),
               strip(0, y0, unit * 2, '指令、工具、环境', CTX, SOFT_CTX, 1),
               strip(0, y0 + unit * 2, unit, '新的 Prompt', RISK, SOFT_RISK, 1)]
-    # 第 2 次：第 1 次原样 + 工具调用 + 工具返回
+    # 每一轮在末尾追加三条：模型的推理、工具调用、工具返回（2026-10-24 重跑记录）
+    def added(n, y, reveal):
+        return [strip(n, y, unit, '推理', AGENT, '#E4E1FA', reveal),
+                strip(n, y + unit, unit, '工具调用', TOOL, PAPER, reveal),
+                strip(n, y + unit * 2, unit, '工具返回', TOOL, SOFT_TOOL, reveal)]
     h1 = unit * 3
-    items += [head(1, '第 2 次', 2),
-              strip(1, y0, h1, '第 1 次的全部', MUTED, '#ECEAE4', 2, dash=True),
-              strip(1, y0 + h1, unit, '工具调用', TOOL, PAPER, 2),
-              strip(1, y0 + h1 + unit, unit, '工具返回', TOOL, SOFT_TOOL, 2)]
-    # 第 3 次：第 2 次原样 + 新的一对
-    h2 = h1 + unit * 2
-    items += [head(2, '第 3 次', 3),
-              strip(2, y0, h2, '第 2 次的全部', MUTED, '#ECEAE4', 3, dash=True),
-              strip(2, y0 + h2, unit, '工具调用', TOOL, PAPER, 3),
-              strip(2, y0 + h2 + unit, unit, '工具返回', TOOL, SOFT_TOOL, 3),
-              ('arrow', col(2) + w / 2, y0 + h2 + unit * 2 + 4, col(2) + w / 2, y0 + h2 + unit * 2 + 30, {'reveal': 3}),
-              ('text', col(2) + w / 2, y0 + h2 + unit * 2 + 52, '模型给出最终回答', {'size': 16, 'weight': 700, 'anchor': 'middle', 'reveal': 3}),
-              ('text', 330, 392, '虚线框：原样重发、一字不改　示意，轮数以实际记录为准', {'size': 15, 'color': MUTED, 'reveal': 3})]
-    return {'size': (900, 404), 'items': items}
+    items += [head(1, '第 2 次', 2), strip(1, y0, h1, '第 1 次的全部', MUTED, '#ECEAE4', 2, dash=True), *added(1, y0 + h1, 2)]
+    h2 = h1 + unit * 3
+    items += [head(2, '第 3 次', 3), strip(2, y0, h2, '第 2 次的全部', MUTED, '#ECEAE4', 3, dash=True), *added(2, y0 + h2, 3),
+              ('arrow', col(2) + w / 2, y0 + h2 + unit * 3 + 4, col(2) + w / 2, y0 + h2 + unit * 3 + 24, {'reveal': 3}),
+              ('text', col(2) + w / 2, y0 + h2 + unit * 3 + 44, '模型给出最终回答', {'size': 16, 'weight': 700, 'anchor': 'middle', 'reveal': 3}),
+              ('text', 330, 404, '虚线框：原样重发、一字不改　示意，轮数以实际记录为准', {'size': 15, 'color': MUTED, 'reveal': 3})]
+    return {'size': (900, 414), 'items': items}
 
 
 FIGURES = {

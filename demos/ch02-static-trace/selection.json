@@ -1,9 +1,37 @@
 {
-  "trace_sha256": "d03bd0a2dfceda2fee3cd43d36c3b049c00b70d19a4ed6aef7046e7bb2fc75a6",
-  "call_request": "capture-6",
-  "call_id": "chatcmpl-tool-b2fecb3c8121c7b3",
-  "return_request": "capture-7",
-  "answer_request": "capture-10",
-  "basis": "本次已核对的项目内容依据链；讲师认可沿此链展示。后续记录变化时必须重新确认候选。",
-  "confirmed_on": "2026-10-23"
+  "trace_sha256": "4f0ce448d46adfa38d3fee902d99702403f045941c8ed1666fdcd9443279f45f",
+  "chains": [
+    {
+      "id": "A",
+      "label": "项目卡写在哪",
+      "call_request": "interactive-4",
+      "call_id": "call_9YuUT4VwPtIAuWiPrhzcz5r8",
+      "return_request": "interactive-5",
+      "return_needle": "name: '学习笔记'",
+      "answer_request": "interactive-9",
+      "answer_needle": "src/App.tsx:1-6"
+    },
+    {
+      "id": "C",
+      "label": "页面标题写在哪",
+      "call_request": "interactive-3",
+      "call_id": "call_ucULXytSc31l6yUs9498Xu1a",
+      "return_request": "interactive-4",
+      "return_needle": "<title>示例同学",
+      "answer_request": "interactive-9",
+      "answer_needle": "index.html:6"
+    },
+    {
+      "id": "D",
+      "label": "内容从哪来",
+      "call_request": "interactive-5",
+      "call_id": "call_fRSyjz9gm4q7jfT1JHDavdto",
+      "return_request": "interactive-6",
+      "return_needle": "| 项目名称 | 学习笔记 |",
+      "answer_request": "interactive-9",
+      "answer_needle": "PLACEHOLDER_CONTENT.md:9-10"
+    }
+  ],
+  "basis": "讲师 2026-10-24 选定 A（App.tsx 项目卡）、C（index.html 标题）、D（PLACEHOLDER_CONTENT.md 内容来源）三条；记录变化时必须重新确认候选。 同日把 ls -l 输出里的本机账户名换成占位后更新指纹，依据链内容未变。",
+  "confirmed_on": "2026-10-24"
 }

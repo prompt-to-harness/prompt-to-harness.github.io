@@ -1,0 +1,26 @@
+{
+  "interactive": {
+    "records": 9,
+    "tool_calls": 7,
+    "input_tokens_sum": 112499,
+    "cached_input_tokens_sum": 96354,
+    "output_tokens_sum": 3043,
+    "first_input_tokens": 8709
+  },
+  "plain": {
+    "records": 7,
+    "tool_calls": 14,
+    "input_tokens_sum": 70523,
+    "cached_input_tokens_sum": 57840,
+    "output_tokens_sum": 2626,
+    "first_input_tokens": 7508
+  },
+  "named": {
+    "records": 4,
+    "tool_calls": 3,
+    "input_tokens_sum": 32879,
+    "cached_input_tokens_sum": 17211,
+    "output_tokens_sum": 835,
+    "first_input_tokens": 7515
+  }
+}

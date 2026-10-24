@@ -1,7 +1,7 @@
 // Course guide only. Data and renderer are the original static claude-tap export.
 (() => {
  const channel='ch02-request-walkthrough-v1';
- const points={identity:{section:'section_messages',needle:'You are Codex'},tools:{section:'section_tools',needle:'exec'},skills:{section:'section_messages',needle:'<skills_instructions>'},environment:{section:'section_messages',needle:'<environment_context>'},permissions:{section:'section_messages',needle:'<permissions instructions>'},response:{section:'section_response',needle:'exec_command'}};
+ const points={identity:{section:'section_messages',needle:'You are Codex'},tools:{section:'section_tools',needle:'exec'},skills:{section:'section_messages',needle:'<skills_instructions>'},environment:{section:'section_messages',needle:'<environment_context>'},permissions:{section:'section_messages',needle:'<permissions instructions>'},response:{section:'section_response',needle:'编码助手'}};
  const style=document.createElement('style');style.textContent='.pre-text,.content-block-text,.tb-full-desc{font-size:15px!important;line-height:1.55!important;max-height:none!important;white-space:pre-wrap!important}body.course-expanded .pre-text,body.course-expanded .content-block-text,body.course-expanded .tb-full-desc{font-size:20px!important}.course-focus[data-course-role]::before{content:attr(data-course-role);display:block;font:600 12px/1.6 sans-serif;color:#74540e;margin-bottom:8px}.course-focus{outline:2px solid #b28c43;outline-offset:4px;border-radius:3px}';document.head.append(style);
  function focusPoint(key,expanded){
   const point=points[key];if(!point)return;

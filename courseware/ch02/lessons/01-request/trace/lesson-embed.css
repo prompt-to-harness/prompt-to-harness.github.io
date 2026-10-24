@@ -20,3 +20,7 @@ body[data-mode=scroll] #p07 .trace-lesson-stage{height:590px}
 @media(max-width:700px){body[data-mode=scroll] #p07 .trace-lesson-stage{grid-template-columns:minmax(0,1fr);height:auto;gap:12px}body[data-mode=scroll] #p07 .trace-lesson-guide{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}body[data-mode=scroll] #p07 .trace-lesson-guide b{font-size:16px}body[data-mode=scroll] #p07 .trace-lesson-guide span{font-size:14px}body[data-mode=scroll] #p07 .trace-lesson-viewer{height:540px}body[data-mode=scroll] #p07 .trace-lesson-bar{font-size:13px}.trace-lesson-dialog .dialog-bar{font-size:14px;padding:0 10px}}
 .trace-lesson-dialog .dialog-points{display:flex;gap:8px}.trace-lesson-dialog .dialog-points button[aria-pressed=true]{border:2px solid #294f3a;background:#edf2eb;padding:3px 9px}
 @media(max-width:700px){.trace-lesson-dialog .dialog-points{flex-wrap:wrap;gap:4px}.trace-lesson-dialog .dialog-points button{font-size:13px;padding:2px 6px}}
+#p07 .trace-chain-tabs{display:flex;gap:6px}#p07 .trace-chain-tabs button{flex:1;padding:4px 0!important;font-size:15px;text-align:center!important}#p07 .trace-chain-tabs button[aria-pressed=true]{padding:3px 0!important}
+#p07 .trace-lesson-guide b{font-size:19px}#p07 .trace-lesson-guide span{font-size:16px}
+body[data-mode=slides] #p07 .trace-lesson-guide span{display:none}body[data-mode=slides] #p07 .trace-lesson-guide b{margin:0}body[data-mode=slides] #p07 .trace-lesson-guide{gap:8px}
+#p07 .trace-chain-tabs button{white-space:nowrap}
