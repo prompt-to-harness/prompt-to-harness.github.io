@@ -7,7 +7,7 @@ project="$demo_root/personal-homepage"
 course_home=${AGENT_LAB_HOME:-"$HOME/.local/share/agent-lab-ch02-recording"}
 snapshot=8e9a323174411a011f87e230450b9115d09b7dea
 source_url=https://github.com/prompt-to-harness/course-starter.git
-agent_source='https://github.com/prompt-to-harness/prompt-to-harness.github.io/archive/691d15c58a3b89abc36bfcf90bc6b7072423ad4c.tar.gz#subdirectory=tools/agent-lab'
+agent_source='git+https://github.com/prompt-to-harness/prompt-to-harness.github.io#subdirectory=tools/agent-lab'
 
 fail() { printf '%s\n' "$*" >&2; exit 1; }
 need() { command -v "$1" >/dev/null 2>&1 || fail "缺少命令：$1"; }
