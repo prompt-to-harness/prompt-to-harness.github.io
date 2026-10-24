@@ -17,7 +17,7 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜切浏览器展示现有主页首屏与占位项目区；回课件地图】\n\n上一节我们找到了主页的首屏和占位项目区。页面结构已经有了，现在把它补成自己的内容。",
-        "【操作提示｜推进第 2 步，指两张任务卡】\n\n这一轮先准备个人资料，再请 Codex 放进页面。这次用 Plan 模式，先让它出计划，我们改好范围再放行。",
+        "【操作提示｜推进第 2 步，指两张任务卡】\n\n这一轮先准备个人资料，再请 Codex 放进页面。这次用 Plan 模式，先让它出计划，我们审过范围再放行。",
         "【操作提示｜推进第 3 步，指锚点图高亮的三块】\n\n做完以后再回看请求：规则什么时候进来，资料从哪里进来，对话又怎样积累。接着观察清空和压缩以后留下什么。"
       ],
       "layout": "lesson-cover",
@@ -174,7 +174,7 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜切浏览器，从首屏滚到四块内容；可用设备工具栏看 360×800；回课件真实截图】\n\n先打开改好的主页，从首屏往下看教育、工作经历和项目。姓名、简介、关注内容有没有遗漏，文字有没有挤乱。你跟做时，也暂停看自己的页面。发现问题先记下来。",
-        "【操作提示｜切本轮保存的 build 输出，显示 tsc、vite 成功；回课件】\n\n再看这轮的构建输出，类型检查和打包完成了。你也运行一次 npm run build。完整的事实出处和改动范围，我们下一节再快速审查。",
+        "【操作提示｜切本轮保存的 build 输出，显示 tsc、vite 成功；回课件】\n\n再看这轮的构建输出，类型检查和打包完成了。你也运行一次 npm run build。",
         "【操作提示｜推进第 3 步，指留给下一节的两项；准备 tap 记录】\n\n逐句出处和改动范围留到下一节。现在回看：这一轮每一步实际发送了什么？"
       ],
       "teaching": [],
@@ -185,21 +185,23 @@ window.lesson = {
       "id": "p22",
       "segment": "回看请求",
       "title": "补充一句要求，前面的工作也随请求发出",
-      "lead": "回看这一轮的主任务记录 6、8、14、16。读文件的返回照样追加在末尾，和上一节看到的一样；这里看我们补的两句：回答交互题时，之前读过的资料和代码都随之重发；实施时，模式切换指令和 Implement the plan. 也追加在末尾，前面不改。项数仅供定位，不是固定格式。",
-      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>本轮位置</span><span>这次请求里可见的内容</span></div><div data-reveal=\"0\"><span>初始任务</span><span>规则 + Prompt；尚无资料正文</span></div><div data-reveal=\"0\"><span>读过资料</span><span>前面的内容 + 读文件的调用与返回</span></div><div data-reveal=\"1\"><span>回答交互题</span><span>已读的资料和代码 + 三道题的回答</span></div><div data-reveal=\"2\"><span>确认实施</span><span>前面的历史 + 模式指令 + Implement the plan.，都在末尾</span></div></div>",
+      "lead": "回看这一轮的记录。清空后的第一个任务请求里有规则和 Prompt，没有上一节的问答；读文件的返回照样追加在末尾，和上一节看到的一样。这里重点看我们补的两句：回答交互题时，之前读过的资料和代码都随之重发；实施时，模式切换指令和 Implement the plan. 也追加在末尾，前面不改。左侧按钮定位到对应记录，可放大或单独打开自由查看。",
+      "html": "<div class=\"tl2-stage\" data-trace-steps=\"[&quot;p22-rules-msg&quot;, &quot;p22-profile-result&quot;, &quot;p22-answers-msg&quot;, &quot;p22-implement-msg&quot;]\"><nav class=\"tl2-guide\" aria-label=\"本次记录的观察顺序\"><button type=\"button\" data-trace-key=\"p22-rules-msg\" aria-pressed=\"true\"><b>清空后的第一个请求</b><span>规则和 Prompt 在，上一节的问答不在</span></button><button type=\"button\" data-trace-key=\"p22-profile-result\" aria-pressed=\"false\"><b>读到资料</b><span>profile.md 的正文追加在末尾</span></button><button type=\"button\" data-trace-key=\"p22-answers-msg\" aria-pressed=\"false\"><b>回答交互题</b><span>前面的都在，末尾是我们的回答</span></button><button type=\"button\" data-trace-key=\"p22-implement-msg\" aria-pressed=\"false\"><b>进入执行</b><span>模式指令和 Implement the plan. 也在末尾</span></button></nav><div class=\"tl2-viewer\"><div class=\"tl2-bar\"><span data-trace-status>本次真实记录</span><div class=\"trace-lesson-actions\"><a data-trace-open href=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light&amp;point=p22-rules-msg\" target=\"_blank\" rel=\"noopener\">单独打开 ↗</a><button type=\"button\" data-trace-expand aria-haspopup=\"dialog\">放大记录</button></div></div><iframe title=\"claude-tap 静态记录\" data-src=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light&amp;hideHeader=1\"></iframe></div></div>",
       "steps": [
-        "任务与资料进入",
+        "清空后的第一个请求",
+        "读到资料",
         "回答交互题",
         "进入执行"
       ],
       "script": [
-        "【操作提示｜tap 打开主线记录 6，指规则与任务；再切记录 8，指末尾 profile.md 的调用和返回；隐藏完整开发者指令】\n\n打开最初的任务请求，这里有规则和刚才那段 Prompt。读完 profile.md 以后，资料正文追加在末尾，前面不变，和上一节看到的工具循环一样。",
-        "【操作提示｜切记录 14，末尾定位三道交互题的回答，再指早先的资料与读取】\n\n再跳到我们回答完交互题的那次请求。前面的任务、资料和它读过的代码都还在，末尾才是我们的回答。补充一句话能接上前面的工作，是因为这些历史又随请求发了出去。这是另一半答案：同一个对话里接着说，前面的都会跟着发。",
-        "【操作提示｜切记录 16，定位模式切换指令与 Implement the plan.；回课件】\n\n实施计划时，界面加入了模式切换的指令，并发送 Implement the plan.。注意它们也都加在末尾，前面的工作一字不改。为什么要这样加，下一页说。看的是这一轮真实记录，不需要记它有多少项。"
+        "【操作提示｜指左侧第 1 个按钮，查看器定位到清空后的第一个任务请求；指项目规则与 Prompt】\n\n先看清空后的第一个任务请求。前面是 Codex 自己的指令，接着是我们刚保存的项目规则，最后是那段 Prompt。上一节的问答不在里面，这就是清空以后前面的不会跟着发。",
+        "【操作提示｜推进第 2 步，查看器定位到 profile.md 的返回】\n\n它读完 profile.md，资料正文作为工具返回追加在末尾，前面不变，和上一节看到的工具循环一样。",
+        "【操作提示｜推进第 3 步，查看器定位到交互题的回答；再上下滚动指早先的资料与读取】\n\n再跳到我们回答完交互题的那次请求。前面的任务、资料和它读过的代码都还在，末尾才是我们的回答。补充一句话能接上前面的工作，是因为这些历史又随请求发了出去。这是另一半答案：同一个对话里接着说，前面的都会跟着发。",
+        "【操作提示｜推进第 4 步，查看器定位到 Default 模式指令与 Implement the plan.；需要时点放大】\n\n实施计划时，界面加入了模式切换的指令，并发送 Implement the plan.。注意它们也都加在末尾，前面的工作一字不改。为什么要这样加，下一页说。看的是这一轮真实记录，不需要记它有多少项。"
       ],
       "teaching": [],
       "source": "index.html#p22",
-      "seconds": 90
+      "seconds": 120
     },
     {
       "id": "p23",
@@ -266,18 +268,18 @@ window.lesson = {
     {
       "id": "p24",
       "segment": "回看请求",
-      "title": "工具的失败输出，也可能成为后续输入",
-      "lead": "另一次独立运行中，预览服务启动返回 listen EPERM。在之后的请求记录中仍能找到同一失败返回。本页只说明失败输出也进入历史，与本轮运行及其 token 表分开。成功和失败的过程都可能成为后续输入，具体保留内容要看实际记录。",
-      "html": "<div class=\"p-tag\" data-role=\"gate\" data-reveal=\"0\">另一次独立运行</div><div class=\"p-grid\" style=\"--n:2;gap:16px\"><div class=\"p-term\" data-reveal=\"0\">预览服务启动<br>listen EPERM · 退出失败</div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><h3>之后的请求记录</h3><p>input 中仍有<br>这段失败的工具返回</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">回看历史，也看实际走过哪些步骤</div>",
+      "title": "工具的失败输出，也一直留在后续输入里",
+      "lead": "这一轮 Plan 阶段，它自己写的读文件脚本引号转义出错，返回 SyntaxError，它换了一种写法重新读取。这条失败返回没有被删掉：之后每次请求都还带着它，一直到压缩前最后一次请求。成功和失败的过程都会成为后续输入；这次失败是运行中自然出现的，不是准备好的教学材料。",
+      "html": "<div class=\"tl2-stage\" data-trace-steps=\"[&quot;p24-fail-result&quot;, &quot;p24-retry-call&quot;, &quot;p24-later-msg&quot;]\"><nav class=\"tl2-guide\" aria-label=\"本次记录的观察顺序\"><button type=\"button\" data-trace-key=\"p24-fail-result\" aria-pressed=\"true\"><b>脚本报错</b><span>它写的读取脚本返回 SyntaxError</span></button><button type=\"button\" data-trace-key=\"p24-retry-call\" aria-pressed=\"false\"><b>换写法再读</b><span>下一步它换了一种写法</span></button><button type=\"button\" data-trace-key=\"p24-later-msg\" aria-pressed=\"false\"><b>之后一直都在</b><span>压缩前最后一次请求里仍有这条报错</span></button></nav><div class=\"tl2-viewer\"><div class=\"tl2-bar\"><span data-trace-status>本次真实记录</span><div class=\"trace-lesson-actions\"><a data-trace-open href=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light&amp;point=p24-fail-result\" target=\"_blank\" rel=\"noopener\">单独打开 ↗</a><button type=\"button\" data-trace-expand aria-haspopup=\"dialog\">放大记录</button></div></div><iframe title=\"claude-tap 静态记录\" data-src=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light&amp;hideHeader=1\"></iframe></div></div>",
       "steps": [
-        "独立运行的失败",
-        "之后仍有返回",
-        "看实际过程"
+        "脚本报错",
+        "换写法再读",
+        "之后一直都在"
       ],
       "script": [
-        "【操作提示｜展示独立记录中的真实 EPERM，画面保留另一次独立运行标签】\n\n工具返回也可能是报错。这是讲师另一次独立运行：预览服务启动失败，返回 listen EPERM。",
-        "【操作提示｜定位该次记录 40 的 input 第 69 项；只展示脱敏失败返回】\n\n看之后的请求，同一段失败输出也在历史里。它和刚才的主线不是同一次运行，我们不把两次的数字混在一起。",
-        "【操作提示｜回课件；不重新制造错误，不加入主线增长表】\n\n成功和失败的过程都可能成为后续输入。所以回看历史，也看它实际走过哪些步骤。接下来观察：这些原始记录被压缩后，会怎样交接下去？"
+        "【操作提示｜查看器定位到 SyntaxError 的工具返回】\n\n工具返回也可能是报错。这一轮在 Plan 阶段，它自己写了一段读文件的脚本，引号转义写错了，返回的是 SyntaxError。",
+        "【操作提示｜推进第 2 步，查看器定位到同一次请求的返回：换一种写法的读取调用】\n\n它看到报错，换了一种写法，再读一次，这次读到了。失败本身没什么，关键是这条报错接下来去了哪里。",
+        "【操作提示｜推进第 3 步，查看器定位到压缩前最后一次请求里的同一条报错】\n\n一直到压缩前的最后一次请求，这条报错还在历史里，每次都跟着发出去。成功和失败的过程都会成为后续输入，所以回看历史，也要看它实际走过哪些步骤。接下来观察：这些原始记录被压缩以后，会怎样交接下去？"
       ],
       "teaching": [],
       "source": "index.html#p24",
@@ -287,19 +289,19 @@ window.lesson = {
       "id": "p27",
       "segment": "压缩与继续",
       "title": "压缩换成摘要，要原文就重新读取",
-      "lead": "在这一轮的会话中手动 /compact，观察已有历史怎样交接，而非窗口已满。本次压缩后的请求只有 9 项：基础指令、初始 Prompt、Skills 与团队说明、重新装入的项目规则、Implement the plan.、交接摘要和追问，原来的工具调用与返回都不在了。摘要没保留 DeepMotion.ai 经历的完整文字：禁止工具时答不出逐字原文，允许重读 profile.md 后正确引用。文件哈希与 tracked diff 均未改变。",
-      "html": "<div class=\"p-grid\" style=\"--n:2;gap:16px\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><h3>压缩前</h3><p>读文件的原始返回<br>计划、修改与构建过程</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><h3>压缩后</h3><p>摘要承接过程<br>任务约束与重新装入的规则</p></div></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"2\"><h3>本次追问经历原文</h3><p>只凭摘要：无法逐字给出 → 重读 profile.md：找到原文</p></div><div class=\"p-bar is-light\" data-reveal=\"3\">请求里的历史表示变了，项目文件仍可读取</div>",
+      "lead": "在这一轮的会话中手动 /compact，观察已有历史怎样交接，而非窗口已满。压缩前，资料原文和那条 SyntaxError 都还在历史里；压缩后的请求只有 9 项：基础指令、初始 Prompt、Skills 与团队说明、重新装入的项目规则、Implement the plan.、交接摘要和追问，原来的工具调用与返回都不在了。摘要没保留 DeepMotion.ai 经历的完整文字：禁止工具时答不出逐字原文，允许重读 profile.md 后正确引用。文件哈希与 tracked diff 均未改变。",
+      "html": "<div class=\"tl2-stage\" data-trace-steps=\"[&quot;p27-before-msg&quot;, &quot;p27-summary-msg&quot;, &quot;p27-noquote-answer&quot;, &quot;p27-reread-answer&quot;]\"><nav class=\"tl2-guide\" aria-label=\"本次记录的观察顺序\"><button type=\"button\" data-trace-key=\"p27-before-msg\" aria-pressed=\"true\"><b>压缩前的历史</b><span>资料原文还在工具返回里</span></button><button type=\"button\" data-trace-key=\"p27-summary-msg\" aria-pressed=\"false\"><b>压缩后的请求</b><span>只剩交接摘要，没有工具返回</span></button><button type=\"button\" data-trace-key=\"p27-noquote-answer\" aria-pressed=\"false\"><b>只凭摘要追问</b><span>给不出经历原文</span></button><button type=\"button\" data-trace-key=\"p27-reread-answer\" aria-pressed=\"false\"><b>重读文件</b><span>读 profile.md 后引用第 20 行</span></button></nav><div class=\"tl2-viewer\"><div class=\"tl2-bar\"><span data-trace-status>本次真实记录</span><div class=\"trace-lesson-actions\"><a data-trace-open href=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light&amp;point=p27-before-msg\" target=\"_blank\" rel=\"noopener\">单独打开 ↗</a><button type=\"button\" data-trace-expand aria-haspopup=\"dialog\">放大记录</button></div></div><iframe title=\"claude-tap 静态记录\" data-src=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light&amp;hideHeader=1\"></iframe></div></div>",
       "steps": [
-        "已有历史",
-        "观察 /compact",
-        "追问并重读",
-        "文件仍在"
+        "压缩前的历史",
+        "压缩后的请求",
+        "只凭摘要追问",
+        "重读文件"
       ],
       "script": [
-        "【操作提示｜在这一轮的会话里对照压缩前 profile 返回、计划与构建记录】\n\n项目已经改完，刚才也看过历史怎样积累。现在手动压缩一次，观察它怎样把这段过程交接下去。此时窗口离满还很远。",
-        "【操作提示｜展示同一会话 /compact 完成及首次后续请求，指摘要、规则和保留任务】\n\n压缩以后，这次请求里的原始工具调用和输出换成了摘要，任务和约束有部分保留，项目规则也重新放进来。具体摘要留下什么，要实际看。",
-        "【操作提示｜展示禁止工具追问的实际回答，再展示允许只读 profile.md 后正确引用第 20 行；省略逐字节检查】\n\n这次摘要记了经历区已完成，却没留下 DeepMotion.ai 这条经历的完整文字。先要求不读文件逐字回答，它说给不出来。现在允许只读 profile.md，原文就通过读取回来了。",
-        "【操作提示｜回课件；说明已核对文件哈希及 diff 不变】\n\n压缩改变了当前请求里历史的表示。这次前后核对，资料和页面文件没有变化。接下来要核对事实，就重新读取相应文件。"
+        "【操作提示｜查看器定位到压缩前最后一次请求里 profile.md 的原文】\n\n项目已经改完，刚才也看过历史怎样积累。压缩前，profile.md 的原文和那条报错都还在历史里。现在手动压缩一次，观察它怎样把这段过程交接下去。此时窗口离满还很远。",
+        "【操作提示｜推进第 2 步，查看器定位到压缩后的请求与交接摘要；上下滚动看共 9 项】\n\n压缩以后，这次请求里只剩一份交接摘要，原来的工具调用和返回都不在了，刚才那条报错也一起没了。任务和约束有部分写进摘要，项目规则重新放了进来。具体摘要留下什么，要实际看。",
+        "【操作提示｜推进第 3 步，查看器定位到只凭摘要的回答】\n\n这次摘要记了经历区已完成，却没留下 DeepMotion.ai 这条经历的完整文字。我们要求不读文件逐字回答，它说给不出来，也说清了缺什么。",
+        "【操作提示｜推进第 4 步，查看器定位到重读 profile.md 后的回答；回课件说明已核对文件哈希及 diff 不变】\n\n允许它只读 profile.md，原文就通过读取回来了，它引用了第 20 行。压缩改变的是请求里历史的表示，资料和页面文件没有变化。要核对事实，就重新读取相应文件。"
       ],
       "teaching": [],
       "source": "index.html#p27",
@@ -397,7 +399,7 @@ window.lesson = {
     },
     {
       "label": "回看请求",
-      "seconds": 270
+      "seconds": 300
     },
     {
       "label": "压缩与继续",

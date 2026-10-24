@@ -1,0 +1,87 @@
+{
+  "source": "courseware/ch02/materials/iteration/run-20261024/trace.json",
+  "trace_sha256": "04e4c58488ea16bfed2f60e62ac1b4e28b3390ed9dc79f6c29a80564ff8dca58",
+  "points": [
+    {
+      "key": "p22-rules-msg",
+      "label": "清空后的第一个任务请求：规则和 Prompt",
+      "request": "session-6",
+      "section": "section_messages",
+      "needle": "# 项目规则"
+    },
+    {
+      "key": "p22-profile-result",
+      "label": "读 profile.md 的返回",
+      "request": "session-8",
+      "section": "section_messages",
+      "callId": "call_GlF1WzfIQfTLFByMRr7sAUHq",
+      "needle": "2019.03–2021.07　DeepMotion.ai"
+    },
+    {
+      "key": "p22-answers-msg",
+      "label": "交互题的回答",
+      "request": "session-14",
+      "section": "section_messages",
+      "needle": "四个独立分区（推荐）"
+    },
+    {
+      "key": "p22-implement-msg",
+      "label": "模式指令与 Implement the plan.",
+      "request": "session-16",
+      "section": "section_messages",
+      "needle": "# Collaboration Mode: Default"
+    },
+    {
+      "key": "p24-fail-result",
+      "label": "脚本报错的返回",
+      "request": "session-10",
+      "section": "section_messages",
+      "callId": "call_hZM9ONNTL3immYe2DBBOn7lc",
+      "needle": "SyntaxError: Invalid or unexpected token"
+    },
+    {
+      "key": "p24-retry-call",
+      "label": "换一种写法再读",
+      "request": "session-10",
+      "section": "section_response"
+    },
+    {
+      "key": "p24-later-msg",
+      "label": "压缩前最后一次请求里仍在",
+      "request": "session-25",
+      "section": "section_messages",
+      "needle": "SyntaxError: Invalid or unexpected token"
+    },
+    {
+      "key": "p27-before-msg",
+      "label": "压缩前：资料原文还在历史里",
+      "request": "session-25",
+      "section": "section_messages",
+      "callId": "call_GlF1WzfIQfTLFByMRr7sAUHq",
+      "needle": "2019.03–2021.07　DeepMotion.ai"
+    },
+    {
+      "key": "p27-summary-msg",
+      "label": "压缩后的请求：交接摘要",
+      "request": "session-28",
+      "section": "section_messages",
+      "needle": "## Handoff Summary"
+    },
+    {
+      "key": "p27-noquote-answer",
+      "label": "只凭摘要：给不出原文",
+      "request": "session-28",
+      "section": "section_response",
+      "needle": "不能逐字给出"
+    },
+    {
+      "key": "p27-reread-answer",
+      "label": "重读后：引用第 20 行",
+      "request": "session-31",
+      "section": "section_response",
+      "needle": "2019.03–2021.07　DeepMotion.ai"
+    }
+  ],
+  "basis": "2026-10-24 单一 Plan 重跑（C2-95）；定位点按 2.2 分镜 p22、p24、p27 的讲述顺序选取，记录变化时重新核对。",
+  "confirmed_on": "2026-10-24"
+}

@@ -11,6 +11,7 @@ viewers:
 	uv run courseware/ch02/materials/request/config-pairs-20261023/build-records.py
 	uv run courseware/ch02/materials/request/run-20261024/build-records.py
 	uv run courseware/ch02/lessons/01-request/tools/build-lesson.py
+	uv run courseware/ch02/lessons/02-iteration/trace/build-viewer.py
 
 check: viewers
 	uv run courseware/tools/check-courseware.py

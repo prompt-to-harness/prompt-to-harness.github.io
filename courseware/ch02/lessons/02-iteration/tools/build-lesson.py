@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """2.2 页面内容源；分镜在 STORYBOARD.md，口播唯一来源为 script.json。"""
+import json
 import sys
 from html import escape
 from pathlib import Path
@@ -13,6 +14,18 @@ ROUND_PROMPT = """Goal：把 profile.md 中的基本信息、教育、工作经�
 Context：profile.md 在项目根目录，由我提供个人事实与经历。当前页面已有首屏和占位项目区，项目卡不跳转。请先读取文件并检查当前实现。
 Constraints：个人事实与经历只使用 profile.md 的内容，不补写。可为呈现内容调整结构与样式；不添加链接或依赖，项目卡保持不跳转。只改页面所需的文件和标题，项目里其他说明文档不动。先提出改动计划，等我确认后再修改。
 Done when：四块个人内容已呈现，事实与经历都能在 profile.md 中找到；你运行 npm run build 并报告结果；我在浏览器里检查文字与排版，你不用启动开发或预览服务。"""
+
+def trace_stage(items, note="本次真实记录"):
+    """嵌入本节静态记录：左侧定位按钮与播放器步骤一一对应，交互与 2.1 p07 相同（trace/lesson-embed.js）。"""
+    keys = json.dumps([k for k, _, _ in items], ensure_ascii=False).replace('"', '&quot;')
+    first = items[0][0]
+    guide = ''.join(f'<button type="button" data-trace-key="{k}" aria-pressed="{str(i == 0).lower()}"><b>{t}</b><span>{h}</span></button>' for i, (k, t, h) in enumerate(items))
+    src = 'trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light'
+    return (f'<div class="tl2-stage" data-trace-steps="{keys}"><nav class="tl2-guide" aria-label="本次记录的观察顺序">{guide}</nav>'
+            f'<div class="tl2-viewer"><div class="tl2-bar"><span data-trace-status>{note}</span><div class="trace-lesson-actions">'
+            f'<a data-trace-open href="{src}&amp;point={first}" target="_blank" rel="noopener">单独打开 ↗</a>'
+            f'<button type="button" data-trace-expand aria-haspopup="dialog">放大记录</button></div></div>'
+            f'<iframe title="claude-tap 静态记录" data-src="{src}&amp;hideHeader=1"></iframe></div></div>')
 
 def box(title, text, step=0, role="ink"):
     return f'<div class="p-box" data-role="{role}" data-reveal="{step}"><h3>{title}</h3><p>{text}</p></div>'
@@ -122,9 +135,9 @@ scene(
     id='p22',
     segment='回看请求',
     title='补充一句要求，前面的工作也随请求发出',
-    lead='回看这一轮的主任务记录 6、8、14、16。读文件的返回照样追加在末尾，和上一节看到的一样；这里看我们补的两句：回答交互题时，之前读过的资料和代码都随之重发；实施时，模式切换指令和 Implement the plan. 也追加在末尾，前面不改。项数仅供定位，不是固定格式。',
-    html='<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)"><div class="is-head" data-reveal="0"><span>本轮位置</span><span>这次请求里可见的内容</span></div><div data-reveal="0"><span>初始任务</span><span>规则 + Prompt；尚无资料正文</span></div><div data-reveal="0"><span>读过资料</span><span>前面的内容 + 读文件的调用与返回</span></div><div data-reveal="1"><span>回答交互题</span><span>已读的资料和代码 + 三道题的回答</span></div><div data-reveal="2"><span>确认实施</span><span>前面的历史 + 模式指令 + Implement the plan.，都在末尾</span></div></div>',
-    steps=['任务与资料进入', '回答交互题', '进入执行'],
+    lead='回看这一轮的记录。清空后的第一个任务请求里有规则和 Prompt，没有上一节的问答；读文件的返回照样追加在末尾，和上一节看到的一样。这里重点看我们补的两句：回答交互题时，之前读过的资料和代码都随之重发；实施时，模式切换指令和 Implement the plan. 也追加在末尾，前面不改。左侧按钮定位到对应记录，可放大或单独打开自由查看。',
+    html=trace_stage([('p22-rules-msg', '清空后的第一个请求', '规则和 Prompt 在，上一节的问答不在'), ('p22-profile-result', '读到资料', 'profile.md 的正文追加在末尾'), ('p22-answers-msg', '回答交互题', '前面的都在，末尾是我们的回答'), ('p22-implement-msg', '进入执行', '模式指令和 Implement the plan. 也在末尾')]),
+    steps=['清空后的第一个请求', '读到资料', '回答交互题', '进入执行'],
 )
 
 scene(
@@ -155,19 +168,19 @@ scene(
 scene(
     id='p24',
     segment='回看请求',
-    title='工具的失败输出，也可能成为后续输入',
-    lead='另一次独立运行中，预览服务启动返回 listen EPERM。在之后的请求记录中仍能找到同一失败返回。本页只说明失败输出也进入历史，与本轮运行及其 token 表分开。成功和失败的过程都可能成为后续输入，具体保留内容要看实际记录。',
-    html='<div class="p-tag" data-role="gate" data-reveal="0">另一次独立运行</div><div class="p-grid" style="--n:2;gap:16px"><div class="p-term" data-reveal="0">预览服务启动<br>listen EPERM · 退出失败</div><div class="p-box" data-role="ctx" data-reveal="1"><h3>之后的请求记录</h3><p>input 中仍有<br>这段失败的工具返回</p></div></div><div class="p-bar is-light" data-reveal="2">回看历史，也看实际走过哪些步骤</div>',
-    steps=['独立运行的失败', '之后仍有返回', '看实际过程'],
+    title='工具的失败输出，也一直留在后续输入里',
+    lead='这一轮 Plan 阶段，它自己写的读文件脚本引号转义出错，返回 SyntaxError，它换了一种写法重新读取。这条失败返回没有被删掉：之后每次请求都还带着它，一直到压缩前最后一次请求。成功和失败的过程都会成为后续输入；这次失败是运行中自然出现的，不是准备好的教学材料。',
+    html=trace_stage([('p24-fail-result', '脚本报错', '它写的读取脚本返回 SyntaxError'), ('p24-retry-call', '换写法再读', '下一步它换了一种写法'), ('p24-later-msg', '之后一直都在', '压缩前最后一次请求里仍有这条报错')]),
+    steps=['脚本报错', '换写法再读', '之后一直都在'],
 )
 
 scene(
     id='p27',
     segment='压缩与继续',
     title='压缩换成摘要，要原文就重新读取',
-    lead='在这一轮的会话中手动 /compact，观察已有历史怎样交接，而非窗口已满。本次压缩后的请求只有 9 项：基础指令、初始 Prompt、Skills 与团队说明、重新装入的项目规则、Implement the plan.、交接摘要和追问，原来的工具调用与返回都不在了。摘要没保留 DeepMotion.ai 经历的完整文字：禁止工具时答不出逐字原文，允许重读 profile.md 后正确引用。文件哈希与 tracked diff 均未改变。',
-    html='<div class="p-grid" style="--n:2;gap:16px"><div class="p-box" data-role="tool" data-reveal="0"><h3>压缩前</h3><p>读文件的原始返回<br>计划、修改与构建过程</p></div><div class="p-box" data-role="ctx" data-reveal="1"><h3>压缩后</h3><p>摘要承接过程<br>任务约束与重新装入的规则</p></div></div><div class="p-box" data-role="us" data-reveal="2"><h3>本次追问经历原文</h3><p>只凭摘要：无法逐字给出 → 重读 profile.md：找到原文</p></div><div class="p-bar is-light" data-reveal="3">请求里的历史表示变了，项目文件仍可读取</div>',
-    steps=['已有历史', '观察 /compact', '追问并重读', '文件仍在'],
+    lead='在这一轮的会话中手动 /compact，观察已有历史怎样交接，而非窗口已满。压缩前，资料原文和那条 SyntaxError 都还在历史里；压缩后的请求只有 9 项：基础指令、初始 Prompt、Skills 与团队说明、重新装入的项目规则、Implement the plan.、交接摘要和追问，原来的工具调用与返回都不在了。摘要没保留 DeepMotion.ai 经历的完整文字：禁止工具时答不出逐字原文，允许重读 profile.md 后正确引用。文件哈希与 tracked diff 均未改变。',
+    html=trace_stage([('p27-before-msg', '压缩前的历史', '资料原文还在工具返回里'), ('p27-summary-msg', '压缩后的请求', '只剩交接摘要，没有工具返回'), ('p27-noquote-answer', '只凭摘要追问', '给不出经历原文'), ('p27-reread-answer', '重读文件', '读 profile.md 后引用第 20 行')]),
+    steps=['压缩前的历史', '压缩后的请求', '只凭摘要追问', '重读文件'],
 )
 
 scene(
