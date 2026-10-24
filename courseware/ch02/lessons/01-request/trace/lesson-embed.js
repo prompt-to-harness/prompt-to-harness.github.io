@@ -5,13 +5,15 @@
  const channel='ch02-static-trace-v1',keys=['answer','call','result'];let current=keys[Math.min(2,Number(new URLSearchParams(location.search).get('step'))||0)];
  const expand=document.getElementById('trace-lesson-expand'),status=document.getElementById('trace-lesson-status');
  const dialog=document.createElement('dialog');dialog.className='trace-lesson-dialog';dialog.setAttribute('aria-label','放大查看本次请求记录');
- dialog.innerHTML='<div class="dialog-bar"><span>同一次真实记录 · 可自由查看</span><div class="trace-lesson-actions"><a data-trace-open target="_blank" rel="noopener">单独打开 ↗</a><button type="button">收起记录 · Esc</button></div></div><iframe title="放大的 claude-tap 静态记录"></iframe>';
+ dialog.innerHTML='<div class="dialog-bar"><span>同一次真实记录 · 可自由查看</span><div class="dialog-points" role="group" aria-label="定位观察点"><button type="button" data-dialog-point="answer">① 看回答</button><button type="button" data-dialog-point="call">② 找读取调用</button><button type="button" data-dialog-point="result">③ 看后续请求</button></div><div class="trace-lesson-actions"><a data-trace-open target="_blank" rel="noopener">单独打开 ↗</a><button type="button">收起记录 · Esc</button></div></div><iframe title="放大的 claude-tap 静态记录"></iframe>';
  document.body.append(dialog);const big=dialog.querySelector('iframe');let returnFocus;
  function send(target,expanded=false){if(target?.contentWindow)target.contentWindow.postMessage({channel,key:current,expanded},'*');}
- function select(key){current=key;scene.querySelectorAll('[data-trace-point]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.tracePoint===key)));document.querySelectorAll('[data-trace-open]').forEach(a=>a.href='trace/viewer.html?embed=1&hidePath=1&hideHistory=1&theme=light&point='+key);send(frame);if(dialog.open)send(big,true);}
+ function select(key){current=key;scene.querySelectorAll('[data-trace-point]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.tracePoint===key)));dialog.querySelectorAll('[data-dialog-point]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.dialogPoint===key)));document.querySelectorAll('[data-trace-open]').forEach(a=>a.href='trace/viewer.html?embed=1&hidePath=1&hideHistory=1&theme=light&point='+key);send(frame);if(dialog.open)send(big,true);}
  function close(){if(dialog.open)dialog.close();returnFocus?.focus();}
  expand.addEventListener('click',()=>{returnFocus=document.activeElement;if(!big.hasAttribute('src'))big.src=frame.getAttribute('src');dialog.showModal();send(big,true);});
- dialog.querySelector('button').addEventListener('click',close);dialog.addEventListener('cancel',event=>{event.preventDefault();close();});
+ dialog.querySelector('.trace-lesson-actions button').addEventListener('click',close);
+ // 放大后保留三个定位按钮；只换观察点，不改变播放器的步骤
+ dialog.querySelectorAll('[data-dialog-point]').forEach(b=>b.addEventListener('click',()=>select(b.dataset.dialogPoint)));dialog.addEventListener('cancel',event=>{event.preventDefault();close();});
  frame.addEventListener('load',()=>send(frame));big.addEventListener('load',()=>send(big,true));
  scene.querySelectorAll('[data-trace-point]').forEach(button=>button.addEventListener('click',()=>{
   const key=button.dataset.tracePoint;
