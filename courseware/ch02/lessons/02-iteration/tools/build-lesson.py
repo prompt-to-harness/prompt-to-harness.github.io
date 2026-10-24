@@ -6,8 +6,9 @@ from html import escape
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
 from lessonkit import Lesson, anchor, chapter_map, redrawn, ref, teach
+from trace_reading import reading_panels
 
-lesson = Lesson(__file__, "2.2", "补上个人经历，看对话怎么变长", summary="先把人写的个人资料放进主页：用 Plan 模式先出计划，人修订范围后再放行；检查页面和构建，再回看历史、缓存与压缩，选择下一步怎样继续会话。")
+lesson = Lesson(__file__, "2.2", "补上个人经历，看对话怎么变长", summary="先把人写的个人资料放进主页：用 Plan 模式先出计划，人审过范围后再放行；检查页面和构建，再回看历史、缓存与压缩，选择下一步怎样继续会话。")
 scene = lesson.scene
 
 ROUND_PROMPT = """Goal：把 profile.md 中的基本信息、教育、工作经历和项目放进个人主页，替换对应的占位内容。
@@ -23,9 +24,10 @@ def trace_stage(items, note="本次真实记录"):
     src = 'trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light'
     return (f'<div class="tl2-stage" data-trace-steps="{keys}"><nav class="tl2-guide" aria-label="本次记录的观察顺序">{guide}</nav>'
             f'<div class="tl2-viewer"><div class="tl2-bar"><span data-trace-status>{note}</span><div class="trace-lesson-actions">'
+            '<button type="button" data-view="reader" aria-pressed="true">阅读视图</button><button type="button" data-view="raw" aria-pressed="false">原始记录</button>'
             f'<a data-trace-open href="{src}&amp;point={first}" target="_blank" rel="noopener">单独打开 ↗</a>'
             f'<button type="button" data-trace-expand aria-haspopup="dialog">放大记录</button></div></div>'
-            f'<iframe title="claude-tap 静态记录" data-src="{src}&amp;hideHeader=1"></iframe></div></div>')
+            f'{reading_panels(items)}<iframe hidden title="claude-tap 静态记录" data-src="{src}&amp;hideHeader=1"></iframe></div></div>')
 
 def box(title, text, step=0, role="ink"):
     return f'<div class="p-box" data-role="{role}" data-reveal="{step}"><h3>{title}</h3><p>{text}</p></div>'
@@ -135,7 +137,7 @@ scene(
     id='p22',
     segment='回看请求',
     title='补充一句要求，前面的工作也随请求发出',
-    lead='回看这一轮的记录。清空后的第一个任务请求里有规则和 Prompt，没有上一节的问答；读文件的返回照样追加在末尾，和上一节看到的一样。这里重点看我们补的两句：回答交互题时，之前读过的资料和代码都随之重发；实施时，模式切换指令和 Implement the plan. 也追加在末尾，前面不改。左侧按钮定位到对应记录，可放大或单独打开自由查看。',
+    lead='回看这一轮的记录。清空后的第一个任务请求里有规则和 Prompt，没有上一节的问答；读文件的返回照样追加在末尾，和上一节看到的一样。这里重点看我们补的两句：回答交互题时，之前读过的资料和代码都随之重发；实施时，模式切换指令和 Implement the plan. 也追加在末尾，前面不改。左侧按钮切换观察点；阅读视图展示原文节选，原始记录核对它在请求中的位置，两种视图都可放大。',
     html=trace_stage([('p22-rules-msg', '清空后的第一个请求', '规则和 Prompt 在，上一节的问答不在'), ('p22-profile-result', '读到资料', 'profile.md 的正文追加在末尾'), ('p22-answers-msg', '回答交互题', '前面的都在，末尾是我们的回答'), ('p22-implement-msg', '进入执行', '模式指令和 Implement the plan. 也在末尾')]),
     steps=['清空后的第一个请求', '读到资料', '回答交互题', '进入执行'],
 )
@@ -204,10 +206,10 @@ scene(
 scene(
     id='p33',
     segment='选择怎样继续',
-    title='暂停自检：把判断落回这一轮操作',
-    lead='四道自检允许暂停作答：区分点名文件与读取正文；说明清空后所需任务和文件；需要事实原文时重读；用当前界面的读取与操作解释会话选择。不要求代理、token 数和请求项数。',
-    html='<style>body[data-mode="slides"] #p33 .x-answer{display:none}body[data-mode="slides"] #p33 .p-qrow h3{font-size:24px}body[data-mode="slides"] #p33 .p-back-to{font-size:16px}</style><div class="p-qlist"><div class="p-qrow" data-reveal="0"><span class="p-n">1</span><div><h3>只点名 profile.md，正文什么时候进入？</h3><p class="x-answer">读取返回加入历史后</p><span class="p-back-to">回到 p22</span></div></div><div class="p-qrow" data-reveal="1"><span class="p-n">2</span><div><h3>改完再 /clear，下一轮要给什么？文件呢？</h3><p class="x-answer">重新说明任务、约束和文件；文件改动仍在</p><span class="p-back-to">回到 p27a</span></div></div><div class="p-qrow" data-reveal="2"><span class="p-n">3</span><div><h3>摘要只记经历已完成，怎样逐字核对？</h3><p class="x-answer">重读资料和页面代码，对照原文</p><span class="p-back-to">回到 p27</span></div></div><div class="p-qrow" data-reveal="3"><span class="p-n">4</span><div><h3>继续、清空、压缩或新建，依据是什么？</h3><p class="x-answer">说出自己会话里可见的读取或操作</p><span class="p-back-to">回到 p28</span></div></div></div>',
-    steps=['文件正文', '清空以后', '原文依据', '会话理由'],
+    title='暂停自检：这四种情况，你会怎么做？',
+    lead='每题先暂停，写出你的判断，再补一条依据或下一步操作。资料更新后检查新的读取返回；补充要求时考虑一起发送的历史；引用原句时核对原文；区分清空对话和撤销文件修改。参考答案在阅读模式中查看。',
+    html='<style>body[data-mode="slides"] #p33 .x-answer{display:none}body[data-mode="slides"] #p33 .p-qrow h3{font-size:24px}body[data-mode="slides"] #p33 .p-back-to{font-size:16px}</style><div class="p-qlist"><div class="p-qrow" data-reveal="0"><span class="p-n">1</span><div><h3>刚改了 profile.md，怎样确认模型读到了新版？</h3><p class="x-answer">查看修改后是否有新的读取调用和返回，并核对返回中有无刚改的文字；只有之前的读取记录还不够</p><span class="p-back-to">回看：资料怎样进入请求</span></div></div><div class="p-qrow" data-reveal="1"><span class="p-n">2</span><div><h3>回答交互题时选“四个独立分区”，下一次请求还会带上什么？</h3><p class="x-answer">本次未压缩的实例中，原来的任务、已读资料、代码和问答仍在，新要求接在后面；输入量不只算这句话</p><span class="p-back-to">回看：补充要求后的请求</span></div></div><div class="p-qrow" data-reveal="2"><span class="p-n">3</span><div><h3>摘要只说“经历已补齐”，要引用原句该怎么办？</h3><p class="x-answer">先检查摘要是否保留原句；若没有，就重新读取 profile.md，依据新的工具返回引用。核对页面时还要对照页面代码。</p><span class="p-back-to">回看：压缩后重读资料</span></div></div><div class="p-qrow" data-reveal="3"><span class="p-n">4</span><div><h3>页面改错了，用 /clear 能撤销修改吗？</h3><p class="x-answer">不能。/clear 清空对话，不会撤销项目文件的改动；需要另行修改或恢复文件。清空后继续工作，还要重新说明任务和所需文件。</p><span class="p-back-to">回看：清空对话与项目文件</span></div></div></div>',
+    steps=['资料更新后', '补充一句要求', '需要引用原句', '想撤销页面修改'],
 )
 
 scene(

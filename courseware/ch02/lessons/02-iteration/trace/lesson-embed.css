@@ -18,3 +18,17 @@ body[data-mode=slides] .tl2-guide span{display:none}body[data-mode=slides] .tl2-
 .trace-lesson-dialog .dialog-points{display:flex;gap:8px}.trace-lesson-dialog .dialog-points button[aria-pressed=true]{border:2px solid #294f3a;background:#edf2eb;padding:3px 9px}
 body[data-mode=scroll] .tl2-stage{height:590px}
 @media(max-width:700px){body[data-mode=scroll] .tl2-stage{grid-template-columns:minmax(0,1fr);height:auto;gap:12px}body[data-mode=scroll] .tl2-guide{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}body[data-mode=scroll] .tl2-guide b{font-size:16px}body[data-mode=scroll] .tl2-guide span{font-size:14px}body[data-mode=scroll] .tl2-viewer{height:540px}body[data-mode=scroll] .tl2-bar{font-size:13px;flex-wrap:wrap;height:auto;min-height:42px;padding:8px 10px}.trace-lesson-actions{font-size:14px;gap:8px}.trace-lesson-dialog .dialog-bar{font-size:14px;padding:0 10px}.trace-lesson-dialog .dialog-points{flex-wrap:wrap;gap:4px}.trace-lesson-dialog .dialog-points button{font-size:13px;padding:2px 6px}}
+/* Both views share the same selected evidence point, including in the dialog. */
+.tl2-reading{min-height:0;flex:1;overflow:auto;overscroll-behavior:contain;padding:14px 18px;background:#fffdf7}
+.tl2-reading[hidden],.tl2-reading [hidden],.tl2-viewer iframe[hidden],.trace-lesson-dialog iframe[hidden]{display:none}
+.tl2-reading article{margin-bottom:18px}.tl2-reading h3{font-size:16px;margin:0 0 8px;color:#577062}
+.tl2-reading pre{font:17px/1.6 'Course Mono','Course Sans',monospace;white-space:pre-wrap;overflow-wrap:anywhere;margin:0;background:none;color:#183b32;border:0;padding:0}
+.tl2-reading .tl2-source{font-size:14px;margin:0 0 12px;color:#577062}.tl2-reading summary{font-size:14px;cursor:pointer;margin:8px 0}
+.tl2-reading details:not([open])>pre{display:none}
+.tl2-bar{height:auto;min-height:42px;flex-wrap:wrap;padding:8px 12px}.tl2-bar [data-trace-status]{display:none}
+[data-view][aria-pressed=true]{background:#294f3a!important;color:white!important}
+.trace-lesson-dialog{display:none;flex-direction:column}.trace-lesson-dialog[open]{display:flex}
+.trace-lesson-dialog .dialog-bar{height:auto;min-height:52px;flex-wrap:wrap;padding:10px 16px;flex:none}
+.trace-lesson-dialog .dialog-bar>span{display:none}.trace-lesson-dialog iframe{height:auto;flex:1;min-height:0}
+.trace-lesson-dialog .tl2-reading pre{font-size:20px}
+@media(max-width:700px){.trace-lesson-actions{flex-wrap:wrap}.tl2-reading pre{font-size:15px}.trace-lesson-dialog .dialog-bar{gap:8px}.trace-lesson-dialog .tl2-reading pre{font-size:17px}}
