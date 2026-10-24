@@ -152,6 +152,6 @@ uv run courseware/tools/check-courseware.py
 
 1. **临时仓库 `prompt-to-harness/ch02-pages-lab-20261021` 待讲师删除**（2.4 写操作实测用，Pages 已开启）。
 2. **第 1 章 1.2 的“窗口边界”要不要减**：建议不改第 1 章，关闭这一条。
-3. **讲师演示用的个人信息文件**：草稿已按 miaodx.com 的公开内容挑好（[`materials/profile/`](materials/profile/README.md)，不写现在的公司），待 MiaoDX 过目后冻结；风格参考建议用 brittanychiang.com，备选 jonbarron.info，录制前定（C2-55、C2-56、C2-59）。
+3. **讲师演示用的个人信息文件**：已于 2026-10-24 冻结（[`materials/profile/`](materials/profile/README.md)，不写现在的公司，C2-94）；风格参考建议用 brittanychiang.com，备选 jonbarron.info，录制前定（C2-55、C2-56、C2-59）。
 4. **正式重录 2.1、2.2、2.3**：2.1 页面已使用真实排练记录并整合，p14 已合入 p07，正式录制仍需核对冻结配置；2.2 p22–p24、p27、p30、p31 与 2.3 p36、p40、p40a–p40d 仍按各节分镜标注旧运行或待录，重录后按实际更新。2.2 和 2.3 的风格参考可以先用 [`materials/mainline/run-2.2.sh`](materials/mainline/run-2.2.sh) 排练一遍（自动放入 `AGENTS.md` 和 `profile.md`）。还要做第 2 章起点快照和任务卡（C2-54）。
 5. **配套页尚未制作**：隔离 HOME 与个人、项目、本次三层来源的对比（原 2.1 p15、p15-home），~~Codex 版本与模型指令对比（原 2.2 p25、p26）~~ 已由 2.5 的 Phistory 展示取代（C2-76），请求解剖页（C2-13，是否还做待讲师确认）。
