@@ -89,7 +89,7 @@ window.lesson = {
       "id": "p29",
       "segment": "内容迭代",
       "title": "沿用四要素，写清这一轮的 Prompt",
-      "lead": "沿用第一章 Goal、Context、Constraints、Done when 四要素：点名 profile.md，事实只来自这份资料，不加链接和依赖；先提出计划、等确认再改，完成标准写清谁检查什么。完整 Prompt 可复制。",
+      "lead": "沿用第一章 Goal、Context、Constraints、Done when 四要素：点名 profile.md，事实只来自这份资料，不加链接和依赖，只改页面所需文件；先提出计划、等确认再改，完成标准写清谁检查什么。完整 Prompt 可复制。",
       "html": "<div class=\"demo-notes\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><h3>点名资料文件</h3><p>先读取，再检查当前实现</p></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"1\"><h3>事实只来自资料</h3><p>不补写，不加链接和依赖</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"2\"><h3>先计划、等确认</h3><p>接下来用 Plan 模式提交</p></div></div>",
       "steps": [
         "目标与背景",
@@ -102,7 +102,7 @@ window.lesson = {
         "【操作提示｜滚到 Done when；切终端准备 /plan】\n\nDone when 写清结果怎样检查：四块内容呈现，事实能找到出处，Codex 跑 build，我们在浏览器看文字与排版。接下来用 Plan 模式提交这段 Prompt。"
       ],
       "layout": "prompt-scene",
-      "prompt": "Goal：把 profile.md 中的基本信息、教育、工作经历和项目放进个人主页，替换对应的占位内容。\nContext：profile.md 在项目根目录，由我提供个人事实与经历。当前页面已有首屏和占位项目区，项目卡不跳转。请先读取文件并检查当前实现。\nConstraints：个人事实与经历只使用 profile.md 的内容，不补写。可为呈现内容调整结构与样式；不添加链接或依赖，项目卡保持不跳转。先提出改动计划，等我确认后再修改。\nDone when：四块个人内容已呈现，事实与经历都能在 profile.md 中找到；你运行 npm run build 并报告结果；我在浏览器里检查文字与排版。",
+      "prompt": "Goal：把 profile.md 中的基本信息、教育、工作经历和项目放进个人主页，替换对应的占位内容。\nContext：profile.md 在项目根目录，由我提供个人事实与经历。当前页面已有首屏和占位项目区，项目卡不跳转。请先读取文件并检查当前实现。\nConstraints：个人事实与经历只使用 profile.md 的内容，不补写。可为呈现内容调整结构与样式；不添加链接或依赖，项目卡保持不跳转。只改页面所需的文件和标题，项目里其他说明文档不动。先提出改动计划，等我确认后再修改。\nDone when：四块个人内容已呈现，事实与经历都能在 profile.md 中找到；你运行 npm run build 并报告结果；我在浏览器里检查文字与排版，你不用启动开发或预览服务。",
       "teaching": [],
       "source": "index.html#p29",
       "seconds": 90
@@ -111,22 +111,26 @@ window.lesson = {
       "id": "p29c",
       "segment": "内容迭代",
       "title": "Plan：先问清，再呈现可确认的计划",
-      "lead": "清空后输入 /plan，确认界面显示 Plan，再提交这段 Prompt；首个任务请求里已有刚保存的规则。本次先出现两项交互题：保留查看项目按钮、基本信息并入首屏，再出现 Proposed Plan。初版计划还提议更新 PROMPT_V1.md，需人在确认前收窄范围。",
-      "html": "<div class=\"p-grid\" style=\"--n:2;gap:16px\"><div class=\"p-term\" data-reveal=\"0\">› /plan<br>› 这一轮的四要素 Prompt</div><div class=\"p-box\" data-role=\"us\" data-reveal=\"1\"><h3>交互提问 · 本次两题</h3><p>查看项目 → 保留 #projects<br>基本信息 → 并入首屏</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">Proposed Plan 出来后，先审范围与呈现要求</div>",
+      "lead": "清空后输入 /plan，确认界面显示 Plan，再提交这段 Prompt；首个任务请求里已有刚保存的规则。本次它先读资料和代码，再问三道交互题，我们都选了推荐项：首屏按钮改为“查看经历”跳到工作经历，四块分成独立分区，“现在关注”放在首屏一行标签。回答以后出现 Proposed Plan。",
+      "html": "<div class=\"p-grid\" style=\"--n:2;gap:16px\"><div class=\"p-term\" data-reveal=\"0\">› /plan<br>› 这一轮的四要素 Prompt</div><div class=\"p-box\" data-role=\"us\" data-reveal=\"1\"><h3>交互提问 · 本次三题</h3><p>首屏按钮 → 查看经历<br>组织方式 → 四个独立分区<br>现在关注 → 首屏一行标签</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">Proposed Plan 出来后，先审范围再放行</div>",
       "steps": [
         "切 Plan 并提交",
-        "回答两道交互题",
+        "回答三道交互题",
         "看 Proposed Plan"
       ],
       "script": [
         "【操作提示｜已保存规则并 /clear；输入 /plan，确认模式后粘贴 p29 原文；提交后短切 tap 指首个任务请求中的 AGENTS.md，再回终端】\n\n输入 /plan，确认界面显示 Plan，再提交刚才的 Prompt。切到请求记录看一眼：第一个任务请求里已经有刚保存的项目规则，上一节的问答和工具返回没有接着发送。这是上一节结尾那个问题的一半答案：清空以后，前面的不会跟着发。",
-        "【操作提示｜展示真实两项交互问题，选保留按钮与基本信息并入首屏】\n\n这次它先用交互题问两件事。我们选择保留查看项目按钮，仍然跳到项目区；基本信息并入首屏。回答以后再往下形成计划。",
-        "【操作提示｜展示 Proposed Plan 及 PROMPT_V1.md 提议；停在确认选项】\n\n现在出现 Proposed Plan。它把方案整理出来，请我们决定是否实施。先别确认：这次计划里还提出更新旧的 PROMPT_V1.md。我们只要改页面，这一项需要收窄，同时把想要的排版说清楚。"
+        "【操作提示｜展示真实三道交互题，都选推荐项】\n\n它先读了资料和代码，再用交互题问三件事：首屏按钮怎么处理，四块内容怎么组织，“现在关注”放在哪里。这次我们都选推荐项。回答以后再往下形成计划。",
+        "【操作提示｜展示 Proposed Plan，停在确认选项】\n\n现在出现 Proposed Plan。它把方案整理出来，请我们决定是否实施。先别急着确认，下一步我们一起审它。"
       ],
       "teaching": [
         {
           "title": "讲师提示",
           "text": "不用 /plan 也行：在 Prompt 里写明先提出计划、等确认再改。2026-10-23 同起点的普通模式也给出了文字计划并等待确认，只是交互形式不同（C2-92）。口播不展开对照。"
+        },
+        {
+          "title": "交互题",
+          "text": "题目和推荐项每次可能不同，录制时按当天的题讲；本次三题都选推荐项。"
         }
       ],
       "source": "index.html#p29c",
@@ -135,23 +139,23 @@ window.lesson = {
     {
       "id": "p30",
       "segment": "内容迭代",
-      "title": "先修订计划，再确认执行",
-      "lead": "选择 No, stay in Plan mode，追加修订要求：保留风格和单列、姓名同一行、关注内容用原句、保留 #projects，只改页面与标题，不改课程过程材料；浏览器由人检查。修订后看范围、事实和验证方式，再选 Yes, implement this plan；本次自动切回 Default，发送 Implement the plan.。",
-      "html": "<div class=\"p-grid\" style=\"--n:2;gap:16px\"><div class=\"p-box\" data-role=\"us\" data-reveal=\"0\"><h3>先留下讨论</h3><p>No, stay in Plan mode<br>补呈现要求、收窄文件范围</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><h3>再看修订后的计划</h3><p>页面与标题 · 事实出处<br>build 由它做，浏览器由人看</p></div></div><div class=\"p-term\" data-reveal=\"2\">Yes, implement this plan<br>→ Default · Implement the plan.</div><details class=\"p-pop\"><summary>查看完整修订要求</summary><div class=\"p-pop-body\"><div class=\"p-pop-head\"><span>修订原文</span><button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div><p style=\"font-size:20px;line-height:1.6\">先调整计划，暂不改文件：保持原有风格和单列布局；基本信息并入首屏，姓名用“缪东旭（MiaoDX）”同一行；“现在关注”用原句一行文字，窄屏自然换行；保留“查看项目”跳到 #projects；只改页面所需文件和标题，不改 PROMPT_V1.md 或其他课程过程材料，不新增记录文件。浏览器由我检查，你只做 build 与内容、范围核对，不启动开发或预览服务、不驱动浏览器。请给出修订后的简短计划，等我确认。</p></div></details>",
+      "title": "先审计划，再确认执行",
+      "lead": "Proposed Plan 出来后先看三件事：改哪些文件、事实是否都来自 profile.md、谁来验证。本次计划只改 src/App.tsx、src/index.css 和 index.html 的标题，写明说明文档不动、不启动服务，没有越界，就直接选 Yes, implement this plan；界面自动切回 Default，发送 Implement the plan.。",
+      "html": "<div class=\"p-grid\" style=\"--n:2;gap:16px\"><div class=\"p-box\" data-role=\"us\" data-reveal=\"0\"><h3>看文件范围</h3><p>App.tsx · index.css · 标题<br>说明文档不动</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><h3>看事实与验证</h3><p>事实只来自 profile.md<br>build 由它做，浏览器由人看</p></div></div><div class=\"p-term\" data-reveal=\"2\">Yes, implement this plan<br>→ Default · Implement the plan.</div>",
       "steps": [
-        "修订而非立刻执行",
-        "核对修订后的计划",
+        "看文件范围",
+        "看事实与验证",
         "确认后自动切执行"
       ],
       "script": [
-        "【操作提示｜选择 No, stay in Plan mode；展示修订原文（阅读层可复制）；不改 Prompt 起点】\n\n选择继续留在 Plan，先把要求补清楚：保持原有风格和单列，基本信息并入首屏，姓名同一行，关注内容沿用原句；保留查看项目按钮。只改页面所需文件和标题，课程过程材料不动。",
-        "【操作提示｜展示修订后计划，指页面文件、标题、事实和 build 分工】\n\n再看修订后的计划：文件范围是否对得上，事实是否来自资料，验证是否分工明确。这里让它跑 build，浏览器由我们检查。计划如果还有越界，就继续修改，不必急着执行。",
-        "【操作提示｜选 Yes, implement this plan；展示自动切回 Default 与 Implement the plan.，等修改结束；不另发重复确认，也不选清空并执行】\n\n修订确认以后，选 Yes, implement this plan。这次界面自动切回 Default，并发送 Implement the plan.，随后开始修改。"
+        "【操作提示｜在 Proposed Plan 里指改动文件一节】\n\n先看它要改哪些文件：App.tsx、index.css，还有 index.html 的标题。它也写明了说明文档不动、不启动服务。这和 Prompt 里写的范围对得上。",
+        "【操作提示｜指计划里的事实来源与验证分工】\n\n再看事实和验证：内容都从 profile.md 来，不补写；build 由它跑，浏览器由我们看。如果计划越界，就选留在 Plan 里，把要收窄的地方写清楚再看一遍。这次不需要。",
+        "【操作提示｜选 Yes, implement this plan；展示自动切回 Default 与 Implement the plan.，等修改结束；不另发重复确认，也不选清空并执行】\n\n计划审过，选 Yes, implement this plan。界面自动切回 Default，并发送 Implement the plan.，随后开始修改。"
       ],
       "teaching": [
         {
-          "title": "修订原文",
-          "text": "先调整计划，暂不改文件：保持原有风格和单列布局；基本信息并入首屏，姓名用“缪东旭（MiaoDX）”同一行；“现在关注”用原句一行文字，窄屏自然换行；保留“查看项目”跳到 #projects；只改页面所需文件和标题，不改 PROMPT_V1.md 或其他课程过程材料，不新增记录文件。浏览器由我检查，你只做 build 与内容、范围核对，不启动开发或预览服务、不驱动浏览器。请给出修订后的简短计划，等我确认。"
+          "title": "计划越界时",
+          "text": "选 No, stay in Plan mode，写清要收窄的地方，再看一遍修订后的计划。2026-10-23 那次范围没写进 Prompt，计划提出改 PROMPT_V1.md，就是这样修订的；范围写进 Prompt 后，10-24 重跑没有越界（C2-95）。"
         }
       ],
       "source": "index.html#p30",
@@ -181,17 +185,17 @@ window.lesson = {
       "id": "p22",
       "segment": "回看请求",
       "title": "补充一句要求，前面的工作也随请求发出",
-      "lead": "回看这一轮的主任务记录 4、7、14、18。读文件的返回照样追加在末尾，和上一节看到的一样；这里看人补的两句：修订要求发出时，之前的文件返回、交互选择与计划都随之重发；实施时，模式切换指令和 Implement the plan. 也追加在末尾，前面不改。项数仅供定位，不是固定格式。",
-      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>本轮位置</span><span>这次请求里可见的内容</span></div><div data-reveal=\"0\"><span>初始任务</span><span>规则 + Prompt；尚无资料正文</span></div><div data-reveal=\"0\"><span>读过资料</span><span>前面的内容 + 读文件的调用与返回</span></div><div data-reveal=\"1\"><span>补充呈现要求</span><span>已有资料、选择和计划 + 新要求</span></div><div data-reveal=\"2\"><span>确认实施</span><span>前面的历史 + 模式指令 + Implement the plan.，都在末尾</span></div></div>",
+      "lead": "回看这一轮的主任务记录 6、8、14、16。读文件的返回照样追加在末尾，和上一节看到的一样；这里看我们补的两句：回答交互题时，之前读过的资料和代码都随之重发；实施时，模式切换指令和 Implement the plan. 也追加在末尾，前面不改。项数仅供定位，不是固定格式。",
+      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>本轮位置</span><span>这次请求里可见的内容</span></div><div data-reveal=\"0\"><span>初始任务</span><span>规则 + Prompt；尚无资料正文</span></div><div data-reveal=\"0\"><span>读过资料</span><span>前面的内容 + 读文件的调用与返回</span></div><div data-reveal=\"1\"><span>回答交互题</span><span>已读的资料和代码 + 三道题的回答</span></div><div data-reveal=\"2\"><span>确认实施</span><span>前面的历史 + 模式指令 + Implement the plan.，都在末尾</span></div></div>",
       "steps": [
         "任务与资料进入",
-        "追加要求",
+        "回答交互题",
         "进入执行"
       ],
       "script": [
-        "【操作提示｜tap 打开主线记录 4，指规则与任务；再切记录 7，指末尾 profile.md 的调用和返回；隐藏完整开发者指令】\n\n打开最初的任务请求，这里有规则和刚才那段 Prompt。读完 profile.md 以后，资料正文追加在末尾，前面不变，和上一节看到的工具循环一样。",
-        "【操作提示｜切记录 14，末尾定位人的修订要求，再指早先资料和计划】\n\n再跳到我们补充姓名同一行、关注内容用原句的那次请求。前面的任务、资料、交互选择和计划还在，末尾才是新要求。补充一句话能接上前面的工作，是因为这些历史又随请求发了出去。这是另一半答案：同一个对话里接着说，前面的都会跟着发。",
-        "【操作提示｜切记录 18，定位模式切换指令与 Implement the plan.；回课件】\n\n实施计划时，界面加入了模式切换的指令，并发送 Implement the plan.。注意它们也都加在末尾，前面的工作一字不改。为什么要这样加，下一页说。看的是这一轮真实记录，不需要记它有多少项。"
+        "【操作提示｜tap 打开主线记录 6，指规则与任务；再切记录 8，指末尾 profile.md 的调用和返回；隐藏完整开发者指令】\n\n打开最初的任务请求，这里有规则和刚才那段 Prompt。读完 profile.md 以后，资料正文追加在末尾，前面不变，和上一节看到的工具循环一样。",
+        "【操作提示｜切记录 14，末尾定位三道交互题的回答，再指早先的资料与读取】\n\n再跳到我们回答完交互题的那次请求。前面的任务、资料和它读过的代码都还在，末尾才是我们的回答。补充一句话能接上前面的工作，是因为这些历史又随请求发了出去。这是另一半答案：同一个对话里接着说，前面的都会跟着发。",
+        "【操作提示｜切记录 16，定位模式切换指令与 Implement the plan.；回课件】\n\n实施计划时，界面加入了模式切换的指令，并发送 Implement the plan.。注意它们也都加在末尾，前面的工作一字不改。为什么要这样加，下一页说。看的是这一轮真实记录，不需要记它有多少项。"
       ],
       "teaching": [],
       "source": "index.html#p22",
@@ -201,15 +205,21 @@ window.lesson = {
       "id": "p23",
       "segment": "回看请求",
       "title": "输入增长和缓存命中，分开看",
-      "lead": "取同一 Plan 阶段、环境准备故障前的三次请求。输入从 10,451 增到 15,759 token；服务另报告缓存命中。前面的内容原样重发，前缀一致，服务才能复用上一次的计算；命中省的是 token 费用，这些历史仍在 input 里，模型照样要读。实际计费按所用服务规则核对，这里不作价格换算；再用下一页研究看长输入可能带来的表现变化。",
-      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>本轮位置</span><span>本次请求输入</span><span>其中报告为缓存命中</span></div><div data-reveal=\"0\"><span>初始任务</span><span>10,451 token</span><span>189 token</span></div><div data-reveal=\"0\"><span>已读个人资料</span><span>11,821 token</span><span>10,450 token</span></div><div data-reveal=\"0\"><span>初版计划生成前</span><span>15,759 token</span><span>15,109 token</span></div></div><div class=\"p-bar is-light\" data-reveal=\"1\">前缀不变才命中缓存：省 token，不省内容</div><p class=\"source-note\">2026-10-23 一次运行：Codex CLI 0.163.0、MiniMax-M3.1-Flash。单次观察，结果随任务和配置变化。三条都在 Plan 阶段，不是整轮总用量。</p>",
+      "lead": "取同一 Plan 阶段的三次请求。输入从 10,499 增到 17,896 token；服务另报告缓存命中。前面的内容原样重发，前缀一致，服务才能复用上一次的计算；命中省的是 token 费用，这些历史仍在 input 里，模型照样要读。实际计费按所用服务规则核对，这里不作价格换算；再用下一页研究看长输入可能带来的表现变化。",
+      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>本轮位置</span><span>本次请求输入</span><span>其中报告为缓存命中</span></div><div data-reveal=\"0\"><span>初始任务</span><span>10,499 token</span><span>189 token</span></div><div data-reveal=\"0\"><span>已读个人资料</span><span>11,629 token</span><span>10,498 token</span></div><div data-reveal=\"0\"><span>回答交互题以后</span><span>17,896 token</span><span>17,029 token</span></div></div><div class=\"p-bar is-light\" data-reveal=\"1\">前缀不变才命中缓存：省 token，不省内容</div><p class=\"source-note\">2026-10-24 一次运行：Codex CLI 0.163.0、MiniMax-M3.1-Flash。单次观察，结果随任务和配置变化。三条都在 Plan 阶段，不是整轮总用量。</p>",
       "steps": [
         "看输入量",
         "缓存为什么命中"
       ],
       "script": [
         "【操作提示｜指输入列三条数值，不混入模式切换后的记录】\n\n还是这一轮，在它读文件、提问和形成计划的过程中，每次请求的输入已经变多。这里选的是同一 Plan 阶段的三个位置。",
-        "【操作提示｜指缓存列，再指底部一句；页底原文链接可现场打开；不现场换算价格】\n\n另一列是服务返回的缓存命中量。为什么能命中这么多？OpenAI 介绍 Codex 循环的文章里说，缓存只在前缀完全一致时才命中，所以配置有变化时，Codex 追加一条新消息，而不去改前面。刚才切回 Default 的指令也在末尾。命中缓存省的是 token 费用，这些历史仍然在 input 里，模型照样要读。具体换算留到后面的经验分享。这里接着看：信息越来越多，模型能否稳定用好？"
+        "【操作提示｜指缓存列，再指底部一句；页底原文链接可现场打开；不现场换算价格】\n\n另一列是服务返回的缓存命中量。为什么能命中这么多？OpenAI 介绍 Codex 循环的文章里说，缓存只在前缀完全一致时才命中，所以配置有变化时，Codex 追加一条新消息，而不去改前面。命中缓存省的是 token 费用，这些历史仍然在 input 里，模型照样要读。具体换算留到后面的经验分享。这里接着看：信息越来越多，模型能否稳定用好？"
+      ],
+      "teaching": [
+        {
+          "title": "切回 Default 那次",
+          "text": "记录 16（Implement the plan.）缓存只命中 229：前缀没变，但那次请求的推理档位也从 medium 换成了 max；2026-10-23 那次同样只命中 229。原因没有单独验证，口播不讲成“切换后仍命中缓存”。"
+        }
       ],
       "refs": [
         {
@@ -219,7 +229,6 @@ window.lesson = {
           "url": "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/"
         }
       ],
-      "teaching": [],
       "source": "index.html#p23",
       "seconds": 60
     },
@@ -278,7 +287,7 @@ window.lesson = {
       "id": "p27",
       "segment": "压缩与继续",
       "title": "压缩换成摘要，要原文就重新读取",
-      "lead": "在这一轮的会话中手动 /compact，观察已有历史怎样交接，而非窗口已满。本次压缩后原工具调用与返回换成摘要，部分任务与约束保留，项目规则重新装入。摘要没保留 DeepMotion.ai 经历的完整文字：禁止工具时答不出逐字原文，允许重读 profile.md 后正确引用。文件哈希与 tracked diff 均未改变。",
+      "lead": "在这一轮的会话中手动 /compact，观察已有历史怎样交接，而非窗口已满。本次压缩后的请求只有 9 项：基础指令、初始 Prompt、Skills 与团队说明、重新装入的项目规则、Implement the plan.、交接摘要和追问，原来的工具调用与返回都不在了。摘要没保留 DeepMotion.ai 经历的完整文字：禁止工具时答不出逐字原文，允许重读 profile.md 后正确引用。文件哈希与 tracked diff 均未改变。",
       "html": "<div class=\"p-grid\" style=\"--n:2;gap:16px\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><h3>压缩前</h3><p>读文件的原始返回<br>计划、修改与构建过程</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><h3>压缩后</h3><p>摘要承接过程<br>任务约束与重新装入的规则</p></div></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"2\"><h3>本次追问经历原文</h3><p>只凭摘要：无法逐字给出 → 重读 profile.md：找到原文</p></div><div class=\"p-bar is-light\" data-reveal=\"3\">请求里的历史表示变了，项目文件仍可读取</div>",
       "steps": [
         "已有历史",
@@ -290,7 +299,7 @@ window.lesson = {
         "【操作提示｜在这一轮的会话里对照压缩前 profile 返回、计划与构建记录】\n\n项目已经改完，刚才也看过历史怎样积累。现在手动压缩一次，观察它怎样把这段过程交接下去。此时窗口离满还很远。",
         "【操作提示｜展示同一会话 /compact 完成及首次后续请求，指摘要、规则和保留任务】\n\n压缩以后，这次请求里的原始工具调用和输出换成了摘要，任务和约束有部分保留，项目规则也重新放进来。具体摘要留下什么，要实际看。",
         "【操作提示｜展示禁止工具追问的实际回答，再展示允许只读 profile.md 后正确引用第 20 行；省略逐字节检查】\n\n这次摘要记了经历区已完成，却没留下 DeepMotion.ai 这条经历的完整文字。先要求不读文件逐字回答，它说给不出来。现在允许只读 profile.md，原文就通过读取回来了。",
-        "【操作提示｜回课件；说明已核对文件哈希及 diff 不变，不引用有误的 build 末行回答】\n\n压缩改变了当前请求里历史的表示。这次前后核对，资料和页面文件没有变化。接下来要核对事实，就重新读取相应文件。"
+        "【操作提示｜回课件；说明已核对文件哈希及 diff 不变】\n\n压缩改变了当前请求里历史的表示。这次前后核对，资料和页面文件没有变化。接下来要核对事实，就重新读取相应文件。"
       ],
       "teaching": [],
       "source": "index.html#p27",
@@ -300,15 +309,15 @@ window.lesson = {
       "id": "p27b",
       "segment": "压缩与继续",
       "title": "/status：当前占用和累计用量分别看",
-      "lead": "同一恢复会话手动压缩前后，Context window 报告从 31.8K used / 498K 变为 4.23K used / 498K；Token usage 从 60.1K total 变为 86.7K total。累计口径和当前窗口不同，压缩本身也调用模型。这些是本次界面读数，不是整节费用基准。另一次自动压缩实验把触发线调低到 10,000，便于观察任务中途压缩后继续，不能当默认配置。",
-      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>/status</span><span>压缩前</span><span>压缩后</span></div><div data-reveal=\"0\"><span>Context window</span><span>31.8K used / 498K</span><span>4.23K used / 498K</span></div><div data-reveal=\"1\"><span>Token usage</span><span>60.1K total</span><span>86.7K total</span></div></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"2\"><h3>另一次自动压缩实验</h3><p>调低触发线到 10,000 用于演示：中途压缩，任务继续</p></div>",
+      "lead": "同一会话压缩前，Context window 报告 26.3K used / 498K，Token usage 52.5K total；压缩并追问两次以后，分别是 12.2K used 和 86.7K total。累计口径和当前窗口不同，压缩本身也调用模型。这些是本次界面读数，不是整节费用基准。另一次自动压缩实验把触发线调低到 10,000，便于观察任务中途压缩后继续，不能当默认配置。",
+      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>/status</span><span>压缩前</span><span>压缩并追问两次后</span></div><div data-reveal=\"0\"><span>Context window</span><span>26.3K used / 498K</span><span>12.2K used / 498K</span></div><div data-reveal=\"1\"><span>Token usage</span><span>52.5K total</span><span>86.7K total</span></div></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"2\"><h3>另一次自动压缩实验</h3><p>调低触发线到 10,000 用于演示：中途压缩，任务继续</p></div>",
       "steps": [
         "当前窗口",
         "累计用量",
         "自动压缩的独立片段"
       ],
       "script": [
-        "【操作提示｜对照主会话压缩前后 /status，仅指 used 与窗口值】\n\n不装请求查看工具，也能用 /status 看状态。先看 Context window 的 used 数，压缩以后当前占用变小。",
+        "【操作提示｜对照同一会话压缩前、压缩并追问两次后的 /status，仅指 used 与窗口值】\n\n不装请求查看工具，也能用 /status 看状态。先看 Context window 的 used 数，压缩以后当前占用变小。",
         "【操作提示｜指 Token usage，不用取整百分比推算占用，不换算整节费用】\n\nToken usage 是界面报告的累计用量，它还在增加，因为生成摘要本身也调用模型。这两行的口径要分开看。我们刚才是主动观察机制，并没有用满窗口。",
         "【操作提示｜切 2026-10-21 独立自动压缩记录，清楚标调低触发线；回课件】\n\n任务进行中也可能自动压缩。这个深入片段来自另一次实验：为了看清过程，把触发线调低到一万，读文件途中自动压缩后继续完成。画面上的一万是实验设置。你先看懂这个过程即可。"
       ],

@@ -2,9 +2,23 @@
 
 > 状态：2026-10-06 起用于讲师备课。脚本按课件真实运行 Codex，产物是“冻结候选”，不是录制版，也不代表试讲通过。尚未由另一位讲师复现。
 
+> 2026-10-24：`run-v1.sh` 和 `run-2.2.sh` 都是旧流程（`run-2.2.sh` 清空后先问候、没有 `/plan`、压缩后问 build 末行），不再使用。2.2 按 C2-95 改用下面的 PTY 驱动。
+
+## 现行做法：pty/（2026-10-24）
+
+[`pty/`](pty/) 里三个脚本：`driver.py` 用 2.1 的 `demo.sh codex` 启动 Codex 并记录终端输出，`screen.py` 打印当前屏幕，`send.py` 追加要发送的文字、按键或括号粘贴。脚本不自动作答：每一步先看屏幕，再发送，Plan 的交互题和计划确认都由人（或代人的 agent）看过再选。
+
+```bash
+export CH02_DEMO_ROOT=~/course-demos/rerun-2.2-<日期> AGENT_LAB_HOME=~/.local/share/agent-lab-ch02-2.2-<日期> RUN_LOG=$CH02_DEMO_ROOT/logs
+sh courseware/ch02/lessons/01-request/tools/demo.sh prepare
+uv run --with pexpect courseware/ch02/materials/mainline/pty/driver.py "$PWD"   # 另一个终端里用 screen.py / send.py 操作
+```
+
+2.2 的步骤：信任目录 → `/rename ch02-demo` → 2.1 问候 → 2.1 项目问题（括号粘贴）→ 放入 `AGENTS.md` 与 `materials/profile/profile.md` → `/clear` → `/plan` → 粘贴 p29 Prompt → 交互题 → 审 Proposed Plan，不越界选 Yes → `/status` → `/compact` → 禁止工具追问 DeepMotion.ai 原文 → 允许只读 profile.md 再问 → `/status` → `/quit`。原始记录按 lab-runs 的约定归档，例子见 lab-runs `ch02/2.2-20261024/README.md`。
+
 > 2026-10-22：`run-v1.sh` 仍是旧流程（反馈卡、三条讲师经历），新流程用 `run-2.2.sh`，见下一节。
 
-## 新流程：run-2.2.sh（2026-10-22，未运行过）
+## 旧流程：run-2.2.sh（2026-10-22，已过时）
 
 按章文件 C2-55、C2-56、C2-58 跑 2.2 和 2.3 的风格参考，在 tmux 交互界面里驱动 Codex：问候 → 写 `AGENTS.md` → `/clear` → 问候 → 放入讲师的 [`profile.md`](../profile/profile.md) → p29 Prompt → 确认 → `/compact` → 追问 → 提交 homepage-v1 → p40a 风格 Prompt → 确认。两个文件都在对话进行到对应那一步时才放进工作目录，和录制时人在那一步写文件一样；Prompt 从课件 `lesson.js` 读，所以课件改了 Prompt，排练自动跟着变。
 
