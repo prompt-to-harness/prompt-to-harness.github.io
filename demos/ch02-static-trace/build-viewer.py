@@ -16,13 +16,15 @@ args=parser.parse_args()
 raw=args.trace.read_bytes()
 records=json.loads(raw)
 calls=[(r,c) for r in records for c in r['response']['body'].get('output',[])
-       if c.get('type') in ('custom_tool_call','function_call')
-       and 'src/App.tsx' in c.get('input',c.get('arguments',''))]
+       if c.get('type') in ('custom_tool_call','function_call')]
+def returned(cid):
+    return [r for r in records for item in r['request']['body']['input']
+            if item.get('type') in ('custom_tool_call_output','function_call_output') and item.get('call_id')==cid]
+def text_of(item):
+    out=item.get('output','');return '\n'.join(b.get('text','') for b in out) if isinstance(out,list) else str(out)
 candidates={
- 'calls':[{'request':r['request_id'],'call_id':c['call_id'],'input':c.get('input',c.get('arguments',''))} for r,c in calls],
- 'returns':[{'request':r['request_id'],'call_id':item['call_id']} for r in records for item in r['request']['body']['input']
-            if item.get('type') in ('custom_tool_call_output','function_call_output')
-            and any(item.get('call_id')==c['call_id'] for _,c in calls)],
+ 'calls':[{'request':r['request_id'],'call_id':c['call_id'],'input':c.get('input',c.get('arguments',''))[:200],
+           'first_return':(returned(c['call_id']) or [{}])[0].get('request_id')} for r,c in calls],
  'answers':[{'request':r['request_id'],'excerpt':''.join(v.get('text','') for v in c.get('content',[]))[:120]}
             for r in records for c in r['response']['body'].get('output',[]) if c.get('type')=='message'],
 }
@@ -35,21 +37,21 @@ if args.list_candidates:
 if not args.selection.exists():require_confirmation('缺少已确认的依据链')
 selection=json.loads(args.selection.read_text())
 if selection.get('trace_sha256')!=hashlib.sha256(raw).hexdigest():require_confirmation('记录已变化，旧选择不能自动沿用')
-selected=[(r,c) for r,c in calls if r['request_id']==selection.get('call_request') and c['call_id']==selection.get('call_id')]
-if len(selected)!=1:require_confirmation('所选读取调用不存在或不唯一')
-call_record,call=selected[0]
-matching_returns=[r for r in records if r['request_id']==selection.get('return_request')
-                  and any(c.get('call_id')==call['call_id'] and c.get('type') in ('custom_tool_call_output','function_call_output')
-                          for c in r['request']['body']['input'])]
-if len(matching_returns)!=1:require_confirmation('所选返回位置不存在或不唯一')
-result_record=matching_returns[0]
-answers=[r for r in records if r['request_id']==selection.get('answer_request')
-         and any(c.get('type')=='message' for c in r['response']['body'].get('output',[]))]
-if len(answers)!=1:require_confirmation('所选回答不存在或不唯一')
-answer_record=answers[0]
-points={'answer':{'request':answer_record['request_id'],'section':'section_response'},
-        'call':{'request':call_record['request_id'],'section':'section_response'},
-        'result':{'request':result_record['request_id'],'section':'section_messages','callId':call['call_id']}}
+points={}
+for chain in selection['chains']:
+    cid=chain['call_id']
+    if len([1 for r,c in calls if r['request_id']==chain['call_request'] and c['call_id']==cid])!=1:require_confirmation(chain['id']+' 的读取调用不存在或不唯一')
+    ret=[r for r in returned(cid) if r['request_id']==chain['return_request']]
+    if len(ret)!=1:require_confirmation(chain['id']+' 的返回位置不存在或不唯一')
+    item=next(i for i in ret[0]['request']['body']['input'] if i.get('call_id')==cid and i.get('type','').endswith('output'))
+    if chain['return_needle'] not in text_of(item):require_confirmation(chain['id']+' 的返回里找不到依据原文')
+    ans=next((r for r in records if r['request_id']==chain['answer_request']),None)
+    answer=''.join(v.get('text','') for c in (ans or {'response':{'body':{'output':[]}}})['response']['body'].get('output',[]) if c.get('type')=='message' for v in c.get('content',[]))
+    if chain['answer_needle'] not in answer:require_confirmation(chain['id']+' 的回答里找不到引用')
+    k=chain['id']
+    points[k+'-answer']={'request':chain['answer_request'],'section':'section_response','needle':chain['answer_needle']}
+    points[k+'-call']={'request':chain['call_request'],'section':'section_response','callId':cid}
+    points[k+'-result']={'request':chain['return_request'],'section':'section_messages','callId':cid,'needle':chain['return_needle']}
 _generate_html_viewer_from_records([json.dumps(x,ensure_ascii=False) for x in records],root/'trace.html',display_trace_path='trace.json',display_html_path='trace.html')
 s=(root/'trace.html').read_text()
 s=s.replace("let currentLang = safeLocalStorageGet('claude-tap-lang') || detectLang();", "let currentLang = 'zh-CN'; // 此课程样稿默认中文，不改浏览器持久设置")

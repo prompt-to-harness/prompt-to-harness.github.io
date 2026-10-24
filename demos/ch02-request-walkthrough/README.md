@@ -6,13 +6,13 @@
 
 ## 数据与边界
 
-使用前半组已有问候的同一份初始主请求，不重新调用模型。提取时将保存的 JSON 与只读日志中对应请求逐字段核对；原始请求与公开数据指纹见 `source-manifest.json`。
+使用 2026-10-24 重跑交互会话里问候的那一份请求（`courseware/ch02/materials/request/run-20261024/interactive.json` 第 1 条），不重新调用模型。原始记录在私有仓库 prompt-to-harness/lab-runs。
 
 - 六条消息正文、所有文本块、五个顶层工具定义及完整描述均保留，不做教学删节。阅读视图渲染 Markdown、按需折叠；完整原文用原版静态查看器自由核对，JSON 另有入口。
 - API Key 等凭据不得进入公开导出：不导出鉴权请求头，核对正文是否出现凭据。本机项目和 HOME 路径用占位符；排除缓存/会话标识、客户端元数据和响应推理。正常课程指令、工具参数、审批及权限说明均保留。
 - `skill-file-excerpt.json` 来自同一课程 HOME 的实际 skill-creator 文件，绑定 SHA256，保留章节原文片段用于比较。它不是请求的一部分，也不是这次问候已经读取的内容。
 - 初始响应的真实 exec 读文件调用保留；本页讲解工具定义，完整调用链在 p07 使用另一组真实项目问答记录追踪，不混成同一会话。
-- 原始 input_tokens=8651、output_tokens=231，原版侧栏合计 8882；路径替换后的文字不用于重新计算用量。
+- 原始 input_tokens=8709（其中缓存 229）、output_tokens=56；这次的响应直接是文字回答，没有工具调用。路径替换后的文字不用于重新计算用量。
 - 现有素材早于手动命名约定，正式重录仍按本节复现说明核对。
 
 ## 源文件与生成
@@ -24,7 +24,7 @@
 - `reader.template.html`、`build-reader.py`：用禁用 HTML 的 Markdown 渲染生成阅读视图；不执行原文里的 HTML。
 - `viewer-bridge.js`：给原版静态查看器加入教学定位、角色提示和放大通信；不改变原始记录内容。
 - `build-viewer.py`：调用固定 claude-tap 0.1.146 导出静态查看器，生成 `viewer.html` 和 `viewer-manifest.json`，附带 MIT 许可。
-- `extract-private.py`：维护者从仓库外既有记录生成公开数据；只读数据库，不调用模型。源文件参数由维护者在本机提供。
+- `extract-private.py`：从 run-20261024 的公开 JSON 取问候请求，生成 `trace.json` 和 `source-manifest.json`；不调用模型。
 
 重新生成页面（不需要模型服务）：
 

@@ -1,16 +1,18 @@
 {
-  "date": "2026-10-23",
-  "record": "前半组问候的初始主请求（原请求8651输入token）",
-  "original_request_sha256": "63d914258850f7e3a6604475a9d9608d3568bf0be2a222b333ec2d1a866c0dba",
-  "public_trace_sha256": "ca099d9750289d9a70b2fa52c84936c4d85642690fee6325b670969f4f1e8c11",
+  "date": "2026-10-24",
+  "record": "问候的初始主请求（输入 8709 token）",
+  "source": "courseware/ch02/materials/request/run-20261024/interactive.json 第 1 条",
+  "source_sha256": "4f0ce448d46adfa38d3fee902d99702403f045941c8ed1666fdcd9443279f45f",
+  "public_trace_sha256": "34c8b37c79758dfc3ecf4068ed79a5fd0ff6344dd244f29a764f601d542fb246",
   "input_messages": 6,
   "top_level_tools": 5,
-  "input_tokens": 8651,
-  "capture_usage_preserved": true,
+  "input_tokens": 8709,
+  "response_output": [
+    "message"
+  ],
   "notes": [
-    "仅选初始主请求，未并入标题请求和工具返回后的请求。",
-    "角色、文本块位置和本次身份/权限/环境/问候保留；全部消息正文与工具定义完整保留，无教学删节。",
-    "鉴权请求头、缓存及安装/会话标识、推理正文与密文不导出；本机路径按角色替换。",
-    "统计沿用原始API usage，不按路径替换后的文字计算；原响应是读文件工具调用，不是最终回答。"
+    "仅选问候的这一份请求；手动命名后这次没有标题请求。",
+    "全部消息正文与工具定义完整保留，无教学删节；鉴权、缓存与会话标识、推理密文不导出，本机路径按角色替换。",
+    "这次的响应直接是文字回答，没有工具调用。"
   ]
 }
