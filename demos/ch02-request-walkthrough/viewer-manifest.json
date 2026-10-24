@@ -1,19 +1,19 @@
 {
   "public_trace_sha256": "ca099d9750289d9a70b2fa52c84936c4d85642690fee6325b670969f4f1e8c11",
-  "viewer_sha256": "c346e83cdf491a706d44827f36cce5a7f7467eb4834cd925cce372ccf88296c2",
+  "viewer_sha256": "169233d2569fa3e0fc9a61c21df746e3525ebdc4fb149c3967fd7e26bf4e8de4",
   "renderer": "claude-tap 0.1.146",
   "files": {
     "trace.json": "ca099d9750289d9a70b2fa52c84936c4d85642690fee6325b670969f4f1e8c11",
     "source-manifest.json": "8ce4ff593a699e294654264fbe4d1e419fad4692a9af4d9fb0850bab564b00e7",
-    "index.template.html": "1058b25913ce6582f79a2695f3e6b50d2305aecd70ea940c8e2c6139dae8d0a2",
-    "index.html": "25f60475726808d8e8aa81bd9975fc07ac1fcff754cfdc165fac23d8bdec58ec",
-    "script.json": "04b8b26a7439361aa42d8bb5abc01a9d0a9e1baa60073c034df022269c9c4300",
-    "page.js": "5f5e9abf14efdb2617f439acf8fe2e3b2db1b583d5978987b33bbed24fe3fbe7",
-    "viewer-bridge.js": "6228f221233a8ef625e2d4746d468c6027e5326bf4dcba7a9afc7ec5c0637719",
-    "viewer.html": "c346e83cdf491a706d44827f36cce5a7f7467eb4834cd925cce372ccf88296c2",
+    "index.template.html": "c3a6b8f5126a5d21f0eb27ebe19fe8d50c7efdf33abbf6070c8bff72bdea49ac",
+    "index.html": "fad2a60bd310a40b6876e0f809f32742a5e22af6a6c28f6c4ba9bdb7de3f1ee0",
+    "script.json": "661fa9ac42b6e9d5a2aa2e397e01153f930a6e813b7b9663784f3b000e06df55",
+    "page.js": "4c6e3d14d7f579bcd96251f09e2473399346bfa41cdfe9d01ef81f058e2db838",
+    "viewer-bridge.js": "e0927d7205711762b5f60de49e30a76950a79d931652249b5d853b2fc6adef62",
+    "viewer.html": "169233d2569fa3e0fc9a61c21df746e3525ebdc4fb149c3967fd7e26bf4e8de4",
     "reader.template.html": "dce4bcaa9732404485fdc63ee9b247c3b6715dbd2049009285d7e57208f9307b",
-    "reader.html": "13a96e32486ce25b6dca7d805a36d365f4ba61cb667503f1b98e35e599422709",
-    "build-reader.py": "c9c7f3821f0c7994a77d4d2960dc96eff29b0e1c0f71c6a66706b236350644ba",
+    "reader.html": "2dbbac85f7ed918443e0007a993513289d1bd39c189d9001ac182837f9a69292",
+    "build-reader.py": "9f53bd4e55459111b33c95a1dafcac3cc8ad72d12f2ec33ec73a0c965dd87c8f",
     "build-viewer.py": "af5cbfbdb051fd258faa5d0e9802e31d7947e9009da0e36b63db6066501ff586",
     "skill-file-excerpt.json": "f60d6b6853a11e9e437ac138696eb399eaf869340a1b7610afe8c94c1fdbab3e"
   }
