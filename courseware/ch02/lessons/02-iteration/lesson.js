@@ -181,37 +181,43 @@ window.lesson = {
       "id": "p22",
       "segment": "回看请求",
       "title": "补充一句要求，前面的工作也随请求发出",
-      "lead": "回看这一轮的主任务记录 4、7、14、18。初始任务含规则与 Prompt；读取后 profile.md 正文进入工具返回；修订要求前仍保留之前的文件返回、交互选择与计划；实施时再加入模式切换指令和 Implement the plan.。记录 4 的前 6 项与记录 7 前 6 项逐项相同。项数仅供定位，不是固定格式。",
-      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>本轮位置</span><span>这次请求里可见的内容</span></div><div data-reveal=\"0\"><span>初始任务</span><span>规则 + Prompt；尚无资料正文</span></div><div data-reveal=\"1\"><span>读过资料</span><span>前面的内容 + 读文件的调用与返回</span></div><div data-reveal=\"2\"><span>补充呈现要求</span><span>已有资料、选择和计划 + 新要求</span></div><div data-reveal=\"3\"><span>确认实施</span><span>前面的历史 + Implement the plan.</span></div></div>",
+      "lead": "回看这一轮的主任务记录 4、7、14、18。读文件的返回照样追加在末尾，和上一节看到的一样；这里看人补的两句：修订要求发出时，之前的文件返回、交互选择与计划都随之重发；实施时，模式切换指令和 Implement the plan. 也追加在末尾，前面不改。项数仅供定位，不是固定格式。",
+      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>本轮位置</span><span>这次请求里可见的内容</span></div><div data-reveal=\"0\"><span>初始任务</span><span>规则 + Prompt；尚无资料正文</span></div><div data-reveal=\"0\"><span>读过资料</span><span>前面的内容 + 读文件的调用与返回</span></div><div data-reveal=\"1\"><span>补充呈现要求</span><span>已有资料、选择和计划 + 新要求</span></div><div data-reveal=\"2\"><span>确认实施</span><span>前面的历史 + 模式指令 + Implement the plan.，都在末尾</span></div></div>",
       "steps": [
-        "初始任务",
-        "资料进入",
+        "任务与资料进入",
         "追加要求",
         "进入执行"
       ],
       "script": [
-        "【操作提示｜tap 打开主线记录 4，指规则与任务；隐藏完整开发者指令】\n\n打开最初的任务请求。这里有规则和刚才那段 Prompt，我们点名了 profile.md，但正文还没进来。",
-        "【操作提示｜切记录 7，展开 profile.md 调用和返回，对照前 6 项相同】\n\n读取以后，个人资料出现在工具返回里。前面的内容仍在，文件正文是在这一步加入的。",
+        "【操作提示｜tap 打开主线记录 4，指规则与任务；再切记录 7，指末尾 profile.md 的调用和返回；隐藏完整开发者指令】\n\n打开最初的任务请求，这里有规则和刚才那段 Prompt。读完 profile.md 以后，资料正文追加在末尾，前面不变，和上一节看到的工具循环一样。",
         "【操作提示｜切记录 14，末尾定位人的修订要求，再指早先资料和计划】\n\n再跳到我们补充姓名同一行、关注内容用原句的那次请求。前面的任务、资料、交互选择和计划还在，末尾才是新要求。补充一句话能接上前面的工作，是因为这些历史又随请求发了出去。这是另一半答案：同一个对话里接着说，前面的都会跟着发。",
-        "【操作提示｜切记录 18，定位模式切换与 Implement the plan.；回课件】\n\n实施计划时，界面加入了模式切换的指令，并发送 Implement the plan.。前面的工作仍保留在输入里。看的是这一轮真实记录，不需要记它有多少项。"
+        "【操作提示｜切记录 18，定位模式切换指令与 Implement the plan.；回课件】\n\n实施计划时，界面加入了模式切换的指令，并发送 Implement the plan.。注意它们也都加在末尾，前面的工作一字不改。为什么要这样加，下一页说。看的是这一轮真实记录，不需要记它有多少项。"
       ],
       "teaching": [],
       "source": "index.html#p22",
-      "seconds": 120
+      "seconds": 90
     },
     {
       "id": "p23",
       "segment": "回看请求",
       "title": "输入增长和缓存命中，分开看",
-      "lead": "取同一 Plan 阶段、环境准备故障前的三次请求。输入从 10,451 增到 15,759 token；服务另报告缓存命中。缓存命中不表示这些历史从 input 消失。实际计费按所用服务规则核对，这里不作价格换算；再用下一页研究看长输入可能带来的表现变化。",
-      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>本轮位置</span><span>本次请求输入</span><span>其中报告为缓存命中</span></div><div data-reveal=\"0\"><span>初始任务</span><span>10,451 token</span><span>189 token</span></div><div data-reveal=\"0\"><span>已读个人资料</span><span>11,821 token</span><span>10,450 token</span></div><div data-reveal=\"0\"><span>初版计划生成前</span><span>15,759 token</span><span>15,109 token</span></div></div><div class=\"p-bar is-light\" data-reveal=\"1\">缓存命中后，历史仍在 input 中</div><p class=\"source-note\">2026-10-23 一次运行：Codex CLI 0.163.0、MiniMax-M3.1-Flash。单次观察，结果随任务和配置变化。三条都在 Plan 阶段，不是整轮总用量。</p>",
+      "lead": "取同一 Plan 阶段、环境准备故障前的三次请求。输入从 10,451 增到 15,759 token；服务另报告缓存命中。前面的内容原样重发，前缀一致，服务才能复用上一次的计算；命中省的是 token 费用，这些历史仍在 input 里，模型照样要读。实际计费按所用服务规则核对，这里不作价格换算；再用下一页研究看长输入可能带来的表现变化。",
+      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>本轮位置</span><span>本次请求输入</span><span>其中报告为缓存命中</span></div><div data-reveal=\"0\"><span>初始任务</span><span>10,451 token</span><span>189 token</span></div><div data-reveal=\"0\"><span>已读个人资料</span><span>11,821 token</span><span>10,450 token</span></div><div data-reveal=\"0\"><span>初版计划生成前</span><span>15,759 token</span><span>15,109 token</span></div></div><div class=\"p-bar is-light\" data-reveal=\"1\">前缀不变才命中缓存：省 token，不省内容</div><p class=\"source-note\">2026-10-23 一次运行：Codex CLI 0.163.0、MiniMax-M3.1-Flash。单次观察，结果随任务和配置变化。三条都在 Plan 阶段，不是整轮总用量。</p>",
       "steps": [
         "看输入量",
-        "再看缓存"
+        "缓存为什么命中"
       ],
       "script": [
         "【操作提示｜指输入列三条数值，不混入模式切换后的记录】\n\n还是这一轮，在它读文件、提问和形成计划的过程中，每次请求的输入已经变多。这里选的是同一 Plan 阶段的三个位置。",
-        "【操作提示｜指缓存列后回看 input；不现场换算价格】\n\n另一列是服务返回的缓存命中量。命中了，历史仍然在 input 里；刚才已经实际看过。计费按所用服务的规则计算，具体换算留到后面的经验分享。这里接着看：信息越来越多，模型能否稳定用好？"
+        "【操作提示｜指缓存列，再指底部一句；页底原文链接可现场打开；不现场换算价格】\n\n另一列是服务返回的缓存命中量。为什么能命中这么多？OpenAI 介绍 Codex 循环的文章里说，缓存只在前缀完全一致时才命中，所以配置有变化时，Codex 追加一条新消息，而不去改前面。刚才切回 Default 的指令也在末尾。命中缓存省的是 token 费用，这些历史仍然在 input 里，模型照样要读。具体换算留到后面的经验分享。这里接着看：信息越来越多，模型能否稳定用好？"
+      ],
+      "refs": [
+        {
+          "kind": "live",
+          "group": "OpenAI，2026-01-23",
+          "text": "深入解析 Codex 智能体循环 · 提示缓存",
+          "url": "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/"
+        }
       ],
       "teaching": [],
       "source": "index.html#p23",
@@ -382,7 +388,7 @@ window.lesson = {
     },
     {
       "label": "回看请求",
-      "seconds": 300
+      "seconds": 270
     },
     {
       "label": "压缩与继续",

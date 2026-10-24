@@ -121,18 +121,19 @@ scene(
     id='p22',
     segment='回看请求',
     title='补充一句要求，前面的工作也随请求发出',
-    lead='回看这一轮的主任务记录 4、7、14、18。初始任务含规则与 Prompt；读取后 profile.md 正文进入工具返回；修订要求前仍保留之前的文件返回、交互选择与计划；实施时再加入模式切换指令和 Implement the plan.。记录 4 的前 6 项与记录 7 前 6 项逐项相同。项数仅供定位，不是固定格式。',
-    html='<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)"><div class="is-head" data-reveal="0"><span>本轮位置</span><span>这次请求里可见的内容</span></div><div data-reveal="0"><span>初始任务</span><span>规则 + Prompt；尚无资料正文</span></div><div data-reveal="1"><span>读过资料</span><span>前面的内容 + 读文件的调用与返回</span></div><div data-reveal="2"><span>补充呈现要求</span><span>已有资料、选择和计划 + 新要求</span></div><div data-reveal="3"><span>确认实施</span><span>前面的历史 + Implement the plan.</span></div></div>',
-    steps=['初始任务', '资料进入', '追加要求', '进入执行'],
+    lead='回看这一轮的主任务记录 4、7、14、18。读文件的返回照样追加在末尾，和上一节看到的一样；这里看人补的两句：修订要求发出时，之前的文件返回、交互选择与计划都随之重发；实施时，模式切换指令和 Implement the plan. 也追加在末尾，前面不改。项数仅供定位，不是固定格式。',
+    html='<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)"><div class="is-head" data-reveal="0"><span>本轮位置</span><span>这次请求里可见的内容</span></div><div data-reveal="0"><span>初始任务</span><span>规则 + Prompt；尚无资料正文</span></div><div data-reveal="0"><span>读过资料</span><span>前面的内容 + 读文件的调用与返回</span></div><div data-reveal="1"><span>补充呈现要求</span><span>已有资料、选择和计划 + 新要求</span></div><div data-reveal="2"><span>确认实施</span><span>前面的历史 + 模式指令 + Implement the plan.，都在末尾</span></div></div>',
+    steps=['任务与资料进入', '追加要求', '进入执行'],
 )
 
 scene(
     id='p23',
     segment='回看请求',
     title='输入增长和缓存命中，分开看',
-    lead='取同一 Plan 阶段、环境准备故障前的三次请求。输入从 10,451 增到 15,759 token；服务另报告缓存命中。缓存命中不表示这些历史从 input 消失。实际计费按所用服务规则核对，这里不作价格换算；再用下一页研究看长输入可能带来的表现变化。',
-    html='<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)"><div class="is-head" data-reveal="0"><span>本轮位置</span><span>本次请求输入</span><span>其中报告为缓存命中</span></div><div data-reveal="0"><span>初始任务</span><span>10,451 token</span><span>189 token</span></div><div data-reveal="0"><span>已读个人资料</span><span>11,821 token</span><span>10,450 token</span></div><div data-reveal="0"><span>初版计划生成前</span><span>15,759 token</span><span>15,109 token</span></div></div><div class="p-bar is-light" data-reveal="1">缓存命中后，历史仍在 input 中</div><p class="source-note">2026-10-23 一次运行：Codex CLI 0.163.0、MiniMax-M3.1-Flash。单次观察，结果随任务和配置变化。三条都在 Plan 阶段，不是整轮总用量。</p>',
-    steps=['看输入量', '再看缓存'],
+    lead='取同一 Plan 阶段、环境准备故障前的三次请求。输入从 10,451 增到 15,759 token；服务另报告缓存命中。前面的内容原样重发，前缀一致，服务才能复用上一次的计算；命中省的是 token 费用，这些历史仍在 input 里，模型照样要读。实际计费按所用服务规则核对，这里不作价格换算；再用下一页研究看长输入可能带来的表现变化。',
+    html='<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)"><div class="is-head" data-reveal="0"><span>本轮位置</span><span>本次请求输入</span><span>其中报告为缓存命中</span></div><div data-reveal="0"><span>初始任务</span><span>10,451 token</span><span>189 token</span></div><div data-reveal="0"><span>已读个人资料</span><span>11,821 token</span><span>10,450 token</span></div><div data-reveal="0"><span>初版计划生成前</span><span>15,759 token</span><span>15,109 token</span></div></div><div class="p-bar is-light" data-reveal="1">前缀不变才命中缓存：省 token，不省内容</div><p class="source-note">2026-10-23 一次运行：Codex CLI 0.163.0、MiniMax-M3.1-Flash。单次观察，结果随任务和配置变化。三条都在 Plan 阶段，不是整轮总用量。</p>',
+    steps=['看输入量', '缓存为什么命中'],
+    refs=[ref("深入解析 Codex 智能体循环 · 提示缓存", "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/", "OpenAI，2026-01-23")],
 )
 
 scene(
