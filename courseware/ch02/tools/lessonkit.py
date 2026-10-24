@@ -41,6 +41,25 @@ def ref(text, url, group="", kind="live"):
 
 EXTERNAL = Path(__file__).resolve().parents[1] / "materials/external"
 
+# 嵌入课件的 claude-tap 查看器加载时会对选中的记录调用 scrollIntoView，连带滚动外层课件页（阅读模式打开某页会跳走）。
+# 嵌入时改成只滚动查看器里最近的可滚动容器；单独打开时不变。2.1、2.2 生成 viewer.html 时都插到 <head> 后。
+VIEWER_KEEP_PARENT = """<script>
+if (window !== parent) Element.prototype.scrollIntoView = function (opts) {
+  let p = this.parentElement;
+  while (p && !(p.scrollHeight > p.clientHeight && /(auto|scroll)/.test(getComputedStyle(p).overflowY))) p = p.parentElement;
+  if (!p) return;
+  const r = this.getBoundingClientRect(), b = p.getBoundingClientRect();
+  if (opts && opts.block === 'center') p.scrollTop += r.top - b.top - (b.height - r.height) / 2;
+  else if (r.top < b.top) p.scrollTop += r.top - b.top;
+  else if (r.bottom > b.bottom) p.scrollTop += r.bottom - b.bottom;
+};
+</script>"""
+
+
+def keep_scroll_inside(html):
+    assert "<head>" in html and VIEWER_KEEP_PARENT not in html
+    return html.replace("<head>", "<head>" + VIEWER_KEEP_PARENT, 1)
+
 
 def shot(src, bar, alt, height=440, note="", reveal=0):
     """证据页（layout="evidence-scene"）里的外部截图：顶栏 bar 写“站点 · 作者 · 日期”，图片放在本节 external/。

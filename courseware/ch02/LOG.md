@@ -639,3 +639,23 @@ ChatGPT 登录下的网页工具是 `web.run`（`ext/web-search/src/`）：由 C
 | 口播长度 | `script.json` 去掉操作提示后统计 | 约 4,800 字，按 600 字 3–4 分钟估约 24–32 分钟；未试读计时 |
 
 未检查：讲师人像框与字幕区的实录效果、Safari/Firefox、录制当天的现场运行（数字会变）。
+
+## 2026-10-24：2.2 单一 Plan 重跑（原始记录留存）
+
+按 C2-95 重跑。条件：course-starter ch02-start-v1（8e9a323）用 2.1 的 `demo.sh prepare` 新克隆到 `~/course-demos/rerun-2.2-20261024/`；Codex CLI 0.163.0；Agent Lab 从 main 运行；MiniMax-M3.1-Flash、能力目录开；claude-tap 0.1.146；全新 AGENT_LAB_HOME；冻结的 profile.md（C2-94）。驱动是 `materials/mainline/pty/` 的 PTY 脚本，每一步先看屏幕再发送。
+
+- 同一会话：`/rename ch02-demo` → 2.1 问候（1 次请求）→ 2.1 项目问题（4 次请求）→ 放入 AGENTS.md、profile.md → `/clear` → `/plan`（界面提示 Plan 用 medium）→ p29 Prompt。清空后的第一个任务请求 6 项，有 AGENTS.md，没有 2.1 的问答。
+- Plan：读资料和代码（其间它自己写的读取脚本引号转义出错，返回 SyntaxError，换写法重读）→ 三道交互题都选推荐项（首屏按钮改“查看经历”、四个独立分区、“现在关注”首屏一行标签）→ Proposed Plan 只改 src/App.tsx、src/index.css、index.html 的 title，写明不动说明文档、不启动服务，没有越界，直接接受。Plan 阶段约 9.7 分钟（含答题），实施约 1 分钟，build 通过。
+- 切回 Default 的 Implement 请求缓存只命中 229（前缀不变，推理档位由 medium 变 max）；10-23 那次同样只命中 229。原因没有单独验证。
+- `/status` 压缩前 26.3K used / 498K、52.5K total；`/compact` 11 秒；压缩后的请求 9 项，没有工具返回，AGENTS.md 重新装入，SyntaxError 也不在了。禁止工具追问 DeepMotion.ai 原文，答“不能逐字给出”；允许只读 profile.md 后引用第 20 行。追问两次后 `/status` 12.2K used、86.7K total；压缩后没有单独看一次 `/status`。
+- 结束时文件哈希与 diff 未变；`vite preview` 下 1280、360 宽整页截图，360 宽无横向溢出。
+- 事故：等待脚本把 Plan 交互题画面当成“仍在运行”，空等了约 8 分钟，没有误按键。已改成遇到交互题就停下。
+- 原始记录（sqlite 备份、解码后的完整 JSONL、Codex 会话、终端输出、驱动脚本、截图、结束时的项目文件）在私有仓库 prompt-to-harness/lab-runs 的 `ch02/2.2-20261024/`，Authorization 头已替换，Key 片段 grep 无命中。公开数据在 [materials/iteration/run-20261024](materials/iteration/run-20261024/README.md)。
+
+## 2026-10-24：2.2 制作复查（17 页版，10-24 数据）
+
+制作者自查，未试讲、未录制，不代表教学效果已验证。
+
+- p22、p24、p27 嵌入静态记录，11 个定位点都在记录里找到原文；无头浏览器在 390、1280 宽下验证：阅读模式打开 `#p22` 不跳页、查看器只在需要时加载、点按钮能定位、演示模式翻步跟着切，无脚本错误。
+- 查看器加载时 `scrollIntoView` 会连带滚动外层页面（2.1 阅读模式打开 `#p16a` 会跳回 p07 附近），改为嵌入时只滚动查看器内部（`tools/lessonkit.py` 的 `keep_scroll_inside`），2.1 的 trace、request 两份查看器一起修；2.1 的 p08a、p09、p07、p16a、p14a、p18 复测不跳。
+- `make check` 通过。没有出声计时、试讲，也没有在 Safari、Firefox 上看。

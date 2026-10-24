@@ -2,13 +2,15 @@
 从 2.2 的公开记录生成自包含静态查看器 viewer.html（claude-tap 0.1.146 渲染，不调用模型，不提交）。
 定位点写在 selection.json：每个点要在指定记录里找到原文，否则停下，不默默沿用；记录指纹变化也停下。
 适配层沿用 2.1 已核验的 demos/ch02-static-trace/viewer-bridge.js。"""
-import hashlib, json, re
+import hashlib, json, re, sys
 from importlib.metadata import distribution, version
 from pathlib import Path
 from claude_tap.viewer import _generate_html_viewer_from_records
 
 here = Path(__file__).resolve().parent
 repo = here.parents[4]
+sys.path.insert(0, str(repo / 'courseware/ch02/tools'))
+from lessonkit import keep_scroll_inside
 assert version('claude-tap') == '0.1.146'
 sel = json.loads((here / 'selection.json').read_text())
 raw = (repo / sel['source']).read_bytes()
@@ -31,19 +33,7 @@ ordered = [json.dumps(r, ensure_ascii=False) for r in json.loads(raw)]
 _generate_html_viewer_from_records(ordered, here / 'viewer.html', display_trace_path='trace.json', display_html_path='viewer.html')
 s = (here / 'viewer.html').read_text()
 s = s.replace("let currentLang = safeLocalStorageGet('claude-tap-lang') || detectLang();", "let currentLang = 'zh-CN'; // 课程默认中文，不改浏览器持久设置")
-# 嵌入时 scrollIntoView 会连带滚动外层课件页：只滚动查看器里最近的可滚动容器
-KEEP_PARENT = """<script>
-if (window !== parent) Element.prototype.scrollIntoView = function (opts) {
-  let p = this.parentElement;
-  while (p && !(p.scrollHeight > p.clientHeight && /(auto|scroll)/.test(getComputedStyle(p).overflowY))) p = p.parentElement;
-  if (!p) return;
-  const r = this.getBoundingClientRect(), b = p.getBoundingClientRect();
-  if (opts && opts.block === 'center') p.scrollTop += r.top - b.top - (b.height - r.height) / 2;
-  else if (r.top < b.top) p.scrollTop += r.top - b.top;
-  else if (r.bottom > b.bottom) p.scrollTop += r.bottom - b.bottom;
-};
-</script>"""
-s = s.replace('<head>', '<head>' + KEEP_PARENT, 1)
+s = keep_scroll_inside(s)  # 嵌入时不连带滚动外层课件页，见 lessonkit
 bridge = (repo / 'demos/ch02-static-trace/viewer-bridge.js').read_text().replace('__COURSE_GUIDE_POINTS__', json.dumps(points, ensure_ascii=False))
 s = s.replace('</body>', '<script>\n' + bridge + '\n</script>\n</body>')
 # 与 2.1 相同：生成的供应商脚本里把中文写成等价转义，页面文字不变

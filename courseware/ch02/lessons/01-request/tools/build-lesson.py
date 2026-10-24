@@ -9,7 +9,7 @@ from html import escape
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from lessonkit import Lesson, NARROW, anchor, chapter_map, redrawn, ref, repro, shot, teach  # noqa: E402
+from lessonkit import Lesson, NARROW, anchor, chapter_map, keep_scroll_inside, redrawn, ref, repro, shot, teach  # noqa: E402
 
 # 落后时进入第 2 章的追赶 Prompt：与 materials/catchup 的实验同一份，代入真实的参考起点
 CATCHUP_PROMPT = (Path(__file__).resolve().parents[3] / "materials/catchup/prompt-ch02.txt").read_text().strip() \
@@ -46,7 +46,7 @@ def publish_static_trace():
     assert manifest["selection"] == json.loads((TRACE_SOURCE / "selection.json").read_text()), "依据链选择已变化：请先重建静态查看器"
     target = lesson.here / "trace"
     target.mkdir(exist_ok=True)
-    raw = (TRACE_SOURCE / "trace.html").read_text()
+    raw = keep_scroll_inside((TRACE_SOURCE / "trace.html").read_text())
     # Unicode escaping keeps bundled data equivalent while the native viewer owns its fonts.
     # Authoring sources remain UTF-8; this is only the generated vendor payload serialization.
     def script_ascii(match):
@@ -456,6 +456,8 @@ def publish_request_walkthrough():
         if name=="index.html":
             text=text.replace("../../courseware/shared/","../../../../shared/").replace("../../courseware/ch02/lessons/01-request/index.html","../index.html")
             text=re.sub(r'<details><summary>本页讲解与前后衔接</summary>[\s\S]*?</details>','',text)
+        if name=="viewer.html":
+            text=keep_scroll_inside(text)
         if name.endswith(".html"):
             def encode_script(m):return m[1]+re.sub(r'[\u4e00-\u9fff]',lambda x:'\\u%04x'%ord(x[0]),m[2])+m[3]
             text=re.sub(r'(<script\b[^>]*>)([\s\S]*?)(</script>)',encode_script,text)
