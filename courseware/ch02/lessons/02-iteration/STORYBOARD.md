@@ -5,9 +5,9 @@
 ## 素材状态
 
 - 采用 2026-10-23 成对运行中的 Plan 那一份，全节沿这份成果；普通模式那一份只存档，课件不用（C2-92）。
-- 固定条件：CLI 0.163.0、MiniMax-M3.1-Flash；Plan 阶段 medium，确认后 Default/max。起点 ch02-start-v1；人写 profile.md、AGENTS.md，先保存再 /clear。原始记录在本机忽略目录 lab-runs/ch02-context/2.2-plan-pair-20261023-2020/。
+- 固定条件：CLI 0.163.0、MiniMax-M3.1-Flash；Plan 阶段 medium，确认后 Default/max。起点 ch02-start-v1；人写 profile.md、AGENTS.md，先保存再 /clear。Agent Lab 用固定提交 691d15c，tools/agent-lab 与 main 内容一致。原始记录在私有仓库 prompt-to-harness/lab-runs 的 `ch02/2.2-20261023/`（`plan/` 含主任务与压缩后续，`normal/` 只存档）。
 - p22、p23 为该份 Plan 的实际请求；p23 只取 Plan 阶段故障前记录 4、7、12。p31 的 assets/plan-homepage.png 是该份真实完成页面，无账号界面或本机路径。
-- p27、p27b 的手动压缩及状态来自同一选定会话的后续核验；原始记录在 lab-runs/ch02-context/2.2-plan-followup-20261023/。p24 为另一次独立运行的 EPERM；自动压缩为 2026-10-21 调低阈值到 10,000 的独立实验，两者均明确标识，不能拼入主线 token 数列。
+- p27、p27b 的手动压缩及状态来自同一选定会话的后续核验；原始记录同在 `ch02/2.2-20261023/plan/`。p24 为另一次独立运行的 EPERM；自动压缩为 2026-10-21 调低阈值到 10,000 的独立实验，两者均明确标识，不能拼入主线 token 数列。
 - 运行中曾出现依赖副本准备错误，修复后继续；后续压缩记录也继承这些准备与恢复历史。它们是实际备课证据，不包装为一次无故障录制。正式录制先按正常流程安装依赖，再按当天输出替换实例；不要求复现同样问题、摘要或耗时。
 - [个人资料](../../materials/profile/README.md)仍待讲师最终冻结。本节已同步分镜、页面与口播，展示检查见制作记录；尚未出声计时、试讲或由另一位讲师复现。
 
