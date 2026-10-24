@@ -105,7 +105,7 @@
 - Agent loop 图：用户输入 → 模型推理 → 工具调用回到推理，或给出回答；多轮版在前面加了组装对话历史。
 - Snapshot 2：上半为第 1 次请求的全部 input，下半为第 2 次调用新增的 reasoning、function_call、function_call_output；正文说旧提示是新提示的精确前缀，以便利用提示缓存。图例只有 System、Developer、User 三种角色。
 - Snapshot 3：内循环结束后接 assistant 的最终回答，再接下一轮 user 消息。
-- 和本课记录的出入：本次 MiniMax 记录里工具轮次新增的是 custom_tool_call 与 custom_tool_call_output 两条，没有单独的 reasoning 条目；也没有 system 角色。重画图因此不抄字段名、图例不用 System。
+- 和本课记录的出入（2026-10-24 更正）：原先写“本次 MiniMax 记录里每轮只新增调用和返回两条、没有 reasoning”，是看了删掉推理的 10-23 公开记录得出的，不成立。10-24 重跑的原始记录里每轮追加 reasoning、custom_tool_call、custom_tool_call_output 三条，与 Snapshot 2 一致。本次记录没有 system 角色，重画图图例仍不用 System。
 
 ### Anthropic《Building effective agents》自主 agent 图（已核实，备用）
 
