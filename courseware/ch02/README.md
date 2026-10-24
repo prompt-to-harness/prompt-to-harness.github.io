@@ -110,7 +110,7 @@
 
 | 节 | 分镜 | 课件 |
 | --- | --- | --- |
-| 2.1 | [STORYBOARD](lessons/01-request/STORYBOARD.md) | [课件](lessons/01-request/index.html) · [讲稿](lessons/01-request/speaker.html) · [验证记录](lessons/01-request/VALIDATION.md) |
+| 2.1 | [STORYBOARD](lessons/01-request/STORYBOARD.md) | [课件](lessons/01-request/index.html) · [讲稿](lessons/01-request/speaker.html) |
 | 2.2 | [STORYBOARD](lessons/02-iteration/STORYBOARD.md) | [课件](lessons/02-iteration/index.html) · [讲稿](lessons/02-iteration/speaker.html) |
 | 2.3 | [STORYBOARD](lessons/03-review/STORYBOARD.md) | [课件](lessons/03-review/index.html) · [讲稿](lessons/03-review/speaker.html) |
 | 2.4 | [STORYBOARD](lessons/04-publish/STORYBOARD.md) | [课件](lessons/04-publish/index.html) · [讲稿](lessons/04-publish/speaker.html) |
