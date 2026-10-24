@@ -120,3 +120,25 @@
 - **《深入解析 Codex 智能体循环》**（2026-01-23，已核实）：角色按优先级为 system、developer、user、assistant；当时基础指令放在顶层 `instructions` 字段，权限说明用 developer，AGENTS.md 用 user。这描述的是 2026 年 1 月的实现。
 - **Codex PR #51156**（[原文](https://github.com/openai/codex/pull/51156)，“Send base instructions as Responses input messages”，2026-10-05 合并，已核实）：基础指令从顶层 `instructions` 移到 input 最前面的 developer 消息，请求类型去掉该字段。首个包含它的正式版是 0.162.0（按 release notes，克隆为浅克隆，未用 git 复核 tag 包含关系）。rust-v0.163.0 源码 `core/src/client.rs` 的请求构造无条件插入 developer 基础指令，`codex-api/src/common.rs` 的 `ResponsesApiRequest` 只有 input 与 tools，已核实。
 - **和课件的出入**：p16b 现用的重画图（据 1 月文章）第一行仍是 `instructions`，与当前记录不符；页面同步时改为 developer 基础指令或加注“文章写于 2026-01，当前版本已改”。MiniMax 服务端是否另加 system 层未核实。
+
+## 2.2 补充（2026-10-24）
+
+### OpenAI《深入解析 Codex 智能体循环》：多轮、缓存与压缩（已核实）
+
+- 中文版在内置浏览器打开，未出现人工验证。
+- 多轮：用户回应时，上一轮的助手消息和用户的新消息都追加到 input，开始新一轮；Snapshot 3（Starting a new turn）画的是这个，例句是用户补的一句修改意见。另有 Multi-turn agent loop 图（组装对话历史 → 最新用户输入 → 推理 → 回答或工具调用）。
+- 缓存：引用自家提示缓存文档，命中要求精确前缀匹配，静态内容放前、可变内容放后；会导致未命中的操作：中途改 tools、换模型、改沙盒配置、审批模式或工作目录；配置变化尽量追加新消息。
+- 压缩：Token 总数超过阈值时用一个新的、更小的项目列表替换 input。早期 `/compact` 用现有对话加摘要指令请求模型，把含摘要的助手消息作为新的 input；后来用 `/responses/compact`，返回含 `type=compaction`、不透明 `encrypted_content` 的列表；超过 `auto_compact_limit` 自动压缩。
+- 和本课记录的出入：本课 MiniMax 下压缩后的记录 28 是明文 Handoff Summary，另保留初始 Prompt、Implement the plan.、重新装入的 AGENTS.md，更像文章说的早期做法；没有核实 Codex 对非 OpenAI provider 走哪条路径，不下结论。
+
+### Manus 中文版（已核实，有官方中文版）
+
+- [中文版](https://manus.im/zh-cn/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus)，英文地址会跳到中文版；2025-07-18，季逸超。
+- 围绕 KV 缓存：输入输出比约 100:1；保持前缀稳定、上下文只追加、序列化要确定；配图左右对照未命中与命中。
+- 保留错误的内容：擦除失败会移除证据，没有证据模型就无法适应；把失败的尝试留在上下文里，模型会降低重复同样错误的可能。配图：失败的 2A 留着，再做 2B 成功。
+- 使用文件系统作为上下文：长输入即使有前缀缓存也要为每个 token 付费；压缩策略始终设计为可恢复的，保留 URL 或路径即可省略内容。配图：大段观察换成指向文件的引用。
+- 通过复述操控注意力（todo.md）一节的图与 2.2 无关，没有保存。
+
+### Codex AGENTS.md 文档（2026-10-24 复核）
+
+- 现地址 https://learn.chatgpt.com/docs/agent-configuration/agents-md （原 developers.openai.com 跳转）。原文：Codex 启动时构建指令链，once per run；TUI 里通常是每个会话一次；指令看起来过期就重启 Codex。没有提到 `/clear`。

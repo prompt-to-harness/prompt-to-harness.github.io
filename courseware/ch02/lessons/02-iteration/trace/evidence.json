@@ -1,7 +1,7 @@
 {
   "source": "courseware/ch02/materials/iteration/run-20261024/trace.json",
   "trace_sha256": "04e4c58488ea16bfed2f60e62ac1b4e28b3390ed9dc79f6c29a80564ff8dca58",
-  "basis": "2026-10-24 单一 Plan 重跑（C2-95）；定位点按 2.2 分镜 p22、p24、p27 的讲述顺序选取，记录变化时重新核对。",
+  "basis": "2026-10-24 单一 Plan 重跑（C2-95）；定位点按 2.2 分镜 p22、p27 的讲述顺序选取，记录变化时重新核对。",
   "confirmed_on": "2026-10-24",
   "viewer": "trace/viewer.html",
   "note": "本次真实记录",
@@ -12,11 +12,6 @@
       "p22-profile-result",
       "p22-answers-msg",
       "p22-implement-msg"
-    ],
-    "p24": [
-      "p24-fail-result",
-      "p24-retry-call",
-      "p24-later-msg"
     ],
     "p27": [
       "p27-before-msg",
@@ -134,65 +129,14 @@
       ]
     },
     {
-      "key": "p24-fail-result",
-      "label": "脚本报错的返回",
-      "request": "session-10",
-      "section": "section_messages",
-      "callId": "call_hZM9ONNTL3immYe2DBBOn7lc",
-      "needle": "SyntaxError: Invalid or unexpected token",
-      "button": "脚本报错",
-      "hint": "它写的读取脚本返回 SyntaxError",
-      "reading": [
-        {
-          "title": "失败的工具返回 · 原文",
-          "from": {
-            "result": "call_hZM9ONNTL3immYe2DBBOn7lc"
-          }
-        }
-      ]
-    },
-    {
-      "key": "p24-retry-call",
-      "label": "换一种写法再读",
-      "request": "session-10",
-      "section": "section_response",
-      "button": "换写法再读",
-      "hint": "下一步它换了一种写法",
-      "reading": [
-        {
-          "title": "模型重新发出的读取调用 · 原文",
-          "from": {
-            "response": "custom_tool_call"
-          }
-        }
-      ]
-    },
-    {
-      "key": "p24-later-msg",
-      "label": "压缩前最后一次请求里仍在",
-      "request": "session-25",
-      "section": "section_messages",
-      "needle": "SyntaxError: Invalid or unexpected token",
-      "button": "之后一直都在",
-      "hint": "压缩前最后一次请求里仍有这条报错",
-      "reading": [
-        {
-          "title": "压缩前请求中仍保留的失败返回 · 原文",
-          "from": {
-            "result": "call_hZM9ONNTL3immYe2DBBOn7lc"
-          }
-        }
-      ]
-    },
-    {
       "key": "p27-before-msg",
-      "label": "压缩前：资料原文还在历史里",
+      "label": "压缩前：资料原文和那条报错都还在历史里",
       "request": "session-25",
       "section": "section_messages",
       "callId": "call_GlF1WzfIQfTLFByMRr7sAUHq",
       "needle": "2019.03–2021.07　DeepMotion.ai",
       "button": "压缩前的历史",
-      "hint": "资料原文还在工具返回里",
+      "hint": "资料原文和 SyntaxError 都还在",
       "reading": [
         {
           "title": "压缩前的资料返回 · 原文节选",
@@ -202,6 +146,12 @@
           "lines": [
             "DeepMotion.ai"
           ]
+        },
+        {
+          "title": "压缩前仍保留的失败返回 · 原文",
+          "from": {
+            "result": "call_hZM9ONNTL3immYe2DBBOn7lc"
+          }
         }
       ]
     },
