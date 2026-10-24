@@ -32,7 +32,7 @@ scene(
         '<div class="p-box" data-role="ok" data-reveal="1"><span class="p-tag" data-role="ok">先</span><p class="p-big" style="font-weight:500">看范围和出处，提交 homepage-v1</p></div>'
         '<div class="p-join" data-reveal="2"><span>再</span><i class="p-arrow"></i></div>'
         '<div class="p-box" data-role="us" data-reveal="2"><span class="p-tag" data-role="us">重点</span><p class="p-big" style="font-weight:500">参考一个主页，改两轮风格</p></div></div>' +
-        '<div style="margin-top:14px">' + anchor(lit=("规则", "工具返回", "这一句"), outside=("没读的文件", "浏览器里的页面", "参考主页"), reveal=2) + '</div>'
+        '<div style="margin-top:14px">' + anchor(lit=("规则", "工具返回", "新的 Prompt"), outside=("没读的文件", "浏览器里的页面", "参考主页"), title="这一节每一轮都问：改风格的依据在哪几块？", reveal=2) + '</div>'
     ),
     steps=["回到地图", "先留检查点", "再改风格"],
     teaching=teach(("讲师提示", "本节重点是改风格（章文件 C2-61）；审 2.2 内容只看范围和出处，两页带过。")),
@@ -161,7 +161,7 @@ scene(
         '<div class="p-box" data-role="tool" data-reveal="0"><span class="p-tag" data-role="tool">网页搜索</span><p>默认工具，只拿到摘要</p><p class="p-sub">服务端执行，内容不进记录</p></div>'
         '<div class="p-box" data-role="us" data-reveal="1"><span class="p-tag" data-role="us">curl（这次）</span><p>拿到 HTML 和 CSS</p><p class="p-sub">我们批准联网，内容进记录</p></div>'
         '<div class="p-box" data-role="ink" data-reveal="1"><span class="p-tag" data-role="ink">截图</span><p>拿到的是样子</p><p class="p-sub">这个模型能读图（实测）</p></div></div>'
-        '<div style="margin-top:12px">' + anchor(lit=("工具返回", "这一句"), note="这次：curl 取回的 HTML 和 CSS 在“工具返回”这一块，记录里看得见", reveal=2) + '</div>'
+        '<div style="margin-top:12px">' + anchor(lit=("工具返回", "新的 Prompt"), note="这次 curl 取回的 HTML 和 CSS 在“工具返回”这一块，记录里看得见", reveal=2) + '</div>'
         '<div class="p-bar" data-reveal="3" style="margin-top:10px">它拿到的是代码，<b>不是我们看到的页面</b>；先问它看到了什么</div>'
     ),
     steps=["网页搜索", "curl 和截图", "这次在哪一块", "结论"],
@@ -184,7 +184,7 @@ scene(
         '<div class="p-node" data-role="us" data-reveal="0"><span class="p-num">1</span><h3>并排看</h3><p>自己的页面和参考</p></div>'
         '<div class="p-node" data-role="us" data-reveal="1"><span class="p-num">2</span><h3>说清差别</h3><p>哪一块、差在哪、要什么样</p></div>'
         '<div class="p-node" data-role="agent" data-reveal="1"><span class="p-num">3</span><h3>再改一轮</h3><p>还是先说计划</p></div></div>'
-        '<div style="margin-top:14px">' + anchor(lit=("对话历史", "这一句"), outside=("浏览器里的效果", "参考页面"), note="第二轮：对话历史里有第一轮，这一句是我们说的差别", reveal=2) + '</div>'
+        '<div class="p-bar" data-reveal="2" style="margin-top:18px">第二轮的请求带着第一轮的全部对话；新加的，只有我们说的差别</div>'
     ),
     steps=["并排看", "说清差别", "第二轮带着什么"],
     teaching=teach(

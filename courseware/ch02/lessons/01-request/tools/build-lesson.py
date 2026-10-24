@@ -59,11 +59,9 @@ def publish_static_trace():
 
 
 TAP_CMD = "uvx claude-tap@0.1.146 --tap-client codex --tap-target https://api.minimax.cn/v1"
-AGENT_LAB_REV = "691d15c58a3b89abc36bfcf90bc6b7072423ad4c"
-AGENT_LAB_CMD = (
-    "uvx --from 'https://github.com/prompt-to-harness/prompt-to-harness.github.io/archive/"
-    + AGENT_LAB_REV + ".tar.gz#subdirectory=tools/agent-lab' agent-lab codex --tap"
-)
+# Agent Lab 从 main 安装一次，之后用短命令启动（2026-10-24 讲师确认，暂不固定 tag）
+AGENT_LAB_INSTALL = 'uv tool install "git+https://github.com/prompt-to-harness/prompt-to-harness.github.io#subdirectory=tools/agent-lab"'
+AGENT_LAB_CMD = "agent-lab codex --tap"
 
 
 # ---------- 开始这一章 ----------
@@ -78,14 +76,12 @@ scene(
         '#p01 .opening-start p{margin:0;font-size:22px}'
         '#p01 .opening-start code{font-size:22px}'
         '#p01 .opening-goal{margin-top:16px;font-size:25px}'
-        '#p01 .opening-question{margin-top:18px;padding:14px 18px;background:#F2EDE1;border:2px solid #9C8B66;border-radius:10px}'
-        '#p01 .opening-question p{margin:0;font-size:25px}'
         'body[data-mode="slides"] #p01 h2{font-size:46px}'
-        '@media(max-width:600px){#p01 .opening-start p,#p01 .opening-start code,#p01 .opening-question p{font-size:19px}}'
+        '@media(max-width:600px){#p01 .opening-start p,#p01 .opening-start code{font-size:19px}}'
         '</style>'
         '<div class="opening-start" data-reveal="1"><p><code>npm run dev</code> → 打开 Local 地址 → 看首屏和项目区</p></div>'
         '<div class="p-chain opening-goal" data-reveal="2"><span>补入自己的内容</span><i>→</i><span>参考主页改风格</span><i>→</i><span>发布上线</span></div>'
-        '<div class="opening-question" data-reveal="3"><p>除了我们写的 Prompt，模型每一步还拿到了什么？</p></div>'
+        '<div style="margin-top:12px">' + anchor(lit=("新的 Prompt",), title="除了我们写的 Prompt，模型每一步还拿到了什么？", reveal=3) + '</div>'
     ),
     repro=repro([
         ("先在自己的仓库里保存当前的工作（没有改动时会提示无可提交，不影响）", "git add -A && git commit -m \"保存：开始第 2 章之前\""),
@@ -157,21 +153,22 @@ scene(
         + (Path(__file__).resolve().parents[3] / "materials/external/request-capture/redraw-tap-proxy-excalidraw.svg").read_text().strip()
         + '</div><div class="p-term tap-proxy-command" data-copy="' + escape(AGENT_LAB_CMD, quote=True) + '" data-reveal="2">'
         + '$ ' + escape(AGENT_LAB_CMD) + '</div>'
-        '<p class="tap-proxy-source" data-reveal="2">Agent Lab 准备课程环境 · --tap 接入 claude-tap 0.1.146</p>'
+        '<p class="tap-proxy-source" data-reveal="2">先装一次 Agent Lab（见“使用课程独立环境”）· --tap 接入 claude-tap 0.1.146</p>'
         '</div>'
     ),
     refs=[ref("claude-tap 原理说明", "https://github.com/liaohch3/claude-tap/blob/v0.1.146/README.md#architecture")],
     steps=["请求", "返回", "查看记录"],
     repro=repro([
         ("先装好 uv、Codex CLI，并在当前终端设置 MINIMAX_API_KEY；不要把 Key 粘进对话或录屏", None),
+        ("安装一次 Agent Lab（从课程仓库 main 安装；以后更新用 uv tool upgrade agent-lab）", AGENT_LAB_INSTALL),
         ("在个人主页项目目录启动课程独立环境，同时记录请求", AGENT_LAB_CMD),
         ("先找到启动输出中的查看器地址；在 Codex 发完问候、回答结束后，再打开查看器", None),
         ("若已有配置好的 MiniMax 环境，也可直接启动代理；讲师演示使用上面的课程环境命令", TAP_CMD),
     ], note="Agent Lab 固定 MiniMax 课程配置并调用 claude-tap 0.1.146，课程会话单独保留；它减少个人配置混入，不提供额外的文件安全沙箱。请求记录可能包含项目内容，不公开分享未经检查的记录。", label="使用课程独立环境"),
     teaching=teach(
         ("图示来源", "据 liaohch3/claude-tap v0.1.146 README 整理，只展示本章使用的反向代理路径；来源与图元已在章素材登记表留存。演示只显示一条可点击原理说明链接。"),
-        ("课程启动器", "讲师与学员可用“使用课程独立环境”里的固定 SHA 命令。当前从独立分发提交安装；本组正式合入并确认 main 包含工具修复后，再更新为 main 的源码包地址。不要提前使用 main；主线数字仍取原实测，不因更换启动入口自动视为重录。"),
-        ("切到实操", "主画面、复制内容、展开入口与口播统一使用 AGENT_LAB_CMD 的固定分发提交；直接启动代理只作为展开入口中的备选。沿用工具验证记录，不把原直接启动命令的旧实测日期套在新入口上。录前准备 uv、Codex CLI 与终端密钥，命令在个人主页项目根目录执行；停在输入处并指出实际查看器地址，下一页发问候后才查看记录。"),
+        ("课程启动器", "Agent Lab 已在 main，2026-10-24 核对 tools/agent-lab 与原固定提交 691d15c 内容一致；改为从 main 安装一次、用 agent-lab codex --tap 启动。暂不固定 tag，main 上的 agent-lab 改动会影响学员装到的版本，正式录制前再决定是否打 tag。"),
+        ("切到实操", "主画面、复制内容、展开入口与口播统一使用 agent-lab codex --tap，讲师录前已安装；直接启动代理只作为展开入口中的备选。沿用工具验证记录，不把原直接启动命令的旧实测日期套在新入口上。录前准备 uv、Codex CLI 与终端密钥，命令在个人主页项目根目录执行；停在输入处并指出实际查看器地址，下一页发问候后才查看记录。"),
         ("讲师提示", "API 密钥会经过本地代理；claude-tap 导出与存储时只保留鉴权头前缀。画面上不要出现 config.toml 或完整密钥。学员自己运行算选做，不计入验收，不另做排障文档。"),
     ),
 )
@@ -229,11 +226,14 @@ scene(
         '<iframe class="request-walk-frame" id="request-walk-frame" title="连续查看真实请求：阅读视图与完整原文" src="request/index.html?embed=1"></iframe>'
     ),
     closing="同一份请求里，有我们输入的一句，也有 Codex 组织的大部分内容；这一次的返回还只是一次工具调用。接下来按作用归类，看哪些不是我们写的。",
-    refs=[ref("MiniMax Codex 接入说明", "https://platform.minimax.cn/docs/m-plan/codex", "MiniMax · 模型能力目录")],
+    refs=[ref("MiniMax Codex 接入说明", "https://platform.minimax.cn/docs/m-plan/codex", "MiniMax · 模型能力目录"),
+          ref("developer 取代 system 消息", "https://developers.openai.com/api/reference/resources/chat", "OpenAI API 参考", kind="read"),
+          ref("Codex：基础指令改为 developer 消息", "https://github.com/openai/codex/pull/51156", "openai/codex PR #51156", kind="read")],
     steps=["系统指令", "Skills 列表", "权限说明", "环境信息", "工具定义", "这一次的返回"],
     teaching=teach(
         ("同源与展示", "使用前半组已有真实初始请求；六条消息正文、五个顶层工具定义完整保留，仅路径占位，排除鉴权请求头、客户端关联元数据和推理内容。阅读视图只折叠不删除，完整原文为原版静态查看器，可自由展开。顺序按请求实际排列：developer 身份 → developer（Skills、权限、Default 模式）→ developer 团队说明 → developer 多代理限制 → user 环境 → user 问候，tools 在 input 之后。"),
         ("系统指令首句", "“You are Codex, a coding agent based on MiniMax-M3.1-Flash…”是模型能力目录里 base_instructions 的原文，与 MiniMax 官方说明“配置模型能力目录（可选）”一节的示例一致（2026-10-24 核对）。不配目录时是 Codex 默认的长指令，学员记录可能不同。只对照这一句，不教配置。团队说明与多代理限制在第一步的展开里，口播一句交代。"),
+        ("为什么没有 system", "第一步口播顺带一句，不上屏：你可能听说过 system、developer、user 三种消息；在 OpenAI 的 API 里，开发者写的指令逐渐统一叫 developer（o1 及更新的模型用它取代 system 消息），Codex 0.162 起也把基础指令作为第一条 developer 消息（PR #51156）。口播限定为“在 OpenAI 的 API 和这个 Codex 版本里”；不说 o1 的具体日期，不推断 MiniMax 服务端是否另加 system。两处原文作为阅读链接。"),
         ("彩蛋", "环境里的时区 Asia/Shanghai 可以口播一句：社区常讨论工具能否判断用户在哪，这类字段确实可能透露信息。只说“可能”，不说 Codex 实际这样用，不上屏。"),
         ("这一次的返回", "这份请求的响应只有一次 exec 工具调用（列目录、读 package.json），没有文字回答；介绍出现在执行完之后的下一份请求。这正好引出 p07-loop 的循环。"),
         ("来源与发布", "源在 demos/ch02-request-walkthrough，本节构建时验证数据和生成物指纹后复制到 request/；不需要服务或模型调用。完整调用链在后面的 p07，使用另一组项目问题记录，不能说成问候后续。"),
@@ -244,7 +244,7 @@ scene(
 scene(
     id="p09", segment="逐块拆开",
     label="请求的组成与来源", title="按作用分六类，哪些不是我写的？",
-    lead="先按作用辨认初始请求的六类内容：系统与协作指令、工具定义、Skills 列表、环境信息、权限说明、我们这次的提问。分类不等于消息条数，一条消息可以同时包含多类内容。消息的角色只有 developer 和 user 两种；标为 user 的，也不都是我们写的。",
+    lead="先按作用辨认初始请求的六类内容：系统与协作指令、工具定义、Skills 列表、环境信息、权限说明、我们这次的提问。分类不等于消息条数，一条消息可以同时包含多类内容。再看消息的角色：只有 developer 和 user 两种，标着 user 的也不都是我们写的。",
     closing="六类内容里，只有一句是我们写的，其余都由 Codex 组织。接下来回到个人主页：项目区现在显示什么、数据在哪个文件？模型要先读文件，一句话就会变成好几次请求。",
     html=(
         '<style>#p09 .scene-content{gap:0}#p09 .request-map{display:grid;gap:6px;margin:0}'
@@ -258,7 +258,6 @@ scene(
         'body[data-mode="slides"] #p09 h2{font-size:42px}'
         'body[data-mode="slides"] #p09 .p09-stage.step-hidden{display:none}'
         'body[data-mode="slides"] #p09:has(.p09-stage[data-reveal="1"]:not(.step-hidden)) .p09-stage[data-reveal="0"]{display:none}'
-        'body[data-mode="slides"] #p09:has(.p09-stage[data-reveal="2"]:not(.step-hidden)) .p09-stage[data-reveal="1"]{display:none}'
         'body[data-mode="scroll"] #p09 .p09-stage{margin-bottom:24px}'
         '@media(max-width:600px){body[data-mode="scroll"] #p09 .request-map-row{grid-template-columns:1fr;gap:3px;padding:9px 12px}'
         'body[data-mode="scroll"] #p09 .request-map dt,body[data-mode="scroll"] #p09 .request-map dd{font-size:19px}'
@@ -274,23 +273,15 @@ scene(
         '<div class="request-map-row" data-role="us"><dt>我们这次的提问</dt><dd>人这次提出的要求</dd></div></dl></div>'
         '<div class="p09-stage" data-reveal="1"><p class="map-caption">消息只有两种角色：<code>developer</code> 和 <code>user</code></p>'
         '<div class="p-pair" style="grid-template-columns:1fr 1fr">'
-        '<div class="p-box" data-role="agent"><span class="p-tag"><code>developer</code></span><p>开发者给的指令<br>身份、Skills、权限、协作说明</p></div>'
-        '<div class="p-box" data-role="us"><span class="p-tag"><code>user</code></span><p>用户一侧的消息<br>环境信息、我们的问候</p></div></div>'
-        '<p class="p09-note">为什么没有 <code>system</code>？在 OpenAI 的 API 里，新模型用 developer 消息取代原来的 system 消息；Codex 0.162 起也把基础指令作为第一条 developer 消息发出</p></div>'
-        '<div class="p09-stage" data-reveal="2"><p class="map-caption">同样标为 <code>user</code>，文字来源可以不同</p>'
-        '<div class="source-pair"><b>角色</b><b>来源</b><b>本次消息的内容</b>'
-        '<code>user</code><span>Codex 加入</span><span>当前目录、Shell、日期、时区……</span>'
-        '<code>user</code><span>人输入</span><span>“你好，用一句话介绍你能帮我做什么。”</span></div>'
-        '<p class="p09-note">看角色，还要看内容，才能判断它从哪里来</p></div>'
-        '<p class="source-note">六类内容与来源对照来自 2026-10-23 初始主请求；没有项目 AGENTS.md 或项目 Skills。消息内容为摘要，未展示本机路径。角色说明据 OpenAI API 参考与 Codex PR #51156（2026-10-24 核对）。</p>'
+        '<div class="p-box" data-role="agent"><span class="p-tag"><code>developer</code></span><p>身份、Skills、权限、协作说明</p><p class="p-sub">都由 Codex 加入</p></div>'
+        '<div class="p-box" data-role="us"><span class="p-tag"><code>user</code></span><p>环境信息 <span class="p-sub">· Codex 加入</span></p><p>“你好，用一句话介绍你能帮我做什么。” <span class="p-sub">· 我们输入</span></p></div></div>'
+        '<p class="p09-note">标着 <code>user</code> 的，也不都是我们写的</p></div>'
+        '<p class="source-note">六类内容与来源对照来自 2026-10-23 初始主请求；没有项目 AGENTS.md 或项目 Skills。消息内容为摘要，未展示本机路径。</p>'
     ),
-    steps=["六类内容与作用", "两种角色", "user 的来源"],
-    refs=[ref("developer 取代 system 消息", "https://developers.openai.com/api/reference/resources/chat", "OpenAI API 参考"),
-          ref("Codex：基础指令改为 developer 消息", "https://github.com/openai/codex/pull/51156", "openai/codex PR #51156，2026-10-05")],
+    steps=["六类内容与作用", "两种角色，谁写的"],
     teaching=teach(
         ("与记录对应", "沿用 p08 同一份初始主请求。developer input 0 是身份；input 1 同时包含 Skills、权限、Default 模式；input 2/3 是团队说明和多代理限制。user input 4 是环境，input 5 才是问候。工具定义另在 tools 中。归成六类不等于六条消息各自对应一类。"),
-        ("为什么没有 system", "OpenAI API 参考：o1 及更新的模型中 developer 消息取代原来的 system 消息；Model Spec 把 system 层留给平台。Codex PR #51156（2026-10-05 合并，0.162.0 起）把基础指令从顶层 instructions 字段移到 input 最前面的 developer 消息。口播限定为“在 OpenAI 的 API 和这个 Codex 版本里”；不说 o1 的具体日期，不推断 MiniMax 服务端是否另加 system。"),
-        ("转场", "第三步可切查看器核对环境和问候的 user 角色；随后进入项目问题，p07-loop 先讲一句话为什么会变成几次请求。p07 使用另一组已核对的项目问答排练，不说成此前组问候的后续结果。"),
+        ("转场", "第二步可切查看器核对环境和问候的 user 角色；随后进入项目问题，p07-loop 先讲一句话为什么会变成几次请求。p07 使用另一组已核对的项目问答排练，不说成此前组问候的后续结果。"),
     ),
 )
 
@@ -343,7 +334,7 @@ scene(
     lead="问候时，我们已经拆过系统指令、工具和环境。项目问答又让我们沿着代码返回核对了回答依据。把这两次观察放到同一张图上，看看后续请求还带入了什么。",
     html=(
         '<style>body[data-mode="slides"] .segment-bar .segment:first-child{min-width:90px}</style>' +
-        anchor(lit=("系统指令", "工具", "环境", "对话历史", "工具返回", "这一句"), note="对照问候与项目问答的后续请求；规则按实际记录标注", reveal=0) +
+        anchor(lit=("系统指令", "工具", "环境", "对话历史", "工具返回", "新的 Prompt"), absent=("规则",), note="身份、Skills、权限说明都算系统指令；这个项目还没有 AGENTS.md，规则这一块是空的", reveal=0) +
         '<div class="p-bar" data-reveal="1" style="margin-top:10px"><b>Context</b>：模型这一次可用的信息</div>'
         '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:10px">'
         '<div class="p-box" data-role="ink" data-reveal="2"><span class="p-tag" data-role="ink">Anthropic 的说法</span><p>Context 是从大模型采样时包含的那一组 token</p><p class="p-sub">系统指令、工具、外部数据、消息历史等</p></div>'
@@ -353,7 +344,7 @@ scene(
     refs=[ref("Effective context engineering for AI agents", "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents", "Anthropic，2025-09-29", kind="read")],
     steps=["合看两次观察", "叫它 Context", "对照文字定义", "定位与下一问"],
     teaching=teach(
-        ("录制说明", "先指问候时已拆过的组成，再指项目问答后续请求中的历史与工具返回。锚点图是分类示意，不是新运行截图。本次实际请求没有项目 AGENTS.md 规则块，保持未点亮；历史和工具返回已由本次排练核实。录制当天仍按实际请求更新。"),
+        ("录制说明", "先指问候时已拆过的组成，再指项目问答后续请求中的历史与工具返回。锚点图是分类示意，不是新运行截图。本次实际请求没有项目 AGENTS.md，规则块画成虚线“这次没有”；历史和工具返回已由本次排练核实。录制当天仍按实际请求更新。"),
         ("定义依据", "沿用 2026-10-20 已核对的 Anthropic 2025-09-29 文章。中文意译及列举仅用于简短对照，具体拆解留在前面的记录，不新增外部事实核验。"),
     ),
     expressive="复用全章锚点图，对照问候与项目问答的后续请求",
@@ -402,7 +393,7 @@ scene(
     refs=[ref("深入解析 Codex 智能体循环", "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/", "OpenAI，2026-01-23")],
     steps=["谁组织，我们做什么"],
     teaching=teach(
-        ("讲师提示", "复用已核对的官方请求示意重画图，只指请求整体和 Codex 的组织作用，不逐字段、按角色再拆 Context，不念工具名或数量。图里第一行 instructions 是 1 月文章的写法，现在基础指令在第一条 developer 消息，图旁已注明。底部做法条用 p07 与 p14a 收住：路径是帮助定位的线索，是否相关、是否足够、回答是否有依据仍需核对。"),
+        ("讲师提示", "复用已核对的官方请求示意重画图，只画文章的顺序，不再对到锚点图（C2-88），只指请求整体和 Codex 的组织作用，不逐字段、按角色再拆 Context，不念工具名或数量。图里第一行 instructions 是 1 月文章的写法，现在基础指令在第一条 developer 消息，图旁已注明。底部做法条用 p07 与 p14a 收住：路径是帮助定位的线索，是否相关、是否足够、回答是否有依据仍需核对。"),
     ),
 )
 

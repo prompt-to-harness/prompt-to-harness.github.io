@@ -125,20 +125,33 @@ def pop(title, label, body):
 
 
 # 全章锚点图“这一次请求里有什么”的七块（章文件 C2-53）；各节开篇按本节高亮其中几块
-ANCHOR = ["系统指令", "工具", "环境", "规则", "对话历史", "工具返回", "这一句"]
+ANCHOR = ["系统指令", "工具", "环境", "规则", "对话历史", "工具返回", "新的 Prompt"]
 
 
-def anchor(lit=(), outside=(), note="", reveal=None, title="这一次请求里有什么"):
-    """锚点图（零件 .p-set + .p-item）：lit 里的块高亮；outside 是画在列外、不在请求里的东西；note 是底部一句。"""
-    assert set(lit) <= set(ANCHOR), lit
+def anchor(lit=(), absent=(), outside=(), note="", reveal=None, title="这一次请求里有什么"):
+    """锚点图（零件 .p-set + .p-item），全章只有一种读法（C2-86）。分类（C2-88）：系统指令是 Codex 给的全部说明
+    （身份、协作、Skills 列表、权限说明）；规则只指项目里的 AGENTS.md；新的 Prompt 是我们这一轮写的话。
+    lit 是这一页要看的块，粗框高亮；absent 是这次请求里没有内容的块，灰色虚线并写“这次没有”；
+    其余块照常在请求里，只是这一页不看，画得浅一些。outside 是画在列外、不在请求里的东西。
+    note 写给学员看：这一页为什么看这几块，不写制作说明。整列都要看时 lit 传 ANCHOR。
+    """
+    assert set(lit) <= set(ANCHOR) and set(absent) <= set(ANCHOR) and not set(lit) & set(absent), (lit, absent)
     attr = f' data-reveal="{reveal}"' if reveal is not None else ""
-    items = "".join(
-        f'<div class="p-item{" is-picked" if b in lit else ""}" style="padding:4px 10px;font-size:18px">{b}</div>' for b in ANCHOR
-    )
+    base = "padding:4px 10px;font-size:18px"
+
+    def item(b):
+        if b in absent:
+            return (f'<div class="p-item" style="{base};border-style:dashed;background:transparent;color:var(--p-muted)">'
+                    f'{b}<span style="font-size:15px;margin-left:6px">这次没有</span></div>')
+        if b in lit:
+            return f'<div class="p-item is-picked" style="{base};font-weight:700">{b}</div>'
+        return f'<div class="p-item" style="{base};background:transparent;color:var(--p-muted)">{b}</div>'
+
+    items = "".join(item(b) for b in ANCHOR)
     out = ""
     if outside:
-        out = '<div class="p-foot">不在里面：' + "".join(
-            f'<span class="p-item" style="display:inline-block;margin:4px 6px 0 0;padding:2px 8px;font-size:17px;border-style:dashed">{x}</span>' for x in outside
+        out = '<div class="p-foot">不在请求里：' + "".join(
+            f'<span class="p-item" style="display:inline-block;margin:4px 6px 0 0;padding:2px 8px;font-size:17px;border-style:dashed;background:transparent">{x}</span>' for x in outside
         ) + "</div>"
     foot = f'<div class="p-foot">{note}</div>' if note else ""
     return (

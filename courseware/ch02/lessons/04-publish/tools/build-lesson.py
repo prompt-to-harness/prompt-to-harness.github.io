@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from lessonkit import Lesson, NARROW, anchor, chapter_map, ref, repro, teach  # noqa: E402
+from lessonkit import ANCHOR, Lesson, NARROW, anchor, chapter_map, ref, repro, teach  # noqa: E402
 
 lesson = Lesson(__file__, "2.4", "发布上线，看 Codex 怎么用 gh", summary="第一次推送前看清即将公开的整段历史；Pages 来源交给 Codex 用 gh 设置，再在请求记录里看清这次调用；发布后用公开 URL 证明页面可用。")
 
@@ -45,7 +45,7 @@ scene(
         '<div class="p-node" data-role="agent" data-reveal="1"><span class="p-num">2</span><h3>审查配置</h3><p>Codex 写的部署工作流</p></div>'
         '<div class="p-node" data-role="us" data-reveal="2"><span class="p-num">3</span><h3>设置与推送</h3><p>Codex 用 GitHub CLI（gh）改设置，人来推送</p></div>'
         '<div class="p-node" data-role="ok" data-reveal="2"><span class="p-num">4</span><h3>证明可用</h3><p>公开 URL 上查三项</p></div></div>' +
-        '<div style="margin-top:14px">' + anchor(note="这一列每次都发给模型服务；推送，是把仓库公开给所有人", reveal=2) + '</div>'
+        '<div style="margin-top:14px">' + anchor(lit=ANCHOR, note="这一整列每次都发给模型服务；推送，是把仓库公开给所有人，两件事不一样", reveal=2) + '</div>'
     ),
     steps=["回到地图", "推送之前", "推送与之后"],
     teaching=teach(("讲师提示", "推送前看清整段历史是发布前的一项检查，按实际内容判断，不预设有没有问题。第 3 步之后会回到请求记录，看 Codex 怎样调用 gh。")),

@@ -48,7 +48,7 @@ sh courseware/ch02/lessons/01-request/tools/demo.sh audit
 ## 固定来源与操作
 
 - 项目来源：`https://github.com/prompt-to-harness/course-starter.git`，标签与完整提交见脚本。
-- Agent Lab 来源：与 p06 相同的源码包提交 `691d15c58a3b89abc36bfcf90bc6b7072423ad4c`；依赖固定 claude-tap 0.1.146，模型及配置由该启动器固定。脚本不会更新本机 Codex。
+- Agent Lab 来源：课程仓库 main 的 `tools/agent-lab`（2026-10-24 起；此前的实测用提交 `691d15c58a3b89abc36bfcf90bc6b7072423ad4c`，两者该目录内容一致）；依赖固定 claude-tap 0.1.146，模型及配置由该启动器固定。脚本不会更新本机 Codex。
 - 首次启动可能需要信任项目；准备阶段完成，不把信任界面当作请求内容。
 - 每个新会话在首句问候前，先在 Codex 输入 `/rename ch02-demo`，确认名称已更新，再发送“你好，用一句话介绍你能帮我做什么。”。`/rename` 是客户端命令，不是发给模型的自然语言 Prompt；不能用一句“不要自动命名”替代。启动脚本不自动代输命令。
 - 手动命名作为第二章录前准备，用来减少自动命名请求干扰；不是关闭全部辅助请求的开关。该效果受冻结的 Codex 版本与配置约束，当次仍需检查记录。已有旧记录保留，不删除其中的标题请求。
@@ -105,7 +105,7 @@ sh courseware/ch02/lessons/01-request/tools/demo.sh audit
 
 ```sh
 ch02_seed='替换为本机问候的 Codex 会话 ID'
-ch02_agent_source='https://github.com/prompt-to-harness/prompt-to-harness.github.io/archive/691d15c58a3b89abc36bfcf90bc6b7072423ad4c.tar.gz#subdirectory=tools/agent-lab'
+ch02_agent_source='git+https://github.com/prompt-to-harness/prompt-to-harness.github.io#subdirectory=tools/agent-lab'
 export AGENT_LAB_HOME="${AGENT_LAB_HOME:-$HOME/.local/share/agent-lab-ch02-recording}"
 cd "${CH02_DEMO_ROOT:-$HOME/course-demos}/personal-homepage"
 ch02_question='只读任务，不修改任何文件。

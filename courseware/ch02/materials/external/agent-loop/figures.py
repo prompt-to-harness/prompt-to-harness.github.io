@@ -35,10 +35,10 @@ def codex_agent_loop():
                                           'label_weight': 600, 'dash': dash, 'reveal': reveal})
 
     y0 = top + 28
-    # 第 1 次：指令、工具、环境 + 这一句
+    # 第 1 次：指令、工具、环境 + 新的 Prompt
     items += [head(0, '第 1 次', 1),
               strip(0, y0, unit * 2, '指令、工具、环境', CTX, SOFT_CTX, 1),
-              strip(0, y0 + unit * 2, unit, '你这一句', RISK, SOFT_RISK, 1)]
+              strip(0, y0 + unit * 2, unit, '新的 Prompt', RISK, SOFT_RISK, 1)]
     # 第 2 次：第 1 次原样 + 工具调用 + 工具返回
     h1 = unit * 3
     items += [head(1, '第 2 次', 2),
