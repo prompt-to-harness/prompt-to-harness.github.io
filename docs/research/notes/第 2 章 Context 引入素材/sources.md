@@ -96,3 +96,27 @@
 - 已核对 Working Memory：https://academy.claude.com/courses/ai-capabilities-and-limitations/working-memory ，以当前工作记忆解释 Context Window。本次没有逐段观看视频。
 - 已核对 Claude Code 101 第 2 课：https://academy.claude.com/courses/claude-code-101/how-claude-code-works ，先给 Agent 循环概览，再讲 Context。
 - 讲师选定左图右帖，保留熟悉的 Karpathy；具体取舍见 C2-77 和 p05a 审查记录。图为课程自绘，不冒充官方原图。
+
+## agent loop（2026-10-24，用于 2.1 p07-loop）
+
+### OpenAI《Unrolling the Codex agent loop》的循环图与 Snapshot 2/3（已核实）
+
+- 原文：[中文版](https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/)，Michael Bolin，2026-01-23。英文版 WebFetch 返回 403，中文版在内置浏览器打开核对；2026-10-24 再次打开时停在人工验证，未绕过。
+- Agent loop 图：用户输入 → 模型推理 → 工具调用回到推理，或给出回答；多轮版在前面加了组装对话历史。
+- Snapshot 2：上半为第 1 次请求的全部 input，下半为第 2 次调用新增的 reasoning、function_call、function_call_output；正文说旧提示是新提示的精确前缀，以便利用提示缓存。图例只有 System、Developer、User 三种角色。
+- Snapshot 3：内循环结束后接 assistant 的最终回答，再接下一轮 user 消息。
+- 和本课记录的出入：本次 MiniMax 记录里工具轮次新增的是 custom_tool_call 与 custom_tool_call_output 两条，没有单独的 reasoning 条目；也没有 system 角色。重画图因此不抄字段名、图例不用 System。
+
+### Anthropic《Building effective agents》自主 agent 图（已核实，备用）
+
+- [原文](https://www.anthropic.com/engineering/building-effective-agents)，Erik Schluntz、Barry Zhang，2024-12-19。Human 与 LLM Call 往返，LLM 通过 Action 与 Feedback 和 Environment 交互，直到 Stop。只有概念，不涉及请求内容。
+
+## system 与 developer 角色（2026-10-24，用于 2.1 p09）
+
+- **OpenAI API 参考，Chat Completions**（[原文](https://developers.openai.com/api/reference/resources/chat)，2026-10-24 页面，已核实）：o1 及更新的模型中，developer 消息取代原来的 system 消息。
+- **OpenAI API 参考，Responses**（[原文](https://developers.openai.com/api/reference/resources/responses)，已核实）：developer 或 system 角色给出的指令优先于 user 角色。
+- **OpenAI 公告 o1 进入 API**（[原文](https://openai.com/index/o1-and-new-tools-for-developers/)，已核实）：o1 支持 developer messages。页面没写发布日期，2024-12-17 只是按模型快照名推断，未核实，不上屏。
+- **OpenAI Model Spec**：首版（[2024-05-08](https://cdn.openai.com/spec/model-spec-2024-05-08.html)）的角色已有 platform、developer、user、assistant、tool；现行版（[2026-08-18](https://model-spec.openai.com/2026-08-18.html)）的权限顺序为 Root > System > Developer > User > Guideline。已核实。说明 developer 作为概念早于 o1，在 API 里取代 system 消息是 o1 起的变化。
+- **《深入解析 Codex 智能体循环》**（2026-01-23，已核实）：角色按优先级为 system、developer、user、assistant；当时基础指令放在顶层 `instructions` 字段，权限说明用 developer，AGENTS.md 用 user。这描述的是 2026 年 1 月的实现。
+- **Codex PR #51156**（[原文](https://github.com/openai/codex/pull/51156)，“Send base instructions as Responses input messages”，2026-10-05 合并，已核实）：基础指令从顶层 `instructions` 移到 input 最前面的 developer 消息，请求类型去掉该字段。首个包含它的正式版是 0.162.0（按 release notes，克隆为浅克隆，未用 git 复核 tag 包含关系）。rust-v0.163.0 源码 `core/src/client.rs` 的请求构造无条件插入 developer 基础指令，`codex-api/src/common.rs` 的 `ResponsesApiRequest` 只有 input 与 tools，已核实。
+- **和课件的出入**：p16b 现用的重画图（据 1 月文章）第一行仍是 `instructions`，与当前记录不符；页面同步时改为 developer 基础指令或加注“文章写于 2026-01，当前版本已改”。MiniMax 服务端是否另加 system 层未核实。

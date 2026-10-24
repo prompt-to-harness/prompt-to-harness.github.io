@@ -9,6 +9,7 @@
 | `request-capture/` | p06-tap 的代理原理、原图、两版重画和页面样稿 | [tap_proxy_figures.py](request-capture/tap_proxy_figures.py) |
 | `context-engineering/` | Context 引入帖子、请求组成、Prompt 与 Context 对照 | [figures.py](context-engineering/figures.py) |
 | `context-rot/` | Context Rot 原图与两版曲线 | [figures.py](context-rot/figures.py) |
+| `agent-loop/` | p07-loop 的循环与逐次请求增长：原图视口截图、两版重画和页面样稿 | [figures.py](agent-loop/figures.py) |
 
 同一主题的原图、图元、SVG 和样稿放在一起；下面的登记表是本章总索引。已采用的帖子截图仍在小节 `external/`，表中记录实际路径。
 
@@ -23,8 +24,10 @@
 | `context-rot/chroma-context-rot-repeated-words.png` | [Context Rot](https://www.trychroma.com/research/context-rot) 重复词任务曲线 | Kelly Hong 等（Chroma）· 2025-07-14 | 2026-10-22 | 2.2 p23 注意力一侧 | 候选；样稿：曲线一路往下，一眼能看懂，效果最好；截图要去掉图下的说明文字 |
 | `context-engineering/redraw-openai-codex-request-{course,excalidraw}.svg` | 据 OpenAI 文章重画：请求按顺序拼成，对上锚点图 | 同上 | 2026-10-22 | 2.1 p16b | 采用 Excalidraw 版（C2-64）；截图版读不清 |
 | `context-rot/redraw-chroma-context-rot-{course,excalidraw}.svg` | 据 Chroma 重复词任务重画，中文坐标；数据点为读图近似 | 同上 | 2026-10-22 | 2.2 p23a | 采用课程手绘版（C2-64） |
-| `context-engineering/redraw-anthropic-prompt-vs-context-{course,excalidraw}.svg` | 据 Anthropic 第一张图重画，中文标签 | 同上 | 2026-10-22 | 2.1 p16c | 采用 Excalidraw 版（C2-64）；截图版小标签读不清 |
+| `context-engineering/redraw-anthropic-prompt-vs-context-{course,excalidraw}.svg` | 据 Anthropic 第一张图重画，中文标签 | 同上 | 2026-10-22 | 2.1 p16c | 采用 Excalidraw 版（C2-64）；截图版小标签读不清；2026-10-24 改为待撤：p16c 并入 p16b、对照图撤下（C2-82），页面同步时删除 SVG |
 | `context-engineering/redraw-context-vertical-{course,excalidraw}.svg` | 课程自绘，参考 [Claude Academy](https://academy.claude.com/tutorials/parametric-memory-and-context) 对训练知识与当前 Context 的区分；不是官方原图的复刻 | 课程图元 · 2026-10-23 | 2026-10-23 原文核对 | 2.1 p05a 左侧竖向概览 | 采用课程手绘版（C2-77），右侧保留 Karpathy 截图；图元 `context-engineering/context_overview_figures.py`，样稿检查见对应审查记录 |
+| `agent-loop/openai-snapshot2.svg`（原图）、`agent-loop/openai-agent-loop-viewport.jpg` | [深入解析 Codex 智能体循环](https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/) 的 Agent loop 图与 Snapshot 2（第 2 次调用 = 第 1 次全部 input + reasoning、function_call、function_call_output；正文称旧提示是新提示的“精确前缀”） | Michael Bolin（OpenAI）· 2026-01-23 | 2026-10-23 内置浏览器视口截图（原文已核对） | 2.1 p07-loop 对照 | 重画；只作对照，不上屏。Snapshot 2 为 2026-10-24 从文章图片地址下载的原始 SVG（images.ctfassets.net，`…Snapshot_2_desktop-light.svg`，802×311，无脚本），本次页面未触发人工验证；Agent loop 图仍是 2026-10-23 视口截图 |
+| `agent-loop/redraw-codex-agent-loop-{course,excalidraw}.svg` | 据上面两张图重画：左为循环（模型 → Codex 执行工具 → 返回追加 → 再请求，或给出最终回答），右为第 1–3 次请求逐次变长，前缀原样重发；中文标签，不抄字段名，图例不用 System | 同上 | 2026-10-24 | 2.1 p07-loop | 采用 Excalidraw 版（C2-83）；版式样稿 `agent-loop/preview-codex-agent-loop-{course,excalidraw}.png`，借 p16b 证据页版式、连链接行在内 510/510 不溢出，max-height 400。课程手绘版箭头不显示的原因已查明并修复（各课程版 SVG 原共用 marker id `rd-arrow`，同页有两张时指到隐藏页里的第一张；redraw.py 改为按图名生成 id，2026-10-24）；Excalidraw 版的曲线原先不画箭头，现在两版都在曲线末端按切线画箭头，Anthropic 对照图的 Excalidraw 版因此多了一个箭头 |
 
 采用的重画图不复制：页面构建时由 `courseware/ch02/tools/lessonkit.py` 的 `redrawn()` 从本目录读出 SVG 内联进页面。图元按主题存放在 `context-engineering/figures.py` 和 `context-rot/figures.py`，分别运行下列命令，生成该主题的两版 SVG：
 

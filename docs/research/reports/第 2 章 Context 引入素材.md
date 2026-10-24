@@ -44,3 +44,15 @@
 - [OpenAI Academy：Codex 101](https://academy.openai.com/en/public/clubs/builders-etkn1/resources/codex-101-introduction-and-onboarding-2026-03-18)：课程入口与所附材料已核对；先讲 Agent 循环与形成历史，再引入 Context 工作记忆。
 
 这些是公开页面与材料的文字核对，没有完整观看视频或验证交互练习。概览为课程自绘的教学归纳，不标为官方原图；“普通对话不实时改写既定模型参数”也不归为 Karpathy 帖子的结论。截图、图元与两版 SVG 的现行路径见章素材索引。
+
+## 2026-10-24 补充：p07-loop 的 agent loop 示意
+
+对应讲透问题 1：只说了一句，为什么有好几次请求，每次请求比上一次多了什么。候选与核对见[来源笔记](<../notes/第 2 章 Context 引入素材/sources.md>)的“agent loop”一节。
+
+- **采用**：OpenAI《深入解析 Codex 智能体循环》的 Agent loop 图与 Snapshot 2，按课程风格重画成中文图（C2-83）。Snapshot 2 直接画出“第 2 次调用 = 第 1 次全部 input + 新增条目”，正文也说旧提示是新提示的精确前缀，和本节逐轮对比的观察一致。
+- **备用**：同文 Snapshot 3（开启下一轮对话，更适合 2.2 开头）；Anthropic《Building effective agents》的自主 agent 图（只有概念，不涉及请求内容）。
+- **不用**：Anthropic《Effective context engineering》与 tool use 文档，没有循环示意图。
+
+## 2026-10-24 补充：为什么请求里没有 system
+
+对应讲透问题 1、2，用在 p09（C2-84）。OpenAI API 参考写明 o1 及更新的模型用 developer 消息取代 system 消息；Codex 0.162.0 起把基础指令作为第一条 developer 消息发送（PR #51156），所以本次记录只有 developer 与 user。课件说法限定在 OpenAI API 与当前 Codex 版本，不说 o1 的日期。另发现 p16b 重画图仍按 1 月文章画 `instructions` 字段，需在页面同步时处理，详见来源笔记。

@@ -150,7 +150,7 @@ for path in current:
 for log in sorted(courseware.glob('ch*/LOG.md')):
     chapter = log.parent
     readme = (chapter / 'README.md').read_text()
-    # 分镜先行：只在分镜里、还没做成页面的 id，在章文件“待定”里登记过就放行
+    # 分镜先行：只在分镜里、还没做成页面的 id，或分镜已撤、页面还没删的 id，在章文件“待定”里登记过就放行
     pending = readme.split('\n## 待定', 1)[1] if '\n## 待定' in readme else ''
     titles = {m.group(1): m.group(2) for m in
               re.finditer(r'^\| (\d+\.\d+) (.+?)（\d+ 分钟）', readme, re.M)}
@@ -170,7 +170,7 @@ for log in sorted(courseware.glob('ch*/LOG.md')):
             errors.append(f'ED-017 {number} 节标题不一致：' + '；'.join(f'{k}“{v}”' for k, v in names.items()))
         page_ids = {s['id'] for s in lesson['scenes']}
         board_ids = set(re.findall(r'^\| (p\d[\w-]*) \|', board.read_text(), re.M))
-        undesigned = sorted(page_ids - board_ids)
+        undesigned = sorted(i for i in page_ids - board_ids if not re.search(rf'\b{re.escape(i)}\b', pending))
         unbuilt = sorted(i for i in board_ids - page_ids if not re.search(rf'\b{re.escape(i)}\b', pending))
         if undesigned:
             errors.append(f'ED-017 {where} 缺这些页面的分镜行：{undesigned}')
