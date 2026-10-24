@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """2.2 页面内容源；分镜在 STORYBOARD.md，口播唯一来源为 script.json。"""
-import json
 import sys
 from html import escape
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[4] / "tools"))
 from lessonkit import Lesson, anchor, chapter_map, redrawn, ref, teach
-from trace_reading import reading_panels
+from tracekit import Evidence
 
 lesson = Lesson(__file__, "2.2", "补上个人经历，看对话怎么变长", summary="先把人写的个人资料放进主页：用 Plan 模式先出计划，人审过范围后再放行；检查页面和构建，再回看历史、缓存与压缩，选择下一步怎样继续会话。")
 scene = lesson.scene
@@ -16,18 +16,8 @@ Context：profile.md 在项目根目录，由我提供个人事实与经历。�
 Constraints：个人事实与经历只使用 profile.md 的内容，不补写。可为呈现内容调整结构与样式；不添加链接或依赖，项目卡保持不跳转。只改页面所需的文件和标题，项目里其他说明文档不动。先提出改动计划，等我确认后再修改。
 Done when：四块个人内容已呈现，事实与经历都能在 profile.md 中找到；你运行 npm run build 并报告结果；我在浏览器里检查文字与排版，你不用启动开发或预览服务。"""
 
-def trace_stage(items, note="本次真实记录"):
-    """嵌入本节静态记录：左侧定位按钮与播放器步骤一一对应，交互与 2.1 p07 相同（trace/lesson-embed.js）。"""
-    keys = json.dumps([k for k, _, _ in items], ensure_ascii=False).replace('"', '&quot;')
-    first = items[0][0]
-    guide = ''.join(f'<button type="button" data-trace-key="{k}" aria-pressed="{str(i == 0).lower()}"><b>{t}</b><span>{h}</span></button>' for i, (k, t, h) in enumerate(items))
-    src = 'trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light'
-    return (f'<div class="tl2-stage" data-trace-steps="{keys}"><nav class="tl2-guide" aria-label="本次记录的观察顺序">{guide}</nav>'
-            f'<div class="tl2-viewer"><div class="tl2-bar"><span data-trace-status>{note}</span><div class="trace-lesson-actions">'
-            '<button type="button" data-view="reader" aria-pressed="true">阅读视图</button><button type="button" data-view="raw" aria-pressed="false">原始记录</button>'
-            f'<a data-trace-open href="{src}&amp;point={first}" target="_blank" rel="noopener">单独打开 ↗</a>'
-            f'<button type="button" data-trace-expand aria-haspopup="dialog">放大记录</button></div></div>'
-            f'{reading_panels(items)}<iframe hidden title="claude-tap 静态记录" data-src="{src}&amp;hideHeader=1"></iframe></div></div>')
+# p22、p24、p27 的真实记录：观察点、按钮文字和阅读节选都在 trace/evidence.json，零件见 shared/parts/evidence-trace.js
+EVIDENCE = Evidence(Path(__file__).resolve().parents[1] / "trace/evidence.json")
 
 def box(title, text, step=0, role="ink"):
     return f'<div class="p-box" data-role="{role}" data-reveal="{step}"><h3>{title}</h3><p>{text}</p></div>'
@@ -138,7 +128,7 @@ scene(
     segment='回看请求',
     title='补充一句要求，前面的工作也随请求发出',
     lead='回看这一轮的记录。清空后的第一个任务请求里有规则和 Prompt，没有上一节的问答；读文件的返回照样追加在末尾，和上一节看到的一样。这里重点看我们补的两句：回答交互题时，之前读过的资料和代码都随之重发；实施时，模式切换指令和 Implement the plan. 也追加在末尾，前面不改。左侧按钮切换观察点；阅读视图展示原文节选，原始记录核对它在请求中的位置，两种视图都可放大。',
-    html=trace_stage([('p22-rules-msg', '清空后的第一个请求', '规则和 Prompt 在，上一节的问答不在'), ('p22-profile-result', '读到资料', 'profile.md 的正文追加在末尾'), ('p22-answers-msg', '回答交互题', '前面的都在，末尾是我们的回答'), ('p22-implement-msg', '进入执行', '模式指令和 Implement the plan. 也在末尾')]),
+    html=EVIDENCE.stage("p22"),
     steps=['清空后的第一个请求', '读到资料', '回答交互题', '进入执行'],
 )
 
@@ -172,7 +162,7 @@ scene(
     segment='回看请求',
     title='工具的失败输出，也一直留在后续输入里',
     lead='这一轮 Plan 阶段，它自己写的读文件脚本引号转义出错，返回 SyntaxError，它换了一种写法重新读取。这条失败返回没有被删掉：之后每次请求都还带着它，一直到压缩前最后一次请求。成功和失败的过程都会成为后续输入；这次失败是运行中自然出现的，不是准备好的教学材料。',
-    html=trace_stage([('p24-fail-result', '脚本报错', '它写的读取脚本返回 SyntaxError'), ('p24-retry-call', '换写法再读', '下一步它换了一种写法'), ('p24-later-msg', '之后一直都在', '压缩前最后一次请求里仍有这条报错')]),
+    html=EVIDENCE.stage("p24"),
     steps=['脚本报错', '换写法再读', '之后一直都在'],
 )
 
@@ -181,7 +171,7 @@ scene(
     segment='压缩与继续',
     title='压缩换成摘要，要原文就重新读取',
     lead='在这一轮的会话中手动 /compact，观察已有历史怎样交接，而非窗口已满。压缩前，资料原文和那条 SyntaxError 都还在历史里；压缩后的请求只有 9 项：基础指令、初始 Prompt、Skills 与团队说明、重新装入的项目规则、Implement the plan.、交接摘要和追问，原来的工具调用与返回都不在了。摘要没保留 DeepMotion.ai 经历的完整文字：禁止工具时答不出逐字原文，允许重读 profile.md 后正确引用。文件哈希与 tracked diff 均未改变。',
-    html=trace_stage([('p27-before-msg', '压缩前的历史', '资料原文还在工具返回里'), ('p27-summary-msg', '压缩后的请求', '只剩交接摘要，没有工具返回'), ('p27-noquote-answer', '只凭摘要追问', '给不出经历原文'), ('p27-reread-answer', '重读文件', '读 profile.md 后引用第 20 行')]),
+    html=EVIDENCE.stage("p27"),
     steps=['压缩前的历史', '压缩后的请求', '只凭摘要追问', '重读文件'],
 )
 

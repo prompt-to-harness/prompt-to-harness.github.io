@@ -16,10 +16,10 @@
 
 ```sh
 python3 courseware/ch02/materials/iteration/run-20261024/export-public.py ~/ws/lab-runs/ch02/2.2-20261024
-uv run courseware/ch02/lessons/02-iteration/trace/build-viewer.py
+uv run courseware/tools/tracekit.py courseware/ch02/lessons/02-iteration/trace/evidence.json
 ```
 
-第一条从私有原始记录生成本目录的 `trace.json`；第二条按 `lessons/02-iteration/trace/selection.json` 的定位点生成静态查看器（`make viewers` 已包含）。记录变化时第二条会停下，要先逐个核对定位点。
+第一条从私有原始记录生成本目录的 `trace.json`；第二条按 `lessons/02-iteration/trace/evidence.json` 的观察点生成静态查看器（`make viewers` 已包含）。记录变化时第二条会停下，要先逐个核对定位点。
 
 ## 观察要点
 
