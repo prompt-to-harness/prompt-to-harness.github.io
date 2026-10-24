@@ -16,7 +16,7 @@ Context：profile.md 在项目根目录，由我提供个人事实与经历。�
 Constraints：个人事实与经历只使用 profile.md 的内容，不补写。可为呈现内容调整结构与样式；不添加链接或依赖，项目卡保持不跳转。只改页面所需的文件和标题，项目里其他说明文档不动。先提出改动计划，等我确认后再修改。
 Done when：四块个人内容已呈现，事实与经历都能在 profile.md 中找到；你运行 npm run build 并报告结果；我在浏览器里检查文字与排版，你不用启动开发或预览服务。"""
 
-# p22、p27 的真实记录：观察点、按钮文字和阅读节选都在 trace/evidence.json，零件见 shared/parts/evidence-trace.js
+# p22、p24、p27 的真实记录：观察点、按钮文字和阅读节选都在 trace/evidence.json，零件见 shared/parts/evidence-trace.js
 EVIDENCE = Evidence(Path(__file__).resolve().parents[1] / "trace/evidence.json")
 
 # p28 的会话选择对照是课程自绘（不是外部佐证，不用 redrawn() 的证据页外框）；图元在 materials/external/cache-compaction/session_states_figures.py
@@ -134,12 +134,12 @@ scene(
     layout='evidence-scene',
     label='失败也留在历史里',
     title='工具的失败返回，也一直跟着发',
-    lead='Manus 团队介绍上下文工程时主张保留错误：失败的尝试和报错留在 context 里，模型看到它，才不容易再错一次。这一轮也有一次：Plan 阶段它自己写的读文件脚本引号转义出错，返回 SyntaxError，它换了一种写法重读，读到了。这条失败返回没有被删掉，之后每次请求都带着它，一直到压缩前（压缩那页核对）。留着有用，也一直占输入。这次失败是运行中自然出现的，不是准备好的教学材料。',
-    html='<div class="p-grid" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start">' + redrawn("cache-compaction", "keep-errors", "excalidraw", "据 Manus《AI代理的上下文工程》“保留错误的内容”配图右半重画，中文标签", max_height=380) + '<div style="display:flex;flex-direction:column;gap:14px"><div class="p-term" data-reveal="1">Script error:<br>SyntaxError: Invalid or unexpected token</div><div class="p-box" data-role="tool" data-reveal="1"><h3>本轮：换写法重读</h3><p>第二次读到了</p></div><div class="p-box" data-role="ctx" data-reveal="1"><h3>报错没有删掉</h3><p>之后每次请求都带着它，直到压缩前</p></div></div></div>',
-    refs=[ref("保留错误的内容", "https://manus.im/zh-cn/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus", "Manus，2025-07-18")],
-    steps=['失败留在 context 里', '本轮：报错一直跟着发'],
+    lead='Manus 团队介绍上下文工程时主张保留错误：失败的尝试和报错留在 context 里，模型看到它，才不容易再错一次。这一轮也有一次：Plan 阶段它自己写的读文件脚本引号转义出错，返回 SyntaxError，它换了一种写法重读，读到了。这条失败返回没有被删掉，之后每次请求都带着它，一直到压缩前（压缩那页核对）。留着有用，也一直占输入。这次失败是运行中自然出现的，不是准备好的教学材料。右侧按钮切换观察点；阅读视图展示原文，原始记录核对它在请求中的位置，两种视图都可放大。',
+    html='<style>#p24 .x-keep{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:20px;align-items:start}body[data-mode="slides"] #p24 .p-evidence{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);gap:8px}body[data-mode="slides"] #p24 .p-ev-guide{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}body[data-mode="scroll"] #p24 .x-keep{grid-template-columns:1fr}</style><div class="x-keep">' + redrawn("cache-compaction", "keep-errors", "excalidraw", "据 Manus《AI代理的上下文工程》“保留错误的内容”配图右半重画，中文标签", max_height=330) + EVIDENCE.stage("p24") + '</div>',
+    refs=[ref("保留错误的内容", "https://manus.im/zh-cn/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus", "Manus，2025-07-18", quote="保留错误的内容")],
+    steps=['失败留在 context 里，本轮报错', '它自己换写法再读'],
     teaching=teach(
-        ("讲师提示", "左图据 Manus 原图重画（原图英文小字上屏读不清）：只画右半：失败的 2A 留在 context 里，再做 2B 成功（左半是清掉失败再试，可口头带一句）；只讲它的主张（留下失败，模型不容易再错），“一直占输入”是课程补充。本轮实例在记录 10 第 12 项，压缩前的记录 25 里仍在，到 p27 第 1、2 步用静态记录核对。录制时没有自然失败，就按本次记录讲。"),
+        ("讲师提示", "左图据 Manus 原图重画（原图英文小字上屏读不清）：只画右半：失败的 2A 留在 context 里，再做 2B 成功（左半是清掉失败再试，可口头带一句）；只讲它的主张（留下失败，模型不容易再错），“一直占输入”是课程补充。本轮实例在记录 10：第 12 项是失败返回，同一请求的模型返回里换写法重读；压缩前的记录 25 里仍在，到 p27 第 1、2 步核对。录制时没有自然失败，就按本次记录讲。"),
     ),
 )
 
@@ -153,7 +153,7 @@ scene(
     teaching=teach(
         ("切回 Default 那次", "记录 16（Implement the plan.）缓存只命中 229：前缀没变，但那次请求的推理档位也从 medium 换成了 max；2026-10-23 那次同样只命中 229。原因没有单独验证，口播不讲成“切换后仍命中缓存”。"),
     ),
-    refs=[ref("深入解析 Codex 智能体循环 · 提示缓存", "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/", "OpenAI，2026-01-23")],
+    refs=[ref("深入解析 Codex 智能体循环 · 提示缓存", "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/", "OpenAI，2026-01-23", quote="缓存命中仅在提示内部存在精确的前缀匹配时才可能发生")],
 )
 
 scene(
@@ -161,7 +161,7 @@ scene(
     label="长输入的表现", title="长输入下，表现可能变化",
     lead="Chroma《Context Rot》控制任务条件、改变输入长度，观察到表现会变化，长输入下可能变得不稳定。本页为其中的重复词任务，数据点为读图近似，只看趋势。这份研究提醒我们关注 Context 的长度和内容；本次主页是否改对，仍要检查文件和实际页面。",
     html=redrawn("context-rot", "chroma-context-rot", "course", "据 Chroma《Context Rot》（2025-07-14）重复词任务重画", note="数据点为读图近似").replace("同一个简单任务，输入越长越做不好", "重复词任务：不同输入长度下的表现").replace("0.5 附近 ≈ 基本做不对", ""),
-    refs=[ref("Context Rot", "https://www.trychroma.com/research/context-rot", "Chroma，2025-07-14")],
+    refs=[ref("Context Rot", "https://www.trychroma.com/research/context-rot", "Chroma，2025-07-14", quote="Repeated Words")],
     steps=["看趋势"],
     teaching=teach(
         ("讲师提示", "曲线据报告里 Repeated Words 任务的图重画（课程手绘风格，courseware/tools/redraw.py 生成，图元在 materials/external/context-rot/figures.py），四个模型的数据点是读图近似，只讲趋势，不读具体数值。2026-10-22 核对原文：报告测了 18 个模型，任务刻意做得简单，只为看输入长度本身的影响。"),
@@ -184,7 +184,7 @@ scene(
     lead='同一会话压缩前，Context window 报告 26.3K used / 498K，Token usage 52.5K total；压缩并追问两次以后，分别是 12.2K used 和 86.7K total。累计口径和当前窗口不同，压缩本身也调用模型。这些是本次界面读数，不是整节费用基准。任务中也会自动压缩：OpenAI 介绍 Codex 循环的文章说，Token 总数超过设定的上限时，Codex 会用一个更小的列表替换历史再继续。',
     html='<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)"><div class="is-head" data-reveal="0"><span>/status</span><span>压缩前</span><span>压缩并追问两次后</span></div><div data-reveal="0"><span>Context window</span><span>26.3K used / 498K</span><span>12.2K used / 498K</span></div><div data-reveal="1"><span>Token usage</span><span>52.5K total</span><span>86.7K total</span></div></div><div class="p-box" data-role="ctx" data-reveal="2"><h3>任务中也会自动压缩</h3><p>超过设定的上限，用更小的列表替换历史，任务继续</p></div>',
     steps=['当前窗口', '累计用量', '任务中自动压缩'],
-    refs=[ref("深入解析 Codex 智能体循环 · 压缩", "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/", "OpenAI，2026-01-23")],
+    refs=[ref("深入解析 Codex 智能体循环 · 压缩", "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/", "OpenAI，2026-01-23", quote="为避免耗尽上下文窗口")],
     teaching=teach(
         ("自动压缩实验", "2026-10-21 另一次实验把触发线调低到 10,000（-c model_auto_compact_token_limit=10000），读文件途中自动压缩后继续完成；需要时再切出来，标明是实验设置，不教作默认值。"),
         ("引用边界", "文章说后来的 /responses/compact 返回加密的 compaction 项；本课 MiniMax 下看到的是明文 Handoff Summary，接近文章说的早期 /compact。只说“用更小的列表替换历史”，不说成同一个端点。"),

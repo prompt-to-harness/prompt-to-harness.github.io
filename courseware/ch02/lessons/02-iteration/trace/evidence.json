@@ -1,7 +1,7 @@
 {
   "source": "courseware/ch02/materials/iteration/run-20261024/trace.json",
   "trace_sha256": "04e4c58488ea16bfed2f60e62ac1b4e28b3390ed9dc79f6c29a80564ff8dca58",
-  "basis": "2026-10-24 单一 Plan 重跑（C2-95）；定位点按 2.2 分镜 p22、p27 的讲述顺序选取，记录变化时重新核对。",
+  "basis": "2026-10-24 单一 Plan 重跑（C2-95）；定位点按 2.2 分镜 p22、p24、p27 的讲述顺序选取，记录变化时重新核对。",
   "confirmed_on": "2026-10-24",
   "viewer": "trace/viewer.html",
   "note": "本次真实记录",
@@ -12,6 +12,10 @@
       "p22-profile-result",
       "p22-answers-msg",
       "p22-implement-msg"
+    ],
+    "p24": [
+      "p24-fail-result",
+      "p24-retry-call"
     ],
     "p27": [
       "p27-before-msg",
@@ -124,6 +128,40 @@
           "title": "实施确认 · 原文",
           "from": {
             "message": "Implement the plan."
+          }
+        }
+      ]
+    },
+    {
+      "key": "p24-fail-result",
+      "label": "脚本报错的返回",
+      "request": "session-10",
+      "section": "section_messages",
+      "callId": "call_hZM9ONNTL3immYe2DBBOn7lc",
+      "needle": "SyntaxError: Invalid or unexpected token",
+      "button": "脚本报错",
+      "hint": "它写的读取脚本返回 SyntaxError，追加在末尾",
+      "reading": [
+        {
+          "title": "失败的工具返回 · 原文",
+          "from": {
+            "result": "call_hZM9ONNTL3immYe2DBBOn7lc"
+          }
+        }
+      ]
+    },
+    {
+      "key": "p24-retry-call",
+      "label": "它自己换写法再读",
+      "request": "session-10",
+      "section": "section_response",
+      "button": "它自己换写法再读",
+      "hint": "看到报错，自己改了引号再读一次",
+      "reading": [
+        {
+          "title": "模型重新发出的读取调用 · 原文",
+          "from": {
+            "response": "custom_tool_call"
           }
         }
       ]
