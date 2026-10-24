@@ -61,18 +61,18 @@ scene(
     id='p21',
     segment='准备个人内容',
     title='这轮修改，用到会话、文件和页面',
-    lead='眼前有 Codex 中的读取与操作历史、项目目录中的资料与代码，以及浏览器显示的主页。Codex 把已有对话和工具返回组织进下一次请求；文件内容要通过读取进入。浏览器效果由人检查，需要反馈时再明确提供。',
-    html='<div class="p-grid" style="--n:3;gap:16px"><div class="p-box" data-role="ctx" data-reveal="0"><h3>Codex 会话</h3><p>上一轮的读取与问答<br>供后续工作参考</p></div><div class="p-box" data-role="tool" data-reveal="1"><h3>项目文件</h3><p>profile.md · 页面代码<br>读取后进入请求</p></div><div class="p-box" data-role="us" data-reveal="2"><h3>浏览器页面</h3><p>人查看文字与排版<br>把发现的问题说清楚</p></div></div>',
-    steps=['看会话', '看文件', '看页面'],
+    lead='眼前有 Codex 中的读取与操作历史、项目目录中的资料与代码，以及浏览器显示的主页。会话里还留着上一节的读取和问答，这一轮要不要带着它们，由我们选；文件内容要通过读取进入。浏览器效果由人检查，需要反馈时再明确提供。',
+    html='<div class="p-grid" style="--n:3;gap:16px"><div class="p-box" data-role="ctx" data-reveal="0"><h3>Codex 会话</h3><p>上一节的读取与问答<br>这一轮要不要带上？</p></div><div class="p-box" data-role="tool" data-reveal="1"><h3>项目文件</h3><p>profile.md · 页面代码<br>读取后进入请求</p></div><div class="p-box" data-role="us" data-reveal="2"><h3>浏览器页面</h3><p>人查看文字与排版<br>把发现的问题说清楚</p></div></div>',
+    steps=['看会话：要不要带上', '看文件', '看页面'],
 )
 
 scene(
     id='p27a',
     segment='准备个人内容',
     title='先保存项目规则，再 /clear',
-    lead='接着上一节“规则进入请求”的观察，在根目录保存 AGENTS.md：改代码后运行并报告 build，不新增依赖。本轮选 /clear 开始新对话，随后直接发内容任务。本次 0.163.0 核验中，新对话首个任务请求含这些规则；中途新增文件未自动装入同一对话。清空没有撤销项目文件。学员写规则仍为选做。',
-    html='<div class="p-grid" style="--n:2;gap:16px"><div class="p-term" data-reveal="0"># 项目规则<br>- 不新增依赖<br>- 修改代码后运行 npm run build，并报告结果</div><div class="p-box" data-role="ctx" data-reveal="1"><h3>保存后 /clear</h3><p>开始新对话<br>下一条直接提交内容任务</p></div></div><div class="p-bar is-light" data-reveal="2">首个任务请求：初始内容 + 项目规则 + 本轮 Prompt</div>',
-    steps=['把规则存成文件', '开始新对话', '在任务请求里看规则'],
+    lead='接着上一节“规则进入请求”的观察，在根目录保存 AGENTS.md：改代码后运行并报告 build，不新增依赖。上一节在弄懂项目区，这一轮需要的事实已经写进 profile.md，新写的规则也要新对话才会装入，所以选 /clear 开始新对话，随后直接发内容任务。本次 0.163.0 核验中，新对话首个任务请求含这些规则；中途新增文件未自动装入同一对话。清空没有撤销项目文件。学员写规则仍为选做。',
+    html='<div class="p-grid" style="--n:2;gap:16px"><div class="p-term" data-reveal="0"># 项目规则<br>- 不新增依赖<br>- 修改代码后运行 npm run build，并报告结果</div><div class="p-box" data-role="ctx" data-reveal="1"><h3>这一轮选 /clear</h3><p>上一节的问答用处不大<br>事实在 profile.md，规则要新对话才装入</p></div></div><div class="p-bar is-light" data-reveal="2">首个任务请求：初始内容 + 项目规则 + 本轮 Prompt</div>',
+    steps=['把规则存成文件', '为什么清空', '在任务请求里看规则'],
 )
 
 scene(
