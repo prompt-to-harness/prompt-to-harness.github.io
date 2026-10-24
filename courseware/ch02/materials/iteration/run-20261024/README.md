@@ -1,6 +1,6 @@
 # 2.2 重跑数据（2026-10-24）
 
-2.2 的 p22、p23、p24、p27、p27b、p29c、p30、p31 都用这一次运行（C2-95）。原始记录（claude-tap 数据库、解码后的完整请求、Codex 会话、终端输出、驱动脚本、整页截图、结束时的项目文件）在私有仓库 [prompt-to-harness/lab-runs](https://github.com/prompt-to-harness/lab-runs) 的 `ch02/2.2-20261024/`，那里的 README 有逐条记录的对照。
+2.2 的 p22、p23、p24、p27、p27b、p29c、p30、p31 都用这一次运行（C2-95）。原始记录（claude-tap 数据库、解码后的完整请求、Codex 会话、终端输出、驱动脚本、整页截图、结束时的项目文件）在私有仓库 prompt-to-harness/lab-runs 的 `ch02/2.2-20261024/`，那里的 README 有逐条记录的对照。
 
 ## 条件
 
