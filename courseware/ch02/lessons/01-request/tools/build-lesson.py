@@ -427,17 +427,17 @@ scene(
 
 scene(
     id="p19", segment="小结",
-    label="再说一句会带上什么", title="再说一句，模型会带上什么？",
-    lead="刚才我们让 Codex 读懂了当前项目区。接下来继续做同一个个人主页，把自己的项目经历补进去。新的问题发出去时，之前的问题、回答和读过的代码，还会跟着进入下一次请求吗？",
+    label="前面的还要带上吗", title="再说一句，前面的还要带上吗？",
+    lead="刚才我们让 Codex 读懂了当前项目区。接下来继续做同一个个人主页，把自己的项目经历补进去。新的问题发出去时，之前的问题、回答和读过的代码，还会跟着进入下一次请求吗？我们要不要它们跟着？",
     html=(
         '<div class="p-pair" data-reveal="0" style="grid-template-columns:1fr 1fr;gap:28px">'
         '<div class="p-box" data-role="ink"><span class="p-tag" data-role="ink">刚才</span><p class="p-big">读懂当前项目区</p></div>'
         '<div class="p-box" data-role="us"><span class="p-tag" data-role="us">接下来 · 2.2</span><p class="p-big">补入自己的项目经历</p></div></div>'
-        '<div class="p-box is-soft" data-role="ctx" data-reveal="1" style="margin-top:30px"><p style="font-size:30px">下一次请求里，哪些是之前的，哪些是新加入的？</p></div>'
+        '<div class="p-box is-soft" data-role="ctx" data-reveal="1" style="margin-top:30px"><p style="font-size:30px">刚才的问答和读过的代码，还会跟着发出去吗？要不要它们跟着？</p></div>'
     ),
-    closing="带着这个问题进入 2.2：继续修改个人主页，沿连续几次请求观察前面的信息怎样留下、新的信息怎样加入。本页只提出观察问题，多轮累积、清空与压缩留给下一节的实际过程。",
+    closing="带着这个问题进入 2.2：继续修改个人主页，先决定这一轮要不要带着前面的对话，再沿连续几次请求观察前面的信息怎样留下、新的信息怎样加入。本页只提出观察问题，多轮累积、清空与压缩留给下一节的实际过程。",
     steps=["接回个人主页任务", "留下下一问"],
-    teaching=teach(("转场", "从 p18 的自检接回项目任务，不复述 Context 组成、定义、机制或做法。第一步看任务从读取到修改，第二步只问下一次请求会带什么；p07-loop 已讲过一轮内的追加，多轮对话的累积、清空与压缩留给 2.2。末步使用播放器已有的下一节按钮进入 2.2 p20。")),
+    teaching=teach(("转场", "从 p18 的自检接回项目任务，不复述 Context 组成、定义、机制或做法。第一步看任务从读取到修改，第二步只问下一次请求会不会带上前面的内容、要不要带；p07-loop 已讲过一轮内的追加，多轮对话的累积、清空与压缩留给 2.2。末步使用播放器已有的下一节按钮进入 2.2 p20。")),
 )
 
 
