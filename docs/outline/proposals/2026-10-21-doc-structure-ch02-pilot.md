@@ -41,7 +41,7 @@
 | 节 / 页 | 页序、画面、实测记录与素材来源 | `courseware/ch02/lessons/*/STORYBOARD.md`；内容源是 `tools/build-lesson.py` 与 `script.json` | 本节范围和目标（只链接章文件对应小节） |
 | 制作状态 | 课件做到哪一步、素材是否就绪、怎样重新生成 | `courseware/ch02/README.md` 与各节 `README.md` | 故事线、主线说明 |
 | 讨论中 | 尚未确认的方案 | `docs/outline/proposals/` | 已确认的内容 |
-| 审查 | 某次审查发现了什么、怎样处理 | `docs/reviews/`（不变） | — |
+| 审查 | 正式审查发现了什么、怎样处理 | `docs/reviews/`，按该目录的触发条件留记录 | 日常讨论、自查和交接 |
 
 说明：
 

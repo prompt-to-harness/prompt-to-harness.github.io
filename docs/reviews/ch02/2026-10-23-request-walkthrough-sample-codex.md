@@ -4,7 +4,7 @@
 - 审查者：Codex（lesson-polish）
 - 范围：`demos/ch02-request-walkthrough/` 的分镜、页面、口播、脱敏数据与 p08 / p09 衔接
 - 基于提交：69877f8；工作区已有说明收尾等未提交修改，本样稿另行增加
-- 已参考：同日 request-front-handoff、2.1-integration-status 与 2.1-notes-closeout 记录；本节 STORYBOARD、章 README、编辑规范
+- 已参考：同日 request-front-handoff 记录；本节 STORYBOARD、章 README、编辑规范
 - 检查方式：真实来源与脱敏核对、桌面全部定位状态两轮截图、浏览器断言、make check；未做试讲和非作者复述
 
 ## 判断

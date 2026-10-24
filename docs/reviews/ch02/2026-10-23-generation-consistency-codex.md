@@ -4,7 +4,7 @@
 - 审查者：Codex（lesson-polish，设计与生成链路审查）
 - 范围：章 README、LOG 决策、五节分镜、页面源、script.json、lesson.js，以及两份大纲的第 2 章与相关摘要。
 - 基于提交：`f9f4946`；工作区包含其他未提交的第二章页面、分镜、经验分享和工具改动，全部按当前工作区审查，未重置或改写。
-- 已参考：2026-10-20-ch02-design-claude.md、2026-10-21-all-design-consistency-codex.md、2026-10-23-2.1-opening-codex.md、2026-10-23-p06-tap-codex.md、2.1 VALIDATION.md、决策清理提案。
+- 已参考：2026-10-20-ch02-design-claude.md、2026-10-21-all-design-consistency-codex.md、2.1 VALIDATION.md、决策清理提案。
 - 检查方式：人工对照上游设计、分镜、页面源与口播的对应关系；运行编辑检查与 make check。没有逐页重新截图、试讲或重跑模型服务。
 
 ## 总体判断
