@@ -16,8 +16,13 @@ Context：profile.md 在项目根目录，由我提供个人事实与经历。�
 Constraints：个人事实与经历只使用 profile.md 的内容，不补写。可为呈现内容调整结构与样式；不添加链接或依赖，项目卡保持不跳转。只改页面所需的文件和标题，项目里其他说明文档不动。先提出改动计划，等我确认后再修改。
 Done when：四块个人内容已呈现，事实与经历都能在 profile.md 中找到；你运行 npm run build 并报告结果；我在浏览器里检查文字与排版，你不用启动开发或预览服务。"""
 
-# p22、p24、p27 的真实记录：观察点、按钮文字和阅读节选都在 trace/evidence.json，零件见 shared/parts/evidence-trace.js
+# p22、p27 的真实记录：观察点、按钮文字和阅读节选都在 trace/evidence.json，零件见 shared/parts/evidence-trace.js
 EVIDENCE = Evidence(Path(__file__).resolve().parents[1] / "trace/evidence.json")
+
+# p28 的会话选择对照是课程自绘（不是外部佐证，不用 redrawn() 的证据页外框）；图元在 materials/external/cache-compaction/session_states_figures.py
+SESSION_STATES = (Path(__file__).resolve().parents[3] / "materials/external/cache-compaction/redraw-session-states-excalidraw.svg").read_text().strip().replace(
+    "<svg ", '<svg style="display:block;max-width:100%;height:auto;max-height:325px;margin:0 auto" ', 1) + \
+    '<p class="source-note">课程自绘：据本节 2026-10-24 记录 14、6、28 示意，新建交接按 /clear 加人写的交接画；方块多少只示意有无，不代表 token 数</p>'
 
 def box(title, text, step=0, role="ink"):
     return f'<div class="p-box" data-role="{role}" data-reveal="{step}"><h3>{title}</h3><p>{text}</p></div>'
@@ -61,21 +66,12 @@ scene(
 )
 
 scene(
-    id='p21',
-    segment='准备个人内容',
-    title='这轮修改，用到会话、文件和页面',
-    lead='眼前有 Codex 中的读取与操作历史、项目目录中的资料与代码，以及浏览器显示的主页。会话里还留着上一节的读取和问答，这一轮要不要带着它们，由我们选；文件内容要通过读取进入。浏览器效果由人检查，需要反馈时再明确提供。',
-    html='<div class="p-grid" style="--n:3;gap:16px"><div class="p-box" data-role="ctx" data-reveal="0"><h3>Codex 会话</h3><p>上一节的读取与问答<br>这一轮要不要带上？</p></div><div class="p-box" data-role="tool" data-reveal="1"><h3>项目文件</h3><p>profile.md · 页面代码<br>读取后进入请求</p></div><div class="p-box" data-role="us" data-reveal="2"><h3>浏览器页面</h3><p>人查看文字与排版<br>把发现的问题说清楚</p></div></div>',
-    steps=['看会话：要不要带上', '看文件', '看页面'],
-)
-
-scene(
     id='p27a',
     segment='准备个人内容',
-    title='先保存项目规则，再 /clear',
-    lead='接着上一节“规则进入请求”的观察，在根目录保存 AGENTS.md：改代码后运行并报告 build，不新增依赖。上一节在弄懂项目区，这一轮需要的事实已经写进 profile.md，新写的规则也要新对话才会装入，所以选 /clear 开始新对话，随后直接发内容任务。本次 0.163.0 核验中，新对话首个任务请求含这些规则；中途新增文件未自动装入同一对话。清空没有撤销项目文件。学员写规则仍为选做。',
-    html='<div class="p-grid" style="--n:2;gap:16px"><div class="p-term" data-reveal="0"># 项目规则<br>- 不新增依赖<br>- 修改代码后运行 npm run build，并报告结果</div><div class="p-box" data-role="ctx" data-reveal="1"><h3>这一轮选 /clear</h3><p>上一节的问答用处不大<br>事实在 profile.md，规则要新对话才装入</p></div></div><div class="p-bar is-light" data-reveal="2">首个任务请求：初始内容 + 项目规则 + 本轮 Prompt</div>',
-    steps=['把规则存成文件', '为什么清空', '在任务请求里看规则'],
+    title='要不要带上上一节的对话？先保存规则，再 /clear',
+    lead='上一节结尾问过：再说一句，前面的还会跟着发吗？当前会话里还留着上一节的读取和问答。先在根目录保存 AGENTS.md：改代码后运行并报告 build，不新增依赖。上一节在弄懂项目区，这一轮需要的事实已经写进 profile.md，新写的规则也要新对话才会装入（本次 0.163.0 核验：中途新增的文件没有自动装入同一对话），所以选 /clear 开始新对话，随后直接发内容任务。清空没有撤销项目文件。学员写规则仍为选做。',
+    html='<div class="p-box" data-role="ctx" data-reveal="0"><h3>当前会话</h3><p>上一节的读取与问答还在：这一轮要不要带上？</p></div><div class="p-grid" style="--n:2;gap:16px;margin-top:16px"><div class="p-term" data-reveal="1"># 项目规则<br>- 不新增依赖<br>- 修改代码后运行 npm run build，并报告结果</div><div class="p-box" data-role="ctx" data-reveal="2"><h3>这一轮选 /clear</h3><p>上一节的问答用处不大<br>事实在 profile.md，规则要新对话才装入</p></div></div>',
+    steps=['看会话：要不要带上', '把规则存成文件', '为什么 /clear'],
 )
 
 scene(
@@ -93,7 +89,7 @@ scene(
     id='p29c',
     segment='内容迭代',
     title='Plan：先问清，再呈现可确认的计划',
-    lead='清空后输入 /plan，确认界面显示 Plan，再提交这段 Prompt；首个任务请求里已有刚保存的规则。本次它先读资料和代码，再问三道交互题，我们都选了推荐项：首屏按钮改为“查看经历”跳到工作经历，四块分成独立分区，“现在关注”放在首屏一行标签。回答以后出现 Proposed Plan。',
+    lead='清空后输入 /plan，确认界面显示 Plan，再提交这段 Prompt。本次它先读资料和代码，再问三道交互题，我们都选了推荐项：首屏按钮改为“查看经历”跳到工作经历，四块分成独立分区，“现在关注”放在首屏一行标签。回答以后出现 Proposed Plan。',
     html='<div class="p-grid" style="--n:2;gap:16px"><div class="p-term" data-reveal="0">› /plan<br>› 这一轮的四要素 Prompt</div><div class="p-box" data-role="us" data-reveal="1"><h3>交互提问 · 本次三题</h3><p>首屏按钮 → 查看经历<br>组织方式 → 四个独立分区<br>现在关注 → 首屏一行标签</p></div></div><div class="p-bar is-light" data-reveal="2">Proposed Plan 出来后，先审范围再放行</div>',
     steps=['切 Plan 并提交', '回答三道交互题', '看 Proposed Plan'],
     teaching=teach(
@@ -133,6 +129,21 @@ scene(
 )
 
 scene(
+    id='p24',
+    segment='回看请求',
+    layout='evidence-scene',
+    label='失败也留在历史里',
+    title='工具的失败返回，也一直跟着发',
+    lead='Manus 团队介绍上下文工程时主张保留错误：失败的尝试和报错留在 context 里，模型看到它，才不容易再错一次。这一轮也有一次：Plan 阶段它自己写的读文件脚本引号转义出错，返回 SyntaxError，它换了一种写法重读，读到了。这条失败返回没有被删掉，之后每次请求都带着它，一直到压缩前（压缩那页核对）。留着有用，也一直占输入。这次失败是运行中自然出现的，不是准备好的教学材料。',
+    html='<div class="p-grid" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start">' + redrawn("cache-compaction", "keep-errors", "excalidraw", "据 Manus《AI代理的上下文工程》“保留错误的内容”配图右半重画，中文标签", max_height=380) + '<div style="display:flex;flex-direction:column;gap:14px"><div class="p-term" data-reveal="1">Script error:<br>SyntaxError: Invalid or unexpected token</div><div class="p-box" data-role="tool" data-reveal="1"><h3>本轮：换写法重读</h3><p>第二次读到了</p></div><div class="p-box" data-role="ctx" data-reveal="1"><h3>报错没有删掉</h3><p>之后每次请求都带着它，直到压缩前</p></div></div></div>',
+    refs=[ref("保留错误的内容", "https://manus.im/zh-cn/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus", "Manus，2025-07-18")],
+    steps=['失败留在 context 里', '本轮：报错一直跟着发'],
+    teaching=teach(
+        ("讲师提示", "左图据 Manus 原图重画（原图英文小字上屏读不清）：只画右半：失败的 2A 留在 context 里，再做 2B 成功（左半是清掉失败再试，可口头带一句）；只讲它的主张（留下失败，模型不容易再错），“一直占输入”是课程补充。本轮实例在记录 10 第 12 项，压缩前的记录 25 里仍在，到 p27 第 1、2 步用静态记录核对。录制时没有自然失败，就按本次记录讲。"),
+    ),
+)
+
+scene(
     id='p23',
     segment='回看请求',
     title='输入增长和缓存命中，分开看',
@@ -158,19 +169,10 @@ scene(
 )
 
 scene(
-    id='p24',
-    segment='回看请求',
-    title='工具的失败输出，也一直留在后续输入里',
-    lead='这一轮 Plan 阶段，它自己写的读文件脚本引号转义出错，返回 SyntaxError，它换了一种写法重新读取。这条失败返回没有被删掉：之后每次请求都还带着它，一直到压缩前最后一次请求。成功和失败的过程都会成为后续输入；这次失败是运行中自然出现的，不是准备好的教学材料。',
-    html=EVIDENCE.stage("p24"),
-    steps=['脚本报错', '换写法再读', '之后一直都在'],
-)
-
-scene(
     id='p27',
     segment='压缩与继续',
     title='压缩换成摘要，要原文就重新读取',
-    lead='在这一轮的会话中手动 /compact，观察已有历史怎样交接，而非窗口已满。压缩前，资料原文和那条 SyntaxError 都还在历史里；压缩后的请求只有 9 项：基础指令、初始 Prompt、Skills 与团队说明、重新装入的项目规则、Implement the plan.、交接摘要和追问，原来的工具调用与返回都不在了。摘要没保留 DeepMotion.ai 经历的完整文字：禁止工具时答不出逐字原文，允许重读 profile.md 后正确引用。文件哈希与 tracked diff 均未改变。',
+    lead='在这一轮的会话中手动 /compact，观察已有历史怎样交接，而非窗口已满。压缩前，资料原文和上一页那条 SyntaxError 都还在历史里；压缩后的请求只有 9 项：基础指令、初始 Prompt、Skills 与团队说明、重新装入的项目规则、Implement the plan.、交接摘要和追问，原来的工具调用与返回都不在了。摘要没保留 DeepMotion.ai 经历的完整文字：禁止工具时答不出逐字原文，允许重读 profile.md 后正确引用。文件哈希与 tracked diff 均未改变。',
     html=EVIDENCE.stage("p27"),
     steps=['压缩前的历史', '压缩后的请求', '只凭摘要追问', '重读文件'],
 )
@@ -179,9 +181,14 @@ scene(
     id='p27b',
     segment='压缩与继续',
     title='/status：当前占用和累计用量分别看',
-    lead='同一会话压缩前，Context window 报告 26.3K used / 498K，Token usage 52.5K total；压缩并追问两次以后，分别是 12.2K used 和 86.7K total。累计口径和当前窗口不同，压缩本身也调用模型。这些是本次界面读数，不是整节费用基准。另一次自动压缩实验把触发线调低到 10,000，便于观察任务中途压缩后继续，不能当默认配置。',
-    html='<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)"><div class="is-head" data-reveal="0"><span>/status</span><span>压缩前</span><span>压缩并追问两次后</span></div><div data-reveal="0"><span>Context window</span><span>26.3K used / 498K</span><span>12.2K used / 498K</span></div><div data-reveal="1"><span>Token usage</span><span>52.5K total</span><span>86.7K total</span></div></div><div class="p-box" data-role="ctx" data-reveal="2"><h3>另一次自动压缩实验</h3><p>调低触发线到 10,000 用于演示：中途压缩，任务继续</p></div>',
-    steps=['当前窗口', '累计用量', '自动压缩的独立片段'],
+    lead='同一会话压缩前，Context window 报告 26.3K used / 498K，Token usage 52.5K total；压缩并追问两次以后，分别是 12.2K used 和 86.7K total。累计口径和当前窗口不同，压缩本身也调用模型。这些是本次界面读数，不是整节费用基准。任务中也会自动压缩：OpenAI 介绍 Codex 循环的文章说，Token 总数超过设定的上限时，Codex 会用一个更小的列表替换历史再继续。',
+    html='<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)"><div class="is-head" data-reveal="0"><span>/status</span><span>压缩前</span><span>压缩并追问两次后</span></div><div data-reveal="0"><span>Context window</span><span>26.3K used / 498K</span><span>12.2K used / 498K</span></div><div data-reveal="1"><span>Token usage</span><span>52.5K total</span><span>86.7K total</span></div></div><div class="p-box" data-role="ctx" data-reveal="2"><h3>任务中也会自动压缩</h3><p>超过设定的上限，用更小的列表替换历史，任务继续</p></div>',
+    steps=['当前窗口', '累计用量', '任务中自动压缩'],
+    refs=[ref("深入解析 Codex 智能体循环 · 压缩", "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/", "OpenAI，2026-01-23")],
+    teaching=teach(
+        ("自动压缩实验", "2026-10-21 另一次实验把触发线调低到 10,000（-c model_auto_compact_token_limit=10000），读文件途中自动压缩后继续完成；需要时再切出来，标明是实验设置，不教作默认值。"),
+        ("引用边界", "文章说后来的 /responses/compact 返回加密的 compaction 项；本课 MiniMax 下看到的是明文 Handoff Summary，接近文章说的早期 /compact。只说“用更小的列表替换历史”，不说成同一个端点。"),
+    ),
 )
 
 scene(
@@ -189,7 +196,7 @@ scene(
     segment='选择怎样继续',
     title='下一步要做什么，再选怎样继续会话',
     lead='先回看自己会话的读取与操作历史，再判断下一任务需要什么。继续、清空、压缩、新建交接都可能合理。Plan 是工作模式，本页四项是会话选择。讲师仍做同一主页，沿这份成果继续，需要逐句事实时重读文件；学员用界面中可见的一条依据说明自己的选择。',
-    html='<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)"><div class="is-head" data-reveal="0"><span>做法</span><span>当前要接着做什么 / 哪些信息要带过去</span></div><div data-reveal="0"><span>继续</span><span>同一件事，已有历史集中且有用</span></div><div data-reveal="0"><span>/clear</span><span>重新说明任务与所需文件，文件改动还在</span></div><div data-reveal="1"><span>压缩后继续</span><span>进度由摘要承接，需要原文时再读</span></div><div data-reveal="1"><span>新建并交接</span><span>人说明结论、约束、文件和下一步</span></div></div><div class="p-bar is-light" data-reveal="2">暂停：写下你的选择 + 一条可见的依据</div>',
+    html=SESSION_STATES + '<div class="p-bar is-light" data-reveal="2">暂停：写下你的选择 + 一条可见的依据</div>',
     steps=['继续或清空', '压缩或交接', '自己的判断'],
 )
 

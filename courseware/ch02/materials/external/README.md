@@ -142,3 +142,29 @@ uv run courseware/ch02/materials/external/context-engineering/preview_harness.py
 uv run courseware/tools/capture-source.py https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/ courseware/ch02/materials/external/context-engineering/openai-codex-harness-definition.png --text '本文重点探讨 Codex 的运行框架' --width 1100 --headed
 uv run courseware/tools/capture-source.py https://openai.com/zh-Hans-CN/index/harness-engineering/ courseware/ch02/materials/external/context-engineering/openai-project-harness-enforcement.png --text '每个业务域都划分为一组固定的层' --width 1100
 ```
+
+## 2.2 缓存、失败返回与压缩（2026-10-24）
+
+对应讲透问题 4、5。调研见[调研报告](<../../../../docs/research/reports/第 2 章 Context 引入素材.md>)“2026-10-24 补充：2.2 缓存、失败返回与压缩”，审查见 [2.2 主线与外部佐证审查](../../../../docs/reviews/ch02/2026-10-24-2.2-mainline-sources-claude.md)。讲师确认一节保持 3～4 处外部佐证（C2-97）：本组只采用 Manus“保留错误的内容”一张图（重画右半），其余不用，截图已删，需要时按下面的命令重截。
+
+| 文件 | 来源 | 作者 · 日期 | 截取 | 拟用在 | 状态 |
+| --- | --- | --- | --- | --- | --- |
+| `cache-compaction/manus-keep-wrong-stuff.png`（原图） | [Manus 中文版](https://manus.im/zh-cn/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus)“保留错误的内容”的图：左半清掉失败再试，右半失败的观察 2A 留在 context，再做 2B 成功 | 季逸超（Yichao "Peak" Ji）· 2025-07-18 | 2026-10-24，1360×766，已打开检查 | 2.2 p24 对照 | 重画；只作对照，不上屏：p24 左栏约 480 宽，原图英文小字读不清 |
+| `cache-compaction/redraw-keep-errors-{course,excalidraw}.svg` | 据上图右半重画，中文标签 | 同上 | 2026-10-24 | 2.2 p24 | 采用 Excalidraw 版（C2-97）；图元 `cache-compaction/keep_errors_figures.py`；左半只在讲师提示里口头带一句 |
+| `cache-compaction/manus-kv-cache.png` | 同上，“围绕 KV 缓存进行设计”的对照图 | 同上 | 2026-10-24 | 2.2 p23 | 不用（C2-97，控制佐证数量；p23 已有 OpenAI 提示缓存链接），图已删 |
+| `cache-compaction/manus-file-system-context.png` | 同上，“使用文件系统作为上下文”的图 | 同上 | 2026-10-24 | 2.2 p27 | 不用（C2-97），图已删 |
+| `agent-loop/openai-snapshot3.svg`（原图） | [深入解析 Codex 智能体循环](https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/) Snapshot 3 “Starting a new turn” | Michael Bolin（OpenAI）· 2026-01-23 | 2026-10-24 | 2.2 p22 / p23 | 不用（C2-97；2.1 p07-loop 已有逐次变长的重画图），图已删 |
+| `cache-compaction/redraw-session-states-{course,excalidraw}.svg` | 课程自绘：继续、/clear、压缩后、新建交接之后请求里还剩什么，文件在请求外；据本节 2026-10-24 记录 14、6、28 | 本课程 · 2026-10-24 | — | 2.2 p28 | 采用 Excalidraw 版（C2-97，与 2.1 p07-loop 同风格）；图元 `cache-compaction/session_states_figures.py`；不是外部材料，不调 anchor() |
+
+```bash
+U=https://manus.im/zh-cn/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus
+D=courseware/ch02/materials/external/cache-compaction
+uv run courseware/tools/capture-source.py $U $D/manus-keep-wrong-stuff.png --selector 'img[src*="dBjZlVbKJVhjgQuF"]' --wait 4
+uv run courseware/tools/capture-source.py $U $D/manus-kv-cache.png --selector 'img[src*="OhdKxGRSXCcuqOvz"]' --wait 4
+uv run courseware/tools/capture-source.py $U $D/manus-file-system-context.png --selector 'img[src*="sBITCOxGnHNUPHTD"]' --wait 4
+curl -sL -o courseware/ch02/materials/external/agent-loop/openai-snapshot3.svg 'https://images.ctfassets.net/kftzwdyauwt9/29dQVXimfduA5GoUR6uWhe/eb25359d27a683352878fe78c6d3e27b/oai_EngBlog_Unrolling_the_Codex_agent_loop_Snapshot_3_desktop-light.svg'
+uv run courseware/tools/redraw.py courseware/ch02/materials/external/cache-compaction/session_states_figures.py
+uv run courseware/tools/redraw.py courseware/ch02/materials/external/cache-compaction/keep_errors_figures.py
+```
+
+Manus 页面的图片地址是站点上传路径，换版后选择器可能失效；失效时按图题重新定位。
