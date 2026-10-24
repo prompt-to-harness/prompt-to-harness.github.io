@@ -685,3 +685,13 @@ Chromium 离线覆盖1280×848、390×848阅读模式：11个观察点的阅读/
 - `check-presentation.py` 新增 `.p-evidence` 检查：阅读模式首次打开显示第一个节选；切原始记录后查看器回报定位到第一个点；点观察点、放大后定位跟着走；在放大的查看器里按 Esc 收起且观察点保留；演示模式直接打开某页末步，按钮跟到该步，切原始记录后定位到该点。故意改错通道名时，这些检查逐项报错，改回后通过。
 - 阅读视图下原始记录是隐藏的 iframe，浏览器不跑它的绘制回调，切到原始记录后才完成定位；与迁移前相同，不是新问题。
 - 1280 宽演示模式截图看过 p22 的阅读视图、原始记录、放大窗口，390 宽阅读模式看过 p27，排版与迁移前一致。`make check` 通过。未在 Safari、Firefox 上看，未试讲。
+
+## 2026-10-24：2.1 证据页迁到共用零件，删除旧实现（C2-96 第 2–5 步）
+
+只换实现，不改页面文案、口播和观察点。
+
+- 2.1 p07、p08a 改用 `.p-evidence`：两页共用 `materials/request/run-20261024/interactive.json` 一份记录和 `trace/evidence.json`、一个 `trace/viewer.html`。p07 的 A/C/D 依据链写成分组，播放器 5 步不变，C、D 的回答与调用由分组标签切到；p08a 六处观察点、按钮与下方说明照旧，阅读视图改由 `tools/request_reading.py` 直接从 interactive.json 渲染，与原 reader.html 的六段内容逐字相同。p08a 的原始记录现在和 p07 是同一个查看器，侧栏也能看到同一会话后面的请求，定位仍停在问候那一条。
+- 删除 `demos/ch02-static-trace`、`demos/ch02-request-walkthrough`（数据都是 interactive.json 的副本；`skill-file-excerpt.json` 移到 run-20261024），以及 2.1 的 `request/` 外壳、`lesson-adapter.js`、`trace/lesson-embed.*`、`trace/trace.json` 副本和 `tools/check-walkthrough.py`。三条旧消息通道只剩 `course-trace-v1`。
+- `trace-bridge.js` 并入原 p08a 适配的工具定义定位和“所属消息”角色标签；观察点类型（调用、返回、回答、工具定义）由 tracekit 写入，不再靠 key 后缀猜。p14a、p16 的单独打开记录改用同一个 `render_viewer` 渲染，它们的 viewer-manifest 哈希随之更新，内容不变。
+- 迁移中修了两处：p08a 阅读视图的标题原是 h2，演示模式会把页内 h2 当页标题绝对定位，与上一行重叠，改成 `.p-ev-title`；放大窗口里 p07 的九个观察点原本挤成一行，改为与页面相同的分组标签加本组按钮。
+- `check-presentation.py` 的 `.p-evidence` 检查覆盖 2.1、2.2 共五页（含分组切换）；`make check` 通过。1280 宽看过 p08a 阅读视图与原始记录、p07 的 C 组与放大窗口。未在 Safari、Firefox 上看，未试讲。

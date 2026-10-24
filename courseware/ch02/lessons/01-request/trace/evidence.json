@@ -1,0 +1,189 @@
+{
+  "source": "courseware/ch02/materials/request/run-20261024/interactive.json",
+  "trace_sha256": "4f0ce448d46adfa38d3fee902d99702403f045941c8ed1666fdcd9443279f45f",
+  "basis": "p07：讲师 2026-10-24 选定依据链 A（App.tsx 项目卡）、C（index.html 标题）、D（PLACEHOLDER_CONTENT.md 内容来源）；记录变化时用 --list-candidates 重新列候选，经讲师确认再改。p08a：问候的那一份请求（interactive-1），按请求里的实际顺序看六处。",
+  "confirmed_on": "2026-10-24",
+  "viewer": "trace/viewer.html",
+  "note": "本次真实记录",
+  "groups_label": "三条真实依据链",
+  "groups": {
+    "A": {
+      "tab": "A 项目卡",
+      "title": "项目卡写在哪"
+    },
+    "C": {
+      "tab": "C 标题",
+      "title": "页面标题写在哪"
+    },
+    "D": {
+      "tab": "D 来源",
+      "title": "内容从哪来"
+    }
+  },
+  "stages": {
+    "p07": [
+      "A-answer",
+      "A-call",
+      "A-result",
+      "C-result",
+      "D-result"
+    ],
+    "p08a": [
+      "identity",
+      "skills",
+      "permissions",
+      "environment",
+      "tools",
+      "response"
+    ]
+  },
+  "extra": {
+    "p07": [
+      "C-answer",
+      "C-call",
+      "D-answer",
+      "D-call"
+    ]
+  },
+  "points": [
+    {
+      "key": "A-answer",
+      "group": "A",
+      "button": "① 看回答",
+      "hint": "它说了什么，引用了哪里？",
+      "request": "interactive-9",
+      "section": "section_response",
+      "needle": "src/App.tsx:1-6"
+    },
+    {
+      "key": "A-call",
+      "group": "A",
+      "button": "② 找读取调用",
+      "hint": "模型让 Codex 去读了什么？",
+      "request": "interactive-4",
+      "section": "section_response",
+      "callId": "call_9YuUT4VwPtIAuWiPrhzcz5r8"
+    },
+    {
+      "key": "A-result",
+      "group": "A",
+      "button": "③ 看后续请求",
+      "hint": "返回的代码怎样带了回来？",
+      "request": "interactive-5",
+      "section": "section_messages",
+      "callId": "call_9YuUT4VwPtIAuWiPrhzcz5r8",
+      "needle": "name: '学习笔记'"
+    },
+    {
+      "key": "C-answer",
+      "group": "C",
+      "button": "① 看回答",
+      "hint": "它说了什么，引用了哪里？",
+      "request": "interactive-9",
+      "section": "section_response",
+      "needle": "index.html:6"
+    },
+    {
+      "key": "C-call",
+      "group": "C",
+      "button": "② 找读取调用",
+      "hint": "模型让 Codex 去读了什么？",
+      "request": "interactive-3",
+      "section": "section_response",
+      "callId": "call_ucULXytSc31l6yUs9498Xu1a"
+    },
+    {
+      "key": "C-result",
+      "group": "C",
+      "button": "③ 看后续请求",
+      "hint": "返回的代码怎样带了回来？",
+      "request": "interactive-4",
+      "section": "section_messages",
+      "callId": "call_ucULXytSc31l6yUs9498Xu1a",
+      "needle": "<title>示例同学"
+    },
+    {
+      "key": "D-answer",
+      "group": "D",
+      "button": "① 看回答",
+      "hint": "它说了什么，引用了哪里？",
+      "request": "interactive-9",
+      "section": "section_response",
+      "needle": "PLACEHOLDER_CONTENT.md:9-10"
+    },
+    {
+      "key": "D-call",
+      "group": "D",
+      "button": "② 找读取调用",
+      "hint": "模型让 Codex 去读了什么？",
+      "request": "interactive-5",
+      "section": "section_response",
+      "callId": "call_fRSyjz9gm4q7jfT1JHDavdto"
+    },
+    {
+      "key": "D-result",
+      "group": "D",
+      "button": "③ 看后续请求",
+      "hint": "返回的代码怎样带了回来？",
+      "request": "interactive-6",
+      "section": "section_messages",
+      "callId": "call_fRSyjz9gm4q7jfT1JHDavdto",
+      "needle": "| 项目名称 | 学习笔记 |"
+    },
+    {
+      "key": "identity",
+      "button": "① 系统指令",
+      "hint": "它被要求扮演什么角色？",
+      "observe": "第一条 developer 消息。首句来自模型能力目录的 base_instructions，和 MiniMax 官方接入说明里的写法一致；协作模式、团队与多代理说明可展开",
+      "request": "interactive-1",
+      "section": "section_messages",
+      "needle": "You are Codex"
+    },
+    {
+      "key": "skills",
+      "button": "② Skills 列表",
+      "hint": "给了名字、简述和文件位置",
+      "observe": "列表提供名字、简述与文件位置；本次来自课程 HOME 的内置目录，不等于项目 Skills 或全文已读入",
+      "request": "interactive-1",
+      "section": "section_messages",
+      "needle": "<skills_instructions>"
+    },
+    {
+      "key": "permissions",
+      "button": "③ 权限说明",
+      "hint": "这次允许怎样操作",
+      "observe": "这是本次 workspace-write 的说明，和 Skills 同在一条 developer 消息里；实际约束由运行时落实",
+      "request": "interactive-1",
+      "section": "section_messages",
+      "needle": "<permissions instructions>"
+    },
+    {
+      "key": "environment",
+      "button": "④ 环境信息",
+      "hint": "当前目录、日期与时区",
+      "observe": "这条消息标为 user，内容由 Codex 加入。项目目录、Shell、日期和时区都在这里；它后面才是我们的问候",
+      "request": "interactive-1",
+      "section": "section_messages",
+      "needle": "<environment_context>"
+    },
+    {
+      "key": "tools",
+      "button": "⑤ 工具定义",
+      "hint": "工具叫什么，怎样调用？",
+      "observe": "工具定义在消息之后的 tools 字段。展开 exec，看工具名字、用法和 exec_command",
+      "request": "interactive-1",
+      "section": "section_tools",
+      "tool": "exec"
+    },
+    {
+      "key": "response",
+      "button": "⑥ 这一次的返回",
+      "hint": "它怎样回答？",
+      "observe": "这次模型直接用文字回答，没有调用工具；一句问候，一次请求就结束了",
+      "request": "interactive-1",
+      "section": "section_response",
+      "needle": "编码助手",
+      "kind": "answer"
+    }
+  ]
+}

@@ -5,8 +5,8 @@
 .p-ev-guide button{border:1px solid #b9b3a6;border-radius:8px;padding:9px 10px;text-align:left;background:#fffdf7;color:#243042;cursor:pointer;font:inherit;white-space:normal;min-width:0;overflow-wrap:anywhere}
 .p-ev-guide button[aria-pressed=true]{border:2px solid #294f3a;padding:8px 9px;background:#edf2eb}
 .p-ev-guide b{font-size:19px;line-height:1.2;display:block;margin-bottom:5px}
-.p-ev-guide span{font-size:16px;line-height:1.3;display:block;color:#5b6573}
-body[data-mode=slides] .p-ev-guide span{display:none}body[data-mode=slides] .p-ev-guide b{margin:0}
+.p-ev-guide button span{font-size:16px;line-height:1.3;display:block;color:#5b6573}
+body[data-mode=slides] .p-ev-guide button span{display:none}body[data-mode=slides] .p-ev-guide b{margin:0}
 .p-ev-panel{min-width:0;overflow:hidden;border:1px solid #b9b3a6;border-radius:8px;background:white;display:flex;flex-direction:column}
 .p-ev-bar{min-height:42px;flex:none;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;padding:8px 12px;gap:10px;background:#ebe7dc;font-size:16px;color:#625d53}
 .p-ev-bar [data-ev-status]{display:none}
@@ -34,9 +34,26 @@ body[data-mode=scroll] .p-evidence{height:590px}
 @media(max-width:700px){
  body[data-mode=scroll] .p-evidence{grid-template-columns:minmax(0,1fr);height:auto;gap:12px}
  body[data-mode=scroll] .p-ev-guide{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
- body[data-mode=scroll] .p-ev-guide b{font-size:16px}body[data-mode=scroll] .p-ev-guide span{font-size:14px}
+ body[data-mode=scroll] .p-ev-guide b{font-size:16px}body[data-mode=scroll] .p-ev-guide button span{font-size:14px}
  body[data-mode=scroll] .p-ev-panel{height:540px}body[data-mode=scroll] .p-ev-bar{font-size:13px;padding:8px 10px}
  .p-ev-actions{font-size:14px;gap:8px;flex-wrap:wrap}.p-ev-reading pre{font-size:15px}
  .p-ev-dialog-bar{font-size:14px;padding:0 10px;gap:8px}.p-ev-dialog-points{flex-wrap:wrap;gap:4px}.p-ev-dialog-points button{font-size:13px;padding:2px 6px}
  .p-ev-dialog .p-ev-reading pre{font-size:17px}
 }
+/* 分组标签（例如 2.1 p07 的 A/C/D 依据链）与观察说明 */
+.p-ev-note{margin:0;font-size:17px;line-height:1.4;color:#6e6043}
+.p-ev-tabs{display:flex;gap:6px}.p-ev-tabs button{flex:1;padding:4px 0!important;font-size:15px;text-align:center!important;white-space:nowrap}
+.p-ev-tabs button[aria-pressed=true]{padding:3px 0!important}
+.p-ev-guide button[hidden]{display:none}
+.p-ev-observe{margin:auto 0 0;padding-top:10px;border-top:1px solid #d6d1c7;font-size:16px;line-height:1.55;color:#5b6573}
+.p-ev-observe [hidden]{display:none}
+body[data-mode=slides] .p-ev-observe{font-size:15px}
+/* 阅读视图里由本节生成的富文本（Markdown 渲染、折叠） */
+.p-ev-md{font-size:17px;line-height:1.65;color:#263345}.p-ev-md .p-ev-title{font-size:22px;line-height:1.35;font-weight:700;margin:4px 0 10px}.p-ev-md h3{font-size:18px;margin:14px 0 6px}.p-ev-md p{margin:8px 0}
+.p-ev-md pre{font:15px/1.5 'Course Mono',ui-monospace,monospace;background:#f0eee7;padding:12px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere}.p-ev-md code{font-family:'Course Mono',ui-monospace,monospace;font-size:.9em;overflow-wrap:anywhere}
+.p-ev-md details{border:1px solid #cec6b5;border-radius:7px;margin:10px 0;padding:8px 12px}.p-ev-md summary{cursor:pointer;font-weight:600;color:#315a43}
+.p-ev-md .meta{font-size:14px;color:#806124;border-bottom:1px solid #ddd3bd;padding-bottom:8px;margin-bottom:12px}.p-ev-md .evidence{border-left:4px solid #ad8842;padding:6px 14px;background:#f5f1e6}.p-ev-md .notice{font-size:15px;color:#6b665a}
+.p-ev-dialog .p-ev-md{font-size:21px}.p-ev-dialog .p-ev-md pre{font-size:19px}
+@media(max-width:700px){.p-ev-md{font-size:15px}.p-ev-md pre{font-size:13px}}
+.p-ev-dialog-points button[hidden]{display:none}.p-ev-dialog-points [data-ev-group]{font-weight:700}
+.p-ev-dialog-points [data-ev-group][aria-pressed=true]{border:2px solid #294f3a;background:#edf2eb;padding:3px 9px}

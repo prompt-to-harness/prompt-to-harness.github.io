@@ -42,8 +42,11 @@ def source_hints(scene):
 screen_files = [p for p in courseware.rglob('*') if p.name in ('index.html', 'lesson.js') and 'archive' not in p.parts]
 element_period = re.compile(r'>([^<>。]*)。</')
 field_period = re.compile(r'"(?:title|label|kicker)":\s*"([^"。]*)。"')
+# .p-evidence 阅读视图里的是请求记录原文（由 tracekit 或本节脚本从记录生成），引用不改写，不按屏幕文字检查
+reading_section = re.compile(r'<section data-ev-reading=\\"[^"\\]*\\"[^>]*>.*?</section>', re.S)
 for path in sorted(screen_files):
     text = path.read_text()
+    text = reading_section.sub(lambda m: '\n' * m[0].count('\n'), text)
     for pattern in (element_period, field_period):
         for m in pattern.finditer(text):
             line = text.count('\n', 0, m.start()) + 1

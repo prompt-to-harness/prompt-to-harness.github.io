@@ -11,7 +11,6 @@ steps 与 script 一一对应；data-reveal 最大值 = 步骤数 - 1。
 scene["seconds"] 只用于章节条的宽度比例（按步骤数计算），不是时长估算。
 """
 import json
-import sys
 from html import escape
 from pathlib import Path
 
@@ -41,11 +40,6 @@ def ref(text, url, group="", kind="live"):
 
 
 EXTERNAL = Path(__file__).resolve().parents[1] / "materials/external"
-
-# 嵌入课件的 claude-tap 查看器不连带滚动外层页面：实现已移到全课共用的 courseware/tools/tracekit.py，这里转出给 2.1 用。
-sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "tools"))
-from tracekit import keep_scroll_inside  # noqa: E402
-
 
 def shot(src, bar, alt, height=440, note="", reveal=0):
     """证据页（layout="evidence-scene"）里的外部截图：顶栏 bar 写“站点 · 作者 · 日期”，图片放在本节 external/。
