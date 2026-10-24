@@ -11,6 +11,7 @@ steps 与 script 一一对应；data-reveal 最大值 = 步骤数 - 1。
 scene["seconds"] 只用于章节条的宽度比例（按步骤数计算），不是时长估算。
 """
 import json
+import sys
 from html import escape
 from pathlib import Path
 
@@ -41,24 +42,9 @@ def ref(text, url, group="", kind="live"):
 
 EXTERNAL = Path(__file__).resolve().parents[1] / "materials/external"
 
-# 嵌入课件的 claude-tap 查看器加载时会对选中的记录调用 scrollIntoView，连带滚动外层课件页（阅读模式打开某页会跳走）。
-# 嵌入时改成只滚动查看器里最近的可滚动容器；单独打开时不变。2.1、2.2 生成 viewer.html 时都插到 <head> 后。
-VIEWER_KEEP_PARENT = """<script>
-if (window !== parent) Element.prototype.scrollIntoView = function (opts) {
-  let p = this.parentElement;
-  while (p && !(p.scrollHeight > p.clientHeight && /(auto|scroll)/.test(getComputedStyle(p).overflowY))) p = p.parentElement;
-  if (!p) return;
-  const r = this.getBoundingClientRect(), b = p.getBoundingClientRect();
-  if (opts && opts.block === 'center') p.scrollTop += r.top - b.top - (b.height - r.height) / 2;
-  else if (r.top < b.top) p.scrollTop += r.top - b.top;
-  else if (r.bottom > b.bottom) p.scrollTop += r.bottom - b.bottom;
-};
-</script>"""
-
-
-def keep_scroll_inside(html):
-    assert "<head>" in html and VIEWER_KEEP_PARENT not in html
-    return html.replace("<head>", "<head>" + VIEWER_KEEP_PARENT, 1)
+# 嵌入课件的 claude-tap 查看器不连带滚动外层页面：实现已移到全课共用的 courseware/tools/tracekit.py，这里转出给 2.1 用。
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "tools"))
+from tracekit import keep_scroll_inside  # noqa: E402
 
 
 def shot(src, bar, alt, height=440, note="", reveal=0):
