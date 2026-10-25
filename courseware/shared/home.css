@@ -54,7 +54,8 @@
 .chapter-route-list li{position:relative}
 .chapter-route-list li+li::before{content:'→';position:absolute;left:-21px;top:50%;transform:translateY(-50%);font:400 20px/1 var(--p-title);color:#6B7280}
 .chapter-route-list .p-box{display:block;padding:12px 14px;text-decoration:none;min-height:100%}
-.chapter-route-list .p-box:hover::before{border-width:3px}
+.chapter-route-list .p-box:hover::before,.home-route-intro a.p-box:hover::before{border-width:3px}
+.home-route-intro a.p-box{text-decoration:none}
 .chapter-route-list .route-num{display:block;font:400 22px/1 var(--p-title);color:var(--ct);opacity:.8;margin-bottom:6px}
 .chapter-route-list h3{font-size:21px;margin:0}
 .chapter-route-note{margin-top:22px;font-size:17px}

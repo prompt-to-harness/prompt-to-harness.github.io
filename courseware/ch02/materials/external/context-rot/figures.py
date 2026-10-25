@@ -34,4 +34,24 @@ def chroma_context_rot():
     return {'size': (840, T + H + 64), 'items': items}
 
 
-FIGURES = {'chroma-context-rot': chroma_context_rot()}
+def smart_zone():
+    """据 Matt Pocock《AI Coding Dictionary》smart zone 词条与 Dex Horthy “No Vibes Allowed” 演讲的说法示意；
+    分界不画具体数字：两个来源给的位置不同（125K–150K 有争议 / Claude Code 约 40%），都说因模型和任务而异。"""
+    # 不画图内标题：页面标题已经说了这句（2026-10-25 样稿）
+    L, W, Y, H = 40, 760, 90, 70
+    cut = L + W * 0.42
+    items = [('box', L, Y, cut - L, H, {'stroke': TOOL, 'fill': '#E3F1EC', 'label': 'smart zone', 'label_size': 24}),
+             ('box', cut, Y, L + W - cut, H, {'stroke': RISK, 'fill': SOFT_RISK, 'label': 'dumb zone', 'label_size': 24}),
+             ('text', L + 8, Y + H + 34, '清醒、专注、记得住', {'size': 18, 'color': TOOL}),
+             ('text', cut + 8, Y + H + 34, '更粗心、更健忘、错更多', {'size': 18, 'color': RISK}),
+             ('line', cut, Y - 46, cut, Y + H + 8, {'color': MUTED, 'width': 2}),
+             ('text', cut, Y - 54, '从哪里开始：因模型和任务而异', {'size': 17, 'color': MUTED, 'anchor': 'middle'}),
+             ('line', L + W, Y - 20, L + W, Y + H + 60, {'color': INK, 'width': 3}),
+             ('text', L + W, Y + H + 84, '窗口上限', {'size': 18, 'anchor': 'end'}),
+             ('text', L + W, Y + H + 108, '质量早在这之前就下降了', {'size': 16, 'color': MUTED, 'anchor': 'end'}),
+             ('arrow', L, Y + H + 140, L + 420, Y + H + 140, {'color': MUTED}),
+             ('text', L + 430, Y + H + 146, '同一个会话里，context 越积越多', {'size': 18, 'color': MUTED})]
+    return {'size': (840, Y + H + 170), 'items': items}
+
+
+FIGURES = {'chroma-context-rot': chroma_context_rot(), 'smart-zone': smart_zone()}
