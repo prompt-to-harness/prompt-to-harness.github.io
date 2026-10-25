@@ -5,7 +5,7 @@
 - 授权：讲师确认采用静态查看器，将 p07、p14 合为一页，保留 p16a 的 Context 归纳，要求本地直接打开与预览。
 - 起点：分镜的“增删页、某页讲什么”层；本次沿讲师已确认的范围向下同步。
 - 基于提交：9a8d6d5，工作区含继承改动和本对话前批次产出。修改前副本用于区分本轮变动，未重置、提交或推送。
-- 已参考：2026-10-23-static-trace-prototype-codex.md、2.1-project-rehearsal-codex.md、本组 latter-handoff、章 README 和现行分镜。
+- 已参考：2026-10-23-static-trace-prototype-codex.md、2.1-project-rehearsal-codex.md、章 README 和现行分镜。
 
 ## 改动
 

@@ -96,3 +96,49 @@
 - 已核对 Working Memory：https://academy.claude.com/courses/ai-capabilities-and-limitations/working-memory ，以当前工作记忆解释 Context Window。本次没有逐段观看视频。
 - 已核对 Claude Code 101 第 2 课：https://academy.claude.com/courses/claude-code-101/how-claude-code-works ，先给 Agent 循环概览，再讲 Context。
 - 讲师选定左图右帖，保留熟悉的 Karpathy；具体取舍见 C2-77 和 p05a 审查记录。图为课程自绘，不冒充官方原图。
+
+## agent loop（2026-10-24，用于 2.1 p07-loop）
+
+### OpenAI《Unrolling the Codex agent loop》的循环图与 Snapshot 2/3（已核实）
+
+- 原文：[中文版](https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/)，Michael Bolin，2026-01-23。英文版 WebFetch 返回 403，中文版在内置浏览器打开核对；2026-10-24 再次打开时停在人工验证，未绕过。
+- Agent loop 图：用户输入 → 模型推理 → 工具调用回到推理，或给出回答；多轮版在前面加了组装对话历史。
+- Snapshot 2：上半为第 1 次请求的全部 input，下半为第 2 次调用新增的 reasoning、function_call、function_call_output；正文说旧提示是新提示的精确前缀，以便利用提示缓存。图例只有 System、Developer、User 三种角色。
+- Snapshot 3：内循环结束后接 assistant 的最终回答，再接下一轮 user 消息。
+- 和本课记录的出入（2026-10-24 更正）：原先写“本次 MiniMax 记录里每轮只新增调用和返回两条、没有 reasoning”，是看了删掉推理的 10-23 公开记录得出的，不成立。10-24 重跑的原始记录里每轮追加 reasoning、custom_tool_call、custom_tool_call_output 三条，与 Snapshot 2 一致。本次记录没有 system 角色，重画图图例仍不用 System。
+
+### Anthropic《Building effective agents》自主 agent 图（已核实，备用）
+
+- [原文](https://www.anthropic.com/engineering/building-effective-agents)，Erik Schluntz、Barry Zhang，2024-12-19。Human 与 LLM Call 往返，LLM 通过 Action 与 Feedback 和 Environment 交互，直到 Stop。只有概念，不涉及请求内容。
+
+## system 与 developer 角色（2026-10-24，用于 2.1 p09）
+
+- **OpenAI API 参考，Chat Completions**（[原文](https://developers.openai.com/api/reference/resources/chat)，2026-10-24 页面，已核实）：o1 及更新的模型中，developer 消息取代原来的 system 消息。
+- **OpenAI API 参考，Responses**（[原文](https://developers.openai.com/api/reference/resources/responses)，已核实）：developer 或 system 角色给出的指令优先于 user 角色。
+- **OpenAI 公告 o1 进入 API**（[原文](https://openai.com/index/o1-and-new-tools-for-developers/)，已核实）：o1 支持 developer messages。页面没写发布日期，2024-12-17 只是按模型快照名推断，未核实，不上屏。
+- **OpenAI Model Spec**：首版（[2024-05-08](https://cdn.openai.com/spec/model-spec-2024-05-08.html)）的角色已有 platform、developer、user、assistant、tool；现行版（[2026-08-18](https://model-spec.openai.com/2026-08-18.html)）的权限顺序为 Root > System > Developer > User > Guideline。已核实。说明 developer 作为概念早于 o1，在 API 里取代 system 消息是 o1 起的变化。
+- **《深入解析 Codex 智能体循环》**（2026-01-23，已核实）：角色按优先级为 system、developer、user、assistant；当时基础指令放在顶层 `instructions` 字段，权限说明用 developer，AGENTS.md 用 user。这描述的是 2026 年 1 月的实现。
+- **Codex PR #51156**（[原文](https://github.com/openai/codex/pull/51156)，“Send base instructions as Responses input messages”，2026-10-05 合并，已核实）：基础指令从顶层 `instructions` 移到 input 最前面的 developer 消息，请求类型去掉该字段。首个包含它的正式版是 0.162.0（按 release notes，克隆为浅克隆，未用 git 复核 tag 包含关系）。rust-v0.163.0 源码 `core/src/client.rs` 的请求构造无条件插入 developer 基础指令，`codex-api/src/common.rs` 的 `ResponsesApiRequest` 只有 input 与 tools，已核实。
+- **和课件的出入**：p16b 现用的重画图（据 1 月文章）第一行仍是 `instructions`，与当前记录不符；页面同步时改为 developer 基础指令或加注“文章写于 2026-01，当前版本已改”。MiniMax 服务端是否另加 system 层未核实。
+
+## 2.2 补充（2026-10-24）
+
+### OpenAI《深入解析 Codex 智能体循环》：多轮、缓存与压缩（已核实）
+
+- 中文版在内置浏览器打开，未出现人工验证。
+- 多轮：用户回应时，上一轮的助手消息和用户的新消息都追加到 input，开始新一轮；Snapshot 3（Starting a new turn）画的是这个，例句是用户补的一句修改意见。另有 Multi-turn agent loop 图（组装对话历史 → 最新用户输入 → 推理 → 回答或工具调用）。
+- 缓存：引用自家提示缓存文档，命中要求精确前缀匹配，静态内容放前、可变内容放后；会导致未命中的操作：中途改 tools、换模型、改沙盒配置、审批模式或工作目录；配置变化尽量追加新消息。
+- 压缩：Token 总数超过阈值时用一个新的、更小的项目列表替换 input。早期 `/compact` 用现有对话加摘要指令请求模型，把含摘要的助手消息作为新的 input；后来用 `/responses/compact`，返回含 `type=compaction`、不透明 `encrypted_content` 的列表；超过 `auto_compact_limit` 自动压缩。
+- 和本课记录的出入：本课 MiniMax 下压缩后的记录 28 是明文 Handoff Summary，另保留初始 Prompt、Implement the plan.、重新装入的 AGENTS.md，更像文章说的早期做法；没有核实 Codex 对非 OpenAI provider 走哪条路径，不下结论。
+
+### Manus 中文版（已核实，有官方中文版）
+
+- [中文版](https://manus.im/zh-cn/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus)，英文地址会跳到中文版；2025-07-18，季逸超。
+- 围绕 KV 缓存：输入输出比约 100:1；保持前缀稳定、上下文只追加、序列化要确定；配图左右对照未命中与命中。
+- 保留错误的内容：擦除失败会移除证据，没有证据模型就无法适应；把失败的尝试留在上下文里，模型会降低重复同样错误的可能。配图：失败的 2A 留着，再做 2B 成功。
+- 使用文件系统作为上下文：长输入即使有前缀缓存也要为每个 token 付费；压缩策略始终设计为可恢复的，保留 URL 或路径即可省略内容。配图：大段观察换成指向文件的引用。
+- 通过复述操控注意力（todo.md）一节的图与 2.2 无关，没有保存。
+
+### Codex AGENTS.md 文档（2026-10-24 复核）
+
+- 现地址 https://learn.chatgpt.com/docs/agent-configuration/agents-md （原 developers.openai.com 跳转）。原文：Codex 启动时构建指令链，once per run；TUI 里通常是每个会话一次；指令看起来过期就重启 Codex。没有提到 `/clear`。

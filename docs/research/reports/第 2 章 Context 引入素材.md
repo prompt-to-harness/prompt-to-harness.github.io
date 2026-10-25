@@ -44,3 +44,35 @@
 - [OpenAI Academy：Codex 101](https://academy.openai.com/en/public/clubs/builders-etkn1/resources/codex-101-introduction-and-onboarding-2026-03-18)：课程入口与所附材料已核对；先讲 Agent 循环与形成历史，再引入 Context 工作记忆。
 
 这些是公开页面与材料的文字核对，没有完整观看视频或验证交互练习。概览为课程自绘的教学归纳，不标为官方原图；“普通对话不实时改写既定模型参数”也不归为 Karpathy 帖子的结论。截图、图元与两版 SVG 的现行路径见章素材索引。
+
+## 2026-10-24 补充：p07-loop 的 agent loop 示意
+
+对应讲透问题 1：只说了一句，为什么有好几次请求，每次请求比上一次多了什么。候选与核对见[来源笔记](<../notes/第 2 章 Context 引入素材/sources.md>)的“agent loop”一节。
+
+- **采用**：OpenAI《深入解析 Codex 智能体循环》的 Agent loop 图与 Snapshot 2，按课程风格重画成中文图（C2-83）。Snapshot 2 直接画出“第 2 次调用 = 第 1 次全部 input + 新增条目”，正文也说旧提示是新提示的精确前缀，和本节逐轮对比的观察一致。
+- **备用**：同文 Snapshot 3（开启下一轮对话，更适合 2.2 开头）；Anthropic《Building effective agents》的自主 agent 图（只有概念，不涉及请求内容）。
+- **不用**：Anthropic《Effective context engineering》与 tool use 文档，没有循环示意图。
+
+## 2026-10-24 补充：为什么请求里没有 system
+
+对应讲透问题 1、2，用在 p09（C2-84）。OpenAI API 参考写明 o1 及更新的模型用 developer 消息取代 system 消息；Codex 0.162.0 起把基础指令作为第一条 developer 消息发送（PR #51156），所以本次记录只有 developer 与 user。课件说法限定在 OpenAI API 与当前 Codex 版本，不说 o1 的日期。另发现 p16b 重画图仍按 1 月文章画 `instructions` 字段，需在页面同步时处理，详见来源笔记。
+
+## 2026-10-24 补充：2.2 缓存、失败返回与压缩
+
+问题：2.2 只有 p23a 一张外部图，讲透问题 4、5 的几处说法只靠一次运行。按页补佐证，来源与原文见[笔记](../notes/第%202%20章%20Context%20引入素材/sources.md)“2.2 补充”。全部已打开原文核对；截图登记在[第 2 章外部佐证登记表](../../../courseware/ch02/materials/external/README.md)。讲师 2026-10-24 选定一节保持 3～4 处（C2-97）：采用 p24 Manus 保留错误、p27b OpenAI 自动压缩一句，下表其余不用。
+
+| 页 | 要证明或引出什么 | 推荐材料 | 形式 |
+| --- | --- | --- | --- |
+| p23 | 前缀不变才命中缓存；配置变化追加、不改前面 | Manus“围绕 KV 缓存进行设计”的对照图（改前面则其后全未命中 / 只追加则前面命中）；OpenAI 同篇“提示缓存”保留为 live 链接 | 证据页：图表（截图可读）+ 本次三行数字 |
+| p24 | 失败返回留着有什么用、有什么代价 | Manus“保留错误的内容”的图与原话：擦除失败会移除证据，模型看到失败才少重犯 | 证据页：图表；口播补“代价是一直占输入” |
+| p27 | 压缩用更小的列表替换历史；要原文就重读文件 | OpenAI 同篇压缩一段（早期 `/compact` 用摘要作为新的 input；后来的 `/responses/compact` 返回加密的 compaction 项）；Manus“压缩策略始终设计为可恢复的”与文件系统图 | live 链接 + 一句；文件系统图备选 |
+| p27a | 新写的规则为什么要新对话才装入 | Codex AGENTS.md 文档：启动时构建指令链，TUI 通常每个会话一次 | live 链接，补在本次实测之外 |
+| p27b | 任务中也会自动压缩 | OpenAI 同篇：超过 `auto_compact_limit` 自动压缩 | 一句 + 链接，替代 10-21 调低阈值的独立实验 |
+| p28 | 新建并交接、压缩后继续都是常见做法 | Anthropic《Effective context engineering》的压缩与结构化笔记两节 | read 链接（已在 2.1 引用过） |
+
+与课件现有说法的出入：
+
+1. OpenAI 文章写的 `/responses/compact` 返回的是加密的 compaction 项，本课 MiniMax 自定义 provider 下看到的是明文“Handoff Summary”，对应文章说的早期做法。引用时只说“替换成更小的列表”，不说本课看到的就是那个端点。
+2. AGENTS.md 文档说“TUI 通常每个会话构建一次”，没有提 `/clear`；`/clear` 之后重新装入是本课 0.163.0 的实测（LOG 实测记录），两者要分开说。
+3. Manus 的“缓存价约十分之一”是 2025-07 Claude Sonnet 的价格举例，不上屏；价格换算仍留给 2.5 p60。
+4. Snapshot 3 正好是“补一句”的官方示意（例句就是用户补的一句修改意见），但 2.1 p07-loop 已有逐次变长的重画图。推荐 p23 用 Manus 对照图；想要和 2.1 的图连成一套，再考虑续画 Snapshot 3。

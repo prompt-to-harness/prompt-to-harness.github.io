@@ -88,6 +88,12 @@ v0.4 新增（2026-10-05，第 2 章）：
 | 展开层跳转按钮 | `repro.steps[].jump` | 整步文字就是一个外链时，在展开层顶部渲染成独立跳转按钮，不进入编号步骤 | 0.2 p13 |
 | 导航按钮 | `.p-links`（第一个 `<a>` 深色） | 章节末尾“进入下一节”“课前准备”这类站内跳转，按钮大、不是证据。（早已存在，此前未登记） | 第 0 章末页 |
 
+v0.6 新增（2026-10-24，第 2 章 2.2；全课复用方案见[提案](trace-evidence-proposal.md)）：
+
+| 零件 | 类名 | 什么时候用 | 例子 |
+|---|---|---|---|
+| 请求记录证据 | `.p-evidence`（`shared/parts/evidence-trace.{css,js}`，查看器适配 `shared/parts/trace-bridge.js`） | 沿一次真实请求记录看几个观察点：左侧按钮与播放器步骤一一对应，右侧阅读视图（页面内原文节选，可展开该项完整原文）/ 原始记录（claude-tap 静态查看器），可放大、单独打开、Esc 收起。不手写：每节写一份 `evidence.json`（公开记录、指纹、`stages` 每页的观察点顺序、`points` 的定位与 `reading` 节选），页面里写 `Evidence(路径).stage("p22")`，查看器由 `uv run courseware/tools/tracekit.py <evidence.json>` 生成（`make viewers` 已包含，不提交）。节选按语义取原文（`message` / `call` / `result` / `response` / `answer`），找不到或不唯一就停下；不写 `reading` 就只有原始记录；节选放不下的富文本阅读视图由本节脚本生成，传 `stage(..., reading={key: html})`（2.1 p08a 的 Markdown 折叠，标题用 `.p-ev-title`，不用 h2）。点带 `group` 时左侧出分组标签（`groups` 写标签文字），换组停在同一位置；不在播放器步骤里的点写在 `extra`；`observe` 是按钮下方随观察点切换的一句说明。单独打开的记录用同一个 `render_viewer` 渲染。在 `index.html` 加载 `evidence-trace.css` 与 `evidence-trace.js` | 2.1 p08a（阅读视图）、p07（A/C/D 分组，只有原始记录）；2.2 p22、p24、p27 |
+
 v0.5 新增（2026-10-06，第 2 章 2.5）：
 
 | 零件 | 类名 | 什么时候用 | 例子 |
