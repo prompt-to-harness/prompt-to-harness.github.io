@@ -1,41 +1,18 @@
 {
  "source": "courseware/ch02/materials/publish/run-20261025/trace.json",
- "trace_sha256": "2cc7bea316a145adda591a27a4ded568b5c9e1899028e8c2b6297d3c2c34428a",
- "basis": "2026-10-25 发布排练（同一个 Codex 会话）：从 homepage-v2 开始写部署配置、追问依据、提交，再用 gh 设置 Pages 来源",
+ "trace_sha256": "06488bee997ba6203ee1bed755ef2384a4854ce7d59ac3563cf1acd968acedfd",
+ "basis": "2026-10-25 发布排练（同一个 Codex 会话）：从 homepage-v2 开始写部署配置、提交，再用 gh 设置 Pages 来源",
  "confirmed_on": "2026-10-25",
  "viewer": "trace/viewer.html",
  "note": "10-25 排练记录",
  "source_label": "10-25 排练 · 真实记录节选",
  "stages": {
-  "p48a": ["claim-answer", "search-text", "compact-message", "after-compact"],
-  "p49a": ["gh-call", "gh-result", "post-call", "post-result"]
+  "p49a": ["gh-tools", "gh-call", "gh-result", "post-call", "post-result"]
  },
  "points": [
   {
-   "key": "claim-answer", "request": "session-13", "label": "它说", "button": "它说", "hint": "没查网页，就说了默认值",
-   "section": "section_response",
-   "reading": [
-    {"title": "第一轮报告里的一句（这时请求里还没有任何网页）", "from": {"answer": true}, "lines": ["默认 `enablement: true`"]}
-   ]
-  },
-  {
-   "key": "search-text", "request": "session-17", "label": "去查", "button": "去查网页", "hint": "一次回答打开 27 个网页",
-   "section": "section_response", "kind": "text", "needle": "open_page"
-  },
-  {
-   "key": "compact-message", "request": "session-18", "label": "压缩", "button": "自动压缩", "hint": "下一轮之前先要交接摘要",
-   "section": "section_messages", "kind": "text", "needle": "CONTEXT CHECKPOINT COMPACTION",
-   "reading": [
-    {"title": "Codex 先发的这一条（不是我们写的）", "from": {"message": "CONTEXT CHECKPOINT COMPACTION"}}
-   ]
-  },
-  {
-   "key": "after-compact", "request": "session-19", "label": "压缩后", "button": "压缩之后", "hint": "只剩我们的话和一份摘要",
-   "section": "section_messages", "kind": "text", "needle": "Another language model started",
-   "reading": [
-    {"title": "交接摘要（开头）", "from": {"message": "Another language model started"}, "lines": ["Another language model started"]},
-    {"title": "我们这一轮的话，接在摘要后面", "from": {"message": "按 C 改"}}
-   ]
+   "key": "gh-tools", "request": "session-33", "label": "工具列表", "button": "工具列表", "hint": "里面没有 gh，只有 exec 这类通用工具",
+   "section": "section_tools", "tool": "exec"
   },
   {
    "key": "gh-call", "request": "session-33", "label": "完整命令", "button": "完整命令", "hint": "带着沙箱外标记和理由",
