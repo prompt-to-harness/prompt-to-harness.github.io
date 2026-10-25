@@ -50,7 +50,10 @@ EVIDENCE = Evidence(Path(__file__).resolve().parents[1] / "trace/evidence.json")
 
 ANTHROPIC_CE = "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents#context-engineering-vs-prompt-engineering"
 
-TAP_CMD = "uvx claude-tap@0.1.146 --tap-client codex --tap-target https://api.minimax.cn/v1"
+# 课程用的 claude-tap：0.1.146 加上已提交上游的查看器改动（liaohch3/claude-tap#475），和 Agent Lab 同一个 wheel（C2-108）
+TAP_WHEEL = "https://github.com/MiaoDX-fork-and-pruning/claude-tap/releases/download/v0.1.146-pr475/claude_tap-0.1.146+pr475-py3-none-any.whl"
+TAP_PR = "https://github.com/liaohch3/claude-tap/pull/475"
+TAP_CMD = "uvx --from " + TAP_WHEEL + " claude-tap --tap-client codex --tap-target https://api.minimax.cn/v1"
 # Agent Lab 从 main 安装一次，之后用短命令启动（2026-10-24 讲师确认，暂不固定 tag）
 AGENT_LAB_INSTALL = 'uv tool install "git+https://github.com/prompt-to-harness/prompt-to-harness.github.io#subdirectory=tools/agent-lab"'
 AGENT_LAB_CMD = "agent-lab codex --tap"
@@ -141,10 +144,11 @@ scene(
         + (Path(__file__).resolve().parents[3] / "materials/external/request-capture/redraw-tap-proxy-excalidraw.svg").read_text().strip()
         + '</div><div class="p-term tap-proxy-command" data-copy="' + escape(AGENT_LAB_CMD, quote=True) + '" data-reveal="2">'
         + '$ ' + escape(AGENT_LAB_CMD) + '</div>'
-        '<p class="tap-proxy-source" data-reveal="2">先装一次 Agent Lab（见“使用课程独立环境”）· --tap 接入 claude-tap 0.1.146</p>'
+        '<p class="tap-proxy-source" data-reveal="2">先装一次 Agent Lab（见“使用课程独立环境”）· --tap 接入 claude-tap 0.1.146，课程版调整了查看器的显示，改动已提交上游 PR #475</p>'
         '</div>'
     ),
-    refs=[ref("claude-tap 原理说明", "https://github.com/liaohch3/claude-tap/blob/v0.1.146/README.md#architecture")],
+    refs=[ref("claude-tap 原理说明", "https://github.com/liaohch3/claude-tap/blob/v0.1.146/README.md#architecture"),
+          ref("查看器显示调整：PR #475", TAP_PR, "liaohch3/claude-tap")],
     steps=["请求", "返回", "查看记录"],
     repro=repro([
         ("先装好 uv、Codex CLI，并在当前终端设置 MINIMAX_API_KEY；不要把 Key 粘进对话或录屏", None),
@@ -154,7 +158,7 @@ scene(
         ("进入 Codex 后先给会话起个名字，看到名字显示出来再开始对话；不起名时，Codex 会另外发请求让模型起标题，记录里会多出和对话无关的请求", "/rename ch02-demo"),
         ("先找到启动输出中的查看器地址；在 Codex 发完问候、回答结束后，再打开查看器", None),
         ("若已有配置好的 MiniMax 环境，也可直接启动代理；讲师演示使用上面的课程环境命令", TAP_CMD),
-    ], note="Agent Lab 固定 MiniMax 课程配置并调用 claude-tap 0.1.146，课程会话单独保留；它减少个人配置混入，不提供额外的文件安全沙箱。请求记录可能包含项目内容，不公开分享未经检查的记录。", label="使用课程独立环境"),
+    ], note="Agent Lab 固定 MiniMax 课程配置并调用 claude-tap 0.1.146 的课程版（查看器显示做了调整，改动已提交上游 PR #475，合入发布后换回正式版本），课程会话单独保留；它减少个人配置混入，不提供额外的文件安全沙箱。请求记录可能包含项目内容，不公开分享未经检查的记录。", label="使用课程独立环境"),
 )
 
 scene(

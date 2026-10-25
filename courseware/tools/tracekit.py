@@ -3,7 +3,7 @@
 
 每节一份 evidence.json：写明公开记录、指纹、各页的观察点和阅读节选。本库负责：
 - 核对记录指纹与每个观察点（找不到原文、不唯一就停下，不默默沿用）；
-- 生成 claude-tap 0.1.146 静态查看器（不调用模型），注入 shared/parts/trace-bridge.js；
+- 生成 claude-tap 0.1.146+pr475 静态查看器（不调用模型），注入 shared/parts/trace-bridge.js；
 - 生成页面里的 .p-evidence 零件 HTML（阅读视图从同一份记录取原文，节选逐行断言在原文里）。
 
 生成查看器：uv run courseware/tools/tracekit.py <evidence.json>（make viewers 已包含）
@@ -21,7 +21,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[2]
 BRIDGE = REPO / 'courseware/shared/parts/trace-bridge.js'
 VIEWER_QUERY = 'embed=1&hidePath=1&hideHistory=1&theme=light'
-CLAUDE_TAP = '0.1.146'
+CLAUDE_TAP = '0.1.146+pr475'
 
 # 嵌入课件的 claude-tap 查看器加载时会对选中的记录调用 scrollIntoView，连带滚动外层课件页（阅读模式打开某页会跳走）。
 # 嵌入时改成只滚动查看器里最近的可滚动容器；单独打开时不变。生成 viewer.html 时插到 <head> 后。
