@@ -97,6 +97,17 @@ class IsolationTests(unittest.TestCase):
         self.assertEqual(env["GH_CONFIG_DIR"], self.parent["GH_CONFIG_DIR"])
         self.assertEqual((home / "Library/Keychains").resolve(), keychain)
 
+    def test_git_identity_points_at_real_global_config(self):
+        env, _ = prepare_environment(self.parent)
+        self.assertNotIn("GIT_CONFIG_GLOBAL", env)
+        (self.real / ".gitconfig").write_text("[user]\n\tname = Test\n")
+        env, home = prepare_environment(self.parent)
+        self.assertEqual(env["GIT_CONFIG_GLOBAL"], str(self.real / ".gitconfig"))
+        self.assertFalse((home / ".gitconfig").exists())
+        self.parent["GIT_CONFIG_GLOBAL"] = str(self.real / "custom-git")
+        env, _ = prepare_environment(self.parent)
+        self.assertEqual(env["GIT_CONFIG_GLOBAL"], self.parent["GIT_CONFIG_GLOBAL"])
+
     def test_packaged_catalog_supports_fixed_model(self):
         _, home = prepare_environment(self.parent)
         actual = home / ".codex/model-catalogs/minimax.json"

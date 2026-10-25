@@ -23,6 +23,8 @@ body[data-mode=scroll] .p-evidence{height:590px}
 .p-ev-reading pre{font:17px/1.6 'Course Mono','Course Sans',monospace;white-space:pre-wrap;overflow-wrap:anywhere;margin:0;background:none;color:#183b32;border:0;padding:0}
 .p-ev-reading .p-ev-source{font-size:14px;margin:0 0 12px;color:#577062}.p-ev-reading summary{font-size:14px;cursor:pointer;margin:8px 0}
 .p-ev-reading details:not([open])>pre{display:none}
+.p-ev-reading .p-ev-image{display:block;max-width:100%;max-height:200px;object-fit:contain;object-position:left top;border:1px solid #c9d4cc;margin:0 0 8px}
+.p-ev-dialog .p-ev-reading .p-ev-image{max-height:360px}
 /* 放大窗口：全页共用一个 */
 .p-ev-dialog{position:fixed;inset:12px;width:calc(100vw - 24px);height:calc(100dvh - 24px);max-width:none;max-height:none;padding:0;margin:0;border:1px solid #b9b3a6;border-radius:8px;background:#fff;color:#243042;font-family:'Course Sans',sans-serif;display:none;flex-direction:column}
 .p-ev-dialog[open]{display:flex}

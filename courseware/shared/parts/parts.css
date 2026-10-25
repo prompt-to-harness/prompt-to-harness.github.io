@@ -506,6 +506,8 @@ body[data-mode='slides'] .scene:not(.lesson-cover) .lede{display:none}
 .p-refs a::after{content:"↗";color:var(--p-muted);font-weight:400}
 .p-refs a:hover,.p-refs a:focus-visible{border-color:#243042;background:#F1EEE4}
 .p-refs a:focus-visible{outline:2px solid #243042;outline-offset:2px}
+/* 窄屏阅读：长标题的链接放不下一行时换行，不被页面裁掉 */
+@media (max-width:760px){body[data-mode='scroll'] .p-refs a{white-space:normal;max-width:100%}}
 /* 复现步骤 .p-repro：折叠按钮，点开才显示命令（scene.repro，由播放器渲染）。
    演示模式下放在标题上方一行的右侧（讲师框左边），不占正文；展开后叠在画面上方，不推动其他内容。 */
 .p-repro{margin:12px 0 0;font-size:17px;line-height:1.5}

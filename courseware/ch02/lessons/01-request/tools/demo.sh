@@ -6,7 +6,10 @@ demo_root=${CH02_DEMO_ROOT:-"$HOME/course-demos"}
 project="$demo_root/personal-homepage"
 course_home=${AGENT_LAB_HOME:-"$HOME/.local/share/agent-lab-ch02-recording"}
 snapshot=8e9a323174411a011f87e230450b9115d09b7dea
-source_url=https://github.com/prompt-to-harness/course-starter.git
+# 2.2 起各节从快照分支起跑（C2-99），例如 CH02_START=ch02/2.2-done-20261024；不设时是第 2 章起点 ch02-start-v1
+start_ref=${CH02_START:-ch02-start-v1}
+# 快照分支推到 course-starter 之前，可以用 CH02_SOURCE_URL 指向本机的快照仓库
+source_url=${CH02_SOURCE_URL:-https://github.com/prompt-to-harness/course-starter.git}
 self=$(CDPATH= cd "$(dirname "$0")" && pwd)/$(basename "$0")
 agent_source='git+https://github.com/prompt-to-harness/prompt-to-harness.github.io#subdirectory=tools/agent-lab'
 
@@ -16,7 +19,11 @@ check_project() {
     need git
     [ -d "$project/.git" ] || fail "请先运行：sh demo.sh prepare"
     actual=$(git -C "$project" rev-parse HEAD)
-    [ "$actual" = "$snapshot" ] || fail "项目已离开录制起点：${actual}；不会自动重置。可用 CH02_DEMO_ROOT 另选目录。"
+    if [ -n "${CH02_START:-}" ]; then
+        snapshot=$(git -C "$project" rev-parse --verify -q "origin/$start_ref^{commit}" || git -C "$project" rev-parse --verify -q "$start_ref^{commit}") \
+            || fail "项目里找不到起点 ${start_ref}；请先用同一个 CH02_START 运行 prepare"
+    fi
+    [ "$actual" = "$snapshot" ] || fail "项目已离开录制起点 ${start_ref}：${actual}；不会自动重置。可用 CH02_DEMO_ROOT 另选目录。"
     [ -z "$(git -C "$project" status --porcelain)" ] || fail '项目存在未提交或未跟踪的改动；请保存现有工作并另选演示目录，不会自动清理。'
 }
 audit() {
@@ -24,7 +31,14 @@ audit() {
     current=$(CDPATH= cd "$project" && pwd -P)
     while :; do
         for name in AGENTS.md AGENTS.override.md; do
-            [ ! -e "$current/$name" ] || fail "发现会影响实验的规则：${current}/${name}；请核对或另选演示目录，不会删除。"
+            [ -e "$current/$name" ] || continue
+            # 快照里已经提交的项目规则是这一节的起点，保留；其余位置的规则仍然停下
+            if [ -n "${CH02_START:-}" ] && [ "$current" = "$(CDPATH= cd "$project" && pwd -P)" ] \
+                && git -C "$project" ls-files --error-unmatch "$name" >/dev/null 2>&1; then
+                printf '项目自带规则（快照已提交）：%s\n' "$current/$name"
+                continue
+            fi
+            fail "发现会影响实验的规则：${current}/${name}；请核对或另选演示目录，不会删除。"
         done
         [ ! -e "$current/.agents/skills" ] || fail "发现项目/上级 Skills：${current}/.agents/skills；请核对或另选演示目录。"
         [ "$current" != / ] || break
@@ -36,14 +50,14 @@ audit() {
     for rule in "$course_home/codex/.codex/rules/"*; do
         [ ! -e "$rule" ] || fail "专用课程 HOME 已保存批准规则：${rule}；请用 AGENT_LAB_HOME 另选空目录。"
     done
-    printf '起点：%s\n项目：%s\n专用环境：%s\n规则检查通过；实际加载内容仍以请求为准\n' "$snapshot" "$project" "$course_home"
+    printf '起点：%s（%s）\n项目：%s\n专用环境：%s\n规则检查通过；实际加载内容仍以请求为准\n' "$start_ref" "$snapshot" "$project" "$course_home"
 }
 
 prepare() {
     need git; need node; need npm
     mkdir -p "$demo_root"
     if [ ! -e "$project" ]; then
-        git clone --branch ch02-start-v1 --single-branch "$source_url" "$project"
+        git clone --branch "$start_ref" --single-branch "$source_url" "$project"
         git -C "$project" switch -c codex/ch02-recording
     fi
     audit
@@ -100,6 +114,7 @@ case ${1:-help} in
             'record：正式录制前用，新建 $HOME/course-demos/rec-<标签>（默认当天日期）和同名新专用环境，并检查 Codex、Key、Node；已存在则拒绝' \
             '默认项目：$HOME/course-demos/personal-homepage；可用 CH02_DEMO_ROOT 修改父目录' \
             '默认环境：$HOME/.local/share/agent-lab-ch02-recording；可用 AGENT_LAB_HOME 修改' \
+            '从某节的快照起跑：CH02_START=ch02/2.2-done-20261024（三个子命令都要带上）；快照未推送前可用 CH02_SOURCE_URL 指向本机仓库' \
             'macOS 已实测；Agent Lab 的 Linux/WSL 支持尚待实测，原生 Windows 暂不支持'
         ;;
 esac

@@ -39,6 +39,16 @@ sh courseware/ch02/lessons/01-request/tools/demo.sh audit
 
 检查覆盖项目起点、工作区改动、项目及上级的 `AGENTS.md` / `AGENTS.override.md` / `.agents/skills`，以及专用课程 HOME 的全局规则和保存的批准规则。发现影响实验的内容时报告路径并停止，不删除它们。真实个人 HOME 的 Skills 不等于专用课程 HOME 的 Skills，最终仍需从实际请求确认来源。
 
+## 从某一节的快照起跑
+
+2.2 起每节做完留一个快照分支（`ch02/<节>-done-<排练日期>`，C2-99），下一节从它开始。三个子命令都带上同一个 `CH02_START`，并用新的 `CH02_DEMO_ROOT`，不和 2.1 的目录混用：
+
+```sh
+CH02_START=ch02/2.2-done-20261024 CH02_DEMO_ROOT=$HOME/course-demos/ch02-2.3 sh courseware/ch02/lessons/01-request/tools/demo.sh prepare
+```
+
+起点核对改为比对这个快照分支的提交；快照里已经提交的项目 `AGENTS.md` 是这一节的起点，保留并打印出来，上级目录、未跟踪的规则文件和专用课程 HOME 的规则仍然停下。快照分支推到 course-starter 之前，用 `CH02_SOURCE_URL` 指向本机来源，例如 lab-runs 里的 bundle（`ch02/2.3-20261024-final/personal-homepage.bundle`，含 `ch02/2.2-done-20261024` 与 `ch02/2.3-done-20261024`）。2026-10-24 用这个 bundle 实测 `prepare`、`audit` 通过，不带 `CH02_START` 时按 2.1 的规则停下。
+
 ## 数据与运行的做法（其他章可沿用）
 
 2.1 在 2026-10-24 整组重跑（C2-90）时定下这些做法，其他章做请求记录、实测对照时照此办。

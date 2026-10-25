@@ -140,6 +140,13 @@ fullscreen_transcript = false
     gh_config = parent.get("GH_CONFIG_DIR") or str(
         Path(parent.get("XDG_CONFIG_HOME") or real_home / ".config") / "gh")
     env["GH_CONFIG_DIR"] = str(Path(gh_config).resolve())
+    # Keep the user's own git identity for commits: point git at the real global file, never copy it.
+    if not parent.get("GIT_CONFIG_GLOBAL"):
+        xdg_git = Path(parent.get("XDG_CONFIG_HOME") or real_home / ".config") / "git/config"
+        for candidate in (real_home / ".gitconfig", xdg_git):
+            if candidate.is_file():
+                env["GIT_CONFIG_GLOBAL"] = str(candidate.resolve())
+                break
     if sys.platform == "darwin" and (real_home / "Library/Keychains").is_dir():
         managed_dir(home / "Library")
         keychains = home / "Library/Keychains"
