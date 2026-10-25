@@ -105,3 +105,10 @@ lab-runs/
 /courseware/ch02/lessons/01-request/trace/config-model-off.html
 /courseware/ch02/lessons/01-request/trace/config-perm-read.html
 /courseware/ch02/lessons/01-request/trace/config-perm-write.html
+
+# Recording projects and rendered media are delivered outside this public repo
+*.screenstudio/
+*.mp4
+*.mov
+*.m4a
+*.wav
