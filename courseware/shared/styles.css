@@ -429,3 +429,9 @@ body[data-mode="slides"] .prompt { padding: 0; }
 .script-editable .peek-frame { display: block; width: 100%; aspect-ratio: 16 / 9; margin-bottom: var(--space-md); border: 1px solid var(--color-rule); border-radius: 4px; background: var(--color-paper); }
 /* 逐字稿里每一步开头的【操作提示｜…】：只给录制的讲师看，不念（编辑规范 ED-013） */
 .script-page .stage-direction { padding: 12px 16px; border-left: 3px solid #49646b; background: #eaf0ef; color: #304d54; font-size: .9em; line-height: 1.75; overflow-wrap: anywhere; }
+/* Pad 经局域网照稿录制（speaker.js enableReader）：正文放大，字号由 --reader-scale 控制 */
+.script-reader .script-page section p { font-size: calc(1.125rem * var(--reader-scale, 1.4)); }
+.script-reader .script-page .stage-direction { font-size: calc(1rem * var(--reader-scale, 1.4)); }
+.script-reader .script-page .task-scope p { font-size: calc(1rem * var(--reader-scale, 1.4)); }
+.reader-size { position: fixed; right: var(--space-md); bottom: var(--space-md); display: flex; gap: var(--space-sm); z-index: 10; }
+.reader-size button { min-width: 56px; min-height: 48px; border: 1px solid var(--color-rule); border-radius: 8px; background: var(--color-paper); color: inherit; font: inherit; font-size: 1.25rem; cursor: pointer; }
