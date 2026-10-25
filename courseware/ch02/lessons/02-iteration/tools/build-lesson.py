@@ -5,10 +5,16 @@ from html import escape
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
 sys.path.insert(0, str(Path(__file__).resolve().parents[4] / "tools"))
-from lessonkit import Lesson, anchor, chapter_map, redrawn, ref, teach
+from lessonkit import Lesson, anchor, chapter_map, redrawn, ref
 from tracekit import Evidence
 
-lesson = Lesson(__file__, "2.2", "补上个人经历，看对话怎么变长", summary="先把人写的个人资料放进主页：用 Plan 模式先出计划，人审过范围后再放行；检查页面和构建，再回看历史、缓存与压缩，选择下一步怎样继续会话。")
+lesson = Lesson(__file__, "2.2", "补上个人经历，看对话怎么变长", summary="先把人写的个人资料放进主页：用 Plan 模式先出计划，人审过范围后再放行；检查页面和构建，再回看历史、缓存与压缩，选择下一步怎样继续会话。", prep=[
+    "接着 2.1 录制的项目和 Codex 会话：当天会话还开着就直接用。另一天录时，在个人主页项目根目录运行 agent-lab codex --tap -- resume ch02-标签（2.1 /rename 起的名字），确认会话里有 2.1 的问候和项目问题、claude-tap 查看器能打开；这条组合没有实测过，开录前先试一次。",
+    "把课程仓库的 courseware/ch02/materials/profile/profile.md 复制到个人主页项目根目录，不现场让 Codex 从网站汇总（沙箱默认不联网）。项目根目录还没有 AGENTS.md。",
+    "编辑器打开项目根目录，备好新建 AGENTS.md 的位置；浏览器保留个人主页的标签页；Terminal 备好运行 npm run build 的标签页。",
+    "确认 Codex 和开发服务都在个人主页项目根目录启动，不是课程仓库或别的目录。",
+    "查看器和终端里的本机路径、用户名上屏前遮盖或缩写。",
+])
 scene = lesson.scene
 
 ROUND_PROMPT = """Goal：把 profile.md 中的基本信息、教育、工作经历和项目放进个人主页，替换对应的占位内容。
@@ -92,10 +98,6 @@ scene(
     lead='清空后输入 /plan，确认界面显示 Plan，再提交这段 Prompt。本次它先读资料和代码，再问三道交互题，我们都选了推荐项：首屏按钮改为“查看经历”跳到工作经历，四块分成独立分区，“现在关注”放在首屏一行标签。回答以后出现 Proposed Plan。',
     html='<div class="p-grid" style="--n:2;gap:16px"><div class="p-term" data-reveal="0">› /plan<br>› 这一轮的四要素 Prompt</div><div class="p-box" data-role="us" data-reveal="1"><h3>交互提问 · 本次三题</h3><p>首屏按钮 → 查看经历<br>组织方式 → 四个独立分区<br>现在关注 → 首屏一行标签</p></div></div><div class="p-bar is-light" data-reveal="2">Proposed Plan 出来后，先审范围再放行</div>',
     steps=['切 Plan 并提交', '回答三道交互题', '看 Proposed Plan'],
-    teaching=teach(
-        ("讲师提示", "不用 /plan 也行：在 Prompt 里写明先提出计划、等确认再改。2026-10-23 同起点的普通模式也给出了文字计划并等待确认，只是交互形式不同（C2-92）。口播不展开对照。"),
-        ("交互题", "题目和推荐项每次可能不同，录制时按当天的题讲；本次三题都选推荐项。"),
-    ),
 )
 
 scene(
@@ -105,18 +107,6 @@ scene(
     lead='Proposed Plan 出来后先看三件事：改哪些文件、事实是否都来自 profile.md、谁来验证。本次计划只改 src/App.tsx、src/index.css 和 index.html 的标题，写明说明文档不动、不启动服务，没有越界，就直接选 Yes, implement this plan；界面自动切回 Default，发送 Implement the plan.。',
     html='<div class="p-grid" style="--n:2;gap:16px"><div class="p-box" data-role="us" data-reveal="0"><h3>看文件范围</h3><p>App.tsx · index.css · 标题<br>说明文档不动</p></div><div class="p-box" data-role="ctx" data-reveal="1"><h3>看事实与验证</h3><p>事实只来自 profile.md<br>build 由它做，浏览器由人看</p></div></div><div class="p-term" data-reveal="2">Yes, implement this plan<br>→ Default · Implement the plan.</div>',
     steps=['看文件范围', '看事实与验证', '确认后自动切执行'],
-    teaching=teach(
-        ("计划越界时", "选 No, stay in Plan mode，写清要收窄的地方，再看一遍修订后的计划。2026-10-23 那次范围没写进 Prompt，计划提出改 PROMPT_V1.md，就是这样修订的；范围写进 Prompt 后，10-24 重跑没有越界（C2-95）。"),
-    ),
-)
-
-scene(
-    id='p31',
-    segment='内容迭代',
-    title='先看主页，再看 build 输出',
-    lead='在浏览器里看首屏、教育、工作经历、项目与开源，检查文字和排版，再看本轮实际 build 输出。改动范围在审计划时看过，页面在这里看过；回看完请求，就把这一版提交保存。',
-    html='<style>.x-result{width:100%;height:300px;object-fit:contain;object-position:top;border:1px solid var(--p-ink)}body[data-mode="scroll"] .x-result{height:auto;max-height:550px}</style><div class="p-grid" style="--n:2;gap:16px"><div data-reveal="0"><img class="x-result" src="assets/plan-homepage.png" alt="本次 Plan 成果：缪东旭个人主页的首屏、教育、工作经历与项目"></div><div style="display:flex;flex-direction:column;gap:14px"><div class="p-box" data-role="ok" data-reveal="1"><h3>本轮实际结果</h3><p>四块内容已呈现<br>npm run build 通过</p></div><div class="p-box" data-role="ink" data-reveal="2"><h3>已经核对</h3><p>范围：审计划时看过<br>页面：这里看过</p></div></div></div>',
-    steps=['人看页面', '核对构建', '范围与页面都看过'],
 )
 
 scene(
@@ -138,9 +128,6 @@ scene(
     html='<style>#p24 .x-keep{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:20px;align-items:start}body[data-mode="slides"] #p24 .p-evidence{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);gap:8px}body[data-mode="slides"] #p24 .p-ev-guide{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}body[data-mode="scroll"] #p24 .x-keep{grid-template-columns:1fr}</style><div class="x-keep">' + redrawn("cache-compaction", "keep-errors", "excalidraw", "据 Manus《AI代理的上下文工程》“保留错误的内容”配图右半重画，中文标签", max_height=330) + EVIDENCE.stage("p24") + '</div>',
     refs=[ref("保留错误的内容", "https://manus.im/zh-cn/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus", "Manus，2025-07-18", quote="保留错误的内容")],
     steps=['失败留在 context 里，本轮报错', '它自己换写法再读'],
-    teaching=teach(
-        ("讲师提示", "左图据 Manus 原图重画（原图英文小字上屏读不清）：只画右半：失败的 2A 留在 context 里，再做 2B 成功（左半是清掉失败再试，可口头带一句）；只讲它的主张（留下失败，模型不容易再错），“一直占输入”是课程补充。本轮实例在记录 10：第 12 项是失败返回，同一请求的模型返回里换写法重读；压缩前的记录 25 里仍在，到 p27 第 1、2 步核对。录制时没有自然失败，就按本次记录讲。"),
-    ),
 )
 
 scene(
@@ -150,9 +137,6 @@ scene(
     lead='取同一 Plan 阶段的三次请求。输入从 10,499 增到 17,896 token；服务另报告缓存命中。前面的内容原样重发，前缀一致，服务才能复用上一次的计算；命中省的是 token 费用，这些历史仍在 input 里，模型照样要读。实际计费按所用服务规则核对，这里不作价格换算；再用下一页研究看长输入可能带来的表现变化。',
     html='<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)"><div class="is-head" data-reveal="0"><span>本轮位置</span><span>本次请求输入</span><span>其中报告为缓存命中</span></div><div data-reveal="0"><span>初始任务</span><span>10,499 token</span><span>189 token</span></div><div data-reveal="0"><span>已读个人资料</span><span>11,629 token</span><span>10,498 token</span></div><div data-reveal="0"><span>回答交互题以后</span><span>17,896 token</span><span>17,029 token</span></div></div><div class="p-bar is-light" data-reveal="1">前缀不变才命中缓存：省 token，不省内容</div><p class="source-note">2026-10-24 一次运行：Codex CLI 0.163.0、MiniMax-M3.1-Flash。单次观察，结果随任务和配置变化。三条都在 Plan 阶段，不是整轮总用量。</p>',
     steps=['看输入量', '缓存为什么命中'],
-    teaching=teach(
-        ("切回 Default 那次", "记录 16（Implement the plan.）缓存只命中 229：前缀没变，但那次请求的推理档位也从 medium 换成了 max；2026-10-23 那次同样只命中 229。原因没有单独验证，口播不讲成“切换后仍命中缓存”。"),
-    ),
     refs=[ref("深入解析 Codex 智能体循环 · 提示缓存", "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/", "OpenAI，2026-01-23", quote="缓存命中仅在提示内部存在精确的前缀匹配时才可能发生")],
 )
 
@@ -163,9 +147,15 @@ scene(
     html=redrawn("context-rot", "chroma-context-rot", "course", "据 Chroma《Context Rot》（2025-07-14）重复词任务重画", note="数据点为读图近似").replace("同一个简单任务，输入越长越做不好", "重复词任务：不同输入长度下的表现").replace("0.5 附近 ≈ 基本做不对", ""),
     refs=[ref("Context Rot", "https://www.trychroma.com/research/context-rot", "Chroma，2025-07-14", quote="Repeated Words")],
     steps=["看趋势"],
-    teaching=teach(
-        ("讲师提示", "曲线据报告里 Repeated Words 任务的图重画（课程手绘风格，courseware/tools/redraw.py 生成，图元在 materials/external/context-rot/figures.py），四个模型的数据点是读图近似，只讲趋势，不读具体数值。2026-10-22 核对原文：报告测了 18 个模型，任务刻意做得简单，只为看输入长度本身的影响。"),
-    ),
+)
+
+scene(
+    id='p31',
+    segment='回到现场',
+    title='先看主页，再看 build 输出',
+    lead='在浏览器里看首屏、教育、工作经历、项目与开源，检查文字和排版，再看本轮实际 build 输出。实施跑完后回到现场看。改动范围在审计划时看过，页面在这里看过；提交之前，先看这个会话接下来怎样继续。',
+    html='<style>.x-result{width:100%;height:300px;object-fit:contain;object-position:top;border:1px solid var(--p-ink)}body[data-mode="scroll"] .x-result{height:auto;max-height:550px}</style><div class="p-grid" style="--n:2;gap:16px"><div data-reveal="0"><img class="x-result" src="assets/plan-homepage.png" alt="本次 Plan 成果：缪东旭个人主页的首屏、教育、工作经历与项目"></div><div style="display:flex;flex-direction:column;gap:14px"><div class="p-box" data-role="ok" data-reveal="1"><h3>本轮实际结果</h3><p>四块内容已呈现<br>npm run build 通过</p></div><div class="p-box" data-role="ink" data-reveal="2"><h3>已经核对</h3><p>范围：审计划时看过<br>页面：这里看过</p></div></div></div>',
+    steps=['人看页面', '核对构建', '范围与页面都看过'],
 )
 
 scene(
@@ -185,10 +175,6 @@ scene(
     html='<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)"><div class="is-head" data-reveal="0"><span>/status</span><span>压缩前</span><span>压缩并追问两次后</span></div><div data-reveal="0"><span>Context window</span><span>26.3K used / 498K</span><span>12.2K used / 498K</span></div><div data-reveal="1"><span>Token usage</span><span>52.5K total</span><span>86.7K total</span></div></div><div class="p-box" data-role="ctx" data-reveal="2"><h3>任务中也会自动压缩</h3><p>超过设定的上限，用更小的列表替换历史，任务继续</p></div>',
     steps=['当前窗口', '累计用量', '任务中自动压缩'],
     refs=[ref("深入解析 Codex 智能体循环 · 压缩", "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/", "OpenAI，2026-01-23", quote="为避免耗尽上下文窗口")],
-    teaching=teach(
-        ("自动压缩实验", "2026-10-21 另一次实验把触发线调低到 10,000（-c model_auto_compact_token_limit=10000），读文件途中自动压缩后继续完成；需要时再切出来，标明是实验设置，不教作默认值。"),
-        ("引用边界", "文章说后来的 /responses/compact 返回加密的 compaction 项；本课 MiniMax 下看到的是明文 Handoff Summary，接近文章说的早期 /compact。只说“用更小的列表替换历史”，不说成同一个端点。"),
-    ),
 )
 
 scene(
@@ -196,7 +182,7 @@ scene(
     segment='选择怎样继续',
     title='下一步要做什么，再选怎样继续会话',
     lead='先回看自己会话的读取与操作历史，再判断下一任务需要什么。继续、清空、压缩、新建交接都可能合理。Plan 是工作模式，本页四项是会话选择。讲师仍做同一主页，沿这份成果继续，需要逐句事实时重读文件；学员用界面中可见的一条依据说明自己的选择。',
-    html=SESSION_STATES + '<div class="p-bar is-light" data-reveal="2">暂停：写下你的选择 + 一条可见的依据</div>',
+    html=SESSION_STATES + '<div class="p-bar is-light" data-reveal="2">暂停：写下自己的选择 + 一条可见的依据</div>',
     steps=['继续或清空', '压缩或交接', '自己的判断'],
 )
 
@@ -206,7 +192,6 @@ scene(
     title='提交一次，留下 homepage-v1',
     lead='范围在审计划时看过，页面和 build 也看过，这一版值得保存。让 Codex 提交：它先列出 git status，再申请执行 git add、git commit。.git 在沙箱里只读，提交会弹出批准框，看清是哪几个文件、提交说明写了什么再确认。清空、压缩只改对话，回到这一版靠的是这次提交。',
     html='<div class="demo-notes">' + box('先列状态', '只有本轮的页面文件和 AGENTS.md、profile.md', 0, 'tool') + box('批准框里看清', '.git 在沙箱里只读，提交要申请到沙箱外', 1, 'us') + box('提交以后', '排练这次：9381567 homepage-v1<br>回到这一版靠提交，不靠对话', 2, 'ok') + '</div>',
-    teaching=teach(('核对记录', '排练这次的提交：2026-10-24，从 2.2 的结束状态起跑，Codex 执行，人在批准框里确认（lab-runs ch02/2.3-20261024 记录 1–15）；下一节从这一版开始。')),
     steps=['先列状态', '批准框里看清', '提交以后'],
     layout='prompt-scene',
     prompt='这一轮我在浏览器里看过、build 也通过了，请帮我提交。先列出 git status 给我看；\n只提交本轮改动的页面文件和 AGENTS.md、profile.md。提交说明第一行写\nhomepage-v1: 放进个人信息、经历和项目，正文写本轮目标和改动了哪些文件。',
@@ -215,10 +200,10 @@ scene(
 scene(
     id='p33',
     segment='选择怎样继续',
-    title='暂停自检：这四种情况，你会怎么做？',
-    lead='每题先暂停，写出你的判断，再补一条依据或下一步操作。资料更新后检查新的读取返回；补充要求时考虑一起发送的历史；引用原句时核对原文；区分清空对话和撤销文件修改。参考答案在阅读模式中查看。',
-    html='<style>body[data-mode="slides"] #p33 .x-answer{display:none}body[data-mode="slides"] #p33 .p-qrow h3{font-size:24px}body[data-mode="slides"] #p33 .p-back-to{font-size:16px}</style><div class="p-qlist"><div class="p-qrow" data-reveal="0"><span class="p-n">1</span><div><h3>刚改了 profile.md，怎样确认模型读到了新版？</h3><p class="x-answer">查看修改后是否有新的读取调用和返回，并核对返回中有无刚改的文字；只有之前的读取记录还不够</p><span class="p-back-to">回看：资料怎样进入请求</span></div></div><div class="p-qrow" data-reveal="1"><span class="p-n">2</span><div><h3>回答交互题时选“四个独立分区”，下一次请求还会带上什么？</h3><p class="x-answer">本次未压缩的实例中，原来的任务、已读资料、代码和问答仍在，新要求接在后面；输入量不只算这句话</p><span class="p-back-to">回看：补充要求后的请求</span></div></div><div class="p-qrow" data-reveal="2"><span class="p-n">3</span><div><h3>摘要只说“经历已补齐”，要引用原句该怎么办？</h3><p class="x-answer">先检查摘要是否保留原句；若没有，就重新读取 profile.md，依据新的工具返回引用。核对页面时还要对照页面代码。</p><span class="p-back-to">回看：压缩后重读资料</span></div></div><div class="p-qrow" data-reveal="3"><span class="p-n">4</span><div><h3>页面改错了，用 /clear 能撤销修改吗？</h3><p class="x-answer">不能。/clear 清空对话，不会撤销项目文件的改动；需要另行修改或恢复文件。清空后继续工作，还要重新说明任务和所需文件。</p><span class="p-back-to">回看：清空对话与项目文件</span></div></div></div>',
-    steps=['资料更新后', '补充一句要求', '需要引用原句', '想撤销页面修改'],
+    title='暂停自检：这四种情况，我们会怎么做？',
+    lead='每题先暂停，写出自己的判断，再补一条依据或下一步操作。规则改过后看清空后的第一个请求；补充要求时考虑一起发送的历史；引用原句时核对原文；区分清空对话和撤销文件修改。参考答案在阅读模式中查看。',
+    html='<style>body[data-mode="slides"] #p33 .x-answer{display:none}body[data-mode="slides"] #p33 .p-qrow h3{font-size:24px}body[data-mode="slides"] #p33 .p-back-to{font-size:16px}</style><div class="p-qlist"><div class="p-qrow" data-reveal="0"><span class="p-n">1</span><div><h3>会话进行到一半，刚改了 AGENTS.md，怎样让它生效、怎样确认？</h3><p class="x-answer">这一版 Codex 里，中途写的规则不会自动进原会话；/clear 或新开会话后，看第一个请求里有没有新规则</p><span class="p-back-to">回看：清空后的第一个请求</span></div></div><div class="p-qrow" data-reveal="1"><span class="p-n">2</span><div><h3>回答交互题时选“四个独立分区”，下一次请求还会带上什么？</h3><p class="x-answer">本次未压缩的实例中，原来的任务、已读资料、代码和问答仍在，新要求接在后面；输入量不只算这句话</p><span class="p-back-to">回看：补充要求后的请求</span></div></div><div class="p-qrow" data-reveal="2"><span class="p-n">3</span><div><h3>摘要只说“经历已补齐”，要引用原句该怎么办？</h3><p class="x-answer">先检查摘要是否保留原句；若没有，就重新读取 profile.md，依据新的工具返回引用。核对页面时还要对照页面代码。</p><span class="p-back-to">回看：压缩后重读资料</span></div></div><div class="p-qrow" data-reveal="3"><span class="p-n">4</span><div><h3>页面改错了，用 /clear 能撤销修改吗？</h3><p class="x-answer">不能。/clear 清空对话，不会撤销项目文件的改动；需要另行修改或恢复文件。清空后继续工作，还要重新说明任务和所需文件。</p><span class="p-back-to">回看：清空对话与项目文件</span></div></div></div>',
+    steps=['规则改过后', '补充一句要求', '需要引用原句', '想撤销页面修改'],
 )
 
 scene(
