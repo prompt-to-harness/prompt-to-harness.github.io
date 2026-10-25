@@ -25,4 +25,5 @@ if [ -z "$LAN" ] && curl -fs "http://127.0.0.1:$PORT/__script/ping" >/dev/null 2
 fi
 
 (sleep 1; open_url "$URL") &
-exec python3 tools/serve-courseware.py --port "$PORT"
+# $LAN 不加引号：为空时整个词消失，不会给服务传空参数
+exec python3 tools/serve-courseware.py $LAN --port "$PORT"
