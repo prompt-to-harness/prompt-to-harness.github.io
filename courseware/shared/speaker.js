@@ -94,7 +94,6 @@
     try { server = (await fetch('/__script/ping', { cache: 'no-store' })).ok; } catch { /* 不是通过服务打开的 */ }
     if (!server) {
       if (location.protocol === 'file:') addBanner('当前是只读页面。要改口播，运行 sh tools/edit-courseware.sh，从打开的浏览器进入逐字稿页。');
-      else if (location.hostname !== '127.0.0.1' && location.hostname !== 'localhost') enableReader();
       return;
     }
     makeEditable(async ({ intro, scene, step, part, old, text }) => {
@@ -106,29 +105,6 @@
       if (!response.ok) throw new Error(result.error);
       return { text: result.text, note: `已写回 ${result.source}` };
     }, '本地编辑：点任一句口播直接改，Enter 或点别处保存，Esc 撤销；每句下方可展开对应的画面对照。保存会写回本节 script.json 并重建 lesson.js（开场白直接写回 lesson.js）。只能改句子，增删步骤请改源文件。');
-  }
-
-  // 经局域网在 Pad 上照稿录制：服务端对非本机只读，这里放大正文并给一组 A−/A+，字号记在这台设备上。
-  function enableReader() {
-    const KEY = 'speaker-reader-scale';
-    const STEPS = [1, 1.2, 1.4, 1.6, 1.8, 2.1];
-    let index = 2;
-    try { index = Math.min(Math.max(Number(localStorage.getItem(KEY)) || index, 0), STEPS.length - 1); } catch { /* 隐私模式下读不到就用默认 */ }
-    document.body.classList.add('script-reader');
-    const apply = () => {
-      document.body.style.setProperty('--reader-scale', STEPS[index]);
-      try { localStorage.setItem(KEY, index); } catch { /* 记不住也不影响阅读 */ }
-    };
-    const bar = document.createElement('div');
-    bar.className = 'reader-size'; bar.setAttribute('aria-label', '正文字号');
-    [['A−', -1], ['A+', 1]].forEach(([label, delta]) => {
-      const button = document.createElement('button');
-      button.type = 'button'; button.textContent = label;
-      button.addEventListener('click', () => { index = Math.min(Math.max(index + delta, 0), STEPS.length - 1); apply(); });
-      bar.append(button);
-    });
-    document.body.append(bar);
-    apply();
   }
 
   function addBanner(text) {
