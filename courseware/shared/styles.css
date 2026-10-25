@@ -442,6 +442,10 @@ body[data-mode="slides"] .prompt { padding: 0; }
 .script-page .prep li { margin-block: var(--space-sm); line-height: 1.75; overflow-wrap: anywhere; }
 /* 口播中途的【切换｜…】：讲到这里切窗口，不念 */
 .script-page .switch-cue { width: fit-content; max-width: 100%; margin-block: var(--space-sm); padding: 4px 14px; border-radius: 999px; background: #fde7c4; color: #7a4300; font-size: .9em; font-weight: 700; overflow-wrap: anywhere; }
+/* 切换目标分色（speaker.js 按目标开头判断）：回课件绿、终端深色、浏览器紫、编辑器沿用原来的橙黄；认不出的目标也是橙黄 */
+.script-page .switch-cue[data-target="slides"] { background: #dcefe0; color: #1f5130; }
+.script-page .switch-cue[data-target="terminal"] { background: #243042; color: #f4f1ea; }
+.script-page .switch-cue[data-target="browser"] { background: #e8e3fb; color: #3f3399; }
 /* Pad / 手机经局域网照稿录制（speaker.js enableReader）：字号由 --reader-scale 控制（0.45–2.1） */
 .script-reader .script-page section p { font-size: calc(1.125rem * var(--reader-scale, 1.4)); }
 .script-reader .script-page .stage-direction,

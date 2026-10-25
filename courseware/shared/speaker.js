@@ -53,6 +53,13 @@
         addParagraph(section, cue ? `⇄ ${cue[1]}` : text, stage ? 'stage-direction' : cue ? 'switch-cue' : 'narration');
         const form = stage && text.match(/^【操作提示｜(现场回看|现场|回放)｜/);
         if (form) section.lastChild.dataset.form = form[1];
+        // 切到哪类窗口按目标开头分色：课件、终端（Codex、Terminal）、浏览器、编辑器；写法见制作手册“讲稿与转场”
+        if (cue) {
+          const to = cue[1];
+          const target = /课件/.test(to) ? 'slides' : /^(Codex|Terminal)/.test(to) ? 'terminal'
+            : /^(浏览器|claude-tap 查看器)/.test(to) ? 'browser' : /^(编辑器|VS Code)/.test(to) ? 'editor' : '';
+          if (target) section.lastChild.dataset.target = target;
+        }
         Object.assign(section.lastChild.dataset, { scene: scene.id, step, part });
       });
     });
