@@ -12,6 +12,7 @@ courseware/ and starters/ are served to other machines, read-only: the repositor
 holds private and unpublished material, and editing / ping answer loopback clients only.
 """
 import argparse
+import ipaddress
 import json
 import socket
 import subprocess
@@ -166,14 +167,27 @@ class Handler(SimpleHTTPRequestHandler):
         self.send_json(HTTPStatus.OK, result)
 
 
+PRIVATE_LAN = [ipaddress.ip_network(net) for net in ('10.0.0.0/8', '172.16.0.0/12', '192.168.0.0/16')]
+
+
 def lan_address():
-    # 连一个外网地址只是让系统选出默认出口网卡，UDP 不会真的发包
+    # 只认私网地址：开着 VPN 时默认路由是隧道（如 100.64.0.0/10 的 utun），手机在 Wi-Fi 上连不到它。
+    # 先问 macOS 的 Wi-Fi/有线网卡；再连一个外网地址让系统选出口网卡（UDP 不会真的发包）。
+    found = []
+    for name in ('en0', 'en1', 'en2'):
+        result = subprocess.run(['ipconfig', 'getifaddr', name], capture_output=True, text=True) if sys.platform == 'darwin' else None
+        if result and result.returncode == 0:
+            found.append(result.stdout.strip())
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as probe:
         try:
             probe.connect(('192.0.2.1', 9))
-            return probe.getsockname()[0]
+            found.append(probe.getsockname()[0])
         except OSError:
-            return None
+            pass
+    for ip in found:
+        if any(ipaddress.ip_address(ip) in net for net in PRIVATE_LAN):
+            return ip
+    return None
 
 
 def main():
@@ -190,8 +204,11 @@ def main():
             ip = lan_address()
             print('局域网只读（只开放 courseware/ 与 starters/，编辑只限本机 127.0.0.1 打开的页面）：', flush=True)
             if ip:
-                print(f'  Pad 打开 http://{ip}:{port}/courseware/', flush=True)
-            print(f'  或     http://{socket.gethostname()}:{port}/courseware/', flush=True)
+                print(f'  手机/Pad 打开 http://{ip}:{port}/courseware/', flush=True)
+            else:
+                print('  没找到私网地址（可能没连 Wi-Fi），请用 ifconfig 查本机局域网 IP 后自己拼地址。', flush=True)
+            host = socket.gethostname()
+            print(f'  或     http://{host if "." in host else host + ".local"}:{port}/courseware/', flush=True)
         try:
             server.serve_forever()
         except KeyboardInterrupt:
