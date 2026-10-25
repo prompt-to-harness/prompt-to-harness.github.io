@@ -16,6 +16,18 @@
   <script src="../../../shared/app.js" defer></script>
   <script src="../../../shared/presentation.js" defer></script>
   <script src="../../../shared/parts/parts.js" defer></script>
+  <script>
+    const redirectMergedReviewPage = () => {
+      if (location.hash !== '#p28-review') return;
+      const url = new URL(location.href);
+      url.hash = 'p28';
+      url.searchParams.set('step', '0');
+      try { history.replaceState(null, '', url); }
+      catch (_) { location.replace(url.href); }
+    };
+    redirectMergedReviewPage();
+    window.addEventListener('hashchange', redirectMergedReviewPage);
+  </script>
 </head>
 <body data-mode="scroll" class="camera-hidden">
   <a class="skip-link" href="#lesson">跳到课程内容</a>
