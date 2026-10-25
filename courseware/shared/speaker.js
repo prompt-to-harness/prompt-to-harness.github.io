@@ -108,16 +108,20 @@
     }, '本地编辑：点任一句口播直接改，Enter 或点别处保存，Esc 撤销；每句下方可展开对应的画面对照。保存会写回本节 script.json 并重建 lesson.js（开场白直接写回 lesson.js）。只能改句子，增删步骤请改源文件。');
   }
 
-  // 经局域网在 Pad 上照稿录制：服务端对非本机只读，这里放大正文并给一组 A−/A+，字号记在这台设备上。
+  // 经局域网在 Pad / 手机上照稿录制：服务端对非本机只读，这里放大正文并给一组 A−/A+，字号记在这台设备上。
+  // 档位覆盖手机横屏（0.45–0.85）到 Pad 远距离照稿（到 2.1）；没记过字号时，短边小于 600px 的设备（手机）从 0.65 起，其余从 1.4 起。
   function enableReader() {
-    const KEY = 'speaker-reader-scale';
-    const STEPS = [1, 1.2, 1.4, 1.6, 1.8, 2.1];
-    let index = 2;
-    try { index = Math.min(Math.max(Number(localStorage.getItem(KEY)) || index, 0), STEPS.length - 1); } catch { /* 隐私模式下读不到就用默认 */ }
+    const KEY = 'speaker-reader-scale-v2';
+    const STEPS = [0.45, 0.55, 0.65, 0.75, 0.85, 1, 1.2, 1.4, 1.6, 1.8, 2.1];
+    let index = Math.min(screen.width, screen.height) < 600 ? 2 : 7;
+    try {
+      const stored = Number(localStorage.getItem(KEY));
+      if (stored) index = STEPS.reduce((best, step, i) => Math.abs(step - stored) < Math.abs(STEPS[best] - stored) ? i : best, 0);
+    } catch { /* 隐私模式下读不到就用默认 */ }
     document.body.classList.add('script-reader');
     const apply = () => {
       document.body.style.setProperty('--reader-scale', STEPS[index]);
-      try { localStorage.setItem(KEY, index); } catch { /* 记不住也不影响阅读 */ }
+      try { localStorage.setItem(KEY, STEPS[index]); } catch { /* 记不住也不影响阅读 */ }
     };
     const bar = document.createElement('div');
     bar.className = 'reader-size'; bar.setAttribute('aria-label', '正文字号');

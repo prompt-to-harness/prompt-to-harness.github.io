@@ -152,8 +152,8 @@ window.lesson = {
             "code": ""
           },
           {
-            "text": "安装一次 Agent Lab（从课程仓库 main 安装；以后更新用 uv tool upgrade agent-lab）",
-            "code": "uv tool install \"git+https://github.com/prompt-to-harness/prompt-to-harness.github.io#subdirectory=tools/agent-lab\""
+            "text": "安装一次 Agent Lab（下载课程发布的安装包，只有一个小文件；以后有新版本时，换成新的地址再运行一次）",
+            "code": "uv tool install --force https://github.com/prompt-to-harness/prompt-to-harness.github.io/releases/download/agent-lab-v0.1.3/agent_lab-0.1.3-py3-none-any.whl"
           },
           {
             "text": "在个人主页项目目录启动课程独立环境，同时记录请求",

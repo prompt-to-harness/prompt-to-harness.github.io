@@ -31,7 +31,7 @@ Codex CLI 的会话可以有两种显示方式：
 
 | 启动器 | 用在哪 | 配置位置 |
 | --- | --- | --- |
-| `tools/agent-lab` | 讲师与学员的课程 Codex 环境，可选 `--tap` 记录请求 | `AGENT_LAB_HOME/codex/.codex/config.toml` |
+| `tools/agent-lab` | 讲师与学员的课程 Codex 环境，可选 `--tap` 记录请求 | 按项目目录自动选的课程环境 `~/.local/share/agent-lab/projects/<目录名>-<摘要>/codex/.codex/config.toml`（`agent-lab home` 查看；设了 `AGENT_LAB_HOME` 时是 `AGENT_LAB_HOME/codex/.codex/config.toml`） |
 | `tools/clean-codex.sh` | 讲师录屏与实验的隔离环境 | `$CLEAN_CODEX_HOME/.codex/config.toml` |
 
 Agent Lab 每次启动重写课程配置，并通过命令行固定 Scrollback；直接编辑生成文件或在 `/tui` 保存选择，会在下次启动被覆盖。本工具暂不提供全屏切换，需全屏时使用日常 Codex 环境。

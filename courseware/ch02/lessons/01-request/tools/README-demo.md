@@ -31,7 +31,7 @@ sh courseware/ch02/lessons/01-request/tools/demo.sh codex
 
 也可将同一份 `demo.sh` 复制到便捷位置，以绝对路径运行；它不依赖脚本所在目录，故无需下载整份备课仓库才能执行。课程仓库中的脚本是维护来源，分发时固定其提交版本，本机副本随之同步，不另改一套逻辑。
 
-默认目录为 `$HOME/course-demos/personal-homepage`；专用课程 HOME 为 `$HOME/.local/share/agent-lab-ch02-recording/codex`。可在所有终端一致设置 `CH02_DEMO_ROOT`（项目父目录）和 `AGENT_LAB_HOME`（专用环境父目录）。不放在备课仓库或其他带规则的项目内。`audit` 子命令可单独检查：
+默认目录为 `$HOME/course-demos/personal-homepage`；课程环境由 Agent Lab 按项目目录自动选，放在项目外面（`agent-lab home` 查看，C2-110），新的项目目录就是新的环境。可设 `CH02_DEMO_ROOT`（项目父目录）；`AGENT_LAB_HOME` 仍可手动指定环境。不放在备课仓库或其他带规则的项目内。`audit` 子命令可单独检查：
 
 ```sh
 sh courseware/ch02/lessons/01-request/tools/demo.sh audit

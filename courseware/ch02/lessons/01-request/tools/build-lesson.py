@@ -55,7 +55,8 @@ TAP_WHEEL = "https://github.com/MiaoDX-fork-and-pruning/claude-tap/releases/down
 TAP_PR = "https://github.com/liaohch3/claude-tap/pull/475"
 TAP_CMD = "uvx --from " + TAP_WHEEL + " claude-tap --tap-client codex --tap-target https://api.minimax.cn/v1"
 # Agent Lab 从 main 安装一次，之后用短命令启动（2026-10-24 讲师确认，暂不固定 tag）
-AGENT_LAB_INSTALL = 'uv tool install "git+https://github.com/prompt-to-harness/prompt-to-harness.github.io#subdirectory=tools/agent-lab"'
+# 从课程仓库 release 下载 Agent Lab 的 wheel（约 11 KB）；用 git 地址安装要先拉整个仓库的历史（约 110 MB），网速慢时装不完
+AGENT_LAB_INSTALL = 'uv tool install --force https://github.com/prompt-to-harness/prompt-to-harness.github.io/releases/download/agent-lab-v0.1.3/agent_lab-0.1.3-py3-none-any.whl'
 AGENT_LAB_CMD = "agent-lab codex --tap"
 
 
@@ -152,7 +153,7 @@ scene(
     steps=["请求", "返回", "查看记录"],
     repro=repro([
         ("先装好 uv、Codex CLI，并在当前终端设置 MINIMAX_API_KEY；不要把 Key 粘进对话或录屏", None),
-        ("安装一次 Agent Lab（从课程仓库 main 安装；以后更新用 uv tool upgrade agent-lab）", AGENT_LAB_INSTALL),
+        ("安装一次 Agent Lab（下载课程发布的安装包，只有一个小文件；以后有新版本时，换成新的地址再运行一次）", AGENT_LAB_INSTALL),
         ("在个人主页项目目录启动课程独立环境，同时记录请求", AGENT_LAB_CMD),
         ("第一次在这个目录启动时，Codex 会问是否信任这个文件夹，选信任；选否会直接退出", None),
         ("进入 Codex 后先给会话起个名字，看到名字显示出来再开始对话；不起名时，Codex 会另外发请求让模型起标题，记录里会多出和对话无关的请求", "/rename ch02-demo"),
