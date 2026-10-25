@@ -753,7 +753,7 @@ Chromium 离线覆盖1280×848、390×848阅读模式：11个观察点的阅读/
 
 ## 2026-10-25：2.4 推送后用 gh 读部署（补跑，C2-114）
 
-起点是 C2-113 那次排练结束时的项目（`529f11a` 已推送，run 40183596663 在 18:09 成功），同一个 AGENT_LAB_HOME，Agent Lab 启动**新会话**（不是 p47 起的那个会话），Codex 0.163.0（跳过 0.164.0 更新提示），MiniMax-M3.1-Flash max。原始记录在 lab-runs `ch02/2.4-20261025-claude/ghrun/`（lab-runs 本地提交 56ce16c，未推送），一个 claude-tap 会话，记录 1–18。
+起点是 C2-113 那次排练结束时的项目（`529f11a` 已推送，run 40183596663 在 18:09 成功），同一个 AGENT_LAB_HOME，Agent Lab 启动**新会话**（不是 p47 起的那个会话），Codex 0.163.0（跳过 0.164.0 更新提示），MiniMax-M3.1-Flash max。原始记录在 lab-runs `ch02/2.4-20261025-claude/ghrun/`（lab-runs 56ce16c，2026-10-25 已推送；编号同步在 bbffd8f），一个 claude-tap 会话，记录 1–18。
 
 - **Prompt**：“我刚把当前分支推到了 origin。请用 GitHub CLI（gh）看这次推送触发的部署……只查看，不重跑或触发部署，不改设置和文件。”请求的 tools 是 exec、wait、request_user_input、collaboration、web_search，没有 gh；系统指令里 gh 只在 prefix_rule 的例子里出现一次（C2-113 那次记录 33 相同）。
 - **过程**：沙箱里 `gh auth status` 误报令牌无效（其实连不上网），它查环境变量（只看有没有）、用 sed 遮盖令牌读了真实的 `~/.config/gh/hosts.yml`，不经批准；之后每条 gh 命令申请到沙箱外：curl + `gh auth status`、`gh workflow list` + `gh run list --json`、`gh run view --json jobs`、`gh run view --log | tee /tmp/… | wc -l` + grep（346 行），再用 sed 分段读，差不多读完整份日志，input_tokens 13,829 → 27,506。共批 5 次，都只批本次。
