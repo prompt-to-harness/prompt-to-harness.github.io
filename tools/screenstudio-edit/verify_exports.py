@@ -38,6 +38,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('queue', type=Path)
     parser.add_argument('--frames', action='store_true')
+    parser.add_argument('--fps', type=int, choices=[30, 60], default=30,
+                        help='预期帧率，默认 30；复核历史 60 fps 导出时显式传 60')
     parser.add_argument('--frame-limit', type=int, default=24, help='最多保存多少张 PNG；仍解码全部检查位置')
     args = parser.parse_args()
     if args.frame_limit < 3:
@@ -96,11 +98,11 @@ def main():
             row.update(json.loads(result.stdout))
             row['ok'] = (abs(row['duration'] - clip['expected_duration']) < .12
                          and row['width'] == 1920 and row['height'] == 1080
-                         and abs(row['fps'] - 60) < .1
+                         and abs(row['fps'] - args.fps) < .1
                          and row['audio_tracks'] >= 1)
         results.append(row)
     unchanged = fingerprint(Path(queue['source'])) == queue['source_fingerprint']
-    report = dict(results=results, source_unchanged=unchanged,
+    report = dict(results=results, expected_fps=args.fps, source_unchanged=unchanged,
                   all_passed=all(x['ok'] for x in results) and unchanged,
                   limitation='只验证可解码画面、规格、时长与音轨存在；不代表已听音或确认接缝、镜像与遮挡')
     path = args.queue.parent / 'export-validation.json'

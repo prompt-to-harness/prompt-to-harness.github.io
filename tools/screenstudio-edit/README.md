@@ -14,11 +14,13 @@ python3 tools/screenstudio-edit/edit_project.py "/path/original.screenstudio" "/
 
 输出 `edit-plan.json`、`render-queue.json` 和每组的独立工作项目。macOS 优先 APFS clone，失败时完整复制；不使用硬链接或共享素材软链接。每次使用新的输出目录，失败不留下半成品。复制前后比较源项目指纹：配置内容以及文件路径、大小、mtime；它不是所有媒体的完整内容哈希。
 
-按 `render-queue.json` 的 `project` 逐个在 Screen Studio 打开，检查后导出到对应的 `export` 路径：MP4、1080p、60 fps、Studio 压缩。不要导出共享链接；界面渲染仍由 Screen Studio 完成，可用已授权的电脑操作工具操作。全部导出后：
+按 `render-queue.json` 的 `project` 逐个在 Screen Studio 打开，检查后导出到对应的 `export` 路径：MP4、1080p、30 fps、Studio 压缩。不要导出共享链接；界面渲染仍由 Screen Studio 完成，可用已授权的电脑操作工具操作。全部导出后：
 
 ```sh
 python3 tools/screenstudio-edit/verify_exports.py "/path/new-output-version/render-queue.json" --frames
 ```
+
+`verify_exports.py` 默认验证 30 fps；历史 60 fps 文件或明确选择 60 fps 的演示需加 `--fps 60`，报告记录 `expected_fps`。只改导出帧率时复用现有项目并另存 MP4，不需要再复制 Screen Studio 素材，也不将成片二次转码作为原生渲染对照。
 
 检查器用 Apple AVFoundation 读时长、规格、音轨，并解码开头／中间／结尾画面；`--frames` 保存 PNG 供肉眼核对。自有 Swift 检查器会尝试兼容的 SDK，缓存和构建日志在被忽略的 `lab-runs/.screenstudio-edit/`。需要 macOS、Python 3.9+、Xcode Command Line Tools，不需要 ffmpeg。检查通过不能代替听音，也不能自动证明人像镜像正确、声画同步或没有遮挡。
 

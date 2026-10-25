@@ -11,7 +11,7 @@ description: 提取 Screen Studio 项目的音轨，用 Apple 转写并润色中
 
 ## 剪辑与强调的交接约定
 
-本课程已确认的人像、镜像、放大、节奏和审阅留痕基线，统一维护在 [screenstudio-edit/review-policy.md](../screenstudio-edit/review-policy.md)。课程转写需要交给剪辑或 review 时读取，不重复维护另一套偏好。
+本课程已确认的人像、镜像、放大、节奏和审阅留痕基线，统一维护在 [screenstudio-edit/review-policy.md](../screenstudio-edit/review-policy.md)。课程转写需要交给剪辑或 review 时读取，不重复维护另一套偏好。交接剪辑时沿用当前课程默认的 1080p、30 fps、Studio 压缩；转写时间戳仍以原音轨时间为准，不因导出帧率而重算。
 
 本课程 2026-10-25 确认：局部放大以**帮助读清小字**为主；只对非常重要的判断少量做强调。转写／润色时可标出需要读清的字段、源码依据或请求变化，以及为什么值得强调，但不能把文字标记说成视频已做效果。地图、概念图和循环图通常保留全景，放大决策与具体效果交给 `screenstudio-edit` 留痕。
 
