@@ -136,6 +136,9 @@ class Evidence:
 
     def _source(self, request, src):
         """按语义取原文，不用数组下标：下标在重新导出后会悄悄错位，语义找不到会直接停下。"""
+        return text(self._source_item(request, src))
+
+    def _source_item(self, request, src):
         r = self._record(request)
         items = r['request']['body']['input']
         if 'message' in src:
@@ -151,7 +154,7 @@ class Evidence:
         else:
             raise AssertionError(f'{request}: 不认识的取法 {src}')
         assert len(found) == 1 and found[0], f'{request} 里 {src} 找到 {len(found)} 处，应恰好一处'
-        return text(found[0])
+        return found[0]
 
     def _card_text(self, p, card):
         raw = self._source(card.get('request', p['request']), card['from'])
@@ -162,7 +165,14 @@ class Evidence:
     def _card(self, p, card):
         raw, shown = self._card_text(p, card)
         more = '' if shown == raw else f'<details><summary>展开该项完整原文</summary><pre>{escape(raw)}</pre></details>'
-        return f'<article><h3>{escape(card["title"])}</h3><pre>{escape(shown)}</pre>{more}</article>'
+        pics = ''
+        if card.get('image'):
+            # 贴进对话的截图：取该项里的 input_image，原样显示（text() 只取文字，图会被漏掉）
+            item = self._source_item(card.get('request', p['request']), card['from'])
+            urls = [c['image_url'] for c in item.get('content', []) if isinstance(c, dict) and c.get('type') == 'input_image']
+            assert urls, card['title'] + '：卡片要求显示图片，但该项里没有 input_image'
+            pics = ''.join(f'<img class="p-ev-image" src="{escape(u)}" alt="{escape(card["title"])}">' for u in urls)
+        return f'<article><h3>{escape(card["title"])}</h3>{pics}<pre>{escape(shown)}</pre>{more}</article>'
 
     def stage(self, scene, note=None, reading=None):
         """页面里的 .p-evidence 零件：左侧观察点与播放器步骤一一对应，右侧阅读视图 / 原始记录。
