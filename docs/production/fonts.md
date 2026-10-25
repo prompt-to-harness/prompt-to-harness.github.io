@@ -69,6 +69,8 @@ python3 -m venv /tmp/fontenv && /tmp/fontenv/bin/pip install fonttools brotli
 /tmp/fontenv/bin/python courseware/tools/subset-fonts.py --check  # 只检查缺字
 ```
 
+子集是确定的：脚本固定了 fontTools 写进字体的修改时间，所以字符没变就不会出现二进制改动；提交里出现字体文件变化，就说明覆盖表真的变了（或换了 fontTools、brotli 版本）。
+
 `subset-fonts.py` 扫描 `courseware/`（不含 `archive` 与不发布的 `materials`）与 `demos/parts/` 的全部文字，并更新 `courseware/tools/font-coverage.json`。`check-courseware.py` 报“字体 … 缺 N 字”时，按上面三步重建并提交子集与覆盖表。
 
 ## 更换字体
