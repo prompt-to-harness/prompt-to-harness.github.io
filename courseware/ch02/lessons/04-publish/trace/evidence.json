@@ -1,0 +1,47 @@
+{
+ "source": "courseware/ch02/materials/publish/run-20261025/trace.json",
+ "trace_sha256": "06488bee997ba6203ee1bed755ef2384a4854ce7d59ac3563cf1acd968acedfd",
+ "basis": "2026-10-25 发布排练（同一个 Codex 会话）：从 homepage-v2 开始写部署配置、提交，再用 gh 设置 Pages 来源",
+ "confirmed_on": "2026-10-25",
+ "viewer": "trace/viewer.html",
+ "note": "10-25 排练记录",
+ "source_label": "10-25 排练 · 真实记录节选",
+ "stages": {
+  "p49a": ["gh-tools", "gh-call", "gh-result", "post-call", "post-result"]
+ },
+ "points": [
+  {
+   "key": "gh-tools", "request": "session-33", "label": "工具列表", "button": "工具列表", "hint": "里面没有 gh，只有 exec 这类通用工具",
+   "section": "section_tools", "tool": "exec"
+  },
+  {
+   "key": "gh-call", "request": "session-33", "label": "完整命令", "button": "完整命令", "hint": "带着沙箱外标记和理由",
+   "section": "section_response", "callId": "call_aa234b63b8e54678b3d8f2a2",
+   "reading": [
+    {"title": "它发出的调用（exec 里的一段代码）", "from": {"response": "custom_tool_call"}, "lines": ["gh api repos/prompt-to-harness", "sandbox_permissions", "justification"]}
+   ]
+  },
+  {
+   "key": "gh-result", "request": "session-35", "label": "工具返回", "button": "工具返回", "hint": "404：还没有站点",
+   "section": "section_messages", "callId": "call_597e8882fca2455288fbbdff", "kind": "result", "needle": "Not Found",
+   "reading": [
+    {"title": "下一次请求带上的返回", "from": {"result": "call_597e8882fca2455288fbbdff"}, "lines": ["Logged in to github.com", "=== GET pages ===", "Not Found"]}
+   ]
+  },
+  {
+   "key": "post-call", "request": "session-35", "label": "据此决定", "button": "据此创建", "hint": "看到 404，改用 POST",
+   "section": "section_response", "callId": "call_b6e283844a574995a3b1e4db",
+   "reading": [
+    {"title": "它的回答", "from": {"answer": true}, "lines": ["HTTP 404 Not Found", "POST"]},
+    {"title": "接着发出的调用，又申请到沙箱外", "from": {"response": "custom_tool_call"}, "lines": ["--method POST", "justification"]}
+   ]
+  },
+  {
+   "key": "post-result", "request": "session-36", "label": "复查", "button": "复查结果", "hint": "build_type 是 workflow",
+   "section": "section_messages", "callId": "call_b6e283844a574995a3b1e4db", "kind": "result", "needle": "\"build_type\":\"workflow\"",
+   "reading": [
+    {"title": "创建与复查的返回", "from": {"result": "call_b6e283844a574995a3b1e4db"}, "lines": ["=== POST", "=== 复查 GET pages ==="]}
+   ]
+  }
+ ]
+}
