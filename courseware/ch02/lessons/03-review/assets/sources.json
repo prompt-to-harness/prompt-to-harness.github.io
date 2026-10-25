@@ -1,0 +1,74 @@
+{
+  "before.png": {
+    "sha256": "573d2f0579cee5c12c4c78a23976a04aba2951edb2377cbba521f34958aff63f",
+    "source": "2026-10-24 讲师主页实录",
+    "viewport": [
+      1440,
+      800
+    ]
+  },
+  "before-full.png": {
+    "sha256": "a71d1f8a30e7778a418e22b3a28ddf636427fb166cc798d1f73fb6f63f9a5114",
+    "source": "2026-10-24 讲师主页实录",
+    "viewport": [
+      1440,
+      800
+    ]
+  },
+  "reference.png": {
+    "sha256": "1a91ae417f86ed2c7c3e5cd9a2a97424c224b07bfd5b6280be5d83820315eeb7",
+    "source": "HTML5 UP · Hyperspace",
+    "viewport": [
+      1440,
+      800
+    ]
+  },
+  "reference-section.png": {
+    "sha256": "e25ab0551b352ef083ee69a4486e5c9328bc8112500d576ee84c71c7435fe6ac",
+    "source": "HTML5 UP · Hyperspace",
+    "viewport": [
+      1440,
+      800
+    ]
+  },
+  "round1.png": {
+    "sha256": "f8591ff2c76df9de566564fa268fa343d43c67ecbfa7e5bde415b3491a9ff413",
+    "source": "2026-10-24 讲师主页实录",
+    "viewport": [
+      1440,
+      800
+    ]
+  },
+  "round1-experience.png": {
+    "sha256": "e4f50d0551507d038b14b8bd7776f1c6f35701a99cec85f26186bb2e31a73d1e",
+    "source": "2026-10-24 讲师主页实录",
+    "viewport": [
+      1440,
+      800
+    ]
+  },
+  "round2.png": {
+    "sha256": "74494e4aac4c951689bc56c788125786db7cb3c9fe59f91b7792f7b8b2f52bfe",
+    "source": "2026-10-24 讲师主页实录",
+    "viewport": [
+      1440,
+      800
+    ]
+  },
+  "round2-full.png": {
+    "sha256": "10cf61a91d9bb4d16de5b96953a4f5a66a181f57a6d83810e0b517db86da2490",
+    "source": "2026-10-24 讲师主页实录",
+    "viewport": [
+      1440,
+      800
+    ]
+  },
+  "round2-mobile.png": {
+    "sha256": "7110de4d25ab792c2d02bea2f677094849a30454ec0e70a43838367540271d35",
+    "source": "2026-10-24 讲师主页实录",
+    "viewport": [
+      360,
+      800
+    ]
+  }
+}
