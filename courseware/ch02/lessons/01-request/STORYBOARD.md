@@ -4,7 +4,7 @@
 
 ## 素材状态
 
-- p01 查看主页先用现有 course-starter 的 `ch02-start-v1` checkpoint（提交 `8e9a323174411a011f87e230450b9115d09b7dea`）。启动验证见章 LOG；按最新设计整理的本章起点快照仍待做（C2-54）。已有请求素材与排练默认使用本地 `ch01-complete`，不因 p01 的选择而视作已重录。
+- p01 查看主页先用现有 course-starter 的 `ch02-start-v1` checkpoint（提交 `8e9a323174411a011f87e230450b9115d09b7dea`）。启动验证见章 LOG；按最新设计整理的本章起点快照仍待做（C2-54）。已有请求素材与排练默认使用本地 `ch01-complete`，不因 p01 的选择而视作已重录。正式录制前在课程仓库根目录运行 `sh courseware/ch02/lessons/01-request/tools/demo.sh record [标签]`：新建项目目录和全新的专用环境，检查 Codex 版本、Key、Node，并打印各终端标签页要粘贴的 `export` 与启动命令；同一标签不会重置，重录换标签。
 - p08、p08a、p09、p07-loop、p07、p14a 统一使用 2026-10-24 重跑数据（C2-90）：ch02-start-v1（8e9a323）新克隆，Codex CLI 0.163.0，Agent Lab 从 main 运行，MiniMax-M3.1-Flash、能力目录开、max，claude-tap 0.1.146。公开数据在 [run-20261024](../../materials/request/run-20261024/README.md)，原始记录在私有仓库 prompt-to-harness/lab-runs 的 `ch02/2.1-20261024/`。
 - 交互会话：首句前 `/rename ch02-demo` → 问候（1 次请求、无工具调用、输入 8,709，没有标题请求）→ 同一会话只读项目问题（8 次请求、7 次工具调用）。权限为 workspace-write。p08、p08a、p09 用问候这一条，p07-loop、p07 用项目问题。
 - p14a：两个独立 `codex exec`、各自新 HOME、read-only；不点名 7 次请求、14 次工具调用、累计输入 70,523；点名 4 次请求、3 次工具调用、累计输入 32,879。
