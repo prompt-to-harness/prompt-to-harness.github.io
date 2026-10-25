@@ -9,15 +9,20 @@ fonts.json 中 extra 为 gb2312-level1 的字体额外收入 GB2312 一级常用
 同时写出 courseware/tools/font-coverage.json（各字体已覆盖的字符），
 check-courseware.py 用它拦住缺字，不需要安装 fonttools。
 新增或修改课件文字后重跑；--check 只报告缺字，不写文件。
+输出是确定的：fontTools 保存时会把当前时间写进 head.modified，下面固定为常量，否则每次重跑六个 woff2 都不同、
+哪怕字符没变也会在 git 里多出约 2.2 MB。同一版 fontTools 与 brotli 下，覆盖表不变就逐字节不变。
 """
 import argparse
 import json
+import os
 import shutil
 from pathlib import Path
 
 from fontTools import subset
 from fontTools.ttLib import TTFont
 from fontTools.varLib import instancer
+
+os.environ["SOURCE_DATE_EPOCH"] = "1792886400"  # 2026-10-25 00:00 UTC；fontTools 的 timestampNow() 读它
 
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
 parser.add_argument("--check", action="store_true", help="只检查现有子集是否覆盖全部课件文字")
