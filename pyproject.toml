@@ -14,8 +14,10 @@ dev = [
     "playwright>=1.63.0",
 ]
 
-# 由 make viewers 生成静态查看器：claude-tap 固定版本，生成脚本会断言版本
+# 由 make viewers 生成静态查看器：claude-tap 固定版本，生成脚本会断言版本。
+# 0.1.146+pr475 是 0.1.146 加上 liaohch3/claude-tap#475 的查看器改动，与 Agent Lab 同一个 wheel（C2-103、C2-108）；
+# 上游发布后换回 PyPI 版本。
 viewers = [
-    "claude-tap==0.1.146",
+    "claude-tap @ https://github.com/MiaoDX-fork-and-pruning/claude-tap/releases/download/v0.1.146-pr475/claude_tap-0.1.146+pr475-py3-none-any.whl",
     "markdown-it-py>=3",
 ]

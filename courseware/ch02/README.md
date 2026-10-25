@@ -83,7 +83,7 @@
 
 - **全章基线**：`tools/clean-codex.sh` 默认的 MiniMax-M3.1-Flash、MiniMax 官方模型能力目录开、推理档位 max。能力目录开时系统指令只有一句加多代理团队说明，主要用法写在 code mode 的 `exec` 工具描述里。课件数字按这套配置录；2.4 也用它，加 `CLEAN_CODEX_GH=1` 使用本机 `gh` 登录（C2-39）。
 - **请求记录**：全章用同一套配置下的请求记录，各节可以分开录。画面不说成同一次运行，每段标“一次运行”；录制时冻结、统一脱敏，画面数字以当段记录为准。
-- **claude-tap**：讲师演示的必要内容，固定 0.1.146。PPT 上写清启动方式并录屏演示，说明它是本地代理、会经手 API 密钥、只看得到经过代理的内容。学员自己运行算选做，不计入验收；不另做分系统的排障文档。ChatGPT 登录下能否使用，不作为主演示内容。
+- **claude-tap**：讲师演示的必要内容，固定 `0.1.146+pr475`，即 0.1.146 加上已提交上游的查看器改动 [liaohch3/claude-tap#475](https://github.com/liaohch3/claude-tap/pull/475)（文字按文字显示、显示推理、显示 namespace 子工具），Agent Lab 与课件静态查看器用同一个 wheel（C2-103、C2-108）；p06-tap 页面和口播交代一句这处调整。录下来的请求是 0.1.146 抓的，抓取部分两版相同。PPT 上写清启动方式并录屏演示，说明它是本地代理、会经手 API 密钥、只看得到经过代理的内容。学员自己运行算选做，不计入验收；不另做分系统的排障文档。ChatGPT 登录下能否使用，不作为主演示内容。
 - **演示与实测范围**：macOS 上的 Codex CLI + MiniMax 自定义 provider。ChatGPT 登录、Windows、OpenAI 官方 provider 下的行为不作为本章核实项。
 - **章节独立**：本章只依赖第 1 章留下的个人主页；没做完第 1 章的学员可从第 1 章参考快照开始（见 course-starter `CHECKPOINTS.md`）。引用前面章节时就地复述决定或做法本身，检查点写“本轮开始前的最后一次提交”，不依赖之前各章的证据文件或 tag 名。
 - **少用跨章引用**：不用“1.4 的决定”“回扣 1.2”这类节号当钩子，学员和讲师都记不住那段上下文。需要前面的内容时，直接说出内容本身，例如“项目卡点了不跳转，是做个人主页时定下的”。
@@ -153,7 +153,7 @@ uv run courseware/tools/check-courseware.py
 
 - **Agent Lab 是否打 tag**（C2-102 从 2.1 p06-tap 讲师提示移入）：2026-10-24 核对 `tools/agent-lab` 与原固定提交 691d15c 内容一致，现从 main 安装；main 上的改动会影响学员装到的版本，正式录制前定是否打 tag。
 
-- **claude-tap 查看器改动**（C2-99、C2-103）：已提交上游 [liaohch3/claude-tap#475](https://github.com/liaohch3/claude-tap/pull/475)；Agent Lab 先装课程 fork 的 wheel `0.1.146+pr475`，录制时实时查看器已是新版。上游发布后：依赖换回 PyPI 版本，`tracekit.py` 与根目录 `pyproject.toml` 的固定版本一起换，重刷静态查看器（2026-10-25 用该版本试生成，`check-presentation.py` 0 error，p07 的定位仍对），删掉 p07 关于“消息视图不显示推理”的口播，替换全章写着 0.1.146 的地方。
+- **claude-tap 查看器改动**（C2-103、C2-108）：Agent Lab 和课件静态查看器都已用课程 fork 的 wheel `0.1.146+pr475`，p07 口播已改成三条。上游 [#475](https://github.com/liaohch3/claude-tap/pull/475) 发布后：Agent Lab、根目录 `pyproject.toml`、`tracekit.py` 换回 PyPI 版本，重刷静态查看器，p06-tap 的调整说明改成“已合入”或删掉，替换全章写着 0.1.146 的地方。
 
 - **2.5 经验五（Phistory）**：p62b 页面、p59 和 p63 的五条表述、口播已做（2026-10-23），截图与版本已核实（C2-76）；录制前确认站点可访问，内部大纲 2.5 摘要待同步。
 
