@@ -1,0 +1,4 @@
+interface:
+  display_name: "Screen Studio 转写与润色"
+  short_description: "提取录屏音轨并转写、润色，保留原时间戳供视频剪辑与长期留存"
+  default_prompt: "使用 $screenstudio-transcript 转写这个 Screen Studio 项目，润色文字并保留时间戳供视频剪辑。"
