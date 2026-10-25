@@ -8,10 +8,18 @@ version = "0.1.0"
 description = "Isolated agent environments for the Prompt to Harness course"
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = ["claude-tap==0.1.146"]
+# claude-tap 0.1.146 plus the viewer changes in liaohch3/claude-tap#475, built as one wheel on our fork
+# (a git dependency would fetch the fork's ~58 MB history on every install). Switch back to a PyPI
+# release once upstream publishes these changes.
+dependencies = [
+    "claude-tap @ https://github.com/MiaoDX-fork-and-pruning/claude-tap/releases/download/v0.1.146-pr475/claude_tap-0.1.146+pr475-py3-none-any.whl",
+]
 
 [project.scripts]
 agent-lab = "agent_lab.cli:main"
+
+[tool.hatch.metadata]
+allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/agent_lab"]
