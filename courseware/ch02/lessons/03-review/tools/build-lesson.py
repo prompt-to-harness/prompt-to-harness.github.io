@@ -131,7 +131,7 @@ scene(
         '<div style="margin-top:14px">' + anchor(lit=("工具返回", "对话历史", "新的 Prompt"), outside=("浏览器里的页面",), note="我们看得到参考长什么样，它看得到吗？它改风格的依据，只能在请求里的这几块", reveal=2) + '</div>'
     ),
     steps=["回到地图", "从 homepage-v1 开始", "它看得到吗"],
-    teaching=teach(("讲师提示", "上一节结尾已经让 Codex 提交了 homepage-v1，这一节不再审内容。没跟上的从快照分支 ch02/2.2-done-20261024 开始（C2-103）。")),
+    teaching=teach(("讲师提示", "上一节结尾已经让 Codex 提交了 homepage-v1，这一节不再审内容。没跟上的从快照分支 ch02/2.2-done-20261024 开始（C2-104）。")),
 )
 
 # 2.3 风格参考的候选主页（截图与许可见 materials/external/README.md 的“2.3 风格参考”一节，2026-10-23 截取）

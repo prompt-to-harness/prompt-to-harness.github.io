@@ -9,7 +9,7 @@ course_home=${AGENT_LAB_HOME:-"$HOME/.local/share/agent-lab-ch02-recording"}
 # 启动时的初始输入会当普通消息发出，不执行 /rename，所以只能进入后手动输入（C2-99）
 session_name=${CH02_SESSION_NAME:-ch02-demo}
 snapshot=8e9a323174411a011f87e230450b9115d09b7dea
-# 2.2 起各节从快照分支起跑（C2-103），例如 CH02_START=ch02/2.2-done-20261024；不设时是第 2 章起点 ch02-start-v1
+# 2.2 起各节从快照分支起跑（C2-104），例如 CH02_START=ch02/2.2-done-20261024；不设时是第 2 章起点 ch02-start-v1
 start_ref=${CH02_START:-ch02-start-v1}
 # 快照分支推到 course-starter 之前，可以用 CH02_SOURCE_URL 指向本机的快照仓库
 source_url=${CH02_SOURCE_URL:-https://github.com/prompt-to-harness/course-starter.git}
