@@ -147,7 +147,7 @@ uv run courseware/tools/check-courseware.py
 
 - **Agent Lab 是否打 tag**（C2-102 从 2.1 p06-tap 讲师提示移入）：2026-10-24 核对 `tools/agent-lab` 与原固定提交 691d15c 内容一致，现从 main 安装；main 上的改动会影响学员装到的版本，正式录制前定是否打 tag。
 
-- **claude-tap 显示推理条目**（C2-99）：0.1.146 与上游 main 的消息视图都不显示没有角色的 `reasoning`，p07 暂用口播说明。是否给上游提改动、之后升级固定版本，待讲师定；升级要重新生成查看器、复核 2.1/2.2 的定位点并替换全章的版本号。
+- **claude-tap 查看器改动**（C2-99、C2-103）：已提交上游 [liaohch3/claude-tap#475](https://github.com/liaohch3/claude-tap/pull/475)；Agent Lab 先装课程 fork 的 wheel `0.1.146+pr475`，录制时实时查看器已是新版。上游发布后：依赖换回 PyPI 版本，`tracekit.py` 与根目录 `pyproject.toml` 的固定版本一起换，重刷静态查看器（2026-10-25 用该版本试生成，`check-presentation.py` 0 error，p07 的定位仍对），删掉 p07 关于“消息视图不显示推理”的口播，替换全章写着 0.1.146 的地方。
 
 - **2.5 经验五（Phistory）**：p62b 页面、p59 和 p63 的五条表述、口播已做（2026-10-23），截图与版本已核实（C2-76）；录制前确认站点可访问，内部大纲 2.5 摘要待同步。
 

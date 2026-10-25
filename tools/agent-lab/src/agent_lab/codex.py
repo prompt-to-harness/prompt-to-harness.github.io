@@ -10,6 +10,7 @@ import shutil
 import socket
 import subprocess
 import sys
+from importlib.metadata import version
 from importlib.resources import files
 from urllib.request import ProxyHandler, build_opener
 
@@ -31,7 +32,7 @@ def dashboard_port(home: Path) -> int:
                     f"http://127.0.0.1:{port}/dashboard/health", timeout=2) as response:
                 health = json.load(response)
             expected = str(home / ".local/share/claude-tap/traces.sqlite3")
-            if health.get("db_path") == expected and health.get("version") == "0.1.146":
+            if health.get("db_path") == expected and health.get("version") == version("claude-tap"):
                 return port
         except (OSError, ValueError):
             pass
