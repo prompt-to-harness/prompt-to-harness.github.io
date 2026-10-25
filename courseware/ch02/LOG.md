@@ -711,3 +711,8 @@ Chromium 离线覆盖1280×848、390×848阅读模式：11个观察点的阅读/
 - 公开数据：从 lab-runs `ch02/2.3-20261024-round2/records.jsonl`（含两轮 32 条）导出 12 条到 `materials/style/run-20261024-round2/trace.json`（约 2.5 MB），`trace/evidence.json` 11 个观察点逐条核对原文；四次排练（Claude 组三次加这一次）都是 curl 存进 /tmp、挑着读 CSS、实施后想起服务看页面，归为稳定现象。Codex 组原来的 `trace/records.json`（删节过的节选）不再使用。
 - 从 Claude 组带入：Agent Lab 的 git 身份修复（含测试）、`demo.sh` 的 `CH02_START` / `CH02_SOURCE_URL`、tracekit 阅读卡片显示贴图、`.p-refs` 窄屏换行、平台大纲提案；从 Codex 组带入：截图与指纹、`review.css` / `review.js` 的镜头切换、反馈图字节核对。
 - 录制方式与内容分层写进全课：课程共识第 7 节“PPT 与现场演示”、编辑规范 ED-020。
+
+## 2026-10-25：2.3 四要素重跑被额度中断
+
+按 C2-101，从快照分支 `ch02/2.2-done-20261024`（9381567）用四要素 Prompt 重跑；Agent Lab 用本分支的 `tools/agent-lab`。`/rename`、`/plan` 后发出 Prompt：curl 存进 /tmp 申请沙箱外联网，grep、sed 挑着读 CSS，与前四次排练一致。两组六道交互题都选推荐项；这次它注意到首屏的 `intro.svg`，问禁止远程图片时本地怎么替代。Plan 约 4 分钟，计划不越界，选 Yes, implement this plan 后记录 39–50 都是 MiniMax 2056（Token Plan 用量上限），没有实施；直接调 API 探测仍是 2056，退出会话。额度恢复后从头重跑，不在这次会话里补发。lab-runs 本机 `ch02/2.3-20261025-quota/` 留存，不提交。课件不变。
+
