@@ -100,6 +100,17 @@
 - p05a、p16b 的外部材料与原文链接见 [外部佐证登记表](../../materials/external/README.md)（C2-64；原 p16c 的 Anthropic 对照图已撤下，C2-82）；重画图由 `courseware/tools/redraw.py` 从 `materials/external/context-engineering/figures.py` 生成，改图改图元，不手改 SVG。
 - Context 的归纳沿用既有核验依据：Anthropic 2025-09-29 的 Effective context engineering for AI agents，2026-10-20 已核对原文。本次不新增外部事实核验；p16b 简短佐证，不重复完整拆解。
 
+### 各页核验与重跑备注（C2-102 从讲师提示移入）
+
+- p06-tap：原理图据 claude-tap v0.1.146 README 整理，只画本章用到的反向代理路径。API 密钥经过本地代理，claude-tap 导出与存储时只保留鉴权头前缀。学员自己运行算选做，不计入验收，不另做排障文档。
+- p08a：首句 “You are Codex, a coding agent based on MiniMax-M3.1-Flash…” 是模型能力目录里 `base_instructions` 的原文，与 MiniMax 官方说明“方式二：手动配置”里“配置模型能力目录（可选）”的示例一致（2026-10-24 核对）；链接只能停在上面的“配置 MiniMax API”。阅读视图只折叠不删除，顺序按请求实际排列，Default 模式、团队说明、多代理限制合成第 4 步（C2-99）。
+- p09：developer input 0 是身份；input 1 同时含 Skills、权限、Default 模式；input 2、3 是团队说明和多代理限制；user input 4 是环境，input 5 才是问候；工具定义另在 tools 里。归成六类不等于六条消息各对应一类。
+- p07：以后重跑先运行 `uv run courseware/tools/tracekit.py courseware/ch02/lessons/01-request/trace/evidence.json --list-candidates` 列出调用、返回与回答，经讲师确认再改 `trace/evidence.json`；记录指纹变化时停止，不自动沿用。模型还自己拿 dist 和源码比对（第 6–8 次请求）。
+- p07-loop：图例不用 System，和本次只有 developer、user 的记录对上。
+- p16a：锚点图是分类示意；本次请求没有项目 AGENTS.md，规则块画成虚线“这次没有”。
+- p14a：点名组先读 App.tsx，之后仍列目录、全项目检索；不点名组还读了 PLACEHOLDER_CONTENT.md、PROJECT_BRIEF.md、index.css、git 记录和 dist。缓存在 claude-tap 面板里单独显示，口播只讲累计输入；整次耗时受网络影响，不讲。
+- p18 验收口径：第一题举出一条非本人输入的信息并说明来源与作用即可，不按类别数评分；第二题说出“前面不变、末尾追加推理、调用与返回”，不要求字段名；第三题接受先提供已确认相关路径的回答，不把点名理解为禁止读其他文件。
+
 ## 前组演示准备与新运行依据
 
 ### p08、p09 的目录与展示前提
