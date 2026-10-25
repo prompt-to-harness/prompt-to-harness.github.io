@@ -1,6 +1,6 @@
 {
   "source": "courseware/ch02/materials/style/run-20261025/trace.json",
-  "trace_sha256": "368b702179f23394095852875564576a5b069a41e6152411915199de954e31dd",
+  "trace_sha256": "2aa023ebf68c2ff776150c3ceeb4229354ab332b919c3b0d0963c5b5b997a20b",
   "basis": "2026-10-25 四要素重跑（同一个 Codex 会话）：第一轮参考 Hyperspace 改风格，第二轮贴当前与参考两张首屏，最后由 Codex 提交",
   "confirmed_on": "2026-10-25",
   "viewer": "trace/viewer.html",
