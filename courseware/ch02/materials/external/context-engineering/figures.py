@@ -11,7 +11,7 @@ def openai_codex_request():
             ('developer', '沙箱权限说明', CTX),
             ('user', 'AGENTS.md 与技能列表', CTX),
             ('user', 'environment_context：目录、shell', CTX),
-            ('user', '你的新 Prompt', RISK)]
+            ('user', '我们的新 Prompt', RISK)]
     items = [('text', 0, 26, 'Codex 发出的一次请求，从上往下拼', {'size': 24, 'font': 'title'})]
     for i, (field, desc, color) in enumerate(rows):
         y, last = 46 + i * 58, i == len(rows) - 1
