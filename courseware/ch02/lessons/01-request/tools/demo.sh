@@ -6,7 +6,7 @@ demo_root=${CH02_DEMO_ROOT:-"$HOME/course-demos"}
 project="$demo_root/personal-homepage"
 course_home=${AGENT_LAB_HOME:-"$HOME/.local/share/agent-lab-ch02-recording"}
 snapshot=8e9a323174411a011f87e230450b9115d09b7dea
-# 2.2 起各节从快照分支起跑（C2-99），例如 CH02_START=ch02/2.2-done-20261024；不设时是第 2 章起点 ch02-start-v1
+# 2.2 起各节从快照分支起跑（C2-103），例如 CH02_START=ch02/2.2-done-20261024；不设时是第 2 章起点 ch02-start-v1
 start_ref=${CH02_START:-ch02-start-v1}
 # 快照分支推到 course-starter 之前，可以用 CH02_SOURCE_URL 指向本机的快照仓库
 source_url=${CH02_SOURCE_URL:-https://github.com/prompt-to-harness/course-starter.git}

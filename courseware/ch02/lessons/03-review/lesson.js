@@ -25,7 +25,7 @@ window.lesson = {
       "teaching": [
         {
           "title": "讲师提示",
-          "text": "上一节结尾已经让 Codex 提交了 homepage-v1，这一节不再审内容。没跟上的从快照分支 ch02/2.2-done-20261024 开始（C2-99）。"
+          "text": "上一节结尾已经让 Codex 提交了 homepage-v1，这一节不再审内容。没跟上的从快照分支 ch02/2.2-done-20261024 开始（C2-103）。"
         }
       ],
       "source": "index.html#p35",
