@@ -18,7 +18,13 @@ uvx --from ./tools/agent-lab agent-lab codex --tap
 
 启动时工作目录不变。在自己的项目目录运行，应把 `--from` 后面换成这个包的绝对路径。
 
-也可以安装到本机，此后在任意项目目录直接使用：
+学员安装用课程仓库 release 里的 wheel（约 11 KB）。不要用 `git+https://…#subdirectory=tools/agent-lab`：uv 会先拉整个仓库的历史（约 110 MB），网速慢时装不完。发新版时改 `pyproject.toml` 的版本号，`uv build --wheel` 后发一个新的 `agent-lab-v<版本>` release，并更新 2.1 p06-tap 的 `AGENT_LAB_INSTALL`。
+
+```sh
+uv tool install --force https://github.com/prompt-to-harness/prompt-to-harness.github.io/releases/download/agent-lab-v0.1.3/agent_lab-0.1.3-py3-none-any.whl
+```
+
+也可以从本地目录安装到本机，此后在任意项目目录直接使用：
 
 ```sh
 uv tool install ./tools/agent-lab
@@ -33,16 +39,17 @@ Key 可以由终端启动配置事先导出，也可以只给本次命令设置 
 
 ## 保留与隔离
 
-- 新环境默认 HOME 是 `~/.local/share/agent-lab/codex`，其中 `.codex/` 保存配置和会话。再次启动复用该目录，每次重新写入固定的课程配置；不会清空历史。`-- resume --last` 接续当前项目最近的会话。
+- 每个项目目录自动对应一个课程环境，放在项目外面：`~/.local/share/agent-lab/projects/<目录名>-<路径摘要>/codex`，其中 `.codex/` 保存配置和会话，claude-tap 记录也在这里。`agent-lab home` 打印当前目录对应的环境。不放进项目里，是因为 Codex 能读写整个工作区：会话、请求记录和批准规则放在里面会混进 Context、能被模型改写，还可能随网站一起推送。在同一目录再次启动复用该环境，每次重新写入固定的课程配置；不会清空历史。`-- resume --last` 接续当前项目最近的会话。
 - 课程配置和启动参数固定 `tui.fullscreen_transcript = false`，保留终端自己的 scrollback，长回复可向上回看。全屏 transcript 使用 Codex 自己的历史视图，与终端原生回滚不同。直接修改生成配置或用 `/tui` 保存选择，会在下次课程启动时被覆盖；本工具暂不提供全屏切换，需全屏时使用日常 Codex 环境。
 - 模型固定 `MiniMax-M3.1-Flash`、能力目录开启、推理档位 `max`，上游固定 `https://api.minimax.cn/v1`。缺 Key 立即退出。
 - 独立 `HOME`、`CODEX_HOME` 与 XDG 目录，清理继承的 `CODEX_*`、`OPENAI_*`、Claude 相关变量；不连接个人共享 app-server。Codex 凭据存储固定为 `file`，不使用系统钥匙串中的 Codex 登录。课程目录如出现 `auth.json` 则停止，不读取或删除它。
 - `--` 后可传 Codex 的 `exec`、`resume`、沙箱等参数；不接受模型、profile、`-c` 配置覆盖、登录与远程服务命令。课程会话的文件访问仍由 Codex 权限控制；这不是文件系统安全隔离，当前项目的 `AGENTS.md` 等内容仍可进入请求。
 - 不传递 MiniMax Key 给模型执行的 shell，且关闭登录 shell，避免 shell 启动配置重新注入个人变量。模型仍可能读取其有权限访问的文件，不能据此承诺密钥绝对不可访问。
 - `gh` 默认复用原 `GH_CONFIG_DIR`（或原 XDG 配置目录下的 `gh/`）；macOS 额外链接真实 HOME 的 `Library/Keychains`。这是有意保留本机 GitHub 登录，Codex 自身仍固定用文件凭据。GitHub 外部写操作仍需按课程要求逐条确认。
-- `--tap` 使用包依赖 `claude-tap==0.1.146`。它会经手 Key，请求记录位于课程 HOME 的 `.local/share/claude-tap/`，可能包含项目代码和个人信息，不提交仓库。查看器按课程 HOME 分配固定端口，地址以启动输出为准；端口被无关服务占用时停止，不关闭已有服务。关闭查看器或退出会话不会自动删除记录。
+- git 用 `GIT_CONFIG_GLOBAL` 指向真实 HOME 的 `.gitconfig`（没有就用原 XDG 配置目录下的 `git/config`），提交用的是本机自己的身份，不复制文件；已设置 `GIT_CONFIG_GLOBAL` 时保留原值。两个文件都有时只用 `.gitconfig`。
+- `--tap` 使用包依赖 claude-tap `0.1.146+pr475`：0.1.146 加上 [liaohch3/claude-tap#475](https://github.com/liaohch3/claude-tap/pull/475) 的查看器改动（文字按文字显示、显示推理、显示 namespace 子工具），由课程 fork 打成一个 wheel 发布，上游发布后换回 PyPI 版本。它会经手 Key，请求记录位于课程 HOME 的 `.local/share/claude-tap/`，可能包含项目代码和个人信息，不提交仓库。查看器按课程 HOME 分配固定端口，地址以启动输出为准；端口被无关服务占用时停止，不关闭已有服务。关闭查看器或退出会话不会自动删除记录。
 
-本地测试可设 `AGENT_LAB_HOME` 为独立的根目录，Codex 环境放在其 `codex/` 下。为保留改名前的会话，默认新目录尚不存在时，会继续使用已有的 `~/.local/share/prompt-to-harness/course-codex`；旧变量 `COURSE_CODEX_HOME` 仍兼容，直接指向 Codex HOME，但不能与 `AGENT_LAB_HOME` 同时设置。工具只接管空目录或自己创建并带标记的目录，不接受个人 HOME 或已有 `.codex` 目录。请勿在课程目录内手动登录 Codex。
+设 `AGENT_LAB_HOME` 可手动指定根目录，Codex 环境放在其 `codex/` 下。0.1.2 起不再默认沿用旧的共享环境（`~/.local/share/agent-lab/codex`、`~/.local/share/prompt-to-harness/course-codex`），文件保留不删；要接着用旧会话，把 `AGENT_LAB_HOME` 或 `COURSE_CODEX_HOME` 指过去。旧变量 `COURSE_CODEX_HOME` 仍兼容，直接指向 Codex HOME，但不能与 `AGENT_LAB_HOME` 同时设置。工具只接管空目录或自己创建并带标记的目录，不接受个人 HOME 或已有 `.codex` 目录。请勿在课程目录内手动登录 Codex。
 
 ## 本地验证
 

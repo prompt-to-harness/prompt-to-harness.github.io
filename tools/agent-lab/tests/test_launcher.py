@@ -6,9 +6,10 @@ from pathlib import Path
 import tempfile
 import tomllib
 import unittest
+from importlib.metadata import version
 from unittest.mock import patch
 
-from agent_lab.codex import dashboard_port, prepare_environment, LEGACY_MARKER, MODEL
+from agent_lab.codex import dashboard_port, prepare_environment, resolve_home, LEGACY_MARKER, MODEL
 from agent_lab.cli import main, parse_args
 
 
@@ -97,6 +98,17 @@ class IsolationTests(unittest.TestCase):
         self.assertEqual(env["GH_CONFIG_DIR"], self.parent["GH_CONFIG_DIR"])
         self.assertEqual((home / "Library/Keychains").resolve(), keychain)
 
+    def test_git_identity_points_at_real_global_config(self):
+        env, _ = prepare_environment(self.parent)
+        self.assertNotIn("GIT_CONFIG_GLOBAL", env)
+        (self.real / ".gitconfig").write_text("[user]\n\tname = Test\n")
+        env, home = prepare_environment(self.parent)
+        self.assertEqual(env["GIT_CONFIG_GLOBAL"], str(self.real / ".gitconfig"))
+        self.assertFalse((home / ".gitconfig").exists())
+        self.parent["GIT_CONFIG_GLOBAL"] = str(self.real / "custom-git")
+        env, _ = prepare_environment(self.parent)
+        self.assertEqual(env["GIT_CONFIG_GLOBAL"], self.parent["GIT_CONFIG_GLOBAL"])
+
     def test_packaged_catalog_supports_fixed_model(self):
         _, home = prepare_environment(self.parent)
         actual = home / ".codex/model-catalogs/minimax.json"
@@ -112,16 +124,35 @@ class IsolationTests(unittest.TestCase):
         self.assertEqual(home, self.real / "lab/codex")
         self.assertTrue((home / ".agent-lab-home").exists())
 
-    def test_legacy_sessions_are_preserved(self):
+    def test_each_project_gets_its_own_home_outside_it(self):
+        first, second = self.real / "work/rec-1/personal-homepage", self.real / "work/rec-2/personal-homepage"
+        first.mkdir(parents=True)
+        second.mkdir(parents=True)
+        _, home = prepare_environment(self.parent, first)
+        _, again = prepare_environment(self.parent, first)
+        _, other = prepare_environment(self.parent, second)
+        self.assertEqual(home, again)
+        self.assertNotEqual(home, other)
+        self.assertEqual(home.parent.parent, self.real / ".local/share/agent-lab/projects")
+        self.assertTrue(home.parent.name.startswith("personal-homepage-"))
+        for project in (first, second):
+            self.assertFalse(home.is_relative_to(project))
+            self.assertEqual(list(project.iterdir()), [])
+        self.assertEqual(resolve_home(self.parent, first), home)
+
+    def test_legacy_shared_home_is_kept_but_not_adopted(self):
         legacy = self.real / ".local/share/prompt-to-harness/course-codex"
         legacy.mkdir(parents=True)
         (legacy / ".course-codex-home").write_text(LEGACY_MARKER)
         sessions = legacy / ".codex/sessions"
         sessions.mkdir(parents=True)
         (sessions / "sentinel").write_text("old history")
-        _, home = prepare_environment(self.parent)
-        self.assertEqual(home, legacy)
+        _, home = prepare_environment(self.parent, self.real / "project")
+        self.assertNotEqual(home, legacy)
         self.assertEqual((sessions / "sentinel").read_text(), "old history")
+        self.parent["COURSE_CODEX_HOME"] = str(legacy)
+        _, reused = prepare_environment(self.parent, self.real / "project")
+        self.assertEqual(reused, legacy)
 
     def test_conflicting_home_variables_are_rejected(self):
         self.parent.update(AGENT_LAB_HOME=str(self.real / "new"), COURSE_CODEX_HOME=str(self.real / "old"))
@@ -136,8 +167,50 @@ class ArgumentTests(unittest.TestCase):
             socket.return_value.__enter__.return_value.connect_ex.return_value = 0
             opener.return_value.open.return_value.__enter__.return_value.read.return_value = (
                 b'{"ok":true,"db_path":"/other/traces.sqlite3","version":"0.1.146"}')
-            with self.assertRaisesRegex(ValueError, "不关闭现有服务"):
+            with self.assertRaisesRegex(ValueError, "被别的服务占用，没有启动"):
                 dashboard_port(Path("/course"))
+
+    def test_home_command_prints_without_creating(self):
+        with tempfile.TemporaryDirectory() as temp:
+            real = Path(temp).resolve()
+            out = io.StringIO()
+            with patch.dict(os.environ, {"HOME": str(real)}, clear=False), patch(
+                    "sys.argv", ["agent-lab", "home", str(real / "proj")]), contextlib.redirect_stdout(out):
+                os.environ.pop("AGENT_LAB_HOME", None)
+                os.environ.pop("COURSE_CODEX_HOME", None)
+                self.assertEqual(main(), 0)
+            printed = Path(out.getvalue().strip())
+            self.assertEqual(printed.parent.parent, real / ".local/share/agent-lab/projects")
+            self.assertFalse((real / ".local").exists())
+
+    def _dashboard(self, health: dict):
+        socket_patch = patch("agent_lab.codex.socket.socket")
+        opener_patch = patch("agent_lab.codex.build_opener")
+        socket, opener = socket_patch.start(), opener_patch.start()
+        self.addCleanup(socket_patch.stop)
+        self.addCleanup(opener_patch.stop)
+        socket.return_value.__enter__.return_value.connect_ex.return_value = 0
+        opener.return_value.open.return_value.__enter__.return_value.read.return_value = (
+            json.dumps(health).encode())
+
+    def test_tap_reuses_this_homes_viewer_of_the_same_build(self):
+        home = Path("/course")
+        self._dashboard({"db_path": str(home / ".local/share/claude-tap/traces.sqlite3"),
+                         "version": version("claude-tap")})
+        self.assertGreaterEqual(dashboard_port(home), 20000)
+
+    def test_tap_names_the_version_of_this_homes_older_viewer(self):
+        home = Path("/course")
+        self._dashboard({"db_path": str(home / ".local/share/claude-tap/traces.sqlite3"),
+                         "version": "0.0.1"})
+        with self.assertRaisesRegex(ValueError, "之前启动的查看器.*0.0.1.*xargs kill"):
+            dashboard_port(home)
+
+    def test_tap_runs_the_bundled_claude_tap(self):
+        source = Path(__file__).resolve().parents[1] / "src/agent_lab/codex.py"
+        text = source.read_text()
+        self.assertIn('[sys.executable, "-m", "claude_tap"', text)
+        self.assertNotIn('shutil.which("claude-tap")', text)
 
     def test_tap_and_resume(self):
         self.assertEqual(parse_args(["codex", "--tap", "--", "resume", "--last"]),
