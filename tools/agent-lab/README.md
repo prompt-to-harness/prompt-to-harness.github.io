@@ -41,7 +41,7 @@ Key 可以由终端启动配置事先导出，也可以只给本次命令设置 
 - 不传递 MiniMax Key 给模型执行的 shell，且关闭登录 shell，避免 shell 启动配置重新注入个人变量。模型仍可能读取其有权限访问的文件，不能据此承诺密钥绝对不可访问。
 - `gh` 默认复用原 `GH_CONFIG_DIR`（或原 XDG 配置目录下的 `gh/`）；macOS 额外链接真实 HOME 的 `Library/Keychains`。这是有意保留本机 GitHub 登录，Codex 自身仍固定用文件凭据。GitHub 外部写操作仍需按课程要求逐条确认。
 - git 用 `GIT_CONFIG_GLOBAL` 指向真实 HOME 的 `.gitconfig`（没有就用原 XDG 配置目录下的 `git/config`），提交用的是本机自己的身份，不复制文件；已设置 `GIT_CONFIG_GLOBAL` 时保留原值。两个文件都有时只用 `.gitconfig`。
-- `--tap` 使用包依赖 `claude-tap==0.1.146`。它会经手 Key，请求记录位于课程 HOME 的 `.local/share/claude-tap/`，可能包含项目代码和个人信息，不提交仓库。查看器按课程 HOME 分配固定端口，地址以启动输出为准；端口被无关服务占用时停止，不关闭已有服务。关闭查看器或退出会话不会自动删除记录。
+- `--tap` 使用包依赖 claude-tap `0.1.146+pr475`：0.1.146 加上 [liaohch3/claude-tap#475](https://github.com/liaohch3/claude-tap/pull/475) 的查看器改动（文字按文字显示、显示推理、显示 namespace 子工具），由课程 fork 打成一个 wheel 发布，上游发布后换回 PyPI 版本。它会经手 Key，请求记录位于课程 HOME 的 `.local/share/claude-tap/`，可能包含项目代码和个人信息，不提交仓库。查看器按课程 HOME 分配固定端口，地址以启动输出为准；端口被无关服务占用时停止，不关闭已有服务。关闭查看器或退出会话不会自动删除记录。
 
 本地测试可设 `AGENT_LAB_HOME` 为独立的根目录，Codex 环境放在其 `codex/` 下。为保留改名前的会话，默认新目录尚不存在时，会继续使用已有的 `~/.local/share/prompt-to-harness/course-codex`；旧变量 `COURSE_CODEX_HOME` 仍兼容，直接指向 Codex HOME，但不能与 `AGENT_LAB_HOME` 同时设置。工具只接管空目录或自己创建并带标记的目录，不接受个人 HOME 或已有 `.codex` 目录。请勿在课程目录内手动登录 Codex。
 

@@ -13,3 +13,4 @@
 - [外部设计 skill 评估：impeccable](impeccable-evaluation.md)：采纳了哪些方法，detector 试扫结果和待复核的问题
 - [生图使用提案](imagegen-pilot-proposal.md)：待讨论的章首／章末复用安排、选页标准与统一风格；尚未替代现有视觉规范
 - [三猫姿态研究](cat-pose-research.md)：参考图研究与最新头颈／猫爪／章节互动约定；旧无互动方向已标为历史探索
+- [Screen Studio 转写与润色工具](../../tools/screenstudio-transcript/README.md)：提取音轨、Apple 转写、保留时间戳润色及剪辑索引
