@@ -9,7 +9,7 @@
 - p22、p23、p27、p27b、p29c、p30 的数字与讲法都来自这一次；p31 的 assets/plan-homepage.png 是这次 `vite preview` 下 1280 宽的整页截图，无账号界面或本机路径。p24 用这次运行里自然出现的 SyntaxError，配 Manus“保留错误的内容”配图右半的重画（[`keep_errors_figures.py`](../../materials/external/cache-compaction/keep_errors_figures.py)）。2026-10-21 调低触发线到 10,000 的自动压缩实验只留在 p27b 讲师提示，不拼入主线 token 数列（C2-97）。
 - p22、p24、p27 嵌入本节静态记录（阅读节选 / 原始记录双视图，支持放大与 Esc 返回）：公开数据在 [`materials/iteration/run-20261024/`](../../materials/iteration/run-20261024/README.md)，观察点、按钮文字和阅读节选在 [`trace/evidence.json`](trace/evidence.json)（全课共用零件 `.p-evidence`，见[零件库](../../../../docs/production/parts.md)），`make viewers` 生成 `trace/viewer.html`。p28 的四列对照是课程自绘示意（[`session_states_figures.py`](../../materials/external/cache-compaction/session_states_figures.py)），据记录 14、6、28，方块长短不代表 token 数。
 - PPT 用这次排练的记录做成；录制时每段先讲 PPT，再切现场讲相同和不同，交互题、计划、摘要与耗时不要求和本次相同，不替换 PPT（[课程共识“PPT 与现场演示”](../../../../docs/design/course-design-principles.md#7-录制形态与公开材料)）。
-- p28a 的提交不在 10-24 这次运行里：用的是从它的结束状态起跑的提交会话（lab-runs `ch02/2.3-20261024/` 记录 1–15，Codex 执行，`9381567`），快照分支 `ch02/2.2-done-20261024` 就是这次提交（C2-103）。
+- p28a 的提交不在 10-24 这次运行里：用的是从它的结束状态起跑的提交会话（lab-runs `ch02/2.3-20261024/` 记录 1–15，Codex 执行，`9381567`），快照分支 `ch02/2.2-done-20261024` 就是这次提交（C2-104）。
 - [个人资料](../../materials/profile/README.md)已于 2026-10-24 冻结，与本次运行所用版本相同（C2-94）。尚未出声计时、试讲或由另一位讲师复现。
 
 ## 逐页
@@ -42,7 +42,7 @@
 - p27a → p29c：规则保存后执行 /clear，再 /plan，直接发内容任务，不加问候。不为看规则另发消息，做完回 p22 再看。Plan 中展示三道交互题与 Proposed Plan。
 - p29c 讲师提示：不用 `/plan`、在 Prompt 里写明先计划等确认也行，2026-10-23 的普通模式同样给出文字计划并等待，交互形式不同（C2-92）。口播不展开对照。
 - p30：Proposed Plan 出来后先看改哪些文件、事实是否都来自 profile.md、谁来验证；不越界就选 Yes, implement this plan，界面自动切回 Default 并发 Implement the plan.。越界时选 No, stay in Plan mode，写清要收窄的地方再看一遍，这一支只放讲师提示。不重复手发确认，不选清空并实施。完整初始 Prompt 在页面源 ROUND_PROMPT（C2-95）。
-- p31：浏览器从首屏滚过四块内容，指本轮真实 build。范围在 p30 审计划时看过，页面在这里看过，本节在 p28a 提交，下一节不再审一遍（C2-103）。
+- p31：浏览器从首屏滚过四块内容，指本轮真实 build。范围在 p30 审计划时看过，页面在这里看过，本节在 p28a 提交，下一节不再审一遍（C2-104）。
 - p22：主任务记录 6、8、14、16。记录 6 第 4 项是 AGENTS.md 与环境、第 5 项是 Prompt，不含 2.1 的问答；记录 8 第 8 项是 profile.md 返回；记录 14 第 24 项是交互题回答；记录 16 第 27 项是 Default 模式指令、第 28 项是 Implement the plan.，前 25 项与记录 14 相同。数字只供讲师定位。
 - p22 → p23：读文件的追加已在 2.1 p07-loop 讲过，p22 不再分步展开。p23 引 OpenAI 原文“提示缓存”一节：缓存命中要求前缀完全一致，配置变化追加新消息；原文举的是沙盒与审批模式，不说成文章写了 Plan（C2-93）。切回 Default 那次（记录 16）缓存只命中 229，推理档位也变了，原因没验证，口播不讲成“切换后仍命中缓存”。价格换算留给 2.5 p60。
 - p23a：沿用已采用的 Chroma 重画图；数据点为读图近似，只讲趋势，不给主页任务推准确率。

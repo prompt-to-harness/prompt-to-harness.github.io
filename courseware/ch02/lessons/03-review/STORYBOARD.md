@@ -55,7 +55,7 @@
 ### 素材
 
 - 起点是快照分支 `ch02/2.2-done-20261024`（homepage-v1，9381567，2.2 p28a 由 Codex 提交），结束于 `ch02/2.3-done-20261025`（homepage-v2，e53f35b，Codex 提交），2.4 从它起跑；两个分支在 lab-runs `ch02/2.3-20261025/personal-homepage.bundle`，推到 course-starter 前问讲师。
-- PPT 自包含，证据来自 2026-10-25 四要素重跑（一个 Codex 会话，记录 1–54），原始记录在私有仓库 prompt-to-harness/lab-runs 的 `ch02/2.3-20261025/`。第一轮四要素 Prompt，六道交互题选推荐项；第二轮贴当前与参考两张 1440×800 首屏，加一句反馈；最后用 p40c 的提交 Prompt 让 Codex 提交（C2-106）。
+- PPT 自包含，证据来自 2026-10-25 四要素重跑（一个 Codex 会话，记录 1–54），原始记录在私有仓库 prompt-to-harness/lab-runs 的 `ch02/2.3-20261025/`。第一轮四要素 Prompt，六道交互题选推荐项；第二轮贴当前与参考两张 1440×800 首屏，加一句反馈；最后用 p40c 的提交 Prompt 让 Codex 提交（C2-107）。
 - 录制时每段先讲 PPT，再切现场讲相同和不同（[课程共识“PPT 与现场演示”](../../../../docs/design/course-design-principles.md#7-录制形态与公开材料)）。故事线只押在机制和稳定现象上，某次细节标“排练这次”（编辑规范 ED-020），分层见下面“内容分层”。
 - 公开数据在 [`materials/style/run-20261025/`](../../materials/style/run-20261025/README.md)（12 条记录，约 3.4 MB），观察点在 [`trace/evidence.json`](trace/evidence.json)。页面截图在 `assets/`（来源与指纹见 [assets/README.md](assets/README.md)），四个候选参考在 `external/`。背景对比用首屏右下同一块（1060, 530, 380×230），那里没有文字，细线最清楚。
 - 10-24 的四次排练（`ch02/2.3-20261024*`）不上屏，只用来判断哪些现象稳定；其中两轮排练（一段话的 Prompt，第一轮铺满密集小箭头）可在讲师提示里当另一个例子。

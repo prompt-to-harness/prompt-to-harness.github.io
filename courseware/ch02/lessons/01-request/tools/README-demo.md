@@ -41,7 +41,7 @@ sh courseware/ch02/lessons/01-request/tools/demo.sh audit
 
 ## 从某一节的快照起跑
 
-2.2 起每节做完留一个快照分支（`ch02/<节>-done-<排练日期>`，C2-103），下一节从它开始。三个子命令都带上同一个 `CH02_START`，并用新的 `CH02_DEMO_ROOT`，不和 2.1 的目录混用：
+2.2 起每节做完留一个快照分支（`ch02/<节>-done-<排练日期>`，C2-104），下一节从它开始。三个子命令都带上同一个 `CH02_START`，并用新的 `CH02_DEMO_ROOT`，不和 2.1 的目录混用：
 
 ```sh
 CH02_START=ch02/2.2-done-20261024 CH02_DEMO_ROOT=$HOME/course-demos/ch02-2.3 sh courseware/ch02/lessons/01-request/tools/demo.sh prepare
