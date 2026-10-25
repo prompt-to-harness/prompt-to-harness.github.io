@@ -23,7 +23,7 @@
 | --- | --- |
 | 确认课次范围、知识点、演示、练习、验收，或判断哪份文档为准 | [docs/agents/sources-of-truth.md](docs/agents/sources-of-truth.md) |
 | 写或改文档、讲义、口播稿 | [docs/agents/editing-conventions.md](docs/agents/editing-conventions.md)，以及 [docs/production/editorial-checklist.md](docs/production/editorial-checklist.md)（编辑规则的唯一来源） |
-| 审查课件（内容、格式、展示效果） | `lesson-polish` 的 `review.md`；先读 [docs/reviews/](docs/reviews/README.md) 里已有的记录，审完留一份新记录 |
+| 审查课件（内容、格式、展示效果） | `lesson-polish` 的 `review.md`；先读覆盖当前范围的已有记录，按 [docs/reviews/](docs/reviews/README.md) 的触发条件留痕；日常讨论和自查不另建记录 |
 | 给某章或某页找外部佐证（官方文章、研究、X 帖子的截图和链接） | 项目 skill `external-sources`（`.agents/skills/external-sources/SKILL.md`，`.claude/skills/` 下是指向它的软链接）；规则见 [docs/production/external-sources.md](docs/production/external-sources.md) |
 | 设计或修改课件、图示 | [docs/agents/courseware-workflow.md](docs/agents/courseware-workflow.md)，以及 [docs/production/](docs/production/README.md) |
 

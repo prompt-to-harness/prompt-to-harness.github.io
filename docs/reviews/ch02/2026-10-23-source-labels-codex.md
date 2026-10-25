@@ -4,7 +4,7 @@
 - 审查者：Codex（lesson-polish；skill-creator 用于现有 skill 的窄范围引用同步）
 - 范围：p06-tap 的来源行；重画组件、编辑检查、外部佐证规则与相关 skill；组件影响的 p05a、p16b、p16c、p23a 只检查来源显示，不改教学内容。
 - 基于提交：`9a8d6d5`；工作区有主线程及其他页面的未提交修改，保留原状。本次没有提交或推送。
-- 已参考：2026-10-23-p06-tap-codex.md、2026-10-23-p06-agent-lab-codex.md、2026-10-23-p05a-context-overview-codex.md、2.1 VALIDATION.md。
+- 已参考：2026-10-23-p06-agent-lab-codex.md、2.1 VALIDATION.md。
 - 检查方式：来源与显示层人工对照、五页桌面末步截图、p06 手机阅读截图、阅读模式 DOM 核对、编辑检查、make check。
 
 ## 总体判断

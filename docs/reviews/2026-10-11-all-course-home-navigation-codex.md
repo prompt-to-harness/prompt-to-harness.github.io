@@ -4,7 +4,7 @@
 - 审查者：Codex（lesson-polish）
 - 范围：courseware/index.html 第 0–3 章的 20 张小节卡片
 - 基于提交：012d458；开始时已有 0.1、0.2 内容与审查记录的未提交修改
-- 已参考：2026-10-10-all-preparation-draft-codex.md、2026-10-10-all-preparation-refocus-codex.md、2026-10-10-all-logo-codex.md、ch00/2026-10-11-0.1-p11-navigation-codex.md，以及当前大纲和编辑清单
+- 已参考：2026-10-10-all-preparation-draft-codex.md、2026-10-10-all-preparation-refocus-codex.md、2026-10-10-all-logo-codex.md，以及当前大纲和编辑清单
 - 用户要求：首页小节编号采用章.节形式，为 0.1 补“阅读与演示”，移除 1.1 的“课前准备”按钮
 - 检查方式：机器检查、源码与构建页面 DOM 核对、桌面和手机截图目视检查、实际入口点击；未试讲
 

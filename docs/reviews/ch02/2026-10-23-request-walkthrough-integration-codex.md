@@ -4,7 +4,7 @@
 - 审查者：Codex（lesson-polish）
 - 基于提交：69877f8；工作区有之前说明收尾、样稿等未提交改动，均保留
 - 范围：连续查看样稿、正式 p08 / p08a / p09 / p07 衔接及原 p10–p13 的合并
-- 已参考：同日 request-walkthrough-sample、request-front-handoff、2.1-integration-status、2.1-notes-closeout 记录，以及章 README / 正式分镜
+- 已参考：同日 request-walkthrough-sample、request-front-handoff 记录，以及章 README / 正式分镜
 - 检查方式：原始来源与每条文本核对、浏览器离线断言、两轮桌面截图对照、make check；未做试讲或非作者复述
 
 ## 结论

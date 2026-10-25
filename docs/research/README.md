@@ -14,3 +14,4 @@
 | [第 2 章 Context 引入素材](reports/第%202%20章%20Context%20引入素材.md) | 2026-10-22 | 第 2 章用哪些官方文章、研究和 X 上的言论引入 Context，各放在哪一节 |
 | [第 2 章请求查看方案](reports/第%202%20章请求查看方案.md) | 2026-10-23 | p06-tap 如何用本地代理取得请求记录；比较四类方案，提供原理图两版样稿 |
 | [第 2 章 Harness 层面与消息来源](reports/第%202%20章%20Harness%20层面与消息来源.md) | 2026-10-23 | Codex 的运行框架与项目 Harness 怎样衔接；为什么环境消息也标为 user |
+| [第 2 章长 context 表现佐证](reports/第%202%20章长%20context%20表现佐证.md) | 2026-10-25 | 2.2 p23a 用什么比 Chroma 更贴切地说明“context 越多越难用好”（smart zone / dumb zone 等） |
