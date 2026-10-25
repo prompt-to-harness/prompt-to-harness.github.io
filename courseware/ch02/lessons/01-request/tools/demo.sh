@@ -80,6 +80,25 @@ record() {
     printf '每个终端标签页先粘贴这一行：\n  export CH02_DEMO_ROOT=%s AGENT_LAB_HOME=%s CH02_SESSION_NAME=ch02-%s\n' "$demo_root" "$course_home" "$tag"
     printf '然后：\n  p01 开发服务标签页：sh %s homepage\n  p06-tap 起的 Codex 标签页：sh %s codex\n' "$self" "$self"
     printf '进入 Codex 后，发问候之前先输入：/rename ch02-%s（确认名字已显示，否则记录里会多出起标题的请求）\n' "$tag"
+    narration_hint
+}
+# 手机照稿：课程仓库里的 edit-courseware.sh --lan 只读开放逐字稿页；脱离仓库使用本脚本时跳过。
+narration_hint() {
+    repo=$(CDPATH= cd "$(dirname "$self")/../../../../.." 2>/dev/null && pwd) || return 0
+    [ -f "$repo/tools/edit-courseware.sh" ] || return 0
+    # 只认私网地址：开着 VPN 时默认路由是隧道，探测出来的地址手机连不到；先问 Wi-Fi/有线网卡，再用探测法兜底
+    ip=
+    for cand in "$(ipconfig getifaddr en0 2>/dev/null || true)" "$(ipconfig getifaddr en1 2>/dev/null || true)" \
+        "$(python3 -c 'import socket;s=socket.socket(socket.AF_INET,socket.SOCK_DGRAM);s.connect(("192.0.2.1",9));print(s.getsockname()[0])' 2>/dev/null || true)"; do
+        case $cand in 10.*|192.168.*|172.1[6-9].*|172.2[0-9].*|172.3[01].*) ip=$cand; break ;; esac
+    done
+    printf '\n手机照稿（手机和电脑连同一个 Wi-Fi）：\n  在一个单独的终端标签页启动只读局域网服务：sh %s/tools/edit-courseware.sh --lan\n' "$repo"
+    if [ -n "$ip" ]; then
+        printf '  手机打开：http://%s:8841/courseware/ch02/lessons/01-request/speaker.html\n' "$ip"
+    else
+        printf '  没取到本机局域网地址；服务启动后按它打印的地址在手机上打开 .../courseware/ch02/lessons/01-request/speaker.html\n'
+    fi
+    printf '  录制前先用手机打开一次，确认能连通（路由器若开了客户端隔离会连不上）；A−/A+ 调字号\n'
 }
 
 case ${1:-help} in
@@ -102,7 +121,7 @@ case ${1:-help} in
         ;;
     *)
         printf '%s\n' '用法：sh demo.sh prepare|record [标签]|audit|homepage|codex' \
-            'record：正式录制前用，新建 $HOME/course-demos/rec-<标签>（默认当天日期）和同名新专用环境，并检查 Codex、Key、Node；已存在则拒绝' \
+            'record：正式录制前用，新建 $HOME/course-demos/rec-<标签>（默认当天日期）和同名新专用环境，并检查 Codex、Key、Node；已存在则拒绝；结尾会打印手机照稿的启动命令和局域网地址' \
             '默认项目：$HOME/course-demos/personal-homepage；可用 CH02_DEMO_ROOT 修改父目录' \
             '默认环境：$HOME/.local/share/agent-lab-ch02-recording；可用 AGENT_LAB_HOME 修改' \
             'codex 启动前会打印要手动输入的 /rename；会话名默认 ch02-demo，可用 CH02_SESSION_NAME 修改' \
