@@ -65,6 +65,13 @@ with sync_playwright() as p:
         page.keyboard.press('t');assert page.locator('.step-hidden,.step-past').count()==0
         page.keyboard.press('t');assert state()['step']==len(first['steps'])-1
         page.goto(base+'?mode=slides&step=1#'+second['id']);page.reload();assert state()=={'id':second['id'],'step':1}
+        if name=='05-homepage':
+            # p28-review 已并入 p28；旧链接落到 p28 开头。
+            for mode in ('scroll','slides'):
+                page.goto(base+f'?mode={mode}&step=2#p28-review')
+                assert page.evaluate('location.hash')=='#p28'
+                assert page.evaluate('new URL(location.href).searchParams.get("step")')=='0'
+                if mode=='slides':assert state()=={'id':'p28','step':0}
         if name=='01-environment':
             # Old preparation links must reach the merged page on load and hash changes.
             for mode in ('scroll','slides'):
