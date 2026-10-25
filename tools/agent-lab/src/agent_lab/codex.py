@@ -6,6 +6,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import socket
 import subprocess
@@ -63,22 +64,31 @@ def write_managed(path: Path, content: str) -> None:
             temporary.unlink(missing_ok=True)
 
 
-def prepare_environment(parent: dict[str, str]) -> tuple[dict[str, str], Path]:
+def resolve_home(parent: dict[str, str], project: Path) -> Path:
+    """The course environment for a project, without creating anything.
+
+    By default every project folder gets its own environment, kept outside the
+    project: the agent can read and write its workspace, so sessions, traces and
+    approval rules must not live there (and must never be pushed with the site).
+    """
+    if parent.get("AGENT_LAB_HOME") and parent.get("COURSE_CODEX_HOME"):
+        raise ValueError("AGENT_LAB_HOME 与兼容变量 COURSE_CODEX_HOME 不能同时设置")
+    if parent.get("AGENT_LAB_HOME"):
+        return (Path(parent["AGENT_LAB_HOME"]).expanduser() / "codex").absolute()
+    if parent.get("COURSE_CODEX_HOME"):
+        return Path(parent["COURSE_CODEX_HOME"]).expanduser().absolute()
+    project = project.expanduser().resolve()
+    name = re.sub(r"[^A-Za-z0-9._-]+", "-", project.name).strip("-.")[:40] or "root"
+    digest = hashlib.sha256(str(project).encode()).hexdigest()[:8]
+    real_home = Path(parent["HOME"]).resolve()
+    return real_home / ".local/share/agent-lab/projects" / f"{name}-{digest}" / "codex"
+
+
+def prepare_environment(parent: dict[str, str], project: Path | None = None) -> tuple[dict[str, str], Path]:
     if not parent.get("MINIMAX_API_KEY", "").strip():
         raise ValueError("缺少 MINIMAX_API_KEY：请先 export；不会尝试个人 Codex 登录。")
     real_home = Path(parent["HOME"]).resolve()
-    if parent.get("AGENT_LAB_HOME") and parent.get("COURSE_CODEX_HOME"):
-        raise ValueError("AGENT_LAB_HOME 与兼容变量 COURSE_CODEX_HOME 不能同时设置")
-    default = real_home / ".local/share/agent-lab/codex"
-    legacy = real_home / ".local/share/prompt-to-harness/course-codex"
-    if parent.get("AGENT_LAB_HOME"):
-        home = Path(parent["AGENT_LAB_HOME"]).expanduser() / "codex"
-    elif parent.get("COURSE_CODEX_HOME"):
-        home = Path(parent["COURSE_CODEX_HOME"]).expanduser()
-    else:
-        # Preserve pre-rename sessions without moving or deleting any files.
-        home = legacy if not default.exists() and legacy.exists() else default
-    home = home.absolute()
+    home = resolve_home(parent, Path.cwd() if project is None else project)
     # A custom location is for local verification; never adopt an existing home.
     managed_dir(home)
     legacy_marker = home / ".course-codex-home"
