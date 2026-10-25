@@ -178,8 +178,10 @@ def chapter_map(now):
 
 
 class Lesson:
-    def __init__(self, builder, number, title, summary):
+    def __init__(self, builder, number, title, summary, prep=()):
         self.here = Path(builder).resolve().parents[1]
+        # 录前准备：开录前一次做完的事，逐字稿页顶单独一块（courseware/shared/speaker.js），不上画面
+        self.prep = list(prep)
         # 口播的唯一来源：本节目录下的 script.json，按页面 id 存每页的口播数组；页面里可直接改，见 tools/serve-courseware.py
         self.scripts = json.loads((self.here / "script.json").read_text())
         self.number, self.title, self.summary = number, title, summary
@@ -218,6 +220,7 @@ class Lesson:
             "chapter": CHAPTER,
             "section": f"{int(major):02d}.{int(minor):02d}",
             "summary": self.summary,
+            **({"prep": self.prep} if self.prep else {}),
             "scenes": scenes,
             "segments": segments,
         }
