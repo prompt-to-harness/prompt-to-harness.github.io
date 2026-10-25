@@ -6,6 +6,7 @@ from pathlib import Path
 import tempfile
 import tomllib
 import unittest
+from importlib.metadata import version
 from unittest.mock import patch
 
 from agent_lab.codex import dashboard_port, prepare_environment, resolve_home, LEGACY_MARKER, MODEL
@@ -166,7 +167,7 @@ class ArgumentTests(unittest.TestCase):
             socket.return_value.__enter__.return_value.connect_ex.return_value = 0
             opener.return_value.open.return_value.__enter__.return_value.read.return_value = (
                 b'{"ok":true,"db_path":"/other/traces.sqlite3","version":"0.1.146"}')
-            with self.assertRaisesRegex(ValueError, "不关闭现有服务"):
+            with self.assertRaisesRegex(ValueError, "被别的服务占用，没有启动"):
                 dashboard_port(Path("/course"))
 
     def test_home_command_prints_without_creating(self):
@@ -181,6 +182,35 @@ class ArgumentTests(unittest.TestCase):
             printed = Path(out.getvalue().strip())
             self.assertEqual(printed.parent.parent, real / ".local/share/agent-lab/projects")
             self.assertFalse((real / ".local").exists())
+
+    def _dashboard(self, health: dict):
+        socket_patch = patch("agent_lab.codex.socket.socket")
+        opener_patch = patch("agent_lab.codex.build_opener")
+        socket, opener = socket_patch.start(), opener_patch.start()
+        self.addCleanup(socket_patch.stop)
+        self.addCleanup(opener_patch.stop)
+        socket.return_value.__enter__.return_value.connect_ex.return_value = 0
+        opener.return_value.open.return_value.__enter__.return_value.read.return_value = (
+            json.dumps(health).encode())
+
+    def test_tap_reuses_this_homes_viewer_of_the_same_build(self):
+        home = Path("/course")
+        self._dashboard({"db_path": str(home / ".local/share/claude-tap/traces.sqlite3"),
+                         "version": version("claude-tap")})
+        self.assertGreaterEqual(dashboard_port(home), 20000)
+
+    def test_tap_names_the_version_of_this_homes_older_viewer(self):
+        home = Path("/course")
+        self._dashboard({"db_path": str(home / ".local/share/claude-tap/traces.sqlite3"),
+                         "version": "0.0.1"})
+        with self.assertRaisesRegex(ValueError, "之前启动的查看器.*0.0.1.*xargs kill"):
+            dashboard_port(home)
+
+    def test_tap_runs_the_bundled_claude_tap(self):
+        source = Path(__file__).resolve().parents[1] / "src/agent_lab/codex.py"
+        text = source.read_text()
+        self.assertIn('[sys.executable, "-m", "claude_tap"', text)
+        self.assertNotIn('shutil.which("claude-tap")', text)
 
     def test_tap_and_resume(self):
         self.assertEqual(parse_args(["codex", "--tap", "--", "resume", "--last"]),
