@@ -179,9 +179,27 @@ for log in sorted(courseware.glob('ch*/LOG.md')):
             errors.append(f'ED-017 {where} 缺这些页面的分镜行：{undesigned}')
         if unbuilt:
             errors.append(f'ED-017 {where} 分镜里有、页面还没有，也没在章文件“待定”登记：{unbuilt}')
-        first_h2 = next((n for n, l in enumerate(lines) if l.startswith('## ')), len(lines))
-        if first_h2 >= len(lines) or lines[first_h2] != '## 素材状态' or sum(1 for l in lines[1:first_h2] if l.strip()) > 1:
-            errors.append(f'ED-017 {where} 开头只放一段导航，第一个二级标题应是“素材状态”（节概述和变更说明不写在分镜里）')
+        h2 = [(n, l[3:]) for n, l in enumerate(lines) if l.startswith('## ')]
+        first_h2 = h2[0][0] if h2 else len(lines)
+        if sum(1 for l in lines[1:first_h2] if l.strip()) > 1:
+            errors.append(f'ED-017 {where} 一级标题后、首个分区前只放一段导航')
+        headings = [title for _, title in h2]
+        sectioned = ['本节内容', '逐页安排', '素材状态与操作备注']
+        if any(title in sectioned for title in headings):
+            if headings != sectioned:
+                errors.append(f'ED-017 {where} 分区结构应依次为：本节内容、逐页安排、素材状态与操作备注；区内小标题用三级标题')
+            else:
+                for index, (line, title) in enumerate(h2):
+                    end = h2[index + 1][0] if index + 1 < len(h2) else len(lines)
+                    if not any(item.strip() for item in lines[line + 1:end]):
+                        errors.append(f'ED-017 {where} “{title}”分区为空')
+                # Page rows belong to presentation design, not the narrative or material notes.
+                for n, line in enumerate(lines):
+                    if re.match(r'^\| p\d[\w-]* \|', line) and not h2[1][0] < n < h2[2][0]:
+                        errors.append(f'ED-017 {where} 页面分镜行应放在“逐页安排”分区：{line.split("|")[1].strip()}')
+        elif not headings or headings[0] != '素材状态':
+            errors.append(f'ED-017 {where} 旧结构首个二级标题应是“素材状态”；分区结构应以“本节内容”开始')
+
 
 # ED-007 / ED-010: filler phrases are a prompt to ask "does this add information", not a ban
 fillers = ['这样做是为了', '这里练习的就是', '大家看', '对吧', '其实']
