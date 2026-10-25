@@ -18,6 +18,14 @@
     });
     parent.append(list);
   };
+  // 录前准备：一节只出现一次，开录前逐条做完；录制中要做的事写在各步操作提示里
+  if (window.lesson.prep?.length) {
+    const prep = document.createElement('div'); prep.className = 'prep';
+    const h = document.createElement('h2'); h.textContent = '录前准备'; prep.append(h);
+    const list = document.createElement('ul');
+    window.lesson.prep.forEach(text => { const li = document.createElement('li'); li.textContent = text; list.append(li); });
+    prep.append(list); root.append(prep);
+  }
   if (window.lesson.intro?.length) {
     const intro = document.createElement('div'); intro.id = 'chapter-intro';
     // 开场白不属于任何页面，存在 lesson.js 的 intro 里；可编辑，但没有对应画面
@@ -35,15 +43,16 @@
       if (scene.steps?.[step]) {
         const heading = document.createElement('h3');
         heading.textContent = `第 ${step + 1} 步 · ${scene.steps[step]}`;
-        const link = document.createElement('a');
-        link.href = `${document.body.dataset.lessonPage || 'index.html'}?mode=slides&step=${step}#${scene.id}`;
-        link.textContent = '查看这一步 →';
-        section.append(heading, link);
+        section.append(heading);
       }
-      // 一步口播可含多段（以空行分隔）；【操作提示｜…】是给讲师的操作说明，单独排版、不可编辑
+      // 一步口播可含多段（以空行分隔）；【操作提示｜…】是给讲师的操作说明，【切换｜…】标出口播中途切窗口的位置，
+      // 两者都单独排版、不念、不可编辑
       paragraph.split('\n\n').forEach((text, part) => {
         const stage = text.startsWith('【操作提示｜');
-        addParagraph(section, text, stage ? 'stage-direction' : 'narration');
+        const cue = text.match(/^【切换｜(.+)】$/);
+        addParagraph(section, cue ? `⇄ ${cue[1]}` : text, stage ? 'stage-direction' : cue ? 'switch-cue' : 'narration');
+        const form = stage && text.match(/^【操作提示｜(现场回看|现场|回放)｜/);
+        if (form) section.lastChild.dataset.form = form[1];
         Object.assign(section.lastChild.dataset, { scene: scene.id, step, part });
       });
     });
@@ -59,30 +68,21 @@
       pre.append(code); prompt.append(label, pre);
       section.append(prompt);
     }
-    const details = document.createElement('details');
-    details.className = 'teaching-notes';
-    const summary = document.createElement('summary'); summary.textContent = '操作、提问解析与备课备注';
-    details.append(summary);
-    (scene.teaching || []).forEach(item => {
-      const h = document.createElement('h3'); h.textContent = item.title; details.append(h);
-      item.text.split('\n\n').forEach(text => addParagraph(details, text));
-    });
-    if (scene.refs?.length) {
-      const h = document.createElement('h3'); h.textContent = '原文与链接'; details.append(h);
-      const list = document.createElement('ul'); list.className = 'ref-list';
-      scene.refs.forEach(ref => {
-        const li = document.createElement('li');
-        const a = document.createElement('a'); a.href = ref.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = ref.text;
-        li.append(`${ref.kind === 'live' ? '画面上 · ' : '延伸 · '}${ref.group ? ref.group + ' · ' : ''}`, a);
-        list.append(li);
+    // 还没分流的旧备注（teaching、notes）：展开显示、灰色排版，Pad 照稿录制时不显示（styles.css .script-reader）。
+    // 分流规则见制作手册“讲稿与转场”：录制时要做的并进操作提示，录前一次做完的进 prep，来源与核验进分镜
+    if (scene.teaching?.length || scene.notes) {
+      const notes = document.createElement('div'); notes.className = 'teaching-notes';
+      const label = document.createElement('p'); label.className = 'teaching-label'; label.textContent = '备课备注（待分流，录制页不显示）';
+      notes.append(label);
+      (scene.teaching || []).forEach(item => {
+        const h = document.createElement('h3'); h.textContent = item.title; notes.append(h);
+        item.text.split('\n\n').forEach(text => addParagraph(notes, text));
       });
-      details.append(list);
+      if (scene.notes) {
+        const extra = document.createElement('div'); extra.innerHTML = scene.notes; notes.append(extra);
+      }
+      section.append(notes);
     }
-    if (scene.notes) {
-      const notes = document.createElement('div'); notes.innerHTML = scene.notes; details.append(notes);
-    }
-    section.append(details);
-    const link = document.createElement('a'); link.href = `${document.body.dataset.lessonPage || 'index.html'}#${scene.id}`; link.textContent = '查看本段要点 →'; section.append(link);
     root.append(section);
   });
   enableEditing();
@@ -94,6 +94,7 @@
     try { server = (await fetch('/__script/ping', { cache: 'no-store' })).ok; } catch { /* 不是通过服务打开的 */ }
     if (!server) {
       if (location.protocol === 'file:') addBanner('当前是只读页面。要改口播，运行 sh tools/edit-courseware.sh，从打开的浏览器进入逐字稿页。');
+      else if (location.hostname !== '127.0.0.1' && location.hostname !== 'localhost') enableReader();
       return;
     }
     makeEditable(async ({ intro, scene, step, part, old, text }) => {
@@ -105,6 +106,29 @@
       if (!response.ok) throw new Error(result.error);
       return { text: result.text, note: `已写回 ${result.source}` };
     }, '本地编辑：点任一句口播直接改，Enter 或点别处保存，Esc 撤销；每句下方可展开对应的画面对照。保存会写回本节 script.json 并重建 lesson.js（开场白直接写回 lesson.js）。只能改句子，增删步骤请改源文件。');
+  }
+
+  // 经局域网在 Pad 上照稿录制：服务端对非本机只读，这里放大正文并给一组 A−/A+，字号记在这台设备上。
+  function enableReader() {
+    const KEY = 'speaker-reader-scale';
+    const STEPS = [1, 1.2, 1.4, 1.6, 1.8, 2.1];
+    let index = 2;
+    try { index = Math.min(Math.max(Number(localStorage.getItem(KEY)) || index, 0), STEPS.length - 1); } catch { /* 隐私模式下读不到就用默认 */ }
+    document.body.classList.add('script-reader');
+    const apply = () => {
+      document.body.style.setProperty('--reader-scale', STEPS[index]);
+      try { localStorage.setItem(KEY, index); } catch { /* 记不住也不影响阅读 */ }
+    };
+    const bar = document.createElement('div');
+    bar.className = 'reader-size'; bar.setAttribute('aria-label', '正文字号');
+    [['A−', -1], ['A+', 1]].forEach(([label, delta]) => {
+      const button = document.createElement('button');
+      button.type = 'button'; button.textContent = label;
+      button.addEventListener('click', () => { index = Math.min(Math.max(index + delta, 0), STEPS.length - 1); apply(); });
+      bar.append(button);
+    });
+    document.body.append(bar);
+    apply();
   }
 
   function addBanner(text) {

@@ -9,16 +9,22 @@ from html import escape
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from lessonkit import Lesson, NARROW, anchor, chapter_map, redrawn, ref, repro, shot, teach  # noqa: E402
+from lessonkit import Lesson, NARROW, anchor, chapter_map, redrawn, ref, repro, shot  # noqa: E402
 sys.path.insert(0, str(Path(__file__).resolve().parents[4] / "tools"))
 from tracekit import Evidence  # noqa: E402
-from request_reading import greeting_reading  # noqa: E402
+from request_reading import MINIMAX_DOC, greeting_reading  # noqa: E402
 
 # 落后时进入第 2 章的追赶 Prompt：与 materials/catchup 的实验同一份，代入真实的参考起点
 CATCHUP_PROMPT = (Path(__file__).resolve().parents[3] / "materials/catchup/prompt-ch02.txt").read_text().strip() \
     .replace("{URL}", "https://github.com/prompt-to-harness/course-starter.git").replace("{TAG}", "ch02-start-v1")
 
-lesson = Lesson(__file__, "2.1", "只说了一句话，模型收到了什么", summary="用 claude-tap 打开 Codex 实际发出的请求：只说一句话，模型收到的远不止这句话；读文件时一句话会变成好几次请求，每次都带着前面的全部内容。这些加在一起就是 context，已知的信息主动给，它就能少走弯路。")
+lesson = Lesson(__file__, "2.1", "只说了一句话，模型收到了什么", summary="用 claude-tap 打开 Codex 实际发出的请求：只说一句话，模型收到的远不止这句话；读文件时一句话会变成好几次请求，每次都带着前面的全部内容。这些加在一起就是 context，已知的信息主动给，它就能少走弯路。", prep=[
+    "在课程仓库根目录运行 sh courseware/ch02/lessons/01-request/tools/demo.sh record 标签：它新建项目目录和专用课程环境，检查 Codex、Key、Node，打印各终端标签页要粘贴的命令和手机照稿地址。同一标签不会重置，重录换一个标签。",
+    "uv、Codex CLI 0.163.0 已装好，Agent Lab 已按 p06-tap 的展开入口从课程仓库 main 安装；MINIMAX_API_KEY 配在终端里，不写进项目。",
+    "Terminal 备好“个人主页开发服务”标签页，项目依赖已安装。",
+    "Codex 启动时如果提示有新版本，选 Skip：直接回车会把 Codex 全局升级。",
+    "查看器里有本机路径和用户名，上屏前遮盖或缩写；config.toml 和完整密钥不上屏。",
+])
 scene = lesson.scene
 
 # 录制时还没有实际记录的数字，画面上统一用这个占位（只写占的是什么，不写给讲师的指令），讲师提示里写明按记录替换
@@ -41,6 +47,8 @@ READONLY_PROMPT = """只读任务，不修改任何文件。
 # 页面零件是全课共用的 .p-evidence（shared/parts/evidence-trace.js），查看器由 make viewers 生成
 EVIDENCE = Evidence(Path(__file__).resolve().parents[1] / "trace/evidence.json")
 
+
+ANTHROPIC_CE = "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents#context-engineering-vs-prompt-engineering"
 
 TAP_CMD = "uvx claude-tap@0.1.146 --tap-client codex --tap-target https://api.minimax.cn/v1"
 # Agent Lab 从 main 安装一次，之后用短命令启动（2026-10-24 讲师确认，暂不固定 tag）
@@ -65,7 +73,7 @@ scene(
         '</style>'
         '<div class="opening-start" data-reveal="1"><p><code>npm run dev</code> → 打开 Local 地址 → 看首屏和项目区</p></div>'
         '<div class="p-chain opening-goal" data-reveal="2"><span>补入自己的内容</span><i>→</i><span>参考主页改风格</span><i>→</i><span>发布上线</span></div>'
-        '<div style="margin-top:12px">' + anchor(lit=("新的 Prompt",), title="除了我们写的 Prompt，模型每一步还拿到了什么？", reveal=3) + '</div>'
+        '<div style="margin-top:12px">' + anchor(lit=("新的 Prompt",), title="模型每一步拿到的，只有我们写的 Prompt 吗？", reveal=3) + '</div>'
     ),
     repro=repro([
         ("先在自己的仓库里保存当前的工作（没有改动时会提示无可提交，不影响）", "git add -A && git commit -m \"保存：开始第 2 章之前\""),
@@ -77,7 +85,6 @@ scene(
         ("核对无误后提交，把确认过的补齐情况写进提交说明的正文", "git add -A && git commit -m \"对照 ch02-start-v1 补齐第 2 章前提\" -m \"补了什么、保留了什么（换成核对过的内容）\""),
     ], note="没做完第 1 章、或想直接从第 2 章开始时用；已经做完的跳过。参考起点是 course-starter 的 ch02-start-v1 标签，只放在临时目录里对照，不进我们的仓库。不想用 Codex 时，可在 GitHub 上下载这个标签的 ZIP 对照。讲师 2026-10-06 用三种起点各试两次，Codex 都能判断对；笼统地说“按你的建议执行”时，它会连可选建议一起做，所以要只确认必需项。", label="从这一章开始？"),
     steps=["本章地图", "打开个人主页", "这一章做什么", "从 Prompt 看信息"],
-    teaching=teach(("讲师提示", "讲师先用现有 ch02-start-v1 checkpoint（8e9a323）查看主页；已验证安装、开发服务与构建，浏览器效果录制前另核对。依赖录前安装好，服务已运行时用实际 Local 地址。先打开主页再回课件讲本章成果，地图只定位、不逐行念。学员继续自己的项目。")),
 )
 
 # ---------- 打开请求 ----------
@@ -117,9 +124,6 @@ scene(
           ref("Tobi Lütke 原帖", "https://x.com/tobi/status/1935533422589399127", "X · 2025-06-19", kind="read"),
           ref("训练知识与当前 Context", "https://academy.claude.com/tutorials/parametric-memory-and-context", "Claude Academy", kind="read")],
     steps=["模型与任务信息", "看 Karpathy 的说法", "打开一次实际请求"],
-    teaching=teach(
-        ("讲师提示", "先讲左图，再揭示右侧帖子。先指模型解释既定版本，再指左图上方的当前任务信息；Context 不只由人手写，后面用请求实录拆开。右帖保留现有截图，作者与日期可见，简短意译，不逐行翻译。概览是课程自绘，不是 Karpathy 的原图；普通对话不实时改写参数的区分依据 Claude Academy，不把它说成帖子的结论。模型更新与微调不在本页展开。"),
-    ),
 )
 
 scene(
@@ -146,21 +150,17 @@ scene(
         ("先装好 uv、Codex CLI，并在当前终端设置 MINIMAX_API_KEY；不要把 Key 粘进对话或录屏", None),
         ("安装一次 Agent Lab（从课程仓库 main 安装；以后更新用 uv tool upgrade agent-lab）", AGENT_LAB_INSTALL),
         ("在个人主页项目目录启动课程独立环境，同时记录请求", AGENT_LAB_CMD),
+        ("第一次在这个目录启动时，Codex 会问是否信任这个文件夹，选信任；选否会直接退出", None),
+        ("进入 Codex 后先给会话起个名字，看到名字显示出来再开始对话；不起名时，Codex 会另外发请求让模型起标题，记录里会多出和对话无关的请求", "/rename ch02-demo"),
         ("先找到启动输出中的查看器地址；在 Codex 发完问候、回答结束后，再打开查看器", None),
         ("若已有配置好的 MiniMax 环境，也可直接启动代理；讲师演示使用上面的课程环境命令", TAP_CMD),
     ], note="Agent Lab 固定 MiniMax 课程配置并调用 claude-tap 0.1.146，课程会话单独保留；它减少个人配置混入，不提供额外的文件安全沙箱。请求记录可能包含项目内容，不公开分享未经检查的记录。", label="使用课程独立环境"),
-    teaching=teach(
-        ("图示来源", "据 liaohch3/claude-tap v0.1.146 README 整理，只展示本章使用的反向代理路径；来源与图元已在章素材登记表留存。演示只显示一条可点击原理说明链接。"),
-        ("课程启动器", "Agent Lab 已在 main，2026-10-24 核对 tools/agent-lab 与原固定提交 691d15c 内容一致；改为从 main 安装一次、用 agent-lab codex --tap 启动。暂不固定 tag，main 上的 agent-lab 改动会影响学员装到的版本，正式录制前再决定是否打 tag。"),
-        ("切到实操", "主画面、复制内容、展开入口与口播统一使用 agent-lab codex --tap，讲师录前已安装；直接启动代理只作为展开入口中的备选。沿用工具验证记录，不把原直接启动命令的旧实测日期套在新入口上。录前准备 uv、Codex CLI 与终端密钥，命令在个人主页项目根目录执行；停在输入处并指出实际查看器地址，下一页发问候后才查看记录。"),
-        ("讲师提示", "API 密钥会经过本地代理；claude-tap 导出与存储时只保留鉴权头前缀。画面上不要出现 config.toml 或完整密钥。学员自己运行算选做，不计入验收，不另做排障文档。"),
-    ),
 )
 
 scene(
     id="p08", segment="打开请求", layout="prompt-scene", prompt=FIRST_PROMPT,
     label="一句话与实际请求", title="写的是一句话，模型还收到了什么？",
-    lead="仍在刚才的个人主页项目里发送问候。回答结束后打开记录，找到回答问候的这一份请求，再定位我们写的这一句，观察除此之外发出了什么。会话开头先用 /rename 起好名字，记录里就不会多出自动起标题的辅助请求。",
+    lead="仍在刚才的个人主页项目里发送问候。课件里留了一份同一句问候的记录（2026-10-24）：先看这一份请求有多大，再找到我们写的这一句，观察除此之外发出了什么。自己运行时，结果可以和这份对比。",
     closing="这次问候一次请求就回答了，没有读文件；模型也可能为一句问候先去读文件，那时就会有后续请求。不把整段会话的累计输入量当作这一次请求的输入量。",
     html=(
         '<style>#p08 .scene-content{align-items:center}'
@@ -175,19 +175,13 @@ scene(
         '<div class="p-box" data-role="agent" data-reveal="1">'
         '<span class="p-tag" data-role="agent">回答问候的这一份请求</span>'
         '<p class="p-big">远不止这一句</p>'
-        '<p class="p-sub">这一次输入：8,709 token</p></div>'
+        '<p class="p-sub">课件留存的这次：输入 8,709 token</p></div>'
         '<div class="p-box is-soft" data-role="ctx" data-reveal="2">'
         '<p class="p-big">先找到原句</p><p>再看指令、工具、环境</p></div>'
         '</div>'
         '<p class="source-note">依据：2026-10-24，ch02-start-v1 起点、专用课程 HOME，Codex CLI 0.163.0 + MiniMax-M3.1-Flash，max，claude-tap 0.1.146。8,709 是这份请求的 input_tokens；只代表这次运行。</p>'
     ),
-    steps=["发出问候", "找到第一份主请求", "原句之外还有什么"],
-    teaching=teach(
-        ("录前准备", "按本节 tools/README-demo.md 准备仓库外的 ch02-start-v1 项目与专用 AGENT_LAB_HOME；本次实测快照没有项目或上级 AGENTS.md，也没有项目 Skills。p06 启动后保持同一项目目录，不在课上安装依赖或配置 Key。"),
-        ("记录定位", "采用 2026-10-24 重跑的交互会话（原始记录在私有仓库 prompt-to-harness/lab-runs 的 ch02/2.1-20261024/interactive/）：首句前 /rename ch02-demo，问候是会话里第 1 条记录，没有标题请求。公开数据见 materials/request/run-20261024/interactive.json 第 1 条。"),
-        ("实测边界", "这份请求输入 8709 token，6 条 input 消息，5 个工具定义；响应直接是文字回答，没有工具调用。上一次（10-23）同一句问候曾先读 package.json，说明同一句话不保证每次都一样。录制当次数字不同就按当次记录更新，不重跑凑结果。"),
-        ("展示", "先等回答结束才打开查看器，定位原句，再向前观察大块内容；若忘了 /rename、记录里出现标题任务，用一句话交代。查看器含本机路径与用户名，录屏前遮盖或缩写；不展示 Key 或鉴权配置。"),
-    ),
+    steps=["现场发出问候", "课件里的这一份请求", "原句之外还有什么"],
 )
 
 
@@ -204,24 +198,14 @@ stack = (
 scene(
     id="p08a", segment="逐块拆开",
     label="按顺序看同一请求", title="沿着同一份请求，按顺序往下看",
-    lead="刚才找到了我们写的 Prompt。现在沿同一份初始请求，按它实际的顺序往下看：系统指令、Skills 列表、权限说明、环境信息，然后是我们的问候；消息之后是工具定义，最后看这一次的返回。阅读视图将长段落折叠，完整原文保留所有消息正文和工具定义。系统指令的首句来自模型能力目录，可对照 MiniMax 官方接入说明。",
+    lead="刚才找到了我们写的 Prompt。现在沿同一份初始请求，按它实际的顺序往下看：系统指令、Skills 列表、权限说明、协作模式与团队说明、环境信息，然后是我们的问候；消息之后是工具定义，最后看这一次的返回。阅读视图将长段落折叠，完整原文保留所有消息正文和工具定义。系统指令的首句来自模型能力目录，第一步的阅读视图里有 MiniMax 官方接入说明的链接，可以对照。",
     html=(
         '<style>#p08a .scene-content{display:block}body[data-mode="scroll"] #p08a .p-evidence{height:680px}body[data-mode="slides"] #p08a h2{font-size:40px}body[data-mode="slides"] #p08a .scene-content{top:160px;height:455px}body[data-mode="slides"] #p08a .p-evidence{height:455px}</style>'
         + EVIDENCE.stage("p08a", note="同一份初始请求", reading=greeting_reading())
     ),
-    closing="同一份请求里，有我们输入的一句，也有 Codex 组织的大部分内容；这次模型一次就答完了。接下来按作用归类，看哪些不是我们写的。",
-    refs=[ref("MiniMax Codex 接入说明", "https://platform.minimax.cn/docs/m-plan/codex#%E9%85%8D%E7%BD%AE-minimax-api", "MiniMax · 模型能力目录"),
-          ref("developer 取代 system 消息", "https://developers.openai.com/api/reference/resources/chat", "OpenAI API 参考", kind="read"),
-          ref("Codex：基础指令改为 developer 消息", "https://github.com/openai/codex/pull/51156", "openai/codex PR #51156", kind="read")],
-    steps=["系统指令", "Skills 列表", "权限说明", "环境信息", "工具定义", "这一次的返回"],
-    teaching=teach(
-        ("同源与展示", "使用 2026-10-24 重跑交互会话的问候请求；六条消息正文、五个顶层工具定义完整保留，仅路径占位，排除鉴权请求头、缓存与会话标识。阅读视图只折叠不删除，完整原文为原版静态查看器，可自由展开。顺序按请求实际排列：developer 身份 → developer（Skills、权限、Default 模式）→ developer 团队说明 → developer 多代理限制 → user 环境 → user 问候，tools 在 input 之后。"),
-        ("系统指令首句", "“You are Codex, a coding agent based on MiniMax-M3.1-Flash…”是模型能力目录里 base_instructions 的原文，与 MiniMax 官方说明“配置模型能力目录（可选）”一节的示例一致（2026-10-24 核对）。这一节在“方式二：手动配置”标签页里，链接只能停在上面的“配置 MiniMax API”，现场打开后点方式二。不配目录时是 Codex 默认的长指令，学员记录可能不同。只对照这一句，不教配置。团队说明与多代理限制在第一步的展开里，口播一句交代。"),
-        ("为什么没有 system", "第一步口播顺带一句，不上屏：大家可能听说过 system、developer、user 三种消息；在 OpenAI 的 API 里，开发者写的指令逐渐统一叫 developer（o1 及更新的模型用它取代 system 消息），Codex 0.162 起也把基础指令作为第一条 developer 消息（PR #51156）。口播限定为“在 OpenAI 的 API 和这个 Codex 版本里”；不说 o1 的具体日期，不推断 MiniMax 服务端是否另加 system。两处原文作为阅读链接。"),
-        ("彩蛋", "环境里的时区 Asia/Shanghai 可以口播一句：社区常讨论工具能否判断用户在哪，这类字段确实可能透露信息。只说“可能”，不说 Codex 实际这样用，不上屏。"),
-        ("这一次的返回", "这次的响应直接是文字回答，没有工具调用（10-23 那次曾先读 package.json）。读文件引出多次请求，留到 p07-loop 用项目问题讲。"),
-        ("来源与发布", "与 p07 同一份 materials/request/run-20261024/interactive.json，问候是第 1 条；观察点在 trace/evidence.json，阅读视图由 tools/request_reading.py 生成，原始记录是 make viewers 生成的静态查看器，不需要服务或模型调用。原始记录的侧栏里也能看到同一会话后面的项目问题；完整调用链在 p07 讲，不在这里展开。"),
-    ),
+    closing="同一份请求里，有我们输入的一句，也有 Codex 组织的大部分内容；这次模型一次就答完了。",
+    refs=[ref("MiniMax Codex 接入说明", MINIMAX_DOC, "MiniMax · 模型能力目录", kind="read")],
+    steps=["系统指令", "Skills 列表", "权限说明", "协作模式与团队", "环境信息", "工具定义", "这一次的返回"],
 )
 
 
@@ -229,7 +213,9 @@ scene(
     id="p09", segment="逐块拆开",
     label="请求的组成与来源", title="按作用分六类，哪些不是我写的？",
     lead="先按作用辨认初始请求的六类内容：系统与协作指令、工具定义、Skills 列表、环境信息、权限说明、我们这次的提问。分类不等于消息条数，一条消息可以同时包含多类内容。再看消息的角色：只有 developer 和 user 两种，标着 user 的也不都是我们写的。",
-    closing="六类内容里，只有一句是我们写的，其余都由 Codex 组织。接下来回到个人主页：项目区现在显示什么、数据在哪个文件？模型要先读文件，一句话就会变成好几次请求。",
+    closing="六类内容里，只有一句是我们写的，其余都由 Codex 组织。",
+    refs=[ref("developer 取代 system 消息", "https://developers.openai.com/api/reference/resources/chat", "OpenAI API 参考"),
+          ref("Codex：基础指令改为 developer 消息", "https://github.com/openai/codex/pull/51156", "openai/codex PR #51156")],
     html=(
         '<style>#p09 .scene-content{gap:0}#p09 .request-map{display:grid;gap:6px;margin:0}'
         '#p09 .request-map-row{display:grid;grid-template-columns:290px minmax(0,1fr);gap:20px;align-items:center;min-height:39px;padding:3px 16px;border:1px solid var(--p-rule);border-radius:7px;background:var(--p-card)}'
@@ -263,45 +249,31 @@ scene(
         '<p class="source-note">六类内容与来源对照来自 2026-10-24 的问候请求；没有项目 AGENTS.md 或项目 Skills。消息内容为摘要，未展示本机路径。</p>'
     ),
     steps=["六类内容与作用", "两种角色，谁写的"],
-    teaching=teach(
-        ("与记录对应", "沿用 p08 同一份初始主请求。developer input 0 是身份；input 1 同时包含 Skills、权限、Default 模式；input 2/3 是团队说明和多代理限制。user input 4 是环境，input 5 才是问候。工具定义另在 tools 中。归成六类不等于六条消息各自对应一类。"),
-        ("转场", "第二步可切查看器核对环境和问候的 user 角色；随后进入项目问题，p07-loop 先讲一句话为什么会变成几次请求。p07 使用另一组已核对的项目问答排练，不说成此前组问候的后续结果。"),
-    ),
 )
 
-
-scene(
-    id="p07-loop", segment="代码进入请求", layout="evidence-scene",
-    label="一句话，几次请求", title="只说了一句，为什么有好几次请求？",
-    lead="问候一次请求就答完了。要读文件的任务不一样：模型提出调用，Codex 执行，把模型这一轮的推理、调用和返回追加到请求末尾，再发一次；直到模型不再调用工具，给出最终回答。每一次请求都带着上一次的全部内容，前面一字不改，只在后面增加。",
-    html=(
-        redrawn("agent-loop", "codex-agent-loop", "excalidraw", "据 OpenAI《深入解析 Codex 智能体循环》的循环图与 Snapshot 2 重画；中文标签，不抄字段名", max_height=380)
-    ),
-    closing="下一页在真实记录里对比相邻两次请求：前面不变，末尾多了模型的推理、一条工具调用和一条工具返回。developer、user、assistant 是消息的角色；工具调用和工具返回是单独的条目，上一问的回答以 assistant 进入后面的请求。",
-    refs=[ref("深入解析 Codex 智能体循环", "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/", "OpenAI，2026-01-23", quote="其核心都是一套称为")],
-    steps=["一句话怎样变成几次请求", "第 1 次请求", "第 2 次：前面不变，后面追加", "第 3 次，直到最终回答"],
-    teaching=teach(
-        ("讲师提示", "先讲左侧循环，再依次揭示右侧三次请求。图是示意，轮数以实际记录为准。2026-10-24 重跑记录里每轮在末尾追加三条：reasoning（推理）、custom_tool_call、custom_tool_call_output，与文章 Snapshot 2 一致；旧的 10-23 公开记录删掉了推理，看起来像两条，不再沿用。图例不用 System，避免和本次只有 developer、user 的记录对不上。"),
-        ("对比相邻两轮", "到 p07 放大记录后，用 claude-tap 查看器的对比功能选相邻两次请求，推荐用读取 App.tsx 前后的两次：前面不变，末尾多三条，最后一条就是返回的代码。前几轮的部分工具返回在静态记录里是教学删节标记，对比时末条显示为“[教学删节…]”，不要选这两轮来讲。"),
-    ),
-)
 
 scene(
     id="p07", segment="代码进入请求",
     label="代码怎样进入请求", title="读到的代码，怎样进入下一次请求？",
-    lead="在问候后的同一会话发出项目区只读问题。按刚才的循环，模型读完文件以后，代码作为工具返回进入下一次请求。本页从 2026-10-24 的真实记录里挑三条依据链：A 项目卡写在哪（src/App.tsx），C 页面标题写在哪（index.html），D 内容从哪来（PLACEHOLDER_CONTENT.md）。每一条都可以按“看回答 → 找读取调用 → 看后续请求”核对；放大后同样可以切换。",
+    lead="在问候后的同一会话发出项目区只读问题。这一次，一句话引出了好几次请求：模型读完文件以后，代码作为工具返回进入下一次请求。回答总在最后一次请求的返回里，它引用的代码是更早某一次读回来的，所以核对时从回答倒着往回找：看回答 → 找读取调用 → 找工具返回。本页在 2026-10-24 的真实记录里核对其中一处：项目卡写在哪（src/App.tsx）；放大后同样可以切换。",
     html=(
         EVIDENCE.stage("p07")
     ),
-    closing="这里核对的是回答里的三处引用，模型没有用浏览器验证页面。记录完整保留请求、调用、返回与回答，只去掉了鉴权、本机路径、会话标识和推理的加密部分。核对完依据，再到下一页归纳 Context。",
+    closing="这里核对的是回答里的一处引用；回答还引用了项目说明文档 PLACEHOLDER_CONTENT.md，依据不一定都来自代码。模型没有用浏览器验证页面。记录完整保留请求、调用、返回与回答，只去掉了鉴权、本机路径、会话标识和推理的加密部分。",
     repro=repro([("在同一会话接着问；只读，不点名文件", READONLY_PROMPT)], label="本次怎样提问？", note="记录来自 2026-10-24 的一次真实交互会话：问候之后接着问。想看完整结构，可在查看器中展开‘完整 JSON’；不要求记住请求编号或工具字段。"),
-    steps=["A：看回答", "A：找读取调用", "A：看后续请求", "C：页面标题的依据", "D：内容来源的依据"],
-    teaching=teach(
-        ("排练来源", "2026-10-24 重跑：ch02-start-v1（8e9a323）新克隆、Agent Lab 从 main 运行、Codex CLI 0.163.0、MiniMax-M3.1-Flash、max、claude-tap 0.1.146；交互会话首句前 /rename，问候后接项目问题。项目问题 8 次请求、7 次工具调用。公开数据见 materials/request/run-20261024/，原始记录在私有仓库 prompt-to-harness/lab-runs。"),
-        ("三条依据链", "讲师 2026-10-24 选定：A 读 App.tsx（第 4 次请求提出调用，第 5 次请求带回代码，回答引用 src/App.tsx:1-6）；C 读 index.html（第 3 次提出，第 4 次带回，回答引用 index.html:6）；D 读 PLACEHOLDER_CONTENT.md（第 5 次提出，第 6 次带回，回答引用 PLACEHOLDER_CONTENT.md:9-10）。编号是这次记录的位置，不口播。播放器 5 步：A 走完三步，再直接看 C、D 的返回；需要时点上方标签和按钮看 C、D 的回答与调用。模型还自己拿 dist 和源码比对（第 6–8 次），可一句带过。"),
-        ("讲师提示", "主画面只放观察入口，代码、回复与调用交给原生静态查看器。以后重跑先运行 uv run courseware/tools/tracekit.py courseware/ch02/lessons/01-request/trace/evidence.json --list-candidates 列出调用、返回与回答，经讲师确认再改 trace/evidence.json；记录指纹变化时停止，不自动沿用。放大后文字增大，顶部同样有 A/C/D 和三个定位按钮，Esc 收起。"),
-        ("事实边界", "记录无教学删节：推理只去掉加密部分，可读的推理文字保留。回答里“唯一数据源”“dist 未落后于 src”等扩大判断不因本页的三条依据而视为已核实。"),
+    steps=["看回答", "找读取调用", "找工具返回"],
+)
+
+scene(
+    id="p07-loop", segment="代码进入请求", layout="evidence-scene",
+    label="一句话，几次请求", title="刚才那几次请求，是怎样一次接一次发出的？",
+    lead="把刚才在记录里看到的连起来：模型提出调用，Codex 执行，把模型这一轮的推理、调用和返回追加到请求末尾，再发一次；直到模型不再调用工具，给出最终回答。每一次请求都带着上一次的全部内容，前面一字不改，只在后面增加。",
+    html=(
+        redrawn("agent-loop", "codex-agent-loop", "excalidraw", "据 OpenAI《深入解析 Codex 智能体循环》的循环图与 Snapshot 2 重画；中文标签，不抄字段名", max_height=380)
     ),
+    closing="刚才对比相邻两次请求，看到的正是这样：前面不变，末尾多了模型的推理、一条工具调用和一条工具返回。推理和调用是上一次请求的返回，下一次原样带回去；工具返回是 Codex 执行后加的。developer、user、assistant 是消息的角色，工具调用和工具返回是单独的条目。",
+    refs=[ref("深入解析 Codex 智能体循环", "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/", "OpenAI，2026-01-23", quote="其核心都是一套称为")],
+    steps=["一句话怎样变成几次请求", "第 1 次请求", "第 2 次：前面不变，后面追加", "第 3 次，直到最终回答"],
 )
 
 scene(
@@ -310,19 +282,15 @@ scene(
     lead="问候时，我们已经拆过系统指令、工具和环境。项目问答又让我们沿着代码返回核对了回答依据。把这两次观察放到同一张图上，看看后续请求还带入了什么。",
     html=(
         '<style>body[data-mode="slides"] .segment-bar .segment:first-child{min-width:90px}</style>' +
-        anchor(lit=("系统指令", "工具", "环境", "对话历史", "工具返回", "新的 Prompt"), absent=("规则",), note="身份、Skills、权限说明都算系统指令；这个项目还没有 AGENTS.md，规则这一块是空的", reveal=0) +
+        anchor(lit=("系统指令", "工具", "环境", "对话历史", "工具返回", "新的 Prompt"), absent=("规则",), note="身份、Skills、权限、协作说明都算系统指令；这个项目还没有 AGENTS.md，规则这一块是空的", reveal=0) +
         '<div class="p-bar" data-reveal="1" style="margin-top:10px"><b>Context</b>：模型这一次可用的信息</div>'
         '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:10px">'
-        '<div class="p-box" data-role="ink" data-reveal="2"><span class="p-tag" data-role="ink">Anthropic 的说法</span><p>Context 是从大模型采样时包含的那一组 token</p><p class="p-sub">系统指令、工具、外部数据、消息历史等</p></div>'
+        '<div class="p-box" data-role="ink" data-reveal="2"><span class="p-tag" data-role="ink">Anthropic 的说法</span><p>Context 是从大模型采样时包含的那一组 token</p><p class="p-sub">系统指令、工具、外部数据、消息历史等 · <a href="' + ANTHROPIC_CE + '" target="_blank" rel="noopener">原文 ↗</a></p></div>'
         '<div class="p-box is-soft" data-role="ctx" data-reveal="3"><span class="p-tag" data-role="ctx">课程地图</span><p>第 2 章：<b>Context</b><br>从当前请求，继续看信息怎样变化</p></div></div>'
     ),
     closing="锚点图按信息的作用分类，不表示请求字段必须按图排列。项目问答的后续请求已包含历史和工具返回；规则是否存在以实际记录为准。刚才没有给出源码路径，模型先查找，才拿到相关代码。Context 是有限的资源，既然这些信息要进入 Context，我们已经知道文件在哪里时，能不能提前告诉它，缩短查找过程？",
-    refs=[ref("Effective context engineering for AI agents", "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents#context-engineering-vs-prompt-engineering", "Anthropic，2025-09-29", kind="read")],
+    refs=[ref("Effective context engineering for AI agents", ANTHROPIC_CE, "Anthropic，2025-09-29", kind="read")],
     steps=["合看两次观察", "叫它 Context", "对照文字定义", "定位与下一问"],
-    teaching=teach(
-        ("录制说明", "先指问候时已拆过的组成，再指项目问答后续请求中的历史与工具返回。锚点图是分类示意，不是新运行截图。本次实际请求没有项目 AGENTS.md，规则块画成虚线“这次没有”；历史和工具返回已由本次排练核实。录制当天仍按实际请求更新。"),
-        ("定义依据", "沿用 2026-10-20 已核对的 Anthropic 2025-09-29 文章。中文意译及列举仅用于简短对照，具体拆解留在前面的记录，不新增外部事实核验。"),
-    ),
     expressive="复用全章锚点图，对照问候与项目问答的后续请求",
 )
 
@@ -346,11 +314,6 @@ scene(
         '<p class="source-note" data-reveal="1">2026-10-24，各一次；累计输入是每次请求输入之和，含缓存，不是单次 Context 长度；不推固定比例</p>'
     ),
     steps=["已知路径能帮什么", "本次量化对照", "回看真实记录"],
-    teaching=teach(
-        ("实测记录", "2026-10-24 重跑；course-starter ch02-start-v1 源码快照 8e9a323；Codex 0.163.0、MiniMax-M3.1-Flash、能力目录开、max、read-only、claude-tap 0.1.146，Agent Lab 从 main 运行。两个独立 codex exec、各自新 HOME，无前置问候，同一个干净工作目录，串行运行后均无改动。不点名 7 次请求、14 次工具调用（常一次并行两三个）、累计输入 70,523 token；点名 4 次请求、3 次工具调用、累计输入 32,879 token。详见 materials/request/run-20261024/summary.json。"),
-        ("数字口径", "累计输入 = 每次请求的输入 token 相加；因为每次都重发前面的内容，所以请求越多累加越快。其中大部分命中缓存，claude-tap 面板里会分开显示总输入、缓存、新输入和输出，口播只讲累计输入这一列，不和单次 Context 长度混说。整次耗时两次差别受网络影响，不上屏、不讲。"),
-        ("讲师提示", "先打开两边最后回复，核对项目名称、描述及 App.tsx 行号，再回看完整调用过程。两边核心事实有依据；模型额外的唯一数据源等断言不自动视为已核实。点名组先读 App.tsx，之后仍列目录、全项目检索；不点名组还读了 PLACEHOLDER_CONTENT.md、PROJECT_BRIEF.md、index.css、git 记录和 dist。展示这些实际差异后才看代价，不念固定倍数，不推成永远要点名。"),
-    ),
 )
 
 
@@ -365,12 +328,9 @@ scene(
                 note="文章写于 2026-01；当前 Codex 已把基础指令改为第一条 developer 消息") +
         '<div class="p-bar" style="margin-top:12px">提供已知的相关信息 → 查看实际读取 → 核对回答依据</div>'
     ),
-    closing="图示帮助说明 Codex 的组织作用，具体字段、角色和内容以实际版本记录为准。接下来暂停一下，用刚才的实际例子检验自己。",
+    closing="图示帮助说明 Codex 的组织作用，具体字段、角色和内容以实际版本记录为准。",
     refs=[ref("深入解析 Codex 智能体循环", "https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/", "OpenAI，2026-01-23", quote="在添加用户消息之前")],
     steps=["谁组织，我们做什么"],
-    teaching=teach(
-        ("讲师提示", "复用已核对的官方请求示意重画图，只画文章的顺序，不再对到锚点图（C2-88），只指请求整体和 Codex 的组织作用，不逐字段、按角色再拆 Context，不念工具名或数量。图里第一行 instructions 是 1 月文章的写法，现在基础指令在第一条 developer 消息，图旁已注明。底部做法条用 p07 与 p14a 收住：路径是帮助定位的线索，是否相关、是否足够、回答是否有依据仍需核对。"),
-    ),
 )
 
 
@@ -387,31 +347,26 @@ scene(
         '<div class="p-qrow"><span class="p-n">2</span><div><h3>Codex 替模型读了一个文件。下一次请求和上一次相比，多了什么，少了什么？</h3>'
         '<div data-reveal="2"><p>前面的内容原样重发，一样不少；末尾多了模型的推理、一条工具调用和一条工具返回，返回里就是读到的代码'
         '<br><a href="#p07-loop">回看循环示意</a> · <a href="#p07">回看真实记录</a></p></div></div></div>'
-        '<div class="p-qrow"><span class="p-n">3</span><div><h3>我们已经知道要改的代码在哪个文件。怎样提问？给出路径以后还要检查什么？</h3>'
-        '<div data-reveal="3"><p>把路径写进问题，帮模型少找几轮；仍要核对回答的依据、有没有遗漏，路径不代表它只能读这个文件'
+        '<div class="p-qrow"><span class="p-n">3</span><div><h3>我们已经知道要改的代码在哪个文件。怎样提问？</h3>'
+        '<div data-reveal="3"><p>把路径写进问题，帮模型少找几轮；路径只是线索，它仍可能去读别的文件'
         '<br><a href="#p14a">回看点名文件对照</a></p></div></div></div></div>'
     ),
     closing="能举例说明请求里哪些不是我们写的、说清每次请求怎样在上一次基础上追加，并知道什么时候主动提供路径，就完成了本节的判断练习。",
     steps=["暂停独立作答", "认组成", "看循环", "做选择"],
-    teaching=teach(
-        ("自检验收", "第一题能举出一条非本人输入的信息并说明来源与作用即可，不按类别数评分。第二题要说出“前面不变、末尾追加推理、调用与返回”，不要求说出字段名或条目类型。第三题接受先提供已确认相关路径、再检查依据与遗漏的回答；不把点名路径理解为禁止读取其他文件。"),
-        ("范围", "题面自带情境，不引用学员没见过的具体名称；不考权限和模型配置。参考答案逐步揭示；不依赖录播中的课堂互动。"),
-    ),
 )
 
 scene(
     id="p19", segment="小结",
     label="前面的还要带上吗", title="再说一句，前面的还要带上吗？",
-    lead="刚才我们让 Codex 读懂了当前项目区。接下来继续做同一个个人主页，把自己的项目经历补进去。新的问题发出去时，之前的问题、回答和读过的代码，还会跟着进入下一次请求吗？我们要不要它们跟着？",
+    lead="刚才我们让 Codex 读懂了当前项目区。接下来继续做同一个个人主页，把自己的项目经历补进去。同一个会话里，之前的问题、回答和读过的代码，都会跟着进入下一次请求。新的要求发出去时，我们要不要它们跟着？",
     html=(
         '<div class="p-pair" data-reveal="0" style="grid-template-columns:1fr 1fr;gap:28px">'
         '<div class="p-box" data-role="ink"><span class="p-tag" data-role="ink">刚才</span><p class="p-big">读懂当前项目区</p></div>'
         '<div class="p-box" data-role="us"><span class="p-tag" data-role="us">接下来 · 2.2</span><p class="p-big">补入自己的项目经历</p></div></div>'
-        '<div class="p-box is-soft" data-role="ctx" data-reveal="1" style="margin-top:30px"><p style="font-size:30px">刚才的问答和读过的代码，还会跟着发出去吗？要不要它们跟着？</p></div>'
+        '<div class="p-box is-soft" data-role="ctx" data-reveal="1" style="margin-top:30px"><p style="font-size:30px">前面的问答和读过的代码都会跟着发出去，还要不要它们跟着？</p></div>'
     ),
     closing="带着这个问题进入 2.2：继续修改个人主页，先决定这一轮要不要带着前面的对话，再沿连续几次请求观察前面的信息怎样留下、新的信息怎样加入。本页只提出观察问题，多轮累积、清空与压缩留给下一节的实际过程。",
     steps=["接回个人主页任务", "留下下一问"],
-    teaching=teach(("转场", "从 p18 的自检接回项目任务，不复述 Context 组成、定义、机制或做法。第一步看任务从读取到修改，第二步只问下一次请求会不会带上前面的内容、要不要带；p07-loop 已讲过一轮内的追加，多轮对话的累积、清空与压缩留给 2.2。末步使用播放器已有的下一节按钮进入 2.2 p20。")),
 )
 
 
