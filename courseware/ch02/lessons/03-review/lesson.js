@@ -2,182 +2,70 @@ window.lesson = {
   "title": "参考一个主页改风格：它看到了什么",
   "chapter": "第 2 章 · Vibe Coding",
   "section": "02.03",
-  "summary": "先给 2.2 的内容留一个检查点：只看范围和出处，提交 homepage-v1。再找一个喜欢的主页，分两轮改出自己的风格；每一轮都回到请求记录，看它拿到的参考到底是什么、有什么看不见，审过再提交或 git restore。",
+  "summary": "从上一节提交的 homepage-v1 开始，参考一个主页改两轮风格。每一轮都回到请求看它拿到了什么：取回来不等于看到了，页面的样子不在 context 里，要靠我们把截图和看法带进去。审过再让 Codex 提交。",
   "scenes": [
     {
       "id": "p35",
-      "segment": "先留检查点",
+      "segment": "提参考",
       "layout": "lesson-cover",
       "label": "这一节做什么",
       "title": "参考主页，改出自己的风格",
-      "lead": "先给 2.2 留检查点，再参考主页改风格；每一轮都问它看到了什么",
-      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>看请求</li><li class=\"is-done\"><b>2.2</b>补经历</li><li class=\"is-now\"><b>2.3</b>改风格</li><li><b>2.4</b>发布上线</li><li><b>2.5</b>用好 context</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:18px\"><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ok\">先</span><p class=\"p-big\" style=\"font-weight:500\">看范围和出处，提交 homepage-v1</p></div><div class=\"p-join\" data-reveal=\"2\"><span>再</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"us\">重点</span><p class=\"p-big\" style=\"font-weight:500\">参考一个主页，改两轮风格</p></div></div><div style=\"margin-top:14px\"><div class=\"p-set\" data-role=\"ctx\" data-reveal=\"2\" style=\"padding:10px 16px 12px\"><h3 style=\"font-size:20px;margin-bottom:6px\">这一节每一轮都问：改风格的依据在哪几块？</h3><div class=\"p-items\" style=\"flex-direction:row;flex-wrap:wrap;gap:6px\"><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;background:transparent;color:var(--p-muted)\">系统指令</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;background:transparent;color:var(--p-muted)\">工具</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;background:transparent;color:var(--p-muted)\">环境</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px;font-weight:700\">规则</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;background:transparent;color:var(--p-muted)\">对话历史</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px;font-weight:700\">工具返回</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px;font-weight:700\">新的 Prompt</div></div><div class=\"p-foot\">不在请求里：<span class=\"p-item\" style=\"display:inline-block;margin:4px 6px 0 0;padding:2px 8px;font-size:17px;border-style:dashed;background:transparent\">没读的文件</span><span class=\"p-item\" style=\"display:inline-block;margin:4px 6px 0 0;padding:2px 8px;font-size:17px;border-style:dashed;background:transparent\">浏览器里的页面</span><span class=\"p-item\" style=\"display:inline-block;margin:4px 6px 0 0;padding:2px 8px;font-size:17px;border-style:dashed;background:transparent\">参考主页</span></div></div></div>",
+      "lead": "从上一节提交的 homepage-v1 开始，参考一个主页改两轮风格；每一轮都问一句：它看到了什么",
+      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>看请求</li><li class=\"is-done\"><b>2.2</b>补经历</li><li class=\"is-now\"><b>2.3</b>改风格</li><li><b>2.4</b>发布上线</li><li><b>2.5</b>用好 context</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:18px\"><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ok\">起点</span><p class=\"p-big\" style=\"font-weight:500\">homepage-v1：不满意随时回到这里</p></div><div class=\"p-join\" data-reveal=\"1\"><span>再</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"us\">重点</span><p class=\"p-big\" style=\"font-weight:500\">参考一个主页，改两轮风格</p></div></div><div style=\"margin-top:14px\"><div class=\"p-set\" data-role=\"ctx\" data-reveal=\"2\" style=\"padding:10px 16px 12px\"><h3 style=\"font-size:20px;margin-bottom:6px\">这一次请求里有什么</h3><div class=\"p-items\" style=\"flex-direction:row;flex-wrap:wrap;gap:6px\"><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;background:transparent;color:var(--p-muted)\">系统指令</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;background:transparent;color:var(--p-muted)\">工具</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;background:transparent;color:var(--p-muted)\">环境</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;background:transparent;color:var(--p-muted)\">规则</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px;font-weight:700\">对话历史</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px;font-weight:700\">工具返回</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px;font-weight:700\">新的 Prompt</div></div><div class=\"p-foot\">不在请求里：<span class=\"p-item\" style=\"display:inline-block;margin:4px 6px 0 0;padding:2px 8px;font-size:17px;border-style:dashed;background:transparent\">浏览器里的页面</span></div><div class=\"p-foot\">我们看得到参考长什么样，它看得到吗？它改风格的依据，只能在请求里的这几块</div></div></div>",
       "steps": [
         "回到地图",
-        "先留检查点",
-        "再改风格"
+        "从 homepage-v1 开始",
+        "它看得到吗"
       ],
       "script": [
-        "【操作提示｜停留课件 p35 第 1 步，指向章节地图上的 2.3，不切工具窗口。录前在练习项目核对：2.2 的改动仍在工作区，未暂存、未提交】\n\n2.2 我们把个人信息放进了主页，页面看过了，build 也通过了。不过改动还只在工作区里，没有提交。",
-        "【操作提示｜推进第 2 步，指左边的“先”】\n\n这一节先花几分钟给它留一个检查点：看看改了哪些文件，页面上的每一句是不是都来自 profile.md，然后提交。",
-        "【操作提示｜推进第 3 步，指右边的“重点”，再指下方锚点图和列外三样；讲完进入 p36 再切 Terminal】\n\n然后是这一节的重点：找一个喜欢的主页，参考它改出自己的风格，改两轮。每一轮我们都回到这一列方块问一句：它看到了什么？画在列外的，浏览器里的页面、我们看的参考主页，它都看不见。"
+        "【操作提示｜停留课件 p35 第 1 步，指章节地图上的 2.3】\n\n上一节我们把个人信息放进了主页，看过页面、build 也通过了，最后让 Codex 提交了 homepage-v1。",
+        "【操作提示｜推进第 2 步，指“起点”和“重点”】\n\n这一节只动样子：找一个喜欢的主页，参考它改出自己的风格，改两轮。不管改成什么样，不满意都能回到 homepage-v1。",
+        "【操作提示｜推进第 3 步，指锚点图亮起的三块和列外那一项；讲完进入 p40a0】\n\n有个问题贯穿这一节：我们在浏览器里看得到参考长什么样，Codex 看得到吗？它改风格的依据，只能来自请求里的这几块：工具返回、对话历史，和我们新写的 Prompt。浏览器里的页面，画在列外。"
       ],
       "teaching": [
         {
           "title": "讲师提示",
-          "text": "本节重点是改风格（章文件 C2-61）；审 2.2 内容只看范围和出处，两页带过。"
+          "text": "上一节结尾已经让 Codex 提交了 homepage-v1，这一节不再审内容。没跟上的从快照分支 ch02/2.2-done-20261024 开始（C2-99）。"
         }
       ],
       "source": "index.html#p35",
       "seconds": 90
     },
     {
-      "id": "p36",
-      "segment": "先留检查点",
-      "label": "范围和出处",
-      "title": "先看范围和出处",
-      "lead": "先用两条命令看范围，再对照 Done when 看内容：页面上的每一句，都能在 profile.md 里找到吗？git status --short 列出所有变化，包括还没被 Git 跟踪的新文件；git diff --stat 只统计已跟踪文件还没暂存的修改：新文件要另外打开看，已经 git add 的改动要用 git diff --cached --stat 看。讲师这次多了一行 ?? AGENTS.md：它是 2.2 我们自己写的规则，不是 Codex 建的，--stat 里看不到它。",
-      "html": "<div style=\"display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px\"><div class=\"p-term\" data-copy=\"git status --short\" data-reveal=\"0\"><div class=\"dim\">$ git status --short</div><div> M src/App.tsx</div><div>?? AGENTS.md</div></div><div class=\"p-term\" data-copy=\"git diff --stat\" data-reveal=\"1\"><div class=\"dim\">$ git diff --stat</div><div> src/App.tsx | 12 ++++++++++--</div><div> 1 file changed, 10 insertions(+), 2 deletions(-)</div></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"2\"><h3>src/App.tsx</h3><p>预期之内：项目数据就在这里</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"2\"><h3>?? AGENTS.md</h3><p>新文件，不在 --stat 里；是我们在 2.2 写的规则，打开看一眼，一起提交</p></div></div><p class=\"source-note\">画面中的命令输出来自讲师用课程基线在交互界面里的一次运行（2026-10-21 20:30，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max），和 2.2 是同一次留下的工作区，Git 2.50.1；你的输出以自己的 diff 为准</p>",
-      "steps": [
-        "status",
-        "diff --stat",
-        "对得上吗"
-      ],
-      "script": [
-        "【操作提示｜课件 p36 第 1 步 → 切 Terminal，在练习项目根目录运行 git status --short。课件画面是讲师 2026-10-21 20:30 那次运行（和 2.2 同一次）的输出，按录制时的实际输出指认；出现 ?? 开头的行就打开看是谁建的】\n\n先看范围，再看内容。在项目目录运行 git status --short。M 开头的是已跟踪文件被修改了，这里是 src/App.tsx。下面还有一行，两个问号开头：AGENTS.md。问号表示这是一个 Git 还没跟踪的新文件。它不是 Codex 建的，是我们在 2.2 自己写的那几行规则。",
-        "【操作提示｜同一 Terminal 运行 git diff --stat，指认文件名与增删行数；实际数字与口播的 10 行、2 行不同时按实际数字说，不念画面数字】\n\n再运行 git diff --stat，它统计每个文件改了多少行：App.tsx 新增 10 行、删除 2 行。注意，AGENTS.md 不在这里。--stat 只统计已跟踪、而且还没暂存的修改：新建的文件不在里面，只看 --stat 就会漏掉；已经 git add 过的改动也不在里面，要加 --cached 才看得到。",
-        "【操作提示｜回课件 p36 第 3 步；可切 VS Code 打开 AGENTS.md 看一眼。实际列出无关文件、Codex 新建的文件或 package.json 变化时就地指出，在提交前让它收回或放弃。说完暂停提示后再进入 p40】\n\n对照本轮目标：App.tsx 是项目数据所在的文件，预期之内。AGENTS.md 是我们自己写的，打开看一眼，还是那几行，等会儿一起提交。没有别的文件，也没有 package.json 的变化，就没有新依赖。范围对得上，再看内容。请暂停视频，在自己的项目里运行这两条命令；没写 AGENTS.md 的话，你不会看到那一行。"
-      ],
-      "teaching": [
-        {
-          "title": "命令说明",
-          "text": "未跟踪文件所在目录整个都是新的时，git status --short 只显示目录名（如 ?? src/components/），加 --untracked-files=all 可列出目录里的每个文件。"
-        },
-        {
-          "title": "核对记录",
-          "text": "2026-10-21 20:30 那次运行（lab-runs/ch02-context/2.2-simple-20261021-203050）结束后，在它的工作区运行 git status --short 和 git diff --stat，输出与画面一致：改了 src/App.tsx（+10 −2），另有未跟踪的 AGENTS.md（4 行，2.2 p27a 讲师写的）。Codex 在完成报告里说明 AGENTS.md 是它开工前就存在的未跟踪文件。16:22 那次输出相同。src/App.tsx 的改动与 materials/homepage-v1.diff 逐行相同。学员没写 AGENTS.md 时没有这一行。"
-        },
-        {
-          "title": "讲师提示",
-          "text": "若 2.2 的真实 diff 出现了无关文件或 package.json 变化，在这里就地指出，并在 p40 之前走“缩小”或“拒绝”（三种处置见 p40c）。"
-        }
-      ],
-      "source": "index.html#p36",
-      "seconds": 90
-    },
-    {
-      "id": "p40",
-      "segment": "先留检查点",
-      "label": "留下检查点",
-      "title": "提交一次，留下检查点",
-      "lead": "范围对、每处改动都找得到依据、Prompt 之外的动作也都经过我们同意，就接受；三种处置（接受、缩小、拒绝）留到后面的风格改动再细讲，那里更可能用上。审过了就提交：只暂存审过的文件，这次是 src/App.tsx 和我们自己写的 AGENTS.md；再看一遍待提交的内容，然后提交，提交说明写本轮目标和改动文件。这次提交就是检查点。接受错了也回得去：还没提交的用 git restore 放弃修改，已经提交的用 git revert 加一个撤回提交，原来的提交留在历史里。/clear 和压缩只动对话，不动文件；回退靠 git。",
-      "html": "<div class=\"p-term\" data-reveal=\"0\" data-copy=\"git add src/App.tsx AGENTS.md\"><div class=\"dim\">$ git add src/App.tsx AGENTS.md</div><div class=\"dim\">$ git diff --cached --stat</div><div> AGENTS.md   |  4 ++++</div><div> src/App.tsx | 12 ++++++++++--</div><div> 2 files changed, 14 insertions(+), 2 deletions(-)</div></div><div class=\"p-term\" data-reveal=\"1\" style=\"margin-top:8px\" data-copy=\"git commit -m &quot;homepage-v1: 补充项目经历&quot; -m &quot;本轮目标：在项目区呈现我的项目经历。改动文件：src/App.tsx、AGENTS.md&quot;\"><div class=\"dim\">$ git commit -m \"homepage-v1: 补充项目经历\" \\</div><div class=\"dim\">    -m \"本轮目标：在项目区呈现我的项目经历。改动文件：src/App.tsx、AGENTS.md\"</div><div class=\"ok\">[main 7ce0e9f] homepage-v1: 补充项目经历</div></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:10px\">接受错了：还没提交用 <b>git restore</b>，已经提交用 <b>git revert</b> · 回退靠 git，不靠对话</div><p class=\"source-note\">画面中的命令输出来自讲师用课程基线在交互界面里的一次运行（2026-10-21 20:30，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max），和 2.2 是同一次留下的工作区，Git 2.50.1；你的输出以自己的 diff 为准。 7ce0e9f 是示例短哈希，每次提交都不同。</p>",
-      "repro": {
-        "label": "复现这个实验",
-        "steps": [
-          {
-            "text": "在课程仓库根目录，用第 1 章参考快照建一个练习仓库，不动你自己的个人主页",
-            "code": "cp -R starters/personal-homepage/ch01-complete lab-runs/revert && cd lab-runs/revert\ngit init -q -b main && git add -A && git commit -qm baseline"
-          },
-          {
-            "text": "应用 homepage-v1 的改动并提交一次，提交说明写本轮目标与改动文件",
-            "code": "git apply ../../courseware/ch02/materials/homepage-v1.diff && git add src/App.tsx\ngit commit -q -m 'homepage-v1: 补充项目经历' -m '本轮目标：在项目区呈现我的项目经历。改动文件：src/App.tsx'"
-          },
-          {
-            "text": "在演示分支上撤回这次提交",
-            "code": "git switch -c demo-revert && git revert --no-edit HEAD && git log --oneline -3 && git show --stat HEAD"
-          },
-          {
-            "text": "检查：撤回提交只改了 src/App.tsx，原来的提交还在历史里；然后回到 main，删掉演示分支",
-            "code": "git switch main && git branch -D demo-revert"
-          }
-        ],
-        "note": "讲师 2026-10-20 按此实测（Git 2.50.1）。需要已配置 git user.name 与 user.email。"
-      },
-      "steps": [
-        "暂存并再看一遍",
-        "提交并写清说明",
-        "接受错了怎么回去"
-      ],
-      "script": [
-        "【操作提示｜停留课件 p40 第 1 步 → 切 Terminal，在练习项目根目录 git add src/App.tsx AGENTS.md（写明路径，不用 git add .；没写 AGENTS.md 的只加 src/App.tsx），再 git diff --cached --stat；回课件】\n\n审过了，就提交。只暂存审过的文件：App.tsx，加上我们自己写的 AGENTS.md。再用 git diff --cached 看一遍，确认要提交的就是这两个文件。",
-        "【操作提示｜推进第 2 步 → Terminal 里提交，第一个 -m 写标题，第二个 -m 写本轮目标和改动文件；哈希按实际输出讲】\n\n然后提交。第一个 -m 是标题，第二个 -m 写本轮目标和改动了哪些文件，这次是 App.tsx 和 AGENTS.md。提交时输出的那一行里，有这次提交的短哈希：这就是我们的检查点。",
-        "【操作提示｜推进第 3 步，指底部横条；revert 的完整步骤在页面的复现按钮里，讲师在临时分支演示，不在学员主线上做】\n\n万一接受错了，也回得去。还没提交的，用 git restore 放弃修改；已经提交的，用 git revert 再加一个撤回提交，原来的提交还留在历史里。记住一点：/clear 和压缩只动对话，不动文件，回退靠 git。"
-      ],
-      "teaching": [
-        {
-          "title": "讲师提示",
-          "text": "这一页只讲提交一次留检查点；restore 和 revert 各一句，revert 的完整步骤在页面上的复现按钮里，讲师可在临时分支演示，学员看懂即可。不教改写历史（reset、amend）。哈希每次不同，按实际输出讲。"
-        }
-      ],
-      "source": "index.html#p40",
-      "seconds": 90
-    },
-    {
       "id": "p40a0",
-      "segment": "改风格",
-      "label": "几个参考主页",
-      "title": "想要什么样的主页？先看几个参考",
-      "lead": "同一份 profile.md，可以做成完全不同的样子。这里有四个公开的主页或模板：整块紫色的 Hyperspace，深蓝两栏的 Brittany Chiang，青绿页头的 Freelancer，白底蓝链接的 Jon Barron。这次的示例用 Hyperspace，它和我们现在的主页差别最大，改完一眼看得出来。你可以选别的，也可以找自己喜欢的主页；参考的是风格，用的时候按各自的许可注明出处。",
-      "html": "<div class=\"p-grid\" style=\"--n:4;gap:14px\" data-reveal=\"0\"><div class=\"p-page\" style=\"position:relative;outline:3px solid #D9481C;outline-offset:3px\"><div class=\"p-page-bar\" style=\"font-size:13px\"><i></i><i></i><i></i>html5up.net · CC BY 3.0</div><img src=\"external/ref-hyperspace.png\" alt=\"Hyperspace 模板首屏：整块紫色\" style=\"display:block;width:100%;height:200px;object-fit:cover;object-position:top\"><span class=\"p-tag\" data-role=\"us\" data-reveal=\"1\" style=\"position:absolute;right:8px;top:36px\">这次用</span></div><div class=\"p-page\" style=\"position:relative\"><div class=\"p-page-bar\" style=\"font-size:13px\"><i></i><i></i><i></i>brittanychiang.com · 注明出处</div><img src=\"external/ref-brittanychiang.png\" alt=\"Brittany Chiang 的主页：深蓝两栏\" style=\"display:block;width:100%;height:200px;object-fit:cover;object-position:top\"></div><div class=\"p-page\" style=\"position:relative\"><div class=\"p-page-bar\" style=\"font-size:13px\"><i></i><i></i><i></i>Start Bootstrap · MIT</div><img src=\"external/ref-freelancer.png\" alt=\"Freelancer 模板首屏：青绿页头\" style=\"display:block;width:100%;height:200px;object-fit:cover;object-position:top\"></div><div class=\"p-page\" style=\"position:relative\"><div class=\"p-page-bar\" style=\"font-size:13px\"><i></i><i></i><i></i>jonbarron.info · 欢迎复用</div><img src=\"external/ref-jonbarron.png\" alt=\"Jon Barron 的主页：白底蓝链接\" style=\"display:block;width:100%;height:200px;object-fit:cover;object-position:top\"></div></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:16px\">学的是风格，<b>不照搬别人的代码和文字</b> · 用的时候注明出处</div>",
+      "segment": "提参考",
+      "label": "挑一个参考",
+      "title": "想要什么样的主页？先挑一个参考",
+      "lead": "同一份 profile.md，可以做成完全不同的样子。这里有四个公开的主页或模板：整块紫色的 Hyperspace，深蓝两栏的 Brittany Chiang，青绿页头的 Freelancer，白底蓝链接的 Jon Barron。这次的示例用 Hyperspace，它和我们现在的主页差别最大。把两张首屏放在一起，说清想借鉴什么：左侧的侧栏导航，每一块不同底色的大块背景。你可以选别的参考；学的是风格，不照搬别人的代码和文字，用的时候按各自的许可注明出处。",
+      "html": "<div class=\"review-panel\" data-panel-start=\"0\" data-panel-end=\"1\"><div class=\"p-grid\" style=\"--n:4;gap:14px\"><div class=\"p-page\" style=\"position:relative;outline:3px solid #D9481C;outline-offset:3px\"><div class=\"p-page-bar\" style=\"font-size:13px\"><i></i><i></i><i></i>html5up.net · CC BY 3.0</div><img src=\"external/ref-hyperspace.png\" alt=\"Hyperspace 模板首屏：整块紫色\" style=\"display:block;width:100%;height:200px;object-fit:cover;object-position:top\"><span class=\"p-tag\" data-role=\"us\" data-reveal=\"1\" style=\"position:absolute;right:8px;top:36px\">这次用</span></div><div class=\"p-page\" style=\"position:relative\"><div class=\"p-page-bar\" style=\"font-size:13px\"><i></i><i></i><i></i>brittanychiang.com · 注明出处</div><img src=\"external/ref-brittanychiang.png\" alt=\"Brittany Chiang 的主页：深蓝两栏\" style=\"display:block;width:100%;height:200px;object-fit:cover;object-position:top\"></div><div class=\"p-page\" style=\"position:relative\"><div class=\"p-page-bar\" style=\"font-size:13px\"><i></i><i></i><i></i>Start Bootstrap · MIT</div><img src=\"external/ref-freelancer.png\" alt=\"Freelancer 模板首屏：青绿页头\" style=\"display:block;width:100%;height:200px;object-fit:cover;object-position:top\"></div><div class=\"p-page\" style=\"position:relative\"><div class=\"p-page-bar\" style=\"font-size:13px\"><i></i><i></i><i></i>jonbarron.info · 欢迎复用</div><img src=\"external/ref-jonbarron.png\" alt=\"Jon Barron 的主页：白底蓝链接\" style=\"display:block;width:100%;height:200px;object-fit:cover;object-position:top\"></div></div></div><div class=\"review-panel\" data-panel-start=\"2\" data-panel-end=\"2\"><div class=\"review-pair\"><figure class=\"review-shot\"><figcaption>现在：homepage-v1</figcaption><a href=\"assets/before.png\" target=\"_blank\" rel=\"noopener\"><img src=\"assets/before.png\" alt=\"现在：homepage-v1\" style=\"height:240px\"></a></figure><figure class=\"review-shot\"><figcaption>想借鉴：Hyperspace · HTML5 UP</figcaption><a href=\"assets/reference.png\" target=\"_blank\" rel=\"noopener\"><img src=\"assets/reference.png\" alt=\"想借鉴：Hyperspace · HTML5 UP\" style=\"height:240px\"></a></figure></div><div class=\"p-bar is-light review-bar\">想借鉴：<b>侧栏导航</b>、<b>大块背景</b> · 不照搬别人的代码和文字</div></div>",
       "refs": [
         {
           "kind": "live",
           "group": "参考主页",
-          "text": "Hyperspace",
+          "text": "Hyperspace · HTML5 UP",
           "url": "https://html5up.net/uploads/demos/hyperspace/"
-        },
-        {
-          "kind": "live",
-          "group": "参考主页",
-          "text": "Brittany Chiang",
-          "url": "https://brittanychiang.com/"
-        },
-        {
-          "kind": "live",
-          "group": "参考主页",
-          "text": "Freelancer",
-          "url": "https://startbootstrap.github.io/startbootstrap-freelancer/"
-        },
-        {
-          "kind": "live",
-          "group": "参考主页",
-          "text": "Jon Barron",
-          "url": "https://jonbarron.info/"
         },
         {
           "kind": "read",
           "group": "许可",
           "text": "HTML5 UP 许可（CC BY 3.0）",
           "url": "https://html5up.net/license"
-        },
-        {
-          "kind": "read",
-          "group": "许可",
-          "text": "bchiang7/v4 的 README",
-          "url": "https://github.com/bchiang7/v4"
-        },
-        {
-          "kind": "read",
-          "group": "许可",
-          "text": "startbootstrap-freelancer（MIT）",
-          "url": "https://github.com/StartBootstrap/startbootstrap-freelancer"
         }
       ],
       "steps": [
         "四个参考",
         "这次用哪个",
-        "注明出处"
+        "想借鉴什么"
       ],
       "script": [
-        "【操作提示｜停留课件 p40a0 第 1 步，四张截图一起出现，从左到右指认】\n\nhomepage-v1 提交了，我们有了一个检查点。接下来做一件更像真实做主页的事：改风格。同一份 profile.md，可以做成完全不同的样子。先看四个公开的主页和模板：整块紫色的 Hyperspace，深蓝两栏的 Brittany Chiang，青绿页头的 Freelancer，白底蓝链接的 Jon Barron。",
-        "【操作提示｜推进第 2 步，指“这次用”标记；可切浏览器打开 Hyperspace，往下滚一屏再回课件】\n\n这次的示例用 Hyperspace。它和我们现在的主页差别最大，改完一眼就看得出来。你可以选别的，也可以找一个自己喜欢的主页。",
-        "【操作提示｜推进第 3 步，指底部横条；随后进入 p40a】\n\n参考的是风格，不是照搬别人的代码和文字。这几个都允许参考，Hyperspace 要求注明出处，用的时候在页面上写一句就行。"
+        "【操作提示｜停留课件 p40a0 第 1 步，四张截图从左到右指认】\n\n同一份 profile.md，可以做成完全不同的样子。先看四个公开的主页和模板：整块紫色的 Hyperspace，深蓝两栏的 Brittany Chiang，青绿页头的 Freelancer，白底蓝链接的 Jon Barron。",
+        "【操作提示｜推进第 2 步，指“这次用”标记】\n\n这次的示例用 Hyperspace，它和我们现在的主页差别最大。你可以选别的，也可以找一个自己喜欢的主页。",
+        "【操作提示｜推进第 3 步，左右指认两张首屏，再指底部横条；随后进入 p40a】\n\n把两张首屏放在一起，说清想借鉴什么：左边一栏固定的侧栏导航，每一块不同底色的大块背景。学的是风格，不照搬别人的代码和文字；Hyperspace 要求注明出处，页脚写一句就行。"
       ],
       "teaching": [
         {
           "title": "讲师提示",
-          "text": "四张都是首屏截图（courseware/tools/capture-source.py，2026-10-23），Jon Barron 那张只截到第一篇论文，下面的合影不截。录制时可以在浏览器里点开第一行的链接，往下滚一屏让学员看整页。可剪辑时，换一个参考再跑一组，最后把两组结果并排给学员看（分镜 p40a0）。"
+          "text": "四个候选：brittanychiang.com、startbootstrap.github.io/startbootstrap-freelancer、jonbarron.info，各自许可见 materials/external/README.md。四张候选是首屏截图（courseware/tools/capture-source.py，2026-10-23）；两张对照是 10-24 排练时 Chromium 1440×800 的首屏。参考在 1280 宽会把侧栏变成顶部横条，录制时浏览器开宽一点再看侧栏。"
         }
       ],
       "source": "index.html#p40a0",
@@ -185,31 +73,27 @@ window.lesson = {
     },
     {
       "id": "p40a",
-      "segment": "改风格",
+      "segment": "提参考",
       "layout": "prompt-scene",
-      "prompt": "Goal：参考 Hyperspace 的风格，把我的主页改出新样子：配色和版式都可以改。\nContext：参考 https://html5up.net/uploads/demos/hyperspace/ 。先用 curl 取这个页面的 HTML\n和它引用的 CSS（要联网，会弹申请，我来批准），告诉我它的风格是怎样的\n（配色、各区块怎么铺、版式），再提计划，等我确认再改。\nConstraints：页面上的文字不变，每一句都要能在 profile.md 里找到；不加依赖，\n不引入远程字体和图片；改结构时尽量沿用现有组件；正文和背景的对比度要够。\nDone when：我在浏览器里看过、觉得像；你跑 build 成功；页脚注明风格参考的出处；\n告诉我改了哪些区块、为什么。",
-      "label": "照着参考改",
-      "title": "照着参考改，样子可以变，内容不能变",
-      "lead": "这次照着 Hyperspace 改，配色和版式都可以变。约束只留四条：页面上的文字不变，每一句都要能在 profile.md 里找到；不加依赖，不引入远程字体和图片；改结构时尽量沿用现有组件；正文和背景的对比度要够。守住的是“内容是我的”，不是“样子不变”。Prompt 里点明让它用 curl 取参考页面的 HTML 和 CSS，联网我们来批准；取回来以后先说看到的风格和计划，等我们确认再改。",
-      "html": "<div class=\"demo-notes\"><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>样子可以变</b><small>配色和版式都可以改</small></span></li><li class=\"is-risk\" data-reveal=\"1\"><span><b>用 curl 取 HTML 和 CSS</b><small>要联网，我们来批准</small></span></li><li class=\"is-ok\" data-reveal=\"2\"><span><b>内容不能变</b><small>文字都在 profile.md 里；先说计划</small></span></li></ol></div>",
+      "prompt": "我想参考 https://html5up.net/uploads/demos/hyperspace/ 的风格改一下这个个人主页，喜欢它的侧栏导航和大块背景。请用 curl 看看参考页的 HTML 和 CSS，再结合当前代码给个修改计划，先别改。保留我的个人内容，不新增依赖，页面效果我会在浏览器里看。",
+      "label": "把参考交给它",
+      "title": "一段话写清四件事",
+      "lead": "这次的任务不大，Prompt 写成一段话，四要素都在里面：目标是参考 Hyperspace 改风格、喜欢它的侧栏和大块背景；背景是参考页的网址，点明用 curl 看 HTML 和 CSS，结合当前代码；约束是先给计划别改、保留个人内容、不新增依赖；完成标准里写明页面效果由我们在浏览器里看。新任务用 /clear 或新会话，再 /plan。",
+      "html": "<div class=\"demo-notes\"><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>Goal · Context</b><small>参考 Hyperspace 改风格；用 curl 看 HTML 和 CSS，结合当前代码</small></span></li><li class=\"is-ok\" data-reveal=\"1\"><span><b>Constraints</b><small>先给计划别改；保留个人内容，不新增依赖</small></span></li><li class=\"is-risk\" data-reveal=\"2\"><span><b>Done when</b><small>页面效果我们自己在浏览器里看</small></span></li></ol></div>",
       "steps": [
-        "样子可以变",
-        "用 curl 取",
-        "内容不能变"
+        "目标与背景",
+        "约束",
+        "完成标准"
       ],
       "script": [
-        "【操作提示｜停留课件 p40a 第 1 步，指 Goal；Prompt 提前写好】\n\n这次就照着 Hyperspace 改。配色可以变，版式也可以变，整个页面都可以换个样子。",
-        "【操作提示｜推进第 2 步，指 Context 里的地址和 curl 那一句】\n\nContext 里给了参考页面的地址，还点明让它用 curl 去取 HTML 和 CSS。为什么要点明？它默认会用网页搜索，可在我们这套配置下，网页搜索只拿得到一段摘要，看不到样子。curl 要联网，会弹出申请，我们看清它要访问哪个网址再批准。取回来以后，先让它说说看到的风格和计划，我们确认了再改。",
-        "【操作提示｜推进第 3 步，指 Constraints；随后切 Terminal 提交 Prompt，批准联网，等它说完看到的风格和计划，确认后执行，再回课件 p40b】\n\n约束只留四条：页面上的文字不变，每一句都要能在 profile.md 里找到；不加依赖，不引入远程字体和图片；改结构时尽量沿用现有组件；对比度要够。我们守住的是“内容是我的”，不是“样子不变”。请暂停视频，选一个你喜欢的参考，提交 Prompt。"
+        "【操作提示｜停留课件 p40a 第 1 步，指 Prompt 里的网址和 curl 那一句】\n\n这次任务不大，Prompt 写成一段话，四要素都在里面。目标：参考 Hyperspace 改风格，喜欢它的侧栏和大块背景。背景：给了参考的网址，点明用 curl 看它的 HTML 和 CSS，再结合当前代码。",
+        "【操作提示｜推进第 2 步，指“先给计划”和“保留个人内容”】\n\n约束：先给计划，别急着改；个人内容保留，不新增依赖。守住的是“内容是我的”，样子可以变。",
+        "【操作提示｜推进第 3 步，指完成标准；讲完切 Terminal：/clear 或开新会话，再 /plan，粘贴 Prompt；curl 申请联网时，指批准框里的网址再批准；它开始读参考、弹出交互题时先不答，回课件进入 p40b】\n\n完成标准里写明：页面效果我在浏览器里看。请暂停视频，选一个你喜欢的参考，提交 Prompt。我们到终端里也发出去。"
       ],
       "teaching": [
         {
-          "title": "切到实操",
-          "text": "参考主页用 Hyperspace（p40a0 圈出的那个），排练脚本 materials/mainline/run-2.2.sh 用的是同一份 Prompt。批准框出现时，读清它要访问的网址再同意。它说完看到的风格和计划后，确认再执行；第一轮约 9 分钟（排练：说风格和计划约 3.6 分钟，执行约 5 分钟），录制时剪掉等待，口播提一句“这一步要等几分钟”（C2-74）。页脚注明出处写进了 Done when（CC BY 3.0 要求署名，2026-10-23 排练里没要求时它没写），p40c 审查时核对。"
-        },
-        {
           "title": "讲师提示",
-          "text": "2026-10-23 改为参考 Hyperspace、放开版式（C2-72）：只改颜色或只改一处时效果弱，放开后前后差别明显，文字约束都守住了（LOG.md 实测记录）。网页搜索在 MiniMax 下只拿到首屏摘要，所以仍点明用 curl。"
+          "text": "点明用 curl：不点明时它可能用网页搜索，在这套配置下只拿到首屏摘要（2026-10-22 实测）。Prompt 是 10-24 排练的原文，没有为课件改写。"
         }
       ],
       "source": "index.html#p40a",
@@ -217,113 +101,248 @@ window.lesson = {
     },
     {
       "id": "p40b",
-      "segment": "改风格",
-      "label": "它拿到了什么参考",
-      "title": "它拿到的“参考”，到底是什么",
-      "lead": "我们在浏览器里看到的主页，不会自己进入 context。把参考送进去有三条路：网页搜索、curl、截图。网页搜索是默认的工具，在 MiniMax 下由服务端执行，只返回首屏摘要，取回的内容也不进请求记录；这次我们让它用 curl 在本地取，联网由我们批准，取回的 HTML 和 CSS 作为工具返回进了 context，请求记录里看得见。可它拿到的是代码，不是我们看到的页面：样子要靠它读 CSS 推出来。截图正好相反，它看到的是样子，看不到代码。",
-      "html": "<div class=\"p-grid\" style=\"--n:3;gap:14px\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"tool\">网页搜索</span><p>默认工具，只拿到摘要</p><p class=\"p-sub\">服务端执行，内容不进记录</p></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"us\">curl（这次）</span><p>拿到 HTML 和 CSS</p><p class=\"p-sub\">我们批准联网，内容进记录</p></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ink\">截图</span><p>拿到的是样子</p><p class=\"p-sub\">这个模型能读图（实测）</p></div></div><div style=\"margin-top:12px\"><div class=\"p-set\" data-role=\"ctx\" data-reveal=\"2\" style=\"padding:10px 16px 12px\"><h3 style=\"font-size:20px;margin-bottom:6px\">这一次请求里有什么</h3><div class=\"p-items\" style=\"flex-direction:row;flex-wrap:wrap;gap:6px\"><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;background:transparent;color:var(--p-muted)\">系统指令</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;background:transparent;color:var(--p-muted)\">工具</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;background:transparent;color:var(--p-muted)\">环境</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;background:transparent;color:var(--p-muted)\">规则</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;background:transparent;color:var(--p-muted)\">对话历史</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px;font-weight:700\">工具返回</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px;font-weight:700\">新的 Prompt</div></div><div class=\"p-foot\">这次 curl 取回的 HTML 和 CSS 在“工具返回”这一块，记录里看得见</div></div></div><div class=\"p-bar\" data-reveal=\"3\" style=\"margin-top:10px\">它拿到的是代码，<b>不是我们看到的页面</b>；先问它看到了什么</div>",
+      "segment": "它拿到了什么",
+      "label": "它拿到了什么",
+      "title": "取回来，不等于看到了",
+      "lead": "我们给的是网址，它拿到的是什么？回看排练的记录：curl 在沙箱里联网失败，它申请到沙箱外，把 HTML 和 CSS 存进 /tmp 下的文件；进入请求的工具返回只有两个文件的大小。接着它用 sed 看 HTML 的前 140 行，CSS 有六万多字节，它用 grep、sed 一段一段挑着读。它说“看过了”，深紫侧栏、18em 宽，这些判断能在它读到的 CSS 片段里找到，但那是代码片段，不是渲染出来的页面。左侧按钮切换观察点，阅读视图展示原文节选。",
+      "html": "<div class=\"p-evidence\" data-ev-steps=\"[&quot;fetch-call&quot;, &quot;fetch-result&quot;, &quot;read-call&quot;, &quot;style-answer&quot;]\" data-ev-viewer=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light\" data-ev-view=\"reader\"><nav class=\"p-ev-guide\" aria-label=\"本次记录的观察顺序\"><button type=\"button\" data-ev-key=\"fetch-call\" aria-pressed=\"true\"><b>取回来</b><span>curl 存进 /tmp 的文件</span></button><button type=\"button\" data-ev-key=\"fetch-result\" aria-pressed=\"false\"><b>工具返回</b><span>只有文件大小</span></button><button type=\"button\" data-ev-key=\"read-call\" aria-pressed=\"false\"><b>挑着读</b><span>sed、grep 一段一段看</span></button><button type=\"button\" data-ev-key=\"style-answer\" aria-pressed=\"false\"><b>它说看过了</b><span>判断来自代码片段</span></button></nav><div class=\"p-ev-panel\"><div class=\"p-ev-bar\"><span data-ev-status>10-24 排练记录</span><div class=\"p-ev-actions\"><div class=\"p-ev-views\" role=\"group\" aria-label=\"记录展示方式\"><button type=\"button\" data-ev-view=\"reader\" aria-pressed=\"true\">阅读视图</button><button type=\"button\" data-ev-view=\"raw\" aria-pressed=\"false\">原始记录</button></div><a data-ev-open href=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light&amp;point=fetch-call\" target=\"_blank\" rel=\"noopener\">单独打开 ↗</a><button type=\"button\" data-ev-expand aria-haspopup=\"dialog\">放大记录</button></div></div><div class=\"p-ev-reading\"><section data-ev-reading=\"fetch-call\" ><p class=\"p-ev-source\">10-24 排练 · 真实记录节选 · 取回来</p><article><h3>它发出的调用 · 沙箱外联网，要我们批准</h3><pre>const r = await tools.exec_command({cmd:&quot;curl -sL https://html5up.net/uploads/demos/hyperspace/ -o /tmp/hyper.html &amp;&amp; curl -sL https://html5up.net/uploads/demos/hyperspace/assets/css/main.css -o /tmp/hyper.css &amp;&amp; wc -c /tmp/hyper.html /tmp/hyper.css&quot;,&quot;sandbox_permissions&quot;:&quot;require_escalated&quot;,&quot;justification&quot;:&quot;允许我访问 html5up.net 下载参考模板的 HTML 和 CSS 吗？&quot;,&quot;prefix_rule&quot;:[&quot;curl&quot;,&quot;-sL&quot;],&quot;yield_time_ms&quot;:20000,&quot;max_output_tokens&quot;:2000});\nconst r = await tools.exec_command({cmd:&quot;curl -sL https://html5up.net/uploads/demos/hyperspace/ -o /tmp/hyper.html &amp;&amp; curl -sL https://html5up.net/uploads/demos/hyperspace/assets/css/main.css -o /tmp/hyper.css &amp;&amp; wc -c /tmp/hyper.html /tmp/hyper.css&quot;,&quot;sandbox_permissions&quot;:&quot;require_escalated&quot;,&quot;justification&quot;:&quot;允许我访问 html5up.net 下载参考模板的 HTML 和 CSS 吗？&quot;,&quot;prefix_rule&quot;:[&quot;curl&quot;,&quot;-sL&quot;],&quot;yield_time_ms&quot;:20000,&quot;max_output_tokens&quot;:2000});</pre><details><summary>展开该项完整原文</summary><pre>const r = await tools.exec_command({cmd:&quot;curl -sL https://html5up.net/uploads/demos/hyperspace/ -o /tmp/hyper.html &amp;&amp; curl -sL https://html5up.net/uploads/demos/hyperspace/assets/css/main.css -o /tmp/hyper.css &amp;&amp; wc -c /tmp/hyper.html /tmp/hyper.css&quot;,&quot;sandbox_permissions&quot;:&quot;require_escalated&quot;,&quot;justification&quot;:&quot;允许我访问 html5up.net 下载参考模板的 HTML 和 CSS 吗？&quot;,&quot;prefix_rule&quot;:[&quot;curl&quot;,&quot;-sL&quot;],&quot;yield_time_ms&quot;:20000,&quot;max_output_tokens&quot;:2000});\ntext(r.output);\n</pre></details></article></section><section data-ev-reading=\"fetch-result\" hidden><p class=\"p-ev-source\">10-24 排练 · 真实记录节选 · 工具返回</p><article><h3>进入请求的工具返回</h3><pre>Script completed\nWall time 20.7 seconds\nOutput:\n\n    8542 /tmp/hyper.html\n   69466 /tmp/hyper.css\n   78008 total\n</pre></article></section><section data-ev-reading=\"read-call\" hidden><p class=\"p-ev-source\">10-24 排练 · 真实记录节选 · 挑着读</p><article><h3>先看 HTML 前 140 行，再在 CSS 里找关键词</h3><pre>  tools.exec_command({cmd:&quot;sed -n &#x27;1,140p&#x27; /tmp/hyper.html&quot;,yield_time_ms:5000,max_output_tokens:8000}),\n  tools.exec_command({cmd:&quot;grep -n &#x27;sidebar\\\\|\\\\.menu\\\\|#menu\\\\|nav&#x27; /tmp/hyper.css | head -80&quot;,yield_time_ms:5000,max_output_tokens:5000}),</pre><details><summary>展开该项完整原文</summary><pre>const r = await Promise.all([\n  tools.exec_command({cmd:&quot;sed -n &#x27;1,140p&#x27; /tmp/hyper.html&quot;,yield_time_ms:5000,max_output_tokens:8000}),\n  tools.exec_command({cmd:&quot;grep -n &#x27;sidebar\\\\|\\\\.menu\\\\|#menu\\\\|nav&#x27; /tmp/hyper.css | head -80&quot;,yield_time_ms:5000,max_output_tokens:5000}),\n  tools.exec_command({cmd:&quot;grep -n &#x27;body\\\\|body:before\\\\|body:after\\\\|background-image\\\\|\\\\.wrapper\\\\|\\\\.main\\\\|\\\\.panel\\\\|\\\\.icon\\\\|@media&#x27; /tmp/hyper.css | head -100&quot;,yield_time_ms:5000,max_output_tokens:6000})\n]);\nfor (const x of r) text(x.output);\n</pre></details></article><article><h3>再按行号挑几段 CSS</h3><pre>  tools.exec_command({cmd:&quot;sed -n &#x27;3460,3560p;3730,3800p&#x27; /tmp/hyper.css&quot;,yield_time_ms:5000,max_output_tokens:7000}),</pre><details><summary>展开该项完整原文</summary><pre>const r = await Promise.all([\n  tools.exec_command({cmd:&quot;sed -n &#x27;3460,3560p;3730,3800p&#x27; /tmp/hyper.css&quot;,yield_time_ms:5000,max_output_tokens:7000}),\n  tools.exec_command({cmd:&quot;grep -n &#x27;background-color\\\\|color: #\\\\|--&#x27; /tmp/hyper.css | sed -n &#x27;1,60p&#x27;; echo ===; sed -n &#x27;3170,3300p&#x27; /tmp/hyper.css&quot;,yield_time_ms:5000,max_output_tokens:9000}),\n  tools.exec_command({cmd:&quot;grep -n &#x27;\\\\.wrapper&#x27; /tmp/hyper.css | head -40; echo ===; sed -n &#x27;3300,3380p&#x27; /tmp/hyper.css&quot;,yield_time_ms:5000,max_output_tokens:5000})\n]);\nfor (const x of r) text(x.output);\n</pre></details></article></section><section data-ev-reading=\"style-answer\" hidden><p class=\"p-ev-source\">10-24 排练 · 真实记录节选 · 它说看过了</p><article><h3>它的回答</h3><pre>我已经把参考模板的 HTML/CSS 抓下来看过了（原版 Hyperspace 的关键结构：左侧18em 固定深紫 `#312450` 侧栏、右对齐大写字母间距导航、hover/激活时底部渐变条 `#5e42a6 → #b74e91`；主体每屏一块整幅纯色背景 `#261c3e / #5e42a6 / #5052b5 / #b74e91` 等 + 斜纹 SVG 纹理，内容区宽 75em，≤1280px 时侧栏变成顶部横条）。当前仓库是 React+Vite 单页 `src/App.tsx` + `src/index.css`，内容已在 `profile.md` 里定稿。</pre><details><summary>展开该项完整原文</summary><pre>我已经把参考模板的 HTML/CSS 抓下来看过了（原版 Hyperspace 的关键结构：左侧18em 固定深紫 `#312450` 侧栏、右对齐大写字母间距导航、hover/激活时底部渐变条 `#5e42a6 → #b74e91`；主体每屏一块整幅纯色背景 `#261c3e / #5e42a6 / #5052b5 / #b74e91` 等 + 斜纹 SVG 纹理，内容区宽 75em，≤1280px 时侧栏变成顶部横条）。当前仓库是 React+Vite 单页 `src/App.tsx` + `src/index.css`，内容已在 `profile.md` 里定稿。\n\n有几个偏好会明显改变结果，先确认一下：</pre></details></article><article><h3>依据：工具返回里的 CSS 片段</h3><pre>\t#sidebar {\n\t\tposition: fixed;\n\t\twidth: 18em;</pre><details><summary>展开该项完整原文</summary><pre>Script completed\nWall time 0.1 seconds\nOutput:\n\n\t\t\t\t\t\t\tline-height: 6em;\n\t\t\t\t\t\t}\n\n\t\t}\n\n/* Wrapper (main) */\n\n\t#sidebar + #wrapper {\n\t\tmargin-left: 18em;\n\t}\n\n\t\t@media screen and (max-width: 1280px) {\n\n\t\t\t#sidebar + #wrapper {\n\t\t\t\tmargin-left: 0;\n\t\t\t\tpadding-top: 3.5em;\n\t\t\t}\n\n\t\t}\n\n\t\t@media screen and (max-width: 736px) {\n\n\t\t\t#sidebar + #wrapper {\n\t\t\t\tpadding-top: 0;\n\t\t\t}\n\n\t\t}\n\n\t#header + #wrapper &gt; .wrapper &gt; .inner {\n\t\tmargin: 0 auto;\n\t}\n\n/* Footer */\n\n\t#sidebar + #wrapper + #footer {\n\t\tmargin-left: 18em;\n\t}\n\n\t\t@media screen and (max-width: 1280px) {\n\n\t\t\t#sidebar + #wrapper + #footer {\n\t\t\t\tmargin-left: 0;\n\t\t\t}\n\n\t\t}\n\n\t#footer &gt; .inner a {\n\t\tborder-bottom-color: rgba(255, 255, 255, 0.15);\n\t}\n\n\t\t#footer &gt; .inner a:hover {\n\t\t\tborder-bottom-color: transparent;\n\t\t}\n\n\t#footer &gt; .inner .menu {\n\t\tfont-size: 0.8em;\n\t\tcolor: rgba(255, 255, 255, 0.15);\n\t}\n\n\t#header + #wrapper + #footer &gt; .inner {\n\t\tmargin: 0 auto;\n\t}\n\n/* Sidebar */\n\n\t#sidebar {\n\t\tpadding: 2.5em 2.5em 0.5em 2.5em ;\n\t\tbackground: #312450;\n\t\tcursor: default;\n\t\theight: 100vh;\n\t\tleft: 0;\n\t\toverflow-x: hidden;\n\t\toverflow-y: auto;\n\t\tposition: fixed;\n\t\ttext-align: right;\n\t\ttop: 0;\n\t\twidth: 18em;\n\t\tz-index: 10000;\n\t}\n\n\t\t#sidebar &gt; .inner {\n\t\t\tdisplay: -moz-flex;\n\t\t\tdisplay: -webkit-flex;\n\t\t\tdisplay: -ms-flex;\n\t\t\tdisplay: flex;\n\t\t\t-moz-flex-direction: column;\n\t\t\t-webkit-flex-direction: column;\n\t\t\t-ms-flex-direction: column;\n\t\t\tflex-direction: column;\n\t\t\t-moz-justify-content: center;\n\t\t\t-webkit-justify-content: center;\n\t\t\t-ms-justify-content: center;\n\t\t\tjustify-content: center;\n\t\t\t-moz-transform: translateY(0);\n\t\t\t-webkit-transform: translateY(0);\n\t\t\t-ms-transform: translateY(0);\n\t\t\ttransform: translateY(0);\n\t\t\t-moz-transition: opacity 1s ease;\n\t\t\t-webkit-transition: opacity 1s ease;\n\t\t\t-ms-transition: opacity 1s ease;\n\t\t\ttransition: opacity 1s ease;\n\t\t\t\t\t-ms-transition-delay: 4.25s;\n\t\t\t\t\ttransition-delay: 4.25s;\n\t\t\t\t}\n\n\t\t#sidebar nav a {\n\t\t\t-moz-transition: color 0.2s ease;\n\t\t\t-webkit-transition: color 0.2s ease;\n\t\t\t-ms-transition: color 0.2s ease;\n\t\t\ttransition: color 0.2s ease;\n\t\t\tborder: 0;\n\t\t\tcolor: rgba(255, 255, 255, 0.35);\n\t\t\tdisplay: block;\n\t\t\tfont-size: 0.6em;\n\t\t\tfont-weight: bold;\n\t\t\tletter-spacing: 0.25em;\n\t\t\tline-height: 1.75;\n\t\t\toutline: 0;\n\t\t\tpadding: 1.35em 0;\n\t\t\tposition: relative;\n\t\t\ttext-decoration: none;\n\t\t\ttext-transform: uppercase;\n\t\t}\n\n\t\t\t#sidebar nav a:before, #sidebar nav a:after {\n\t\t\t\tborder-radius: 0.2em;\n\t\t\t\tbottom: 0;\n\t\t\t\tcontent: &#x27;&#x27;;\n\t\t\t\theight: 0.2em;\n\t\t\t\tposition: absolute;\n\t\t\t\tright: 0;\n\t\t\t\twidth: 100%;\n\t\t\t}\n\n\t\t\t#sidebar nav a:before {\n\t\t\t\tbackground: #3c2c62;\n\t\t\t}\n\n\t\t\t#sidebar nav a:after {\n\t\t\t\tbackground-image: -moz-linear-gradient(to right, #5e42a6, #b74e91);\n\t\t\t\tbackground-image: -webkit-linear-gradient(to right, #5e42a6, #b74e91);\n\t\t\t\tbackground-image: -ms-linear-gradient(to right, #5e42a6, #b74e91);\n\t\t\t\tbackground-image: linear-gradient(to right, #5e42a6, #b74e91);\n\t\t\t\t-moz-transition: max-width 0.2s ease;\n\t\t\t\t-webkit-transition: max-width 0.2s ease;\n\t\t\t\t-ms-transition: max-width 0.2s ease;\n\t\t\t\ttransition: max-width 0.2s ease;\n\t\t\t\tmax-width: 0;\n\t\t\t}\n\n\t\t\t#sidebar nav a:hover {\n\t\t\t\tcolor: rgba(255, 255, 255, 0.55);\n\t\t\t}\n\n\t\t\t#sidebar nav a.active {\n\t\t\t\tcolor: #ffffff;\n\t\t\t}\n\n\t\t\t\t#sidebar nav a.active:after {\n\t\t\t\t\tmax-width: 100%;\n\t\t\t\t}\n\n\t\tbody.is-preload #sidebar &gt; .inner {\n\t\t\topacity: 0;\n\t\t}\n\n\t\tbody.is-preload #sidebar nav ul li {\n\t\t\t-moz-transform: translateY(2em);\n\t\t\t-webkit-transform: translateY(2em);\n\t\t\t-ms-transform: translateY(2em);\n\t\t\ttransform: translateY(2em);\n\t\t\topacity: 0;\n\n58:\tbackground-color: transparent;\n161:\t\t\tcolor: #ffffff;\n165:\t\tcolor: #ffffff;\n178:\t\tcolor: #ffffff;\n1834:\t\tbackground-color: transparent;\n1838:\t\tcolor: #ffffff !important;\n1917:\t\t\tbackground-color: #ffffff;\n1918:\t\t\tcolor: #312450 !important;\n1968:\t\t\t\tborder-color: #ffffff !important;\n2298:\t\tcolor: #ffffff;\n2343:\t\t\tborder-color: #ffffff;\n2358:\t\t\tcolor: #ffffff;\n2363:\t\t\tbackground-color: transparent;\n2446:\t\t\tborder-color: #ffffff;\n2447:\t\t\tcolor: #b74e91;\n2453:\t\t\tborder-color: #ffffff;\n2528:\t\t\tcolor: #312450;\n2539:\t\t\t\t\tcolor: #5e42a6;\n2543:\t\t\t\t\tcolor: #493382;\n2547:\t\t\t\t\tcolor: #5052b5;\n2551:\t\t\t\t\tcolor: #3e4094;\n2555:\t\t\t\t\tcolor: #b74e91;\n2559:\t\t\t\t\tcolor: #953d75;\n3067:\t\t\tbackground-color: rgba(0, 0, 0, 0.05);\n3071:\t\t\tbackground-color: rgba(0, 0, 0, 0.1);\n3153:\t\t\t\tbackground-color: rgba(255, 255, 255, 0.05);\n3161:\t\t\tcolor: #ffffff;\n3239:\t\t\tbackground-color: #261c3e;\n3243:\t\t\tbackground-color: #5e42a6;\n3247:\t\t\tbackground-color: #493382;\n3251:\t\t\tbackground-color: #5052b5;\n3255:\t\t\tbackground-color: #3e4094;\n3259:\t\t\tbackground-color: #b74e91;\n3263:\t\t\tbackground-color: #953d75;\n3373:\t\tbackground-color: #5e42a6;\n3380:\t\t\tcolor: #ffffff;\n3425:\t\t\t\t\t\t\tcolor: #ffffff;\n3784:\t\t\t\tcolor: #ffffff;\n3860:\t\t\t\t\t\t\tbackground-color: #b74e91;\nzsh:1: == not found\n\n2538:\t\t\t\t.wrapper.style1 .icon.major:before {\n2542:\t\t\t\t.wrapper.style1-alt .icon.major:before {\n2546:\t\t\t\t.wrapper.style2 .icon.major:before {\n2550:\t\t\t\t.wrapper.style2-alt .icon.major:before {\n2554:\t\t\t\t.wrapper.style3 .icon.major:before {\n2558:\t\t\t\t.wrapper.style3-alt .icon.major:before {\n3204:\t.wrapper {\n3208:\t\t.wrapper &gt; .inner {\n3216:\t\t\t\t.wrapper &gt; .inner {\n3224:\t\t\t\t.wrapper &gt; .inner {\n3232:\t\t\t\t.wrapper &gt; .inner {\n3238:\t\t.wrapper.alt {\n3242:\t\t.wrapper.style1 {\n3246:\t\t.wrapper.style1-alt {\n3250:\t\t.wrapper.style2 {\n3254:\t\t.wrapper.style2-alt {\n3258:\t\t.wrapper.style3 {\n3262:\t\t.wrapper.style3-alt {\n3266:\t\t.wrapper.fullscreen {\n3282:\t\t\tbody.is-ie .wrapper.fullscreen {\n3288:\t\t\t\t.wrapper.fullscreen {\n3292:\t\t\t\t\tbody.is-ie .wrapper.fullscreen {\n3300:\t\t\t\t.wrapper.fullscreen {\n3305:\t\t\t\t\tbody.is-ie .wrapper.fullscreen {\n3311:\t\t.wrapper.fade-up &gt; .inner {\n3323:\t\t.wrapper.fade-up.inactive &gt; .inner,\n3324:\t\tbody.is-preload .wrapper.fade-up &gt; .inner {\n3332:\t\t.wrapper.fade-down &gt; .inner {\n3344:\t\t.wrapper.fade-down.inactive &gt; .inner,\n3345:\t\tbody.is-preload .wrapper.fade-down &gt; .inner {\n3353:\t\t.wrapper.fade &gt; .inner {\n3361:\t\t.wrapper.fade.inactive &gt; .inner,\n3362:\t\tbody.is-preload .wrapper.fade &gt; .inner {\n3488:\t#header + #wrapper &gt; .wrapper &gt; .inner {\nzsh:1: == not found\n</pre></details></article></section></div><iframe hidden title=\"claude-tap 静态记录\" data-src=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light&amp;hideHeader=1\"></iframe></div></div>",
       "steps": [
-        "网页搜索",
-        "curl 和截图",
-        "这次在哪一块",
-        "结论"
+        "取回来",
+        "工具返回",
+        "挑着读",
+        "它说看过了"
       ],
       "script": [
-        "【操作提示｜停留课件 p40b 第 1 步，指“网页搜索”一栏】\n\n先想一个问题：我们在浏览器里看到的那个主页，它看到了吗？没有，浏览器里的页面不会自己进 context。要把参考送进去，有三条路。第一条是网页搜索，这是它默认会用的工具。在我们这套配置下，它由模型服务那一侧执行，只拿回一段首屏的摘要，取回了什么，请求记录里也看不到。",
-        "【操作提示｜推进第 2 步，指另外两栏】\n\n第二条，就是这次用的 curl：在我们电脑上取，联网由我们批准，拿回来的是原始的 HTML 和 CSS。第三条是截图，它拿到的是样子。这个模型能读图，我试过，图里的日期、职位，连文字的颜色都答得出来。",
-        "【操作提示｜推进第 3 步，指锚点图；切 claude-tap 查看器，找 curl 的调用和返回，再找它说“看到了什么”的那段回答，按实际记录指认，再回课件】\n\n回到这一列方块。curl 取回的 HTML 和 CSS，就在工具返回这一块，记录里看得见。它刚才说的“左边日期、右边内容”，我们可以在返回里找到对应的那几行。",
-        "【操作提示｜推进第 4 步，指结论条；留在课件，进入 p40d】\n\n不过要记住：它拿到的是代码，不是我们看到的页面。页面长什么样，是它读 CSS 推出来的。所以它说“已经按参考改好了”，我们先问它看到了什么，再到浏览器里自己看一眼。"
+        "【操作提示｜停留课件 p40b 第 1 步，阅读视图指 curl 那一行和 justification】\n\n我们给的是网址，它拿到的是什么？先看排练这次的记录。curl 在沙箱里联网失败，它申请到沙箱外运行，把参考的 HTML 和 CSS 存进 /tmp 下的两个文件。",
+        "【操作提示｜推进第 2 步，指工具返回里的两个文件大小】\n\n进入请求的工具返回，只有这两个文件的大小。页面本身，这时并不在 context 里。",
+        "【操作提示｜推进第 3 步，指 sed 和 grep 那几行，不念行号】\n\n接着它用 sed 看 HTML 的前一段，CSS 有六万多字节，它用 grep、sed 一段一段挑着读。进入工具返回的，就是这些片段。",
+        "【操作提示｜推进第 4 步，指它的回答，再指下面 CSS 片段里的 fixed 和 18em；讲完切 claude-tap 现场，指同一类调用和返回，讲相同和不同；再切 Terminal 答交互题、看计划，回课件进入 p40a1】\n\n然后它说：我已经把参考的 HTML 和 CSS 抓下来看过了，深紫的侧栏，18em 宽。这些判断都能在它读到的 CSS 片段里找到，可那是代码，不是渲染出来的页面。取回来，不等于看到了。现场的记录里，读哪几段、读多少不会和这里一样，但同样是把参考存成文件，再挑着读。"
+      ],
+      "refs": [
+        {
+          "kind": "live",
+          "group": "Anthropic，2025-09-29",
+          "text": "Effective context engineering · Context retrieval and agentic search",
+          "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents"
+        }
       ],
       "teaching": [
         {
-          "title": "切到实操",
-          "text": "第 3 步切 claude-tap 查看器，找这一轮里 curl 的那几次调用和返回：HTML 和 CSS 的原文就在工具返回里（长的会被截断，可以顺带指一下）。再指 p40a 那一轮它说“看到了什么”的那段回答，对照返回里的 class。如果它没用 curl、改用了网页搜索，就按实际讲：记录里只有打开的网址，内容看不到。"
-        },
-        {
           "title": "核对记录",
-          "text": "2026-10-22 讲师机器上用 curl 实测两个主页：brittanychiang.com 的 HTML 里有经历的文字（服务端渲染），但版式靠 Tailwind 的 class 名和 CSS 文件，HTML 本身看不出长什么样；miaodx.com 的在线简历页 HTML 里没有正文，只有“浏览器未启用 JavaScript”的提示，正文由脚本渲染。默认沙箱不联网见 2.4 的实测（2026-10-07）。2026-10-22 用 run-2.2.sh 排练两次（参考 brittanychiang.com、jonbarron.info，lab-runs/ch02-context/2.2-profile-*-20261022-174731，claude-tap 会话 87745911、bf2d2e01）：它用 Codex 的 web_search 工具打开了地址（brittanychiang.com 那次 4 次，jonbarron.info 那次 3 次，动作是 open_page），这个工具在模型服务那一侧执行，不经本地沙箱，也不用人批准；请求里这个工具的配置是 `external_web_access: false`。取回的只有首页摘要，brittanychiang.com 那次没拿到 Experience 区块，jonbarron.info 的 cv.html 没打开；缺的部分，它用 Prompt 里的描述加上自己“记得”的那个网站补齐（推理里写出了一段它以为的页面结构，没有核实）。取回的内容不在 claude-tap 记录的请求里，记录里只有“打开了哪个网址”。两次做出的时间线样式相近。最初只看画面记录，误记为“没有取地址”，已按请求记录更正（章文件 C2-62）。截图：2026-10-22 用 codex exec -i 实测，MiniMax-M3.1-Flash 读出了截图里的日期、职位和文字颜色，没调用工具，约 1 万 token；交互界面里怎样贴图录制前核对。网页搜索 cached 与 live 两种模式在 MiniMax 下实测看不出区别；关掉网页搜索、打开联网让它用 curl 取，Experience 第一条和左右两列的 class 全部答对，约 15 万 token。见章文件实测记录。录制时可以把 p40a 的 Prompt 写成“用 curl 取这个地址的 HTML 和 CSS”，人在批准框里同意联网。"
+          "text": "2026-10-24 两轮排练：从 homepage-v1 开始，同一个 Codex 会话，Codex CLI 0.163.0、MiniMax-M3.1-Flash。公开数据见 materials/style/run-20261024-round2，只导出课件用到的记录；存进文件、挑着读，在 10-24 的四次排练里都出现过。"
         }
       ],
       "source": "index.html#p40b",
       "seconds": 120
     },
     {
-      "id": "p40d",
-      "segment": "改风格",
-      "label": "第二轮：说清哪里不像",
-      "title": "第二轮：说清哪里不像",
-      "lead": "第一轮改完，在浏览器里把自己的页面和参考并排看。哪里不像，用话说出来：哪一块、差在哪、想要什么样子，一次只说一两处。它看不见我们的浏览器，也看不见参考页面，我们说出来的这几句，就是它这一轮能拿到的全部参考。第二轮的请求会带着第一轮的对话历史，所以不用重复上一轮的要求。",
-      "html": "<div class=\"p-flow\" style=\"--n:3\"><div class=\"p-node\" data-role=\"us\" data-reveal=\"0\"><span class=\"p-num\">1</span><h3>并排看</h3><p>自己的页面和参考</p></div><div class=\"p-node\" data-role=\"us\" data-reveal=\"1\"><span class=\"p-num\">2</span><h3>说清差别</h3><p>哪一块、差在哪、要什么样</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-num\">3</span><h3>再改一轮</h3><p>还是先说计划</p></div></div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:18px\">第二轮的请求带着第一轮的全部对话；新加的，只有我们说的差别</div>",
+      "id": "p40a1",
+      "segment": "它拿到了什么",
+      "label": "答案和计划去了哪",
+      "title": "我们的答案和它的计划，去了哪？",
+      "lead": "读完参考，它问了两组偏好：配色、侧栏形态、背景纹理，再问字体和区块排版，排练时都选了推荐项。我们选的答案，是那个提问工具的返回，在请求的“工具返回”这一块；它写的计划是它自己的回答，下一次请求里就到了“对话历史”。之后每次请求都带着这两样，它改的时候照着。计划只动页面文件、不加依赖，就确认实施，再补一句：页脚注明出处，改完运行 build，浏览器我来检查，不要提交。",
+      "html": "<div class=\"p-evidence\" data-ev-steps=\"[&quot;answers-result&quot;, &quot;plan-answer&quot;, &quot;plan-history&quot;]\" data-ev-viewer=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light\" data-ev-view=\"reader\"><nav class=\"p-ev-guide\" aria-label=\"本次记录的观察顺序\"><button type=\"button\" data-ev-key=\"answers-result\" aria-pressed=\"true\"><b>我们的答案</b><span>提问工具的返回</span></button><button type=\"button\" data-ev-key=\"plan-answer\" aria-pressed=\"false\"><b>它的计划</b><span>它自己的回答</span></button><button type=\"button\" data-ev-key=\"plan-history\" aria-pressed=\"false\"><b>之后还在</b><span>计划进了对话历史</span></button></nav><div class=\"p-ev-panel\"><div class=\"p-ev-bar\"><span data-ev-status>10-24 排练记录</span><div class=\"p-ev-actions\"><div class=\"p-ev-views\" role=\"group\" aria-label=\"记录展示方式\"><button type=\"button\" data-ev-view=\"reader\" aria-pressed=\"true\">阅读视图</button><button type=\"button\" data-ev-view=\"raw\" aria-pressed=\"false\">原始记录</button></div><a data-ev-open href=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light&amp;point=answers-result\" target=\"_blank\" rel=\"noopener\">单独打开 ↗</a><button type=\"button\" data-ev-expand aria-haspopup=\"dialog\">放大记录</button></div></div><div class=\"p-ev-reading\"><section data-ev-reading=\"answers-result\" ><p class=\"p-ev-source\">10-24 排练 · 真实记录节选 · 我们的答案</p><article><h3>第一组回答 · 工具返回</h3><pre>{&quot;answers&quot;:{&quot;sidebar&quot;:{&quot;answers&quot;:[&quot;桌面固定竖排 + 移动端顶部横条（推荐）&quot;]},&quot;palette&quot;:{&quot;answers&quot;:[&quot;沿用 Hyperspace 原味紫粉（推荐）&quot;]},&quot;texture&quot;:{&quot;answers&quot;:[&quot;CSS 渐变 + 内联 SVG 纹理（推荐）&quot;]}}}</pre></article><article><h3>第二组回答 · 工具返回</h3><pre>{&quot;answers&quot;:{&quot;layout&quot;:{&quot;answers&quot;:[&quot;大标题 + 列表/卡片（推荐）&quot;]},&quot;fonts&quot;:{&quot;answers&quot;:[&quot;系统字体栈（推荐）&quot;]}}}</pre></article></section><section data-ev-reading=\"plan-answer\" hidden><p class=\"p-ev-source\">10-24 排练 · 真实记录节选 · 它的计划</p><article><h3>计划节选</h3><pre># 个人主页改版：Hyperspace 风格（侧栏导航 + 大块背景）\n- 左侧固定深紫侧栏导航（桌面竖排，窄屏变顶部横条），导航项随滚动高亮，激活项底部渐变条。\n- 保留 `profile.md` 中已确认的全部文字内容，逐字不改；项目卡仍无跳转；不引入任何新依赖、不加远程字体与外部图片。</pre><details><summary>展开该项完整原文</summary><pre>&lt;proposed_plan&gt;\n# 个人主页改版：Hyperspace 风格（侧栏导航 + 大块背景）\n\n## 总结\n\n把现有单页个人主页（`src/App.tsx` + `src/index.css`）改造成 HTML5 UP &quot;Hyperspace&quot; 视觉风格：\n- 左侧固定深紫侧栏导航（桌面竖排，窄屏变顶部横条），导航项随滚动高亮，激活项底部渐变条。\n- 主体每屏一块整幅纯色背景（紫 → 靛 → 品红），叠加内联 SVG 斜纹纹理与径向渐变。\n- 保留 `profile.md` 中已确认的全部文字内容，逐字不改；项目卡仍无跳转；不引入任何新依赖、不加远程字体与外部图片。\n\n## 实现要点\n\n### 1. `src/App.tsx`\n- 现有 `profile` / `education` / `experience` / `projects` 四个数据对象**原样保留**，仅调整渲染结构。\n- 新增一个 `sections` 描述数组（id /导航文案 / 配色类），驱动侧栏导航和区块渲染，避免两处手写不一致。\n- 结构调整为：\n  - `&lt;nav class=&quot;sidebar&quot;&gt;`（`&lt;aside&gt;`）内含 `&lt;ul&gt;` 导航项，链接指向 `#intro / #education / #experience / #projects`，`aria-label=&quot;页面导航&quot;`。\n  - `&lt;main class=&quot;main&quot;&gt;` 内依次为四个 `&lt;section&gt;`，每个带 `class=&quot;panel panel--{color}&quot;` 与独立 id。\n  - 首屏 `#intro` 保留姓名、别名、一句话简介、&quot;现在关注&quot;标签列表、&quot;查看经历&quot;按钮；按钮改为跳转到 `#experience`（原为 `#experience`，保持）。\n  - 教育/工作经历：沿用 `entry` 列表结构（period + 标题 + 角色 + 描述），改为大标题 + 细分割线版式。\n  - 项目与开源：三列大卡片（窄屏降为单列），沿用现有 `project-card` 结构，仅调样式，不加链接。\n- 新增 `useEffect` + `IntersectionObserver` 实现滚动高亮：取当前可见区块写入 `activeId` state，给对应导航项加 `is-active`；无 JS/不支持时默认高亮首屏。所有滚动锚点加 `scroll-margin-top` 偏移，适配顶部横条形态。\n\n### 2. `src/index.css`（重写视觉层，不动内容）\n- 变量化配色：侧栏 `#312450`；面板 `#5e42a6`（首屏）/ `#493382`（教育）/ `#3e4094`（经历）/ `#b74e91`（项目）；渐变条 `linear-gradient(90deg, #5e42a6, #b74e91)`；正文 `#fff`、次级文字 `rgba(255,255,255,.7)`。\n- 侧栏：`position: fixed; inset: 0 auto 0 0; width: 18em; background:#312450;`，导航右对齐、大写风格字距（中文用 `letter-spacing: .28em`）、`padding: 1.35em 0`；每项底部有 `::before`（底轨 `#3c2c62`）与 `::after`（渐变条，`max-width: 0 → 100%` 过渡）实现原版下划线动画；hover 字色提亮，激活项纯白 + 渐变条满宽。\n- 主体：`margin-left: 18em`；每个面板 `min-height: 100vh`、内层宽度 `min(75em, 100%)`、居中、上下留白 `5em 5em 3em`。\n- 背景纹理：把原版的 40×40 chevron SVG 路径内联成 `data:image/svg+xml`（`fill rgba(255,255,255,.15)`）作 `background-image` 重复，叠一层 `radial-gradient` 高光；全部内联，不产生网络请求。\n- 按钮：透明底 + 白色描边，hover 变 `#b74e91` 填充；首屏按钮保留。\n- 焦点可见：`:focus-visible` 白色描边；`prefers-reduced-motion: reduce` 时关闭过渡与平滑滚动。\n- 响应式断点 `max-width: 1024px`：侧栏改为顶部固定横条（`position: sticky/fixed; height:auto; width:100%`），导航横向排列、字号缩小、允许横向滚动；主体 `margin-left: 0`、`padding-top` 让开横条；面板 `min-height: auto` 改为内容高度。`max-width: 600px` 保持现有单列降级规则。\n\n### 3. 保持不变\n- `index.html`（仅必要时补 `theme-color` meta）、`profile.md`、依赖清单、`package.json` 全部不动；不新增任何依赖或远程资源。\n\n## 验收与验证\n- `npm run build`（`tsc -b &amp;&amp; vite build`）必须成功，并如实报告输出；`tsc` 不得报未使用变量/类型错误。\n- `npm run dev` 后人工在浏览器确认：侧栏 4 项导航可跳转、滚动时高亮跟随；首屏满屏、教育/经历/项目为三种不同大色块且斜纹可见；窄屏（&lt;1024px）侧栏变顶部横条且不遮挡内容；现有全部文字与 `profile.md` 逐字一致。\n- 检查浏览器控制台无报错；确认页面未发起任何外部字体/图片请求。\n\n## 假设与默认\n- 未添加联系方式/社交链接等 `profile.md` 中不存在的内容，也不为项目卡编造 URL。\n- 中文导航文案定为：首页 / 教育 / 工作经历 / 项目与开源。\n- &quot;大块背景&quot;指整屏纯色面板 + 纹理，而非照片；不使用任何外部图片（用户无照片素材且不允许新增资源依赖）。\n- 断点取 1024px（参考页为 1280px），兼顾常见笔记本宽度。\n&lt;/proposed_plan&gt;</pre></details></article></section><section data-ev-reading=\"plan-history\" hidden><p class=\"p-ev-source\">10-24 排练 · 真实记录节选 · 之后还在</p><article><h3>下一次请求：计划在对话历史里</h3><pre># 个人主页改版：Hyperspace 风格（侧栏导航 + 大块背景）</pre><details><summary>展开该项完整原文</summary><pre>&lt;proposed_plan&gt;\n# 个人主页改版：Hyperspace 风格（侧栏导航 + 大块背景）\n\n## 总结\n\n把现有单页个人主页（`src/App.tsx` + `src/index.css`）改造成 HTML5 UP &quot;Hyperspace&quot; 视觉风格：\n- 左侧固定深紫侧栏导航（桌面竖排，窄屏变顶部横条），导航项随滚动高亮，激活项底部渐变条。\n- 主体每屏一块整幅纯色背景（紫 → 靛 → 品红），叠加内联 SVG 斜纹纹理与径向渐变。\n- 保留 `profile.md` 中已确认的全部文字内容，逐字不改；项目卡仍无跳转；不引入任何新依赖、不加远程字体与外部图片。\n\n## 实现要点\n\n### 1. `src/App.tsx`\n- 现有 `profile` / `education` / `experience` / `projects` 四个数据对象**原样保留**，仅调整渲染结构。\n- 新增一个 `sections` 描述数组（id /导航文案 / 配色类），驱动侧栏导航和区块渲染，避免两处手写不一致。\n- 结构调整为：\n  - `&lt;nav class=&quot;sidebar&quot;&gt;`（`&lt;aside&gt;`）内含 `&lt;ul&gt;` 导航项，链接指向 `#intro / #education / #experience / #projects`，`aria-label=&quot;页面导航&quot;`。\n  - `&lt;main class=&quot;main&quot;&gt;` 内依次为四个 `&lt;section&gt;`，每个带 `class=&quot;panel panel--{color}&quot;` 与独立 id。\n  - 首屏 `#intro` 保留姓名、别名、一句话简介、&quot;现在关注&quot;标签列表、&quot;查看经历&quot;按钮；按钮改为跳转到 `#experience`（原为 `#experience`，保持）。\n  - 教育/工作经历：沿用 `entry` 列表结构（period + 标题 + 角色 + 描述），改为大标题 + 细分割线版式。\n  - 项目与开源：三列大卡片（窄屏降为单列），沿用现有 `project-card` 结构，仅调样式，不加链接。\n- 新增 `useEffect` + `IntersectionObserver` 实现滚动高亮：取当前可见区块写入 `activeId` state，给对应导航项加 `is-active`；无 JS/不支持时默认高亮首屏。所有滚动锚点加 `scroll-margin-top` 偏移，适配顶部横条形态。\n\n### 2. `src/index.css`（重写视觉层，不动内容）\n- 变量化配色：侧栏 `#312450`；面板 `#5e42a6`（首屏）/ `#493382`（教育）/ `#3e4094`（经历）/ `#b74e91`（项目）；渐变条 `linear-gradient(90deg, #5e42a6, #b74e91)`；正文 `#fff`、次级文字 `rgba(255,255,255,.7)`。\n- 侧栏：`position: fixed; inset: 0 auto 0 0; width: 18em; background:#312450;`，导航右对齐、大写风格字距（中文用 `letter-spacing: .28em`）、`padding: 1.35em 0`；每项底部有 `::before`（底轨 `#3c2c62`）与 `::after`（渐变条，`max-width: 0 → 100%` 过渡）实现原版下划线动画；hover 字色提亮，激活项纯白 + 渐变条满宽。\n- 主体：`margin-left: 18em`；每个面板 `min-height: 100vh`、内层宽度 `min(75em, 100%)`、居中、上下留白 `5em 5em 3em`。\n- 背景纹理：把原版的 40×40 chevron SVG 路径内联成 `data:image/svg+xml`（`fill rgba(255,255,255,.15)`）作 `background-image` 重复，叠一层 `radial-gradient` 高光；全部内联，不产生网络请求。\n- 按钮：透明底 + 白色描边，hover 变 `#b74e91` 填充；首屏按钮保留。\n- 焦点可见：`:focus-visible` 白色描边；`prefers-reduced-motion: reduce` 时关闭过渡与平滑滚动。\n- 响应式断点 `max-width: 1024px`：侧栏改为顶部固定横条（`position: sticky/fixed; height:auto; width:100%`），导航横向排列、字号缩小、允许横向滚动；主体 `margin-left: 0`、`padding-top` 让开横条；面板 `min-height: auto` 改为内容高度。`max-width: 600px` 保持现有单列降级规则。\n\n### 3. 保持不变\n- `index.html`（仅必要时补 `theme-color` meta）、`profile.md`、依赖清单、`package.json` 全部不动；不新增任何依赖或远程资源。\n\n## 验收与验证\n- `npm run build`（`tsc -b &amp;&amp; vite build`）必须成功，并如实报告输出；`tsc` 不得报未使用变量/类型错误。\n- `npm run dev` 后人工在浏览器确认：侧栏 4 项导航可跳转、滚动时高亮跟随；首屏满屏、教育/经历/项目为三种不同大色块且斜纹可见；窄屏（&lt;1024px）侧栏变顶部横条且不遮挡内容；现有全部文字与 `profile.md` 逐字一致。\n- 检查浏览器控制台无报错；确认页面未发起任何外部字体/图片请求。\n\n## 假设与默认\n- 未添加联系方式/社交链接等 `profile.md` 中不存在的内容，也不为项目卡编造 URL。\n- 中文导航文案定为：首页 / 教育 / 工作经历 / 项目与开源。\n- &quot;大块背景&quot;指整屏纯色面板 + 纹理，而非照片；不使用任何外部图片（用户无照片素材且不允许新增资源依赖）。\n- 断点取 1024px（参考页为 1280px），兼顾常见笔记本宽度。\n&lt;/proposed_plan&gt;</pre></details></article><article><h3>接着是我们确认实施的话</h3><pre>按这个计划改吧，页脚注明风格参考 Hyperspace 和 HTML5 UP 的链接。改完运行 build，浏览器我来检查，不要提交。</pre></article></section></div><iframe hidden title=\"claude-tap 静态记录\" data-src=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light&amp;hideHeader=1\"></iframe></div></div>",
       "steps": [
-        "并排看",
-        "说清差别",
-        "第二轮带着什么"
+        "我们的答案",
+        "它的计划",
+        "之后还在"
       ],
       "script": [
-        "【操作提示｜停留课件 p40d 第 1 步；切浏览器，把自己的页面和参考主页左右并排，看一眼，再回课件】\n\n第一轮改完了，先在浏览器里把自己的页面和参考并排放着看。",
-        "【操作提示｜推进第 2 步；切 Terminal，在同一个对话里用一两句话说出差别，按实际看到的说；等它回复计划，确认后执行，再回课件】\n\n哪里不像，用话说出来：哪一块，差在哪，想要什么样子。一次只说一两处。它看不见我们的浏览器，也看不见参考页面，我们说的这几句，就是它这一轮能拿到的全部参考。",
-        "【操作提示｜推进第 3 步，指底部结论条；留在课件，进入 p40c】\n\n这一轮的请求里，对话历史带着第一轮的全部内容，所以不用把上一轮的要求再说一遍；新加的只有我们说的差别。"
+        "【操作提示｜停留课件 p40a1 第 1 步，指两组回答】\n\n读完参考，它问了两组偏好：配色、侧栏形态、背景纹理，再问字体和区块排版。排练时我都选了推荐项。我们选的答案，是那个提问工具的返回，在请求的工具返回这一块。",
+        "【操作提示｜推进第 2 步，指计划里侧栏和“不引入任何新依赖”】\n\n它的计划，是它自己的回答：左侧固定的深紫侧栏，不引入任何新依赖。",
+        "【操作提示｜推进第 3 步，指下一次请求里的计划和确认的话；讲完切 Terminal，按现场的计划讲相同和不同，确认实施并补那句话；实施几分钟可剪掉，中途弹出起服务、截图的批准框就拒绝；改完切浏览器，进入 p40b1】\n\n到了下一次请求，计划就在对话历史里，后面每次请求都带着，它改的时候照着。计划只动页面文件，就确认实施，再补一句：页脚注明出处，改完运行 build，浏览器我来检查，不要提交。"
       ],
       "teaching": [
         {
-          "title": "切到实操",
-          "text": "第二轮的话按录制时实际看到的差别现场说，例如“首屏的紫色太暗”“项目卡要更像参考的三宫格”；一次只说一两处。改完同样先看计划，再看 diff。"
-        },
-        {
-          "title": "讲师提示",
-          "text": "截图实测能读（2026-10-22，codex exec -i）；交互界面里怎样贴图录制前核对，核对后第二轮可以直接贴参考和自己页面的截图。第二轮还没排练过（run-2.2.sh 只跑了第一轮）。"
+          "title": "核对记录",
+          "text": "2026-10-24 两轮排练：从 homepage-v1 开始，同一个 Codex 会话，Codex CLI 0.163.0、MiniMax-M3.1-Flash；交互题和计划每次排练都不一样，题目内容只作例子。"
         }
       ],
-      "source": "index.html#p40d",
+      "source": "index.html#p40a1",
       "seconds": 90
     },
     {
-      "id": "p40c",
-      "segment": "改风格",
-      "label": "风格要不要接受",
-      "title": "风格改得对吗，要不要接受",
-      "lead": "这一轮的 diff 会很大，不逐行读。先看范围：动了哪些文件和区块；再看文字：和 profile.md 对一遍，它说自己核对过，也要抽查；再看有没有新加的行为，比如进场动画、滚动监听、新的脚本，它说明了没有；页脚有没有注明风格参考的出处；最后看像不像，这一项 diff 里看不出来，要在浏览器里和参考并排看。接受就再提交一次；缩小，就让它收回越界或没说明的部分；拒绝，就 git restore 回到 homepage-v1。前面有检查点，拒绝也很便宜。",
-      "html": "<div class=\"p-claim\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"agent\">Codex 说</span><p class=\"p-big\" style=\"font-weight:500\">“已按参考改好了”</p></div><ul class=\"p-checks\"><li data-reveal=\"1\">动了哪些文件和区块<small>git diff --stat，对照它的改动清单</small></li><li data-reveal=\"1\">文字没变<small>和 profile.md 对，抽查</small></li><li data-reveal=\"1\">新加的行为说明了吗<small>动画、滚动监听、新脚本</small></li><li data-reveal=\"1\">出处写了吗<small>页脚注明风格参考</small></li><li class=\"is-no\" data-reveal=\"2\">像不像参考<small>diff 里看不出来，由我们在浏览器里看</small></li></ul></div><div class=\"p-bar is-light\" data-reveal=\"3\" style=\"margin-top:12px\">接受：再提交一次 · 缩小：让它收回越界的部分 · 拒绝：<b>git restore</b> 回到 homepage-v1</div>",
+      "id": "p40b1",
+      "segment": "看效果再反馈",
+      "label": "第一轮改完",
+      "title": "第一轮改完，哪里和想的不一样？",
+      "lead": "第一轮改完，build 通过。在浏览器里和参考并排看同样宽度的首屏：侧栏、大块配色都做出来了，滚到工作经历，导航也会提示当前位置。不一样的地方，排练这次是背景：一片密集的小箭头铺在文字后面，参考是淡淡的、疏一些的细线。这个差别我们一眼就看到了，它看不到：渲染出来的页面不在 context 里。它自己也想看，实施完起了预览服务，推理里写着 React 在浏览器里渲染、curl 只拿得到一个空的 root。",
+      "html": "<div class=\"review-panel\" data-panel-start=\"0\" data-panel-end=\"0\"><div class=\"review-pair\"><figure class=\"review-shot\"><figcaption>第一轮：当前效果</figcaption><a href=\"assets/round1.png\" target=\"_blank\" rel=\"noopener\"><img src=\"assets/round1.png\" alt=\"第一轮：当前效果\" style=\"height:290px\"></a></figure><figure class=\"review-shot\"><figcaption>参考</figcaption><a href=\"assets/reference.png\" target=\"_blank\" rel=\"noopener\"><img src=\"assets/reference.png\" alt=\"参考\" style=\"height:290px\"></a></figure></div></div><div class=\"review-panel\" data-panel-start=\"1\" data-panel-end=\"1\"><figure class=\"review-shot\"><figcaption>滚到工作经历：导航已经提示当前位置</figcaption><a href=\"assets/round1-experience.png\" target=\"_blank\" rel=\"noopener\"><img src=\"assets/round1-experience.png\" alt=\"滚到工作经历：导航已经提示当前位置\" style=\"height:330px\"></a></figure></div><div class=\"review-panel\" data-panel-start=\"2\" data-panel-end=\"2\"><div class=\"review-pair\"><figure class=\"review-shot\"><figcaption>当前：密集小箭头 · 原图局部</figcaption><a href=\"assets/round1.png\" target=\"_blank\" rel=\"noopener\"><svg role=\"img\" aria-label=\"当前：密集小箭头\" viewBox=\"350 180 1000 420\" style=\"width:100%;height:250px;background:#eee\"><image href=\"assets/round1.png\" width=\"1440\" height=\"800\"/></svg></a></figure><figure class=\"review-shot\"><figcaption>参考：淡淡的细线 · 原图局部</figcaption><a href=\"assets/reference.png\" target=\"_blank\" rel=\"noopener\"><svg role=\"img\" aria-label=\"参考：淡淡的细线\" viewBox=\"350 180 1000 420\" style=\"width:100%;height:250px;background:#eee\"><image href=\"assets/reference.png\" width=\"1440\" height=\"800\"/></svg></a></figure></div></div><div class=\"review-panel\" data-panel-start=\"3\" data-panel-end=\"3\"><div class=\"review-pair\"><figure class=\"review-shot\"><figcaption>当前：密集小箭头 · 原图局部</figcaption><a href=\"assets/round1.png\" target=\"_blank\" rel=\"noopener\"><svg role=\"img\" aria-label=\"当前：密集小箭头\" viewBox=\"350 180 1000 420\" style=\"width:100%;height:170px;background:#eee\"><image href=\"assets/round1.png\" width=\"1440\" height=\"800\"/></svg></a></figure><figure class=\"review-shot\"><figcaption>参考：淡淡的细线 · 原图局部</figcaption><a href=\"assets/reference.png\" target=\"_blank\" rel=\"noopener\"><svg role=\"img\" aria-label=\"参考：淡淡的细线\" viewBox=\"350 180 1000 420\" style=\"width:100%;height:170px;background:#eee\"><image href=\"assets/reference.png\" width=\"1440\" height=\"800\"/></svg></a></figure></div><div class=\"p-bar review-bar\">我们一眼看到的差别，它看不到：<b>页面的样子不在 context 里</b></div><pre class=\"p-term review-term\">它的推理（排练这次）：… React renders client-side, so curl only shows root div …</pre></div>",
+      "refs": [
+        {
+          "kind": "live",
+          "group": "参考主页",
+          "text": "Hyperspace · HTML5 UP",
+          "url": "https://html5up.net/uploads/demos/hyperspace/"
+        }
+      ],
       "steps": [
-        "它的报告",
-        "范围和文字",
-        "好不好看",
-        "接受或放弃"
+        "并排看",
+        "做到了的",
+        "哪里不一样",
+        "它看不到"
       ],
       "script": [
-        "【操作提示｜停留课件 p40c 第 1 步，切 Terminal 指 Codex 的完成报告和它列的改动清单，按实际原话讲，再回课件】\n\nCodex 说改好了，还列了它改了哪些区块。和审内容改动一样，先别急着接受。",
-        "【操作提示｜推进第 2 步，切 Terminal 运行 git diff --stat，再按它的改动清单抽看 diff，回课件】\n\n这一轮的 diff 会很大，不用逐行读。先看范围：动了哪些文件、哪些区块。再看文字，和 profile.md 对一遍，它说自己核对过，我们也抽查几句。还有一项要专门看：有没有新加的行为，比如进场动画、滚动监听、新的脚本，它有没有说明。再看一眼页脚：参考了别人的风格，出处有没有写上。",
-        "【操作提示｜推进第 3 步，切浏览器，把自己的页面和参考主页并排，从上滚到下看一遍，再回课件】\n\n像不像、好不好看，diff 里看不出来，只能在浏览器里看。记得从上滚到下：有些动画要滚到那里才显现。",
-        "【操作提示｜推进第 4 步，指结论条；按实际决定，接受就提交，不接受就 git restore，在 Terminal 执行后回课件】\n\n满意，就再提交一次；有越界或没说明的部分，让它收回；不满意，git restore 回到 homepage-v1，重新写 Prompt 再来。前面有检查点，拒绝也很便宜。"
+        "【操作提示｜停留课件 p40b1 第 1 步，左右指认两张首屏】\n\n第一轮改完，build 通过了。在浏览器里和参考并排，看同样宽度的首屏：侧栏、大块配色都做出来了。",
+        "【操作提示｜推进第 2 步，指导航上的当前位置】\n\n滚到工作经历，导航也会提示现在在哪一块。这些都可以留着。",
+        "【操作提示｜推进第 3 步，指两块放大的背景】\n\n和想的不一样的地方，排练这次是背景：一片密集的小箭头铺在文字后面，参考是淡淡的、疏一些的细线。",
+        "【操作提示｜推进第 4 步，指黑色横条和推理那一行；讲完切浏览器，把现场的第一轮和参考并排看，说出当天哪里和想的不一样，再回课件进入 p40d】\n\n这个差别我们一眼就看到了，它看不到：渲染出来的页面不在 context 里。它自己也想看，实施完起了预览服务，推理里写着：页面要在浏览器里渲染，curl 只拿得到一个空壳。那怎么让它知道哪里不像？"
       ],
       "teaching": [
         {
           "title": "讲师提示",
-          "text": "按录制时的实际 diff 讲。排练里出现过“滚动到才显现”的进场动画：内容默认透明，不滚动、截整页图时看起来是空白，这类改动要它说明，或者让它去掉。学员选做的样式改动只要求审过再决定，不要求一定接受。"
+          "text": "当天第一轮不一样的地方很可能不是背景，按现场讲：它做到了什么、哪里和想的不一样。排练这次的箭头来自参考 CSS 里下拉框的图标，它读到了代码，却把它当成整页纹理，计划里就写了；可以一句带过，不展开 CSS。"
+        },
+        {
+          "title": "核对记录",
+          "text": "2026-10-24 两轮排练：从 homepage-v1 开始，同一个 Codex 会话，Codex CLI 0.163.0、MiniMax-M3.1-Flash；截图是 Chromium 1440×800。起服务、想截图在四次排练里都出现过：它在沙箱里后台起服务不弹框，要用无头 Chrome 截图时弹出批准框就拒绝。"
+        }
+      ],
+      "source": "index.html#p40b1",
+      "seconds": 120
+    },
+    {
+      "id": "p40d",
+      "segment": "看效果再反馈",
+      "label": "把看到的带进去",
+      "title": "把看到的样子，带进请求",
+      "lead": "继续同一个会话，截两张首屏：先贴现在的效果，再贴参考，然后说一句哪里不满意、想要什么样。图给出我们看到的页面，话说出这次的偏好；换成自己的，可以照这个样子填空：“第一张是现在，第二张是参考；现在＿＿，我更喜欢参考里＿＿，其他先保持。”回看请求：这一条是新的 Prompt，里面是两项图片和这句话；第二轮最后一次请求里，两张图还在，之后每次请求都带着。改完回浏览器看同一位置：细线淡了、疏了，其他部分没动。它看见了我们贴的图，自己做出来的页面它仍然看不见；要让它自己截图看页面，得专门把浏览器接进它的运行环境，后面的章节再做。",
+      "html": "<div class=\"p-evidence\" data-ev-steps=\"[&quot;feedback&quot;, &quot;images&quot;, &quot;still&quot;, &quot;result-answer&quot;]\" data-ev-viewer=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light\" data-ev-view=\"reader\"><nav class=\"p-ev-guide\" aria-label=\"本次记录的观察顺序\"><button type=\"button\" data-ev-key=\"feedback\" aria-pressed=\"true\"><b>贴图和反馈</b><span>当前 → 参考，再说偏好</span></button><button type=\"button\" data-ev-key=\"images\" aria-pressed=\"false\"><b>请求里的图</b><span>两项 input_image</span></button><button type=\"button\" data-ev-key=\"still\" aria-pressed=\"false\"><b>后面还带着</b><span>每次请求都重发</span></button><button type=\"button\" data-ev-key=\"result-answer\" aria-pressed=\"false\"><b>第二轮结果</b><span>只改背景</span></button></nav><div class=\"p-ev-panel\"><div class=\"p-ev-bar\"><span data-ev-status>10-24 排练记录</span><div class=\"p-ev-actions\"><div class=\"p-ev-views\" role=\"group\" aria-label=\"记录展示方式\"><button type=\"button\" data-ev-view=\"reader\" aria-pressed=\"true\">阅读视图</button><button type=\"button\" data-ev-view=\"raw\" aria-pressed=\"false\">原始记录</button></div><a data-ev-open href=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light&amp;point=feedback\" target=\"_blank\" rel=\"noopener\">单独打开 ↗</a><button type=\"button\" data-ev-expand aria-haspopup=\"dialog\">放大记录</button></div></div><div class=\"p-ev-reading\"><section data-ev-reading=\"feedback\" ><p class=\"p-ev-source\">10-24 排练 · 同一会话贴两张图，再说一句</p><div class=\"review-pair\"><figure class=\"review-shot\"><figcaption>图 1 · 当前效果</figcaption><a href=\"assets/round1.png\" target=\"_blank\" rel=\"noopener\"><img src=\"assets/round1.png\" alt=\"图 1 · 当前效果\" style=\"height:100px\"></a></figure><figure class=\"review-shot\"><figcaption>图 2 · 参考</figcaption><a href=\"assets/reference.png\" target=\"_blank\" rel=\"noopener\"><img src=\"assets/reference.png\" alt=\"图 2 · 参考\" style=\"height:100px\"></a></figure></div><blockquote class=\"review-prompt compact\">第一张是现在的效果，第二张是参考页。现在背景的小箭头太密、太抢眼了，我更喜欢参考里那种淡淡的、疏一些的细线。帮我把背景往这个感觉调整一下，其他部分先保持。</blockquote></section><section data-ev-reading=\"images\" hidden><p class=\"p-ev-source\">10-24 排练 · 贴图那次请求 · 我们这一条（新的 Prompt）</p><div class=\"review-pair\"><figure class=\"review-shot\"><figcaption>input_image · 第 1 张</figcaption><a href=\"assets/round1.png\" target=\"_blank\" rel=\"noopener\"><img src=\"assets/round1.png\" alt=\"input_image · 第 1 张\" style=\"height:120px\"></a></figure><figure class=\"review-shot\"><figcaption>input_image · 第 2 张</figcaption><a href=\"assets/reference.png\" target=\"_blank\" rel=\"noopener\"><img src=\"assets/reference.png\" alt=\"input_image · 第 2 张\" style=\"height:120px\"></a></figure></div><p class=\"review-evidence-note\">后面跟着那句话：第一张是现在的效果，第二张是参考页。现在背景的小……</p></section><section data-ev-reading=\"still\" hidden><p class=\"p-ev-source\">10-24 排练 · 第二轮最后一次请求 · 同一条还在</p><div class=\"review-pair\"><figure class=\"review-shot\"><figcaption>input_image · 第 1 张</figcaption><a href=\"assets/round1.png\" target=\"_blank\" rel=\"noopener\"><img src=\"assets/round1.png\" alt=\"input_image · 第 1 张\" style=\"height:120px\"></a></figure><figure class=\"review-shot\"><figcaption>input_image · 第 2 张</figcaption><a href=\"assets/reference.png\" target=\"_blank\" rel=\"noopener\"><img src=\"assets/reference.png\" alt=\"input_image · 第 2 张\" style=\"height:120px\"></a></figure></div><p class=\"review-evidence-note\">之后每次请求都带着这两张图和那句话</p></section><section data-ev-reading=\"result-answer\" hidden><p class=\"p-ev-source\">10-24 排练 · 第二轮改完，同一位置</p><div class=\"review-pair\"><figure class=\"review-shot\"><figcaption>反馈前 · 原图局部</figcaption><a href=\"assets/round1.png\" target=\"_blank\" rel=\"noopener\"><svg role=\"img\" aria-label=\"反馈前\" viewBox=\"350 180 1000 420\" style=\"width:100%;height:170px;background:#eee\"><image href=\"assets/round1.png\" width=\"1440\" height=\"800\"/></svg></a></figure><figure class=\"review-shot\"><figcaption>反馈后 · 原图局部</figcaption><a href=\"assets/round2.png\" target=\"_blank\" rel=\"noopener\"><svg role=\"img\" aria-label=\"反馈后\" viewBox=\"350 180 1000 420\" style=\"width:100%;height:170px;background:#eee\"><image href=\"assets/round2.png\" width=\"1440\" height=\"800\"/></svg></a></figure></div><p class=\"review-evidence-note\">它的报告：背景纹理换掉了，其他部分没动。</p></section></div><iframe hidden title=\"claude-tap 静态记录\" data-src=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light&amp;hideHeader=1\"></iframe></div></div>",
+      "steps": [
+        "贴图和反馈",
+        "请求里的图",
+        "后面还带着",
+        "第二轮结果"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p40d 第 1 步，指两张图和下面那句话】\n\n继续同一个会话，截两张首屏：先贴现在的效果，再贴参考，然后说一句。排练这次是这样说的：第一张是现在的效果，第二张是参考页，现在背景的小箭头太密、太抢眼，我更喜欢参考里那种淡淡的、疏一些的细线，帮我往这个感觉调，其他部分先保持。图给出我们看到的页面，话说出这次的偏好。换成你自己的，照下面这句的样子填空就行。",
+        "【操作提示｜推进第 2 步，指请求里的两张图和那句话】\n\n回看请求，这一条就是新的 Prompt：两张图，加上我们那句话，顺序和贴进去的一样。",
+        "【操作提示｜推进第 3 步，指第二轮最后一次请求里的同一条】\n\n到第二轮最后一次请求，这两张图还在。之后每次请求都带着它们。",
+        "【操作提示｜推进第 4 步，指反馈前后两块；讲完切 Terminal，贴当天的两张首屏，按当天的差别说一句；它在改的时候切 claude-tap 指新的 Prompt 里的图；改完切浏览器看同一位置，再回课件进入 p40e】\n\n改完回到同一位置看：细线淡了、疏了，其他部分没动。它看见了我们贴的图，可它自己做出来的页面，它还是看不见。要让它自己截图看页面，得专门把浏览器接进它的运行环境，后面的章节再做。"
+      ],
+      "refs": [
+        {
+          "kind": "live",
+          "group": "OpenAI，访问于 2026-10-24",
+          "text": "Codex 文档 · Image inputs",
+          "url": "https://learn.chatgpt.com/docs/image-inputs?surface=cli#write-the-prompt-around-the-image"
+        },
+        {
+          "kind": "live",
+          "group": "OpenAI，2026-02-11",
+          "text": "Harness engineering",
+          "url": "https://openai.com/index/harness-engineering/"
+        }
+      ],
+      "teaching": [
+        {
+          "title": "讲师提示",
+          "text": "贴图：把图片文件拖进终端，或复制后在 Codex 里 Ctrl+V，输入框出现 [Image #1]、[Image #2]，再写那句话。贴自己的页面，是因为它看不见自己做出来的页面；参考那张让它知道想要什么样。"
+        },
+        {
+          "title": "核对记录",
+          "text": "2026-10-24 两轮排练：从 homepage-v1 开始，同一个 Codex 会话，Codex CLI 0.163.0、MiniMax-M3.1-Flash；贴图那次请求的两项 input_image 与 assets/round1.png、assets/reference.png 逐字节相同，构建时核对。不把一次结果说成图片单独起了多大作用。"
+        }
+      ],
+      "source": "index.html#p40d",
+      "seconds": 120
+    },
+    {
+      "id": "p40e",
+      "segment": "接受并保存",
+      "label": "两轮下来",
+      "title": "同一份内容，两个样子",
+      "lead": "两轮下来的结果：左边是上一节提交的 homepage-v1，右边是参考 Hyperspace 改了两轮的样子。个人信息一字没改，样子完全换了：侧栏导航、大块背景、淡淡的细线。像不像、好不好看，由我们自己判断。",
+      "html": "<div class=\"review-pair\"><figure class=\"review-shot\"><figcaption>homepage-v1 · 上一节</figcaption><a href=\"assets/before-full.png\" target=\"_blank\" rel=\"noopener\"><img src=\"assets/before-full.png\" alt=\"homepage-v1 · 上一节\" style=\"height:380px\"></a></figure><figure class=\"review-shot\"><figcaption>两轮之后 · 这一节</figcaption><a href=\"assets/round2-full.png\" target=\"_blank\" rel=\"noopener\"><img src=\"assets/round2-full.png\" alt=\"两轮之后 · 这一节\" style=\"height:380px\"></a></figure></div>",
+      "steps": [
+        "两个样子"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p40e，先指左图再指右图；讲完进入 p40c】\n\n两轮下来，看看改成了什么样。左边是上一节提交的 homepage-v1，右边是这一节改完的：侧栏导航、大块背景、淡淡的细线。个人信息一字没改，样子完全换了。"
+      ],
+      "teaching": [
+        {
+          "title": "核对记录",
+          "text": "2026-10-24 两轮排练：从 homepage-v1 开始，同一个 Codex 会话，Codex CLI 0.163.0、MiniMax-M3.1-Flash；整页截图 Chromium 1440 宽。"
+        }
+      ],
+      "source": "index.html#p40e",
+      "seconds": 30
+    },
+    {
+      "id": "p40c",
+      "segment": "接受并保存",
+      "label": "要不要接受",
+      "title": "风格改得对吗，要不要接受",
+      "lead": "diff 很大，不逐行读。像不像，只有我们在浏览器里看得出来：从上滚到下和参考并排看，再缩到手机宽度看一眼。再看它新加了什么：排练这次是一段滚动高亮的脚本，计划里写了；背景纹理是内联的 SVG，没有引远程资源；页脚写了参考出处。满意就让 Codex 提交，批准框里看清是哪几个文件、提交说明写了什么；不满意，还没提交的改动让它 git restore 放弃，回到 homepage-v1。官方文档推荐的 UI 迭代也是这样：小步改，在浏览器里看，喜欢的提交，不喜欢的回退。",
+      "html": "<div class=\"review-panel\" data-panel-start=\"0\" data-panel-end=\"0\"><div class=\"review-pair\"><figure class=\"review-shot\"><figcaption>页脚：参考出处 · 原图局部</figcaption><a href=\"assets/round2-full.png\" target=\"_blank\" rel=\"noopener\"><svg role=\"img\" aria-label=\"页脚：参考出处\" viewBox=\"400 3210 520 80\" style=\"width:100%;height:130px;background:#eee\"><image href=\"assets/round2-full.png\" width=\"1440\" height=\"3291\"/></svg></a></figure><figure class=\"review-shot\"><figcaption>手机宽度的首屏</figcaption><a href=\"assets/round2-mobile.png\" target=\"_blank\" rel=\"noopener\"><img src=\"assets/round2-mobile.png\" alt=\"手机宽度的首屏\" style=\"height:300px\"></a></figure></div></div><div class=\"review-panel\" data-panel-start=\"1\" data-panel-end=\"1\"><div class=\"p-claim\"><div class=\"p-box\" data-role=\"agent\"><span class=\"p-tag\" data-role=\"agent\">Codex 说</span><p class=\"p-big\" style=\"font-weight:500\">“背景纹理换掉了，其他部分没动”</p></div><ul class=\"p-checks\"><li class=\"is-no\">像不像参考<small>diff 里看不出来，由我们在浏览器里看</small></li><li>新加了什么<small>排练这次：滚动高亮的脚本、内联 SVG 背景、页脚出处</small></li><li>范围对不对<small>只动页面文件，个人内容没变，没加依赖</small></li></ul></div></div><div class=\"review-panel\" data-panel-start=\"2\" data-panel-end=\"2\"><pre class=\"p-term review-term\">我在浏览器里看过了，接受这一轮。先列出 git status 给我看，再提交本轮改动的文件；\n提交说明第一行写 homepage-v2: 参考 Hyperspace 调整主页风格，正文写改了哪些文件。</pre><div class=\"p-bar is-light review-bar\">接受：让 Codex 提交，<b>批准框里看清文件和提交说明</b> · 不满意：git restore 回到 homepage-v1</div></div>",
+      "refs": [
+        {
+          "kind": "live",
+          "group": "OpenAI，访问于 2026-10-24",
+          "text": "Codex 文档 · Iterate on UI with live updates",
+          "url": "https://learn.chatgpt.com/docs/prompting#iterate-on-ui-with-live-updates"
+        }
+      ],
+      "steps": [
+        "像不像",
+        "新加了什么",
+        "提交或放弃"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p40c 第 1 步，指页脚出处和手机首屏】\n\n要不要接受？diff 很大，不用逐行读。像不像，只能我们在浏览器里看：从上滚到下和参考并排看，再缩到手机宽度看一眼。页脚的参考出处也在。",
+        "【操作提示｜推进第 2 步，逐条指清单】\n\n再看它新加了什么。排练这次，多了一段滚动高亮的脚本，计划里写了；背景是内联的 SVG，没有引远程资源。范围也对：只动了页面文件，个人内容没变，没加依赖。",
+        "【操作提示｜推进第 3 步，指提交 Prompt 和底部横条；讲完切浏览器把当天结果从上滚到下看一遍，再切 Terminal 粘贴提交 Prompt，批准框里看清文件和提交说明再确认，回课件进入 p41b】\n\n满意，就让 Codex 提交，批准框里看清是哪几个文件、提交说明写了什么。不满意，还没提交的改动让它 git restore 放弃，回到 homepage-v1。官方文档推荐的 UI 迭代也是这样：小步改，在浏览器里看，喜欢的提交，不喜欢的回退。"
+      ],
+      "teaching": [
+        {
+          "title": "讲师提示",
+          "text": "提交在现场做：粘贴提交 Prompt，批准框里核对后确认，和 2.2 结尾提交 homepage-v1 一样。排练这次的接受提交由备课方完成（188f1ad，只含 App.tsx 与 index.css），不是 Codex 执行的，画面不放它的输出。"
         },
         {
           "title": "跟做产出",
-          "text": "风格改动的处置：接受并提交，或用 git restore 放弃。"
+          "text": "至少一轮风格改动，审过后让 Codex 提交，或用 git restore 放弃。"
         }
       ],
       "source": "index.html#p40c",
-      "seconds": 120
+      "seconds": 90
+    },
+    {
+      "id": "p41b",
+      "segment": "小结",
+      "label": "暂停自检",
+      "title": "暂停自检：它看到了什么？",
+      "lead": "每题先暂停，写出你的判断，再补一条依据。三题的答案都在这一节的记录里，换一次运行也成立。参考答案在阅读模式中查看。",
+      "html": "<style>body[data-mode=\"slides\"] #p41b .x-answer{display:none}body[data-mode=\"slides\"] #p41b .p-qrow h3{font-size:24px}body[data-mode=\"slides\"] #p41b .p-back-to{font-size:16px}</style><div class=\"p-qlist\"><div class=\"p-qrow\" data-reveal=\"0\"><span class=\"p-n\">1</span><div><h3>它说参考是“深紫侧栏、18em 宽”，这个判断的依据在请求的哪一块？它看到页面了吗？</h3><p class=\"x-answer\">在“工具返回”里它挑着读的 CSS 片段；它看到的是代码，不是渲染出来的页面</p><span class=\"p-back-to\">回看：取回来，不等于看到了</span></div></div><div class=\"p-qrow\" data-reveal=\"1\"><span class=\"p-n\">2</span><div><h3>第二轮贴的两张图，出现在请求的哪一块？后面的请求里还有吗？</h3><p class=\"x-answer\">在“新的 Prompt”，和我们那句话在同一条消息里；之后每次请求都带着</p><span class=\"p-back-to\">回看：把看到的样子带进请求</span></div></div><div class=\"p-qrow\" data-reveal=\"2\"><span class=\"p-n\">3</span><div><h3>它说“改好了”，像不像由谁判断？为什么不能由它自己判断？</h3><p class=\"x-answer\">由我们在浏览器里看；渲染出来的页面不在 context 里，它看不见自己做出来的页面</p><span class=\"p-back-to\">回看：第一轮改完</span></div></div></div>",
+      "steps": [
+        "依据在哪",
+        "图在哪",
+        "谁来判断"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p41b 第 1 步；读题后暂停】\n\n停一下，自己答三个问题。第一题：它说参考是深紫侧栏、18em 宽，这个判断的依据在请求的哪一块？它看到页面了吗？",
+        "【操作提示｜推进第 2 步】\n\n第二题：第二轮贴的两张图，出现在请求的哪一块？后面的请求里还有吗？",
+        "【操作提示｜推进第 3 步；参考答案在阅读模式，口播不念答案】\n\n第三题：它说改好了，像不像由谁判断？为什么不能由它自己判断？请暂停视频，写下你的答案。"
+      ],
+      "teaching": [],
+      "source": "index.html#p41b",
+      "seconds": 90
     },
     {
       "id": "p42",
       "segment": "小结",
       "label": "本节小结",
       "title": "改风格之前，先问它看到了什么",
-      "lead": "本节先留下 homepage-v1 这个检查点，再参考一个主页，分两轮改出了自己的风格。我们看到的参考页面和浏览器里的效果，都不在它的 context 里；给了地址，它取到的也不是我们看到的样子，缺的它会自己补。每一轮都先问它实际拿到了什么，审过再提交，不满意就 git restore。下一节：发布上线。",
-      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">先留检查点</h3><div class=\"p-star\" style=\"width:260px;font-size:24px\">范围和出处<br>提交一次</div><p class=\"p-sub\" style=\"text-align:center;margin-top:10px\">回退靠 git，不靠对话</p></div><div data-reveal=\"1\"><h3>它看到了什么</h3><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-point\">参考：取到的不是我们看到的样子</li><li class=\"is-point\">看不见：浏览器里的效果、参考页面</li><li class=\"is-point\">第二轮：带着第一轮，说清差别</li><li class=\"is-point\">看全了吗：长输出会被截断</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>2.4 发布上线</h3><p>context 发给了谁，又怎样送出去</p></div></div></div>",
+      "lead": "本节从 homepage-v1 开始，参考一个主页改了两轮风格。取回来不等于看到了：进入 context 的只是它挑着读的代码片段；页面的样子不在 context 里，像不像要我们自己看；看到的样子要靠我们带进去：截图加一句话，放进新的 Prompt。审过再让 Codex 提交。下一节：发布上线。",
+      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">项目</h3><div class=\"p-star\" style=\"width:260px;font-size:24px\">homepage-v1<br>→ homepage-v2</div><p class=\"p-sub\" style=\"text-align:center;margin-top:10px\">回退靠 git，不靠对话</p></div><div data-reveal=\"1\"><h3>它看到了什么</h3><ul class=\"p-exits\" style=\"gap:12px\"><li class=\"is-point\">取回来不等于看到了：只有挑着读的片段</li><li class=\"is-point\">页面的样子不在 context 里</li><li class=\"is-point\">看到的样子要靠我们带进去：截图加一句话</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>2.4 发布上线</h3><p>context 发给了谁，又怎样送出去</p></div></div></div>",
       "steps": [
-        "先留检查点",
+        "项目",
         "它看到了什么",
         "下一节"
       ],
       "script": [
-        "【操作提示｜停留课件 p42 第 1 步，指左侧星形】\n\n回顾一下。改风格之前，我们先给 2.2 的内容留了一个检查点：看范围和出处，提交一次。之后怎么改，都回得去。",
-        "【操作提示｜推进第 2 步，指中间四条】\n\n这一节最想留下的还是那个问题：它看到了什么？给了参考地址，它取到的也不是我们看到的样子，缺的它会自己补；浏览器里的效果、参考页面，它都看不见；第二轮的请求带着第一轮，我们只要说清差别。它说检查过了，还可以追问一句：看全了吗？",
+        "【操作提示｜停留课件 p42 第 1 步，指左侧星形】\n\n回顾一下。这一节从 homepage-v1 走到了 homepage-v2，怎么改都回得去：回退靠 git，不靠对话。",
+        "【操作提示｜推进第 2 步，指中间三条】\n\n这一节最想留下的，是那个问题：它看到了什么？取回来不等于看到了，进 context 的只是它挑着读的代码片段；页面的样子不在 context 里，像不像要我们自己看；看到的样子要靠我们带进去，截图加一句话，放进新的 Prompt。",
         "【操作提示｜推进第 3 步，指“下一节 2.4”；结束本节】\n\n下一节，我们把个人主页发布上线，也看看 context 发给了谁，又是怎样把动作送出去的。"
       ],
       "teaching": [],
@@ -333,16 +352,24 @@ window.lesson = {
   ],
   "segments": [
     {
-      "label": "先留检查点",
+      "label": "提参考",
       "seconds": 270
     },
     {
-      "label": "改风格",
-      "seconds": 510
+      "label": "它拿到了什么",
+      "seconds": 210
+    },
+    {
+      "label": "看效果再反馈",
+      "seconds": 240
+    },
+    {
+      "label": "接受并保存",
+      "seconds": 120
     },
     {
       "label": "小结",
-      "seconds": 90
+      "seconds": 180
     }
   ]
 };

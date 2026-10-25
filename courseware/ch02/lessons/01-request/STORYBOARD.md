@@ -10,7 +10,7 @@
 - p14a：两个独立 `codex exec`、各自新 HOME、read-only；不点名 7 次请求、14 次工具调用、累计输入 70,523；点名 4 次请求、3 次工具调用、累计输入 32,879。
 - 公开数据无教学删节：只去掉鉴权请求头、缓存与会话标识、推理的加密部分和本机路径；可读的推理文字保留（C2-90）。
 - p07 的三条依据链由讲师 2026-10-24 选定（[`trace/evidence.json`](trace/evidence.json)）：A 读 App.tsx → 回答引用 src/App.tsx:1-6；C 读 index.html → index.html:6；D 读 PLACEHOLDER_CONTENT.md → PLACEHOLDER_CONTENT.md:9-10。
-- **待录制**：以上是真实排练记录，不宣称录制当天定稿；录制当次数字不同就整组替换。
+- **待录制**：以上是真实排练记录，不宣称录制当天定稿；录制时每段先讲 PPT，再切现场讲相同和不同，当次数字不同不替换 PPT（课程共识“PPT 与现场演示”）。
 - 本分镜使用 13 个页面 id，p14、p16、p15b、p16c 已退役，其余 id 不重排；新增 p07-loop 放在 p07 之前（C2-81、C2-82）。页面源、阅读说明、口播与生成物已按本表同步（C2-85）；原 p16、p15b 的独立对照记录仍会生成，返回链接指向 p08a，不再从课件页面链接。
 - p07 已将原 p14 的读取依据展示合并为同一页的静态查看器，课件主画面不再复制代码与请求字段；p16a 保留 Context 归纳。查看器和数据自包含，不依赖本地服务。p08a、p07 共用 `materials/request/run-20261024/interactive.json` 一份记录和全课共用零件 `.p-evidence`（C2-96），观察点、按钮与说明在 `trace/evidence.json`，p08a 的阅读视图由 `tools/request_reading.py` 生成。
 

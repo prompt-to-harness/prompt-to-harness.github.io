@@ -1,96 +1,115 @@
 #!/usr/bin/env python3
 """2.3 参考一个主页改风格：它看到了什么：本节唯一的内容源，生成 lesson.js。
 
-分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch02/tools/lessonkit.py。
+分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch02/tools/lessonkit.py；口播见 ../script.json。
+PPT 自包含，证据来自 2026-10-24 两轮排练（同一 Codex 会话）；录制时每段先讲 PPT，再切现场讲相同和不同。
 """
-from html import escape
+import base64
+import re
 import sys
+from html import escape
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from lessonkit import Lesson, NARROW, anchor, chapter_map, ref, repro, teach  # noqa: E402
+sys.path.insert(0, str(Path(__file__).resolve().parents[4] / "tools"))
+from lessonkit import Lesson, anchor, chapter_map, ref, teach  # noqa: E402
+from tracekit import Evidence, text  # noqa: E402
 
-lesson = Lesson(__file__, "2.3", "参考一个主页改风格：它看到了什么", summary="先给 2.2 的内容留一个检查点：只看范围和出处，提交 homepage-v1。再找一个喜欢的主页，分两轮改出自己的风格；每一轮都回到请求记录，看它拿到的参考到底是什么、有什么看不见，审过再提交或 git restore。")
+lesson = Lesson(__file__, "2.3", "参考一个主页改风格：它看到了什么", summary="从上一节提交的 homepage-v1 开始，参考一个主页改两轮风格。每一轮都回到请求看它拿到了什么：取回来不等于看到了，页面的样子不在 context 里，要靠我们把截图和看法带进去。审过再让 Codex 提交。")
 scene = lesson.scene
 
+# p40b、p40a1、p40d 的观察点和阅读节选在 trace/evidence.json；公开数据见 materials/style/run-20261024-round2
+E = Evidence(Path(__file__).resolve().parents[1] / "trace/evidence.json")
+RUN = "2026-10-24 两轮排练：从 homepage-v1 开始，同一个 Codex 会话，Codex CLI 0.163.0、MiniMax-M3.1-Flash"
 
-# 2026-10-21 20:30 那次 2.2 运行（Done when 已简化）留下的工作区与请求记录，和 2.2 p23、p24、p27、p30、p31 是同一次，见分镜“事实边界与素材”
-RUN = "讲师用课程基线在交互界面里的一次运行（2026-10-21 20:30，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开，推理档位 max），和 2.2 是同一次"
-SAMPLE = "画面中的命令输出来自" + RUN + "留下的工作区，Git 2.50.1；你的输出以自己的 diff 为准。"
-RECORD = "来自产生这份 diff 的那次运行的请求记录，命令有删节；工具名、命令和次数随每次运行变化"
-RUN1021 = "讲师用课程基线的一次运行（2026-10-21，codex exec，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开）"
+# 两轮的原话都来自排练记录，构建时核对，不另写一段“更好”的冒充原文
+PROMPT = "我想参考 https://html5up.net/uploads/demos/hyperspace/ 的风格改一下这个个人主页，喜欢它的侧栏导航和大块背景。请用 curl 看看参考页的 HTML 和 CSS，再结合当前代码给个修改计划，先别改。保留我的个人内容，不新增依赖，页面效果我会在浏览器里看。"
+CONFIRM = "按这个计划改吧，页脚注明风格参考 Hyperspace 和 HTML5 UP 的链接。改完运行 build，浏览器我来检查，不要提交。"
+FEEDBACK = "第一张是现在的效果，第二张是参考页。现在背景的小箭头太密、太抢眼了，我更喜欢参考里那种淡淡的、疏一些的细线。帮我把背景往这个感觉调整一下，其他部分先保持。"
+TEMPLATE = "第一张是现在，第二张是参考；现在＿＿，我更喜欢参考里＿＿，其他先保持。"
+COMMIT_PROMPT = """我在浏览器里看过了，接受这一轮。先列出 git status 给我看，再提交本轮改动的文件；
+提交说明第一行写 homepage-v2: 参考 Hyperspace 调整主页风格，正文写改了哪些文件。"""
+assert PROMPT == E._source("r1-2", {"message": "我想参考 https://"})
+assert CONFIRM == E._source("r1-13", {"message": "按这个计划改吧"})
+assert FEEDBACK in E._source("r2-2", {"message": "第一张是现在的效果"})
+# p40b1 引用的推理原句：它想看页面，也知道 curl 看不到渲染后的样子
+PEEK = "React renders client-side, so curl only shows root div"
+assert PEEK in text(E._source_item("r1-20", {"response": "reasoning"}))
 
 
-# ---------- 拿到 diff ----------
+def panel(html, start, end=None):
+    """review.js 的镜头：演示模式只显示当前步骤所在的镜头，阅读模式全部显示。"""
+    return f'<div class="review-panel" data-panel-start="{start}" data-panel-end="{end if end is not None else start}">{html}</div>'
+
+
+def shot(name, label, height=250):
+    return f'<figure class="review-shot"><figcaption>{label}</figcaption><a href="assets/{name}" target="_blank" rel="noopener"><img src="assets/{name}" alt="{escape(label)}" style="height:{height}px"></a></figure>'
+
+
+def pair(a, b):
+    return '<div class="review-pair">' + a + b + '</div>'
+
+
+def bar(x, light=True):
+    return f'<div class="p-bar{" is-light" if light else ""} review-bar">{x}</div>'
+
+
+def detail(name, label, x, y, w, h, height=190):
+    """原图的局部：SVG 视窗放大，不改像素。"""
+    ih = 1473 if name == "before-full.png" else 3291 if name == "round2-full.png" else 800
+    return (f'<figure class="review-shot"><figcaption>{label} · 原图局部</figcaption><a href="assets/{name}" target="_blank" rel="noopener">'
+            f'<svg role="img" aria-label="{escape(label)}" viewBox="{x} {y} {w} {h}" style="width:100%;height:{height}px;background:#eee"><image href="assets/{name}" width="1440" height="{ih}"/></svg></a></figure>')
+
+
+def reading_panel(html, key, content):
+    return re.sub(r'(<section data-ev-reading="' + key + r'"[^>]*>).*?</section>', lambda m: m[1] + content + '</section>', html, flags=re.S)
+
+
+def request_images(request):
+    """请求里那条消息的两项 input_image：核对与 assets 里的两张逐字节相同，页面上用 assets 的文件显示。"""
+    message = E._source_item(request, {"message": "第一张是现在的效果"})
+    pictures = [c for c in message["content"] if c.get("type") == "input_image"]
+    assert len(pictures) == 2, request
+    for picture, name in zip(pictures, ["round1.png", "reference.png"]):
+        assert base64.b64decode(picture["image_url"].split(",")[1]) == (E.lesson / "assets" / name).read_bytes(), (request, name)
+    return pair(shot("round1.png", "input_image · 第 1 张", 120), shot("reference.png", "input_image · 第 2 张", 120))
+
+
+def feedback_stage():
+    html = E.stage("p40d")
+    html = reading_panel(html, "feedback",
+                         '<p class="p-ev-source">10-24 排练 · 同一会话贴两张图，再说一句</p>'
+                         + pair(shot("round1.png", "图 1 · 当前效果", 100), shot("reference.png", "图 2 · 参考", 100))
+                         + '<blockquote class="review-prompt compact">' + escape(FEEDBACK) + '</blockquote>')
+    html = reading_panel(html, "images",
+                         '<p class="p-ev-source">10-24 排练 · 贴图那次请求 · 我们这一条（新的 Prompt）</p>'
+                         + request_images("r2-2") + '<p class="review-evidence-note">后面跟着那句话：' + escape(FEEDBACK[:24]) + '……</p>')
+    html = reading_panel(html, "still",
+                         '<p class="p-ev-source">10-24 排练 · 第二轮最后一次请求 · 同一条还在</p>'
+                         + request_images("r2-9") + '<p class="review-evidence-note">之后每次请求都带着这两张图和那句话</p>')
+    answer = E._source("r2-9", {"answer": True}).splitlines()[0]
+    return reading_panel(html, "result-answer",
+                         '<p class="p-ev-source">10-24 排练 · 第二轮改完，同一位置</p>'
+                         + pair(detail("round1.png", "反馈前", 350, 180, 1000, 420, 170), detail("round2.png", "反馈后", 350, 180, 1000, 420, 170))
+                         + '<p class="review-evidence-note">它的报告：' + escape(answer) + '</p>')
+
+
+HYPERSPACE = ref("Hyperspace · HTML5 UP", "https://html5up.net/uploads/demos/hyperspace/", "参考主页")
+
 scene(
-    id="p35", segment="先留检查点", layout="lesson-cover",
+    id="p35", segment="提参考", layout="lesson-cover",
     label="这一节做什么", title="参考主页，改出自己的风格",
-    lead="先给 2.2 留检查点，再参考主页改风格；每一轮都问它看到了什么",
+    lead="从上一节提交的 homepage-v1 开始，参考一个主页改两轮风格；每一轮都问一句：它看到了什么",
     html=(
         chapter_map(3) +
         '<div class="p-pair" style="grid-template-columns:1fr auto 1fr;margin-top:18px">'
-        '<div class="p-box" data-role="ok" data-reveal="1"><span class="p-tag" data-role="ok">先</span><p class="p-big" style="font-weight:500">看范围和出处，提交 homepage-v1</p></div>'
-        '<div class="p-join" data-reveal="2"><span>再</span><i class="p-arrow"></i></div>'
-        '<div class="p-box" data-role="us" data-reveal="2"><span class="p-tag" data-role="us">重点</span><p class="p-big" style="font-weight:500">参考一个主页，改两轮风格</p></div></div>' +
-        '<div style="margin-top:14px">' + anchor(lit=("规则", "工具返回", "新的 Prompt"), outside=("没读的文件", "浏览器里的页面", "参考主页"), title="这一节每一轮都问：改风格的依据在哪几块？", reveal=2) + '</div>'
+        '<div class="p-box" data-role="ok" data-reveal="1"><span class="p-tag" data-role="ok">起点</span><p class="p-big" style="font-weight:500">homepage-v1：不满意随时回到这里</p></div>'
+        '<div class="p-join" data-reveal="1"><span>再</span><i class="p-arrow"></i></div>'
+        '<div class="p-box" data-role="us" data-reveal="1"><span class="p-tag" data-role="us">重点</span><p class="p-big" style="font-weight:500">参考一个主页，改两轮风格</p></div></div>' +
+        '<div style="margin-top:14px">' + anchor(lit=("工具返回", "对话历史", "新的 Prompt"), outside=("浏览器里的页面",), note="我们看得到参考长什么样，它看得到吗？它改风格的依据，只能在请求里的这几块", reveal=2) + '</div>'
     ),
-    steps=["回到地图", "先留检查点", "再改风格"],
-    teaching=teach(("讲师提示", "本节重点是改风格（章文件 C2-61）；审 2.2 内容只看范围和出处，两页带过。")),
-)
-
-scene(
-    id="p36", segment="先留检查点",
-    label="范围和出处", title="先看范围和出处",
-    lead="先用两条命令看范围，再对照 Done when 看内容：页面上的每一句，都能在 profile.md 里找到吗？git status --short 列出所有变化，包括还没被 Git 跟踪的新文件；git diff --stat 只统计已跟踪文件还没暂存的修改：新文件要另外打开看，已经 git add 的改动要用 git diff --cached --stat 看。讲师这次多了一行 ?? AGENTS.md：它是 2.2 我们自己写的规则，不是 Codex 建的，--stat 里看不到它。",
-    html=(
-        '<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px">'
-        '<div class="p-term" data-copy="git status --short" data-reveal="0"><div class="dim">$ git status --short</div><div> M src/App.tsx</div><div>?? AGENTS.md</div></div>'
-        '<div class="p-term" data-copy="git diff --stat" data-reveal="1"><div class="dim">$ git diff --stat</div><div> src/App.tsx | 12 ++++++++++--</div><div> 1 file changed, 10 insertions(+), 2 deletions(-)</div></div></div>'
-        '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:14px">'
-        '<div class="p-box is-soft" data-role="ok" data-reveal="2"><h3>src/App.tsx</h3><p>预期之内：项目数据就在这里</p></div>'
-        '<div class="p-box is-soft" data-role="ctx" data-reveal="2"><h3>?? AGENTS.md</h3><p>新文件，不在 --stat 里；是我们在 2.2 写的规则，打开看一眼，一起提交</p></div></div>'
-        '<p class="source-note">' + SAMPLE[:-1] + '</p>'
-    ),
-    steps=["status", "diff --stat", "对得上吗"],
-    teaching=teach(
-        ("命令说明", "未跟踪文件所在目录整个都是新的时，git status --short 只显示目录名（如 ?? src/components/），加 --untracked-files=all 可列出目录里的每个文件。"),
-        ("核对记录", "2026-10-21 20:30 那次运行（lab-runs/ch02-context/2.2-simple-20261021-203050）结束后，在它的工作区运行 git status --short 和 git diff --stat，输出与画面一致：改了 src/App.tsx（+10 −2），另有未跟踪的 AGENTS.md（4 行，2.2 p27a 讲师写的）。Codex 在完成报告里说明 AGENTS.md 是它开工前就存在的未跟踪文件。16:22 那次输出相同。src/App.tsx 的改动与 materials/homepage-v1.diff 逐行相同。学员没写 AGENTS.md 时没有这一行。"),
-        ("讲师提示", "若 2.2 的真实 diff 出现了无关文件或 package.json 变化，在这里就地指出，并在 p40 之前走“缩小”或“拒绝”（三种处置见 p40c）。"),
-    ),
-)
-
-STYLE_PROMPT = """Goal：参考 Hyperspace 的风格，把我的主页改出新样子：配色和版式都可以改。
-Context：参考 https://html5up.net/uploads/demos/hyperspace/ 。先用 curl 取这个页面的 HTML
-和它引用的 CSS（要联网，会弹申请，我来批准），告诉我它的风格是怎样的
-（配色、各区块怎么铺、版式），再提计划，等我确认再改。
-Constraints：页面上的文字不变，每一句都要能在 profile.md 里找到；不加依赖，
-不引入远程字体和图片；改结构时尽量沿用现有组件；正文和背景的对比度要够。
-Done when：我在浏览器里看过、觉得像；你跑 build 成功；页脚注明风格参考的出处；
-告诉我改了哪些区块、为什么。"""
-
-COMMIT = 'git commit -m "homepage-v1: 补充项目经历" -m "本轮目标：在项目区呈现我的项目经历。改动文件：src/App.tsx、AGENTS.md"'
-
-scene(
-    id="p40", segment="先留检查点",
-    label="留下检查点", title="提交一次，留下检查点",
-    lead="范围对、每处改动都找得到依据、Prompt 之外的动作也都经过我们同意，就接受；三种处置（接受、缩小、拒绝）留到后面的风格改动再细讲，那里更可能用上。审过了就提交：只暂存审过的文件，这次是 src/App.tsx 和我们自己写的 AGENTS.md；再看一遍待提交的内容，然后提交，提交说明写本轮目标和改动文件。这次提交就是检查点。接受错了也回得去：还没提交的用 git restore 放弃修改，已经提交的用 git revert 加一个撤回提交，原来的提交留在历史里。/clear 和压缩只动对话，不动文件；回退靠 git。",
-    html=(
-        '<div class="p-term" data-reveal="0" data-copy="git add src/App.tsx AGENTS.md"><div class="dim">$ git add src/App.tsx AGENTS.md</div><div class="dim">$ git diff --cached --stat</div><div> AGENTS.md   |  4 ++++</div><div> src/App.tsx | 12 ++++++++++--</div><div> 2 files changed, 14 insertions(+), 2 deletions(-)</div></div>'
-        '<div class="p-term" data-reveal="1" style="margin-top:8px" data-copy="' + escape(COMMIT) + '"><div class="dim">$ git commit -m "homepage-v1: 补充项目经历" \\</div>'
-        '<div class="dim">    -m "本轮目标：在项目区呈现我的项目经历。改动文件：src/App.tsx、AGENTS.md"</div><div class="ok">[main 7ce0e9f] homepage-v1: 补充项目经历</div></div>'
-        '<div class="p-bar is-light" data-reveal="2" style="margin-top:10px">接受错了：还没提交用 <b>git restore</b>，已经提交用 <b>git revert</b> · 回退靠 git，不靠对话</div>'
-        '<p class="source-note">' + SAMPLE + ' 7ce0e9f 是示例短哈希，每次提交都不同。</p>'
-    ),
-    repro=repro([
-        ("在课程仓库根目录，用第 1 章参考快照建一个练习仓库，不动你自己的个人主页", "cp -R starters/personal-homepage/ch01-complete lab-runs/revert && cd lab-runs/revert\ngit init -q -b main && git add -A && git commit -qm baseline"),
-        ("应用 homepage-v1 的改动并提交一次，提交说明写本轮目标与改动文件", "git apply ../../courseware/ch02/materials/homepage-v1.diff && git add src/App.tsx\ngit commit -q -m 'homepage-v1: 补充项目经历' -m '本轮目标：在项目区呈现我的项目经历。改动文件：src/App.tsx'"),
-        ("在演示分支上撤回这次提交", "git switch -c demo-revert && git revert --no-edit HEAD && git log --oneline -3 && git show --stat HEAD"),
-        ("检查：撤回提交只改了 src/App.tsx，原来的提交还在历史里；然后回到 main，删掉演示分支", "git switch main && git branch -D demo-revert"),
-    ], note="讲师 2026-10-20 按此实测（Git 2.50.1）。需要已配置 git user.name 与 user.email。"),
-    steps=["暂存并再看一遍", "提交并写清说明", "接受错了怎么回去"],
-    teaching=teach(
-        ("讲师提示", "这一页只讲提交一次留检查点；restore 和 revert 各一句，revert 的完整步骤在页面上的复现按钮里，讲师可在临时分支演示，学员看懂即可。不教改写历史（reset、amend）。哈希每次不同，按实际输出讲。"),
-    ),
+    steps=["回到地图", "从 homepage-v1 开始", "它看得到吗"],
+    teaching=teach(("讲师提示", "上一节结尾已经让 Codex 提交了 homepage-v1，这一节不再审内容。没跟上的从快照分支 ch02/2.2-done-20261024 开始（C2-99）。")),
 )
 
 # 2.3 风格参考的候选主页（截图与许可见 materials/external/README.md 的“2.3 风格参考”一节，2026-10-23 截取）
@@ -102,131 +121,159 @@ REFS = [
 ]
 
 
-def ref_card(src, bar, alt, picked):
+def ref_card(src, label, alt, picked):
     tag = '<span class="p-tag" data-role="us" data-reveal="1" style="position:absolute;right:8px;top:36px">这次用</span>' if picked else ""
     edge = ";outline:3px solid #D9481C;outline-offset:3px" if picked else ""
     return (f'<div class="p-page" style="position:relative{edge}">'
-            f'<div class="p-page-bar" style="font-size:13px"><i></i><i></i><i></i>{bar}</div>'
+            f'<div class="p-page-bar" style="font-size:13px"><i></i><i></i><i></i>{label}</div>'
             f'<img src="external/{src}" alt="{escape(alt)}" style="display:block;width:100%;height:200px;object-fit:cover;object-position:top">{tag}</div>')
 
 
 scene(
-    id="p40a0", segment="改风格",
-    label="几个参考主页", title="想要什么样的主页？先看几个参考",
-    lead="同一份 profile.md，可以做成完全不同的样子。这里有四个公开的主页或模板：整块紫色的 Hyperspace，深蓝两栏的 Brittany Chiang，青绿页头的 Freelancer，白底蓝链接的 Jon Barron。这次的示例用 Hyperspace，它和我们现在的主页差别最大，改完一眼看得出来。你可以选别的，也可以找自己喜欢的主页；参考的是风格，用的时候按各自的许可注明出处。",
+    id="p40a0", segment="提参考",
+    label="挑一个参考", title="想要什么样的主页？先挑一个参考",
+    lead="同一份 profile.md，可以做成完全不同的样子。这里有四个公开的主页或模板：整块紫色的 Hyperspace，深蓝两栏的 Brittany Chiang，青绿页头的 Freelancer，白底蓝链接的 Jon Barron。这次的示例用 Hyperspace，它和我们现在的主页差别最大。把两张首屏放在一起，说清想借鉴什么：左侧的侧栏导航，每一块不同底色的大块背景。你可以选别的参考；学的是风格，不照搬别人的代码和文字，用的时候按各自的许可注明出处。",
     html=(
-        '<div class="p-grid" style="--n:4;gap:14px" data-reveal="0">'
-        + "".join(ref_card(*r) for r in REFS) +
-        '</div>'
-        '<div class="p-bar is-light" data-reveal="2" style="margin-top:16px">学的是风格，<b>不照搬别人的代码和文字</b> · 用的时候注明出处</div>'
+        panel('<div class="p-grid" style="--n:4;gap:14px">' + "".join(ref_card(*r) for r in REFS) + '</div>', 0, 1)
+        + panel(pair(shot("before.png", "现在：homepage-v1", 240), shot("reference.png", "想借鉴：Hyperspace · HTML5 UP", 240))
+                + bar("想借鉴：<b>侧栏导航</b>、<b>大块背景</b> · 不照搬别人的代码和文字"), 2)
     ),
-    refs=[
-        ref("Hyperspace", "https://html5up.net/uploads/demos/hyperspace/", "参考主页"),
-        ref("Brittany Chiang", "https://brittanychiang.com/", "参考主页"),
-        ref("Freelancer", "https://startbootstrap.github.io/startbootstrap-freelancer/", "参考主页"),
-        ref("Jon Barron", "https://jonbarron.info/", "参考主页"),
-        ref("HTML5 UP 许可（CC BY 3.0）", "https://html5up.net/license", "许可", kind="read"),
-        ref("bchiang7/v4 的 README", "https://github.com/bchiang7/v4", "许可", kind="read"),
-        ref("startbootstrap-freelancer（MIT）", "https://github.com/StartBootstrap/startbootstrap-freelancer", "许可", kind="read"),
-    ],
-    steps=["四个参考", "这次用哪个", "注明出处"],
-    teaching=teach(
-        ("讲师提示", "四张都是首屏截图（courseware/tools/capture-source.py，2026-10-23），Jon Barron 那张只截到第一篇论文，下面的合影不截。录制时可以在浏览器里点开第一行的链接，往下滚一屏让学员看整页。可剪辑时，换一个参考再跑一组，最后把两组结果并排给学员看（分镜 p40a0）。"),
-    ),
+    refs=[HYPERSPACE, ref("HTML5 UP 许可（CC BY 3.0）", "https://html5up.net/license", "许可", kind="read")],
+    steps=["四个参考", "这次用哪个", "想借鉴什么"],
+    teaching=teach(("讲师提示", "四个候选：brittanychiang.com、startbootstrap.github.io/startbootstrap-freelancer、jonbarron.info，各自许可见 materials/external/README.md。四张候选是首屏截图（courseware/tools/capture-source.py，2026-10-23）；两张对照是 10-24 排练时 Chromium 1440×800 的首屏。参考在 1280 宽会把侧栏变成顶部横条，录制时浏览器开宽一点再看侧栏。")),
 )
 
 scene(
-    id="p40a", segment="改风格", layout="prompt-scene", prompt=STYLE_PROMPT,
-    label="照着参考改", title="照着参考改，样子可以变，内容不能变",
-    lead="这次照着 Hyperspace 改，配色和版式都可以变。约束只留四条：页面上的文字不变，每一句都要能在 profile.md 里找到；不加依赖，不引入远程字体和图片；改结构时尽量沿用现有组件；正文和背景的对比度要够。守住的是“内容是我的”，不是“样子不变”。Prompt 里点明让它用 curl 取参考页面的 HTML 和 CSS，联网我们来批准；取回来以后先说看到的风格和计划，等我们确认再改。",
+    id="p40a", segment="提参考", layout="prompt-scene", prompt=PROMPT,
+    label="把参考交给它", title="一段话写清四件事",
+    lead="这次的任务不大，Prompt 写成一段话，四要素都在里面：目标是参考 Hyperspace 改风格、喜欢它的侧栏和大块背景；背景是参考页的网址，点明用 curl 看 HTML 和 CSS，结合当前代码；约束是先给计划别改、保留个人内容、不新增依赖；完成标准里写明页面效果由我们在浏览器里看。新任务用 /clear 或新会话，再 /plan。",
     html=(
         '<div class="demo-notes"><ol class="p-notes">'
-        '<li data-reveal="0"><span><b>样子可以变</b><small>配色和版式都可以改</small></span></li>'
-        '<li class="is-risk" data-reveal="1"><span><b>用 curl 取 HTML 和 CSS</b><small>要联网，我们来批准</small></span></li>'
-        '<li class="is-ok" data-reveal="2"><span><b>内容不能变</b><small>文字都在 profile.md 里；先说计划</small></span></li></ol></div>'
+        '<li data-reveal="0"><span><b>Goal · Context</b><small>参考 Hyperspace 改风格；用 curl 看 HTML 和 CSS，结合当前代码</small></span></li>'
+        '<li class="is-ok" data-reveal="1"><span><b>Constraints</b><small>先给计划别改；保留个人内容，不新增依赖</small></span></li>'
+        '<li class="is-risk" data-reveal="2"><span><b>Done when</b><small>页面效果我们自己在浏览器里看</small></span></li></ol></div>'
     ),
-    steps=["样子可以变", "用 curl 取", "内容不能变"],
+    steps=["目标与背景", "约束", "完成标准"],
+    teaching=teach(("讲师提示", "点明用 curl：不点明时它可能用网页搜索，在这套配置下只拿到首屏摘要（2026-10-22 实测）。Prompt 是 10-24 排练的原文，没有为课件改写。")),
+)
+
+scene(
+    id="p40b", segment="它拿到了什么",
+    label="它拿到了什么", title="取回来，不等于看到了",
+    lead="我们给的是网址，它拿到的是什么？回看排练的记录：curl 在沙箱里联网失败，它申请到沙箱外，把 HTML 和 CSS 存进 /tmp 下的文件；进入请求的工具返回只有两个文件的大小。接着它用 sed 看 HTML 的前 140 行，CSS 有六万多字节，它用 grep、sed 一段一段挑着读。它说“看过了”，深紫侧栏、18em 宽，这些判断能在它读到的 CSS 片段里找到，但那是代码片段，不是渲染出来的页面。左侧按钮切换观察点，阅读视图展示原文节选。",
+    html=E.stage("p40b"),
+    steps=["取回来", "工具返回", "挑着读", "它说看过了"],
+    refs=[ref("Effective context engineering · Context retrieval and agentic search", "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents", "Anthropic，2025-09-29")],
+    teaching=teach(("核对记录", RUN + "。公开数据见 materials/style/run-20261024-round2，只导出课件用到的记录；存进文件、挑着读，在 10-24 的四次排练里都出现过。")),
+)
+
+scene(
+    id="p40a1", segment="它拿到了什么",
+    label="答案和计划去了哪", title="我们的答案和它的计划，去了哪？",
+    lead="读完参考，它问了两组偏好：配色、侧栏形态、背景纹理，再问字体和区块排版，排练时都选了推荐项。我们选的答案，是那个提问工具的返回，在请求的“工具返回”这一块；它写的计划是它自己的回答，下一次请求里就到了“对话历史”。之后每次请求都带着这两样，它改的时候照着。计划只动页面文件、不加依赖，就确认实施，再补一句：页脚注明出处，改完运行 build，浏览器我来检查，不要提交。",
+    html=E.stage("p40a1"),
+    steps=["我们的答案", "它的计划", "之后还在"],
+    teaching=teach(("核对记录", RUN + "；交互题和计划每次排练都不一样，题目内容只作例子。")),
+)
+
+scene(
+    id="p40b1", segment="看效果再反馈",
+    label="第一轮改完", title="第一轮改完，哪里和想的不一样？",
+    lead="第一轮改完，build 通过。在浏览器里和参考并排看同样宽度的首屏：侧栏、大块配色都做出来了，滚到工作经历，导航也会提示当前位置。不一样的地方，排练这次是背景：一片密集的小箭头铺在文字后面，参考是淡淡的、疏一些的细线。这个差别我们一眼就看到了，它看不到：渲染出来的页面不在 context 里。它自己也想看，实施完起了预览服务，推理里写着 React 在浏览器里渲染、curl 只拿得到一个空的 root。",
+    html=(
+        panel(pair(shot("round1.png", "第一轮：当前效果", 290), shot("reference.png", "参考", 290)), 0)
+        + panel(shot("round1-experience.png", "滚到工作经历：导航已经提示当前位置", 330), 1)
+        + panel(pair(detail("round1.png", "当前：密集小箭头", 350, 180, 1000, 420, 250), detail("reference.png", "参考：淡淡的细线", 350, 180, 1000, 420, 250)), 2)
+        + panel(pair(detail("round1.png", "当前：密集小箭头", 350, 180, 1000, 420, 170), detail("reference.png", "参考：淡淡的细线", 350, 180, 1000, 420, 170))
+                + bar("我们一眼看到的差别，它看不到：<b>页面的样子不在 context 里</b>", light=False)
+                + '<pre class="p-term review-term">它的推理（排练这次）：… ' + escape(PEEK) + ' …</pre>', 3)
+    ),
+    refs=[HYPERSPACE],
+    steps=["并排看", "做到了的", "哪里不一样", "它看不到"],
     teaching=teach(
-        ("切到实操", "参考主页用 Hyperspace（p40a0 圈出的那个），排练脚本 materials/mainline/run-2.2.sh 用的是同一份 Prompt。批准框出现时，读清它要访问的网址再同意。它说完看到的风格和计划后，确认再执行；第一轮约 9 分钟（排练：说风格和计划约 3.6 分钟，执行约 5 分钟），录制时剪掉等待，口播提一句“这一步要等几分钟”（C2-74）。页脚注明出处写进了 Done when（CC BY 3.0 要求署名，2026-10-23 排练里没要求时它没写），p40c 审查时核对。"),
-        ("讲师提示", "2026-10-23 改为参考 Hyperspace、放开版式（C2-72）：只改颜色或只改一处时效果弱，放开后前后差别明显，文字约束都守住了（LOG.md 实测记录）。网页搜索在 MiniMax 下只拿到首屏摘要，所以仍点明用 curl。"),
+        ("讲师提示", "当天第一轮不一样的地方很可能不是背景，按现场讲：它做到了什么、哪里和想的不一样。排练这次的箭头来自参考 CSS 里下拉框的图标，它读到了代码，却把它当成整页纹理，计划里就写了；可以一句带过，不展开 CSS。"),
+        ("核对记录", RUN + "；截图是 Chromium 1440×800。起服务、想截图在四次排练里都出现过：它在沙箱里后台起服务不弹框，要用无头 Chrome 截图时弹出批准框就拒绝。"),
     ),
 )
 
 scene(
-    id="p40b", segment="改风格",
-    label="它拿到了什么参考", title="它拿到的“参考”，到底是什么",
-    lead="我们在浏览器里看到的主页，不会自己进入 context。把参考送进去有三条路：网页搜索、curl、截图。网页搜索是默认的工具，在 MiniMax 下由服务端执行，只返回首屏摘要，取回的内容也不进请求记录；这次我们让它用 curl 在本地取，联网由我们批准，取回的 HTML 和 CSS 作为工具返回进了 context，请求记录里看得见。可它拿到的是代码，不是我们看到的页面：样子要靠它读 CSS 推出来。截图正好相反，它看到的是样子，看不到代码。",
-    html=(
-        '<div class="p-grid" style="--n:3;gap:14px">'
-        '<div class="p-box" data-role="tool" data-reveal="0"><span class="p-tag" data-role="tool">网页搜索</span><p>默认工具，只拿到摘要</p><p class="p-sub">服务端执行，内容不进记录</p></div>'
-        '<div class="p-box" data-role="us" data-reveal="1"><span class="p-tag" data-role="us">curl（这次）</span><p>拿到 HTML 和 CSS</p><p class="p-sub">我们批准联网，内容进记录</p></div>'
-        '<div class="p-box" data-role="ink" data-reveal="1"><span class="p-tag" data-role="ink">截图</span><p>拿到的是样子</p><p class="p-sub">这个模型能读图（实测）</p></div></div>'
-        '<div style="margin-top:12px">' + anchor(lit=("工具返回", "新的 Prompt"), note="这次 curl 取回的 HTML 和 CSS 在“工具返回”这一块，记录里看得见", reveal=2) + '</div>'
-        '<div class="p-bar" data-reveal="3" style="margin-top:10px">它拿到的是代码，<b>不是我们看到的页面</b>；先问它看到了什么</div>'
-    ),
-    steps=["网页搜索", "curl 和截图", "这次在哪一块", "结论"],
+    id="p40d", segment="看效果再反馈",
+    label="把看到的带进去", title="把看到的样子，带进请求",
+    lead="继续同一个会话，截两张首屏：先贴现在的效果，再贴参考，然后说一句哪里不满意、想要什么样。图给出我们看到的页面，话说出这次的偏好；换成自己的，可以照这个样子填空：“" + TEMPLATE + "”回看请求：这一条是新的 Prompt，里面是两项图片和这句话；第二轮最后一次请求里，两张图还在，之后每次请求都带着。改完回浏览器看同一位置：细线淡了、疏了，其他部分没动。它看见了我们贴的图，自己做出来的页面它仍然看不见；要让它自己截图看页面，得专门把浏览器接进它的运行环境，后面的章节再做。",
+    html=feedback_stage(),
+    steps=["贴图和反馈", "请求里的图", "后面还带着", "第二轮结果"],
+    refs=[
+        ref("Codex 文档 · Image inputs", "https://learn.chatgpt.com/docs/image-inputs?surface=cli#write-the-prompt-around-the-image", "OpenAI，访问于 2026-10-24"),
+        ref("Harness engineering", "https://openai.com/index/harness-engineering/", "OpenAI，2026-02-11"),
+    ],
     teaching=teach(
-        ("切到实操", "第 3 步切 claude-tap 查看器，找这一轮里 curl 的那几次调用和返回：HTML 和 CSS 的原文就在工具返回里（长的会被截断，可以顺带指一下）。再指 p40a 那一轮它说“看到了什么”的那段回答，对照返回里的 class。如果它没用 curl、改用了网页搜索，就按实际讲：记录里只有打开的网址，内容看不到。"),
-        ("核对记录", "2026-10-22 讲师机器上用 curl 实测两个主页：brittanychiang.com 的 HTML 里有经历的文字（服务端渲染），但版式靠 Tailwind 的 class 名和 CSS 文件，HTML 本身看不出长什么样；miaodx.com 的在线简历页 HTML 里没有正文，只有“浏览器未启用 JavaScript”的提示，正文由脚本渲染。默认沙箱不联网见 2.4 的实测（2026-10-07）。2026-10-22 用 run-2.2.sh 排练两次（参考 brittanyc"
-                 "hiang.com、jonbarron.info，lab-runs/ch02-context/2.2-profile-*-20261022-174731，claude-tap 会话 87745911、bf2d2e01）：它用 Codex 的 web_search 工具打开了地址（brittanychiang.com 那次 4 次，jonbarron.info 那次 3 次，动作是 open_page），这个工具在模型服务那一侧执行，不经本地沙箱，也不用人批准；请求里这个工具的配置是 `exter"
-                 "nal_web_access: false`。取回的只有首页摘要，brittanychiang.com 那次没拿到 Experience 区块，jonbarron.info 的 cv.html 没打开；缺的部分，它用 Prompt 里的描述加上自己“记得”的那个网站补齐（推理里写出了一段它以为的页面结构，没有核实）。取回的内容不在 claude-tap 记录的请求里，记录里只有“打开了哪个网址”。两次做出的时间线样式相近。最初只看画面记录，误记为“没有取地址”，已按请求记录更正（章文件 C2-6"
-                 "2）。截图：2026-10-22 用 codex exec -i 实测，MiniMax-M3.1-Flash 读出了截图里的日期、职位和文字颜色，没调用工具，约 1 万 token；交互界面里怎样贴图录制前核对。网页搜索 cached 与 live 两种模式在 MiniMax 下实测看不出区别；关掉网页搜索、打开联网让它用 curl 取，Experience 第一条和左右两列的 class 全部答对，约 15 万 token。见章文件实测记录。录制时可以把 p40a 的 Prompt 写成“用 "
-                 "curl 取这个地址的 HTML 和 CSS”，人在批准框里同意联网。"),
+        ("讲师提示", "贴图：把图片文件拖进终端，或复制后在 Codex 里 Ctrl+V，输入框出现 [Image #1]、[Image #2]，再写那句话。贴自己的页面，是因为它看不见自己做出来的页面；参考那张让它知道想要什么样。"),
+        ("核对记录", RUN + "；贴图那次请求的两项 input_image 与 assets/round1.png、assets/reference.png 逐字节相同，构建时核对。不把一次结果说成图片单独起了多大作用。"),
     ),
 )
 
 scene(
-    id="p40d", segment="改风格",
-    label="第二轮：说清哪里不像", title="第二轮：说清哪里不像",
-    lead="第一轮改完，在浏览器里把自己的页面和参考并排看。哪里不像，用话说出来：哪一块、差在哪、想要什么样子，一次只说一两处。它看不见我们的浏览器，也看不见参考页面，我们说出来的这几句，就是它这一轮能拿到的全部参考。第二轮的请求会带着第一轮的对话历史，所以不用重复上一轮的要求。",
-    html=(
-        '<div class="p-flow" style="--n:3">'
-        '<div class="p-node" data-role="us" data-reveal="0"><span class="p-num">1</span><h3>并排看</h3><p>自己的页面和参考</p></div>'
-        '<div class="p-node" data-role="us" data-reveal="1"><span class="p-num">2</span><h3>说清差别</h3><p>哪一块、差在哪、要什么样</p></div>'
-        '<div class="p-node" data-role="agent" data-reveal="1"><span class="p-num">3</span><h3>再改一轮</h3><p>还是先说计划</p></div></div>'
-        '<div class="p-bar" data-reveal="2" style="margin-top:18px">第二轮的请求带着第一轮的全部对话；新加的，只有我们说的差别</div>'
-    ),
-    steps=["并排看", "说清差别", "第二轮带着什么"],
-    teaching=teach(
-        ("切到实操", "第二轮的话按录制时实际看到的差别现场说，例如“首屏的紫色太暗”“项目卡要更像参考的三宫格”；一次只说一两处。改完同样先看计划，再看 diff。"),
-        ("讲师提示", "截图实测能读（2026-10-22，codex exec -i）；交互界面里怎样贴图录制前核对，核对后第二轮可以直接贴参考和自己页面的截图。第二轮还没排练过（run-2.2.sh 只跑了第一轮）。"),
-    ),
+    id="p40e", segment="接受并保存",
+    label="两轮下来", title="同一份内容，两个样子",
+    lead="两轮下来的结果：左边是上一节提交的 homepage-v1，右边是参考 Hyperspace 改了两轮的样子。个人信息一字没改，样子完全换了：侧栏导航、大块背景、淡淡的细线。像不像、好不好看，由我们自己判断。",
+    html=pair(shot("before-full.png", "homepage-v1 · 上一节", 380), shot("round2-full.png", "两轮之后 · 这一节", 380)),
+    steps=["两个样子"],
+    teaching=teach(("核对记录", RUN + "；整页截图 Chromium 1440 宽。")),
 )
 
 scene(
-    id="p40c", segment="改风格",
-    label="风格要不要接受", title="风格改得对吗，要不要接受",
-    lead="这一轮的 diff 会很大，不逐行读。先看范围：动了哪些文件和区块；再看文字：和 profile.md 对一遍，它说自己核对过，也要抽查；再看有没有新加的行为，比如进场动画、滚动监听、新的脚本，它说明了没有；页脚有没有注明风格参考的出处；最后看像不像，这一项 diff 里看不出来，要在浏览器里和参考并排看。接受就再提交一次；缩小，就让它收回越界或没说明的部分；拒绝，就 git restore 回到 homepage-v1。前面有检查点，拒绝也很便宜。",
+    id="p40c", segment="接受并保存",
+    label="要不要接受", title="风格改得对吗，要不要接受",
+    lead="diff 很大，不逐行读。像不像，只有我们在浏览器里看得出来：从上滚到下和参考并排看，再缩到手机宽度看一眼。再看它新加了什么：排练这次是一段滚动高亮的脚本，计划里写了；背景纹理是内联的 SVG，没有引远程资源；页脚写了参考出处。满意就让 Codex 提交，批准框里看清是哪几个文件、提交说明写了什么；不满意，还没提交的改动让它 git restore 放弃，回到 homepage-v1。官方文档推荐的 UI 迭代也是这样：小步改，在浏览器里看，喜欢的提交，不喜欢的回退。",
     html=(
-        '<div class="p-claim"><div class="p-box" data-role="agent" data-reveal="0"><span class="p-tag" data-role="agent">Codex 说</span><p class="p-big" style="font-weight:500">“已按参考改好了”</p></div>'
-        '<ul class="p-checks">'
-        '<li data-reveal="1">动了哪些文件和区块<small>git diff --stat，对照它的改动清单</small></li>'
-        '<li data-reveal="1">文字没变<small>和 profile.md 对，抽查</small></li>'
-        '<li data-reveal="1">新加的行为说明了吗<small>动画、滚动监听、新脚本</small></li>'
-        '<li data-reveal="1">出处写了吗<small>页脚注明风格参考</small></li>'
-        '<li class="is-no" data-reveal="2">像不像参考<small>diff 里看不出来，由我们在浏览器里看</small></li></ul></div>'
-        '<div class="p-bar is-light" data-reveal="3" style="margin-top:12px">接受：再提交一次 · 缩小：让它收回越界的部分 · 拒绝：<b>git restore</b> 回到 homepage-v1</div>'
+        panel(pair(detail("round2-full.png", "页脚：参考出处", 400, 3210, 520, 80, 130), shot("round2-mobile.png", "手机宽度的首屏", 300)), 0)
+        + panel('<div class="p-claim"><div class="p-box" data-role="agent"><span class="p-tag" data-role="agent">Codex 说</span><p class="p-big" style="font-weight:500">“背景纹理换掉了，其他部分没动”</p></div>'
+                '<ul class="p-checks">'
+                '<li class="is-no">像不像参考<small>diff 里看不出来，由我们在浏览器里看</small></li>'
+                '<li>新加了什么<small>排练这次：滚动高亮的脚本、内联 SVG 背景、页脚出处</small></li>'
+                '<li>范围对不对<small>只动页面文件，个人内容没变，没加依赖</small></li></ul></div>', 1)
+        + panel('<pre class="p-term review-term">' + escape(COMMIT_PROMPT) + '</pre>' + bar("接受：让 Codex 提交，<b>批准框里看清文件和提交说明</b> · 不满意：git restore 回到 homepage-v1"), 2)
     ),
-    steps=["它的报告", "范围和文字", "好不好看", "接受或放弃"],
+    refs=[ref("Codex 文档 · Iterate on UI with live updates", "https://learn.chatgpt.com/docs/prompting#iterate-on-ui-with-live-updates", "OpenAI，访问于 2026-10-24")],
+    steps=["像不像", "新加了什么", "提交或放弃"],
     teaching=teach(
-        ("讲师提示", "按录制时的实际 diff 讲。排练里出现过“滚动到才显现”的进场动画：内容默认透明，不滚动、截整页图时看起来是空白，这类改动要它说明，或者让它去掉。学员选做的样式改动只要求审过再决定，不要求一定接受。"),
-        ("跟做产出", "风格改动的处置：接受并提交，或用 git restore 放弃。"),
+        ("讲师提示", "提交在现场做：粘贴提交 Prompt，批准框里核对后确认，和 2.2 结尾提交 homepage-v1 一样。排练这次的接受提交由备课方完成（188f1ad，只含 App.tsx 与 index.css），不是 Codex 执行的，画面不放它的输出。"),
+        ("跟做产出", "至少一轮风格改动，审过后让 Codex 提交，或用 git restore 放弃。"),
     ),
+)
+
+QUESTIONS = [
+    ("它说参考是“深紫侧栏、18em 宽”，这个判断的依据在请求的哪一块？它看到页面了吗？",
+     "在“工具返回”里它挑着读的 CSS 片段；它看到的是代码，不是渲染出来的页面", "回看：取回来，不等于看到了"),
+    ("第二轮贴的两张图，出现在请求的哪一块？后面的请求里还有吗？",
+     "在“新的 Prompt”，和我们那句话在同一条消息里；之后每次请求都带着", "回看：把看到的样子带进请求"),
+    ("它说“改好了”，像不像由谁判断？为什么不能由它自己判断？",
+     "由我们在浏览器里看；渲染出来的页面不在 context 里，它看不见自己做出来的页面", "回看：第一轮改完"),
+]
+
+scene(
+    id="p41b", segment="小结",
+    label="暂停自检", title="暂停自检：它看到了什么？",
+    lead="每题先暂停，写出你的判断，再补一条依据。三题的答案都在这一节的记录里，换一次运行也成立。参考答案在阅读模式中查看。",
+    html='<style>body[data-mode="slides"] #p41b .x-answer{display:none}body[data-mode="slides"] #p41b .p-qrow h3{font-size:24px}body[data-mode="slides"] #p41b .p-back-to{font-size:16px}</style><div class="p-qlist">'
+    + "".join(f'<div class="p-qrow" data-reveal="{i}"><span class="p-n">{i + 1}</span><div><h3>{escape(q)}</h3><p class="x-answer">{escape(a)}</p><span class="p-back-to">{escape(b)}</span></div></div>'
+              for i, (q, a, b) in enumerate(QUESTIONS))
+    + '</div>',
+    steps=["依据在哪", "图在哪", "谁来判断"],
 )
 
 scene(
     id="p42", segment="小结",
     label="本节小结", title="改风格之前，先问它看到了什么",
-    lead="本节先留下 homepage-v1 这个检查点，再参考一个主页，分两轮改出了自己的风格。我们看到的参考页面和浏览器里的效果，都不在它的 context 里；给了地址，它取到的也不是我们看到的样子，缺的它会自己补。每一轮都先问它实际拿到了什么，审过再提交，不满意就 git restore。下一节：发布上线。",
+    lead="本节从 homepage-v1 开始，参考一个主页改了两轮风格。取回来不等于看到了：进入 context 的只是它挑着读的代码片段；页面的样子不在 context 里，像不像要我们自己看；看到的样子要靠我们带进去：截图加一句话，放进新的 Prompt。审过再让 Codex 提交。下一节：发布上线。",
     html=(
-        '<div class="p-sketch" style="align-items:start"><div data-reveal="0"><h3 style="text-align:center">先留检查点</h3>'
-        '<div class="p-star" style="width:260px;font-size:24px">范围和出处<br>提交一次</div>'
+        '<div class="p-sketch" style="align-items:start"><div data-reveal="0"><h3 style="text-align:center">项目</h3>'
+        '<div class="p-star" style="width:260px;font-size:24px">homepage-v1<br>→ homepage-v2</div>'
         '<p class="p-sub" style="text-align:center;margin-top:10px">回退靠 git，不靠对话</p></div>'
-        '<div data-reveal="1"><h3>它看到了什么</h3><ul class="p-exits" style="gap:12px"><li class="is-point">参考：取到的不是我们看到的样子</li><li class="is-point">看不见：浏览器里的效果、参考页面</li><li class="is-point">第二轮：带着第一轮，说清差别</li><li class="is-point">看全了吗：长输出会被截断</li></ul></div>'
+        '<div data-reveal="1"><h3>它看到了什么</h3><ul class="p-exits" style="gap:12px"><li class="is-point">取回来不等于看到了：只有挑着读的片段</li><li class="is-point">页面的样子不在 context 里</li><li class="is-point">看到的样子要靠我们带进去：截图加一句话</li></ul></div>'
         '<div class="p-next" data-reveal="2"><h3>下一节</h3><div class="p-box" data-role="us"><h3>2.4 发布上线</h3><p>context 发给了谁，又怎样送出去</p></div></div></div>'
     ),
-    steps=["先留检查点", "它看到了什么", "下一节"],
+    steps=["项目", "它看到了什么", "下一节"],
 )
-
 
 lesson.write()

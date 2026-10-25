@@ -145,17 +145,17 @@ window.lesson = {
       "id": "p31",
       "segment": "内容迭代",
       "title": "先看主页，再看 build 输出",
-      "lead": "在浏览器里看首屏、教育、工作经历、项目与开源，检查文字和排版，再看本轮实际 build 输出。这里只收住本轮结果，逐句出处与改动范围的快速审查留到下一节。",
-      "html": "<style>.x-result{width:100%;height:300px;object-fit:contain;object-position:top;border:1px solid var(--p-ink)}body[data-mode=\"scroll\"] .x-result{height:auto;max-height:550px}</style><div class=\"p-grid\" style=\"--n:2;gap:16px\"><div data-reveal=\"0\"><img class=\"x-result\" src=\"assets/plan-homepage.png\" alt=\"本次 Plan 成果：缪东旭个人主页的首屏、教育、工作经历与项目\"></div><div style=\"display:flex;flex-direction:column;gap:14px\"><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\"><h3>本轮实际结果</h3><p>四块内容已呈现<br>npm run build 通过</p></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"2\"><h3>留给下一节</h3><p>逐句出处<br>改动范围</p></div></div></div>",
+      "lead": "在浏览器里看首屏、教育、工作经历、项目与开源，检查文字和排版，再看本轮实际 build 输出。改动范围在审计划时看过，页面在这里看过；回看完请求，就把这一版提交保存。",
+      "html": "<style>.x-result{width:100%;height:300px;object-fit:contain;object-position:top;border:1px solid var(--p-ink)}body[data-mode=\"scroll\"] .x-result{height:auto;max-height:550px}</style><div class=\"p-grid\" style=\"--n:2;gap:16px\"><div data-reveal=\"0\"><img class=\"x-result\" src=\"assets/plan-homepage.png\" alt=\"本次 Plan 成果：缪东旭个人主页的首屏、教育、工作经历与项目\"></div><div style=\"display:flex;flex-direction:column;gap:14px\"><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\"><h3>本轮实际结果</h3><p>四块内容已呈现<br>npm run build 通过</p></div><div class=\"p-box\" data-role=\"ink\" data-reveal=\"2\"><h3>已经核对</h3><p>范围：审计划时看过<br>页面：这里看过</p></div></div></div>",
       "steps": [
         "人看页面",
         "核对构建",
-        "留给下一节"
+        "范围与页面都看过"
       ],
       "script": [
         "【操作提示｜切浏览器，从首屏滚到四块内容；可用设备工具栏看 360×800；回课件真实截图】\n\n先打开改好的主页，从首屏往下看教育、工作经历和项目。姓名、简介、关注内容有没有遗漏，文字有没有挤乱。你跟做时，也暂停看自己的页面。发现问题先记下来。",
         "【操作提示｜切本轮保存的 build 输出，显示 tsc、vite 成功；回课件】\n\n再看这轮的构建输出，类型检查和打包完成了。你也运行一次 npm run build。",
-        "【操作提示｜推进第 3 步，指留给下一节的两项；准备 tap 记录】\n\n逐句出处和改动范围留到下一节。现在回看：这一轮每一步实际发送了什么？"
+        "【操作提示｜推进第 3 步，指“已经核对”；准备 tap 记录】\n\n改动范围在审计划时看过，页面刚才也看过，这一版可以留下来。先别急着提交，回看一下：这一轮每一步实际发送了什么？"
       ],
       "teaching": [],
       "source": "index.html#p31",
@@ -358,6 +358,33 @@ window.lesson = {
       "seconds": 90
     },
     {
+      "id": "p28a",
+      "segment": "选择怎样继续",
+      "title": "提交一次，留下 homepage-v1",
+      "lead": "范围在审计划时看过，页面和 build 也看过，这一版值得保存。让 Codex 提交：它先列出 git status，再申请执行 git add、git commit。.git 在沙箱里只读，提交会弹出批准框，看清是哪几个文件、提交说明写了什么再确认。清空、压缩只改对话，回到这一版靠的是这次提交。",
+      "html": "<div class=\"demo-notes\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><h3>先列状态</h3><p>只有本轮的页面文件和 AGENTS.md、profile.md</p></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"1\"><h3>批准框里看清</h3><p>.git 在沙箱里只读，提交要申请到沙箱外</p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"2\"><h3>提交以后</h3><p>排练这次：9381567 homepage-v1<br>回到这一版靠提交，不靠对话</p></div></div>",
+      "teaching": [
+        {
+          "title": "核对记录",
+          "text": "排练这次的提交：2026-10-24，从 2.2 的结束状态起跑，Codex 执行，人在批准框里确认（lab-runs ch02/2.3-20261024 记录 1–15）；下一节从这一版开始。"
+        }
+      ],
+      "steps": [
+        "先列状态",
+        "批准框里看清",
+        "提交以后"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p28a 第 1 步，指提交 Prompt 和“先列状态”】\n\n这一版范围看过、页面看过，build 也通过了，值得保存下来。让 Codex 来提交：它先列出 git status，我们看一眼，改动的只有这一轮的页面文件，还有 AGENTS.md 和 profile.md。",
+        "【操作提示｜推进第 2 步，指“批准框里看清”】\n\n接着它要执行 git add、git commit。Codex 的沙箱里 .git 目录是只读的，提交要申请到沙箱外运行，所以会弹出批准框。看清是哪几个文件、提交说明写了什么，再确认。",
+        "【操作提示｜推进第 3 步，指提交结果和底部横条；讲完切 Terminal，粘贴提交 Prompt，按现场的 git status 和批准框讲相同和不同，确认后回课件进入 p33】\n\n排练这次，提交出来是 homepage-v1，五个文件。清空、压缩改的都是对话，项目文件不会回到过去；以后改坏了，要回到这一版，靠的是这次提交。"
+      ],
+      "layout": "prompt-scene",
+      "prompt": "这一轮我在浏览器里看过、build 也通过了，请帮我提交。先列出 git status 给我看；\n只提交本轮改动的页面文件和 AGENTS.md、profile.md。提交说明第一行写\nhomepage-v1: 放进个人信息、经历和项目，正文写本轮目标和改动了哪些文件。",
+      "source": "index.html#p28a",
+      "seconds": 90
+    },
+    {
       "id": "p33",
       "segment": "选择怎样继续",
       "title": "暂停自检：这四种情况，你会怎么做？",
@@ -382,16 +409,16 @@ window.lesson = {
     {
       "id": "p34",
       "segment": "选择怎样继续",
-      "title": "带着这份内容，进入审查与风格调整",
-      "lead": "本轮用人提供的资料补齐主页，查看页面和 build，再看规则、文件返回和对话历史如何进入请求。清空开始新对话，压缩用摘要承接历史，项目文件仍可读取。下一节先审内容与范围、保存 homepage-v1，再参考主页改风格。",
-      "html": "<div class=\"p-grid\" style=\"--n:2;gap:16px\"><div class=\"p-box\" data-role=\"ok\" data-reveal=\"0\"><h3>这一轮</h3><p>个人内容已呈现<br>页面与 build 已看过</p></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"1\"><h3>下一节</h3><p>审内容和范围<br>保存 homepage-v1<br>参考主页改风格</p></div></div><div class=\"p-bar is-light\" data-reveal=\"1\">继续使用这一轮的成果</div>",
+      "title": "带着 homepage-v1，进入风格调整",
+      "lead": "本轮用人提供的资料补齐主页，查看页面和 build，再看规则、文件返回和对话历史如何进入请求。清空开始新对话，压缩用摘要承接历史，项目文件仍可读取；这一版已提交为 homepage-v1。下一节从它开始，参考一个主页改风格，不满意随时回到这里。",
+      "html": "<div class=\"p-grid\" style=\"--n:2;gap:16px\"><div class=\"p-box\" data-role=\"ok\" data-reveal=\"0\"><h3>这一轮</h3><p>个人内容已呈现<br>页面与 build 已看过<br>提交为 homepage-v1</p></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"1\"><h3>下一节</h3><p>参考一个主页改风格<br>不满意就回到 homepage-v1</p></div></div><div class=\"p-bar is-light\" data-reveal=\"1\">从 homepage-v1 开始</div>",
       "steps": [
         "收住本轮",
         "交接下一节"
       ],
       "script": [
-        "【操作提示｜指本轮成果；保持项目尚未提交，不在这里建检查点】\n\n这一轮把人提供的内容放进主页，也看见了规则、资料、问答和操作怎样进入请求。清空重新开始对话，压缩用摘要承接历史；项目文件仍能读取。",
-        "【操作提示｜指下一节三项，进入 2.3；不新增终端操作】\n\n接下来继续用这一轮的成果，先审改动的内容和范围，再保存 homepage-v1 检查点，然后参考一个主页调整风格。"
+        "【操作提示｜指本轮成果】\n\n这一轮把人提供的内容放进主页，也看见了规则、资料、问答和操作怎样进入请求。清空重新开始对话，压缩用摘要承接历史；项目文件仍能读取。这一版已经提交为 homepage-v1。",
+        "【操作提示｜指下一节，进入 2.3；不新增终端操作】\n\n下一节从 homepage-v1 开始，参考一个主页改出自己的风格。不管改成什么样，不满意都能回到这一版。"
       ],
       "teaching": [],
       "source": "index.html#p34",
@@ -417,7 +444,7 @@ window.lesson = {
     },
     {
       "label": "选择怎样继续",
-      "seconds": 270
+      "seconds": 360
     }
   ]
 };
