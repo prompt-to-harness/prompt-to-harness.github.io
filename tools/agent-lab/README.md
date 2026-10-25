@@ -21,7 +21,7 @@ uvx --from ./tools/agent-lab agent-lab codex --tap
 学员安装用课程仓库 release 里的 wheel（约 11 KB）。不要用 `git+https://…#subdirectory=tools/agent-lab`：uv 会先拉整个仓库的历史（约 110 MB），网速慢时装不完。发新版时改 `pyproject.toml` 的版本号，`uv build --wheel` 后发一个新的 `agent-lab-v<版本>` release，并更新 2.1 p06-tap 的 `AGENT_LAB_INSTALL`。
 
 ```sh
-uv tool install --force https://github.com/prompt-to-harness/prompt-to-harness.github.io/releases/download/agent-lab-v0.1.2/agent_lab-0.1.2-py3-none-any.whl
+uv tool install --force https://github.com/prompt-to-harness/prompt-to-harness.github.io/releases/download/agent-lab-v0.1.3/agent_lab-0.1.3-py3-none-any.whl
 ```
 
 也可以从本地目录安装到本机，此后在任意项目目录直接使用：

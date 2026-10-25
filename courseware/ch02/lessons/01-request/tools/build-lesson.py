@@ -56,7 +56,7 @@ TAP_PR = "https://github.com/liaohch3/claude-tap/pull/475"
 TAP_CMD = "uvx --from " + TAP_WHEEL + " claude-tap --tap-client codex --tap-target https://api.minimax.cn/v1"
 # Agent Lab 从 main 安装一次，之后用短命令启动（2026-10-24 讲师确认，暂不固定 tag）
 # 从课程仓库 release 下载 Agent Lab 的 wheel（约 11 KB）；用 git 地址安装要先拉整个仓库的历史（约 110 MB），网速慢时装不完
-AGENT_LAB_INSTALL = 'uv tool install --force https://github.com/prompt-to-harness/prompt-to-harness.github.io/releases/download/agent-lab-v0.1.2/agent_lab-0.1.2-py3-none-any.whl'
+AGENT_LAB_INSTALL = 'uv tool install --force https://github.com/prompt-to-harness/prompt-to-harness.github.io/releases/download/agent-lab-v0.1.3/agent_lab-0.1.3-py3-none-any.whl'
 AGENT_LAB_CMD = "agent-lab codex --tap"
 
 

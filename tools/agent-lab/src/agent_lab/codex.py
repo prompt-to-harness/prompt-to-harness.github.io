@@ -32,12 +32,17 @@ def dashboard_port(home: Path) -> int:
             with build_opener(ProxyHandler({})).open(
                     f"http://127.0.0.1:{port}/dashboard/health", timeout=2) as response:
                 health = json.load(response)
-            expected = str(home / ".local/share/claude-tap/traces.sqlite3")
-            if health.get("db_path") == expected and health.get("version") == version("claude-tap"):
-                return port
         except (OSError, ValueError):
-            pass
-        raise ValueError(f"课程查看器端口 {port} 被其他服务占用，已停止，不关闭现有服务。")
+            health = {}
+        expected = str(home / ".local/share/claude-tap/traces.sqlite3")
+        if health.get("db_path") == expected:
+            # This environment's own viewer from an earlier launch: reuse it if it is the same build.
+            if health.get("version") == version("claude-tap"):
+                return port
+            raise ValueError(
+                f"端口 {port} 上是这个课程环境之前启动的查看器，但它是 claude-tap {health.get('version')}，"
+                f"当前是 {version('claude-tap')}。关掉它再启动：lsof -ti tcp:{port} | xargs kill")
+        raise ValueError(f"课程查看器端口 {port} 被别的服务占用，没有启动；不会关闭那个服务。")
     return port
 
 
@@ -214,10 +219,9 @@ def launch(tap: bool, forwarded: list[str]) -> int:
                       *forwarded]
         command = [codex, *codex_args]
         if tap:
-            executable = shutil.which("claude-tap")
-            if not executable:
-                raise ValueError("找不到包依赖 claude-tap，请通过 uvx 或 uv tool install 运行。")
-            command = [executable, "--tap-client", "codex", "--tap-target", BASE_URL,
+            # Run the claude-tap installed with agent-lab, not whatever `claude-tap` is first on
+            # PATH: a separately installed tool would start a different viewer build.
+            command = [sys.executable, "-m", "claude_tap", "--tap-client", "codex", "--tap-target", BASE_URL,
                        "--tap-live-port", str(dashboard_port(home)),
                        "--", *codex_args]
         try:
