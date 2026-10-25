@@ -8,7 +8,7 @@
 | --- | --- | --- |
 | `request-capture/` | p06-tap 的代理原理、原图、两版重画和页面样稿 | [tap_proxy_figures.py](request-capture/tap_proxy_figures.py) |
 | `context-engineering/` | Context 引入帖子、请求组成、Prompt 与 Context 对照 | [figures.py](context-engineering/figures.py) |
-| `context-rot/` | Context Rot 原图与两版曲线 | [figures.py](context-rot/figures.py) |
+| `context-rot/` | Context Rot 原图与两版曲线；p23a 替换候选（smart zone 词条、官方说法、示意重画） | [figures.py](context-rot/figures.py) |
 | `agent-loop/` | p07-loop 的循环与逐次请求增长：原图视口截图、两版重画和页面样稿 | [figures.py](agent-loop/figures.py) |
 
 同一主题的原图、图元、SVG 和样稿放在一起；下面的登记表是本章总索引。已采用的帖子截图仍在小节 `external/`，表中记录实际路径。
@@ -23,7 +23,7 @@
 | `context-engineering/anthropic-prompt-vs-context.png` | [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) 第一张图 | Anthropic Applied AI · 2025-09-29 | 2026-10-22 | 2.1 p16a | 候选；样稿：原图的小标签在页面上读不清，只能看出大体结构；不如现在的文字版，或改成中文重画 |
 | `context-rot/chroma-context-rot-repeated-words.png` | [Context Rot](https://www.trychroma.com/research/context-rot) 重复词任务曲线 | Kelly Hong 等（Chroma）· 2025-07-14 | 2026-10-22 | 2.2 p23 注意力一侧 | 候选；样稿：曲线一路往下，一眼能看懂，效果最好；截图要去掉图下的说明文字 |
 | `context-engineering/redraw-openai-codex-request-{course,excalidraw}.svg` | 据 OpenAI 文章重画：请求按顺序拼成；2026-10-24 去掉右侧对应锚点图的一列（C2-88） | 同上 | 2026-10-22 | 2.1 p16b | 采用 Excalidraw 版（C2-64）；截图版读不清 |
-| `context-rot/redraw-chroma-context-rot-{course,excalidraw}.svg` | 据 Chroma 重复词任务重画，中文坐标；数据点为读图近似 | 同上 | 2026-10-22 | 2.2 p23a | 采用课程手绘版（C2-64） |
+| `context-rot/redraw-chroma-context-rot-{course,excalidraw}.svg` | 据 Chroma 重复词任务重画，中文坐标；数据点为读图近似 | 同上 | 2026-10-22 | 2.2 p23a | 采用课程手绘版（C2-64）；2026-10-25 撤下（C2-116），只作讲师提示，SVG 与图元保留 |
 | `context-engineering/redraw-anthropic-prompt-vs-context-{course,excalidraw}.svg` | 据 Anthropic 第一张图重画，中文标签 | 同上 | 2026-10-22 | 2.1 p16c | 采用 Excalidraw 版（C2-64）；截图版小标签读不清；2026-10-24 不用：p16c 并入 p16b、对照图撤下（C2-82），两版 SVG 与图元已删除，需要时从 Git 历史恢复 |
 | `context-engineering/redraw-context-vertical-{course,excalidraw}.svg` | 课程自绘，参考 [Claude Academy](https://academy.claude.com/tutorials/parametric-memory-and-context) 对训练知识与当前 Context 的区分；不是官方原图的复刻 | 课程图元 · 2026-10-23 | 2026-10-23 原文核对 | 2.1 p05a 左侧竖向概览 | 采用课程手绘版（C2-77），右侧保留 Karpathy 截图；图元 `context-engineering/context_overview_figures.py`，样稿检查见对应审查记录 |
 | `agent-loop/openai-snapshot2.svg`（原图）、`agent-loop/openai-agent-loop-viewport.jpg` | [深入解析 Codex 智能体循环](https://openai.com/zh-Hans-CN/index/unrolling-the-codex-agent-loop/) 的 Agent loop 图与 Snapshot 2（第 2 次调用 = 第 1 次全部 input + reasoning、function_call、function_call_output；正文称旧提示是新提示的“精确前缀”） | Michael Bolin（OpenAI）· 2026-01-23 | 2026-10-23 内置浏览器视口截图（原文已核对） | 2.1 p07-loop 对照 | 重画；只作对照，不上屏。Snapshot 2 为 2026-10-24 从文章图片地址下载的原始 SVG（images.ctfassets.net，`…Snapshot_2_desktop-light.svg`，802×311，无脚本），本次页面未触发人工验证；Agent loop 图仍是 2026-10-23 视口截图 |
@@ -168,3 +168,19 @@ uv run courseware/tools/redraw.py courseware/ch02/materials/external/cache-compa
 ```
 
 Manus 页面的图片地址是站点上传路径，换版后选择器可能失效；失效时按图题重新定位。
+
+## p23a 长 context 表现（2026-10-25）
+
+对应讲透问题 4 的“注意力也是代价”，替换 Chroma 的候选；讲师选了重画示意（C2-116），没选的四张截图删掉了，没有提交。选材与核实见[调研报告](<../../../../docs/research/reports/第 2 章长 context 表现佐证.md>)。版式样稿在本地课件 p23a 注入渲染（1280 宽视口，未改课件文件，截图只在本机）。
+
+| 文件 | 来源 | 作者 · 日期 | 截取 | 拟用在 | 状态 |
+| --- | --- | --- | --- | --- | --- |
+| `context-rot/aihero-smart-zone.png` | [AI Coding Dictionary · Smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone) 第一段（定义，含 125K–150K “有争议”） | Matt Pocock（AI Hero）· 无日期（GitHub 仓库 README 最近提交 2026-09-24） | 2026-10-25，1792×294 | 2.2 p23a | 不用（C2-116）：英文正文上屏偏小，改为画面底部链接；截图已删 |
+| `context-rot/aihero-smart-zone-window.png` | 同一词条第三段（分区和窗口上限无关） | 同上 | 2026-10-25，1792×238 | 2.2 p23a | 不用（C2-116）：同上，截图已删 |
+| `context-rot/claude-code-best-practices-context.png` | [Claude Code 最佳实践（中文）](https://code.claude.com/docs/zh-CN/best-practices)开头“这很重要，因为当 context 填充时，LLM 性能会下降”一段 | Anthropic · 无日期 | 2026-10-25，1720×226 | 2.2 p23a 口播 | 不用截图（C2-116）：字小，这句只进口播；截图已删 |
+| `context-rot/anthropic-attention-budget.png` | [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) attention budget 一段 | Anthropic Applied AI · 2025-09-29 | 2026-10-25，1392×366 | 2.2 p23a 备选 | 不用（C2-116）：2.1 p16a 已用同一篇；截图已删 |
+| `context-rot/redraw-smart-zone-{course,excalidraw}.svg` | 课程示意，据 Matt Pocock 词条与 [Dex Horthy “No Vibes Allowed”](https://ai.engineer/talks/context-engineering-for-complex-codebases)（AI Engineer Code 2025，YouTube 2025-12-02）：smart zone → dumb zone，分界因模型和任务而异，窗口上限更靠后；不画数字 | 课程图元 · 2026-10-25 | — | 2.2 p23a | 采用课程手绘版（C2-116）；图内标题已去掉，避免和页面标题重复 |
+
+```bash
+uv run courseware/tools/redraw.py courseware/ch02/materials/external/context-rot/figures.py --only smart-zone
+```

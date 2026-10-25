@@ -142,11 +142,12 @@ scene(
 
 scene(
     id="p23a", segment='回看请求', layout="evidence-scene",
-    label="长输入的表现", title="长输入下，表现可能变化",
-    lead="Chroma《Context Rot》控制任务条件、改变输入长度，观察到表现会变化，长输入下可能变得不稳定。本页为其中的重复词任务，数据点为读图近似，只看趋势。这份研究提醒我们关注 Context 的长度和内容；本次主页是否改对，仍要检查文件和实际页面。",
-    html=redrawn("context-rot", "chroma-context-rot", "course", "据 Chroma《Context Rot》（2025-07-14）重复词任务重画", note="数据点为读图近似").replace("同一个简单任务，输入越长越做不好", "重复词任务：不同输入长度下的表现").replace("0.5 附近 ≈ 基本做不对", ""),
-    refs=[ref("Context Rot", "https://www.trychroma.com/research/context-rot", "Chroma，2025-07-14", quote="Repeated Words")],
-    steps=["看趋势"],
+    label="长 context 的代价", title="会话越长，越早进入 dumb zone",
+    lead="Matt Pocock 和 Dex Horthy 都把这种现象叫作 dumb zone：同一个模型，context 越积越多，就越粗心、越健忘、错得越多；从哪里开始因模型和任务而异，窗口上限还在更后面。Claude Code 的官方文档也写着，context 填满时性能会下降。本轮 Plan 阶段最长的一次请求不到 2 万 token，离这条线还远；一个会话接着做很多事，就会越走越靠后。主页改得对不对，仍要回到文件和页面检查。",
+    html=redrawn("context-rot", "smart-zone", "course", "课程示意：据 Matt Pocock《AI Coding Dictionary》Smart zone 词条与 Dex Horthy “No Vibes Allowed” 演讲的说法，不画具体数字", max_height=360),
+    refs=[ref("Smart zone", "https://www.aihero.dev/ai-coding-dictionary/smart-zone", "Matt Pocock"),
+          ref("No Vibes Allowed", "https://ai.engineer/talks/context-engineering-for-complex-codebases", "Dex Horthy，2025")],
+    steps=["看示意"],
 )
 
 scene(
