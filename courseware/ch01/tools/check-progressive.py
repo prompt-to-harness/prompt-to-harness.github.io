@@ -100,7 +100,9 @@ with sync_playwright() as p:
         assert page.evaluate('document.documentElement.scrollWidth<=innerWidth'),name
         page.set_viewport_size({'width':1280,'height':848})
         page.goto((root/'lessons'/name/'speaker.html').as_uri())
-        assert page.locator('#script a[href*="step="]').count()==count
+        # 逐字稿每步一个步骤标题，不放跳回课件的链接（第 2 章 LOG C2-102）
+        assert page.locator('#script section > h3').count()==count
+        assert page.locator('#script a[href*="step="]').count()==0
         # Clipboard success and failure branches; injected clipboard records the exact payload.
         for scene in lesson['scenes']:
             if not scene.get('prompt'):continue

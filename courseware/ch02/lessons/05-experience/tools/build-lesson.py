@@ -15,7 +15,7 @@ lesson = Lesson(__file__, "2.5", "用好 context 的五个做法", summary="另�
 scene = lesson.scene
 
 RUN = "数字来自讲师的一次运行（2026-10-21，课程基线，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开）；随版本、模型、配置和任务变化，只说明结构"
-PRICE = ref("MiniMax 开放平台：定价", "https://platform.minimax.cn/docs/guides/pricing", "价格（2026-10-21 查阅）")
+PRICE = ref("MiniMax 开放平台：定价", "https://platform.minimax.cn/docs/pricing/overview#%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B", "价格（2026-10-21 查阅）")
 
 SECTION_QS = [
     ("2.1", "只说了一句话，模型收到了什么", "us"),

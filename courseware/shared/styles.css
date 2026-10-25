@@ -267,9 +267,12 @@ a.section-card { color: var(--color-ink); }
 .practice-loop { display: grid; gap: var(--space-sm); }
 .practice-loop li { padding-block: var(--space-sm); border-bottom: 1px solid var(--color-rule); }
 .practice-input, .practice-outcome { border-left: 3px solid var(--color-accent); padding-left: var(--space-lg); }
-.teaching-notes { margin-block: var(--space-lg); border-top: 1px solid var(--color-rule); padding-top: var(--space-md); }
-.teaching-notes summary { cursor: pointer; color: var(--color-accent); }
-.teaching-notes h3 { margin-top: var(--space-lg); }
+/* 逐字稿里还没分流的旧备注：灰色、小一号，和口播、操作提示分开；Pad 照稿录制时隐藏 */
+.teaching-notes { margin-block: var(--space-lg); padding: var(--space-sm) var(--space-md); border-left: 3px dashed var(--color-rule); color: var(--color-muted); }
+.teaching-notes .teaching-label { margin: 0; font-size: var(--text-sm); }
+.teaching-notes h3 { margin-top: var(--space-md); font-size: 1rem; }
+.script-page .teaching-notes p { font-size: .95rem; line-height: 1.8; }
+.script-reader .teaching-notes { display: none; }
 .script-page .task-scope p { font-size: 1rem; }
 @media (max-width: 40rem) {
   .environment-table { font-size: .8rem; }
@@ -429,3 +432,21 @@ body[data-mode="slides"] .prompt { padding: 0; }
 .script-editable .peek-frame { display: block; width: 100%; aspect-ratio: 16 / 9; margin-bottom: var(--space-md); border: 1px solid var(--color-rule); border-radius: 4px; background: var(--color-paper); }
 /* 逐字稿里每一步开头的【操作提示｜…】：只给录制的讲师看，不念（编辑规范 ED-013） */
 .script-page .stage-direction { padding: 12px 16px; border-left: 3px solid #49646b; background: #eaf0ef; color: #304d54; font-size: .9em; line-height: 1.75; overflow-wrap: anywhere; }
+/* 演示形态：现场操作、回放记录、讲完回放后切现场回看，左边线分色，一眼看出这一步要不要切到真实环境 */
+.script-page .stage-direction[data-form="现场"] { border-left: 6px solid #c2410c; }
+.script-page .stage-direction[data-form="现场回看"] { border-left: 6px solid #c2410c; background: linear-gradient(90deg, #fbe7d6, #eaf0ef 40%); }
+.script-page .stage-direction[data-form="回放"] { border-left: 6px solid #2f5f9e; }
+/* 一节开头的录前准备：和操作提示同一色系，整块框起来，开录前逐条做完 */
+.script-page .prep { margin-top: var(--space-2xl); padding: var(--space-md) var(--space-lg); border: 2px solid #49646b; border-radius: 8px; background: #eaf0ef; color: #304d54; }
+.script-page .prep h2 { margin-bottom: var(--space-sm); font-size: 1.25rem; }
+.script-page .prep li { margin-block: var(--space-sm); line-height: 1.75; overflow-wrap: anywhere; }
+/* 口播中途的【切换｜…】：讲到这里切窗口，不念 */
+.script-page .switch-cue { width: fit-content; max-width: 100%; margin-block: var(--space-sm); padding: 4px 14px; border-radius: 999px; background: #fde7c4; color: #7a4300; font-size: .9em; font-weight: 700; overflow-wrap: anywhere; }
+/* Pad / 手机经局域网照稿录制（speaker.js enableReader）：字号由 --reader-scale 控制（0.45–2.1） */
+.script-reader .script-page section p { font-size: calc(1.125rem * var(--reader-scale, 1.4)); }
+.script-reader .script-page .stage-direction,
+.script-reader .script-page .switch-cue { font-size: calc(1rem * var(--reader-scale, 1.4)); }
+.script-reader .script-page .prep li { font-size: calc(1rem * var(--reader-scale, 1.4)); }
+.script-reader .script-page .task-scope p { font-size: calc(1rem * var(--reader-scale, 1.4)); }
+.reader-size { position: fixed; right: var(--space-md); bottom: var(--space-md); display: flex; gap: var(--space-sm); z-index: 10; }
+.reader-size button { min-width: 56px; min-height: 48px; border: 1px solid var(--color-rule); border-radius: 8px; background: var(--color-paper); color: inherit; font: inherit; font-size: 1.25rem; cursor: pointer; }
