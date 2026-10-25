@@ -11,15 +11,15 @@
   <link rel="stylesheet" href="../../../shared/presentation.css">
   <link rel="stylesheet" href="../../../shared/evidence.css">
   <link rel="stylesheet" href="../../../shared/parts/parts.css">
-  <link rel="stylesheet" href="trace/lesson-embed.css">
-  <script>if(location.hash==='#p14'){const url=new URL(location.href);url.hash='p07';url.searchParams.set('step','1');history.replaceState(null,'',url);}</script>
+  <link rel="stylesheet" href="../../../shared/parts/evidence-trace.css">
+  <!-- 退役页 #p14 并入 p07 的“找读取调用”一步：首次打开和页内跳转都转过去 -->
+  <script>(()=>{const go=()=>{if(location.hash==='#p14'){const url=new URL(location.href);url.hash='p07';url.searchParams.set('step','1');history.replaceState(null,'',url);return true;}};go();addEventListener('hashchange',()=>{if(go())dispatchEvent(new HashChangeEvent('hashchange'));});})();</script>
   <script>(()=>{const retired={p10:0,p11:1,p12:2,p13:3};const key=location.hash.slice(1);if(key in retired){const u=new URL(location.href);u.hash='p08a';u.searchParams.set('step',retired[key]);history.replaceState(null,'',u);}})();</script>
   <script src="lesson.js" defer></script>
   <script src="../../../shared/app.js" defer></script>
   <script src="../../../shared/presentation.js" defer></script>
   <script src="../../../shared/parts/parts.js" defer></script>
-  <script src="trace/lesson-embed.js" defer></script>
-  <script src="request/lesson-adapter.js" defer></script>
+  <script src="../../../shared/parts/evidence-trace.js" defer></script>
 </head>
 <body data-mode="scroll" class="camera-hidden">
   <a class="skip-link" href="#lesson">跳到课程内容</a>

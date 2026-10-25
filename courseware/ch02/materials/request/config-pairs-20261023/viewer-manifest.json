@@ -1,25 +1,25 @@
 {
   "perm-read": {
     "source_sha256": "f013d849be9c2de65178750bd9e9308d36ecfebbb4aab71d9a23bf8d315385f8",
-    "html_sha256": "47e06ba4b8c56fbf22ee8d09ed4b59577398da53105804b12d778300d25f0000"
+    "html_sha256": "bd62175c7e2b45ff8eb4cb0c05f71d14d25cfad9d6be4e7f2cca95a6aad2bd94"
   },
   "perm-write": {
     "source_sha256": "c203f3ef4f738a2dff3a5522816010e94644b7e8b084cdcb70e2f08092c96df2",
-    "html_sha256": "267795554085966b6504dc54e19996d1939015774c4577db03acdb49826aa50e"
+    "html_sha256": "ad4dfcc9cad893c9544236c1806c334f6d4eca631fa50984131647f845fdcd76"
   },
   "model-on": {
     "source_sha256": "8a7a19d2240ba5c3b20c31bf79337bcdc56b32a13a2d3bf56d4eb56bd8a7ad54",
-    "html_sha256": "f62661a2b972905d0efca51fc093e8d0f06d743058fa3a5958fe3290e4fe0c62"
+    "html_sha256": "e914c2e1851237c96e3d95d9ac1aded2c05fcf14e6ee5470e90f72a87483a645"
   },
   "model-off": {
     "source_sha256": "8b3e4ee55fecf9ee155fb8e78469a503c8267e74cadd78472b1bb08671b6d413",
-    "html_sha256": "9e4647f61a8a7af50a1a8a19b784a45343cfcefb51fbde3bb9a497023d6b1cf4"
+    "html_sha256": "ab995fe6a4dc9cbc120f3f8416e9f257d81f8ecfc1913235a8d2278035279394"
   },
   "permissions": {
-    "html_sha256": "34e4ddb75f7aacfef29f8af7ac96b28f68b87f289d80ab5bc3ebc15b9aad7031"
+    "html_sha256": "23c6e750f6b69cd9dbd8df84bef3bb122f00f390b856dddd0f200c2bc8f5651e"
   },
   "model": {
-    "html_sha256": "597540d834a50d869449ab7949dba86976e898a1c806d948977680cc861c3c9f"
+    "html_sha256": "0df271b47736003d810fe7d4878fa360bf5fec8e3ff8514455541811059032ba"
   },
   "summary_sha256": "cd1d6e8229fb9dd7915373ddcdf43d6c740c5fcddea1196f047e77e585a6a771"
 }

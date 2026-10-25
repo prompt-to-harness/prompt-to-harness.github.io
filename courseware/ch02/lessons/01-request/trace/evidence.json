@@ -1,0 +1,115 @@
+{
+  "source": "courseware/ch02/materials/request/run-20261024/interactive.json",
+  "trace_sha256": "4f0ce448d46adfa38d3fee902d99702403f045941c8ed1666fdcd9443279f45f",
+  "basis": "p07：讲师 2026-10-24 选定依据链 A（App.tsx 项目卡）；2026-10-25 起只讲这一条，C（index.html 标题）、D（PLACEHOLDER_CONTENT.md 内容来源）撤下（C2-101）；记录变化时用 --list-candidates 重新列候选，经讲师确认再改。p08a：问候的那一份请求（interactive-1），按请求里的实际顺序看七处（C2-99 把协作模式、团队与多代理说明单列一处）。",
+  "confirmed_on": "2026-10-24",
+  "viewer": "trace/viewer.html",
+  "note": "本次真实记录",
+  "stages": {
+    "p07": [
+      "A-answer",
+      "A-call",
+      "A-result"
+    ],
+    "p08a": [
+      "identity",
+      "skills",
+      "permissions",
+      "collab",
+      "environment",
+      "tools",
+      "response"
+    ]
+  },
+  "points": [
+    {
+      "key": "A-answer",
+      "button": "① 看回答",
+      "hint": "它说了什么，引用了哪里？",
+      "request": "interactive-9",
+      "section": "section_response",
+      "needle": "src/App.tsx:1-6"
+    },
+    {
+      "key": "A-call",
+      "button": "② 找读取调用",
+      "hint": "模型让 Codex 去读了什么？",
+      "request": "interactive-4",
+      "section": "section_response",
+      "callId": "call_9YuUT4VwPtIAuWiPrhzcz5r8"
+    },
+    {
+      "key": "A-result",
+      "button": "③ 找工具返回",
+      "hint": "读到的代码，在下一次请求里",
+      "request": "interactive-5",
+      "section": "section_messages",
+      "callId": "call_9YuUT4VwPtIAuWiPrhzcz5r8",
+      "needle": "name: '学习笔记'"
+    },
+    {
+      "key": "identity",
+      "button": "① 系统指令",
+      "hint": "它被要求扮演什么角色？",
+      "observe": "第一条 developer 消息。首句来自模型能力目录，可点阅读视图里的 MiniMax 官方说明对照",
+      "request": "interactive-1",
+      "section": "section_messages",
+      "needle": "You are Codex"
+    },
+    {
+      "key": "skills",
+      "button": "② Skills 列表",
+      "hint": "给了名字、简述和文件位置",
+      "observe": "列表提供名字、简述与文件位置；本次来自课程 HOME 的内置目录，不等于项目 Skills 或全文已读入",
+      "request": "interactive-1",
+      "section": "section_messages",
+      "needle": "<skills_instructions>"
+    },
+    {
+      "key": "permissions",
+      "button": "③ 权限说明",
+      "hint": "这次允许怎样操作",
+      "observe": "这是本次 workspace-write 的说明，和 Skills 同在一条 developer 消息里；实际约束由运行时落实",
+      "request": "interactive-1",
+      "section": "section_messages",
+      "needle": "<permissions instructions>"
+    },
+    {
+      "key": "collab",
+      "button": "④ 协作与团队",
+      "hint": "默认模式、子代理怎样用",
+      "observe": "Default 模式和 Skills、权限同在一条消息里；后两条是团队说明与多代理限制",
+      "request": "interactive-1",
+      "section": "section_messages",
+      "needle": "<collaboration_mode>"
+    },
+    {
+      "key": "environment",
+      "button": "⑤ 环境信息",
+      "hint": "当前目录、日期与时区",
+      "observe": "这条消息标为 user，内容由 Codex 加入。项目目录、Shell、日期和时区都在这里；它后面才是我们的问候",
+      "request": "interactive-1",
+      "section": "section_messages",
+      "needle": "<environment_context>"
+    },
+    {
+      "key": "tools",
+      "button": "⑥ 工具定义",
+      "hint": "工具叫什么，怎样调用？",
+      "observe": "工具定义在消息之后的 tools 字段。展开 exec，看工具名字、用法和 exec_command",
+      "request": "interactive-1",
+      "section": "section_tools",
+      "tool": "exec"
+    },
+    {
+      "key": "response",
+      "button": "⑦ 这一次的返回",
+      "hint": "它怎样回答？",
+      "observe": "这次模型直接用文字回答，没有调用工具；一句问候，一次请求就结束了",
+      "request": "interactive-1",
+      "section": "section_response",
+      "needle": "编码助手",
+      "kind": "answer"
+    }
+  ]
+}
