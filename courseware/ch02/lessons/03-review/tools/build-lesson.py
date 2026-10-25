@@ -18,24 +18,28 @@ from tracekit import Evidence, text  # noqa: E402
 lesson = Lesson(__file__, "2.3", "参考一个主页改风格：它看到了什么", summary="从上一节提交的 homepage-v1 开始，参考一个主页改两轮风格。每一轮都回到请求看它拿到了什么：取回来不等于看到了，页面的样子不在 context 里，要靠我们把截图和看法带进去。审过再让 Codex 提交。")
 scene = lesson.scene
 
-# p40b、p40a1、p40d 的观察点和阅读节选在 trace/evidence.json；公开数据见 materials/style/run-20261024-round2
+# p40b、p40a1、p40d 的观察点和阅读节选在 trace/evidence.json；公开数据见 materials/style/run-20261025
 E = Evidence(Path(__file__).resolve().parents[1] / "trace/evidence.json")
-RUN = "2026-10-24 两轮排练：从 homepage-v1 开始，同一个 Codex 会话，Codex CLI 0.163.0、MiniMax-M3.1-Flash"
+RUN = "2026-10-25 排练：从 ch02/2.2-done-20261024 开始，同一个 Codex 会话，Codex CLI 0.163.0、MiniMax-M3.1-Flash"
 
-# 两轮的原话都来自排练记录，构建时核对，不另写一段“更好”的冒充原文
-PROMPT = "我想参考 https://html5up.net/uploads/demos/hyperspace/ 的风格改一下这个个人主页，喜欢它的侧栏导航和大块背景。请用 curl 看看参考页的 HTML 和 CSS，再结合当前代码给个修改计划，先别改。保留我的个人内容，不新增依赖，页面效果我会在浏览器里看。"
-CONFIRM = "按这个计划改吧，页脚注明风格参考 Hyperspace 和 HTML5 UP 的链接。改完运行 build，浏览器我来检查，不要提交。"
-FEEDBACK = "第一张是现在的效果，第二张是参考页。现在背景的小箭头太密、太抢眼了，我更喜欢参考里那种淡淡的、疏一些的细线。帮我把背景往这个感觉调整一下，其他部分先保持。"
+# 三段原话都来自排练记录，构建时核对，不另写一段“更好”的冒充原文
+PROMPT = """Goal：参考 Hyperspace 的风格改我的个人主页，我喜欢它的侧栏导航和大块背景。
+Context：参考页 https://html5up.net/uploads/demos/hyperspace/ 。请用 curl 看它的 HTML 和 CSS（要联网，我来批准），再结合当前代码给个修改计划，等我确认再改。
+Constraints：保留我的个人内容，不改写、不补写；不新增依赖，不引入远程字体和图片。
+Done when：npm run build 通过；页脚注明风格参考的出处；页面效果我在浏览器里看，你不用启动预览服务。"""
+FEEDBACK = "第一张是现在的效果，第二张是参考页。现在首屏背景是一整片平滑的渐变，我更喜欢参考里那种很淡的交叉细线。帮我把首屏背景往这个感觉调整一下，其他部分先保持。"
 TEMPLATE = "第一张是现在，第二张是参考；现在＿＿，我更喜欢参考里＿＿，其他先保持。"
 COMMIT_PROMPT = """我在浏览器里看过了，接受这一轮。先列出 git status 给我看，再提交本轮改动的文件；
 提交说明第一行写 homepage-v2: 参考 Hyperspace 调整主页风格，正文写改了哪些文件。"""
-assert PROMPT == E._source("r1-2", {"message": "我想参考 https://"})
-assert CONFIRM == E._source("r1-13", {"message": "按这个计划改吧"})
-assert FEEDBACK in E._source("r2-2", {"message": "第一张是现在的效果"})
-# p40b1 引用的推理原句：它想看页面，也知道 curl 看不到渲染后的样子
-PEEK = "React renders client-side, so curl only shows root div"
-assert PEEK in text(E._source_item("r1-20", {"response": "reasoning"}))
-
+assert PROMPT == E._source("session-1", {"message": "Goal：参考 Hyperspace"}).strip()
+assert FEEDBACK in E._source("session-27", {"message": "第一张是现在的效果"})
+assert COMMIT_PROMPT in E._source("session-54", {"message": "我在浏览器里看过了"})
+# p40c 画面上的提交过程：它说明 .git 只读、申请提权，以及 git commit 的真实输出
+GIT_NOTE = E._source("session-54", {"message": "沙箱只给了"}).strip()
+COMMIT_OUT = E._source("session-54", {"result": "call_01a171f93029743cb2f51322"}).split("Output:", 1)[1].strip()
+assert "e53f35b" in COMMIT_OUT and "4 files changed" in COMMIT_OUT
+# 首屏背景的同一块区域（右下，文字之外、细线最清楚的地方）
+BG = (1060, 530, 380, 230)
 
 def panel(html, start, end=None):
     """review.js 的镜头：演示模式只显示当前步骤所在的镜头，阅读模式全部显示。"""
@@ -56,9 +60,9 @@ def bar(x, light=True):
 
 def detail(name, label, x, y, w, h, height=190):
     """原图的局部：SVG 视窗放大，不改像素。"""
-    ih = 1473 if name == "before-full.png" else 3291 if name == "round2-full.png" else 800
+    ih = 1473 if name == "before-full.png" else 2607 if name == "round2-full.png" else 800
     return (f'<figure class="review-shot"><figcaption>{label} · 原图局部</figcaption><a href="assets/{name}" target="_blank" rel="noopener">'
-            f'<svg role="img" aria-label="{escape(label)}" viewBox="{x} {y} {w} {h}" style="width:100%;height:{height}px;background:#eee"><image href="assets/{name}" width="1440" height="{ih}"/></svg></a></figure>')
+            f'<svg role="img" aria-label="{escape(label)}" viewBox="{x} {y} {w} {h}" preserveAspectRatio="xMidYMid slice" style="width:100%;height:{height}px;background:#eee"><image href="assets/{name}" width="1440" height="{ih}"/></svg></a></figure>')
 
 
 def reading_panel(html, key, content):
@@ -78,21 +82,39 @@ def request_images(request):
 def feedback_stage():
     html = E.stage("p40d")
     html = reading_panel(html, "feedback",
-                         '<p class="p-ev-source">10-24 排练 · 同一会话贴两张图，再说一句</p>'
+                         '<p class="p-ev-source">10-25 排练 · 同一会话贴两张图，再说一句</p>'
                          + pair(shot("round1.png", "图 1 · 当前效果", 100), shot("reference.png", "图 2 · 参考", 100))
                          + '<blockquote class="review-prompt compact">' + escape(FEEDBACK) + '</blockquote>')
     html = reading_panel(html, "images",
-                         '<p class="p-ev-source">10-24 排练 · 贴图那次请求 · 我们这一条（新的 Prompt）</p>'
-                         + request_images("r2-2") + '<p class="review-evidence-note">后面跟着那句话：' + escape(FEEDBACK[:24]) + '……</p>')
+                         '<p class="p-ev-source">10-25 排练 · 贴图那次请求 · 我们这一条（新的 Prompt）</p>'
+                         + request_images("session-27") + '<p class="review-evidence-note">后面跟着那句话：' + escape(FEEDBACK[:24]) + '……</p>')
     html = reading_panel(html, "still",
-                         '<p class="p-ev-source">10-24 排练 · 第二轮最后一次请求 · 同一条还在</p>'
-                         + request_images("r2-9") + '<p class="review-evidence-note">之后每次请求都带着这两张图和那句话</p>')
-    answer = E._source("r2-9", {"answer": True}).splitlines()[0]
-    return reading_panel(html, "result-answer",
-                         '<p class="p-ev-source">10-24 排练 · 第二轮改完，同一位置</p>'
-                         + pair(detail("round1.png", "反馈前", 350, 180, 1000, 420, 170), detail("round2.png", "反馈后", 350, 180, 1000, 420, 170))
+                         '<p class="p-ev-source">10-25 排练 · 提交那一次请求 · 同一条还在</p>'
+                         + request_images("session-54") + '<p class="review-evidence-note">之后每次请求都带着这两张图和那句话</p>')
+    # 去找原图：先 404，再试出路径，读懂画法；只摘这三处原文，构建时核对
+    first = E._source("session-37", {"call": "call_01a171ec9a2075b3b1b7f8b3"})
+    assert "assets/images/intro.svg" in first
+    miss = E._source("session-37", {"result": "call_01a171eeceb174fcb0eaf035"})
+    assert "<title>File not found</title>" in miss
+    found = E._source("session-37", {"result": "call_01a171f09d5977928b02ea9e"}).split("Output:", 1)[1].strip()
+    how = E._source("session-37", {"message": "原版 `intro.svg` 的做法很简单"}).strip().splitlines()[0]
+    html = reading_panel(html, "texture",
+                         '<p class="p-ev-source">10-25 排练 · 看了图以后，它去找参考的纹理原图</p>'
+                         + '<pre class="p-term review-term">$ curl …/hyperspace/assets/images/intro.svg\n&lt;title&gt;File not found&lt;/title&gt;   ← 404\n\n$ 再试几个路径\n' + escape(found) + '</pre>'
+                         + '<p class="review-evidence-note">它的回答：' + escape(how) + '</p>')
+    ask = E._source_item("session-37", {"call": "call_01a171f1798373869b89094e"})
+    reason = re.search(r'"justification":"([^"]+)"', text(ask)).group(1)
+    assert "--headless=new" in text(ask)
+    reply = E._source("session-37", {"message": "不用截图"}).strip()
+    html = reading_panel(html, "peek",
+                         '<p class="p-ev-source">10-25 排练 · 画完以后，它想自己看看效果</p>'
+                         + '<pre class="p-term review-term">Google Chrome --headless=new --screenshot=… \n批准框：' + escape(reason) + '</pre>'
+                         + '<blockquote class="review-prompt compact">我们：' + escape(reply) + '</blockquote>')
+    answer = E._source("session-54", {"message": "首屏背景已改完"}).strip().splitlines()[0]
+    return reading_panel(html, "round2",
+                         '<p class="p-ev-source">10-25 排练 · 第二轮改完，首屏同一位置</p>'
+                         + pair(detail("round1.png", "反馈前", *BG, 200), detail("round2.png", "反馈后", *BG, 200))
                          + '<p class="review-evidence-note">它的报告：' + escape(answer) + '</p>')
-
 
 HYPERSPACE = ref("Hyperspace · HTML5 UP", "https://html5up.net/uploads/demos/hyperspace/", "参考主页")
 
@@ -145,32 +167,32 @@ scene(
 
 scene(
     id="p40a", segment="提参考", layout="prompt-scene", prompt=PROMPT,
-    label="把参考交给它", title="一段话写清四件事",
-    lead="这次的任务不大，Prompt 写成一段话，四要素都在里面：目标是参考 Hyperspace 改风格、喜欢它的侧栏和大块背景；背景是参考页的网址，点明用 curl 看 HTML 和 CSS，结合当前代码；约束是先给计划别改、保留个人内容、不新增依赖；完成标准里写明页面效果由我们在浏览器里看。新任务用 /clear 或新会话，再 /plan。",
+    label="把参考交给它", title="沿用四要素，把参考交给它",
+    lead="沿用第一章的 Goal、Context、Constraints、Done when：目标是参考 Hyperspace 改风格、说清喜欢它的侧栏和大块背景；背景给出参考页的网址，点明用 curl 看 HTML 和 CSS，结合当前代码先给计划；约束是保留个人内容，不加依赖，不引远程字体和图片；完成标准写清 build 通过、页脚注明出处，页面效果由我们在浏览器里看，它不用启动预览服务。新任务用 /clear 或新会话，再 /plan。",
     html=(
         '<div class="demo-notes"><ol class="p-notes">'
-        '<li data-reveal="0"><span><b>Goal · Context</b><small>参考 Hyperspace 改风格；用 curl 看 HTML 和 CSS，结合当前代码</small></span></li>'
-        '<li class="is-ok" data-reveal="1"><span><b>Constraints</b><small>先给计划别改；保留个人内容，不新增依赖</small></span></li>'
-        '<li class="is-risk" data-reveal="2"><span><b>Done when</b><small>页面效果我们自己在浏览器里看</small></span></li></ol></div>'
+        '<li data-reveal="0"><span><b>Goal · Context</b><small>参考 Hyperspace 改风格；用 curl 看 HTML 和 CSS，先给计划</small></span></li>'
+        '<li class="is-ok" data-reveal="1"><span><b>Constraints</b><small>保留个人内容；不加依赖，不引远程资源</small></span></li>'
+        '<li class="is-risk" data-reveal="2"><span><b>Done when</b><small>build 通过、页脚出处；页面我们自己在浏览器里看</small></span></li></ol></div>'
     ),
     steps=["目标与背景", "约束", "完成标准"],
-    teaching=teach(("讲师提示", "点明用 curl：不点明时它可能用网页搜索，在这套配置下只拿到首屏摘要（2026-10-22 实测）。Prompt 是 10-24 排练的原文，没有为课件改写。")),
+    teaching=teach(("讲师提示", "点明用 curl：不点明时它可能用网页搜索，在这套配置下只拿到首屏摘要（2026-10-22 实测）。Prompt 是 10-25 排练的原文。")),
 )
 
 scene(
     id="p40b", segment="它拿到了什么",
     label="它拿到了什么", title="取回来，不等于看到了",
-    lead="我们给的是网址，它拿到的是什么？回看排练的记录：curl 在沙箱里联网失败，它申请到沙箱外，把 HTML 和 CSS 存进 /tmp 下的文件；进入请求的工具返回只有两个文件的大小。接着它用 sed 看 HTML 的前 140 行，CSS 有六万多字节，它用 grep、sed 一段一段挑着读。它说“看过了”，深紫侧栏、18em 宽，这些判断能在它读到的 CSS 片段里找到，但那是代码片段，不是渲染出来的页面。左侧按钮切换观察点，阅读视图展示原文节选。",
+    lead="我们给的是网址，它拿到的是什么？回看排练的记录：它申请到沙箱外联网，用 curl 把 HTML 和 CSS 存进 /tmp 下的文件；进入请求的工具返回只有两个文件的行数，HTML 208 行，CSS 3908 行。接着它把 HTML 整份打出来，CSS 先看开头 240 行，再按行号一段一段挑着读。它说“看过了”：18em 宽的深紫侧栏、几种色块，这些判断能在它读到的 CSS 片段里找到，但那是代码片段，不是渲染出来的页面。左侧按钮切换观察点，阅读视图展示原文节选。",
     html=E.stage("p40b"),
     steps=["取回来", "工具返回", "挑着读", "它说看过了"],
     refs=[ref("Effective context engineering · Context retrieval and agentic search", "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents", "Anthropic，2025-09-29")],
-    teaching=teach(("核对记录", RUN + "。公开数据见 materials/style/run-20261024-round2，只导出课件用到的记录；存进文件、挑着读，在 10-24 的四次排练里都出现过。")),
+    teaching=teach(("核对记录", RUN + "。公开数据见 materials/style/run-20261025，只导出课件用到的记录；存进文件、挑着读，在 10-24、10-25 的五次排练里都出现过。")),
 )
 
 scene(
     id="p40a1", segment="它拿到了什么",
     label="答案和计划去了哪", title="我们的答案和它的计划，去了哪？",
-    lead="读完参考，它问了两组偏好：配色、侧栏形态、背景纹理，再问字体和区块排版，排练时都选了推荐项。我们选的答案，是那个提问工具的返回，在请求的“工具返回”这一块；它写的计划是它自己的回答，下一次请求里就到了“对话历史”。之后每次请求都带着这两样，它改的时候照着。计划只动页面文件、不加依赖，就确认实施，再补一句：页脚注明出处，改完运行 build，浏览器我来检查，不要提交。",
+    lead="读完参考，它问了两组偏好，排练时都选了推荐项，其中一题是首屏背景：参考用一张线稿图，我们不让引远程图片，就选了“CSS 渐变代替”。我们选的答案，是那个提问工具的返回，在请求的“工具返回”这一块；它写的计划是它自己的回答，下一次请求里就到了“对话历史”，计划里那一句“首屏：CSS 渐变（替代原版 intro.svg）”也在里面。之后每次请求都带着这些，它改的时候照着。计划只动页面文件、不加依赖，就选 Yes, implement this plan。",
     html=E.stage("p40a1"),
     steps=["我们的答案", "它的计划", "之后还在"],
     teaching=teach(("核对记录", RUN + "；交互题和计划每次排练都不一样，题目内容只作例子。")),
@@ -179,65 +201,65 @@ scene(
 scene(
     id="p40b1", segment="看效果再反馈",
     label="第一轮改完", title="第一轮改完，哪里和想的不一样？",
-    lead="第一轮改完，build 通过。在浏览器里和参考并排看同样宽度的首屏：侧栏、大块配色都做出来了，滚到工作经历，导航也会提示当前位置。不一样的地方，排练这次是背景：一片密集的小箭头铺在文字后面，参考是淡淡的、疏一些的细线。这个差别我们一眼就看到了，它看不到：渲染出来的页面不在 context 里。它自己也想看，实施完起了预览服务，推理里写着 React 在浏览器里渲染、curl 只拿得到一个空的 root。",
+    lead="第一轮改完，build 通过。在浏览器里和参考并排看同样宽度的首屏：侧栏、色块、导航下划线都做出来了，滚到工作经历，导航也会提示当前位置。不一样的地方，排练这次是首屏背景：我们这边是一整片平滑的渐变，参考上有很淡的交叉细线。这是我们自己在交互题里选的，看计划时这一句并不显眼，看到页面才知道少了什么。这个差别我们一眼就看到了，它看不到：渲染出来的页面不在 context 里，build 通过也回答不了像不像。",
     html=(
         panel(pair(shot("round1.png", "第一轮：当前效果", 290), shot("reference.png", "参考", 290)), 0)
         + panel(shot("round1-experience.png", "滚到工作经历：导航已经提示当前位置", 330), 1)
-        + panel(pair(detail("round1.png", "当前：密集小箭头", 350, 180, 1000, 420, 250), detail("reference.png", "参考：淡淡的细线", 350, 180, 1000, 420, 250)), 2)
-        + panel(pair(detail("round1.png", "当前：密集小箭头", 350, 180, 1000, 420, 170), detail("reference.png", "参考：淡淡的细线", 350, 180, 1000, 420, 170))
-                + bar("我们一眼看到的差别，它看不到：<b>页面的样子不在 context 里</b>", light=False)
-                + '<pre class="p-term review-term">它的推理（排练这次）：… ' + escape(PEEK) + ' …</pre>', 3)
+        + panel(pair(detail("round1.png", "当前：平滑渐变", *BG, 260), detail("reference.png", "参考：很淡的交叉细线", *BG, 260)), 2)
+        + panel(pair(detail("round1.png", "当前：平滑渐变", *BG, 200), detail("reference.png", "参考：很淡的交叉细线", *BG, 200))
+                + bar("我们一眼看到的差别，它看不到：<b>页面的样子不在 context 里</b>", light=False), 3)
     ),
     refs=[HYPERSPACE],
     steps=["并排看", "做到了的", "哪里不一样", "它看不到"],
     teaching=teach(
-        ("讲师提示", "当天第一轮不一样的地方很可能不是背景，按现场讲：它做到了什么、哪里和想的不一样。排练这次的箭头来自参考 CSS 里下拉框的图标，它读到了代码，却把它当成整页纹理，计划里就写了；可以一句带过，不展开 CSS。"),
-        ("核对记录", RUN + "；截图是 Chromium 1440×800。起服务、想截图在四次排练里都出现过：它在沙箱里后台起服务不弹框，要用无头 Chrome 截图时弹出批准框就拒绝。"),
+        ("讲师提示", "当天第一轮不一样的地方很可能不同，按现场讲：它做到了什么、哪里和想的不一样。10-24 那次排练是背景铺满了密集小箭头（它把参考 CSS 里下拉框的图标当成了纹理），可以作为另一个例子一句带过。"),
+        ("核对记录", RUN + "；截图是 Chromium 1440×800、reduced motion。这一次第一轮按 Done when 没有起预览服务。"),
     ),
 )
 
 scene(
     id="p40d", segment="看效果再反馈",
     label="把看到的带进去", title="把看到的样子，带进请求",
-    lead="继续同一个会话，截两张首屏：先贴现在的效果，再贴参考，然后说一句哪里不满意、想要什么样。图给出我们看到的页面，话说出这次的偏好；换成自己的，可以照这个样子填空：“" + TEMPLATE + "”回看请求：这一条是新的 Prompt，里面是两项图片和这句话；第二轮最后一次请求里，两张图还在，之后每次请求都带着。改完回浏览器看同一位置：细线淡了、疏了，其他部分没动。它看见了我们贴的图，自己做出来的页面它仍然看不见；要让它自己截图看页面，得专门把浏览器接进它的运行环境，后面的章节再做。",
+    lead="继续同一个会话，截两张首屏：先贴现在的效果，再贴参考，然后说一句哪里不满意、想要什么样。图给出我们看到的页面，话说出这次的偏好；换成自己的，可以照这个样子填空：“" + TEMPLATE + "”回看请求：这一条是新的 Prompt，里面是两项图片和这句话。看了图，它去找参考的纹理原图，先按页面目录取到 404，再试出正确路径，读懂原版的画法后自己画了一份。它也想看看自己画得怎样，要用无头 Chrome 截图，被我们拒绝：它看见了我们贴的图，自己做出来的页面它仍然看不见。到提交那次请求，两张图还在，之后每次请求都带着。改完回浏览器看同一位置：首屏多了淡淡的交叉细线，其他部分没动。要让它自己截图看页面，得专门把浏览器接进它的运行环境，后面的章节再做。",
     html=feedback_stage(),
-    steps=["贴图和反馈", "请求里的图", "后面还带着", "第二轮结果"],
+    steps=["贴图和反馈", "请求里的图", "去找原图", "它想自己看", "后面还带着", "第二轮结果"],
     refs=[
         ref("Codex 文档 · Image inputs", "https://learn.chatgpt.com/docs/image-inputs?surface=cli#write-the-prompt-around-the-image", "OpenAI，访问于 2026-10-24"),
         ref("Harness engineering", "https://openai.com/index/harness-engineering/", "OpenAI，2026-02-11"),
     ],
     teaching=teach(
-        ("讲师提示", "贴图：把图片文件拖进终端，或复制后在 Codex 里 Ctrl+V，输入框出现 [Image #1]、[Image #2]，再写那句话。贴自己的页面，是因为它看不见自己做出来的页面；参考那张让它知道想要什么样。"),
-        ("核对记录", RUN + "；贴图那次请求的两项 input_image 与 assets/round1.png、assets/reference.png 逐字节相同，构建时核对。不把一次结果说成图片单独起了多大作用。"),
+        ("讲师提示", "贴图：把图片文件拖进终端，或复制后在 Codex 里 Ctrl+V，输入框出现 [Image #1]、[Image #2]，再写那句话。它要截图时弹出批准框，选 No 并说“不用截图，页面我自己在浏览器里看”。先 404 再找到纹理原图，10-24 定稿那次排练也出现过。"),
+        ("核对记录", RUN + "；贴图那次请求的两项 input_image 与 assets/round1.png、assets/reference.png 逐字节相同，构建时核对。新画的 SVG 是它自己写的 13 条线，没有复制原文件。不把一次结果说成图片单独起了多大作用。"),
     ),
 )
 
 scene(
     id="p40e", segment="接受并保存",
     label="两轮下来", title="同一份内容，两个样子",
-    lead="两轮下来的结果：左边是上一节提交的 homepage-v1，右边是参考 Hyperspace 改了两轮的样子。个人信息一字没改，样子完全换了：侧栏导航、大块背景、淡淡的细线。像不像、好不好看，由我们自己判断。",
+    lead="两轮下来的结果：左边是上一节提交的 homepage-v1，右边是参考 Hyperspace 改了两轮的样子。个人信息一字没改，样子完全换了：侧栏导航、大块色块、首屏淡淡的交叉细线。像不像、好不好看，由我们自己判断。",
     html=pair(shot("before-full.png", "homepage-v1 · 上一节", 380), shot("round2-full.png", "两轮之后 · 这一节", 380)),
     steps=["两个样子"],
-    teaching=teach(("核对记录", RUN + "；整页截图 Chromium 1440 宽。")),
+    teaching=teach(("核对记录", RUN + "；整页截图 Chromium 1440 宽、reduced motion。")),
 )
 
 scene(
     id="p40c", segment="接受并保存",
     label="要不要接受", title="风格改得对吗，要不要接受",
-    lead="diff 很大，不逐行读。像不像，只有我们在浏览器里看得出来：从上滚到下和参考并排看，再缩到手机宽度看一眼。再看它新加了什么：排练这次是一段滚动高亮的脚本，计划里写了；背景纹理是内联的 SVG，没有引远程资源；页脚写了参考出处。满意就让 Codex 提交，批准框里看清是哪几个文件、提交说明写了什么；不满意，还没提交的改动让它 git restore 放弃，回到 homepage-v1。官方文档推荐的 UI 迭代也是这样：小步改，在浏览器里看，喜欢的提交，不喜欢的回退。",
+    lead="diff 很大，不逐行读。像不像，只有我们在浏览器里看得出来：从上滚到下和参考并排看，再缩到手机宽度看一眼。再看它新加了什么：排练这次是一段滚动高亮的脚本、首屏淡入的动画、一个本地 SVG 素材，页脚写了参考出处；范围也对，只动页面文件，个人内容没变，没加依赖。满意就让 Codex 提交：它先列 git status，.git 在沙箱里只读，git add、git commit 都弹出批准框，看清是哪几个文件、提交说明写了什么再确认。不满意，还没提交的改动让它 git restore 放弃，回到 homepage-v1。官方文档推荐的 UI 迭代也是这样：小步改，在浏览器里看，喜欢的提交，不喜欢的回退。",
     html=(
-        panel(pair(detail("round2-full.png", "页脚：参考出处", 400, 3210, 520, 80, 130), shot("round2-mobile.png", "手机宽度的首屏", 300)), 0)
-        + panel('<div class="p-claim"><div class="p-box" data-role="agent"><span class="p-tag" data-role="agent">Codex 说</span><p class="p-big" style="font-weight:500">“背景纹理换掉了，其他部分没动”</p></div>'
+        panel(pair(detail("round2-full.png", "页脚：参考出处", 340, 2500, 620, 90, 130), shot("round2-mobile.png", "手机宽度的首屏", 300)), 0)
+        + panel('<div class="p-claim"><div class="p-box" data-role="agent"><span class="p-tag" data-role="agent">Codex 说</span><p class="p-big" style="font-weight:500">“首屏背景已改完，构建通过”</p></div>'
                 '<ul class="p-checks">'
                 '<li class="is-no">像不像参考<small>diff 里看不出来，由我们在浏览器里看</small></li>'
-                '<li>新加了什么<small>排练这次：滚动高亮的脚本、内联 SVG 背景、页脚出处</small></li>'
+                '<li>新加了什么<small>排练这次：滚动高亮脚本、首屏淡入、本地 SVG、页脚出处</small></li>'
                 '<li>范围对不对<small>只动页面文件，个人内容没变，没加依赖</small></li></ul></div>', 1)
         + panel('<pre class="p-term review-term">' + escape(COMMIT_PROMPT) + '</pre>' + bar("接受：让 Codex 提交，<b>批准框里看清文件和提交说明</b> · 不满意：git restore 回到 homepage-v1"), 2)
+        + panel('<pre class="p-term review-term">' + escape(GIT_NOTE) + '\n\n' + escape(COMMIT_OUT) + '</pre>' + bar("排练这次：两次批准后提交，作者是本机的 git 身份"), 3)
     ),
     refs=[ref("Codex 文档 · Iterate on UI with live updates", "https://learn.chatgpt.com/docs/prompting#iterate-on-ui-with-live-updates", "OpenAI，访问于 2026-10-24")],
-    steps=["像不像", "新加了什么", "提交或放弃"],
+    steps=["像不像", "新加了什么", "提交或放弃", "提交结果"],
     teaching=teach(
-        ("讲师提示", "提交在现场做：粘贴提交 Prompt，批准框里核对后确认，和 2.2 结尾提交 homepage-v1 一样。排练这次的接受提交由备课方完成（188f1ad，只含 App.tsx 与 index.css），不是 Codex 执行的，画面不放它的输出。"),
+        ("核对记录", RUN + "；提交是 e53f35b（4 个文件），快照分支 ch02/2.3-done-20261025 就是这次提交，2.4 从它起跑。"),
         ("跟做产出", "至少一轮风格改动，审过后让 Codex 提交，或用 git restore 放弃。"),
     ),
 )
