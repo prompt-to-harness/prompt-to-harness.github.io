@@ -8,7 +8,7 @@ import tomllib
 import unittest
 from unittest.mock import patch
 
-from agent_lab.codex import dashboard_port, prepare_environment, LEGACY_MARKER, MODEL
+from agent_lab.codex import dashboard_port, prepare_environment, resolve_home, LEGACY_MARKER, MODEL
 from agent_lab.cli import main, parse_args
 
 
@@ -123,16 +123,35 @@ class IsolationTests(unittest.TestCase):
         self.assertEqual(home, self.real / "lab/codex")
         self.assertTrue((home / ".agent-lab-home").exists())
 
-    def test_legacy_sessions_are_preserved(self):
+    def test_each_project_gets_its_own_home_outside_it(self):
+        first, second = self.real / "work/rec-1/personal-homepage", self.real / "work/rec-2/personal-homepage"
+        first.mkdir(parents=True)
+        second.mkdir(parents=True)
+        _, home = prepare_environment(self.parent, first)
+        _, again = prepare_environment(self.parent, first)
+        _, other = prepare_environment(self.parent, second)
+        self.assertEqual(home, again)
+        self.assertNotEqual(home, other)
+        self.assertEqual(home.parent.parent, self.real / ".local/share/agent-lab/projects")
+        self.assertTrue(home.parent.name.startswith("personal-homepage-"))
+        for project in (first, second):
+            self.assertFalse(home.is_relative_to(project))
+            self.assertEqual(list(project.iterdir()), [])
+        self.assertEqual(resolve_home(self.parent, first), home)
+
+    def test_legacy_shared_home_is_kept_but_not_adopted(self):
         legacy = self.real / ".local/share/prompt-to-harness/course-codex"
         legacy.mkdir(parents=True)
         (legacy / ".course-codex-home").write_text(LEGACY_MARKER)
         sessions = legacy / ".codex/sessions"
         sessions.mkdir(parents=True)
         (sessions / "sentinel").write_text("old history")
-        _, home = prepare_environment(self.parent)
-        self.assertEqual(home, legacy)
+        _, home = prepare_environment(self.parent, self.real / "project")
+        self.assertNotEqual(home, legacy)
         self.assertEqual((sessions / "sentinel").read_text(), "old history")
+        self.parent["COURSE_CODEX_HOME"] = str(legacy)
+        _, reused = prepare_environment(self.parent, self.real / "project")
+        self.assertEqual(reused, legacy)
 
     def test_conflicting_home_variables_are_rejected(self):
         self.parent.update(AGENT_LAB_HOME=str(self.real / "new"), COURSE_CODEX_HOME=str(self.real / "old"))
@@ -149,6 +168,19 @@ class ArgumentTests(unittest.TestCase):
                 b'{"ok":true,"db_path":"/other/traces.sqlite3","version":"0.1.146"}')
             with self.assertRaisesRegex(ValueError, "不关闭现有服务"):
                 dashboard_port(Path("/course"))
+
+    def test_home_command_prints_without_creating(self):
+        with tempfile.TemporaryDirectory() as temp:
+            real = Path(temp).resolve()
+            out = io.StringIO()
+            with patch.dict(os.environ, {"HOME": str(real)}, clear=False), patch(
+                    "sys.argv", ["agent-lab", "home", str(real / "proj")]), contextlib.redirect_stdout(out):
+                os.environ.pop("AGENT_LAB_HOME", None)
+                os.environ.pop("COURSE_CODEX_HOME", None)
+                self.assertEqual(main(), 0)
+            printed = Path(out.getvalue().strip())
+            self.assertEqual(printed.parent.parent, real / ".local/share/agent-lab/projects")
+            self.assertFalse((real / ".local").exists())
 
     def test_tap_and_resume(self):
         self.assertEqual(parse_args(["codex", "--tap", "--", "resume", "--last"]),
