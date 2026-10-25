@@ -10,7 +10,7 @@ def codex_agent_loop():
     items = [
         # 左：循环
         ('text', 0, 26, '一句话，几次请求', {**h, 'reveal': 0}),
-        ('box', 40, 50, 220, 46, {'stroke': RISK, 'fill': SOFT_RISK, 'label': '你的一句 Prompt', 'label_size': 18, 'reveal': 0}),
+        ('box', 40, 50, 220, 46, {'stroke': RISK, 'fill': SOFT_RISK, 'label': '我们的一句 Prompt', 'label_size': 18, 'reveal': 0}),
         ('arrow', 150, 98, 150, 132, {'reveal': 0}),
         ('box', 40, 136, 220, 46, {'stroke': AGENT, 'fill': '#E4E1FA', 'label': '模型', 'label_size': 18, 'reveal': 0}),
         ('arrow', 150, 184, 150, 218, {'reveal': 0}),
