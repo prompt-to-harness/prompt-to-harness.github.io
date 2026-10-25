@@ -6,14 +6,9 @@ in its script.json (the single source); a save rewrites that file and rebuilds l
 through courseware/tools/rebuild-lesson.py. A lesson's opening (lesson.js `intro`, hand-written
 lessons only) is not tied to any page, so its edits go straight into lesson.js. The published site is static, so the
 edit endpoint does not exist there and the pages stay read-only.
-
-`--lan` also listens on the local network (a Pad can read the narration pages). Only
-courseware/ and starters/ are served to other machines, read-only: the repository root
-holds private and unpublished material, and editing / ping answer loopback clients only.
 """
 import argparse
 import json
-import socket
 import subprocess
 import sys
 import threading
@@ -30,8 +25,6 @@ EDIT_PATH = '/__script/edit'
 PING_PATH = '/__script/ping'
 LESSON_PREFIX = 'window.lesson = '  # 与 rebuild-lesson.py 写出的格式一致
 LOCAL_HOSTS = {'127.0.0.1', 'localhost'}
-LOOPBACK_CLIENTS = {'127.0.0.1', '::1', '::ffff:127.0.0.1'}
-REMOTE_ROOTS = (COURSEWARE.resolve(), (ROOT / 'starters').resolve())  # 其他机器只能读这两个目录
 EDIT_LOCK = threading.Lock()
 
 
@@ -119,34 +112,15 @@ class Handler(SimpleHTTPRequestHandler):
         self.send_header('Cache-Control', 'no-store')
         super().end_headers()
 
-    def loopback_client(self):
-        return self.client_address[0] in LOOPBACK_CLIENTS
-
-    def remote_readable(self):
-        # translate_path 已经去掉 .. 和查询串；resolve 再挡住符号链接跳出白名单
-        target = Path(self.translate_path(self.path)).resolve()
-        return any(target == root or root in target.parents for root in REMOTE_ROOTS)
-
     def do_GET(self):
         if self.path == PING_PATH:
-            # 只有本机能编辑；别的机器 ping 不通，逐字稿页就保持只读
-            if not self.loopback_client():
-                return self.send_error(HTTPStatus.NOT_FOUND)
             return self.send_json(HTTPStatus.OK, {'ok': True})
-        if not self.loopback_client() and not self.remote_readable():
-            return self.send_error(HTTPStatus.NOT_FOUND)
         super().do_GET()
 
-    def do_HEAD(self):
-        if not self.loopback_client() and not self.remote_readable():
-            return self.send_error(HTTPStatus.NOT_FOUND)
-        super().do_HEAD()
-
     def local_request(self):
-        # 只接受本机页面发来的 JSON：Origin 挡住别的网站借浏览器发写请求，
-        # 客户端地址挡住局域网里伪造 Origin 的直接请求（--lan 时必需）
+        # 只接受本机页面发来的 JSON：挡住别的网站借浏览器向 127.0.0.1 发写请求
         origin = urlsplit(self.headers.get('Origin', '')).hostname
-        return self.loopback_client() and origin in LOCAL_HOSTS and self.headers.get('Content-Type', '').startswith('application/json')
+        return origin in LOCAL_HOSTS and self.headers.get('Content-Type', '').startswith('application/json')
 
     def do_POST(self):
         if self.path != EDIT_PATH:
@@ -166,32 +140,14 @@ class Handler(SimpleHTTPRequestHandler):
         self.send_json(HTTPStatus.OK, result)
 
 
-def lan_address():
-    # 连一个外网地址只是让系统选出默认出口网卡，UDP 不会真的发包
-    with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as probe:
-        try:
-            probe.connect(('192.0.2.1', 9))
-            return probe.getsockname()[0]
-        except OSError:
-            return None
-
-
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--port', type=int, default=8841)
-    parser.add_argument('--lan', action='store_true', help='also listen on the local network (read-only courseware/ and starters/)')
     args = parser.parse_args()
     handler = partial(Handler, directory=str(ROOT))
-    with ThreadingHTTPServer(('0.0.0.0' if args.lan else '127.0.0.1', args.port), handler) as server:
-        port = server.server_port
-        print(f'Courseware: http://127.0.0.1:{port}/courseware/', flush=True)
+    with ThreadingHTTPServer(('127.0.0.1', args.port), handler) as server:
+        print(f'Courseware: http://127.0.0.1:{server.server_port}/courseware/', flush=True)
         print('逐字稿页（speaker.html）可直接改句子，保存后写回 script.json 并重建。', flush=True)
-        if args.lan:
-            ip = lan_address()
-            print('局域网只读（只开放 courseware/ 与 starters/，编辑只限本机 127.0.0.1 打开的页面）：', flush=True)
-            if ip:
-                print(f'  Pad 打开 http://{ip}:{port}/courseware/', flush=True)
-            print(f'  或     http://{socket.gethostname()}:{port}/courseware/', flush=True)
         try:
             server.serve_forever()
         except KeyboardInterrupt:
