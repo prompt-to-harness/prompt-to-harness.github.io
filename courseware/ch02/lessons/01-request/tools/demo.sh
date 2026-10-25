@@ -74,9 +74,10 @@ check_codex() {
     [ -z "${COURSE_CODEX_HOME:-}" ] || fail '请先取消旧 COURSE_CODEX_HOME，避免与专用 AGENT_LAB_HOME 冲突'
     [ "$(codex --version)" = 'codex-cli 0.163.0' ] || fail '本实验冻结 Codex CLI 0.163.0；当前版本不同，需重新核验请求'
 }
-# 正式录制：每次用新的项目目录和新的专用 HOME；未显式指定时按标签（默认当天日期）生成。
+# 正式录制：每次用新的项目目录和新的专用 HOME；未显式指定时按标签（默认当前日期加时分）生成。
+# 精确到分钟而不是小时：一小时内重录（上一条录坏了马上再来）是最常见的情形，按小时仍会撞名。
 record() {
-    tag=${1:-$(date +%Y%m%d)}
+    tag=${1:-$(date +%Y%m%d-%H%M)}
     case $tag in *[!A-Za-z0-9._-]*|'') fail "标签只能含字母、数字、点、下划线、连字符：$tag" ;; esac
     demo_root=${CH02_DEMO_ROOT:-"$HOME/course-demos/rec-$tag"}
     project="$demo_root/personal-homepage"
@@ -96,7 +97,7 @@ record() {
     printf '进入 Codex 后，发问候之前先输入：/rename ch02-%s（确认名字已显示，否则记录里会多出起标题的请求）\n' "$tag"
     narration_hint
 }
-# 手机照稿：课程仓库里的 edit-courseware.sh --lan 只读开放逐字稿页；脱离仓库使用本脚本时跳过。
+# 手机照稿：课程仓库里的 edit-courseware.sh（默认局域网只读开放逐字稿页）；脱离仓库使用本脚本时跳过。
 narration_hint() {
     repo=$(CDPATH= cd "$(dirname "$self")/../../../../.." 2>/dev/null && pwd) || return 0
     [ -f "$repo/tools/edit-courseware.sh" ] || return 0
@@ -106,7 +107,7 @@ narration_hint() {
         "$(python3 -c 'import socket;s=socket.socket(socket.AF_INET,socket.SOCK_DGRAM);s.connect(("192.0.2.1",9));print(s.getsockname()[0])' 2>/dev/null || true)"; do
         case $cand in 10.*|192.168.*|172.1[6-9].*|172.2[0-9].*|172.3[01].*) ip=$cand; break ;; esac
     done
-    printf '\n手机照稿（手机和电脑连同一个 Wi-Fi）：\n  在一个单独的终端标签页启动只读局域网服务：sh %s/tools/edit-courseware.sh --lan\n' "$repo"
+    printf '\n手机照稿（手机和电脑连同一个 Wi-Fi）：\n  在一个单独的终端标签页启动服务（默认对局域网只读开放）：sh %s/tools/edit-courseware.sh\n' "$repo"
     if [ -n "$ip" ]; then
         printf '  手机打开：http://%s:8841/courseware/ch02/lessons/01-request/speaker.html\n' "$ip"
     else
@@ -135,7 +136,7 @@ case ${1:-help} in
         ;;
     *)
         printf '%s\n' '用法：sh demo.sh prepare|record [标签]|audit|homepage|codex' \
-            'record：正式录制前用，新建 $HOME/course-demos/rec-<标签>（默认当天日期）和同名新专用环境，并检查 Codex、Key、Node；已存在则拒绝；结尾会打印手机照稿的启动命令和局域网地址' \
+            'record：正式录制前用，新建 $HOME/course-demos/rec-<标签>（标签默认是当前日期加时分，如 20261025-1432）和同名新专用环境，并检查 Codex、Key、Node；已存在则拒绝；结尾会打印手机照稿的启动命令和局域网地址' \
             '默认项目：$HOME/course-demos/personal-homepage；可用 CH02_DEMO_ROOT 修改父目录' \
             '默认环境：$HOME/.local/share/agent-lab-ch02-recording；可用 AGENT_LAB_HOME 修改' \
             '从某节的快照起跑：CH02_START=ch02/2.2-done-20261024（三个子命令都要带上）；快照未推送前可用 CH02_SOURCE_URL 指向本机仓库' \
