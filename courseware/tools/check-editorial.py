@@ -42,8 +42,11 @@ def source_hints(scene):
 screen_files = [p for p in courseware.rglob('*') if p.name in ('index.html', 'lesson.js') and 'archive' not in p.parts]
 element_period = re.compile(r'>([^<>。]*)。</')
 field_period = re.compile(r'"(?:title|label|kicker)":\s*"([^"。]*)。"')
+# .p-evidence 阅读视图里的是请求记录原文（由 tracekit 或本节脚本从记录生成），引用不改写，不按屏幕文字检查
+reading_section = re.compile(r'<section data-ev-reading=\\"[^"\\]*\\"[^>]*>.*?</section>', re.S)
 for path in sorted(screen_files):
     text = path.read_text()
+    text = reading_section.sub(lambda m: '\n' * m[0].count('\n'), text)
     for pattern in (element_period, field_period):
         for m in pattern.finditer(text):
             line = text.count('\n', 0, m.start()) + 1
@@ -86,6 +89,8 @@ if result.returncode:
 
 # ED-013: every step opens with one 【操作提示｜…】 for the recording lecturer, then spoken narration
 stage = re.compile(r'【操作提示｜[^\n]+】')
+# 口播中途切窗口另起一段【切换｜目标】，不念；只占一行，后面不接口播
+cue = re.compile(r'【切换｜[^】\n]+】')
 for path in sorted(courseware.glob('**/script.json')):
     if 'archive' in path.parts:
         continue
@@ -94,8 +99,11 @@ for path in sorted(courseware.glob('**/script.json')):
             parts = step.split('\n\n')
             if not stage.fullmatch(parts[0]):
                 errors.append(f'ED-013 {path.relative_to(repo)} {scene_id} 第 {i} 步没有以【操作提示｜…】开头')
-            elif not any(part.strip() and not stage.fullmatch(part) for part in parts[1:]):
+            elif not any(part.strip() and not stage.fullmatch(part) and not part.startswith('【切换｜') for part in parts[1:]):
                 errors.append(f'ED-013 {path.relative_to(repo)} {scene_id} 第 {i} 步只有操作提示，没有口播正文')
+            for part in parts:
+                if part.startswith('【切换｜') and not cue.fullmatch(part):
+                    errors.append(f'ED-013 {path.relative_to(repo)} {scene_id} 第 {i} 步的【切换｜…】要单独成段、只写切到哪里')
 
 # ED-013: 一页只定一种演示形态，操作提示里不留“现场演示时……”这类两可分支（提示，不报错）
 undecided = re.compile(r'现场演示时|如改为现场|若想换成现场|若改为现场')
@@ -150,7 +158,7 @@ for path in current:
 for log in sorted(courseware.glob('ch*/LOG.md')):
     chapter = log.parent
     readme = (chapter / 'README.md').read_text()
-    # 分镜先行：只在分镜里、还没做成页面的 id，在章文件“待定”里登记过就放行
+    # 分镜先行：只在分镜里、还没做成页面的 id，或分镜已撤、页面还没删的 id，在章文件“待定”里登记过就放行
     pending = readme.split('\n## 待定', 1)[1] if '\n## 待定' in readme else ''
     titles = {m.group(1): m.group(2) for m in
               re.finditer(r'^\| (\d+\.\d+) (.+?)（\d+ 分钟）', readme, re.M)}
@@ -170,24 +178,42 @@ for log in sorted(courseware.glob('ch*/LOG.md')):
             errors.append(f'ED-017 {number} 节标题不一致：' + '；'.join(f'{k}“{v}”' for k, v in names.items()))
         page_ids = {s['id'] for s in lesson['scenes']}
         board_ids = set(re.findall(r'^\| (p\d[\w-]*) \|', board.read_text(), re.M))
-        undesigned = sorted(page_ids - board_ids)
+        undesigned = sorted(i for i in page_ids - board_ids if not re.search(rf'\b{re.escape(i)}\b', pending))
         unbuilt = sorted(i for i in board_ids - page_ids if not re.search(rf'\b{re.escape(i)}\b', pending))
         if undesigned:
             errors.append(f'ED-017 {where} 缺这些页面的分镜行：{undesigned}')
         if unbuilt:
             errors.append(f'ED-017 {where} 分镜里有、页面还没有，也没在章文件“待定”登记：{unbuilt}')
-        first_h2 = next((n for n, l in enumerate(lines) if l.startswith('## ')), len(lines))
-        if first_h2 >= len(lines) or lines[first_h2] != '## 素材状态' or sum(1 for l in lines[1:first_h2] if l.strip()) > 1:
-            errors.append(f'ED-017 {where} 开头只放一段导航，第一个二级标题应是“素材状态”（节概述和变更说明不写在分镜里）')
+        h2 = [(n, l[3:]) for n, l in enumerate(lines) if l.startswith('## ')]
+        first_h2 = h2[0][0] if h2 else len(lines)
+        if sum(1 for l in lines[1:first_h2] if l.strip()) > 1:
+            errors.append(f'ED-017 {where} 一级标题后、首个分区前只放一段导航')
+        headings = [title for _, title in h2]
+        sectioned = ['本节内容', '逐页安排', '素材状态与操作备注']
+        if any(title in sectioned for title in headings):
+            if headings != sectioned:
+                errors.append(f'ED-017 {where} 分区结构应依次为：本节内容、逐页安排、素材状态与操作备注；区内小标题用三级标题')
+            else:
+                for index, (line, title) in enumerate(h2):
+                    end = h2[index + 1][0] if index + 1 < len(h2) else len(lines)
+                    if not any(item.strip() for item in lines[line + 1:end]):
+                        errors.append(f'ED-017 {where} “{title}”分区为空')
+                # Page rows belong to presentation design, not the narrative or material notes.
+                for n, line in enumerate(lines):
+                    if re.match(r'^\| p\d[\w-]* \|', line) and not h2[1][0] < n < h2[2][0]:
+                        errors.append(f'ED-017 {where} 页面分镜行应放在“逐页安排”分区：{line.split("|")[1].strip()}')
+        elif not headings or headings[0] != '素材状态':
+            errors.append(f'ED-017 {where} 旧结构首个二级标题应是“素材状态”；分区结构应以“本节内容”开始')
+
 
 # ED-007 / ED-010: filler phrases are a prompt to ask "does this add information", not a ban
 fillers = ['这样做是为了', '这里练习的就是', '大家看', '对吧', '其实']
-# 只数口播正文；【操作提示｜…】不念，不计入
+# 只数口播正文；【操作提示｜…】【切换｜…】不念，不计入
 for path in sorted(courseware.rglob('script.json')):
     if 'archive' in path.parts:
         continue
     text = '\n'.join(part for steps in json.loads(path.read_text()).values() for step in steps
-                     for part in step.split('\n\n') if not part.startswith('【操作提示｜'))
+                     for part in step.split('\n\n') if not part.startswith(('【操作提示｜', '【切换｜')))
     counts = {w: text.count(w) for w in fillers if text.count(w)}
     if counts:
         hints.append(f'ED-007/010 {path.relative_to(repo)} ' + '、'.join(f'{w}×{n}' for w, n in counts.items()))

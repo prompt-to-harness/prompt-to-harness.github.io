@@ -273,17 +273,32 @@ wheels = [
 
 [[package]]
 name = "claude-tap"
-version = "0.1.146"
-source = { registry = "https://pypi.org/simple" }
+version = "0.1.146+pr475"
+source = { url = "https://github.com/MiaoDX-fork-and-pruning/claude-tap/releases/download/v0.1.146-pr475/claude_tap-0.1.146+pr475-py3-none-any.whl" }
 dependencies = [
     { name = "aiohttp" },
     { name = "backports-zstd", marker = "python_full_version < '3.14'" },
     { name = "cryptography" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/ba/5e/c8d7377d05e4701127b8469ae4499719e7eb6482ec4f1989980fd4158a5d/claude_tap-0.1.146.tar.gz", hash = "sha256:d9e2bd8432263c7129f18409793ecc9ee59b22b2c9d7ebe8eac50fd9de4deb63", size = 61759914, upload-time = "2026-10-17T15:22:19.411Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b6/58/52fc8dfdf6995978233869f753ee7ad86fc755f70f0fd18a83b31c497d10/claude_tap-0.1.146-py3-none-any.whl", hash = "sha256:7189fbb5b7141c6f399fa9a80602918eeee2a72e4ec9603690a6d720df948c81", size = 354708, upload-time = "2026-10-17T15:22:16.792Z" },
+    { url = "https://github.com/MiaoDX-fork-and-pruning/claude-tap/releases/download/v0.1.146-pr475/claude_tap-0.1.146+pr475-py3-none-any.whl", hash = "sha256:22554927393787b6a8d83630d6286d69c807a93c4c86da5746e7afabe5985fc0" },
 ]
+
+[package.metadata]
+requires-dist = [
+    { name = "aiohttp", specifier = "==3.14.1" },
+    { name = "backports-zstd", marker = "python_full_version < '3.14'", specifier = ">=1.0" },
+    { name = "coverage", marker = "extra == 'dev'", specifier = ">=7.6" },
+    { name = "cryptography", specifier = ">=42.0" },
+    { name = "matplotlib", marker = "extra == 'dev'", specifier = "==3.11.1" },
+    { name = "pexpect", marker = "extra == 'dev'", specifier = ">=4.9" },
+    { name = "playwright", marker = "extra == 'dev'", specifier = "==1.58.0" },
+    { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
+    { name = "pytest-asyncio", marker = "extra == 'dev'", specifier = ">=0.23" },
+    { name = "pytest-timeout", marker = "extra == 'dev'", specifier = ">=2.3" },
+    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.11" },
+]
+provides-extras = ["dev"]
 
 [[package]]
 name = "cryptography"
@@ -711,7 +726,7 @@ viewers = [
 [package.metadata.requires-dev]
 dev = [{ name = "playwright", specifier = ">=1.63.0" }]
 viewers = [
-    { name = "claude-tap", specifier = "==0.1.146" },
+    { name = "claude-tap", url = "https://github.com/MiaoDX-fork-and-pruning/claude-tap/releases/download/v0.1.146-pr475/claude_tap-0.1.146+pr475-py3-none-any.whl" },
     { name = "markdown-it-py", specifier = ">=3" },
 ]
 

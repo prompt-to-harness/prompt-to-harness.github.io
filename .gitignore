@@ -94,11 +94,11 @@ course-starter/
 # 实验运行目录（courseware/*/materials/*/setup.sh 默认建在这里，不提交）
 lab-runs/
 
-# make viewers 生成的静态查看器（claude-tap 0.1.146 渲染，约 0.45MB 一份，不提交）
-/demos/ch02-static-trace/trace.html
-/demos/ch02-request-walkthrough/viewer.html
-/courseware/ch02/lessons/01-request/request/viewer.html
+# make viewers 生成的静态查看器（claude-tap 0.1.146+pr475 渲染，约 0.45MB 一份，不提交）
 /courseware/ch02/lessons/01-request/trace/viewer.html
+/courseware/ch02/lessons/02-iteration/trace/viewer.html
+/courseware/ch02/lessons/03-review/trace/viewer.html
+/courseware/ch02/lessons/04-publish/trace/viewer.html
 /courseware/ch02/lessons/01-request/trace/compare-plain.html
 /courseware/ch02/lessons/01-request/trace/compare-named.html
 /courseware/ch02/lessons/01-request/trace/config-model-on.html

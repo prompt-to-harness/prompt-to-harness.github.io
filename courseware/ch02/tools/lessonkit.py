@@ -11,6 +11,7 @@ steps 与 script 一一对应；data-reveal 最大值 = 步骤数 - 1。
 scene["seconds"] 只用于章节条的宽度比例（按步骤数计算），不是时长估算。
 """
 import json
+import urllib.parse
 from html import escape
 from pathlib import Path
 
@@ -27,20 +28,26 @@ def teach(*pairs):
     return [{"title": t, "text": x} for t, x in pairs]
 
 
-def ref(text, url, group="", kind="live"):
+def ref(text, url, group="", kind="live", quote=""):
     """一条原文链接，放进 scene(refs=[…])，由播放器渲染（courseware/shared/app.js）。
 
     kind="live"：画面最下一行（零件 .p-refs），随最后一步出现，录制时点开；
     kind="read"：不上画面，只在阅读模式与讲解全文列出。
     同一 group 的相邻链接合成一组。网址固定到具体版本，不指向会变的 main。
+    quote：本页引用的是长文的某一段时，写那段开头的几个字（原文照抄、页面里唯一），拼成文本片段链接
+    #:~:text=…，打开后滚到那段并高亮；页面有稳定的标题锚点时直接在 url 里写 #锚点，不用 quote。
+    规则见 docs/production/external-sources.md“链接到段落”。
     """
     assert kind in ("live", "read"), kind
     assert url.startswith("https://"), url
+    if quote:
+        assert "#" not in url, ("quote 和 #锚点只用一种", url)
+        # 文本片段里的 - , & 是分隔符，必须转义（quote 默认不转义 -）
+        url += "#:~:text=" + urllib.parse.quote(quote, safe="").replace("-", "%2D")
     return {"kind": kind, "group": group, "text": text, "url": url}
 
 
 EXTERNAL = Path(__file__).resolve().parents[1] / "materials/external"
-
 
 def shot(src, bar, alt, height=440, note="", reveal=0):
     """证据页（layout="evidence-scene"）里的外部截图：顶栏 bar 写“站点 · 作者 · 日期”，图片放在本节 external/。
@@ -125,20 +132,33 @@ def pop(title, label, body):
 
 
 # 全章锚点图“这一次请求里有什么”的七块（章文件 C2-53）；各节开篇按本节高亮其中几块
-ANCHOR = ["系统指令", "工具", "环境", "规则", "对话历史", "工具返回", "这一句"]
+ANCHOR = ["系统指令", "工具", "环境", "规则", "对话历史", "工具返回", "新的 Prompt"]
 
 
-def anchor(lit=(), outside=(), note="", reveal=None, title="这一次请求里有什么"):
-    """锚点图（零件 .p-set + .p-item）：lit 里的块高亮；outside 是画在列外、不在请求里的东西；note 是底部一句。"""
-    assert set(lit) <= set(ANCHOR), lit
+def anchor(lit=(), absent=(), outside=(), note="", reveal=None, title="这一次请求里有什么"):
+    """锚点图（零件 .p-set + .p-item），全章只有一种读法（C2-86）。分类（C2-88）：系统指令是 Codex 给的全部说明
+    （身份、协作、Skills 列表、权限说明）；规则只指项目里的 AGENTS.md；新的 Prompt 是我们这一轮写的话。
+    lit 是这一页要看的块，粗框高亮；absent 是这次请求里没有内容的块，灰色虚线并写“这次没有”；
+    其余块照常在请求里，只是这一页不看，画得浅一些。outside 是画在列外、不在请求里的东西。
+    note 写给学员看：这一页为什么看这几块，不写制作说明。整列都要看时 lit 传 ANCHOR。
+    """
+    assert set(lit) <= set(ANCHOR) and set(absent) <= set(ANCHOR) and not set(lit) & set(absent), (lit, absent)
     attr = f' data-reveal="{reveal}"' if reveal is not None else ""
-    items = "".join(
-        f'<div class="p-item{" is-picked" if b in lit else ""}" style="padding:4px 10px;font-size:18px">{b}</div>' for b in ANCHOR
-    )
+    base = "padding:4px 10px;font-size:18px"
+
+    def item(b):
+        if b in absent:
+            return (f'<div class="p-item" style="{base};border-style:dashed;background:transparent;color:var(--p-muted)">'
+                    f'{b}<span style="font-size:15px;margin-left:6px">这次没有</span></div>')
+        if b in lit:
+            return f'<div class="p-item is-picked" style="{base};font-weight:700">{b}</div>'
+        return f'<div class="p-item" style="{base};background:transparent;color:var(--p-muted)">{b}</div>'
+
+    items = "".join(item(b) for b in ANCHOR)
     out = ""
     if outside:
-        out = '<div class="p-foot">不在里面：' + "".join(
-            f'<span class="p-item" style="display:inline-block;margin:4px 6px 0 0;padding:2px 8px;font-size:17px;border-style:dashed">{x}</span>' for x in outside
+        out = '<div class="p-foot">不在请求里：' + "".join(
+            f'<span class="p-item" style="display:inline-block;margin:4px 6px 0 0;padding:2px 8px;font-size:17px;border-style:dashed;background:transparent">{x}</span>' for x in outside
         ) + "</div>"
     foot = f'<div class="p-foot">{note}</div>' if note else ""
     return (
@@ -158,8 +178,10 @@ def chapter_map(now):
 
 
 class Lesson:
-    def __init__(self, builder, number, title, summary):
+    def __init__(self, builder, number, title, summary, prep=()):
         self.here = Path(builder).resolve().parents[1]
+        # 录前准备：开录前一次做完的事，逐字稿页顶单独一块（courseware/shared/speaker.js），不上画面
+        self.prep = list(prep)
         # 口播的唯一来源：本节目录下的 script.json，按页面 id 存每页的口播数组；页面里可直接改，见 tools/serve-courseware.py
         self.scripts = json.loads((self.here / "script.json").read_text())
         self.number, self.title, self.summary = number, title, summary
@@ -198,6 +220,7 @@ class Lesson:
             "chapter": CHAPTER,
             "section": f"{int(major):02d}.{int(minor):02d}",
             "summary": self.summary,
+            **({"prep": self.prep} if self.prep else {}),
             "scenes": scenes,
             "segments": segments,
         }
