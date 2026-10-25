@@ -1,11 +1,11 @@
-"""把 2026-10-24 2.3 两轮实录（第一轮参考改风格、同会话第二轮贴两张图）的原始记录转成公开 JSON。不调用 API。
+"""把 2026-10-25 2.3 四要素重跑（两轮改风格、Codex 提交）的原始记录转成公开 JSON。不调用 API。
 
-    python3 -I courseware/ch02/materials/style/run-20261024-round2/export-public.py ~/ws/lab-runs/ch02/2.3-20261024-round2
+    python3 -I courseware/ch02/materials/style/run-20261025/export-public.py ~/ws/lab-runs/ch02/2.3-20261025
 
-原始记录在私有仓库 prompt-to-harness/lab-runs 的 `ch02/2.3-20261024-round2/`，records.jsonl 含两轮完整记录（两个代理 session，
-属于同一个 Codex 会话）。去掉的内容与 2.2 的 run-20261024 相同：请求头（含鉴权）、include、prompt_cache_key、client_metadata、
-响应与会话标识、推理的加密部分；本机路径换成占位。保留的记录内部没有教学删节，只导出课件用到的记录（见 KEEP）。
-贴进对话的两张首屏截图以 data URL 原样保留。输出 trace.json 供 2.3 的静态查看器使用（lessons/03-review/trace/）。
+原始记录在私有仓库 prompt-to-harness/lab-runs 的 `ch02/2.3-20261025/`（一个代理 session，记录 1–54）。去掉的内容与 2.2 的
+run-20261024 相同：请求头（含鉴权）、include、prompt_cache_key、client_metadata、响应与会话标识、推理的加密部分；本机路径换成
+占位。保留的记录内部没有教学删节，只导出课件用到的记录（见 KEEP）。贴进对话的两张首屏截图以 data URL 原样保留。
+输出 trace.json 供 2.3 的静态查看器使用（lessons/03-review/trace/）。
 """
 import json, re, sys
 from pathlib import Path
@@ -14,17 +14,15 @@ raw_root = Path(sys.argv[1]).expanduser()
 here = Path(__file__).resolve().parent
 KEEP_BODY = ['model', 'stream', 'input', 'tools', 'tool_choice', 'parallel_tool_calls', 'reasoning', 'store']
 KEEP_RESPONSE = ['model', 'status', 'output', 'usage']
-SESSIONS = {'b9666500': 1, 'f1322c16': 2}
-# 第一轮：Prompt、取参考（沙箱外联网、存进 /tmp）、挑着读、说出风格并提问、两组回答与计划、确认实施、build 后起预览服务；
-# 第二轮：贴两张图那一次、做完报告那一次（看图还在）
-KEEP = {1: {2, 5, 6, 7, 8, 9, 10, 11, 13, 20}, 2: {2, 9}}
+# Prompt、取参考与返回、挑着读、说出风格并提问、两组回答与计划、Implement；后面的请求带着前面全部内容，所以：
+# 贴两张图那一次（前面有第一轮报告）、拒绝截图那一次（前面有 404、找到原图和画法）、提交那一次（前面有第二轮报告和 .git 只读）
+KEEP = {1, 3, 5, 8, 10, 12, 14, 15, 16, 27, 37, 54}
 
 records = [json.loads(line) for line in (raw_root / 'records.jsonl').read_text().splitlines()]
-assert len(records) == 32, len(records)
-assert {r['_session'][:8] for r in records} == set(SESSIONS), '代理 session 与预期不同'
-records = [r for r in records if r['_index'] in KEEP[SESSIONS[r['_session'][:8]]]]
-assert len(records) == sum(len(v) for v in KEEP.values())
-first = next(r for r in records if SESSIONS[r['_session'][:8]] == 1 and r['_index'] == 2)['request']['body']['input']
+assert len(records) == 54 and len({r['_session'] for r in records}) == 1, len(records)
+records = [r for r in records if r['_index'] in KEEP]
+assert len(records) == len(KEEP)
+first = records[0]['request']['body']['input']
 env = next(c['text'] for x in first if x.get('type') == 'message' for c in x['content'] if '<cwd>' in c.get('text', ''))
 project = re.search(r'<cwd>(.*?)</cwd>', env).group(1)
 skills = next(c['text'] for x in first if x.get('type') == 'message' for c in x['content'] if '`r0` =' in c.get('text', ''))
@@ -53,14 +51,12 @@ def walk(v):
 
 
 public = []
-for n, r in enumerate(records, 1):
-    rnd = SESSIONS[r['_session'][:8]]
+for r in records:
     body = {k: r['request']['body'][k] for k in KEEP_BODY if k in r['request']['body']}
     resp = r['response']['body']
     public.append(walk({
-        'request_id': f"r{rnd}-{r['_index']}", 'turn': n, 'timestamp': r['timestamp'],
+        'request_id': f"session-{r['_index']}", 'turn': r['_index'], 'timestamp': r['timestamp'],
         'duration_ms': r.get('duration_ms'),
-        'source': {'round': rnd, 'record_index': r['_index']},
         'request': {'method': r['request']['method'], 'path': r['request']['path'], 'body': body},
         'response': {'status_code': r['response'].get('status_code', 200),
                      'body': {k: resp[k] for k in KEEP_RESPONSE if k in resp}},
