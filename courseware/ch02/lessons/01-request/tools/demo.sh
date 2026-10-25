@@ -5,6 +5,9 @@ set -eu
 demo_root=${CH02_DEMO_ROOT:-"$HOME/course-demos"}
 project="$demo_root/personal-homepage"
 course_home=${AGENT_LAB_HOME:-"$HOME/.local/share/agent-lab-ch02-recording"}
+# 会话名：Codex 0.163.0 的会话没有名字时，每条用户消息完成后都会另发一次起标题的请求，且没有配置项能关；
+# 启动时的初始输入会当普通消息发出，不执行 /rename，所以只能进入后手动输入（C2-99）
+session_name=${CH02_SESSION_NAME:-ch02-demo}
 snapshot=8e9a323174411a011f87e230450b9115d09b7dea
 source_url=https://github.com/prompt-to-harness/course-starter.git
 self=$(CDPATH= cd "$(dirname "$0")" && pwd)/$(basename "$0")
@@ -74,8 +77,9 @@ record() {
         printf '\n警告：当前 Node 主版本 %s，快照 .nvmrc 为 %s；录屏里若显示 node 版本，请先切换后重新准备（换标签）。\n' "$have" "$want"
     fi
     printf '\n录制环境已就绪（Codex %s，Key 已配置，工作区干净）。\n' "$(codex --version | sed 's/^codex-cli //')"
-    printf '每个终端标签页先粘贴这一行：\n  export CH02_DEMO_ROOT=%s AGENT_LAB_HOME=%s\n' "$demo_root" "$course_home"
+    printf '每个终端标签页先粘贴这一行：\n  export CH02_DEMO_ROOT=%s AGENT_LAB_HOME=%s CH02_SESSION_NAME=ch02-%s\n' "$demo_root" "$course_home" "$tag"
     printf '然后：\n  p01 开发服务标签页：sh %s homepage\n  p06-tap 起的 Codex 标签页：sh %s codex\n' "$self" "$self"
+    printf '进入 Codex 后，发问候之前先输入：/rename ch02-%s（确认名字已显示，否则记录里会多出起标题的请求）\n' "$tag"
 }
 
 case ${1:-help} in
@@ -93,6 +97,7 @@ case ${1:-help} in
         audit
         cd "$project"
         export AGENT_LAB_HOME="$course_home"
+        printf '\n进入 Codex 后，发问候之前先输入：/rename %s\n确认名字已显示再开始；不起名，记录里会多出起标题的请求。\n\n' "$session_name"
         exec uvx --from "$agent_source" agent-lab codex --tap
         ;;
     *)
@@ -100,6 +105,7 @@ case ${1:-help} in
             'record：正式录制前用，新建 $HOME/course-demos/rec-<标签>（默认当天日期）和同名新专用环境，并检查 Codex、Key、Node；已存在则拒绝' \
             '默认项目：$HOME/course-demos/personal-homepage；可用 CH02_DEMO_ROOT 修改父目录' \
             '默认环境：$HOME/.local/share/agent-lab-ch02-recording；可用 AGENT_LAB_HOME 修改' \
+            'codex 启动前会打印要手动输入的 /rename；会话名默认 ch02-demo，可用 CH02_SESSION_NAME 修改' \
             'macOS 已实测；Agent Lab 的 Linux/WSL 支持尚待实测，原生 Windows 暂不支持'
         ;;
 esac
