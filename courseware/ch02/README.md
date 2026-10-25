@@ -49,7 +49,7 @@
 | 5 | 同一篇 OpenAI 文章：超过 `auto_compact_limit` 自动压缩，用更小的列表替换历史 | 一句话 + 原文链接，代替 10-21 调低阈值的独立实验；本课看到的是明文交接摘要，不说成文章里的加密压缩端点 | 2.2 p27b | 采用（C2-97） |
 | 4、5 | Manus 同篇 KV 缓存与文件系统两张图、OpenAI Snapshot 3、Codex AGENTS.md 文档、Anthropic 压缩与结构化笔记 | — | 2.2 | 不用（C2-97，一节保持 3～4 处佐证）；截图与核实留在登记表和调研报告 |
 | 6 | Drew Breunig 的四种 context 失败（2025-06-22） | 重画 | 2.3 深入 | 撤下（C2-105，不在 2.3 主线上） |
-| 7 | 同一篇 OpenAI 文章：Codex 不用 `previous_response_id`，每个请求无状态、带全部内容 | — | 2.4 | 不用（C2-112：“请求发给模型服务、每次带全部内容”2.1 p06-tap、2.2 已讲，2.4 不再讲） |
+| 7 | 同一篇 OpenAI 文章：Codex 不用 `previous_response_id`，每个请求无状态、带全部内容 | — | 2.4 | 不用（C2-114：“请求发给模型服务、每次带全部内容”2.1 p06-tap、2.2 已讲，2.4 不再讲） |
 | 5 | claude-tap v0.1.146 README “Built with claude-tap”里的 Phistory：archives versioned system prompt snapshots；查看器 phistory.cc 逐版本对比 | 截图（查看器的版本对比，截时核对版本）加出处链接 | 2.5 p62b | 采用（2026-10-23 讲师提出；截图与版本已核实） |
 | 项目（2.3 改风格） | 四个可参考的主页或模板首屏：Hyperspace（HTML5 UP，CC BY 3.0）、brittanychiang.com（允许 fork、需注明出处）、Freelancer（Start Bootstrap，MIT）、jonbarron.info（欢迎复用源码） | 四张截图并排，各带出处和许可，圈出这次用的示例，再接现在与参考两张首屏 | 2.3 p40a0 | 采用（示例用 Hyperspace，C2-72、C2-105） |
 | 项目（2.3 改风格） | Codex 文档 Prompting“Iterate on UI with live updates”：小而具体的提示逐轮改，在浏览器里看，喜欢的提交、不喜欢的回退 | live 链接，不另做页 | 2.3 p40c | 采用（C2-105） |
@@ -81,7 +81,7 @@
 
 ## 全章约定
 
-- **全章基线**：`tools/clean-codex.sh` 默认的 MiniMax-M3.1-Flash、MiniMax 官方模型能力目录开、推理档位 max。能力目录开时系统指令只有一句加多代理团队说明，主要用法写在 code mode 的 `exec` 工具描述里。课件数字按这套配置录；2.4 也用 Agent Lab，它默认复用本机 `gh` 登录，不用另加开关（C2-109，取代 C2-39 的 `CLEAN_CODEX_GH=1`）。
+- **全章基线**：`tools/clean-codex.sh` 默认的 MiniMax-M3.1-Flash、MiniMax 官方模型能力目录开、推理档位 max。能力目录开时系统指令只有一句加多代理团队说明，主要用法写在 code mode 的 `exec` 工具描述里。课件数字按这套配置录；2.4 也用 Agent Lab，它默认复用本机 `gh` 登录，不用另加开关（C2-112，取代 C2-39 的 `CLEAN_CODEX_GH=1`）。
 - **请求记录**：全章用同一套配置下的请求记录，各节可以分开录。画面不说成同一次运行，每段标“一次运行”；录制时冻结、统一脱敏，画面数字以当段记录为准。
 - **claude-tap**：讲师演示的必要内容，固定 `0.1.146+pr475`，即 0.1.146 加上已提交上游的查看器改动 [liaohch3/claude-tap#475](https://github.com/liaohch3/claude-tap/pull/475)（文字按文字显示、显示推理、显示 namespace 子工具），Agent Lab 与课件静态查看器用同一个 wheel（C2-103、C2-108）；p06-tap 页面和口播交代一句这处调整。录下来的请求是 0.1.146 抓的，抓取部分两版相同。PPT 上写清启动方式并录屏演示，说明它是本地代理、会经手 API 密钥、只看得到经过代理的内容。学员自己运行算选做，不计入验收；不另做分系统的排障文档。ChatGPT 登录下能否使用，不作为主演示内容。
 - **演示与实测范围**：macOS 上的 Codex CLI + MiniMax 自定义 provider。ChatGPT 登录、Windows、OpenAI 官方 provider 下的行为不作为本章核实项。
@@ -149,9 +149,9 @@ uv run courseware/tools/check-courseware.py
 
 - **2.1 正式录制**：页面、口播与 2026-10-24 重跑数据一致（C2-85、C2-90），10-25 试录后按讲师反馈改过两轮（C2-99、C2-100）；录制当天数字不同仍整组替换，各页数据来源见本节分镜。p07 只核对项目卡一处引用（C2-101）。
 
-- **2.2、2.3、2.5 的讲师提示分流**（C2-102）：2.1、2.4（C2-109）已把 `teaching` 分到操作提示、录前准备和分镜；其余三节还没做，录制前按制作手册“讲稿与转场”逐节分流。
+- **2.2、2.3、2.5 的讲师提示分流**（C2-102）：2.1、2.4（C2-112）已把 `teaching` 分到操作提示、录前准备和分镜；其余三节还没做，录制前按制作手册“讲稿与转场”逐节分流。
 
-- **2.4 已按 C2-112 收窄**（C2-109、C2-110 的证据，C2-112 讲师确认方向）：讲 gh 这个工具列表里没有的工具，p46a、p48a 撤下，新增 p49b（推送后让 Codex 用 gh 读部署），共 13 页、45 步。证据来自 lab-runs `ch02/2.4-20261025-claude/`，p49b 是同目录 `ghrun/` 的补跑：新会话，运行早已结束，录制时推完马上问可能还在进行，要看现场。同日 Codex 组另有一次排练（`ch02/2.4-20261025/`、仓库 `ch02-pages-lab-20261025`，提交 `7f06dc8` 只挂在 `refs/codex/snapshots/` 下），它的 C2-109（Agent Lab wheel）与本分支 C2-109 撞号，合并时要重编；2.4 的取舍以 C2-112 为准。页面与口播是制作者自查，没有出声试读；按 2.1、2.2 试录的语速，本节仍会超过本表 15 分钟，按 C2-79 录完全章后统一定。
+- **2.4 已按 C2-114 收窄**（C2-112、C2-113 的证据，C2-114 讲师确认方向）：讲 gh 这个工具列表里没有的工具，p46a、p48a 撤下，新增 p49b（推送后让 Codex 用 gh 读部署），共 13 页、45 步。证据来自 lab-runs `ch02/2.4-20261025-claude/`，p49b 是同目录 `ghrun/` 的补跑：新会话，运行早已结束，录制时推完马上问可能还在进行，要看现场。同日 Codex 组另有一次排练（`ch02/2.4-20261025/`、仓库 `ch02-pages-lab-20261025`，提交 `7f06dc8` 只挂在 `refs/codex/snapshots/` 下），它的 C2-112（Agent Lab wheel）与本分支 C2-112 撞号，合并时要重编；2.4 的取舍以 C2-114 为准。页面与口播是制作者自查，没有出声试读；按 2.1、2.2 试录的语速，本节仍会超过本表 15 分钟，按 C2-79 录完全章后统一定。
 
 - **Agent Lab 是否打 tag**（C2-102 从 2.1 p06-tap 讲师提示移入）：2026-10-24 核对 `tools/agent-lab` 与原固定提交 691d15c 内容一致，现从 main 安装；main 上的改动会影响学员装到的版本，正式录制前定是否打 tag。
 
@@ -166,6 +166,6 @@ uv run courseware/tools/check-courseware.py
 3. **讲师演示用的个人信息文件**：已于 2026-10-24 冻结（[`materials/profile/`](materials/profile/README.md)，不写现在的公司，C2-94）；风格参考已定为 Hyperspace（C2-72，取代 C2-55、C2-56、C2-59 里的 brittanychiang.com）。
 4. **正式重录 2.1、2.2、2.3**：2.1 见上；2.2 已换用 2026-10-24 单一 Plan 流程重跑（C2-95；10-21 自动压缩实验只留在 p27b 讲师提示，C2-97）；2.3 已改用 10-25 四要素重跑（lab-runs `ch02/2.3-20261025/`，C2-107），页面源、口播与证据已同步；2.2 p28a 的提交用的是 lab-runs `ch02/2.3-20261024/` 开头那次 Codex 提交（9381567），也是 10-25 重跑的起点。排练用 [`materials/mainline/pty/`](materials/mainline/pty/) 的 PTY 驱动，旧的 `run-2.2.sh` 已过时。还要做第 2 章起点快照和任务卡（C2-54）。
 5. **配套页尚未制作**：隔离 HOME 与个人、项目、本次三层来源的对比（原 2.1 p15、p15-home），~~Codex 版本与模型指令对比（原 2.2 p25、p26）~~ 已由 2.5 的 Phistory 展示取代（C2-76），请求解剖页（C2-13，是否还做待讲师确认）。
-6. **2.4 起点**：2.3 的结束状态是快照分支 `ch02/2.3-done-20261025`（e53f35b，homepage-v2，Codex 提交，C2-107），在 lab-runs `ch02/2.3-20261025/personal-homepage.bundle`，推到 course-starter 前问讲师；`2.3-20261024-final` bundle 里的同名旧分支 `ch02/2.3-done-20261024` 作废。p45 画面已按这个快照的 `git log --stat` 改成 homepage-v2、homepage-v1 两条（C2-109）。
+6. **2.4 起点**：2.3 的结束状态是快照分支 `ch02/2.3-done-20261025`（e53f35b，homepage-v2，Codex 提交，C2-107），在 lab-runs `ch02/2.3-20261025/personal-homepage.bundle`，推到 course-starter 前问讲师；`2.3-20261024-final` bundle 里的同名旧分支 `ch02/2.3-done-20261024` 作废。p45 画面已按这个快照的 `git log --stat` 改成 homepage-v2、homepage-v1 两条（C2-112）。
 7. **平台交付版第 2、3 节**：备课期间不同步（见[内容依据](../../docs/agents/sources-of-truth.md)），课程录完统一刷一遍时按[提案](../../docs/outline/proposals/2026-10-25-ch02-2.3-platform-outline.md)的方向改。
 8. **lab-runs 的提交**：现用的 `ch02/2.3-20261025/` 已提交并推送（3d5519c）；10-24 两轮排练 `-round1/`、`-round2/`（3e9ea45）是 C2-105 版课件的依据，留作对照；额度失败的 `-gap1/`、`2.3-20261025-quota/` 和备课准备目录没被课件采用，按 lab-runs 的约定只留本机。

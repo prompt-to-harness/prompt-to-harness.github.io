@@ -6,7 +6,7 @@
 run-20261025 相同：请求头（含鉴权）、include、prompt_cache_key、client_metadata、响应与会话标识、推理的加密部分；本机路径换成
 占位、邮箱打码。另外，网页搜索带回的网页正文（回答里 url_citation 的 content）是第三方内容，只留网址、标题和字数。
 只导出课件用到的记录（见 KEEP）。输出 trace.json 供 2.4 的静态查看器使用（lessons/04-publish/trace/）。
-同目录 `ghrun/` 是推送后让 Codex 用 gh 读部署的补跑（新会话，记录 1–18，C2-112），只导出最后一条（记录 18）为 ghrun.json：
+同目录 `ghrun/` 是推送后让 Codex 用 gh 读部署的补跑（新会话，记录 1–18，C2-114），只导出最后一条（记录 18）为 ghrun.json：
 它的请求里带着这次的工具列表、全部调用和返回，响应是最后的回答；p49b 的画面从它取原文，不嵌入查看器。
 """
 import json, re, sys
@@ -17,7 +17,7 @@ here = Path(__file__).resolve().parent
 KEEP_BODY = ['model', 'stream', 'input', 'tools', 'tool_choice', 'parallel_tool_calls', 'reasoning', 'store']
 KEEP_RESPONSE = ['model', 'status', 'output', 'usage']
 # 33：GET 申请到沙箱外（请求的 tools 里没有 gh）；35：GET 的返回（404）与 POST 申请；36：POST 与复查的返回。
-# 原 p48a 用的 13、17、18、19 随 C2-112 撤下，不再导出
+# 原 p48a 用的 13、17、18、19 随 C2-114 撤下，不再导出
 KEEP = {33, 35, 36}
 
 records = [json.loads(line) for line in (raw_root / 'records.jsonl').read_text().splitlines()]

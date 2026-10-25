@@ -11,7 +11,7 @@
 | `refactor-cards/` | 2.5 | 分拣题的五张卡：每张一份基于 homepage-v1 的 diff，提交说明都是“refactor: …”；`shoot.py` 把五张卡各自构建、核对行为，并拍 2.5 的证据图（写到 `lessons/05-experience/evidence/`） |
 | `compact/` | 2.2 p27 | 压缩独立实验：起点脚本、操作步骤、观察表和一次真实运行的请求记录（2026-10-05） |
 | `pages-source/` | 2.4 早期预检 | 预检：Codex 用 `gh` 查询并修改 Pages 部署来源、再改回；改来源的副作用与凭据边界（2026-10-07）；课件现用 `publish/` |
-| `publish/run-20261025/` | 2.4 p49a、p49b | 从 homepage-v2 开始的发布排练与推送后用 gh 读部署的补跑：公开请求记录与导出脚本（C2-110、C2-112） |
+| `publish/run-20261025/` | 2.4 p49a、p49b | 从 homepage-v2 开始的发布排练与推送后用 gh 读部署的补跑：公开请求记录与导出脚本（C2-113、C2-114） |
 
 2026-10-05 起 2.5 改用五张卡分拣（讲师确认），原来的两份 diff（`refactor-a.diff`、`refactor-b.diff`）已删除；`01-extract-component.diff` 与原 A 逐字相同。
 
