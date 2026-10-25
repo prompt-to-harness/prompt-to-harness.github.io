@@ -89,6 +89,8 @@ if result.returncode:
 
 # ED-013: every step opens with one 【操作提示｜…】 for the recording lecturer, then spoken narration
 stage = re.compile(r'【操作提示｜[^\n]+】')
+# 口播中途切窗口另起一段【切换｜目标】，不念；只占一行，后面不接口播
+cue = re.compile(r'【切换｜[^】\n]+】')
 for path in sorted(courseware.glob('**/script.json')):
     if 'archive' in path.parts:
         continue
@@ -97,8 +99,11 @@ for path in sorted(courseware.glob('**/script.json')):
             parts = step.split('\n\n')
             if not stage.fullmatch(parts[0]):
                 errors.append(f'ED-013 {path.relative_to(repo)} {scene_id} 第 {i} 步没有以【操作提示｜…】开头')
-            elif not any(part.strip() and not stage.fullmatch(part) for part in parts[1:]):
+            elif not any(part.strip() and not stage.fullmatch(part) and not part.startswith('【切换｜') for part in parts[1:]):
                 errors.append(f'ED-013 {path.relative_to(repo)} {scene_id} 第 {i} 步只有操作提示，没有口播正文')
+            for part in parts:
+                if part.startswith('【切换｜') and not cue.fullmatch(part):
+                    errors.append(f'ED-013 {path.relative_to(repo)} {scene_id} 第 {i} 步的【切换｜…】要单独成段、只写切到哪里')
 
 # ED-013: 一页只定一种演示形态，操作提示里不留“现场演示时……”这类两可分支（提示，不报错）
 undecided = re.compile(r'现场演示时|如改为现场|若想换成现场|若改为现场')
@@ -185,12 +190,12 @@ for log in sorted(courseware.glob('ch*/LOG.md')):
 
 # ED-007 / ED-010: filler phrases are a prompt to ask "does this add information", not a ban
 fillers = ['这样做是为了', '这里练习的就是', '大家看', '对吧', '其实']
-# 只数口播正文；【操作提示｜…】不念，不计入
+# 只数口播正文；【操作提示｜…】【切换｜…】不念，不计入
 for path in sorted(courseware.rglob('script.json')):
     if 'archive' in path.parts:
         continue
     text = '\n'.join(part for steps in json.loads(path.read_text()).values() for step in steps
-                     for part in step.split('\n\n') if not part.startswith('【操作提示｜'))
+                     for part in step.split('\n\n') if not part.startswith(('【操作提示｜', '【切换｜')))
     counts = {w: text.count(w) for w in fillers if text.count(w)}
     if counts:
         hints.append(f'ED-007/010 {path.relative_to(repo)} ' + '、'.join(f'{w}×{n}' for w, n in counts.items()))
