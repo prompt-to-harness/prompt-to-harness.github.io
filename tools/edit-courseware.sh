@@ -25,5 +25,7 @@ if [ -z "$LAN" ] && curl -fs "http://127.0.0.1:$PORT/__script/ping" >/dev/null 2
 fi
 
 (sleep 1; open_url "$URL") &
+# 用 uv run 而不是系统 python3：保存口播会用同一个解释器重跑各节的 build-lesson.py，
+# 其中 2.1 依赖 markdown-it-py（pyproject 的 viewers 组），系统 Python 里没有。
 # $LAN 不加引号：为空时整个词消失，不会给服务传空参数
-exec python3 tools/serve-courseware.py $LAN --port "$PORT"
+exec uv run tools/serve-courseware.py $LAN --port "$PORT"
