@@ -1,9 +1,0 @@
-{
-  "trace_sha256": "d03bd0a2dfceda2fee3cd43d36c3b049c00b70d19a4ed6aef7046e7bb2fc75a6",
-  "call_request": "capture-6",
-  "call_id": "chatcmpl-tool-b2fecb3c8121c7b3",
-  "return_request": "capture-7",
-  "answer_request": "capture-10",
-  "basis": "本次已核对的项目内容依据链；讲师认可沿此链展示。后续记录变化时必须重新确认候选。",
-  "confirmed_on": "2026-10-23"
-}

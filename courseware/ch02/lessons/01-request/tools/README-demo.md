@@ -31,13 +31,34 @@ sh courseware/ch02/lessons/01-request/tools/demo.sh codex
 
 也可将同一份 `demo.sh` 复制到便捷位置，以绝对路径运行；它不依赖脚本所在目录，故无需下载整份备课仓库才能执行。课程仓库中的脚本是维护来源，分发时固定其提交版本，本机副本随之同步，不另改一套逻辑。
 
-默认目录为 `$HOME/course-demos/personal-homepage`；专用课程 HOME 为 `$HOME/.local/share/agent-lab-ch02-recording/codex`。可在所有终端一致设置 `CH02_DEMO_ROOT`（项目父目录）和 `AGENT_LAB_HOME`（专用环境父目录）。不放在备课仓库或其他带规则的项目内。`audit` 子命令可单独检查：
+默认目录为 `$HOME/course-demos/personal-homepage`；课程环境由 Agent Lab 按项目目录自动选，放在项目外面（`agent-lab home` 查看，C2-110），新的项目目录就是新的环境。可设 `CH02_DEMO_ROOT`（项目父目录）；`AGENT_LAB_HOME` 仍可手动指定环境。不放在备课仓库或其他带规则的项目内。`audit` 子命令可单独检查：
 
 ```sh
 sh courseware/ch02/lessons/01-request/tools/demo.sh audit
 ```
 
 检查覆盖项目起点、工作区改动、项目及上级的 `AGENTS.md` / `AGENTS.override.md` / `.agents/skills`，以及专用课程 HOME 的全局规则和保存的批准规则。发现影响实验的内容时报告路径并停止，不删除它们。真实个人 HOME 的 Skills 不等于专用课程 HOME 的 Skills，最终仍需从实际请求确认来源。
+
+## 从某一节的快照起跑
+
+2.2 起每节做完留一个快照分支（`ch02/<节>-done-<排练日期>`，C2-104），下一节从它开始。三个子命令都带上同一个 `CH02_START`，并用新的 `CH02_DEMO_ROOT`，不和 2.1 的目录混用：
+
+```sh
+CH02_START=ch02/2.2-done-20261024 CH02_DEMO_ROOT=$HOME/course-demos/ch02-2.3 sh courseware/ch02/lessons/01-request/tools/demo.sh prepare
+```
+
+起点核对改为比对这个快照分支的提交；快照里已经提交的项目 `AGENTS.md` 是这一节的起点，保留并打印出来，上级目录、未跟踪的规则文件和专用课程 HOME 的规则仍然停下。快照分支推到 course-starter 之前，用 `CH02_SOURCE_URL` 指向本机来源，例如 lab-runs 里的 bundle（`ch02/2.3-20261024-final/personal-homepage.bundle`，含 `ch02/2.2-done-20261024` 与 `ch02/2.3-done-20261024`）。2026-10-24 用这个 bundle 实测 `prepare`、`audit` 通过，不带 `CH02_START` 时按 2.1 的规则停下。
+
+## 数据与运行的做法（其他章可沿用）
+
+2.1 在 2026-10-24 整组重跑（C2-90）时定下这些做法，其他章做请求记录、实测对照时照此办。
+
+- **原始记录放私有仓库。** claude-tap 数据库、解码后的完整请求、Codex 会话、终端输出和驱动脚本放进 [prompt-to-harness/lab-runs](https://github.com/prompt-to-harness/lab-runs)，按 `章/节-日期/` 存放并写 README（条件、命令、结果）。只提交课件实际采用的那一组；不放进 ai-coding-resources 或本地忽略目录（换机器会丢）。提交前用 Key 片段 grep 一遍。
+- **公开数据不删结构。** 只去掉鉴权请求头、缓存与会话标识、推理的加密部分和本机路径（含 `ls -l` 的账户列），消息正文、工具定义、可读的推理文字、调用与返回全部保留，不做“教学删节”。删节会改变数据结构，而结构本身常常就是要讲的东西：旧记录删了推理，曾让我们把“每轮追加三条”误读成两条（C2-89）。导出脚本里写断言自动检查，做法见 [run-20261024 的 export-public.py](../../../materials/request/run-20261024/export-public.py)。
+- **一次运行，多页复用；数字从一份数据生成。** 尽量用同一次运行支撑一组页面（2.1 用一个交互会话供 p08、p08a、p09、p07-loop、p07），页面上的数字从同一份 `summary.json` 读取或核对。同一个数字散写在十几处，换数据时很难改干净。
+- **真实结果会变，讲法提前留分支。** 同一句问候，10-23 先读了 package.json，10-24 直接回答。分镜里按“实际结果是 A 时这样讲、是 B 时那样讲”写，换数据时只改数字和一两句口播；不为凑旧结果反复重跑。
+- **回答里的引用逐条对照源码。** 模型给出的文件和行号，对照当次快照逐行核对；额外的判断（如“dist 未落后于 src”）没核对就写“未核实”。
+- **驱动交互界面先看屏幕再按键。** 用 PTY 驱动 Codex TUI 时，每次按键前先渲染屏幕确认当前提示。Codex 启动可能弹出“有新版本”，Enter 会直接全局升级 Codex，要选 Skip；2026-10-24 曾因此被升到 0.164.0，当即装回 0.163.0。新建的课程 HOME 首次启动还会问是否信任项目。
 
 ## 录制采用的查看器
 
@@ -48,9 +69,9 @@ sh courseware/ch02/lessons/01-request/tools/demo.sh audit
 ## 固定来源与操作
 
 - 项目来源：`https://github.com/prompt-to-harness/course-starter.git`，标签与完整提交见脚本。
-- Agent Lab 来源：与 p06 相同的源码包提交 `691d15c58a3b89abc36bfcf90bc6b7072423ad4c`；依赖固定 claude-tap 0.1.146，模型及配置由该启动器固定。脚本不会更新本机 Codex。
+- Agent Lab 来源：课程仓库 main 的 `tools/agent-lab`（2026-10-24 起；此前的实测用提交 `691d15c58a3b89abc36bfcf90bc6b7072423ad4c`，两者该目录内容一致）；依赖固定 claude-tap 0.1.146，模型及配置由该启动器固定。脚本不会更新本机 Codex。
 - 首次启动可能需要信任项目；准备阶段完成，不把信任界面当作请求内容。
-- 每个新会话在首句问候前，先在 Codex 输入 `/rename ch02-demo`，确认名称已更新，再发送“你好，用一句话介绍你能帮我做什么。”。`/rename` 是客户端命令，不是发给模型的自然语言 Prompt；不能用一句“不要自动命名”替代。启动脚本不自动代输命令。
+- 每个新会话在首句问候前，先在 Codex 输入 `/rename ch02-demo`，确认名称已更新，再发送“你好，用一句话介绍你能帮我做什么。”。`/rename` 是客户端命令，不是发给模型的自然语言 Prompt；不能用一句“不要自动命名”替代。启动脚本不自动代输命令，`demo.sh codex` 在启动前打印要输入的那一行（会话名用 `CH02_SESSION_NAME`，`record` 按标签给出 `ch02-<标签>`）。原因（2026-10-25 核对 Codex 0.163.0 源码 `tui/src/app/thread_routing.rs`、`thread_title.rs`，C2-99）：会话没有名字时，每条用户消息完成后 TUI 都会另开一个临时会话请模型起标题，标题请求走的是单独的临时会话，在 claude-tap 里另成一组；标题没能生成时名字保持为空，下一句还会再发（MiniMax 下是否常出现未核实）；没有配置项能关掉；`codex "<初始输入>"` 会把 `/rename` 当普通消息发给模型，不会执行。模拟键盘往 TUI 里打字会和信任项目、升级提示抢输入，不采用。
 - 手动命名作为第二章录前准备，用来减少自动命名请求干扰；不是关闭全部辅助请求的开关。该效果受冻结的 Codex 版本与配置约束，当次仍需检查记录。已有旧记录保留，不删除其中的标题请求。
 - 回答结束后打开终端给出的查看器地址。用原句、上下文和响应辨认第一份主请求，不凭捕获顺序、固定 Turn 编号或面板累计 token 选择。若仍有标题请求，单独辨认，不计作人工输入。
 - 展示第一份主请求中的原句、工具定义、Skills 列表、环境、权限和系统/协作指令。若模型调用工具，保留记录，初始请求与工具返回后的后续请求分开讲，不承诺问候必然不读文件。
@@ -88,11 +109,11 @@ sh courseware/ch02/lessons/01-request/tools/demo.sh audit
 若以后需要复现本页，使用以下条件：
 
 1. 使用同一 ch02-start-v1 源码快照（8e9a323）、相同的干净工作目录和运行现场；不为制造数字差异删改文件。
-2. 固定 Codex CLI 0.163.0、MiniMax-M3.1-Flash、Agent Lab 来源 691d15c58a3b89abc36bfcf90bc6b7072423ad4c、claude-tap 0.1.146，模型能力目录开、推理 max、read-only。每组用独立隔离 HOME、全新 codex exec 会话，串行运行；没有前置问候，不 resume 或 fork 任何已有对话。
+2. 固定 Codex CLI 0.163.0、MiniMax-M3.1-Flash、Agent Lab 从 main 运行（10-24 起；10-23 那次用提交 691d15c，两者内容一致）、claude-tap 0.1.146，模型能力目录开、推理 max、read-only。每组用独立隔离 HOME、全新 codex exec 会话，串行运行；没有前置问候，不 resume 或 fork 任何已有对话。
 3. 两组都问“项目区现在显示什么、数据写在哪个文件、文件行号依据、不确定不猜”；点名组仅在末尾增加“相关文件：src/App.tsx。”。完整原文以 summary.json 为准，不预先提供答案。
 4. 先核对回答内容、源码依据、遗漏和实际读取范围，再看调用与输入量；结束后核对工作区无改动。
 
-现有主用记录不点名/点名分别为 7/4 次主请求、6/3 次外层工具调用、66,315/34,894 累计输入 token（含缓存）。两组各一次，不保证另一次运行重现相同次数、耗时或输入量。这些是多请求累计量，不是单次 Context 长度或费用。
+现有主用记录（2026-10-24，见 [run-20261024](../../../materials/request/run-20261024/README.md)）不点名/点名分别为 7/4 次请求、14/3 次工具调用、70,523/32,879 累计输入 token（含缓存）。两组各一次，不保证另一次运行重现相同次数、耗时或输入量。10-23 的 7/4、66,315/34,894 只存档。
 
 ## 补充记录：问候后 fork 的另一套对照
 
@@ -105,7 +126,7 @@ sh courseware/ch02/lessons/01-request/tools/demo.sh audit
 
 ```sh
 ch02_seed='替换为本机问候的 Codex 会话 ID'
-ch02_agent_source='https://github.com/prompt-to-harness/prompt-to-harness.github.io/archive/691d15c58a3b89abc36bfcf90bc6b7072423ad4c.tar.gz#subdirectory=tools/agent-lab'
+ch02_agent_source='git+https://github.com/prompt-to-harness/prompt-to-harness.github.io#subdirectory=tools/agent-lab'
 export AGENT_LAB_HOME="${AGENT_LAB_HOME:-$HOME/.local/share/agent-lab-ch02-recording}"
 cd "${CH02_DEMO_ROOT:-$HOME/course-demos}/personal-homepage"
 ch02_question='只读任务，不修改任何文件。
