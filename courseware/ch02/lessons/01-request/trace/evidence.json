@@ -1,32 +1,15 @@
 {
   "source": "courseware/ch02/materials/request/run-20261024/interactive.json",
   "trace_sha256": "4f0ce448d46adfa38d3fee902d99702403f045941c8ed1666fdcd9443279f45f",
-  "basis": "p07：讲师 2026-10-24 选定依据链 A（App.tsx 项目卡）、C（index.html 标题）、D（PLACEHOLDER_CONTENT.md 内容来源）；记录变化时用 --list-candidates 重新列候选，经讲师确认再改。p08a：问候的那一份请求（interactive-1），按请求里的实际顺序看七处（C2-99 把协作模式、团队与多代理说明单列一处）。",
+  "basis": "p07：讲师 2026-10-24 选定依据链 A（App.tsx 项目卡）；2026-10-25 起只讲这一条，C（index.html 标题）、D（PLACEHOLDER_CONTENT.md 内容来源）撤下（C2-101）；记录变化时用 --list-candidates 重新列候选，经讲师确认再改。p08a：问候的那一份请求（interactive-1），按请求里的实际顺序看七处（C2-99 把协作模式、团队与多代理说明单列一处）。",
   "confirmed_on": "2026-10-24",
   "viewer": "trace/viewer.html",
   "note": "本次真实记录",
-  "groups_label": "三条真实依据链",
-  "groups": {
-    "A": {
-      "tab": "A 项目卡",
-      "title": "项目卡写在哪"
-    },
-    "C": {
-      "tab": "C 标题",
-      "title": "页面标题写在哪"
-    },
-    "D": {
-      "tab": "D 来源",
-      "title": "内容从哪来"
-    }
-  },
   "stages": {
     "p07": [
       "A-answer",
       "A-call",
-      "A-result",
-      "C-result",
-      "D-result"
+      "A-result"
     ],
     "p08a": [
       "identity",
@@ -38,18 +21,9 @@
       "response"
     ]
   },
-  "extra": {
-    "p07": [
-      "C-answer",
-      "C-call",
-      "D-answer",
-      "D-call"
-    ]
-  },
   "points": [
     {
       "key": "A-answer",
-      "group": "A",
       "button": "① 看回答",
       "hint": "它说了什么，引用了哪里？",
       "request": "interactive-9",
@@ -58,7 +32,6 @@
     },
     {
       "key": "A-call",
-      "group": "A",
       "button": "② 找读取调用",
       "hint": "模型让 Codex 去读了什么？",
       "request": "interactive-4",
@@ -67,69 +40,12 @@
     },
     {
       "key": "A-result",
-      "group": "A",
       "button": "③ 找工具返回",
       "hint": "读到的代码，在下一次请求里",
       "request": "interactive-5",
       "section": "section_messages",
       "callId": "call_9YuUT4VwPtIAuWiPrhzcz5r8",
       "needle": "name: '学习笔记'"
-    },
-    {
-      "key": "C-answer",
-      "group": "C",
-      "button": "① 看回答",
-      "hint": "它说了什么，引用了哪里？",
-      "request": "interactive-9",
-      "section": "section_response",
-      "needle": "index.html:6"
-    },
-    {
-      "key": "C-call",
-      "group": "C",
-      "button": "② 找读取调用",
-      "hint": "模型让 Codex 去读了什么？",
-      "request": "interactive-3",
-      "section": "section_response",
-      "callId": "call_ucULXytSc31l6yUs9498Xu1a"
-    },
-    {
-      "key": "C-result",
-      "group": "C",
-      "button": "③ 找工具返回",
-      "hint": "读到的代码，在下一次请求里",
-      "request": "interactive-4",
-      "section": "section_messages",
-      "callId": "call_ucULXytSc31l6yUs9498Xu1a",
-      "needle": "<title>示例同学"
-    },
-    {
-      "key": "D-answer",
-      "group": "D",
-      "button": "① 看回答",
-      "hint": "它说了什么，引用了哪里？",
-      "request": "interactive-9",
-      "section": "section_response",
-      "needle": "PLACEHOLDER_CONTENT.md:9-10"
-    },
-    {
-      "key": "D-call",
-      "group": "D",
-      "button": "② 找读取调用",
-      "hint": "模型让 Codex 去读了什么？",
-      "request": "interactive-5",
-      "section": "section_response",
-      "callId": "call_fRSyjz9gm4q7jfT1JHDavdto"
-    },
-    {
-      "key": "D-result",
-      "group": "D",
-      "button": "③ 找工具返回",
-      "hint": "读到的代码，在下一次请求里",
-      "request": "interactive-6",
-      "section": "section_messages",
-      "callId": "call_fRSyjz9gm4q7jfT1JHDavdto",
-      "needle": "| 项目名称 | 学习笔记 |"
     },
     {
       "key": "identity",

@@ -40,10 +40,14 @@
         link.textContent = '查看这一步 →';
         section.append(heading, link);
       }
-      // 一步口播可含多段（以空行分隔）；【操作提示｜…】是给讲师的操作说明，单独排版、不可编辑
+      // 一步口播可含多段（以空行分隔）；【操作提示｜…】是给讲师的操作说明，【切换｜…】标出口播中途切窗口的位置，
+      // 两者都单独排版、不念、不可编辑
       paragraph.split('\n\n').forEach((text, part) => {
         const stage = text.startsWith('【操作提示｜');
-        addParagraph(section, text, stage ? 'stage-direction' : 'narration');
+        const cue = text.match(/^【切换｜(.+)】$/);
+        addParagraph(section, cue ? `⇄ ${cue[1]}` : text, stage ? 'stage-direction' : cue ? 'switch-cue' : 'narration');
+        const form = stage && text.match(/^【操作提示｜(现场回看|现场|回放)｜/);
+        if (form) section.lastChild.dataset.form = form[1];
         Object.assign(section.lastChild.dataset, { scene: scene.id, step, part });
       });
     });

@@ -12,7 +12,7 @@ window.lesson = {
       "title": "补完整，改风格，发布上线",
       "lead": "补入自己的内容，参考主页改风格，再发布成公开网址",
       "closing": "在自己的个人主页项目目录运行 npm run dev，用终端输出的 Local 地址查看首屏和项目区。接下来给 Codex 写 Prompt 时，我们还会查看模型实际拿到了哪些信息。",
-      "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>2.1</b>看请求</li><li><b>2.2</b>补经历</li><li><b>2.3</b>改风格</li><li><b>2.4</b>发布上线</li><li><b>2.5</b>用好 context</li></ol><style>#p01 .opening-start{margin-top:16px;padding:12px 18px;border:2px dashed #9C8B66;border-radius:10px}#p01 .opening-start p{margin:0;font-size:22px}#p01 .opening-start code{font-size:22px}#p01 .opening-goal{margin-top:16px;font-size:25px}body[data-mode=\"slides\"] #p01 h2{font-size:46px}@media(max-width:600px){#p01 .opening-start p,#p01 .opening-start code{font-size:19px}}</style><div class=\"opening-start\" data-reveal=\"1\"><p><code>npm run dev</code> → 打开 Local 地址 → 看首屏和项目区</p></div><div class=\"p-chain opening-goal\" data-reveal=\"2\"><span>补入自己的内容</span><i>→</i><span>参考主页改风格</span><i>→</i><span>发布上线</span></div><div style=\"margin-top:12px\"><div class=\"p-set\" data-role=\"ctx\" data-reveal=\"3\" style=\"padding:10px 16px 12px\"><h3 style=\"font-size:20px;margin-bottom:6px\">除了我们写的 Prompt，模型每一步还拿到了什么？</h3><div class=\"p-items\" style=\"flex-direction:row;flex-wrap:wrap;gap:6px\"><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;background:transparent;color:var(--p-muted)\">系统指令</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;background:transparent;color:var(--p-muted)\">工具</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;background:transparent;color:var(--p-muted)\">环境</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;background:transparent;color:var(--p-muted)\">规则</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;background:transparent;color:var(--p-muted)\">对话历史</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;background:transparent;color:var(--p-muted)\">工具返回</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px;font-weight:700\">新的 Prompt</div></div></div></div>",
+      "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>2.1</b>看请求</li><li><b>2.2</b>补经历</li><li><b>2.3</b>改风格</li><li><b>2.4</b>发布上线</li><li><b>2.5</b>用好 context</li></ol><style>#p01 .opening-start{margin-top:16px;padding:12px 18px;border:2px dashed #9C8B66;border-radius:10px}#p01 .opening-start p{margin:0;font-size:22px}#p01 .opening-start code{font-size:22px}#p01 .opening-goal{margin-top:16px;font-size:25px}body[data-mode=\"slides\"] #p01 h2{font-size:46px}@media(max-width:600px){#p01 .opening-start p,#p01 .opening-start code{font-size:19px}}</style><div class=\"opening-start\" data-reveal=\"1\"><p><code>npm run dev</code> → 打开 Local 地址 → 看首屏和项目区</p></div><div class=\"p-chain opening-goal\" data-reveal=\"2\"><span>补入自己的内容</span><i>→</i><span>参考主页改风格</span><i>→</i><span>发布上线</span></div><div style=\"margin-top:12px\"><div class=\"p-set\" data-role=\"ctx\" data-reveal=\"3\" style=\"padding:10px 16px 12px\"><h3 style=\"font-size:20px;margin-bottom:6px\">模型每一步拿到的，只有我们写的 Prompt 吗？</h3><div class=\"p-items\" style=\"flex-direction:row;flex-wrap:wrap;gap:6px\"><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;background:transparent;color:var(--p-muted)\">系统指令</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;background:transparent;color:var(--p-muted)\">工具</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;background:transparent;color:var(--p-muted)\">环境</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;background:transparent;color:var(--p-muted)\">规则</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;background:transparent;color:var(--p-muted)\">对话历史</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;background:transparent;color:var(--p-muted)\">工具返回</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px;font-weight:700\">新的 Prompt</div></div></div></div>",
       "repro": {
         "label": "从这一章开始？",
         "steps": [
@@ -55,14 +55,14 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜停留课件 p01 第 1 步，指本章地图的 2.1，再指“从这一章开始？”入口；不展开步骤】\n\n这一章，我们接着做前面的个人主页。先看一下本章的地图，我们现在停在第一节，也就是 2.1。如果前一章还没有做完，页面上这个“从这一章开始？”的入口，可以帮我们把起点补齐，补完再回到这里继续。",
-        "【操作提示｜推进第 2 步 → 切 Terminal 的“个人主页开发服务”标签页，在现有 ch02-start-v1 checkpoint 的项目根目录运行 npm run dev；依赖录前已安装，服务已运行时直接用实际 Local 地址。切 Chrome 打开该地址，先看首屏，再点“查看项目”查看项目区，保持服务运行；随后回课件 p01】\n\n先把主页打开。我在项目目录里运行 npm run dev，把开发服务启动起来，再用终端给出的 Local 地址，在浏览器里打开页面。我们先看首屏，再点一下“查看项目”，看看项目区现在有哪些内容。这个页面，就是后面要一直修改的东西，先记住它现在的样子。跟做的同学可以暂停视频，在自己的项目里也把主页打开。",
+        "【操作提示｜推进第 2 步 → 切 Terminal 的“个人主页开发服务”标签页，在现有 ch02-start-v1 checkpoint 的项目根目录运行 npm run dev；依赖录前已安装，服务已运行时直接用实际 Local 地址。切 Chrome 打开该地址，先看首屏，再点“查看项目”查看项目区，保持服务运行；随后回课件 p01】\n\n先把主页打开。我在项目目录里运行 npm run dev，把开发服务启动起来，再用终端给出的 Local 地址，在浏览器里打开页面。我们先看首屏，再点一下“查看项目”，看看项目区现在有哪些内容。我这里用的是课程统一的起点，内容还很干净；大家在上一章可能已经改过一些自己的信息，页面和我的不完全一样，不影响后面的步骤。这个页面，就是后面要一直修改的东西，先记住它现在的样子。跟做的同学可以暂停视频，在自己的项目里也把主页打开。",
         "【操作提示｜推进第 3 步，沿“补入自己的内容 → 参考主页改风格 → 发布上线”依次指认；地图只定位，不逐行念五节目录】\n\n回到课件。这一章，我们要做三件事：第一，把自己的信息、经历和项目补进主页；第二，参考一个自己喜欢的主页，把风格调整成想要的样子；第三，把它发布上线，拿到一个别人也能打开的公开网址。后面的几节，就沿着这三件事一路做下去。",
-        "【操作提示｜推进第 4 步，指锚点图里高亮的“新的 Prompt”，再扫过其余变浅的块，最后指地图上的 2.1；随后进入 p05a】\n\n做这些事的时候，我们要不断给 Codex 写 Prompt，让它来修改主页。这里先留一个问题：模型每一步拿到的信息，只有我们写的这条 Prompt 吗？看画面上这排方块，现在只有“新的 Prompt”是亮的，其余的都淡下去了，它们就是接下来要一块一块认出来的东西。"
+        "【操作提示｜推进第 4 步，指锚点图里高亮的“新的 Prompt”，再扫过其余变浅的块，最后指地图上的 2.1；随后进入 p05a】\n\n做这些事的时候，我们要不断给 Codex 写 Prompt，让它来修改主页。这里先留一个问题：模型每一步拿到的，只有我们写的这条 Prompt 吗？看画面上这排方块，现在只有“新的 Prompt”是亮的，其余的都淡下去了，它们就是接下来要一块一块认出来的东西。"
       ],
       "teaching": [
         {
           "title": "讲师提示",
-          "text": "讲师先用现有 ch02-start-v1 checkpoint（8e9a323）查看主页；已验证安装、开发服务与构建，浏览器效果录制前另核对。依赖录前安装好，服务已运行时用实际 Local 地址。先打开主页再回课件讲本章成果，地图只定位、不逐行念。学员继续自己的项目。"
+          "text": "讲师先用现有 ch02-start-v1 checkpoint（8e9a323）查看主页；已验证安装、开发服务与构建，浏览器效果录制前另核对。依赖录前安装好，服务已运行时用实际 Local 地址。先打开主页再回课件讲本章成果，地图只定位、不逐行念。学员继续自己的项目；口播交代讲师用的是统一起点，学员页面可能已有自己的改动。"
         }
       ],
       "source": "index.html#p01",
@@ -104,13 +104,13 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜停留课件 p05a 第 1 步，只显示左图；先指中间的“既定模型版本”，再指上面的 Context，沿箭头向下指到回答或动作】\n\n先分清两件事。第一件，是模型本身学到的东西。我们选定一个模型版本以后，用的就是它在训练中学到的知识和能力，平时的对话，不会实时去改写这些参数。第二件，是这一次任务能用到的信息。比如我们的个人主页现在写了什么，代码在哪里，这一次希望怎样修改，这些模型并不会自己知道，需要在当前任务里交给它。我们写的 Prompt、当前的代码、相关的材料，都可以成为这些信息的一部分。看图：中间是既定的模型版本；上面这一块，就是我们和 Codex 一起组织出来、这一次可以用的信息，我们把它叫作 Context。模型利用这些信息，生成回答，或者决定下一步的动作。",
-        "【操作提示｜推进第 2 步，揭示右侧截图，指 Karpathy 的名字，再指正文；不切网页，不逐行翻译】\n\n右边是 Karpathy 的一条帖子，里面还引用了 Tobi 的一句话。我们用自己的话说一下大意：Karpathy 赞同用 context engineering 这个词，来代替 prompt engineering。因为一提到 prompt，人们想到的往往是日常使用时，给大模型的一小段任务描述；而在真正的工业级应用里，要做好的事情，是把上下文窗口填对，这是一门需要认真研究的学问。他引用的 Tobi 的话更直接：这个词更准确地描述了核心技能，就是为任务提供全部必要的上下文，让大模型有可能把它解决。要说明的是，这条帖子只是帮我们确定一个关注的角度；模型参数不会实时改变这一点，并不是它的结论。",
-        "【操作提示｜推进第 3 步，指左下角 Context Engineering，再指左图的 Context 框；原文链接随本步出现，接下一页 p06-tap 的代理图】\n\n把这个角度收一下：组织模型当前能用的信息，就是画面下面这句说的 Context Engineering。那么，Codex 每一步实际发给模型的内容，除了我们写的 Prompt，还有什么呢？正常使用的时候，这些我们是看不到的，得想办法把请求记录下来，亲眼看一看。"
+        "【操作提示｜推进第 2 步，揭示右侧截图，指 Karpathy 的名字，再指正文；不切网页，不逐行翻译】\n\n右边是 Karpathy 的一条帖子。Karpathy 是 OpenAI 的创始成员之一，vibe coding 这个说法也是他提出来的。帖子里还引用了 Shopify CEO Tobi 的一句话。我们用自己的话说一下大意：Karpathy 赞同用 context engineering 这个词，来代替 prompt engineering。因为一提到 prompt，人们想到的往往是日常使用时，给大模型的一小段任务描述；而在真正的工业级应用里，要做好的事情，是把上下文窗口填对，这是一门需要认真研究的学问。他引用的 Tobi 的话更直接：这个词更准确地描述了核心技能，就是为任务提供全部必要的上下文，让大模型有可能把它解决。",
+        "【操作提示｜推进第 3 步，指左下角 Context Engineering，再指左图的 Context 框；原文链接随本步出现，随后进入 p06-tap】\n\n我很认同这个说法：同一个模型，给它的信息不一样，做出来的结果可以差很多。组织模型当前能用的信息，就是画面下面这句说的 Context Engineering。那么，Codex 每一步实际发给模型的内容，除了我们写的 Prompt，还有什么呢？"
       ],
       "teaching": [
         {
           "title": "讲师提示",
-          "text": "先讲左图，再揭示右侧帖子。先指模型解释既定版本，再指左图上方的当前任务信息；Context 不只由人手写，后面用请求实录拆开。右帖保留现有截图，作者与日期可见，简短意译，不逐行翻译。概览是课程自绘，不是 Karpathy 的原图；普通对话不实时改写参数的区分依据 Claude Academy，不把它说成帖子的结论。模型更新与微调不在本页展开。"
+          "text": "先讲左图，再揭示右侧帖子。先指模型解释既定版本，再指左图上方的当前任务信息；Context 不只由人手写，后面用请求实录拆开。右帖保留现有截图，作者与日期可见，简短意译，不逐行翻译。概览是课程自绘，不是 Karpathy 的原图；普通对话不实时改写参数的区分依据 Claude Academy，不把它说成帖子的结论（只在这里交代，不进口播，C2-100）。模型更新与微调不在本页展开。"
         }
       ],
       "source": "index.html#p05a",
@@ -137,9 +137,9 @@ window.lesson = {
         "查看记录"
       ],
       "script": [
-        "【操作提示｜停留课件 p06-tap 第 1 步，承接 p05a，指“我们的电脑”，沿请求箭头从 Codex 经代理指向模型服务；不切窗口】\n\n刚才说，要关注模型每一步实际拿到的信息。可是正常对话的时候，我们看不到 Codex 发出去的请求。要看到它，就得在中间加一个记录的角色。这里用的是一个开源工具，叫 claude-tap，它是一个本地代理，像中间人一样，站在 Codex 和模型服务之间。看这张图：左边是我们的电脑，Codex CLI 在这里组装好这一次的请求；请求先交给 claude-tap，由它接收、记录，再转发给右边远端的模型服务，本章用的是 MiniMax。为了让请求先经过代理，启动的时候，会把 API 地址临时指向本地代理。还要提醒一点：API 密钥这类鉴权信息，同样会经过代理。",
+        "【操作提示｜停留课件 p06-tap 第 1 步，承接 p05a，指“我们的电脑”，沿请求箭头从 Codex 经代理指向模型服务；不切窗口】\n\n正常对话的时候，我们看不到 Codex 发出去的请求。要看到它，就得在中间加一个记录的角色。这里用的是一个开源工具，叫 claude-tap，它是一个本地代理，像中间人一样，站在 Codex 和模型服务之间。看这张图：左边是我们的电脑，Codex CLI 在这里组装好这一次的请求；请求先交给 claude-tap，由它接收、记录，再转发给右边远端的模型服务，本章用的是 MiniMax。为了让请求先经过代理，启动的时候，会把 API 地址临时指向本地代理。API 密钥这类鉴权信息，同样会经过代理，所以这类代理，只用跑在自己电脑上、自己信得过的工具。",
         "【操作提示｜推进第 2 步，沿返回箭头从模型服务经代理指回 Codex；留在课件】\n\n模型的回答，也沿着原路，经过代理回到 Codex，内容可以一段一段地流式返回。这样，我们照常使用 Codex，同时，这条路径上的请求和返回，都被留了下来。需要说明的是，它只记录经过代理的这部分内容，别的地方发生了什么，它是看不到的。",
-        "【操作提示｜推进第 3 步，指本地记录、浏览器查看器与主画面命令；点击主画面的复制按钮，切 Terminal 新开“claude-tap”标签页，在个人主页项目根目录粘贴并运行 agent-lab codex --tap。Agent Lab 录前已按展开入口安装；uv、Codex CLI 与终端密钥录前备好，不展示配置或密钥。进入 Codex 后输入 /rename 加 demo.sh record 打印的名字，回车，确认名字已显示；停在 Codex 输入处，只指出实际查看器地址，不打开；随后进入 p08】\n\n记录会保存在本地，可以在浏览器里用查看器打开。画面下方这条命令，会启动一个干净的课程环境，并把请求接到刚才说的代理上，这样，我们看到的请求，和同学们自己的环境是一致的。第一次使用，要先按展开说明里的步骤，装一次 Agent Lab；命令里的 --tap，就是接入 claude-tap。已经配好 MiniMax 的同学，也可以按展开说明，直接启动代理。现在我切到终端，运行这条命令。进到 Codex 以后，我先输入 /rename，给这个会话起个名字。这一步是为了看记录方便：会话还没有名字的时候，Codex 会另外发请求，让模型帮它起标题，记录里就会多出和我们的对话无关的请求。起好名字，就没有这些了。启动输出里有查看器的地址，我们先记下来，等发完问候、回答结束再打开。这一段由我来演示，同学们自己运行是选做。"
+        "【操作提示｜推进第 3 步，指本地记录、浏览器查看器与主画面命令；点击主画面的复制按钮，切 Terminal 新开“claude-tap”标签页，在个人主页项目根目录粘贴并运行 agent-lab codex --tap。Agent Lab 录前已按展开入口安装；uv、Codex CLI 与终端密钥录前备好，不展示配置或密钥。Codex 询问是否信任此文件夹时选信任；进入后输入 /rename 加 demo.sh record 打印的名字，回车，确认名字已显示；停在 Codex 输入处，只指出实际查看器地址，不打开；随后进入 p08】\n\n记录会保存在本地，可以在浏览器里用查看器打开。画面下方这条命令，会启动一个干净的课程环境，并把请求接到刚才说的代理上。它用的是一套单独的课程配置，不会混进我们平时自己用的 Codex 设置，这样，我们看到的请求，和同学们自己运行时是一致的。第一次使用，要先按展开说明里的步骤，装一次 Agent Lab；命令里的 --tap，就是接入 claude-tap。已经配好 MiniMax 的同学，也可以按展开说明，直接启动代理。\n\n【切换｜Terminal · 新开 claude-tap 标签页】\n\n现在我切到终端，运行这条命令。第一次在这个目录启动，Codex 会问是否信任这个文件夹，我们选信任；选否的话，它会直接退出。进到 Codex 以后，我先输入 /rename，给这个会话起个名字。这一步是为了看记录方便：会话还没有名字的时候，Codex 会另外发请求，让模型帮它起标题，记录里就会多出和我们的对话无关的请求。起好名字，就没有这些了。启动输出里有查看器的地址，我们先记下来，等发完问候再打开。这一段由我来演示，同学们自己运行是选做。"
       ],
       "repro": {
         "label": "使用课程独立环境",
@@ -155,6 +155,10 @@ window.lesson = {
           {
             "text": "在个人主页项目目录启动课程独立环境，同时记录请求",
             "code": "agent-lab codex --tap"
+          },
+          {
+            "text": "第一次在这个目录启动时，Codex 会问是否信任这个文件夹，选信任；选否会直接退出",
+            "code": ""
           },
           {
             "text": "进入 Codex 后先给会话起个名字，看到名字显示出来再开始对话；不起名时，Codex 会另外发请求让模型起标题，记录里会多出和对话无关的请求",
@@ -182,7 +186,7 @@ window.lesson = {
         },
         {
           "title": "切到实操",
-          "text": "主画面、复制内容、展开入口与口播统一使用 agent-lab codex --tap，讲师录前已安装；直接启动代理只作为展开入口中的备选。沿用工具验证记录，不把原直接启动命令的旧实测日期套在新入口上。录前准备 uv、Codex CLI 与终端密钥，命令在个人主页项目根目录执行；进入后先手动输入 /rename 起名（名字随意，demo.sh record 会按标签打印一条），确认名字已显示；Codex 0.163.0 的会话没有名字时，每条用户消息完成后都会另发一次起标题的请求，没有配置项能关掉，启动命令里的初始输入也不会执行 /rename（C2-99）。停在输入处并指出实际查看器地址，发完问候、回答结束后才查看记录。"
+          "text": "主画面、复制内容、展开入口与口播统一使用 agent-lab codex --tap，讲师录前已安装；直接启动代理只作为展开入口中的备选。沿用工具验证记录，不把原直接启动命令的旧实测日期套在新入口上。录前准备 uv、Codex CLI 与终端密钥，命令在个人主页项目根目录执行；全新的课程 HOME 第一次进入会问是否信任此文件夹，选信任（2026-10-25 录制时遇到）；进入后先手动输入 /rename 起名（名字随意，demo.sh record 会按标签打印一条），确认名字已显示；Codex 0.163.0 的会话没有名字时，每条用户消息完成后都会另发一次起标题的请求，没有配置项能关掉，启动命令里的初始输入也不会执行 /rename（C2-99）。停在输入处并指出实际查看器地址，发完问候、回答结束后才查看记录。"
         },
         {
           "title": "讲师提示",
@@ -199,18 +203,18 @@ window.lesson = {
       "prompt": "你好，用一句话介绍你能帮我做什么。",
       "label": "一句话与实际请求",
       "title": "写的是一句话，模型还收到了什么？",
-      "lead": "仍在刚才的个人主页项目里发送问候。回答结束后打开记录，找到回答问候的这一份请求，再定位我们写的这一句，观察除此之外发出了什么。",
+      "lead": "仍在刚才的个人主页项目里发送问候。课件里留了一份同一句问候的记录（2026-10-24）：先看这一份请求有多大，再找到我们写的这一句，观察除此之外发出了什么。自己运行时，结果可以和这份对比。",
       "closing": "这次问候一次请求就回答了，没有读文件；模型也可能为一句问候先去读文件，那时就会有后续请求。不把整段会话的累计输入量当作这一次请求的输入量。",
-      "html": "<style>#p08 .scene-content{align-items:center}#p08 .source-note,#p08 .closing{grid-column:1/-1}body[data-mode=\"slides\"] #p08 .prompt{height:220px}#p08 .prompt-label span::after{content:\"\"}#p08 .request-observation{display:grid;gap:16px}#p08 .request-observation .p-box{padding:20px 24px}body[data-mode=\"slides\"] #p08 h2{font-size:42px}</style><div class=\"request-observation\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">回答问候的这一份请求</span><p class=\"p-big\">远不止这一句</p><p class=\"p-sub\">这一次输入：8,709 token</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"2\"><p class=\"p-big\">先找到原句</p><p>再看指令、工具、环境</p></div></div><p class=\"source-note\">依据：2026-10-24，ch02-start-v1 起点、专用课程 HOME，Codex CLI 0.163.0 + MiniMax-M3.1-Flash，max，claude-tap 0.1.146。8,709 是这份请求的 input_tokens；只代表这次运行。</p>",
+      "html": "<style>#p08 .scene-content{align-items:center}#p08 .source-note,#p08 .closing{grid-column:1/-1}body[data-mode=\"slides\"] #p08 .prompt{height:220px}#p08 .prompt-label span::after{content:\"\"}#p08 .request-observation{display:grid;gap:16px}#p08 .request-observation .p-box{padding:20px 24px}body[data-mode=\"slides\"] #p08 h2{font-size:42px}</style><div class=\"request-observation\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">回答问候的这一份请求</span><p class=\"p-big\">远不止这一句</p><p class=\"p-sub\">课件留存的这次：输入 8,709 token</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"2\"><p class=\"p-big\">先找到原句</p><p>再看指令、工具、环境</p></div></div><p class=\"source-note\">依据：2026-10-24，ch02-start-v1 起点、专用课程 HOME，Codex CLI 0.163.0 + MiniMax-M3.1-Flash，max，claude-tap 0.1.146。8,709 是这份请求的 input_tokens；只代表这次运行。</p>",
       "steps": [
-        "发出问候",
-        "找到第一份主请求",
+        "现场发出问候",
+        "课件里的这一份请求",
         "原句之外还有什么"
       ],
       "script": [
-        "【操作提示｜课件 p08 第 1 步 → 切到 p06 已启动的 Codex，确认仍在个人主页项目根目录，粘贴画面上的问候并提交，等回答结束】\n\n我们还在刚才那个个人主页项目里。现在发一句最简单的话：你好，用一句话介绍你能帮我做什么。这是一句和项目几乎没有关系的问候，我们只想看一件事：这一句话发出去的时候，请求里到底装了什么。等它回答完，我们就打开记录。",
-        "【操作提示｜推进 p08 第 2 步 → 打开启动输出所示查看器，定位回答问候的这一份请求：末句是问候。数字以展示记录为准】\n\n回答结束了，现在打开查看器。记录里，回答这句问候的，就是这一条请求，它的任务内容，就是刚才我们输入的那句话。画面上写着，这一次的输入是八千七百零九个 token。这个数字只是这次记录旁边的一个注解，我们先不做换算，也不需要记它。真正要看的是：我们只写了十几个字，请求里怎么会有这么多内容？我们先在请求里，把原句找出来。",
-        "【操作提示｜推进 p08 第 3 步 → 在同一请求中找到用户原句，再向前指认额外内容；回课件指右侧两框。本机路径及用户名录前遮盖，不展示鉴权信息】\n\n找到了，就是这一句。但请注意，在它前面，还有一大段内容：有指令，有工具的说明，有环境信息。这些同样都发给了模型，只是平时，我们看不到。回到课件，右边这两个框，就是这一页要带走的两件事：先把这一份请求认清，找到我们写的那一句；再看原句之外，还发出去了什么。"
+        "【操作提示｜现场｜课件 p08 第 1 步 → 切到 p06 已启动的 Codex，确认仍在个人主页项目根目录，粘贴画面上的问候并提交；不等回答，切回课件 p08。现场这次的结果在 p08a 第 7 步回看】\n\n我们还在刚才那个个人主页项目里。现在发一句最简单的话：你好，用一句话介绍你能帮我做什么。这是一句和项目几乎没有关系的问候，我们只想看一件事：这一句话发出去的时候，请求里到底装了什么。\n\n【切换｜回课件 p08】\n\n在它回答的时候，先说一下这门课看记录的方式。每到要看真实记录的地方，课件里都事先留了一份我们跑好的记录，大家以后只看课件，也能自己点开查看。所以我们每次都先讲课件里的这一份，讲完，再回到现场，看看刚才这一次的最新结果；两次不一样的地方，正好对比一下。",
+        "【操作提示｜回放｜推进 p08 第 2 步，指“回答问候的这一份请求”框与 8,709；不切窗口】\n\n课件里留的，是 10 月 24 日跑的一次。回答这句问候的，是一份请求，它的输入是八千七百零九个 token。这个数字只代表这一次，不用记。它背后的问题才值得看：我们只写了十几个字，请求里怎么会有这么多内容？",
+        "【操作提示｜回放｜推进 p08 第 3 步，指右侧第二个框；不切窗口，随后进入 p08a】\n\n多出来的是什么？看右边第二个框：先在请求里找到我们写的那一句，再看它之外还有什么，指令、工具、环境。我们就沿着课件里这份记录，从最前面开始往下看。"
       ],
       "teaching": [
         {
@@ -227,7 +231,7 @@ window.lesson = {
         },
         {
           "title": "展示",
-          "text": "先等回答结束才打开查看器，定位原句，再向前观察大块内容；若忘了 /rename、记录里出现标题任务，用一句话交代。查看器含本机路径与用户名，录屏前遮盖或缩写；不展示 Key 或鉴权配置。"
+          "text": "先讲课件、再回看现场（C2-100）：第 1 步现场发出问候，不等回答切回课件，口播讲清这门课看记录的方式；第 2、3 步和 p08a 都讲课件留存的 10-24 记录，p08a 第 7 步再切到现场查看器看这一次。现场若读了文件、数字不同，按画面指认差异，口播不改。若忘了 /rename、记录里出现标题任务，用一句话交代。查看器含本机路径与用户名，录屏前遮盖或缩写；不展示 Key 或鉴权配置。"
         }
       ],
       "source": "index.html#p08",
@@ -259,13 +263,13 @@ window.lesson = {
         "这一次的返回"
       ],
       "script": [
-        "【操作提示｜停留 p08a 第 1 步，选择系统指令，指阅读视图的身份原文与 developer 标签；点阅读视图里的 MiniMax 官方说明链接，打开后点“方式二：手动配置”，对照首句，看完切回课件】\n\n刚才，我们找到了自己输入的那句问候。现在，从这份请求的最前面开始，按它实际的顺序往下看。第一条是身份指令，它告诉模型：这是一个编程 Agent，和用户共用一个工作区，一起完成目标。其中有一句 based on MiniMax，来自我们事先写进去的模型能力目录。阅读视图里放了 MiniMax 官方接入说明的链接，我们打开对照一下，写法一模一样。如果没有写这个目录，这里会是 Codex 默认的一大段指令，所以同学们自己的记录，这里可能会不一样。这条消息的角色，标的是 developer。",
+        "【操作提示｜回放｜停留 p08a 第 1 步，选择系统指令，指阅读视图的身份原文与 developer 标签；点阅读视图里的 MiniMax 官方说明链接，打开后点“方式二：手动配置”，对照首句，看完切回课件】\n\n第一条是身份指令，它告诉模型：这是一个编程 Agent，和用户共用一个工作区，一起完成目标。其中有一句 based on MiniMax，来自我们事先写进去的模型能力目录。阅读视图里放了 MiniMax 官方接入说明的链接，我们打开对照一下。\n\n【切换｜浏览器 · MiniMax 接入说明 · 方式二】\n\n写法一模一样。\n\n【切换｜回课件 p08a】\n\n如果没有写这个目录，这里会是 Codex 默认的一大段指令，所以同学们自己的记录，这里可能会不一样。这条消息的角色，标的是 developer；角色是什么意思，等看完整份请求再一起说。",
         "【操作提示｜推进第 2 步，指 Skills 的名字、简述和文件位置；展开“对应 SKILL.md”对照，核对后收起】\n\n接着是 Skills 列表。列表里给了每一项技能的名字、一句简述，和它的文件位置。比如这里的 skill-creator，列表只告诉模型，它能做什么、文件在哪里；技能的全文，在对应的 SKILL.md 文件里，模型真要用的时候，才会去读。画面上展开的这一段，来自那个实际的文件，对照着看，就能知道，列表和全文是两回事。这次只是一句问候，模型并没有去读它。",
         "【操作提示｜推进第 3 步，定位权限，指 developer 和 workspace-write；完整审批规则按需展开】\n\n再往下，是权限说明，它和 Skills 在同一条 developer 消息里。这次的模式是 workspace-write：可以读取文件，并且可以在指定的范围内写入。要注意，这只是写给模型看的一段说明；它实际能不能执行某个操作，是由本地的沙箱来落实的。",
         "【操作提示｜推进第 4 步，定位协作模式，指 Default；再往下指团队说明、多代理限制两条 developer 消息；完整说明按需展开，不逐段读】\n\n同一条消息的最后，是协作模式。这次是 Default，也就是默认模式；另一种叫 Plan 模式，先出计划、再动手，后面补个人经历的时候会用到。再往下，是两条单独的 developer 消息。第一条是团队说明：它告诉模型，自己是一个团队里的主代理，可以派出子代理，分头处理子任务。紧跟着的一条，又加了限制：除非用户或规则明确要求，不要主动派子代理。子代理有它自己的一份上下文，这一节先不展开。",
-        "【操作提示｜推进第 5 步，定位环境，指 user、目录、Shell、日期与时区；不展开文件访问范围细节】\n\n接下来是环境信息：当前的目录、使用的 Shell、日期和时区。顺便说个小彩蛋：这里的时区是上海。社区里常常讨论，工具能不能看出用户在哪，像这样的字段，就有可能透露一些信息。当然，这只是说有这种可能，并不是说 Codex 真的这样用了它。再看角色：这一条标的是 user，可是内容却是 Codex 加进去的。我们自己写的那句问候，在它的后面。",
-        "【操作提示｜推进第 6 步，定位工具定义，指 exec 名称、exec_command 与命令参数；完整工具说明可展开，不逐项读】\n\n消息之后，是工具定义。这里的工具叫 exec，说明里包含了 exec_command 的用法。工具定义告诉模型：有哪些工具可以用，调用的时候该怎么写。这里要分清分工：真正去执行的是 Codex，模型只是提出调用。完整的说明很长，我们不逐项读，知道它的作用就够了。",
-        "【操作提示｜推进第 7 步，定位这一次的返回，指回答原文与用量；随后进入 p09】\n\n最后，看这一次的返回。这次模型直接用一句话作了回答，没有调用任何工具。可是，我们只写了一句话，这份请求的输入，却有八千七百多个 token。多出来的部分，就是刚才从上到下看到的这些内容。"
+        "【操作提示｜推进第 5 步，定位环境，指 user、目录、Shell、日期与时区；不展开文件访问范围细节】\n\n接下来是环境信息：当前的目录、使用的 Shell、日期和时区。这里的时区是上海。这一条每次请求都会带上，也就是说，模型服务那边，每次都能看到我们在哪个时区。我的看法是，用海外的模型服务时，这一点心里要有数：我们在哪，对方并不需要去猜。再看角色：这一条标的是 user，可是内容却是 Codex 加进去的。我们自己写的那句问候，在它的后面。",
+        "【操作提示｜推进第 6 步，定位工具定义，指五个工具的名称，再指 exec 说明里的 exec_command；完整工具说明可展开，不逐项读】\n\n消息之后，是工具定义，这里一共有五个。用得最多的是 exec，它是一个总入口，执行命令这类操作都通过它，说明里写着 exec_command 怎么用；wait 用来等一条命令跑完；另外三个，分别用来向用户提问、派出子代理和联网搜索，其中向用户提问只在 Plan 模式里能用。工具定义告诉模型：有哪些工具可以用，调用的时候该怎么写。这里要分清分工：真正去执行的是 Codex，模型只是提出调用。完整的说明很长，我们不逐项读，知道它的作用就够了。",
+        "【操作提示｜现场回看｜推进第 7 步，定位这一次的返回，指回答原文与用量；讲完切到浏览器，打开 p06 启动输出里的查看器，找到刚才现场的问候，指输入 token 数，再看侧栏有没有读文件的后续请求；有差异就指着说，随后回课件进入 p09】\n\n最后，看这一次的返回。这次模型直接用一句话作了回答，没有调用任何工具。可是，我们只写了一句话，这份请求的输入，却有八千七百多个 token。多出来的部分，就是刚才从上到下看到的这些内容。\n\n【切换｜浏览器 · 现场这次的查看器】\n\n课件里的这份看完了，再看我们刚才现场发的那一次。先看输入有多少 token，再看侧栏：模型这次是直接回答，还是先去读了文件。和课件里那次不一样，也很正常，同一句话，模型每次的做法可能不同。但请求前面那几块，身份、Skills、权限、环境、工具定义，两次都在，只是日期这类现场信息会变。\n\n【切换｜回课件 p09】"
       ],
       "teaching": [
         {
@@ -285,12 +289,16 @@ window.lesson = {
           "text": "第 4 步各说一句：Default 是默认的协作模式（另一种是 2.2 会用的 Plan）；团队说明告诉模型它是主代理，可以派子代理；多代理限制要求除非用户或规则明确要求，不主动派子代理。子代理有自己的 context，本节只露出这一句。"
         },
         {
-          "title": "彩蛋",
-          "text": "环境里的时区 Asia/Shanghai 可以口播一句：社区常讨论工具能否判断用户在哪，这类字段确实可能透露信息。只说“可能”，不说 Codex 实际这样用，不上屏。"
+          "title": "时区",
+          "text": "环境里的时区 Asia/Shanghai 口播一句：这一条每次请求都会发给模型服务，服务方不用猜就知道我们在哪个时区；讲师的看法是用海外服务时心里要有数。只说请求里有什么、谁能看到，不说服务方拿它做了什么，不上屏（C2-100 取代“只说可能”的写法）。"
         },
         {
           "title": "这一次的返回",
           "text": "这次的响应直接是文字回答，没有工具调用（10-23 那次曾先读 package.json）。读文件引出多次请求，留到 p07-loop 用项目问题讲。"
+        },
+        {
+          "title": "现场回看",
+          "text": "第 7 步讲完课件，切到 p06 启动的查看器看现场这次问候：输入 token、有没有读文件的后续请求。2026-10-25 录制时现场那次先读了 README，和课件不同，正好指出来。口播写成不依赖现场结果的话，差异由讲师指着画面说（C2-100）。"
         },
         {
           "title": "来源与发布",
@@ -328,7 +336,7 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜停留 p09 第 1 步，从上到下指六类内容；留在课件，按作用讲，不逐段朗读请求】\n\n把刚才看到的内容，按作用归成六类。第一类，系统与协作指令，告诉模型它是谁、该怎样工作。第二类，工具定义，告诉它有哪些工具、怎样调用。第三类，Skills 列表，告诉它有哪些技能、全文放在哪里。第四类，环境信息，也就是当前目录、日期这样的现场情况。第五类，权限说明，说明这一次允许怎样操作。最后一类，才是我们这次的提问。六类里，只有最后这一类，是我们自己写的。另外要说明，这是按作用分的类，不是一类对应一条消息：一条消息里，可能同时有好几类内容，比如 Skills 和权限，就在同一条里。",
-        "【操作提示｜推进 p09 第 2 步，先指 developer，再指 user 里的两行；页底两条原文链接不现场打开；需要时切查看器核对环境和问候的 user 角色，再回课件进入 p07】\n\n再看消息的角色。这次请求里，只出现两种：developer 和 user。developer，可以理解成开发这个工具的一方，也就是 Codex，写给模型的指令；user，是对话里用户这一侧的消息。大家可能还听说过一种角色，叫 system。在 OpenAI 的 API 里，开发者写的指令逐渐统一叫作 developer，这个版本的 Codex，也把基础指令放进了第一条 developer 消息，所以这次记录里看不到 system，页面底部有这两处的原文。回到这一份请求：developer 里的，是身份、Skills、权限、协作说明这些，全部是 Codex 加进去的。user 里有两条：一条是环境信息，也是 Codex 加的；另一条，才是我们输入的那句问候。所以，看到 user 这两个字，不能就认定是我们写的，要看里面的内容。"
+        "【操作提示｜推进 p09 第 2 步，先指 developer，再指 user 里的两行；页底两条原文链接不现场打开；需要时切查看器核对环境和问候的 user 角色，再回课件进入 p07】\n\n再看消息的角色。这次请求里，只出现两种：developer 和 user。developer，可以理解成开发这个工具的一方，也就是 Codex，写给模型的指令；user，是对话里用户这一侧的消息。大家可能还听说过一种角色，叫 system。在 OpenAI 的 API 里，开发者写的指令已经统一叫作 developer，较新的模型用它取代了原来的 system 消息，所以这次记录里看不到 system。Codex 自己的基础指令，以前放在一个单独的字段里，这个版本也移到了第一条 developer 消息。页面底部有这两处的原文。回到这一份请求：developer 里的，是身份、Skills、权限、协作说明这些，全部是 Codex 加进去的。user 里有两条：一条是环境信息，也是 Codex 加的；另一条，才是我们输入的那句问候。所以，看到 user 这两个字，不能就认定是我们写的，要看里面的内容。"
       ],
       "teaching": [
         {
@@ -337,7 +345,7 @@ window.lesson = {
         },
         {
           "title": "角色的含义",
-          "text": "第 2 步口播先讲角色：developer 是工具一方写给模型的指令，user 是对话里用户一侧的消息。“为什么没有 system”顺带一句，不上屏：在 OpenAI 的 API 里，开发者写的指令逐渐统一叫 developer（o1 及更新的模型用它取代 system 消息），Codex 0.162 起也把基础指令作为第一条 developer 消息（PR #51156）。口播限定为“在 OpenAI 的 API 和这个 Codex 版本里”；不说 o1 的具体日期，不推断 MiniMax 服务端是否另加 system。两处原文链接随第 2 步出现（C2-86、C2-99）。"
+          "text": "第 2 步口播先讲角色：developer 是工具一方写给模型的指令，user 是对话里用户一侧的消息。“为什么没有 system”顺带一句，不上屏，两件事分开说：看不到 system，是因为在 OpenAI 的 API 里，开发者写的指令统一叫 developer（o1 及更新的模型用它取代 system 消息）；另外，Codex 0.162 起把基础指令从单独的 instructions 字段移到第一条 developer 消息（PR #51156），这是基础指令放在哪，不是 system 消失的原因（C2-100）。口播限定为“在 OpenAI 的 API 和这个 Codex 版本里”；不说 o1 的具体日期，不推断 MiniMax 服务端是否另加 system。两处原文链接随第 2 步出现（C2-86、C2-99）。"
         },
         {
           "title": "转场",
@@ -352,9 +360,9 @@ window.lesson = {
       "segment": "代码进入请求",
       "label": "代码怎样进入请求",
       "title": "读到的代码，怎样进入下一次请求？",
-      "lead": "在问候后的同一会话发出项目区只读问题。这一次，一句话引出了好几次请求：模型读完文件以后，代码作为工具返回进入下一次请求。本页从 2026-10-24 的真实记录里挑三条依据链：A 项目卡写在哪（src/App.tsx），C 页面标题写在哪（index.html），D 内容从哪来（PLACEHOLDER_CONTENT.md）。每一条都可以按“看回答 → 找读取调用 → 找工具返回”核对；放大后同样可以切换。",
-      "html": "<div class=\"p-evidence\" data-ev-steps=\"[&quot;A-answer&quot;, &quot;A-call&quot;, &quot;A-result&quot;, &quot;C-result&quot;, &quot;D-result&quot;]\" data-ev-viewer=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light\" data-ev-view=\"raw\"><nav class=\"p-ev-guide\" aria-label=\"本次记录的观察顺序\"><p class=\"p-ev-note\">三条真实依据链</p><div class=\"p-ev-tabs\" role=\"group\" aria-label=\"分组\"><button type=\"button\" data-ev-group=\"A\" aria-pressed=\"true\" title=\"项目卡写在哪\">A 项目卡</button><button type=\"button\" data-ev-group=\"C\" aria-pressed=\"false\" title=\"页面标题写在哪\">C 标题</button><button type=\"button\" data-ev-group=\"D\" aria-pressed=\"false\" title=\"内容从哪来\">D 来源</button></div><button type=\"button\" data-ev-key=\"A-answer\" data-ev-in=\"A\" aria-pressed=\"true\"><b>① 看回答</b><span>它说了什么，引用了哪里？</span></button><button type=\"button\" data-ev-key=\"A-call\" data-ev-in=\"A\" aria-pressed=\"false\"><b>② 找读取调用</b><span>模型让 Codex 去读了什么？</span></button><button type=\"button\" data-ev-key=\"A-result\" data-ev-in=\"A\" aria-pressed=\"false\"><b>③ 找工具返回</b><span>读到的代码，在下一次请求里</span></button><button type=\"button\" data-ev-key=\"C-answer\" data-ev-in=\"C\" hidden aria-pressed=\"false\"><b>① 看回答</b><span>它说了什么，引用了哪里？</span></button><button type=\"button\" data-ev-key=\"C-call\" data-ev-in=\"C\" hidden aria-pressed=\"false\"><b>② 找读取调用</b><span>模型让 Codex 去读了什么？</span></button><button type=\"button\" data-ev-key=\"C-result\" data-ev-in=\"C\" hidden aria-pressed=\"false\"><b>③ 找工具返回</b><span>读到的代码，在下一次请求里</span></button><button type=\"button\" data-ev-key=\"D-answer\" data-ev-in=\"D\" hidden aria-pressed=\"false\"><b>① 看回答</b><span>它说了什么，引用了哪里？</span></button><button type=\"button\" data-ev-key=\"D-call\" data-ev-in=\"D\" hidden aria-pressed=\"false\"><b>② 找读取调用</b><span>模型让 Codex 去读了什么？</span></button><button type=\"button\" data-ev-key=\"D-result\" data-ev-in=\"D\" hidden aria-pressed=\"false\"><b>③ 找工具返回</b><span>读到的代码，在下一次请求里</span></button></nav><div class=\"p-ev-panel\"><div class=\"p-ev-bar\"><span data-ev-status>本次真实记录</span><div class=\"p-ev-actions\"><a data-ev-open href=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light&amp;point=A-answer\" target=\"_blank\" rel=\"noopener\">单独打开 ↗</a><button type=\"button\" data-ev-expand aria-haspopup=\"dialog\">放大记录</button></div></div><iframe title=\"claude-tap 静态记录\" data-src=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light&amp;hideHeader=1\"></iframe></div></div>",
-      "closing": "这里核对的是回答里的三处引用，模型没有用浏览器验证页面。记录完整保留请求、调用、返回与回答，只去掉了鉴权、本机路径、会话标识和推理的加密部分。",
+      "lead": "在问候后的同一会话发出项目区只读问题。这一次，一句话引出了好几次请求：模型读完文件以后，代码作为工具返回进入下一次请求。回答总在最后一次请求的返回里，它引用的代码是更早某一次读回来的，所以核对时从回答倒着往回找：看回答 → 找读取调用 → 找工具返回。本页在 2026-10-24 的真实记录里核对其中一处：项目卡写在哪（src/App.tsx）；放大后同样可以切换。",
+      "html": "<div class=\"p-evidence\" data-ev-steps=\"[&quot;A-answer&quot;, &quot;A-call&quot;, &quot;A-result&quot;]\" data-ev-viewer=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light\" data-ev-view=\"raw\"><nav class=\"p-ev-guide\" aria-label=\"本次记录的观察顺序\"><button type=\"button\" data-ev-key=\"A-answer\" aria-pressed=\"true\"><b>① 看回答</b><span>它说了什么，引用了哪里？</span></button><button type=\"button\" data-ev-key=\"A-call\" aria-pressed=\"false\"><b>② 找读取调用</b><span>模型让 Codex 去读了什么？</span></button><button type=\"button\" data-ev-key=\"A-result\" aria-pressed=\"false\"><b>③ 找工具返回</b><span>读到的代码，在下一次请求里</span></button></nav><div class=\"p-ev-panel\"><div class=\"p-ev-bar\"><span data-ev-status>本次真实记录</span><div class=\"p-ev-actions\"><a data-ev-open href=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light&amp;point=A-answer\" target=\"_blank\" rel=\"noopener\">单独打开 ↗</a><button type=\"button\" data-ev-expand aria-haspopup=\"dialog\">放大记录</button></div></div><iframe title=\"claude-tap 静态记录\" data-src=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light&amp;hideHeader=1\"></iframe></div></div>",
+      "closing": "这里核对的是回答里的一处引用；回答还引用了项目说明文档 PLACEHOLDER_CONTENT.md，依据不一定都来自代码。模型没有用浏览器验证页面。记录完整保留请求、调用、返回与回答，只去掉了鉴权、本机路径、会话标识和推理的加密部分。",
       "repro": {
         "label": "本次怎样提问？",
         "steps": [
@@ -366,18 +374,14 @@ window.lesson = {
         "note": "记录来自 2026-10-24 的一次真实交互会话：问候之后接着问。想看完整结构，可在查看器中展开‘完整 JSON’；不要求记住请求编号或工具字段。"
       },
       "steps": [
-        "A：看回答",
-        "A：找读取调用",
-        "A：找工具返回",
-        "C：页面标题的依据",
-        "D：内容来源的依据"
+        "看回答",
+        "找读取调用",
+        "找工具返回"
       ],
       "script": [
-        "【操作提示｜回放｜停在 p07 第 1 步，依据链 A；展开“本次怎样提问？”指只读 Prompt 后收起。查看器侧栏指一下这次项目问题的几次请求，再定位最终回答里 src/App.tsx:1-6 的引用，点击“放大记录”读给大家，读完收起】\n\n认清了问候这一份请求，我们回到个人主页，问一个必须读代码才能回答的问题。这一页放的，是我们事先跑好的一次真实会话。在刚才问候的同一个会话里，我们接着问：这个主页的项目区显示什么，数据写在哪个文件里？注意，这个问题没有点名任何文件，需要模型自己去找。完整的 Prompt 可以在这里展开看到：我们要求它只读、不修改文件，要说明依据来自哪个文件的哪几行，不确定就写“不确定”。这一次，记录里不再只有一份请求，而是好几次，这次是八次。这几次请求之间是什么关系？我们先跟着一条依据走一遍。这次模型读了好几个文件，我们挑出三条依据链来核对，先看第一条，A。回答里说，项目卡叫“学习笔记”，描述是“记录课程练习”，数据在 src/App.tsx 的第 1 到 6 行。我们把它放大，再念一遍。",
+        "【操作提示｜回放｜停在 p07 第 1 步，“项目卡”这条依据链。先切到 p06 的 Codex 会话，粘贴“本次怎样提问？”里的只读 Prompt 并提交，不等回答切回课件；展开“本次怎样提问？”指只读 Prompt 后收起。查看器侧栏指一下这次项目问题的几次请求，再定位最终回答里 src/App.tsx:1-6 的引用，点击“放大记录”读给大家，读完收起。现场这次的结果在第 3 步回看】\n\n认清了问候这一份请求，我们回到个人主页，问一个必须读代码才能回答的问题。在刚才问候的同一个会话里，我们接着问：这个主页的项目区显示什么，数据写在哪个文件里？注意，这个问题没有点名任何文件，需要模型自己去找。我们还要求它只读、不修改文件，说明依据来自哪个文件的哪几行，不确定就写“不确定”。\n\n【切换｜Terminal · claude-tap 标签页】\n\n我先在现场把这个问题发出去。\n\n【切换｜回课件 p07】\n\n它在跑的时候，我们照样先看课件里留的这一次。完整的 Prompt，可以在这里展开看到。这一次，记录里不再只有一份请求，而是好几次，这次是八次。回答，总在最后一次请求的返回里；回答引用的代码，却是更早的某一次读回来的。所以核对的时候，要从回答出发，倒着往回找：先看回答引用了哪里，再找模型提出的读取调用，最后在下一次请求里，找到读回来的内容。我们挑回答里的一处引用来核对：项目卡。回答里说，项目卡叫“学习笔记”，描述是“记录课程练习”，数据在 src/App.tsx 的第 1 到 6 行。我们把它放大，再念一遍。",
         "【操作提示｜推进 p07 第 2 步，或点“找读取调用”；查看器定位模型提出的读取调用，放大查看实际命令，不逐个念字段】\n\n这条依据是从哪来的？我们去找模型提出的读取调用。在记录里可以看到，模型让 Codex 用 cat 命令去读 src/App.tsx，顺带还读了入口文件和样式文件。这里要认出的，是它读了哪个文件，以及这个文件，和回答里引用的是不是同一个。命令里的各个工具字段，不需要记。",
-        "【操作提示｜推进 p07 第 3 步，或点“找工具返回”；查看器定位下一次请求里这次调用的返回，指第 3、4 行；再用查看器的对比功能，选读取 App.tsx 前后相邻的两次请求，指末尾新增的 assistant、tool 两条；展开完整 JSON 指出两条前面还有一条 reasoning；回到 A 的回答】\n\n再看下一次请求。Codex 把读到的代码，作为工具返回，放进了这一次请求里，第 3、4 行，就是“学习笔记”和“记录课程练习”。回答里的那处引用，就是从这里来的。我们再把这次请求，和上一次对比一下：前面的内容一模一样，只在末尾多出几条。查看器里看到的是两条：一条 assistant，是模型提出的读取调用；一条 tool，是 Codex 带回来的工具返回。在完整的 JSON 里，这两条前面还有一条，是模型这一轮的推理；它没有标角色，查看器的这个视图就没有显示。推理和调用，都是上一次请求里模型返回的内容，这一次原样带了回来。这样，模型提出调用、Codex 带回代码、下一次请求带上代码、回答引用代码，整条链就连起来了。",
-        "【操作提示｜推进第 4 步，切到依据链 C，查看器定位 index.html 的返回第 6 行；需要时点“看回答”“找读取调用”补看】\n\n再换一条，C。回答里说，页面标题写在 index.html 的第 6 行。这是更早的一次调用读回来的。找到它的返回，第 6 行就是“示例同学 · 个人主页”，和回答对得上。",
-        "【操作提示｜推进第 5 步，切到依据链 D，查看器定位 PLACEHOLDER_CONTENT.md 返回的第 9、10 行；随后进入 p07-loop】\n\n最后看 D。回答说，这些内容是人确认过的占位素材，依据是 PLACEHOLDER_CONTENT.md 的第 9、10 行。这条依据不在代码里，而在项目的说明文档里，可见，回答的依据不一定都来自代码。三条链，我们都在记录里找到了原文，但这只能说明，这三处引用是可靠的；回答里的其他判断，仍然要单独核对。"
+        "【操作提示｜现场回看｜推进 p07 第 3 步，或点“找工具返回”；查看器定位下一次请求里这次调用的返回，指第 3、4 行；再用查看器的对比功能，选读取 App.tsx 前后相邻的两次请求，指末尾新增的 assistant、tool 两条；展开完整 JSON 指出两条前面还有一条 reasoning；回到项目卡的回答，口头带过 PLACEHOLDER_CONTENT.md 那处引用，不切过去找。讲完切到浏览器的现场查看器，找到刚才现场的项目问题，先看最后的回答，再看侧栏一共几次请求；有差异就指着说，随后回课件进入 p07-loop】\n\n再看下一次请求。Codex 把读到的代码，作为工具返回，放进了这一次请求里，第 3、4 行，就是“学习笔记”和“记录课程练习”。回答里的那处引用，就是从这里来的。我们再把这次请求，和上一次对比一下：前面的内容一模一样，只在末尾多出几条。查看器里看到的是两条：一条 assistant，是模型提出的读取调用；一条 tool，是 Codex 带回来的工具返回。在完整的 JSON 里，这两条前面还有一条，是模型这一轮的推理；它没有标角色，查看器的这个视图就没有显示。推理和调用，都是上一次请求里模型返回的内容，这一次原样带了回来。这样，模型提出调用、Codex 带回代码、下一次请求带上代码、回答引用代码，整条链就连起来了。回答还说，这些内容是人确认过的占位素材，依据是项目的说明文档 PLACEHOLDER_CONTENT.md，可见，回答的依据不一定都来自代码。项目卡这一处，我们在记录里找到了原文，但这只能说明这一处是可靠的；回答里的其他判断，仍然要单独核对。\n\n【切换｜浏览器 · 现场这次的查看器】\n\n再看我们刚才现场问的这一次。先看最后的回答：项目卡叫什么、数据在哪个文件、引用了哪几行；再看侧栏，这一次一共发了几次请求。次数和课件里那次不一样也正常，模型每次找文件的路线不完全相同；要核对的，还是回答里引用的那几行，能不能在读回来的内容里找到。\n\n【切换｜回课件 p07-loop】"
       ],
       "teaching": [
         {
@@ -385,12 +389,16 @@ window.lesson = {
           "text": "2026-10-24 重跑：ch02-start-v1（8e9a323）新克隆、Agent Lab 从 main 运行、Codex CLI 0.163.0、MiniMax-M3.1-Flash、max、claude-tap 0.1.146；交互会话首句前 /rename，问候后接项目问题。项目问题 8 次请求、7 次工具调用。公开数据见 materials/request/run-20261024/，原始记录在私有仓库 prompt-to-harness/lab-runs。"
         },
         {
-          "title": "三条依据链",
-          "text": "讲师 2026-10-24 选定：A 读 App.tsx（第 4 次请求提出调用，第 5 次请求带回代码，回答引用 src/App.tsx:1-6）；C 读 index.html（第 3 次提出，第 4 次带回，回答引用 index.html:6）；D 读 PLACEHOLDER_CONTENT.md（第 5 次提出，第 6 次带回，回答引用 PLACEHOLDER_CONTENT.md:9-10）。编号是这次记录的位置，不口播。播放器 5 步：A 走完三步，再直接看 C、D 的返回；需要时点上方标签和按钮看 C、D 的回答与调用。模型还自己拿 dist 和源码比对（第 6–8 次），可一句带过。"
+          "title": "依据链",
+          "text": "讲师 2026-10-24 选定项目卡这一条：读 App.tsx（第 4 次请求提出调用，第 5 次请求带回代码，回答引用 src/App.tsx:1-6）。编号是这次记录的位置，不口播。原先另有页面标题（index.html:6）、内容来源（PLACEHOLDER_CONTENT.md:9-10）两条，2026-10-25 撤下，只讲项目卡（C2-101）；内容来源那处在第 3 步口头带过一句“依据不一定都来自代码”，不切过去找。播放器 3 步：看回答 → 找读取调用 → 找工具返回。模型还自己拿 dist 和源码比对（第 6–8 次），可一句带过。"
         },
         {
           "title": "讲师提示",
-          "text": "主画面只放观察入口，代码、回复与调用交给原生静态查看器。以后重跑先运行 uv run courseware/tools/tracekit.py courseware/ch02/lessons/01-request/trace/evidence.json --list-candidates 列出调用、返回与回答，经讲师确认再改 trace/evidence.json；记录指纹变化时停止，不自动沿用。放大后文字增大，顶部同样有 A/C/D 和三个定位按钮，Esc 收起。"
+          "text": "主画面只放观察入口，代码、回复与调用交给原生静态查看器。以后重跑先运行 uv run courseware/tools/tracekit.py courseware/ch02/lessons/01-request/trace/evidence.json --list-candidates 列出调用、返回与回答，经讲师确认再改 trace/evidence.json；记录指纹变化时停止，不自动沿用。放大后文字增大，顶部同样有三个定位按钮，Esc 收起。"
+        },
+        {
+          "title": "现场回看",
+          "text": "第 1 步先在现场会话发出只读问题，不等回答切回课件讲留存记录；第 3 步讲完切到现场查看器，看最后回答引用了哪几行、一共几次请求。次数不同、读的文件不同都正常，口播不依赖现场结果（C2-100）。"
         },
         {
           "title": "对比相邻两次",
@@ -398,11 +406,11 @@ window.lesson = {
         },
         {
           "title": "事实边界",
-          "text": "记录无教学删节：推理只去掉加密部分，可读的推理文字保留。回答里“唯一数据源”“dist 未落后于 src”等扩大判断不因本页的三条依据而视为已核实。"
+          "text": "记录无教学删节：推理只去掉加密部分，可读的推理文字保留。回答里“唯一数据源”“dist 未落后于 src”等扩大判断不因本页核对的这一处引用而视为已核实。"
         }
       ],
       "source": "index.html#p07",
-      "seconds": 150
+      "seconds": 90
     },
     {
       "id": "p07-loop",
@@ -429,7 +437,7 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜停留 p07-loop 第 1 步，只显示左侧循环；从“我们的一句 Prompt”沿箭头指到模型，再指“Codex 执行工具”和回到模型的箭头，最后指“最终回答”】\n\n刚才这个问题，一句话变成了好几次请求。把刚才在记录里看到的连起来，就是左边这个循环。我们发出一句话，模型思考之后，如果需要读文件，它不会自己去读，而是提出一次工具调用。Codex 来执行这次调用，把执行的结果带回来，再问模型一次。就这样一圈一圈地转，直到模型不再需要工具，才给出最终的回答。",
-        "【操作提示｜推进第 2 步，指右侧“第 1 次”：指令、工具、环境，加上新的 Prompt】\n\n再看右边，每一次请求里装了什么。第一次请求，就是我们刚才拆过的那些：指令、工具、环境，再加上我们新的 Prompt。",
+        "【操作提示｜推进第 2 步，指右侧“第 1 次”：指令、工具、环境，加上新的 Prompt】\n\n再看右边，每一次请求里装了什么。第一次请求，就是我们刚才拆过的那些：指令、工具、环境，再加上我们新的 Prompt。我们这次是接在问候后面问的，所以前面还带着那句问候和它的回答。",
         "【操作提示｜推进第 3 步，指“第 2 次”：虚线框原样重发，下面追加推理、工具调用、工具返回】\n\n第二次请求，前面第一次的全部内容，原样再发一遍，一个字都不改，也就是图上这个虚线框。在它的后面，追加三条：模型这一轮的推理，它提出的工具调用，和 Codex 执行之后得到的工具返回。这正是刚才对比相邻两次请求时看到的。",
         "【操作提示｜推进第 4 步，指“第 3 次”与最终回答，再指图下“示意”说明；页底原文链接可现场打开；随后进入 p16a】\n\n第三次也是一样：把第二次的全部内容原样带上，后面再追加这三条。如此反复，直到模型给出最终回答。要说明的是，这张图是根据 OpenAI 的文章重画的示意，一共几轮，要以实际记录为准。"
       ],
@@ -452,7 +460,7 @@ window.lesson = {
       "label": "这些合起来叫 Context",
       "title": "模型这一次可用的信息，合起来叫 Context",
       "lead": "问候时，我们已经拆过系统指令、工具和环境。项目问答又让我们沿着代码返回核对了回答依据。把这两次观察放到同一张图上，看看后续请求还带入了什么。",
-      "html": "<style>body[data-mode=\"slides\"] .segment-bar .segment:first-child{min-width:90px}</style><div class=\"p-set\" data-role=\"ctx\" data-reveal=\"0\" style=\"padding:10px 16px 12px\"><h3 style=\"font-size:20px;margin-bottom:6px\">这一次请求里有什么</h3><div class=\"p-items\" style=\"flex-direction:row;flex-wrap:wrap;gap:6px\"><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px;font-weight:700\">系统指令</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px;font-weight:700\">工具</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px;font-weight:700\">环境</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;border-style:dashed;background:transparent;color:var(--p-muted)\">规则<span style=\"font-size:15px;margin-left:6px\">这次没有</span></div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px;font-weight:700\">对话历史</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px;font-weight:700\">工具返回</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px;font-weight:700\">新的 Prompt</div></div><div class=\"p-foot\">身份、Skills、权限说明都算系统指令；这个项目还没有 AGENTS.md，规则这一块是空的</div></div><div class=\"p-bar\" data-reveal=\"1\" style=\"margin-top:10px\"><b>Context</b>：模型这一次可用的信息</div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:10px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ink\">Anthropic 的说法</span><p>Context 是从大模型采样时包含的那一组 token</p><p class=\"p-sub\">系统指令、工具、外部数据、消息历史等 · <a href=\"https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents#context-engineering-vs-prompt-engineering\" target=\"_blank\" rel=\"noopener\">原文 ↗</a></p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"3\"><span class=\"p-tag\" data-role=\"ctx\">课程地图</span><p>第 2 章：<b>Context</b><br>从当前请求，继续看信息怎样变化</p></div></div>",
+      "html": "<style>body[data-mode=\"slides\"] .segment-bar .segment:first-child{min-width:90px}</style><div class=\"p-set\" data-role=\"ctx\" data-reveal=\"0\" style=\"padding:10px 16px 12px\"><h3 style=\"font-size:20px;margin-bottom:6px\">这一次请求里有什么</h3><div class=\"p-items\" style=\"flex-direction:row;flex-wrap:wrap;gap:6px\"><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px;font-weight:700\">系统指令</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px;font-weight:700\">工具</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px;font-weight:700\">环境</div><div class=\"p-item\" style=\"padding:4px 10px;font-size:18px;border-style:dashed;background:transparent;color:var(--p-muted)\">规则<span style=\"font-size:15px;margin-left:6px\">这次没有</span></div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px;font-weight:700\">对话历史</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px;font-weight:700\">工具返回</div><div class=\"p-item is-picked\" style=\"padding:4px 10px;font-size:18px;font-weight:700\">新的 Prompt</div></div><div class=\"p-foot\">身份、Skills、权限、协作说明都算系统指令；这个项目还没有 AGENTS.md，规则这一块是空的</div></div><div class=\"p-bar\" data-reveal=\"1\" style=\"margin-top:10px\"><b>Context</b>：模型这一次可用的信息</div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:10px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ink\">Anthropic 的说法</span><p>Context 是从大模型采样时包含的那一组 token</p><p class=\"p-sub\">系统指令、工具、外部数据、消息历史等 · <a href=\"https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents#context-engineering-vs-prompt-engineering\" target=\"_blank\" rel=\"noopener\">原文 ↗</a></p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"3\"><span class=\"p-tag\" data-role=\"ctx\">课程地图</span><p>第 2 章：<b>Context</b><br>从当前请求，继续看信息怎样变化</p></div></div>",
       "closing": "锚点图按信息的作用分类，不表示请求字段必须按图排列。项目问答的后续请求已包含历史和工具返回；规则是否存在以实际记录为准。刚才没有给出源码路径，模型先查找，才拿到相关代码。Context 是有限的资源，既然这些信息要进入 Context，我们已经知道文件在哪里时，能不能提前告诉它，缩短查找过程？",
       "refs": [
         {
@@ -469,10 +477,10 @@ window.lesson = {
         "定位与下一问"
       ],
       "script": [
-        "【操作提示｜停在 p16a 第 1 步，指现有锚点图；对照问候和项目问答后续请求的分类。规则块按实际记录解释，不切新会话】\n\n回到这张锚点图。问候的时候，我们拆过的身份指令、Skills 和权限说明，在这张图上，都归进“系统指令”；另外还有工具和环境。项目问答的后续请求里，多了前面的对话，和工具返回的代码，最后还是我们新的 Prompt。图上有一块是虚线，叫“规则”：这个项目还没有 AGENTS.md，所以这一次，这一块是空的。另外说明一点，这张图是按信息的作用来分类的，并不要求实际请求里的字段，就按这个顺序排列。",
+        "【操作提示｜停在 p16a 第 1 步，指现有锚点图；对照问候和项目问答后续请求的分类。规则块按实际记录解释，不切新会话】\n\n回到这张锚点图。问候的时候，我们拆过的身份指令、Skills、权限说明和协作说明，在这张图上，都归进“系统指令”；另外还有工具和环境。项目问答的后续请求里，多了前面的对话，和工具返回的代码，最后还是我们新的 Prompt。图上有一块是虚线，叫“规则”：这个项目还没有 AGENTS.md，所以这一次，这一块是空的；下一节我们会写一份，再看它出现在请求的什么地方。另外说明一点，这张图是按信息的作用来分类的，并不要求实际请求里的字段，就按这个顺序排列。",
         "【操作提示｜推进 p16a 第 2 步，指 Context 定义条，不切窗口】\n\n模型这一次可用的信息，合在一起，就叫 Context。我们写的 Prompt 在里面，Codex 组装的其他内容也在里面，它们加起来，才是模型这一步真正看到的东西。",
         "【操作提示｜推进 p16a 第 3 步，指 Anthropic 文字定义和框里的原文链接；需要时现场点开，不逐段读】\n\nAnthropic 有一篇文章，把 Context 定义为：从大模型采样时包含的那一组 token。它列举的系统指令、工具、外部数据和消息历史，我们都可以和刚才的观察对照起来看。框里有原文的链接，感兴趣的同学可以回头去读。",
-        "【操作提示｜推进 p16a 第 4 步，指课程地图，然后回指刚才 p07 的查找过程；进入 p14a】\n\n这一章接下来，就围绕 Context 往下看。回想一下刚才的项目问答：我们没有告诉模型代码在哪，它先去查找文件，才拿到回答需要的代码。既然模型是靠这些信息工作的，我们能怎样帮它拿到相关的信息？比如，我们已经知道文件在哪里，能不能提前告诉它，让这段查找的过程短一些？"
+        "【操作提示｜推进 p16a 第 4 步，指课程地图，然后回指刚才 p07 的查找过程；进入 p14a】\n\n后面几节，都会围绕 Context 往下看。回想一下刚才的项目问答：我们没有告诉模型代码在哪，它先去查找文件，才拿到回答需要的代码。既然模型是靠这些信息工作的，我们能怎样帮它拿到相关的信息？比如，我们已经知道文件在哪里，能不能提前告诉它，让这段查找的过程短一些？"
       ],
       "teaching": [
         {
@@ -502,8 +510,8 @@ window.lesson = {
         "回看真实记录"
       ],
       "script": [
-        "【操作提示｜停留 p14a 第 1 步，指同一起点、相同配置和两个独立会话】\n\n刚才，我们没有告诉模型代码在哪，它只能自己去找。每多找一次，就多一次请求，而前面的内容，又要整段重发一遍。Context 是有限的资源，如果我们已经知道，相关的文件就是 App.tsx，就可以提前交给它。所以我们做一个对比：保持同一个源码起点、同样的配置，另开两个全新的会话，问同一个问题。唯一的区别是，点名组多了一句：相关文件是 src/App.tsx。注意，我们并没有限制它只能读这个文件。",
-        "【操作提示｜推进第 2 步，按模型请求轮次、累计输入指认；不把轮次称为用户来回提问次数】\n\n先说结果：两边都找到了有源码依据的核心答案。再看代价：给出相关文件以后，模型请求从七次变成了四次，累计输入从七万零五百多，变成了三万二千八百多个 token。这里的累计输入，是把每一次请求的输入加起来；因为每次请求都要重发前面的内容，请求越多，加起来增长得越快。其中有很多命中了缓存，所以它也不等于单次 Context 的长度。还要提醒，这是各跑一次的观察，只说明这个例子，不能承诺以后都是这个比例。",
+        "【操作提示｜停留 p14a 第 1 步，指同一起点、相同配置和两个独立会话】\n\n刚才，我们没有告诉模型代码在哪，它只能自己去找。每多找一次，就多一次请求，而前面的内容，又要整段重发一遍。Context 是有限的资源，如果我们已经知道，相关的文件就是 App.tsx，就可以提前交给它。所以我们做一个对比：保持同一个源码起点、同样的配置，另开两个全新的会话，问同一个问题。这两组前面都没有问候，所以请求次数，和刚才那次不完全一样。唯一的区别是，点名组多了一句：相关文件是 src/App.tsx。注意，我们并没有限制它只能读这个文件。",
+        "【操作提示｜推进第 2 步，按模型请求轮次、累计输入指认；不把轮次称为用户来回提问次数】\n\n先说结果：两边都找到了有源码依据的核心答案。再看代价：给出相关文件以后，模型请求从七次变成了四次，累计输入从七万零五百多，变成了三万二千八百多个 token。累计输入，是把每一次请求的输入加起来，所以它不是某一次 Context 的长度；每次请求都要重发前面的内容，请求越多，加起来就涨得越快。这是各跑一次的结果，比例不一定每次都一样，但少找几轮、少发很多内容，这个方向是清楚的。",
         "【操作提示｜推进第 3 步；分别单独打开两份记录，先看最后回复，再回看全部调用与工具返回；回到课件，进入 p16b】\n\n最后，我们分别单独打开两份记录，回看过程。先看两边最后的回复，再看全部的调用和工具返回。点名组先读了 App.tsx，不过之后，仍然列了目录，检索了整个项目；不点名组读得更多，还读了项目说明、样式、提交记录和构建产物。需要注意，核心事实有依据，不等于回复里的每一句额外判断，都已经核实过。这一组对比想说明的是：我们已经知道、也确认相关的信息，可以主动告诉模型；但给了以后，仍然要核对它的回答。"
       ],
       "teaching": [
@@ -561,7 +569,7 @@ window.lesson = {
       "label": "暂停自检",
       "title": "暂停自检：认组成、看循环、做选择",
       "lead": "先暂停视频，独立回答三道题，再逐步查看参考答案。不要求背工具数量、请求编号、行号或配置字段；能结合刚才的记录解释判断即可。",
-      "html": "<style>#p18 .p-qlist{gap:14px}#p18 .p-qrow h3{font-size:24px}#p18 .p-qrow p{font-size:19px;line-height:1.4}#p18 .p-pause{margin-bottom:12px}@media(max-width:600px){body[data-mode=\"scroll\"] #p18 .p-qrow h3{font-size:20px}body[data-mode=\"scroll\"] #p18 .p-qrow p{font-size:18px}}</style><span class=\"p-pause\" data-reveal=\"0\">暂停 · 先独立作答，再往下看解析</span><div class=\"p-qlist\"><div class=\"p-qrow\"><span class=\"p-n\">1</span><div><h3>我们只发了一句问候。请求里举出一条不是我们写的信息：它从哪来，起什么作用？</h3><div data-reveal=\"1\"><p>例如环境信息：标为 user，却是 Codex 加入的，告诉模型当前目录和日期；权限说明、工具定义同理<br><a href=\"#p09\">回看六类内容与来源</a></p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">2</span><div><h3>Codex 替模型读了一个文件。下一次请求和上一次相比，多了什么，少了什么？</h3><div data-reveal=\"2\"><p>前面的内容原样重发，一样不少；末尾多了模型的推理、一条工具调用和一条工具返回，返回里就是读到的代码<br><a href=\"#p07-loop\">回看循环示意</a> · <a href=\"#p07\">回看真实记录</a></p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">3</span><div><h3>我们已经知道要改的代码在哪个文件。怎样提问？</h3><div data-reveal=\"3\"><p>把路径写进问题，帮模型少找几轮；路径只是线索，不代表它只能读这个文件，回答的依据仍要核对<br><a href=\"#p14a\">回看点名文件对照</a></p></div></div></div></div>",
+      "html": "<style>#p18 .p-qlist{gap:14px}#p18 .p-qrow h3{font-size:24px}#p18 .p-qrow p{font-size:19px;line-height:1.4}#p18 .p-pause{margin-bottom:12px}@media(max-width:600px){body[data-mode=\"scroll\"] #p18 .p-qrow h3{font-size:20px}body[data-mode=\"scroll\"] #p18 .p-qrow p{font-size:18px}}</style><span class=\"p-pause\" data-reveal=\"0\">暂停 · 先独立作答，再往下看解析</span><div class=\"p-qlist\"><div class=\"p-qrow\"><span class=\"p-n\">1</span><div><h3>我们只发了一句问候。请求里举出一条不是我们写的信息：它从哪来，起什么作用？</h3><div data-reveal=\"1\"><p>例如环境信息：标为 user，却是 Codex 加入的，告诉模型当前目录和日期；权限说明、工具定义同理<br><a href=\"#p09\">回看六类内容与来源</a></p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">2</span><div><h3>Codex 替模型读了一个文件。下一次请求和上一次相比，多了什么，少了什么？</h3><div data-reveal=\"2\"><p>前面的内容原样重发，一样不少；末尾多了模型的推理、一条工具调用和一条工具返回，返回里就是读到的代码<br><a href=\"#p07-loop\">回看循环示意</a> · <a href=\"#p07\">回看真实记录</a></p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">3</span><div><h3>我们已经知道要改的代码在哪个文件。怎样提问？</h3><div data-reveal=\"3\"><p>把路径写进问题，帮模型少找几轮；路径只是线索，它仍可能去读别的文件<br><a href=\"#p14a\">回看点名文件对照</a></p></div></div></div></div>",
       "closing": "能举例说明请求里哪些不是我们写的、说清每次请求怎样在上一次基础上追加，并知道什么时候主动提供路径，就完成了本节的判断练习。",
       "steps": [
         "暂停独立作答",
@@ -572,13 +580,13 @@ window.lesson = {
       "script": [
         "【操作提示｜进入 p18 第 1 步，三道题均可见，解析保持隐藏；念完留出暂停视频的间隙】\n\n到这里，我们暂停一下。请暂停视频，先独立回答这三个问题，再往下看参考答案。第一个问题：如果我们只发了一句问候，请从请求里举出一条不是我们写的信息，说说它从哪来，起什么作用？第二个问题：Codex 替模型读了一个文件之后，下一次请求和上一次相比，多了什么，少了什么？第三个问题：如果我们已经知道要改的代码在哪个文件，会怎样提问？好，现在暂停视频，想好了再继续。",
         "【操作提示｜推进第 2 步，只揭示第一题解析；指回看入口，不实际跳走】\n\n第一题。比如环境信息：它标的角色是 user，可是内容是 Codex 加入的，告诉模型当前的目录和日期。权限说明、工具定义，也都不是我们写的。能说出其中任何一条的来源和作用，就可以了。想复习的话，可以点画面上的链接，回看六类内容与来源。",
-        "【操作提示｜推进第 3 步，揭示第二题解析；需要复习时使用 p07-loop、p07 链接，连续预览保持本页】\n\n第二题。什么都没有少：前面的内容，原样重发，一样不少。末尾多了三条：模型的推理、它提出的工具调用，和工具返回，返回里放的，就是读到的代码。想复习的话，可以回看循环示意，和那份真实记录。",
-        "【操作提示｜推进第 4 步，揭示第三题解析；指点名对照入口，随后进入 p19】\n\n第三题。把路径写进问题里，帮模型少找几轮。路径只是一条线索，并不表示它只能读这个文件；给了以后，回答的依据仍然要核对。想对照的话，可以回看点名文件的那组对比。"
+        "【操作提示｜推进第 3 步，揭示第二题解析；需要复习时使用 p07-loop、p07 链接，连续预览保持本页】\n\n第二题。什么都没有少：前面的内容，原样重发，一样不少。末尾多了三条：模型的推理、它提出的工具调用，和工具返回，返回里放的，就是读到的代码。在查看器的消息视图里，推理那一条不显示，所以看上去只有两条。想复习的话，可以回看循环示意，和那份真实记录。",
+        "【操作提示｜推进第 4 步，揭示第三题解析；指点名对照入口，随后进入 p19】\n\n第三题。把路径写进问题里，帮模型少找几轮。路径只是一条线索，它仍然可能去读别的文件，刚才的对比里就是这样。想对照的话，可以回看点名文件的那组对比。"
       ],
       "teaching": [
         {
           "title": "自检验收",
-          "text": "第一题能举出一条非本人输入的信息并说明来源与作用即可，不按类别数评分。第二题要说出“前面不变、末尾追加推理、调用与返回”，不要求说出字段名或条目类型。第三题接受先提供已确认相关路径、再检查依据与遗漏的回答；不把点名路径理解为禁止读取其他文件。"
+          "text": "第一题能举出一条非本人输入的信息并说明来源与作用即可，不按类别数评分。第二题要说出“前面不变、末尾追加推理、调用与返回”，不要求说出字段名或条目类型。第三题接受先提供已确认相关路径的回答；不把点名路径理解为禁止读取其他文件。核对依据已在 p14a、p16b 讲过，答案不再重复（C2-100）。"
         },
         {
           "title": "范围",
@@ -593,8 +601,8 @@ window.lesson = {
       "segment": "小结",
       "label": "前面的还要带上吗",
       "title": "再说一句，前面的还要带上吗？",
-      "lead": "刚才我们让 Codex 读懂了当前项目区。接下来继续做同一个个人主页，把自己的项目经历补进去。新的问题发出去时，之前的问题、回答和读过的代码，还会跟着进入下一次请求吗？我们要不要它们跟着？",
-      "html": "<div class=\"p-pair\" data-reveal=\"0\" style=\"grid-template-columns:1fr 1fr;gap:28px\"><div class=\"p-box\" data-role=\"ink\"><span class=\"p-tag\" data-role=\"ink\">刚才</span><p class=\"p-big\">读懂当前项目区</p></div><div class=\"p-box\" data-role=\"us\"><span class=\"p-tag\" data-role=\"us\">接下来 · 2.2</span><p class=\"p-big\">补入自己的项目经历</p></div></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"1\" style=\"margin-top:30px\"><p style=\"font-size:30px\">刚才的问答和读过的代码，还会跟着发出去吗？要不要它们跟着？</p></div>",
+      "lead": "刚才我们让 Codex 读懂了当前项目区。接下来继续做同一个个人主页，把自己的项目经历补进去。同一个会话里，之前的问题、回答和读过的代码，都会跟着进入下一次请求。新的要求发出去时，我们要不要它们跟着？",
+      "html": "<div class=\"p-pair\" data-reveal=\"0\" style=\"grid-template-columns:1fr 1fr;gap:28px\"><div class=\"p-box\" data-role=\"ink\"><span class=\"p-tag\" data-role=\"ink\">刚才</span><p class=\"p-big\">读懂当前项目区</p></div><div class=\"p-box\" data-role=\"us\"><span class=\"p-tag\" data-role=\"us\">接下来 · 2.2</span><p class=\"p-big\">补入自己的项目经历</p></div></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"1\" style=\"margin-top:30px\"><p style=\"font-size:30px\">前面的问答和读过的代码都会跟着发出去，还要不要它们跟着？</p></div>",
       "closing": "带着这个问题进入 2.2：继续修改个人主页，先决定这一轮要不要带着前面的对话，再沿连续几次请求观察前面的信息怎样留下、新的信息怎样加入。本页只提出观察问题，多轮累积、清空与压缩留给下一节的实际过程。",
       "steps": [
         "接回个人主页任务",
@@ -602,12 +610,12 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜从自检进入 p19 第 1 步，先指“刚才”，再指“接下来”；不切工具窗口】\n\n刚才，我们让 Codex 读懂了当前的项目区。接下来，我们要继续做这个个人主页，把自己的项目经历补进去。任务，从读代码，走到了修改页面。",
-        "【操作提示｜推进 p19 第 2 步，指下一次请求的问题，随后点击播放器已有的“下一节”按钮进入 2.2 p20】\n\n这里有一个问题，留给下一节。我们再发出一句新的要求时，刚才的问题、回答，还有读过的代码，会不会还跟着一起发给模型？我们又要不要它们跟着？下一节，我们先做出这个选择，然后一边补入自己的经历，一边沿着连续的几次请求，看前面的信息是怎样留下来的、新的信息又是怎样加进去的。带着这个问题，我们继续往下看。"
+        "【操作提示｜推进 p19 第 2 步，指下一次请求的问题，随后点击播放器已有的“下一节”按钮进入 2.2 p20】\n\n这里有一个问题，留给下一节。刚才我们已经看到，同一个会话里，前面的问答和读过的代码，都会原样跟着发给模型。接下来提新要求时，我们要不要让它们继续跟着？下一节，我们先做出这个选择，然后一边补入自己的经历，一边沿着连续的几次请求，看前面的信息是怎样留下来的、新的信息又是怎样加进去的。"
       ],
       "teaching": [
         {
           "title": "转场",
-          "text": "从 p18 的自检接回项目任务，不复述 Context 组成、定义、机制或做法。第一步看任务从读取到修改，第二步只问下一次请求会不会带上前面的内容、要不要带；p07-loop 已讲过一轮内的追加，多轮对话的累积、清空与压缩留给 2.2。末步使用播放器已有的下一节按钮进入 2.2 p20。"
+          "text": "从 p18 的自检接回项目任务，不复述 Context 组成、定义、机制或做法。第一步看任务从读取到修改，第二步先回指已看到的事实（同一会话里前面的问答和读过的代码会跟着发），再问要不要带（C2-100）；p07-loop 已讲过一轮内的追加，多轮对话的累积、清空与压缩留给 2.2。末步使用播放器已有的下一节按钮进入 2.2 p20。"
         }
       ],
       "source": "index.html#p19",
@@ -629,7 +637,7 @@ window.lesson = {
     },
     {
       "label": "代码进入请求",
-      "seconds": 480
+      "seconds": 420
     },
     {
       "label": "小结",
