@@ -1,0 +1,66 @@
+{
+  "before-full.png": {
+    "sha256": "a71d1f8a30e7778a418e22b3a28ddf636427fb166cc798d1f73fb6f63f9a5114",
+    "source": "homepage-v1（2026-10-24 截取，文件树与 ch02/2.2-done-20261024 相同）",
+    "size": [
+      1440,
+      1473
+    ]
+  },
+  "before.png": {
+    "sha256": "573d2f0579cee5c12c4c78a23976a04aba2951edb2377cbba521f34958aff63f",
+    "source": "homepage-v1（2026-10-24 截取，文件树与 ch02/2.2-done-20261024 相同）",
+    "size": [
+      1440,
+      800
+    ]
+  },
+  "reference.png": {
+    "sha256": "50bf4fe55471feff342aea25f634d6ef8ee40a98c57ca54ff38df9bb973a4f01",
+    "source": "HTML5 UP · Hyperspace（2026-10-25 截取）",
+    "size": [
+      1440,
+      800
+    ]
+  },
+  "round1-experience.png": {
+    "sha256": "71e006cf25920b7b01cb5d6e6cb5cd1c5e9ffe8493eec1917ee2b4237f886252",
+    "source": "2026-10-25 四要素重跑（lab-runs ch02/2.3-20261025）",
+    "size": [
+      1440,
+      800
+    ]
+  },
+  "round1.png": {
+    "sha256": "5837a8d6638b73a4b347e504e31f1ad109cd499387bbffade87c2e4d6eea7e57",
+    "source": "2026-10-25 四要素重跑（lab-runs ch02/2.3-20261025）",
+    "size": [
+      1440,
+      800
+    ]
+  },
+  "round2-full.png": {
+    "sha256": "41ba8f6796ec5d00dae1a038c48f099c4d7eb33672755191768fa1ae0206179f",
+    "source": "2026-10-25 四要素重跑（lab-runs ch02/2.3-20261025）",
+    "size": [
+      1440,
+      2607
+    ]
+  },
+  "round2-mobile.png": {
+    "sha256": "74d70d9093f83cac403c829f3da2181c93bf2a6da8384afcc34dfcd4a22f2156",
+    "source": "2026-10-25 四要素重跑（lab-runs ch02/2.3-20261025）",
+    "size": [
+      360,
+      800
+    ]
+  },
+  "round2.png": {
+    "sha256": "39d8ad9297bbf4929086df66ecc88879eddabbe085893971d61d040e54335380",
+    "source": "2026-10-25 四要素重跑（lab-runs ch02/2.3-20261025）",
+    "size": [
+      1440,
+      800
+    ]
+  }
+}
