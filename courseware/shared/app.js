@@ -306,6 +306,40 @@
     const index = scenes.findIndex(scene => `#${scene.id}` === location.hash);
     if (index !== -1) go(index, false, Math.trunc(Number(new URLSearchParams(location.search).get('step')) || 0));
   });
+  const dialog = document.createElement('dialog');
+  dialog.className = 'lesson-image-dialog';
+  dialog.setAttribute('aria-label', '放大查看图片');
+  dialog.innerHTML = '<div class="lesson-image-toolbar"><span></span><button type="button">关闭 · Esc</button></div><img alt="">';
+  document.body.append(dialog);
+  const image = dialog.querySelector('img');
+  let returnFocus;
+  function close() { dialog.close(); }
+  dialog.querySelector('button').addEventListener('click', close);
+  dialog.addEventListener('click', e => { if (e.target === dialog) close(); });
+  dialog.addEventListener('close', () => { image.removeAttribute('src'); returnFocus?.focus({preventScroll:true}); });
+  // 弹窗内的按键不传给播放器；Esc 仍由原生 dialog 关闭。
+  window.addEventListener('keydown', e => { if (dialog.open) e.stopImmediatePropagation(); }, true);
+  function imageLink(link) {
+    return !link.hasAttribute('download') && !link.hasAttribute('data-no-image-preview')
+      && /\.(?:png|jpe?g|gif|webp|avif|svg|bmp|ico)$/i.test(new URL(link.href).pathname);
+  }
+  document.querySelectorAll('a[href]').forEach(link => {
+    if (imageLink(link)) {
+      link.classList.add('lesson-image-link');
+      link.setAttribute('aria-haspopup', 'dialog');
+    }
+  });
+  document.addEventListener('click', e => {
+    const link = e.target.closest('a[href]');
+    if (!link || !imageLink(link) || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const preview = link.querySelector('img, svg');
+    e.preventDefault();
+    returnFocus = link;
+    image.alt = preview?.getAttribute('alt') || preview?.getAttribute('aria-label') || link.textContent.trim() || '图片';
+    image.src = link.href;
+    dialog.querySelector('span').textContent = image.alt;
+    dialog.showModal();
+  });
   setMode(mode);
   document.fonts.ready.then(() => { if (mode === 'scroll') go(current); });
 })();
