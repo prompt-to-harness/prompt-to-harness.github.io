@@ -82,3 +82,44 @@
 
 按讲师授权实现：默认保留课程环境，当前仅实现 Codex + MiniMax 与可选的 `--tap`，预留 Claude 入口；先做本地验证，再讨论发布和 PPT。包名和命令名采用 `agent-lab`，Python 包可从本地目录、Git 或未来的 PyPI 分发，不需要 npm。首次正式发布版本、跨平台支持范围尚未确定，暂不发布。
 
+
+## 2026-11-01：Claude 入口迁移（本地 0.1.4，未发布）
+
+- 来源：`tools/clean-claude.sh`。新增 `agent-lab claude [--tap] [-- …]` 与只读的 `home --agent claude`；旧脚本保留。按项目持久化 Claude HOME，和 Codex 分开；独立 tap 数据、固定 MiniMax 服务与模型，Key 不写配置。原 Codex 启动器未修改。
+- 相对旧实验的变化：旧脚本默认临时 HOME、全局 tap 数据；新入口持久化并只启用 user settings，避免 project/local settings 改写服务。没有迁移旧会话，没有把历史请求标为新入口产物。组织策略和项目规则文件仍需单独判断，具体边界见 README。
+- `uv run --project tools/agent-lab python -m unittest discover -s tools/agent-lab/tests -q`：34 项通过。覆盖无 Key 零创建、凭据与配置隔离、已有非课程目录/软链接拒绝、会话保留、参数校验、Codex/Claude 分派、direct/tap 命令及退出码；启动调用使用 mock，不发 API 请求。
+- `uv build --wheel tools/agent-lab` 成功生成 0.1.4 wheel。未安装覆盖日常工具、未推送、未发布 release；已发布 0.1.3 不含 Claude 支持。
+- 当前真实 CLI 为 Claude Code 2.1.309，历史实验为 2.1.304。本轮以假 Key、临时 AGENT_LAB_HOME，通过新入口运行真实 CLI `--help`，确认帮助正常退出、课程配置生成；不发送模型请求。
+- 未验证：真实 MiniMax 返回、tap 捕获及查看器、子进程实际清理凭据、交互式恢复、Linux/WSL。若录制改为新入口现场演示，先发一次最小问候，检查上游、模型、系统指令、工具与记录；若仍复用旧截图，无需重跑。
+
+## 2026-11-01：0.1.4 发布准备
+
+讲师明确要求发布 0.1.4 artifact 并更新默认下载。重新运行 34 项测试与 wheel 构建通过；本次只发布 tools/agent-lab 源码与安装包，独立分发分支及 tag 为 codex/agent-lab-v0.1.4、agent-lab-v0.1.4，不合并课程分支。Release 说明保留真实 MiniMax/tap 链路尚未核验的范围；发布不改变此前的实验验证结论。仓库课件的安装入口同步到 0.1.4。
+
+## 2026-11-01：发布版 0.1.4 的 Claude + MiniMax + tap 最小问候
+
+结论：在本机 macOS、Claude Code 2.1.309 下，按 2.5 p62 说明运行 `agent-lab claude --tap -- -p "你好"`，完整链路通过；不需修改 0.1.4 启动器。此结论限于这一次 Claude 非交互问候，不代表交互恢复、子进程凭据清理或 Linux/WSL 已验证，也不包含本轮重新运行 Codex 对照端。
+
+- 从公开 release URL 用 `uv tool install --force` 安装到本次独立的 UV_TOOL_DIR / UV_TOOL_BIN_DIR，调用发布 wheel，未使用工作区源码、未覆盖日常安装。版本 Agent Lab 0.1.4、claude-tap 0.1.146+pr475、Claude Code 2.1.309。
+- 按说明在仓库外新建空目录，检查各级目录无 AGENTS.md / CLAUDE.md，清除 AGENT_LAB_HOME / COURSE_CODEX_HOME 覆盖；只使用终端已有的 MINIMAX_API_KEY，不打印或写入公开文件。
+- 命令退出码 0，约 11.6 秒。终端回复“你好！有什么可以帮你的吗？”。仅发出 1 次 API 请求。
+- 原始 tap SQLite 记录核验：`POST /v1/messages?beta=true`，upstream `https://api.minimax.cn/anthropic`，HTTP 200，请求及响应模型均为 MiniMax-M3.1-Flash，用户消息含“你好”，响应正文与终端一致。请求含 12 个工具定义。
+- 返回 usage 原字段为 input_tokens=10740、output_tokens=10、cache_read_input_tokens=186、cache_read_in_input=false；不把它们混作此前费用实验的字段口径，不更新旧课件数字。
+- 会话 `09436702-c69d-408d-9d2e-7b6dc39be401`，请求 `req_afe00211f3ad`。Dashboard health 中数据库路径和 tap 版本与本次课程 HOME 一致。Chromium 实际打开列表、Details 和 Full viewer，确认问候、回复和模型显示，浏览器无脚本错误。Full viewer 位于 iframe 内。
+- Claude 提示未识别 MiniMax 模型名称并按 200k 上下文窗口处理；本次请求仍成功。这不证明 MiniMax 服务实际窗口只有 200k，也不等于长上下文能力已测试。已补入 p62 折叠说明，同时补上 Details → Full viewer 的查看入口。
+
+安装日志、原始 stdout/stderr、环境定位、截图和脱敏摘要仅留在被忽略的 `lab-runs/agent-lab-014-claude-live/`；原始 trace 保留在该项目对应的独立 Claude HOME。不提交原始请求或凭据，不替换历史材料。新讲师仍需在自己的终端确认 Key、CLI 版本和网络可用。
+
+## 2026-11-01：发布版 0.1.4 的 Codex 对照端
+
+按讲师要求补跑 p62 的另一端。复用上次从 release 安装的 0.1.4 和同一个仓库外空目录，使用独立的 codex HOME；命令为 `agent-lab codex --tap -- exec --skip-git-repo-check -s read-only "你好"`。Codex CLI 0.163.0，约 12.44 秒，退出码 0，1 次模型请求。原始 tap 记录确认 upstream 为 `https://api.minimax.cn/v1`、路径 `/v1/responses`、HTTP 200；请求与响应模型均为 MiniMax-M3.1-Flash，用户问候正确，记录中的最终回复与 stdout 一致。顶层工具 5 项，usage 为 input_tokens=7524、output_tokens=225、cached_tokens=128（在 input_tokens_details 内），reasoning_tokens=122。
+
+会话 c8d9c09c-5583-447c-bbd2-49484fa8d321，请求 req_ff2645c6237c。Dashboard health 的数据库路径匹配本次 codex HOME；Chromium 打开 Full viewer，问候、回复与模型可见，无脚本错误。原始材料在上次忽略目录下的 codex/，没有导出到公开仓库。本轮没有改动或重新发布 0.1.4。
+
+启动时有附加模型元数据提示及 featured plugins 请求 401；它们未阻止这一次 MiniMax HTTP 200 和回复。401 不是本次模型请求的状态，不作“所有附加功能均已通过”的结论。现在两端各一次最小问候及 tap 链路均已验证；不替换 10-21 的历史对比数字。
+
+### Claude 自定义窗口配置核实
+
+2026-11-01 核对 [Claude 官方 model-config](https://code.claude.com/docs/en/model-config#correct-the-window-for-a-gateway-or-custom-model-id)：对未识别且不以 claude- 开头、无 [1m] 后缀的自定义 ID，可用 `CLAUDE_CODE_MAX_CONTEXT_TOKENS` 声明窗口，客户端按声明值处理上下文与压缩；它不会扩展服务实际支持的窗口，也不是完整的 Codex model catalog 替代品。
+
+Agent Lab 0.1.4 的 prepare_environment 会删除所有继承的 CLAUDE_*，生成 settings.json 也没有重新写入这个变量。因此不能指导讲师在外部 export 它再用 0.1.4，或手改每次会被覆盖的生成设置。若课程决定采用显式窗口，须先核实当前 MiniMax 模型/接口的支持值，再在新版本的课程 model_env 中接入并验证。当前 0.1.4 的最小问候不依赖这个改动；未做长上下文/压缩实验，也未声称这项配置已在发布版启用。
