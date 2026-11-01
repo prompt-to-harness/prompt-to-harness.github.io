@@ -7,12 +7,22 @@ description: 提取 Screen Studio 项目的音轨，用 Apple 转写并润色中
 
 完成提取、转写、润色和校验后再交付。Python 脚本负责音轨与时间，Codex 负责文字润色；脚本本身不调用语言模型。默认无需 .command 启动入口，也不需要另开语音备忘录。
 
+用户要求实际剪辑或导出视频时，接着使用相邻的 [screenstudio-edit](../screenstudio-edit/SKILL.md)；本 skill 的转写与润色不自动改动录制项目。
+
+## 剪辑与强调的交接约定
+
+本课程已确认的人像、镜像、放大、节奏和审阅留痕基线，统一维护在 [screenstudio-edit/review-policy.md](../screenstudio-edit/review-policy.md)。课程转写需要交给剪辑或 review 时读取，不重复维护另一套偏好。交接剪辑时沿用当前课程默认的 1080p、30 fps、Studio 压缩；转写时间戳仍以原音轨时间为准，不因导出帧率而重算。
+
+本课程 2026-10-25 确认：局部放大以**帮助读清小字**为主；只对非常重要的判断少量做强调。转写／润色时可标出需要读清的字段、源码依据或请求变化，以及为什么值得强调，但不能把文字标记说成视频已做效果。地图、概念图和循环图通常保留全景，放大决策与具体效果交给 `screenstudio-edit` 留痕。
+
+准备剪辑清单时，每项候选写明源段 ID、原时间、具体要删的原话／内容、理由及重讲时保留哪段；区分整段定位包络与句内精确切点。实际执行后，由剪辑流程逐条记录最终范围、删去秒数、成片接缝与听校状态，并生成可点击审阅页。`review_notes` 仍是候选说明，不能冒充已执行删除；示例未覆盖与录制暂停也不能统计成删除。重复讲述、口误、口水词、操作失误分别说明原因，不能只给一个笼统“精简”标签。
+
 ## 提取与原稿
 
-使用仓库根目录下的 `tools/screenstudio-transcript/screenstudio_transcribe.py`。显式传入用户指定的 `.screenstudio` 项目，以及工作目录中的 `--output` 目录；只有用户指定“最近项目”时才用 `--latest`。项目不明确时先查看本机 `~/Screen Studio Projects`。本仓库结果默认放 `lab-runs/transcripts/`（已忽略），不要将原音频、原始转写或未剪辑录制中的个人信息提交到公开仓库。
+使用仓库根目录下的 `tools/screenstudio-transcript/screenstudio_transcribe.py`。显式传入用户指定的 `.screenstudio` 项目与 `--output` 目录；只有用户指定“最近项目”时才用 `--latest`。项目不明确时先查看本机 `~/Screen Studio Projects`。本课程结果按 [制作文件存放约定](../screenstudio-edit/review-policy.md#制作文件存放)，默认写入公开仓库旁的 `../prompt-to-harness-production/recordings/<lesson>/transcripts/<recording-batch>/`；`lab-runs/transcripts/` 中的旧入口仅为迁移兼容。目录和文件名优先使用英文，中文说明保留在文件内容中；原始录制及 Screen Studio 包内部不为统一命名而改动。不要将原音频、原始转写或未剪辑录制中的个人信息提交到公开仓库。
 
 ```sh
-python3 tools/screenstudio-transcript/screenstudio_transcribe.py "/路径/项目.screenstudio" --output "lab-runs/transcripts"
+python3 tools/screenstudio-transcript/screenstudio_transcribe.py "/path/to/project.screenstudio" --output "../prompt-to-harness-production/recordings/2.3/transcripts/recording-batch"
 ```
 
 默认使用唯一的麦克风音轨；多音轨时先 `--list-tracks`，按用户所需内容选择 `--track ID`，不要自动混合系统音频和麦克风。录制尚未完成或没有音轨时，报告具体问题，不把失败当成功。
