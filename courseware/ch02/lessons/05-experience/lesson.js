@@ -4,8 +4,8 @@ window.lesson = {
   "section": "02.05",
   "summary": "从费用、主动交接，到换工具、换服务、换版本：用已有实验观察 context 在不同使用条件下的差异。",
   "prep": [
-    "本节使用 2026-10-21、10-22 的独立实验及既有 Phistory 截图，不重跑、不切实际项目；不要说成刚录完的连续过程。",
-    "p60 按 2026-10-21 记录的单价估算，不是账单或当前报价；不计订阅折算。录制要讲当前价格时先核对价格与计费口径，再重算，不需要重跑模型。",
+    "费用采用 2026-11-01 补跑，其他页使用 10-21、10-22 独立实验及既有 Phistory 截图；录制时讲冻结记录，不现场重跑；不要说成刚录完的连续过程。",
+    "p60 按 2026-11-01 核对的单价估算，不是账单；不计订阅折算。录制要讲当前价格时先核对价格与计费口径，再重算，不需要重跑模型。",
     "p61 交接沿用旧项目三条经历的例子；p62a 推理返回另含 high 档位补跑，两处均按画面说明来源。",
     "p62b 直接讲已有截图，不依赖现场网站加载；原文链接录前打开备用。要切原始记录时先遮盖账号、令牌、邮箱和本机路径。"
   ],
@@ -34,11 +34,11 @@ window.lesson = {
             "code": ""
           },
           {
-            "text": "p60：表格、历史价格和合计已在课件中，8 次输入与缓存值及算式在章 LOG C2-129，可自行复算。原始请求和账单未随本节交付，录制时直接讲表格。",
+            "text": "p60：采用 11-01 补跑的 8 次完整请求，已提供输入、缓存、输出明细与复算代码。私有实验包 fee-rerun 可离线逐条查看；金额按当日核对单价估算，未核对账单。",
             "code": ""
           },
           {
-            "text": "p61：交接全文和结果卡已在课件中，但旧项目文件、未提交改动和完整请求不在新机器上。直接讲已有例子；不要在 p62 的空目录运行这段交接并期待出现项目文件。",
+            "text": "p61：私有讲师实验包 2.5-20261101 已保存完整 Prompt、11 条请求、项目基线和未提交改动。先打开包内 index.html；需要重跑时用恢复脚本创建项目副本，不要使用 p62 的空目录。",
             "code": ""
           },
           {
@@ -46,7 +46,7 @@ window.lesson = {
             "code": ""
           },
           {
-            "text": "p62a：使用现有请求差异表，high 返回来自独立补跑。三份旧原始记录未随仓库交付；Agent Lab 0.1.4 也不能切换 ChatGPT。若要现场重做，另备相同项目起点、自有登录和服务配置，不复制别人的登录文件。",
+            "text": "p62a：三组脱敏记录已收入私有讲师实验包，可离线查看；high 使用不同问题，是独立补跑。原临时项目已不存在，包内提供核对过核心文件的重建候选。Agent Lab 0.1.4 不能切换 ChatGPT；重跑需自有登录和服务配置。",
             "code": ""
           },
           {
@@ -65,39 +65,39 @@ window.lesson = {
       "segment": "看懂代价",
       "label": "重发的代价",
       "title": "一问花了多少，缓存省了多少",
-      "lead": "2026-10-21 的一次独立实验，一问产生 8 次请求。累计输入 126,466 token，其中缓存读取 110,501，输出 6,995。按当时记录的单价，并按输入包含缓存读取部分的口径估算：未命中输入约 0.016 元、缓存读取约 0.011 元、输出约 0.028 元，合计约 0.055 元；同样用量全按未命中输入价格算约 0.154 元。这是费用估算，不是账单或当前报价，也不是单次请求长度。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:22px;align-items:start\"><div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,0.8fr) minmax(0,1fr) minmax(0,1fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>10-21 独立实验</span><span>输入 token</span><span>其中缓存命中</span></div><div data-reveal=\"0\"><span>第 1 次</span><span>约 7.6 千</span><span>约 5.1 千</span></div><div data-reveal=\"0\"><span>第 4 次</span><span>约 1.55 万</span><span>约 1.11 万</span></div><div data-reveal=\"0\"><span>第 8 次</span><span>约 2.50 万</span><span>约 2.33 万</span></div><div data-reveal=\"0\" class=\"is-key\"><span>8 次合计</span><span>约 12.6 万</span><span>约 11.1 万</span></div></div><div class=\"p-grid\" style=\"--n:1;gap:10px\"><div class=\"p-box is-soft\" style=\"padding:10px 14px\" data-role=\"ink\" data-reveal=\"1\"><h3>当时单价（元 / 百万 token）</h3><p>输入 1.00 · 缓存命中 0.10 · 输出 4.00</p></div><div class=\"p-box is-soft\" style=\"padding:10px 14px\" data-role=\"ok\" data-reveal=\"1\"><h3>按上述口径估算约 0.055 元</h3><p>输出 6,995 token 也计费<br>输入 0.016 + 缓存 0.011 + 输出 0.028<br>同用量全按未命中算：约 0.154 元</p></div></div></div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:14px\">单次长度 ≠ 累计用量；按不同用量的单价估算费用</div><p class=\"source-note\">数字来自讲师的一次运行（2026-10-21，课程基线，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开）；随版本、模型、配置和任务变化，只说明结构</p>",
+      "lead": "2026-11-01 的一次独立实验，一问产生 8 次请求。累计输入 118,540 token，其中缓存读取 97,920，输出 5,673。按本次核对的单价，并按输入包含缓存读取部分的口径估算：未命中输入约 0.0206 元、缓存读取约 0.0098 元、输出约 0.0227 元，合计约 0.053 元；同样用量全按未命中输入价格算约 0.141 元。这是费用估算，不是账单或当前报价，也不是单次请求长度。",
+      "html": "<div class=\"p-pair\" style=\"grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:22px;align-items:start\"><div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,0.8fr) minmax(0,1fr) minmax(0,1fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>11-01 独立实验</span><span>输入 token</span><span>其中缓存命中</span></div><div data-reveal=\"0\"><span>第 1 次</span><span>约 7.5 千</span><span>128</span></div><div data-reveal=\"0\"><span>第 4 次</span><span>约 1.31 万</span><span>约 1.05 万</span></div><div data-reveal=\"0\"><span>第 8 次</span><span>约 2.36 万</span><span>约 2.15 万</span></div><div data-reveal=\"0\" class=\"is-key\"><span>8 次合计</span><span>约 11.9 万</span><span>约 9.8 万</span></div></div><div class=\"p-grid\" style=\"--n:1;gap:10px\"><div class=\"p-box is-soft\" style=\"padding:10px 14px\" data-role=\"ink\" data-reveal=\"1\"><h3>本次核对单价（元 / 百万 token）</h3><p>输入 1.00 · 缓存命中 0.10 · 输出 4.00</p></div><div class=\"p-box is-soft\" style=\"padding:10px 14px\" data-role=\"ok\" data-reveal=\"1\"><h3>按上述口径估算约 0.053 元</h3><p>输出 5,673 token 也计费<br>输入 0.0206 + 缓存 0.0098 + 输出 0.0227<br>同用量全按未命中算：约 0.141 元</p></div></div></div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:14px\">单次长度 ≠ 累计用量；按不同用量的单价估算费用</div><p class=\"source-note\">2026-11-01 独立补跑；Agent Lab 0.1.4、Codex 0.163.0、MiniMax-M3.1-Flash。分项四舍五入，合计按未舍入值计算</p>",
       "refs": [
         {
           "kind": "live",
-          "group": "价格（2026-10-21 查阅）",
+          "group": "价格（2026-11-01 核对）",
           "text": "MiniMax 开放平台：定价",
           "url": "https://platform.minimax.cn/docs/pricing/overview#%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B"
         }
       ],
       "steps": [
         "一问的 8 次请求",
-        "按当时单价估算",
+        "按本次核对单价估算",
         "长度、用量与费用"
       ],
       "script": [
-        "【操作提示｜停留 p60 第 1 步，指第 1、4、8 次及合计行】\n\n先看一次任务的代价。这是十月二十一日的一次独立实验。一句话发出去，Codex 读文件、继续回答，前后用了八次模型请求。表里挑了三次，最下面是全部八次的合计：输入大约十二万六千 token，其中十一万左右命中了缓存。这是整个任务累计的用量，不是一次请求有这么长。",
-        "【操作提示｜推进第 2 步，指当时单价、输出用量和费用分项】\n\n按当时的单价，每百万 token，普通输入一元，缓存读取一角，输出四元。这里的总输入已经包含缓存读取，计算时要先减掉命中部分，分别计价。再加上大约七千个输出 token，合计约五分五；同样的用量，如果输入全按未命中算，大约是一角五。这是按当时单价做的估算，实际费用还要看账单。",
+        "【操作提示｜停留 p60 第 1 步，指第 1、4、8 次及合计行】\n\n先看一次任务的代价。这是十一月一日的一次独立实验。一句话发出去，Codex 读文件、继续回答，前后用了八次模型请求。表里挑了三次，最下面是全部八次的合计：输入大约十一万九千 token，其中九万八千左右命中了缓存。这是整个任务累计的用量，不是一次请求有这么长。",
+        "【操作提示｜推进第 2 步，指本次核对单价、输出用量和费用分项】\n\n按这次核对的单价，每百万 token，普通输入一元，缓存读取一角，输出四元。这里的总输入已经包含缓存读取，计算时要先减掉命中部分，分别计价。再加上大约五千七百个输出 token，合计约五分三；同样的用量，如果输入全按未命中算，大约是一角四。这是按本次核对单价做的估算，实际费用还要看账单。",
         "【操作提示｜推进第 3 步，指底部结论条】\n\n所以，只看最后一次请求有多长，还算不出任务的总费用。要把几次请求的用量加起来，再按各自的单价计算。"
       ],
       "repro": {
         "label": "实验说明：复算费用与核对口径",
         "steps": [
           {
-            "text": "本页用的是 2026-10-21 的历史汇总。先指出表格只选第 1、4、8 次，合计行包含全部 8 次；不是把屏幕上的三行相加。下列代码只复算已有数字，不访问模型或读取原讲师文件。",
-            "code": "python3 - <<'PY'\nfrom decimal import Decimal as D\ninputs = [7610, 8561, 10786, 15483, 17193, 19763, 22109, 24961]\ncached = [5063, 7745, 8686, 11054, 16033, 17935, 20657, 23328]\noutput = 6995\ni, c = sum(inputs), sum(cached)\ncost = (D(i-c)*D('1.00') + D(c)*D('0.10') + D(output)*D('4.00')) / D(1000000)\nno_cache = (D(i)*D('1.00') + D(output)*D('4.00')) / D(1000000)\nprint('input:', i, 'cached:', c, 'output:', output)\nprint('estimated CNY:', cost, 'same usage without cache:', no_cache)\nPY"
+            "text": "本页采用 2026-11-01 的新运行，完整记录在私有实验包 fee-rerun 查看器；公开用量明细在 fee-evidence.json。先指出表格只选第 1、4、8 次，合计行包含全部 8 次；不是把屏幕上的三行相加。下列代码只复算已有数字，不访问模型或读取原讲师文件。",
+            "code": "python3 - <<'PY'\nfrom decimal import Decimal as D\ninputs = [7548, 8584, 10417, 13117, 15545, 19204, 20549, 23576]\ncached = [128, 7680, 8704, 10496, 13312, 16000, 20096, 21504]\noutput = sum([209, 203, 258, 272, 511, 922, 1070, 2228])\ni, c = sum(inputs), sum(cached)\ncost = (D(i-c)*D('1.00') + D(c)*D('0.10') + D(output)*D('4.00')) / D(1000000)\nno_cache = (D(i)*D('1.00') + D(output)*D('4.00')) / D(1000000)\nprint('input:', i, 'cached:', c, 'output:', output)\nprint('estimated CNY:', cost, 'same usage without cache:', no_cache)\nPY"
           },
           {
-            "text": "核对结果：输入 126466，缓存读取 110501，输出 6995；费用 0.0549951 元，对照为 0.154446 元。输出只有累计值，不补造逐次输出明细。表格显示的是四舍五入值。",
+            "text": "核对结果：输入 118540，缓存读取 97920，输出 5673；费用 0.053104 元，对照为 0.141232 元。各次输出明细已随 trace 保存。表格显示的是四舍五入值。",
             "code": ""
           },
           {
-            "text": "这里按总输入包含缓存读取的历史口径计算，先减缓存，再按各自单价计算。如果使用自己的新记录，先核对接口的 usage 定义；缓存另计的记录不能再从输入里减一次。同用量全未命中的金额只是算术对照，不是另跑过的一次实验。",
+            "text": "这里按本次 Responses 的 input_tokens 包含 cached_tokens 的口径计算，先减缓存，再按各自单价计算。如果使用自己的新记录，先核对接口的 usage 定义；缓存另计的记录不能再从输入里减一次。同用量全未命中的金额只是算术对照，不是另跑过的一次实验。",
             "code": ""
           },
           {
@@ -105,7 +105,7 @@ window.lesson = {
             "code": ""
           }
         ],
-        "note": "来源为章 LOG C2-129 的汇总与算式。历史价格链接可能已更新；本页不据此声称今天的报价、实际账单或订阅费用。当前素材不含完整旧 trace。"
+        "note": "来源为 11-01 补跑完整 trace、fee-evidence.json 与当日官方价格。输出含推理 token，不重复加计。估算不等于账单或订阅费用；旧 10-21 汇总不再用于本页。"
       },
       "teaching": [],
       "source": "index.html#p60",
@@ -148,7 +148,7 @@ window.lesson = {
             "code": ""
           }
         ],
-        "note": "新运行不保证也有 6 项输入、11 次请求或相同读取顺序。旧项目状态和完整 trace 尚未随本节交付；没有准备对应文件时直接讲现有例子，不现场补造结果。"
+        "note": "新运行不保证也有 6 项输入、11 次请求或相同读取顺序。完整旧 Prompt、项目状态和 11 条记录已收入私有讲师实验包；先按包内 README 恢复状态。旧结果没有经过浏览器渲染验证。"
       },
       "teaching": [],
       "source": "index.html#p61",
@@ -250,7 +250,7 @@ window.lesson = {
             "code": ""
           },
           {
-            "text": "历史脚本的配置位置：通过 clean-codex.sh --tap 传参数时，-c 必须放在 exec 前；补跑 high 要单独保存会话及返回。原脚本和章 LOG 可供准备时核对，但旧项目与三份 trace 未交付，这不是已经在新机器验证的完整重跑流程。",
+            "text": "历史脚本的配置位置：通过 clean-codex.sh --tap 传参数时，-c 必须放在 exec 前；补跑 high 要单独保存会话及返回。三组记录可在私有讲师实验包离线查看。high 的问题与 A/B 不同，完整原文分别保存在各组 user-prompt.txt。项目为重建候选；离线查看已验证，服务重跑仍需自己的登录和配置。",
             "code": ""
           }
         ],
