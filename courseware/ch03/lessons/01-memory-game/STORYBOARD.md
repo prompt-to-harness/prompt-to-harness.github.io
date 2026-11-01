@@ -1,6 +1,6 @@
 # 3.1 逐页分镜：一句话加一个记忆翻牌
 
-> 依据：第 3 章故事线提案第五版；草稿，未试讲。证据来自排练第 8 轮（`courseware/ch03/materials/mainline/`）。
+> 依据：旧版排练设计（已退出当前章设计）；当前依据见[内部大纲第三章](../../../../docs/outline/course-outline-internal.md#第-3-章vibe-coding-与能力扩展--用两个小游戏理解-skill-与-plugin)，本分镜待同步；草稿，未试讲。证据来自排练第 8 轮（`courseware/ch03/materials/mainline/`）。
 
 **本节一句话**：一句话就能加出一个能玩的游戏；“能玩”是起点，不是验收。
 

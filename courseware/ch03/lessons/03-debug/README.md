@@ -2,7 +2,7 @@
 
 [打开课件](index.html) · [逐步讲稿](speaker.html) · [分镜](STORYBOARD.md)
 
-先复现，再让 Codex 只调查，由人定规则，最后最小修改。依据[第 3 章故事线提案](../../../../docs/outline/proposals/2026-10-05-ch03-storyline.md)第五版与本节分镜。首版（2026-10-06），未经讲师审阅，未试讲、未录制；画面中的输出来自排练运行，见 [materials](../../materials/README.md)。
+本节是待同步的旧版课件。当前设计与同步状态见[章入口](../../README.md)，本节不另维护章级范围与审阅状态。
 
 ## 维护
 

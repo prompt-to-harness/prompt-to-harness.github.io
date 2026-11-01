@@ -1,6 +1,6 @@
 # 3.2 逐页分镜：这条规则是谁定的
 
-> 依据：第 3 章故事线提案第五版；草稿，未试讲。探查脚本与六份实现的结果见 `courseware/ch03/materials/mainline/README.md`。
+> 依据：旧版排练设计（已退出当前章设计）；当前依据见[内部大纲第三章](../../../../docs/outline/course-outline-internal.md#第-3-章vibe-coding-与能力扩展--用两个小游戏理解-skill-与-plugin)，本分镜待同步；草稿，未试讲。探查脚本与六份实现的结果见 `courseware/ch03/materials/mainline/README.md`。
 
 **本节一句话**：只走成功路径不等于验证；“没出错”也可能只是 AI 替你做了决定。
 

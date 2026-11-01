@@ -1,6 +1,6 @@
 # 第 3 章教学材料
 
-> 状态：2026-10-06 起，第 3 章的预检与排练材料（第一批在分镜前，其余随课件制作）（见[第 3 章故事线提案](../../../docs/outline/proposals/2026-10-05-ch03-storyline.md)第六节）。不是录制版，未经另一位讲师复现。本目录不进 Pages 站点（`tools/build-site.py` 跳过 `materials/`）；运行产物在被 git 忽略的 `lab-runs/`。
+> 状态：2026-10-06 起，第 3 章的预检与排练材料（第一批在分镜前，其余随课件制作）（见[第三章权威设计](../../../docs/outline/course-outline-internal.md#第-3-章vibe-coding-与能力扩展--用两个小游戏理解-skill-与-plugin)）。不是录制版，未经另一位讲师复现。本目录不进 Pages 站点（`tools/build-site.py` 跳过 `materials/`）；运行产物在被 git 忽略的 `lab-runs/`。
 
 | 目录 | 预检 | 内容 |
 | --- | --- | --- |
