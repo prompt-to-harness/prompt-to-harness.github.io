@@ -2,7 +2,7 @@
 
 > 状态：草稿（2026-10-09），讨论起点，待两位讲师审阅；尚未改动任何课件页面、大纲或制作手册。原型页已做（见第五节），只用 2026-10-07 一组真实运行，未试讲。
 > 针对：第 3 章（3.1–3.3 为主），方法适用于所有用真实 Codex 运行做证据的章节。
-> 关联：[第 3 章故事线提案](2026-10-05-ch03-storyline.md)第六节“重跑与录制定稿”；[制作手册“重跑与录制定稿”](../../production/lesson-authoring-playbook.md#重跑与录制定稿)；[预检 A 新机器重跑](../../../courseware/ch03/materials/mainline/README.md#新机器重跑2026-10-07)。
+> 关联：[第三章权威设计](../course-outline-internal.md#第-3-章vibe-coding-与能力扩展--用两个小游戏理解-skill-与-plugin)；[制作手册“重跑与录制定稿”](../../production/lesson-authoring-playbook.md#重跑与录制定稿)；[预检 A 新机器重跑](../../../courseware/ch03/materials/mainline/README.md#新机器重跑2026-10-07)。
 
 ## 一、要解决的问题
 

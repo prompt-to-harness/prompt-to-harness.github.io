@@ -1,6 +1,6 @@
 # 3.3 逐页分镜：挑一个缺陷，按证据修
 
-> 依据：第 3 章故事线提案第五版；草稿，未试讲。调查与修复排练见 `courseware/ch03/materials/mainline/debug-3.3.sh`。
+> 依据：旧版排练设计（已退出当前章设计）；当前依据见[内部大纲第三章](../../../../docs/outline/course-outline-internal.md#第-3-章vibe-coding-与能力扩展--用两个小游戏理解-skill-与-plugin)，本分镜待同步；草稿，未试讲。调查与修复排练见 `courseware/ch03/materials/mainline/debug-3.3.sh`。
 
 **本节一句话**：先复现，再让 Codex 只调查，再由人定规则，最后最小修改；调查常常比报告看得更深。
 

@@ -1,6 +1,6 @@
 # 3.5 逐页分镜：插件有自己的主张
 
-> 依据：第 3 章故事线提案第五版；草稿，未试讲。Game Studio 实跑见 `courseware/ch03/materials/mainline/run-v3.sh`，体积对比见 `courseware/ch03/materials/bundle/`。
+> 依据：旧版排练设计（已退出当前章设计）；当前依据见[内部大纲第三章](../../../../docs/outline/course-outline-internal.md#第-3-章vibe-coding-与能力扩展--用两个小游戏理解-skill-与-plugin)，本分镜待同步；草稿，未试讲。Game Studio 实跑见 `courseware/ch03/materials/mainline/run-v3.sh`，体积对比见 `courseware/ch03/materials/bundle/`。
 
 **本节一句话**：Skill 是经验不是规则；插件的默认和你的 Brief 冲突时，由人按证据决定，也要检查 AI 给的理由。
 
