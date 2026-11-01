@@ -184,3 +184,58 @@ Manus 页面的图片地址是站点上传路径，换版后选择器可能失�
 ```bash
 uv run courseware/tools/redraw.py courseware/ch02/materials/external/context-rot/figures.py --only smart-zone
 ```
+
+## 2.4 环境反馈候选（2026-11-01）
+
+讲师已采用课程手绘示意图（C2-126），原文截图留作核验。对应 Q7，拟放 p49b 后、p50 前；[调研报告](<../../../../docs/research/reports/第 2 章发布的环境反馈佐证.md>)。
+
+| 文件 | 来源 | 作者 · 日期 | 截取 | 拟用在 | 状态 |
+| --- | --- | --- | --- | --- | --- |
+| `environment-feedback/anthropic-ground-truth.png` | [Building effective agents · Agents](https://www.anthropic.com/research/building-effective-agents#agents) | Anthropic · 2024-12-19 | 2026-11-01，1196×604 | 2.4 两次查询后的归纳 | 核验材料，不上屏 |
+| `environment-feedback/anthropic-ground-truth-marked.png` | 同上 | 同上 | 2026-11-01 | 同上 | 不用，改用示意图；文件已删 |
+| `environment-feedback/layout-preview.png` | 本地播放器临时替换 lesson 数据渲染 | 课程样稿 · 2026-11-01 | 2026-11-01 | 同上 | 不用，改用示意图；文件已删 |
+
+原图复现：
+
+```bash
+uv run courseware/tools/capture-source.py https://www.anthropic.com/research/building-effective-agents courseware/ch02/materials/external/environment-feedback/anthropic-ground-truth.png --text 'During execution' --width 1000
+```
+
+### 示意图样稿（2026-11-01）
+
+讲师已确认将课程手绘版放在 p49b 后、p50 前，正式页号 p49d（C2-126）。图是课程整理：环境反馈原则据 Anthropic，Pages、gh 与发布前后两次查询据本课演示；不是官方原图的翻译或复刻。先揭示左列，再揭示右列；两列相同绿色框突出“返回进入 Context”。
+
+| 文件 | 来源 | 作者 · 日期 | 截取 | 拟用在 | 状态 |
+| --- | --- | --- | --- | --- | --- |
+| `environment-feedback/redraw-environment-feedback-course.svg` | Anthropic 环境反馈原则 + 本课发布演示 | 课程自绘 · 2026-11-01 | — | p49b 后、p50 前 | 采用，2.4 p49d（C2-126） |
+| `environment-feedback/redraw-environment-feedback-excalidraw.svg` | 同上 | 同上 | — | 同上 | 不用，保留同源图元生成的对照 SVG |
+| `environment-feedback/layout-diagram-course.png` | 本地播放器临时渲染 | 课程样稿 · 2026-11-01 | 1280×720 | 同上 | 采用版式；已同步正式页 p49d |
+| `environment-feedback/layout-diagram-excalidraw.png` | 同上 | 同上 | 1280×720 | 同上 | 不用，英文手写字形较强；样稿已删 |
+
+```bash
+uv run courseware/tools/redraw.py courseware/ch02/materials/external/environment-feedback/figures.py
+uv run --with playwright python courseware/ch02/materials/external/environment-feedback/preview-diagram.py
+```
+
+样稿复用正式播放器，只在浏览器拦截替换 lesson 数据，SVG 内联；2026-11-01 已同步正式分镜、页面源与口播（p49d）。两版均无浏览器脚本错误，内容区没有溢出；未做试讲。
+
+## 2.5 做法选题复核候选（2026-11-01）
+
+对应 Q2–Q7；[调研报告](<../../../../docs/research/reports/第 2 章 2.5 做法选题复核.md>)。本轮用于比较选题，尚未采用，不改分镜与页面。
+
+| 文件 | 来源 | 作者 · 日期 | 截取 | 拟用在 | 状态 |
+| --- | --- | --- | --- | --- | --- |
+| `context-practices/openai-manual-edit-sync.png` | [Prompting · UI 迭代](https://learn.chatgpt.com/docs/prompting#iterate-on-ui-with-live-updates) | OpenAI · 文档未标日期 | 2026-11-01，1056×104 | 候选 D：人手改或回退后更新依据 | 候选；原文与样稿已打开检查，文字可读，链接可见 |
+| `context-practices/openai-short-agents.png` | [Best practices · AGENTS.md](https://learn.chatgpt.com/guides/best-practices#make-guidance-reusable-with-agentsmd) | OpenAI · 文档未标日期 | 2026-11-01，1872×484 | 候选 B：精选长期约定 | 候选；原图可读，上屏三段字偏小，优先现场打开放大或后续选一句，不推荐原样上屏 |
+| `context-practices/preview-openai-manual-edit-sync.png` | 上述原文截图，在本地播放器临时渲染 | 课程样稿 · 2026-11-01 | 1280×720 | 候选 D | 候选；文字与原文链接未裁切，未试讲 |
+| `context-practices/preview-openai-short-agents.png` | 同上 | 同上 | 1280×720 | 候选 B | 候选；无裁切但字偏小；建议用原文链接，不新增整页 |
+
+复现命令：
+
+```bash
+uv run courseware/tools/capture-source.py https://learn.chatgpt.com/docs/prompting courseware/ch02/materials/external/context-practices/openai-manual-edit-sync.png --text 'If you revert or change an edit' --width 650
+uv run courseware/tools/capture-source.py https://learn.chatgpt.com/guides/best-practices courseware/ch02/materials/external/context-practices/openai-short-agents.png --text 'Keep it practical. A short' --until 'When Codex makes the same mistake twice' --width 1000
+uv run courseware/ch02/materials/external/context-practices/preview.py
+```
+
+样稿只替换浏览器中的 lesson 数据，不写正式课件。底部段名仍来自旧课件，不表示新页序；无浏览器错误。原文的访问日期不是发布日期。

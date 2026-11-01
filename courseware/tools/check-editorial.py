@@ -104,6 +104,9 @@ for path in sorted(courseware.glob('**/script.json')):
             for part in parts:
                 if part.startswith('【切换｜') and not cue.fullmatch(part):
                     errors.append(f'ED-013 {path.relative_to(repo)} {scene_id} 第 {i} 步的【切换｜…】要单独成段、只写切到哪里')
+                # 目标开头要能分色（speaker.js 同一套判断）：课件、Codex/Terminal、浏览器/claude-tap 查看器、编辑器/VS Code
+                elif part.startswith('【切换｜') and not re.match(r'【切换｜(.*课件|Codex|Terminal|浏览器|claude-tap 查看器|编辑器|VS Code)', part):
+                    hints.append(f'ED-013 {path.relative_to(repo)} {scene_id} 第 {i} 步的 {part} 认不出是哪类窗口，不会分色')
 
 # ED-013: 一页只定一种演示形态，操作提示里不留“现场演示时……”这类两可分支（提示，不报错）
 undecided = re.compile(r'现场演示时|如改为现场|若想换成现场|若改为现场')
