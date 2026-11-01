@@ -1,6 +1,6 @@
 # 3.6 逐页分镜：那条规则，下次 Codex 从哪里知道
 
-> 依据：第 3 章故事线提案第五版；草稿，未试讲。Memory 与三处说明的对照见 `courseware/ch03/materials/memory/README.md`。
+> 依据：旧版排练设计（已退出当前章设计）；当前依据见[内部大纲第三章](../../../../docs/outline/course-outline-internal.md#第-3-章vibe-coding-与能力扩展--用两个小游戏理解-skill-与-plugin)，本分镜待同步；草稿，未试讲。Memory 与三处说明的对照见 `courseware/ch03/materials/memory/README.md`。
 
 **本节一句话**：给 AI 的说明有四个来源，只有落进仓库的那些会跟着项目走；没落档的就是需求债务。
 

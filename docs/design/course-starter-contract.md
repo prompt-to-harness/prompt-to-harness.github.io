@@ -36,7 +36,7 @@ ch03-start-v1    第 3 章参考起点（待制作）
 
 ### 讲师参考成品的线上版本（2026-10-07 确认）
 
-`course-run` 部署到 course-starter 自己的 GitHub Pages（`https://prompt-to-harness.github.io/course-starter/`），作为讲师参考成品的线上版本；学员仍在自己由 Template 生成的仓库 `main` 上部署，互不影响。这一做法 2026-10-07 在结构相同的临时仓库实测可行（过程见[第 3 章提案](../outline/proposals/2026-10-05-ch03-storyline.md) §七第 6 条），需要：
+`course-run` 部署到 course-starter 自己的 GitHub Pages（`https://prompt-to-harness.github.io/course-starter/`），作为讲师参考成品的线上版本；学员仍在自己由 Template 生成的仓库 `main` 上部署，互不影响。这一做法 2026-10-07 在结构相同的临时仓库实测可行（原始记录见 Git 历史中的 2026-10-05-ch03-storyline.md，2026-10-07 补测），需要：
 
 1. course-starter 开启 Pages，来源选 GitHub Actions。开启时自动建的 `github-pages` 环境只允许默认分支 `main` 部署，要在环境的部署分支规则里加上 `course-run`，否则部署一步报 `Branch "course-run" is not allowed to deploy to github-pages due to environment protection rules`。
 2. `course-run` 上的 Pages workflow 写 `push: branches: [main, course-run]`。`main` 不放 workflow（2.4 才教），而 `workflow_dispatch` 要求文件在默认分支，所以 `course-run` 只能靠 push 触发；照抄学员版的 `branches: [main]` 不会触发任何运行。
