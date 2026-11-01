@@ -2,42 +2,71 @@ window.lesson = {
   "title": "用好 context 的五个做法",
   "chapter": "第 2 章 · Vibe Coding",
   "section": "02.05",
-  "summary": "另一位讲师分享五条平时用好 context 的做法：看懂重发的代价，换会话时自己写交接，换一个工具看它往 context 里放了什么，同一个工具换一个模型服务看请求有什么不同，用 Phistory 看系统指令怎样随版本变。每条都回到本章的请求记录，看懂即可。",
+  "summary": "从费用、主动交接，到换工具、换服务、换版本：用已有实验观察 context 在不同使用条件下的差异。",
+  "prep": [
+    "本节使用 2026-10-21、10-22 的独立实验及既有 Phistory 截图，不重跑、不切实际项目；不要说成刚录完的连续过程。",
+    "p60 按 2026-10-21 记录的单价估算，不是账单或当前报价；不计订阅折算。录制要讲当前价格时先核对价格与计费口径，再重算，不需要重跑模型。",
+    "p61 交接沿用旧项目三条经历的例子；p62a 推理返回另含 high 档位补跑，两处均按画面说明来源。",
+    "p62b 直接讲已有截图，不依赖现场网站加载；原文链接录前打开备用。要切原始记录时先遮盖账号、令牌、邮箱和本机路径。"
+  ],
   "scenes": [
     {
       "id": "p59",
       "segment": "开场",
       "layout": "lesson-cover",
-      "label": "换一位讲师",
+      "label": "五个扩展观察",
       "title": "平时怎么用好 context？",
-      "lead": "换一位讲师，分享五条平时的做法",
-      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>看请求</li><li class=\"is-done\"><b>2.2</b>补经历</li><li class=\"is-done\"><b>2.3</b>改风格</li><li class=\"is-done\"><b>2.4</b>发布上线</li><li class=\"is-now\"><b>2.5</b>用好 context</li></ol><div class=\"p-grid\" style=\"--n:5;gap:10px;margin-top:22px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ink\">一</span><h3>看懂重发的代价</h3><p>一问花了多少，缓存省了多少</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ctx\">二</span><h3>换会话时自己写交接</h3><p>决定下一轮带上什么</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"tool\">三</span><h3>换一个工具看请求</h3><p>同一句话，context 不一样</p></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"agent\">四</span><h3>换一个模型服务</h3><p>服务端也在做事</p></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"gate\">五</span><h3>看系统指令的版本</h3><p>它会随版本变</p></div></div>",
+      "lead": "个人主页已经上线。这一节从任务费用和主动交接，再到工具、模型服务与版本的差异，补充前面没有展开的五个观察。",
+      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>2.1</b>看请求</li><li class=\"is-done\"><b>2.2</b>补经历</li><li class=\"is-done\"><b>2.3</b>改风格</li><li class=\"is-done\"><b>2.4</b>发布上线</li><li class=\"is-now\"><b>2.5</b>用好 context</li></ol><div class=\"p-grid\" style=\"--n:5;gap:10px;margin-top:22px\"><div class=\"p-box\" data-role=\"ink\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ink\">一</span><h3>看懂重发的代价</h3><p>一问花了多少，缓存省了多少</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ctx\">二</span><h3>换会话时自己写交接</h3><p>决定下一轮带上什么</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"tool\">三</span><h3>换一个工具看请求</h3><p>同一句话，context 不一样</p></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">四</span><h3>换一个模型服务</h3><p>分别看请求与返回</p></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"gate\">五</span><h3>看系统指令的版本</h3><p>它会随版本变</p></div></div>",
       "steps": [
-        "最后一节",
-        "换一位讲师",
-        "五条做法"
+        "项目之后",
+        "五个观察"
       ],
       "script": [
-        "【操作提示｜停留课件 p59 第 1 步，章节地图上 2.1–2.4 已标完成；指向 2.5，不切工具窗口】\n\n第 2 章的最后一节。前面四节，我们一直在打开请求记录：看它由什么组成，怎么变长，Codex 依据什么改，怎样调用 gh。",
-        "【操作提示｜推进第 2 步，讲师切换（按录制约定显示讲师小窗）】\n\n这一节换我来讲，分享几条我平时用好 context 的做法。",
-        "【操作提示｜推进第 3 步，五张卡一起出现，依次指认】\n\n一共五条：第一，看懂重发的代价；第二，换会话的时候，自己写一份交接；第三，换一个工具，看看同一句话发出去是什么样；第四，工具不换，换一个模型服务，看看服务端替它做了些什么；第五，看系统指令怎样随版本变。每一条都回到这一章看过的请求记录。"
+        "【操作提示｜停留 p59 第 1 步，指章节地图，不切窗口】\n\n个人主页已经上线了。前面我们跟着项目，看了请求里有什么、对话怎样变长，以及参考材料和远端状态怎样进入请求。最后这一节，把视角再拉开一点。",
+        "【操作提示｜推进第 2 步，依次指五张卡】\n\n我们用几组备课时留下的独立实验，再看五件事：一次任务花了多少，换会话时怎样留交接，以及换工具、换模型服务、升级版本，会给请求带来什么变化。"
       ],
-      "teaching": [
-        {
-          "title": "讲师提示",
-          "text": "本节由另一位讲师讲（章文件 C2-37）。开场一句说明换了人、这一节是经验分享；讲师切换的画面衔接（小窗、开场语）按 docs/production/ 的约定，未定稿前口播一句即可。五条都只回到本章的请求记录，不要求学员安装或操作新工具。"
-        }
-      ],
+      "repro": {
+        "label": "讲师接手：材料与复现范围",
+        "steps": [
+          {
+            "text": "先取得包含本轮 2.5 改动的课程分支或文件；Agent Lab 安装包只包含启动工具，不包含课件、讲稿和旧请求。打开本节 index.html 与 speaker.html，核对本页说明、p62 使用说明以及 p62b 的截图。",
+            "code": ""
+          },
+          {
+            "text": "p60：表格、历史价格和合计已在课件中，8 次输入与缓存值及算式在章 LOG C2-129，可自行复算。原始请求和账单未随本节交付，录制时直接讲表格。",
+            "code": ""
+          },
+          {
+            "text": "p61：交接全文和结果卡已在课件中，但旧项目文件、未提交改动和完整请求不在新机器上。直接讲已有例子；不要在 p62 的空目录运行这段交接并期待出现项目文件。",
+            "code": ""
+          },
+          {
+            "text": "p62：按该页使用说明重跑。自己准备 uv、两种 CLI、MINIMAX_API_KEY 和可用网络；两端分别使用启动输出中的 Dashboard 地址，不复用原讲师的端口或 HOME。",
+            "code": ""
+          },
+          {
+            "text": "p62a：使用现有请求差异表，high 返回来自独立补跑。三份旧原始记录未随仓库交付；Agent Lab 0.1.4 也不能切换 ChatGPT。若要现场重做，另备相同项目起点、自有登录和服务配置，不复制别人的登录文件。",
+            "code": ""
+          },
+          {
+            "text": "p62b：使用本节 external 目录里的 Phistory 截图；文件已入库，不依赖现场网站可用。小结和七题也都在本节内。",
+            "code": ""
+          }
+        ],
+        "note": "默认按现有表格和截图录制，p62 可独立重跑。完整交接清单在本节 STORYBOARD.md 的“换一台机器交接检查”。缺少原始记录的页不要临场切到旧查看器；若要换成新实验，先补材料再更新画面和口播。"
+      },
+      "teaching": [],
       "source": "index.html#p59",
-      "seconds": 90
+      "seconds": 60
     },
     {
       "id": "p60",
       "segment": "看懂代价",
       "label": "重发的代价",
       "title": "一问花了多少，缓存省了多少",
-      "lead": "2.1 第二步只问了一句，Codex 读了一圈文件，前后发了 8 次请求；每次都把前面的内容重发，输入一次比一次长，但大部分命中了缓存。按 MiniMax 官方价格算，这一问大约 0.055 元；没有缓存，大约 0.15 元。缓存让重复的部分便宜，但不是免费，模型也仍要读完整段历史。所以话题换了就 /clear，长期规则写进 AGENTS.md，不要指望一个长会话记住一切。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:22px;align-items:start\"><div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,0.8fr) minmax(0,1fr) minmax(0,1fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>2.1 那一问</span><span>输入 token</span><span>其中缓存命中</span></div><div data-reveal=\"0\"><span>第 1 次</span><span>约 7.6 千</span><span>约 5.1 千</span></div><div data-reveal=\"0\"><span>第 4 次</span><span>约 1.55 万</span><span>约 1.11 万</span></div><div data-reveal=\"0\"><span>第 8 次</span><span>约 2.50 万</span><span>约 2.33 万</span></div><div data-reveal=\"0\" class=\"is-key\"><span>8 次合计</span><span>约 12.6 万</span><span>约 11.1 万</span></div></div><div class=\"p-grid\" style=\"--n:1;gap:10px\"><div class=\"p-box is-soft\" data-role=\"ink\" data-reveal=\"1\"><h3>官方价格（元 / 百万 token）</h3><p>输入 1.00 · 缓存命中 0.10 · 输出 4.00</p></div><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"1\"><h3>这一问约 0.055 元</h3><p>没有缓存约 0.15 元</p></div></div></div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:14px\">话题换了就 <b>/clear</b>，长期规则写进 <b>AGENTS.md</b></div><p class=\"source-note\">数字来自讲师的一次运行（2026-10-21，课程基线，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开）；随版本、模型、配置和任务变化，只说明结构</p>",
+      "lead": "2026-10-21 的一次独立实验，一问产生 8 次请求。累计输入 126,466 token，其中缓存读取 110,501，输出 6,995。按当时记录的单价，并按输入包含缓存读取部分的口径估算：未命中输入约 0.016 元、缓存读取约 0.011 元、输出约 0.028 元，合计约 0.055 元；同样用量全按未命中输入价格算约 0.154 元。这是费用估算，不是账单或当前报价，也不是单次请求长度。",
+      "html": "<div class=\"p-pair\" style=\"grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:22px;align-items:start\"><div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,0.8fr) minmax(0,1fr) minmax(0,1fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>10-21 独立实验</span><span>输入 token</span><span>其中缓存命中</span></div><div data-reveal=\"0\"><span>第 1 次</span><span>约 7.6 千</span><span>约 5.1 千</span></div><div data-reveal=\"0\"><span>第 4 次</span><span>约 1.55 万</span><span>约 1.11 万</span></div><div data-reveal=\"0\"><span>第 8 次</span><span>约 2.50 万</span><span>约 2.33 万</span></div><div data-reveal=\"0\" class=\"is-key\"><span>8 次合计</span><span>约 12.6 万</span><span>约 11.1 万</span></div></div><div class=\"p-grid\" style=\"--n:1;gap:10px\"><div class=\"p-box is-soft\" style=\"padding:10px 14px\" data-role=\"ink\" data-reveal=\"1\"><h3>当时单价（元 / 百万 token）</h3><p>输入 1.00 · 缓存命中 0.10 · 输出 4.00</p></div><div class=\"p-box is-soft\" style=\"padding:10px 14px\" data-role=\"ok\" data-reveal=\"1\"><h3>按上述口径估算约 0.055 元</h3><p>输出 6,995 token 也计费<br>输入 0.016 + 缓存 0.011 + 输出 0.028<br>同用量全按未命中算：约 0.154 元</p></div></div></div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:14px\">单次长度 ≠ 累计用量；按不同用量的单价估算费用</div><p class=\"source-note\">数字来自讲师的一次运行（2026-10-21，课程基线，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开）；随版本、模型、配置和任务变化，只说明结构</p>",
       "refs": [
         {
           "kind": "live",
@@ -48,24 +77,37 @@ window.lesson = {
       ],
       "steps": [
         "一问的 8 次请求",
-        "按价格换算",
-        "一个习惯"
+        "按当时单价估算",
+        "长度、用量与费用"
       ],
       "script": [
-        "【操作提示｜停留课件 p60 第 1 步，指左边表格从第 1 次到第 8 次，再指合计行；录制时如重跑，按当天记录讲】\n\n先看代价。2.1 第二步，我们只问了一句“这个个人主页当初定了哪些要求”，Codex 读了一圈文件，前后发了 8 次请求。每次都把前面的内容重发，输入从七千多 token 涨到两万五。8 次加起来，输入大约十二万六千 token，其中十一万左右命中了缓存。",
-        "【操作提示｜推进第 2 步，指右边价格和金额】\n\n按 MiniMax 官方价格，每百万 token 输入 1 块钱，缓存命中 1 毛，输出 4 块钱。这么算，这一问大约 5 分 5 厘钱；要是没有缓存，大约 1 毛 5。缓存让重复的部分便宜很多，但不是免费，模型也照样要读完整段历史。",
-        "【操作提示｜推进第 3 步，指底部横条】\n\n所以我的习惯是：话题换了，就 /clear，开一段新对话；需要一直遵守的规则，写进 AGENTS.md，每次新对话都会带上。不要指望一个越来越长的会话，替你记住所有事情。"
+        "【操作提示｜停留 p60 第 1 步，指第 1、4、8 次及合计行】\n\n先看一次任务的代价。这是十月二十一日的一次独立实验。一句话发出去，Codex 读文件、继续回答，前后用了八次模型请求。表里挑了三次，最下面是全部八次的合计：输入大约十二万六千 token，其中十一万左右命中了缓存。这是整个任务累计的用量，不是一次请求有这么长。",
+        "【操作提示｜推进第 2 步，指当时单价、输出用量和费用分项】\n\n按当时的单价，每百万 token，普通输入一元，缓存读取一角，输出四元。这里的总输入已经包含缓存读取，计算时要先减掉命中部分，分别计价。再加上大约七千个输出 token，合计约五分五；同样的用量，如果输入全按未命中算，大约是一角五。这是按当时单价做的估算，实际费用还要看账单。",
+        "【操作提示｜推进第 3 步，指底部结论条】\n\n所以，只看最后一次请求有多长，还算不出任务的总费用。要把几次请求的用量加起来，再按各自的单价计算。"
       ],
-      "teaching": [
-        {
-          "title": "实测记录",
-          "text": "2026-10-21 重跑 2.1 第二步（codex exec，lab-runs/ch02-context/2.1-step2-20261021-150635）：8 次请求、15 次工具调用；claude-tap 汇总 126,466 输入 / 110,501 缓存读取 / 6,995 输出 token。逐次输入 7610、8561、10786、15483、17193、19763、22109、24961，缓存命中 5063、7745、8686、11054、16033、17935、20657、23328。估算：(126466 − 110501) × 1 + 110501 × 0.10 + 6995 × 4，单位元/百万 token，约 0.016 + 0.011 + 0.028 ≈ 0.055 元；全按未命中算约 0.126 + 0.028 ≈ 0.154 元。"
-        },
-        {
-          "title": "讲师提示",
-          "text": "价格取自 MiniMax 开放平台定价页（2026-10-21 查阅：MiniMax-M3.1-Flash 输入 1.00、输出 4.00、缓存读取 0.10 元/百万 token，页面没有列缓存写入价格），录制当天再查一次，变了就按新价格重算。缓存是否另有计费规则、Codex 界面能否直接看到用量，录制前核对；核对不了就只讲“重复部分更便宜”，不报具体金额。"
-        }
-      ],
+      "repro": {
+        "label": "实验说明：复算费用与核对口径",
+        "steps": [
+          {
+            "text": "本页用的是 2026-10-21 的历史汇总。先指出表格只选第 1、4、8 次，合计行包含全部 8 次；不是把屏幕上的三行相加。下列代码只复算已有数字，不访问模型或读取原讲师文件。",
+            "code": "python3 - <<'PY'\nfrom decimal import Decimal as D\ninputs = [7610, 8561, 10786, 15483, 17193, 19763, 22109, 24961]\ncached = [5063, 7745, 8686, 11054, 16033, 17935, 20657, 23328]\noutput = 6995\ni, c = sum(inputs), sum(cached)\ncost = (D(i-c)*D('1.00') + D(c)*D('0.10') + D(output)*D('4.00')) / D(1000000)\nno_cache = (D(i)*D('1.00') + D(output)*D('4.00')) / D(1000000)\nprint('input:', i, 'cached:', c, 'output:', output)\nprint('estimated CNY:', cost, 'same usage without cache:', no_cache)\nPY"
+          },
+          {
+            "text": "核对结果：输入 126466，缓存读取 110501，输出 6995；费用 0.0549951 元，对照为 0.154446 元。输出只有累计值，不补造逐次输出明细。表格显示的是四舍五入值。",
+            "code": ""
+          },
+          {
+            "text": "这里按总输入包含缓存读取的历史口径计算，先减缓存，再按各自单价计算。如果使用自己的新记录，先核对接口的 usage 定义；缓存另计的记录不能再从输入里减一次。同用量全未命中的金额只是算术对照，不是另跑过的一次实验。",
+            "code": ""
+          },
+          {
+            "text": "若要替换材料：取一条任务从发问到最终回答的全部模型请求，保留请求 ID、各次 usage、所用模型、日期和对应单价。不要把工具调用数当模型请求数，不要只取最后一条请求；如有其他计费项也须说明。",
+            "code": ""
+          }
+        ],
+        "note": "来源为章 LOG C2-129 的汇总与算式。历史价格链接可能已更新；本页不据此声称今天的报价、实际账单或订阅费用。当前素材不含完整旧 trace。"
+      },
+      "teaching": [],
       "source": "index.html#p60",
       "seconds": 90
     },
@@ -74,28 +116,41 @@ window.lesson = {
       "segment": "接着做",
       "label": "换会话时写交接",
       "title": "换个新会话接着做，怎样不丢东西？",
-      "lead": "2.2 压缩时，Codex 自己写了一份交接摘要，留什么由它决定。换一个新会话接着做时，也可以由我们自己写交接：本轮目标、已做、还剩、关键文件，几行就够。讲师试了一次：新会话的第一次请求只有 6 项，交接就是那条用户消息；Codex 没有照单全收，先重新读了 App.tsx、index.css 和 git diff，回答里把“交接里写的”“刚读到的”“自己推算的”分开。长期规则放 AGENTS.md，这一轮的进度放交接。",
-      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-pair\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:20px;align-items:start\"><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">压缩</span><h3>Codex 写的交接摘要</h3><p>2.2 那次约 2550 字符；留什么由它决定</p></div><div data-reveal=\"0\"><div class=\"p-code\" style=\"font-size:14px;line-height:1.45\"><div class=\"p-code-head\"><span>新会话的第一句</span><span>我们写的交接</span></div><pre style=\"padding:6px 12px;white-space:pre-wrap\"><span style=\"display:block\">交接（上一轮会话写的）</span><span style=\"display:block\">- 本轮目标：在项目区呈现三条项目经历，原文照用</span><span style=\"display:block\">- 已做：只改了 src/App.tsx 的 projects 数组，build 通过，未提交</span><span style=\"display:block\">- 还剩：360 宽下三条经历的换行，人还没检查</span><span style=\"display:block\">- 关键文件：src/App.tsx、src/index.css</span></pre></div></div></div><div class=\"p-grid\" style=\"--n:3;gap:12px;margin-top:10px\"><div class=\"p-box is-soft\" data-role=\"ink\" data-reveal=\"1\" style=\"padding:8px 14px\"><h3>第一次请求 6 项</h3><p>交接就是那条用户消息</p></div><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"1\" style=\"padding:8px 14px\"><h3>先重新读文件</h3><p>App.tsx、index.css、git diff</p></div><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"1\" style=\"padding:8px 14px\"><h3>依据分开写</h3><p>交接 · 刚读到的 · 推算的</p></div></div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:10px\">长期规则放 <b>AGENTS.md</b>，这一轮的进度放<b>交接</b></div><p class=\"source-note\">数字来自讲师的一次运行（2026-10-21，课程基线，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开）；随版本、模型、配置和任务变化，只说明结构。重新读文件核对是这一次的观察，不是每次都会这样</p>",
+      "lead": "自动压缩之外，需要换会话继续工作时，也可以自己选择留下什么。这里沿用 2026-10-21 的独立交接实验：目标是旧项目中的三条经历，未提交、尚待检查移动端换行。交接进入新会话的用户消息；这次 Codex 继续读取文件和 diff，并按请求要求区分交接、读取和推算的依据。交接提供起点，不等于已经验证结果。",
+      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-pair\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:20px;align-items:start\"><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">压缩</span><h3>Codex 写的交接摘要</h3><p>压缩已有历史，选择保留的信息</p></div><div data-reveal=\"0\"><div class=\"p-code\" style=\"font-size:14px;line-height:1.45\"><div class=\"p-code-head\"><span>新会话的第一句</span><span>我们写的交接</span></div><pre style=\"padding:6px 12px;white-space:pre-wrap\"><span style=\"display:block\">交接（10-21 独立实验）</span><span style=\"display:block\">- 本轮目标：在项目区呈现三条项目经历，原文照用</span><span style=\"display:block\">- 已做：只改了 src/App.tsx 的 projects 数组，build 通过，未提交</span><span style=\"display:block\">- 还剩：360 宽下三条经历的换行，人还没检查</span><span style=\"display:block\">- 关键文件：src/App.tsx、src/index.css</span></pre></div></div></div><div class=\"p-grid\" style=\"--n:3;gap:12px;margin-top:10px\"><div class=\"p-box is-soft\" data-role=\"ink\" data-reveal=\"1\" style=\"padding:8px 14px\"><h3>第一次请求 6 项</h3><p>交接就是那条用户消息</p></div><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"1\" style=\"padding:8px 14px\"><h3>先重新读文件</h3><p>App.tsx、index.css、git diff</p></div><div class=\"p-box is-soft\" data-role=\"ok\" data-reveal=\"1\" style=\"padding:8px 14px\"><h3>按要求区分依据</h3><p>交接 · 读取 · 推算</p></div></div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:10px\">长期规则放 <b>AGENTS.md</b>，这一轮的进度放<b>交接</b></div><p class=\"source-note\">数字来自讲师的一次运行（2026-10-21，课程基线，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开）；随版本、模型、配置和任务变化，只说明结构。重新读文件核对是这一次的观察，不是每次都会这样</p>",
       "steps": [
         "两种交接",
         "新会话怎么用它",
         "放在哪里"
       ],
       "script": [
-        "【操作提示｜停留课件 p61 第 1 步，先指左边“压缩”，再指右边的交接文字】\n\n第二条，换会话。2.2 压缩的时候，Codex 自己写了一份交接摘要，那次大约两千五百字，留什么、丢什么，是它决定的。换一个新会话接着做的时候，我更喜欢自己写交接：本轮目标、已经做了什么、还剩什么、关键文件，几行就够。",
-        "【操作提示｜推进第 2 步，三张小卡依次指认】\n\n我拿 2.2 改完的仓库试了一次。新会话的第一次请求只有 6 项，这段交接就是那条用户消息。有意思的是，Codex 没有照单全收：它先重新读了 App.tsx、index.css 和 git diff，回答的时候，把“交接里写的”“刚读到的”“自己推算的”分开写。这只是一次的观察，不是每次都会这样，但这正是我想要的用法：交接告诉它从哪看起，事实还是要回到文件里。",
-        "【操作提示｜推进第 3 步，指底部横条】\n\n分工也就清楚了：长期都要守的规则，放 AGENTS.md；这一轮做到哪了，放交接。"
+        "【操作提示｜停留 p61 第 1 步，指压缩摘要与交接例子】\n\n刚才看了连续请求累积的用量。如果换个新会话继续做，哪些信息还需要带过去？前面看过 Codex 自动压缩时写的摘要，我们也可以自己留几行交接。右边是之前三条项目经历的实验：要做什么，已经做了什么，还剩移动端换行没检查，最后指出相关文件。",
+        "【操作提示｜推进第 2 步，指三张结果卡】\n\n那次新会话的第一条消息就是这份交接。Codex 接着读了文件和 diff。当时的请求还要求它注明依据，所以它把交接里写的、实际读到的和自己推算的分开。这里的换行是推算出来的，还需要打开浏览器检查。",
+        "【操作提示｜推进第 3 步，指长期规则与本轮进度】\n\n长期规则放在 AGENTS.md，这一轮的进度和待检查项留在交接里。先留这几行，新会话再顺着文件核实。"
       ],
-      "teaching": [
-        {
-          "title": "实测记录",
-          "text": "2026-10-21，起点是 2026-10-20 那次 2.2 改完、还没提交的仓库，codex exec -s read-only 发“交接 + 继续：只读，三条经历在 360 宽下会不会难看地换行？先说要看哪些文件，结论注明依据来自交接还是刚读到的”。11 次请求、约 21 万输入 token；第 1 次请求 6 项。它先读了 App.tsx、index.css、git diff、PROJECT_BRIEF.md，没有浏览器，就写 node 脚本估算字宽和断行，回答末尾分“交接里写的”“我刚读到的”“我自己算的”三类，并说明没有真的渲染。运行目录在讲师本机 ~/.cache/p2h-lab/2.5-handoff-20261021-151326。"
-        },
-        {
-          "title": "讲师提示",
-          "text": "交接的写法只给一个例子，不立模板。和 2.2 压缩的区别只讲一句：留什么由谁决定。它这次花了 11 次请求估算字宽，可以顺带一句“没有浏览器时它会想办法，代价就在请求里”，不展开。"
-        }
-      ],
+      "repro": {
+        "label": "实验说明：交接的起点与检查项",
+        "steps": [
+          {
+            "text": "默认讲现有交接和结果卡。左侧是自动摘要的概念对照，不是这一次旧摘要的原文；右侧是页面采用的交接文本。原实验还要求注明依据，页面上的交接并不是完整历史 Prompt。",
+            "code": ""
+          },
+          {
+            "text": "如果另做一次实验，先准备自己的主页项目副本：确有 App.tsx 和 index.css，交接里描述的改动、build 状态和待检查项都与文件一致。未提交改动必须随副本保留，只有 Git 提交号不足以恢复它们；不要直接使用 p62 的空目录。先只读检查状态。",
+            "code": "git status --short\ngit diff -- src/App.tsx src/index.css"
+          },
+          {
+            "text": "新会话里先贴按实际状态填写的交接，再提出后续任务。下面是新实验可用的请求模板，不是补出的历史原文；模板中的页面状态和尺寸需与你准备的项目一致。",
+            "code": "请接着核对项目区在 360px 宽度下的换行。先只读检查相关文件和当前 diff，说明哪些依据来自交接、哪些来自实际读取、哪些只是推算。如果没有真正打开浏览器渲染，请明确哪些内容还需要人工检查。"
+          },
+          {
+            "text": "核对三个位置：第一条模型请求里的用户消息是否包含交接；后续工具调用实际读了哪些文件和 diff；最终回复是否把三类依据分开。查看 build 日志只能证明构建状态，不能证明移动端布局通过。",
+            "code": ""
+          }
+        ],
+        "note": "新运行不保证也有 6 项输入、11 次请求或相同读取顺序。旧项目状态和完整 trace 尚未随本节交付；没有准备对应文件时直接讲现有例子，不现场补造结果。"
+      },
+      "teaching": [],
       "source": "index.html#p61",
       "seconds": 90
     },
@@ -104,28 +159,57 @@ window.lesson = {
       "segment": "换个工具",
       "label": "换一个工具看请求",
       "title": "换一个工具，同一句话发出去是什么样？",
-      "lead": "同一句问候，用 Codex 和 Claude Code 各发一次，都走 MiniMax，都经 claude-tap 记录。Claude Code 的系统指令更长、工具更多，整份请求约 4.5 万字符；Codex 的系统指令只有一句，整份约 3 万字符。规则文件找法也不同：Codex 只在当前 Git 仓库里找 AGENTS.md；Claude Code 会一直往上级目录找，讲师第一次把实验目录放在课程仓库里面，它就把课程仓库的 AGENTS.md 也读进了请求。工具不同，组装出的 context 就不同，同一句 Prompt 的效果也就可能不同。",
-      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) minmax(0,1.2fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>同一句问候</span><span>Codex</span><span>Claude Code</span></div><div data-reveal=\"0\"><span>系统指令</span><span>1 句，约 150 字符</span><span>3 段，约 5800 字符</span></div><div data-reveal=\"0\"><span>工具</span><span>5 个，约 2.2 万字符</span><span>12 个，约 2.8 万字符</span></div><div data-reveal=\"0\" class=\"is-key\"><span>整份请求</span><span>约 3 万字符 · 约 7.5 千 token</span><span>约 4.5 万字符 · 约 1.08 万 token</span></div><div data-reveal=\"1\"><span>规则文件</span><span>AGENTS.md，只在当前 Git 仓库里找</span><span>一直往上级目录找</span></div></div><div class=\"p-pair\" style=\"grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:12px;margin-top:10px\"><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"1\" style=\"padding:8px 14px\"><h3>在课程仓库里面做实验时</h3><p>Claude Code 把课程仓库的 AGENTS.md 也带进了请求</p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"2\" style=\"padding:8px 14px\"><h3>工具不同</h3><p>组装出的 context 就不同</p></div></div><p class=\"source-note\">数字来自讲师的一次运行（2026-10-21，课程基线，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开）；随版本、模型、配置和任务变化，只说明结构；Claude Code 2.1.304，用课程仓库的 tools/clean-claude.sh 启动，也走 MiniMax</p>",
+      "lead": "2026-10-21 的对比实验：Codex 与 Claude Code 各收到同一句问候，都连接 MiniMax。先看系统指令，再看工具定义，最后看整份请求规模。这里的字符数和工具数来自当次配置，只帮助定位差异，不能据此判断工具好坏。两份请求不同，也不能单凭这一点断定具体任务表现的差异由它造成。",
+      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) minmax(0,1.2fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>同一句问候</span><span>Codex</span><span>Claude Code</span></div><div data-reveal=\"0\"><span>系统指令</span><span>1 句，约 150 字符</span><span>3 段，约 5800 字符</span></div><div data-reveal=\"1\"><span>工具</span><span>5 个，约 2.2 万字符</span><span>12 个，约 2.8 万字符</span></div><div data-reveal=\"1\" class=\"is-key\"><span>整份请求</span><span>约 3 万字符 · 约 7.5 千 token</span><span>约 4.5 万字符 · 约 1.08 万 token</span></div></div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:12px\">同一句话之外，工具还带来了不同的指令与工具定义</div><p style=\"font-size:15px\">2026-10-21 · Codex 0.163.0 / Claude Code 2.1.304 · 同接 MiniMax · 一次对比</p><p class=\"source-note\">数字来自讲师的一次运行（2026-10-21，课程基线，Codex 0.163.0 + MiniMax-M3.1-Flash，能力目录开）；随版本、模型、配置和任务变化，只说明结构；Claude Code 2.1.304，用课程仓库的 tools/clean-claude.sh 启动，也走 MiniMax</p>",
       "steps": [
-        "同一句问候",
-        "规则文件从哪找",
-        "结论"
+        "系统指令",
+        "工具与请求规模",
+        "工具怎样组织请求"
       ],
       "script": [
-        "【操作提示｜停留课件 p62 第 1 步，按行指认表格；不要求学员安装 Claude Code】\n\n第三条，跳出 Codex 看一看。同一句问候，我用 Codex 和 Claude Code 各发了一次，都接的 MiniMax，都用 claude-tap 记录。Codex 的系统指令只有一句话，5 个工具，整份请求大约三万字；Claude Code 的系统指令有三段，将近六千字，12 个工具，整份大约四万五千字。",
-        "【操作提示｜推进第 2 步，指“规则文件”一行和下面的提醒框】\n\n规则文件的找法也不一样。Codex 只在当前这个 Git 仓库里找 AGENTS.md；Claude Code 会一直往上级目录找。我第一次把实验目录放在课程仓库里面，它就把课程仓库的 AGENTS.md 也读进了请求。所以做这种对比，要把目录放在仓库外面。",
-        "【操作提示｜推进第 3 步，指底部横条】\n\n工具不同，组装出来的 context 就不同，同一句 Prompt 的效果也就可能不一样。换工具之前，可以先看看它往 context 里放了什么。"
+        "【操作提示｜停留 p62 第 1 步，指两列系统指令；使用已有实验表，不现场启动工具】\n\n刚才看的是我们自己留下的信息。请求里还有一些内容，是工具带进来的。这次把同一句问候分别交给 Codex 和 Claude Code，两边都接 MiniMax。先看系统指令：这次配置下，Codex 是一句话，Claude Code 是三段。用户说的一样，工具准备的说明已经不同了。",
+        "【操作提示｜推进第 2 步，指工具定义与整份请求两行】\n\n再看工具定义，这次记录里分别是五个和十二个，描述本身也占了不少内容。整份请求大约三万和四万五千字符。这里数字只帮助我们看规模，真正要看的是工具给模型提供了哪些说明、哪些能力。",
+        "【操作提示｜推进第 3 步，指结论条】\n\n同一句话，换一个 coding agent，模型收到的说明和可用工具就可能不同。要判断哪个好用，还得看完成具体任务的表现。"
       ],
-      "teaching": [
-        {
-          "title": "实测记录",
-          "text": "2026-10-21，同一目录（课程仓库之外，第 1 章参考快照的副本），同一句“你好，用一句话介绍你能帮我做什么。”：tools/clean-claude.sh --tap -- -p 与 tools/clean-codex.sh --tap -- exec -s read-only。Claude Code 第一次请求：system 3 段约 5800 字符，12 个工具约 2.8 万字符，整份约 4.5 万字符，输入 10830 token；Codex：系统指令 145 字符，5 个工具约 2.2 万字符，整份约 3 万字符，输入 7510 token。第一次把实验目录放在 lab-runs/ 下时，Claude Code 的请求里出现了“Contents of …/prompt-to-harness.github.io/AGENTS.md”。"
-        },
-        {
-          "title": "讲师提示",
-          "text": "只做对照，不比较哪个工具更好，不要求学员安装 Claude Code。截图前检查请求里有没有个人信息：从另一个 Claude Code 会话里跑脚本时，会继承 CLAUDE_CODE_USER_EMAIL 等变量，Claude Code 会把邮箱写进请求；两个 clean-*.sh 2026-10-21 起已清掉这些变量，录制仍用讲师自己的终端。Claude Code 读取上级目录的规则文件是官方文档写明的行为（How Claude remembers your project：从当前目录逐层往上读 CLAUDE.md，没有 CLAUDE.md 时读 AGENTS.md；可用 claudeMdExcludes 排除），不是 clean-claude.sh 隔离不够：脚本隔离的是 HOME 下的个人配置。"
-        }
-      ],
+      "repro": {
+        "label": "使用说明：复现 Codex / Claude 对照实验",
+        "steps": [
+          {
+            "text": "准备：macOS，或另行验证的 Linux / WSL；装好 uv、Codex CLI、Claude Code CLI，在自己的终端提供 MINIMAX_API_KEY。安装命令同时用于升级已有 Agent Lab；不要在录屏中输入 Key。",
+            "code": "uv tool install --force https://github.com/prompt-to-harness/prompt-to-harness.github.io/releases/download/agent-lab-v0.1.4/agent_lab-0.1.4-py3-none-any.whl"
+          },
+          {
+            "text": "记录实际版本。页面数字来自 Codex 0.163.0、Claude Code 2.1.304 与旧 clean 脚本；新入口可以重做观察，不保证得到相同的字符数和工具数。",
+            "code": "uv tool list\ncodex --version\nclaude --version"
+          },
+          {
+            "text": "在课程仓库以外创建一个空目录，两边都在这里运行。检查上级目录也没有课程 AGENTS.md / CLAUDE.md，避免自动带入课程规则；新目录会得到独立会话和记录。清掉当前终端旧的环境路径覆盖。",
+            "code": "lab_project=$(mktemp -d \"${TMPDIR:-/tmp}/agent-lab-compare.XXXXXX\")\ncd \"$lab_project\"\nunset AGENT_LAB_HOME COURSE_CODEX_HOME"
+          },
+          {
+            "text": "先运行 Codex：只读模式、允许在这个非 Git 目录执行，发送一句问候。等返回完成；记下启动输出中的课程环境和查看器地址。",
+            "code": "agent-lab codex --tap -- exec --skip-git-repo-check -s read-only \"你好\""
+          },
+          {
+            "text": "仍在同一个目录运行 Claude Code，发送相同的问候。-p 是非交互运行；等返回完成，再打开它输出的 Dashboard 地址，点 Details 看问答，点 Full viewer 查看原始请求。",
+            "code": "agent-lab claude --tap -- -p \"你好\""
+          },
+          {
+            "text": "两个查看器分别选本次问候的第一个模型请求：核对用户消息相同、模型为 MiniMax-M3.1-Flash。Codex 走 Responses 接口，Claude 走 Anthropic 兼容接口。随后对照系统指令的内容、工具定义的数量与内容、整份请求规模；不要把累计用量当作首个请求长度，也不要用字符数直接换算 token。",
+            "code": ""
+          },
+          {
+            "text": "保存本次日期、CLI 版本、请求 ID 和三个观察点。课程 HOME 与 tap 数据位置可用以下命令找回；记录在各 HOME 的 .local/share/claude-tap/ 下。截图前检查账号、邮箱、令牌、路径和项目内容。",
+            "code": "agent-lab home\nagent-lab home --agent claude"
+          },
+          {
+            "text": "Claude Code 2.1.309 可能提示未识别 MiniMax 模型名、按 200k 上下文窗口处理；本次问候仍成功返回。这不是 API 失败，也不说明上游实际窗口只有 200k。缺 Key 或找不到 CLI，先补前置条件；若查看器端口占用，按输出检查进程归属。旧版本查看器要先关闭再重试，不直接结束不认识的进程。Codex 也可能有附加模型元数据提示或 featured plugins 401；本次模型请求仍成功。用模型请求状态和实际回复判断，API 报错或没有记录时先停下来检查，不拿旧数字当本次结果。",
+            "code": ""
+          }
+        ],
+        "note": "这组步骤复现的是 p62 的双工具问候实验；p60 费用、p61 交接、p62a 服务对比和 p62b 版本快照使用各自历史材料。本页仍展示旧实验；新入口改变了环境持久化、设置来源和 tap 数据位置，组织策略也可能生效。录前先完成一次最小问候和记录核对；更换课件证据时同步日期、版本和实际数字。"
+      },
+      "teaching": [],
       "source": "index.html#p62",
       "seconds": 90
     },
@@ -134,28 +218,45 @@ window.lesson = {
       "segment": "换个服务",
       "label": "换一个模型服务",
       "title": "同一个 Codex，换一个模型服务",
-      "lead": "还是 Codex，还是同一句只读问题，一次接课程用的 MiniMax，一次用讲师自己的 ChatGPT 登录，都经 claude-tap 记录。两边都答对了，可请求差得很多：ChatGPT 这边系统指令是完整的内置指令，工具不放在工具字段，而是作为一条消息放进输入，没有网页搜索；推理只返回一段密文，我们看不懂，MiniMax 的推理能看到正文。两边相同的一点是都不让服务端保存对话，每次整段重发。模型服务不只是模型：网页搜索、推理加密、压缩这些事，有一部分是服务端在做。",
-      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,.9fr) minmax(0,1.2fr) minmax(0,1.3fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>同一句只读问题</span><span>MiniMax（课程基线）</span><span>ChatGPT 登录</span></div><div data-reveal=\"0\"><span>系统指令</span><span>一句话，约 280 字符</span><span>完整内置指令，约 2.2 万字符</span></div><div data-reveal=\"0\"><span>工具</span><span>工具字段里 5 个，含网页搜索</span><span>作为一条消息放进输入，没有网页搜索</span></div><div data-reveal=\"1\"><span>推理</span><span>能看到正文，另有一段密文</span><span>只有密文，看不懂</span></div><div data-reveal=\"1\" class=\"is-key\"><span>对话保存</span><span>不让服务端存，每次整段重发</span><span>同左</span></div></div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:12px\">模型服务<b>不只是模型</b>：网页搜索、推理加密、压缩，有一部分在服务端</div><p class=\"source-note\">数字来自讲师的各一次运行（2026-10-22，Codex 0.163.0，同一个起点和问题；ChatGPT 登录用讲师自己的订阅）；随版本、账号和模型变化，只说明结构</p>",
+      "lead": "2026-10-22，同一 Codex 0.163.0、同一起点和只读问题，分别连接 MiniMax 与 ChatGPT 登录服务。前两行比较客户端发出的请求；最后一行比较返回的可见形式，其中 ChatGPT 推理条目来自另一次 high 档位补跑，不能说成原 low 档位请求的返回。模型、推理档位和接口配置也有差别，这不是只改变模型名称的质量评测。请求差异不都来自服务端处理；可见推理也不用于判断推理质量。",
+      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,.9fr) minmax(0,1.2fr) minmax(0,1.3fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>同一句只读问题</span><span>MiniMax（课程基线）</span><span>ChatGPT 登录</span></div><div data-reveal=\"0\"><span>发送：系统指令</span><span>一句话，约 280 字符</span><span>完整内置指令，约 2.2 万字符</span></div><div data-reveal=\"0\"><span>发送：工具表示</span><span>在 tools 字段</span><span>在 input 的 additional_tools 消息中</span></div><div data-reveal=\"1\"><span>返回：推理条目</span><span>有正文，另有密文</span><span>high 补跑：正文为空，有密文</span></div></div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:12px\">分别看<b>客户端发出的请求</b>与<b>服务端返回的内容</b></div><p style=\"font-size:15px\">2026-10-22 · 请求各一次；推理返回另含 high 档位补跑 · 不比较质量</p><p class=\"source-note\">数字来自讲师的各一次运行（2026-10-22，Codex 0.163.0，同一个起点和问题；ChatGPT 登录用讲师自己的订阅）；随版本、账号和模型变化，只说明结构</p>",
       "steps": [
-        "系统指令和工具",
-        "推理和保存",
-        "结论"
+        "客户端发送",
+        "返回的可见内容",
+        "分清两侧"
       ],
       "script": [
-        "【操作提示｜停留课件 p62a 第 1 步，指表格前两行；不要求学员有 ChatGPT 订阅】\n\n第四条。工具不换，还是 Codex，还是同一句只读问题；这次换模型服务：一次接我们课上用的 MiniMax，一次用我自己的 ChatGPT 登录，都用 claude-tap 记下来。两边都答对了，可发出去的请求差得很多：ChatGPT 这边的系统指令是完整的内置指令，两万多字；工具也不放在工具字段里，而是作为一条消息塞进输入，而且没有网页搜索。",
-        "【操作提示｜推进第 2 步，指“推理”“对话保存”两行】\n\n再看推理。MiniMax 的推理，在记录里能看到它是怎么想的；ChatGPT 的推理只给一段密文，下次原样带回去，只有服务端能解开，我们看不懂。两边相同的是，都不让服务端保存对话，每次把整段历史重发一遍，这就是 2.2 看到的“每次重发”。",
-        "【操作提示｜推进第 3 步，指底部横条】\n\n所以模型服务不只是一个模型。网页搜索在服务端执行，推理加了密，压缩也有服务端做的版本。换一个模型服务，不只是换了个模型，这些事也跟着变了。"
+        "【操作提示｜停留 p62a 第 1 步，指“发送”两行；不把两边配置说成只换模型名称】\n\n刚才换的是工具。接下来保持 Codex 的版本不变，换它连接的模型服务。这组实验从同一起点发出同一句只读问题，分别接 MiniMax 和讲师自己的 ChatGPT 登录服务。先看发出去的两份请求：系统指令不同，工具定义的位置也不同，右边放在了 additional_tools 消息里。这里比较的是客户端组装出来的内容。",
+        "【操作提示｜推进第 2 步，指“返回”一行和 high 补跑标记】\n\n再看返回。MiniMax 的记录里有可读的推理正文，也有密文。右边用的是另一次 high 档位补跑：正文和摘要为空，只有密文。它和上面 low 档位的请求来自两次运行。模型、档位和接口配置都有差别，这里只观察返回了什么，不比较推理质量。",
+        "【操作提示｜推进第 3 步，指客户端与服务端两侧】\n\n因此，换服务后要分两边看：客户端发了什么，服务返回了什么。看到系统指令不同，先查发送端的配置，不能直接归因于服务端。"
       ],
-      "teaching": [
-        {
-          "title": "实测记录",
-          "text": "2026-10-22，第 1 章参考快照的副本，同一句“只读任务……项目区现在显示什么？数据写在哪个文件里？”。CLEAN_CODEX_AUTH=chatgpt tools/clean-codex.sh --tap -- exec -s read-only（模型 gpt-6.1-sol，推理档位 low，2 次模型请求、约 3.7 万 token）与课程基线（MiniMax-M3.1-Flash，推理档位 max，6 次、约 7 万 token）。ChatGPT 这边请求头带 Responses Lite 标记，工具作为 additional_tools 消息放进输入（约 2.9 万字符）；推理条目另补跑一次推理档位 high（推理 148 token），摘要和正文都是空的，只有 encrypted_content。两边都是 store: false、previous_response_id 为空。细节和源码依据见章文件实测记录、可讲点清单第 38–45 点。"
-        },
-        {
-          "title": "讲师提示",
-          "text": "只做对照，不比较哪家更好，也不要求学员有 ChatGPT 订阅。截图前遮掉请求头里的 chatgpt-account-id 等账号信息。用 claude-tap 时 -c 要写在 exec 前面，否则记录为空（见 tools/clean-codex.sh 开头）。"
-        }
-      ],
+      "repro": {
+        "label": "实验说明：三份样本与观察位置",
+        "steps": [
+          {
+            "text": "先辨认三份材料：A 是 MiniMax 请求及返回，B 是 ChatGPT 登录服务的 low 档位请求，C 是 ChatGPT 的另一次 high 补跑。页面前两行用 A/B 的发送内容，最后一行用 A/C 的返回；不能把 C 说成 B 的响应。",
+            "code": ""
+          },
+          {
+            "text": "历史共同条件：Codex 0.163.0，同一个第 1 章主页起点，分别新会话、只读运行，发送相同问题。记录各自模型、接口、推理档位和请求 ID，不仅记工具版本。历史问题如下。",
+            "code": "项目区现在显示什么、数据在哪个文件"
+          },
+          {
+            "text": "发送端看第一条请求：系统指令的实际内容；工具定义是在 tools 字段，还是 input 中的 additional_tools 消息。返回端选实际含 reasoning 条目的响应，分别找正文、summary、content 和 encrypted_content；某条响应没有 reasoning 条目时，不要写成该服务永远不返回推理。",
+            "code": ""
+          },
+          {
+            "text": "若准备重跑，先给两边准备相同项目状态，使用自己的 MiniMax Key 与 ChatGPT 登录。Agent Lab 0.1.4 固定 MiniMax，不能传模型名就切换服务。历史 clean-codex.sh 的 ChatGPT 模式只支持文件方式登录，重跑前需核对自己机器的登录存储方式；不复制别人的 auth.json。",
+            "code": ""
+          },
+          {
+            "text": "历史脚本的配置位置：通过 clean-codex.sh --tap 传参数时，-c 必须放在 exec 前；补跑 high 要单独保存会话及返回。原脚本和章 LOG 可供准备时核对，但旧项目与三份 trace 未交付，这不是已经在新机器验证的完整重跑流程。",
+            "code": ""
+          }
+        ],
+        "note": "默认录制直接讲现有汇总表。看不到推理正文不等于没有推理；这里比较可见形式，不比较质量。具体请求 ID 与历史配置在章 LOG 的 2026-10-22 对比记录中。"
+      },
+      "teaching": [],
       "source": "index.html#p62a",
       "seconds": 90
     },
@@ -165,7 +266,7 @@ window.lesson = {
       "layout": "evidence-scene",
       "label": "系统指令的版本历史",
       "title": "系统指令会随版本变",
-      "lead": "系统指令不是一成不变的。Phistory 是一个开源项目：对每个发布版本，装好 CLI，经 claude-tap 记下它发出的请求，把系统指令存成快照，再在 phistory.cc 上逐版本对比。这里是 Codex 的两个相邻版本：0.157.0 把“不要用工具替人发消息，除非已有明确授权”改成了“除非用户明确要求，或来自明确调用的技能或插件”，并要求在最终回复里点明是哪个技能或插件授权的。同一个 Codex，换一个版本，对外发消息这条边界就变了。",
+      "lead": "Phistory 收录不同版本的系统指令快照。现有截图对比 Codex CLI 0.156.0 与 0.157.0：对外发送消息的授权表述增加了明确调用的技能或插件，并要求点明来源。它说明指令会随版本维护，不能仅凭这处变化断言实际行为的原因。截图来自 OpenAI 模型配置，不是课程 MiniMax 配置的指令；可作为升级后排查差异的入口。",
       "html": "<div class=\"p-shot\" style=\"--shot-h:390px\" data-reveal=\"0\"><div class=\"p-page\"><div class=\"p-page-bar\"><i></i><i></i><i></i>phistory.cc · Codex CLI 0.156.0 → 0.157.0 · 系统指令对比（OpenAI 模型下的快照）</div><img src=\"external/phistory-codex-0.156.0-0.157.0.png\" alt=\"Phistory 查看器：Codex CLI 0.156.0 与 0.157.0 系统指令的逐行对比，红色是删去的一句，绿色是改写后的一句\"></div></div>",
       "refs": [
         {
@@ -185,18 +286,31 @@ window.lesson = {
         "看对比"
       ],
       "script": [
-        "【操作提示｜停留课件 p62b 第 1 步，指截图里红色和绿色的两处；录制时可切到浏览器打开右下角的链接，改右上角的版本号】\n\n第五条。前面我们一直看一次请求里有什么，那这些系统指令会不会变？有一个开源项目叫 Phistory，对每个发布版本，装好命令行工具，用我们前面那个 claude-tap 记下它发出的请求，把系统指令存成快照，再放到网页上逐版本对比。这里是 Codex 的两个相邻版本。红色的是 0.156.0 的一句：不要用工具替人发消息，除非已经明确授权。绿色是 0.157.0 的改法：除非用户明确要求，或者来自明确调用的技能或插件；如果是技能或插件授权的，要在最终回复里点明。\n\n接着说：同一个 Codex，换了一个版本，对外发消息这条边界就变了。这正是 2.4 里我们让人来确认对外动作的那类规则。所以系统指令不是一成不变的：升级工具以后，同一句 Prompt 的表现可能不一样，可以先来这里看看改了什么。需要说明，这些快照是 OpenAI 模型下的系统指令，和我们课上用的 MiniMax 下那一句话不一样，这一点和上一条是连着的。"
+        "【操作提示｜停留 p62b 第 1 步，直接讲已有截图，指红绿差异；不切网站、不重跑】\n\n工具和服务选定以后，还会遇到升级。系统指令会不会跟着变？Phistory 收录了不同版本的指令快照，可以逐行对比。图里是 Codex 的两个相邻版本：旧版要求得到明确授权才能替人发消息；新版补充了明确调用的技能或插件也可以提供授权，并要求点明来源。\n\n这张图来自 OpenAI 模型配置，和课上 MiniMax 那份指令要分清。以后升级工具，发现表现变了，可以从这种差异里找线索，再结合实际请求和运行结果判断。"
       ],
-      "teaching": [
-        {
-          "title": "核实记录",
-          "text": "2026-10-23 核实：phistory.cc 的 Codex CLI 有 105 个版本，含课程用过的 0.156.0、0.157.0、0.163.0，每个版本有 default、gpt-5.6、gpt-5.5 三个变体；站点数据取自 github.com/WEIFENG2333/phistory 的 captures/index.json。快照是 OpenAI 模型下的系统指令（default 变体的模型为 gpt-6 系列），不是课程基线 MiniMax 下那一句话的版本，要和 p62a 对上说。0.156.0 → 0.157.0 的另一处变化是模型列表改了名（gpt-6-astra 等）。第 15 行为画面所示的一处；0.163.0 里这一行与 0.157.0 相同。截图用 phistory.cc 的 ?agent=codex&from=0.156.0&to=0.157.0 在宽 1000 的视口截取，滚到第 13 行；原始数据在第三方站点，页面只放截图与出处，不转载快照全文。登记见 materials/external/README.md。"
-        },
-        {
-          "title": "讲师提示",
-          "text": "只做展示，不要求学员装多个版本，也不要求学员打开站点。录制时直接在浏览器里打开链接，改右上角的版本号，也可以切到 Claude Code 看另一个工具；站点是第三方，录制当天确认可访问。变化的含义只讲一句：这条规则正是 2.4 那类对外动作的边界，它会随版本变，所以“规则会过期”（第 7 章展开）。"
-        }
-      ],
+      "repro": {
+        "label": "实验说明：截图定位与离线讲解",
+        "steps": [
+          {
+            "text": "直接使用本页截图，原文件在本节 external/phistory-codex-0.156.0-0.157.0.png。录前在本机确认图能打开；不需要安装两个旧 Codex，也不需要模型 Key。",
+            "code": ""
+          },
+          {
+            "text": "核对截图顶部：Codex CLI；左边 0.156.0，右边 0.157.0，两边均为 Default。选原文视图，重点指第 15 行红绿变化；第 13 行的通用授权段不是这次讲解重点。",
+            "code": ""
+          },
+          {
+            "text": "按画面解释：左侧要求先有明确授权才能替人发消息；右侧增加了明确调用的技能或插件也可提供授权，并要求在回复中点明并链接该技能或插件。只讲这一处文本变化，不把它解释成任意插件都能自行授权。",
+            "code": ""
+          },
+          {
+            "text": "若在线查看，使用下方 Phistory 对比页入口并核对同一工具、版本和变体，再定位到这段差异。网页打不开、布局改变或找不到相同快照，就回到已保存截图，不临时换成最新版本截图。",
+            "code": ""
+          }
+        ],
+        "note": "截图来自 OpenAI 模型配置，和课程 MiniMax 的系统指令分开讲。它证明指令文本有变化，不证明某次运行行为必然由这处变化导致。"
+      },
+      "teaching": [],
       "source": "index.html#p62b",
       "seconds": 30
     },
@@ -205,24 +319,19 @@ window.lesson = {
       "segment": "小结",
       "label": "本节小结",
       "title": "五条做法，和这一章",
-      "lead": "五条做法：看懂重发的代价，换会话时自己写交接，换一个工具先看它往 context 里放了什么，换一个模型服务也要看服务端替它做了什么，系统指令会随版本变、要看版本记录。回看这一章：每一节都回到请求记录里找答案；项目上留下了审过的提交、公开 URL 和 ch02-homepage-live tag。下一章，给个人主页加一个小游戏。",
-      "html": "<div class=\"p-grid\" style=\"--n:5;gap:10px\"><div class=\"p-box is-soft\" data-role=\"ink\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>看代价</h3><p>重发要钱，缓存只让它便宜</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>写交接</h3><p>留什么由我们决定</p></div><div class=\"p-box is-soft\" data-role=\"tool\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>换工具</h3><p>先看它放了什么</p></div><div class=\"p-box is-soft\" data-role=\"agent\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>换服务</h3><p>服务端也在做事</p></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>看版本</h3><p>指令会随版本变</p></div></div><div class=\"p-flow\" style=\"--n:5;margin-top:14px\"><div class=\"p-node\" data-role=\"us\" data-reveal=\"1\"><h3>2.1</h3><p>只说了一句话，模型收到了什么</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"1\"><h3>2.2</h3><p>补上个人经历，看对话怎么变长</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"1\"><h3>2.3</h3><p>参考一个主页改风格：它看到了什么</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"1\"><h3>2.4</h3><p>发布上线，看 Codex 怎么用 gh</p></div><div class=\"p-node\" data-role=\"ctx\" data-reveal=\"1\"><h3>2.5</h3><p>用好 context 的五个做法</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:14px\">下一章 · 第 3 章：给个人主页加一个小游戏</div>",
+      "lead": "五个扩展观察：一次任务的累计费用、主动选择交接信息，以及工具、模型服务和版本带来的差异。全章从请求组成、历史变化，到依据与可见范围，再到工具返回支持发布判断。项目留下审过的提交、公开 URL 和发布版本 ch02-homepage-release；下一章给个人主页加一个小游戏。",
+      "html": "<div class=\"p-grid\" style=\"--n:5;gap:10px\"><div class=\"p-box is-soft\" data-role=\"ink\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>看代价</h3><p>累计用量，分别计价</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>写交接</h3><p>留什么由我们决定</p></div><div class=\"p-box is-soft\" data-role=\"tool\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>换工具</h3><p>先看它放了什么</p></div><div class=\"p-box is-soft\" data-role=\"agent\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>换服务</h3><p>分别看请求与返回</p></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"0\" style=\"padding:8px 14px\"><h3>看版本</h3><p>指令会随版本变</p></div></div><div class=\"p-flow\" style=\"--n:5;margin-top:14px\"><div class=\"p-node\" data-role=\"us\" data-reveal=\"1\"><h3>2.1</h3><p>只说了一句话，模型收到了什么</p></div><div class=\"p-node\" data-role=\"agent\" data-reveal=\"1\"><h3>2.2</h3><p>补上个人经历，看对话怎么变长</p></div><div class=\"p-node\" data-role=\"tool\" data-reveal=\"1\"><h3>2.3</h3><p>参考一个主页改风格：它看到了什么</p></div><div class=\"p-node\" data-role=\"ok\" data-reveal=\"1\"><h3>2.4</h3><p>发布上线，看 Codex 怎么用 gh</p></div><div class=\"p-node\" data-role=\"ctx\" data-reveal=\"1\"><h3>2.5</h3><p>用好 context 的五个做法</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:14px\">下一章 · 第 3 章：给个人主页加一个小游戏</div>",
       "steps": [
         "五条做法",
         "回看本章",
         "下一章"
       ],
       "script": [
-        "【操作提示｜停留课件 p63 第 1 步，指五张卡】\n\n五条做法：重发要花钱，缓存只是让它便宜；换会话时自己写交接，留什么由我们决定；换工具之前，先看它往 context 里放了什么；换模型服务，也要看服务端替它做了什么；系统指令会随版本变，要看版本记录。",
-        "【操作提示｜推进第 2 步，五个节点一起出现，按 2.1 到 2.5 的顺序逐个指认】\n\n回看这一章：2.1 只发一句话，看清模型收到了什么；2.2 补上个人经历，看对话怎么变长、怎么清空和压缩；2.3 审 AI 交回的改动，看它依据什么改，再参考别人的主页改了一处风格；2.4 发布上线，看这些内容发到了哪里；最后这一节，分享用好 context 的几个做法。项目上，我们留下了审过的提交、一个公开的 URL，和 ch02-homepage-live 这个 tag。",
-        "【操作提示｜推进第 3 步，指向底部的第 3 章预告；进入 p63a】\n\n下一章，我们给个人主页加一个小游戏。走之前，先用这一章的七个问题考考自己。"
+        "【操作提示｜停留 p63 第 1 步，依次指五张卡】\n\n回到开头这五件事：算累计费用、自己留交接，以及比较工具、服务和版本。它们都在提醒我们：输入的那句话，只是模型收到的内容的一部分。",
+        "【操作提示｜推进第 2 步，按顺序指章节节点】\n\n回看全章：先认识请求组成；补个人经历时，看历史怎样增长、清空和压缩；改风格时，分辨它拿到了什么参考、还看不到什么；发布时，再看查询得到的工具返回，怎样支持下一步判断。项目上，我们留下了审过的提交、公开地址，以及 ch02-homepage-release 这个发布版本。",
+        "【操作提示｜推进第 3 步，指下一章预告】\n\n下一章，我们给个人主页加一个小游戏。"
       ],
-      "teaching": [
-        {
-          "title": "讲师提示",
-          "text": "全章回看原在 2.5 p58，随本节重做移到这里。第 3 章预告按第 3 章定稿调整。"
-        }
-      ],
+      "teaching": [],
       "source": "index.html#p63",
       "seconds": 90
     },
@@ -232,23 +341,18 @@ window.lesson = {
       "label": "章末自检",
       "title": "章末自检：这一章的七个问题",
       "lead": "这七个问题就是第 2 章的目标。先独立作答，答在自己的笔记里；哪一题答不上来，就回到右边那一节再看一遍。不计分。",
-      "html": "<span class=\"p-pause\" data-reveal=\"0\">暂停 · 先独立作答</span><style>.x-p63a span{padding:3px 10px;font-size:17px;line-height:1.35}</style><div class=\"p-matrix x-p63a\" data-reveal=\"1\" style=\"margin-top:6px;grid-template-columns:minmax(0,.2fr) minmax(0,2.4fr) minmax(0,.5fr)\"><div class=\"is-head\"><span>#</span><span>问题</span><span>回到</span></div><div><span>1</span><span>我只说了一句话，模型收到了哪些别的东西？</span><span>2.1</span></div><div><span>2</span><span>这些东西是谁、按什么规则放进去的？</span><span>2.1</span></div><div><span>3</span><span>怎样让它少读、读对？</span><span>2.1</span></div><div><span>4</span><span>第二句话发出去时，带上了什么？代价是什么？</span><span>2.2</span></div><div><span>5</span><span>/clear、压缩、新会话之后，分别还剩什么？文件呢？</span><span>2.2</span></div><div><span>6</span><span>它这样改，依据在请求里的哪一块？它看全了吗，有什么看不见？</span><span>2.3</span></div><div><span>7</span><span>这些内容最后发到了哪里？</span><span>2.4</span></div></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:8px\">答不上来的，回到那一节；第 2 章到此结束</div>",
+      "html": "<span class=\"p-pause\" data-reveal=\"0\">暂停 · 先独立作答</span><style>.x-p63a span{padding:3px 10px;font-size:17px;line-height:1.35}</style><div class=\"p-matrix x-p63a\" data-reveal=\"1\" style=\"margin-top:6px;grid-template-columns:minmax(0,.2fr) minmax(0,2.4fr) minmax(0,.5fr)\"><div class=\"is-head\"><span>#</span><span>问题</span><span>回到</span></div><div><span>1</span><span>我只说了一句话，模型收到了哪些别的东西？</span><span>2.1</span></div><div><span>2</span><span>这些东西是谁、按什么规则放进去的？</span><span>2.1</span></div><div><span>3</span><span>怎样让它少读、读对？</span><span>2.1</span></div><div><span>4</span><span>第二句话发出去时，带上了什么？代价是什么？</span><span>2.2</span></div><div><span>5</span><span>/clear、压缩、新会话之后，分别还剩什么？文件呢？</span><span>2.2</span></div><div><span>6</span><span>它这样改，依据在请求里的哪一块？它看全了吗，有什么看不见？</span><span>2.3</span></div><div><span>7</span><span>工具列表里没有 gh，它是怎样用上的？GitHub 上的设置和部署状态，怎样进到请求里？</span><span>2.4</span></div></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:8px\">答不上来的，回到那一节；第 2 章到此结束</div>",
       "steps": [
         "暂停",
         "七个问题",
         "答不上来就回去"
       ],
       "script": [
-        "【操作提示｜停留课件 p63a 第 1 步，只露暂停标记；留出暂停】\n\n最后，用七个问题检查一下这一章。请暂停视频，先自己想一想。",
-        "【操作提示｜推进第 2 步，七个问题一起出现，从上到下快速读一遍题面，不讲答案】\n\n这七个问题，就是这一章的目标：只说一句话，模型收到了什么；这些是谁放进去的；怎样让它少读、读对；第二句话带上了什么；清空和压缩之后还剩什么；它依据什么改，有什么看不见；最后，这些内容发到了哪里。",
-        "【操作提示｜推进第 3 步，指结论条；第 2 章到此结束，不再切工具窗口】\n\n哪一题答不上来，就回到右边那一节再看一遍。第 2 章到这里结束，我们第 3 章见。"
+        "【操作提示｜停留 p63a 第 1 步，指暂停标记；下一步展示题目后留出暂停】\n\n离开这一章前，用这七个问题检查一下自己。看到题目后，可以暂停视频想一想。",
+        "【操作提示｜推进第 2 步，指七题，停留供学员暂停】\n\n前面六题，从请求组成一直问到它的依据和可见范围。最后一题接发布：工具列表里没有 gh，Codex 怎样用上它？GitHub 的设置和部署状态，又怎样进入请求？试着用我们看过的例子回答。",
+        "【操作提示｜推进第 3 步，指右侧回看节号与结论条】\n\n哪一题还说不清，就回到右边对应的小节再看一遍。第 2 章到这里结束，我们第 3 章见。"
       ],
-      "teaching": [
-        {
-          "title": "讲师提示",
-          "text": "七个问题取自第 2 章文件的“讲透问题”（C2-51），改问题时两处一起改。2.5 本身不设自检，这一页属于全章。"
-        }
-      ],
+      "teaching": [],
       "source": "index.html#p63a",
       "seconds": 90
     }
@@ -256,7 +360,7 @@ window.lesson = {
   "segments": [
     {
       "label": "开场",
-      "seconds": 90
+      "seconds": 60
     },
     {
       "label": "看懂代价",
