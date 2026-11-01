@@ -19,10 +19,10 @@ description: 提取 Screen Studio 项目的音轨，用 Apple 转写并润色中
 
 ## 提取与原稿
 
-使用仓库根目录下的 `tools/screenstudio-transcript/screenstudio_transcribe.py`。显式传入用户指定的 `.screenstudio` 项目与 `--output` 目录；只有用户指定“最近项目”时才用 `--latest`。项目不明确时先查看本机 `~/Screen Studio Projects`。本课程结果按 [制作文件存放约定](../screenstudio-edit/review-policy.md#制作文件存放)，默认写入公开仓库旁的 `../prompt-to-harness/录屏/<课次>/转写/<录制批次>/`；`lab-runs/transcripts/` 中的旧入口仅为迁移兼容。不要将原音频、原始转写或未剪辑录制中的个人信息提交到公开仓库。
+使用仓库根目录下的 `tools/screenstudio-transcript/screenstudio_transcribe.py`。显式传入用户指定的 `.screenstudio` 项目与 `--output` 目录；只有用户指定“最近项目”时才用 `--latest`。项目不明确时先查看本机 `~/Screen Studio Projects`。本课程结果按 [制作文件存放约定](../screenstudio-edit/review-policy.md#制作文件存放)，默认写入公开仓库旁的 `../prompt-to-harness-production/recordings/<lesson>/transcripts/<recording-batch>/`；`lab-runs/transcripts/` 中的旧入口仅为迁移兼容。目录和文件名优先使用英文，中文说明保留在文件内容中；原始录制及 Screen Studio 包内部不为统一命名而改动。不要将原音频、原始转写或未剪辑录制中的个人信息提交到公开仓库。
 
 ```sh
-python3 tools/screenstudio-transcript/screenstudio_transcribe.py "/路径/项目.screenstudio" --output "../prompt-to-harness/录屏/2.3/转写/录制批次"
+python3 tools/screenstudio-transcript/screenstudio_transcribe.py "/path/to/project.screenstudio" --output "../prompt-to-harness-production/recordings/2.3/transcripts/recording-batch"
 ```
 
 默认使用唯一的麦克风音轨；多音轨时先 `--list-tracks`，按用户所需内容选择 `--track ID`，不要自动混合系统音频和麦克风。录制尚未完成或没有音轨时，报告具体问题，不把失败当成功。
