@@ -101,3 +101,7 @@ python3 -m unittest discover -s tools/screenstudio-edit -p 'test_*.py'
 ```
 
 覆盖暂停换算、删剪与 zoom 的源坐标、镜像和 defaultLayout、独立副本、禁止覆盖、非法范围以及拒绝已剪源项目。真实项目渲染结果单独记录在用户指定的私有输出目录，不提交音视频和带个人信息的剪辑计划。
+
+## 离线 H.265 交付版
+
+原生渲染完成后，用 `offline_hevc.py SOURCE.mp4 OUTPUT.mp4` 生成独立 HEVC MP4。默认 1080p30 / 1.5 Mbps，压缩音频直接复制；不覆盖母版和已有输出。`--verify-only` 核验已有结果，`--bitrate` 调整码率。自动核验实际编码、规格、时长、音频 payload、源文件未变及首中尾解码，报告放在输出旁；仍须抽查小字与运动画面。详细命名、抽查和归档要求见 [离线交付流程](../../.agents/skills/screenstudio-edit/offline-hevc.md)。三个 Swift 辅助程序由 Python 自动选择兼容 SDK 编译到忽略缓存。
