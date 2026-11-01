@@ -1,0 +1,51 @@
+{
+  "date": "2026-11-01",
+  "inputs": [
+    7548,
+    8584,
+    10417,
+    13117,
+    15545,
+    19204,
+    20549,
+    23576
+  ],
+  "cache_reads": [
+    128,
+    7680,
+    8704,
+    10496,
+    13312,
+    16000,
+    20096,
+    21504
+  ],
+  "outputs": [
+    209,
+    203,
+    258,
+    272,
+    511,
+    922,
+    1070,
+    2228
+  ],
+  "output_total": 5673,
+  "input_includes_cache": true,
+  "CNY_per_million": {
+    "input": "1.00",
+    "cache_read": "0.10",
+    "output": "4.00"
+  },
+  "pricing_source": "https://platform.minimax.cn/docs/pricing/overview",
+  "pricing_checked": "2026-11-01",
+  "estimated_CNY": "0.053104",
+  "same_usage_without_cache_CNY": "0.141232",
+  "model": "MiniMax-M3.1-Flash",
+  "agent_lab": "0.1.4",
+  "codex": "0.163.0",
+  "tap": "0.1.146+pr475",
+  "prompt": "只读任务，不修改任何文件。这个个人主页当初定了哪些要求和完成标准？请说明依据来自哪个文件的哪一段；不确定就写“不确定”，不要猜。",
+  "requests": 8,
+  "reasoning_effort": "max"
+}

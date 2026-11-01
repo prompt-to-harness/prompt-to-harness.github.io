@@ -34,7 +34,7 @@
 
 ## 逐页安排
 
-**页序**：p35 → p40a0 → p40a → p40b → p40a1 → p40b1 → p40d → p40e → p40c → p41b → p42。五段，每段讲完 PPT 再切一次现场：提参考（p40a 后提交 Prompt）→ 它拿到了什么（p40b、p40a1 后看 claude-tap、答题、确认实施）→ 看效果再反馈（p40b1 后看浏览器，p40d 后贴图）→ 接受并保存（p40c 后让 Codex 提交）→ 小结。学员只做一轮时，p40b1 之后直接到 p40e。
+**页序**：p35 → p40a0 → p40a → p40b → p40a1 → p40b1 → p40d → p40e → p40c → p41b → p42。五段：提参考（p40a 末在现场 /clear、/plan 提交 Prompt）→ 它拿到了什么（读参考要几分钟，先讲 p40b 的排练记录，末尾切 claude-tap 看现场同类调用、回 Codex 答题；p40a1 末审现场计划、放行实施）→ 看效果再反馈（实施要几分钟，先讲 p40b1 的排练结果，末尾回现场看 build 和浏览器；p40d 第 1 步先在现场截图、贴图发出，再回课件讲排练记录，第 6 步回现场看 claude-tap 和浏览器）→ 接受并保存（p40c 末在现场审页面、让 Codex 提交）→ 小结。要跑很久的现场任务先发出、再讲排练记录，按制作手册“讲稿与转场”（与 C2-115 同一做法）。学员只做一轮时，p40b1 之后直接到 p40e。
 
 | 页面 | 页型 | 学员问题 | 画面证据与揭示顺序 | 讲稿要点 / 预期判断 | 方式 | 层 | 讲透问题 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -55,9 +55,9 @@
 ### 素材
 
 - 起点是快照分支 `ch02/2.2-done-20261024`（homepage-v1，9381567，2.2 p28a 由 Codex 提交），结束于 `ch02/2.3-done-20261025`（homepage-v2，e53f35b，Codex 提交），2.4 从它起跑；两个分支在 lab-runs `ch02/2.3-20261025/personal-homepage.bundle`，推到 course-starter 前问讲师。
-- PPT 自包含，证据来自 2026-10-25 四要素重跑（一个 Codex 会话，记录 1–54），原始记录在私有仓库 prompt-to-harness/lab-runs 的 `ch02/2.3-20261025/`。第一轮四要素 Prompt，六道交互题选推荐项；第二轮贴当前与参考两张 1440×800 首屏，加一句反馈；最后用 p40c 的提交 Prompt 让 Codex 提交（C2-107）。
+- PPT 自包含，证据来自 2026-10-25 四要素重跑（一个 Codex 会话，记录 1–54），原始记录在私有仓库 prompt-to-harness/lab-runs 的 `ch02/2.3-20261025/`。第一轮四要素 Prompt，六道交互题选推荐项；第二轮贴当前与参考两张 1440×800 首屏，加一句反馈；最后用 p40c 的提交 Prompt 让 Codex 提交（C2-107）。Codex CLI 0.163.0、MiniMax-M3.1-Flash。Prompt、反馈和提交 Prompt 都是这次的原文，贴图那次请求的两项 input_image 与 `assets/round1.png`、`assets/reference.png` 逐字节相同，都在构建时核对。交互题和计划每次排练都不一样，题目内容只作例子；新画的 SVG 是它自己写的 13 条线，没有复制原文件；不把一次结果说成图片单独起了多大作用。
 - 录制时每段先讲 PPT，再切现场讲相同和不同（[课程共识“PPT 与现场演示”](../../../../docs/design/course-design-principles.md#7-录制形态与公开材料)）。故事线只押在机制和稳定现象上，某次细节标“排练这次”（编辑规范 ED-020），分层见下面“内容分层”。
-- 公开数据在 [`materials/style/run-20261025/`](../../materials/style/run-20261025/README.md)（12 条记录，约 3.4 MB），观察点在 [`trace/evidence.json`](trace/evidence.json)。页面截图在 `assets/`（来源与指纹见 [assets/README.md](assets/README.md)），四个候选参考在 `external/`。背景对比用首屏右下同一块（1060, 530, 380×230），那里没有文字，细线最清楚。
+- 公开数据在 [`materials/style/run-20261025/`](../../materials/style/run-20261025/README.md)（12 条记录，约 3.4 MB），观察点在 [`trace/evidence.json`](trace/evidence.json)。页面截图在 `assets/`（来源与指纹见 [assets/README.md](assets/README.md)），四个候选参考在 `external/`（首屏截图用 `courseware/tools/capture-source.py`，2026-10-23；许可见 `materials/external/README.md`）；排练截图是 Chromium 1440×800（整页 1440 宽）、reduced motion。Context 点明用 curl：不点明时它可能用网页搜索，在这套配置下只拿到首屏摘要（2026-10-22 实测）。背景对比用首屏右下同一块（1060, 530, 380×230），那里没有文字，细线最清楚。
 - 10-24 的四次排练（`ch02/2.3-20261024*`）不上屏，只用来判断哪些现象稳定；其中两轮排练（一段话的 Prompt，第一轮铺满密集小箭头）可在讲师提示里当另一个例子。
 
 ### 内容分层（ED-020）

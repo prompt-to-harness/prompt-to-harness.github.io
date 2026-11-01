@@ -12,15 +12,20 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
 sys.path.insert(0, str(Path(__file__).resolve().parents[4] / "tools"))
-from lessonkit import Lesson, anchor, chapter_map, ref, teach  # noqa: E402
+from lessonkit import Lesson, anchor, chapter_map, ref  # noqa: E402
 from tracekit import Evidence, text  # noqa: E402
 
-lesson = Lesson(__file__, "2.3", "参考一个主页改风格：它看到了什么", summary="从上一节提交的 homepage-v1 开始，参考一个主页改两轮风格。每一轮都回到请求看它拿到了什么：取回来不等于看到了，页面的样子不在 context 里，要靠我们把截图和看法带进去。审过再让 Codex 提交。")
+lesson = Lesson(__file__, "2.3", "参考一个主页改风格：它看到了什么", summary="从上一节提交的 homepage-v1 开始，参考一个主页改两轮风格。每一轮都回到请求看它拿到了什么：取回来不等于看到了，页面的样子不在 context 里，要靠我们把截图和看法带进去。审过再让 Codex 提交。", prep=[
+    "接着 2.2 录制的项目：git log --oneline -1 是 homepage-v1，git status 干净。没接上时从快照分支 ch02/2.2-done-20261024 开始（C2-104）。",
+    "Codex：当天 2.2 的会话还开着就接着用，p40a 第 3 步先 /clear；另一天录时，在个人主页项目根目录运行 agent-lab codex --tap 开新会话，用 /rename 起名。确认 claude-tap 查看器能打开。",
+    "浏览器：开发服务在跑，留个人主页标签页；另开一个标签页打开 Hyperspace 参考页（p40a0 截图下的第一个链接）。窗口开宽一点：1280 宽时参考的侧栏会变成顶部横条；两个标签页用同样宽度，方便对照和截图。",
+    "截图工具备好，截图存到项目目录外（如桌面），不要放进项目，免得之后被一起提交。贴图时拖进终端，或复制后在 Codex 里 Ctrl+V，输入框出现 [Image #1]。",
+    "查看器、终端和截图里的本机路径、用户名，上屏前遮盖或缩写。",
+])
 scene = lesson.scene
 
 # p40b、p40a1、p40d 的观察点和阅读节选在 trace/evidence.json；公开数据见 materials/style/run-20261025
 E = Evidence(Path(__file__).resolve().parents[1] / "trace/evidence.json")
-RUN = "2026-10-25 排练：从 ch02/2.2-done-20261024 开始，同一个 Codex 会话，Codex CLI 0.163.0、MiniMax-M3.1-Flash"
 
 # 三段原话都来自排练记录，构建时核对，不另写一段“更好”的冒充原文
 PROMPT = """Goal：参考 Hyperspace 的风格改我的个人主页，我喜欢它的侧栏导航和大块背景。
@@ -131,7 +136,6 @@ scene(
         '<div style="margin-top:14px">' + anchor(lit=("工具返回", "对话历史", "新的 Prompt"), outside=("浏览器里的页面",), note="我们看得到参考长什么样，它看得到吗？它改风格的依据，只能在请求里的这几块", reveal=2) + '</div>'
     ),
     steps=["回到地图", "从 homepage-v1 开始", "它看得到吗"],
-    teaching=teach(("讲师提示", "上一节结尾已经让 Codex 提交了 homepage-v1，这一节不再审内容。没跟上的从快照分支 ch02/2.2-done-20261024 开始（C2-104）。")),
 )
 
 # 2.3 风格参考的候选主页（截图与许可见 materials/external/README.md 的“2.3 风格参考”一节，2026-10-23 截取）
@@ -156,13 +160,17 @@ scene(
     label="挑一个参考", title="想要什么样的主页？先挑一个参考",
     lead="同一份 profile.md，可以做成完全不同的样子。这里有四个公开的主页或模板：整块紫色的 Hyperspace，深蓝两栏的 Brittany Chiang，青绿页头的 Freelancer，白底蓝链接的 Jon Barron。这次的示例用 Hyperspace，它和我们现在的主页差别最大。把两张首屏放在一起，说清想借鉴什么：左侧的侧栏导航，每一块不同底色的大块背景。你可以选别的参考；学的是风格，不照搬别人的代码和文字，用的时候按各自的许可注明出处。",
     html=(
-        panel('<div class="p-grid" style="--n:4;gap:14px">' + "".join(ref_card(*r) for r in REFS) + '</div>', 0, 1)
+        panel('<div class="p-grid" style="--n:4;gap:14px">' + "".join(ref_card(*r) for r in REFS) + '</div>'
+              + '<p class="p-refs"><b>参考主页</b>'
+                '<a href="https://html5up.net/uploads/demos/hyperspace/" target="_blank" rel="noopener">Hyperspace · HTML5 UP</a>'
+                '<a href="https://brittanychiang.com/" target="_blank" rel="noopener">Brittany Chiang</a>'
+                '<a href="https://startbootstrap.github.io/startbootstrap-freelancer/" target="_blank" rel="noopener">Freelancer · Start Bootstrap</a>'
+                '<a href="https://jonbarron.info/" target="_blank" rel="noopener">Jon Barron</a></p>', 0, 1)
         + panel(pair(shot("before.png", "现在：homepage-v1", 240), shot("reference.png", "想借鉴：Hyperspace · HTML5 UP", 240))
                 + bar("想借鉴：<b>侧栏导航</b>、<b>大块背景</b> · 不照搬别人的代码和文字"), 2)
     ),
-    refs=[HYPERSPACE, ref("HTML5 UP 许可（CC BY 3.0）", "https://html5up.net/license", "许可", kind="read")],
+    refs=[ref("HTML5 UP 许可（CC BY 3.0）", "https://html5up.net/license", "许可", kind="read")],
     steps=["四个参考", "这次用哪个", "想借鉴什么"],
-    teaching=teach(("讲师提示", "四个候选：brittanychiang.com、startbootstrap.github.io/startbootstrap-freelancer、jonbarron.info，各自许可见 materials/external/README.md。四张候选是首屏截图（courseware/tools/capture-source.py，2026-10-23）；两张对照是 10-24 排练时 Chromium 1440×800 的首屏。参考在 1280 宽会把侧栏变成顶部横条，录制时浏览器开宽一点再看侧栏。")),
 )
 
 scene(
@@ -176,7 +184,6 @@ scene(
         '<li class="is-risk" data-reveal="2"><span><b>Done when</b><small>build 通过、页脚出处；页面我们自己在浏览器里看</small></span></li></ol></div>'
     ),
     steps=["目标与背景", "约束", "完成标准"],
-    teaching=teach(("讲师提示", "点明用 curl：不点明时它可能用网页搜索，在这套配置下只拿到首屏摘要（2026-10-22 实测）。Prompt 是 10-25 排练的原文。")),
 )
 
 scene(
@@ -186,7 +193,6 @@ scene(
     html=E.stage("p40b"),
     steps=["取回来", "工具返回", "挑着读", "它说看过了"],
     refs=[ref("Effective context engineering · Context retrieval and agentic search", "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents", "Anthropic，2025-09-29")],
-    teaching=teach(("核对记录", RUN + "。公开数据见 materials/style/run-20261025，只导出课件用到的记录；存进文件、挑着读，在 10-24、10-25 的五次排练里都出现过。")),
 )
 
 scene(
@@ -195,7 +201,6 @@ scene(
     lead="读完参考，它问了两组偏好，排练时都选了推荐项，其中一题是首屏背景：参考用一张线稿图，我们不让引远程图片，就选了“CSS 渐变代替”。我们选的答案，是那个提问工具的返回，在请求的“工具返回”这一块；它写的计划是它自己的回答，下一次请求里就到了“对话历史”，计划里那一句“首屏：CSS 渐变（替代原版 intro.svg）”也在里面。之后每次请求都带着这些，它改的时候照着。计划只动页面文件、不加依赖，就选 Yes, implement this plan。",
     html=E.stage("p40a1"),
     steps=["我们的答案", "它的计划", "之后还在"],
-    teaching=teach(("核对记录", RUN + "；交互题和计划每次排练都不一样，题目内容只作例子。")),
 )
 
 scene(
@@ -211,10 +216,6 @@ scene(
     ),
     refs=[HYPERSPACE],
     steps=["并排看", "做到了的", "哪里不一样", "它看不到"],
-    teaching=teach(
-        ("讲师提示", "当天第一轮不一样的地方很可能不同，按现场讲：它做到了什么、哪里和想的不一样。10-24 那次排练是背景铺满了密集小箭头（它把参考 CSS 里下拉框的图标当成了纹理），可以作为另一个例子一句带过。"),
-        ("核对记录", RUN + "；截图是 Chromium 1440×800、reduced motion。这一次第一轮按 Done when 没有起预览服务。"),
-    ),
 )
 
 scene(
@@ -227,10 +228,6 @@ scene(
         ref("Codex 文档 · Image inputs", "https://learn.chatgpt.com/docs/image-inputs?surface=cli#write-the-prompt-around-the-image", "OpenAI，访问于 2026-10-24"),
         ref("Harness engineering", "https://openai.com/index/harness-engineering/", "OpenAI，2026-02-11"),
     ],
-    teaching=teach(
-        ("讲师提示", "贴图：把图片文件拖进终端，或复制后在 Codex 里 Ctrl+V，输入框出现 [Image #1]、[Image #2]，再写那句话。它要截图时弹出批准框，选 No 并说“不用截图，页面我自己在浏览器里看”。先 404 再找到纹理原图，10-24 定稿那次排练也出现过。"),
-        ("核对记录", RUN + "；贴图那次请求的两项 input_image 与 assets/round1.png、assets/reference.png 逐字节相同，构建时核对。新画的 SVG 是它自己写的 13 条线，没有复制原文件。不把一次结果说成图片单独起了多大作用。"),
-    ),
 )
 
 scene(
@@ -239,7 +236,6 @@ scene(
     lead="两轮下来的结果：左边是上一节提交的 homepage-v1，右边是参考 Hyperspace 改了两轮的样子。个人信息一字没改，样子完全换了：侧栏导航、大块色块、首屏淡淡的交叉细线。像不像、好不好看，由我们自己判断。",
     html=pair(shot("before-full.png", "homepage-v1 · 上一节", 380), shot("round2-full.png", "两轮之后 · 这一节", 380)),
     steps=["两个样子"],
-    teaching=teach(("核对记录", RUN + "；整页截图 Chromium 1440 宽、reduced motion。")),
 )
 
 scene(
@@ -258,10 +254,6 @@ scene(
     ),
     refs=[ref("Codex 文档 · Iterate on UI with live updates", "https://learn.chatgpt.com/docs/prompting#iterate-on-ui-with-live-updates", "OpenAI，访问于 2026-10-24")],
     steps=["像不像", "新加了什么", "提交或放弃", "提交结果"],
-    teaching=teach(
-        ("核对记录", RUN + "；提交是 e53f35b（4 个文件），快照分支 ch02/2.3-done-20261025 就是这次提交，2.4 从它起跑。"),
-        ("跟做产出", "至少一轮风格改动，审过后让 Codex 提交，或用 git restore 放弃。"),
-    ),
 )
 
 QUESTIONS = [
@@ -293,7 +285,7 @@ scene(
         '<div class="p-star" style="width:260px;font-size:24px">homepage-v1<br>→ homepage-v2</div>'
         '<p class="p-sub" style="text-align:center;margin-top:10px">回退靠 git，不靠对话</p></div>'
         '<div data-reveal="1"><h3>它看到了什么</h3><ul class="p-exits" style="gap:12px"><li class="is-point">取回来不等于看到了：只有挑着读的片段</li><li class="is-point">页面的样子不在 context 里</li><li class="is-point">看到的样子要靠我们带进去：截图加一句话</li></ul></div>'
-        '<div class="p-next" data-reveal="2"><h3>下一节</h3><div class="p-box" data-role="us"><h3>2.4 发布上线</h3><p>context 发给了谁，又怎样送出去</p></div></div></div>'
+        '<div class="p-next" data-reveal="2"><h3>下一节</h3><div class="p-box" data-role="us"><h3>2.4 发布上线</h3><p>工具列表里没有 gh，它怎样用上</p></div></div></div>'
     ),
     steps=["项目", "它看到了什么", "下一节"],
 )
