@@ -6,7 +6,10 @@ window.lesson = {
   "prep": [
     "练习项目从 2.3 的结束状态开始（homepage-v2，快照分支 ch02/2.3-done-20261025），git status 干净，此前没有推送过本地提交和 tag。",
     "gh 已由讲师本人登录（gh auth login --scopes workflow）；令牌不放环境变量、不贴进对话。Agent Lab 默认复用本机 gh 登录，启动 Codex 不用另加开关。",
-    "定好讲师个人空仓库的名字和 Pages 地址，p47 Prompt 里的 <我的仓库名>、<用户名> 先替换好。",
+    "讲师远端放在 prompt-to-harness 组织下，命名 ch02-pages-release-<录制日期>-<场次>（本次为 ch02-pages-release-20261101-01）；每次完整重录用新名字。本次已用 gh 建好公开空仓库，不加初始文件、不推送；准备好它的 HTTPS 地址，p44 现场修改 origin；步骤见 tools/README-recording.md。",
+    "p47 Prompt 使用这次仓库名，账号或组织名填 prompt-to-harness，Pages 地址为 https://prompt-to-harness.github.io/<仓库名>/；学员用自己的账号与仓库。先核对本人有组织仓库创建、设置和推送权限，Pages/Actions 未被组织策略禁用。",
+    "本节直接使用 Public 空仓库，没有可见性切换；本地源码与历史检查后才推送。发布 tag 用 ch02-homepage-release；不要把旧排练的 tag 当成本次已经创建的结果。",
+    "本次使用讲师指定的既有录制项目，已是 homepage-v2（f5a7315），工作区干净；保留实际录制成果，不用旧排练快照覆盖。分支为 codex/ch02-recording，部署触发分支按实际核对。启动命令和目录见本机录制卡；p44 现场查看、修改并复查 origin，不重复建仓与登录。",
     "Chrome 备好“GitHub 仓库”标签页，GitHub 已登录，账号资料、通知不入镜。",
     "作者邮箱、gh 输出里的账号名和 html_url 上屏前检查；真实邮箱不出镜，画面上的作者用占位。",
     "gh 用较新的稳定版；安装和登录由本人完成，不在课上展开安装教程。p48b 两条官方公告录前打开备用，不要求现场访问。",
@@ -15,7 +18,7 @@ window.lesson = {
   "scenes": [
     {
       "id": "p43",
-      "segment": "公开之前",
+      "segment": "准备发布",
       "layout": "lesson-cover",
       "label": "从本地到公开 URL",
       "title": "把本地主页发布成公开 URL",
@@ -27,9 +30,9 @@ window.lesson = {
         "带着问题往下走"
       ],
       "script": [
-        "【操作提示｜停留课件 p43 第 1 步，指章节地图的 2.4，不切窗口】\n\n上一节我们参考 Hyperspace 调整了主页风格，让 Codex 提交了 homepage-v2。内容和样子已经在本地看过了。现在要让别人也能通过一个公开地址打开它，并确认页面真的能用。",
-        "【操作提示｜推进第 2 步，指两张卡片】\n\n发布之前，我们先判断这份项目能不能公开，审过部署配置。然后查清 GitHub 上的设置，推送以后再查这次部署的结果，最后打开页面检查。",
-        "【操作提示｜推进第 3 步，指锚点图的工具与工具返回】\n\n还是本章这一列方块。接下来我们带着一个问题往下走：为了完成下一步，Codex 现在需要知道什么？这些信息从哪里来？"
+        "【操作提示｜停留课件 p43 第 1 步，指章节地图的 2.4，不切窗口】\n\n上一节我们参考 Hyperspace 调整了主页风格，让 Codex 提交了我们 v2 版本的主页。内容和样子已经在本地看过了。现在要让别人也能通过一个公开地址打开它，并确认页面真的能用。",
+        "【操作提示｜推进课件 p43 第 2 步，指准备和结果两张卡片，不切窗口】\n\n发布要先准备好内容和配置，再到 GitHub 上执行。我们重点看两处：发布前查 Pages 设置，推送后查这次部署的结果。最后打开页面，确认别人能用。",
+        "【操作提示｜推进课件 p43 第 3 步，指工具与工具返回，不切窗口】\n\nGitHub 上的设置和运行结果，原本都不在这一列里。Codex 怎么知道现在是什么状态？我们跟着这两次查询，看工具返回怎样支持它继续做事。"
       ],
       "teaching": [],
       "source": "index.html#p43",
@@ -37,141 +40,91 @@ window.lesson = {
     },
     {
       "id": "p44",
-      "segment": "公开之前",
-      "label": "推到哪里",
-      "title": "推到哪里？仓库是公开的吗？",
-      "lead": "前面只把课程模板克隆到本地。发布前先在自己的 GitHub 账号下新建空仓库，核对 origin 指向自己的仓库；此时不推送。再看仓库公开范围，检查待公开内容以后才决定是否公开。",
-      "html": "<div class=\"p-handoff\"><div class=\"p-handoff-card\" data-reveal=\"0\"><h3>切到 GitHub</h3><p>新建或打开自己的空仓库</p><span class=\"p-env\">Public</span><span class=\"p-env\">Private</span></div><ol class=\"p-watch\"><li data-reveal=\"1\">仓库名旁的标记<small>Public 还是 Private</small></li><li data-reveal=\"1\">远端已有什么<small>首次发布前应为空仓库</small></li><li class=\"is-miss\" data-reveal=\"2\">现在先不改<small>查清待公开内容后再决定</small></li></ol></div>",
+      "segment": "准备发布",
+      "label": "核对目标与内容",
+      "title": "把什么内容，推到哪个仓库？",
+      "lead": "录前已建好公开空仓库。讲师使用 prompt-to-harness 组织下的日期与场次仓库，学员使用自己的仓库。现场核对远端仍为空，先看原 origin，再改成这次的地址，最后核对 fetch 与 push；再让 Codex 只读检查当前源码、完整历史、作者邮箱与个人资料，列出位置和待确认项，由人核对并决定是否公开。后来删掉的文件也可能在历史里，参考素材的出处要保留。命令和历史处理帮助在展开步骤与阅读链接中。",
+      "html": "<div class=\"p-grid\" style=\"--n:2;gap:18px\"><div class=\"p-box\" data-role=\"us\" data-reveal=\"0\"><h3>推到哪里</h3><p>本次公开空仓库<br>核对 origin 地址</p></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"1\"><h3>准备公开什么</h3><p>当前源码与完整历史<br>作者邮箱、个人资料、截图和出处</p></div></div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:18px\">有不愿公开或未经同意的内容，<b>先处理，再推送</b></div>",
       "steps": [
-        "建立个人远端",
-        "核对目标与历史",
-        "先不公开"
+        "核对发布目标",
+        "检查公开内容",
+        "决定能否继续"
       ],
       "script": [
-        "【操作提示｜现场｜课件 p44 第 1 步 → Chrome“GitHub 仓库”标签页；在本人账号下新建空仓库，暂选 Private，不初始化 README、.gitignore 或许可证；账号资料不入镜。已有个人空仓库则直接打开】\n\n前面克隆的是课程模板，一直在本地练习。现在先建立自己的远端仓库，暂时设为私有，不初始化文件。后面把检查过的源码和提交推到这里。",
-        "【操作提示｜推进第 2 步 → Terminal 项目根目录运行 git remote -v，按展开步骤修改 origin，再核对 fetch 与 push 地址；远端已有内容时先停，不覆盖、不强推】\n\n把 origin 从课程模板改成自己的仓库地址，再核对取回和推送的目标都属于自己的账号。这里仅仅改了本地连接地址，还没有推送。首次发布用空仓库，已经有内容就先查清来源和历史。",
-        "【操作提示｜回课件推进第 3 步；暂不改仓库可见性】\n\n这条免费账号的 Pages 发布路径需要公开仓库。现在先不改，等我们看清待公开的内容，再决定是否继续。"
+        "【操作提示｜现场｜停留课件 p44 第 1 步 → 浏览器打开录前建好的 prompt-to-harness/ch02-pages-release-20261101-01 Public 空仓库，复制 HTTPS 地址。切到本次录制项目根目录，先 git remote -v 展示原 origin，再 git remote set-url origin <刚复制的 HTTPS 地址>，最后 git remote -v 核对 fetch/push 目标。只改本地连接地址，不推送。不开建仓或登录流程，账号资料不入镜】\n\n我提前在课程组织下面建好了一个公开空仓库，接下来把本地项目的 origin 指向它。大家跟做时，用自己的仓库地址就可以。\n\n【切换｜浏览器 · 本次发布仓库】\n\n先核对这次的目标，仓库还是空的，把这里的 HTTPS 地址复制下来。\n\n【切换｜Terminal · 项目根目录】\n\n先运行 git remote -v，现在的 origin 还指向课程模板仓库。origin 是这个远端的名字，我们现在用 git remote set-url，把它换成刚才复制的地址。\n\n改完再看一次。fetch 是取回的地址，push 是推送的地址，都要对上这次的仓库。这里改的是本地连接地址，还没有把代码推上去。",
+        "【操作提示｜从 Terminal 回课件 p44 第 2 步，指完整历史与资料，本步只解释检查范围；下一步交给 Codex 做只读检查，三条历史命令保留作人工核对入口。邮箱与资料已离屏看过，隐私不上屏；长输出方法留在展开步骤，不逐行讲依赖清单】\n\n【切换｜回课件 p44】\n\n第一次推送会带上当前分支的完整历史，我们在中途删掉的文件、我们的的提交作者的邮箱，以及我们自己的个人资料，如果也被推送的话，那会随着一起公开。所以这个可能大家得注意一下。比如，并不是说我们最后这个项目中还剩什么文件，而是说我们整个被 commit 的历史都能被看到。如果大家并没有做过太多编程开发，这点要特别注意。\n\n除了历史，我们还要看现在的源码、个人资料和截图，以及参考素材的出处。接下来试试把这件事交给 Codex，让它先帮我们找需要确认的地方。",
+        "【操作提示｜现场实验｜停留 p44 第 3 步，在讲师指定的录制项目打开 Codex；沿用当前会话，尚未启动则在该目录运行 agent-lab codex --tap。发送以下请求，不提前跑或预写发现：我准备把当前分支推到公开的 GitHub 仓库。请帮我做一次公开前检查：看当前文件和 HEAD 可达的完整提交历史，包括后来删掉的内容、提交作者邮箱、个人资料，以及参考素材的出处。找出可能的密钥、隐私或需要我确认是否公开的信息；每项给出文件位置或提交依据，敏感值不要原样打印。说明实际检查了哪些范围、哪些还不能判断。只做本地只读检查，不联网、不改文件或历史、不提交、不推送。 等待实际报告后核对一两条依据，隐私不上屏；不另造敏感数据或删除文件来构造结果。有问题先处理，不推送，尚未完成检查不进入部署。结束回课件】\n\n我们来做个小实验。刚才说要检查的这些内容，能不能让 Codex 先帮我们找一遍？\"我准备把当前分支推到公开的 GitHub 仓库。请帮我做一次公开前检查：看当前文件和 HEAD 可达的完整提交历史，包括后来删掉的内容、提交作者邮箱、个人资料，以及参考素材的出处。找出可能的密钥、隐私或需要我确认是否公开的信息；每项给出文件位置或提交依据，敏感值不要原样打印。\"\n\n【切换｜Terminal · Codex 会话】\n\n我们把要公开这件事告诉它，请它检查当前文件和完整历史，包括后来删掉的内容。找到需要注意的地方，要给出文件位置或者提交依据；敏感信息不要原样贴出来。这一轮只检查，不修改，也不推送。\n\n先看看它实际查了什么，再挑一两条结果，回到对应的文件或者提交里核对。它说需要我们确认的资料，也要由我们自己决定是否公开。\n\n【切换｜回课件 p44】\n\n大家跟做时，也可以把这条请求交给 Codex，看看它会提醒什么。它没有发现问题，也要看清实际检查了哪些范围；还不能确认的地方先处理。确认可以继续，再准备部署配置。"
       ],
       "repro": {
-        "label": "发布前：建立个人远端",
+        "label": "推送前检查命令",
         "steps": [
           {
-            "text": "在自己的 GitHub 账号下新建空仓库，暂选 Private；不初始化 README、.gitignore 或许可证。已有远端包含内容时先核对来源和历史，不覆盖、不强推。",
+            "text": "尚未准备远端的学员：先在 GitHub 自己的账号下建 Public 空仓库，不初始化文件，复制它的 HTTPS 地址。讲师在录前建好仓库；origin 留在现场修改",
             "code": ""
           },
           {
-            "text": "复制新仓库的 HTTPS 地址，在练习项目根目录先查看原来的 origin。",
-            "code": "git remote -v"
+            "text": "在本地项目根目录先看原地址，再把下方地址换成刚复制的 HTTPS 地址；改完核对 fetch、push 目标，这里不推送",
+            "code": "git remote -v\ngit remote set-url origin https://github.com/账号/仓库名.git\ngit remote -v"
           },
           {
-            "text": "把命令中的“你自己的仓库地址”替换为刚复制的地址。这里只改本地 origin 的目标，不推送、不改变文件或提交。",
-            "code": "git remote set-url origin 你自己的仓库地址\ngit remote -v"
+            "text": "交给 Codex 的公开前检查请求；先读报告，再核对依据和待确认项",
+            "code": "我准备把当前分支推到公开的 GitHub 仓库。请帮我做一次公开前检查：看当前文件和 HEAD 可达的完整提交历史，包括后来删掉的内容、提交作者邮箱、个人资料，以及参考素材的出处。找出可能的密钥、隐私或需要我确认是否公开的信息；每项给出文件位置或提交依据，敏感值不要原样打印。说明实际检查了哪些范围、哪些还不能判断。只做本地只读检查，不联网、不改文件或历史、不提交、不推送。"
           },
           {
-            "text": "核对 origin 的 fetch、push 地址都属于自己的仓库，GitHub 页面没有已有提交。原来的课程模板只用来取得起始材料。",
-            "code": ""
-          }
-        ],
-        "note": ""
-      },
-      "teaching": [],
-      "source": "index.html#p44",
-      "seconds": 90
-    },
-    {
-      "id": "p45",
-      "segment": "推送前检查",
-      "label": "即将公开的历史",
-      "title": "列出即将公开的提交、文件和作者",
-      "lead": "第一次推到个人空仓库，会带上当前分支的完整历史。用 HEAD 检查提交、实际改动和作者信息，包括后来删除的文件与个人资料。文件名只能帮助定位，能不能公开还要看内容；命令与长输出的查看方法在展开步骤里。",
-      "html": "<div class=\"p-term\" data-reveal=\"0\" data-copy=\"git log --stat HEAD\ngit log -p HEAD\ngit log --format=&#x27;%an &lt;%ae&gt;&#x27; HEAD | sort -u\"><div class=\"dim\">$ git log --stat HEAD</div><div>homepage-v2: 参考 Hyperspace 调整主页风格 <span class=\"dim\">· 样式与页面 4 个文件</span></div><div>homepage-v1: 放进个人信息、经历和项目</div><div class=\"dim\">  profile.md · AGENTS.md · src/App.tsx · src/index.css · index.html</div><div class=\"dim\">  …… 再往下是课程模板带来的提交</div><div class=\"dim\">$ git log -p HEAD</div><div class=\"dim\">$ git log --format='%an &lt;%ae&gt;' HEAD | sort -u</div><div>示例同学 &lt;你的邮箱&gt;<span class=\"dim\"> · </span>课程模板的作者 &lt;……&gt;</div></div><div class=\"p-grid\" style=\"--n:3;gap:12px;margin-top:14px\"><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"1\"><h3>提交作者</h3><p>每个提交都带着姓名和邮箱</p></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"1\"><h3>课程模板带来的提交</h3><p>作者是别人，克隆时就在历史里</p></div><div class=\"p-box is-soft\" data-role=\"us\" data-reveal=\"2\"><h3>profile.md 和页面</h3><p>关于具体的人的事实</p></div></div><p class=\"source-note\">提交说明和文件取自讲师排练的项目（上一节结束时的 homepage-v2），作者为占位；实际检查自己当前分支的完整历史</p>",
-      "steps": [
-        "列出提交与作者",
-        "作者与模板提交",
-        "个人内容"
-      ],
-      "script": [
-        "【操作提示｜现场｜p45 第 1 步 → Terminal 运行本页展开的三条历史检查命令；邮箱录前已离屏核对，真实邮箱不出镜；不使用 origin/main..HEAD 限定范围】\n\n第一次推到个人空仓库，会带上当前分支的完整历史。检查范围是 HEAD，包括自己的改动和课程模板带来的提交。先看每个提交动过哪些文件，再读实际改动；后来删掉的文件，也可能还在早先的提交里。命令放在展开步骤里。",
-        "【操作提示｜回课件第 2 步，指作者与模板提交，不念真实邮箱】\n\n作者的姓名和邮箱也记在每个提交里。模板带来的作者信息原本就在公开模板中，我们自己提交时用的邮箱，也要确认是否愿意公开。",
-        "【操作提示｜推进第 3 步，指 profile.md；需要时在 git log -p 中定位该文件。长输出可按展开命令排除锁文件，二进制文件另开；不逐行讲依赖清单，结束回课件】\n\n还有我们自己的 profile.md，以及页面上的资料，都要一起看。文件名只能帮助定位，能不能公开要读内容。请暂停视频，检查自己的完整历史，接下来按同一份清单判断。"
-      ],
-      "repro": {
-        "label": "推送前：检查完整历史",
-        "steps": [
-          {
-            "text": "在练习项目根目录运行。用 --stat 查看提交和文件，再用 -p 查看每次改动；作者命令列出当前分支历史里的姓名与邮箱。",
+            "text": "人工核对入口：查看当前分支完整历史；先看文件，再读改动和作者；二进制文件另行打开",
             "code": "git log --stat HEAD\ngit log -p HEAD\ngit log --format='%an <%ae>' HEAD | sort -u"
           },
           {
-            "text": "-p 的输出太长时，先排除依赖锁文件读其余改动；锁文件里是依赖名、版本和下载地址，另外扫一眼即可。",
+            "text": "长输出可先排除依赖锁文件，锁文件仍需另外查看",
             "code": "git log -p HEAD -- . ':!package-lock.json'"
-          },
-          {
-            "text": "已有远端提交时，先核对远端历史与当前分支，再决定如何继续；不要强推绕过历史冲突。",
-            "code": ""
           }
         ],
         "note": ""
       },
-      "teaching": [],
-      "source": "index.html#p45",
-      "seconds": 90
-    },
-    {
-      "id": "p46",
-      "segment": "推送前检查",
-      "label": "能让所有人看到吗",
-      "title": "这些内容，可以让所有人看到吗？",
-      "lead": "由人判断源码、完整历史和截图能否公开：有没有 secret、未经同意的他人信息、不愿公开的个人信息；首屏身份是否正确，参考素材的出处是否保留。作者邮箱也在判断范围内。发现问题先停下；改邮箱只影响以后的提交，历史处理帮助见本页链接。",
-      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-claim\" style=\"grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr)\"><div class=\"p-box\" data-role=\"gate\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"gate\">每个提交里都有</span><p class=\"p-mono\" style=\"margin-top:8px;line-height:1.6\">Author: 示例同学<br>&lt;<b>你的邮箱</b>&gt;</p><p class=\"p-sub\">不想公开：先停；换 noreply 只管以后的提交</p></div><ul class=\"p-checks\" style=\"gap:6px\"><li class=\"is-no\" data-reveal=\"1\">有没有 secret<small>API 密钥、令牌、配置文件</small></li><li class=\"is-no\" data-reveal=\"1\">有没有未经同意的他人信息<small>别人的姓名、联系方式、经历、照片</small></li><li class=\"is-no\" data-reveal=\"1\">截图里有没有隐私<small>桌面、通知、浏览器标签</small></li><li data-reveal=\"2\">首屏的名字和简介，是自己的吗<small>还是课程示例里的“示例同学”</small></li><li data-reveal=\"2\">本人愿意公开<small>包括作者邮箱</small></li></ul></div><div class=\"p-bar\" data-reveal=\"3\">有一项不行，<b>先停下，不推送</b></div>",
       "refs": [
         {
           "kind": "read",
-          "group": "GitHub 官方文档（改写历史不在本课范围，做之前人工复核）",
+          "group": "",
           "text": "设置提交邮箱",
           "url": "https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-email-preferences/setting-your-commit-email-address"
         },
         {
           "kind": "read",
-          "group": "GitHub 官方文档（改写历史不在本课范围，做之前人工复核）",
-          "text": "从仓库历史中删除敏感数据",
+          "group": "",
+          "text": "处理历史中的敏感数据",
           "url": "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository"
         }
       ],
-      "steps": [
-        "作者邮箱",
-        "三项排查",
-        "是不是自己的",
-        "停止条件"
-      ],
-      "script": [
-        "【操作提示｜停留 p46 第 1 步，指 Author；不现场改写历史，帮助链接留在阅读模式】\n\n作者邮箱也在公开范围里。不愿意公开就先停下。改 Git 配置只影响以后的提交，已有历史怎样处理，帮助链接在这一页，不在这里展开。",
-        "【操作提示｜推进第 2 步，指前三项；发现 secret 立刻停录处理，不展示原值】\n\n看源码、完整历史和截图：有没有密钥或令牌，有没有未经同意的他人信息，有没有不想公开的个人资料。判断由我们自己来做。",
-        "【操作提示｜推进第 3 步，指身份与公开意愿；补看页脚的参考出处】\n\n首屏的名字和简介要是自己的，参考素材要求保留的出处也要还在。最后确认，这些内容确实是本人愿意公开的。",
-        "【操作提示｜推进第 4 步；实际发现问题则暂停后续发布，不预写“已通过”】\n\n有一项不行，就先处理，不推送。确认可以公开，我们才继续准备部署。"
-      ],
       "teaching": [],
-      "source": "index.html#p46",
-      "seconds": 120
+      "source": "index.html#p44",
+      "seconds": 90
     },
     {
       "id": "p47",
       "segment": "部署配置",
       "layout": "prompt-scene",
-      "prompt": "Goal：用 GitHub Actions 把这个 Vite 项目发布到 GitHub Pages。\nContext：仓库名是 <我的仓库名>，\nPages 地址是 https://<用户名>.github.io/<仓库名>/。\nConstraints：只新增工作流文件和必要的 Vite 配置；\n不推送，这一轮不改仓库设置；说明每个权限为什么需要。\nDone when：本地 npm run build 成功；我能逐项解释工作流做了什么。",
+      "prompt": "Goal：用 GitHub Actions 把这个 Vite 项目发布到 GitHub Pages。\nContext：仓库名是 <我的仓库名>，\nPages 地址是 https://<账号或组织名>.github.io/<仓库名>/。\nConstraints：只新增工作流文件和必要的 Vite 配置；\n不推送，这一轮不改仓库设置；说明每个权限为什么需要。\nDone when：本地 npm run build 成功；我能逐项解释工作流做了什么。",
       "label": "让 Codex 写部署工作流",
       "title": "让 Codex 写部署工作流，但不让它推送",
-      "lead": "部署要两样东西：一个 GitHub Actions 工作流，在 GitHub 的机器上构建并发布页面；还有 Vite 的 base 配置，让资源路径对上仓库名。这一轮 Codex 只写文件；仓库设置留到推送前单独一步，推送始终由我们来做。",
-      "html": "<div class=\"demo-notes\"><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>写清仓库名和地址</b><small>别让它猜，也别抄讲师的</small></span></li><li class=\"is-risk\" data-reveal=\"1\"><span><b>不推送，这轮不改设置</b><small>设置单独一步，推送留给我们</small></span></li><li data-reveal=\"2\"><span><b>说明每个权限</b><small>下一页逐项审查</small></span></li></ol></div>",
+      "lead": "部署要两样东西：一个 GitHub Actions 工作流，在 GitHub 的机器上构建并发布页面；还有 Vite 的 base 配置，让资源路径对上仓库名。本节用项目站点的默认地址 https://<账号或组织名>.github.io/<仓库名>/：账号或组织名决定域名，仓库名决定路径。Prompt 中的仓库名和地址需要替换为自己的。这一轮 Codex 只写文件；仓库设置留到推送前单独一步，推送始终由我们来做。",
+      "html": "<div class=\"demo-notes\"><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>写清仓库名和地址</b><small>域名用账号或组织名，路径用仓库名</small></span></li><li class=\"is-risk\" data-reveal=\"1\"><span><b>不推送，这轮不改设置</b><small>设置单独一步，推送留给我们</small></span></li><li data-reveal=\"2\"><span><b>说明每个权限</b><small>下一页逐项审查</small></span></li></ol></div>",
       "steps": [
         "仓库名",
         "不推送",
         "解释权限"
       ],
       "script": [
-        "【操作提示｜停留 p47 第 1 步，指部署 Prompt 的 Context；仓库名和地址复制前替换成本人值】\n\n部署要准备两样东西。一个是 GitHub Actions 工作流，让 GitHub 在自己的机器上安装依赖、构建和发布。另一个是 Vite 的 base，让资源路径对上发布地址。把自己的仓库名和地址告诉 Codex，不能让它猜。",
-        "【操作提示｜推进第 2 步，指 Constraints】\n\n这一轮只新增工作流和必要的 Vite 配置，不推送，也不改远端设置。先把文件准备好，后面逐项审。",
-        "【操作提示｜现场｜推进第 3 步 → Terminal 的 Codex 会话先 /clear；已退出则 agent-lab codex --tap 启动。发替换好的 DEPLOY_PROMPT。超出范围的操作不批准；生成需等待时先讲 p48 的排练文件，末尾再看现场结果】\n\n还要它解释每个权限为什么需要。这一轮开始新的部署任务，先清空前面改风格的对话，再发请求。请暂停视频，把仓库名和地址换成自己的。生成的配置我们按下一页四项审查。"
+        "【操作提示｜现场｜停留课件 p47 第 1 步，指 Prompt 的 Context；发送在第 3 步进行，PPT 保留占位符，填好本次目标的完整请求在第 3 步操作提示中】\n\n部署要准备两样东西。第一是 GitHub Actions 工作流，也就是让 GitHub 在自己的机器上执行的一组步骤：安装依赖、构建，再发布页面。第二是 Vite 的 base 配置，用来对上发布后的资源路径。这里需要把仓库名和页面地址写清楚，用自己的，不要照抄我们的示例。\n\n这个地址从哪里来呢？我们这次用的是 GitHub Pages 的项目站点，也没有配置自定义域名。地址前半段，是账号或者组织名，加上点 github 点 io；后面斜杠这一段，是仓库名。\n\n我们用的是 prompt-to-harness 这个组织，所以域名就是 prompt-to-harness 点 github 点 io，后面再接这次的仓库名。它也对应了下一页要检查的 Vite base，页面资源得能从这个仓库路径下面加载。",
+        "【操作提示｜推进课件 p47 第 2 步，指 Prompt 的 Constraints，不切窗口】\n\n再看我们给 Codex 的约束：这一轮只新增工作流和必要的 Vite 配置，不推送，也不改仓库设置。先让它把文件写出来，我们先本地 review 之后，再继续。",
+        "【操作提示｜推进课件 p47 第 3 步 → Terminal 沿用 p44 公开前检查的 Codex 会话，不 /clear；发送下方填好目标的部署 Prompt，PPT 继续保留占位符。只批准范围内操作。发出后回课件 p48 讲排练文件，末尾再看现场；不在此等待整个任务。本次可复制请求（只复制以下 Goal 到 Done when，不复制操作提示）： Goal：用 GitHub Actions 把这个 Vite 项目发布到 GitHub Pages。 Context：仓库是 prompt-to-harness/ch02-pages-release-20261101-01， Pages 地址是 prompt-to-harness.github.io/ch02-pages-release-20261101-01/。 Constraints：只新增工作流文件和必要的 Vite 配置； 不推送，这一轮不改仓库设置；说明每个权限为什么需要。 Done when：本地 npm run build 成功；我能逐项解释工作流做了什么。】\n\n最后还要求它解释每个权限为什么需要，方便我们审查。现在发出这条请求。\n\n【切换｜Terminal · Codex 会话】\n\n公开前检查做完了，我们接着让它准备部署配置。发出这条已经填好仓库名和地址的 Prompt。大家跟做时，也记得把这两处换成自己的。\n\n生成要跑一会儿，我们先看课件里排练那次的配置。"
+      ],
+      "refs": [
+        {
+          "kind": "read",
+          "group": "",
+          "text": "本次发布地址（部署后核对）",
+          "url": "https://prompt-to-harness.github.io/ch02-pages-release-20261101-01/"
+        }
       ],
       "teaching": [],
       "source": "index.html#p47",
@@ -182,60 +135,41 @@ window.lesson = {
       "segment": "部署配置",
       "label": "工作流能直接用吗",
       "title": "审过部署配置，再让 Codex 提交",
-      "lead": "四项逐一核对：base 是否等于自己的仓库名；资源路径会不会因此对上；工作流权限是不是只要了发布所需的；触发分支是不是准备推送的分支。有一项不对就不推送，让 Codex 改。左侧是排练这次的最终文件：第一版用的 action 版本偏旧，我们追问后它升到了最新大版本。",
+      "lead": "左侧是排练文件，用来说明检查位置：base 和资源路径对上发布地址，触发分支对上准备推送的分支，权限只要发布所需。回现场运行 build，按同一清单审实际文件；有问题先改，审过后让 Codex 提交，再核对新增提交。文件准备好了，远端 Pages 来源还需查询。",
       "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-walk\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:34px\"><div class=\"p-fn\">vite.config.ts · .github/workflows/deploy-pages.yml（摘录）</div><div class=\"p-ln\"><i>1</i><code>base: <span class=\"s\">'/ch02-pages-lab-20261025-claude/'</span>,</code></div><div class=\"p-ln\"><i>2</i><code>on:</code></div><div class=\"p-ln\"><i>3</i><code>  push:</code></div><div class=\"p-ln\"><i>4</i><code>    branches: [main]</code></div><div class=\"p-ln\"><i>5</i><code>permissions:</code></div><div class=\"p-ln\"><i>6</i><code>  contents: read</code></div><div class=\"p-ln\"><i>7</i><code>  pages: write</code></div><div class=\"p-ln\"><i>8</i><code>  id-token: write</code></div><div class=\"p-ln\"><i>9</i><code><span class=\"c\"># … npm ci → build → configure-pages → 上传 dist → deploy</span></code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>base = 自己的仓库名</b><small>前后都有斜杠</small></span></li><li data-reveal=\"1\"><span><b>资源路径</b><small>build 后，资源路径以 /&lt;仓库名&gt;/ 开头</small></span></li><li data-reveal=\"2\"><span><b>权限只要发布所需</b><small>读代码、写 Pages、取部署身份</small></span></li><li class=\"is-risk\" data-reveal=\"3\"><span><b>触发分支</b><small>等于准备推送的分支</small></span></li></ol></div><p class=\"source-note\">左侧摘自 Codex 按 p47 的 Prompt 生成、追问后升级 action 版本的文件；仓库名是排练用的临时仓库。2026-10-25 排练：从 homepage-v2 开始，同一个 Codex 会话，Codex CLI 0.163.0、MiniMax-M3.1-Flash，Agent Lab。我们的文件写法会不同，按实际审</p>",
       "steps": [
         "base",
         "资源路径",
         "权限",
-        "触发分支"
+        "现场审查并提交"
       ],
       "script": [
-        "【操作提示｜回放｜停留 p48 第 1 步，指左侧 base；现场生成仍在进行时讲排练文件，不等待同样结果】\n\n左边是已有排练里最终生成的配置。第一项看 base，要和自己的发布路径对得上，这次是斜杠、仓库名、斜杠。不要照抄示例仓库名。",
-        "【操作提示｜推进第 2 步，指资源路径】\n\n第二项，本地运行 npm run build，再看 dist/index.html 里引用的 CSS 和 JavaScript 路径，确认 base 已经生效。",
-        "【操作提示｜推进第 3 步，指 permissions 三行】\n\n第三项看权限。这里分别是读仓库内容、写 Pages、获取部署身份。多出来的权限要问清用途，再决定是否接受。",
-        "【操作提示｜推进第 4 步 → VS Code 看本次 vite.config.ts 和工作流，Terminal 跑 npm run build、核对当前分支和 dist 资源路径。有问题在原范围内修改再审；只在解释可疑时追问依据，不展开版本升级。结束回 p49】\n\n第四项看触发分支，和准备推送的分支是否一致。四项有问题就让它改，改完再审。\n\n【切换｜VS Code · 这次生成的配置】\n\n现在看我们自己这次的文件。写法可以不同，还是按这四项核对。"
-      ],
-      "teaching": [],
-      "source": "index.html#p48",
-      "seconds": 120
-    },
-    {
-      "id": "p49",
-      "segment": "部署配置",
-      "label": "提交已审配置",
-      "title": "提交已审配置，确认最终公开内容",
-      "lead": "四项审查通过后，让 Codex 提交配置，核对文件和提交说明。再检查最终要推送的历史；需要公开仓库时，此时再改可见性。本地配置准备好了，GitHub 上的 Pages 来源是否就绪，还需要查询。",
-      "html": "<div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><h3>提交已经审过的配置</h3><p>vite.config.ts 与工作流文件；核对提交说明</p></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"1\" style=\"margin-top:16px\"><h3>确认最终要公开的内容</h3><p>包括刚提交的配置；需要时再把仓库改为公开</p></div><div class=\"p-bar\" data-reveal=\"1\" style=\"margin-top:16px\">本地已准备好，<b>GitHub 上的 Pages 来源呢？</b></div>",
-      "steps": [
-        "提交配置",
-        "最终公开判断"
-      ],
-      "script": [
-        "【操作提示｜现场｜p49 第 1 步 → 同一 Codex 会话发送本页 COMMIT_PROMPT；提交申请核对两个文件与说明，只批本次。沙箱失败后有提权申请时按实际处理，不预设必然失败】\n\n四项审查通过以后，让 Codex 提交这两处改动。批准的时候，看清文件和提交说明。",
-        "【操作提示｜推进第 2 步 → Terminal 重跑历史检查，包含新提交；需要时在 Chrome Settings 改为公开。发现问题先停，尚不推送，结束回 p48b】\n\n提交之后，再看一遍最终要公开的历史，包括刚提交的工作流。需要公开仓库的话，现在再改。\n\n本地已经准备好怎么部署了。GitHub 上的 Pages 来源设置是不是也准备好了？这还要查。"
+        "【操作提示｜回放｜从 Codex 回课件 p48 第 1 步，指排练文件的 base。生成已在 p47 发出；先讲文件检查位置，不展开 action 版本升级经过】\n\n【切换｜回课件 p48】\n\n看排练那次的文件。我们要拿它和自己的发布目标对一下。先看 base，这个示例放在仓库名对应的路径下，所以前后各有一个斜杠，中间是仓库名。大家核对自己的名字，不照抄示例。",
+        "【操作提示｜推进课件 p48 第 2 步，指资源路径；本步先解释检查方法，不切终端，现场 build 放在第 4 步】\n\n第二项看 build 以后的资源路径。运行 npm run build，再打开构建出来的 dist/index.html，看它引用的 CSS 和 JavaScript 路径，是不是以自己的仓库名开头。这能帮助我们确认 base 有没有生效。",
+        "【操作提示｜推进课件 p48 第 3 步，指 permissions 的三行，不切窗口】\n\n第三项是权限。这里三行，分别是读仓库内容、写 Pages、获取部署用的身份令牌。我们让 Codex 解释用途，就是要拿生成的配置和这些用途对一下。多出来的权限，要问清楚再决定。",
+        "【操作提示｜现场回看｜推进课件 p48 第 4 步；VS Code 核对本次 base、分支、权限；Terminal 跑 npm run build，编辑器看 dist/index.html 路径。审过后切同一 Codex 会话发送本页提交请求，核对文件与说明再批准；再看新增提交是否可公开。发现问题先改再审，结束回课件，不推送】\n\n再看触发分支，和我们准备推送的分支是否一致。\n\n【切换｜VS Code · 本次部署配置】\n\n现在按这些位置看我这次生成的文件，核对路径、分支和权限。\n\n【切换｜Terminal · 项目根目录】\n\n跑一次 build。\n\n【切换｜VS Code · dist/index.html】\n\n构建以后，再看引用的资源路径和发布地址对不对。有问题就让 Codex 改，改完再审。\n\n【切换｜Terminal · Codex 会话】\n\n审过以后，发这里的提交请求，看清文件和说明，再批准提交。新增的这次改动，也要确认可以公开。\n\n【切换｜回课件 p48】\n\n文件准备好了。GitHub 上的 Pages 来源设置，现在是什么状态？"
       ],
       "repro": {
-        "label": "提交与最终检查",
+        "label": "审过后提交",
         "steps": [
           {
-            "text": "在写配置的 Codex 会话里发送；批准提交时核对文件和说明",
+            "text": "审过实际文件以后，在同一 Codex 会话里发送，核对提交文件与说明",
             "code": "我审过了，接受这两处改动。先列出 git status 给我看，再提交 vite.config.ts 和工作流文件；\n提交说明第一行写 deploy: 用 GitHub Actions 发布到 Pages，正文写改了哪些文件。"
           },
           {
-            "text": "提交后重新核对完整历史；有问题先停，不推送",
+            "text": "提交后检查新增的改动，确认仍可公开",
             "code": "git log --stat HEAD\ngit log -p HEAD\ngit log --format='%an <%ae>' HEAD | sort -u"
           }
         ],
         "note": ""
       },
       "teaching": [],
-      "source": "index.html#p49",
-      "seconds": 60
+      "source": "index.html#p48",
+      "seconds": 120
     },
     {
       "id": "p48b",
-      "segment": "远端设置",
+      "segment": "查询设置",
       "label": "认识 GitHub CLI",
       "title": "用 gh 查询 GitHub 上的状态",
       "lead": "GitHub CLI（命令 gh）把 GitHub 平台功能带到终端。git 管版本和提交的推送、拉取；gh 可以查询或操作仓库、Issue、PR、Actions，也能通过通用 API 入口访问 Pages 设置。能力在逐步增加，建议使用较新的稳定版，具体命令仍以当前版本和实际返回为准。API 是平台提供的程序接口，CLI 是命令行入口，SDK 是供代码使用的开发工具包；平台逐步开放更多功能，人和 coding agent 都能更方便地通过工具完成操作。",
@@ -266,9 +200,9 @@ window.lesson = {
         "这次先查 Pages"
       ],
       "script": [
-        "【操作提示｜停留 p48b 第 1 步，指 git 与 gh 的两张卡片；不现场安装或登录】\n\n我们可以在网页里查，也可以用 GitHub 官方的命令行工具，GitHub CLI，命令叫 gh。前面用的 git 管版本记录和提交的推送、拉取。gh 把 GitHub 平台上的功能带到终端，让我们和 Codex 都能用命令访问。",
-        "【操作提示｜推进第 2 步，指两个时间点；官方出处在阅读模式，不强制现场开网页】\n\n这些能力是逐步加进来的。二零二零年九月的 一点零版本，已经有通用的 API 调用；二零二一年四月的 一点九版本，又加入了 Actions 的专用命令，可以查运行状态和日志。建议用较新的稳定版，旧版本可能还没有我们演示的命令或参数。",
-        "【操作提示｜现场｜推进第 3 步 → Terminal 同一 Codex 会话发送本页 SOURCE_PROMPT，开始查询；出现批准框先核对命令、理由和目标仓库，只批本次，修改核对范围。gh 未登录或找别处凭据时拒绝，由本人离屏处理；等待时回 p49a 讲已有记录。页面只展示两个已核实时间点，不追加功能史】\n\n现在，通过专用命令和通用 API 入口，已经能完成许多常见 GitHub 操作，比如仓库、Issue、PR，以及这次的 Pages 设置和部署查询。API 是平台给程序的接口，CLI 是命令行入口，SDK 是供代码使用的工具包。平台逐步开放更多功能，人和 coding agent 就能通过工具完成更多操作，再由人审查和确认。\n\n【切换｜Terminal · Codex 会话】\n\n我们这次先让它查 Pages 的当前状态，按需要把来源设为 GitHub Actions，改完再查一次。发送展开步骤里的请求，每次申请先看清命令和目标。"
+        "【操作提示｜现场｜停留课件 p48b 第 1 步，指 git 和 gh 两张卡片；本页第 3 步发请求，不安装或登录 gh】\n\nPages 设置可以在网页里看，也可以用 GitHub 官方的命令行工具，GitHub CLI，命令叫 gh。左边的 git，管版本记录和提交的推送、拉取。右边的 gh，把 GitHub 平台上的功能带到了终端，我们和 Codex 都可以用命令访问。",
+        "【操作提示｜推进课件 p48b 第 2 步，指两个时间点；官方出处留在阅读模式，不切网页】\n\n这些能力也是逐步加进来的。二零二零年九月，一点零版本已经有通用的 API 调用；到了二零二一年四月，一点九版本又加入了 Actions 的专用命令，可以查运行状态和日志。所以建议用较新的稳定版，旧版本可能还没有我们演示的命令或参数。",
+        "【操作提示｜推进课件 p48b 第 3 步 → Terminal 同一 Codex 会话发送本页 Pages 请求。第一次联网或修改申请，看清命令、理由、仓库与范围，只批本次；身份或凭据异常时停下处理。发出后讲 p49a 固定记录，不提前等完所有调用】\n\n现在通过专用命令和通用 API 入口，已经能完成许多常见 GitHub 操作，比如仓库、Issue、PR，以及 Pages 设置和部署查询。API 是平台给程序的接口，CLI 是命令行入口，SDK 是供代码使用的工具包。平台开放更多功能，人和 coding agent 就能通过工具做更多事。\n\n【切换｜Terminal · Codex 会话】\n\n我们可以切到命令行看一下 gh 有什么能力，也可以让 codex 给简单介绍下。我们这次让它查询 Pages，按需要把来源设为 GitHub Actions，改完再查一次。出现批准框，先看清它要操作哪个仓库、做什么，它查询的时候，我们先看排练记录。"
       ],
       "repro": {
         "label": "查询并设置 Pages",
@@ -290,88 +224,87 @@ window.lesson = {
     },
     {
       "id": "p49a",
-      "segment": "远端设置",
-      "label": "查询怎样支持下一步",
-      "title": "查到当前状态，才知道下一步做什么",
-      "lead": "沿排练记录看查询怎样支持下一步判断：Codex 经 exec 运行本机 gh，输出作为工具返回进入下一次请求。排练这次查到 404，于是申请 POST 创建，再复查到 build_type: workflow；已有正确设置时可以直接确认，不要求每次都出现 404。在本章排练环境里，gh 联网要申请到沙箱外运行，由人核对命令、理由和对象后批准。批准动作不在请求记录里。最后对照现场这次的实际查询与返回。",
-      "html": "<div class=\"p-evidence\" data-ev-steps=\"[&quot;gh-tools&quot;, &quot;gh-call&quot;, &quot;gh-result&quot;, &quot;post-call&quot;, &quot;post-result&quot;]\" data-ev-viewer=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light\" data-ev-view=\"reader\"><nav class=\"p-ev-guide\" aria-label=\"本次记录的观察顺序\"><button type=\"button\" data-ev-key=\"gh-tools\" aria-pressed=\"true\"><b>工具列表</b><span>里面没有 gh，只有 exec 这类通用工具</span></button><button type=\"button\" data-ev-key=\"gh-call\" aria-pressed=\"false\"><b>完整命令</b><span>带着沙箱外标记和理由</span></button><button type=\"button\" data-ev-key=\"gh-result\" aria-pressed=\"false\"><b>工具返回</b><span>404：还没有站点</span></button><button type=\"button\" data-ev-key=\"post-call\" aria-pressed=\"false\"><b>据此创建</b><span>看到 404，改用 POST</span></button><button type=\"button\" data-ev-key=\"post-result\" aria-pressed=\"false\"><b>复查结果</b><span>build_type 是 workflow</span></button></nav><div class=\"p-ev-panel\"><div class=\"p-ev-bar\"><span data-ev-status>10-25 排练记录</span><div class=\"p-ev-actions\"><div class=\"p-ev-views\" role=\"group\" aria-label=\"记录展示方式\"><button type=\"button\" data-ev-view=\"reader\" aria-pressed=\"true\">阅读视图</button><button type=\"button\" data-ev-view=\"raw\" aria-pressed=\"false\">原始记录</button></div><a data-ev-open href=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light&amp;point=gh-tools\" target=\"_blank\" rel=\"noopener\">单独打开 ↗</a><button type=\"button\" data-ev-expand aria-haspopup=\"dialog\">放大记录</button></div></div><div class=\"p-ev-reading\"><section data-ev-reading=\"gh-tools\" ><p class=\"p-ev-source\">10-25 排练 · 设置 Pages 来源时的请求</p><article><h3>请求里的工具（tools 字段）</h3><pre>exec\nwait\nrequest_user_input\ncollaboration\nweb_search</pre></article><article><h3>系统指令里提到 gh 的唯一一处（申请批准时 prefix_rule 的例子）</h3><pre>- [&quot;gh&quot;, &quot;pr&quot;, &quot;check&quot;]</pre></article></section><section data-ev-reading=\"gh-call\" hidden><p class=\"p-ev-source\">10-25 排练 · 真实记录节选 · 完整命令</p><article><h3>它发出的调用（exec 里的一段代码）</h3><pre>  cmd: &quot;echo &#x27;=== gh auth status (联网) ===&#x27;; gh auth status 2&gt;&amp;1; echo; echo &#x27;=== 环境变量里的 token(只看是否存在,不打印值) ===&#x27;; for v in GH_TOKEN GITHUB_TOKEN GH_ENTERPRISE_TOKEN; do if [ -n \\&quot;$(printenv $v)\\&quot; ]; then echo \\&quot;$v: 已设置\\&quot;; else echo \\&quot;$v: 未设置\\&quot;; fi; done; echo; echo &#x27;=== GET pages ===&#x27;; gh api repos/prompt-to-harness/ch02-pages-lab-20261025-claude/pages 2&gt;&amp;1; echo \\&quot;EXIT=$?\\&quot;&quot;,\n  sandbox_permissions: &quot;require_escalated&quot;,\n  justification: &quot;是否允许 gh 访问 api.github.com，以查询仓库的 Pages 站点状态？&quot;,</pre><details><summary>展开该项完整原文</summary><pre>const r = await tools.exec_command({\n  cmd: &quot;echo &#x27;=== gh auth status (联网) ===&#x27;; gh auth status 2&gt;&amp;1; echo; echo &#x27;=== 环境变量里的 token(只看是否存在,不打印值) ===&#x27;; for v in GH_TOKEN GITHUB_TOKEN GH_ENTERPRISE_TOKEN; do if [ -n \\&quot;$(printenv $v)\\&quot; ]; then echo \\&quot;$v: 已设置\\&quot;; else echo \\&quot;$v: 未设置\\&quot;; fi; done; echo; echo &#x27;=== GET pages ===&#x27;; gh api repos/prompt-to-harness/ch02-pages-lab-20261025-claude/pages 2&gt;&amp;1; echo \\&quot;EXIT=$?\\&quot;&quot;,\n  workdir: &quot;[project]&quot;,\n  yield_time_ms: 30000,\n  max_output_tokens: 6000,\n  sandbox_permissions: &quot;require_escalated&quot;,\n  justification: &quot;是否允许 gh 访问 api.github.com，以查询仓库的 Pages 站点状态？&quot;,\n  prefix_rule: [&quot;gh&quot;, &quot;api&quot;]\n});\ntext(r.output);\n</pre></details></article></section><section data-ev-reading=\"gh-result\" hidden><p class=\"p-ev-source\">10-25 排练 · 真实记录节选 · 工具返回</p><article><h3>下一次请求带上的返回</h3><pre>  ✓ Logged in to github.com account MiaoDX (keyring)\n=== GET pages ===\n{&quot;message&quot;:&quot;Not Found&quot;,&quot;documentation_url&quot;:&quot;https://docs.github.com/rest/pages/pages#get-a-apiname-pages-site&quot;,&quot;status&quot;:&quot;404&quot;}gh: Not Found (HTTP 404)</pre><details><summary>展开该项完整原文</summary><pre>Script completed\nWall time 0.0 seconds\nOutput:\n\n=== gh auth status (联网) ===\ngithub.com\n  ✓ Logged in to github.com account MiaoDX (keyring)\n  - Active account: true\n  - Git operations protocol: https\n  - Token: gh*_[token-masked]\n  - Token scopes: &#x27;gist&#x27;, &#x27;read:org&#x27;, &#x27;repo&#x27;, &#x27;workflow&#x27;\n\n=== 环境变量里的 token(只看是否存在,不打印值) ===\nGH_TOKEN: 未设置\nGITHUB_TOKEN: 未设置\nGH_ENTERPRISE_TOKEN: 未设置\n\n=== GET pages ===\n{&quot;message&quot;:&quot;Not Found&quot;,&quot;documentation_url&quot;:&quot;https://docs.github.com/rest/pages/pages#get-a-apiname-pages-site&quot;,&quot;status&quot;:&quot;404&quot;}gh: Not Found (HTTP 404)\nEXIT=1\n</pre></details></article></section><section data-ev-reading=\"post-call\" hidden><p class=\"p-ev-source\">10-25 排练 · 真实记录节选 · 据此创建</p><article><h3>它的回答</h3><pre>- `GET /repos/prompt-to-harness/ch02-pages-lab-20261025-claude/pages` → **HTTP 404 Not Found**，说明**这个仓库还没有 Pages 站点**\n- 所以走**创建**路径（POST），不是 PUT 修改\ngh api --method POST repos/prompt-to-harness/ch02-pages-lab-20261025-claude/pages -f build_type=workflow</pre><details><summary>展开该项完整原文</summary><pre>查清楚了：\n\n- `gh` 已登录，token 有效（scopes: `repo` / `workflow` / `read:org` / `gist`）——刚才那句 &quot;token 无效&quot; 是沙箱没网导致校验失败，不是真的坏了\n- `GET /repos/prompt-to-harness/ch02-pages-lab-20261025-claude/pages` → **HTTP 404 Not Found**，说明**这个仓库还没有 Pages 站点**\n- 所以走**创建**路径（POST），不是 PUT 修改\n\n要执行的两条命令：\n\n```bash\n# 1) 创建 Pages 站点，build_type=workflow（即 Source 选 &quot;GitHub Actions&quot;）\ngh api --method POST repos/prompt-to-harness/ch02-pages-lab-20261025-claude/pages -f build_type=workflow\n\n# 2) 复查\ngh api repos/prompt-to-harness/ch02-pages-lab-20261025-claude/pages\n```</pre></details></article><article><h3>接着发出的调用，又申请到沙箱外</h3><pre>  cmd: &quot;echo &#x27;=== POST 创建 Pages 站点 ===&#x27;; gh api --method POST repos/prompt-to-harness/ch02-pages-lab-20261025-claude/pages -f build_type=workflow 2&gt;&amp;1; echo \\&quot;EXIT=$?\\&quot;; echo; echo &#x27;=== 复查 GET pages ===&#x27;; gh api repos/prompt-to-harness/ch02-pages-lab-20261025-claude/pages 2&gt;&amp;1; echo \\&quot;EXIT=$?\\&quot;; echo; echo &#x27;=== 仓库默认分支 ===&#x27;; gh api repos/prompt-to-harness/ch02-pages-lab-20261025-claude --jq &#x27;.default_branch&#x27; 2&gt;&amp;1&quot;,\n  justification: &quot;是否允许 gh 调用 GitHub API 创建该仓库的 Pages 站点并设置 build_type=workflow？&quot;,</pre><details><summary>展开该项完整原文</summary><pre>const r = await tools.exec_command({\n  cmd: &quot;echo &#x27;=== POST 创建 Pages 站点 ===&#x27;; gh api --method POST repos/prompt-to-harness/ch02-pages-lab-20261025-claude/pages -f build_type=workflow 2&gt;&amp;1; echo \\&quot;EXIT=$?\\&quot;; echo; echo &#x27;=== 复查 GET pages ===&#x27;; gh api repos/prompt-to-harness/ch02-pages-lab-20261025-claude/pages 2&gt;&amp;1; echo \\&quot;EXIT=$?\\&quot;; echo; echo &#x27;=== 仓库默认分支 ===&#x27;; gh api repos/prompt-to-harness/ch02-pages-lab-20261025-claude --jq &#x27;.default_branch&#x27; 2&gt;&amp;1&quot;,\n  workdir: &quot;[project]&quot;,\n  yield_time_ms: 60000,\n  max_output_tokens: 6000,\n  sandbox_permissions: &quot;require_escalated&quot;,\n  justification: &quot;是否允许 gh 调用 GitHub API 创建该仓库的 Pages 站点并设置 build_type=workflow？&quot;,\n  prefix_rule: [&quot;gh&quot;, &quot;api&quot;]\n});\ntext(r.output);\n</pre></details></article></section><section data-ev-reading=\"post-result\" hidden><p class=\"p-ev-source\">10-25 排练 · 真实记录节选 · 复查结果</p><article><h3>创建与复查的返回（摘出两个字段，完整 JSON 在原始记录）</h3><pre>=== POST 创建 Pages 站点 ===\nhtml_url: https://prompt-to-harness.github.io/ch02-pages-lab-20261025-claude/\nbuild_type: workflow\n\n=== 复查 GET pages ===\nhtml_url: https://prompt-to-harness.github.io/ch02-pages-lab-20261025-claude/\nbuild_type: workflow</pre></article></section></div><iframe hidden title=\"claude-tap 静态记录\" data-src=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light&amp;hideHeader=1\"></iframe></div></div>",
+      "segment": "查询设置",
+      "label": "调用、返回与下一步",
+      "title": "查到什么，就根据什么继续",
+      "lead": "看排练里的三个观察点：exec 运行 gh 查询，404 返回进入下一次请求，模型据此创建并复查。完整调用与批准参数可在原始记录中查看。联网与修改按本章环境的批准申请核对，人在执行时决定是否放行；人的点击不在请求记录里。现场结果独立核对，已有正确来源时可以直接确认，不要求出现同样的 404。",
+      "html": "<div class=\"p-evidence\" data-ev-steps=\"[&quot;gh-call&quot;, &quot;gh-result&quot;, &quot;post-call&quot;]\" data-ev-viewer=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light\" data-ev-view=\"reader\"><nav class=\"p-ev-guide\" aria-label=\"本次记录的观察顺序\"><button type=\"button\" data-ev-key=\"gh-call\" aria-pressed=\"true\"><b>调用</b><span>exec 运行 gh 查询</span></button><button type=\"button\" data-ev-key=\"gh-result\" aria-pressed=\"false\"><b>返回</b><span>当前状态进入下一次请求</span></button><button type=\"button\" data-ev-key=\"post-call\" aria-pressed=\"false\"><b>下一步</b><span>据此创建，再复查</span></button></nav><div class=\"p-ev-panel\"><div class=\"p-ev-bar\"><span data-ev-status>10-25 排练记录</span><div class=\"p-ev-actions\"><div class=\"p-ev-views\" role=\"group\" aria-label=\"记录展示方式\"><button type=\"button\" data-ev-view=\"reader\" aria-pressed=\"true\">阅读视图</button><button type=\"button\" data-ev-view=\"raw\" aria-pressed=\"false\">原始记录</button></div><a data-ev-open href=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light&amp;point=gh-call\" target=\"_blank\" rel=\"noopener\">单独打开 ↗</a><button type=\"button\" data-ev-expand aria-haspopup=\"dialog\">放大记录</button></div></div><div class=\"p-ev-reading\"><section data-ev-reading=\"gh-call\" ><p class=\"p-ev-source\">2026-10-25 排练 · 真实记录节选</p><article><h3>工具列表没有单独的 gh，命令经 exec 运行</h3><pre>exec, wait, request_user_input, collaboration, web_search</pre></article><article><h3>这次查询的命令（调用中的节选）</h3><pre>gh api repos/prompt-to-harness/ch02-pages-lab-20261025-claude/pages</pre></article></section><section data-ev-reading=\"gh-result\" hidden><p class=\"p-ev-source\">2026-10-25 排练 · 真实记录节选</p><article><h3>下一次请求里的工具返回</h3><pre>{&quot;message&quot;:&quot;Not Found&quot;,&quot;documentation_url&quot;:&quot;https://docs.github.com/rest/pages/pages#get-a-apiname-pages-site&quot;,&quot;status&quot;:&quot;404&quot;}gh: Not Found (HTTP 404)</pre></article></section><section data-ev-reading=\"post-call\" hidden><p class=\"p-ev-source\">2026-10-25 排练 · 真实记录节选</p><article><h3>据此发出的创建命令（节选）</h3><pre>gh api --method POST repos/prompt-to-harness/ch02-pages-lab-20261025-claude/pages -f build_type=workflow</pre></article><article><h3>执行后又复查（返回字段节选）</h3><pre>build_type: workflow</pre></article></section></div><iframe hidden title=\"claude-tap 静态记录\" data-src=\"trace/viewer.html?embed=1&amp;hidePath=1&amp;hideHistory=1&amp;theme=light&amp;hideHeader=1\"></iframe></div></div>",
       "steps": [
-        "工具列表",
-        "完整命令",
-        "工具返回",
-        "据此创建",
-        "复查"
+        "发起调用",
+        "返回进入请求",
+        "依据返回继续"
       ],
       "script": [
-        "【操作提示｜回放｜停留 p49a 第 1 步，指工具列表；现场任务进行时先讲 10-25 固定记录，不要求重现同样返回】\n\n查询已经发出。先用排练记录看清它是怎么查的：请求工具里没有单独的 gh，Codex 是通过 exec 运行本机的命令。这和上一节通过命令取参考网站的代码，用的是同一种调用方式。知道怎样写命令，还不能代替查询现在的状态。",
-        "【操作提示｜推进第 2 步，指 gh 命令、sandbox_permissions、justification；对应排练环境说明，不泛化到所有配置】\n\n这里是一条完整的 gh 查询命令，带着到沙箱外运行的标记和理由。在我们排练的课程环境里，gh 联网需要批准。我们核对它要访问什么，才允许执行；修改类命令还要看清方法和范围。",
-        "【操作提示｜推进第 3 步，指下一次请求中的 GET 返回】\n\n批准以后，gh 和 GitHub 通信，输出作为工具返回进入下一次请求。排练这次查到的是四零四，Pages 站点还不存在。模型现在有了当前状态，才有依据决定下一步。",
-        "【操作提示｜推进第 4 步，指据此创建的回答与 POST 调用；不用“必然 404”过渡】\n\n所以这次它按我们请求里写的，用 POST 创建，再申请执行。要是已经有站点，就根据实际来源决定是否修改；已经正确，也可以直接确认。我们看的是依据返回作判断，不要求每次都走相同分支。它列出命令后会继续申请执行，真正决定是否放行的地方是批准框。",
-        "【操作提示｜现场回看｜推进第 5 步，指 workflow；再切 Terminal claude-tap 现场查询的工具与返回，不重发任务。设置完成后 Chrome Settings → Pages 刷新核对；html_url 和账号上屏先检查。未结束则按实际等候，不套排练结论，确认后回 p49c】\n\n创建之后还要复查。这次返回的 build_type 是 workflow，来源已经设成 GitHub Actions。记录里能看到申请和执行后的返回，看不到我们点击同意的动作。\n\n【切换｜Terminal · claude-tap · 现场这次的记录】\n\n现在对照现场这次：查到了什么，接着做了什么，复查是否生效。最后我们也到网页里刷新确认来源。"
+        "【操作提示｜回放｜从 Codex 回课件 p49a 第 1 步，指工具列表与 gh 查询命令；默认阅读视图，只看主节选，不切完整批准参数。需要核对时再开原始记录】\n\n【切换｜回课件 p49a】\n\n这次只看三处，先看调用。工具列表里没有单独的 gh，它通过 exec 运行本机的 gh 命令，查询 GitHub 上的 Pages。完整命令和批准申请，在原始记录里都能找到。",
+        "【操作提示｜推进课件 p49a 第 2 步，指下一次请求里的 404 返回，不切窗口】\n\n接着看返回。排练这次查到四零四，站点还不存在。这段输出作为“工具返回”进入下一次请求，模型就有了当前状态，可以据此判断下一步。",
+        "【操作提示｜现场回看｜推进课件 p49a 第 3 步，指创建命令和复查字段；随后切现场 claude-tap 查询记录，再到浏览器 Pages 刷新确认来源。来源未就绪时按实际返回处理，不要求重现 404；来源确认后回课件，下一页开始推送】\n\n所以它按我们 Prompt 里写的创建站点，做完又查了一次，返回的 build_type 已经是 workflow。调用、返回、下一步，这三处就连起来了。已有正确来源时，可以直接确认，不要求走同样的分支。\n\n【切换｜claude-tap 查看器】\n\n现在看现场这次：查到了什么，接下来做了什么，复查结果是什么。\n\n【切换｜浏览器 · GitHub Pages 设置】\n\n我们自己也刷新确认，来源是不是 GitHub Actions。"
       ],
       "teaching": [],
       "source": "index.html#p49a",
-      "seconds": 150
-    },
-    {
-      "id": "p49c",
-      "segment": "发布与验收",
-      "label": "由人推送",
-      "title": "来源已确认，由我们推送",
-      "lead": "Pages 来源已确认，待公开内容和配置也已审过。由我们把当前分支推到自己的 origin，触发 GitHub 上的部署。接下来要取得这次提交的运行结果，不能用之前的设置查询代替。",
-      "html": "<div class=\"p-term\" data-reveal=\"0\" data-copy=\"git push -u origin HEAD\"><div class=\"dim\">$ git push -u origin HEAD</div></div><div class=\"p-box is-soft\" data-role=\"tool\" data-reveal=\"0\" style=\"margin-top:18px\"><h3>部署在 GitHub 的机器上运行</h3><p>这次提交跑得怎么样？需要取得执行后的新状态</p></div>",
-      "steps": [
-        "推送并触发部署"
-      ],
-      "script": [
-        "【操作提示｜现场｜停留 p49c 第 1 步 → Terminal 项目根目录，由本人运行 git remote -v 核对目标，再 git push -u origin HEAD；若空仓库设置失败已按备用分支推送则不重复。工作流推送被拒时离屏核对 workflow 权限。完成回 p49b】\n\n来源确认了，待公开内容和配置也都审过了。现在由我们自己推送，命令是 git push，后面这些参数在页面上可以复制。\n\n【切换｜Terminal · 项目根目录】\n\n这一步把当前分支推到自己的 origin，并触发 GitHub 上的部署。接下来还要查，这次提交到底跑得怎么样。"
-      ],
-      "repro": {
-        "label": "推送命令",
-        "steps": [
-          {
-            "text": "由本人在项目根目录运行，核对目标是自己的仓库",
-            "code": "git remote -v\ngit push -u origin HEAD"
-          }
-        ],
-        "note": "空仓库设置来源失败时，可先推送已审内容，再完成设置并人工确认重跑部署；已推送则不重复执行。"
-      },
-      "teaching": [],
-      "source": "index.html#p49c",
-      "seconds": 30
+      "seconds": 90
     },
     {
       "id": "p49b",
-      "segment": "发布与验收",
-      "label": "取得这次部署结果",
-      "title": "取得对应这次提交的部署结果",
-      "lead": "推送后让 Codex 用 gh 找到对应这次提交的运行，查询状态，再按需要读各个 job 和日志。运行中就等后再查，失败则依据失败步骤定位，成功再检查页面。结果作为工具返回进入请求；日志存成文件以后，实际读取的部分才进入 context。下方是 2026-10-25 新会话补跑的真实节选，当时运行已经结束，不是刚才设置 Pages 的同一次会话。日志里的警告与批准次数只说明这次运行。",
-      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-pair\" style=\"grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr);gap:18px\"><div class=\"p-box\" data-role=\"us\" data-reveal=\"0\" style=\"padding:10px 16px\"><span class=\"p-tag\" data-role=\"us\">我们的请求</span><h3>只看，不改</h3><p>成没成功、每个 job、警告原文；不重跑、不改文件</p></div><div class=\"p-term\" data-reveal=\"1\" style=\"font-size:15px\"><div>$ gh run list --limit 20 --json databaseId,name,displayTitle,event,status,conclusion,headSha,createdAt,url</div><div>$ gh run view 40183596663 --json jobs,conclusion,status,headSha,event,createdAt,updatedAt,url</div><div>$ gh run view 40183596663 --log 2&gt;&amp;1 | tee /tmp/run-40183596663.log | wc -l</div></div></div><div class=\"p-term\" data-reveal=\"2\" style=\"margin-top:8px;font-size:15px\"><div class=\"dim\">它带回来的（回答节选）</div><div>| Build (121139603221) | ✅ success | 21s |</div><div>| Deploy (121139684344) | ✅ success | 9s |</div><div>1 high severity vulnerability</div><div>(node:1943) [DEP0040] DeprecationWarning: The punycode module is deprecated. Please use a userland alternative instead.</div></div><div class=\"p-bar\" data-reveal=\"3\" style=\"margin-top:8px\">想再跑 npm audit：请求外的事，<b>在批准框说不</b></div><p class=\"source-note\">2026-10-25 补跑：同一个项目、新会话，运行已在推送后结束；共批 5 次、拒 1 次。日志里有哪些警告，每次不同</p>",
+      "segment": "查询部署",
+      "label": "推送并查询结果",
+      "title": "这次推送，部署成功了吗？",
+      "lead": "设置确认后由人推送，再让 Codex 用 gh 查询对应这次提交的部署。中间的字段直接从补跑记录的工具返回提取，进入下一次请求后支持模型的结论；完整命令和日志留在原始材料。补跑是同一项目的新会话，当时部署已结束；现场查询在推送后发出，运行中就等待再查，失败则根据实际日志定位。",
+      "html": "<div class=\"p-term\" data-reveal=\"0\" data-copy=\"git push -u origin HEAD\"><div>$ git push -u origin HEAD</div></div><div class=\"p-pair\" style=\"grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:18px;margin-top:14px\"><div class=\"p-term\" data-reveal=\"1\" style=\"font-size:16px\"><div class=\"dim\">下一次请求的工具返回 · 字段节选</div><pre style=\"margin:8px 0 0;white-space:pre-wrap;overflow-wrap:anywhere\">headSha: 529f11aab44eff2d42a51f63e0273d7859aafe10\nstatus: completed\nconclusion: success\nBuild: success\nDeploy: success</pre></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"2\"><h3>回答有了依据</h3><p>对应这次提交<br>构建与部署成功</p><p class=\"p-sub\">接着打开页面检查</p></div></div><p class=\"source-note\">2026-10-25 补跑 · 同项目、新会话，运行当时已结束；展示原始工具返回中的字段，不是现场结果。<a href=\"../../materials/publish/run-20261025/ghrun.json\">完整请求、调用与返回</a></p>",
       "steps": [
-        "只让它看",
-        "它跑的 gh",
-        "结果依据",
-        "范围与现场结果"
+        "推送并发起查询",
+        "取得这次运行的状态",
+        "根据返回判断"
       ],
       "script": [
-        "【操作提示｜现场｜停留 p49b 第 1 步 → Terminal 同一 Codex 会话发送本页 GHRUN_PROMPT；只允许读取这次运行，不重跑、不改文件。发出后回课件讲补跑证据，不在启动请求前讲完所有步骤】\n\nPages 设置正确，还不能说明刚才那次推送已经部署成功。我们要取得执行之后的新状态，让 Codex 找到对应这次提交的运行，查结果，再按需要读各个 job 和日志。这一步只查看。\n\n【切换｜Terminal · Codex 会话】\n\n发送这一页展开步骤里的请求，再来看已有记录里它怎样取得这些信息。",
-        "【操作提示｜回放｜推进第 2 步，指三条 gh 命令；说明是补跑的新会话，不能称为刚才连续会话】\n\n这里用的是二零二六年十月二十五日的补跑记录。它和 Pages 设置是同一个项目，但另开了新会话，部署当时已经结束。它先列运行，再看 job，最后取得日志。这几条命令都是原始记录里的节选。",
-        "【操作提示｜推进第 3 步，指 headSha 字段及成功与警告的回答节选】\n\n查到的运行要对上这次提交，命令里的 headSha 就是提交标识。补跑这次两个 job 都成功，日志里还有警告。日志有三百四十多行，先存成文件，再筛选和分段读。实际读回来的内容才进入 context，不能因为文件在电脑上，就说整份日志已经在请求里了。",
-        "【操作提示｜推进第 4 步，指拒绝 audit；随后 Terminal 看现场结果与对应提交，不预写成功。运行中则等待后查，可先讲 p50 检查办法；失败按实际日志定位。出现重跑、audit、改文件申请拒绝，设置正确不替代运行结果；结束回 p50】\n\n补跑这次它还申请跑 npm audit 查依赖漏洞，超出了只看部署的请求，我们拒绝了。\n\n【切换｜Terminal · 现场这次的部署结果】\n\n现在看现场这次，确认是不是刚推送的提交。还在运行就等后再查；失败就看失败步骤和日志；成功再继续检查页面。具体警告按这次的原文看，不套用补跑的结果。"
+        "【操作提示｜现场｜从浏览器回课件 p49b 第 1 步；Terminal 项目根目录本人核对 origin 后 git push -u origin HEAD，再切同一 Codex 会话发送本页只读部署请求。备用分支已推送则不重复；不要先讲完全部排练才发请求】\n\n【切换｜回课件 p49b】\n\n设置确认了，现在由我们推送这份已经审过的提交。\n\n【切换｜Terminal · 项目根目录】\n\n核对目标，再运行这条推送命令。它会触发 GitHub 上的部署。\n\n【切换｜Terminal · Codex 会话】\n\n接着让 Codex 查刚才这次提交的运行：成没成功，各个 job 的结果，日志里有没有警告或错误。job 就是一组任务，比如构建和部署。这一步只查看。发出以后，我们先看已有记录里它拿到了什么。",
+        "【操作提示｜回放｜从 Codex 回课件 p49b 第 2 步，指字段节选。来源为 10-25 同项目新会话补跑的实际工具返回，当时运行已结束；完整 JSON 链接只作备用，不在主讲展开长参数和警告】\n\n【切换｜回课件 p49b】\n\n这里用的是同一个项目、新会话的补跑，当时部署已经结束。我们直接看工具返回里的几个字段。headSha 是提交标识，先用它核对是不是要查的提交；status 是 completed，运行已经结束；conclusion 是 success，Build 和 Deploy 也都成功。\n\n这些状态被带进下一次请求，模型才有了回答的依据。",
+        "【操作提示｜现场回看｜推进课件 p49b 第 3 步，指根据返回判断；再到 Terminal 看现场这次结果与提交对应关系。运行中等后再查，可先讲 p50 检查办法；失败读实际日志。请求外的重跑、audit、改文件申请拒绝。结束回 p49d】\n\n根据这些返回，它报告了构建和部署成功，接下来就可以打开页面检查。需要看日志时，读回来的部分也会进入请求；日志只是存在文件里，还不能直接当作模型已经读过的内容。\n\n【切换｜Terminal · 现场这次的部署结果】\n\n看我这次取得的状态，先对上提交，再看运行结果。还没结束就等后再查；有失败就按眼前的日志定位。"
       ],
       "repro": {
-        "label": "请求原文",
+        "label": "推送与查询请求",
         "steps": [
           {
-            "text": "推送以后，在同一个 Codex 会话里发送；每条 gh 命令弹出批准框时看清是读取这次运行，只批本次",
+            "text": "由本人核对目标后推送；已推送则不重复",
+            "code": "git remote -v\ngit push -u origin HEAD"
+          },
+          {
+            "text": "推送后在同一 Codex 会话里发送，读取这次部署，不重跑、不改文件",
             "code": "我刚把当前分支推到了 origin。请用 GitHub CLI（gh）看这次推送触发的部署：运行有没有成功、每个 job 的结果，日志里有没有警告或错误，有就把原文摘给我。只查看，不重跑或触发部署，不改设置和文件。"
           }
         ],
-        "note": "只读：它申请重跑部署、查依赖漏洞或改文件时拒绝。运行还没结束时，可以先做下一页的三项检查，再回来看它读到的结果。"
+        "note": "运行中则等待后查，失败看实际日志。空仓库设置来源失败时，可先推送已审内容，再完成设置并人工确认重跑。"
       },
       "teaching": [],
       "source": "index.html#p49b",
-      "seconds": 120
+      "seconds": 90
+    },
+    {
+      "id": "p49d",
+      "segment": "查询部署",
+      "layout": "evidence-scene",
+      "label": "根据环境反馈判断",
+      "title": "下一步怎么走，要看实际返回",
+      "lead": "把发布前后两次查询并排看：先取得外部状态，让返回进入 Context，再判断下一步。环境反馈原则据 Anthropic《Building effective agents》；gh、Pages 与两次查询的关系来自本课演示，图为课程自绘。",
+      "html": "<div class=\"p-shot\" data-reveal=\"0\"><svg style=\"display:block;max-width:100%;height:auto;max-height:410px\" xmlns=\"http://www.w3.org/2000/svg\" class=\"lesson-diagram\" viewBox=\"0 0 880 410\" width=\"880\" height=\"410\"><defs><marker id=\"rd-arrow-environment-feedback\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M0 0L10 5L0 10z\" fill=\"#5B6573\"/></marker></defs><g data-reveal=\"0\"><text x=\"212\" y=\"30\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"28\" font-weight=\"700\" fill=\"#243042\" text-anchor=\"middle\">发布前</text></g><g data-reveal=\"0\"><rect x=\"12\" y=\"52\" width=\"400\" height=\"66\" rx=\"10\" fill=\"#FFFDF7\" stroke=\"#5B6573\" stroke-width=\"2.5\" filter=\"url(#p-rough)\"/><text x=\"212.0\" y=\"93.64\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"24\" font-weight=\"500\" fill=\"#243042\" text-anchor=\"middle\">GitHub 当前 Pages 设置</text></g><g data-reveal=\"0\"><path d=\"M212 126L212 180\" stroke=\"#5B6573\" stroke-width=\"2.5\" fill=\"none\" marker-end=\"url(#rd-arrow-environment-feedback)\"/></g><g data-reveal=\"0\"><text x=\"232\" y=\"160\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"20\" font-weight=\"400\" fill=\"#5B6573\" text-anchor=\"start\">用 gh 查询</text></g><g data-reveal=\"0\"><rect x=\"12\" y=\"192\" width=\"400\" height=\"66\" rx=\"10\" fill=\"#DDF1EC\" stroke=\"#0B6B5F\" stroke-width=\"2.5\" filter=\"url(#p-rough)\"/><text x=\"212.0\" y=\"234.72\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"27\" font-weight=\"500\" fill=\"#243042\" text-anchor=\"middle\">返回进入 Context</text></g><g data-reveal=\"0\"><path d=\"M212 268L212 310\" stroke=\"#5B6573\" stroke-width=\"2.5\" fill=\"none\" marker-end=\"url(#rd-arrow-environment-feedback)\"/></g><g data-reveal=\"0\"><rect x=\"12\" y=\"322\" width=\"400\" height=\"66\" rx=\"10\" fill=\"#FFFDF7\" stroke=\"#5B6573\" stroke-width=\"2.5\" filter=\"url(#p-rough)\"/><text x=\"212.0\" y=\"363.28\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"23\" font-weight=\"500\" fill=\"#243042\" text-anchor=\"middle\">判断是否需要修改设置</text></g><g data-reveal=\"1\"><text x=\"662\" y=\"30\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"28\" font-weight=\"700\" fill=\"#243042\" text-anchor=\"middle\">推送后</text></g><g data-reveal=\"1\"><rect x=\"462\" y=\"52\" width=\"400\" height=\"66\" rx=\"10\" fill=\"#FFFDF7\" stroke=\"#5B6573\" stroke-width=\"2.5\" filter=\"url(#p-rough)\"/><text x=\"662.0\" y=\"93.64\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"24\" font-weight=\"500\" fill=\"#243042\" text-anchor=\"middle\">这次提交的部署状态</text></g><g data-reveal=\"1\"><path d=\"M662 126L662 180\" stroke=\"#5B6573\" stroke-width=\"2.5\" fill=\"none\" marker-end=\"url(#rd-arrow-environment-feedback)\"/></g><g data-reveal=\"1\"><text x=\"682\" y=\"160\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"20\" font-weight=\"400\" fill=\"#5B6573\" text-anchor=\"start\">用 gh 查询</text></g><g data-reveal=\"1\"><rect x=\"462\" y=\"192\" width=\"400\" height=\"66\" rx=\"10\" fill=\"#DDF1EC\" stroke=\"#0B6B5F\" stroke-width=\"2.5\" filter=\"url(#p-rough)\"/><text x=\"662.0\" y=\"234.72\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"27\" font-weight=\"500\" fill=\"#243042\" text-anchor=\"middle\">返回进入 Context</text></g><g data-reveal=\"1\"><path d=\"M662 268L662 310\" stroke=\"#5B6573\" stroke-width=\"2.5\" fill=\"none\" marker-end=\"url(#rd-arrow-environment-feedback)\"/></g><g data-reveal=\"1\"><rect x=\"462\" y=\"322\" width=\"400\" height=\"66\" rx=\"10\" fill=\"#FFFDF7\" stroke=\"#5B6573\" stroke-width=\"2.5\" filter=\"url(#p-rough)\"/><text x=\"662.0\" y=\"363.28\" style=\"font-family:'Course Sans',sans-serif\" font-size=\"23\" font-weight=\"500\" fill=\"#243042\" text-anchor=\"middle\">判断等待、排错或继续验收</text></g></svg><p class=\"source-note\">课程自绘：据 Anthropic 的环境反馈原则与本课发布演示整理，不是官方原图</p></div>",
+      "steps": [
+        "回顾发布前查询",
+        "对照推送后查询"
+      ],
+      "script": [
+        "【操作提示｜回课件 p49d 第 1 步，依次指左列的设置、gh 查询、绿色返回框与判断；这里只归纳已有过程，不运行命令】\n\n回头看刚才的两次查询。发布之前，Codex 要先知道 GitHub 上的 Pages 当前是什么设置。它通过 gh 去查，返回进入下一次请求，才有依据判断要不要修改。知道设置命令怎么写，还不够，还要查清这个仓库现在是什么状态。",
+        "【操作提示｜推进 p49d 第 2 步，揭示右列与出处链接；对照两个绿色框，再转 p50。原文链接备用，不要求现场打开】\n\n推送之后也是一样。先查这次提交的部署状态，把实际返回带进来，再判断是继续等、按日志排错，还是进入验收。Anthropic 这篇文章也强调，agent 执行中要从环境取得实际反馈，才能判断进展。图里的两次查询，就是我们刚才看到的例子。现在部署返回成功了，页面实际能不能用，接下来还要打开看。"
+      ],
+      "refs": [
+        {
+          "kind": "live",
+          "group": "",
+          "text": "Anthropic · Building effective agents · Agents",
+          "url": "https://www.anthropic.com/research/building-effective-agents#agents"
+        }
+      ],
+      "teaching": [],
+      "source": "index.html#p49d",
+      "seconds": 60
     },
     {
       "id": "p50",
@@ -387,10 +320,18 @@ window.lesson = {
         "停用缓存再刷新"
       ],
       "script": [
-        "【操作提示｜停留 p50 第 1 步，指排练的 Build、Deploy success；明确画面是旧排练，现场失败时不宣读通过】\n\n部署状态和日志回答的是：这次构建和发布有没有完成。页面能不能让别人正常使用，我们还要在浏览器里看。左边是排练那次的成功结果，接下来检查自己的页面。",
-        "【操作提示｜现场｜推进第 2 步 → Chrome 新建未登录窗口打开本人的公开 URL，不用已登录 GitHub 窗口作唯一证据】\n\n第一项，用未登录窗口打开公开地址，看看别人能不能正常访问。",
-        "【操作提示｜推进第 3 步 → 打开开发者工具 Network、刷新，检查 CSS、JS、图片请求】\n\n第二项，看 Network 面板，有没有四零四的资源。页面上的样式、脚本和图片都要正常加载。",
-        "【操作提示｜推进第 4 步 → Network 勾 Disable cache 后刷新并核对；发现问题按实际问题继续定位，三项未过不打发布 tag。结束回 p51】\n\n第三项，停用缓存以后再刷新，确认仍然正常。三项都过，才算这次发布完成。"
+        "【操作提示｜现场｜从 Terminal 回课件 p50 第 1 步，指左边排练的 Build、Deploy success；现场未通过时不宣布通过，不打发布 tag】\n\n【切换｜回课件 p50】\n\n左边是排练那次的结果，Build 和 Deploy 都成功了。它回答的是构建和发布有没有完成。别人能不能正常打开页面，还要我们自己去看，右边这三项都要检查。",
+        "【操作提示｜推进课件 p50 第 2 步 → 浏览器新建未登录窗口，打开本次地址 prompt-to-harness.github.io/ch02-pages-release-20261101-01/；这是部署完成后要访问的目标，现场以 Pages 设置或部署输出给出的实际 URL 再核对；后续保留这个窗口做 Network 与刷新检查】\n\n第一项，用未登录窗口打开公开地址。我们这次要打开的，就是刚才填进部署请求的那个地址：组织的域名，后面接这次的仓库名。\n\n【切换｜浏览器 · 未登录窗口】\n\n看这个页面能不能正常访问，内容和样式是不是刚才发布的那一版。",
+        "【操作提示｜从浏览器回课件 p50 第 3 步，再切同一个未登录窗口，打开开发者工具 Network 并刷新，检查 CSS、JS、图片请求】\n\n【切换｜回课件 p50】\n\n第二项，看 Network，也就是浏览器的网络请求面板，检查页面资源有没有加载失败。\n\n【切换｜浏览器 · 开发者工具 Network】\n\n（这里不需要）（刷新一下，看看 CSS、JavaScript 和图片的请求，有没有四零四。）",
+        "【操作提示｜从浏览器回课件 p50 第 4 步，再切 Network 勾 Disable cache 后刷新；逐项核对，发现问题继续定位，三项未过不进入发布 tag。结束回课件】\n\n【切换｜回课件 p50】\n\n这里不需要（第三项，停用缓存以后再刷新，确认看到的是服务器上的版本。）\n\n【切换｜浏览器 · 开发者工具 Network】\n\n不需要（勾上 Disable cache，保持开发者工具打开，再刷新一次，看看页面和资源请求。）\n\n【切换｜回课件 p50】\n\n这三项都过了，才算发布完成。"
+      ],
+      "refs": [
+        {
+          "kind": "read",
+          "group": "",
+          "text": "本次发布地址（部署后核对）",
+          "url": "https://prompt-to-harness.github.io/ch02-pages-release-20261101-01/"
+        }
       ],
       "teaching": [],
       "source": "index.html#p50",
@@ -401,21 +342,19 @@ window.lesson = {
       "segment": "发布与验收",
       "label": "标记这个版本",
       "title": "给这个版本打 tag，只推送它",
-      "lead": "给公开的版本打上 ch02-homepage-live，然后只推送这一个 tag。用 --tags 会把所有本地 tag 一并公开，包括练习时随手打的。",
-      "html": "<div class=\"p-term\" data-reveal=\"0\" data-copy=\"git tag ch02-homepage-live\"><div class=\"dim\">$ git tag ch02-homepage-live</div></div><div class=\"p-term\" data-reveal=\"1\" style=\"margin-top:10px\" data-copy=\"git push origin ch02-homepage-live\"><div class=\"dim\">$ git push origin ch02-homepage-live</div><div class=\"ok\"> * [new tag] ch02-homepage-live -> ch02-homepage-live</div></div><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"2\" style=\"margin-top:14px\"><h3>不用 git push --tags</h3><p>它会把所有本地 tag 一起推上去</p></div>",
+      "lead": "给公开的版本打上 ch02-homepage-release，然后只推送这一个 tag。用 --tags 会把所有本地 tag 一并公开，包括练习时随手打的。",
+      "html": "<div class=\"p-term\" data-reveal=\"0\" data-copy=\"git tag ch02-homepage-release\"><div class=\"dim\">$ git tag ch02-homepage-release</div></div><div class=\"p-term\" data-reveal=\"1\" style=\"margin-top:10px\" data-copy=\"git push origin ch02-homepage-release\"><div class=\"dim\">$ git push origin ch02-homepage-release</div></div>",
       "steps": [
         "打 tag",
-        "只推送这一个",
-        "为什么不用 --tags"
+        "只推送这个版本"
       ],
       "script": [
-        "【操作提示｜现场｜p51 第 1 步 → Terminal 项目根目录，在验收通过的提交上 git tag ch02-homepage-live；tag 已存在则先核对，不覆盖】\n\n页面检查通过以后，给这个版本打上 ch02-homepage-live，留下可定位的发布版本。",
-        "【操作提示｜推进第 2 步 → 本人执行 git push origin ch02-homepage-live；输出按实际，不修改旧证据】\n\n只推送这一个 tag，命令可以直接从页面复制。",
-        "【操作提示｜回课件推进第 3 步】\n\n不用 git push --tags，它会把其他本地 tag 一起推上去，包括练习时随手打的那些。"
+        "【操作提示｜现场｜停留课件 p51 第 1 步 → Terminal 项目根目录；在通过验收的提交上 git tag ch02-homepage-release。tag 已存在则核对，不覆盖；未通过验收不执行】\n\n检查通过以后，给这个发布版本打一个 tag，也就是给当前提交起一个固定的名字。\n\n【切换｜Terminal · 项目根目录】\n\n这次用页面上的 ch02-homepage-release。之后通过这个名字，就能找到这一版。",
+        "【操作提示｜从 Terminal 回课件 p51 第 2 步，再由本人执行 git push origin ch02-homepage-release；只推这个 tag，不运行 --tags。实际输出不套固定结果，结束回课件进入自检】\n\n【切换｜回课件 p51】\n\n然后只推送这个 tag，命令在这里。写明名字，就只推这一个；不用 --tags 把其他练习 tag 一起推上去。\n\n【切换｜Terminal · 项目根目录】\n\n推送以后，这一版就可以通过刚才的名字定位了。\n\n【切换｜回课件 p51】"
       ],
       "teaching": [],
       "source": "index.html#p51",
-      "seconds": 90
+      "seconds": 60
     },
     {
       "id": "p51b",
@@ -430,9 +369,9 @@ window.lesson = {
         "谁决定执行"
       ],
       "script": [
-        "【操作提示｜停留 p51b 第 1 步，读题后提示暂停，再口述判断；不切工具】\n\n第一题，本地配置已经写好，Codex 还需要查 Pages 的什么信息，怎样查？请暂停想一下。\n\n要查远端当前来源是否就绪。它通过 exec 运行 gh，返回进入下一次请求，才能根据当前状态判断是否修改。",
-        "【操作提示｜推进第 2 步，读题、暂停，再讲判断】\n\n第二题，Pages 设置已经正确，能据此判断刚才那次推送已部署成功吗？\n\n还需要取得对应这次提交的运行结果，按需要看 job 和日志；页面是否可用，还要由人在浏览器里检查。",
-        "【操作提示｜推进第 3 步，读题、暂停，再讲判断】\n\n第三题，查到需要修改 Pages，在哪一步由我们决定是否执行？\n\n在本章的批准框里，核对命令、理由、仓库和范围后再批准。请求记录能看到申请与返回，看不到点击同意；推送仍由我们自己执行。"
+        "【操作提示｜停留课件 p51b 第 1 步，读题后提示暂停，留出停顿，再讲参考判断；不切窗口】\n\n第一题，本地部署配置已经写好，Codex 还需要查询 Pages 的什么信息，怎样查？大家可以暂停一下，想好判断和依据，再继续。\n\n要查的是 GitHub 上的 Pages 来源是否就绪。Codex 通过 exec 运行 gh，查询的输出进入下一次请求，再根据这个状态决定是否修改。",
+        "【操作提示｜推进课件 p51b 第 2 步，读题后留停顿，再讲参考判断，不切窗口】\n\n第二题，Pages 设置已经正确，能据此判断刚才那次推送已经部署成功吗？先暂停想一下。\n\n还要取得对应这次提交的运行结果，按需要读各个 job 和日志。部署成功以后，再到浏览器里检查页面是否可用。",
+        "【操作提示｜推进课件 p51b 第 3 步，读题后留停顿，再讲参考判断，不切窗口】\n\n第三题，Codex 查到需要修改 Pages，在哪一步由我们决定是否执行？大家也先暂停判断一下。\n\n在我们这套课程环境的批准框里，核对命令、理由、目标仓库和修改范围，再决定放不放行。请求记录里能看到申请和执行后的返回，看不到我们点击同意的动作。推送由我们自己执行。"
       ],
       "teaching": [],
       "source": "index.html#p51b",
@@ -450,8 +389,8 @@ window.lesson = {
         "Context 怎样推动发布"
       ],
       "script": [
-        "【操作提示｜停留 p52 第 1 步，指执行之前、执行之后两张卡片，不预告 2.5】\n\n这一节，我们从本地主页走到了公开地址。发布前确认可公开、审配置，查询远端来源再按需要设置；推送以后取得这次部署的结果，最后打开页面确认可用，留下发布 tag。",
-        "【操作提示｜推进第 2 步，指工具返回与 context 的关系】\n\n回到 Context：工具取得的当前状态，作为返回进入请求，支持下一步判断；执行以后，还要取得新的结果来核对。这就是工具和 Context 怎样一起推动一次真实发布。"
+        "【操作提示｜停留课件 p52 第 1 步，指执行之前和执行之后两张卡片，不切窗口】\n\n这一节，我们把本地的主页发布成了公开地址。执行之前，看清要公开的内容、审过配置，再查询 Pages 的来源。执行之后，取得这次提交的部署结果，打开页面检查，最后留下发布 tag。",
+        "【操作提示｜推进课件 p52 第 2 步，指工具返回与 context 的关系，不切窗口】\n\n回到 Context，刚才这些远端状态，都是工具查回来以后，才进入请求里的。模型根据返回判断下一步，执行以后再查询新的结果。我们看请求里的“工具返回”，也就能找到它这一步判断的依据。"
       ],
       "teaching": [],
       "source": "index.html#p52",
@@ -460,24 +399,24 @@ window.lesson = {
   ],
   "segments": [
     {
-      "label": "公开之前",
+      "label": "准备发布",
       "seconds": 180
     },
     {
-      "label": "推送前检查",
+      "label": "部署配置",
       "seconds": 210
     },
     {
-      "label": "部署配置",
-      "seconds": 270
+      "label": "查询设置",
+      "seconds": 180
     },
     {
-      "label": "远端设置",
-      "seconds": 240
+      "label": "查询部署",
+      "seconds": 150
     },
     {
       "label": "发布与验收",
-      "seconds": 510
+      "seconds": 330
     }
   ]
 };
