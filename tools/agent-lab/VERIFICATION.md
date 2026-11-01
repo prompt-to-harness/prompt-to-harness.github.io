@@ -82,3 +82,16 @@
 
 按讲师授权实现：默认保留课程环境，当前仅实现 Codex + MiniMax 与可选的 `--tap`，预留 Claude 入口；先做本地验证，再讨论发布和 PPT。包名和命令名采用 `agent-lab`，Python 包可从本地目录、Git 或未来的 PyPI 分发，不需要 npm。首次正式发布版本、跨平台支持范围尚未确定，暂不发布。
 
+
+## 2026-11-01：Claude 入口迁移（本地 0.1.4，未发布）
+
+- 来源：`tools/clean-claude.sh`。新增 `agent-lab claude [--tap] [-- …]` 与只读的 `home --agent claude`；旧脚本保留。按项目持久化 Claude HOME，和 Codex 分开；独立 tap 数据、固定 MiniMax 服务与模型，Key 不写配置。原 Codex 启动器未修改。
+- 相对旧实验的变化：旧脚本默认临时 HOME、全局 tap 数据；新入口持久化并只启用 user settings，避免 project/local settings 改写服务。没有迁移旧会话，没有把历史请求标为新入口产物。组织策略和项目规则文件仍需单独判断，具体边界见 README。
+- `uv run --project tools/agent-lab python -m unittest discover -s tools/agent-lab/tests -q`：34 项通过。覆盖无 Key 零创建、凭据与配置隔离、已有非课程目录/软链接拒绝、会话保留、参数校验、Codex/Claude 分派、direct/tap 命令及退出码；启动调用使用 mock，不发 API 请求。
+- `uv build --wheel tools/agent-lab` 成功生成 0.1.4 wheel。未安装覆盖日常工具、未推送、未发布 release；已发布 0.1.3 不含 Claude 支持。
+- 当前真实 CLI 为 Claude Code 2.1.309，历史实验为 2.1.304。本轮以假 Key、临时 AGENT_LAB_HOME，通过新入口运行真实 CLI `--help`，确认帮助正常退出、课程配置生成；不发送模型请求。
+- 未验证：真实 MiniMax 返回、tap 捕获及查看器、子进程实际清理凭据、交互式恢复、Linux/WSL。若录制改为新入口现场演示，先发一次最小问候，检查上游、模型、系统指令、工具与记录；若仍复用旧截图，无需重跑。
+
+## 2026-11-01：0.1.4 发布准备
+
+讲师明确要求发布 0.1.4 artifact 并更新默认下载。重新运行 34 项测试与 wheel 构建通过；本次只发布 tools/agent-lab 源码与安装包，独立分发分支及 tag 为 codex/agent-lab-v0.1.4、agent-lab-v0.1.4，不合并课程分支。Release 说明保留真实 MiniMax/tap 链路尚未核验的范围；发布不改变此前的实验验证结论。仓库课件的安装入口同步到 0.1.4。

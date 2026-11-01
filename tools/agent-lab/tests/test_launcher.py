@@ -222,13 +222,13 @@ class ArgumentTests(unittest.TestCase):
             self.assertEqual(main(), 0)
             launch.assert_called_once_with(True, [])
 
-    def test_claude_placeholder_does_not_start_codex(self):
-        for args in (["claude"], ["claude", "--tap"]):
-            with self.subTest(args=args), patch("sys.argv", ["agent-lab", *args]), patch(
-                    "agent_lab.codex.launch") as launch, contextlib.redirect_stderr(io.StringIO()) as error:
-                self.assertEqual(main(), 2)
-                self.assertIn("尚未实现", error.getvalue())
-                launch.assert_not_called()
+    def test_claude_is_dispatched(self):
+        with patch("sys.argv", ["agent-lab", "claude", "--tap"]), patch(
+                "agent_lab.claude.launch", return_value=0) as launch, patch(
+                "agent_lab.codex.launch") as other:
+            self.assertEqual(main(), 0)
+            launch.assert_called_once_with(True, [])
+            other.assert_not_called()
 
     def test_agent_is_required_and_unknown_agent_is_rejected(self):
         for args in ([], ["unknown"], ["--tap"]):

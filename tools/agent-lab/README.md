@@ -1,6 +1,6 @@
 # Agent Lab
 
-状态：2026-10-23，Git 分发试用版，未发布到 PyPI。当前支持 Codex + MiniMax 与可选的请求记录；预留 Claude 子命令，尚未实现；尚未用于课堂试讲。PPT 和原有 `tools/clean-codex.sh` 暂不改动。
+状态：2026-11-01，Git 分发试用版，未发布到 PyPI。0.1.4 支持 Codex / Claude Code + MiniMax 与可选的请求记录，安装命令指向课程 release 的 0.1.4 wheel。原有 clean 脚本保留供历史实验追溯。
 
 前置条件：已安装 `uv`、Codex CLI，并在当前终端提供 `MINIMAX_API_KEY`。本轮在 macOS 核验 Codex CLI 0.163.0；其他版本会提示需要核验。Linux/WSL 尚未实测，原生 Windows 暂不支持。
 
@@ -14,14 +14,14 @@ uvx --from ./tools/agent-lab agent-lab codex
 uvx --from ./tools/agent-lab agent-lab codex --tap
 ```
 
-`agent-lab codex --help` 查看 Codex 入口选项。`agent-lab claude`（含 `--tap`）目前只提示“尚未实现”并以退出码 2 结束，不启动任何 agent。
+`agent-lab codex --help` 或 `agent-lab claude --help` 查看入口选项。
 
 启动时工作目录不变。在自己的项目目录运行，应把 `--from` 后面换成这个包的绝对路径。
 
-学员安装用课程仓库 release 里的 wheel（约 11 KB）。不要用 `git+https://…#subdirectory=tools/agent-lab`：uv 会先拉整个仓库的历史（约 110 MB），网速慢时装不完。发新版时改 `pyproject.toml` 的版本号，`uv build --wheel` 后发一个新的 `agent-lab-v<版本>` release，并更新 2.1 p06-tap 的 `AGENT_LAB_INSTALL`。
+学员安装用课程仓库 release 里的 wheel。不要用 `git+https://…#subdirectory=tools/agent-lab`：uv 会先拉整个仓库的历史（约 110 MB），网速慢时装不完。发新版时改 `pyproject.toml` 的版本号，`uv build --wheel` 后发一个新的 `agent-lab-v<版本>` release，并更新 2.1 p06-tap 的 `AGENT_LAB_INSTALL`。
 
 ```sh
-uv tool install --force https://github.com/prompt-to-harness/prompt-to-harness.github.io/releases/download/agent-lab-v0.1.3/agent_lab-0.1.3-py3-none-any.whl
+uv tool install --force https://github.com/prompt-to-harness/prompt-to-harness.github.io/releases/download/agent-lab-v0.1.4/agent_lab-0.1.4-py3-none-any.whl
 ```
 
 也可以从本地目录安装到本机，此后在任意项目目录直接使用：
@@ -50,6 +50,30 @@ Key 可以由终端启动配置事先导出，也可以只给本次命令设置 
 - `--tap` 使用包依赖 claude-tap `0.1.146+pr475`：0.1.146 加上 [liaohch3/claude-tap#475](https://github.com/liaohch3/claude-tap/pull/475) 的查看器改动（文字按文字显示、显示推理、显示 namespace 子工具），由课程 fork 打成一个 wheel 发布，上游发布后换回 PyPI 版本。它会经手 Key，请求记录位于课程 HOME 的 `.local/share/claude-tap/`，可能包含项目代码和个人信息，不提交仓库。查看器按课程 HOME 分配固定端口，地址以启动输出为准；端口被无关服务占用时停止，不关闭已有服务。关闭查看器或退出会话不会自动删除记录。
 
 设 `AGENT_LAB_HOME` 可手动指定根目录，Codex 环境放在其 `codex/` 下。0.1.2 起不再默认沿用旧的共享环境（`~/.local/share/agent-lab/codex`、`~/.local/share/prompt-to-harness/course-codex`），文件保留不删；要接着用旧会话，把 `AGENT_LAB_HOME` 或 `COURSE_CODEX_HOME` 指过去。旧变量 `COURSE_CODEX_HOME` 仍兼容，直接指向 Codex HOME，但不能与 `AGENT_LAB_HOME` 同时设置。工具只接管空目录或自己创建并带标记的目录，不接受个人 HOME 或已有 `.codex` 目录。请勿在课程目录内手动登录 Codex。
+
+## Claude 实验入口
+
+先安装 Claude Code CLI，提供 `MINIMAX_API_KEY`。在仓库根目录运行：
+
+```sh
+uvx --from ./tools/agent-lab agent-lab claude
+uvx --from ./tools/agent-lab agent-lab claude --tap
+uvx --from ./tools/agent-lab agent-lab claude --tap -- -p "你好"
+uvx --from ./tools/agent-lab agent-lab home --agent claude
+```
+
+在实验目录中运行时，`--from` 改为包的绝对路径；或先 `uv tool install --reinstall ./tools/agent-lab`，再使用 `agent-lab claude --tap`。`-- --continue` / `-- --resume <会话 ID>` 可接续会话。
+
+从 `tools/clean-claude.sh` 迁入的配置：MiniMax-M3.1-Flash、Anthropic 兼容接口 `https://api.minimax.cn/anthropic`、子模型映射、跳过首次引导、关闭非必要流量、子进程凭据清理变量。凭据只通过 `ANTHROPIC_AUTH_TOKEN` 传入；设置文件不存 Key 或上游地址，避免覆盖 tap 的代理地址。子进程清理沿用旧脚本设置，本轮未用真实工具调用验证，不保证模型不能通过文件或 shell 配置读到凭据。
+
+与旧脚本的区别：
+
+- 默认环境持久化，位于对应项目环境根目录的 `claude/`，与 `codex/` 分开；会话和请求记录保留。`AGENT_LAB_HOME` 指定共同根目录，`COURSE_CODEX_HOME` 仅影响 Codex，旧 `CLEAN_CLAUDE_*` 开关不再生效。不会自动搬入旧脚本的临时 HOME。
+- `--setting-sources user` 只加载课程 HOME 的用户设置，避免项目 settings 改写实验服务；这是相对旧脚本新增的配置约束。组织 managed settings 仍可能生效，项目 `CLAUDE.md` 等上下文也不属于完整隔离范围。这不是安全沙箱。配置来源与优先级见 [官方设置文档](https://code.claude.com/docs/en/settings)及 [CLI 参考](https://code.claude.com/docs/en/cli-reference)。
+- `--` 后可传 print、resume、权限等会话参数；拒绝模型、settings、远程启动覆盖和登录等管理命令。不复制个人登录，不链接个人 Keychains；已有课程凭据文件会触发停止。
+- tap 使用 Agent Lab 自带的 `0.1.146+pr475`，记录与端口按 Claude HOME 分开，不沿用旧脚本的全局数据目录。
+
+2.5 继续使用 2026-10-21 的历史实验（Claude Code 2.1.304），不把它标成 Agent Lab 的产出。本机 2.1.309 只核对了 CLI 版本和帮助；0.1.4 的真实 MiniMax 请求与 tap 记录仍需一次最小端到端核验，不能拿单元测试代替。本节按已有截图录制无需重跑；若要切换为新入口现场演示或更新对比数字，先核验再换素材。
 
 ## 本地验证
 
