@@ -3,6 +3,13 @@ window.lesson = {
   "chapter": "第 4 章 · SDD",
   "section": "04.01",
   "summary": "核对固定基线，用新人简报和最小用例认识已有工程，再由新增需求引出五层规格。",
+  "prep": [
+    "在已有项目之外的空目录里，按 p02 实验说明第 1–4 步取得副本并创建 course/ch04-baseline，再按 p05 实验说明第 1–5 步装好依赖；录制时 A、B 和 p06 都用这一份副本，p02 只现场演示核对。",
+    "开录前在该副本根目录运行 git status --short，应无输出；运行 lsof -i :3000，应无输出，有残留的 next dev 先结束。",
+    "终端停在副本根目录；Codex 在 p03 现场新开会话，不提前启动。",
+    "B 段 Agent 可能自行做十多分钟的验证（2026-11-06 讲师运行时约 13 分钟，按截图时间推算），录制不打断，剪辑时压缩等待，记下开始和结束时间点。",
+    "录完结束 Agent 留在后台的服务：lsof -i :3000 找到进程后结束它。"
+  ],
   "scenes": [
     {
       "id": "p01",
@@ -40,7 +47,7 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜停留课件 p02 第 1 步，依次指向上游仓库、Release 和完整 commit；不切窗口】\n\n要接手 JSON Crack，先拿到和课件同一版的代码。课件给出三项信息：上游仓库、Release v5.0.0，以及一串完整的 commit。Release 帮我们认出版本，完整 commit 才把实际使用的代码固定下来。",
-        "【操作提示｜切到终端，在已有项目之外的空目录里现场执行本页“实验说明”第 1–4 步；逐条读出 HEAD、标签、分支和 status 的实际输出，再切回课件】\n\n现在取得副本。克隆之后，先确认 v5.0.0 指向的就是这串 commit，再从这串 commit 创建课程分支。接着核对三件事：HEAD 是不是这串 commit，分支是不是刚建的课程分支，工作区是不是干净。如果你本地早就有这个仓库，还做过修改，保留原来的目录，另外克隆一份练习副本。",
+        "【操作提示｜切到终端，在录前准备好的基线副本根目录执行本页“实验说明”第 2 步和第 4 步的命令；逐条读出标签指向的 commit、HEAD、标签、分支和 status 的实际输出，再切回课件】\n\n我这里已经按实验说明取得了副本，从这串 commit 创建了课程分支，也提前装好了依赖。现在核对它：先确认 v5.0.0 指向的就是这串 commit，再看三件事：HEAD 是不是这串 commit，分支是不是课程分支，工作区是不是干净。你可以按右上角的“实验说明：取得并核对固定基线”，从克隆开始一步步做。如果你本地早就有这个仓库，还做过修改，保留原来的目录，另外克隆一份练习副本。",
         "【操作提示｜推进课件第 3 步，指向底部横条】\n\n为什么要这么较真？因为后面的启动方式、目录介绍和调查结论，都要对应这一版。版本对不上，同一句结论就可能找不到依据。这个项目要求 Node.js 24 以上、pnpm 10 以上；如果你本地环境暂时不满足，先以看懂演示和掌握规格思路为主，这不影响后面对规格和架构的理解。"
       ],
       "refs": [
@@ -83,7 +90,7 @@ window.lesson = {
             "code": "git rev-parse HEAD\ngit describe --tags --exact-match\ngit branch --show-current\ngit status --short"
           },
           {
-            "text": "把核对结果记下来：上游地址、Release、完整 commit、课程分支、工作区状态和核对日期。后面的启动方式、目录介绍和调查结论都对应这份记录。",
+            "text": "后面的启动方式、目录介绍和调查结论都对应这一版。换机器或重新克隆之后，用第 4 步的四条命令再核对一次。",
             "code": ""
           },
           {
@@ -157,7 +164,7 @@ window.lesson = {
         {
           "kind": "live",
           "group": "固定版本原文",
-          "text": "README.md 第 92–119 行",
+          "text": "README.md 的 Development 段",
           "url": "https://github.com/AykutSarac/jsoncrack.com/blob/e99288b4eff060dcd53428f2a3a5c2f28eecffa6/README.md#L92-L119"
         },
         {
@@ -190,7 +197,7 @@ window.lesson = {
         "【操作提示｜停留课件 p05 第 1 步，指向“按这一版的说明”；不切窗口。依赖已在录制前按本页实验说明装好】\n\n有了启动依据，第二件事是真正用起来一次。这条请求让 Agent 按这一版仓库的说明，带我们启动 Web 应用。",
         "【操作提示｜推进第 2 步，指向“一段简单 JSON”】\n\n然后用一段简单的 JSON 体验现有功能，告诉我们怎样操作、看什么。",
         "【操作提示｜推进第 3 步，指向“分清两类结果”】\n\n这里要它分清两类结果：哪些是它建议的步骤，哪些是实际验证到的。OpenAI 和 Claude Code 的官方建议都强调，要拿到实际运行的命令和输出来核对，链接在页面下方。",
-        "【操作提示｜推进第 4 步，指向“遇到阻塞先说明”；随后切到 Codex，在同一会话发送请求原文；启动命令按它给出的步骤，由讲师在另一个终端执行，按实际执行者记录】\n\n如果遇到阻塞，先说明，不要通过修改源码或升级依赖来绕过。依赖安装需要联网，也比较耗时，我们已经提前装好了，步骤在右上角的实验说明里，你可以跟着做。现在发请求。"
+        "【操作提示｜推进第 4 步，指向“遇到阻塞先说明”；随后切到 Codex，在同一会话发送请求原文；若 Codex 申请运行 pnpm dev:www，批准；等它回复完再切回课件进入 p06】\n\n如果遇到阻塞，先说明，不要通过修改源码或升级依赖来绕过。依赖安装需要联网，也比较耗时，我们已经提前装好了，步骤在右上角的实验说明里，你可以跟着做。现在发请求。启动服务要监听端口，Codex 可能会先来问我们要不要放行，批准就行。"
       ],
       "refs": [
         {
@@ -249,17 +256,19 @@ window.lesson = {
       "segment": "认识工程",
       "label": "这次实际走到了哪一步",
       "title": "这次实际走到了哪一步？",
-      "lead": "Agent 建议运行某条命令，说明它提出了一个步骤；命令输出和浏览器画面，才说明这次走到了哪里。浏览器里的输入与观察由讲师完成，按实际执行者记录。",
-      "html": "<div style=\"display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:26px;align-items:start\"><div class=\"p-code\" data-reveal=\"1\"><div class=\"p-code-head\"><span>示例 JSON</span><span>粘进左侧编辑器</span></div><pre style=\"padding:10px 14px\">{\n  &quot;name&quot;: &quot;Alice&quot;,\n  &quot;skills&quot;: [&quot;JavaScript&quot;, &quot;Python&quot;],\n  &quot;profile&quot;: { &quot;city&quot;: &quot;Hangzhou&quot; }\n}</pre></div><ol class=\"p-watch\"><li data-reveal=\"0\">命令与输出<small>哪个副本 · 出现 Ready · 地址</small></li><li data-reveal=\"1\">输入<small>普通字段、数组、嵌套对象</small></li><li data-reveal=\"2\">画面<small>每个字段在图里的哪个节点</small></li></ol></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:20px\">命令输出和画面，才说明<b>这次走到了哪里</b></div>",
+      "lead": "先看 Agent 回复里哪些结论标为实测，有没有附上命令和输出；再自己启动服务，在浏览器里核对。Agent 建议运行某条命令，说明它提出了一个步骤；命令输出和浏览器画面，才说明这次走到了哪里。浏览器里的输入和观察由讲师来做。",
+      "html": "<div style=\"display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:26px;align-items:start\"><div><div class=\"p-code\" data-reveal=\"2\"><div class=\"p-code-head\"><span>示例 JSON</span><span>粘进左侧编辑器</span></div><pre style=\"padding:10px 14px;white-space:pre;overflow-x:auto\">{\n  &quot;name&quot;: &quot;Alice&quot;,\n  &quot;skills&quot;: [&quot;JavaScript&quot;, &quot;Python&quot;],\n  &quot;profile&quot;: { &quot;city&quot;: &quot;Hangzhou&quot; }\n}</pre></div><details class=\"p-pop\"><summary>示例画面</summary><div class=\"p-pop-body\"><div class=\"p-pop-head\"><span>示例画面</span><button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div><a href=\"assets/editor-sample-20261106.png\"><img src=\"assets/editor-sample-20261106.png\" alt=\"JSON Crack 编辑器：左侧是示例 JSON，右侧交互图里根节点显示 name、skills、profile，skills 展开为 JavaScript 和 Python，profile 展开为 city: Hangzhou\" style=\"display:block;max-width:100%;height:auto\"></a><p style=\"font-size:16px;color:var(--p-muted);margin:8px 0 0\">2026-11-06 讲师在基线副本上启动服务，粘贴本页示例 JSON 后的编辑器画面（JSON Crack v5.0.0）</p></div></details></div><ol class=\"p-watch\"><li data-reveal=\"0\">Agent 的回复<small>哪条标为实测 · 有没有命令和输出</small></li><li data-reveal=\"1\">在终端启动服务<small>哪个副本 · 出现 Ready · 地址</small></li><li data-reveal=\"2\">输入<small>普通字段、数组、嵌套对象</small></li><li data-reveal=\"3\">画面<small>每个字段在图里的哪个节点</small></li></ol></div><div class=\"p-bar is-light\" data-reveal=\"3\" style=\"margin-top:20px\">命令输出和画面，才说明<b>这次走到了哪里</b></div>",
       "steps": [
-        "命令与输出",
+        "Agent 的回复",
+        "启动服务",
         "输入",
         "画面"
       ],
       "script": [
-        "【操作提示｜停留课件 p06 第 1 步；切到运行 pnpm dev:www 的终端，读出所在目录、Ready 和地址，再切回课件】\n\n先看命令和输出：服务是从哪个目录启动的，是不是我们刚核对过的那个副本，终端里有没有出现 Ready，地址是什么。",
-        "【操作提示｜推进第 2 步，指向示例 JSON；随后切到浏览器打开编辑器页面，有说明对话框先关掉，把示例 JSON 粘进左侧编辑器】\n\n再看输入。这段 JSON 里有普通字段 name，有数组 skills，还有嵌套对象 profile。我们把它粘进编辑器。",
-        "【操作提示｜推进第 3 步；在浏览器里依次指出 name、skills 的两个元素和 profile 下的 city 各在哪个节点，再切回课件指向底部横条；讲完进入 p07】\n\n最后看画面：每个字段出现在交互图的哪个节点上，数组的两个元素和嵌套的 city 又在哪里。Agent 建议运行某条命令，只说明它提出了一个步骤；命令输出和这张图，才说明这次实际走到了哪里。如果你那边启动受阻，右上角的实验说明写了先查什么。"
+        "【操作提示｜停留课件 p06 第 1 步；切到 Codex 窗口，在回复里找出一条标为实测的结论，指出它附带的命令和输出，再切回课件】\n\n先看 Agent 的回复。我们在请求里要它分清建议步骤和实际验证到的结果，现在就按这个来核对：找一条它说实际验证过的结论，看它有没有给出执行的命令和输出。有命令、有输出，这条才算有依据；只有一句“已验证”，就还要我们自己去看。",
+        "【操作提示｜推进第 2 步；切到终端，在基线副本根目录运行 pnpm dev:www，读出所在目录、Ready 和地址，再切回课件。若提示端口被占用或 Unable to acquire lock，说明 Agent 启动的服务仍在后台，改为直接打开 http://localhost:3000/editor。现场无法启动时，点开本页“示例画面”继续讲】\n\n接着自己核对一次。Agent 启动的服务，有时会在会话结束后继续留在后台，有时会跟着退出。这里我们在终端启动一次，顺便看清命令和输出：服务是从哪个目录启动的，是不是我们刚核对过的那个副本，终端里有没有出现 Ready，地址是什么。如果你那边提示端口被占用，多半是 Agent 启动的服务还在运行，直接打开浏览器就行。",
+        "【操作提示｜推进第 3 步，指向示例 JSON；随后切到浏览器打开编辑器页面，有说明对话框先关掉，把示例 JSON 粘进左侧编辑器】\n\n再看输入。这段 JSON 里有普通字段 name，有数组 skills，还有嵌套对象 profile。我们把它粘进编辑器。",
+        "【操作提示｜推进第 4 步；在浏览器里依次指出 name、skills 的两个元素和 profile 下的 city 各在哪个节点，再切回课件指向底部横条；讲完进入 p07】\n\n最后看画面：每个字段出现在交互图的哪个节点上，数组的两个元素和嵌套的 city 又在哪里。Agent 建议运行某条命令，只说明它提出了一个步骤；命令输出和这张图，才说明这次实际走到了哪里。如果你那边启动受阻，右上角的实验说明写了先查什么。"
       ],
       "repro": {
         "label": "实验说明：启动受阻时怎么做",
@@ -273,7 +282,7 @@ window.lesson = {
             "code": "node -v\npnpm -v\npwd\ngit status --short"
           },
           {
-            "text": "提示 3000 端口被占用时，先查是哪个进程在用，关掉它或换一个空闲端口再试。",
+            "text": "提示 3000 端口被占用，或出现 Unable to acquire lock、is another instance of next dev running 时，多半是之前启动的服务还在后台运行，例如由 Agent 拉起、没有对应终端的那一个。先查是哪个进程在用；只是想看页面，直接打开 http://localhost:3000/editor 即可，要重启就先结束那个进程。",
             "code": "lsof -i :3000"
           },
           {
@@ -293,7 +302,7 @@ window.lesson = {
       },
       "teaching": [],
       "source": "index.html#p06",
-      "seconds": 90
+      "seconds": 120
     },
     {
       "id": "p07",
@@ -331,7 +340,7 @@ window.lesson = {
       "script": [
         "【操作提示｜停留课件 p08 第 1 步，指向左栏四项】\n\n这时候你可能会想：前面几章我们学会了写结构化 Prompt，那我把 Prompt 写到三千字，把能想到的细节全塞进去，让 AI 直接动手，不行吗？可以，但有前提。这个长 Prompt 得真的完成四件事：事实核验、规则批准、验收设计和实施拆分。只是把字数写长，并不会自动替我们做完它们。",
         "【操作提示｜推进第 2 步，指向右栏，从上到下指三条约束，最后一条已划掉】\n\n就算这四件事都做到了，我们也不推荐这样做。这类工作通常是长 Prompt 加上长上下文：任务要经过多轮补充和执行，上下文变长以后可能被压缩，第二章讲过压缩。早先写在 Prompt 里的约束条件，很容易在摘要和后面的轮次里丢掉或变淡。而且少了哪一条，事后不容易发现。右边这张是我们画的示意，用来说明风险，不是某个产品的具体压缩方式。",
-        "【操作提示｜推进第 3 步，指向底部横条；讲完进入 p09】\n\n所以，面对陌生的大工程，我们把这些约定写成能单独查阅、按版本维护的文件，需要的时候让 Agent 重新读取原文。这就是这一章的主线 SDD，规格驱动开发：先形成可观察、可验收的约定，再据此组织实现。"
+        "【操作提示｜推进第 3 步，指向底部横条；讲完进入 p09】\n\n回到开头的问题：接手大项目，还能边聊边改吗？边聊边改仍然可以用来探索，可是决定会散在多轮对话里，上下文一压缩还可能丢掉。所以，面对陌生的大工程，我们把这些约定写成能单独查阅、按版本维护的文件，需要的时候让 Agent 重新读取原文。这就是这一章的主线 SDD，规格驱动开发：先形成可观察、可验收的约定，再据此组织实现。"
       ],
       "teaching": [],
       "source": "index.html#p08",
@@ -379,7 +388,7 @@ window.lesson = {
       "script": [
         "【操作提示｜停留课件 p10 第 1 步，从左到右指三个节点】\n\n五份文档写好以后，它们之间要能对上。验收案例对应需求规则，实现任务指向相关的需求和验收。这样改动一条需求时，就能顺着找到要复核的案例和任务。",
         "【操作提示｜推进第 2 步，先指左卡，再指右卡】\n\n发现问题的时候，回哪一层？如果是验收案例暴露出某条规则根本没定，先回到 Spec，由人来决定，再同步验收。如果规则没问题，只是实现方案要调整，就回到 Plan，核对相关的任务。",
-        "【操作提示｜推进第 3 步，指向底部横条；讲完进入 p11】\n\n这里有一条分工原则：Spec 写用户能观察到的行为，尽量不写具体的文件名或组件名；代码改哪里、函数怎么调，留给 Plan 决定。这样换实现方案时，通常不必重写需求；调整一条规则，也不必连带改写方案。"
+        "【操作提示｜推进第 3 步，指向底部横条；讲完进入 p11】\n\n这里有一条分工原则：Spec 写用户能观察到的行为，尽量不写具体的文件名或组件名；代码改哪里、函数怎么调，留给 Plan 决定。这样换实现方案时，通常不必重写需求；调整一条规则时，也更容易看清方案要不要跟着改。"
       ],
       "teaching": [],
       "source": "index.html#p10",
@@ -414,15 +423,15 @@ window.lesson = {
       "label": "小结",
       "title": "这一节留下什么",
       "lead": "固定起点、认识工程，再把新增需求的问题放回五层。下一节从需求原文开始，形成 Brief。",
-      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">一个判断</h3><div class=\"p-star\" style=\"width:250px;font-size:24px\">先问在决定什么<br>再放进对应层</div></div><div data-reveal=\"1\"><h3>留下的</h3><ul class=\"p-exits\" style=\"gap:10px\"><li class=\"is-pass\">固定基线记录</li><li class=\"is-pass\">带出处的新人简报</li><li class=\"is-pass\">运行或阻塞记录</li><li class=\"is-pass\">五层关系图</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>4.2 贴上需求原文，就能直接写吗？</h3><p>从飞书里的需求笔记开始</p></div></div></div>",
+      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">一个判断</h3><div class=\"p-star\" style=\"width:250px;font-size:24px\">先问在决定什么<br>再放进对应层</div></div><div data-reveal=\"1\"><h3>留下的</h3><ul class=\"p-exits\" style=\"gap:10px\"><li class=\"is-pass\">对上版本的副本</li><li class=\"is-pass\">能核对的简报</li><li class=\"is-pass\">跑通一次的最小用例</li><li class=\"is-pass\">五层各自的分工</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>4.2 贴上需求原文，就能直接写吗？</h3><p>从飞书里的需求笔记开始</p></div></div></div>",
       "steps": [
         "一个判断",
         "留下的",
         "下一节"
       ],
       "script": [
-        "【操作提示｜停留课件 p12 第 1 步，指向星形】\n\n这一节最后留下一个判断：遇到一个问题，先问它在决定什么，再把它放进对应的层。",
-        "【操作提示｜推进第 2 步，依次指四项】\n\n这一节我们留下了四样东西：一份固定基线的记录，一份带出处的新人简报，一份运行或阻塞的记录，还有这张五层关系图。",
+        "【操作提示｜停留课件 p12 第 1 步，指向星形】\n\n开头的问题现在有了答案：可以继续边聊，但约定要写成文件。这一节最后留下一个判断：遇到一个问题，先问它在决定什么，再把它放进对应的层。",
+        "【操作提示｜推进第 2 步，依次指四项】\n\n这一节我们手里有了四样东西：一份对上版本的副本，一份能打开出处核对的简报，一个跑通过一次的最小用例，还有五层各自管什么的分工。",
         "【操作提示｜推进第 3 步，指向下一节卡片】\n\n下一节，我们从飞书里的一份需求笔记出发，读取原文，再进入源码调查，形成第一份文档 Brief。"
       ],
       "teaching": [],
@@ -441,7 +450,7 @@ window.lesson = {
     },
     {
       "label": "认识工程",
-      "seconds": 420
+      "seconds": 450
     },
     {
       "label": "新增需求",

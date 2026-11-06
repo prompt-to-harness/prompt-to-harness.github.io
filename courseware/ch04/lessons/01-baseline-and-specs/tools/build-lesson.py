@@ -10,9 +10,15 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
 from html import escape
 
-from lessonkit import NARROW, Lesson, anchor, chapter_map, ref, repro  # noqa: E402
+from lessonkit import NARROW, Lesson, anchor, chapter_map, pop, ref, repro  # noqa: E402
 
-lesson = Lesson(__file__, "4.1", "接手大项目，还能边聊边改吗", summary="核对固定基线，用新人简报和最小用例认识已有工程，再由新增需求引出五层规格。")
+lesson = Lesson(__file__, "4.1", "接手大项目，还能边聊边改吗", summary="核对固定基线，用新人简报和最小用例认识已有工程，再由新增需求引出五层规格。", prep=[
+    "在已有项目之外的空目录里，按 p02 实验说明第 1–4 步取得副本并创建 course/ch04-baseline，再按 p05 实验说明第 1–5 步装好依赖；录制时 A、B 和 p06 都用这一份副本，p02 只现场演示核对。",
+    "开录前在该副本根目录运行 git status --short，应无输出；运行 lsof -i :3000，应无输出，有残留的 next dev 先结束。",
+    "终端停在副本根目录；Codex 在 p03 现场新开会话，不提前启动。",
+    "B 段 Agent 可能自行做十多分钟的验证（2026-11-06 讲师运行时约 13 分钟，按截图时间推算），录制不打断，剪辑时压缩等待，记下开始和结束时间点。",
+    "录完结束 Agent 留在后台的服务：lsof -i :3000 找到进程后结束它。",
+])
 scene = lesson.scene
 
 UPSTREAM = "https://github.com/AykutSarac/jsoncrack.com"
@@ -87,7 +93,7 @@ scene(
         (f"确认 Release 标签指向课件给出的完整 commit。输出应为 {SHA}。", f"git rev-parse '{RELEASE}^{{commit}}'"),
         ("从完整 commit 创建本地课程分支。main 会继续前进，标签也可能被移动；完整 commit 指向的代码不会变，所以分支从它创建。", f"git checkout -b {BRANCH} {SHA}"),
         (f"逐项核对：第一行等于完整 commit；第二行是 {RELEASE}，说明当前提交正好是这个 Release；第三行是刚建的课程分支；最后一条没有输出，表示工作区干净。", "git rev-parse HEAD\ngit describe --tags --exact-match\ngit branch --show-current\ngit status --short"),
-        ("把核对结果记下来：上游地址、Release、完整 commit、课程分支、工作区状态和核对日期。后面的启动方式、目录介绍和调查结论都对应这份记录。", None),
+        ("后面的启动方式、目录介绍和调查结论都对应这一版。换机器或重新克隆之后，用第 4 步的四条命令再核对一次。", None),
         ("本地已有这个仓库且做过修改时，保留原目录，不要 reset 或丢弃改动；换一个目录另克隆一份练习副本，再从第 2 步做起。", f"git clone {UPSTREAM}.git jsoncrack-ch04\ncd jsoncrack-ch04"),
     ], note="本流程只取得并核对代码，不安装依赖、不启动；环境要求与启动在后面说明。", label="实验说明：取得并核对固定基线"),
 )
@@ -139,7 +145,7 @@ scene(
     ),
     steps=["挑一条结论", "对上 README", "对上 package.json"],
     refs=[
-        ref("README.md 第 92–119 行", f"{UPSTREAM}/blob/{SHA}/README.md#L92-L119", "固定版本原文"),
+        ref("README.md 的 Development 段", f"{UPSTREAM}/blob/{SHA}/README.md#L92-L119", "固定版本原文"),
         ref("package.json", f"{UPSTREAM}/blob/{SHA}/package.json#L13-L35", "固定版本原文"),
     ],
 )
@@ -175,22 +181,29 @@ scene(
 scene(
     id="p06", segment="认识工程",
     label="这次实际走到了哪一步", title="这次实际走到了哪一步？",
-    lead="Agent 建议运行某条命令，说明它提出了一个步骤；命令输出和浏览器画面，才说明这次走到了哪里。浏览器里的输入与观察由讲师完成，按实际执行者记录。",
+    lead="先看 Agent 回复里哪些结论标为实测，有没有附上命令和输出；再自己启动服务，在浏览器里核对。Agent 建议运行某条命令，说明它提出了一个步骤；命令输出和浏览器画面，才说明这次走到了哪里。浏览器里的输入和观察由讲师来做。",
     html=(
         '<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:26px;align-items:start">'
-        '<div class="p-code" data-reveal="1"><div class="p-code-head"><span>示例 JSON</span><span>粘进左侧编辑器</span></div>'
-        f'<pre style="padding:10px 14px">{escape(SAMPLE)}</pre></div>'
+        '<div><div class="p-code" data-reveal="2"><div class="p-code-head"><span>示例 JSON</span><span>粘进左侧编辑器</span></div>'
+        f'<pre style="padding:10px 14px;white-space:pre;overflow-x:auto">{escape(SAMPLE)}</pre></div>'
+        + pop("示例画面", "示例画面",
+              '<a href="assets/editor-sample-20261106.png"><img src="assets/editor-sample-20261106.png" '
+              'alt="JSON Crack 编辑器：左侧是示例 JSON，右侧交互图里根节点显示 name、skills、profile，skills 展开为 JavaScript 和 Python，profile 展开为 city: Hangzhou" '
+              'style="display:block;max-width:100%;height:auto"></a>'
+              '<p style="font-size:16px;color:var(--p-muted);margin:8px 0 0">2026-11-06 讲师在基线副本上启动服务，粘贴本页示例 JSON 后的编辑器画面（JSON Crack v5.0.0）</p>')
+        + '</div>'
         '<ol class="p-watch">'
-        '<li data-reveal="0">命令与输出<small>哪个副本 · 出现 Ready · 地址</small></li>'
-        '<li data-reveal="1">输入<small>普通字段、数组、嵌套对象</small></li>'
-        '<li data-reveal="2">画面<small>每个字段在图里的哪个节点</small></li></ol></div>'
-        '<div class="p-bar is-light" data-reveal="2" style="margin-top:20px">命令输出和画面，才说明<b>这次走到了哪里</b></div>'
+        '<li data-reveal="0">Agent 的回复<small>哪条标为实测 · 有没有命令和输出</small></li>'
+        '<li data-reveal="1">在终端启动服务<small>哪个副本 · 出现 Ready · 地址</small></li>'
+        '<li data-reveal="2">输入<small>普通字段、数组、嵌套对象</small></li>'
+        '<li data-reveal="3">画面<small>每个字段在图里的哪个节点</small></li></ol></div>'
+        '<div class="p-bar is-light" data-reveal="3" style="margin-top:20px">命令输出和画面，才说明<b>这次走到了哪里</b></div>'
     ),
-    steps=["命令与输出", "输入", "画面"],
+    steps=["Agent 的回复", "启动服务", "输入", "画面"],
     repro=repro([
         ("保留完整的错误输出，记下执行的命令和所在目录，先不要急着换命令重试。", None),
         ("核对环境：Node.js 与 pnpm 的版本，是否在基线副本的根目录，工作区是否干净。", "node -v\npnpm -v\npwd\ngit status --short"),
-        ("提示 3000 端口被占用时，先查是哪个进程在用，关掉它或换一个空闲端口再试。", "lsof -i :3000"),
+        ("提示 3000 端口被占用，或出现 Unable to acquire lock、is another instance of next dev running 时，多半是之前启动的服务还在后台运行，例如由 Agent 拉起、没有对应终端的那一个。先查是哪个进程在用；只是想看页面，直接打开 http://localhost:3000/editor 即可，要重启就先结束那个进程。", "lsof -i :3000"),
         ("Next.js 提示“inferred your workspace root”时，通常是上级目录里另有 lockfile；只要后面出现 Ready，就可以继续。", None),
         ("不要通过修改锁文件、升降依赖或改源码来绕过问题；这一节的任务是认识固定基线。", None),
         ("暂时跑不起来时，先跟着课件画面看懂演示；后面的规格内容不依赖本地运行。", None),
@@ -290,7 +303,7 @@ scene(
     html=(
         '<div class="p-sketch" style="align-items:start">'
         '<div data-reveal="0"><h3 style="text-align:center">一个判断</h3><div class="p-star" style="width:250px;font-size:24px">先问在决定什么<br>再放进对应层</div></div>'
-        '<div data-reveal="1"><h3>留下的</h3><ul class="p-exits" style="gap:10px"><li class="is-pass">固定基线记录</li><li class="is-pass">带出处的新人简报</li><li class="is-pass">运行或阻塞记录</li><li class="is-pass">五层关系图</li></ul></div>'
+        '<div data-reveal="1"><h3>留下的</h3><ul class="p-exits" style="gap:10px"><li class="is-pass">对上版本的副本</li><li class="is-pass">能核对的简报</li><li class="is-pass">跑通一次的最小用例</li><li class="is-pass">五层各自的分工</li></ul></div>'
         '<div class="p-next" data-reveal="2"><h3>下一节</h3><div class="p-box" data-role="us"><h3>4.2 贴上需求原文，就能直接写吗？</h3><p>从飞书里的需求笔记开始</p></div></div>'
         '</div>'
     ),
