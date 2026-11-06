@@ -112,6 +112,102 @@ def chapter_map(now):
     return '<ol class="p-map">' + "".join(items) + "</ol>"
 
 
+# 全章锚点图：五层规格（4.1 STORYBOARD“围绕同一句需求介绍五层关系”）。4.1 逐层揭示，4.2–4.5 点亮本节对应层。
+# 每层：名称、眼前要回答的问题、留下的文件
+LAYERS = [
+    ("Brief", "谁在什么场景下用，这次做到哪？", "BRIEF.md"),
+    ("Spec", "什么算不同，用户看到什么？", "SPEC.md"),
+    ("Acceptance", "给定输入，怎样判对错？", "ACCEPTANCE.md"),
+    ("Plan", "在这个仓库里怎么改？", "PLAN.md"),
+    ("Tasks", "按什么顺序做，怎样算完成？", "TASKS.md"),
+]
+# 两条返回回路：(从哪层, 回到哪层, 说明)
+LOOPS = [("Acceptance", "Spec", "规则没定 → 回 Spec"), ("Tasks", "Plan", "改法要调 → 回 Plan")]
+ANCHOR_STYLES = ("stairs", "flow", "files")
+
+
+def anchor(style="stairs", lit=(), done=(), reveal_each=False, loops=False, loop_reveal=None):
+    """五层锚点图。全章用阶梯 stairs（讲师 2026-11-05 选定）；flow（流程加回路）、files（文件清单）是当时的备选样稿。
+
+    lit 为本页点亮的层（实心）；done 为已完成的层；两者都为空时五层照常显示。
+    其余层画成虚线、变淡，表示后面的小节才补。reveal_each=True 时第 i 层带 data-reveal=i（4.1 逐层揭示）。
+    loops=True 时画两条返回回路（只有 flow 画成回线，其余风格写在底部），loop_reveal 是它们出现的步骤。
+    颜色：五层都是写进仓库、给人和 Agent 读的文件，用 ctx；回到 Spec 要人决定，用 us。
+    """
+    assert style in ANCHOR_STYLES, style
+    names = [n for n, _, _ in LAYERS]
+    assert set(lit) <= set(names) and set(done) <= set(names), (lit, done)
+    plain = not lit and not done
+
+    def state(name):
+        if plain:
+            return ""
+        return "lit" if name in lit else ("done" if name in done else "todo")
+
+    def rv(i):
+        return f' data-reveal="{i}"' if reveal_each else ""
+
+    lrv = f' data-reveal="{loop_reveal}"' if loop_reveal is not None else ""
+    todo_css = "opacity:.42"
+
+    if style == "stairs":
+        cells = []
+        for i, (name, q, f) in enumerate(LAYERS):
+            s = state(name)
+            cls = "p-box" + (" is-solid" if s == "lit" else " is-dashed" if s == "todo" else "")
+            css = todo_css if s == "todo" else ""
+            cells.append(
+                f'<div class="p-stair" style="--i:{i}"{rv(i)}><div class="{cls}" data-role="ctx" style="padding:12px 14px;{css}">'
+                f'<span class="p-tag" data-role="ctx">{name}</span><h3 style="font-size:23px;margin:8px 0 6px">{q}</h3>'
+                f'<p style="font-family:var(--p-mono);font-size:16px;margin:0">{f}</p></div></div>'
+            )
+        foot = ""
+        if loops:
+            foot = (f'<div class="p-base"{lrv} style="display:flex;gap:28px;font-size:20px">'
+                    + "".join(f'<span>↺ {t}</span>' for _, _, t in LOOPS) + "</div>")
+        return f'<div class="p-stairs" style="--n:5;--rise:34px;column-gap:14px">{"".join(cells)}{foot}</div>'
+
+    if style == "flow":
+        cells = []
+        for i, (name, q, f) in enumerate(LAYERS):
+            s = state(name)
+            css = todo_css if s == "todo" else ""
+            solid = "background:var(--c);" if s == "lit" else ""
+            # 节点底色由 ::before 画，实心时用一层内衬盖住
+            inner = (f'<h3 style="{"color:#fff;" if s == "lit" else ""}">{name}</h3>'
+                     f'<p style="font-size:18px;{"color:#fff;" if s == "lit" else ""}">{q}</p>'
+                     f'<p style="font-family:var(--p-mono);font-size:15px;margin-top:6px;{"color:#fff;" if s == "lit" else ""}">{f}</p>')
+            cells.append(f'<div class="p-node" data-role="ctx"{rv(i)} style="padding:12px 10px;{css}">'
+                         f'{"<i style=" + chr(34) + "position:absolute;inset:3px;z-index:-1;border-radius:12px;" + solid + chr(34) + "></i>" if solid else ""}{inner}</div>')
+        back = ""
+        if loops:
+            for frm, to, text in LOOPS:
+                a, b = names.index(to) + 1, names.index(frm) + 1
+                role = "us" if to == "Spec" else "ink"
+                back += (f'<div class="p-back" data-role="{role}"{lrv} style="grid-column:{a}/{b + 1};--span:{b - a + 1};--gap:26px">'
+                         f'<span class="p-back-label" style="font-size:19px">{text}</span></div>')
+        return f'<div class="p-flow" style="--n:5;column-gap:26px;align-items:stretch">{"".join(cells)}{back}</div>'
+
+    # files：随代码进 Git 的五份文件逐行列出（存放目录在 4.2–4.5 再定）
+    rows = []
+    for i, (name, q, f) in enumerate(LAYERS):
+        s = state(name)
+        cls = "p-item" + (" is-picked" if s == "lit" else "")
+        css = todo_css + ";border-style:dashed;background:transparent" if s == "todo" else ""
+        rows.append(
+            f'<div class="{cls}"{rv(i)} style="display:grid;grid-template-columns:200px 150px minmax(0,1fr);gap:14px;align-items:baseline;{css}">'
+            f'<span style="font-family:var(--p-mono);font-size:18px;font-weight:700">{f}</span>'
+            f'<span style="font-weight:700">{name}</span><span>{q}</span></div>'
+        )
+    foot = ""
+    if loops:
+        foot = (f'<div class="p-foot"{lrv} style="display:flex;gap:28px">'
+                + "".join(f'<span>↺ {t}</span>' for _, _, t in LOOPS) + "</div>")
+    return (f'<div class="p-set is-solid" data-role="ctx" style="padding:14px 20px 16px">'
+            '<h3 style="font-size:22px">五份文件<span style="font-size:18px;color:var(--p-muted);margin-left:12px">随代码一起进 Git</span></h3>'
+            f'<div class="p-items" style="display:flex;flex-direction:column;gap:8px">{"".join(rows)}</div>{foot}</div>')
+
+
 class Lesson:
     def __init__(self, builder, number, title, summary):
         self.here = Path(builder).resolve().parents[1]
