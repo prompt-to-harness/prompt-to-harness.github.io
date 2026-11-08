@@ -91,6 +91,54 @@ window.lesson = {
       "seconds": 120
     },
     {
+      "id": "p16",
+      "segment": "读取原文",
+      "layout": "prompt-scene",
+      "prompt": "用飞书 MCP 读取这篇需求笔记：<需求笔记链接>。如果是知识库链接，先解析节点拿到文档 ID，再读取正文。把读到的正文原样保存到 docs/specs/sources/requirement-note.md，不要总结，也不要改写。完成后告诉我：调用了哪些工具、各自返回了什么、文件写在哪里，以及文档标题和读取时间。读取失败就返回具体错误，不要猜测内容。",
+      "label": "让 Agent 读原文",
+      "title": "让 Agent 读原文，原样存进仓库",
+      "lead": "讲师在基线副本里新开 Codex 会话，先确认飞书服务只开放了两个工具，再请 Agent 读取需求笔记、原样保存为快照，并说明调用了哪些工具。",
+      "html": "<style>#p16 .prompt{height:290px}</style><div class=\"demo-notes\"><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>读哪篇</b><small>给出链接；知识库链接先解析节点</small></span></li><li data-reveal=\"1\"><span><b>原样保存</b><small>docs/specs/sources/requirement-note.md，不总结、不改写</small></span></li><li data-reveal=\"2\"><span><b>说清过程</b><small>调用了哪些工具、返回了什么、标题和读取时间</small></span></li><li class=\"is-risk\" data-reveal=\"3\"><span><b>失败就报错</b><small>不猜测内容</small></span></li></ol><details class=\"p-pop\"><summary>示例画面：/mcp</summary><div class=\"p-pop-body\"><div class=\"p-pop-head\"><span>Codex 里的 MCP 服务</span><button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div><a href=\"assets/codex-mcp-list-20261108.png\"><img src=\"assets/codex-mcp-list-20261108.png\" alt=\"Codex 输入 /mcp 后列出四个已连接的 MCP 服务，其中 feishu 有 2 个工具\" style=\"display:block;max-width:100%;height:auto\"></a><p style=\"font-size:16px;color:var(--p-muted);margin:8px 0 0\">2026-11-08 讲师在基线副本里输入 /mcp 的结果；feishu 是飞书服务，其余三项是 Codex 自带的</p></div></details></div>",
+      "steps": [
+        "读哪篇",
+        "原样保存",
+        "说清过程",
+        "失败就报错"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p16 第 1 步，指向请求原文里的链接；不切窗口】\n\n现在让 Agent 自己去读。这条请求先给出要读的那篇需求笔记的链接。它放在飞书知识库里，所以要先解析节点，拿到文档 ID。",
+        "【操作提示｜推进第 2 步，指向“原样保存”】\n\n读到以后，原样保存到仓库里的 docs/specs/sources 下面，不总结，也不改写。后面的调查和 Brief，都以这份快照为准。",
+        "【操作提示｜推进第 3 步，指向“说清过程”】\n\n还要它说清楚过程：调用了哪些工具、各自返回了什么、文件写在哪里，再告诉我们文档标题和读取时间。这些是稍后核对来源要用的。",
+        "【操作提示｜推进第 4 步，指向“失败就报错”；随后切到终端，在基线副本根目录启动 codex 新会话，先输入 /mcp，指出 feishu 一行的“2 tools”；再从课件复制请求原文，换成需求笔记链接后发送；每次 MCP 工具调用弹出确认时，读出工具名再批准；等它回复完切回课件进入 p17。现场 /mcp 显示异常时，点开本页“示例画面：/mcp”】\n\n最后一条：读取失败就返回具体错误，不要猜测内容。发请求之前，先输入 /mcp 看一眼：feishu 这一行，只有两个工具。其他几项是 Codex 自带的，这里只看 feishu。好，发请求。每次调用飞书工具之前，Codex 都会先问我们，确认是读取，再批准。"
+      ],
+      "teaching": [],
+      "source": "index.html#p16",
+      "seconds": 120
+    },
+    {
+      "id": "p17",
+      "segment": "读取原文",
+      "label": "读到的和原文一样吗",
+      "title": "读到的，和原文一样吗？",
+      "lead": "先核对，再使用：看工具调用的先后和返回，把保存的快照和飞书原文对照一段，再记下这次读取的来源。用课程快照的学员，在来源里写明是快照。",
+      "html": "<div style=\"display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:24px;align-items:start\"><ol class=\"p-watch\"><li data-reveal=\"0\">解析节点<small><code>wiki_v2_space_getNode</code> → 文档 ID</small></li><li data-reveal=\"0\">读取正文<small><code>docx_v1_document_rawContent</code> → 正文</small></li><li data-reveal=\"1\">保存的快照<small>docs/specs/sources/requirement-note.md 与飞书原文对照一段</small></li></ol><div class=\"p-set is-solid\" data-role=\"ctx\" data-reveal=\"2\" style=\"padding:12px 18px\"><h3 style=\"font-size:20px;margin:0 0 8px\">记下来源，稍后写进 Brief</h3><div class=\"p-items\" style=\"display:flex;flex-direction:column;gap:6px\"><div class=\"p-item\" style=\"font-size:18px\">链接</div><div class=\"p-item\" style=\"font-size:18px\">文档标题</div><div class=\"p-item\" style=\"font-size:18px\">读取身份：讲师本人</div><div class=\"p-item\" style=\"font-size:18px\">读取时间</div><div class=\"p-item\" style=\"font-size:18px\">所用实现：lark-mcp</div></div></div></div><div class=\"p-bar is-light\" data-reveal=\"3\" style=\"margin-top:16px\">工具返回进了对话，<b>核对过才拿来用</b></div>",
+      "steps": [
+        "两次工具调用",
+        "对照原文",
+        "记下来源",
+        "先核对再使用"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p17 第 1 步；切到 Codex 回复，指出两次工具调用和各自的返回，再切回课件】\n\n回复来了。先看过程：它先解析了知识库节点，拿到文档 ID，再用这个 ID 读取正文。两次调用的先后和返回，都在回复里。",
+        "【操作提示｜推进第 2 步；切到编辑器打开 docs/specs/sources/requirement-note.md，再切到飞书文档，对照同一段；再切回课件】\n\n再看结果：打开保存下来的快照，和飞书里的原文对照一段。比如“还没想清楚的”那两句，看是不是一字不差。",
+        "【操作提示｜推进第 3 步，依次指右侧五项】\n\n然后把这次读取的来源记下来：链接、文档标题、读取身份、读取时间，还有用的是哪个 MCP 实现。身份是我本人，实现是 lark-mcp。这五项稍后写进 Brief 的“来源”一节。你用的是课程快照的话，就在来源里写明是快照。",
+        "【操作提示｜推进第 4 步，指向底部横条；讲完进入 p18】\n\n工具返回进了对话，不等于就能直接用。核对过来源和内容，再拿来做下一步。"
+      ],
+      "teaching": [],
+      "source": "index.html#p17",
+      "seconds": 120
+    },
+    {
       "id": "p18",
       "segment": "够不够",
       "label": "原文够不够决定行为",
@@ -110,6 +158,74 @@ window.lesson = {
       "teaching": [],
       "source": "index.html#p18",
       "seconds": 90
+    },
+    {
+      "id": "p19",
+      "segment": "调查源码",
+      "layout": "prompt-scene",
+      "prompt": "需求原文已保存在 docs/specs/sources/requirement-note.md。带着这份需求调查源码，只读不改。沿“输入 → 解析 → 图数据 → 渲染”找出网页版的最小链路，并回答：用户输入的 JSON 从哪里进入；在哪里被解析成图数据；图怎样渲染；现有的节点数量上限在哪里设定、是多少；哪些代码同时被网页版和其他客户端使用；仓库现有哪些检查命令可以用来验证改动。每条结论给出文件路径和行号，不确定的直接说明。不要安装依赖、不要启动服务，也不要修改文件。",
+      "label": "带着需求查什么",
+      "title": "带着需求，查什么？",
+      "lead": "承接 4.1 的新人简报，这次带着需求往下查：沿输入、解析、图数据、渲染找出网页版的最小链路，回答会影响 JSON Diff 的几个问题。每条结论附路径和行号，只读不改。",
+      "html": "<div class=\"demo-notes\"><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>沿一条链路</b><small>输入 → 解析 → 图数据 → 渲染</small></span></li><li data-reveal=\"1\"><span><b>回答几个问题</b><small>节点上限、共用代码、检查命令</small></span></li><li data-reveal=\"2\"><span><b>附出处</b><small>每条结论给路径和行号，不确定的直说</small></span></li><li class=\"is-risk\" data-reveal=\"3\"><span><b>只读不改</b><small>不安装、不启动、不改文件</small></span></li></ol></div>",
+      "steps": [
+        "沿一条链路",
+        "回答几个问题",
+        "附出处",
+        "只读不改"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p19 第 1 步，指向“沿一条链路”；不切窗口】\n\n原文里有些话，要回到代码里才能判断。4.1 的新人简报只看了文档和配置，这次带着需求往下查：沿着输入、解析、图数据、渲染，找出网页版的最小链路。",
+        "【操作提示｜推进第 2 步，指向“回答几个问题”】\n\n还要回答几个会影响 JSON Diff 的问题：现有的节点数量上限在哪里设定、是多少；哪些代码同时被网页版和别的客户端使用；仓库里有哪些检查命令可以用来验证改动。",
+        "【操作提示｜推进第 3 步，指向“附出处”】\n\n每条结论都要给文件路径和行号，不确定的直接说。和 4.1 一样，有了出处，我们才能打开核对。",
+        "【操作提示｜推进第 4 步，指向“只读不改”；随后切到 Codex，在同一会话发送请求原文，等它回复完切回课件进入 p20】\n\n这一轮只读不改：不安装依赖，不启动服务，也不修改文件。发请求。"
+      ],
+      "teaching": [],
+      "source": "index.html#p19",
+      "seconds": 120
+    },
+    {
+      "id": "p20",
+      "segment": "调查源码",
+      "label": "调查结论对得上源码吗",
+      "title": "调查结论，对得上源码吗？",
+      "lead": "从回复里挑一条，按它给的路径和行号打开源码对照。这里用节点上限这一条：它回答了原文“几千行”能不能放下。给了出处，也可能出处不对，所以要抽查。",
+      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><style>#p20 .p-src .p-ln{height:auto;min-height:30px}#p20 .p-src .p-ln code{white-space:pre-wrap;overflow-wrap:anywhere}</style><div class=\"p-walk\"><div><div class=\"p-src\" data-reveal=\"1\" style=\"--lh:30px\"><div class=\"p-fn\">apps/www/.env · src/constants/graph.ts（固定版本）</div><div class=\"p-ln\"><i>1</i><code>NEXT_PUBLIC_NODE_LIMIT=800</code></div><div class=\"p-ln\"><i>6</i><code>export const SUPPORTED_LIMIT = +(process.env.NEXT_PUBLIC_NODE_LIMIT as string);</code></div></div><div class=\"p-src\" data-reveal=\"2\" style=\"--lh:30px;margin-top:12px\"><div class=\"p-fn\">packages/jsoncrack-react/src/JSONCrackComponent.tsx（固定版本）</div><div class=\"p-ln\"><i>182</i><code>const graph = parseGraph(jsonText);</code></div><div class=\"p-ln\"><i>192</i><code>if (graph.nodes.length &gt; maxRenderableNodes) {</code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>挑一条结论</b><small>来自现场回复</small></span></li><li data-reveal=\"1\"><span><b>上限在哪设定</b><small>环境变量，生产环境 800</small></span></li><li data-reveal=\"2\"><span><b>在哪拦下</b><small>按建图后的节点数判断</small></span></li><li class=\"is-risk\" data-reveal=\"3\"><span><b>只收事实</b><small>回复里谈改法的部分留给 4.5</small></span></li></ol></div>",
+      "steps": [
+        "挑一条结论",
+        "上限在哪设定",
+        "在哪拦下",
+        "只收事实"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p20 第 1 步；切到 Codex 回复，读出关于节点上限的那条结论和它给的路径、行号，再切回课件】\n\n调查结果回来了。我们挑一条来核对：节点上限。它正好回答原文里那句“文件可能有几千行”。",
+        "【操作提示｜推进第 2 步，指向 .env 第 1 行和 graph.ts 第 6 行；需要时点开底部链接对照原文】\n\n上限在哪里设定？在环境变量里，生产环境是 800。graph.ts 第 6 行把它读进来。",
+        "【操作提示｜推进第 3 步，指向第 182 行和第 192 行】\n\n在哪里拦下？在共享包的组件里：先把 JSON 建成图，再看图的节点数超没超过上限。所以上限算的是节点数，不是行数。几千行到底能不能放下，留到下一节决定口径。",
+        "【操作提示｜推进第 4 步，指向最后一条批注；若回复里有谈改法的段落，切到回复指出那一段，再切回课件；讲完进入 p21】\n\n给了出处，也可能出处不对。我排练的那一次，它给的几个检查命令行号就写错了，所以要抽查。还有一点：回复里如果开始谈“差异计算应该放在哪”，那是改法，属于 4.5 的 Plan，这里只收查实的事实。"
+      ],
+      "refs": [
+        {
+          "kind": "live",
+          "group": "固定版本原文",
+          "text": "apps/www/.env",
+          "url": "https://github.com/AykutSarac/jsoncrack.com/blob/e99288b4eff060dcd53428f2a3a5c2f28eecffa6/apps/www/.env#L1"
+        },
+        {
+          "kind": "live",
+          "group": "固定版本原文",
+          "text": "graph.ts 第 6 行",
+          "url": "https://github.com/AykutSarac/jsoncrack.com/blob/e99288b4eff060dcd53428f2a3a5c2f28eecffa6/apps/www/src/constants/graph.ts#L6"
+        },
+        {
+          "kind": "live",
+          "group": "固定版本原文",
+          "text": "JSONCrackComponent.tsx 第 182–192 行",
+          "url": "https://github.com/AykutSarac/jsoncrack.com/blob/e99288b4eff060dcd53428f2a3a5c2f28eecffa6/packages/jsoncrack-react/src/JSONCrackComponent.tsx#L182-L192"
+        }
+      ],
+      "teaching": [],
+      "source": "index.html#p20",
+      "seconds": 120
     },
     {
       "id": "p21",
@@ -132,6 +248,92 @@ window.lesson = {
       ],
       "teaching": [],
       "source": "index.html#p21",
+      "seconds": 120
+    },
+    {
+      "id": "p22",
+      "segment": "形成 Brief",
+      "layout": "prompt-scene",
+      "prompt": "根据 docs/specs/sources/requirement-note.md 和刚才的调查结果，起草 docs/specs/BRIEF.md，固定七个小节：来源、使用者与场景、目标、非目标、已核实约束、成功信号、Open 问题。来源写需求笔记的链接、文档标题、读取方式和读取时间；目标只写这次的网页版 JSON Diff；已核实约束只写调查查实的仓库事实，每条附文件路径和行号；原文里没有定下来、会改变实现的地方全部列进 Open 问题，附原文出处，不要替需求方做决定；你的建议可以写在对应的 Open 问题下面，标明是建议。只新建这一个文件，不修改其他文件，写完运行 git status 给我看。",
+      "label": "让 Agent 起草 Brief",
+      "title": "让 Agent 起草 Brief",
+      "lead": "依据原文快照和调查结果，请 Agent 起草 docs/specs/BRIEF.md。七个小节固定；没定下来的问题附原文出处列进 Open 问题，建议要标明是建议。讲师随后逐节审。",
+      "html": "<div class=\"demo-notes\"><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>依据什么</b><small>原文快照和刚才的调查结果</small></span></li><li data-reveal=\"1\"><span><b>七个小节</b><small>来源、场景、目标、非目标、约束、成功信号、Open 问题</small></span></li><li data-reveal=\"2\"><span><b>不替人决定</b><small>Open 问题附原文出处，建议标明</small></span></li><li class=\"is-risk\" data-reveal=\"3\"><span><b>只新建一个文件</b><small>写完给我看 git status</small></span></li></ol></div>",
+      "steps": [
+        "依据什么",
+        "七个小节",
+        "不替人决定",
+        "只新建一个文件"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p22 第 1 步，指向“依据什么”；不切窗口】\n\n原文和调查结果都有了，现在请 Agent 起草 Brief。它的依据只有两样：保存下来的原文快照，和刚才的调查结果。",
+        "【操作提示｜推进第 2 步，指向“七个小节”】\n\nBrief 固定七个小节：来源、使用者与场景、目标、非目标、已核实约束、成功信号，还有 Open 问题。",
+        "【操作提示｜推进第 3 步，指向“不替人决定”】\n\n关键的一句是：原文里没定下来、会改变实现的地方，全部列进 Open 问题，附上原文出处，不要替需求方做决定。它的建议可以写，但要标明是建议。",
+        "【操作提示｜推进第 4 步，指向“只新建一个文件”；随后切到 Codex，在同一会话发送请求原文，等它回复完切回课件进入 p23】\n\n最后，只新建这一个文件，写完给我们看 git status。发请求。"
+      ],
+      "teaching": [],
+      "source": "index.html#p22",
+      "seconds": 120
+    },
+    {
+      "id": "p23",
+      "segment": "形成 Brief",
+      "label": "Brief 审什么",
+      "title": "Brief 写好了，审什么？",
+      "lead": "讲师逐节审 Brief，亲自确认“目标”。审出的问题请 Agent 按意见修改，或自己改。改完看 git status：新增内容只在 docs/specs/ 下，生产代码没动。本节不提交，到 4.5 和其余规格一起提交。",
+      "html": "<ol class=\"p-watch\" style=\"display:grid;grid-template-columns:1fr 1fr;gap:10px 18px\"><li data-reveal=\"0\">来源<small>链接、标题、读取方式与时间齐不齐</small></li><li data-reveal=\"0\">目标<small>只写这次要做的功能，约束和没把握的不混进来</small></li><li data-reveal=\"1\">非目标<small>每条有原文依据，或标为待确认</small></li><li data-reveal=\"1\">已核实约束<small>每条有路径和行号</small></li><li data-reveal=\"2\">Open 问题<small>附原文出处；建议标明是建议，不当规则</small></li></ol><div class=\"p-bar is-light\" data-reveal=\"3\" style=\"margin-top:16px\"><code>git status</code> 只出现 <b>docs/specs/</b>，本节不提交</div>",
+      "steps": [
+        "来源与目标",
+        "非目标与约束",
+        "Open 问题",
+        "改完看 git status"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p23 第 1 步；切到编辑器打开 docs/specs/BRIEF.md，先看“来源”，再看“目标”，再切回课件】\n\nBrief 写好了，我们逐节审。先看来源齐不齐。再看目标：这里只该写这次要做的功能。像“不上传”这样的要求是约束，“几千行”这种还不知道能不能做到的，也不该直接写成目标。我排练那一次，初稿就把这两条写进了目标。目标要我自己确认。",
+        "【操作提示｜推进第 2 步；切到 BRIEF.md 的“非目标”和“已核实约束”，各指一条，再切回课件】\n\n非目标每一条，要么有原文依据，要么标成“待需求方确认”。已核实约束每一条，都要有路径和行号。",
+        "【操作提示｜推进第 3 步；切到 BRIEF.md 的“Open 问题”，指出一条带原文出处和“建议”的问题，再切回课件】\n\nOpen 问题要附原文出处，Agent 的建议要标明是建议。比如数组怎么对齐，它可能会给一个建议，但采不采用，下一节由我们决定。",
+        "【操作提示｜推进第 4 步；切到 Codex，从本页实验说明复制修改请求发送，等它改完运行 git status；指出未跟踪文件只在 docs/specs/ 下，再切回课件；讲完进入 p24】\n\n审出来的问题，交给 Agent 按意见改，也可以自己改。改完看 git status：新增的文件只在 docs/specs 下面，生产代码一行没动。这一节不提交，到 4.5 和其余几份规格一起提交。Brief 的七个小节和这条修改请求，都在右上角的实验说明里。"
+      ],
+      "repro": {
+        "label": "实验说明：Brief 的七个小节",
+        "steps": [
+          {
+            "text": "来源：需求原文的链接、文档标题、读取方式与身份、读取时间；用快照时写明是课程快照",
+            "code": ""
+          },
+          {
+            "text": "使用者与场景：谁在什么场景下用，现在的做法哪里不方便",
+            "code": ""
+          },
+          {
+            "text": "目标：这次要做到的功能，只写这一次",
+            "code": ""
+          },
+          {
+            "text": "非目标：这次明确不做的，每条有原文依据或标为待确认",
+            "code": ""
+          },
+          {
+            "text": "已核实约束：调查查实的仓库事实与需求约束，每条附出处",
+            "code": ""
+          },
+          {
+            "text": "成功信号：怎样算做好；暂时不能核算的，留到验收再落实",
+            "code": ""
+          },
+          {
+            "text": "Open 问题：没定下来、会改变实现的问题，附原文出处；建议标明是建议",
+            "code": ""
+          },
+          {
+            "text": "审出问题后，可以把意见交给 Agent 修改，例如下面这条；也可以自己改。",
+            "code": "我审过 docs/specs/BRIEF.md，请按下面的意见修改，只改这个文件：目标只写这次要做的功能，属于约束的要求移到对应小节；能不能做到还不确定的目标，并进对应的 Open 问题；没有原文依据的非目标，标为“待需求方确认”。改完运行 git status 给我看。"
+          }
+        ],
+        "note": "小节名称固定，内容用你自己的调查结果写；课程不提供完整的参考答案。"
+      },
+      "teaching": [],
+      "source": "index.html#p23",
       "seconds": 120
     },
     {
@@ -187,12 +389,24 @@ window.lesson = {
       "seconds": 240
     },
     {
+      "label": "读取原文",
+      "seconds": 240
+    },
+    {
       "label": "够不够",
       "seconds": 90
     },
     {
+      "label": "调查源码",
+      "seconds": 240
+    },
+    {
       "label": "分开三类",
       "seconds": 120
+    },
+    {
+      "label": "形成 Brief",
+      "seconds": 240
     },
     {
       "label": "自检与交接",

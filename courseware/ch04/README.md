@@ -7,7 +7,7 @@
 | 小节 | 内容入口 | 当前制作阶段 |
 | --- | --- | --- |
 | 4.1 接手大项目，还能边聊边改吗？ | [STORYBOARD](lessons/01-baseline-and-specs/STORYBOARD.md) | 12 页首版已做；A、B 已各运行一次，2026-11-06 整节审查的待处理项见审查记录 |
-| 4.2 贴上需求原文，就能直接写吗？ | [STORYBOARD](lessons/02-requirement-brief/STORYBOARD.md) | 本节内容与 13 页逐页表已确认（2026-11-07）；已做 p13–p15、p18、p21、p24、p25 首版与口播；读取、调查、起草 Brief 六页待基线副本实跑后再做 |
+| 4.2 贴上需求原文，就能直接写吗？ | [STORYBOARD](lessons/02-requirement-brief/STORYBOARD.md) | 本节内容与 13 页逐页表已确认（2026-11-07）；13 页首版与口播已做齐；2026-11-08 讲师在基线副本实跑读取、调查、起草 Brief 三段；p23 的追加修改请求尚未实跑 |
 
 ## 文件分工
 
