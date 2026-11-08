@@ -254,7 +254,7 @@ window.lesson = {
       "id": "p22",
       "segment": "形成 Brief",
       "layout": "prompt-scene",
-      "prompt": "根据 docs/specs/sources/requirement-note.md 和刚才的调查结果，起草 docs/specs/BRIEF.md，固定七个小节：来源、使用者与场景、目标、非目标、已核实约束、成功信号、Open 问题。来源写需求笔记的链接、文档标题、读取方式和读取时间；目标只写这次的网页版 JSON Diff；已核实约束只写调查查实的仓库事实，每条附文件路径和行号；原文里没有定下来、会改变实现的地方全部列进 Open 问题，附原文出处，不要替需求方做决定；你的建议可以写在对应的 Open 问题下面，标明是建议。只新建这一个文件，不修改其他文件，写完运行 git status 给我看。",
+      "prompt": "根据 docs/specs/sources/requirement-note.md 和刚才的调查结果，起草 docs/specs/BRIEF.md，固定七个小节：来源、使用者与场景、目标、非目标、已核实约束、成功信号、Open 问题。来源写需求笔记的链接、文档标题、读取方式和读取时间；目标只写这次的网页版 JSON Diff；已核实约束写调查查实的仓库事实和原文里的约束，每条附出处；原文里没有定下来、会改变实现的地方全部列进 Open 问题，附原文出处，不要替需求方做决定；你的建议可以写在对应的 Open 问题下面，标明是建议。只新建这一个文件，不修改其他文件，写完运行 git status 给我看。",
       "label": "让 Agent 起草 Brief",
       "title": "让 Agent 起草 Brief",
       "lead": "依据原文快照和调查结果，请 Agent 起草 docs/specs/BRIEF.md。七个小节固定；没定下来的问题附原文出处列进 Open 问题，建议要标明是建议。讲师随后逐节审。",
@@ -281,7 +281,7 @@ window.lesson = {
       "label": "Brief 审什么",
       "title": "Brief 写好了，审什么？",
       "lead": "讲师逐节审 Brief，亲自确认“目标”。审出的问题请 Agent 按意见修改，或自己改。改完看 git status：新增内容只在 docs/specs/ 下，生产代码没动。本节不提交，到 4.5 和其余规格一起提交。",
-      "html": "<ol class=\"p-watch\" style=\"display:grid;grid-template-columns:1fr 1fr;gap:10px 18px\"><li data-reveal=\"0\">来源<small>链接、标题、读取方式与时间齐不齐</small></li><li data-reveal=\"0\">目标<small>只写这次要做的功能，约束和没把握的不混进来</small></li><li data-reveal=\"1\">非目标<small>每条有原文依据，或标为待确认</small></li><li data-reveal=\"1\">已核实约束<small>每条有路径和行号</small></li><li data-reveal=\"2\">Open 问题<small>附原文出处；建议标明是建议，不当规则</small></li></ol><div class=\"p-bar is-light\" data-reveal=\"3\" style=\"margin-top:16px\"><code>git status</code> 只出现 <b>docs/specs/</b>，本节不提交</div>",
+      "html": "<ol class=\"p-watch\" style=\"display:grid;grid-template-columns:1fr 1fr;gap:10px 18px\"><li data-reveal=\"0\">来源<small>链接、标题、读取方式与时间齐不齐</small></li><li data-reveal=\"0\">目标<small>只写这次要做的功能，约束和没把握的不混进来</small></li><li data-reveal=\"1\">非目标<small>每条有原文依据，或标为待确认</small></li><li data-reveal=\"1\">已核实约束<small>每条有出处：源码给路径和行号，原文给位置</small></li><li data-reveal=\"2\">Open 问题<small>附原文出处；建议标明是建议，不当规则</small></li></ol><div class=\"p-bar is-light\" data-reveal=\"3\" style=\"margin-top:16px\"><code>git status</code> 只出现 <b>docs/specs/</b>，本节不提交</div>",
       "steps": [
         "来源与目标",
         "非目标与约束",
@@ -289,8 +289,8 @@ window.lesson = {
         "改完看 git status"
       ],
       "script": [
-        "【操作提示｜停留课件 p23 第 1 步；切到编辑器打开 docs/specs/BRIEF.md，先看“来源”，再看“目标”，再切回课件】\n\nBrief 写好了，我们逐节审。先看来源齐不齐。再看目标：这里只该写这次要做的功能。像“不上传”这样的要求是约束，“几千行”这种还不知道能不能做到的，也不该直接写成目标。我排练那一次，初稿就把这两条写进了目标。目标要我自己确认。",
-        "【操作提示｜推进第 2 步；切到 BRIEF.md 的“非目标”和“已核实约束”，各指一条，再切回课件】\n\n非目标每一条，要么有原文依据，要么标成“待需求方确认”。已核实约束每一条，都要有路径和行号。",
+        "【操作提示｜停留课件 p23 第 1 步；切到编辑器打开 docs/specs/BRIEF.md，先看“来源”，再看“目标”，再切回课件】\n\nBrief 写好了，我们逐节审。先看来源齐不齐。再看目标：这里只该写这次要做的功能。像“不上传”这样的要求是约束，“几千行”这种还不知道能不能做到的，也不该直接写成目标。我排练那一次，初稿把“不上传”同时写进了目标和约束。目标要我自己确认。",
+        "【操作提示｜推进第 2 步；切到 BRIEF.md 的“非目标”和“已核实约束”，各指一条，再切回课件】\n\n非目标每一条，要么有原文依据，要么标成“待需求方确认”。我排练那一次，非目标里有一条“不改节点上限”，原文没这么说，等于替需求方做了决定。已核实约束每一条都要有出处：仓库事实给路径和行号，原文里的约束给原文的位置。",
         "【操作提示｜推进第 3 步；切到 BRIEF.md 的“Open 问题”，指出一条带原文出处和“建议”的问题，再切回课件】\n\nOpen 问题要附原文出处，Agent 的建议要标明是建议。比如数组怎么对齐，它可能会给一个建议，但采不采用，下一节由我们决定。",
         "【操作提示｜推进第 4 步；切到 Codex，从本页实验说明复制修改请求发送，等它改完运行 git status；指出未跟踪文件只在 docs/specs/ 下，再切回课件；讲完进入 p24】\n\n审出来的问题，交给 Agent 按意见改，也可以自己改。改完看 git status：新增的文件只在 docs/specs 下面，生产代码一行没动。这一节不提交，到 4.5 和其余几份规格一起提交。Brief 的七个小节和这条修改请求，都在右上角的实验说明里。"
       ],
@@ -327,7 +327,7 @@ window.lesson = {
           },
           {
             "text": "审出问题后，可以把意见交给 Agent 修改，例如下面这条；也可以自己改。",
-            "code": "我审过 docs/specs/BRIEF.md，请按下面的意见修改，只改这个文件：目标只写这次要做的功能，属于约束的要求移到对应小节；能不能做到还不确定的目标，并进对应的 Open 问题；没有原文依据的非目标，标为“待需求方确认”。改完运行 git status 给我看。"
+            "code": "我审过 docs/specs/BRIEF.md，请按下面的意见修改，只改这个文件：目标只写这次要做的功能，属于约束的要求移到对应小节；没有原文依据的非目标，标为“待需求方确认”。改完运行 git status 给我看。"
           }
         ],
         "note": "小节名称固定，内容用你自己的调查结果写；课程不提供完整的参考答案。"
