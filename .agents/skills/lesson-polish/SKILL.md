@@ -15,6 +15,7 @@ description: 改动课程内容的统一入口：大纲、章文件、分镜、�
 | 措辞、版式、口播 | 页面源：`tools/build-lesson.py`、`script.json` | 重新生成 | 不用问 |
 | 重跑、重录、实测结果 | 章 `LOG.md` 的实测记录 | 分镜“素材状态” → 页面数字 | 不用问 |
 | 找外部佐证 | 项目 skill `external-sources` | 它自己会写回章文件 | 讲师挑选 |
+| 已有分镜的一节，从分页讨论做到课件页面 | 读本目录 [new-lesson.md](new-lesson.md)，按它做 | 各层按上面几行 | 负责讲师 |
 | 审查一节、跨章巡检 | 读本目录 [review.md](review.md)，按它做 | — | — |
 | 试讲或讲述之后整体改一节 | 读本目录 [trial-run.md](trial-run.md)，按它做 | 各层按上面几行 | 负责讲师 |
 
