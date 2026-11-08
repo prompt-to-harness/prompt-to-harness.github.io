@@ -34,13 +34,13 @@ PROMPT_BRIEF = (
     "根据 docs/specs/sources/requirement-note.md 和刚才的调查结果，起草 docs/specs/BRIEF.md，"
     "固定七个小节：来源、使用者与场景、目标、非目标、已核实约束、成功信号、Open 问题。"
     "来源写需求笔记的链接、文档标题、读取方式和读取时间；目标只写这次的网页版 JSON Diff；"
-    "已核实约束只写调查查实的仓库事实，每条附文件路径和行号；"
+    "已核实约束写调查查实的仓库事实和原文里的约束，每条附出处；"
     "原文里没有定下来、会改变实现的地方全部列进 Open 问题，附原文出处，不要替需求方做决定；"
     "你的建议可以写在对应的 Open 问题下面，标明是建议。只新建这一个文件，不修改其他文件，写完运行 git status 给我看。"
 )
 PROMPT_REVISE = (
     "我审过 docs/specs/BRIEF.md，请按下面的意见修改，只改这个文件："
-    "目标只写这次要做的功能，属于约束的要求移到对应小节；能不能做到还不确定的目标，并进对应的 Open 问题；"
+    "目标只写这次要做的功能，属于约束的要求移到对应小节；"
     "没有原文依据的非目标，标为“待需求方确认”。改完运行 git status 给我看。"
 )
 BRIEF_SECTIONS = [
@@ -300,7 +300,7 @@ scene(
         '<li data-reveal="0">来源<small>链接、标题、读取方式与时间齐不齐</small></li>'
         '<li data-reveal="0">目标<small>只写这次要做的功能，约束和没把握的不混进来</small></li>'
         '<li data-reveal="1">非目标<small>每条有原文依据，或标为待确认</small></li>'
-        '<li data-reveal="1">已核实约束<small>每条有路径和行号</small></li>'
+        '<li data-reveal="1">已核实约束<small>每条有出处：源码给路径和行号，原文给位置</small></li>'
         '<li data-reveal="2">Open 问题<small>附原文出处；建议标明是建议，不当规则</small></li></ol>'
         '<div class="p-bar is-light" data-reveal="3" style="margin-top:16px"><code>git status</code> 只出现 <b>docs/specs/</b>，本节不提交</div>'
     ),
