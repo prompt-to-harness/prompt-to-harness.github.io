@@ -44,9 +44,12 @@ element_period = re.compile(r'>([^<>。]*)。</')
 field_period = re.compile(r'"(?:title|label|kicker)":\s*"([^"。]*)。"')
 # .p-evidence 阅读视图里的是请求记录原文（由 tracekit 或本节脚本从记录生成），引用不改写，不按屏幕文字检查
 reading_section = re.compile(r'<section data-ev-reading=\\"[^"\\]*\\"[^>]*>.*?</section>', re.S)
+# 页面里逐字展示的外部或课程原文（如 4.2 的需求笔记）用 <blockquote data-quote="出处"> 包住，按原文保留标点（ED-001 引用例外）
+quote_block = re.compile(r'<blockquote data-quote=\\"[^"\\]*\\"[^>]*>.*?</blockquote>', re.S)
 for path in sorted(screen_files):
     text = path.read_text()
     text = reading_section.sub(lambda m: '\n' * m[0].count('\n'), text)
+    text = quote_block.sub(lambda m: '\n' * m[0].count('\n'), text)
     for pattern in (element_period, field_period):
         for m in pattern.finditer(text):
             line = text.count('\n', 0, m.start()) + 1

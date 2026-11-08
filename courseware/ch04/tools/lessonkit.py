@@ -126,13 +126,14 @@ LOOPS = [("Acceptance", "Spec", "规则没定 → 回 Spec"), ("Tasks", "Plan", 
 ANCHOR_STYLES = ("stairs", "flow", "files")
 
 
-def anchor(style="stairs", lit=(), done=(), reveal_each=False, loops=False, loop_reveal=None):
+def anchor(style="stairs", lit=(), done=(), reveal_each=False, loops=False, loop_reveal=None, mini=False, reveal=None):
     """五层锚点图。全章用阶梯 stairs（讲师 2026-11-05 选定）；flow（流程加回路）、files（文件清单）是当时的备选样稿。
 
     lit 为本页点亮的层（实心）；done 为已完成的层；两者都为空时五层照常显示。
     其余层画成虚线、变淡，表示后面的小节才补。reveal_each=True 时第 i 层带 data-reveal=i（4.1 逐层揭示）。
     loops=True 时画两条返回回路（只有 flow 画成回线，其余风格写在底部），loop_reveal 是它们出现的步骤。
     颜色：五层都是写进仓库、给人和 Agent 读的文件，用 ctx；回到 Spec 要人决定，用 us。
+    mini=True 是各节开篇用的缩小版（只用于 stairs）：只留层名和文件名，不写问题；reveal 是整张图出现的步骤。
     """
     assert style in ANCHOR_STYLES, style
     names = [n for n, _, _ in LAYERS]
@@ -149,6 +150,20 @@ def anchor(style="stairs", lit=(), done=(), reveal_each=False, loops=False, loop
 
     lrv = f' data-reveal="{loop_reveal}"' if loop_reveal is not None else ""
     todo_css = "opacity:.42"
+
+    if style == "stairs" and mini:
+        cells = []
+        for i, (name, _, f) in enumerate(LAYERS):
+            s = state(name)
+            cls = "p-box" + (" is-solid" if s == "lit" else " is-dashed" if s == "todo" else "")
+            css = todo_css if s == "todo" else ""
+            cells.append(
+                f'<div class="p-stair" style="--i:{i}"><div class="{cls}" data-role="ctx" style="padding:8px 12px;{css}">'
+                f'<h3 style="font-size:20px;margin:0">{name}</h3>'
+                f'<p style="font-family:var(--p-mono);font-size:14px;margin:2px 0 0">{f}</p></div></div>'
+            )
+        attr = f' data-reveal="{reveal}"' if reveal is not None else ""
+        return f'<div class="p-stairs"{attr} style="--n:5;--rise:14px;column-gap:12px;height:auto">{"".join(cells)}</div>'
 
     if style == "stairs":
         cells = []
@@ -188,7 +203,7 @@ def anchor(style="stairs", lit=(), done=(), reveal_each=False, loops=False, loop
                          f'<span class="p-back-label" style="font-size:19px">{text}</span></div>')
         return f'<div class="p-flow" style="--n:5;column-gap:26px;align-items:stretch">{"".join(cells)}{back}</div>'
 
-    # files：随代码进 Git 的五份文件逐行列出（存放目录在 4.2–4.5 再定）
+    # files：随代码进 Git 的五份文件逐行列出（存放在 JSON Crack 仓库的 docs/specs/，2026-11-07 确认）
     rows = []
     for i, (name, q, f) in enumerate(LAYERS):
         s = state(name)
