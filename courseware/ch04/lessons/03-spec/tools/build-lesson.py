@@ -4,24 +4,24 @@
 分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch04/tools/lessonkit.py。
 口播在 script.json；生成前先修改这些源文件。
 决定清单与 STORYBOARD“讲师作为需求负责人逐项决定”“其余行为的决定清单”一致，改动时两处同步。
-有演示的 p27、p35、p36 等讲师演练后再做。
+实跑请求保存在分镜；页面展示组织请求的要素和短示例。
 """
 import sys
 from html import escape
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from lessonkit import Lesson, anchor, chapter_map  # noqa: E402
+from lessonkit import Lesson, anchor, chapter_map, pop, repro  # noqa: E402
 
 # 讲师作为需求负责人逐项决定：(问题, 决定, 代价或范围)
 CORE = [
     ("对象键换序算不算差异", "不算，对象键顺序忽略", "真正关心字段顺序的场景不在本次范围"),
-    ("数组怎样比较", "按索引逐项比较", "中间插入一项，后面各项都显示为改动；按元素对齐、移动检测留在非目标"),
+    ("数组怎样比较", "按索引逐项比较", "中间插入一项，后面的项可能显示为改动；按元素对齐、移动检测留在非目标"),
     ("<code>1</code> 变成 <code>\"1\"</code>", "值或类型改变都记为 changed", "不再细分“只是类型变了”"),
 ]
 # 其余行为的决定清单（屏幕短句版）：(揭示组, 行为, 决定)
 REST = [
-    (0, "差异计数", "只数直接差异；带派生标记的祖先不计；整个对象或数组增删，只在根计 1 处"),
+    (0, "差异计数", "只数直接差异；仅带派生标记的祖先不计；整个对象或数组增删根计 1 处、子节点仍标状态"),
     (0, "只看变化", "隐藏未变化的节点，保留通向差异的祖先和 removed 节点；筛选不改变差异数"),
     (1, "输入出错", "指明是 Before 还是 After 出错，保留最后一次有效结果；还没比较过时显示空状态"),
     (1, "节点上限", "沿用现有上限设定，removed 节点计入；超限时不画图，只提示图太大"),
@@ -56,6 +56,30 @@ scene(
         + '<div class="p-bar is-light" data-reveal="2" style="margin-top:18px">手里有：<b>原文快照 · BRIEF.md · Open 问题</b></div>'
     ),
     steps=["本章位置", "这一节补哪一层", "从 Open 问题开始"],
+)
+
+scene(
+    id="p27", segment="开篇",
+    label="Open 问题里还剩什么", title="Open 问题里，还剩什么？",
+    lead="打开 4.2 形成的 BRIEF.md，找到 Open 问题。每个人得到的问题条数和编号可能不同，按主题寻找；Agent 写的建议仍需人决定。",
+    html=(
+        '<div class="p-pair" style="grid-template-columns:1fr 1fr;gap:24px">'
+        '<div class="p-box" data-role="ctx" data-reveal="0"><span class="p-tag" data-role="ctx">BRIEF.md · Open 问题</span>'
+        '<h3 style="margin:10px 0">先看问题和依据</h3>'
+        '<p>这条会影响什么结果？<br>原文和调查提供了什么依据？</p></div>'
+        '<div class="p-box" data-role="agent" data-reveal="1"><span class="p-tag" data-role="agent">Agent 的建议</span>'
+        '<h3 style="margin:10px 0">再判断建议</h3>'
+        '<p>行为怎么选，由人决定<br>代码怎么改，留给 Plan</p></div></div>'
+        '<div data-reveal="2" style="display:flex;align-items:center;gap:16px;margin-top:18px;flex-wrap:wrap">'
+        '<span class="p-chip" data-role="us">从自己的 Brief 找对应主题</span>'
+        + pop("Open 问题：一条实跑片段", "示例：一条 Open 问题",
+              '<p style="margin:0">备课时的一个问题；每个人的 Brief 以实际内容为准</p>'
+              '<div style="max-width:100%;overflow-x:auto"><a href="assets/brief-open-20261109.png"><img src="assets/brief-open-20261109.png" '
+              'alt="一次实跑中关于数组对齐的 Open 问题：包含原文出处、现状影响和标为非决定的建议" '
+              'style="display:block;width:800px;max-width:none;height:auto;margin:auto"></a></div>')
+        + '</div>'
+    ),
+    steps=["打开 Brief", "识别问题和建议", "从自己的问题开始"],
 )
 
 # ---------- 几种合理结果 ----------
@@ -200,6 +224,70 @@ scene(
         '</div>'
     ),
     steps=["行为规则", "实现安排", "编号、状态、来源"],
+)
+
+scene(
+    id="p35", segment="写成 Spec",
+    label="让 Agent 起草 Spec", title="让 Agent 起草 Spec",
+    lead="结合自己的 Brief 和本章已经确认的决定组织请求：说明依据和目标文件，要求规则写清编号、行为、状态、来源与 Open 问题去向。",
+    html=(
+        '<div class="p-pair" style="grid-template-columns:1fr 1fr;gap:24px">'
+        '<div class="p-box" data-role="agent" data-reveal="0"><span class="p-tag" data-role="agent">依据与产出</span>'
+        '<h3 style="margin:10px 0">自己的 Brief + 已确认的决定</h3>'
+        '<p>请 Agent 起草 <code>SPEC.md</code></p></div>'
+        '<div class="p-box" data-role="ctx" data-reveal="1"><span class="p-tag" data-role="ctx">每条规则</span>'
+        '<h3 style="margin:10px 0">编号 · 行为 · 状态 · 来源</h3>'
+        '<p>行为要可观察、可检查</p></div></div>'
+        '<div class="p-bar is-light" data-reveal="2" style="margin-top:16px">Open 问题写明去向；<b>未决定的留给人决定</b></div>'
+        '<div class="p-box is-soft" data-role="us" data-reveal="3" style="padding:10px 16px;margin-top:14px">'
+        '<span class="p-tag" data-role="us">表达示例 · 按实际情况调整</span>'
+        '<p style="font-size:20px;margin:8px 0 0">“依据我的 Brief 和已确认的决定起草 Spec；规则写清行为、状态和来源，未决定的保留待定。”</p></div>'
+    ),
+    steps=["依据与产出", "规则怎么写", "Open 问题去向", "按实际组织请求"],
+    repro=repro([
+        ("打开自己在 4.2 写的 Brief，对照 p31–p33，整理已确认的课程决定与仍未决定的问题。", None),
+        ("向 Agent 说明依据、目标文件和规则要求，按本次实际内容组织起草请求。", None),
+        ("打开得到的 SPEC.md，按下一页的五项逐条审查。", None),
+    ], note="请求措辞和问题编号会因 Brief 不同而变化；规则的状态和内容仍需人审。", label="跟做：起草 Spec"),
+)
+
+scene(
+    id="p36", segment="写成 Spec",
+    label="Spec 审什么", title="Spec 写好了，审什么？",
+    lead="打开 Agent 生成的 SPEC.md，结合 Brief 和决定清单逐条审。问题去向、状态与正文都要核对；审出的问题按实际情况修改。",
+    html=(
+        '<style>@media(max-width:760px){body[data-mode="scroll"] #p36 .p-watch,'
+        'body[data-mode="scroll"] #p36 .p-pop .p-pair{grid-template-columns:minmax(0,1fr)!important}'
+        'body[data-mode="scroll"] #p36 .p-watch li{display:grid;grid-template-columns:36px minmax(0,1fr);gap:4px 12px}'
+        'body[data-mode="scroll"] #p36 .p-watch li small{grid-column:2}'
+        'body[data-mode="scroll"] #p36 .review-actions .p-bar{min-width:0!important}}</style>'
+        '<ol class="p-watch" style="display:grid;grid-template-columns:1fr 1fr;gap:8px 18px">'
+        '<li data-reveal="0">Open 问题<small>每条有去处，未决定的写清</small></li>'
+        '<li data-reveal="1">可检查且一致<small>用户能观察，规则之间不矛盾</small></li>'
+        '<li data-reveal="1">实现细节<small>文件、组件、函数名留给 Plan</small></li>'
+        '<li data-reveal="2">状态<small>与决定清单一致，建议不冒充批准</small></li>'
+        '<li data-reveal="2">默认做法<small>清单没定的，不让 Agent 自己定</small></li></ol>'
+        '<div class="review-actions" data-reveal="3" style="display:flex;align-items:center;gap:16px;margin-top:16px;flex-wrap:wrap">'
+        '<div class="p-bar is-light" style="flex:1;min-width:360px;margin:0">审完看 <b>git status</b>：新增只在 docs/specs/</div>'
+        + pop("一次实跑：审查差异计数", "示例：差异计数",
+              '<p style="margin:0">2026-11-09 备课实跑；以下是初稿和修改稿的摘录。每次生成的编号和内容可能不同</p>'
+              '<div class="p-pair" style="grid-template-columns:1fr 1fr;gap:16px">'
+              '<div class="p-box" data-role="gate"><span class="p-tag" data-role="gate">初稿</span>'
+              '<h3 style="font-size:20px">两条规则怎样一起算？</h3>'
+              '<p>REQ-014：整棵对象只在根计 1 处，子节点仍标为 added</p>'
+              '<p>REQ-015：差异数“等于直接差异的条数”</p></div>'
+              '<div class="p-box" data-role="us"><span class="p-tag" data-role="us">修改后</span>'
+              '<h3 style="font-size:20px">区分状态和计数</h3>'
+              '<p>子节点仍逐个标状态；整棵新增或删除的子树只贡献 1 处</p>'
+              '<p>再核对摘要与计数规则是否一致</p></div></div>')
+        + '</div>'
+    ),
+    steps=["Open 问题去向", "可观察与实现细节", "状态和默认做法", "修改并检查"],
+    repro=repro([
+        ("打开自己的 SPEC.md，对照 Brief、课程决定和页面上的五项审查；先看 Open 问题去向表。", None),
+        ("审出问题时，指出具体内容、对照依据、修改要求和范围，按实际情况交给 Agent 修改。", None),
+        ("回看修改处与相关规则，确认未决事项没有被擅自批准，再检查工作区。", "git status --short --untracked-files=all"),
+    ], note="实际问题和编号可能不同；没有审出问题时继续核对，不必编造修改。", label="跟做：审查与修改"),
 )
 
 # ---------- 自检与交接 ----------

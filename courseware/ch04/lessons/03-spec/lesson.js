@@ -27,6 +27,27 @@ window.lesson = {
       "seconds": 90
     },
     {
+      "id": "p27",
+      "segment": "开篇",
+      "label": "Open 问题里还剩什么",
+      "title": "Open 问题里，还剩什么？",
+      "lead": "打开 4.2 形成的 BRIEF.md，找到 Open 问题。每个人得到的问题条数和编号可能不同，按主题寻找；Agent 写的建议仍需人决定。",
+      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;gap:24px\"><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">BRIEF.md · Open 问题</span><h3 style=\"margin:10px 0\">先看问题和依据</h3><p>这条会影响什么结果？<br>原文和调查提供了什么依据？</p></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">Agent 的建议</span><h3 style=\"margin:10px 0\">再判断建议</h3><p>行为怎么选，由人决定<br>代码怎么改，留给 Plan</p></div></div><div data-reveal=\"2\" style=\"display:flex;align-items:center;gap:16px;margin-top:18px;flex-wrap:wrap\"><span class=\"p-chip\" data-role=\"us\">从自己的 Brief 找对应主题</span><details class=\"p-pop\"><summary>示例：一条 Open 问题</summary><div class=\"p-pop-body\"><div class=\"p-pop-head\"><span>Open 问题：一条实跑片段</span><button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div><p style=\"margin:0\">备课时的一个问题；每个人的 Brief 以实际内容为准</p><div style=\"max-width:100%;overflow-x:auto\"><a href=\"assets/brief-open-20261109.png\"><img src=\"assets/brief-open-20261109.png\" alt=\"一次实跑中关于数组对齐的 Open 问题：包含原文出处、现状影响和标为非决定的建议\" style=\"display:block;width:800px;max-width:none;height:auto;margin:auto\"></a></div></div></details></div>",
+      "steps": [
+        "打开 Brief",
+        "识别问题和建议",
+        "从自己的问题开始"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p27 第 1 步；切到编辑器，打开基线副本中的 docs/specs/BRIEF.md，滚到 Open 问题一节，再切回课件】\n\n先打开上一节写出的 Brief，找到 Open 问题。这里列的是需求原文还没定下来、又会改变实现的地方。每个人生成的条数和编号可能不同。找到一条，先看它会影响什么结果，再看原文和调查提供了什么依据。",
+        "【操作提示｜推进第 2 步；切到现场 Brief，指出一条问题，查看是否附有建议，再切回课件】\n\n再看 Agent 有没有附建议。比如我备课那次，它建议按业务主键对齐数组。这是一种办法，行为上选哪种还需要人决定；代码具体怎么改，留到 Plan 再讨论。你看到的问题和建议可能不同。",
+        "【操作提示｜推进第 3 步，指向“示例：一条 Open 问题”；讲完进入 p28】\n\n页面里截取了那次实跑的一条问题，供你对照看。接下来拿几段很小的 JSON 比较不同结果，帮助我们为自己的 Brief 作决定。"
+      ],
+      "teaching": [],
+      "source": "index.html#p27",
+      "seconds": 90
+    },
+    {
       "id": "p28",
       "segment": "几种结果",
       "label": "键换序与类型变化",
@@ -101,7 +122,7 @@ window.lesson = {
       "label": "课程怎么定",
       "title": "三个问题，课程这样定",
       "lead": "本课程由讲师担任需求负责人，对每个问题说明选择和代价。按索引是控制范围的取舍：规则简单、结果容易人工核算，代价也要写进 Spec",
-      "html": "<div class=\"p-qlist\"><div class=\"p-qrow\" data-reveal=\"0\"><span class=\"p-n\">1</span><div><h3>对象键换序算不算差异</h3><p><b>决定</b>　不算，对象键顺序忽略</p><p style=\"color:var(--p-muted)\"><b>代价或范围</b>　真正关心字段顺序的场景不在本次范围</p></div></div><div class=\"p-qrow\" data-reveal=\"1\"><span class=\"p-n\">2</span><div><h3>数组怎样比较</h3><p><b>决定</b>　按索引逐项比较</p><p style=\"color:var(--p-muted)\"><b>代价或范围</b>　中间插入一项，后面各项都显示为改动；按元素对齐、移动检测留在非目标</p></div></div><div class=\"p-qrow\" data-reveal=\"2\"><span class=\"p-n\">3</span><div><h3><code>1</code> 变成 <code>\"1\"</code></h3><p><b>决定</b>　值或类型改变都记为 changed</p><p style=\"color:var(--p-muted)\"><b>代价或范围</b>　不再细分“只是类型变了”</p></div></div></div>",
+      "html": "<div class=\"p-qlist\"><div class=\"p-qrow\" data-reveal=\"0\"><span class=\"p-n\">1</span><div><h3>对象键换序算不算差异</h3><p><b>决定</b>　不算，对象键顺序忽略</p><p style=\"color:var(--p-muted)\"><b>代价或范围</b>　真正关心字段顺序的场景不在本次范围</p></div></div><div class=\"p-qrow\" data-reveal=\"1\"><span class=\"p-n\">2</span><div><h3>数组怎样比较</h3><p><b>决定</b>　按索引逐项比较</p><p style=\"color:var(--p-muted)\"><b>代价或范围</b>　中间插入一项，后面的项可能显示为改动；按元素对齐、移动检测留在非目标</p></div></div><div class=\"p-qrow\" data-reveal=\"2\"><span class=\"p-n\">3</span><div><h3><code>1</code> 变成 <code>\"1\"</code></h3><p><b>决定</b>　值或类型改变都记为 changed</p><p style=\"color:var(--p-muted)\"><b>代价或范围</b>　不再细分“只是类型变了”</p></div></div></div>",
       "steps": [
         "键换序",
         "数组",
@@ -109,7 +130,7 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜停留课件 p31 第 1 步，指向第 1 行】\n\n这门课里，我来担任需求负责人，三个问题一个一个定。第一个，对象键换了顺序，不算差异。代价是，真正关心字段顺序的场景，这次不在范围里。",
-        "【操作提示｜推进第 2 步，指向第 2 行】\n\n第二个，数组按索引逐项比较。我选它，是因为规则简单，结果容易人工核算。代价刚才也看到了：中间插入一项，后面各项都会显示成改动。这个代价要写进 Spec，让用户看到一串改动时知道是怎么回事。按元素对齐、识别移动，这次都不做。",
+        "【操作提示｜推进第 2 步，指向第 2 行】\n\n第二个，数组按索引逐项比较。我选它，是因为规则简单，结果容易人工核算。代价刚才也看到了：中间插入一项，后面的项可能会显示成改动。这个代价要写进 Spec，让用户看到一串改动时知道是怎么回事。按元素对齐、识别移动，这次都不做。",
         "【操作提示｜推进第 3 步，指向第 3 行】\n\n第三个，值变了、或者类型变了，都记为 changed。不再单独细分“只是类型变了”这一种。"
       ],
       "teaching": [],
@@ -145,14 +166,14 @@ window.lesson = {
       "label": "其余行为",
       "title": "筛选、输错、大文件，怎么办？",
       "lead": "差异怎样判定、怎样画出来已经定了。用户还会筛选、输错、贴进很大的文件，这些行为也要在交给验收前定下来。节点上限沿用现有设定，具体数值留给 4.4 按运行环境核算",
-      "html": "<style>#p33 .p-matrix span{padding:6px 12px}</style><div class=\"p-matrix\" style=\"grid-template-columns:200px minmax(0,1fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>行为</span><span>课程决定</span></div><div data-reveal=\"0\"><span style=\"font-weight:700;font-size:19px\">差异计数</span><span style=\"font-size:19px\">只数直接差异；带派生标记的祖先不计；整个对象或数组增删，只在根计 1 处</span></div><div data-reveal=\"0\"><span style=\"font-weight:700;font-size:19px\">只看变化</span><span style=\"font-size:19px\">隐藏未变化的节点，保留通向差异的祖先和 removed 节点；筛选不改变差异数</span></div><div data-reveal=\"1\"><span style=\"font-weight:700;font-size:19px\">输入出错</span><span style=\"font-size:19px\">指明是 Before 还是 After 出错，保留最后一次有效结果；还没比较过时显示空状态</span></div><div data-reveal=\"1\"><span style=\"font-weight:700;font-size:19px\">节点上限</span><span style=\"font-size:19px\">沿用现有上限设定，removed 节点计入；超限时不画图，只提示图太大</span></div><div data-reveal=\"2\"><span style=\"font-weight:700;font-size:19px\">本地处理</span><span style=\"font-size:19px\">比较在浏览器本地完成，JSON 内容不发送到网络</span></div><div data-reveal=\"2\"><span style=\"font-weight:700;font-size:19px\">可辨认、可操作</span><span style=\"font-size:19px\">状态除颜色外还有文字或符号；360px 宽的窗口里都能操作</span></div><div data-reveal=\"2\"><span style=\"font-weight:700;font-size:19px\">其他客户端、格式</span><span style=\"font-size:19px\">VS Code 插件、其他数据格式标为 Deferred</span></div></div>",
+      "html": "<style>#p33 .p-matrix span{padding:6px 12px}</style><div class=\"p-matrix\" style=\"grid-template-columns:200px minmax(0,1fr)\"><div class=\"is-head\" data-reveal=\"0\"><span>行为</span><span>课程决定</span></div><div data-reveal=\"0\"><span style=\"font-weight:700;font-size:19px\">差异计数</span><span style=\"font-size:19px\">只数直接差异；仅带派生标记的祖先不计；整个对象或数组增删根计 1 处、子节点仍标状态</span></div><div data-reveal=\"0\"><span style=\"font-weight:700;font-size:19px\">只看变化</span><span style=\"font-size:19px\">隐藏未变化的节点，保留通向差异的祖先和 removed 节点；筛选不改变差异数</span></div><div data-reveal=\"1\"><span style=\"font-weight:700;font-size:19px\">输入出错</span><span style=\"font-size:19px\">指明是 Before 还是 After 出错，保留最后一次有效结果；还没比较过时显示空状态</span></div><div data-reveal=\"1\"><span style=\"font-weight:700;font-size:19px\">节点上限</span><span style=\"font-size:19px\">沿用现有上限设定，removed 节点计入；超限时不画图，只提示图太大</span></div><div data-reveal=\"2\"><span style=\"font-weight:700;font-size:19px\">本地处理</span><span style=\"font-size:19px\">比较在浏览器本地完成，JSON 内容不发送到网络</span></div><div data-reveal=\"2\"><span style=\"font-weight:700;font-size:19px\">可辨认、可操作</span><span style=\"font-size:19px\">状态除颜色外还有文字或符号；360px 宽的窗口里都能操作</span></div><div data-reveal=\"2\"><span style=\"font-weight:700;font-size:19px\">其他客户端、格式</span><span style=\"font-size:19px\">VS Code 插件、其他数据格式标为 Deferred</span></div></div>",
       "steps": [
         "计数与筛选",
         "出错与上限",
         "本地、可辨认与暂缓"
       ],
       "script": [
-        "【操作提示｜停留课件 p33 第 1 步，指向前两行】\n\n用户真正用起来，还会筛选、会输错、会贴进很大的文件，这些也要在交给验收之前定下来。先看计数和筛选：只数直接差异，整个对象或数组被增删时，只在它的根上计 1 处。只看变化时，未变化的节点藏起来，但通向差异的祖先和删掉的节点要留着，筛选前后差异数不变。",
+        "【操作提示｜停留课件 p33 第 1 步，指向前两行】\n\n用户真正用起来，还会筛选、会输错、会贴进很大的文件，这些也要在交给验收之前定下来。先看计数和筛选：只数直接差异，整个对象或数组被增删时，只在它的根上计 1 处，里面的节点仍要逐个标状态。只看变化时，未变化的节点藏起来，但通向差异的祖先和删掉的节点要留着，筛选前后差异数不变。",
         "【操作提示｜推进第 2 步，指向中间两行】\n\n输入出错时，要指明是 Before 还是 After 出错，并保留最后一次有效的比较结果。4.1 我们在现有编辑器里看到过，输错时图会保留上一次的结果，这里沿用同样的思路。节点上限，上一节查到它来自仓库配置，这里决定合并图沿用现有设定，不另定新数值；删掉的节点也画在图上，所以一并计入。超过上限就不画图，只提示图太大。具体数值留给下一节，按运行环境来核算。",
         "【操作提示｜推进第 3 步，指向最后三行】\n\n最后三行：比较在浏览器本地完成，JSON 内容不发出去，这是原文第 6 条的要求。每种状态除了颜色，还要有文字或符号能认出来；360 像素宽的窗口里也要能操作。VS Code 插件、其他数据格式，标为暂缓，也就是 Deferred。"
       ],
@@ -180,6 +201,88 @@ window.lesson = {
       "teaching": [],
       "source": "index.html#p34",
       "seconds": 90
+    },
+    {
+      "id": "p35",
+      "segment": "写成 Spec",
+      "label": "让 Agent 起草 Spec",
+      "title": "让 Agent 起草 Spec",
+      "lead": "结合自己的 Brief 和本章已经确认的决定组织请求：说明依据和目标文件，要求规则写清编号、行为、状态、来源与 Open 问题去向。",
+      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;gap:24px\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"agent\">依据与产出</span><h3 style=\"margin:10px 0\">自己的 Brief + 已确认的决定</h3><p>请 Agent 起草 <code>SPEC.md</code></p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ctx\">每条规则</span><h3 style=\"margin:10px 0\">编号 · 行为 · 状态 · 来源</h3><p>行为要可观察、可检查</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:16px\">Open 问题写明去向；<b>未决定的留给人决定</b></div><div class=\"p-box is-soft\" data-role=\"us\" data-reveal=\"3\" style=\"padding:10px 16px;margin-top:14px\"><span class=\"p-tag\" data-role=\"us\">表达示例 · 按实际情况调整</span><p style=\"font-size:20px;margin:8px 0 0\">“依据我的 Brief 和已确认的决定起草 Spec；规则写清行为、状态和来源，未决定的保留待定。”</p></div>",
+      "steps": [
+        "依据与产出",
+        "规则怎么写",
+        "Open 问题去向",
+        "按实际组织请求"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p35 第 1 步，指向“依据与产出”；不切窗口】\n\n现在让 Agent 把这些决定写成 Spec。请求先说清依据：自己在 4.2 形成的 Brief，以及刚才已经确认的课程决定；还要说明这次要起草 SPEC.md。",
+        "【操作提示｜推进第 2 步，指向“每条规则”】\n\n再说清每条规则怎么写：带 REQ 编号，写用户能观察、能检查的行为，并标上状态和来源。具体代码放在哪里，留给后面的 Plan。",
+        "【操作提示｜推进第 3 步，指向 Open 问题去向】\n\n还要让它交代 Brief 里每个 Open 问题的去向：已经决定的对应规则，暂缓的标出来，尚未决定的留给人。这里的 Approved 是依据我们的决定起草，生成后仍要逐条审。",
+        "【操作提示｜推进第 4 步；切到 Codex，在 4.2 的同一会话中结合当前 Brief 和已确认决定组织起草请求；等待回复后切回课件进入 p36】\n\n请求的具体措辞，按照你自己的 Brief 和决定来组织。页面里有一句示例，帮助你看清表达方式；确认依据和要求之后，在同一会话发给 Agent。"
+      ],
+      "repro": {
+        "label": "跟做：起草 Spec",
+        "steps": [
+          {
+            "text": "打开自己在 4.2 写的 Brief，对照 p31–p33，整理已确认的课程决定与仍未决定的问题。",
+            "code": ""
+          },
+          {
+            "text": "向 Agent 说明依据、目标文件和规则要求，按本次实际内容组织起草请求。",
+            "code": ""
+          },
+          {
+            "text": "打开得到的 SPEC.md，按下一页的五项逐条审查。",
+            "code": ""
+          }
+        ],
+        "note": "请求措辞和问题编号会因 Brief 不同而变化；规则的状态和内容仍需人审。"
+      },
+      "teaching": [],
+      "source": "index.html#p35",
+      "seconds": 120
+    },
+    {
+      "id": "p36",
+      "segment": "写成 Spec",
+      "label": "Spec 审什么",
+      "title": "Spec 写好了，审什么？",
+      "lead": "打开 Agent 生成的 SPEC.md，结合 Brief 和决定清单逐条审。问题去向、状态与正文都要核对；审出的问题按实际情况修改。",
+      "html": "<style>@media(max-width:760px){body[data-mode=\"scroll\"] #p36 .p-watch,body[data-mode=\"scroll\"] #p36 .p-pop .p-pair{grid-template-columns:minmax(0,1fr)!important}body[data-mode=\"scroll\"] #p36 .p-watch li{display:grid;grid-template-columns:36px minmax(0,1fr);gap:4px 12px}body[data-mode=\"scroll\"] #p36 .p-watch li small{grid-column:2}body[data-mode=\"scroll\"] #p36 .review-actions .p-bar{min-width:0!important}}</style><ol class=\"p-watch\" style=\"display:grid;grid-template-columns:1fr 1fr;gap:8px 18px\"><li data-reveal=\"0\">Open 问题<small>每条有去处，未决定的写清</small></li><li data-reveal=\"1\">可检查且一致<small>用户能观察，规则之间不矛盾</small></li><li data-reveal=\"1\">实现细节<small>文件、组件、函数名留给 Plan</small></li><li data-reveal=\"2\">状态<small>与决定清单一致，建议不冒充批准</small></li><li data-reveal=\"2\">默认做法<small>清单没定的，不让 Agent 自己定</small></li></ol><div class=\"review-actions\" data-reveal=\"3\" style=\"display:flex;align-items:center;gap:16px;margin-top:16px;flex-wrap:wrap\"><div class=\"p-bar is-light\" style=\"flex:1;min-width:360px;margin:0\">审完看 <b>git status</b>：新增只在 docs/specs/</div><details class=\"p-pop\"><summary>示例：差异计数</summary><div class=\"p-pop-body\"><div class=\"p-pop-head\"><span>一次实跑：审查差异计数</span><button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div><p style=\"margin:0\">2026-11-09 备课实跑；以下是初稿和修改稿的摘录。每次生成的编号和内容可能不同</p><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;gap:16px\"><div class=\"p-box\" data-role=\"gate\"><span class=\"p-tag\" data-role=\"gate\">初稿</span><h3 style=\"font-size:20px\">两条规则怎样一起算？</h3><p>REQ-014：整棵对象只在根计 1 处，子节点仍标为 added</p><p>REQ-015：差异数“等于直接差异的条数”</p></div><div class=\"p-box\" data-role=\"us\"><span class=\"p-tag\" data-role=\"us\">修改后</span><h3 style=\"font-size:20px\">区分状态和计数</h3><p>子节点仍逐个标状态；整棵新增或删除的子树只贡献 1 处</p><p>再核对摘要与计数规则是否一致</p></div></div></div></details></div>",
+      "steps": [
+        "Open 问题去向",
+        "可观察与实现细节",
+        "状态和默认做法",
+        "修改并检查"
+      ],
+      "script": [
+        "【操作提示｜停留课件 p36 第 1 步；切到编辑器打开 docs/specs/SPEC.md，找到 Open 问题去向表，对照当前 Brief，再切回课件】\n\nSpec 起草好了，先看每个 Open 问题有没有去处。已经决定的，对上规则；还缺决定的，要写清缺什么。具体代码放在哪里，留给 Plan。每个人的编号和条数都可能不同。",
+        "【操作提示｜推进第 2 步；切到当前 SPEC.md，选一条 Approved 规则检查行为和可能混入的实现安排，再切回课件】\n\n再看规则本身。每条 Approved 规则能不能说清用户看到什么、怎样检查？相关规则放在一起，有没有互相矛盾？文件名、组件名和函数名是实现安排，不要混进规则正文。",
+        "【操作提示｜推进第 3 步；对照当前的课程决定和 SPEC.md 的状态、Draft，再切回课件】\n\n然后看状态是不是和决定一致：Agent 的建议不能因为写进文档就变成批准；还没定的地方也不能让它自己补默认。",
+        "【操作提示｜推进第 4 步；切到现场 SPEC.md，对照本次审查结果；在 Codex 中处理审出的意见、核对结果并运行 git status；切回课件进入 p37】\n\n审出问题，就指出具体哪句话不对、依据是什么、希望怎样修改和改动的范围。改完回头对照相关规则。页面里有一次备课时的计数问题作例子，你自己的结果和编号可能不同；没有发现问题，也不必为了演示编造修改。最后看 git status：新增内容只在 docs/specs 下，本节先不提交。"
+      ],
+      "repro": {
+        "label": "跟做：审查与修改",
+        "steps": [
+          {
+            "text": "打开自己的 SPEC.md，对照 Brief、课程决定和页面上的五项审查；先看 Open 问题去向表。",
+            "code": ""
+          },
+          {
+            "text": "审出问题时，指出具体内容、对照依据、修改要求和范围，按实际情况交给 Agent 修改。",
+            "code": ""
+          },
+          {
+            "text": "回看修改处与相关规则，确认未决事项没有被擅自批准，再检查工作区。",
+            "code": "git status --short --untracked-files=all"
+          }
+        ],
+        "note": "实际问题和编号可能不同；没有审出问题时继续核对，不必编造修改。"
+      },
+      "teaching": [],
+      "source": "index.html#p36",
+      "seconds": 120
     },
     {
       "id": "p37",
@@ -227,7 +330,7 @@ window.lesson = {
   "segments": [
     {
       "label": "开篇",
-      "seconds": 90
+      "seconds": 180
     },
     {
       "label": "几种结果",
@@ -239,7 +342,7 @@ window.lesson = {
     },
     {
       "label": "写成 Spec",
-      "seconds": 90
+      "seconds": 330
     },
     {
       "label": "自检与交接",
