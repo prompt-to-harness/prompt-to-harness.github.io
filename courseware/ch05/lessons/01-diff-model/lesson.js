@@ -11,7 +11,7 @@ window.lesson = {
       "label": "规格写好了，怎么知道第一个任务做对了",
       "title": "怎么知道第一个任务做对了？",
       "lead": "上一章留下了已经提交的规格基线，生产代码里还没有 JSON Diff。这一章按规格把 JSON Diff 分片实现。这一节先回答：规格写好了，怎么知道第一个任务做对了？",
-      "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>5.1</b>差异模型</li><li><b>5.2</b>合并图</li><li><b>5.3</b>双输入</li><li><b>5.4</b>整体验收</li><li><b>5.5</b>趁手招数</li></ol><div class=\"p-bar is-light\" data-reveal=\"1\" style=\"margin-top:22px\">第 4 章留下：<b>已提交的规格基线</b>；生产代码里还没有 JSON Diff</div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:14px\">本节要留下：已验证的差异模型、工作区外的一次性核对脚本和实际检查结果，以及 <code>CH05_IMPLEMENTATION.md</code> 初稿</div>",
+      "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>5.1</b>差异模型</li><li><b>5.2</b>合并图</li><li><b>5.3</b>双输入</li><li><b>5.4</b>整体验收</li><li><b>5.5</b>可带走的招数</li></ol><div class=\"p-bar is-light\" data-reveal=\"1\" style=\"margin-top:22px\">第 4 章留下：<b>已提交的规格基线</b>；生产代码里还没有 JSON Diff</div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:14px\">本节要留下：已验证的差异模型、工作区外的一次性核对脚本和实际检查结果，以及 <code>CH05_IMPLEMENTATION.md</code> 初稿</div>",
       "steps": [
         "本章位置",
         "第 4 章留下什么",

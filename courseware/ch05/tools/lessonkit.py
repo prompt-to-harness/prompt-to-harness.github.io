@@ -16,7 +16,7 @@ from html import escape
 from pathlib import Path
 
 CHAPTER = "第 5 章 · SDD"
-SECTIONS = [("5.1", "差异模型"), ("5.2", "合并图"), ("5.3", "双输入"), ("5.4", "整体验收"), ("5.5", "趁手招数")]
+SECTIONS = [("5.1", "差异模型"), ("5.2", "合并图"), ("5.3", "双输入"), ("5.4", "整体验收"), ("5.5", "可带走的招数")]
 
 # 阅读模式窄屏下，代码讲解（p-walk）、正反对照（p-claim）与主栏加侧栏（p-aside）改为单列，代码行允许折行
 NARROW = '<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style>'
