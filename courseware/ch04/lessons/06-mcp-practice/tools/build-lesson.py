@@ -4,6 +4,7 @@
 分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch04/tools/lessonkit.py。
 口播在 script.json；生成前先修改这些源文件。
 非实操页按已确认的逐页内容制作；p61–p68 先占位，待教学材料准备并实跑后再写。不预写 Agent 回复。
+飞书主案例用官方 CLI，其他短演示仍用 MCP；不要把 CLI 写成 MCP。
 """
 import sys
 from pathlib import Path
@@ -36,18 +37,17 @@ scene(
 scene(
     id="p60", segment="接入飞书",
     label="怎样把飞书接到这次要用的工具上", title="怎样把飞书接到这次要用的工具上？",
-    lead="这一页只补 4.2 放下的接入步骤，不再讲 MCP 是什么。没接上也可以看后面的演示",
+    lead="4.2 用 MCP 读过需求。飞书这边，官方目前给个人用户的推荐是命令行工具。没接上也可以看后面的演示",
     html=(
         '<div class="p-qlist" data-reveal="0">'
-        '<div class="p-qrow"><span class="p-n">1</span><div><h3>建立自建应用，并开通权限</h3></div></div>'
-        '<div class="p-qrow"><span class="p-n">2</span><div><h3>配好登录用的重定向地址</h3></div></div>'
-        '<div class="p-qrow"><span class="p-n">3</span><div><h3>在终端登录一次，保存令牌</h3></div></div>'
-        '<div class="p-qrow"><span class="p-n">4</span><div><h3>在 Codex 里加入服务，并按这次任务限定工具</h3></div></div>'
+        '<div class="p-qrow"><span class="p-n">1</span><div><h3>按官方文档安装飞书命令行工具</h3></div></div>'
+        '<div class="p-qrow"><span class="p-n">2</span><div><h3>重启 Codex，让对应技能加载</h3></div></div>'
+        '<div class="p-qrow"><span class="p-n">3</span><div><h3>用本人身份登录一次</h3></div></div>'
         '</div>'
-        '<div class="p-bar" data-reveal="1" style="margin-top:10px">lark-mcp 默认回调地址和 JSON Crack 开发服务器都占用本机 <b>3000</b> 端口；登录时先停服务，或换端口并同步重定向地址</div>'
-        '<div class="p-bar is-light" data-reveal="2" style="margin-top:8px">凭证和密钥不进公开材料和画面。lark-mcp 目前是 Beta，录制时以当时版本为准</div>'
+        '<div class="p-bar" data-reveal="1" style="margin-top:10px">这不是 MCP。Agent 通过技能调用命令行，<b>不需要启动 MCP 服务</b></div>'
+        '<div class="p-bar is-light" data-reveal="2" style="margin-top:8px">凭证和密钥不进公开材料和画面。能力以演练时的实际结果为准</div>'
     ),
-    steps=["接入时要做的事", "3000 端口冲突", "凭证不进画面"],
+    steps=["接入时要做的事", "这不是 MCP", "凭证不进画面"],
 )
 
 
@@ -81,16 +81,19 @@ scene(
         '<span class="p-tag" data-role="us">选择顺序</span>'
         '<h3 style="font-size:24px;margin:8px 0 0">先看要完成的动作，再看来源、范围、账号、网络和数据条件</h3>'
         '<p style="margin:6px 0 0">整理文档、改表格、画图、查路线，要做的事不同，该看的工具也不同</p></div>'
-        '<div class="p-grid" style="--n:2;margin-top:12px" data-reveal="1">'
-        '<div class="p-box" data-role="ctx" style="padding:12px 16px"><span class="p-tag" data-role="ctx">来源</span>'
-        '<h3 style="font-size:22px;margin:6px 0 0">分清官方实现和社区实现</h3>'
-        '<p style="margin:4px 0 0">例如 12306-mcp 是社区实现，不是购票工具</p></div>'
-        '<div class="p-box" data-role="ctx" style="padding:12px 16px"><span class="p-tag" data-role="ctx">数据条件</span>'
-        '<h3 style="font-size:22px;margin:6px 0 0">本机有服务，不等于数据只留在本机</h3>'
-        '<p style="margin:4px 0 0">也不等于完全离线；AntV 默认远程渲染</p></div></div>'
-        '<div class="p-bar is-light" data-reveal="2" style="margin-top:10px">不要求装齐。百度地图只作高德的替代说明，不再单独演示；来源和能力录制前再复核</div>'
+        '<div class="p-grid" style="--n:3;margin-top:10px" data-reveal="1">'
+        '<div class="p-box" data-role="ctx" style="padding:10px 12px"><span class="p-tag" data-role="ctx">来源</span>'
+        '<h3 style="font-size:20px;margin:6px 0 0">分清官方和社区</h3>'
+        '<p style="margin:4px 0 0">12306-mcp 是社区实现<br>不是购票工具</p></div>'
+        '<div class="p-box" data-role="ctx" style="padding:10px 12px"><span class="p-tag" data-role="ctx">数据条件</span>'
+        '<h3 style="font-size:20px;margin:6px 0 0">本机有服务，不等于数据只留在本机</h3>'
+        '<p style="margin:4px 0 0">AntV 默认远程渲染</p></div>'
+        '<div class="p-box" data-role="ctx" style="padding:10px 12px"><span class="p-tag" data-role="ctx">接入形式</span>'
+        '<h3 style="font-size:20px;margin:6px 0 0">飞书用官方命令行，不是 MCP</h3>'
+        '<p style="margin:4px 0 0">其他短演示仍用 MCP</p></div></div>'
+        '<div class="p-bar is-light" data-reveal="2" style="margin-top:8px">不要求装齐。百度地图只作高德的替代说明；来源和能力录制前再复核</div>'
     ),
-    steps=["选择顺序", "两组界限", "不要求装齐"],
+    steps=["选择顺序", "要分清的界限", "不要求装齐"],
 )
 
 scene(
@@ -119,7 +122,7 @@ scene(
         '<div data-reveal="0"><h3 style="text-align:center">一个判断</h3><div class="p-star" style="font-size:22px">对照来源<br>和实际结果<br>不能只看对话</div></div>'
         '<div data-reveal="1"><h3>留下的</h3><ul class="p-exits" style="gap:10px">'
         '<li class="is-pass">带来源与结果核对的材料</li>'
-        '<li class="is-pass">附使用条件的 MCP 清单</li></ul></div>'
+        '<li class="is-pass">附使用条件的工具清单</li></ul></div>'
         '<div class="p-next" data-reveal="2"><h3>下一章</h3><div class="p-box" data-role="us">'
         '<h3>第 5 章按任务实现</h3><p>JSON Diff 仍从 4.5 已提交的规格基线进入第 5 章</p></div></div>'
         '</div>'
