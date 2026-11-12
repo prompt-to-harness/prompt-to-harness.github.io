@@ -37,17 +37,27 @@ scene(
 scene(
     id="p60", segment="接入飞书",
     label="怎样把飞书接到这次要用的工具上", title="怎样把飞书接到这次要用的工具上？",
-    lead="4.2 用 MCP 读过需求。飞书这边，官方目前给个人用户的推荐是命令行工具。没接上也可以看后面的演示",
+    lead="接入飞书有两种方式。后面演示用更适合个人使用的飞书 CLI",
     html=(
-        '<div class="p-qlist" data-reveal="0">'
-        '<div class="p-qrow"><span class="p-n">1</span><div><h3>按官方文档安装飞书命令行工具</h3></div></div>'
-        '<div class="p-qrow"><span class="p-n">2</span><div><h3>重启 Codex，让对应技能加载</h3></div></div>'
-        '<div class="p-qrow"><span class="p-n">3</span><div><h3>用本人身份登录一次</h3></div></div>'
-        '</div>'
-        '<div class="p-bar" data-reveal="1" style="margin-top:10px">这不是 MCP。Agent 通过技能调用命令行，<b>不需要启动 MCP 服务</b></div>'
-        '<div class="p-bar is-light" data-reveal="2" style="margin-top:8px">凭证和密钥不进公开材料和画面。能力以演练时的实际结果为准</div>'
+        '<style>'
+        '#p60 .scene-content{gap:10px}'
+        '#p60 .p-grid{gap:14px}'
+        '#p60 .p-grid .p-box{padding:14px 18px}'
+        '#p60 .p-grid h3{font-size:24px;margin:8px 0 0}'
+        '#p60 .p-grid p{margin:6px 0 0;font-size:20px;line-height:1.45}'
+        '#p60 .p-bar{margin-top:4px;padding:10px 18px}'
+        '</style>'
+        '<div class="p-grid" style="--n:2" data-reveal="0">'
+        '<div class="p-box" data-role="us"><span class="p-tag" data-role="us">个人使用</span>'
+        '<h3>推荐飞书 CLI</h3>'
+        '<p>本质上是一组技能。Agent 通过技能调用，<br>适合个人使用</p></div>'
+        '<div class="p-box" data-role="ctx"><span class="p-tag" data-role="ctx">团队环境</span>'
+        '<h3>推荐飞书 MCP</h3>'
+        '<p>在团队里要搭建 Agent 工作流时<br>更适合</p></div></div>'
+        '<div class="p-bar" data-reveal="1">主要区别：CLI 本质上是一组技能，适合个人使用；团队里搭建 Agent 工作流时，MCP 更适合</div>'
+        '<div class="p-bar is-light" data-reveal="2">后面用更适合个人使用的飞书 CLI 作演示。没接上也可以看</div>'
     ),
-    steps=["接入时要做的事", "这不是 MCP", "凭证不进画面"],
+    steps=["两种接入方式", "两者的区别", "后面用飞书 CLI 演示"],
 )
 
 
@@ -71,29 +81,53 @@ pending("p67", "短演示", "出行约束怎样落到地点和路线？")
 pending("p68", "短演示", "这几个常用 MCP 各能看见什么结果？")
 
 
-# ---------- 选用条件、自检与小结 ----------
+# ---------- 其他推荐、自检与小结 ----------
 scene(
-    id="p69", segment="选用条件",
-    label="怎样按要做的事选工具", title="怎样按要做的事选工具？",
-    lead="选工具时先看要完成的动作，再看来源、范围和条件。不要求装齐这些工具",
+    id="p69", segment="其他推荐",
+    label="还可以再看这三个", title="还可以再看这三个？",
+    lead="画面来自项目公开演示，不是这一节已经实跑的结果。不要求装齐",
     html=(
-        '<div class="p-box" data-role="us" data-reveal="0" style="padding:12px 20px">'
-        '<span class="p-tag" data-role="us">选择顺序</span>'
-        '<h3 style="font-size:24px;margin:8px 0 0">先看要完成的动作，再看来源、范围、账号、网络和数据条件</h3>'
-        '<p style="margin:6px 0 0">整理文档、改表格、画图、查路线，要做的事不同，该看的工具也不同</p></div>'
-        '<div class="p-grid" style="--n:3;margin-top:10px" data-reveal="1">'
-        '<div class="p-box" data-role="ctx" style="padding:10px 12px"><span class="p-tag" data-role="ctx">来源</span>'
-        '<h3 style="font-size:20px;margin:6px 0 0">分清官方和社区</h3>'
-        '<p style="margin:4px 0 0">12306-mcp 是社区实现<br>不是购票工具</p></div>'
-        '<div class="p-box" data-role="ctx" style="padding:10px 12px"><span class="p-tag" data-role="ctx">数据条件</span>'
-        '<h3 style="font-size:20px;margin:6px 0 0">本机有服务，不等于数据只留在本机</h3>'
-        '<p style="margin:4px 0 0">AntV 默认远程渲染</p></div>'
-        '<div class="p-box" data-role="ctx" style="padding:10px 12px"><span class="p-tag" data-role="ctx">接入形式</span>'
-        '<h3 style="font-size:20px;margin:6px 0 0">飞书用官方命令行，不是 MCP</h3>'
-        '<p style="margin:4px 0 0">其他短演示仍用 MCP</p></div></div>'
-        '<div class="p-bar is-light" data-reveal="2" style="margin-top:8px">不要求装齐。百度地图只作高德的替代说明；来源和能力录制前再复核</div>'
+        '<style>'
+        'body[data-mode="slides"] #p69 .scene-content{top:236px;height:432px;gap:10px}'
+        'body[data-mode="slides"] #p69 .lede{width:1168px}'
+        '#p69 .p-grid{gap:14px;height:100%;align-items:stretch}'
+        '#p69 .p-grid .p-box{padding:10px 12px;display:flex;flex-direction:column;min-height:0}'
+        '#p69 .p-tag{margin-bottom:6px;font-size:16px;padding:4px 8px}'
+        '#p69 .p-grid h3{font-size:22px;margin:0;line-height:1.3}'
+        '#p69 .p-grid .hint{margin:4px 0 8px;font-size:16px;line-height:1.35}'
+        '#p69 .shot{flex:1;min-height:0;overflow:hidden;border-radius:6px;background:#111}'
+        '#p69 .shot a,#p69 .shot img{display:block;width:100%;height:100%}'
+        '#p69 .shot img{object-fit:contain}'
+        '#p69 .src{font-size:13px;color:var(--p-muted);margin:6px 0 0;line-height:1.3}'
+        '</style>'
+        '<div class="p-grid" style="--n:3">'
+        '<div class="p-box" data-role="us" data-reveal="0">'
+        '<span class="p-tag" data-role="us">官方</span>'
+        '<h3>GitHub MCP</h3>'
+        '<p class="hint">在仓库里列出 Issue、再开新 Issue。写操作要确认</p>'
+        '<div class="shot"><a href="assets/github-mcp-open-issue-official.gif">'
+        '<img src="assets/github-mcp-open-issue-official.gif" '
+        'alt="VS Code Copilot 调用 GitHub MCP：已列出 Issue，创建新 Issue 前出现 Continue 确认"></a></div>'
+        '<p class="src">官方 v0.3.0 发布页演示</p></div>'
+        '<div class="p-box" data-role="ctx" data-reveal="1">'
+        '<span class="p-tag" data-role="ctx">官方</span>'
+        '<h3>MiniMax MCP</h3>'
+        '<p class="hint">生成图、语音或视频后，打开文件来看</p>'
+        '<div class="shot"><a href="assets/minimax-mcp-video-result-official.jpg">'
+        '<img src="assets/minimax-mcp-video-result-official.jpg" '
+        'alt="系统播放器正在播放 MiniMax 生成的冲浪视频 video_25659_20250409_195209.mp4"></a></div>'
+        '<p class="src">官方说明里打开生成视频后的画面</p></div>'
+        '<div class="p-box" data-role="ctx" data-reveal="2">'
+        '<span class="p-tag" data-role="ctx">社区</span>'
+        '<h3>FreeCAD MCP</h3>'
+        '<p class="hint">建模过程要在 FreeCAD 窗口里看见</p>'
+        '<div class="shot"><a href="assets/freecad-mcp-flange-official.gif">'
+        '<img src="assets/freecad-mcp-flange-official.gif" '
+        'alt="对话里调用 FreeCAD MCP，右侧窗口逐步出现法兰盘三维模型"></a></div>'
+        '<p class="src">项目仓库里的法兰盘建模演示</p></div>'
+        '</div>'
     ),
-    steps=["选择顺序", "要分清的界限", "不要求装齐"],
+    steps=["GitHub 官方 MCP", "MiniMax 官方 MCP", "FreeCAD 社区 MCP"],
 )
 
 scene(

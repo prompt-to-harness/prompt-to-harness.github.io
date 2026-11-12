@@ -20,7 +20,7 @@ window.lesson = {
       "script": [
         "【操作提示｜停留课件 p59 第 1 步，指向章节地图上的 4.6；不切窗口】\n\n上一节，我们提交了规格基线。地图上，这一节是工具经验。",
         "【操作提示｜推进第 2 步，指向五层规格，此时都已完成】\n\n五层规格到这里告一段落，实现交给第 5 章。这一节不再改 JSON Diff，也不接着写规格。",
-        "【操作提示｜推进第 3 步，指向底部说明；讲完进入 p60】\n\n4.2 只用飞书 MCP 读过一份需求。日常要把真实工具交给 Agent，MCP 是一种方式；飞书官方目前给个人用户的推荐，是命令行工具。这一节飞书主案例用官方命令行，其他短演示仍用 MCP。我们用一套独立的教学材料来演示，题目是“开发者分享会”。以看懂为主，按需要选做即可。先补上飞书的接入步骤，再进入演示。"
+        "【操作提示｜推进第 3 步，指向底部说明；讲完进入 p60】\n\n4.2 只用飞书 MCP 读过一份需求。日常要把真实工具交给 Agent，MCP 是一种方式；飞书官方目前给个人用户的推荐，是命令行工具。这一节飞书主案例用官方命令行，其他短演示仍用 MCP。我们用一套独立的教学材料来演示，题目是“开发者分享会”。以看懂为主，按需要选做即可。先看清飞书的两种接入方式，再进入演示。"
       ],
       "teaching": [],
       "source": "index.html#p59",
@@ -31,17 +31,17 @@ window.lesson = {
       "segment": "接入飞书",
       "label": "怎样把飞书接到这次要用的工具上",
       "title": "怎样把飞书接到这次要用的工具上？",
-      "lead": "4.2 用 MCP 读过需求。飞书这边，官方目前给个人用户的推荐是命令行工具。没接上也可以看后面的演示",
-      "html": "<div class=\"p-qlist\" data-reveal=\"0\"><div class=\"p-qrow\"><span class=\"p-n\">1</span><div><h3>按官方文档安装飞书命令行工具</h3></div></div><div class=\"p-qrow\"><span class=\"p-n\">2</span><div><h3>重启 Codex，让对应技能加载</h3></div></div><div class=\"p-qrow\"><span class=\"p-n\">3</span><div><h3>用本人身份登录一次</h3></div></div></div><div class=\"p-bar\" data-reveal=\"1\" style=\"margin-top:10px\">这不是 MCP。Agent 通过技能调用命令行，<b>不需要启动 MCP 服务</b></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:8px\">凭证和密钥不进公开材料和画面。能力以演练时的实际结果为准</div>",
+      "lead": "接入飞书有两种方式。后面演示用更适合个人使用的飞书 CLI",
+      "html": "<style>#p60 .scene-content{gap:10px}#p60 .p-grid{gap:14px}#p60 .p-grid .p-box{padding:14px 18px}#p60 .p-grid h3{font-size:24px;margin:8px 0 0}#p60 .p-grid p{margin:6px 0 0;font-size:20px;line-height:1.45}#p60 .p-bar{margin-top:4px;padding:10px 18px}</style><div class=\"p-grid\" style=\"--n:2\" data-reveal=\"0\"><div class=\"p-box\" data-role=\"us\"><span class=\"p-tag\" data-role=\"us\">个人使用</span><h3>推荐飞书 CLI</h3><p>本质上是一组技能。Agent 通过技能调用，<br>适合个人使用</p></div><div class=\"p-box\" data-role=\"ctx\"><span class=\"p-tag\" data-role=\"ctx\">团队环境</span><h3>推荐飞书 MCP</h3><p>在团队里要搭建 Agent 工作流时<br>更适合</p></div></div><div class=\"p-bar\" data-reveal=\"1\">主要区别：CLI 本质上是一组技能，适合个人使用；团队里搭建 Agent 工作流时，MCP 更适合</div><div class=\"p-bar is-light\" data-reveal=\"2\">后面用更适合个人使用的飞书 CLI 作演示。没接上也可以看</div>",
       "steps": [
-        "接入时要做的事",
-        "这不是 MCP",
-        "凭证不进画面"
+        "两种接入方式",
+        "两者的区别",
+        "后面用飞书 CLI 演示"
       ],
       "script": [
-        "【操作提示｜停留课件 p60 第 1 步，指向接入步骤；不切窗口】\n\n把飞书接到这次要用的工具上，按官方目前给个人用户的推荐来做：按官方文档安装飞书命令行工具，重启 Codex 让对应技能加载，再用本人身份登录一次，命令是 lark-cli auth login。安装后要重启，技能才会加载。这一节要读讲师准备的文档，需要以本人身份登录。配置时默认会新建应用，也可以选用已有的。",
-        "【操作提示｜推进第 2 步，指向“这不是 MCP”】\n\n这不是 MCP。Agent 通过技能调用命令行，不需要启动 MCP 服务。不必再给 lark-mcp 配重定向地址，也不再有和 3000 端口冲突的那一步。4.2 读需求时用的是 MCP，这一节飞书改走官方推荐方式，两种不要混为一谈。",
-        "【操作提示｜推进第 3 步，指向底部说明；讲完进入后面的演示】\n\n凭证和密钥不进公开材料，也不出现在画面上。公开说明里的能力，覆盖这次飞书演示要用的事，但仍以演练时的实际结果为准。没接上的同学，也可以看后面的演示。接好之后，就进入演示。"
+        "【操作提示｜停留课件 p60 第 1 步，指向两种接入方式；不切窗口】\n\n接入飞书有两种方式。飞书 CLI 本质上是一组技能，也就是 Skill，适合个人使用。在团队环境里，需要搭建 Agent 工作流时，飞书 MCP 更适合。4.2 读需求时用的是 MCP；这一节先把这个区别说清楚，再进入后面的演示。",
+        "【操作提示｜推进第 2 步，指向两者的区别】\n\n按官方文档的用法：安装飞书 CLI 之后，要重启所用的 AI 工具，让技能加载。Agent 是通过这组技能去调用命令行，不需要启动 MCP 服务。飞书 MCP 则是按 MCP 协议，把飞书能力接到 Agent 里，更适合在团队里搭建可协作的 Agent 工作流。两种不要混为一谈，也不要把命令行工具说成 MCP。",
+        "【操作提示｜推进第 3 步，指向后面的演示方式；讲完进入后面的演示】\n\n这一节是个人使用的场景，所以后面用飞书 CLI 作演示。接入时按官方文档安装，重启 Codex 让对应技能加载，再用本人身份登录一次，命令是 lark-cli auth login。配置时默认会新建应用，也可以选用已有的。凭证和密钥不进公开材料，也不出现在画面上。没接上的同学，也可以看后面的演示。接好之后，就进入演示。"
       ],
       "teaching": [],
       "source": "index.html#p60",
@@ -185,20 +185,20 @@ window.lesson = {
     },
     {
       "id": "p69",
-      "segment": "选用条件",
-      "label": "怎样按要做的事选工具",
-      "title": "怎样按要做的事选工具？",
-      "lead": "选工具时先看要完成的动作，再看来源、范围和条件。不要求装齐这些工具",
-      "html": "<div class=\"p-box\" data-role=\"us\" data-reveal=\"0\" style=\"padding:12px 20px\"><span class=\"p-tag\" data-role=\"us\">选择顺序</span><h3 style=\"font-size:24px;margin:8px 0 0\">先看要完成的动作，再看来源、范围、账号、网络和数据条件</h3><p style=\"margin:6px 0 0\">整理文档、改表格、画图、查路线，要做的事不同，该看的工具也不同</p></div><div class=\"p-grid\" style=\"--n:3;margin-top:10px\" data-reveal=\"1\"><div class=\"p-box\" data-role=\"ctx\" style=\"padding:10px 12px\"><span class=\"p-tag\" data-role=\"ctx\">来源</span><h3 style=\"font-size:20px;margin:6px 0 0\">分清官方和社区</h3><p style=\"margin:4px 0 0\">12306-mcp 是社区实现<br>不是购票工具</p></div><div class=\"p-box\" data-role=\"ctx\" style=\"padding:10px 12px\"><span class=\"p-tag\" data-role=\"ctx\">数据条件</span><h3 style=\"font-size:20px;margin:6px 0 0\">本机有服务，不等于数据只留在本机</h3><p style=\"margin:4px 0 0\">AntV 默认远程渲染</p></div><div class=\"p-box\" data-role=\"ctx\" style=\"padding:10px 12px\"><span class=\"p-tag\" data-role=\"ctx\">接入形式</span><h3 style=\"font-size:20px;margin:6px 0 0\">飞书用官方命令行，不是 MCP</h3><p style=\"margin:4px 0 0\">其他短演示仍用 MCP</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:8px\">不要求装齐。百度地图只作高德的替代说明；来源和能力录制前再复核</div>",
+      "segment": "其他推荐",
+      "label": "还可以再看这三个",
+      "title": "还可以再看这三个？",
+      "lead": "画面来自项目公开演示，不是这一节已经实跑的结果。不要求装齐",
+      "html": "<style>body[data-mode=\"slides\"] #p69 .scene-content{top:236px;height:432px;gap:10px}body[data-mode=\"slides\"] #p69 .lede{width:1168px}#p69 .p-grid{gap:14px;height:100%;align-items:stretch}#p69 .p-grid .p-box{padding:10px 12px;display:flex;flex-direction:column;min-height:0}#p69 .p-tag{margin-bottom:6px;font-size:16px;padding:4px 8px}#p69 .p-grid h3{font-size:22px;margin:0;line-height:1.3}#p69 .p-grid .hint{margin:4px 0 8px;font-size:16px;line-height:1.35}#p69 .shot{flex:1;min-height:0;overflow:hidden;border-radius:6px;background:#111}#p69 .shot a,#p69 .shot img{display:block;width:100%;height:100%}#p69 .shot img{object-fit:contain}#p69 .src{font-size:13px;color:var(--p-muted);margin:6px 0 0;line-height:1.3}</style><div class=\"p-grid\" style=\"--n:3\"><div class=\"p-box\" data-role=\"us\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"us\">官方</span><h3>GitHub MCP</h3><p class=\"hint\">在仓库里列出 Issue、再开新 Issue。写操作要确认</p><div class=\"shot\"><a href=\"assets/github-mcp-open-issue-official.gif\"><img src=\"assets/github-mcp-open-issue-official.gif\" alt=\"VS Code Copilot 调用 GitHub MCP：已列出 Issue，创建新 Issue 前出现 Continue 确认\"></a></div><p class=\"src\">官方 v0.3.0 发布页演示</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ctx\">官方</span><h3>MiniMax MCP</h3><p class=\"hint\">生成图、语音或视频后，打开文件来看</p><div class=\"shot\"><a href=\"assets/minimax-mcp-video-result-official.jpg\"><img src=\"assets/minimax-mcp-video-result-official.jpg\" alt=\"系统播放器正在播放 MiniMax 生成的冲浪视频 video_25659_20250409_195209.mp4\"></a></div><p class=\"src\">官方说明里打开生成视频后的画面</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"ctx\">社区</span><h3>FreeCAD MCP</h3><p class=\"hint\">建模过程要在 FreeCAD 窗口里看见</p><div class=\"shot\"><a href=\"assets/freecad-mcp-flange-official.gif\"><img src=\"assets/freecad-mcp-flange-official.gif\" alt=\"对话里调用 FreeCAD MCP，右侧窗口逐步出现法兰盘三维模型\"></a></div><p class=\"src\">项目仓库里的法兰盘建模演示</p></div></div>",
       "steps": [
-        "选择顺序",
-        "要分清的界限",
-        "不要求装齐"
+        "GitHub 官方 MCP",
+        "MiniMax 官方 MCP",
+        "FreeCAD 社区 MCP"
       ],
       "script": [
-        "【操作提示｜停留课件 p69 第 1 步，指向选择顺序】\n\n演示做完了，用很短的一段收住：选工具时，先看要完成的动作，再看来源、范围、账号、网络和数据条件。整理文档、改表格、画图、查路线，要做的事不同，该看的工具也不同。",
-        "【操作提示｜推进第 2 步，指向两组界限和接入形式】\n\n要分清官方实现和社区实现。也要分清：本机启动了服务，并不等于数据只留在本机，也不等于完全离线。还要分清接入形式：飞书主案例用的是官方命令行工具，不是 MCP；AntV、高德等仍是 MCP，两种不要混为一谈。比如，12306-mcp 是社区实现，不是购票工具；AntV 默认远程渲染，本机有服务也不等于数据不出本机。",
-        "【操作提示｜推进第 3 步，指向底部说明；讲完进入 p70】\n\n不要求装齐这些工具。百度地图只作为高德的替代候选，不再单独演示。清单里的来源和能力，录制前再复核一遍。"
+        "【操作提示｜停留课件 p69 第 1 步，指向 GitHub 卡片和动图】\n\n前面演示过的工具以外，再看三个能看见结果的 MCP。不要求装齐。先看 GitHub 官方 MCP：在仓库里列出 Issue、再开新 Issue。这是官方发布页里的演示，列出时不用确认，创建前要确认。画面来自公开演示，不是这一节已经实跑的结果。",
+        "【操作提示｜推进第 2 步，指向 MiniMax 卡片和截图】\n\n第二个是 MiniMax 官方 MCP，用来生成图、语音或视频。核对方式是打开生成的文件来看。这张截图是官方说明里打开生成视频后的画面。",
+        "【操作提示｜推进第 3 步，指向 FreeCAD 卡片和动图；讲完进入 p70】\n\n第三个是 FreeCAD 的社区 MCP。建模过程要在 FreeCAD 窗口里看见，不能只看对话。这是项目仓库里的法兰盘演示。GitHub 和 MiniMax 是官方实现，FreeCAD 是社区实现，账号、网络和本机软件条件都要看清。不要求装齐。"
       ],
       "teaching": [],
       "source": "index.html#p69",
@@ -265,7 +265,7 @@ window.lesson = {
       "seconds": 150
     },
     {
-      "label": "选用条件",
+      "label": "其他推荐",
       "seconds": 90
     },
     {
