@@ -52,7 +52,7 @@ window.lesson = {
       "segment": "几种结果",
       "label": "键换序与类型变化",
       "title": "键换了顺序，1 变成 \"1\"，算不算变？",
-      "lead": "两组很小的输入。每组都有两种说得通的结论，需求原文自己也没有定下来",
+      "lead": "两组很小的输入，每组都有两种说得通的结论。字段顺序原文还没定；1 变成 \"1\"，原文希望看见，只是还没说归成哪一类",
       "html": "<div style=\"display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:14px 22px;align-items:center\"><div data-reveal=\"0\" style=\"display:grid;grid-template-columns:1fr 1fr;gap:10px\"><div class=\"p-code\" data-role=\"ink\"><div class=\"p-code-head\"><span>Before</span></div><pre style=\"font-size:21px\">{&quot;a&quot;:1,&quot;b&quot;:2}</pre></div><div class=\"p-code\" data-role=\"ink\"><div class=\"p-code-head\"><span>After</span></div><pre style=\"font-size:21px\">{&quot;b&quot;:2,&quot;a&quot;:1}</pre></div></div><div data-reveal=\"1\" style=\"display:grid;grid-template-columns:1fr 1fr;gap:10px\"><div class=\"p-box\" data-role=\"ctx\" style=\"padding:10px 16px\"><span class=\"p-tag\" data-role=\"ctx\">逐个比字段</span><h3 style=\"font-size:22px;margin:6px 0 2px\">没有差异</h3><p style=\"font-size:18px;margin:0\">两个字段的值都没变</p></div><div class=\"p-box\" data-role=\"gate\" style=\"padding:10px 16px\"><span class=\"p-tag\" data-role=\"gate\">逐行比文本</span><h3 style=\"font-size:22px;margin:6px 0 2px\">两行改动</h3><p style=\"font-size:18px;margin:0\">顺序换了，两行都不一样</p></div></div><div data-reveal=\"2\" style=\"display:grid;grid-template-columns:1fr 1fr;gap:10px\"><div class=\"p-code\" data-role=\"ink\"><div class=\"p-code-head\"><span>Before</span></div><pre style=\"font-size:21px\">{&quot;n&quot;:1}</pre></div><div class=\"p-code\" data-role=\"ink\"><div class=\"p-code-head\"><span>After</span></div><pre style=\"font-size:21px\">{&quot;n&quot;:&quot;1&quot;}</pre></div></div><div data-reveal=\"3\" style=\"display:grid;grid-template-columns:1fr 1fr;gap:10px\"><div class=\"p-box\" data-role=\"ctx\" style=\"padding:10px 16px\"><span class=\"p-tag\" data-role=\"ctx\">看显示</span><h3 style=\"font-size:22px;margin:6px 0 2px\">没变</h3><p style=\"font-size:18px;margin:0\">界面上都显示成 1</p></div><div class=\"p-box\" data-role=\"gate\" style=\"padding:10px 16px\"><span class=\"p-tag\" data-role=\"gate\">看值和类型</span><h3 style=\"font-size:22px;margin:6px 0 2px\">变了</h3><p style=\"font-size:18px;margin:0\">数字变成了字符串</p></div></div></div><div class=\"p-bar\" data-reveal=\"4\" style=\"margin-top:16px\">原文：字段顺序“组里意见不太一致”；<code>1</code> 变成 <code>\"1\"</code>“这种我们也想知道”</div>",
       "steps": [
         "键换了顺序",
@@ -76,7 +76,7 @@ window.lesson = {
       "id": "p29",
       "segment": "几种结果",
       "label": "数组插入",
-      "title": "数组中间插一项，后面怎么对上？",
+      "title": "数组插一项，后面怎么对上？",
       "lead": "按位置比，还是先认出同一个元素再比，结果差别很大。后一种更符合直觉，但要先回答“怎样算同一个元素”",
       "html": "<div style=\"display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start\"><div data-reveal=\"0\" style=\"display:flex;flex-direction:column;gap:10px\"><div class=\"p-code\" data-role=\"ink\"><div class=\"p-code-head\"><span>Before</span></div><pre style=\"font-size:21px\">[10,20]</pre></div><div class=\"p-code\" data-role=\"ink\"><div class=\"p-code-head\"><span>After</span></div><pre style=\"font-size:21px\">[5,10,20]</pre></div></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ctx\">按索引</span><ul style=\"margin:10px 0 8px;padding-left:20px;font-size:20px;line-height:1.6;font-family:var(--p-mono)\"><li>[0] 10 → 5　changed</li><li>[1] 20 → 10　changed</li><li>[2] + 20　added</li></ul><h3 style=\"font-size:24px;margin:0\">3 处差异</h3></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"us\">按元素对齐</span><ul style=\"margin:10px 0 8px;padding-left:20px;font-size:20px;line-height:1.6;font-family:var(--p-mono)\"><li>+ 5　added</li><li>10　不变</li><li>20　不变</li></ul><h3 style=\"font-size:24px;margin:0\">1 处差异</h3></div></div><div class=\"p-bar\" data-reveal=\"3\" style=\"margin-top:18px\">商品列表里的对象，<b>按哪个字段认是同一个</b>？LCS、业务主键都是对齐办法，选不选由人定</div>",
       "steps": [
@@ -100,7 +100,7 @@ window.lesson = {
       "segment": "几种结果",
       "label": "为什么还会跑偏",
       "title": "写细了，为什么还会跑偏？",
-      "lead": "原文已经写了要高亮不同、要支持数组，但没说什么算不同、元素怎样对上。空白处，每个实现者都会用自己的默认做法补上",
+      "lead": "原文已经写了要高亮不同、要支持数组，也说了 1 变成 \"1\" 想被看见。没定的是键序算不算变化、这种变化归哪一类、元素怎样对上。空白处，每个实现者都会用自己的默认做法补上",
       "html": "<div class=\"p-box\" data-role=\"us\" data-reveal=\"0\" style=\"padding:12px 20px\"><span class=\"p-tag\" data-role=\"us\">需求原文</span><h3 style=\"font-size:24px;margin:8px 0 0\">“把不同的地方高亮出来”　“数组也要支持”</h3></div><div class=\"p-grid\" style=\"--n:3;margin-top:16px\" data-reveal=\"1\"><div class=\"p-box\" data-role=\"ink\"><h3 style=\"font-size:22px\">实现者 A</h3><p>键序算变化，按索引比</p></div><div class=\"p-box\" data-role=\"ink\"><h3 style=\"font-size:22px\">实现者 B</h3><p>键序不算，按元素对齐</p></div><div class=\"p-box\" data-role=\"agent\"><h3 style=\"font-size:22px\">Agent</h3><p>按它采用的常见做法补上</p></div></div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:18px\">能消除分歧的，是<b>人看过结果和代价后作出的决定</b>，写成规则</div>",
       "steps": [
         "原文写了什么",
@@ -108,7 +108,7 @@ window.lesson = {
         "由人决定，写成规则"
       ],
       "script": [
-        "【操作提示｜停留课件 p30 第 1 步，指向需求原文两句】\n\n回到这一节的问题。需求原文写了把不同的地方高亮出来，也写了数组要支持。要求本身写得不少，可刚才三组例子它都没回答：什么算不同，数组元素怎样对上。",
+        "【操作提示｜停留课件 p30 第 1 步，指向需求原文两句】\n\n回到这一节的问题。需求原文写了把不同的地方高亮出来，也写了数组要支持，还说 1 变成字符串 1 这种他们也想知道。可键序算不算变化、这种变化归成哪一类、数组元素怎样对上，原文都还没给出唯一答案。",
         "【操作提示｜推进第 2 步，依次指三张卡片】\n\n原文留下空白，每个实现者都会用自己习惯的做法补上。实现者 A 可能觉得键序也算变化、数组按索引比；实现者 B 可能正好相反。Agent 也一样，它会按自己采用的常见做法补。补出来的东西各不相同，就是跑偏。",
         "【操作提示｜推进第 3 步，指向底部横条；讲完进入 p31】\n\n所以，把要求写得更细，并不能替我们选出其中一种。能消除分歧的，是一个人看过各种结果和代价之后作出的决定，再把这个决定写成规则。"
       ],
@@ -207,8 +207,8 @@ window.lesson = {
       "segment": "写成 Spec",
       "label": "让 Agent 起草 Spec",
       "title": "让 Agent 起草 Spec",
-      "lead": "结合自己的 Brief 和本章已经确认的决定组织请求：说明依据和目标文件，要求规则写清编号、行为、状态、来源与 Open 问题去向。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;gap:24px\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"agent\">依据与产出</span><h3 style=\"margin:10px 0\">自己的 Brief + 已确认的决定</h3><p>请 Agent 起草 <code>SPEC.md</code></p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ctx\">每条规则</span><h3 style=\"margin:10px 0\">编号 · 行为 · 状态 · 来源</h3><p>行为要可观察、可检查</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:16px\">Open 问题写明去向；<b>未决定的留给人决定</b></div><div class=\"p-box is-soft\" data-role=\"us\" data-reveal=\"3\" style=\"padding:10px 16px;margin-top:14px\"><span class=\"p-tag\" data-role=\"us\">表达示例 · 按实际情况调整</span><p style=\"font-size:20px;margin:8px 0 0\">“依据我的 Brief 和已确认的决定起草 Spec；规则写清行为、状态和来源，未决定的保留待定。”</p></div>",
+      "lead": "结合自己的 Brief 组织请求：把本章已经确认的决定逐条写进发给 Agent 的请求，说明依据和目标文件，要求规则写清编号、行为、状态、来源与 Open 问题去向；尚未决定的保留待定。",
+      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;gap:24px\"><div class=\"p-box\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"agent\">依据与产出</span><h3 style=\"margin:10px 0\">自己的 Brief，决定要逐条写进请求</h3><p>请 Agent 起草 <code>SPEC.md</code></p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ctx\">每条规则</span><h3 style=\"margin:10px 0\">编号 · 行为 · 状态 · 来源</h3><p>行为要可观察、可检查</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:16px\">Open 问题写明去向；<b>未决定的留给人决定</b></div><div class=\"p-box is-soft\" data-role=\"us\" data-reveal=\"3\" style=\"padding:10px 16px;margin-top:14px\"><span class=\"p-tag\" data-role=\"us\">表达示例 · 按实际情况调整</span><p style=\"font-size:20px;margin:8px 0 0\">“依据我的 Brief 起草 Spec。已确认的决定请逐条写进这条请求，例如：对象键顺序忽略；数组按索引比较；值或类型改变都记为 changed。尚未决定的保留待定。”</p></div>",
       "steps": [
         "依据与产出",
         "规则怎么写",
@@ -216,10 +216,10 @@ window.lesson = {
         "按实际组织请求"
       ],
       "script": [
-        "【操作提示｜停留课件 p35 第 1 步，指向“依据与产出”；不切窗口】\n\n现在让 Agent 把这些决定写成 Spec。请求先说清依据：自己在 4.2 形成的 Brief，以及刚才已经确认的课程决定；还要说明这次要起草 SPEC.md。",
+        "【操作提示｜停留课件 p35 第 1 步，指向“依据与产出”；不切窗口】\n\n现在让 Agent 把这些决定写成 Spec。请求先说清依据：自己在 4.2 形成的 Brief，并把刚才已经确认的课程决定逐条写进这条请求；还要说明这次要起草 SPEC.md。",
         "【操作提示｜推进第 2 步，指向“每条规则”】\n\n再说清每条规则怎么写：带 REQ 编号，写用户能观察、能检查的行为，并标上状态和来源。具体代码放在哪里，留给后面的 Plan。",
         "【操作提示｜推进第 3 步，指向 Open 问题去向】\n\n还要让它交代 Brief 里每个 Open 问题的去向：已经决定的对应规则，暂缓的标出来，尚未决定的留给人。这里的 Approved 是依据我们的决定起草，生成后仍要逐条审。",
-        "【操作提示｜推进第 4 步；切到 Codex，在 4.2 的同一会话中结合当前 Brief 和已确认决定组织起草请求；等待回复后切回课件进入 p36】\n\n请求的具体措辞，按照你自己的 Brief 和决定来组织。页面里有一句示例，帮助你看清表达方式；确认依据和要求之后，在同一会话发给 Agent。"
+        "【操作提示｜推进第 4 步；切到 Codex，在 4.2 的同一会话中结合当前 Brief 和已确认决定组织起草请求；等待回复后切回课件进入 p36】\n\n请求的具体措辞，按照你自己的 Brief 来组织，已确认的决定要逐条写进去，还没决定的标明待定。页面里有一句示例，帮助你看清表达方式；确认依据和要求之后，在同一会话发给 Agent。"
       ],
       "repro": {
         "label": "跟做：起草 Spec",
@@ -229,7 +229,7 @@ window.lesson = {
             "code": ""
           },
           {
-            "text": "向 Agent 说明依据、目标文件和规则要求，按本次实际内容组织起草请求。",
+            "text": "把已确认的决定逐条写进发给 Agent 的请求，说明依据、目标文件和规则要求；未决定的标明待定。",
             "code": ""
           },
           {
