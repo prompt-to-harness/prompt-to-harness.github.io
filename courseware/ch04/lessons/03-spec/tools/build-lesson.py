@@ -86,7 +86,7 @@ scene(
 scene(
     id="p28", segment="几种结果",
     label="键换序与类型变化", title="键换了顺序，1 变成 \"1\"，算不算变？",
-    lead="两组很小的输入。每组都有两种说得通的结论，需求原文自己也没有定下来",
+    lead="两组很小的输入，每组都有两种说得通的结论。字段顺序原文还没定；1 变成 \"1\"，原文希望看见，只是还没说归成哪一类",
     html=(
         '<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:14px 22px;align-items:center">'
         '<div data-reveal="0" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'
@@ -107,7 +107,7 @@ scene(
 
 scene(
     id="p29", segment="几种结果",
-    label="数组插入", title="数组中间插一项，后面怎么对上？",
+    label="数组插入", title="数组插一项，后面怎么对上？",
     lead="按位置比，还是先认出同一个元素再比，结果差别很大。后一种更符合直觉，但要先回答“怎样算同一个元素”",
     html=(
         '<div style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start">'
@@ -130,7 +130,7 @@ scene(
 scene(
     id="p30", segment="几种结果",
     label="为什么还会跑偏", title="写细了，为什么还会跑偏？",
-    lead="原文已经写了要高亮不同、要支持数组，但没说什么算不同、元素怎样对上。空白处，每个实现者都会用自己的默认做法补上",
+    lead="原文已经写了要高亮不同、要支持数组，也说了 1 变成 \"1\" 想被看见。没定的是键序算不算变化、这种变化归哪一类、元素怎样对上。空白处，每个实现者都会用自己的默认做法补上",
     html=(
         '<div class="p-box" data-role="us" data-reveal="0" style="padding:12px 20px">'
         '<span class="p-tag" data-role="us">需求原文</span>'
@@ -229,11 +229,11 @@ scene(
 scene(
     id="p35", segment="写成 Spec",
     label="让 Agent 起草 Spec", title="让 Agent 起草 Spec",
-    lead="结合自己的 Brief 和本章已经确认的决定组织请求：说明依据和目标文件，要求规则写清编号、行为、状态、来源与 Open 问题去向。",
+    lead="结合自己的 Brief 组织请求：把本章已经确认的决定逐条写进发给 Agent 的请求，说明依据和目标文件，要求规则写清编号、行为、状态、来源与 Open 问题去向；尚未决定的保留待定。",
     html=(
         '<div class="p-pair" style="grid-template-columns:1fr 1fr;gap:24px">'
         '<div class="p-box" data-role="agent" data-reveal="0"><span class="p-tag" data-role="agent">依据与产出</span>'
-        '<h3 style="margin:10px 0">自己的 Brief + 已确认的决定</h3>'
+        '<h3 style="margin:10px 0">自己的 Brief，决定要逐条写进请求</h3>'
         '<p>请 Agent 起草 <code>SPEC.md</code></p></div>'
         '<div class="p-box" data-role="ctx" data-reveal="1"><span class="p-tag" data-role="ctx">每条规则</span>'
         '<h3 style="margin:10px 0">编号 · 行为 · 状态 · 来源</h3>'
@@ -241,12 +241,12 @@ scene(
         '<div class="p-bar is-light" data-reveal="2" style="margin-top:16px">Open 问题写明去向；<b>未决定的留给人决定</b></div>'
         '<div class="p-box is-soft" data-role="us" data-reveal="3" style="padding:10px 16px;margin-top:14px">'
         '<span class="p-tag" data-role="us">表达示例 · 按实际情况调整</span>'
-        '<p style="font-size:20px;margin:8px 0 0">“依据我的 Brief 和已确认的决定起草 Spec；规则写清行为、状态和来源，未决定的保留待定。”</p></div>'
+        '<p style="font-size:20px;margin:8px 0 0">“依据我的 Brief 起草 Spec。已确认的决定请逐条写进这条请求，例如：对象键顺序忽略；数组按索引比较；值或类型改变都记为 changed。尚未决定的保留待定。”</p></div>'
     ),
     steps=["依据与产出", "规则怎么写", "Open 问题去向", "按实际组织请求"],
     repro=repro([
         ("打开自己在 4.2 写的 Brief，对照 p31–p33，整理已确认的课程决定与仍未决定的问题。", None),
-        ("向 Agent 说明依据、目标文件和规则要求，按本次实际内容组织起草请求。", None),
+        ("把已确认的决定逐条写进发给 Agent 的请求，说明依据、目标文件和规则要求；未决定的标明待定。", None),
         ("打开得到的 SPEC.md，按下一页的五项逐条审查。", None),
     ], note="请求措辞和问题编号会因 Brief 不同而变化；规则的状态和内容仍需人审。", label="跟做：起草 Spec"),
 )
