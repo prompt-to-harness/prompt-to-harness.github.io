@@ -1,6 +1,6 @@
 # Agent Lab
 
-状态：2026-11-15，Git 分发试用版，未发布到 PyPI。0.1.5 支持 Codex / Claude Code + MiniMax 与可选的请求记录，安装命令指向课程 release 的 0.1.5 wheel。原有 clean 脚本保留供历史实验追溯。
+状态：2026-11-15，Git 分发试用版，未发布到 PyPI。0.1.6 支持 Codex 和 Claude Code 的本地 Inspect 回放。
 
 前置条件：已安装 `uv`、Codex CLI，并在当前终端提供 `MINIMAX_API_KEY`。本轮在 macOS 核验 Codex CLI 0.163.0；其他版本会提示需要核验。Linux/WSL 尚未实测，原生 Windows 暂不支持。
 
@@ -21,7 +21,7 @@ uvx --from ./tools/agent-lab agent-lab codex --tap
 学员安装用课程仓库 release 里的 wheel。不要用 `git+https://…#subdirectory=tools/agent-lab`：uv 会先拉整个仓库的历史（约 110 MB），网速慢时装不完。发新版时改 `pyproject.toml` 的版本号，`uv build --wheel` 后发一个新的 `agent-lab-v<版本>` release，并更新 2.1 p06-tap 的 `AGENT_LAB_INSTALL`。
 
 ```sh
-uv tool install --force https://github.com/prompt-to-harness/prompt-to-harness.github.io/releases/download/agent-lab-v0.1.5/agent_lab-0.1.5-py3-none-any.whl
+uv tool install --force https://github.com/prompt-to-harness/prompt-to-harness.github.io/releases/download/agent-lab-v0.1.6/agent_lab-0.1.6-py3-none-any.whl
 ```
 
 也可以从本地目录安装到本机，此后在任意项目目录直接使用：
@@ -38,6 +38,23 @@ agent-lab codex -- resume --last
 Codex 默认使用 `workspace-write` 沙箱和 **Approve for me**。需要额外权限的请求采用 `on-request` 策略，由自动审查决定是否批准。
 
 Key 可以由终端启动配置事先导出，也可以只给本次命令设置 `MINIMAX_API_KEY`。不要把真实 Key 写入仓库、录屏或分享的命令历史。工具不自动编辑 shell 配置文件。
+
+## Codex 会话回放
+
+```bash
+agent-lab codex --inspect
+agent-lab codex --inspect -- exec '只回复 AGENT_LAB_INSPECT_OK'
+```
+
+开发时可以从当前源码直接运行：
+
+```bash
+uv run --project tools/agent-lab agent-lab codex --inspect
+```
+
+使用原有的 `MINIMAX_API_KEY` 和课程环境。首次回放由 uv 准备固定版本的 Inspect AI。Codex 结束后，启动器按 `thread_id` 找到课程环境内的 rollout，写入本机回放目录，启动仅监听回环地址的 Viewer 并打开浏览器。终端会打印地址和服务 PID。看完可以用 `kill <PID>` 停止这个 Viewer。回放目录保留在 `CODEX_HOME/inspect-replays/`，可能包含任务内容、工具参数及输出。
+
+交互模式照常对话，完成至少一轮后用 `/exit` 退出。启动器从该终端退出时打印的 `codex resume` 提示读取会话 ID。交互模式需要系统的 `script` 命令，终端捕获保存在私有临时目录中，读完即清理。显式传入 `exec --json` 时，标准输出仍是 Codex 的 JSON 事件。Viewer 的 **Messages** 展示消息和工具记录。
 
 ## 保留与隔离
 
@@ -75,7 +92,18 @@ uvx --from ./tools/agent-lab agent-lab home --agent claude
 - `--` 后可传 print、resume、权限等会话参数；拒绝模型、settings、远程启动覆盖和登录等管理命令。不复制个人登录，不链接个人 Keychains；已有课程凭据文件会触发停止。
 - tap 使用 Agent Lab 自带的 `0.1.146+pr475`，记录与端口按 Claude HOME 分开，不沿用旧脚本的全局数据目录。
 
-2.5 继续使用 2026-10-21 的历史实验（Claude Code 2.1.304），不把它标成 Agent Lab 的产出。本机 2.1.309 只核对了 CLI 版本和帮助；0.1.4 的真实 MiniMax 请求与 tap 记录仍需一次最小端到端核验，不能拿单元测试代替。本节按已有截图录制无需重跑；若要切换为新入口现场演示或更新对比数字，先核验再换素材。
+2.5 继续使用 2026-10-21 的历史实验（Claude Code 2.1.304），不把它标成 Agent Lab 的产出。2026-11-01 已从发布 URL 独立安装 0.1.4，在 macOS、Claude Code 2.1.309 下跑通一次真实最小问候：MiniMax 返回 HTTP 200、tap 保存请求与回复，Dashboard 的 Details / Full viewer 可查看。CLI 会提示不识别模型名并按 200k 窗口处理，本次请求仍成功；这不代表上游实际窗口大小。具体版本和证据见验证记录。本节按已有截图录制无需重跑；若要切换为新入口现场演示或更新对比数字，先核验再换素材。
+
+### Claude 会话回放
+
+```bash
+agent-lab claude --inspect
+agent-lab claude --inspect -- -p "任务"
+# 从当前源码运行
+uv run --project tools/agent-lab agent-lab claude --inspect
+```
+
+交互模式照常对话，完成后用 `/exit` 退出。使用 `-p` 时，任务结束后自动打开回放。启动器给每个新会话分配独立的 UUID，从课程 Claude 环境的 `.claude/projects/` 查找同名 JSONL，再复用本地 Inspect Viewer 打开 **Messages**。回放文件写入该环境的 `.claude/inspect-replays/`。新建并保存会话时，可以独立使用 `--inspect`。
 
 ## 本地验证
 
@@ -95,3 +123,9 @@ uv build tools/agent-lab
 - PyPI：以后注册账号、构建 wheel/sdist 并成功上传后，才可用 `uvx agent-lab@0.1.0 codex`。2026-10-23 查询 PyPI 的[项目页](https://pypi.org/project/agent-lab/)、[JSON API](https://pypi.org/pypi/agent-lab/json) 和 [Simple API](https://pypi.org/simple/agent-lab/) 均返回 404，未查到已发布的 `agent-lab` 项目；名称未预留，最终是否允许注册以 PyPI 校验为准。本轮不发布。
 
 Git 与本地安装同样需要下载依赖；`uvx` 隔离的是 Python 包依赖，不是 Codex 的操作权限。[uv 官方文档](https://docs.astral.sh/uv/guides/tools/)
+
+### Claude 的窗口提示与额外配置
+
+Claude Code 支持用 `CLAUDE_CODE_MAX_CONTEXT_TOKENS` 为未识别的自定义模型 ID 声明窗口大小，适用条件见 [官方模型配置说明](https://code.claude.com/docs/en/model-config#correct-the-window-for-a-gateway-or-custom-model-id)。这调整客户端的窗口判断，不增加模型服务能力；数值必须按所用模型和接口核实。
+
+启动器会清掉继承的 `CLAUDE_*`，所以在外部 export 这个变量再运行 Agent Lab 不会生效。生成的 settings 也会在每次启动重写。要接入应修改启动器的课程配置并发新版本，不让接手讲师手改生成文件。Codex / Claude 两端各一次真实最小问候及 tap 记录已通过，细节见 VERIFICATION.md。

@@ -92,13 +92,31 @@ class ClaudeTests(unittest.TestCase):
 
     def test_arguments_allow_print_resume_but_not_routing_changes(self):
         self.assertEqual(parse_args(["claude", "--tap", "--", "-p", "hello"]),
-                         ("claude", True, ["-p", "hello"]))
+                         ("claude", True, False, ["-p", "hello"]))
         claude.validate_args(["--resume", "session"])
         claude.validate_args(["-p", "auth"])
         for args in (["--model=other"], ["--settings", "personal.json"],
                      ["--setting-sources=project"], ["auth", "login"], ["--bare"]):
             with self.subTest(args=args), self.assertRaises(ValueError):
                 claude.validate_args(args)
+
+    def test_inspect_dispatches_as_interactive_without_tap(self):
+        with patch("sys.argv", ["agent-lab", "claude", "--inspect"]), patch(
+                "agent_lab.claude.launch", return_value=0) as launch:
+            self.assertEqual(main(), 0)
+            launch.assert_called_once_with(False, [], inspect=True)
+
+    def test_inspect_accepts_print_mode(self):
+        for flag in ("-p", "--print"):
+            with self.subTest(flag=flag):
+                self.assertEqual(parse_args(["claude", "--inspect", "--", flag, "hello"]),
+                                 ("claude", False, True, [flag, "hello"]))
+
+    def test_inspect_requires_a_new_persistent_session(self):
+        for args in (["--session-id=other"], ["-r", "session"], ["--continue"],
+                     ["-p", "--no-session-persistence", "hello"]):
+            with self.subTest(args=args), self.assertRaises(ValueError):
+                claude.validate_inspect_args(args)
 
     def test_direct_and_tap_launch_forward_args_and_exit_code(self):
         for tap in (False, True):
