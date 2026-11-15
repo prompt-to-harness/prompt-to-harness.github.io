@@ -23,7 +23,7 @@ def parse_args(argv: list[str]) -> tuple[str, bool, bool, list[str]]:
     codex_parser = agents.add_parser("codex", help="启动课程 MiniMax Codex 环境")
     agents.add_parser("home", help="显示某个项目目录（默认当前目录）对应的课程环境")
     codex_parser.add_argument("--tap", action="store_true", help="记录请求并打开查看器")
-    codex_parser.add_argument("--inspect", action="store_true", help="退出后打开会话回放")
+    codex_parser.add_argument("--inspect", action="store_true", help="运行时打开 Inspect Viewer 并更新会话记录")
     claude_parser = agents.add_parser("claude", help="启动课程 MiniMax Claude Code 环境")
     claude_parser.add_argument("--tap", action="store_true", help="记录请求并打开查看器")
     claude_parser.add_argument("--inspect", action="store_true", help="退出后打开会话回放")
@@ -40,7 +40,7 @@ def parse_args(argv: list[str]) -> tuple[str, bool, bool, list[str]]:
                     "--ephemeral" in forwarded or forwarded[:2] == ["exec", "resume"]):
         parser.error("--inspect 需要新建并保存会话")
     if inspect and args.tap:
-        parser.error("请单独使用 --inspect 回放会话")
+        parser.error("请单独使用 --inspect 查看会话")
     if inspect and args.agent == "claude":
         try:
             claude.validate_inspect_args(forwarded)

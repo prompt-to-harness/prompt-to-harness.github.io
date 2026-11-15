@@ -1,6 +1,6 @@
 # Agent Lab
 
-状态：2026-11-15，Git 分发试用版，未发布到 PyPI。0.1.6 支持 Codex 和 Claude Code 的本地 Inspect 回放。
+状态：2026-11-15，Git 分发试用版，未发布到 PyPI。0.1.7 支持实时查看 Codex 会话，Claude Code 支持退出后回放。
 
 前置条件：已安装 `uv`、Codex CLI，并在当前终端提供 `MINIMAX_API_KEY`。本轮在 macOS 核验 Codex CLI 0.163.0；其他版本会提示需要核验。Linux/WSL 尚未实测，原生 Windows 暂不支持。
 
@@ -21,7 +21,7 @@ uvx --from ./tools/agent-lab agent-lab codex --tap
 学员安装用课程仓库 release 里的 wheel。不要用 `git+https://…#subdirectory=tools/agent-lab`：uv 会先拉整个仓库的历史（约 110 MB），网速慢时装不完。发新版时改 `pyproject.toml` 的版本号，`uv build --wheel` 后发一个新的 `agent-lab-v<版本>` release，并更新 2.1 p06-tap 的 `AGENT_LAB_INSTALL`。
 
 ```sh
-uv tool install --force https://github.com/prompt-to-harness/prompt-to-harness.github.io/releases/download/agent-lab-v0.1.6/agent_lab-0.1.6-py3-none-any.whl
+uv tool install --force https://github.com/prompt-to-harness/prompt-to-harness.github.io/releases/download/agent-lab-v0.1.7/agent_lab-0.1.7-py3-none-any.whl
 ```
 
 也可以从本地目录安装到本机，此后在任意项目目录直接使用：
@@ -39,7 +39,7 @@ Codex 默认使用 `workspace-write` 沙箱和 **Approve for me**。需要额外
 
 Key 可以由终端启动配置事先导出，也可以只给本次命令设置 `MINIMAX_API_KEY`。不要把真实 Key 写入仓库、录屏或分享的命令历史。工具不自动编辑 shell 配置文件。
 
-## Codex 会话回放
+## Codex 实时会话查看
 
 ```bash
 agent-lab codex --inspect
@@ -52,7 +52,7 @@ agent-lab codex --inspect -- exec '只回复 AGENT_LAB_INSPECT_OK'
 uv run --project tools/agent-lab agent-lab codex --inspect
 ```
 
-使用原有的 `MINIMAX_API_KEY` 和课程环境。首次回放由 uv 准备固定版本的 Inspect AI。Codex 结束后，启动器按 `thread_id` 找到课程环境内的 rollout，写入本机回放目录，启动仅监听回环地址的 Viewer 并打开浏览器。终端会打印地址和服务 PID。看完可以用 `kill <PID>` 停止这个 Viewer。回放目录保留在 `CODEX_HOME/inspect-replays/`，可能包含任务内容、工具参数及输出。
+使用原有的 `MINIMAX_API_KEY` 和课程环境。首次使用由 uv 准备 Python 3.12 和固定版本的 Inspect AI。Codex 开始写入当前会话的第一条消息时，启动器打开仅监听回环地址的 Viewer。运行中持续更新已写入的消息与工具记录，退出后仍可在同一页面回看。交互模式依赖 `script` 和 `lsof`。终端会打印地址和服务 PID。看完可以用 `kill <PID>` 停止这个 Viewer。回放目录保留在 `CODEX_HOME/inspect-replays/`，可能包含任务内容、工具参数及输出。
 
 交互模式照常对话，完成至少一轮后用 `/exit` 退出。启动器从该终端退出时打印的 `codex resume` 提示读取会话 ID。交互模式需要系统的 `script` 命令，终端捕获保存在私有临时目录中，读完即清理。显式传入 `exec --json` 时，标准输出仍是 Codex 的 JSON 事件。Viewer 的 **Messages** 展示消息和工具记录。
 
