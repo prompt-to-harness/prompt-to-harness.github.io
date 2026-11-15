@@ -125,6 +125,9 @@ model_reasoning_effort = "max"
 forced_login_method = "api"
 cli_auth_credentials_store = "file"
 allow_login_shell = false
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+approvals_reviewer = "auto_review"
 
 [model_providers.minimax]
 name = "MiniMax"

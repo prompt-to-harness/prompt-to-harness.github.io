@@ -1,6 +1,6 @@
 # Agent Lab
 
-状态：2026-11-01，Git 分发试用版，未发布到 PyPI。0.1.4 支持 Codex / Claude Code + MiniMax 与可选的请求记录，安装命令指向课程 release 的 0.1.4 wheel。原有 clean 脚本保留供历史实验追溯。
+状态：2026-11-15，Git 分发试用版，未发布到 PyPI。0.1.5 支持 Codex / Claude Code + MiniMax 与可选的请求记录，安装命令指向课程 release 的 0.1.5 wheel。原有 clean 脚本保留供历史实验追溯。
 
 前置条件：已安装 `uv`、Codex CLI，并在当前终端提供 `MINIMAX_API_KEY`。本轮在 macOS 核验 Codex CLI 0.163.0；其他版本会提示需要核验。Linux/WSL 尚未实测，原生 Windows 暂不支持。
 
@@ -21,7 +21,7 @@ uvx --from ./tools/agent-lab agent-lab codex --tap
 学员安装用课程仓库 release 里的 wheel。不要用 `git+https://…#subdirectory=tools/agent-lab`：uv 会先拉整个仓库的历史（约 110 MB），网速慢时装不完。发新版时改 `pyproject.toml` 的版本号，`uv build --wheel` 后发一个新的 `agent-lab-v<版本>` release，并更新 2.1 p06-tap 的 `AGENT_LAB_INSTALL`。
 
 ```sh
-uv tool install --force https://github.com/prompt-to-harness/prompt-to-harness.github.io/releases/download/agent-lab-v0.1.4/agent_lab-0.1.4-py3-none-any.whl
+uv tool install --force https://github.com/prompt-to-harness/prompt-to-harness.github.io/releases/download/agent-lab-v0.1.5/agent_lab-0.1.5-py3-none-any.whl
 ```
 
 也可以从本地目录安装到本机，此后在任意项目目录直接使用：
@@ -34,6 +34,8 @@ agent-lab codex -- resume --last
 ```
 
 卸载命令为 `uv tool uninstall agent-lab`，不会删除课程会话。开发时修改源码后可加 `--reinstall` 重装，或使用 `uv tool install --editable ./tools/agent-lab`。
+
+Codex 默认使用 `workspace-write` 沙箱和 **Approve for me**。需要额外权限的请求采用 `on-request` 策略，由自动审查决定是否批准。
 
 Key 可以由终端启动配置事先导出，也可以只给本次命令设置 `MINIMAX_API_KEY`。不要把真实 Key 写入仓库、录屏或分享的命令历史。工具不自动编辑 shell 配置文件。
 
