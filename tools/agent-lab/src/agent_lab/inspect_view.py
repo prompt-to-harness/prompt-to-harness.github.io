@@ -25,7 +25,7 @@ def run_and_open(command, env, *, system_env, exec_mode, json_requested):
         raise ValueError("--inspect 需要 uv，请先安装 uv。")
     watch_interactive = not exec_mode and shutil.which("lsof") is not None
     if not exec_mode and not watch_interactive:
-        print("Inspect 实时查看需要 lsof，本次将在退出后打开回放。", file=sys.stderr)
+        print("Inspect 实时查看需要 lsof，本次将在退出后显示会话内容。", file=sys.stderr)
     live = LiveCodexView(uv, Path(env["CODEX_HOME"]), system_env)
     with live:
         if exec_mode:
@@ -33,7 +33,7 @@ def run_and_open(command, env, *, system_env, exec_mode, json_requested):
         else:
             status, thread_id = run_interactive(command, env, live if watch_interactive else None)
         live.thread_id = thread_id or live.thread_id
-    if live.opened:
+    if live.log is not None and live.log.is_file():
         return status
     thread_id = live.thread_id
     if not thread_id:
@@ -54,10 +54,19 @@ class LiveCodexView:
         self.finished = Event()
         self.pid = None
         self.thread_id = None
-        self.opened = False
+        self.log = None
         self.worker = Thread(target=self.watch, daemon=True)
 
     def __enter__(self):
+        try:
+            root = self.root / "inspect-replays"
+            root.mkdir(mode=0o700, exist_ok=True)
+            logs = Path(tempfile.mkdtemp(prefix="codex-live-", dir=root))
+            log = logs / "codex-session.json"
+            open_viewer(self.runner, log, self.env, live=True)
+            self.log = log
+        except (OSError, ValueError, subprocess.SubprocessError) as error:
+            print(f"Inspect 实时查看：{error}", file=sys.stderr)
         self.worker.start()
         return self
 
@@ -74,7 +83,8 @@ class LiveCodexView:
         return None
 
     def watch(self):
-        logs = None
+        if self.log is None:
+            return
         previous = None
         adapter = Path(__file__).with_name("inspect_rollout.py")
         try:
@@ -85,18 +95,16 @@ class LiveCodexView:
                     stat = source.stat()
                     revision = (source, stat.st_mtime_ns, stat.st_size)
                     if revision != previous:
-                        if logs is None:
-                            root = self.root / "inspect-replays"
-                            root.mkdir(mode=0o700, exist_ok=True)
-                            logs = Path(tempfile.mkdtemp(prefix="codex-live-", dir=root))
-                        subprocess.run([*self.runner, "python", str(adapter), str(source),
-                                        str(logs), "codex-live"],
-                                       env=self.env, check=True, timeout=60)
+                        # uv can restore terminal modes on exit. Only Codex owns the TTY.
+                        result = subprocess.run(
+                            [*self.runner, "python", str(adapter), str(source),
+                             str(self.log.parent), "codex-live"],
+                            env=self.env, stdin=subprocess.DEVNULL, capture_output=True,
+                            start_new_session=True, text=True, timeout=60,
+                        )
+                        if result.returncode:
+                            raise ValueError(result.stderr.strip() or f"日志转换退出码 {result.returncode}")
                         previous = revision
-                        log = logs / "codex-session.json"
-                        if log.is_file() and not self.opened:
-                            open_viewer(self.runner, log, self.env, live=True)
-                            self.opened = True
                 if final:
                     return
                 self.finished.wait(1)
@@ -259,14 +267,16 @@ def open_viewer(runner, log, env, *, live=False):
             start_new_session=True,
         )
     try:
-        for _ in range(100):
+        deadline = time.monotonic() + (60 if live else 10)
+        while time.monotonic() < deadline:
             if server.poll() is not None:
                 break
             try:
                 with urlopen(f"{url}api/logs", timeout=0.5):
                     replay_url = f"{url}#/tasks/{log.name}/samples/messages"
                     print(f"Inspect Viewer：{replay_url}（服务 PID {server.pid}）", file=sys.stderr)
-                    webbrowser.open(replay_url)
+                    if not live:
+                        webbrowser.open(replay_url)
                     return
             except (URLError, TimeoutError):
                 time.sleep(0.1)
