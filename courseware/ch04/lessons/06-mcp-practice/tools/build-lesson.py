@@ -804,28 +804,28 @@ scene(
         '<div class="p-grid" style="--n:2">'
         + mcp_card(
             "ctx", "社区", "12306-mcp",
-            "查一次具体车次或中转，并核对应出发站和到达站。这是社区实现，只查询，不购票。",
+            "查询 12306 的列车时刻、余票和中转，只查不买",
             "发给 Codex 的请求 · 12306", PROMPT_P68_12306,
             "12306-mcp 效果示意", PREVIEW_P68_12306,
             GUIDE_P68_12306,
         )
         + mcp_card(
             "tool", "官方", "Playwright MCP",
-            "打开指定页面，在可见的浏览器窗口里核对一项内容。不要使用无头模式。",
+            "控制本机浏览器，打开网页并查看或操作页面内容",
             "发给 Codex 的请求 · Playwright", PROMPT_P68_PLAYWRIGHT,
             "Playwright MCP 效果示意", PREVIEW_P68_PLAYWRIGHT,
             GUIDE_P68_PLAYWRIGHT,
         )
         + mcp_card(
             "tool", "官方", "Context7",
-            "查阅一个具体接口的文档，打开返回的链接，核对版本和内容。查询会发到线上服务。",
+            "查阅指定库的最新文档。查询会发到线上服务。",
             "发给 Codex 的请求 · Context7", PROMPT_P68_CONTEXT7,
             "Context7 效果示意", PREVIEW_P68_CONTEXT7,
             GUIDE_P68_CONTEXT7,
         )
         + mcp_card(
             "ctx", "社区", "MCP for Blender",
-            "在本机 Blender 窗口里创建一个圆环，放在默认立方体旁边。先打开软件、确认服务已启动，并保存文件。",
+            "操作本机已打开的 Blender，在 3D 视窗里创建或修改场景",
             "发给 Codex 的请求 · Blender", PROMPT_P68_BLENDER,
             "MCP for Blender 效果示意", PREVIEW_P68_BLENDER,
             GUIDE_P68_BLENDER,
