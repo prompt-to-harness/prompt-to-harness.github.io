@@ -22,13 +22,15 @@ from functools import partial
 from http import HTTPStatus
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, parse_qs
+from script_comments import CommentError, lesson_for, load_comments, mutate_comment, prune_orphan_comments
 
 ROOT = Path(__file__).resolve().parents[1]
 COURSEWARE = ROOT / 'courseware'
 REBUILD = COURSEWARE / 'tools' / 'rebuild-lesson.py'
 EDIT_PATH = '/__script/edit'
 PING_PATH = '/__script/ping'
+COMMENTS_PATH = '/__script/comments'
 LESSON_PREFIX = 'window.lesson = '  # 与 rebuild-lesson.py 写出的格式一致
 LOCAL_HOSTS = {'127.0.0.1', 'localhost'}
 LOOPBACK_CLIENTS = {'127.0.0.1', '::1', '::ffff:127.0.0.1'}
@@ -38,6 +40,12 @@ EDIT_LOCK = threading.Lock()
 
 class EditError(Exception):
     pass
+
+
+class EditConflict(EditError):
+    def __init__(self, current):
+        super().__init__('这段口播已在别处更新，请对照最新内容后保存')
+        self.current = current
 
 
 def rebuild(lesson_dir):
@@ -56,9 +64,11 @@ def apply_edit(payload):
     path = lesson_dir / 'script.json'
     if COURSEWARE not in lesson_dir.parents or not path.exists():
         raise EditError('找不到这一页对应的 script.json')
-    old, new = payload['old'], ' '.join(payload['new'].split())
-    if not new:
-        raise EditError('不能把一句口播改成空的；要删句请改源文件')
+    # 单换行属于同一编辑段；空行是现有源稿的段落坐标分隔符。
+    old = payload['old']
+    new = '\n'.join(line for line in payload['new'].replace('\r\n', '\n').replace('\r', '\n').split('\n') if line.strip()).strip()
+    if payload.get('screen') is not None:
+        return apply_screen_edit(lesson_dir, payload, old, new)
     if payload.get('intro') is not None:
         return apply_intro_edit(lesson_dir, payload['intro'], old, new)
     original = path.read_text()
@@ -72,8 +82,12 @@ def apply_edit(payload):
     # 一步口播可含以空行分隔的多段（操作提示与口播）；part 指其中一段
     parts = paragraphs[step].split('\n\n')
     part = payload.get('part', 0)
-    if not 0 <= part < len(parts) or parts[part] != old:
-        raise EditError('这句话已经在别处被改过，请刷新页面后再改')
+    if not 0 <= part < len(parts):
+        raise EditError('段落位置已改变，请保留草稿并刷新页面核对')
+    if parts[part] != old:
+        raise EditConflict(parts[part])
+    # 清空文字就是删除该段口播，但保留空位置；移除数组项会让后续
+    # screen-plan 引用、已打开页面的编辑坐标和评论锚点全部错位。
     parts[part] = new
     paragraphs[step] = '\n\n'.join(parts)
     write_scripts(path, scripts)
@@ -86,6 +100,35 @@ def apply_edit(payload):
     return {'source': str(path.relative_to(ROOT)), 'text': new}
 
 
+def apply_screen_edit(lesson_dir, payload, old, new):
+    path = lesson_dir / 'screen-plan.js'
+    prefix = 'window.narrationData = '
+    if not path.exists():
+        raise EditError('找不到讲述源文件')
+    original = path.read_text()
+    if not original.startswith(prefix):
+        raise EditError('讲述源格式不支持编辑')
+    data = json.loads(original[len(prefix):].strip().removesuffix(';'))
+    def walk(items):
+        for item in items:
+            yield item
+            yield from walk(item.get('groups', []) + item.get('screens', []))
+    matches = [item for item in walk(data['parts']) if item['id'] == payload['screen']]
+    if len(matches) != 1 or 'script' not in matches[0] or matches[0].get('ppt'):
+        raise EditError('没有唯一对应的讲述稿，请刷新页面')
+    item = matches[0]
+    parts = item['script'].split('\n\n')
+    part = payload.get('part', 0)
+    if not 0 <= part < len(parts):
+        raise EditError('段落位置已改变，请保留草稿并刷新页面核对')
+    if parts[part] != old:
+        raise EditConflict(parts[part])
+    parts[part] = new
+    item['script'] = '\n\n'.join(parts)
+    path.write_text(prefix + json.dumps(data, ensure_ascii=False, indent=2) + ';\n')
+    return {'source': str(path.relative_to(ROOT)), 'text': new}
+
+
 def apply_intro_edit(lesson_dir, index, old, new):
     # 开场白只在手写 lesson.js 里；由构建脚本生成的节没有 intro，这里也改不到
     path = lesson_dir / 'lesson.js'
@@ -94,8 +137,10 @@ def apply_intro_edit(lesson_dir, index, old, new):
     original = path.read_text()
     lesson = json.loads(original.removeprefix(LESSON_PREFIX).strip().removesuffix(';'))
     intro = lesson.get('intro', [])
-    if not 0 <= index < len(intro) or intro[index] != old:
-        raise EditError('这句话已经在别处被改过，请刷新页面后再改')
+    if not 0 <= index < len(intro):
+        raise EditError('开场白位置已改变，请保留草稿并刷新页面核对')
+    if intro[index] != old:
+        raise EditConflict(intro[index])
     intro[index] = new
     path.write_text(LESSON_PREFIX + json.dumps(lesson, ensure_ascii=False, indent=2) + ';\n')
     try:
@@ -107,6 +152,11 @@ def apply_intro_edit(lesson_dir, index, old, new):
 
 
 class Handler(SimpleHTTPRequestHandler):
+    def guess_type(self, path):
+        if Path(path).suffix.lower() == '.md':
+            return 'text/plain; charset=utf-8'
+        return super().guess_type(path)
+
     def send_json(self, status, body):
         data = json.dumps(body, ensure_ascii=False).encode()
         self.send_response(status)
@@ -126,6 +176,8 @@ class Handler(SimpleHTTPRequestHandler):
     def remote_readable(self):
         # translate_path 已经去掉 .. 和查询串；resolve 再挡住符号链接跳出白名单
         target = Path(self.translate_path(self.path)).resolve()
+        if target.name in {'comments.json', '.comments.lock'} or target.name.startswith('.comments-'):
+            return False
         return any(target == root or root in target.parents for root in REMOTE_ROOTS)
 
     def do_GET(self):
@@ -133,7 +185,16 @@ class Handler(SimpleHTTPRequestHandler):
             # 只有本机能编辑；别的机器 ping 不通，逐字稿页就保持只读
             if not self.loopback_client():
                 return self.send_error(HTTPStatus.NOT_FOUND)
-            return self.send_json(HTTPStatus.OK, {'ok': True})
+            return self.send_json(HTTPStatus.OK, {'ok': True, 'comments': True})
+        if urlsplit(self.path).path == COMMENTS_PATH:
+            if not self.loopback_client():
+                return self.send_error(HTTPStatus.NOT_FOUND)
+            try:
+                page = parse_qs(urlsplit(self.path).query).get('page', [''])[0]
+                data = prune_orphan_comments(lesson_for(page))
+            except (CommentError, OSError, ValueError) as error:
+                return self.send_json(HTTPStatus.BAD_REQUEST, {'error': str(error)})
+            return self.send_json(HTTPStatus.OK, data)
         if not self.loopback_client() and not self.remote_readable():
             return self.send_error(HTTPStatus.NOT_FOUND)
         super().do_GET()
@@ -150,20 +211,28 @@ class Handler(SimpleHTTPRequestHandler):
         return self.loopback_client() and origin in LOCAL_HOSTS and self.headers.get('Content-Type', '').startswith('application/json')
 
     def do_POST(self):
-        if self.path != EDIT_PATH:
+        if self.path not in {EDIT_PATH, COMMENTS_PATH}:
             return self.send_error(HTTPStatus.NOT_FOUND)
         if not self.local_request():
             return self.send_json(HTTPStatus.FORBIDDEN, {'error': '只接受本机页面的请求'})
         try:
-            payload = json.loads(self.rfile.read(int(self.headers.get('Content-Length', 0))))
+            length = int(self.headers.get('Content-Length', 0))
+            if not 0 < length <= 1024 * 1024:
+                return self.send_json(HTTPStatus.BAD_REQUEST, {'error': '请求大小无效'})
+            payload = json.loads(self.rfile.read(length))
+            if not isinstance(payload, dict):
+                raise ValueError('JSON object required')
             with EDIT_LOCK:
-                result = apply_edit(payload)
-        except EditError as error:
+                result = mutate_comment(payload) if self.path == COMMENTS_PATH else apply_edit(payload)
+        except EditConflict as error:
+            return self.send_json(HTTPStatus.CONFLICT, {'error': str(error), 'current': error.current})
+        except (EditError, CommentError) as error:
             return self.send_json(HTTPStatus.CONFLICT, {'error': str(error)})
         except (KeyError, ValueError, TypeError, subprocess.TimeoutExpired) as error:
             return self.send_json(HTTPStatus.BAD_REQUEST, {'error': f'请求无效：{error!r}'})
-        where = f'开场白第 {payload["intro"] + 1} 段' if payload.get('intro') is not None else f'{payload["scene"]} 第 {payload["step"] + 1} 步'
-        print(f'edited {result["source"]} · {where}', flush=True)
+        if self.path == EDIT_PATH:
+            where = f"讲述段 {payload['screen']}" if payload.get('screen') is not None else f'开场白第 {payload["intro"] + 1} 段' if payload.get('intro') is not None else f'{payload["scene"]} 第 {payload["step"] + 1} 步'
+            print(f'edited {result["source"]} · {where}', flush=True)
         self.send_json(HTTPStatus.OK, result)
 
 
@@ -199,7 +268,7 @@ def main():
     with ThreadingHTTPServer(('0.0.0.0' if args.lan else '127.0.0.1', args.port), handler) as server:
         port = server.server_port
         print(f'Courseware: http://127.0.0.1:{port}/courseware/', flush=True)
-        print('逐字稿页（speaker.html）可直接改句子，保存后写回 script.json 并重建。', flush=True)
+        print('讲述页（speaker.html）支持修改已有口播和评论，分别保存到 script.json 与 comments.json。', flush=True)
         if args.lan:
             ip = lan_address()
             print('局域网只读（只开放 courseware/ 与 starters/，编辑只限本机 127.0.0.1 打开的页面）：', flush=True)

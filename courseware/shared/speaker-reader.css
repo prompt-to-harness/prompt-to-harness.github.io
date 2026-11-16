@@ -1,0 +1,16 @@
+/* 逐字稿页使用 rem 或继承字号，跟随阅读控件设置的根字号。 */
+/* 视口字号也乘同一系数，避免宽屏或窄屏达到字号上下限后停止缩放。 */
+:root { font-size: calc(100% * var(--reader-scale, 1)); }
+.script-reader .prompt pre { font-size: clamp(0.9375rem, calc(1.1vw * var(--reader-scale)), 1.1875rem); }
+@media (min-width: 70rem) {
+  .script-reader .prompt-aside .prompt pre { font-size: clamp(0.875rem, calc(0.95vw * var(--reader-scale)), 1rem); }
+}
+.script-reader .lesson-image-toolbar { font-size: 1rem; }
+:where(.script-reader) :is(button, select, input, textarea) { font-size: inherit; }
+.reader-size { position: fixed; right: 16px; bottom: 16px; display: flex; gap: 8px; z-index: 10; }
+.reader-size button { min-width: 56px; min-height: 48px; border: 1px solid var(--color-rule, #aebbb4); border-radius: 8px; background: var(--color-paper, #fff); color: inherit; font: inherit; font-size: 1.25rem; cursor: pointer; }
+
+:is(main, #script).reader-directory-collapsed { grid-template-columns: minmax(0, 1fr); }
+.reader-directory-collapsed > aside,
+.reader-directory-collapsed > .discussion-resizer { display: none; }
+.reader-directory-collapsed > :is(.panel, .discussion-panel) { grid-column: 1; }

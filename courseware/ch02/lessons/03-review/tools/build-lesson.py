@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """2.3 参考一个主页改风格：它看到了什么：本节唯一的内容源，生成 lesson.js。
 
-分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch02/tools/lessonkit.py；口播见 ../script.json。
+历史分镜见 ../STORYBOARD.md（只读）；页面登记、章节地图与输出见 courseware/ch02/tools/lessonkit.py；口播见 ../script.json。
 PPT 自包含，证据来自 2026-10-24 两轮排练（同一 Codex 会话）；录制时每段先讲 PPT，再切现场讲相同和不同。
 """
 import base64

@@ -32,6 +32,18 @@ def skip(url):
     return '<' in url or '://localhost' in url or '://127.0.0.1' in url
 
 
+def local_step_link(url):
+    """操作入口可指向本机演示或相对课件路径；外部资料仍须 HTTPS。"""
+    if not url or url != url.strip() or '\\' in url:
+        return False
+    parts = urllib.parse.urlsplit(url)
+    if not parts.scheme and not parts.netloc:
+        return not parts.path.startswith('/')
+    return (parts.scheme in ('http', 'https')
+            and parts.hostname in ('localhost', '127.0.0.1', '::1')
+            and not parts.username and not parts.password)
+
+
 def lessons():
     for path in sorted(courseware.rglob('lesson.js')):
         if 'archive' in path.parts:
@@ -67,9 +79,10 @@ def collect():
             for step in scene.get('repro', {}).get('steps', []):
                 for link in step.get('links', []):
                     url = link.get('url', '')
-                    if not link.get('text') or link['text'] not in step.get('text', '') or not url.startswith('https://'):
-                        errors.append(f'{where}: 步骤链接需要出现在步骤文字里，并使用 https 网址：{link}')
-                    elif not skip(url):
+                    local = local_step_link(url)
+                    if not link.get('text') or link['text'] not in step.get('text', '') or not (local or url.startswith('https://')):
+                        errors.append(f'{where}: 步骤链接需要出现在步骤文字里，网址须为 HTTPS、本机演示或相对课件路径：{link}')
+                    elif not local and not skip(url):
                         links.append((path, scene['id'], 'html', link['text'], url))
             prose = [scene.get('lead', ''), *scene.get('script', []), *(t['text'] for t in scene.get('teaching', []))]
             for url in URL.findall('\n'.join(prose)):

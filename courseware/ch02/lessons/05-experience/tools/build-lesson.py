@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """2.5 工程经验分享：用好 context 的五个做法。页面源，生成 lesson.js；连贯内容以分镜为准。
 
-分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch02/tools/lessonkit.py。
+历史分镜见 ../STORYBOARD.md（只读）；页面登记、章节地图与输出见 courseware/ch02/tools/lessonkit.py。
 独立实验来源与采用边界见分镜，口播在 script.json；生成前先修改这些源文件。
 """
 import sys

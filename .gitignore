@@ -112,3 +112,10 @@ lab-runs/
 *.mov
 *.m4a
 *.wav
+
+# Transient locks and atomic-write files for narration comments
+.comments.lock
+.comments-*.tmp
+
+# 本机视觉审阅截图与对照页，archive/ 同时排除于站点构建
+/courseware/ch03/lessons/02-rules/archive/visual-review-20261109/
