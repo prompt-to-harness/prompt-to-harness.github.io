@@ -1,0 +1,34 @@
+/* 第 6 章的长标题、验收表和分段进度条在演示画布内保持可读。 */
+body[data-mode="slides"] .lesson-cover h2 {
+  top: 82px;
+  font-size: 46px;
+  line-height: 1.2;
+}
+
+body[data-mode="slides"] .lesson-cover .lede {
+  top: 203px;
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+body[data-mode="slides"] .lesson-cover .scene-content {
+  top: 278px;
+}
+
+body[data-mode="slides"] .segment-bar .segment {
+  min-width: max-content;
+}
+
+body[data-mode="slides"] #p13 .scene-content {
+  top: 220px;
+  gap: 10px;
+}
+
+body[data-mode="slides"] #p13 .p-matrix span {
+  padding: 6px 10px;
+  font-size: 19px;
+}
+
+body[data-mode="slides"] #p13 .p-matrix .is-head span {
+  font-size: 17px;
+}
