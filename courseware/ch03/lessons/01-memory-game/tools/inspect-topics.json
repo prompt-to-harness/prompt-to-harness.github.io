@@ -32,7 +32,7 @@
     "line": 65
   },
   "request": {
-    "title": "05 号游戏：历史请求原文",
+    "title": "05 号游戏：课件演示版 Prompt",
     "run": "mm-memory",
     "sample": "cli",
     "message": "prompt"

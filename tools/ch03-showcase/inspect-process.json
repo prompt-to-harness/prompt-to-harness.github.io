@@ -276,6 +276,45 @@
     }
   },
   "topics": {
+    "early-win-review": {
+      "title": "04 号游戏 · 从提前通关到验收范围",
+      "steps": [
+        {
+          "run": "old5",
+          "sample": "archive",
+          "message": "diff",
+          "label": "计数单位：已配好的张数与总对数",
+          "highlight_groups": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ]
+        },
+        {
+          "run": "old5",
+          "sample": "archive",
+          "message": "plan",
+          "label": "验证计划：构建、产物检查与人工试玩"
+        },
+        {
+          "run": "old5",
+          "sample": "archive",
+          "message": "answer",
+          "label": "交付原文：构建与产物检查结果",
+          "highlight_groups": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ]
+        }
+      ]
+    },
     "face-review": {
       "title": "05 号游戏 · 从初始请求到画面复查",
       "steps": [
@@ -283,7 +322,7 @@
           "run": "mm-memory",
           "sample": "cli",
           "message": "prompt",
-          "label": "初始请求与自主决定的细节"
+          "label": "3.1.2 课件演示版 Prompt"
         },
         {
           "run": "mm-memory",
@@ -682,7 +721,10 @@
           "run": "playtest-b",
           "sample": "continued",
           "text": [
-            "memory_verify.py"
+            "memory_verify.py",
+            "\\\".memory__board button\\\", \\\"els => els.map(el => el.getAttribute('aria-label'))\\\")",
+            "page.locator(\\\".memory__board button\\\").nth(idx).click()",
+            "pair_stat(page) == \\\"0/6\\\" and banner(page) is None)"
           ],
           "label": "写入验证脚本",
           "line": 16

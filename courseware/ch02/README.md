@@ -1,6 +1,6 @@
 # 第 2 章：Vibe Coding - 迭代并发布个人主页
 
-> 状态：第 2 章的**唯一来源**。本文写讲透问题、各节要点、验收和全章约定；每页讲什么写在各节分镜；决策和实测记录追加在 [LOG.md](LOG.md)。内部大纲第 2 章只留摘要并链接到这里。本章按[章设计方法](../../docs/outline/proposals/2026-10-22-chapter-design-method.md)试点（C2-51 至 C2-54）。
+> 状态：第 2 章的**唯一来源**。本文写讲透问题、各节要点、验收和全章约定；每页讲什么维护在各节讲述线；已有决策和实测记录见 [LOG.md](LOG.md)。内部大纲第 2 章只留摘要并链接到这里。本章按[章设计方法](../../docs/outline/proposals/2026-10-22-chapter-design-method.md)试点（C2-51 至 C2-54）。
 > 负责讲师：MiaoDX。对外描述见[平台交付版](../../docs/course-outline.md)第 2 章。时长为暂估，内容未试讲。本文不是课程承诺。
 
 ## 本章主线
@@ -29,7 +29,7 @@
 
 ## 外部佐证
 
-按讲透问题选的官方文章、研究和 X 帖子（C2-63；前四条 2026-10-22 讲师采用，C2-64）。形式见[外部佐证规则](../../docs/production/external-sources.md)的“放图的版式”，画面不放中文意译，意译写进逐字稿；来源与核实见[调研报告](<../../docs/research/reports/第 2 章 Context 引入素材.md>)，截图登记在 [`materials/external/`](materials/external/README.md)。讲师选定后改状态，再同步节表和分镜；重画图两版（课程手绘、Excalidraw）都在登记表里，表中写的是上屏的那一版。
+按讲透问题选的官方文章、研究和 X 帖子（C2-63；前四条 2026-10-22 讲师采用，C2-64）。形式见[外部佐证规则](../../docs/production/external-sources.md)的“放图的版式”，画面不放中文意译，意译写进逐字稿；来源与核实见[调研报告](<../../docs/research/reports/第 2 章 Context 引入素材.md>)，截图登记在 [`materials/external/`](materials/external/README.md)。讲师选定后改状态，再更新对应小节的讲述线；重画图两版（课程手绘、Excalidraw）都在登记表里，表中写的是上屏的那一版。
 
 | 问题 | 材料 | 形式 | 用在 | 状态 |
 | --- | --- | --- | --- | --- |
@@ -119,26 +119,26 @@
 
 ## 各节文件与改法
 
-| 节 | 分镜 | 课件 |
+| 节 | 历史分镜（只读） | 课件与讲师页 |
 | --- | --- | --- |
-| 2.1 | [STORYBOARD](lessons/01-request/STORYBOARD.md) | [课件](lessons/01-request/index.html) · [讲稿](lessons/01-request/speaker.html) |
-| 2.2 | [STORYBOARD](lessons/02-iteration/STORYBOARD.md) | [课件](lessons/02-iteration/index.html) · [讲稿](lessons/02-iteration/speaker.html) |
-| 2.3 | [STORYBOARD](lessons/03-review/STORYBOARD.md) | [课件](lessons/03-review/index.html) · [讲稿](lessons/03-review/speaker.html) |
-| 2.4 | [STORYBOARD](lessons/04-publish/STORYBOARD.md) | [课件](lessons/04-publish/index.html) · [讲稿](lessons/04-publish/speaker.html) |
-| 2.5 | [STORYBOARD](lessons/05-experience/STORYBOARD.md) | [课件](lessons/05-experience/index.html) · [讲稿](lessons/05-experience/speaker.html) |
+| 2.1 | [历史分镜](lessons/01-request/STORYBOARD.md) | [课件](lessons/01-request/index.html) · [讲稿](lessons/01-request/speaker.html) |
+| 2.2 | [历史分镜](lessons/02-iteration/STORYBOARD.md) | [课件](lessons/02-iteration/index.html) · [讲稿](lessons/02-iteration/speaker.html) |
+| 2.3 | [历史分镜](lessons/03-review/STORYBOARD.md) | [课件](lessons/03-review/index.html) · [讲稿](lessons/03-review/speaker.html) |
+| 2.4 | [历史分镜](lessons/04-publish/STORYBOARD.md) | [课件](lessons/04-publish/index.html) · [讲稿](lessons/04-publish/speaker.html) |
+| 2.5 | [历史分镜](lessons/05-experience/STORYBOARD.md) | [课件](lessons/05-experience/index.html) · [讲稿](lessons/05-experience/speaker.html) |
 
 每条信息只写在一处：
 
 | 文件 | 只写 |
 | --- | --- |
 | 本文 | 讲透问题、外部佐证、各节要点（标题、时长、主线、深入、验收）、全章约定、待定 |
-| 各节 `STORYBOARD.md` | 新写或整体重写的节（2.3 起）分三区：本节内容（连贯讲述，不带页码和固定运行结果）、逐页安排（学员问题、证据、判断、层、讲透问题）、素材状态与操作备注（来源、定位、讲师提示）；已有小节保留“素材状态 + 逐页表”，下次整体重写时再迁移。都不复述章级范围、时长、验收，不写变更说明 |
+| 各节讲述线 | 讲法、逐页安排、素材入口和切换。由本节讲师页与制作说明定位对应源文件。旧 `STORYBOARD.md` 保留作历史参考 |
 | 各节 `tools/build-lesson.py` + `script.json` | 画面文字、版式、讲师提示；口播在 `script.json` |
 | [LOG.md](LOG.md) | 决策记录和实测记录，只追加 |
 
-改东西时先判断属于哪一层：改范围、验收、时长，从本文改起，在 LOG 记一条决策；增删页、调顺序、改某页讲什么，从分镜改起；改措辞、版式、口播，只改页面。下层发现上层的问题，先回上层改；下游来不及同步时，在下面“待定”写一行，不在分镜开头写变更说明。
+改范围、验收、时长，把确认的决定写回本章 Discussion。增删页、调顺序、改某页讲什么，更新该节讲述线。正式文案、版式和口播写回现有制作源。
 
-**备课讨论与落实**：按 `lesson-polish` 的“先有文字内容，再做下游”：新写或整体重写一节，先在分镜的“本节内容”写出能独立读通的文字，讲师讨论确认后再做逐页安排、演示 Prompt、重跑与页面；小幅措辞修改仍走快路径。每组落实后同步画面、阅读说明和口播，生成并展示效果；暂缓的层列在“待定”。
+**备课讨论与落实**。新写或整体重写一节，先在本章 Discussion 明确要讲的知识。再用同一条讲述线安排证据、讲法、PPT 页序及其他画面的切换。涉及历史分镜独有的内容时，按本次范围接入当前源。
 
 页面由各节 `tools/build-lesson.py` 生成 `lesson.js`，不要直接改生成物。全章共用的页面登记、章节地图、窄屏样式和输出写在 [`tools/lessonkit.py`](tools/lessonkit.py)，改它会影响五节，改完逐节重新生成并比对。页面零件来自 `courseware/shared/parts/`，播放器画布和章节条用各章共用的 `courseware/shared/presentation.css`、`evidence.css` 与 `presentation.js`（改动时要回看第 0、1、2 章）。每页的 `seconds` 只用于章节条的宽度比例，不是时长估算。
 

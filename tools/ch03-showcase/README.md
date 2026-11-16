@@ -109,3 +109,5 @@ uv run python tools/ch03-showcase/verify-inspect.py
 `?topic=<名称>&position=0` 表示讲述位置中的第一条记录。每条配置指定原件行号或消息 ID、要高亮的原文，构建时校验文字存在；“上一条记录／下一条记录”可以跨样本切换。系统消息合并和内联短命令按实际原文定位，不扩大高亮范围。
 
 `python3 tools/ch03-showcase/sync-process-links.py` 同步旧节选锚点跳转，两节 `build-lesson.py` 已调用。只有过程锚点迁移，源码、真实差异、游戏和教学比较保留原入口。配置中的 `gaps` 与讲述页注明安装执行日志、短调用请求原件、E0 修改执行记录三处缺口；文件导出作为文件容器展示，不冒充助手消息。组件作者超时和后续验证边界沿用原记录。
+
+本机验证：`.venv/bin/python tools/ch03-showcase/verify-inspect-process.py` 检查当前全部讲述定位、旧锚点跳转、记录前后切换和窄屏；`verify-inspect.py` 检查原始事件覆盖与 3.1 定位回归。

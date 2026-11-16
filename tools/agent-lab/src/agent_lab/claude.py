@@ -81,7 +81,18 @@ def validate_args(forwarded: list[str]) -> None:
         raise ValueError("课程启动器只用于本地 MiniMax 会话；管理命令请使用日常 Claude 环境")
 
 
-def launch(tap: bool, forwarded: list[str]) -> int:
+def validate_inspect_args(forwarded: list[str]) -> None:
+    options = {"--session-id", "--resume", "--continue", "--fork-session", "--from-pr",
+               "--teleport", "--no-session-persistence", "-c", "-r"}
+    for arg in forwarded:
+        if arg == "--":
+            break
+        if arg.split("=", 1)[0] in options or (
+                arg.startswith(("-r", "-c")) and not arg.startswith("--")):
+            raise ValueError("Claude --inspect 需要新建并保存会话。")
+
+
+def launch(tap: bool, forwarded: list[str], *, inspect: bool = False) -> int:
     try:
         validate_args(forwarded)
         if os.name != "posix":
@@ -103,6 +114,10 @@ def launch(tap: bool, forwarded: list[str]) -> int:
                        "--tap-target", BASE_URL, "--tap-live-port", str(codex.dashboard_port(home)),
                        "--", *args]
         try:
+            if inspect:
+                from .inspect_view import run_claude_and_open
+                validate_inspect_args(forwarded)
+                return run_claude_and_open(command, env, home / ".claude", dict(os.environ))
             return subprocess.call(command, env=env)
         except KeyboardInterrupt:
             return 130

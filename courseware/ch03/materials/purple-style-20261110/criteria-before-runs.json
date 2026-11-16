@@ -1,0 +1,16 @@
+{
+  "purpose": "compare text rules versus same rules plus original visual code excerpts, not prove universal efficacy",
+  "tasks": [
+    "start",
+    "hud"
+  ],
+  "criteria": [
+    "深蓝背景与紫色强调的色彩关系",
+    "半透明面板、边框与文字层级",
+    "主次按钮及交互反馈",
+    "原翻牌的牌阵/玩法是否错误迁移",
+    "390px/1200px可阅读无横向溢出",
+    "任务指定按钮是否可操作"
+  ],
+  "conditions": "same task prompt, model, skill base body, empty starting workspace; B adds only example excerpt and read routing; independent sessions; evaluator renders all outcomes without selecting a winner in advance"
+}

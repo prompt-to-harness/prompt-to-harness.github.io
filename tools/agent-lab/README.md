@@ -39,7 +39,7 @@ Codex 默认使用 `workspace-write` 沙箱和 **Approve for me**。需要额外
 
 Key 可以由终端启动配置事先导出，也可以只给本次命令设置 `MINIMAX_API_KEY`。不要把真实 Key 写入仓库、录屏或分享的命令历史。工具不自动编辑 shell 配置文件。
 
-## Codex 会话回放
+## Codex 实时会话查看
 
 ```bash
 agent-lab codex --inspect
@@ -52,7 +52,7 @@ agent-lab codex --inspect -- exec '只回复 AGENT_LAB_INSPECT_OK'
 uv run --project tools/agent-lab agent-lab codex --inspect
 ```
 
-使用原有的 `MINIMAX_API_KEY` 和课程环境。首次回放由 uv 准备固定版本的 Inspect AI。Codex 结束后，启动器按 `thread_id` 找到课程环境内的 rollout，写入本机回放目录，启动仅监听回环地址的 Viewer 并打开浏览器。终端会打印地址和服务 PID。看完可以用 `kill <PID>` 停止这个 Viewer。回放目录保留在 `CODEX_HOME/inspect-replays/`，可能包含任务内容、工具参数及输出。
+使用原有的 `MINIMAX_API_KEY` 和课程环境。首次使用由 uv 准备 Python 3.12 和固定版本的 Inspect AI。Codex 开始写入当前会话的第一条消息时，启动器打开仅监听回环地址的 Viewer。运行中持续更新已写入的消息与工具记录，退出后仍可在同一页面回看。交互模式依赖 `script` 和 `lsof`。终端会打印地址和服务 PID。看完可以用 `kill <PID>` 停止这个 Viewer。回放目录保留在 `CODEX_HOME/inspect-replays/`，可能包含任务内容、工具参数及输出。
 
 交互模式照常对话，完成至少一轮后用 `/exit` 退出。启动器从该终端退出时打印的 `codex resume` 提示读取会话 ID。交互模式需要系统的 `script` 命令，终端捕获保存在私有临时目录中，读完即清理。显式传入 `exec --json` 时，标准输出仍是 Codex 的 JSON 事件。Viewer 的 **Messages** 展示消息和工具记录。
 
@@ -93,6 +93,17 @@ uvx --from ./tools/agent-lab agent-lab home --agent claude
 - tap 使用 Agent Lab 自带的 `0.1.146+pr475`，记录与端口按 Claude HOME 分开，不沿用旧脚本的全局数据目录。
 
 2.5 继续使用 2026-10-21 的历史实验（Claude Code 2.1.304），不把它标成 Agent Lab 的产出。2026-11-01 已从发布 URL 独立安装 0.1.4，在 macOS、Claude Code 2.1.309 下跑通一次真实最小问候：MiniMax 返回 HTTP 200、tap 保存请求与回复，Dashboard 的 Details / Full viewer 可查看。CLI 会提示不识别模型名并按 200k 窗口处理，本次请求仍成功；这不代表上游实际窗口大小。具体版本和证据见验证记录。本节按已有截图录制无需重跑；若要切换为新入口现场演示或更新对比数字，先核验再换素材。
+
+### Claude 会话回放
+
+```bash
+agent-lab claude --inspect
+agent-lab claude --inspect -- -p "任务"
+# 从当前源码运行
+uv run --project tools/agent-lab agent-lab claude --inspect
+```
+
+交互模式照常对话，完成后用 `/exit` 退出。使用 `-p` 时，任务结束后自动打开回放。启动器给每个新会话分配独立的 UUID，从课程 Claude 环境的 `.claude/projects/` 查找同名 JSONL，再复用本地 Inspect Viewer 打开 **Messages**。回放文件写入该环境的 `.claude/inspect-replays/`。新建并保存会话时，可以独立使用 `--inspect`。
 
 ## 本地验证
 

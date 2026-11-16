@@ -20,15 +20,6 @@ ROOT = HERE.parents[1]
 OUT = ROOT / 'lab-runs/ch03-showcase'
 LOGS = OUT / 'inspect-logs'
 BUNDLE = OUT / 'inspect'
-SCREEN_PLAN = ROOT / 'courseware/ch03/lessons/01-memory-game/screen-plan.json'
-PROMPT_MESSAGES = {
-    'a1': {'session': 'L10'},
-    'a2': {'session': 'L10'},
-    'b2': {'session': 'L10'},
-    'old5': {'archive': 'prompt'},
-    'mm-memory': {'cli': 'prompt', 'session': 'L10'},
-    'f1': {'session': 'L10'},
-}
 MODULE = importlib.util.spec_from_file_location('gallery_build', HERE / 'build.py')
 gallery = importlib.util.module_from_spec(MODULE)
 MODULE.loader.exec_module(gallery)
@@ -124,8 +115,8 @@ def build():
     snapshot = Path(json.loads((ROOT / 'lab-runs/ch03-minimax-20261106/snapshot-location.json').read_text())['path']) / 'experiment'
     design = ROOT / 'lab-runs/ch03-design-decisions-20261108/rollout-2026-11-06T17-03-18-01a1b019-1faa-7de1-972b-dbc888fb184b.jsonl'
     case_map = {r['archive_id']:r for r in json.loads((HERE/'case-map.json').read_text())['cases']}
-    teaching_prompt = json.loads(SCREEN_PLAN.read_text())['prompts']['initial-request']['text']
-    prompt_display = teaching_prompt.replace('\n', '\n\n')
+    screen_plan = ROOT / 'courseware/ch03/lessons/01-memory-game/screen-plan.json'
+    demo_prompt = json.loads(screen_plan.read_text())['prompts']['initial-request']['text']
     manifest = {}
     raw_files = {}
     for rid in ['a1', 'a2', 'b2', 'old5', 'mm-memory', 'f1']:
@@ -152,14 +143,18 @@ def build():
                 value, mapping, rows = sample(path, mode, sid, record['prompt'], date)
                 samples.append(value); maps[sid] = mapping
                 raw_files[f'{rid}-{sid}.jsonl'] = '\n'.join(json.dumps(safe(r), ensure_ascii=False) for r in rows)+'\n'
-        for value in samples:
-            message_id = PROMPT_MESSAGES[rid][value.id]
-            prompt_message = next(m for m in value.messages if m.id == message_id and m.role == 'user')
-            if rid == 'mm-memory' and value.id == 'cli':
+        if rid in {'old5', 'mm-memory'}:
+            sample_id = 'archive' if rid == 'old5' else 'cli'
+            presentation_sample = next(value for value in samples if value.id == sample_id)
+            prompt_message = next(m for m in presentation_sample.messages if m.id == 'prompt' and m.role == 'user')
+            if rid == 'mm-memory':
                 raw_files['mm-memory-cli-prompt.txt'] = prompt_message.content
-            prompt_message.content = prompt_display
-            value.metadata['teaching_prompt'] = message_id
-            value.input = prompt_display
+            prompt_message.content = demo_prompt
+            prompt_message.metadata = {
+                'display': '3.1.2 课件演示版',
+                'boundary': '该请求为课件展示文案，后续执行记录来自历史运行。',
+            }
+            presentation_sample.input = demo_prompt
         log = EvalLog(status='success', eval=EvalSpec(created=date, task='ch03_'+rid.replace('-','_'), task_display_name=case_map[rid]['display_id']+' 号游戏',
                        task_description='历史记录格式转换；success 只表示导入完成，不代表游戏验收通过。未运行模型或评测。',
                        model=record['model'], dataset=EvalDataset(name='历史开发记录', samples=len(samples)), config=EvalConfig()), samples=samples,

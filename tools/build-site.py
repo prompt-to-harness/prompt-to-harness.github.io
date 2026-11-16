@@ -175,11 +175,9 @@ def prepare_memory_release(out: Path):
 
     gallery = lesson_dir / 'cases.html'
     html = gallery.read_text(encoding='utf-8')
-    html = re.sub(r'<figcaption>(\d+) · .*?</figcaption>', r'<figcaption>\1 号游戏</figcaption>', html)
     html = html.replace('<figcaption>04 号游戏</figcaption>',
                         '<figcaption>04 号游戏 · 可能提前通关</figcaption>')
     html = html.replace(local_showcase + 'game-only.html', 'game-only.html')
-    html = html.replace('点击图片直接试玩，点击运行记录查看原始对话与执行过程。', '点击图片打开对应的翻牌游戏。')
     html = html.split('<footer>', 1)[0] + '<footer><a href="index.html">返回 3.1 课件</a></footer></body></html>\n'
     if local_showcase in html:
         raise ValueError('Unconverted local showcase link in the public gallery')

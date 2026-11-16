@@ -16,14 +16,33 @@ def build(here, scripts, plan):
         <div class="m31-home-body"><div class="m31-profile"><strong>示例同学</strong><span>正在学习 AI 协作开发</span><div class="m31-home-nav"><b>查看项目</b><b>记忆翻牌</b></div></div><div class="m31-game-sketch"><div class="m31-sketch-label">记忆翻牌<span>作品示意</span></div><div class="m31-card-grid"><span class="is-pair">★</span><span>?</span><span>?</span><span>?</span><span class="is-pair">★</span><span>?</span></div></div></div>
       </div>
     </div>''', [('part-1',0,1)], '说明主页新增游戏的目标，借示意图认识翻牌配对，再打开参照游戏。')
-    add('p01b', '', [('part-2',0,1),('part-2',0,2),('part-2',0,3)], '展示并复制完整请求，切到已有主页项目的新会话发送。')
-    scenes[-1].update(layout='prompt-scene m31-prompt', html='', prompt=plan['prompts']['initial-request']['text'])
-    case_links = next(frame['links'] for frame in plan['frames'] if frame['id'] == 'f15')
-    case_actions = [
-        ('官方 Log Viewer 介绍页', 'https://inspect.aisi.org.uk/log-viewer'),
-        ('05 号游戏完整记录', case_links[-1][1]),
-    ]
-    add('p05','<div class="v-group"><div class="v-branch"><section class="v-branch-task memory-frame"><h3>同一个开发任务</h3><p>相同的目标与条件</p></section><svg class="v-branch-arrows" viewBox="0 0 90 220" aria-hidden="true"><g fill="none" stroke="#68717b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 110 C40 110 40 48 78 48 M66 38 L79 48 L66 58"/><path d="M10 110 C40 110 40 172 78 172 M66 162 L79 172 L66 182"/></g></svg><div class="v-branch-routes"><section><p class="v-label">一种可能的过程</p><p class="v-route-line">先规划 <span>→</span> 实现 <span>→</span> 检查规则与画面</p></section><section><p class="v-label">另一种可能的过程</p><p class="v-route-line">直接实现 <span>→</span> 构建检查 <span>→</span> 交付</p></section></div></div><h3 class="v-conclusion">一次成功，不保证下一次仍采用同样的做法</h3></div>', [('part-3',8,16)], '对比两种可能的开发过程，指出检查覆盖范围的差别，再解释为什么一次成功不能保证下次采用同样做法。示意不作为随机性实验。', actions=case_actions)
+    inspect_command = "agent-lab codex --inspect"
+    install_command = (
+        "uv tool install --force "
+        "https://github.com/prompt-to-harness/prompt-to-harness.github.io/releases/download/"
+        "agent-lab-v0.1.8/agent_lab-0.1.8-py3-none-any.whl"
+    )
+    add('p01b', '', [('part-2',0,1),('part-2',0,2),('part-2',0,3)],
+        '在已有主页项目中用页面上的命令启动 Codex，打开终端打印的 Viewer 链接，再复制并发送完整请求。')
+    scenes[-1].update(
+        layout='prompt-scene m31-prompt',
+        prompt=plan['prompts']['initial-request']['text'],
+        html=(
+            '<section class="m31-launch" aria-label="启动命令">'
+            '<p>在个人主页项目目录启动 Codex，可实时查看会话记录</p>'
+            f'<div class="p-term" data-copy="{inspect_command}">$ {inspect_command}</div></section>'
+        ),
+        repro={
+            'label': '使用课程独立环境',
+            'steps': [
+                {'text': '准备 uv、Codex CLI，并在当前终端设置 MINIMAX_API_KEY'},
+                {'text': '安装或更新到本节使用的 Agent Lab 0.1.8', 'code': install_command},
+                {'text': '在第二章完成的个人主页项目目录启动 Codex', 'code': inspect_command},
+                {'text': '打开终端打印的 Inspect Viewer 链接，再复制本页请求发送。Viewer 会自动显示后续消息与工具记录。'},
+            ],
+        },
+    )
+    add('p05','<div class="v-group"><div class="v-branch"><section class="v-branch-task memory-frame"><h3>同一个开发任务</h3><p>相同的目标与条件</p></section><svg class="v-branch-arrows" viewBox="0 0 90 220" aria-hidden="true"><g fill="none" stroke="#68717b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 110 C40 110 40 48 78 48 M66 38 L79 48 L66 58"/><path d="M10 110 C40 110 40 172 78 172 M66 162 L79 172 L66 182"/></g></svg><div class="v-branch-routes"><section><p class="v-label">一种可能的过程</p><p class="v-route-line">先规划 <span>→</span> 实现 <span>→</span> 检查规则与画面</p></section><section><p class="v-label">另一种可能的过程</p><p class="v-route-line">直接实现 <span>→</span> 构建检查 <span>→</span> 交付</p></section></div></div><h3 class="v-conclusion">一次成功，不保证下一次仍采用同样的做法</h3><a class="m31-demo m31-gallery-link" href="cases.html#overview" target="_blank" rel="noopener">试玩六个翻牌游戏 <span aria-hidden="true">↗</span></a></div>', [('part-3',8,16)], '对比两种可能的开发过程，指出检查覆盖范围的差别，再解释为什么一次成功不能保证下次采用同样做法。示意不作为随机性实验。')
     add('p06','<div class="v-group"><p class="v-intro">目标说明要做出什么，指导补充怎样开展工作</p><div class="v-guides"><section><h3>规划</h3><p>先考虑完整的<br>使用过程</p></section><section><h3>要求</h3><p>明确必须满足的<br>规则与限制</p></section><section><h3>验证</h3><p>检查功能与实际画面<br>修改后复查</p></section></div><p class="v-boundary">明确关键做法，同时保留具体设计的选择空间</p></div>', [('part-4',0,1)], '目标说明要什么；三项指导说明决策依据，不是三个强制动画步骤。')
     add('p06c','<div class="v-group"><div class="v-inputs"><section class="memory-frame"><div><p class="v-label">本次任务</p><h3>这次要交付什么</h3><p>目标、具体条件与限制</p><p class="v-example">例如：配齐六对才通关</p></div></section><i>＋</i><section class="memory-frame"><div><p class="v-label">可复用指导</p><h3>这类工作怎样做</h3><p>适用做法与检查要求</p><p class="v-example">例如：按当前规则检查通关和重开</p></div></section></div><div class="v-merge">↓</div><h3 class="v-conclusion">结合当前任务，决定具体方案并执行</h3></div>', [('part-4',0,2)], '先解释任务与指导的分工，再用一行游戏例子确认理解。')
     add('p06d','<div class="v-group"><div class="v-skill-flow"><section class="v-endpoint"><h3>当前任务</h3><p>目标与具体条件</p></section><i>→</i><section class="v-skill memory-frame"><p class="v-label">读取适用的 Skill</p><h3>一类任务可复用的指导</h3><p>适合什么任务<br>怎样开展工作<br>怎样检查与交付</p></section><i>→</i><section class="v-endpoint"><h3>结合任务执行</h3><p>落实到当前项目</p></section></div><p class="v-boundary">读取了指导，仍要检查是否落实、结果是否正确</p></div>', [('part-4',0,8),('part-4',0,9)], '定义 Skill，并说明按需读取、结合任务执行及验证的关系；随后回现场。', [('回到现场试玩与发布','speaker.html#f18')])

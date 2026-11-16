@@ -16,7 +16,7 @@ window.lesson = {
         "给个人主页增加一个翻牌游戏"
       ],
       "script": [
-        "【操作提示｜说明主页新增游戏的目标，借示意图认识翻牌配对，再打开参照游戏。】\n\n第二章，我们已经把个人主页发布出去了。这一节，我们给它加一个记忆翻牌小游戏。先看一下，这个游戏是怎么玩的。"
+        "【操作提示｜说明主页新增游戏的目标，借示意图认识翻牌配对，再打开参照游戏。】\n\n第二章，我们已经把个人主页发布出去了。第三章，我们就在这个主页项目里做两个小游戏：记忆翻牌和躲避游戏。我们先从一个问题开始：把同样的翻牌任务交给 AI 做几次，为什么有的版本玩起来顺手，有的却还要返工？"
       ],
       "source": "index.html#p01",
       "seconds": 60
@@ -28,15 +28,34 @@ window.lesson = {
       "label": "给 Codex 的完整开发请求",
       "lead": "",
       "layout": "prompt-scene m31-prompt",
-      "html": "",
+      "html": "<section class=\"m31-launch\" aria-label=\"启动命令\"><p>在个人主页项目目录启动 Codex，可实时查看会话记录</p><div class=\"p-term\" data-copy=\"agent-lab codex --inspect\">$ agent-lab codex --inspect</div></section>",
       "steps": [
         "给 Codex 的完整开发请求"
       ],
       "script": [
-        "【操作提示｜展示并复制完整请求，切到已有主页项目的新会话发送。】\n\n这次我们还是按前两章的四要素来写。目标是在主页加入一个记忆翻牌小游戏，上下文就是第二章已经完成的个人主页。\n\n最终试玩和验收由我负责，Codex 也可以自行做浏览器检查。完成标准是它跑 build 成功。这里把原来的要求分开写清楚，图案、布局等细节仍没有逐一规定。\n\n现在把这段请求发出去。趁它还在运行，我们来看看之前做过的几份翻牌游戏。最后再回到这次的作品，检查实际结果。"
+        "【操作提示｜在已有主页项目中用页面上的命令启动 Codex，打开终端打印的 Viewer 链接，再复制并发送完整请求。】\n\n这次我们还是按前两章的四要素来写。目标是在主页加入一个记忆翻牌小游戏，上下文就是第二章已经完成的个人主页。\n\n最终试玩和验收由我负责，Codex 也可以自行做浏览器检查。完成标准是它跑 build 成功。这里把原来的要求分开写清楚，图案、布局等细节仍没有逐一规定。\n\n现在把这段请求发出去。趁它还在运行，我们来看看之前做过的几份翻牌游戏。最后再回到这次的作品，检查实际结果。"
       ],
       "source": "index.html#p01b",
       "seconds": 60,
+      "repro": {
+        "label": "使用课程独立环境",
+        "steps": [
+          {
+            "text": "准备 uv、Codex CLI，并在当前终端设置 MINIMAX_API_KEY"
+          },
+          {
+            "text": "安装或更新到本节使用的 Agent Lab 0.1.8",
+            "code": "uv tool install --force https://github.com/prompt-to-harness/prompt-to-harness.github.io/releases/download/agent-lab-v0.1.8/agent_lab-0.1.8-py3-none-any.whl"
+          },
+          {
+            "text": "在第二章完成的个人主页项目目录启动 Codex",
+            "code": "agent-lab codex --inspect"
+          },
+          {
+            "text": "打开终端打印的 Inspect Viewer 链接，再复制本页请求发送。Viewer 会自动显示后续消息与工具记录。"
+          }
+        ]
+      },
       "prompt": "Goal：在主页加入一个记忆翻牌小游戏。\nContext：当前项目是第二章完成的个人主页。\nConstraints：最终试玩和验收由我负责\nDone when：你跑 build 成功。"
     },
     {
@@ -46,7 +65,7 @@ window.lesson = {
       "label": "AI 的随机性：同一任务，也可能走出不同过程",
       "lead": "",
       "layout": "memory-slide m31-slide m31-p05 m31-knowledge",
-      "html": "<div class=\"v-group\"><div class=\"v-branch\"><section class=\"v-branch-task memory-frame\"><h3>同一个开发任务</h3><p>相同的目标与条件</p></section><svg class=\"v-branch-arrows\" viewBox=\"0 0 90 220\" aria-hidden=\"true\"><g fill=\"none\" stroke=\"#68717b\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M10 110 C40 110 40 48 78 48 M66 38 L79 48 L66 58\"/><path d=\"M10 110 C40 110 40 172 78 172 M66 162 L79 172 L66 182\"/></g></svg><div class=\"v-branch-routes\"><section><p class=\"v-label\">一种可能的过程</p><p class=\"v-route-line\">先规划 <span>→</span> 实现 <span>→</span> 检查规则与画面</p></section><section><p class=\"v-label\">另一种可能的过程</p><p class=\"v-route-line\">直接实现 <span>→</span> 构建检查 <span>→</span> 交付</p></section></div></div><h3 class=\"v-conclusion\">一次成功，不保证下一次仍采用同样的做法</h3></div>",
+      "html": "<div class=\"v-group\"><div class=\"v-branch\"><section class=\"v-branch-task memory-frame\"><h3>同一个开发任务</h3><p>相同的目标与条件</p></section><svg class=\"v-branch-arrows\" viewBox=\"0 0 90 220\" aria-hidden=\"true\"><g fill=\"none\" stroke=\"#68717b\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M10 110 C40 110 40 48 78 48 M66 38 L79 48 L66 58\"/><path d=\"M10 110 C40 110 40 172 78 172 M66 162 L79 172 L66 182\"/></g></svg><div class=\"v-branch-routes\"><section><p class=\"v-label\">一种可能的过程</p><p class=\"v-route-line\">先规划 <span>→</span> 实现 <span>→</span> 检查规则与画面</p></section><section><p class=\"v-label\">另一种可能的过程</p><p class=\"v-route-line\">直接实现 <span>→</span> 构建检查 <span>→</span> 交付</p></section></div></div><h3 class=\"v-conclusion\">一次成功，不保证下一次仍采用同样的做法</h3><a class=\"m31-demo m31-gallery-link\" href=\"cases.html#overview\" target=\"_blank\" rel=\"noopener\">试玩六个翻牌游戏 <span aria-hidden=\"true\">↗</span></a></div>",
       "steps": [
         "AI 的随机性：同一任务，也可能走出不同过程"
       ],
@@ -54,32 +73,7 @@ window.lesson = {
         "【操作提示｜对比两种可能的开发过程，指出检查覆盖范围的差别，再解释为什么一次成功不能保证下次采用同样做法。示意不作为随机性实验。】\n\n前面我们讲过，大模型的输出有随机性。放到开发任务里，同样的要求，每次生成的方案、采用的步骤，也可能有差别。它会参考任务和已有信息来做，但这些信息通常还留有选择的空间。\n比如，可能先把玩法和界面一起规划好，再开始写代码，也可能直接动手；检查时，可能只跑构建，也可能继续试玩、看截图。这些做法变了，最后的体验、能发现哪些问题，也可能跟着变。两种布局可以都符合要求，但如果漏掉了通关检查，提前结束的问题就可能留下来。\n刚才几份游戏的任务条件不同，我们用它们来看开发过程怎样影响质量。回到一个新的任务，即使上一次做得很好，也还要看这一次准备怎么做、怎么检查。我们希望它继续采用哪些做法，就可以提前说明。"
       ],
       "source": "index.html#p05",
-      "seconds": 60,
-      "repro": {
-        "label": "讲师材料",
-        "steps": [
-          {
-            "text": "官方 Log Viewer 介绍页",
-            "jump": true,
-            "links": [
-              {
-                "text": "官方 Log Viewer 介绍页",
-                "url": "https://inspect.aisi.org.uk/log-viewer"
-              }
-            ]
-          },
-          {
-            "text": "05 号游戏完整记录",
-            "jump": true,
-            "links": [
-              {
-                "text": "05 号游戏完整记录",
-                "url": "http://127.0.0.1:4397/inspect/?topic=face-review"
-              }
-            ]
-          }
-        ]
-      }
+      "seconds": 60
     },
     {
       "id": "p06",

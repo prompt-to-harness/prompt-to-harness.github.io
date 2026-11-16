@@ -1,0 +1,19 @@
+{
+  "source": "frozen memory/styles.css",
+  "ranges": [
+    [
+      1,
+      176
+    ],
+    [
+      293,
+      338
+    ],
+    [
+      355,
+      368
+    ]
+  ],
+  "source_sha256": "77767d325edaa6da32e30afd756c88ceabc30076083ed33a09279acb0f9bfb70",
+  "example_sha256": "16c2ec98ca28d120a72c46a2282edb6053722d94571d703bbda8f8e39ed634e0"
+}

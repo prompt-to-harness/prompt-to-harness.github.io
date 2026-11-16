@@ -1,0 +1,117 @@
+{
+  "case": "start-example",
+  "page_errors": [],
+  "external_requests": [],
+  "checks": [
+    {
+      "viewport": "desktop",
+      "no_horizontal_overflow": true,
+      "data": {
+        "width": 1200,
+        "scrollWidth": 1200,
+        "bodyText": "开始界面 · 本地原型\n60 秒躲避与收集\n\n躲开粉色障碍，收集绿色能量，坚持满 60 秒。\n\n时限\n60 秒\n生命\n3 点\n得分\n收集累计\n\n点击「开始游戏」查看预览状态；音效开关可随时切换。\n\n开始游戏\n音效 开\n\n本地原型 · 无外部资源与依赖 · 仅包含开始界面",
+        "buttons": [
+          {
+            "text": "开始游戏",
+            "aria": null,
+            "rect": {
+              "x": 169,
+              "y": 347.5625,
+              "width": 95.609375,
+              "height": 43.609375
+            }
+          },
+          {
+            "text": "音效 开",
+            "aria": "音效已开启，点击关闭",
+            "rect": {
+              "x": 276.609375,
+              "y": 347.5625,
+              "width": 111.078125,
+              "height": 43.609375
+            }
+          }
+        ],
+        "css": [
+          {
+            "tag": "BODY",
+            "bg": "radial-gradient(1100px 620px at 15% -10%, rgb(42, 49, 112) 0%, rgba(0, 0, 0, 0) 55%) repeat fixed 0% 0% / auto padding-box border-box, radial-gradient(900px 600px at 100% 0%, rgb(59, 42, 99) 0%, rgba(0, 0, 0, 0) 50%) repeat fixed 0% 0% / auto padding-box border-box, rgba(0, 0, 0, 0) linear-gradient(160deg, rgb(12, 16, 34), rgb(23, 30, 61)) repeat fixed 0% 0% / auto padding-box border-box",
+            "color": "rgb(238, 241, 255)"
+          },
+          {
+            "tag": "MAIN",
+            "bg": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+            "color": "rgb(238, 241, 255)"
+          },
+          {
+            "tag": "BUTTON",
+            "bg": "rgba(0, 0, 0, 0) linear-gradient(140deg, rgb(124, 140, 255), rgb(154, 107, 255)) repeat scroll 0% 0% / auto padding-box border-box",
+            "color": "rgb(255, 255, 255)"
+          },
+          {
+            "tag": "BUTTON",
+            "bg": "rgba(255, 255, 255, 0.12) none repeat scroll 0% 0% / auto padding-box border-box",
+            "color": "rgb(238, 241, 255)"
+          }
+        ]
+      }
+    },
+    {
+      "viewport": "mobile",
+      "no_horizontal_overflow": true,
+      "data": {
+        "width": 390,
+        "scrollWidth": 390,
+        "bodyText": "开始界面 · 本地原型\n60 秒躲避与收集\n\n躲开粉色障碍，收集绿色能量，坚持满 60 秒。\n\n时限\n60 秒\n生命\n3 点\n得分\n收集累计\n\n点击「开始游戏」查看预览状态；音效开关可随时切换。\n\n开始游戏\n音效 开\n\n本地原型 · 无外部资源与依赖 · 仅包含开始界面",
+        "buttons": [
+          {
+            "text": "开始游戏",
+            "aria": null,
+            "rect": {
+              "x": 29,
+              "y": 304.796875,
+              "width": 332,
+              "height": 43.609375
+            }
+          },
+          {
+            "text": "音效 开",
+            "aria": "音效已开启，点击关闭",
+            "rect": {
+              "x": 29,
+              "y": 360.40625,
+              "width": 332,
+              "height": 43.609375
+            }
+          }
+        ],
+        "css": [
+          {
+            "tag": "BODY",
+            "bg": "radial-gradient(1100px 620px at 15% -10%, rgb(42, 49, 112) 0%, rgba(0, 0, 0, 0) 55%) repeat fixed 0% 0% / auto padding-box border-box, radial-gradient(900px 600px at 100% 0%, rgb(59, 42, 99) 0%, rgba(0, 0, 0, 0) 50%) repeat fixed 0% 0% / auto padding-box border-box, rgba(0, 0, 0, 0) linear-gradient(160deg, rgb(12, 16, 34), rgb(23, 30, 61)) repeat fixed 0% 0% / auto padding-box border-box",
+            "color": "rgb(238, 241, 255)"
+          },
+          {
+            "tag": "MAIN",
+            "bg": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+            "color": "rgb(238, 241, 255)"
+          },
+          {
+            "tag": "BUTTON",
+            "bg": "rgba(0, 0, 0, 0) linear-gradient(140deg, rgb(124, 140, 255), rgb(154, 107, 255)) repeat scroll 0% 0% / auto padding-box border-box",
+            "color": "rgb(255, 255, 255)"
+          },
+          {
+            "tag": "BUTTON",
+            "bg": "rgba(255, 255, 255, 0.12) none repeat scroll 0% 0% / auto padding-box border-box",
+            "color": "rgb(238, 241, 255)"
+          }
+        ]
+      }
+    }
+  ],
+  "interaction": {
+    "sound_changed": true,
+    "start_feedback": true
+  }
+}

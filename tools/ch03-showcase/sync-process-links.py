@@ -19,6 +19,8 @@ for path in {key.split('#')[0] for key in routes}:
  tag=f'<script src="{source}"></script>'
  text=p.read_text()
  if tag not in text:
-  text=text.replace('</body>',tag+'</body>') if '</body>' in text else text.replace('</html>',tag+'</html>')
+  if '</body>' in text: text=text.replace('</body>',tag+'</body>')
+  elif '</html>' in text: text=text.replace('</html>',tag+'</html>')
+  else: text += '\n'+tag+'\n'
   p.write_text(text)
 print(f'Process routes: {len(routes)} legacy anchors')

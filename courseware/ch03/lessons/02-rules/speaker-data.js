@@ -301,7 +301,7 @@ window.screenPlan = {
       "start": 2,
       "end": 3,
       "title": "用工具返回确认实际读取",
-      "surface": "回放 · 读取事件和返回节选",
+      "surface": "Inspect · 原始读取事件和返回",
       "visible": "实际读取命令、退出状态与工具返回文件内容。",
       "explain": "从工具返回确认本次取得了 game-playtest 正文，区别于仅在可用说明里出现；回答是否符合规则留下一段核对。",
       "action": "停在实际读取命令与工具返回，讲完切同轮返回清单。",
@@ -3757,7 +3757,7 @@ window.screenPlan = {
           },
           {
             "surface": "实际重开脚本",
-            "action": "打开任务 2 的实际脚本节选，指认点击、状态读取和预期检查。",
+            "action": "打开任务 2 的 Inspect 原始脚本写入命令，指认点击、状态读取和预期检查。",
             "materials": [
               "restartScript"
             ],
