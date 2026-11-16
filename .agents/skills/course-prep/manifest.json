@@ -1,0 +1,467 @@
+{
+  "purpose": "Instructor reference excerpts, not a complete lesson or validated teaching outcome",
+  "source_commit": "4c9cb1a5f37c26d58688dd1c09f0d5cfd55232af",
+  "version_note": "Working-tree file hashes are authoritative; source_commit alone does not describe this package.",
+  "examples": [
+    "pdata",
+    "p03",
+    "pfind",
+    "p01",
+    "p02"
+  ],
+  "asset_rewrites": [
+    {
+      "scene": "pdata",
+      "source": "ai-coding-resources/research/harness-engineering/l7-slides/hf-towel-card.png",
+      "original_ref": "../../../../../../ai-coding-resources/research/harness-engineering/l7-slides/hf-towel-card.png",
+      "destination": "assets/hf-towel-card.png",
+      "sha256": "50227d7afa341a59333a4429314afc431c6824e2e930de3a089fe2e993a2ce52",
+      "public_source": "https://huggingface.co/datasets/RoboCOIN/Agilex_Cobot_Magic_fold_towel_brown",
+      "scope": "本示例仅选用这一张历史公开网页截图，展示数据集、录制与时刻的层级关系；保留原出处。其他第三方素材和完整产品运行材料不在本包内。"
+    }
+  ],
+  "excluded_repository_links": [
+    ".agents/skills/lesson-polish/SKILL.md",
+    "courseware/ch00/index.html",
+    "courseware/ch01/lessons/02-agent/index.html",
+    "courseware/index.html",
+    "courseware/tools/fonts.json",
+    "demos/fonts/index.html",
+    "demos/parts/index.html",
+    "demos/visual-system/index.html",
+    "docs/agents/courseware-workflow.md",
+    "docs/agents/sources-of-truth.md",
+    "docs/design/README.md",
+    "docs/design/course-design-principles.md",
+    "docs/design/recorded-course-teaching-contract.md",
+    "docs/outline/proposals/harness-board/DECISIONS.md",
+    "docs/outline/proposals/harness-board/README.md",
+    "docs/outline/proposals/harness-board/plan.json",
+    "docs/outline/proposals/harness-board/slides/flow.py",
+    "docs/outline/proposals/harness-board/slides/l7-2/tools/data_map.py",
+    "docs/production/ch01-visual-inventory.md",
+    "docs/production/impeccable-evaluation.md",
+    "docs/reviews/2026-11-02-script-style-history-codex.md",
+    "docs/reviews/ch07/2026-11-03-l7-3-anthropic-approved-codex.md",
+    "docs/reviews/ch07/2026-11-03-l7-3-spoken-rewrite-codex.md",
+    "docs/reviews/ch07/2026-11-03-l7-3-spoken-trim-codex.md",
+    "tools/ppt_gate.py"
+  ],
+  "files": [
+    {
+      "path": "SKILL.md",
+      "sha256": "0472cf4e2ebab59a5b8b6b977e96743abe4ac35c620eff120cfe01ef0f68abd3",
+      "bytes": 15887,
+      "source": ".agents/skills/course-prep/SKILL.md",
+      "source_sha256": "95df861d14244e8abc41a44ec9c8481ed7f22fbb37ce8f4bc538b289a87882dd",
+      "imported_sha256": "474b150544bcbe34cc6958e5499370dc9400d9924489417b9e0d24b1d0a80095"
+    },
+    {
+      "path": "references/ppt.md",
+      "sha256": "87dd72e3fc698e5c7eb0c679567d06e259084ff907a727fd20bd410a948519a3",
+      "bytes": 6308,
+      "source": ".agents/skills/course-prep/references/ppt.md",
+      "source_sha256": "2811f992501a0f5f4a5e9f1f0dc5dff13a2caea76abe25c38ac1b418c3719988",
+      "imported_sha256": "7ffd53116d9f4e09c905c8a90d7f0e22e8488f61710ceecf558305deb9fc8a5f"
+    },
+    {
+      "path": "references/preparation.md",
+      "sha256": "bbc7995ae33188aa97beabc6a6c741a172ebb5b55b5b45eebc9976a78c6d6ca6",
+      "bytes": 25138,
+      "source": ".agents/skills/course-prep/references/preparation.md",
+      "source_sha256": "780a20943f57fee085564b82ffa479674f79b5eba3c69d7a8c82c5f750365548",
+      "imported_sha256": "780a20943f57fee085564b82ffa479674f79b5eba3c69d7a8c82c5f750365548"
+    },
+    {
+      "path": "references/recording-alignment-workflow.md",
+      "sha256": "94cbb6460e56db20d63b2246860f9c6efcee1ce0b0a622849c7cf13687a01fe5",
+      "bytes": 20578,
+      "source": ".agents/skills/course-prep/references/recording-alignment-workflow.md",
+      "source_sha256": "cda6144d36a9d639a55a948c1bef36946da2ba4a8466c37b337f23b7c0f008e9",
+      "imported_sha256": "2ef80b20e4e62a46528d8db84d346cb324984709966fb7d8be87e25d748f7201"
+    },
+    {
+      "path": "references/spoken-script.md",
+      "sha256": "c87368d97bbac74a0eb6ee8233e083dc4f92e0ac50a8347a77dea3dbc94b5ca1",
+      "bytes": 15232,
+      "source": ".agents/skills/course-prep/references/spoken-script.md",
+      "source_sha256": "f017e340175926612c8a3e041896252f2ac41cdc893e65bab1666e7edc9c3a96",
+      "imported_sha256": "32f2d7b6b03a67cea94d3080b3bc6f599e4c02ed4e222f69ee5aff21330f2809"
+    },
+    {
+      "path": "assets/course-reference/docs/production/editorial-checklist.md",
+      "sha256": "55ea1ded1b91224dfc1f1dad7d8dc74ebb4e896f3a36a530897fd736d6edbf3c",
+      "bytes": 34377,
+      "source": "docs/production/editorial-checklist.md",
+      "source_sha256": "d927f281caf1d921bc9e28456fd6c54168ce3df4544e9174d34f316f7742ffac"
+    },
+    {
+      "path": "assets/course-reference/docs/production/fonts.md",
+      "sha256": "3fdc48553311217ac0ba441538aa1c38d33163deaed54e64050d597d9671e641",
+      "bytes": 7041,
+      "source": "docs/production/fonts.md",
+      "source_sha256": "8f0f6604d5cad741fdc8fab310abc04efb003cb06eaf90bbee7f6af5ec4d7963"
+    },
+    {
+      "path": "assets/course-reference/docs/production/lesson-authoring-playbook.md",
+      "sha256": "34b6089d25b80807e956d194623274d99a60a296c3032290b2e04742e7599497",
+      "bytes": 25540,
+      "source": "docs/production/lesson-authoring-playbook.md",
+      "source_sha256": "f3c2763b5db39897301871673654580e20de979ec5f3915d214c9b2a83964e7d"
+    },
+    {
+      "path": "assets/course-reference/docs/production/parts.md",
+      "sha256": "a5e11e68a5295643afc3475410d63cacff3807913825716eee48f74fb5fdaba8",
+      "bytes": 16728,
+      "source": "docs/production/parts.md",
+      "source_sha256": "fe4c46dc739aeb66984deb2ca4a5f59f5368f46f907dfed3947e65c4b8a4f70a"
+    },
+    {
+      "path": "assets/course-reference/docs/production/ppt-verification.md",
+      "sha256": "6556a747c69988b682bef80aa59b6806b26773c219623685d0345933dbea20e4",
+      "bytes": 4094,
+      "source": "docs/production/ppt-verification.md",
+      "source_sha256": "76ae31e137c6b22cfa46fb3c34dbe983906dc12e8d603c2e069073c894495554"
+    },
+    {
+      "path": "assets/course-reference/docs/production/terminology.md",
+      "sha256": "fcf99dd2f4e143ec7417e69a7862f06c9f458240884fbad4c82f9bba5c9af2cc",
+      "bytes": 7380,
+      "source": "docs/production/terminology.md",
+      "source_sha256": "bef597faade06fcb4a46a9dad4622274f89eaa92865ecfc8b234eed166407d4c"
+    },
+    {
+      "path": "assets/course-reference/docs/production/visual-design-system.md",
+      "sha256": "d3ec6191db1aad6f9d9b0b3f8dee65126d114f98a260b563d9c811afc1336505",
+      "bytes": 22325,
+      "source": "docs/production/visual-design-system.md",
+      "source_sha256": "8d3007a3b934dd44621c43d2b5b24fd7d30e79220153485340034fbdaf7fd831"
+    },
+    {
+      "path": "assets/course-reference/docs/production/wording-patterns.md",
+      "sha256": "49ca015e8133b12419ef03d6428eab5d9d724d839b18f9f89fcecb56dedd91b3",
+      "bytes": 8697,
+      "source": "docs/production/wording-patterns.md",
+      "source_sha256": "f43fddba90b481d457bd6c6ef89b39ee9f290e1ceff8dce15ee193f2c46fed75"
+    },
+    {
+      "path": "references/ppt-examples.json",
+      "sha256": "cfaba62c50fce91468cbe306eca4ca9789b05479e90c1a52df73d079f7d8fe22",
+      "bytes": 11151,
+      "source": ".agents/skills/course-prep/references/ppt-examples.json",
+      "source_sha256": "26ed32e68d2d7551693779f0b3a342633f804e22c95beac9b32237d5ef21ffdc"
+    },
+    {
+      "path": "assets/course-reference/shared/tokens.css",
+      "sha256": "fb7500748b6288657d472b13a76bb9b19498737c9bc8090cd841d06895c753f3",
+      "bytes": 2701,
+      "source": "courseware/shared/tokens.css",
+      "source_sha256": "fb7500748b6288657d472b13a76bb9b19498737c9bc8090cd841d06895c753f3"
+    },
+    {
+      "path": "assets/course-reference/shared/styles.css",
+      "sha256": "7fec9a59a80331d544f39a042a9465447eb6eb7e123bda1dd3c2dd88a84e5faf",
+      "bytes": 34240,
+      "source": "courseware/shared/styles.css",
+      "source_sha256": "7fec9a59a80331d544f39a042a9465447eb6eb7e123bda1dd3c2dd88a84e5faf"
+    },
+    {
+      "path": "assets/course-reference/shared/presentation.css",
+      "sha256": "c89954633c8d69a2f92ec6ed9e1bc7e923a3fb26db486f9659dd210edc1d435a",
+      "bytes": 15309,
+      "source": "courseware/shared/presentation.css",
+      "source_sha256": "c89954633c8d69a2f92ec6ed9e1bc7e923a3fb26db486f9659dd210edc1d435a"
+    },
+    {
+      "path": "assets/course-reference/shared/evidence.css",
+      "sha256": "2a783c0e5bfc14142dd0ba64c90e49536c078b7532010a26e2a4cba53ca58d48",
+      "bytes": 9822,
+      "source": "courseware/shared/evidence.css",
+      "source_sha256": "2a783c0e5bfc14142dd0ba64c90e49536c078b7532010a26e2a4cba53ca58d48"
+    },
+    {
+      "path": "assets/course-reference/shared/parts/parts.css",
+      "sha256": "2adf37144785b9171776afdd41a2610deb71c947873915115921239b84895665",
+      "bytes": 45181,
+      "source": "courseware/shared/parts/parts.css",
+      "source_sha256": "d42c7bbf018ddec7687f7906ce9f203b341512b2e1637c1a0381cf86a757778d"
+    },
+    {
+      "path": "assets/course-reference/shared/app.js",
+      "sha256": "e10b8b56f6b67d80a841a967ae3f00236f795bf916ff7926713f5da53d360032",
+      "bytes": 20461,
+      "source": "courseware/shared/app.js",
+      "source_sha256": "e10b8b56f6b67d80a841a967ae3f00236f795bf916ff7926713f5da53d360032"
+    },
+    {
+      "path": "assets/course-reference/shared/presentation.js",
+      "sha256": "51f6c90692484c56df53c878fec2ae7a6799a0c8d7e981389f8ab3e544eb0e93",
+      "bytes": 5901,
+      "source": "courseware/shared/presentation.js",
+      "source_sha256": "51f6c90692484c56df53c878fec2ae7a6799a0c8d7e981389f8ab3e544eb0e93"
+    },
+    {
+      "path": "assets/course-reference/shared/parts/parts.js",
+      "sha256": "c7f047e8c41d7d2d0187edfe18ba6b378bc0639fde7791d21c49a2d2f4c53dc4",
+      "bytes": 3654,
+      "source": "courseware/shared/parts/parts.js",
+      "source_sha256": "c7f047e8c41d7d2d0187edfe18ba6b378bc0639fde7791d21c49a2d2f4c53dc4"
+    },
+    {
+      "path": "assets/course-reference/shared/assets/ph_logo.png",
+      "sha256": "800322c7f4838b7a38746bdb714f4dbea16d2d0b9fa1e48a55b641f3ae8c1641",
+      "bytes": 3616,
+      "source": "courseware/shared/assets/ph_logo.png",
+      "source_sha256": "800322c7f4838b7a38746bdb714f4dbea16d2d0b9fa1e48a55b641f3ae8c1641"
+    },
+    {
+      "path": "assets/course-reference/shared/assets/shenlanxueyuan_logo.png",
+      "sha256": "51be732928643f7d94b4ac7e6467f1cd6f99b0b968a2db4815f301b992bdd550",
+      "bytes": 51052,
+      "source": "courseware/shared/assets/shenlanxueyuan_logo.png",
+      "source_sha256": "51be732928643f7d94b4ac7e6467f1cd6f99b0b968a2db4815f301b992bdd550"
+    },
+    {
+      "path": "assets/course-reference/shared/fonts/title.woff2",
+      "sha256": "1c03771da0482b0a17ff72baa42e6aa7357c5dc0ade5590f0307af5e69d42c92",
+      "bytes": 138360,
+      "source": "courseware/shared/fonts/title.woff2",
+      "source_sha256": "1c03771da0482b0a17ff72baa42e6aa7357c5dc0ade5590f0307af5e69d42c92"
+    },
+    {
+      "path": "assets/course-reference/shared/fonts/cover.woff2",
+      "sha256": "83793dc388b910231de33d2a71096b215575c7f33cc63cefd1e6ba6786748c51",
+      "bytes": 472168,
+      "source": "courseware/shared/fonts/cover.woff2",
+      "source_sha256": "83793dc388b910231de33d2a71096b215575c7f33cc63cefd1e6ba6786748c51"
+    },
+    {
+      "path": "assets/course-reference/shared/fonts/sans.woff2",
+      "sha256": "45d407d37cb1a01ceac2cba8d8b8823935a4d8ebde14aaa0bf28c4e73eae2ba0",
+      "bytes": 565848,
+      "source": "courseware/shared/fonts/sans.woff2",
+      "source_sha256": "45d407d37cb1a01ceac2cba8d8b8823935a4d8ebde14aaa0bf28c4e73eae2ba0"
+    },
+    {
+      "path": "assets/course-reference/shared/fonts/sans-bold.woff2",
+      "sha256": "d1622102f72948e957291937793eb2abe31efae606fb758777657cf025e41c50",
+      "bytes": 579484,
+      "source": "courseware/shared/fonts/sans-bold.woff2",
+      "source_sha256": "d1622102f72948e957291937793eb2abe31efae606fb758777657cf025e41c50"
+    },
+    {
+      "path": "assets/course-reference/shared/fonts/mono.woff2",
+      "sha256": "dcb2d497b9ac868b4b9fd73c7997bcd67136dfc77a3051d0c42ec079f854b777",
+      "bytes": 18616,
+      "source": "courseware/shared/fonts/mono.woff2",
+      "source_sha256": "dcb2d497b9ac868b4b9fd73c7997bcd67136dfc77a3051d0c42ec079f854b777"
+    },
+    {
+      "path": "assets/course-reference/shared/fonts/mono-bold.woff2",
+      "sha256": "98d633e49e33b980e1829694e534bcb9effd2267c3449e5d860167fdaf2c6172",
+      "bytes": 19332,
+      "source": "courseware/shared/fonts/mono-bold.woff2",
+      "source_sha256": "98d633e49e33b980e1829694e534bcb9effd2267c3449e5d860167fdaf2c6172"
+    },
+    {
+      "path": "assets/course-reference/shared/fonts/LICENSE-title.txt",
+      "sha256": "91ef06981e715027e93a66e95fe827db07c4c959dbca164489509febc0dfe400",
+      "bytes": 4397,
+      "source": "courseware/shared/fonts/LICENSE-title.txt",
+      "source_sha256": "538078469839b4a2e7ad22bef4ebe41681a4e53749bb2a072144024f1d6d703d"
+    },
+    {
+      "path": "assets/course-reference/shared/fonts/LICENSE-cover.txt",
+      "sha256": "e8238a9d2c9e330883f1b96e186ef6857396620ff7ea9175a7960d02ab87ce32",
+      "bytes": 4389,
+      "source": "courseware/shared/fonts/LICENSE-cover.txt",
+      "source_sha256": "603546b7219a94bb59bf8294458194a5010119486354092b66a09a3fd61aeacc"
+    },
+    {
+      "path": "assets/course-reference/shared/fonts/LICENSE-sans.txt",
+      "sha256": "babcfe66c8a098b2fa279bc724a3a342f8124f77ce18941fbcc1bbb39823cded",
+      "bytes": 4387,
+      "source": "courseware/shared/fonts/LICENSE-sans.txt",
+      "source_sha256": "1c05c68c34f9708415aada51f17e1b0092d2cea709bf4a94cd38114f9e73d7d9"
+    },
+    {
+      "path": "assets/course-reference/shared/fonts/LICENSE-mono.txt",
+      "sha256": "b2fe5e8987594e9ffd1d2ca52a2f5d73eb8335243893c5d6254b5ad69269591d",
+      "bytes": 4399,
+      "source": "courseware/shared/fonts/LICENSE-mono.txt",
+      "source_sha256": "b2fe5e8987594e9ffd1d2ca52a2f5d73eb8335243893c5d6254b5ad69269591d"
+    },
+    {
+      "path": "assets/course-reference/canvas.js",
+      "sha256": "2d89a679823db0306015a78a165ab56f7880ccb857b3dc8c65d892bf38070784",
+      "bytes": 5580,
+      "source": "docs/outline/proposals/harness-board/slides/canvas.js",
+      "source_sha256": "2d89a679823db0306015a78a165ab56f7880ccb857b3dc8c65d892bf38070784"
+    },
+    {
+      "path": "assets/course-reference/flow.js",
+      "sha256": "de08a3231eb3ea0c043d9daac5967bef4791e5eeb96b94163e9adc0f86c5e80c",
+      "bytes": 1432,
+      "source": "docs/outline/proposals/harness-board/slides/flow.js",
+      "source_sha256": "de08a3231eb3ea0c043d9daac5967bef4791e5eeb96b94163e9adc0f86c5e80c"
+    },
+    {
+      "path": "assets/course-reference/assets/hf-towel-card.png",
+      "sha256": "50227d7afa341a59333a4429314afc431c6824e2e930de3a089fe2e993a2ce52",
+      "bytes": 582400,
+      "source": "ai-coding-resources/research/harness-engineering/l7-slides/hf-towel-card.png",
+      "source_sha256": "50227d7afa341a59333a4429314afc431c6824e2e930de3a089fe2e993a2ce52"
+    },
+    {
+      "path": "assets/course-reference/lesson.js",
+      "sha256": "6f3a2210a3a2b8dfff5f833ce4730d7c729b4d02b0caeacaca7269657060eabe",
+      "bytes": 100365,
+      "source": "docs/outline/proposals/harness-board/slides/l7-1/lesson.js",
+      "source_sha256": "43633cf9fee84a82789c82e5716cbb2e2abeace0290c474c121dbd3788d3637f"
+    },
+    {
+      "path": "assets/course-reference/index.html",
+      "sha256": "ef68a97fa89b0ee39abf5b8d7b2a07fa574f3da19603c86b2151e28ddddbb860",
+      "bytes": 3489,
+      "source": "docs/outline/proposals/harness-board/slides/l7-1/index.html",
+      "source_sha256": "00fe9afc6b30ff1a69b57b918855b94b14eb2006590eaabeed17aff66d9fa1c5"
+    },
+    {
+      "path": "assets/course-reference/speaker.html",
+      "sha256": "ede37b349ee8b964e51f844442a64892a0567cd0d6a205676f9e57f61d54eef5",
+      "bytes": 11248,
+      "source": "docs/outline/proposals/harness-board/slides/l7-1/lesson.js",
+      "source_sha256": "43633cf9fee84a82789c82e5716cbb2e2abeace0290c474c121dbd3788d3637f"
+    },
+    {
+      "path": "assets/course-reference/guide.html",
+      "sha256": "4571429783db4ba1341921e157cb7b9dc798ea48741259397431f77e6b5889f5",
+      "bytes": 14946
+    },
+    {
+      "path": "assets/narration-template/index.html",
+      "sha256": "e919450aaa8b9ced188ec917c8cf0e1c7b047c0cbc66b9da7dd6d17a3ae61f9c",
+      "bytes": 561
+    },
+    {
+      "path": "references/ppt-background.md",
+      "sha256": "ebc7c1ef8b7b917cd46b918b103ae44912e3c955e3ed3ab35a7e3aa57abd9b93",
+      "bytes": 20908
+    },
+    {
+      "path": "references/materials.md",
+      "sha256": "db7244c83746a9e411c1381b73130ae6fe67463f3359b71eba9d7314c039095c",
+      "bytes": 10904
+    },
+    {
+      "path": "references/narration-html.md",
+      "sha256": "ac6172b6409d72e3e54f60250905f9215a1b2f6d73fe36c4b04fd7a9e8eaf970",
+      "bytes": 24505
+    },
+    {
+      "path": "references/behavior-validation.md",
+      "sha256": "c1a06930384725f32e9886f805301aa04f3f3cd512b42e225cd47f57bec1190f",
+      "bytes": 14736
+    },
+    {
+      "path": "references/narration-cases.md",
+      "sha256": "bae5bfaeadbb433f33ab14f54aa0970e6acd8530ed6650afdf96dfb3fcf57248",
+      "bytes": 7824
+    },
+    {
+      "path": "references/discussion.md",
+      "sha256": "fd39828c97a0f81034ff3eba24ea8bccc5e7f7952d426d957f9926758c2bc5dd",
+      "bytes": 20950
+    },
+    {
+      "path": "references/narration-implementation.md",
+      "sha256": "472f894b9664d5479844c761472a7d1eb419924b9c1e5a3def3a6c6b3c29978a",
+      "bytes": 9191
+    },
+    {
+      "path": "references/spoken-script-cases.md",
+      "sha256": "37dcd277293392aac6ced60ce329f99c34b729c75ac1c1a067dc5978fac7d220",
+      "bytes": 7569
+    },
+    {
+      "path": "references/recording-gates-proposal.md",
+      "sha256": "1efbc914eb1dc82936982b07fb060252e0ad379b4196acdea0e96f02c785659b",
+      "bytes": 7293
+    },
+    {
+      "path": "assets/narration-template/ppt-location.js",
+      "sha256": "7ef7a4ab249ad66cb83fa34e805cbad8771a29143acd8da15219e31697910086",
+      "bytes": 1877
+    },
+    {
+      "path": "assets/narration-template/README.md",
+      "sha256": "41ecd969d9474f8faad95f23986f1947f3d6dec95470fd59a9fcf0358b6a809e",
+      "bytes": 8590
+    },
+    {
+      "path": "assets/narration-template/slides.html",
+      "sha256": "6b6d994f767129183ab04d7e90b49a90c56d21a36f37b509cf2f66b81a360e73",
+      "bytes": 742
+    },
+    {
+      "path": "assets/narration-template/speaker.js",
+      "sha256": "8a512fdc0163771ccfe5b5f7661c40bd793dac7f189935092d42c6b697644d96",
+      "bytes": 15635
+    },
+    {
+      "path": "assets/narration-template/example-data.js",
+      "sha256": "856fb81e31f21707d675a667e63322a3935ef5caf37405f254330d58fa2671ce",
+      "bytes": 5730
+    },
+    {
+      "path": "assets/narration-template/speaker.css",
+      "sha256": "09c59e048fb04d1b2d1fe9559508ae9623ab8b180b723af59da47164c33209c1",
+      "bytes": 4896
+    },
+    {
+      "path": "references/ppt-implementation.md",
+      "sha256": "6d243062bed96389a191ff3bcbaa7258ae1119560c53108a1d8531e38c9b3bc3",
+      "bytes": 4503
+    },
+    {
+      "path": "references/ppt-information.md",
+      "sha256": "9f4d2b23a8203f543a77f3f83ae2e720b06507a9180ed80f4fa8ec52a6177419",
+      "bytes": 11330
+    },
+    {
+      "path": "references/ppt-review.md",
+      "sha256": "6816494a159714f90ee1d8b904e59b81ecab7d63b85a0f1ee7b28c6a8186d8e3",
+      "bytes": 5724
+    },
+    {
+      "path": "references/ppt-visual.md",
+      "sha256": "ca38ea92fa6d50a21a3e58deb89614669859d3d051177358473795f073450362",
+      "bytes": 8411
+    },
+    {
+      "path": "scripts/read-editorial-rules.py",
+      "sha256": "fb25b341fd0b0553919e344c33c9a39f58e9009a189e62dab2ff991616381e32",
+      "bytes": 2600
+    }
+  ],
+  "distribution_note": "Published as a self-contained reference snapshot on 2026-11-09. SKILL.md sharing instructions and screenshot scope were adapted for this distribution; original source hashes are retained for provenance. The source exporter and full lesson workspace are not required or included. Trailing whitespace in copied CSS and license texts was normalized without changing their content.",
+  "base_archive_sha256": "c35768e1993c282e04debb75ab6a02ca1a43aeeb5a67caa1ac6caabc25174d3b",
+  "integration_note": "2026-11-09：以 course-prep.zip 为底稿，融合当前仓库的阶段、画面与讲述线、原稿保留、案例证据和交接规则；清理已注销 Skill 依赖，区分规范快照及未接入工具。source/source_sha256 保留来源工作区历史信息，imported_sha256 保留原分发文件指纹；sha256/bytes 对应融合后的实际文件。未重新验证历史案例或教学效果。",
+  "narration_template": {
+    "path": "assets/narration-template/index.html",
+    "reference": "courseware/ch03/lessons/02-rules/speaker.html",
+    "updated": "2026-11-13",
+    "status": "可复制起步包：整节连续阅读、独立导航与折叠、设计与成稿共存、时序模块及按需预览；保留旧字段、源节点与 PPT 定位，不含保存与评论后端",
+    "readme": "assets/narration-template/README.md",
+    "reference_role": "历史课程取材实例，不是新布局的完整示范；现行规则与示例以 narration-implementation.md 和本起步包为准"
+  },
+  "workflow_update_note": "2026-11-13：按已授权的分阶段规划更新 Discussion 层次、跨阶段继承与回写、当前讲述设计、连续阅读模板及独立生成验收方法。sha256/bytes 为当前包文件指纹；source_commit、base_archive_sha256、source_sha256、imported_sha256 继续保留原来源与分发历史含义。课程内容未自动迁移。",
+  "ppt_update_note": "2026-11-14：完成 PPT 职责方法、样例、旧说明与 ED 读取衔接；同步三份参考快照及同源 ED 提取脚本。sha256/bytes 为当前包文件指纹，原来源字段保留历史含义。未进行独立行为测试。",
+  "editorial_reader": {
+    "path": "scripts/read-editorial-rules.py",
+    "source": "tools/read-editorial-rules.py",
+    "rules": "assets/course-reference/docs/production/editorial-checklist.md",
+    "usage": "python3 scripts/read-editorial-rules.py --source assets/course-reference/docs/production/editorial-checklist.md ED-编号 ...",
+    "note": "仓库内使用当前仓库源；分发脚本与仓库脚本同源，更新时同步。"
+  }
+}

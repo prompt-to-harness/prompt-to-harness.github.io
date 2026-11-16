@@ -19,6 +19,8 @@
 
 `courseware/promo/` 中的截图展示了 JSON Crack、dependency-cruiser 等第三方工具的界面，仅用于课程说明。相关名称、标识和界面归各自权利人所有。
 
+`.agents/skills/course-prep/assets/course-reference/`随备课 Skill 保留了一张 RoboCOIN 数据集公开网页的历史截图，用于说明数据层级关系；原出处见包内样例与 `manifest.json`。截图内容和标识归各自权利人所有。随包字体的许可全文保留在该目录的 `shared/fonts/`，不纳入 MIT 授权范围。
+
 ## 工具与项目名称
 
 课程中提到的 Codex、Claude Code、GitHub、Vite、React 等产品和项目名称归各自权利人所有，本仓库与它们的权利人没有隶属或背书关系。

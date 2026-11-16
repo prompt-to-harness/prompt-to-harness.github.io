@@ -1,0 +1,43 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>样例配套口播</title><link rel="stylesheet" href="shared/tokens.css"><style>body{max-width:960px;margin:40px auto;padding:0 24px;font:18px/1.8 "Course Sans",sans-serif;background:#F4F2EB;color:#243042}a{color:#2A2380}pre{white-space:pre-wrap;font:inherit}section{margin:48px 0}h1,h2{line-height:1.4}</style><h1>样例配套口播</h1><p><a href="guide.html">返回样例说明</a> · 口播为原页配套稿；跨页承接属于原课。</p><section id="p01"><h2>Codex 能读文件、跑命令，靠的是模型外面那一圈：Harness</h2><h3><a href="index.html?mode=slides&amp;step=0#p01" target="_blank" rel="noopener">第 1 步画面</a></h3><pre>【操作提示｜PPT｜p01，第1步；回看请求中系统指令、工具定义和Skills列表。】
+
+前几课我们用 Codex 读文件、跑命令、修改项目。模型收到的是输入，交出来的是输出；要真的读到文件、运行命令，还需要外面的程序执行。第七到第九课，我们就围绕模型外面的这些设计展开。先回忆第二课拆过的一次 Codex 请求：系统指令、工具定义和 Skills 列表占了大部分，我们写的那句话只在最右边。</pre><h3><a href="index.html?mode=slides&amp;step=1#p01" target="_blank" rel="noopener">第 2 步画面</a></h3><pre>【操作提示｜PPT｜p01，第2步；指组装请求的括号和用户消息。】
+
+我们写的那句话只有三十几个字。它知道当前有哪些工具、要遵守哪些项目要求，是因为外面的程序把这些信息一起放进了请求。</pre><h3><a href="index.html?mode=slides&amp;step=2#p01" target="_blank" rel="noopener">第 3 步画面</a></h3><pre>【操作提示｜PPT｜p01，第3步；沿“模型提出调用→执行→返回结果”讲。】
+
+比如读哪个文件，由模型提出；真正打开文件、把内容放进下一次请求，是外面的程序完成的。模型拿到返回结果，才能接着判断。从模型开始决定下一步走哪的那一刻起，围绕它组织信息、执行动作和控制过程的这一圈，就叫 Harness。</pre><h3><a href="index.html?mode=slides&amp;step=3#p01" target="_blank" rel="noopener">第 4 步画面</a></h3><pre>【操作提示｜PPT｜p01，第4步；依次指四个设计问题。】
+
+设计这一圈，要回答四个问题：给模型看什么，让它能做什么，怎么检查它的输出，什么时候停。Codex 的系统指令、工具定义、权限检查和执行循环，都在回答这些问题。即使流程完全由代码安排，也得先把这些事情设计好；只是那时我们把它叫作编排。</pre></section><section id="p03"><h2>第 7、8 课做一个帮人找训练数据的产品</h2><h3><a href="index.html?mode=slides&amp;step=0#p03" target="_blank" rel="noopener">第 1 步画面</a></h3><pre>【操作提示｜PPT｜p03，第1步；读用户的一句话需求。】
+
+把这些问题放到一个具体产品里看。我们要做一个检索助手，帮做机器人训练的人找数据。比如他想把几份 SO-100、SO-101 的数据合起来训练，就会问：哪些数据集是每秒三十帧、带手腕摄像头的？</pre><h3><a href="index.html?mode=slides&amp;step=1#p03" target="_blank" rel="noopener">第 2 步画面</a></h3><pre>【操作提示｜PPT｜p03，第2步；指检索助手。】
+
+检索助手接收这句自然语言需求。要把它变成可以核对的结果，我们得替模型准备数据、安排查询，并检查回答有没有依据。</pre><h3><a href="index.html?mode=slides&amp;step=2#p03" target="_blank" rel="noopener">第 3 步画面</a></h3><pre>【操作提示｜PPT｜p03，第3步；指筛选结果。】
+
+最后交给用户的是符合条件的数据集，每份都有来源链接，能回到原页面核对。用户不需要自己逐个翻说明，这就是这个产品要替他完成的工作。</pre></section><section id="p02"><h2>同一个检索助手做两遍：第 7 课用 workflow，第 8 课用 agent</h2><h3><a href="index.html?mode=slides&amp;step=0#p02" target="_blank" rel="noopener">第 1 步画面</a></h3><pre>【操作提示｜PPT｜p02，第1步；沿workflow路径及校验回线讲。】
+
+同一个检索助手，我们会做两个版本。第七课先用 workflow，也就是预先安排好的工作流程。图里先给出一种接法：取出数据里的真实写法，理解问题，生成查询，校验并执行，再整理回答。具体路线由代码安排；即使校验失败后要重写一次，回到哪一步、最多几次，也可以事先规定。</pre><h3><a href="index.html?mode=slides&amp;step=1#p02" target="_blank" rel="noopener">第 2 步画面</a></h3><pre>【操作提示｜PPT｜p02，第2步；指模型与工具的循环。】
+
+第八课用 agent 做同一个产品。模型可以根据当前结果决定接着查什么、用哪个工具，或者已经能够回答；外面的程序负责执行，并限制可用工具和最多走几步。</pre><h3><a href="index.html?mode=slides&amp;step=2#p02" target="_blank" rel="noopener">第 3 步画面</a></h3><pre>【操作提示｜PPT｜p02，第3步；指决定权轴的两端。】
+
+区分这两种做法，要看下一步由谁决定。有循环，也可能仍然是代码预先安排的流程。我们保留同一个产品需求，再用同一套评测比较两个版本，看看答案质量、调用量和耗时各有什么差别。</pre></section><section id="pdata"><h2>看懂数据，才知道这个产品要找的是什么</h2><h3><a href="index.html?mode=slides&amp;step=0#pdata" target="_blank" rel="noopener">第 1 步画面</a></h3><pre>【操作提示｜PPT｜pdata，第1步；看整体分布，再指叠毛巾与droid_success。】
+
+需求里说的机器人、帧率、摄像头，得在数据里找到依据。我们准备的快照收录了三百七十个带 LeRobot 标签的数据集。每个点代表一个数据集，越往右，里面的完整录制越多：少的只有一条，多的有五十多万条，中间的大约四百条。</pre><h3><a href="index.html?mode=slides&amp;step=1#pdata" target="_blank" rel="noopener">第 2 步画面</a></h3><pre>【操作提示｜PPT｜pdata，第2步；白板镜头移到叠毛巾截图；指右上角的387 episodes与左侧列表，不切出PPT。】
+
+看其中一个叠毛巾数据集。这是它在 Hugging Face 上的页面截图，里面有三百八十七条数据，左边一条条列出来。一条数据，是机器人从头到尾做完一次任务的完整录制。</pre><h3><a href="index.html?mode=slides&amp;step=2#pdata" target="_blank" rel="noopener">第 3 步画面</a></h3><pre>【操作提示｜PPT｜pdata，第3步；先指截图播放条，再沿箭头到时间条，指最左边的一格。】
+
+这份数据每秒记录三十个时刻。每次做任务的时间长短不一样，所以各条录制包含的时刻数也不一样：第零条有七百二十一个，大约二十四秒。时间条最左边的一格，就是其中一个时刻。</pre><h3><a href="index.html?mode=slides&amp;step=3#pdata" target="_blank" rel="noopener">第 4 步画面</a></h3><pre>【操作提示｜PPT｜pdata，第4步；从截图移到拆解图，依次指三路画面、状态与动作。】
+
+在这份叠毛巾数据里，每个时刻包含三路摄像头的画面，头部一路、两只手腕各一路；机器人的状态用二十六个数记录，包括关节和夹爪的状态；动作也是二十六个数，记录机器人要执行的动作。训练时，把画面、状态和任务描述作为输入，学习该做什么动作。</pre><h3><a href="index.html?mode=slides&amp;step=4#pdata" target="_blank" rel="noopener">第 5 步画面</a></h3><pre>【操作提示｜PPT｜pdata，第5步；跟着箭头到info.json节选，按robot_type、fps、条数、摄像头顺序讲。】
+
+那用的是什么机器人？写在每个数据集自带的说明文件 info.json 里。这里的机器人型号是 aloha，每秒三十个时刻，共三百八十七条录制，三路摄像头。挑数据时关心的这些信息，不用逐帧翻看，可以先从这份说明里找，一个数据集一份。</pre><h3><a href="index.html?mode=slides&amp;step=5#pdata" target="_blank" rel="noopener">第 6 步画面</a></h3><pre>【操作提示｜PPT｜pdata，第6步；镜头回到截图，指Task和旁边批注。】
+
+除了这些字段，我们还要知道机器人做的是什么任务。这份数据的三百八十七条录制都在叠毛巾，共用同一句任务描述：Fold towels。</pre><h3><a href="index.html?mode=slides&amp;step=6#pdata" target="_blank" rel="noopener">第 7 步画面</a></h3><pre>【操作提示｜PPT｜pdata，第7步；先看RoboTwin_clean前四条描述，再看下面的比例条。】
+
+也有任务描述各不相同的数据。比如这个 RoboTwin_clean，两千五百条录制有两千四百零九句描述，几乎每条都不一样。再看下面的比例条：有录制数量的这些数据集中，一大半只有一句描述；一百多个是一句对应一批录制；十几个差不多每条一句；还有个别没有写。</pre><h3><a href="index.html?mode=slides&amp;step=7#pdata" target="_blank" rel="noopener">第 8 步画面</a></h3><pre>【操作提示｜PPT｜pdata，第8步；拉远回看层级，最后停在标亮的info.json与任务描述。】
+
+这样就看清了：一个数据集里有多次录制，每次录制又分成一个个时刻，记录画面、状态和动作。要找适合自己任务的数据，还要看数据集的说明文件和任务描述。图里标亮的这两部分，就是我们准备收进检索库的内容。</pre></section><section id="pfind"><h2>产品要做的：在 370 份说明里，找出符合一句话需求的数据集</h2><h3><a href="index.html?mode=slides&amp;step=0#pfind" target="_blank" rel="noopener">第 1 步画面</a></h3><pre>【操作提示｜PPT｜pfind，第1步；指说明卡，再回到左侧用户需求。】
+
+收进来以后，每个数据集对应一份可查询的说明：什么机器人、每秒多少帧、有多少条录制、哪些摄像头，以及做过什么任务。原始画面、状态和动作仍留在原数据集中，检索库不下载这些训练数据。现在把用户的需求和说明放在一起看。</pre><h3><a href="index.html?mode=slides&amp;step=1#pfind" target="_blank" rel="noopener">第 2 步画面</a></h3><pre>【操作提示｜PPT｜pfind，第2步；依次指三种颜色的条件、连线和字段。】
+
+SO-100、SO-101，对的是机器人型号；每秒三十帧，对的是帧率；手腕摄像头，对的是摄像头这一栏。</pre><h3><a href="index.html?mode=slides&amp;step=2#pfind" target="_blank" rel="noopener">第 3 步画面</a></h3><pre>【操作提示｜PPT｜pfind，第3步；指十五个结果，再沿需求、说明、结果收住整条链。】
+
+在这份固定快照里，按这三个条件核对，符合的有十五个。用户说出需求，检索助手在说明里找到依据，交回名单和来源。这样，用户就能顺着链接核对条件，再决定用哪些数据。</pre></section></html>

@@ -35,7 +35,7 @@ python3 tools/screenstudio-transcript/screenstudio_transcribe.py "/path/to/proje
 
 ## 润色
 
-在本课程 repo 中，先按 `.agents/skills/lesson-polish/SKILL.md` 路由并读取编辑规则；本任务仅校正录制转写，不自动改页面、章文件或事实结论。
+在本课程 repo 中，先读取 `docs/agents/sources-of-truth.md`，再运行 `python3 tools/read-editorial-rules.py ED-002 ED-007 ED-010 ED-012` 读取完整正文；涉及运行事实补 ED-020、操作提示补 ED-013。合并去重，已读未变的不重读，缺号或截断时补取并核对结束标记；本任务仅校正录制转写，不自动改页面、章文件或事实结论。
 
 读取 `分段原稿.json` 的完整 segments；较长时按连续 ID 分批处理，最后合并所有分段。
 
