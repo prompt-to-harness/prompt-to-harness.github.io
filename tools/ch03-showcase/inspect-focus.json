@@ -1,0 +1,255 @@
+{
+  "a2/session/L10": [
+    "在主页加入",
+    "Done when"
+  ],
+  "a2/session/L29": [
+    "cat src/App.tsx"
+  ],
+  "a2/session/L134": [
+    "built in"
+  ],
+  "a2/session/L110": [
+    "export default function",
+    "useState"
+  ],
+  "a2/session/L119": [
+    "import MemoryGame",
+    "<MemoryGame"
+  ],
+  "a2/session/L140": [
+    "export function",
+    "gameReducer"
+  ],
+  "a2/session/L154": [
+    "全部配对",
+    "获胜",
+    "渲染.*8",
+    "卡片.*8"
+  ],
+  "a2/session/L171": [
+    "FAIL",
+    "fail",
+    "失败"
+  ],
+  "a2/session/L177": [
+    "fresh",
+    "createGameState",
+    "render.*match",
+    "cardPairs"
+  ],
+  "a2/session/L180": [
+    "全部配对",
+    "获胜",
+    "47"
+  ],
+  "a2/session/L192": [
+    "<MemoryGame",
+    "id=.game",
+    "memory-game"
+  ],
+  "a2/session/L233": [
+    "记忆翻牌小游戏已加到主页",
+    "47"
+  ],
+  "a1/session/L10": [
+    "在主页加入",
+    "Done when"
+  ],
+  "a1/session/L178": [
+    "operation not permitted",
+    "server:000"
+  ],
+  "a1/session/L212": [
+    "exit=134"
+  ],
+  "a1/session/L283": [
+    "PASS.*初始 16 张牌",
+    "FAIL.*第一张翻面"
+  ],
+  "a1/session/L372": [
+    "46/46"
+  ],
+  "b2/session/L137": [
+    "开局 12 张牌"
+  ],
+  "b2/session/L150": [
+    "export const SYMBOLS"
+  ],
+  "b2/session/L166": [
+    "matchedCount",
+    "matchedPairs",
+    "Math.floor"
+  ],
+  "b2/session/L174": [
+    "开局 12 张牌",
+    "32/32",
+    "配对"
+  ],
+  "f1/session/L304": [
+    "只读",
+    "翻牌次数",
+    "按钮"
+  ],
+  "f1/session/L355": [
+    "翻牌次数",
+    "加 1",
+    "一直",
+    "重新开始"
+  ],
+  "f1/session/L363": [
+    "两张",
+    "步数",
+    "通关",
+    "再来一局"
+  ],
+  "f1/session/L368": [
+    "翻牌次数",
+    "步数",
+    "isWon",
+    "再来一局",
+    "setMoves"
+  ],
+  "f1/session/L539": [
+    "步数",
+    "通关",
+    "再来一局",
+    "检查",
+    "验证"
+  ],
+  "old5/archive/prompt": [
+    "翻牌",
+    "build"
+  ],
+  "old5/archive/timeline-11": [
+    "."
+  ],
+  "old5/archive/plan": [
+    "^\\*\\*验证"
+  ],
+  "old5/archive/plan/scope": [
+    "推荐：emoji",
+    "推荐：核心循环"
+  ],
+  "old5/archive/answer": [
+    "^改完了",
+    "dist/.*3 个产物"
+  ],
+  "old5/archive/diff": [
+    "const matchedCount =",
+    "const isWon ="
+  ],
+  "mm-memory/cli/prompt": [
+    "Goal："
+  ],
+  "mm-memory/cli/L16": [
+    "matchedPairs.size",
+    "STATUS.WON",
+    "isWin ="
+  ],
+  "mm-memory/cli/L21": [
+    "class=.*toolbar",
+    "class=.*stats",
+    "id=.*difficulty-group"
+  ],
+  "mm-memory/cli/L23": [
+    "--bg",
+    "--accent",
+    "linear-gradient",
+    "repeating-linear-gradient"
+  ],
+  "mm-memory/cli/L31": [
+    "assert.equal\\(r.isWin, false",
+    "assert.equal\\(lastResult.isWin, true",
+    "assert.equal\\(game.status, STATUS.WON",
+    {
+      "after": "重开 ----------------",
+      "until": "难度配置",
+      "patterns": [
+        "game.reset\\(",
+        "assert.equal\\(game.moves, 0",
+        "assert.equal\\(game.matchedPairs, 0",
+        "assert.equal\\(game.status, STATUS.PLAYING"
+      ]
+    }
+  ],
+  "mm-memory/cli/L60": [
+    "allBackVisible:",
+    "所有牌初始都是背面"
+  ],
+  "mm-memory/cli/L79": [
+    "✘",
+    "✗",
+    "步数"
+  ],
+  "mm-memory/cli/L82": [
+    "updateStats"
+  ],
+  "mm-memory/cli/L85": [
+    "普通难度渲染 16 张牌",
+    "配对计数显示 8/8",
+    "全部配对后浮层弹出",
+    "浮层标题是通关",
+    "再玩一局后.*归零",
+    "通过 61 项"
+  ],
+  "mm-memory/cli/L86": [
+    "All 61 browser checks pass"
+  ],
+  "mm-memory/cli/L89": [
+    "Found a real visual bug"
+  ],
+  "mm-memory/cli/L90": [
+    "transform: rotateY",
+    "card__back",
+    "card__front"
+  ],
+  "mm-memory/cli/L94": [
+    "Two more CSS bugs"
+  ],
+  "mm-memory/cli/L95": [
+    "@keyframes",
+    "rotateY\\(180deg\\)"
+  ],
+  "mm-memory/cli/L96": [
+    "mid-game screenshot added",
+    "通过 61 项"
+  ],
+  "mm-memory/cli/L97": [
+    "Cards now show their backs"
+  ],
+  "mm-memory/cli/L102": [
+    "通过 69 项",
+    "配对",
+    "通关"
+  ],
+  "mm-memory/cli/L134": [
+    "自行决定的产品细节",
+    "^\\*\\*功能"
+  ],
+  "mm-memory/session/L34": [
+    "简单.*12",
+    "普通.*16",
+    "困难.*24",
+    "Best score: localStorage",
+    "Win overlay: modal"
+  ],
+  "mm-memory/session/L65": [
+    "Now the CSS",
+    "Card back:",
+    "mismatch delay"
+  ],
+  "mm-memory/cli/L134/files": [
+    "src/game-core.js",
+    "src/main.js"
+  ],
+  "mm-memory/cli/L134/handoff": [
+    "npm start",
+    "零依赖",
+    "真实触摸手势"
+  ],
+  "mm-memory/cli/L16/count": [
+    "this.moves +=",
+    "this.moves++"
+  ]
+}
