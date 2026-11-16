@@ -18,7 +18,7 @@ window.narrationData = {
       },
       {
         "frames": "3.4.1.1.3 · 先收藏这几个入口",
-        "content": "六个推荐入口及各自看点",
+        "content": "七个推荐入口及各自看点",
         "progression": "具体名字和一句看点；随后网站只演示怎么找、怎么看，不重复推荐理由。",
         "id": "recommended-entries"
       },
@@ -220,7 +220,7 @@ window.narrationData = {
                 {
                   "id": "recommended-entries-design",
                   "title": "先收藏这几个入口",
-                  "design": "沿用上一页的三个位置，直接放六个入口及一句看点：skills.sh 看主题与热门；SkillsMP 按条件筛选；anthropics/skills 看官方示例；vercel-labs/agent-skills 看前端指导；obra/superpowers 看开发工作流；Impeccable 看设计作品。对应标明官方团队或独立项目身份，不重复第 1 页的具体 Skill 用途。六个入口都留链接，口头重点点出下面会打开的几站；Anthropic 和 Superpowers 留给自行探索。接着说“先打开 skills.sh，拿刚才的 frontend-design 找一次”，进入浏览器。",
+                  "design": "沿用上一页的三个位置，直接放七个入口及一句看点：skills.sh 看主题与热门；SkillsMP 按条件筛选；anthropics/skills 看官方示例；vercel-labs/agent-skills 看前端指导；obra/superpowers 看开发工作流；Codex 插件目录按用途找插件，点到发布者与随附 Skill；Impeccable 看设计作品。对应标明官方团队或独立项目身份，不重复第 1 页的具体 Skill 用途。七个入口都留链接，口头重点点出下面会打开的几站；Anthropic 和 Superpowers 留给自行探索。接着说“先打开 skills.sh，拿刚才的 frontend-design 找一次”，进入浏览器。",
                   "limits": "",
                   "status": "",
                   "preparation": "",
@@ -269,6 +269,12 @@ window.narrationData = {
                           "url": "https://github.com/obra/superpowers",
                           "location": "README 的 Skills 列表：brainstorming、writing-plans、test-driven-development、systematic-debugging",
                           "purpose": "个人作者发起的开发工作流集合"
+                        },
+                        {
+                          "label": "Codex 插件目录",
+                          "url": "https://chatgpt.com/plugins",
+                          "location": "Codex 侧栏 → Plugins → 插件详情",
+                          "purpose": "按用途发现插件及随附 Skill，查看发布者"
                         },
                         {
                           "label": "Impeccable",

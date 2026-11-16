@@ -805,6 +805,7 @@ Game Studio 承担真实案例；“团队游戏开发 Plugin”只用于解释�
 
 | 来源类型 | 推荐入口 | 侧重点、推荐理由与采用边界 |
 | --- | --- | --- |
+| Codex 插件目录 | [Plugins](https://chatgpt.com/plugins) | 在 Codex 侧栏按用途找插件，打开详情看发布者，并了解插件是否提供相关 Skill。目录包含 OpenAI 与第三方发布者，插件也可提供工具。第 3 页点到为止。 [插件架构](https://developers.openai.com/plugins/concepts/plugins) · [发布说明](https://developers.openai.com/plugins/deploy/submission) |
 | Coding agent 官方集合 | [OpenAI plugins](https://github.com/openai/plugins)、[Anthropic skills](https://github.com/anthropics/skills) | 可回到官方维护的实际文件了解指导内容与配套资源；优先找开发相关条目。Plugin 可能包含 Skill 以外的能力，不把整个插件目录等同 Skill 目录；各条目的依赖、许可与宿主条件分别阅读 |
 | 技术栈维护者的集合 | [Vercel agent-skills](https://github.com/vercel-labs/agent-skills)、[Supabase agent-skills](https://github.com/supabase/agent-skills) | 分别适合寻找 React／Next.js 等前端实践，以及 Supabase／Postgres 相关指导。维护者掌握自身技术栈的具体约束；是否采用仍取决于项目是否使用该技术栈 |
 | 社区开发工作流 | [Matt Pocock skills](https://github.com/mattpocock/skills)、[Superpowers](https://github.com/obra/superpowers) | 提供澄清需求、规划、测试等工作方法，可以结合作者文章理解设计意图。方法往往带有作者的协作习惯，先看局部用途和采用成本，不要求整体照搬 |

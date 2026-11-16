@@ -7,7 +7,7 @@ window.narrationScripts = {
     "【操作提示｜PPT 课件：切第 2 页，三个寻找入口同屏】\n\n找 Skill，大致有这几个入口。聚合平台把不同作者的资源放在一起，适合搜索，也适合按主题随便逛一逛。GitHub 可以直接看一个项目的说明和指导原文。还有一种方式，是直接去看提供者发布的内容：既有 Coding Agent 官方，也有做前端工具的团队，还有持续分享作品的个人作者。同一个项目，可能在这几个地方都能找到。"
   ],
   "recommended-entries": [
-    "【操作提示｜PPT 课件：切第 3 页，指推荐入口及一句看点】\n\n可以先收藏这几个入口。skills.sh 适合看主题和热门资源，SkillsMP 可以按条件筛选。GitHub 上，Anthropic 的集合适合看官方示例，Vercel 的集合偏前端实践，Superpowers 则包含规划、测试这些开发工作流。设计类还可以看 Impeccable 的作品网站。这里的链接可以留着按需要探索，我们先打开 skills.sh，拿刚才的 frontend-design 找一次。"
+    "【操作提示｜PPT 课件：切第 3 页，指推荐入口及一句看点】\n\n可以先收藏这几个入口。skills.sh 适合看主题和热门资源，SkillsMP 可以按条件筛选。GitHub 上，Anthropic 的集合适合看官方示例，Vercel 的集合偏前端实践，Superpowers 则包含规划、测试这些开发工作流。如果你用 Codex，可以在侧栏打开插件目录，按用途找插件。打开详情先看发布者，再看插件有没有带你需要的 Skill。目录里有 OpenAI 和第三方发布的插件。设计类还可以看 Impeccable 的作品网站。这里的链接可以留着按需要探索，我们先打开 skills.sh，拿刚才的 frontend-design 找一次。"
   ],
   "lifecycle-slide": [
     "【操作提示｜PPT 课件：回到第 4 页第 1 步，看移除案例及条件】\n\n这些入口可以收藏，但里面的 Skill 不一定会一直适用。Matt Pocock 就移除过一份解决合并冲突的 Skill：他发现自己用的 agent 已经能处理这件事，不再需要专门指导。不过，用能力较弱的模型，仍可能需要它。同一份 Skill 有没有用，也会随着使用条件变化。",
