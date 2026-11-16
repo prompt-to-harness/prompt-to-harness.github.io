@@ -1,0 +1,206 @@
+/* ==========================================================================
+   purple-theme.css — 紫色黄昏主题基座（可单独使用）
+   -------------------------------------------------------------------------
+   用法：
+     1. <link rel="stylesheet" href="purple-theme.css">
+     2. 给 <body> 加 class="pg-body"（或给任意容器加 class="pg-surface"）
+     3. 之后可以单独引入 stat-cards.css / result-overlay.css
+
+   所有变量以 --pg- 前缀命名，避免污染宿主页面的既有变量。
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* ---- 背景 ---- */
+  --pg-bg-0: #0c1022;          /* 深靛底 */
+  --pg-bg-1: #171e3d;          /* 稍亮的靛蓝 */
+  --pg-glow-a: #2a3170;        /* 左上角光晕 */
+  --pg-glow-b: #3b2a63;        /* 右上角紫光晕 */
+
+  /* ---- 面板 / 描边 ---- */
+  --pg-panel: rgba(255, 255, 255, 0.07);
+  --pg-panel-strong: rgba(255, 255, 255, 0.12);
+  --pg-border: rgba(255, 255, 255, 0.14);
+  --pg-border-strong: rgba(255, 255, 255, 0.22);
+
+  /* ---- 文本 ---- */
+  --pg-text: #eef1ff;
+  --pg-text-dim: #a3abcf;
+
+  /* ---- 主色 ---- */
+  --pg-accent: #7c8cff;        /* 靛蓝 */
+  --pg-accent-2: #9a6bff;      /* 紫 */
+  --pg-accent-3: #56d6c6;      /* 青（焦点 / 次要强调） */
+  --pg-grad: linear-gradient(140deg, var(--pg-accent), var(--pg-accent-2));
+  --pg-grad-text: linear-gradient(92deg, #fff 10%, #b9c2ff 60%, #7ce7d8 100%);
+
+  /* ---- 语义色 ---- */
+  --pg-good: #4ade80;
+  --pg-bad: #fb7185;
+  --pg-warn: #fbbf24;
+
+  /* ---- 形状 ---- */
+  --pg-radius: 16px;
+  --pg-radius-sm: 11px;
+  --pg-radius-lg: 22px;
+  --pg-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  --pg-shadow-accent: 0 8px 20px rgba(124, 140, 255, 0.32);
+
+  /* ---- 字体 ---- */
+  --pg-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+/* 背景层：body 加 .pg-body，或任意容器加 .pg-surface */
+body.pg-body,
+.pg-surface {
+  margin: 0;
+  min-height: 100%;
+  font-family: var(--pg-font);
+  color: var(--pg-text);
+  background:
+    radial-gradient(1100px 620px at 15% -10%, var(--pg-glow-a) 0%, transparent 55%),
+    radial-gradient(900px 600px at 100% 0%, var(--pg-glow-b) 0%, transparent 50%),
+    linear-gradient(160deg, var(--pg-bg-0), var(--pg-bg-1));
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------------------------------------------------------------- 标题 */
+.pg-title {
+  margin: 0;
+  font-size: clamp(1.7rem, 4.5vw, 2.4rem);
+  letter-spacing: 0.5px;
+  background: var(--pg-grad-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.pg-subtitle {
+  margin: 6px 0 0;
+  color: var(--pg-text-dim);
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
+}
+
+/* ---------------------------------------------------------------- 面板 */
+.pg-panel {
+  padding: 12px 14px;
+  background: var(--pg-panel);
+  border: 1px solid var(--pg-border);
+  border-radius: var(--pg-radius);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* ---------------------------------------------------------------- 按钮 */
+.pg-btn {
+  appearance: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 9px 16px;
+  border-radius: var(--pg-radius-sm);
+  border: 1px solid transparent;
+  transition: transform 0.12s ease, filter 0.18s ease, background 0.18s ease,
+    border-color 0.18s ease;
+  white-space: nowrap;
+}
+
+.pg-btn:active { transform: translateY(1px) scale(0.99); }
+
+.pg-btn--primary {
+  background: var(--pg-grad);
+  color: #fff;
+  box-shadow: var(--pg-shadow-accent);
+}
+
+.pg-btn--primary:hover { filter: brightness(1.08); }
+
+.pg-btn--ghost {
+  background: var(--pg-panel-strong);
+  border-color: var(--pg-border);
+  color: var(--pg-text);
+}
+
+.pg-btn--ghost:hover { background: rgba(255, 255, 255, 0.18); }
+
+.pg-btn--ghost[aria-pressed="false"] {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+/* ------------------------------------------------------------ 分段控件 */
+.pg-segmented {
+  display: inline-flex;
+  padding: 3px;
+  gap: 3px;
+  background: rgba(0, 0, 0, 0.28);
+  border-radius: var(--pg-radius-sm);
+}
+
+.pg-segmented__btn {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  padding: 7px 14px;
+  border-radius: 9px;
+  font: inherit;
+  font-size: 0.86rem;
+  color: var(--pg-text-dim);
+  background: transparent;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.pg-segmented__btn:hover { color: var(--pg-text); }
+
+.pg-segmented__btn[aria-checked="true"],
+.pg-segmented__btn[aria-selected="true"],
+.pg-segmented__btn.is-active {
+  background: var(--pg-grad);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(124, 140, 255, 0.35);
+}
+
+/* ------------------------------------------------------------ 焦点样式 */
+.pg-btn:focus-visible,
+.pg-segmented__btn:focus-visible,
+.pg-stat:focus-visible,
+.pg-chip:focus-visible {
+  outline: 3px solid var(--pg-accent-3);
+  outline-offset: 2px;
+}
+
+/* -------------------------------------------------------------- 键位块 */
+.pg-kbd {
+  display: inline-block;
+  padding: 1px 6px;
+  margin: 0 1px;
+  border-radius: 5px;
+  border: 1px solid var(--pg-border);
+  background: rgba(0, 0, 0, 0.3);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.75rem;
+}
+
+/* ------------------------------------------------------------ 通用小件 */
+.pg-hint {
+  color: var(--pg-text-dim);
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

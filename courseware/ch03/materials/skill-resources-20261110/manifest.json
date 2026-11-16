@@ -1,0 +1,71 @@
+{
+  "date": "2026-11-10",
+  "commit": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "sources": [
+    {
+      "path": "skills/sprite-pipeline/SKILL.md",
+      "url": "https://raw.githubusercontent.com/openai/plugins/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/sprite-pipeline/SKILL.md",
+      "sha256": "eaaca5ef3faef575164e0775394980318b5561ba54fe7552dbe41971717cc7fc"
+    },
+    {
+      "path": "references/sprite-pipeline.md",
+      "url": "https://raw.githubusercontent.com/openai/plugins/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/references/sprite-pipeline.md",
+      "sha256": "75ccf6f3329e3af78f55d804c6997675297dc239ce282570d47a59f65241a009"
+    },
+    {
+      "path": "scripts/build_sprite_edit_canvas.py",
+      "url": "https://raw.githubusercontent.com/openai/plugins/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/scripts/build_sprite_edit_canvas.py",
+      "sha256": "c04fa1becb078c02c60f66ce8ada736983fef77e09f80158816b23098d889b95"
+    },
+    {
+      "path": "scripts/normalize_sprite_strip.py",
+      "url": "https://raw.githubusercontent.com/openai/plugins/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/scripts/normalize_sprite_strip.py",
+      "sha256": "746403f79454a9ae072fd46e337f9b0b3dad9bd07b080b7523e412a71f3a8ec0"
+    },
+    {
+      "path": "scripts/render_sprite_preview_sheet.py",
+      "url": "https://raw.githubusercontent.com/openai/plugins/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/scripts/render_sprite_preview_sheet.py",
+      "sha256": "a72468c463b12a44898a26981b14e6f35eb60c0d1814566dd3e32fea85a3e890"
+    },
+    {
+      "path": "references/playtest-checklist.md",
+      "url": "https://raw.githubusercontent.com/openai/plugins/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/references/playtest-checklist.md",
+      "sha256": "d8a4119f3912064c1328f7c537ff5fa94004f3aa81acba33d518758bf7fb8a3c"
+    }
+  ],
+  "input_sha256": "532a0711c9863d353bfde7a785a7d51447347b3e7167a45588e32acd243e3800",
+  "input_origin": "课程自绘合成测试输入，不是模型生成的游戏美术",
+  "versions": {
+    "codex": "0.163.0",
+    "model": "MiniMax-M3.1-Flash",
+    "python": "3.12.15",
+    "pillow": "13.0.0"
+  },
+  "evidence": [
+    {
+      "path": "trial/prompt.txt",
+      "sha256": "bab15ed6d3db498498d8cb321ee6b0f12f4abb2fc0aea982702a90ebe7d86933"
+    },
+    {
+      "path": "trial/logs/final.md",
+      "sha256": "715cc0ed3fc63948c94c53ef41d9a11cb5f74cbbf78ac0410e25c65df6ee07ed"
+    },
+    {
+      "path": "trial/logs/events.jsonl",
+      "sha256": "a8d14d35ef4101861e5c3633be7654aa673307ea291518c4d316db315692bb05"
+    }
+  ],
+  "scope_limits": [
+    "一次有明确请求的已有条带整理，不是自然触发或收益对照",
+    "没有运行图像生成、参考画布、首帧锁定或引擎接入",
+    "未证明目录和链接会自动触发所有读取与执行"
+  ],
+  "native_skill_context": {
+    "path": "trial/home/.codex/sessions/2026/11/10/rollout-2026-11-10T23-38-13-01a1c61c-1c45-7ed0-b7bf-329efe5ee0d1.jsonl",
+    "sha256": "8ea5c0b79fe9f173c31f585e1ea04588a08416d15f08d78695a619e47b57b7c9",
+    "line": 12,
+    "role": "user",
+    "full_skill_in_context": true,
+    "separate_shell_read_failed": true
+  }
+}

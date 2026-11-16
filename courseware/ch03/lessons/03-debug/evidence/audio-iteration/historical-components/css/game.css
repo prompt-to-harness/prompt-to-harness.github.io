@@ -1,0 +1,96 @@
+/* ==========================================================================
+   game.css — 「60 秒躲避与收集」专属布局
+   颜色一律引用 --pg-* 令牌，不写死十六进制。
+   ========================================================================== */
+
+.pg-game {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: clamp(14px, 3vw, 30px);
+  display: grid;
+  gap: clamp(10px, 2vw, 18px);
+  grid-template-areas: "head" "board";
+}
+
+.pg-game__head { grid-area: head; }
+.pg-game__board { grid-area: board; }
+
+/* 场地 + 贴边侧栏 HUD（实时读数：竖向 rail 紧邻场地右缘） */
+.pg-game__board {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: start;
+}
+
+.pg-game__hud {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+}
+
+.pg-game__field {
+  grid-column: 1;
+  grid-row: 1;
+  padding: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.pg-game__field canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--pg-radius-sm);
+  background:
+    radial-gradient(520px 300px at 50% 0%, rgba(124, 140, 255, 0.14), transparent 70%),
+    linear-gradient(170deg, rgba(12, 16, 34, 0.9), rgba(23, 30, 61, 0.9));
+  touch-action: none;
+}
+
+/* 受击 / 拾取时的短暂闪光 */
+.pg-game__flash {
+  position: absolute;
+  inset: 10px;
+  border-radius: var(--pg-radius-sm);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.pg-game__flash.is-hit {
+  opacity: 1;
+  box-shadow: inset 0 0 0 2px var(--pg-bad), inset 0 0 60px rgba(251, 113, 133, 0.35);
+}
+
+.pg-game__flash.is-pick {
+  opacity: 1;
+  box-shadow: inset 0 0 0 2px var(--pg-accent-3), inset 0 0 50px rgba(86, 214, 198, 0.25);
+}
+
+/* 开局说明在游玩期间隐藏 */
+.pg-game.is-playing .pg-game__head { display: none; }
+
+/* 窄屏：竖向 rail 改为贴场地底部的横条 */
+@media (max-width: 520px) {
+  .pg-game__board {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "field" "hud";
+  }
+  .pg-game__field { grid-area: field; grid-column: 1; grid-row: 1; }
+  .pg-game__hud {
+    grid-area: hud;
+    grid-column: 1;
+    grid-row: 2;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .pg-game__hud .pg-stat {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px;
+    padding: 7px 8px;
+  }
+  .pg-game__hud .pg-stat__label { font-size: 0.68rem; }
+  .pg-game__hud .pg-stat__value { font-size: 0.98rem; }
+}

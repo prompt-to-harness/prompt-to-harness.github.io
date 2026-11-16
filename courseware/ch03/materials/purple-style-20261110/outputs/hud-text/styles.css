@@ -1,0 +1,459 @@
+/* ============================================================
+   60 秒躲避与收集 · 界面原型
+   风格依据：.agents/skills/purple-game-style/SKILL.md
+   规则：色彩角色先定义为语义 token，组件内不散写色值（SKILL §1）
+   ============================================================ */
+
+:root {
+  /* 色彩角色 · SKILL §1〔原作值〕 */
+  --bg-deep: #0c1022;
+  --bg-lift: #171e3d;
+  --glow-blue: #2a3170;
+  --glow-purple: #3b2a63;
+  --primary: #7c8cff;
+  --primary-2: #9a6bff;
+  --focus: #56d6c6;
+  --reward: #4ade80;
+  --danger: #fb7185;
+  --text-1: #eef1ff;
+  --text-2: #a3abcf;
+
+  /* 玻璃层 · SKILL §1〔原作值〕 */
+  --glass-fill: rgba(255, 255, 255, .07);
+  --glass-stroke: rgba(255, 255, 255, .14);
+  --btn-2-fill: rgba(255, 255, 255, .12);
+  --btn-2-hover: rgba(255, 255, 255, .18);
+  --groove: rgba(0, 0, 0, .28);
+
+  /* 形状与节奏 · SKILL §3〔原作值〕 */
+  --r-tag: 5px;
+  --r-btn: 11px;
+  --r-block: 13px;
+  --r-panel: 16px;
+  --r-sheet: 22px;
+  --sh-1: 0 4px 12px rgba(0, 0, 0, .28);
+  --sh-2: 0 6px 16px rgba(0, 0, 0, .3);
+  --sh-3: 0 8px 20px rgba(124, 140, 255, .32);
+  --sh-4: 0 18px 40px rgba(0, 0, 0, .35);
+
+  /* 动效 · SKILL §6〔原作值〕 */
+  --t-micro: .12s;
+  --t-base: .18s;
+  --t-fade: .22s;
+  --t-enter: .3s;
+  --e-enter: cubic-bezier(.2, .9, .3, 1.2);
+
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+          "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--bg-deep); }
+
+body {
+  margin: 0;
+  min-height: 100%;
+  color: var(--text-1);
+  font-family: var(--font);
+  background: var(--bg-deep);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 页面底：左上偏蓝 + 右上偏紫两团径向光，叠 160° 线性渐变；固定不随滚动（SKILL §2） */
+.page-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(1100px 620px at 16% 4%, var(--glow-blue), transparent 62%),
+    radial-gradient(900px 600px at 86% -2%, var(--glow-purple), transparent 60%),
+    linear-gradient(160deg, var(--bg-deep), var(--bg-lift));
+}
+
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 22px 20px 30px;
+}
+
+/* ---------- 标题 ---------- */
+.masthead { text-align: center; margin-bottom: 18px; }
+
+.title {
+  margin: 0;
+  font-size: clamp(1.7rem, 4.4vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: .5px;
+  background: linear-gradient(92deg, #fff 10%, #b9c2ff 60%, #7ce7d8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle { margin: 8px 0 0; color: var(--text-2); font-size: .9rem; }
+
+/* ---------- HUD ---------- */
+.hud {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--glass-stroke);
+  border-radius: var(--r-panel);
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--sh-4);
+}
+
+.stats {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.stat {
+  padding: 8px 12px 9px;
+  border: 1px solid rgba(255, 255, 255, .06);
+  border-radius: var(--r-block);
+  background: var(--groove);
+}
+
+.stat__label {
+  display: block;
+  font-size: .74rem;
+  letter-spacing: .5px;
+  color: var(--text-2);
+}
+
+.stat__row { display: flex; align-items: center; gap: 9px; }
+
+.stat__value {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 650;
+  line-height: 1.35;
+  color: var(--text-1);
+}
+
+/* 会跳动的数字使用等宽数字（SKILL §6） */
+.num { font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
+
+.hearts { display: inline-flex; gap: 3px; }
+.hearts svg { width: 13px; height: 13px; fill: var(--danger); }
+
+/* ---------- 按钮（SKILL §4） ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 18px;
+  font-family: inherit;
+  font-size: .92rem;
+  font-weight: 600;
+  color: var(--text-1);
+  border: 1px solid transparent;
+  border-radius: var(--r-btn);
+  cursor: pointer;
+  transition: background-color var(--t-base) ease, color var(--t-base) ease,
+              box-shadow var(--t-base) ease, border-color var(--t-base) ease,
+              filter var(--t-base) ease, transform var(--t-micro) ease;
+}
+
+/* 焦点环 3px 青绿 + 2px 偏移，仅键盘可见焦点时出现（SKILL §4） */
+.btn:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+.btn:active { transform: translateY(1px) scale(.99); transition-duration: var(--t-micro); }
+
+.btn--primary {
+  color: #fff;
+  background: linear-gradient(140deg, var(--primary), var(--primary-2));
+  border-color: rgba(255, 255, 255, .18);
+  box-shadow: var(--sh-3);
+}
+.btn--primary:hover { filter: brightness(1.08); }
+
+.btn--ghost {
+  background: var(--btn-2-fill);
+  border-color: var(--glass-stroke);
+  color: var(--text-1);
+}
+.btn--ghost:hover { background: var(--btn-2-hover); }
+
+.hud__toggle { flex: 0 0 auto; align-self: center; min-width: 118px; }
+.btn__icon { display: inline-flex; }
+.icon-play { display: none; }
+.hud__toggle.is-paused .icon-pause { display: none; }
+.hud__toggle.is-paused .icon-play { display: inline-block; }
+
+/* ---------- 图例 ---------- */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin: 12px 2px 14px;
+  padding: 0;
+  list-style: none;
+  font-size: .8rem;
+  color: var(--text-2);
+}
+
+.legend__item { display: inline-flex; align-items: center; gap: 7px; }
+.swatch { width: 12px; height: 12px; display: inline-block; }
+.swatch--player {
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 28%, #b9c1ff, var(--primary) 60%);
+  box-shadow: 0 0 8px rgba(124, 140, 255, .55);
+}
+.swatch--gem {
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  background: linear-gradient(140deg, #b8f7d4, var(--reward) 60%, #16a34a);
+}
+.swatch--hazard {
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  background: linear-gradient(140deg, #ffb0bc, var(--danger) 60%, #e11d48);
+}
+
+/* ---------- 舞台与游戏区 ---------- */
+.stage {
+  position: relative;
+  padding: 12px;
+  border: 1px solid var(--glass-stroke);
+  border-radius: var(--r-panel);
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--sh-4);
+  overflow: hidden;
+}
+
+.field {
+  position: relative;
+  aspect-ratio: 16 / 11;
+  max-height: min(520px, 56vh);
+  border-radius: var(--r-block);
+  overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 50% -12%, rgba(124, 140, 255, .13), transparent 62%),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, .035) 0 1px, transparent 1px 46px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, .035) 0 1px, transparent 1px 46px),
+    var(--groove);
+  box-shadow: inset 0 0 70px rgba(0, 0, 0, .45);
+}
+
+.field__badge {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  z-index: 2;
+  padding: 3px 9px;
+  font-size: .7rem;
+  letter-spacing: .4px;
+  color: var(--text-2);
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: var(--r-tag);
+  background: rgba(6, 9, 22, .5);
+}
+
+/* ---------- 游戏元素（持续语义：稳定颜色 + 稳定形状，不抖动 SKILL §5） ---------- */
+.entity {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 0;
+  height: 0;
+}
+
+.shape {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
+}
+
+.entity__tag {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, calc(var(--u) * .6));
+  padding: 1px 7px;
+  font-size: .68rem;
+  letter-spacing: .5px;
+  color: var(--text-2);
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: var(--r-tag);
+  background: rgba(6, 9, 22, .55);
+  white-space: nowrap;
+}
+
+/* 玩家：靛紫主色家族 + 圆形 + 朝向箭头（SKILL §5：玩家用主色家族且与危险/奖励异色） */
+.entity--player { --u: clamp(30px, 3.8vw, 40px); }
+
+.shape--player {
+  width: var(--u);
+  height: var(--u);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, .55);
+  background: radial-gradient(circle at 34% 28%, #b9c1ff, var(--primary) 58%, #5b4fd0);
+  box-shadow: 0 0 16px rgba(124, 140, 255, .5), 0 6px 16px rgba(0, 0, 0, .35);
+}
+
+.player__core {
+  width: 26%;
+  height: 26%;
+  border-radius: 50%;
+  background: var(--text-1);
+  box-shadow: 0 0 8px rgba(255, 255, 255, .75);
+}
+
+.player__dir {
+  position: absolute;
+  top: 4%;
+  right: 2%;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 9px solid var(--text-1);
+  transform: rotate(52deg);
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, .55));
+}
+
+/* 收集物：成功绿 + 六边形（与圆形的玩家、三角形的障碍物区分） */
+.entity--gem { --u: clamp(22px, 2.7vw, 28px); }
+.shape--gem { width: var(--u); height: var(--u); }
+.shape--gem svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 0 9px rgba(74, 222, 128, .45));
+}
+
+/* 障碍物：危险玫红 + 三角 + 45° 斜纹（危险与奖励在色相上明确分离） */
+.entity--hazard { --u: clamp(28px, 3.3vw, 36px); }
+.shape--hazard { width: var(--u); height: var(--u); }
+.shape--hazard svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 0 11px rgba(251, 113, 133, .45));
+}
+
+/* ---------- 暂停浮层（SKILL §2 层级四级最上层 / §8 浮层） ---------- */
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  overflow-y: auto;
+  background: rgba(6, 9, 22, .72);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  animation: overlayIn var(--t-fade) ease both;
+}
+
+.overlay[hidden] { display: none; }
+
+@keyframes overlayIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(12px) scale(.96); }
+  to   { opacity: 1; transform: none; }
+}
+
+.panel {
+  width: min(420px, 100%);
+  max-height: 100%;
+  margin: auto;
+  overflow-y: auto;
+  padding: 22px 20px 16px;
+  text-align: center;
+  border: 1px solid var(--glass-stroke);
+  border-radius: var(--r-sheet);
+  background: linear-gradient(165deg, rgba(42, 49, 112, .96), rgba(30, 24, 60, .96));
+  box-shadow: var(--sh-4);
+  animation: panelIn var(--t-enter) var(--e-enter) both;
+}
+
+.panel__icon {
+  display: inline-grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  color: var(--text-1);
+  border: 1px solid rgba(255, 255, 255, .18);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .10);
+  box-shadow: var(--sh-2);
+}
+
+.panel__title { margin: 12px 0 0; font-size: 1.45rem; font-weight: 700; letter-spacing: .5px; color: var(--text-1); }
+
+.panel__desc { margin: 8px 0 0; font-size: .9rem; line-height: 1.7; color: var(--text-2); }
+
+.panel__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.panel__stats li {
+  padding: 7px 8px 8px;
+  border-radius: var(--r-block);
+  background: var(--groove);
+  border: 1px solid rgba(255, 255, 255, .06);
+}
+
+.panel__stat-label { display: block; font-size: .72rem; letter-spacing: .5px; color: var(--text-2); }
+.panel__stat-value { display: block; margin-top: 2px; font-size: 1.1rem; font-weight: 650; color: var(--primary); }
+
+.panel__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+.panel__actions .btn { flex: 1 1 120px; }
+
+.panel__hint { margin: 12px 0 0; font-size: .72rem; color: var(--text-2); opacity: .8; }
+
+/* ---------- 页脚 ---------- */
+.tips { margin-top: 16px; font-size: .78rem; color: var(--text-2); text-align: center; }
+.tips__row { margin: 3px 0; }
+.tips__row--note { opacity: .72; }
+
+/* ---------- 窄屏（SKILL §7：≤520px 工具栏纵向拉伸、操作按钮均分） ---------- */
+@media (max-width: 520px) {
+  .app { padding: 16px 12px 24px; }
+  .masthead { margin-bottom: 14px; }
+  .hud { flex-direction: column; gap: 10px; padding: 12px; }
+  .hud__toggle { width: 100%; }
+  .stat { padding: 7px 9px 8px; }
+  .stat__value { font-size: 1.15rem; }
+  .legend { gap: 6px 14px; font-size: .76rem; }
+  .field { aspect-ratio: 1 / 1; max-height: none; }
+  .stage { padding: 10px; }
+  .panel { padding: 16px 14px 12px; }
+  .panel__icon { width: 40px; height: 40px; border-radius: 12px; }
+  .panel__title { font-size: 1.25rem; margin-top: 10px; }
+  .panel__desc { font-size: .86rem; margin-top: 6px; }
+  .panel__stats { margin-top: 12px; gap: 8px; }
+  .panel__actions { margin-top: 14px; gap: 10px; }
+  .panel__hint { margin-top: 10px; }
+  .tips { font-size: .74rem; }
+}
+
+/* ---------- 动效降级（SKILL §6） ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}

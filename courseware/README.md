@@ -13,14 +13,14 @@
 可直接打开 HTML，或在仓库根目录运行：
 
 ```bash
-python3 tools/serve-courseware.py
+make serve
 ```
 
 然后访问 <http://127.0.0.1:8841/courseware/>。课件的脚本、字体和样式均为本地资源。
 
 第 2 章 2.1 的静态查看器（claude-tap 渲染的大文件）不提交，新检出后先运行一次 `make viewers`（不调用模型，输入固定，生成结果逐字节一致）；之后直接打开或服务都可用。`make check` 会先生成。
 
-每节的口播存在本节目录的 `script.json`（按页面 id 存每页的口播数组），它是口播的唯一来源。运行 `sh tools/edit-courseware.sh` 启动本地服务并打开浏览器（服务已在运行就只开浏览器，Ctrl-C 停止；默认同时对局域网只读开放，Pad 和手机按终端打印的地址照稿，编辑仍只限本机页面；只想本机用就加 `--local`），在某节的逐字稿页（`speaker.html`）里，每句口播都可以直接点开修改：Enter 或点别处保存，Esc 撤销；每句下方的“对照画面”会展开这一步对应的演示画面。保存会改写 `script.json`，并由 [`tools/rebuild-lesson.py`](tools/rebuild-lesson.py) 重建 `lesson.js`，改动直接出现在 `git diff` 里。本节开场白（标题 01 之前的几段，存在手写 `lesson.js` 的 `intro` 里）也能这样改，保存直接写回 `lesson.js`。页面里只能改已有的句子；增删步骤、改画面（`html`、`lead`）要改源文件。直接双击打开 HTML 或在公开站点上，逐字稿页保持只读，页头会提示怎么开启编辑。
+PPT 对应口播存在本节目录的 `script.json`（按页面 id 存每页的口播数组），它是这些口播的唯一来源；3.3 的非 PPT 讲述稿沿用 `screen-plan.js`。运行 `sh tools/edit-courseware.sh` 启动本地服务并打开浏览器（服务已在运行就只开浏览器，Ctrl-C 停止；默认同时对局域网只读开放，Pad 和手机按终端打印的地址照稿，编辑仍只限本机页面；只想本机用就加 `--local`），在某节的逐字稿页（`speaker.html`）里，口播按原有段落直接显示为带边框的可编辑文本框，点击即可修改：Enter 或点别处保存，Esc 撤销当前修改；中文输入法选字时不会触发保存。正文按操作提示与口播连续呈现，不在段落间插入画面对照按钮或预览。保存会改写 `script.json`，并由 [`tools/rebuild-lesson.py`](tools/rebuild-lesson.py) 重建 `lesson.js`，改动直接出现在 `git diff` 里。本节开场白（标题 01 之前的几段，存在手写 `lesson.js` 的 `intro` 里）也能这样改，保存直接写回 `lesson.js`。页面里只能改已有的句子；增删步骤、改画面（`html`、`lead`）要改源文件。直接双击打开 HTML 或在公开站点上，逐字稿页保持只读，页头会提示怎么开启编辑。
 
 播放器、设计令牌和全课字体在 [`shared/`](shared/)；字体统一放在 `shared/fonts/`，只在 `shared/tokens.css` 定义。各章只放内容、讲稿和练习；新增文字后按[字体说明](../docs/production/fonts.md)重建子集。
 
@@ -37,3 +37,5 @@ python3 tools/serve-courseware.py
 - 教学附件放在 `materials/`；旧截图与模板记录归档，不作为当前验证证据。
 - 调整目录时同步 HTML、内容源中的链接、导出工具及仓库内引用，保留页码锚点。
 - 正式目录不等于实操验收通过；未测、待准备和参考示例继续明确标注。
+
+本机讲述页统一通过编辑服务打开（`make serve PORT=8876` 可指定端口），不使用 `python -m http.server`。启动会验证编辑接口，端口被普通服务占用时直接报错。所有已有逐字稿的正式页共用 `shared/script-editor.js`；3.3 的非 PPT 讲述稿写回 `screen-plan.js`，其余口播沿用对应 `script.json` 或开场白源。纯 Discussion 占位页没有可编辑口播。公开站点、文件直开及局域网设备保持只读。

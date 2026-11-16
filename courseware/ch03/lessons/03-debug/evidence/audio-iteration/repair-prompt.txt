@@ -1,0 +1,1 @@
+这是上一轮按组件 Skill 加入音效后生成的游戏，实际浏览器首次加载报错：ReferenceError: Cannot access 'canvas' before initialization，位置 js/game.js:21，画面没有进入开场提醒。请根据这个真实错误修复游戏实现，保留现有布局、开场确认、9秒限时收集进度、可见反馈和已接入的音效及静音。不要修改 .agents/skills 下的任何文件，不要重新生成整个游戏。检查初始化能运行，说明实际修改和未验证项目。浏览器验证留给我。

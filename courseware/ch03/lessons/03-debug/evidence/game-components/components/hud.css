@@ -1,0 +1,167 @@
+/* ============================================================
+   hud.css —— HUD 片段（常驻信息簇）
+   规则：默认只保留一个主 HUD 簇（.hud__cluster），
+        辅助信息放次级小簇（.hud__aside），中心场地必须留空。
+   依赖：theme.css
+   ============================================================ */
+
+/* ---- 标记片段 ----
+<div class="hud">
+  <div class="hud__cluster">
+    <div class="stat"><span class="stat__label">得分</span><span class="stat__value">0</span></div>
+    <div class="stat"><span class="stat__label">生命</span><span class="stat__value">3</span></div>
+    <div class="stat"><span class="stat__label">时间</span><span class="stat__value">0:00</span></div>
+  </div>
+  <div class="hud__aside">
+    <span class="chip">第 3 波</span>
+    <button class="btn btn--ghost" type="button">⏸ 暂停</button>
+  </div>
+</div>
+---------------- */
+
+.hud {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: var(--z-hud);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: clamp(10px, 1.6vw, 16px) var(--gutter);
+  pointer-events: none;           /* 空白区域不拦截点击 */
+}
+
+.hud > * { pointer-events: auto; }
+
+/* 主簇：磨砂胶囊，内含数据格 */
+.hud__cluster {
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+  padding: 6px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.28);
+}
+
+/* 次级小簇：只放状态/开关，永远不要超过一行 */
+.hud__aside {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px 6px 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  font-size: 0.82rem;
+  color: var(--text-dim);
+}
+
+.hud__aside .btn { padding: 6px 12px; font-size: 0.8rem; }
+
+/* 数据格 */
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: center;
+  min-width: 68px;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+}
+
+.stat + .stat { box-shadow: inset 1px 0 0 var(--border); }
+
+.stat__label {
+  font-size: 0.7rem;
+  letter-spacing: 0.6px;
+  color: var(--text-dim);
+}
+
+.stat__value {
+  font-size: clamp(1rem, 2.4vw, 1.2rem);
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat__value.is-good { color: var(--good); }
+.stat__value.is-bad { color: var(--bad); }
+.stat__value.is-warn { color: var(--warn); }
+
+/* 小标签（波次/关卡/状态） */
+.chip {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--panel-strong);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.chip--accent {
+  background: linear-gradient(140deg, rgba(124, 140, 255, 0.28), rgba(154, 107, 255, 0.28));
+  border-color: rgba(124, 140, 255, 0.45);
+}
+
+.chip--good { border-color: rgba(74, 222, 128, 0.5); color: var(--good); }
+.chip--bad { border-color: rgba(251, 113, 133, 0.5); color: var(--bad); }
+
+/* 目标条：一句目标 + 进度，放在 HUD 下方，不进场地 */
+.objective {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: min(520px, 100%);
+  margin-inline: auto;
+  padding: 8px 14px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  font-size: 0.84rem;
+  color: var(--text-dim);
+}
+
+.objective__bar {
+  flex: 1;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.32);
+  overflow: hidden;
+}
+
+.objective__fill {
+  height: 100%;
+  width: 0%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transition: width 0.25s ease;
+}
+
+/* HUD 是 fixed 的：给紧随其后的场地留出顶部空间，避免压住棋盘第一行 */
+.hud ~ .playfield { padding-block-start: clamp(58px, 9vh, 92px); }
+
+/* 非固定定位版本：页面内联 HUD（整页玩法用） */
+.hud--inline {
+  position: static;
+  padding: 0;
+  pointer-events: auto;
+}
+
+.hud--inline .hud__cluster { background: var(--panel); }
+
+/* 窄屏：主簇可滚动，次级簇收缩为图标 */
+@media (max-width: 560px) {
+  .hud { padding: 8px 12px; }
+  .hud__cluster { overflow-x: auto; max-width: 72vw; }
+  .stat { min-width: 56px; padding: 4px 8px; }
+  .hud__aside .chip { display: none; }
+}

@@ -1,0 +1,23 @@
+{
+  "references/engine-selection.md": "8a4113a5a51d89a679d258aef17ecd0e6b85544c303e8b807f7971c5726c5f70",
+  "references/frontend-prompts.md": "3485139464cb56670bbdaef5f65bb0c657fc27b4c7106723005f5fe79aed0368",
+  "references/gltf-loading-starter.md": "d5a13a894b2a22e5562044cbece99b07ba7414bc9db667004aac5119451ccf6d",
+  "references/phaser-architecture.md": "c7c5b4c611d5c7aa40349a49d6fc37fa52e13d6c326088a662d55b717db877ae",
+  "references/playtest-checklist.md": "d8a4119f3912064c1328f7c537ff5fa94004f3aa81acba33d518758bf7fb8a3c",
+  "references/rapier-integration-starter.md": "2b518d8305b33ade922bf6e82d886e11ce12fdbae5884c4834da90432ff0e953",
+  "references/react-three-fiber-stack.md": "344a78b61cdff9ad8139ad874fcd832554ab5d465bc680e8568104e1b7d0980e",
+  "references/react-three-fiber-starter.md": "f66806159f15d38eadd9deccc792548622e1f02164a83eaf53393324c1524119",
+  "references/three-hud-layout-patterns.md": "5b7c0d49b0495b4be7bf0b860302b74b125e7db681edaec5594909c91f9af090",
+  "references/three-webgl-architecture.md": "703adaedc9355f0ba47cec65d1594d76f3955e7c20ea8b304d98035fa4bc909e",
+  "references/threejs-stack.md": "1fa03624f7ab879f61f26c69f664f7d7932558732795bef4c5dbc4adf595304d",
+  "references/web-3d-asset-pipeline.md": "036bb8a469519735d4d43ebab686e8e26639f4a35c74360e0c9dc176c1026c65",
+  "references/webgl-debugging-and-performance.md": "09c3efac9fae5ff7fee7fb75a6a40be6956da6028e0517d2a3ff5829709bb71a",
+  "skills/game-playtest/SKILL.md": "413f2453c602678962fab62446144f2929fcd5b9239f209c7889cc592d2b5be8",
+  "skills/game-playtest/agents/openai.yaml": "40f1fa63786745e9127bab780e4db18fc463c940ea4d8d0e0f862eccd224e53e",
+  "skills/game-ui-frontend/SKILL.md": "cd017fe0761207dcfd801f236490896cbf1cd6627ee267c801a19c7c780b7a01",
+  "skills/game-ui-frontend/agents/openai.yaml": "f82611816d1a3cecee1344543c717aeb906eecbc95ee7f97a212eacb48023aa9",
+  "skills/react-three-fiber-game/SKILL.md": "45e5aa86ff3a6a71d1f3f2ab6f0267ce4ca4d35d9e1883a483c16bc9b201db4d",
+  "skills/react-three-fiber-game/agents/openai.yaml": "1c97d5c1eded6d566350c62f62791b5c037faf2b52e4b5e5ea2efa084ede6899",
+  "skills/web-game-foundations/SKILL.md": "ef35c1954fa07d10673c1a5a7749656319494fd0675dd2be9671e2dd3cbd7e1b",
+  "skills/web-game-foundations/agents/openai.yaml": "199ebde0ec55d0bc60364a824098a11e53a9419fac98c9904033679a03f6b45c"
+}

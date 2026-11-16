@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>60 秒躲避与收集 · 紫色黄昏</title>
+<link rel="stylesheet" href="css/purple-theme.css">
+<link rel="stylesheet" href="css/stat-cards.css">
+<link rel="stylesheet" href="css/result-overlay.css">
+<link rel="stylesheet" href="css/game.css">
+</head>
+<body class="pg-body">
+<div class="app">
+
+  <header class="app__head">
+    <div>
+      <h1 class="pg-title">60 秒躲避与收集</h1>
+      <p class="pg-subtitle">躲开紫色尖刺，把浮游晶体收进口袋。</p>
+    </div>
+    <p class="pg-hint">移动：<span class="pg-kbd">↑</span><span class="pg-kbd">↓</span><span class="pg-kbd">←</span><span class="pg-kbd">→</span> 或 <span class="pg-kbd">W</span><span class="pg-kbd">A</span><span class="pg-kbd">S</span><span class="pg-kbd">D</span></p>
+  </header>
+
+  <main class="stage">
+    <!-- HUD：桌面端贴场地左侧竖向 rail，窄屏移到场地下方横排 -->
+    <aside class="stage__hud">
+      <div class="pg-stats pg-stats--rail" id="hud"></div>
+      <div class="hud-sound">
+        <p class="pg-hint">音效</p>
+        <button class="pg-btn pg-btn--ghost" id="sound-btn" type="button" aria-pressed="true">音效：开</button>
+      </div>
+    </aside>
+
+    <section class="stage__field">
+      <div class="field" id="field">
+        <canvas id="canvas" width="960" height="600" tabindex="0"
+                aria-label="游戏场地：使用方向键或 WASD 移动，躲避障碍并收集晶体。"></canvas>
+        <div class="floaters" id="floaters" aria-hidden="true"></div>
+        <div class="field-hint" id="field-hint" hidden></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- 开场规则提醒（确认后开始计时） -->
+<div class="pg-overlay pg-overlay--compact" id="intro" hidden>
+  <div class="pg-overlay__panel">
+    <div class="pg-overlay__emoji" aria-hidden="true">🕹️</div>
+    <h2 class="pg-overlay__title" id="intro-title">准备开始</h2>
+    <p class="pg-overlay__text">一局 <strong>60 秒</strong>。确认后立刻开始计时。</p>
+    <ul class="rules">
+      <li><span class="rules__icon" aria-hidden="true">🕹️</span><span>用 <strong>方向键</strong> 或 <strong>WASD</strong> 移动橙色圆点，<strong>躲避紫色尖刺</strong>。</span></li>
+      <li><span class="rules__icon" aria-hidden="true">💎</span><span>收集<strong>青色晶体</strong>得分；晶体外圈的进度环会显示它<strong>剩余存在时间</strong>，<strong>9 秒</strong>内没被收集就会消失。</span></li>
+      <li><span class="rules__icon" aria-hidden="true">💔</span><span>撞到尖刺<strong>扣 1 点生命</strong>（共 3 点），并有短暂无敌时间。</span></li>
+      <li><span class="rules__icon" aria-hidden="true">⏱️</span><span>时间归零即<strong>结算</strong>；生命耗尽会提前结束。</span></li>
+    </ul>
+    <div class="pg-overlay__actions">
+      <button class="pg-btn pg-btn--primary" id="start-btn" type="button">确认并开始</button>
+    </div>
+    <p class="overlay-actions-note">确认后才会开始计时；按 <span class="pg-kbd">Esc</span> 可关闭提醒（不会开局）。</p>
+  </div>
+</div>
+
+<!-- 结算浮层（重开按钮只在这里） -->
+<div class="pg-overlay" id="overlay" hidden>
+  <div class="pg-overlay__panel">
+    <div class="pg-overlay__emoji" aria-hidden="true">🎉</div>
+    <h2 class="pg-overlay__title" id="overlay-title">时间到！</h2>
+    <p class="pg-overlay__text" id="overlay-text"></p>
+    <div class="pg-overlay__summary" id="overlay-summary"></div>
+    <div class="pg-overlay__actions" id="overlay-actions"></div>
+  </div>
+</div>
+
+<script type="module" src="js/game.js"></script>
+</body>
+</html>

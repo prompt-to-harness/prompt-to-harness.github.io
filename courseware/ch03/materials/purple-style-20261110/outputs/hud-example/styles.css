@@ -1,0 +1,557 @@
+/* ============================================================
+   60 秒躲避与收集 · 界面原型样式表
+   视觉语言依据：.agents/skills/purple-game-style/SKILL.md
+   与其 references/source-visual.css（语义 token + 玻璃 / 实体表面 / 斜纹三种材质）
+   ============================================================ */
+
+:root {
+  /* 底色与光晕 */
+  --bg-0: #0c1022;
+  --bg-1: #171e3d;
+  --glow-a: #2a3170;
+  --glow-b: #3b2a63;
+
+  /* 玻璃层 */
+  --panel: rgba(255, 255, 255, 0.07);
+  --panel-strong: rgba(255, 255, 255, 0.12);
+  --panel-strong-hover: rgba(255, 255, 255, 0.18);
+  --border: rgba(255, 255, 255, 0.14);
+  --groove: rgba(0, 0, 0, 0.28);
+
+  /* 语义色 */
+  --text: #eef1ff;
+  --text-dim: #a3abcf;
+  --accent: #7c8cff;          /* 主色：当前唯一主行动 / 关键数值 */
+  --accent-2: #9a6bff;        /* 主色第二停靠点 */
+  --accent-text: #b9c2ff;    /* 主色浅调（取自标题渐变中段），用于深底上的关键数值，保证可读 */
+  --ink-player: #2a3170;     /* 玩家近白表面上的深靛墨色（与左上光晕同值） */
+  --focus: #56d6c6;           /* 焦点色：仅用于键盘焦点环 */
+  --good: #4ade80;            /* 奖励 / 收集物 */
+  --bad: #fb7185;             /* 危险 / 障碍物 */
+  --pause-hue: #f6c453;       /* 暂停状态：与危险、奖励在色相上分离 */
+
+  /* 形状与阴影 */
+  --radius-panel: 16px;
+  --radius-stat: 13px;
+  --radius-btn: 11px;
+  --radius-item: 9px;
+  --radius-overlay: 22px;
+  --shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  --shadow-entity: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+* { box-sizing: border-box; }
+
+html {
+  height: 100%;
+  scrollbar-gutter: stable;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(1100px 620px at 15% -10%, var(--glow-a) 0%, transparent 55%),
+    radial-gradient(900px 600px at 100% 0%, var(--glow-b) 0%, transparent 50%),
+    linear-gradient(160deg, var(--bg-0), var(--bg-1));
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+body.is-paused { overflow: hidden; }
+
+/* ---------- 版式骨架：标题 → HUD → 主舞台 → 页脚 ---------- */
+
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: clamp(16px, 3vw, 32px) clamp(12px, 3vw, 24px) 40px;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 2vw, 20px);
+  min-height: 100%;
+}
+
+.app__header { text-align: center; }
+
+.title {
+  margin: 0;
+  font-size: clamp(1.7rem, 4.5vw, 2.4rem);
+  letter-spacing: 0.5px;
+  background: linear-gradient(92deg, #fff 10%, #b9c2ff 60%, #7ce7d8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  margin: 6px 0 0;
+  color: var(--text-dim);
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
+}
+
+.app__footer {
+  color: var(--text-dim);
+  font-size: 0.78rem;
+  text-align: center;
+  margin: 0;
+}
+
+/* ---------- HUD（玻璃面板层） ---------- */
+
+.hud {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-panel);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow);
+}
+
+.hud__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2px;
+  padding: 4px;
+  background: var(--groove);          /* 凹槽底：数值读作仪表盘 */
+  border-radius: var(--radius-stat);
+  transition: opacity 0.18s ease;
+}
+
+.hud__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: var(--radius-item);
+}
+
+.hud__label {
+  font-size: 0.74rem;
+  color: var(--text-dim);
+  letter-spacing: 0.5px;
+}
+
+.hud__value {
+  font-size: clamp(1rem, 2.6vw, 1.25rem);
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;   /* 会跳动的数字用等宽数字 */
+  line-height: 1.25;
+}
+
+.hud__value--score { color: var(--accent-text); }  /* 关键数值提为主色浅调 */
+
+.hud__side {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hud__status {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+.hud__status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.hud__status[data-state="paused"] { color: var(--pause-hue); }
+
+.hud__status[data-state="paused"] .hud__status-dot {
+  background: var(--pause-hue);
+  box-shadow: 0 0 0 3px rgba(246, 196, 83, 0.18);
+}
+
+.hud__pause { min-width: 84px; }
+
+/* 暂停时数值变暗 —— 冻结状态的持续语义（不只靠颜色承担） */
+body.is-paused .hud__stats { opacity: 0.62; }
+
+@keyframes reset-flash {
+  from { background: rgba(124, 140, 255, 0.4); }
+  to { background: transparent; }
+}
+
+.hud__stats.is-reset .hud__stat { animation: reset-flash 0.5s ease; }
+
+/* ---------- 按钮 ---------- */
+
+.btn {
+  appearance: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 9px 16px;
+  border-radius: var(--radius-btn);
+  border: 1px solid transparent;
+  transition: transform 0.12s ease, filter 0.18s ease, background 0.18s ease,
+    color 0.18s ease, border-color 0.18s ease;
+  white-space: nowrap;
+}
+
+.btn:active { transform: translateY(1px) scale(0.99); }
+
+.btn--primary {
+  background: linear-gradient(140deg, var(--accent), var(--accent-2));
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(124, 140, 255, 0.32);
+}
+
+.btn--primary:hover { filter: brightness(1.08); }  /* hover 只提亮度，不换色 */
+
+.btn--ghost {
+  background: var(--panel-strong);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.btn--ghost:hover { background: var(--panel-strong-hover); }
+
+.btn:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* ---------- 主舞台 ---------- */
+
+.stage__panel {
+  padding: 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-panel);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow);
+}
+
+.arena {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--radius-stat);
+  border: 1px solid var(--border);
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(124, 140, 255, 0.1), transparent 60%),
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    var(--groove);
+  background-size: auto, 48px 48px, 48px 48px, auto;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), inset 0 24px 48px rgba(0, 0, 0, 0.28);
+}
+
+/* ---------- 舞台元素：玩家 / 收集物 / 障碍物 ---------- */
+
+.entity {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+}
+
+.shape { position: relative; display: block; }
+
+/* 玩家：中性亮色「实体表面」+ 主色环，与危险 / 奖励在色相与形状上都分开 */
+.entity--player { width: 46px; height: 46px; }
+
+.shape--player {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.96), rgba(226, 230, 255, 0.9));
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: var(--shadow-entity), 0 0 0 3px rgba(124, 140, 255, 0.45);
+  display: grid;
+  place-items: center;
+  color: var(--ink-player);
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+
+.entity--player::before {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border-radius: 50%;
+  border: 2px solid rgba(124, 140, 255, 0.3);
+  animation: pulse-ring 2.4s ease-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.86); opacity: 0.9; }
+  70% { transform: scale(1.22); opacity: 0; }
+  100% { transform: scale(1.22); opacity: 0; }
+}
+
+/* 收集物：菱形（形状 + 颜色双重区分），持续语义，不用抖动 */
+.entity--gem { width: 28px; height: 28px; }
+
+.shape--gem {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: linear-gradient(140deg, #93f7ba, var(--good));
+  transform: rotate(45deg);
+  box-shadow: 0 6px 16px rgba(74, 222, 128, 0.28);
+  animation: gem-float 3.2s ease-in-out infinite;
+}
+
+.shape--gem::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+/* 关键帧里重复写出静态旋转，避免旋转被覆盖 */
+@keyframes gem-float {
+  0%, 100% { transform: translateY(0) rotate(45deg); }
+  50% { transform: translateY(-5px) rotate(45deg); }
+}
+
+/* 障碍物：玫红三角 + 斜纹危险块，稳定颜色 + 稳定形状表达存在感 */
+.entity--hazard {
+  width: 44px;
+  height: 42px;
+  /* 投影挂在未被 clip-path 裁剪的父级上，否则会被裁掉 */
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35));
+}
+
+.shape--spike {
+  width: 40px;
+  height: 38px;
+  background: linear-gradient(140deg, #ffa8b6, var(--bad) 70%);
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  display: grid;
+  place-items: end center;
+  padding-bottom: 4px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.entity--hazard.entity--wall { width: 96px; height: 20px; }
+
+.shape--wall {
+  width: 96px;
+  height: 20px;
+  border-radius: 6px;
+  background:
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.16) 0 6px, rgba(255, 255, 255, 0) 6px 12px),
+    linear-gradient(140deg, #ff8b9d, var(--bad) 55%, #d0365a);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), var(--shadow-entity);
+}
+
+/* ---------- 图例：颜色之外的冗余说明（形状 + 文字） ---------- */
+
+.legend {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 12px 2px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+}
+
+.legend__item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.legend__item b { color: var(--text); font-weight: 650; }
+
+.legend__swatch { width: 15px; height: 15px; flex: none; }
+
+.legend__swatch--player {
+  border-radius: 50%;
+  background: linear-gradient(160deg, #fff, #e2e6ff);
+  box-shadow: 0 0 0 2px rgba(124, 140, 255, 0.55);
+}
+
+.legend__swatch--gem {
+  border-radius: 3px;
+  background: linear-gradient(140deg, #93f7ba, var(--good));
+  transform: rotate(45deg);
+}
+
+.legend__swatch--hazard {
+  background: linear-gradient(140deg, #ffa8b6, var(--bad) 70%);
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+}
+
+/* ---------- 暂停浮层 ---------- */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(6, 9, 22, 0.72);
+  backdrop-filter: blur(6px);
+  z-index: 50;
+  animation: fade-in 0.22s ease;
+}
+
+.overlay[hidden] { display: none; }
+
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+.overlay__panel {
+  width: min(420px, 100%);
+  text-align: center;
+  padding: 30px 26px;
+  background: linear-gradient(165deg, rgba(42, 49, 112, 0.96), rgba(30, 24, 60, 0.96));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-overlay);
+  box-shadow: var(--shadow);
+  animation: rise 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(22px) scale(0.95); }
+  to { opacity: 1; transform: none; }
+}
+
+.overlay__icon {
+  width: 62px;
+  height: 62px;
+  margin: 0 auto;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  background: radial-gradient(circle at 50% 35%, rgba(246, 196, 83, 0.24), rgba(246, 196, 83, 0.06));
+  border: 1px solid rgba(246, 196, 83, 0.45);
+}
+
+.overlay__icon i {
+  display: block;
+  width: 7px;
+  height: 22px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #ffdd94, var(--pause-hue));
+}
+
+.overlay__title {
+  margin: 12px 0 6px;
+  font-size: 1.45rem;
+}
+
+.overlay__text {
+  margin: 0 0 18px;
+  color: var(--text-dim);
+  font-size: 0.93rem;
+  line-height: 1.7;
+}
+
+.overlay__text strong { color: var(--text); }
+.overlay__text .hl { color: var(--accent-text); font-weight: 650; }
+
+.frozen {
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 10px 8px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  background: var(--groove);
+  border-radius: var(--radius-stat);
+}
+
+.frozen__item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: center;
+}
+
+.frozen__label { font-size: 0.74rem; color: var(--text-dim); letter-spacing: 0.5px; }
+
+.frozen__value {
+  font-size: 1rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.overlay__actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ---------- 窄屏：≤520px 工具栏纵向拉伸、操作按钮均分 ---------- */
+
+@media (max-width: 520px) {
+  .hud {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hud__stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+  .hud__stat { padding: 8px 6px; }
+
+  .hud__side {
+    margin-left: 0;
+    justify-content: space-between;
+  }
+
+  .hud__pause { flex: 1; }
+
+  .arena { aspect-ratio: 4 / 3; background-size: auto, 36px 36px, 36px 36px, auto; }
+
+  .entity--player { width: 40px; height: 40px; }
+  .shape--player { width: 36px; height: 36px; font-size: 0.82rem; }
+  .entity--gem { width: 24px; height: 24px; }
+  .shape--gem { width: 20px; height: 20px; }
+  .shape--gem::after { inset: 6px; }
+  .entity--hazard { width: 38px; height: 36px; }
+  .shape--spike { width: 34px; height: 32px; }
+  .entity--hazard.entity--wall { width: 76px; height: 18px; }
+  .shape--wall { width: 76px; height: 18px; }
+
+  .legend { gap: 8px 14px; }
+  .legend__item { font-size: 0.76rem; }
+
+  .overlay__panel { padding: 26px 20px; }
+}
+
+/* ---------- 动效降级 ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

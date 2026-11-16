@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>紫夜闪避 · 60 秒躲避与收集</title>
+<link rel="stylesheet" href="css/purple-theme.css">
+<link rel="stylesheet" href="css/stat-cards.css">
+<link rel="stylesheet" href="css/result-overlay.css">
+<link rel="stylesheet" href="css/game.css">
+</head>
+<body class="pg-body">
+<div class="wrap">
+  <header class="head">
+    <h1 class="pg-title">紫夜闪避</h1>
+    <p class="pg-subtitle">60 秒内躲开紫色尖刺，把光球全部收进口袋</p>
+  </header>
+
+  <main class="game">
+    <div class="field" id="field">
+      <canvas id="canvas" width="960" height="600" aria-label="游戏场地"></canvas>
+      <div class="field__toast" id="toast" aria-live="polite"></div>
+    </div>
+
+    <!-- HUD：桌面端贴在场地右侧竖向 rail；窄屏落到场地下方横排 -->
+    <aside class="hud" id="hud" aria-label="游戏读数"></aside>
+  </main>
+
+  <p class="pg-hint foot">方向键或 <span class="pg-kbd">W</span><span class="pg-kbd">A</span><span class="pg-kbd">S</span><span class="pg-kbd">D</span> 移动</p>
+</div>
+
+<!-- 规则提醒：确认后才开始计时 -->
+<div class="pg-overlay pg-overlay--compact" id="rules" hidden>
+  <div class="pg-overlay__panel" role="dialog" aria-modal="true" aria-labelledby="rules-title">
+    <div class="pg-overlay__emoji" aria-hidden="true">🌙</div>
+    <h2 class="pg-overlay__title" id="rules-title">开始前请确认</h2>
+    <p class="pg-overlay__text">
+      你有 <strong>60 秒</strong>，用 <strong>方向键</strong> 或 <strong>WASD</strong> 移动：<br>
+      · 躲开紫色的尖刺障碍，被撞到扣 <strong>1 点生命</strong>（共 3 点）<br>
+      · 收集金色光球，每颗 <strong>+10 分</strong><br>
+      · 光球出现 <strong>9 秒</strong> 后消失，外圈进度环显示剩余时间<br>
+      时间到或生命耗尽即结算。
+    </p>
+    <div class="pg-overlay__actions">
+      <button class="pg-btn pg-btn--primary" id="rules-ok" type="button">开始游戏</button>
+    </div>
+  </div>
+</div>
+
+<!-- 结算浮层：重开按钮只在这里出现 -->
+<div id="overlay" hidden></div>
+
+<script type="module" src="js/game.js"></script>
+</body>
+</html>

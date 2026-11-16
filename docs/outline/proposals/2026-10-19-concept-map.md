@@ -1,6 +1,6 @@
 # 提案：全课概念地图
 
-> 2026-11-01：第三章设计已收敛到[内部大纲第三章](../course-outline-internal.md#第-3-章vibe-coding-与能力扩展--用两个小游戏理解-skill-与-plugin)。本稿不再提供第三章备选方案；涉及其他章的跨章待定项仍需共同确认。
+> 2026-11-01：第三章设计已收敛到[第三章讨论版](../ch03-discussion.md)。本稿不再提供第三章备选方案；涉及其他章的跨章待定项仍需共同确认。
 
 > 状态：草稿（2026-10-19），讨论起点。一位讲师已确认：地图区域对应课程三个大分组，每章一到两个地图点，画风用奇幻地图。各章的点还要两位讲师一起定。只画了本地草图，没有改动课件或大纲。
 > “每章一到两个明确知识点”已于 2026-10-20 写入内部大纲 1.1 成为课程设计要求；地图本身的形式和各章具体的点仍在本提案中待定。
@@ -35,7 +35,7 @@
 | --- | --- | --- | --- |
 | 1 | Agent 循环；权限（Sandbox、Approval） | Prompt | §6.1 Agent/Tool、Sandbox/Approval |
 | 2 | Context；会话与压缩 | Vibe Coding | §6.1 Context、请求组成、Session/Compaction |
-| 3 | [第三章权威设计](../course-outline-internal.md#第-3-章vibe-coding-与能力扩展--用两个小游戏理解-skill-与-plugin) | — | — |
+| 3 | [第三章权威设计](../ch03-discussion.md) | — | — |
 | 4 | 规格；MCP | SDD | 4.1 五层规格、§6.1 MCP |
 | 5 | 待定 | SDD | §6.1 没有第 5 章的概念；候选是 5.4 的“验收与规格回环” |
 | 6 | Sub-agent；社区 SDD | SDD | §6.1 Sub-agent、社区 SDD/GSD |
@@ -101,7 +101,7 @@ Skill 出现两次：第 3 章是理解和使用，第 9 章是自己创建。�
 这些是把原讨论记录与上面的草稿逐条对照后发现的，都是待两位讲师决定的问题，没有改动上面的表。
 
 1. **第 1 章的地图点缺了 Prompt 本身。** 讨论里的说法是“第一章是 Prompt，核心是 Prompt 要素；第二章是 Context；第三章是 Plugin”。草稿表里第 1 章写的是“Agent 循环；权限”，Prompt 只作为行省名出现。建议把第 1 章的地图点改成 **Prompt 四要素** 加 **Agent 循环**，权限（Sandbox、Approval）仍在 1.3 讲，但不单独作为地图点。（讨论里说的是“三要素”，课程现行是 Goal、Context、Constraints、Done when 四要素，要统一说法。）
-2. 第三章 Skill、Plugin 的主线与范围见内部大纲第三章。
+2. 第三章 Skill、Plugin 的主线与范围见[第三章讨论版](../ch03-discussion.md)。
 3. **第 5 章仍然没有地图点。** 讨论没有给出答案。
 4. **“每章最好有一两个明确的知识点”是约束，不是装饰。** 目的是让每章更收敛：只讲这一两个点，换不同角度展开（第 2 章只讲 Context 就是这样做的）。建议审查各章时检查：本章的哪几节分别从什么角度展开了这一两个点；展开不了的内容应归入工程实践线或最后一节。
 5. **与最后一节的关系。** 讨论里再次确认：每章最后一节如果能和本章内容强相关最好；没有更好的想法时，可以分享能提升效率的小技巧。候选的收集、组合方式见[经验分享提案](2026-10-20-last-section-experience-sharing.md)和[候选池](2026-10-20-experience-sharing-pool.md)：先大量收集，再挑和课程相关的，每组三四个，彼此递进或并列。
@@ -112,7 +112,7 @@ Skill 出现两次：第 3 章是理解和使用，第 9 章是自己创建。�
 | --- | --- |
 | 1 | Prompt 四要素；Agent 循环 |
 | 2 | Context；会话与压缩 |
-| 3 | [第三章权威设计](../course-outline-internal.md#第-3-章vibe-coding-与能力扩展--用两个小游戏理解-skill-与-plugin) |
+| 3 | [第三章权威设计](../ch03-discussion.md) |
 | 4–9 | 同第二节表，待两位讲师一起定 |
 
 ## 八、2026-10-20 讲师倾向方案 B，以及对 `AGENTS.md` 位置的修正
@@ -128,7 +128,7 @@ Skill 出现两次：第 3 章是理解和使用，第 9 章是自己创建。�
 | --- | --- | --- |
 | 1 | Prompt 四要素；Agent 循环 | 同前 |
 | 2 | Context；项目 `AGENTS.md` | 会话与压缩作为展开 Context 的角度，不再单列为点；`AGENTS.md` 作为 Context 的项目层来源首次点亮 |
-| 3 | [第三章权威设计](../course-outline-internal.md#第-3-章vibe-coding-与能力扩展--用两个小游戏理解-skill-与-plugin) | — |
+| 3 | [第三章权威设计](../ch03-discussion.md) | — |
 | 4 | 规格；MCP | 同前 |
 | 5 | Skill；验收与规格回环 | Skill 首次作为主点：是什么、从哪加载、怎么审查，学员已用过的社区 Skill 可以拿来审查（需核验） |
 | 6 | 社区 SDD（GSD）；Sub-agent | GSD 是一组 Skill，这里回扣第 5 章；Skill 在地图上第二次点亮 |
@@ -172,7 +172,7 @@ Skill 出现两次：第 3 章是理解和使用，第 9 章是自己创建。�
 | --- | --- |
 | 1 | Prompt 四要素；Agent 循环 |
 | 2 | Context；项目 `AGENTS.md` |
-| 3 | [第三章权威设计](../course-outline-internal.md#第-3-章vibe-coding-与能力扩展--用两个小游戏理解-skill-与-plugin) |
+| 3 | [第三章权威设计](../ch03-discussion.md) |
 | 4 | 规格；MCP |
 | 5 | Skill；验收与规格回环 |
 | 6 | 社区 SDD（GSD）；Sub-agent |
@@ -196,7 +196,7 @@ Skill 出现两次：第 3 章是理解和使用，第 9 章是自己创建。�
 | --- | --- | --- |
 | 1 | Prompt 四要素；Agent 循环 | 同前 |
 | 2 | Context；项目 `AGENTS.md` | 同前 |
-| 3 | [第三章权威设计](../course-outline-internal.md#第-3-章vibe-coding-与能力扩展--用两个小游戏理解-skill-与-plugin) | — |
+| 3 | [第三章权威设计](../ch03-discussion.md) | — |
 | 4 | 规格；MCP | 同前 |
 | 5 | Review；验收与规格回环 | Review 是候选，视角见下；待两位讲师确认 |
 | 6 | 社区 SDD（GSD，一组 Skill）；Sub-agent | Skill 的第二次点亮：框架就是一组 Skill，不再重讲 Skill 是什么 |
@@ -228,7 +228,7 @@ Skill 在课程里的三次：第 3 章认识和审查，第 6 章看框架就�
 | --- | --- | --- |
 | 1 | Prompt 四要素；Agent 循环 | 不改正文；1.4 补出处（四要素与 OpenAI 官方结构一致），1.2 的失败方式配一页术语小抄作补充材料 |
 | 2 | Context；项目 `AGENTS.md`（学员写第一条规则） | 会话与压缩作为展开 Context 的角度；Sub-agent 在请求里露出；“交接文件”点一句 |
-| 3 | [第三章权威设计](../course-outline-internal.md#第-3-章vibe-coding-与能力扩展--用两个小游戏理解-skill-与-plugin) | — |
+| 3 | [第三章权威设计](../ch03-discussion.md) | — |
 | 4 | 规格；MCP（含不可信外部输入） | 规格是更严格的任务描述；4.2 第一次实际用 Sub-agent 做只读并行调查（待实测） |
 | 5 | 独立 Review；验收与规格回环 | 新会话审查不带实现者的偏见；可选：把 `TASK-*` 闭环封装成一个 Skill |
 | 6 | 社区 SDD（GSD，一组 Skill）；Sub-agent（分区写入与主 Agent 核验） | 点名“为过测试硬编码、改测试”的失败模式 |

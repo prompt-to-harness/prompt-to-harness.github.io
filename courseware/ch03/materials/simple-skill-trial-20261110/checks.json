@@ -1,0 +1,62 @@
+{
+  "expected_files": true,
+  "tailwind_dependencies": true,
+  "tailwind_vite_plugin": true,
+  "tailwind_import": true,
+  "no_css_modules": true,
+  "two_card_usages": true,
+  "functional_components": true,
+  "dependency_names": [
+    "@tailwindcss/vite",
+    "@types/node",
+    "@types/react",
+    "@types/react-dom",
+    "@vitejs/plugin-react",
+    "oxlint",
+    "react",
+    "react-dom",
+    "tailwindcss",
+    "typescript",
+    "vite"
+  ],
+  "no_added_ui_library": true,
+  "setup-official_full_skill_read_events": [
+    5
+  ],
+  "brand-with-skill_full_skill_read_events": [],
+  "model_build_evidence": [
+    {
+      "event_line": 45,
+      "exit_code": 0,
+      "output_tail": "BUILD_EXIT=0\n\n> demo-app@0.0.0 build\n> tsc -b && vite build\n\nvite v8.3.7 building client environment for production...\ntransforming...\n✓ 18 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.46 kB │ gzip:  0.31 kB\ndist/assets/index-Cde7qRBm.css   10.29 kB │ gzip:  2.74 kB\ndist/assets/index-BMFoyiho.js   220.80 kB │ gzip: 69.22 kB\n\n✓ built in 71ms\n=== LINT ===\nLINT_EXIT=0\n\n> demo-app@0.0.0 lint\n> oxlint\n\n"
+    },
+    {
+      "event_line": 78,
+      "exit_code": 0,
+      "output_tail": "BUILD_EXIT=0\n✓ built in 49ms\nLINT_EXIT=0\nzsh:1: nice(5) failed: operation not permitted\n--- dev ---\n  VITE v8.3.7  ready in 78 ms\n  ➜  Local:   http://localhost:5201/\nROOT_HTTP=200\ndone\n"
+    }
+  ],
+  "http_status": 200,
+  "browser_h1": [
+    "课程展示 Demo"
+  ],
+  "browser_h2": [
+    "课程简介",
+    "课程大纲"
+  ],
+  "browser_sections": 2,
+  "browser_background": "oklch(0.984 0.003 247.858)",
+  "browser_errors": [],
+  "brand-with-skill_full_skill_context_messages": [
+    {
+      "native_rollout_line": 12,
+      "role": "user"
+    }
+  ],
+  "setup-official_full_skill_context_messages": [
+    {
+      "native_rollout_line": 12,
+      "role": "user"
+    }
+  ]
+}

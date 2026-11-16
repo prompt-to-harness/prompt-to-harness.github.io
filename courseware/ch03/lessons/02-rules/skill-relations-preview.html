@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Skill 的指导、知识与读取 · 讲解样稿</title>
+<link rel="stylesheet" href="../../../shared/tokens.css">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f2eb;color:#243042;font-family:var(--font-body),sans-serif}header,main{max-width:1400px;margin:auto;padding:18px 28px}header{display:flex;align-items:center;gap:16px;flex-wrap:wrap;border-bottom:1px solid #c9c7bd}a{color:#0b6b5f}button{font:inherit;padding:9px 15px;border:1px solid #aaa99e;background:transparent;border-radius:5px;color:inherit;cursor:pointer}button[aria-pressed=true]{background:#243042;color:white}nav{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}svg{width:100%;height:auto;display:block;border:1px solid #d2cfc3;border-radius:8px;background:#f4f2eb}svg text{font-family:var(--font-body),sans-serif;fill:#243042}svg .title{font-family:var(--font-display),sans-serif;font-size:42px}svg .small{font-size:19px}svg .label{font-size:25px;font-weight:700}svg .body{font-size:22px}svg .file{fill:#fffdf6;stroke:#9c8b66;stroke-width:2}svg .border{fill:none;stroke:#a7a695;stroke-width:2;stroke-dasharray:9 6}svg .route{fill:none;stroke:#5a51d1;stroke-width:3;marker-end:url(#purple)}svg .knowledge{fill:none;stroke:#9c8b66;stroke-width:3;stroke-dasharray:9 5;marker-end:url(#brown)}svg .focus{fill:#edebfb;stroke:#5a51d1;stroke-width:3}svg .agent{fill:#5a51d1;font-size:22px}svg .muted{opacity:.2}svg [hidden]{display:none}#script{max-width:1000px;margin:24px auto;font-size:21px;line-height:1.9}#script h2{font-size:27px}#script p{margin:16px 0}.operation{font-size:16px;color:#59695f;border-left:3px solid #9c8b66;padding-left:14px}details{max-width:1000px;margin:24px auto;line-height:1.8}details p{font-size:19px}footer{max-width:1000px;margin:32px auto;font-size:15px;color:#59695f}#counter{margin-left:auto}.all-section{padding:10px 0 20px;border-bottom:1px solid #c9c7bd}@media(max-width:700px){header,main{padding:14px}#script{font-size:19px}button{padding:8px}#counter{margin-left:0}}
+#example{background:#f4f2eb;border:1px solid #d2cfc3;border-radius:8px;padding:32px}#example h1{font-size:34px;margin:0 0 26px}#example .pair{display:grid;grid-template-columns:1.3fr 1fr;gap:30px;align-items:center}#example img{width:100%;height:auto;border-radius:5px}#example .explain{font-size:23px;line-height:1.7}#example .explain p{margin:12px 0}#example .caption{color:#6e6043;font-size:17px}#operations{font-size:18px;line-height:1.8;margin:14px 0}#operations a{margin-right:20px}@media(max-width:700px){#example{padding:16px}#example .pair{grid-template-columns:1fr}#example .explain{font-size:19px}}
+</style></head><body>
+<header><a href="speaker.html#p08">返回 p08 逐字稿</a><b>关系图与口播样稿</b><span id="counter"></span><button id="prev">← 上一画面</button><button id="next">下一画面 →</button></header>
+<main><nav aria-label="讲解部分"><button data-go="0">1 · 一份 Skill</button><button data-go="5">2 · 多份怎样配合</button><button data-go="6">3 · 按需要读取</button></nav>
+<svg id="diagram" viewBox="0 0 1280 720" role="img" aria-labelledby="diagram-title diagram-desc">
+<title id="diagram-title">Skill 怎样组织指导、引用共用知识，并按需读取</title><desc id="diagram-desc">规划和架构 Skill 引用同一份技术选型资料；规划也指向架构和试玩 Skill。后续画面依次强调名称与描述、正文、参考资料及试玩指导。</desc>
+<defs><marker id="purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10" fill="none" stroke="#5a51d1" stroke-width="1.5"/></marker><marker id="brown" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10" fill="none" stroke="#9c8b66" stroke-width="1.5"/></marker></defs>
+<text x="56" y="58" class="small">3.2 · 读懂 Skill</text><text id="heading" x="56" y="120" class="title"></text>
+<text id="agent" x="56" y="200" class="agent"></text>
+<g id="plugin"><rect x="56" y="235" width="1170" height="410" rx="15" class="border"/><text x="80" y="265" class="small">Game Studio · Plugin（选取部分内容）</text></g>
+<g id="plan"><path class="file" d="M90 285 H360 L390 315 V530 H90 Z"/><path d="M360 285 V315 H390" fill="none" stroke="#9c8b66" stroke-width="2"/>
+<rect id="meta-focus" x="100" y="320" width="280" height="69" rx="5" class="focus"/>
+<text x="112" y="310" class="small">game-studio / SKILL.md</text><text x="112" y="347" class="body">名称与描述</text><text x="112" y="377" class="small">浏览器游戏前期规划</text><path d="M110 397 H370" stroke="#c9c7bd"/>
+<rect id="body-focus" x="100" y="404" width="280" height="114" rx="5" class="focus"/>
+<text x="112" y="433" class="body">明确玩法 → 选择技术</text><text x="112" y="466" class="body">安排界面、素材与检查</text><text x="112" y="500" class="small">给出当前游戏的具体方案</text></g>
+<g id="found"><rect x="470" y="285" width="300" height="155" rx="9" class="file"/><text x="490" y="320" class="label">架构 Skill</text><text x="490" y="352" class="small">web-game-foundations</text><text x="490" y="390" class="body">规则、状态与画面怎样分工</text><text x="490" y="422" class="small">也需要技术选型依据</text></g>
+<g id="play"><rect x="470" y="490" width="300" height="125" rx="9" class="file"/><text x="490" y="526" class="label">试玩 Skill</text><text x="490" y="559" class="small">game-playtest</text><text x="490" y="594" class="body">操作、截图、报告问题</text></g>
+<g id="resource"><path class="file" d="M930 285 H1185 L1215 315 V440 H930 Z"/><path d="M1185 285 V315 H1215" fill="none" stroke="#9c8b66" stroke-width="2"/><text x="950" y="319" class="label">技术选型资料</text><text x="950" y="350" class="small">references/</text><text x="950" y="378" class="small">engine-selection.md</text><text x="950" y="417" class="body">适用条件与选择依据</text></g>
+<g id="shared"><path class="knowledge" d="M390 455 H855 V402 H930"/><text x="800" y="483" class="small" fill="#6e6043">引用知识</text></g>
+<g id="found-ref"><path class="knowledge" d="M770 365 H930"/></g>
+<g id="routes"><path id="route-found" class="route" d="M390 345 H470"/><path class="route" d="M390 495 H430 V552 H470"/></g>
+<g id="legend"><path d="M90 675 H145" class="knowledge"/><text x="160" y="682" class="small">读取参考资料</text><path d="M470 675 H525" class="route"/><text x="540" y="682" class="small">使用专项指导</text><text x="930" y="682" class="small">连线表示引用，不表示已读取</text></g>
+</svg>
+<section id="example" hidden></section><div id="operations"></div>
+<section id="script" aria-live="polite"></section>
+<details><summary>连续阅读全部配套口播</summary><div id="all"></div></details>
+<footer>画面采用真实文件的关系，中文内容为讲师概括。读取顺序为机制示意，不是某次运行回放。<br>固定版本原文：<a id="src-plan" target="_blank" rel="noopener">规划 Skill</a> · <a id="src-found" target="_blank" rel="noopener">架构 Skill</a> · <a id="src-play" target="_blank" rel="noopener">试玩 Skill</a> · <a id="src-ref" target="_blank" rel="noopener">共用选型资料</a>。本样稿独立于正式 p08，供审阅讲法与关系。</footer>
+</main>
+<script>
+const frames=[
+{title:'做事的步骤，需要用到的知识',op:'先只显示规划 Skill 和选型资料。讲到技术选择时，指认正文到资料的虚线。',agent:'',paragraphs:[
+'先拿游戏规划来说。我们提出“做一个翻牌游戏”，AI 还要想清楚怎么玩、用什么技术、界面怎么做，以及做完怎么检查。一份 Skill 可以把处理这类任务的做法写下来，让 AI 有一套指导可以参考。',
+'它的入口叫 SKILL.md。名称和描述先说明这份指导适合做什么，正文再展开具体方法。比如先明确玩家能做什么、游戏什么时候结束，再选择实现技术，安排界面、素材和试玩。',
+'走到技术选择这一步，光有步骤还不够，还需要知道不同方案适合什么情况。这些知识可以写在单独的参考文件里。这里的技术选型资料，就补充了选择游戏框架时要考虑的条件，SKILL.md 通过文件路径指向它。',
+'这样，正文把事情怎样做讲清楚，参考资料补上做其中某一步需要的知识。以后选型说明变长了，也不用把整份资料都塞进主要步骤里。参考资料还可以放例子、模板或者检查清单，内容取决于这项任务需要什么。']},
+{title:'各自负责一类任务，也能共用知识',op:'保留规划 Skill 与参考资料，展开架构、试玩 Skill 和 Plugin 外框。先指认两条共用资料虚线，再指认专项指导实线。',agent:'',paragraphs:[
+'Game Studio 这个插件里，除了规划，还有架构、实现、试玩等 Skill。它们指导的事情不同：规划要形成方案，架构要说明规则、状态和画面怎样分工，试玩要说明怎样操作、看什么、怎样报告问题。',
+'但它们需要的知识会有重合。比如规划要选技术，架构也要结合采用的技术来安排代码。所以这两份 Skill 都引用了同一份技术选型资料。共用的内容放在 references 目录，各自通过路径引用，就不用分别抄一遍。',
+'还有另一种引用：规划 Skill 会指向架构和试玩 Skill。要进一步安排代码分工，就去读架构指导；要试玩，就去读试玩指导。这里引用的是另一份负责具体任务的 Skill，和引用一份选型资料，作用不一样。',
+'这些 Skill 和资料一起打包，就是我们这里的 Game Studio 插件。插件把它们一起提供出来，各份 Skill 则说明自己负责什么、需要哪些资料，以及什么时候使用其他专项指导。']},
+{title:'先知道有哪份指导适合当前任务',op:'全图保留但淡化其他内容，只强调规划 Skill 的名称与描述。以下四个画面均为按需读取的机制示意。',agent:'Agent：当前要做游戏规划，先判断哪份 Skill 适用',paragraphs:[
+'这些文件准备好了，AI 使用时也不需要一次全部读完。比如我们现在让它规划一个网页游戏，模型先看到可用 Skill 的名称和描述，从中判断 game-studio 适合这项任务。我们也可以直接在请求里指定用它。',
+'这时它知道有这份规划指导，还没有读到里面的完整步骤。描述要把适用的任务写清楚，就是因为选择发生在读正文之前。']},
+{title:'选用以后，读到具体做法',op:'强调规划 Skill 的正文；其他文件仍保留在图中但不高亮。',agent:'Agent：选用 game-studio，读取完整 SKILL.md',paragraphs:[
+'选用以后，再加载完整的 SKILL.md。AI 这才读到默认推荐什么技术、工作怎样推进、要给出什么方案，以及哪里还有更具体的方法。',
+'文件之间连着线，说明有地方可以继续找，不代表沿线的文件已经全部读过。接下来读什么，要看当前任务还需要什么。']},
+{title:'需要选择依据，再读共用资料',op:'强调规划正文、指向选型资料的虚线和选型资料。架构到同一资料的连线保留，但不高亮。',agent:'Agent：需要判断技术是否适合，继续读取选型资料',paragraphs:[
+'比如正文默认推荐二维游戏用 Phaser。要判断这次翻牌用它合不合适，就沿引用读取技术选型资料，了解它适合的情况，再结合项目要求作选择。',
+'名称和描述先供选择，选用以后读正文，需要细节再读相关文件，这就是渐进加载。单独一份 Skill 可以这样使用自己的资料，多份 Skill 也可以这样读取共用资料。',
+'如果以后想让这份指导考虑更多情况，比如团队有自己的技术限制，可以补一份说明，再在正文里写清楚什么时候读、读完怎样作决定。文件放进去以后，还要让 AI 知道它和当前任务有什么关系。']},
+{title:'需要另一项方法，就读对应的 Skill',op:'强调规划 Skill 到试玩 Skill 的实线与试玩 Skill。结尾停在全图，准备衔接正式 p08 的原文选读。',agent:'Agent：任务涉及试玩，再读取 game-playtest 的指导',paragraphs:[
+'如果这次还要安排试玩，就继续读取 game-playtest，了解主要操作怎么检查、哪些状态要截图、问题怎样报告。如果只做技术选择，暂时不涉及试玩，就不必把试玩资料也全部读进来。',
+'按需读取也不一定是每做一步才读一个文件。一次完整规划可能同时需要架构、界面和试玩的方法，AI 就可能提前读好几份。到底读了哪些，仍然要看实际记录。',
+'现在我们再去看原文件，就能带着具体问题读：它把什么写在正文里，哪里引用了知识，哪里又指向另一份 Skill。接着看这些文字怎样帮助 AI 为当前游戏作决定。']}
+];
+// 插在整体认识之后：用真实内容解释写法，再到原文件连续解读。
+const sourceBase='https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/';
+frames.forEach((f,i)=>f.visual=i);
+const examples=[
+{title:'描述要让 AI 判断：眼前任务适不适合',image:'identity',notes:['原文：名称与描述（描述后半段省略）','任务是前期规划，还是只剩试玩？','描述写适用情境，正文再写具体做法。'],op:'留在 PPT，对照文件头节选讲描述的作用，不为这两行单独切浏览器。',paragraphs:[
+'拿这份真实文件看。它叫 game-studio，描述开头说的是浏览器游戏的前期工作。后半段进一步说明，涉及技术选择，以及设计、实现、素材和试玩的工作规划，方向清楚以后再使用专项 Skill。',
+'第一节只提出做翻牌游戏，还没定技术和开发安排，就适合用它。如果游戏已经完成，我们只是要检查重开按钮，就更适合直接用试玩指导。描述里写清楚负责哪一类事情，AI 才能根据当前任务作这个选择。',
+'所以，描述不只是给 Skill 起个介绍性的名字。只写“帮助开发游戏”，规划、实现、试玩都可能算，AI 就很难分清该选哪一份。具体的开发步骤则可以留在下面的正文里。']},
+{title:'正文把任务经验写成可用的做法',image:'workflow',notes:['原文：先确定游戏体验与玩家动作','用在翻牌：翻两张 → 比较 → 保留或盖回','接着才能决定状态、交互与结束条件。'],op:'留在 PPT，先读原文第一项，再结合第一节翻牌解释；下方给出工作流程原文入口，完整解读集中在下一次切换。',paragraphs:[
+'工作流程的第一项要求先确定想做怎样的游戏、玩家能做什么。这里写的是每次规划都要考虑的事情，没有把动作写死成翻牌。',
+'用在我们做过的游戏里，玩家翻开两张牌，相同就保留，不同就等一会儿盖回去，全部配对后结束。这些规则说清楚以后，才知道程序要记住哪两张牌、什么时候锁住点击、什么时候显示完成。',
+'这就比“请把游戏做好”具体得多：它告诉 AI 要先想清楚什么，也给后面的实现提供了依据。换成躲避游戏，玩家动作会变成移动、收集和避开障碍，但先明确动作、循环和结束条件的做法仍然用得上。',
+'正文还会写默认方案、例外条件和最后要交出什么。步骤给出做事的方法，具体玩法仍要结合当前需求确定。接着我们看，做到其中一步需要更多知识时，文件是怎样提供的。']},
+{title:'引用把“需要作的决定”接到“判断依据”',image:'reference',second:'conditions',notes:['入口给出选型资料的相对路径','资料补充 Phaser 的适用条件','正文也可以包含知识，Reference 用来展开或共用。'],op:'留在 PPT，对照引用路径与对应资料节选。指认二维图片、地图和游戏类型这些条件，不逐条翻译整个文件。',paragraphs:[
+'入口在 References 里给出这条路径，指向 engine-selection.md。顺着路径读到的是右边这份选型资料，里面写了不同技术适合什么情况。',
+'比如 Phaser 比较适合以二维图片或地图为主的游戏，也适合俯视、侧视等玩法。入口推荐二维默认用 Phaser，资料则补充具体的适用条件，让 AI 能结合项目判断。第一节用原生网页也做出了翻牌，所以这个默认建议还需要放到当前需求里考虑。',
+'这里要分清，正文里也会有知识，比如默认推荐什么、什么情况下换方案。Reference 是把较长的解释、例子或者清单单独放出来，供需要时查阅；并不是把所有知识都从正文里搬走。',
+'如果只是把文件放进目录，却没有说明它解决什么问题，AI 就不容易知道什么时候需要读。这里用“技术选型”标明资料的用途，再给出路径，就把当前要作的决定和可查的依据接上了。']},
+{title:'打开原文件，看方法怎样组成完整工作',image:'workflow',notes:['按原文顺序读 Default Workflow','玩家动作与循环 → 技术 → 界面与素材 → 试玩','再看 Output Expectations：规划要交出什么'],op:'从本画面的操作入口另开 game-studio/SKILL.md，定位 Default Workflow，按顺序选读玩家动作、核心循环、技术、界面、素材与试玩，再读 Output Expectations；讲完回到本样稿第 6 画面。',paragraphs:[
+'刚才用几个片段看了写法。现在沿真实文件看一遍，这些内容怎样连成一轮工作。',
+'前两项先想清楚游戏怎么玩、怎样反复进行、什么时候结束。接着选技术，确定界面，安排素材，最后做试玩。这些事情有联系：规则决定要记哪些状态，界面要把状态显示给玩家，试玩再去检查实际操作和画面。',
+'第一节牌的关闭标记检查通过，截图里却露着图案，就说明只检查内部状态还不够。读到试玩这一步，我们就知道还需要看玩家实际看到什么。',
+'工作流程之后还有输出要求。用户只要规划，就应当拿到这个游戏的具体方案，包括技术、玩法、界面、素材和检查办法，才能继续讨论。这样，从需要考虑什么，到最后交出什么，才形成了完整指导。',
+'这份文件还指向架构、试玩等 Skill。我们回到图里，把视野展开，就能看到它怎样和其他指导一起使用。']}
+];
+frames.splice(1,0,...examples);
+let current=0;const el=id=>document.getElementById(id);const allNodes=['plan','found','play','resource','shared','found-ref','routes','plugin','legend'];
+function render(){let f=frames[current];let visual=f.visual;el('diagram').hidden=!!f.image;el('diagram').style.display=f.image?'none':'';el('example').hidden=!f.image;el('operations').innerHTML='';if(f.image){el('example').innerHTML=`<h1>${f.title}</h1><div class="pair"><div><img src="assets/skill-excerpts/${f.image}.png" alt="固定版本 Skill 原文节选截图">${f.second?`<img src="assets/skill-excerpts/${f.second}.png" alt="对应参考资料原文节选截图">`:''}</div><div class="explain">${f.notes.map(n=>`<p>${n}</p>`).join('')}</div></div><p class="caption">原文节选重排截图；省略处已标记。中文为讲师解释。</p>`;el('operations').innerHTML=`操作入口：<a target="_blank" rel="noopener" href="${sourceBase}skills/game-studio/SKILL.md#L45">打开 Skill 原文 · 工作流程与输出要求</a><a target="_blank" rel="noopener" href="${sourceBase}references/engine-selection.md#L13">打开选型资料</a>`;}el('heading').textContent=f.title;el('agent').textContent=f.agent;el('counter').textContent=`${current+1} / ${frames.length}`;
+el('route-found').classList.remove('muted');for(const id of allNodes){el(id).classList.remove('muted');el(id).hidden=false;el(id).removeAttribute('hidden');}
+for(const id of ['meta-focus','body-focus'])el(id).setAttribute('hidden','');
+if(visual===0)for(const id of ['found','play','found-ref','routes','plugin','legend'])el(id).setAttribute('hidden','');
+if(visual>=2){for(const id of allNodes)el(id).classList.add('muted');el('legend').classList.remove('muted');el('plan').classList.remove('muted');if(visual===2)el('meta-focus').removeAttribute('hidden');if(visual===3)el('body-focus').removeAttribute('hidden');if(visual===4)for(const id of ['body-focus','resource','shared']){el(id).classList.remove('muted');el(id).removeAttribute('hidden');}if(visual===5){for(const id of ['play','routes'])el(id).classList.remove('muted');el('route-found').classList.add('muted');}}
+el('script').innerHTML=`<h2>${current+1} · ${f.title}</h2><div class="operation">【操作】${f.op}</div>${f.paragraphs.map(p=>`<p>${p}</p>`).join('')}`;
+document.querySelectorAll('[data-go]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.go)===(current<5?0:current===5?5:6))));el('prev').disabled=current===0;el('next').disabled=current===frames.length-1;history.replaceState(null,'',`#frame-${current+1}`);}
+el('prev').onclick=()=>{current--;render()};el('next').onclick=()=>{current++;render()};document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{current=Number(b.dataset.go);render()});document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'&&current<frames.length-1){current++;render()}if(e.key==='ArrowLeft'&&current>0){current--;render()}});
+el('all').innerHTML=frames.map((f,i)=>`<section class="all-section"><h3>${i+1} · ${f.title}</h3><div class="operation">【操作】${f.op}</div>${f.paragraphs.map(p=>`<p>${p}</p>`).join('')}</section>`).join('');
+const base='https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/';for(const [id,path] of Object.entries({'src-plan':'skills/game-studio/SKILL.md','src-found':'skills/web-game-foundations/SKILL.md','src-play':'skills/game-playtest/SKILL.md','src-ref':'references/engine-selection.md'}))el(id).href=base+path;
+current=Math.max(0,Math.min(frames.length-1,Number(location.hash.replace('#frame-',''))-1||0));render();
+</script></body></html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>60 秒躲避与收集</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>">
+<link rel="stylesheet" href="./components/theme.css">
+<link rel="stylesheet" href="./components/hud.css">
+<link rel="stylesheet" href="./components/playfield.css">
+<link rel="stylesheet" href="./components/result.css">
+<link rel="stylesheet" href="./components/controls.css">
+<link rel="stylesheet" href="./components/feedback.css">
+<link rel="stylesheet" href="./game.css">
+</head>
+<body>
+  <!-- 1. HUD：游玩时只显示时间、得分、生命 -->
+  <div class="hud">
+    <div class="hud__cluster">
+      <div class="stat"><span class="stat__label">时间</span><span class="stat__value" id="stat-time">1:00</span></div>
+      <div class="stat"><span class="stat__label">得分</span><span class="stat__value" id="stat-score">0</span></div>
+      <div class="stat"><span class="stat__label">生命</span><span class="stat__value" id="stat-life">3 / 3</span></div>
+    </div>
+  </div>
+
+  <!-- 2. 场地：canvas 舞台 -->
+  <main class="playfield">
+    <div class="stage" id="stage">
+      <canvas id="game" width="800" height="600" role="img"
+              aria-label="躲避障碍并收集宝物的游戏场地，用方向键或 WASD 移动"></canvas>
+      <p class="stage__prompt" id="prompt">方向键 / WASD 移动 · 躲开障碍，收集 💎</p>
+    </div>
+  </main>
+
+  <!-- 3. 结算：局末面板，重开按钮只在这里出现 -->
+  <div class="result" id="result" hidden>
+    <div class="result__panel" role="dialog" aria-modal="true" aria-labelledby="result-title" aria-describedby="result-subtitle">
+      <div class="result__emoji" id="result-emoji" aria-hidden="true">⏱️</div>
+      <h2 class="result__title" id="result-title">时间到</h2>
+      <p class="result__subtitle" id="result-subtitle">完整撑过了 60 秒</p>
+      <div class="result__score">
+        <span class="result__score-label">得分</span>
+        <span class="result__score-value" id="result-score">0</span>
+        <span class="result__badge" id="result-badge" hidden>新纪录</span>
+      </div>
+      <dl class="result__rows">
+        <div class="result__row"><dt>收集物品</dt><dd id="result-collected">0</dd></div>
+        <div class="result__row"><dt>被击中</dt><dd id="result-hits">0</dd></div>
+        <div class="result__row"><dt>存活时间</dt><dd id="result-time">0:00</dd></div>
+        <div class="result__row is-best"><dt>最佳得分</dt><dd id="result-best">—</dd></div>
+      </dl>
+      <div class="result__actions">
+        <button class="btn btn--primary" id="result-again" type="button">再来一局</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 受击 / 收集时的屏幕边缘闪光 -->
+  <div class="flash" id="flash" aria-hidden="true"></div>
+
+  <script src="./src/game-core.js"></script>
+  <script src="./src/sound.js"></script>
+  <script src="./src/storage.js"></script>
+  <script src="./src/ui.js"></script>
+  <script src="./src/main.js"></script>
+</body>
+</html>

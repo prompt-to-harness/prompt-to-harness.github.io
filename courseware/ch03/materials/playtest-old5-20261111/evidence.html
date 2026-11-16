@@ -1,0 +1,107 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>3.2.3 三轮预跑材料</title><style>body{max-width:960px;margin:40px auto;padding:0 24px;font:18px/1.75 system-ui;color:#222}img{max-width:100%}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f3f4f5;padding:20px}table{border-collapse:collapse}td,th{border:1px solid #ccc;padding:10px}a{color:#175c9d}h2{margin-top:64px}</style><main><h1>3.2.3 早期 05 的三轮预跑记录</h1>
+<p>2026-11-11。三个演示任务各有一轮独立的 Codex 预跑，每轮从 3.1 早期 05 的源码副本开始。用原项目基线和公开归档 <code>r1007-5</code> 的 diff 重建。任务 3 使用未修复的独立副本，截图中的配对读数仍有原缺陷。窄屏检查关注玩家翻牌时能否看到这些信息。 <a href="../../lessons/01-memory-game/evidence.html#early-win">早期 05 来源</a> · <a href="../../../../docs/outline/ch03-discussion.md">第三章讨论稿</a></p>
+<table>
+<thead>
+<tr>
+<th>材料</th>
+<th>用途</th>
+<th>规模</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#run-a">任务 1 · 复现提前通关</a></td>
+<td>核对实际牌对、显示进度与通关提示。</td>
+<td>一轮日志摘录、一张图。</td>
+<td>已浏览器实测。</td>
+</tr>
+<tr>
+<td><a href="#run-b">任务 2 · 修复并验收</a></td>
+<td>核对清单读取、规则复验和重开状态。</td>
+<td>一轮日志摘录、一段脚本。</td>
+<td>已浏览器实测。</td>
+</tr>
+<tr>
+<td><a href="#run-c">任务 3 · 检查桌面和手机窄屏体验</a></td>
+<td>核对专项文件读取、状态区和牌阵的同屏表现。</td>
+<td>一轮日志摘录、两张图。</td>
+<td>已用浏览器窗口尺寸实测。</td>
+</tr>
+</tbody>
+</table>
+<p>三轮使用 Codex CLI 0.163.0、MiniMax-M3.1-Flash 和 Playwright。三个请求都显式使用 <code>$game-playtest</code>。各自的原生 <code>rollout.jsonl</code> 第 10 行是请求，第 12 行是 <code>game-playtest</code> 正文消息。工作副本的三份指导文件与固定版本公开原文核对一致。 <a href="https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/game-playtest/SKILL.md">game-playtest 正文</a> · <a href="https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/references/playtest-checklist.md">完整试玩清单</a> · <a href="https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/game-ui-frontend/SKILL.md">game-ui-frontend 正文</a></p>
+<p>本页保存请求、工具记录的公开摘录和游戏画面。请求中的本机路径用方括号替换，文件读取记录只保留必要字段，浏览器输出按原样选录。每轮完整请求、初次和续跑 CLI 事件、原生会话、最终回复及证据在本机私有归档 <code>lab-runs/ch0323-old5-20261111/</code>，用归档内 <code>sha256.json</code> 核对。浏览器会话在部分阶段掉线，续跑曾使用本地无头浏览器重新取证。</p>
+<p><a id="run-a"></a></p>
+<h2>任务 1 · 复现提前通关</h2>
+<p>请求原文，已替换本机路径。</p>
+<pre><code class="language-text">$game-playtest
+这是 3.1 早期 05 的独立源码副本，只在当前项目工作。可运行 npm run dev，页面游戏区为 /#memory。浏览器使用 Playwright，可通过 [本机 Python 路径] 运行 Python，Chrome executable_path 为 [本机 Chrome 路径]。可以从页面 DOM 获取配对定位以保证操作可重现，报告中说明。无需联网安装工具。请做单项试玩并报告。游戏有六对牌，必须配齐六对才可通关。实际配好前三对后核对页面进度和通关状态，附复现步骤、预期和实际结果。只检查和取证，保留游戏源文件。
+</code></pre>
+<a id="run-a-output"></a><p><code>a-discover/continued-events.jsonl</code> 第 148 行，浏览器工具输出摘录。</p>
+<pre><code class="language-text">pair-1 0,8 🛠️🛠️ -&gt; pairs=2/6 moves=1 matched_cards=2 result=False
+pair-2 1,9 🔬🔬 -&gt; pairs=4/6 moves=2 matched_cards=4 result=False
+pair-3 2,5 🧭🧭 -&gt; pairs=6/6 moves=3 matched_cards=6 result=True
+AFTER3: {&quot;moves&quot;: &quot;3&quot;, &quot;time&quot;: &quot;0:02&quot;, &quot;pairs&quot;: &quot;6/6&quot;, &quot;moves_label&quot;: &quot;步数 3&quot;, &quot;pairs_label&quot;: &quot;配对 6/6&quot;} result: 全部配对完成，用时 0:02，翻了 3 步。再来一次
+CONTINUE_AFTER_BANNER: {&quot;attempted_cards&quot;: [3, 4], &quot;their_symbols&quot;: [&quot;🧩&quot;, &quot;🧩&quot;], &quot;same_symbol&quot;: true, &quot;stats_before&quot;: {&quot;moves&quot;: &quot;3&quot;, &quot;time&quot;: &quot;0:02&quot;, &quot;pairs&quot;: &quot;6/6&quot;, &quot;moves_label&quot;: &quot;步数 3&quot;, &quot;pairs_label&quot;: &quot;配对 6/6&quot;}, &quot;stats_after&quot;: {&quot;moves&quot;: &quot;3&quot;, &quot;time&quot;: &quot;0:02&quot;, &quot;pairs&quot;: &quot;6/6&quot;, &quot;moves_label&quot;: &quot;步数 3&quot;, &quot;pairs_label&quot;: &quot;配对 6/6&quot;}, &quot;matched_cards_before&quot;: 6, &quot;matched_cards_after&quot;: 6, &quot;face_down_before&quot;: 6, &quot;face_down_after&quot;: 6, &quot;aria_of_attempted&quot;: [&quot;第 4 张卡片，未翻开&quot;, &quot;第 5 张卡片，未翻开&quot;], &quot;state_changed&quot;: false}
+</code></pre>
+<p>本轮会话载入了主 Skill 正文，日志未见打开配套 Reference 或前端 Skill。运行还做了重开、错配和基本窗口检查。 <a href="early-clear.png">实际画面：6 张牌仍扣着，界面显示 6/6 并宣布通关</a></p>
+<a id="run-a-report"></a><p>以下是 <code>a-discover/continued-reply.md</code> 第 3 行的结论摘录。</p>
+<blockquote>
+<p><strong>结论先说：游戏在只配好 3 对牌时就判定通关</strong>（要求是 6 对），并且此后剩余 3 对完全无法继续，是一局走不完的&quot;假通关&quot;。</p>
+</blockquote>
+<p><a id="run-b"></a></p>
+<h2>任务 2 · 修复并验收</h2>
+<p>请求原文，已替换本机路径。</p>
+<pre><code class="language-text">$game-playtest
+这是 3.1 早期 05 的独立源码副本，只在当前项目工作。可运行 npm run dev，页面游戏区为 /#memory。浏览器使用 Playwright，可通过 [本机 Python 路径] 运行 Python，Chrome executable_path 为 [本机 Chrome 路径]。可以从页面 DOM 获取配对定位以保证操作可重现，报告中说明。无需联网安装工具。请修复“三对就提前通关”的缺陷。先复现，再在本副本中修复。修后用浏览器验证三对时 3/6 且仍可翻牌，六对时 6/6 且通关。验收时沿 Skill 正文引用读完整试玩清单，再从中选一项与通关后的恢复有关的检查并实际执行。报告每个实际结果及其依据。
+</code></pre>
+<p><a id="run-b-read"></a></p>
+<p><code>b-repair/events.jsonl</code> 第 7 行显示读取 <code>game-playtest/SKILL.md</code> 和 <code>playtest-checklist.md</code>，工具退出码为 <code>0</code>。请求明确要求沿链接查清单。Codex 在开头查阅，修复后的浏览器验收用到了清单的恢复检查。 <a href="https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/game-playtest/SKILL.md#references">正文引用</a> · <a href="https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/references/playtest-checklist.md#universal-checks">清单恢复项</a></p>
+<p><a id="run-b-verify"></a></p>
+<p><code>b-repair/continued-events.jsonl</code> 第 19 行，浏览器工具输出摘录。</p>
+<pre><code class="language-text">PASS  三对时 HUD 显示 3/6  | expected=3/6 | actual=3/6
+PASS  三对时不出现通关横幅  | expected=无 banner | actual=None
+PASS  三对后仍可翻牌（未配对卡片可翻开）  | expected=图案 开头 | actual=第 5 张卡片，图案 🛠️  | 点击第 5 张
+PASS  六对时出现通关横幅  | expected=包含 全部配对完成 | actual=全部配对完成，用时 0:03，翻了 6 步。 再来一次
+PASS  通关后点击“再来一次”恢复：计数清零  | expected=配对 0/6，步数 0，用时 0:00 | actual=配对 0/6，步数 0，用时 0:00  | 通关时为 {'pairs': '6/6', 'banner': '全部配对完成，用时 0:03，翻了 6 步。 再来一次'}
+PASS  通关后点击“再来一次”恢复：通关横幅消失  | expected=无 banner | actual=None
+PASS  恢复后 12 张卡片全部回到未翻开  | expected=12 张 未翻开 且无 is-matched | actual=未翻开 12 张 / is-matched 0 张
+PASS  恢复后牌局可继续游玩（可翻牌）  | expected=图案 开头 | actual=第 1 张卡片，图案 🔬
+SUMMARY: 20/20 checks passed
+</code></pre>
+<p><a id="run-b-script"></a></p>
+<h3>本轮生成并执行的脚本</h3>
+<p><code>b-repair/evidence/memory_verify.py</code> 第 183–195 行摘录，片段中的辅助函数定义在原脚本里。代码把通关后的恢复转成一次点击和可检查的预期。</p>
+<pre><code class="language-python"># playtest-checklist.md -&gt; &quot;Do pause, failure, and recovery states work?&quot;
+before = {&quot;pairs&quot;: pair_stat(page), &quot;banner&quot;: banner(page)}
+page.click(&quot;.memory__restart&quot;)
+page.wait_for_timeout(300)
+lab = labels(page)
+cls = classes(page)
+note(&quot;通关后点击“再来一次”恢复：计数清零&quot;, &quot;配对 0/6，步数 0，用时 0:00&quot;,
+     &quot;配对 %s，步数 %s，用时 %s&quot; % (pair_stat(page), stat_value(page, &quot;步数&quot;),
+                                  stat_value(page, &quot;用时&quot;)),
+     pair_stat(page) == &quot;0/6&quot; and stat_value(page, &quot;步数&quot;) == &quot;0&quot;
+     and stat_value(page, &quot;用时&quot;) == &quot;0:00&quot;, &quot;通关时为 &quot; + str(before))
+note(&quot;通关后点击“再来一次”恢复：通关横幅消失&quot;, &quot;无 banner&quot;, str(banner(page)),
+     banner(page) is None)
+</code></pre>
+<p><a id="run-c"></a></p>
+<h2>任务 3 · 检查桌面和手机窄屏体验</h2>
+<p>请求原文，已替换本机路径。</p>
+<pre><code class="language-text">$game-playtest
+这是 3.1 早期 05 的独立源码副本，只在当前项目工作。可运行 npm run dev，页面游戏区为 /#memory。浏览器使用 Playwright，可通过 [本机 Python 路径] 运行 Python，Chrome executable_path 为 [本机 Chrome 路径]。可以从页面 DOM 获取配对定位以保证操作可重现，报告中说明。无需联网安装工具。请对同一游戏的开局和完成第一对后的状态做桌面与手机窄屏审查。沿正文引用的试玩清单和前端审查指导，分别检查操作反馈与计步、配对信息在窄屏的可读性，以及信息区是否遮挡或挤压牌阵。取证并给一个最小的界面调整建议。保留游戏源码。
+</code></pre>
+<p><a id="run-c-read"></a></p>
+<p><code>c-responsive/events.jsonl</code> 第 17、19 行，文件读取命令均成功，退出码均为 <code>0</code>。</p>
+<pre><code class="language-bash">cat .agents/references/playtest-checklist.md
+cat .agents/skills/game-ui-frontend/SKILL.md
+</code></pre>
+<p>这轮显式调用了 <code>game-playtest</code>。Codex 随后沿正文引用打开前端 <code>SKILL.md</code>。两处记录分别对应 Skill 调用和文件读取。 <a href="https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/game-playtest/SKILL.md#references">正文引用入口</a> · <a href="https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/game-ui-frontend/SKILL.md#frontend-standards">前端标准</a></p>
+<p><a id="run-c-verify"></a></p>
+<p>用 1440×900、375×667、360×800 的浏览器视口检查反馈、状态区位置和牌阵，未使用实体手机。<code>c-responsive/continued-events.jsonl</code> 第 21 行显示三个视口的状态区与牌阵重叠面积均为 <code>0</code>。第 168 行记录了 375×667 下滚到牌阵底部时，状态区已经滚出屏幕。</p>
+<pre><code class="language-text">current                -&gt; {'scrollY': 1565, 'metaTop': -645, 'metaBottom': -622, 'metaVisible': False, 'boardTop': -602, 'boardBottom': 672, 'cardsFullyVisible': 4, 'cardsPartlyVisible': 8, 'vh': 667}
+</code></pre>
+<p>浏览器中还临时试验了三列布局，游戏源码保持原状。 <a href="desktop-first-pair.png">桌面配对后游戏区截图</a> · <a href="mobile-bottom.png">375×667 手机视口滚到牌阵底部截图</a></p>
+</main><script src="../inspect-process-routes.js"></script></html>

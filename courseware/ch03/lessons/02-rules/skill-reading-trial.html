@@ -1,0 +1,66 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>一次翻牌规划尝试 · Skill 讲解证据</title>
+<link rel="stylesheet" href="../../../shared/tokens.css">
+<style>body{margin:0;background:var(--color-paper);color:var(--color-ink);font-family:var(--font-body);line-height:1.8}
+main{max-width:1050px;margin:auto;padding:24px}a{color:#14613f}h1{font-size:32px}h2{font-size:26px}
+nav{position:sticky;top:0;display:flex;flex-wrap:wrap;gap:18px;padding:12px;background:var(--color-paper);border-bottom:1px solid #aebbb4}
+section{scroll-margin-top:80px;padding:32px 0;border-bottom:1px solid #aebbb4;font-size:19px;overflow-wrap:anywhere}
+pre{padding:18px;overflow:auto;background:#eaf0ef;font-size:16px;line-height:1.65}blockquote{margin-left:0;padding-left:20px;border-left:3px solid #497266}
+@media(max-width:600px){main{padding:16px}h1{font-size:26px}section{font-size:17px}nav{gap:12px}}</style></head><body><main>
+<header><a href="index.html#p08">返回课件</a><h1>一次翻牌规划尝试</h1>
+<p>来源：2026-11-06 的独立小任务 skill-reading-20261106-v1，使用项目内的 Game Studio 指导，只生成开发方案。以下为真实请求与回复节选，方案中的开发和检查尚未执行。</p></header><nav aria-label="证据定位"><a href="#s01">S01</a><a href="#s02">S02</a><a href="#s03">S03</a><a href="#s04">S04</a></nav><section id="s01"><h2>S01 · 请求原文</h2><p>以下是本次完整请求。运行目录预先放入项目内的 Skill 与配套资料，没有提供第一节游戏源码、结果或课程讲稿。</p>
+<pre><code class="language-text">请使用 game-studio，为一个最小的网页翻牌游戏整理一份简短的开发方案。玩家每次翻开两张牌，配对成功的牌保留，全部配对后结束，并能重新开始。先给方案，不写代码、不创建项目，也不启动浏览器。
+</code></pre>
+</section><section id="s02"><h2>S02 · 返回方案节选</h2><p>来源：本次 <code>final.md</code>，同文见 <code>events.jsonl</code> 第 26 行 <code>item_13</code>。以下按最终回复的原顺序，选取技术、玩法、资源及检查安排；省略其余段落。节选均为模型原文，不是讲师写的示范答案。方案中的检查尚未执行。</p>
+<h3>技术选择</h3>
+<p><strong>分类</strong>：2D、网格/卡牌类、回合制点击交互 → 按 game-studio 默认走 <strong>Phaser</strong> 路径。</p>
+<blockquote>
+<p>一个诚实的说明：此体量用纯 DOM/CSS 也能实现且更轻。但按 plugin 默认规则选 Phaser；若你倾向零依赖，唯一值得翻转的决定就是这一项，其余设计不变。</p>
+</blockquote>
+<h3>玩法中的具体决定</h3>
+<ul>
+<li><strong>牌组</strong>：N 对相同牌面（默认 4×4 = 8 对），Fisher–Yates 洗牌后成对铺开，保证必然有解。</li>
+<li><strong>核心循环</strong>：翻第一张 → 翻第二张 → 比对 → 分支：
+<ul>
+<li><strong>匹配</strong>：两张牌保持翻开并标记为&quot;已解&quot;，播放轻微高亮动效；</li>
+<li><strong>不匹配</strong>：停顿约 800ms 让玩家看清 → 翻回背面；<strong>该期间锁定输入</strong>。</li>
+</ul>
+</li>
+</ul>
+<h3>素材安排</h3>
+<p><strong>本游戏不需要 sprite-pipeline</strong>。sprite-pipeline 面向&quot;动画条带&quot;流程（种子帧 → 整条生成 → 归一化锚点），静态卡牌无动画条，用不上且会引入不必要的复杂度。</p>
+<ul>
+<li><strong>牌背</strong>：程序化生成（Phaser Graphics 绘制几何纹样 → 烘焙为纹理），零外部资源、可换色。</li>
+<li><strong>牌面</strong>：以 Unicode 符号 / 图标字形（♠♥♣♦ 或 emoji）为主，配 CSS/Phaser 文字渲染，零资源体积。</li>
+</ul>
+<h3>检查安排</h3>
+<p><strong>截图必做</strong>（canvas 游戏 DOM 断言不足）：背面初始态、翻开态、错配翻回瞬间、匹配高亮、胜利面板、桌面 1440×900 与移动 390×844 两档视口。</p>
+</section><section id="s03"><h2>S03 · 来源与核验</h2><ul>
+<li>运行标识：<code>skill-reading-20261106-v1</code>。原始请求、完整回复、工具事件和诊断保留在仓库外；本机定位保存在忽略的 <code>lab-runs/ch03-3.2-rewrite-20261106/trial-location.json</code>。</li>
+<li>Game Studio 固定提交：<code>0722921d5542fc593105c27bd52630babd8b8c2a</code>，文件取自已冻结的双游戏快照。相对引用结构完整保留，复制前后及运行后的文件哈希一致。</li>
+<li>实际读取记录：<code>events.jsonl</code> 第 5 行 <code>item_1</code> 读取入口；第 12–16 行读取界面、试玩、二维实现、选型及架构；第 22–25 行读取检查清单、架构资料及素材指导。对应命令均退出 0。这里是读取记录的定位概括，没有公开完整命令与第三方文件正文。</li>
+<li>进程退出 0，最后事件为 <code>turn.completed</code>；运行目录没有新增游戏文件，Skill 文件未改变。该次调用证明本次读取并返回了方案，不证明插件安装、自动发现、开发效果或执行了方案中的检查。</li>
+<li>安装身份：使用项目内的 Skill 副本，未通过插件安装入口安装 Game Studio。启动期间远端插件目录同步出现警告，本地指导读取和本次任务已完成；不展示含本机路径或内部地址的原始诊断。</li>
+<li>取材边界：模型回复比请求的“简短方案”更长，加入了评级、详细目录等内容；未将整份方案审定为最小实现标准。原方案把重洗牌后顺序必须不同写入断言，随机洗牌仍可能同序，该条不作为教学检查标准。课堂只使用上面的节选，解释默认建议、按任务取舍、检查安排及模型补充的具体决定。</li>
+</ul>
+<p>机制依据：<a href="https://developers.openai.com/plugins/concepts/skills#how-skills-activate">Skills</a>、<a href="https://developers.openai.com/blog/skills-agents-sdk#keep-workflows-in-the-repo">Using skills to accelerate OSS maintenance</a>。本次已读取官方正文，核对名称与描述、完整指导、配套资源按需取得的关系；不将本次批量读取改写成逐阶段加载实录。</p>
+</section><section id="s04"><h2>S04 · 从方案的选择理由回查入口读取</h2><p>先看 S02 的技术选择原话：返回明确说明采用 game-studio 的二维默认路线，同时承认纯 DOM/CSS 也能实现这个体量的游戏。接着沿同一次记录回查：</p>
+<ol>
+<li>
+<p>S01 请求已点名 game-studio，本例展示的是用户指定后的读取。</p>
+</li>
+<li>
+<p><code>events.jsonl</code> 第 5 行 <code>item_1</code> 完成入口读取，退出码为 0。去掉本机绝对路径后，命令的目标是：</p>
+<pre><code class="language-text">cat .agents/skills/game-studio/SKILL.md
+</code></pre>
+</li>
+<li>
+<p>已回查这条工具返回，包含同版入口完整正文。到固定版本原文件的 Overview 核对：该指导明确将二维 Phaser 路线设为默认；继续顺读时，Default Workflow 第 3 项给出对应技术路线。</p>
+</li>
+<li>
+<p>后续读取包括 <code>phaser-2d-game</code> 等专项指导，定位仍见 S03；不能把这次项目文件的显式读取讲成自动发现或 Plugin 安装。</p>
+</li>
+</ol>
+<p>这里结合模型公开返回中的选择理由、实际工具读取与原文要求解释结果，不补造未保存的思考过程。2026-11-09 重新核对了原始事件、完整工具返回与固定版本入口；完整日志仍在仓库外，不复制第三方正文。</p>
+</section></main></body></html>

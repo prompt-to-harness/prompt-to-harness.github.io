@@ -1,0 +1,296 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第一节翻牌开发记录 · Skill 讲解证据</title>
+<link rel="stylesheet" href="../../../shared/tokens.css">
+<style>body{margin:0;background:var(--color-paper);color:var(--color-ink);font-family:var(--font-body);line-height:1.8}
+main{max-width:1050px;margin:auto;padding:24px}a{color:#14613f}h1{font-size:32px}h2{font-size:26px}
+nav{position:sticky;top:0;display:flex;flex-wrap:wrap;gap:18px;padding:12px;background:var(--color-paper);border-bottom:1px solid #aebbb4}
+section{scroll-margin-top:80px;padding:32px 0;border-bottom:1px solid #aebbb4;font-size:19px;overflow-wrap:anywhere}
+pre{padding:18px;overflow:auto;background:#eaf0ef;font-size:16px;line-height:1.65}blockquote{margin-left:0;padding-left:20px;border-left:3px solid #497266}
+@media(max-width:600px){main{padding:16px}h1{font-size:26px}section{font-size:17px}nav{gap:12px}}</style></head><body><main>
+<header><a href="index.html#p08">返回课件</a><h1>第一节翻牌开发记录</h1>
+<p>来源：MiniMax 独立翻牌实验，快照 minimax-games-20261106-v1。本轮未加载游戏 Skill。原始消息、最终源码与讲师解释分别标明；这些记录用于回看实际过程。</p></header><nav aria-label="证据定位"><a href="#e01">E01</a><a href="#e02">E02</a><a href="#e03">E03</a><a href="#e04">E04</a><a href="#e05">E05</a><a href="#e06">E06</a><a href="#e07">E07</a><a href="#e08">E08</a><a href="#e09">E09</a><a href="#e10">E10</a><a href="#e11">E11</a><a href="#e12">E12</a><a href="#e13">E13</a><a href="#e14">E14</a><a href="#e15">E15</a></nav><section id="e01"><h2>E01 · 原始请求</h2><p>来源：<code>memory-prompt.txt</code>，全文。</p>
+<pre><code class="language-text">请从零开发一个可以在浏览器玩的记忆翻牌小游戏，支持翻牌、配对、完成和重新开始。使用普通对话开发方式，不加载任何游戏 Skill。
+这是一个全新的独立项目。只使用本项目文件和通用工具、官方技术资料；不要搜索或读取其他项目、旧游戏、课程仓库或历史会话，也不要复用其他项目的代码。不要发布或提交代码。具体未说明的产品细节请自行作合理决定并在交付时说明。请自主完成开发，留下源码、启动说明，并如实报告实际做过的验证和未验证项。
+</code></pre>
+<p>取材注意：这是明确授权自主完成的请求；包含验证与未验证项的报告要求。没有中途追加需求或讲师批准方案的环节。实验隔离条款可在课上简述，不能把只展示第一句的节选说成全部输入。</p>
+</section><section id="e02"><h2>E02 · 从空目录开始实现</h2><p>来源：<code>memory-events.jsonl</code> 第 8 行，<code>item_3</code>。</p>
+<blockquote>
+<p>Empty directory — clean slate. Let me check what tooling is available for verification.</p>
+</blockquote>
+<p>来源：<code>memory-events.jsonl</code> 第 11 行，<code>item_5</code>。</p>
+<blockquote>
+<p>Chrome is available for real browser verification. Let me scaffold the project.</p>
+</blockquote>
+<p>来源：<code>memory-events.jsonl</code> 第 14 行，<code>item_7</code>。</p>
+<blockquote>
+<p>Now the DOM-free game core (this is what I'll unit test):</p>
+</blockquote>
+<p>来源补充：同日志第 13 行 <code>item_6</code> 记录新增 package.json、静态服务器、难度及图案配置；第 20 行 <code>item_11</code> 开始 HTML/CSS，第 27 行 <code>item_15</code> 开始页面控制器。原始记录没有先写技术选型比较报告；原生 HTML/CSS/ES Modules 是实际实现，可由源码与最终回复核对。</p>
+</section><section id="e03"><h2>E03 · 一次翻错怎样连接规则与画面</h2><p>来源：<code>memory/src/game-core.js</code> 第 126–158 行（冻结后的源码）。</p>
+<pre><code class="language-js">    // 翻开第二张 —— 记一步
+    this.moves += 1;
+    const [a, b] = this.openIndices;
+    const cardA = this.cards[a];
+    const cardB = this.cards[b];
+
+    if (cardA.pairId === cardB.pairId) {
+      this.matchedPairIds.add(cardA.pairId);
+      this.openIndices = [];
+      const isWin = this.matchedPairIds.size === this.totalPairs;
+      if (isWin) {
+        this.status = STATUS.WON;
+        this.endedAt = this.now();
+      }
+      return { type: FLIP.MATCH, indices: [a, b], card: cardA, isWin };
+    }
+
+    // 不匹配：锁定，等 UI 播完动画后再调用 dismissMismatch()
+    this.locked = true;
+    return { type: FLIP.MISMATCH, indices: [a, b], card: cardA };
+  }
+
+  /**
+   * 不匹配的牌翻回背面，由 UI 在动画结束后调用。
+   * @returns {number[]} 被翻回的牌下标
+   */
+  dismissMismatch() {
+    const dismissed = this.openIndices.slice();
+    this.openIndices = [];
+    this.locked = false;
+    return dismissed;
+  }
+}
+</code></pre>
+<p>来源：<code>memory/src/main.js</code> 第 213–230 行（冻结后的源码）。</p>
+<pre><code class="language-js">    case FLIP.MISMATCH: {
+      result.indices.forEach((i) =&gt; {
+        openCard(i);
+        cardEls[i].classList.add('is-wrong');
+        setCardState(i, 'open');
+      });
+      sfx.mismatch();
+      updateStats();
+      mismatchTimer = window.setTimeout(() =&gt; {
+        mismatchTimer = null;
+        const dismissed = game.dismissMismatch();
+        dismissed.forEach((i) =&gt; {
+          cardEls[i].classList.remove('is-open', 'is-wrong');
+          setCardState(i, 'closed');
+        });
+      }, MISMATCH_DELAY_MS);
+      break;
+    }
+</code></pre>
+<p>解释：规则层返回 MISMATCH 并锁定；页面层展示牌面、刷新计数，等待后调用 dismissMismatch 解锁。这里展示的是修复后的源码；第 220 行 updateStats 是 E05 中补入的调用。</p>
+</section><section id="e04"><h2>E04 · 规则检查先完成</h2><p>来源：<code>memory/test/game-core.test.js</code> 第 101–123 行（冻结后的源码）。</p>
+<pre><code class="language-js">test('翻开不配对的两张牌 -&gt; MISMATCH 并锁定输入', () =&gt; {
+  const game = new MemoryGame({ icons: ['a', 'b'] });
+  const [i] = indicesOfPair(game, 0);
+  const [j] = indicesOfPair(game, 1);
+  game.flip(i);
+  const r = game.flip(j);
+  assert.equal(r.type, FLIP.MISMATCH);
+  assert.equal(game.locked, true);
+  assert.equal(game.moves, 1);
+  assert.equal(game.openIndices.length, 2);
+});
+
+test('锁定期间再次翻牌被忽略（LOCKED）', () =&gt; {
+  const game = new MemoryGame({ icons: ['a', 'b', 'c'] });
+  const [i] = indicesOfPair(game, 0);
+  const [j] = indicesOfPair(game, 1);
+  const [k] = indicesOfPair(game, 2);
+  game.flip(i);
+  game.flip(j);
+  const r = game.flip(k);
+  assert.equal(r.type, FLIP.LOCKED);
+  assert.equal(game.moves, 1, '被忽略的翻牌不应计数');
+});
+</code></pre>
+<p>来源：<code>memory-events.jsonl</code> 第 50 行，<code>item_29</code>，工具输出节选，省略其余行。</p>
+<pre><code class="language-text">✔ 翻开不配对的两张牌 -&gt; MISMATCH 并锁定输入 (0.089167ms)
+✔ 锁定期间再次翻牌被忽略（LOCKED） (0.05925ms)
+ℹ tests 23
+ℹ pass 23
+ℹ fail 0
+</code></pre>
+<p>来源：<code>memory-events.jsonl</code> 第 51 行，<code>item_30</code>。</p>
+<blockquote>
+<p>All 23 unit tests pass. Now let me verify in a real browser — starting the server and driving Chrome via the DevTools Protocol:</p>
+</blockquote>
+<p>取材注意：耗时只是原始输出，不用于模型效率比较。第一次运行规则测试并未全部通过；此前还修过测试预期与图案数量限制。完整过程见日志第 32–50 行；主课可压缩，但不能讲成一次全绿。</p>
+</section><section id="e05"><h2>E05 · 浏览器检查发现步数显示遗漏</h2><p>来源：<code>memory-events.jsonl</code> 第 79 行，<code>item_46</code>，工具输出节选，省略其余行。</p>
+<pre><code class="language-text">  ✔ 配对成功后步数为 1
+  ✘ 不匹配同样计 1 步 -&gt; 1
+通过 52 项，失败 8 项
+</code></pre>
+<p>来源：<code>memory-events.jsonl</code> 第 80 行，<code>item_47</code>。</p>
+<blockquote>
+<p>Excellent — the browser test found a <strong>real bug</strong>: the moves counter doesn't refresh when a mismatch occurs. Let me fix that and the aria-label wording:</p>
+</blockquote>
+<p>来源：同日志第 82 行 <code>item_48</code> 的修改命令。下列为根据 old/new 字符串整理的等价差异，省略命令包装，不是原始 git diff：</p>
+<pre><code class="language-diff">       sfx.mismatch();
++      updateStats();
+       mismatchTimer = window.setTimeout(() =&gt; {
+</code></pre>
+<p>解释：前面成功配对已经记 1 步，随后翻错应显示 2，页面仍为 1。补充刷新后，继续修测试自身的统计口径和时间预期，才得到 61 项通过。八个失败断言不能称为八个产品 Bug。</p>
+<p>同项复测结果：<code>memory-events.jsonl</code> 第 85 行，<code>item_50</code>，工具输出节选。</p>
+<pre><code class="language-text">  ✔ 不匹配同样计 1 步
+</code></pre>
+<p>该断言核对的是累计显示值为 <code>2</code>（一轮正确配对后，再翻错一次）。课堂只展示这项修正前后的结果；不把后续总通过数的变化都归因于这一行修改。</p>
+</section><section id="e06"><h2>E06 · 61 项通过后继续看截图</h2><p>来源：<code>memory-events.jsonl</code> 第 85 行，<code>item_50</code>，工具输出节选，省略其余行。</p>
+<pre><code class="language-text">  ✔ 所有牌初始都是背面
+通过 61 项，失败 0 项
+</code></pre>
+<p>来源：<code>memory-events.jsonl</code> 第 86 行，<code>item_51</code>。</p>
+<blockquote>
+<p>All 61 browser checks pass. Let me look at the actual rendering:</p>
+</blockquote>
+<p>来源：<code>memory-events.jsonl</code> 第 89 行，<code>item_53</code>。</p>
+<blockquote>
+<p>Found a real visual bug — the cards show their <strong>fronts</strong> at rest instead of their backs. The 3D transforms are inverted. Also the 🃏 title glyph renders as a blank box. Fixing both:</p>
+</blockquote>
+<p>来源：<code>memory/test/browser-smoke.mjs</code> 第 178–178 行（冻结后的源码）。</p>
+<pre><code class="language-js">      allBackVisible: [...document.querySelectorAll('.card')].every(c =&gt; !c.classList.contains('is-open')),
+</code></pre>
+<p>来源：<code>memory/test/browser-smoke.mjs</code> 第 189–189 行（冻结后的源码）。</p>
+<pre><code class="language-js">    check('所有牌初始都是背面', initial.allBackVisible === true);
+</code></pre>
+<p>解释：检查判断没有 is-open 类，未确认 CSS 实际朝向。第 91 行 <code>item_54</code> 将 rotateY(180deg) 从牌背移到牌面；第 96 行 <code>item_57</code> 又让 shake/pop 动画保留翻转角度。错误画面未独立保存，不能拿最终截图作修复前画面。</p>
+</section><section id="e07"><h2>E07 · 交付前验证启动方式</h2><p>来源：<code>memory-events.jsonl</code> 第 113 行，<code>item_68</code>。</p>
+<blockquote>
+<p>Confirmed: <code>file://</code> is blocked by CORS (ES modules need an HTTP origin) — the README must say so. Let me review the final source:</p>
+</blockquote>
+<p>来源补充：第 112 行 <code>item_67</code> 的浏览器错误确实包含 <code>has been blocked by CORS policy</code> 和 <code>Failed to load resource: net::ERR_FAILED</code>。此处不复制含本机绝对路径的完整错误。最终 <code>memory/package.json</code> 的 start 指向 <code>node server.js</code>，README 要求通过 HTTP 访问。</p>
+</section><section id="e08"><h2>E08 · 最终结果与交付边界</h2><p>来源：<code>memory-events.jsonl</code> 第 129 行，<code>item_77</code>，工具输出节选，省略其余行。</p>
+<pre><code class="language-text">ℹ tests 23
+ℹ pass 23
+ℹ fail 0
+  GET / -&gt; 200
+通过 69 项，失败 0 项
+</code></pre>
+<p>来源补充：<code>memory-final.txt</code> 与 <code>memory/README.md</code>。最终回复列出功能、自行决定的细节、启动方式和未验证项：只测 headless Chrome；未实际听辨音效；真实触摸、真人体验和屏幕阅读器朗读未验证；未提交或发布。</p>
+<p>取材注意：最终回复使用“真实点击”一词，需对照源码限定含义。浏览器脚本通过 DOM click 和合成事件操作，并读取 pairIds 找到配对，不是仅凭画面信息自然试玩。最终校验日志实际直接运行 <code>node test/browser-smoke.mjs</code>；随后第 131 行 <code>item_78</code> 将相同入口登记为 npm run test:e2e 并重跑规则测试，不把输出标题当成命令调用证据。</p>
+<p>现存配套截图：<code>memory/docs/screenshot-initial.png</code>、<code>screenshot-win.png</code>、<code>screenshot-mobile.png</code>。已查看前两张：初始状态图含历史最佳成绩，通关图是自动化检查产生的结算画面，不能标为首次启动或真人通关成绩。它们均用于展示最终版本，不用于还原中间版本。</p>
+<p>本节使用的两张原图已复制到公开材料目录，未改图：<a href="../../lessons/01-memory-game/evidence/minimax-20261106/screenshot-initial.png">最终初始状态</a>、<a href="../../lessons/01-memory-game/evidence/minimax-20261106/screenshot-win.png">自动化检查结算</a>。图片不含个人资料；与冻结快照原文件逐字节相同。</p>
+<p>浏览器操作条件的源码依据：<code>memory/test/browser-smoke.mjs</code> 第 195–206 行，连续节选。</p>
+<pre><code class="language-js">    const pair = await cdp.eval(`(() =&gt; {
+      const ids = window.memoryGame.state.pairIds;
+      for (let i = 0; i &lt; ids.length; i++) {
+        for (let j = i + 1; j &lt; ids.length; j++) {
+          if (ids[i] === ids[j]) return [i, j];
+        }
+      }
+      return null;
+    })()`);
+    check('能从前端状态里找到一对同图案的牌', Array.isArray(pair), String(pair));
+
+    await cdp.eval(`document.querySelectorAll('.card')[${pair[0]}].click()`);
+</code></pre>
+</section><section id="e09"><h2>E09 · 模型自行决定的产品细节</h2><p>来源：<code>memory-final.txt</code> 的“自行决定的产品细节”段；同文见 <code>memory-events.jsonl</code> 第 134 行 <code>item_80</code>。以下原文完整摘录该段。</p>
+<blockquote>
+<p><strong>自行决定的产品细节</strong>：难度命名与牌阵（3×4 / 4×4 / 4×6）、&quot;步数&quot;= 翻开两张记一步、计时从第一次翻牌开始、最佳成绩按&quot;步数优先、时间次之&quot;比较、卡片图案用系统 emoji。</p>
+</blockquote>
+<p>使用时与 E01 原始请求对照：这些具体选择没有被逐项规定，但本轮明确授权模型决定未说明的细节。原文证明模型在交付时作出这项说明；行为核对须结合成品与实现。它不是讲师开工前批准的规格，也不因未写在第一句请求中就直接构成越界。</p>
+</section><section id="e10"><h2>E10 · 交付说明原文节选</h2><p>来源：<code>memory-final.txt</code> 的启动、实现与未验证项。以下仅选课堂使用的原文，省略本机目录、其余文件、功能清单和检查总结；实际运行结果以 E08 工具输出为准。</p>
+<p>启动命令原文：</p>
+<pre><code class="language-bash">npm start          # → http://127.0.0.1:8000/
+</code></pre>
+<blockquote>
+<p>零依赖、零构建：原生 HTML/CSS/ES Modules，<code>server.js</code> 是用 Node 标准库写的静态服务器。<strong>不能直接双击 <code>index.html</code></strong> —— 实测 ES Modules 在 <code>file://</code> 下被 CORS 拦截，必须走 http。</p>
+</blockquote>
+<p>文件表中的两行：</p>
+<p>| 文件 | 作用 |
+| --- | --- |
+| <code>src/game-core.js</code> | 纯状态机，不碰 DOM：<code>flip()</code> 返回 <code>first/match/mismatch/locked/…</code> |
+| <code>src/main.js</code> | UI 控制器：渲染、CSS class、动画编排 |</p>
+<p>未验证项节选：</p>
+<blockquote>
+<ul>
+<li>仅在 <strong>headless Chrome</strong> 上验证；Safari / Firefox 未测（用到的 <code>backface-visibility</code>、<code>:has</code> 之外的特性兼容性尚可，但 emoji 外观依赖系统字体，跨平台观感未确认）</li>
+<li>音效<strong>未实际听辨</strong>——headless 无音频输出，只验证了调用不抛异常</li>
+<li>真实触摸手势、真人试玩体验、屏幕阅读器朗读效果未验证</li>
+<li>未做任何提交或发布（该目录不是 git 仓库）</li>
+</ul>
+</blockquote>
+<p>讲述边界：以上是模型交付说明原文。“零依赖”指本项目运行代码未引入第三方包，仍需 Node 和浏览器；兼容性评价是模型表述，未做跨浏览器验证，课上只讲实际未测范围。</p>
+</section><section id="e11"><h2>E11 · 通关与重开的正向对照（2026-11-08 补核）</h2><p>E03 中的 matchedPairIds 每次加入配对编号，size 与 totalPairs 比较；两边均为对数。这段实现已出现在原日志第 16 行（汇总事件 14），不是后期为比较早期 05 补写的代码。</p>
+<p>原日志第 31 行（汇总事件 29）写入通关测试：以四种图案配完四对，再检查 matchedPairs 为 4、moves 为 4、状态为 WON，以及通关后忽略点击。原日志第 50 行（汇总事件 48）显示通关和 reset 检查通过；第 85 行（汇总事件 83）浏览器输出还包含十六张牌全部匹配、进度 8/8、通关浮层出现，以及重开后配对、步数、计时归零。</p>
+<p>结论分两层：源码说明为什么不会把张数当成对数；实际检查结果说明这次覆盖了通关与重开。不能把该对照讲成所有其他版本都做了同样测试，也不能倒推早期 05 的完整检查历史。</p>
+<p>2026-11-09 补核测试内容：汇总事件 29 中“翻开配对的两张牌”检查配成一对后 <code>r.isWin</code> 为 false、matchedPairs 为 1；“全部配对完成”测试配完四对，检查完成状态、matchedPairs 为 4 与停止接受翻牌；reset 测试检查进度归零。主讲入口现从该事件接事件 83 的浏览器结果，区分测试代码与实际执行结果。</p>
+</section><section id="e12"><h2>E12 · 实现前的产品规划（2026-11-08 原始会话补核）</h2><p>原有 <code>memory-events.jsonl</code> 是 CLI 事件导出，没有包含这部分设计记录。本轮依据同一 thread 的原始会话补档：<code>rollout-2026-11-06T17-03-18-01a1b019-1faa-7de1-972b-dbc888fb184b.jsonl</code> 第 23、34 行。以下是课程整理的高层设计决策摘要，不是原文或完整思考过程；只整理明确作出的产品选择。</p>
+<p>| 规划环节 | 实现前已经明确的选择 |
+| --- | --- |
+| 开局选择 | 简单 3×4、普通 4×4、困难 4×6；提供难度切换 |
+| 局内与成绩 | 显示步数、用时、配对进度；按难度分别保存最佳成绩 |
+| 通关之后 | 结算展示成绩，提供再玩一局和更换难度的入口 |</p>
+<p>第 23 行已提出多档难度、分档成绩和通关后继续玩的流程；第 34 行、创建实现文件之前，牌阵明确为上表的 12、16、24 张。E09 的交付说明与冻结源码 <code>memory/src/difficulty.js</code> 第 2–6 行可核对最终落地。第 23 行的困难牌阵曾拟为 20 张，不把草案写成从头至尾未变的规格。</p>
+<p>对照早期 05 的汇总事件 2–3：计划推荐固定六对、单一难度，沿用主页配色，先完成核心循环、计时计步和重开；明确暂不保存最佳成绩，理由是当前重点为接入主页，持久化还要处理存储不可用的情况。随后用户确认采用推荐方案。这是范围选择；不能把较小范围本身说成设计错误。紫色版是空目录里的独立游戏，两例的任务条件不同。</p>
+<p>课程据此解释：三档难度与成绩、重玩组成一套提前规划的使用流程。可以比较两份记录实际选择的范围，不能据此比较模型“思考更深”，或证明随机性是全部差异的原因。原请求中的自主决定授权仍见 E01。</p>
+<p>补档 SHA-256：<code>4989a29d2b6c37f2178915356ee01a8b2337f8436a8311362d2f392c454b797a</code>。原始会话、只读副本与本机定位留在被忽略的材料目录，不公开完整日志；原冻结快照保持不变。</p>
+</section><section id="e13"><h2>E13 · 实现前的视觉方向（2026-11-08 原始会话补核）</h2><p>来源同 E12 原始会话，第 34、65 行。以下为课程整理的高层设计决策摘要，不是原文或完整思考过程。</p>
+<p>| 设计对象 | 写界面前已经明确的选择 |
+| --- | --- |
+| 整体观感 | 深色渐变背景、玻璃质感的半透明面板、渐变牌背 |
+| 信息组织 | 标题与成绩、难度选择、牌阵、重开和通关浮层各有位置 |
+| 操作反馈 | 翻牌动画；配对成功与不匹配时分别提供反馈 |</p>
+<p>第 34 行在实现前列出整体视觉方向、界面组成与反馈；第 65 行在写 HTML/CSS 前再次明确深色渐变、玻璃面板和彩色牌背。课程解释为“先形成整体方案，再实现各个部分”。这是对记录中设计选择的归纳，不声称原记录逐字写出了课程的美学评价，也不把最终紫色、斜纹和星形细节都归为事先指定。</p>
+<p>实现备查：CLI 原日志第 21 行（汇总事件 19）的首次 HTML 分开操作与成绩；第 23 行（汇总事件 21）的 CSS 已有整体配色与牌背样式。主讲改看设计摘要；实现记录继续保留入口。看图后的修正链路见 E06：自动检查通过后仍检查实际渲染，发现正反面问题并修正。最终图只展示修复后状态，不能冒充历史错误画面。</p>
+</section><section id="e14"><h2>E14 · 两种验证缺口的区分（2026-11-09）</h2><p>讲师提出应区分“没有加入必要测试”和“已有测试沿用了错误理解”。早期 05 的现存依据为公开归档 <code>courseware/ch03/runs/data.js</code> 中 r1007-5（对应汇总事件 1–19）：</p>
+<ul>
+<li>请求和计划把浏览器试玩交给人；计划中的验证为 <code>npm run build</code>（含 <code>tsc -b</code>）通过、产物不含环境检查页。</li>
+<li>执行摘要记录构建、产物范围、主页与 CSS 查看；交付报告相同范围。归档 diff 仅有 App.tsx、MemoryGame.tsx、index.css 三个实现文件，没有新增或修改测试文件。</li>
+<li>以上没有提供通关规则测试的代码或运行结果，因此主讲落在“按分工补齐玩法验收”。它不能证明从未运行临时测试，也不能支持“测试把三对误当成通关预期”。完整事件文件原在另一台机器的被忽略运行目录，本机无该目录，也未找到该日的原始会话；不把摘要当完整日志。</li>
+</ul>
+<p>紫色版 E06 则确实有“检查通过仍漏错”的证据：61 项通过后，截图发现初始牌面反了；对应检查只看没有 is-open 标记，没有检查 CSS 的实际朝向。这说明检查依据未覆盖真实显示，不证明模型把玩法理解成开局可以露出图案。</p>
+<p>两条讲法分别为：缺少通关验证依据 → 把玩法验收加入交付流程，明确执行者；已有检查仍漏错 → 回到玩法要求与玩家可见结果，核对检查覆盖什么。课程举出的“三对不能通关、六对才通关”是依据早期 05 的六对玩法提出的验收预期，不冒充历史运行过的测试。相对独立的检查应从要求推出预期，不能仅重复实现里的计算或把换一个角色视为保证。</p>
+</section><section id="e15"><h2>E15 · 课堂聚焦节选：通关、重开与朝向修正（2026-11-09）</h2><p>本节供 3.1 的 HTML 直接定位。只摘与当前判断有关的代码和输出，不是完整日志或可独立运行的测试。原始记录入口保留在讲师页备查。</p>
+<p>早期 05：来源为公开归档 <code>courseware/ch03/runs/data.js</code> 的 r1007-5 diff（汇总事件 19 下方归档 diff）。<code>PAIR_COUNT</code> 为 6；以下两行连续原代码，省略 diff 的新增行前缀：</p>
+<pre><code class="language-js">const matchedCount = deck.reduce((total, card) =&gt; total + (card.matched ? 1 : 0), 0)
+const isWon = matchedCount === PAIR_COUNT
+</code></pre>
+<p>紫色版规则测试：<code>memory-events.jsonl</code> 第 31 行（汇总事件 29），三项测试的断言节选。先配成一对时：</p>
+<pre><code class="language-js">assert.equal(r.isWin, false);
+assert.equal(game.matchedPairs, 1);
+</code></pre>
+<p>将测试构造的四对牌全部配好时（不是浏览器普通难度的八对）：</p>
+<pre><code class="language-js">assert.equal(lastResult.isWin, true);
+assert.equal(game.status, STATUS.WON);
+assert.equal(game.matchedPairs, 4);
+</code></pre>
+<p>调用 <code>game.reset()</code> 后：</p>
+<pre><code class="language-js">assert.equal(game.moves, 0);
+assert.equal(game.matchedPairs, 0);
+assert.equal(game.startedAt, null);
+</code></pre>
+<p>浏览器输出：同日志第 85 行（汇总事件 83），原顺序节选；省略其他项。</p>
+<pre><code class="language-text">  ✔ 普通难度渲染 16 张牌
+  ✔ 全部配对后浮层弹出
+  ✔ 浮层标题是通关文案
+  ✔ 16 张牌全部标记为已配对
+  ✔ 配对计数显示 8/8
+  ✔ 再玩一局后没有已配对的牌
+  ✔ 再玩一局后步数归零
+  ✔ 再玩一局后配对归零
+  ✔ 再玩一局后计时归零
+</code></pre>
+<p>朝向修正：同日志第 91 行（汇总事件 88），将旋转从牌背移到牌面。下面是据修改命令 old/new 内容整理的局部差异；省略背景样式，不是原始 git diff。</p>
+<pre><code class="language-diff"> .card__back {
+-  transform: rotateY(180deg);
+ .card__front {
++  transform: rotateY(180deg);
+</code></pre>
+<p>动画修正：同日志第 96 行（汇总事件 93），shake 和 pop 的每个关键帧均补回旋转；下面各选一个关键帧，省略其余。</p>
+<pre><code class="language-diff">-  20% { transform: translateX(-7px); }
++  20% { transform: rotateY(180deg) translateX(-7px); }
+-  45% { transform: scale(1.13); }
++  45% { transform: rotateY(180deg) scale(1.13); }
+</code></pre>
+<p>同日志第 97 行（汇总事件 94）实际输出节选：</p>
+<pre><code class="language-text">styles.css keyframes patched
+smoke test: mid-game screenshot added
+通过 61 项，失败 0 项
+</code></pre>
+<p>后续中途与通关画面检查见汇总事件 95–101。该轮中间截图没有作为公开图片保存；HTML 展示的是修正记录和检查输出，不冒充完整视觉复验或当前重跑。旧牌面错误的发现及检查依据沿用 E06；最终成品仅用于展示修复后效果。</p>
+</section></main></body></html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="紫色玻璃风格的 60 秒躲避与收集小游戏：移动躲开障碍，收集水晶拿高分。">
+<meta name="theme-color" content="#141a2e">
+<title>闪避收集 · 60 秒挑战</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>">
+<link rel="stylesheet" href="./styles.css">
+<link rel="stylesheet" href="./game.css">
+</head>
+<body>
+<main class="app app--game">
+  <header class="app__header" id="app-header">
+    <h1 class="title">💎 闪避收集</h1>
+    <p class="subtitle">60 秒内躲开障碍，收集水晶拿高分。</p>
+  </header>
+
+  <section class="hud" aria-label="本局状态">
+    <div class="stat">
+      <span class="stat__label">剩余时间</span>
+      <span class="stat__value" id="stat-time">60</span>
+    </div>
+    <div class="stat">
+      <span class="stat__label">得分</span>
+      <span class="stat__value" id="stat-score">0</span>
+    </div>
+    <div class="stat">
+      <span class="stat__label">生命</span>
+      <span class="stat__value lives" id="stat-lives" aria-label="生命 3 点">❤️❤️❤️</span>
+    </div>
+  </section>
+
+  <section class="arena">
+    <canvas class="arena__canvas" id="canvas" width="900" height="560"
+      tabindex="0" role="img"
+      aria-label="游戏场地：躲避障碍并收集水晶"></canvas>
+  </section>
+
+  <footer class="app__footer" id="app-footer">
+    <p class="hint">方向键或 <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 移动躲开紫色障碍，收集水晶 💎 得分。<kbd>M</kbd> 切换音效，结算后按 <kbd>Enter</kbd> 再来一局。</p>
+  </footer>
+</main>
+
+<div class="overlay" id="overlay" hidden>
+  <div class="overlay__panel" role="dialog" aria-modal="true" aria-labelledby="overlay-title" aria-describedby="overlay-text">
+    <div class="overlay__emoji" id="overlay-emoji" aria-hidden="true">💎</div>
+    <h2 class="overlay__title" id="overlay-title">闪避收集 · 60 秒</h2>
+    <p class="overlay__text" id="overlay-text"></p>
+    <div class="overlay__stats" id="overlay-stats" hidden>
+      <div class="stat"><span class="stat__label">得分</span><span class="stat__value" id="final-score">0</span></div>
+      <div class="stat"><span class="stat__label">收集</span><span class="stat__value" id="final-gems">0</span></div>
+      <div class="stat"><span class="stat__label">存活</span><span class="stat__value" id="final-time">0s</span></div>
+    </div>
+    <p class="overlay__best" id="overlay-best" hidden></p>
+    <div class="overlay__actions">
+      <button class="btn btn--ghost" id="sound-toggle" type="button" aria-pressed="true">🔊 音效</button>
+      <button class="btn btn--primary" id="primary-btn" type="button">开始游戏</button>
+    </div>
+  </div>
+</div>
+
+<script src="./src/storage.js"></script>
+<script src="./src/sound.js"></script>
+<script src="./src/ui.js"></script>
+<script src="./src/game-core.js"></script>
+<script src="./src/main.js"></script>
+</body>
+</html>

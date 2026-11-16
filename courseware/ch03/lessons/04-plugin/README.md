@@ -1,6 +1,8 @@
 # 3.4 做游戏的经验，有人打包好了吗
 
-[打开课件](index.html) · [逐步讲稿](speaker.html) · [分镜](STORYBOARD.md)
+> 历史制作记录，只读备查。当前备课从 Discussion、讲述页和 PPT 进入。
+
+[打开课件](index.html) · [逐步讲稿](speaker.html) · [历史分镜](STORYBOARD.md)
 
 本节是待同步的旧版课件。当前设计与同步状态见[章入口](../../README.md)，本节不另维护章级范围与审阅状态。
 

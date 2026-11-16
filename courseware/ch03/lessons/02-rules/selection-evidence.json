@@ -1,0 +1,83 @@
+{
+  "date": "2026-11-07",
+  "cli": "0.163.0",
+  "model": "MiniMax-M3.1-Flash",
+  "sourceCommit": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "installation": "固定版本的本地演示副本，保留原相对引用；不是 Plugin 安装演示",
+  "prompt": "我做了一个浏览器记忆翻牌游戏，规则是每翻两张算一步，配对成功后保留，全部配对后结束；点击重开，牌面关闭、配对进度和步数归零。请给我一份简短的人工试玩清单，重点检查计步和重开。只给清单，不改代码，也不启动浏览器。",
+  "metadataExcerpt": "- game-playtest: Run browser-game playtests and frontend QA. … (file: r1/game-playtest/SKILL.md)",
+  "availableSkillNames": [
+    "imagegen",
+    "openai-docs",
+    "skill-creator",
+    "skill-installer",
+    "game-playtest",
+    "game-studio",
+    "game-ui-frontend",
+    "phaser-2d-game",
+    "react-three-fiber-game",
+    "sprite-pipeline",
+    "three-webgl-game",
+    "web-3d-asset-pipeline",
+    "web-game-foundations"
+  ],
+  "metadataLocator": "original-positive rollout 第 3 行，developer 消息的可用 Skill 列表",
+  "read": {
+    "item": "item_0",
+    "command": "cat …/game-playtest/SKILL.md",
+    "exitCode": 0,
+    "output": "工具返回与固定版本文件逐字一致；完整正文未复制到公开材料"
+  },
+  "answerExcerpt": "| A2 | 翻开第 1 张牌 | 步数仍 = 0 | ☐ |\n| A3 | 翻开第 2 张牌（不匹配） | 步数 = 1，两张都翻回背面 | ☐ |\n| B1 | 局中（已有步数、已有配对）点重开 | 全部牌面朝下，**包括已配对保留的牌** | ☐ |\n| B3 | 同上 | 步数归零 | ☐ |",
+  "runs": [
+    {
+      "run": "original-positive",
+      "description": "原描述",
+      "task": "试玩清单",
+      "selected": "已读取",
+      "result": "返回试玩清单",
+      "metadataVerified": true,
+      "eventsSha256": "a124c820e4ba110cf87638acec6503810b52842c0a057a9a4702d2dcbb60a995"
+    },
+    {
+      "run": "original-negative",
+      "description": "原描述",
+      "task": "按钮文案",
+      "selected": "未见读取",
+      "result": "重新开始",
+      "metadataVerified": true,
+      "eventsSha256": "5a1720f5737e60db9f9a52094074d9664b3931ecb18b9f8f5e8641465c7071ad"
+    },
+    {
+      "run": "revised-positive-verified",
+      "description": "改写描述",
+      "task": "试玩清单",
+      "selected": "已读取",
+      "result": "返回试玩清单",
+      "metadataVerified": true,
+      "eventsSha256": "1fd9b61a466ef5458dc5eb721e57fcb113a26ee0f762fda9f72241061e5a2898"
+    },
+    {
+      "run": "revised-negative",
+      "description": "改写描述",
+      "task": "按钮文案",
+      "selected": "未见读取",
+      "result": "点击重新开始",
+      "metadataVerified": true,
+      "eventsSha256": "24fa138539f422faec25d70472b2ed4c5db2d1aa9792568f0ce0a16d49dd59de"
+    }
+  ],
+  "explicitScreens": {
+    "01-skills-menu": "Skills\n  Choose an action\n\n\n› 1. List skills            Tip: press $ to open this list directly\n  2. Enable/Disable Skills  Enable or disable skills\n\n  enter select · esc back",
+    "02-skill-list": "› Game Playtest           [Skill] Run browser-game playtests and QA\n  Game Studio             [Skill] Route browser-game work to the right path\n  Game UI Frontend        [Skill] Design browser-game HUDs, menus, and overlays\n  Image Gen               [Skill] Generate or edit images for websites, games, and more\n  OpenAI Docs             [Skill] OpenAI and Codex docs for models, skills, tasks, and setup\n  Phaser 2D Game          [Skill] Build 2D browser games with Phaser\n  React Three Fiber Game  [Skill] Build React-hosted 3D browser games\n  Review Agent            [Skill] Find actionable bugs in code changes\n↓\n  enter insert · esc close\n\n› $",
+    "03-inserted": "› $game-playtest",
+    "04-request": "› $game-playtest 我做了一个浏览器记忆翻牌游戏，规则是每翻两张算一步，配对成功后保留，全部配对后结束；点击重\n  开，牌面关闭、配对进度和步数归零。请给我一份简短的人工试玩清单，重点检查计步和重开。只给清单，不改代码，也\n  不启动浏览器。"
+  },
+  "explicitLocator": {
+    "request": 10,
+    "skill": 12
+  },
+  "explicitAnswerExcerpt": "- [ ] 已配对若干对后重开 → **所有**牌面关闭（含已保留的配对牌），配对计数归 0。\n**记录问题格式**：看到什么 → 如何复现（写明第几步、点了几张）→ 归类到 *计步逻辑 / 重开状态重置 / UI 层*；配截图时重点留三张：翻第 1 张（步数 0）、翻第 2 张（步数 1）、重开后初始画面。",
+  "revisedDescription": "为浏览器游戏做试玩与前端质量检查。适用于准备人工试玩清单，或执行烟雾测试、截图核验、浏览器自动化、HUD 与覆盖层检查、结构化问题排查。仅润色按钮文案且不涉及游戏检查时，不使用本 Skill。",
+  "negativePrompt": "请把“点击重新开始按钮可以再次进行游戏”改成一句更简短的按钮提示语，只返回文案。"
+}

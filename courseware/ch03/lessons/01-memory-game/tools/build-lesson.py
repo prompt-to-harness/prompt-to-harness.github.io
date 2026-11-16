@@ -1,10 +1,90 @@
 #!/usr/bin/env python3
-"""3.1 一句话加一个记忆翻牌：本节唯一的内容源，生成 lesson.js。
+"""3.1 构建入口：校验画面与口播映射，生成对照阅读数据与当前 PPT。
 
-分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch03/tools/lessonkit.py。
+历史分镜见 ../STORYBOARD.md（只读）；页面登记、章节地图与输出见 courseware/ch03/tools/lessonkit.py。
 """
+import json
 import sys
 from pathlib import Path
+
+# 讲师页使用真实游戏与证据，PPT 在 screen-plan 分支内由 memory-slides.py 生成。
+# 不让旧版 21 个动画步骤限制新版讲述长度；编辑服务仍从 script.json 重建。
+here = Path(__file__).resolve().parents[1]
+scripts = json.loads((here / 'script.json').read_text())
+if (here / 'screen-plan.json').exists():
+    plan = json.loads((here / 'screen-plan.json').read_text())
+    ids = [part['id'] for part in plan['parts']]
+    assert set(ids) == set(scripts), 'screen plan and narration parts differ'
+    covered = set()
+    for frame in plan['frames']:
+        key = (frame['scene'], frame['step'])
+        assert key not in covered, f'duplicate narration mapping: {key}'
+        assert key[0] in scripts and 0 <= key[1] < len(scripts[key[0]]), key
+        covered.add(key)
+    assert covered == {(key, i) for key, steps in scripts.items() for i in range(len(steps))}, 'unmapped narration'
+    unit_frames = [fid for unit in plan['units'] for fid in unit['frames']]
+    assert len(unit_frames) == len(set(unit_frames)), 'duplicate historical anchor'
+    assert set(unit_frames) == {frame['id'] for frame in plan['frames']}, 'historical anchors must remain available'
+    assert len({unit['id'] for unit in plan['units']}) == len(plan['units']), 'duplicate display unit'
+    assert set(plan['design']['ppt_units']) <= {unit['id'] for unit in plan['units']}, 'unknown PPT unit'
+    assert [item['unit'] for item in plan['overview']['sequence']] == [unit['id'] for unit in plan['units']], 'overview and teaching order differ'
+    source_refs = set()
+    for unit in plan['units']:
+        assert unit.get('script_blocks'), f'missing corresponding script: {unit["id"]}'
+        for block in unit['script_blocks']:
+            assert block.get('refs') or block.get('pending') or block.get('cue'), block
+            if 'cue' in block:
+                assert isinstance(block['cue'], str) and block['cue'].strip(), block
+            for scene, step, part in block.get('refs', []):
+                key = (scene, step, part)
+                assert key not in source_refs, f'duplicate displayed paragraph: {key}'
+                assert scene in scripts and 0 <= step < len(scripts[scene]), key
+                assert 0 <= part < len(scripts[scene][step].split('\n\n')), key
+                source_refs.add(key)
+            if block.get('prompt'):
+                assert block['prompt'] in plan['prompts'], block
+            if block.get('visual'):
+                visual = plan['visuals'][block['visual']]
+                assert (here / visual['src']).is_file(), visual
+            for frame_id, position in block.get('materials', []):
+                frame = next(frame for frame in plan['frames'] if frame['id'] == frame_id)
+                assert 0 <= position < len(frame['links']), block
+    draft = {
+        'title': '经历一次真实的游戏开发',
+        'scenes': [{'id': part['id'], 'label': part['title'], 'script': scripts[part['id']]} for part in plan['parts']],
+    }
+    payload = 'window.lesson = ' + json.dumps(draft, ensure_ascii=False, indent=2) + ';\n'
+    payload += 'window.screenPlan = ' + json.dumps(plan, ensure_ascii=False, indent=2) + ';\n'
+    (here / 'speaker-data.js').write_text(payload)
+    if '--speaker-only' in sys.argv:
+        print(f'3.1: {len(plan["units"])} stages, {len(source_refs)} script paragraphs; speaker data generated, slides unchanged')
+        sys.exit(0)
+    from runpy import run_path
+    run_path(str(Path(__file__).with_name('memory-slides.py')))['build'](here, scripts, plan)
+    print(f'3.1: {len(plan["units"])} planned stages, {len(source_refs)} corresponding script paragraphs; speaker data and PPT generated')
+    sys.exit(0)
+
+if set(scripts) == {'part-1', 'part-2'}:
+    from runpy import run_path
+    run_path(str(Path(__file__).with_name('build-evidence.py')), run_name='__main__')
+    titles = {
+        'part-1': '给 AI 一个目标，也在把一部分开发决定交给它',
+        'part-2': '根据实际行动和证据判断 AI 的工作',
+    }
+    draft = {
+        'title': '经历一次真实的游戏开发',
+        'prep': [
+            '先按 STORYBOARD 的 A1–A5 连贯演示，再走 A6–B8。它们是两部分内部的操作定位，不是独立小节；本页是联合编排后的阅读形式。',
+            '准备两个窗口：MiniMax 翻牌独立副本、evidence.html 证据页。主录制窗口按段全屏切换，讲稿留在录制区域外；证据页导航直接定位原始请求、两行失败、局部修改和同项复测。',
+            '游戏取景须同时包括难度、统计栏和完整牌阵。已核对 1440×960；1280×800 会裁掉普通与困难末排。请求全文独占画面并换行，不把完整游戏和长材料挤在半屏里。',
+            '开场是成品预览，原请求是历史记录，试玩与取舍发生在接手之后。牌序随机，仅按可见图案操作；历史故障用旧日志，不在当前成品补演。',
+            '请求先留阅读时间；切难度后停 3 秒；翻牌动画期间停讲原因。修正后返回同一游戏观察步数，再重开。现场数字按实际说，不预填成功结果。停留时间需讲师出声试读后再定。',
+        ],
+        'scenes': [{'id': key, 'label': titles[key], 'script': scripts[key]} for key in titles],
+    }
+    (here / 'speaker-data.js').write_text('window.lesson = ' + json.dumps(draft, ensure_ascii=False, indent=2) + ';\n')
+    print('3.1: joint demo evidence + narration, 2 parts; legacy slides unchanged')
+    sys.exit(0)
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
 from lessonkit import Lesson, MEASURED, chapter_map, repro, teach  # noqa: E402

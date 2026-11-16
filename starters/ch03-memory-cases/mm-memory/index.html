@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="记忆翻牌配对小游戏：翻开两张相同的图案即可配对，用最少的步数完成全部配对。">
+<meta name="theme-color" content="#141a2e">
+<title>记忆翻牌 · Memory Match</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<main class="app">
+  <header class="app__header">
+    <h1 class="title">🧠 记忆翻牌</h1>
+    <p class="subtitle">翻开两张相同的图案即可配对，用最少的步数完成全部配对。</p>
+  </header>
+
+  <section class="toolbar" aria-label="游戏设置">
+    <div class="field">
+      <span class="field__label" id="difficulty-label">难度</span>
+      <div class="segmented" id="difficulty-group" role="radiogroup" aria-labelledby="difficulty-label"></div>
+    </div>
+    <div class="field field--actions">
+      <button class="btn btn--ghost" id="sound-toggle" type="button" aria-pressed="true">🔊 音效</button>
+      <button class="btn btn--primary" id="restart-btn" type="button">↻ 重新开始</button>
+    </div>
+  </section>
+
+  <section class="stats" aria-label="本局数据">
+    <div class="stat"><span class="stat__label">步数</span><span class="stat__value" id="stat-moves">0</span></div>
+    <div class="stat"><span class="stat__label">用时</span><span class="stat__value" id="stat-time">0:00</span></div>
+    <div class="stat"><span class="stat__label">配对</span><span class="stat__value" id="stat-pairs">0/0</span></div>
+    <div class="stat"><span class="stat__label">最佳</span><span class="stat__value" id="stat-best">—</span></div>
+  </section>
+
+  <section class="board-wrap">
+    <div class="board" id="board"></div>
+  </section>
+
+  <footer class="app__footer">
+    <p class="hint">键盘操作：<kbd>←</kbd><kbd>↑</kbd><kbd>→</kbd><kbd>↓</kbd> 移动焦点，<kbd>Enter</kbd> 或 <kbd>空格</kbd> 翻牌。</p>
+  </footer>
+</main>
+
+<div class="overlay" id="overlay" hidden>
+  <div class="overlay__panel" role="dialog" aria-modal="true" aria-labelledby="overlay-title" aria-describedby="overlay-text">
+    <div class="overlay__emoji" id="overlay-emoji" aria-hidden="true">🎉</div>
+    <h2 class="overlay__title" id="overlay-title">全部配对完成！</h2>
+    <p class="overlay__text" id="overlay-text"></p>
+    <div class="overlay__actions">
+      <button class="btn btn--primary" id="overlay-again" type="button">再玩一局</button>
+      <button class="btn btn--ghost" id="overlay-close" type="button">查看牌面</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>

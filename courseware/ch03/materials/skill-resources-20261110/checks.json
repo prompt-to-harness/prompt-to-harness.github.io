@@ -1,0 +1,105 @@
+{
+  "frames": [
+    {
+      "name": "01.png",
+      "size": [
+        64,
+        64
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "bbox": [
+        16,
+        16,
+        48,
+        64
+      ],
+      "bottom": 64,
+      "center_x": 32.0
+    },
+    {
+      "name": "02.png",
+      "size": [
+        64,
+        64
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "bbox": [
+        16,
+        16,
+        48,
+        64
+      ],
+      "bottom": 64,
+      "center_x": 32.0
+    },
+    {
+      "name": "03.png",
+      "size": [
+        64,
+        64
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "bbox": [
+        16,
+        0,
+        48,
+        64
+      ],
+      "bottom": 64,
+      "center_x": 32.0
+    },
+    {
+      "name": "04.png",
+      "size": [
+        64,
+        64
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "bbox": [
+        16,
+        16,
+        48,
+        64
+      ],
+      "bottom": 64,
+      "center_x": 32.0
+    }
+  ],
+  "input": {
+    "size": [
+      512,
+      128
+    ],
+    "slots": 4,
+    "origin": "course-created synthetic fixture"
+  },
+  "source_unchanged": {
+    "references/sprite-pipeline.md": true,
+    "references/playtest-checklist.md": true,
+    "scripts/build_sprite_edit_canvas.py": true,
+    "scripts/render_sprite_preview_sheet.py": true,
+    "scripts/normalize_sprite_strip.py": true,
+    "skills/sprite-pipeline/SKILL.md": true
+  },
+  "preview_size": [
+    280,
+    64
+  ],
+  "passed": true
+}

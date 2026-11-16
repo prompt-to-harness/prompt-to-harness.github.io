@@ -1,0 +1,1233 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>3.3 原文与源码查看</title><style>body{max-width:1100px;margin:32px auto;padding:0 24px;background:#f7f7f0;color:#283c31;font:18px/1.8 system-ui}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#edf1e9;padding:24px;font:18px/1.7 monospace}a{color:#326449}section{margin:60px 0}section:target{scroll-margin-top:20px}</style><h1>3.3 原文与源码</h1><p>以下为保存文件的原文，仅做 HTML 转义展示，不执行源码。</p>
+<section id="original"><h2>原组件正文</h2><p>文件：original-skill.txt</p><p><a href="index.html#origin">返回声音来源</a> · <a href="index.html#change">返回 Skill 差异</a> · <a href="../../speaker.html#audio-origin">返回讲述位置</a></p><pre>---
+name: purple-game-ui
+description: Build or restyle browser mini-games with the shared &quot;purple dusk&quot; visual language — deep indigo-violet gradient surfaces, glass panels, indigo-to-violet accent buttons, stat cards, and a settlement/result overlay. Use when creating a new small web game, porting an existing game&#x27;s look to this purple theme, or when several games with different gameplay types must share one visual system (reusable theme tokens, HUD/data-card components, result overlay, and HUD-placement rules).
+---
+
+# Purple Game UI
+
+一套可复用的紫色小游戏视觉系统。三个资源各自独立，也可以单独取用：
+
+| 资源 | 文件 | 作用 |
+|---|---|---|
+| **主题** | `assets/css/purple-theme.css` | 令牌（`--pg-*`）、背景、标题、按钮、分段控件、焦点环、动效降级 |
+| **数据卡** | `assets/css/stat-cards.css` | HUD 读数卡（顶部横排 / 侧边 rail / 底部横条 / 紧凑 chip） |
+| **结算浮层** | `assets/css/result-overlay.css` | 结算面板：遮罩、图标、标题、明细行、按钮区 |
+
+附加：`assets/js/purple-ui-kit.js`（数据卡渲染 + 浮层焦点管理）、`assets/html/components.html`（静态标记片段）、`assets/preview.html`（可视化预览）。
+
+## 工作流
+
+1. **复制资源**：把 `assets/css/` 下需要的文件拷进项目（三个 css 可独立引入；`stat-cards.css` 与 `result-overlay.css` 依赖 `purple-theme.css` 的令牌）。需要数据卡渲染/浮层行为时再拷 `assets/js/purple-ui-kit.js`。
+2. **上主题**：`&lt;body class=&quot;pg-body&quot;&gt;`（或给容器加 `.pg-surface`）。标题用 `.pg-title`，副标题 `.pg-subtitle`。
+3. **摆 HUD**：按下面的布局规则选容器形态——`.pg-stats--row`（回合制顶部横排）、`.pg-stats--rail`（实时侧边竖排）、`.pg-stats--inline`（实时底部横条）、`.pg-chip`（高频刷新的浮动读数）。
+4. **接结算**：用 `ResultOverlay` 或静态 `.pg-overlay` 结构，`open({ emoji, title, text, rows, actions })`。
+5. **核对令牌**：颜色/圆角/阴影一律引用 `--pg-*`，不要写死十六进制。令牌表与用法见 `references/tokens.md`。
+
+## 布局规则（核心）
+
+**如果玩法要求玩家持续观察场地和读数，就让 HUD 靠近场地边缘——具体贴哪条边，按玩法的自然视线落点和操作手决定。**
+
+- 回合制、读数只在操作后变化 → HUD 在场地上方一条横排（视线切换成本被回合节奏摊薄）。
+- 实时、读数持续变化 → HUD 贴场地左/右竖向 rail 或底部横条，别单独占据屏幕一端。
+- 只有一两个数值需要真盯着（血量、剩余时间）→ 做成 `.pg-chip` 贴在场边缘，其余统计退到边栏。
+- HUD 不得覆盖场地的可交互元素；数值变化用 `tabular-nums`，每秒刷新也不能让布局抖。
+
+按玩法选边、网格实现示例、验收清单见 `references/layout.md`。
+
+## 用法片段
+
+HTML（数据卡 + 浮层）：
+
+```html
+&lt;link rel=&quot;stylesheet&quot; href=&quot;css/purple-theme.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;css/stat-cards.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;css/result-overlay.css&quot;&gt;
+
+&lt;div class=&quot;pg-stats pg-stats--rail&quot;&gt;
+  &lt;div class=&quot;pg-stat&quot;&gt;
+    &lt;span class=&quot;pg-stat__label&quot;&gt;生命&lt;/span&gt;
+    &lt;span class=&quot;pg-stat__value&quot;&gt;3&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+```
+
+JS（渲染 + 浮层）：
+
+```js
+import { renderStats, updateStats, ResultOverlay } from &#x27;./purple-ui-kit.js&#x27;;
+
+const stats = renderStats(document.getElementById(&#x27;hud&#x27;), [
+  { key: &#x27;hp&#x27;,   label: &#x27;生命&#x27;, value: 3,  state: &#x27;good&#x27; },
+  { key: &#x27;time&#x27;, label: &#x27;用时&#x27;, value: &#x27;0:00&#x27; },
+]);
+updateStats(stats, { hp: 2, time: &#x27;0:12&#x27; });   // 值变化时自动播放一次高亮脉冲
+
+const overlay = new ResultOverlay(document.getElementById(&#x27;overlay&#x27;));
+overlay.open({
+  emoji: &#x27;🎉&#x27;,
+  title: &#x27;全部配对完成！&#x27;,
+  text: &#x27;本局用时 0:03，共 9 步。&#x27;,
+  rows: [{ label: &#x27;用时&#x27;, value: &#x27;0:03&#x27; }, { label: &#x27;最佳成绩&#x27;, value: &#x27;9 步 · 0:01&#x27;, state: &#x27;good&#x27; }],
+  actions: [{ label: &#x27;再玩一局&#x27;, primary: true, onClick: () =&gt; overlay.close() }],
+});
+```
+
+## 约束
+
+- 类名与变量一律 `--pg-` / `.pg-` 前缀，避免与宿主项目冲突。
+- 焦点环（3px `--pg-accent-3`）不要删；结算浮层必须能 `Esc` 关闭、Tab 焦点循环、关闭后焦点归位（`ResultOverlay` 已实现）。
+- 颜色不能单独传达含义，配上文字或形状变化。
+- 不要给宿主页面全局加 `backdrop-filter` / 重置样式，除非项目本身就是新页面。
+- 想先看效果：起一个静态服务器打开 `assets/preview.html`（ES Modules 需要 http，`file://` 会被 CORS 拦截）。
+
+## 验证
+
+本 Skill 自带的资源已在 headless Chrome 中渲染核对：深靛渐变背景、玻璃面板、顶部横排 / 侧边 rail / 底部横条三种 HUD 形态、结算浮层（遮罩 + 明细行 + 按钮）、窄屏断点。`assets/preview.html` 可作为回归基线，改动样式后重截对比。
+</pre></section>
+<section id="revised"><h2>修改后组件正文</h2><p>文件：revised-skill.txt</p><p><a href="index.html#origin">返回声音来源</a> · <a href="index.html#change">返回 Skill 差异</a> · <a href="../../speaker.html#audio-guidance">返回讲述位置</a></p><pre>---
+name: purple-game-ui
+description: Build or restyle browser mini-games with the shared &quot;purple dusk&quot; visual language — deep indigo-violet gradient surfaces, glass panels, indigo-to-violet accent buttons, stat cards, and a settlement/result overlay. Use when creating a new small web game, porting an existing game&#x27;s look to this purple theme, or when several games with different gameplay types must share one visual system (reusable theme tokens, HUD/data-card components, result overlay, and HUD-placement rules).
+---
+
+# Purple Game UI
+
+一套可复用的紫色小游戏视觉系统。三个资源各自独立，也可以单独取用：
+
+| 资源 | 文件 | 作用 |
+|---|---|---|
+| **主题** | `assets/css/purple-theme.css` | 令牌（`--pg-*`）、背景、标题、按钮、分段控件、焦点环、动效降级 |
+| **数据卡** | `assets/css/stat-cards.css` | HUD 读数卡（顶部横排 / 侧边 rail / 底部横条 / 紧凑 chip） |
+| **结算浮层** | `assets/css/result-overlay.css` | 结算面板：遮罩、图标、标题、明细行、按钮区 |
+
+附加：`assets/js/purple-ui-kit.js`（数据卡渲染 + 浮层焦点管理）、`assets/html/components.html`（静态标记片段）、`assets/preview.html`（可视化预览）。
+
+## 工作流
+
+1. **复制资源**：把 `assets/css/` 下需要的文件拷进项目（三个 css 可独立引入；`stat-cards.css` 与 `result-overlay.css` 依赖 `purple-theme.css` 的令牌）。需要数据卡渲染/浮层行为时再拷 `assets/js/purple-ui-kit.js`。
+2. **上主题**：`&lt;body class=&quot;pg-body&quot;&gt;`（或给容器加 `.pg-surface`）。标题用 `.pg-title`，副标题 `.pg-subtitle`。
+3. **摆 HUD**：按下面的布局规则选容器形态——`.pg-stats--row`（回合制顶部横排）、`.pg-stats--rail`（实时侧边竖排）、`.pg-stats--inline`（实时底部横条）、`.pg-chip`（高频刷新的浮动读数）。
+4. **接结算**：用 `ResultOverlay` 或静态 `.pg-overlay` 结构，`open({ emoji, title, text, rows, actions })`。
+5. **核对令牌**：颜色/圆角/阴影一律引用 `--pg-*`，不要写死十六进制。令牌表与用法见 `references/tokens.md`。
+
+## 布局规则（核心）
+
+**如果玩法要求玩家持续观察场地和读数，就让 HUD 靠近场地边缘——具体贴哪条边，按玩法的自然视线落点和操作手决定。**
+
+- 回合制、读数只在操作后变化 → HUD 在场地上方一条横排（视线切换成本被回合节奏摊薄）。
+- 实时、读数持续变化 → HUD 贴场地左/右竖向 rail 或底部横条，别单独占据屏幕一端。
+- 只有一两个数值需要真盯着（血量、剩余时间）→ 做成 `.pg-chip` 贴在场边缘，其余统计退到边栏。
+- HUD 不得覆盖场地的可交互元素；数值变化用 `tabular-nums`，每秒刷新也不能让布局抖。
+
+按玩法选边、网格实现示例、验收清单见 `references/layout.md`。
+
+## 用法片段
+
+HTML（数据卡 + 浮层）：
+
+```html
+&lt;link rel=&quot;stylesheet&quot; href=&quot;css/purple-theme.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;css/stat-cards.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;css/result-overlay.css&quot;&gt;
+
+&lt;div class=&quot;pg-stats pg-stats--rail&quot;&gt;
+  &lt;div class=&quot;pg-stat&quot;&gt;
+    &lt;span class=&quot;pg-stat__label&quot;&gt;生命&lt;/span&gt;
+    &lt;span class=&quot;pg-stat__value&quot;&gt;3&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+```
+
+JS（渲染 + 浮层）：
+
+```js
+import { renderStats, updateStats, ResultOverlay } from &#x27;./purple-ui-kit.js&#x27;;
+
+const stats = renderStats(document.getElementById(&#x27;hud&#x27;), [
+  { key: &#x27;hp&#x27;,   label: &#x27;生命&#x27;, value: 3,  state: &#x27;good&#x27; },
+  { key: &#x27;time&#x27;, label: &#x27;用时&#x27;, value: &#x27;0:00&#x27; },
+]);
+updateStats(stats, { hp: 2, time: &#x27;0:12&#x27; });   // 值变化时自动播放一次高亮脉冲
+
+const overlay = new ResultOverlay(document.getElementById(&#x27;overlay&#x27;));
+overlay.open({
+  emoji: &#x27;🎉&#x27;,
+  title: &#x27;全部配对完成！&#x27;,
+  text: &#x27;本局用时 0:03，共 9 步。&#x27;,
+  rows: [{ label: &#x27;用时&#x27;, value: &#x27;0:03&#x27; }, { label: &#x27;最佳成绩&#x27;, value: &#x27;9 步 · 0:01&#x27;, state: &#x27;good&#x27; }],
+  actions: [{ label: &#x27;再玩一局&#x27;, primary: true, onClick: () =&gt; overlay.close() }],
+});
+```
+
+## 约束
+
+- 类名与变量一律 `--pg-` / `.pg-` 前缀，避免与宿主项目冲突。
+- 焦点环（3px `--pg-accent-3`）不要删；结算浮层必须能 `Esc` 关闭、Tab 焦点循环、关闭后焦点归位（`ResultOverlay` 已实现）。
+- 颜色不能单独传达含义，配上文字或形状变化。
+- 不要给宿主页面全局加 `backdrop-filter` / 重置样式，除非项目本身就是新页面。
+- 想先看效果：起一个静态服务器打开 `assets/preview.html`（ES Modules 需要 http，`file://` 会被 CORS 拦截）。
+
+## 验证
+
+本 Skill 自带的资源已在 headless Chrome 中渲染核对：深靛渐变背景、玻璃面板、顶部横排 / 侧边 rail / 底部横条三种 HUD 形态、结算浮层（遮罩 + 明细行 + 按钮）、窄屏断点。`assets/preview.html` 可作为回归基线，改动样式后重截对比。
+
+## 游戏事件的声音反馈
+
+开发可交互小游戏时，沿用现有布局与视觉组件，并接入 `assets/js/purple-sound.js` 的声音反馈；若任务明确要求无声，则不接入。这个独立 ES Module 不依赖页面结构或 `purple-ui-kit.js`，不要为接入声音改变 HUD 位置、浮层用途或玩法效果。
+
+- 复制该文件到项目，导入 `sfx`、`setSoundEnabled`、`isSoundEnabled`。音效库来自整页版的声音实现及其躲避游戏中的事件扩展。
+- 按实际游戏事件接线：确认开始可用 `sfx.tick()`，收集成功用 `sfx.pickup()`，受伤用 `sfx.hurt()`；胜利用 `sfx.win()`，失败可用 `sfx.mismatch()`。翻牌和配对仍可用 `flip()`、`match()`。只为游戏实际存在的事件接线，每次事件调用一次，不在绘制循环或持续按键中重复播放。
+- 用明确的音效开关调用 `setSoundEnabled(value)`，用 `isSoundEnabled()`同步状态。首次播放应来自玩家的开始或其他真实操作；浏览器没有音频能力时，游戏仍须可玩。
+- 保留原有可见反馈：声音补充收集、受伤和按钮反馈，不替代闪光、数值变化、浮层等视觉信息，也不规定场地布局。
+- 验证开始、收集、受伤等已接线事件能发声，静音后这些事件不再发声；同时复查原有布局、开场/结算浮层和玩法反馈。
+</pre></section>
+<section id="historical-sound"><h2>历史整页游戏声音模块</h2><p>文件：historical-template/src/sound.js</p><p><a href="index.html#origin">返回声音来源</a> · <a href="index.html#change">返回 Skill 差异</a> · <a href="../../speaker.html#audio-scope">返回讲述位置</a></p><pre>/**
+ * 用 WebAudio 现场合成音效，不依赖任何外部音频文件。
+ * 浏览器要求用户先有交互才允许播放 AudioContext，这里做惰性创建。
+ */
+
+let ctx = null;
+let enabled = true;
+
+export function setSoundEnabled(value) {
+  enabled = Boolean(value);
+}
+
+export function isSoundEnabled() {
+  return enabled;
+}
+
+function getContext() {
+  if (!enabled) return null;
+  if (ctx === null) {
+    const Ctor = window.AudioContext || window.webkitAudioContext;
+    if (!Ctor) return null;
+    try {
+      ctx = new Ctor();
+    } catch {
+      ctx = null;
+    }
+  }
+  if (ctx &amp;&amp; ctx.state === &#x27;suspended&#x27;) ctx.resume().catch(() =&gt; {});
+  return ctx;
+}
+
+/** 播放一个音符。 */
+function tone(freq, duration, { type = &#x27;sine&#x27;, delay = 0, gain = 0.15 } = {}) {
+  const audio = getContext();
+  if (!audio) return;
+  const start = audio.currentTime + delay;
+  const osc = audio.createOscillator();
+  const vol = audio.createGain();
+  osc.type = type;
+  osc.frequency.setValueAtTime(freq, start);
+  vol.gain.setValueAtTime(0.0001, start);
+  vol.gain.exponentialRampToValueAtTime(gain, start + 0.015);
+  vol.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+  osc.connect(vol).connect(audio.destination);
+  osc.start(start);
+  osc.stop(start + duration + 0.02);
+}
+
+export const sfx = {
+  flip() {
+    tone(520, 0.07, { type: &#x27;triangle&#x27;, gain: 0.09 });
+  },
+  match() {
+    tone(660, 0.12, { type: &#x27;sine&#x27;, gain: 0.13 });
+    tone(990, 0.16, { type: &#x27;sine&#x27;, delay: 0.08, gain: 0.11 });
+  },
+  mismatch() {
+    tone(196, 0.2, { type: &#x27;sawtooth&#x27;, gain: 0.07 });
+  },
+  win() {
+    [523, 659, 784, 1047].forEach((freq, i) =&gt; {
+      tone(freq, 0.26, { type: &#x27;triangle&#x27;, delay: i * 0.11, gain: 0.13 });
+    });
+  },
+  /** 收集到宝石 */
+  pickup() {
+    tone(880, 0.08, { type: &#x27;triangle&#x27;, gain: 0.11 });
+    tone(1320, 0.12, { type: &#x27;sine&#x27;, delay: 0.07, gain: 0.1 });
+  },
+  /** 撞到障碍，扣血 */
+  hurt() {
+    tone(150, 0.26, { type: &#x27;sawtooth&#x27;, gain: 0.11 });
+    tone(98, 0.3, { type: &#x27;square&#x27;, delay: 0.05, gain: 0.08 });
+  },
+  /** 开局倒数提示 */
+  tick() {
+    tone(720, 0.05, { type: &#x27;sine&#x27;, gain: 0.08 });
+  },
+};
+</pre></section>
+<section id="added-sound"><h2>新增声音资源</h2><p>文件：after/js/purple-sound.js</p><p><a href="index.html#origin">返回声音来源</a> · <a href="index.html#change">返回 Skill 差异</a> · <a href="../../speaker.html#audio-resource">返回讲述位置</a></p><pre>/**
+ * 用 WebAudio 现场合成音效，不依赖任何外部音频文件。
+ * 浏览器要求用户先有交互才允许播放 AudioContext，这里做惰性创建。
+ */
+
+let ctx = null;
+let enabled = true;
+
+export function setSoundEnabled(value) {
+  enabled = Boolean(value);
+}
+
+export function isSoundEnabled() {
+  return enabled;
+}
+
+function getContext() {
+  if (!enabled) return null;
+  if (ctx === null) {
+    const Ctor = window.AudioContext || window.webkitAudioContext;
+    if (!Ctor) return null;
+    try {
+      ctx = new Ctor();
+    } catch {
+      ctx = null;
+    }
+  }
+  if (ctx &amp;&amp; ctx.state === &#x27;suspended&#x27;) ctx.resume().catch(() =&gt; {});
+  return ctx;
+}
+
+/** 播放一个音符。 */
+function tone(freq, duration, { type = &#x27;sine&#x27;, delay = 0, gain = 0.15 } = {}) {
+  const audio = getContext();
+  if (!audio) return;
+  const start = audio.currentTime + delay;
+  const osc = audio.createOscillator();
+  const vol = audio.createGain();
+  osc.type = type;
+  osc.frequency.setValueAtTime(freq, start);
+  vol.gain.setValueAtTime(0.0001, start);
+  vol.gain.exponentialRampToValueAtTime(gain, start + 0.015);
+  vol.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+  osc.connect(vol).connect(audio.destination);
+  osc.start(start);
+  osc.stop(start + duration + 0.02);
+}
+
+export const sfx = {
+  flip() {
+    tone(520, 0.07, { type: &#x27;triangle&#x27;, gain: 0.09 });
+  },
+  match() {
+    tone(660, 0.12, { type: &#x27;sine&#x27;, gain: 0.13 });
+    tone(990, 0.16, { type: &#x27;sine&#x27;, delay: 0.08, gain: 0.11 });
+  },
+  mismatch() {
+    tone(196, 0.2, { type: &#x27;sawtooth&#x27;, gain: 0.07 });
+  },
+  win() {
+    [523, 659, 784, 1047].forEach((freq, i) =&gt; {
+      tone(freq, 0.26, { type: &#x27;triangle&#x27;, delay: i * 0.11, gain: 0.13 });
+    });
+  },
+  /** 收集到宝石 */
+  pickup() {
+    tone(880, 0.08, { type: &#x27;triangle&#x27;, gain: 0.11 });
+    tone(1320, 0.12, { type: &#x27;sine&#x27;, delay: 0.07, gain: 0.1 });
+  },
+  /** 撞到障碍，扣血 */
+  hurt() {
+    tone(150, 0.26, { type: &#x27;sawtooth&#x27;, gain: 0.11 });
+    tone(98, 0.3, { type: &#x27;square&#x27;, delay: 0.05, gain: 0.08 });
+  },
+  /** 开局倒数提示 */
+  tick() {
+    tone(720, 0.05, { type: &#x27;sine&#x27;, gain: 0.08 });
+  },
+};
+</pre></section>
+<section id="template-sound"><h2>原模板声音模块</h2><p>文件：template-sound.js</p><p><a href="index.html#origin">返回声音来源</a> · <a href="index.html#change">返回 Skill 差异</a> · <a href="../../speaker.html#audio-origin">返回讲述位置</a></p><pre>/**
+ * 用 WebAudio 现场合成音效，不依赖任何外部音频文件。
+ * 浏览器要求用户先有交互才允许播放 AudioContext，这里做惰性创建。
+ */
+
+let ctx = null;
+let enabled = true;
+
+export function setSoundEnabled(value) {
+  enabled = Boolean(value);
+}
+
+export function isSoundEnabled() {
+  return enabled;
+}
+
+function getContext() {
+  if (!enabled) return null;
+  if (ctx === null) {
+    const Ctor = window.AudioContext || window.webkitAudioContext;
+    if (!Ctor) return null;
+    try {
+      ctx = new Ctor();
+    } catch {
+      ctx = null;
+    }
+  }
+  if (ctx &amp;&amp; ctx.state === &#x27;suspended&#x27;) ctx.resume().catch(() =&gt; {});
+  return ctx;
+}
+
+/** 播放一个音符。 */
+function tone(freq, duration, { type = &#x27;sine&#x27;, delay = 0, gain = 0.15 } = {}) {
+  const audio = getContext();
+  if (!audio) return;
+  const start = audio.currentTime + delay;
+  const osc = audio.createOscillator();
+  const vol = audio.createGain();
+  osc.type = type;
+  osc.frequency.setValueAtTime(freq, start);
+  vol.gain.setValueAtTime(0.0001, start);
+  vol.gain.exponentialRampToValueAtTime(gain, start + 0.015);
+  vol.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+  osc.connect(vol).connect(audio.destination);
+  osc.start(start);
+  osc.stop(start + duration + 0.02);
+}
+
+export const sfx = {
+  flip() {
+    tone(520, 0.07, { type: &#x27;triangle&#x27;, gain: 0.09 });
+  },
+  match() {
+    tone(660, 0.12, { type: &#x27;sine&#x27;, gain: 0.13 });
+    tone(990, 0.16, { type: &#x27;sine&#x27;, delay: 0.08, gain: 0.11 });
+  },
+  mismatch() {
+    tone(196, 0.2, { type: &#x27;sawtooth&#x27;, gain: 0.07 });
+  },
+  win() {
+    [523, 659, 784, 1047].forEach((freq, i) =&gt; {
+      tone(freq, 0.26, { type: &#x27;triangle&#x27;, delay: i * 0.11, gain: 0.13 });
+    });
+  },
+};
+</pre></section>
+<section id="events"><h2>历史游戏事件调用</h2><p>文件：historical-template/src/main.js</p><p><a href="index.html#origin">返回声音来源</a> · <a href="index.html#change">返回 Skill 差异</a> · <a href="../../speaker.html#audio-origin">返回讲述位置</a></p><pre>/**
+ * 60 秒躲避与收集 —— 玩法脚本。
+ * 方向键 / WASD 移动，躲避紫色障碍，收集宝石；撞到障碍扣 1 命，
+ * 时间耗尽或生命归零时结算，结算浮层里可以重开。
+ */
+
+import { shell } from &#x27;./shell.js&#x27;;
+import { recordBestScore } from &#x27;./storage.js&#x27;;
+
+const W = 640;
+const H = 480;
+const ROUND_TIME = 60;
+const START_LIVES = 3;
+const PLAYER_R = 13;
+const PLAYER_SPEED = 250;
+const INVULN_MS = 1400;
+const GEM_SCORE = 10;
+
+const canvas = document.getElementById(&#x27;arena&#x27;);
+const ctx = canvas.getContext(&#x27;2d&#x27;);
+const tipEl = document.getElementById(&#x27;board-tip&#x27;);
+
+/* 高清屏适配：逻辑坐标固定 640x480，按 DPR 放大画布 */
+const dpr = Math.min(window.devicePixelRatio || 1, 2);
+canvas.width = W * dpr;
+canvas.height = H * dpr;
+ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+const keys = new Set();
+const KEY_MAP = {
+  ArrowLeft: &#x27;left&#x27;, ArrowRight: &#x27;right&#x27;, ArrowUp: &#x27;up&#x27;, ArrowDown: &#x27;down&#x27;,
+  a: &#x27;left&#x27;, A: &#x27;left&#x27;, d: &#x27;right&#x27;, D: &#x27;right&#x27;, w: &#x27;up&#x27;, W: &#x27;up&#x27;, s: &#x27;down&#x27;, S: &#x27;down&#x27;,
+};
+
+const state = {
+  phase: &#x27;ready&#x27;, // ready | playing | over
+  timeLeft: ROUND_TIME,
+  score: 0,
+  lives: START_LIVES,
+  player: { x: W / 2, y: H / 2, vx: 0, vy: 0, invuln: 0 },
+  obstacles: [],
+  gems: [],
+  nextObstacleAt: 0,
+  nextGemAt: 0,
+  elapsed: 0,
+};
+
+const rand = (min, max) =&gt; min + Math.random() * (max - min);
+const hearts = (n) =&gt; (&#x27;\u2665&#x27;.repeat(Math.max(0, n)) || &#x27;\u2014&#x27;);
+
+/* ------------------------------------------------------------------ */
+/* 生成                                                                 */
+/* ------------------------------------------------------------------ */
+
+function spawnObstacle() {
+  const r = rand(16, 24);
+  const angle = rand(0, Math.PI * 2);
+  const speed = rand(65, 105);
+  let x = rand(r, W - r);
+  let y = rand(r, H - r);
+  const p = state.player;
+  if (Math.hypot(x - p.x, y - p.y) &lt; 120) { x = W - x; y = H - y; }
+  state.obstacles.push({
+    x, y, r,
+    vx: Math.cos(angle) * speed,
+    vy: Math.sin(angle) * speed,
+    spin: rand(-2, 2),
+    rot: rand(0, Math.PI * 2),
+  });
+}
+
+function spawnGem() {
+  const p = state.player;
+  let x = rand(24, W - 24);
+  let y = rand(24, H - 24);
+  if (Math.hypot(x - p.x, y - p.y) &lt; 60) { x = W - x; y = H - y; }
+  state.gems.push({ x, y, r: 11, phase: rand(0, Math.PI * 2), value: GEM_SCORE });
+}
+
+function resetRound() {
+  state.phase = &#x27;ready&#x27;;
+  state.timeLeft = ROUND_TIME;
+  state.score = 0;
+  state.lives = START_LIVES;
+  state.player = { x: W / 2, y: H / 2, vx: 0, vy: 0, invuln: 0 };
+  state.obstacles = [];
+  state.gems = [];
+  state.nextObstacleAt = 0;
+  state.nextGemAt = 0;
+  state.elapsed = 0;
+  for (let i = 0; i &lt; 3; i++) spawnObstacle();
+  for (let i = 0; i &lt; 2; i++) spawnGem();
+  shell.setStat(&#x27;time&#x27;, String(ROUND_TIME));
+  shell.setStat(&#x27;score&#x27;, &#x27;0&#x27;);
+  shell.setStat(&#x27;lives&#x27;, hearts(START_LIVES));
+  shell.setStatus(&#x27;等待开始&#x27;);
+  if (tipEl) tipEl.hidden = false;
+}
+
+/* ------------------------------------------------------------------ */
+/* 更新                                                                 */
+/* ------------------------------------------------------------------ */
+
+function update(dt) {
+  if (state.phase !== &#x27;playing&#x27;) return;
+
+  state.elapsed += dt;
+  state.timeLeft = Math.max(0, ROUND_TIME - state.elapsed);
+
+  const p = state.player;
+  let dx = 0;
+  let dy = 0;
+  if (keys.has(&#x27;left&#x27;)) dx -= 1;
+  if (keys.has(&#x27;right&#x27;)) dx += 1;
+  if (keys.has(&#x27;up&#x27;)) dy -= 1;
+  if (keys.has(&#x27;down&#x27;)) dy += 1;
+  if (dx !== 0 || dy !== 0) {
+    const len = Math.hypot(dx, dy);
+    p.x += (dx / len) * PLAYER_SPEED * dt;
+    p.y += (dy / len) * PLAYER_SPEED * dt;
+  }
+  p.x = Math.min(W - PLAYER_R, Math.max(PLAYER_R, p.x));
+  p.y = Math.min(H - PLAYER_R, Math.max(PLAYER_R, p.y));
+  if (p.invuln &gt; 0) p.invuln -= dt * 1000;
+
+  const ramp = 1 + Math.min(0.8, state.elapsed / 60);
+  if (state.elapsed &gt;= state.nextObstacleAt &amp;&amp; state.obstacles.length &lt; 9) {
+    spawnObstacle();
+    state.nextObstacleAt = state.elapsed + 8;
+  }
+  for (const o of state.obstacles) {
+    o.x += o.vx * ramp * dt;
+    o.y += o.vy * ramp * dt;
+    o.rot += o.spin * dt;
+    if (o.x - o.r &lt; 0) { o.x = o.r; o.vx = Math.abs(o.vx); }
+    if (o.x + o.r &gt; W) { o.x = W - o.r; o.vx = -Math.abs(o.vx); }
+    if (o.y - o.r &lt; 0) { o.y = o.r; o.vy = Math.abs(o.vy); }
+    if (o.y + o.r &gt; H) { o.y = H - o.r; o.vy = -Math.abs(o.vy); }
+  }
+
+  if (state.elapsed &gt;= state.nextGemAt &amp;&amp; state.gems.length &lt; 6) {
+    spawnGem();
+    state.nextGemAt = state.elapsed + 1.4;
+  }
+  for (let i = state.gems.length - 1; i &gt;= 0; i--) {
+    const g = state.gems[i];
+    g.phase += dt * 3;
+    if (Math.hypot(g.x - p.x, g.y - p.y) &lt; g.r + PLAYER_R - 3) {
+      state.gems.splice(i, 1);
+      state.score += g.value;
+      shell.setStat(&#x27;score&#x27;, String(state.score));
+      shell.sfx.pickup();
+    }
+  }
+
+  if (p.invuln &lt;= 0) {
+    for (const o of state.obstacles) {
+      if (Math.hypot(o.x - p.x, o.y - p.y) &lt; o.r + PLAYER_R - 4) {
+        state.lives -= 1;
+        shell.setStat(&#x27;lives&#x27;, hearts(state.lives));
+        shell.sfx.hurt();
+        p.invuln = INVULN_MS;
+        const ax = p.x - o.x;
+        const ay = p.y - o.y;
+        const len = Math.hypot(ax, ay) || 1;
+        p.x = Math.min(W - PLAYER_R, Math.max(PLAYER_R, p.x + (ax / len) * 46));
+        p.y = Math.min(H - PLAYER_R, Math.max(PLAYER_R, p.y + (ay / len) * 46));
+        if (state.lives &lt;= 0) { endRound(&#x27;lose&#x27;); return; }
+        break;
+      }
+    }
+  }
+
+  shell.setStat(&#x27;time&#x27;, String(Math.ceil(state.timeLeft)));
+  if (state.timeLeft &lt;= 0) endRound(&#x27;win&#x27;);
+}
+
+/* ------------------------------------------------------------------ */
+/* 绘制                                                                 */
+/* ------------------------------------------------------------------ */
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+
+  const bg = ctx.createLinearGradient(0, 0, 0, H);
+  bg.addColorStop(0, &#x27;rgba(124,140,255,0.16)&#x27;);
+  bg.addColorStop(1, &#x27;rgba(154,107,255,0.10)&#x27;);
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  ctx.strokeStyle = &#x27;rgba(255,255,255,0.06)&#x27;;
+  ctx.lineWidth = 1;
+  for (let x = 0; x &lt;= W; x += 40) {
+    ctx.beginPath(); ctx.moveTo(x + 0.5, 0); ctx.lineTo(x + 0.5, H); ctx.stroke();
+  }
+  for (let y = 0; y &lt;= H; y += 40) {
+    ctx.beginPath(); ctx.moveTo(0, y + 0.5); ctx.lineTo(W, y + 0.5); ctx.stroke();
+  }
+
+  for (const g of state.gems) {
+    const s = 1 + Math.sin(g.phase) * 0.12;
+    ctx.save();
+    ctx.translate(g.x, g.y);
+    ctx.rotate(Math.PI / 4);
+    ctx.scale(s, s);
+    ctx.shadowColor = &#x27;rgba(86,214,198,0.9)&#x27;;
+    ctx.shadowBlur = 14;
+    ctx.fillStyle = &#x27;#56d6c6&#x27;;
+    ctx.fillRect(-g.r * 0.7, -g.r * 0.7, g.r * 1.4, g.r * 1.4);
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = &#x27;rgba(255,255,255,0.55)&#x27;;
+    ctx.fillRect(-g.r * 0.35, -g.r * 0.35, g.r * 0.6, g.r * 0.6);
+    ctx.restore();
+  }
+
+  for (const o of state.obstacles) {
+    ctx.save();
+    ctx.translate(o.x, o.y);
+    ctx.rotate(o.rot);
+    ctx.shadowColor = &#x27;rgba(154,107,255,0.8)&#x27;;
+    ctx.shadowBlur = 16;
+    const g = ctx.createLinearGradient(-o.r, -o.r, o.r, o.r);
+    g.addColorStop(0, &#x27;#8b5cf6&#x27;);
+    g.addColorStop(1, &#x27;#4b5bd6&#x27;);
+    ctx.fillStyle = g;
+    ctx.fillRect(-o.r, -o.r, o.r * 2, o.r * 2);
+    ctx.shadowBlur = 0;
+    ctx.strokeStyle = &#x27;rgba(255,255,255,0.35)&#x27;;
+    ctx.lineWidth = 2;
+    ctx.strokeRect(-o.r, -o.r, o.r * 2, o.r * 2);
+    ctx.restore();
+  }
+
+  const p = state.player;
+  if (p.invuln &lt;= 0 || Math.floor(p.invuln / 100) % 2 === 0) {
+    ctx.save();
+    ctx.shadowColor = &#x27;rgba(86,214,198,0.95)&#x27;;
+    ctx.shadowBlur = 18;
+    const pg = ctx.createRadialGradient(p.x - 4, p.y - 5, 2, p.x, p.y, PLAYER_R);
+    pg.addColorStop(0, &#x27;#ffffff&#x27;);
+    pg.addColorStop(0.4, &#x27;#7ce7d8&#x27;);
+    pg.addColorStop(1, &#x27;#3fb8a6&#x27;);
+    ctx.fillStyle = pg;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, PLAYER_R, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = &#x27;#14213d&#x27;;
+    ctx.beginPath();
+    ctx.arc(p.x - 4.5, p.y - 2, 2.4, 0, Math.PI * 2);
+    ctx.arc(p.x + 4.5, p.y - 2, 2.4, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* 结算                                                                 */
+/* ------------------------------------------------------------------ */
+
+function endRound(kind) {
+  state.phase = &#x27;over&#x27;;
+  keys.clear();
+  shell.setStatus(kind === &#x27;win&#x27; ? &#x27;时间到&#x27; : &#x27;生命耗尽&#x27;);
+  const { best, isRecord } = recordBestScore(shell.settings, state.score);
+  shell.showResult({
+    emoji: kind === &#x27;win&#x27; ? &#x27;\ud83c\udf89&#x27; : &#x27;\ud83d\udc94&#x27;,
+    title: kind === &#x27;win&#x27; ? &#x27;时间到！成功生还&#x27; : &#x27;生命耗尽&#x27;,
+    lines: [
+      `本局得分 &lt;strong&gt;${state.score}&lt;/strong&gt;，收集宝石 &lt;strong&gt;${state.score / GEM_SCORE}&lt;/strong&gt; 颗。`,
+      `历史最佳 &lt;strong&gt;${best.score}&lt;/strong&gt;${isRecord ? &#x27;（新纪录！）&#x27; : &#x27;&#x27;}。`,
+    ],
+    primary: { label: &#x27;再玩一局&#x27;, onClick: () =&gt; shell.newGame() },
+  });
+}
+
+/* ------------------------------------------------------------------ */
+/* 输入                                                                 */
+/* ------------------------------------------------------------------ */
+
+window.addEventListener(&#x27;keydown&#x27;, (event) =&gt; {
+  const dir = KEY_MAP[event.key];
+  if (!dir) return;
+  event.preventDefault();
+  keys.add(dir);
+  if (state.phase === &#x27;ready&#x27;) {
+    state.phase = &#x27;playing&#x27;;
+    state.elapsed = 0;
+    shell.setStatus(&#x27;进行中&#x27;);
+    shell.sfx.tick();
+    if (tipEl) tipEl.hidden = true;
+  }
+});
+
+window.addEventListener(&#x27;keyup&#x27;, (event) =&gt; {
+  const dir = KEY_MAP[event.key];
+  if (dir) keys.delete(dir);
+});
+
+window.addEventListener(&#x27;blur&#x27;, () =&gt; keys.clear());
+
+/* ------------------------------------------------------------------ */
+/* 主循环                                                               */
+/* ------------------------------------------------------------------ */
+
+let last = performance.now();
+function loop(now) {
+  const dt = Math.min(0.05, (now - last) / 1000);
+  last = now;
+  update(dt);
+  draw();
+  requestAnimationFrame(loop);
+}
+
+shell.init({
+  onRestart: () =&gt; {
+    resetRound();
+    canvas.focus();
+  },
+});
+
+resetRound();
+requestAnimationFrame(loop);
+</pre></section>
+<section id="first-code"><h2>E2 首轮游戏代码</h2><p>文件：first-failure/js/game.js</p><p><a href="index.html#origin">返回声音来源</a> · <a href="index.html#change">返回 Skill 差异</a> · <a href="../../speaker.html#audio-adoption">返回讲述位置</a></p><pre>/* ==========================================================================
+   game.js — 「60 秒躲避与收集」
+   使用 purple-game-ui 的数据卡 / 结算浮层 / 声音组件。
+   ========================================================================== */
+
+import { renderStats, updateStats, ResultOverlay } from &#x27;./purple-ui-kit.js&#x27;;
+import { sfx, setSoundEnabled, isSoundEnabled } from &#x27;./purple-sound.js&#x27;;
+
+/* ------------------------------------------------------------- 常量 */
+const ROUND_TIME = 60;      // 一局秒数
+const MAX_HP = 3;           // 生命上限
+const GEM_LIFE = 9;         // 晶体存在时间（秒）
+const PLAYER_R = 18;
+const PLAYER_SPEED = 340;   // px / 秒
+const INVULN = 1.2;         // 受伤后的无敌时间
+
+const W = 960, H = 600;
+
+/* 高分屏清晰渲染 */
+const DPR = Math.min(2, window.devicePixelRatio || 1);
+canvas.width = W * DPR;
+canvas.height = H * DPR;
+
+/* 从主题令牌读取实际颜色（canvas 不认 var()） */
+const CSS = getComputedStyle(document.documentElement);
+const C = {
+  accent3: CSS.getPropertyValue(&#x27;--pg-accent-3&#x27;).trim() || &#x27;#56d6c6&#x27;,
+  accent2: CSS.getPropertyValue(&#x27;--pg-accent-2&#x27;).trim() || &#x27;#9a6bff&#x27;,
+  warn: CSS.getPropertyValue(&#x27;--pg-warn&#x27;).trim() || &#x27;#fbbf24&#x27;,
+  bad: CSS.getPropertyValue(&#x27;--pg-bad&#x27;).trim() || &#x27;#fb7185&#x27;,
+};
+
+/* ------------------------------------------------------------- DOM */
+const canvas = document.getElementById(&#x27;canvas&#x27;);
+const ctx = canvas.getContext(&#x27;2d&#x27;);
+const field = document.getElementById(&#x27;field&#x27;);
+const floaters = document.getElementById(&#x27;floaters&#x27;);
+const hudEl = document.getElementById(&#x27;hud&#x27;);
+const introEl = document.getElementById(&#x27;intro&#x27;);
+const soundBtn = document.getElementById(&#x27;sound-btn&#x27;);
+const hintEl = document.getElementById(&#x27;field-hint&#x27;);
+
+/* ---------------------------------------------------------- HUD 读数 */
+const stats = renderStats(hudEl, [
+  { key: &#x27;time&#x27;, label: &#x27;剩余时间&#x27;, value: &#x27;1:00&#x27;, state: &#x27;accent&#x27; },
+  { key: &#x27;score&#x27;, label: &#x27;得分&#x27;, value: 0 },
+  { key: &#x27;hp&#x27;, label: &#x27;生命&#x27;, value: MAX_HP, state: &#x27;good&#x27; },
+]);
+
+/* --------------------------------------------------------- 游戏状态 */
+const state = {
+  phase: &#x27;intro&#x27;,      // intro | playing | over
+  time: ROUND_TIME,
+  score: 0,
+  hp: MAX_HP,
+  player: { x: W / 2, y: H / 2, r: PLAYER_R, vx: 0, vy: 0, invuln: 0 },
+  obstacles: [],
+  gems: [],
+  particles: [],
+  shake: 0,
+};
+
+const keys = new Set();
+const KEY_MAP = {
+  ArrowUp: &#x27;up&#x27;, ArrowDown: &#x27;down&#x27;, ArrowLeft: &#x27;left&#x27;, ArrowRight: &#x27;right&#x27;,
+  w: &#x27;up&#x27;, a: &#x27;left&#x27;, s: &#x27;down&#x27;, d: &#x27;right&#x27;,
+  W: &#x27;up&#x27;, A: &#x27;left&#x27;, S: &#x27;down&#x27;, D: &#x27;right&#x27;,
+};
+
+/* --------------------------------------------------------- 结算浮层 */
+const overlay = new ResultOverlay(document.getElementById(&#x27;overlay&#x27;));
+
+/* ============================ 开场规则提醒（自定义，结构已固定） ==== */
+const introPanel = introEl.querySelector(&#x27;.pg-overlay__panel&#x27;);
+const startBtn = document.getElementById(&#x27;start-btn&#x27;);
+let introLastFocus = null;
+
+introPanel.setAttribute(&#x27;role&#x27;, &#x27;dialog&#x27;);
+introPanel.setAttribute(&#x27;aria-modal&#x27;, &#x27;true&#x27;);
+introPanel.setAttribute(&#x27;aria-labelledby&#x27;, &#x27;intro-title&#x27;);
+
+function showIntro() {
+  introLastFocus = document.activeElement;
+  introEl.hidden = false;
+  hintEl.hidden = true;
+  startBtn.focus();
+  document.addEventListener(&#x27;keydown&#x27;, introKeydown, true);
+}
+
+function showHint(text) {
+  hintEl.textContent = text;
+  hintEl.hidden = false;
+}
+
+function hideHint() {
+  hintEl.hidden = true;
+  hintEl.textContent = &#x27;&#x27;;
+}
+
+function startRound() {
+  hideIntro();
+  hideHint();
+  state.phase = &#x27;playing&#x27;;
+  state.time = ROUND_TIME;
+  state.score = 0;
+  state.hp = MAX_HP;
+  state.player.x = W / 2; state.player.y = H / 2;
+  state.player.invuln = 0;
+  state.obstacles = [];
+  state.gems = [];
+  state.particles = [];
+  state.shake = 0;
+  for (let i = 0; i &lt; 3; i++) spawnObstacle();
+  spawnGem();
+  updateHud();
+  canvas.focus();
+  sfx.tick();
+}
+
+function closeIntro() {
+  hideIntro();
+  showHint(&#x27;规则提醒已关闭 · 按 Enter 重新查看规则&#x27;);
+}
+
+function hideIntro() {
+  introEl.hidden = true;
+  document.removeEventListener(&#x27;keydown&#x27;, introKeydown, true);
+  if (introLastFocus &amp;&amp; typeof introLastFocus.focus === &#x27;function&#x27;) introLastFocus.focus();
+  introLastFocus = null;
+}
+
+function introKeydown(e) {
+  if (introEl.hidden) return;
+  if (e.key === &#x27;Escape&#x27;) {
+    e.preventDefault();
+    closeIntro();
+    return;
+  }
+  if (e.key === &#x27;Enter&#x27;) { e.preventDefault(); startRound(); return; }
+  if (e.key !== &#x27;Tab&#x27;) return;
+  const items = [...introPanel.querySelectorAll(&#x27;button, [href], [tabindex]:not([tabindex=&quot;-1&quot;])&#x27;)]
+    .filter((n) =&gt; !n.disabled &amp;&amp; n.offsetParent !== null);
+  if (!items.length) return;
+  const first = items[0], last = items[items.length - 1];
+  if (e.shiftKey &amp;&amp; document.activeElement === first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey &amp;&amp; document.activeElement === last) { e.preventDefault(); first.focus(); }
+}
+
+startBtn.addEventListener(&#x27;click&#x27;, () =&gt; startRound());
+
+/* ==================================================== 音效开关 ======= */
+function refreshSoundBtn() {
+  const on = isSoundEnabled();
+  soundBtn.textContent = on ? &#x27;音效：开&#x27; : &#x27;音效：关&#x27;;
+  soundBtn.setAttribute(&#x27;aria-pressed&#x27;, String(on));
+}
+soundBtn.addEventListener(&#x27;click&#x27;, () =&gt; {
+  setSoundEnabled(!isSoundEnabled());
+  refreshSoundBtn();
+});
+
+/* ==================================================== 回合流程 ======= */
+function endRound(reason) {
+  state.phase = &#x27;over&#x27;;
+  keys.clear();
+  overlay.open({
+    emoji: reason === &#x27;hp&#x27; ? &#x27;💔&#x27; : &#x27;🎉&#x27;,
+    title: reason === &#x27;hp&#x27; ? &#x27;生命耗尽&#x27; : &#x27;时间到！&#x27;,
+    text: reason === &#x27;hp&#x27;
+      ? `你在第 &lt;strong&gt;${Math.ceil(ROUND_TIME - state.time)}&lt;/strong&gt; 秒被击倒，共收集 &lt;strong&gt;${state.score}&lt;/strong&gt; 个晶体。`
+      : `坚持满 &lt;strong&gt;${ROUND_TIME}&lt;/strong&gt; 秒，共收集 &lt;strong&gt;${state.score}&lt;/strong&gt; 个晶体。`,
+    rows: [
+      { label: &#x27;最终得分&#x27;, value: String(state.score), state: &#x27;accent&#x27; },
+      { label: &#x27;剩余生命&#x27;, value: `${state.hp} / ${MAX_HP}`, state: state.hp &gt; 0 ? &#x27;good&#x27; : &#x27;bad&#x27; },
+      { label: &#x27;用时&#x27;, value: `${Math.min(ROUND_TIME, Math.ceil(ROUND_TIME - state.time))} 秒` },
+    ],
+    actions: [{ label: &#x27;再玩一局&#x27;, primary: true, onClick: () =&gt; { overlay.close(); startRound(); } }],
+    dismissible: true,
+  });
+  if (reason === &#x27;hp&#x27;) sfx.mismatch(); else sfx.win();
+}
+
+/* ==================================================== 元素生成 ======= */
+function rand(a, b) { return a + Math.random() * (b - a); }
+
+function spawnObstacle() {
+  const size = rand(26, 40);
+  const dir = Math.random() &lt; 0.5 ? 1 : -1;
+  let x = rand(50, W - 50), y = rand(50, H - 50);
+  for (let i = 0; i &lt; 20; i++) {
+    if (Math.hypot(x - state.player.x, y - state.player.y) &gt; 140) break;
+    x = rand(50, W - 50); y = rand(50, H - 50);
+  }
+  state.obstacles.push({
+    x,
+    y,
+    r: size,
+    angle: rand(0, Math.PI * 2),
+    spin: rand(-1.6, 1.6),
+    vx: rand(60, 150) * dir,
+    vy: rand(60, 150) * (Math.random() &lt; 0.5 ? 1 : -1),
+  });
+}
+
+function spawnGem() {
+ if (state.gems.length &gt;= 4) return;
+  const gr = 16;
+  for (let tries = 0; tries &lt; 24; tries++) {
+    const gx = rand(gr + 20, W - gr - 20);
+    const gy = rand(gr + 20, H - gr - 20);
+    // 避开玩家出生点附近，避免一开局就贴脸
+    if (Math.hypot(gx - state.player.x, gy - state.player.y) &lt; 120) continue;
+    state.gems.push({ x: gx, y: gy, r: gr, born: ROUND_TIME - state.time, life: GEM_LIFE, spin: rand(0, Math.PI * 2) });
+    return;
+  }
+}
+
+/* ==================================================== 可见反馈 ======= */
+function flashField(kind) {
+  const cls = kind === &#x27;hurt&#x27; ? &#x27;is-hurt&#x27; : &#x27;is-pickup&#x27;;
+  field.classList.remove(&#x27;is-hurt&#x27;, &#x27;is-pickup&#x27;);
+  void field.offsetWidth;
+  field.classList.add(cls);
+  setTimeout(() =&gt; field.classList.remove(cls), 500);
+}
+
+function floater(text, x, y, kind) {
+  const el = document.createElement(&#x27;div&#x27;);
+  el.className = `floater${kind ? ` floater--${kind}` : &#x27;&#x27;}`;
+  el.textContent = text;
+  el.style.left = `${(x / W) * 100}%`;
+  el.style.top = `${(y / H) * 100}%`;
+  floaters.appendChild(el);
+  setTimeout(() =&gt; el.remove(), 800);
+}
+
+function burst(x, y, color, count = 12) {
+  for (let i = 0; i &lt; count; i++) {
+    const a = Math.random() * Math.PI * 2;
+    const sp = rand(60, 210);
+    state.particles.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: rand(0.3, 0.6), max: 0.6, color, r: rand(2, 4) });
+  }
+}
+
+/* ==================================================== HUD 更新 ======= */
+function updateHud() {
+  const secs = Math.max(0, Math.ceil(state.time));
+  const m = Math.floor(secs / 60), s = secs % 60;
+  updateStats(stats, {
+    time: { value: `${m}:${String(s).padStart(2, &#x27;0&#x27;)}`, state: state.time &lt;= 10 ? &#x27;warn&#x27; : &#x27;accent&#x27; },
+    score: state.score,
+    hp: { value: state.hp, state: state.hp === 1 ? &#x27;bad&#x27; : state.hp &gt; 0 ? &#x27;good&#x27; : &#x27;bad&#x27; },
+  });
+}
+
+/* ==================================================== 输入 ========== */
+window.addEventListener(&#x27;keydown&#x27;, (e) =&gt; {
+  if (e.key === &#x27;Enter&#x27;) {
+    if (state.phase === &#x27;intro&#x27; &amp;&amp; introEl.hidden) { e.preventDefault(); showIntro(); return; }
+    if (state.phase === &#x27;over&#x27; &amp;&amp; overlay.root.hidden) { e.preventDefault(); startRound(); return; }
+  }
+  const dir = KEY_MAP[e.key];
+  if (!dir) return;
+  if (state.phase !== &#x27;playing&#x27;) return;
+  e.preventDefault();
+  keys.add(dir);
+});
+
+window.addEventListener(&#x27;keyup&#x27;, (e) =&gt; {
+  const dir = KEY_MAP[e.key];
+  if (!dir) return;
+  keys.delete(dir);
+});
+
+window.addEventListener(&#x27;blur&#x27;, () =&gt; keys.clear());
+
+/* ==================================================== 主循环 ======= */
+let last = performance.now();
+
+function loop(now) {
+  const dt = Math.min(0.05, (now - last) / 1000);
+  last = now;
+  if (state.phase === &#x27;playing&#x27;) update(dt);
+  else if (state.phase === &#x27;over&#x27; &amp;&amp; overlay.root.hidden &amp;&amp; hintEl.hidden) {
+    showHint(&#x27;本局结束 · 按 Enter 重新开始&#x27;);
+  }
+  draw();
+  requestAnimationFrame(loop);
+}
+
+function update(dt) {
+  state.time -= dt;
+  if (state.time &lt;= 0) {
+    state.time = 0;
+    updateHud();
+    endRound(&#x27;time&#x27;);
+    return;
+  }
+
+  const p = state.player;
+  let dx = (keys.has(&#x27;right&#x27;) ? 1 : 0) - (keys.has(&#x27;left&#x27;) ? 1 : 0);
+  let dy = (keys.has(&#x27;down&#x27;) ? 1 : 0) - (keys.has(&#x27;up&#x27;) ? 1 : 0);
+  if (dx || dy) {
+    const len = Math.hypot(dx, dy);
+    dx = dx / len; dy = dy / len;
+    p.x += dx * PLAYER_SPEED * dt;
+    p.y += dy * PLAYER_SPEED * dt;
+  }
+  p.x = Math.max(p.r, Math.min(W - p.r, p.x));
+  p.y = Math.max(p.r, Math.min(H - p.r, p.y));
+  if (p.invuln &gt; 0) p.invuln -= dt;
+
+  // 障碍
+  for (let i = state.obstacles.length - 1; i &gt;= 0; i--) {
+    const o = state.obstacles[i];
+    o.x += o.vx * dt; o.y += o.vy * dt; o.angle += o.spin * dt;
+    if (o.x &lt; o.r || o.x &gt; W - o.r) { o.vx *= -1; o.x = Math.max(o.r, Math.min(W - o.r, o.x)); }
+    if (o.y &lt; o.r || o.y &gt; H - o.r) { o.vy *= -1; o.y = Math.max(o.r, Math.min(H - o.r, o.y)); }
+
+    if (p.invuln &lt;= 0 &amp;&amp; Math.hypot(o.x - p.x, o.y - p.y) &lt; o.r * 0.72 + p.r * 0.72) {
+      state.hp -= 1;
+      p.invuln = INVULN;
+      state.shake = 0.35;
+      state.obstacles.splice(i, 1);
+      burst(p.x, p.y, C.bad, 16);
+      floater(&#x27;-1 生命&#x27;, p.x, p.y, &#x27;bad&#x27;);
+      flashField(&#x27;hurt&#x27;);
+      sfx.hurt();
+      updateHud();
+      if (state.hp &lt;= 0) {
+        state.hp = 0;
+        updateHud();
+        endRound(&#x27;hp&#x27;);
+        return;
+      }
+    }
+  }
+
+  // 障碍逐渐变多（单一难度、固定节奏）
+  const targetObstacles = 3 + Math.floor((ROUND_TIME - state.time) / 10);
+  if (state.obstacles.length &lt; targetObstacles &amp;&amp; Math.random() &lt; dt * 1.6) spawnObstacle();
+
+  // 晶体
+  for (let i = state.gems.length - 1; i &gt;= 0; i--) {
+    const g = state.gems[i];
+    g.spin += dt * 1.6;
+    const age = (ROUND_TIME - state.time) - g.born;
+    if (age &gt;= GEM_LIFE) {
+      state.gems.splice(i, 1);
+      continue;
+    }
+    if (Math.hypot(g.x - p.x, g.y - p.y) &lt; g.r + p.r * 0.8) {
+      state.gems.splice(i, 1);
+      state.score += 1;
+      burst(g.x, g.y, C.accent3, 14);
+      floater(&#x27;+1&#x27;, g.x, g.y, &#x27;good&#x27;);
+      flashField(&#x27;pickup&#x27;);
+      sfx.pickup();
+      updateHud();
+    }
+  }
+  if (Math.random() &lt; dt * 0.9) spawnGem();
+
+  // 粒子
+  for (let i = state.particles.length - 1; i &gt;= 0; i--) {
+    const q = state.particles[i];
+    q.x += q.vx * dt; q.y += q.vy * dt;
+    q.vx *= 0.94; q.vy *= 0.94;
+    q.life -= dt;
+    if (q.life &lt;= 0) state.particles.splice(i, 1);
+  }
+
+  if (state.shake &gt; 0) state.shake = Math.max(0, state.shake - dt);
+
+  // 时间读数整秒刷新，避免布局抖动
+  if (Math.ceil(state.time) !== Math.ceil(state.time + dt)) updateHud();
+}
+
+/* ==================================================== 绘制 ========== */
+function draw() {
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  ctx.clearRect(0, 0, W, H);
+  ctx.save();
+  if (state.shake &gt; 0) {
+    const s = state.shake * 12;
+    ctx.translate((Math.random() - 0.5) * s, (Math.random() - 0.5) * s);
+  }
+
+  // 网格底纹
+  ctx.strokeStyle = &#x27;rgba(255,255,255,0.05)&#x27;;
+  ctx.lineWidth = 1;
+  for (let x = 0; x &lt;= W; x += 60) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+  for (let y = 0; y &lt;= H; y += 60) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+
+  // 晶体：进度环显示剩余存在时间
+  const nowAge = ROUND_TIME - state.time;
+  for (const g of state.gems) {
+    const remain = Math.max(0, 1 - (nowAge - g.born) / GEM_LIFE);
+    const pulse = 1 + Math.sin(nowAge * 4 + g.spin) * 0.06;
+    ctx.save();
+    ctx.translate(g.x, g.y);
+    ctx.scale(pulse, pulse);
+    // 环
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = &#x27;rgba(255,255,255,0.14)&#x27;;
+    ctx.beginPath(); ctx.arc(0, 0, g.r + 8, 0, Math.PI * 2); ctx.stroke();
+    ctx.strokeStyle = remain &gt; 0.34 ? C.accent3 : C.warn;
+    ctx.lineCap = &#x27;round&#x27;;
+    ctx.beginPath();
+    ctx.arc(0, 0, g.r + 8, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * remain);
+    ctx.stroke();
+    // 菱形本体
+    ctx.rotate(g.spin * 0.4);
+    const gr = g.r;
+    ctx.beginPath();
+    ctx.moveTo(0, -gr); ctx.lineTo(gr * 0.72, 0); ctx.lineTo(0, gr); ctx.lineTo(-gr * 0.72, 0);
+    ctx.closePath();
+    ctx.fillStyle = C.accent3;
+    ctx.fill();
+    ctx.strokeStyle = &#x27;rgba(255,255,255,0.65)&#x27;;
+    ctx.lineWidth = 1.6;
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  // 障碍：紫色尖刺
+  for (const o of state.obstacles) {
+    ctx.save();
+    ctx.translate(o.x, o.y);
+    ctx.rotate(o.angle);
+    ctx.beginPath();
+    for (let k = 0; k &lt; 3; k++) {
+      const a = (k / 3) * Math.PI * 2 - Math.PI / 2;
+      const px = Math.cos(a) * o.r, py = Math.sin(a) * o.r;
+      k === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+    }
+    ctx.closePath();
+    ctx.fillStyle = C.accent2;
+    ctx.fill();
+    ctx.strokeStyle = &#x27;rgba(255,255,255,0.55)&#x27;;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  // 玩家
+  const p = state.player;
+  if (p.invuln &lt;= 0 || Math.floor(nowAge * 12) % 2 === 0) {
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = C.warn;
+    ctx.fill();
+    ctx.strokeStyle = &#x27;rgba(255,255,255,0.8)&#x27;;
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+    // 朝向指示
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r * 0.45, 0, Math.PI * 2);
+    ctx.fillStyle = &#x27;rgba(20,14,40,0.55)&#x27;;
+    ctx.fill();
+    ctx.restore();
+  }
+
+  // 粒子
+  for (const q of state.particles) {
+    ctx.globalAlpha = Math.max(0, q.life / q.max);
+    ctx.fillStyle = q.color;
+    ctx.beginPath();
+    ctx.arc(q.x, q.y, q.r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+
+  ctx.restore();
+}
+
+/* ==================================================== 启动 ========== */
+updateHud();
+showIntro();
+requestAnimationFrame(loop);
+</pre></section>
+<section id="skill-diff"><h2>Skill 修改差异</h2><p>文件：skill.diff</p><p><a href="index.html#origin">返回声音来源</a> · <a href="index.html#change">返回 Skill 差异</a> · <a href="../../speaker.html#audio-guidance">返回讲述位置</a></p><pre>--- before/SKILL.md
++++ after/SKILL.md
+@@ -83,3 +83,13 @@
+ ## 验证
+ 
+ 本 Skill 自带的资源已在 headless Chrome 中渲染核对：深靛渐变背景、玻璃面板、顶部横排 / 侧边 rail / 底部横条三种 HUD 形态、结算浮层（遮罩 + 明细行 + 按钮）、窄屏断点。`assets/preview.html` 可作为回归基线，改动样式后重截对比。
++
++## 游戏事件的声音反馈
++
++开发可交互小游戏时，沿用现有布局与视觉组件，并接入 `assets/js/purple-sound.js` 的声音反馈；若任务明确要求无声，则不接入。这个独立 ES Module 不依赖页面结构或 `purple-ui-kit.js`，不要为接入声音改变 HUD 位置、浮层用途或玩法效果。
++
++- 复制该文件到项目，导入 `sfx`、`setSoundEnabled`、`isSoundEnabled`。音效库来自整页版的声音实现及其躲避游戏中的事件扩展。
++- 按实际游戏事件接线：确认开始可用 `sfx.tick()`，收集成功用 `sfx.pickup()`，受伤用 `sfx.hurt()`；胜利用 `sfx.win()`，失败可用 `sfx.mismatch()`。翻牌和配对仍可用 `flip()`、`match()`。只为游戏实际存在的事件接线，每次事件调用一次，不在绘制循环或持续按键中重复播放。
++- 用明确的音效开关调用 `setSoundEnabled(value)`，用 `isSoundEnabled()`同步状态。首次播放应来自玩家的开始或其他真实操作；浏览器没有音频能力时，游戏仍须可玩。
++- 保留原有可见反馈：声音补充收集、受伤和按钮反馈，不替代闪光、数值变化、浮层等视觉信息，也不规定场地布局。
++- 验证开始、收集、受伤等已接线事件能发声，静音后这些事件不再发声；同时复查原有布局、开场/结算浮层和玩法反馈。
+</pre></section>
+</html>

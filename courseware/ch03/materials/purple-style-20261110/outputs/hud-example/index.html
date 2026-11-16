@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>60 秒躲避与收集 · 界面原型</title>
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+<div class="app">
+
+  <header class="app__header">
+    <h1 class="title">60 秒躲避与收集</h1>
+    <p class="subtitle">在 60 秒里躲开危险区，尽可能多地收集能量晶体</p>
+  </header>
+
+  <!-- HUD：倒计时 / 生命 / 分数 + 暂停按钮。整条 HUD 位于舞台上方，不覆盖游戏区，保证视线不被遮挡。 -->
+  <section class="hud" aria-label="游戏状态栏">
+    <div class="hud__stats" role="group" aria-label="当前数值">
+      <div class="hud__stat">
+        <span class="hud__label">倒计时</span>
+        <span class="hud__value">00:42</span>
+      </div>
+      <div class="hud__stat">
+        <span class="hud__label">生命</span>
+        <span class="hud__value">3</span>
+      </div>
+      <div class="hud__stat">
+        <span class="hud__label">分数</span>
+        <span class="hud__value hud__value--score">120</span>
+      </div>
+    </div>
+
+    <div class="hud__side">
+      <p class="hud__status" id="statusChip" data-state="running" aria-live="polite">
+        <span class="hud__status-dot" aria-hidden="true"></span>
+        <span id="statusText">进行中</span>
+      </p>
+      <button class="btn btn--primary hud__pause" id="pauseBtn" type="button"
+              aria-pressed="false" aria-expanded="false" aria-controls="pauseOverlay">
+        暂停
+      </button>
+    </div>
+  </section>
+
+  <!-- 主舞台：示意游戏区。元素位置为静态示意，未实现移动与碰撞。 -->
+  <section aria-label="游戏区">
+    <div class="stage__panel">
+      <div class="arena" role="img"
+           aria-label="示意游戏区：一名玩家（白色圆形，带靛紫环）、四枚能量晶体（绿色菱形）、两处危险尖刺与一段条纹危险块（玫红色）">
+
+        <span class="entity entity--player" style="--x:17%; --y:62%" aria-hidden="true">
+          <span class="shape shape--player">你</span>
+        </span>
+
+        <span class="entity entity--gem" style="--x:41%; --y:22%" aria-hidden="true">
+          <span class="shape shape--gem"></span>
+        </span>
+        <span class="entity entity--gem" style="--x:66%; --y:38%" aria-hidden="true">
+          <span class="shape shape--gem"></span>
+        </span>
+        <span class="entity entity--gem" style="--x:86%; --y:70%" aria-hidden="true">
+          <span class="shape shape--gem"></span>
+        </span>
+        <span class="entity entity--gem" style="--x:30%; --y:32%" aria-hidden="true">
+          <span class="shape shape--gem"></span>
+        </span>
+
+        <span class="entity entity--hazard" style="--x:58%; --y:62%" aria-hidden="true">
+          <span class="shape shape--spike">!</span>
+        </span>
+        <span class="entity entity--hazard" style="--x:84%; --y:20%" aria-hidden="true">
+          <span class="shape shape--spike">!</span>
+        </span>
+        <span class="entity entity--hazard entity--wall" style="--x:50%; --y:86%" aria-hidden="true">
+          <span class="shape shape--wall"></span>
+        </span>
+      </div>
+
+      <ul class="legend" aria-label="图例">
+        <li class="legend__item">
+          <span class="legend__swatch legend__swatch--player" aria-hidden="true"></span>
+          <span><b>玩家</b>　碰到障碍扣除 1 生命</span>
+        </li>
+        <li class="legend__item">
+          <span class="legend__swatch legend__swatch--gem" aria-hidden="true"></span>
+          <span><b>收集物</b>　每枚 +10 分</span>
+        </li>
+        <li class="legend__item">
+          <span class="legend__swatch legend__swatch--hazard" aria-hidden="true"></span>
+          <span><b>障碍物</b>　持续存在，碰到即扣血</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="app__footer">
+    <p>界面示意原型：仅演示 HUD 与暂停流程，未实现移动、碰撞、计分与倒计时推进。</p>
+  </footer>
+
+</div>
+
+<!-- 暂停浮层：遮罩 + 模糊压住下层游戏画面，面板用有色玻璃读作「浮出」 -->
+<div class="overlay" id="pauseOverlay" role="dialog" aria-modal="true" aria-labelledby="pauseTitle" aria-describedby="pauseDesc" hidden>
+  <div class="overlay__panel">
+    <div class="overlay__icon" aria-hidden="true"><i></i><i></i></div>
+    <h2 class="overlay__title" id="pauseTitle">已暂停</h2>
+    <p class="overlay__text" id="pauseDesc">
+      本局已冻结，剩余 <strong class="hl">42 秒</strong>。点击「继续」即可回到暂停前的状态。
+    </p>
+
+    <ul class="frozen" aria-label="冻结中的数值">
+      <li class="frozen__item">
+        <span class="frozen__label">倒计时</span>
+        <span class="frozen__value">00:42</span>
+      </li>
+      <li class="frozen__item">
+        <span class="frozen__label">生命</span>
+        <span class="frozen__value">3</span>
+      </li>
+      <li class="frozen__item">
+        <span class="frozen__label">分数</span>
+        <span class="frozen__value">120</span>
+      </li>
+    </ul>
+
+    <div class="overlay__actions">
+      <button class="btn btn--primary" id="resumeBtn" type="button">继续游戏</button>
+      <button class="btn btn--ghost" id="restartBtn" type="button">重新开始</button>
+    </div>
+  </div>
+</div>
+
+<script src="./app.js"></script>
+</body>
+</html>

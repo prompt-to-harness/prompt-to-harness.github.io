@@ -119,3 +119,5 @@ lab-runs/
 
 # 本机视觉审阅截图与对照页，archive/ 同时排除于站点构建
 /courseware/ch03/lessons/02-rules/archive/visual-review-20261109/
+/courseware/ch03/lessons/02-rules/layout-review-321/
+/courseware/ch03/lessons/02-rules/skill-test-321/

@@ -1,0 +1,153 @@
+.script-page{max-width:1280px!important;padding:36px 40px!important}
+.script-page>header{max-width:1000px;margin-bottom:24px}
+.script-page>header h1{font-size:2.125rem}
+.review-status{font-size:0.9375rem!important;color:#647167;line-height:1.7}
+.lesson-overview{max-width:1000px;margin:20px 0;font-size:1rem;line-height:1.8;color:#526059}
+.lesson-overview summary,.screen-material summary,.prompt-details summary{cursor:pointer;color:#326449}
+.lesson-overview p{margin:12px 0}.lesson-overview ul{padding-left:24px}
+.screen-nav{display:flex;gap:10px;flex-wrap:wrap;padding:12px 0;background:var(--color-paper);position:sticky;top:0;z-index:10;border-bottom:1px solid #c8ccc5}
+.screen-nav a{padding:7px 12px;color:#46534c;font-size:1rem}
+.script-page .screen-frame{position:relative;scroll-margin-top:90px;padding:32px 0;border-bottom:1px solid #bac2b9}
+.screen-frame h2{font-size:1.625rem;line-height:1.5;margin:0 0 24px}
+.frame-anchor{position:absolute;top:0;scroll-margin-top:90px}
+.stage-layout{display:grid;grid-template-columns:minmax(230px,.85fr) minmax(0,1.5fr);gap:36px}
+.stage-teaching,.stage-script{min-width:0;overflow-wrap:anywhere}
+.stage-teaching{border-right:1px solid #ccd5c8;padding-right:28px;align-self:start;position:sticky;top:88px}
+.initial-request{white-space:pre-wrap;overflow-wrap:anywhere;font:0.9375rem/1.8 var(--font-body);padding:14px;background:#edf1e9;margin:0 0 20px}
+.stage-layout h3{font:700 0.9375rem/1.6 var(--font-body);color:#326449;margin:0 0 10px}
+.script-page .stage-teaching p{font-size:1.0625rem;line-height:1.9;color:#526059;margin:0 0 24px}
+.script-passage{font-size:1.1875rem;line-height:1.9;margin:0 0 16px;padding:12px 16px;border:1px solid #aebbb4;border-radius:6px;background:var(--color-paper-raised);overflow-wrap:anywhere}
+.script-passage:focus-within{outline:2px solid var(--color-accent);outline-offset:1px}
+.script-page .script-passage p.narration{width:auto;min-height:0;font:inherit;line-height:inherit;margin:0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none}
+.script-page .script-passage p.narration:focus{outline:none;background:transparent}
+.script-page .script-passage p.narration[data-state="error"]{outline:2px dashed var(--color-negative)}
+.script-page .stage-script .script-cue,.script-page .stage-script .script-pending{font-size:0.9375rem;line-height:1.8;color:#68736d;margin:18px 0;padding:12px 16px;background:#edf1e9}
+.script-page .stage-script .cue-links{font-size:0.8125rem;line-height:1.8;margin:-8px 0 16px}
+.cue-links a{color:#326449;text-underline-offset:3px}
+.script-page .stage-script .points-label{font-size:0.8125rem;line-height:1.7;color:#68736d;margin:16px 0 8px}
+.talk-points{padding-left:22px;margin:0 0 22px;font-size:1.0625rem;line-height:1.9}
+.talk-points li{margin:8px 0}
+.screen-preview{margin:18px 0}
+.screen-preview img{display:block;width:100%;height:auto;border-radius:8px}
+.screen-preview figcaption{font-size:0.8125rem;line-height:1.7;color:#68736d;margin-top:8px}
+.visible-prompt{margin:16px 0 24px}
+.visible-prompt pre{white-space:pre-wrap;overflow-wrap:anywhere;font:0.9375rem/1.9 var(--font-body);padding:18px;margin:0;background:#f0edf6;border-left:3px solid #9180b5}
+.prompt-details{font-size:0.875rem;margin-top:14px}
+.prompt-details pre{white-space:pre-wrap;overflow-wrap:anywhere;font:0.875rem/1.8 var(--font-body);background:#edf1e9;padding:14px;margin:12px 0}
+.screen-material{font-size:0.875rem;line-height:1.8;margin-top:20px;color:#647167}
+.script-page .screen-material p{font-size:0.875rem;margin:12px 0}
+.screen-links{padding-left:20px;columns:2;column-gap:30px}.screen-links li{break-inside:avoid;margin:4px 0}
+.screen-links a,.original-links a{color:#326449;overflow-wrap:anywhere}
+@media(max-width:760px){
+ .script-page{padding:22px 18px!important}.script-page>header h1{font-size:1.75rem}
+ .screen-nav{position:static;gap:3px}.screen-nav a{font-size:0.875rem;padding:6px 8px}
+ .script-page .screen-frame{padding:26px 0}.screen-frame h2{font-size:1.4375rem}
+ .stage-layout{grid-template-columns:1fr;gap:22px}.stage-teaching{position:static;border-right:0;border-bottom:1px solid #ccd5c8;padding:0}
+ .script-page .stage-teaching p{font-size:1rem;margin-bottom:18px}.script-passage{font-size:1.125rem}
+ .screen-links{columns:1}
+}
+@media print{.screen-nav,.screen-material{display:none}.script-page{padding:0!important}}
+
+/* 讨论视图：目录与正文各自滚动，选中条目不重排目录。 */
+body.discussion-layout{height:100dvh;overflow:hidden;margin:0}
+.discussion-layout .script-page{max-width:none!important;margin:0!important;padding:0!important;height:100dvh}
+.discussion-layout .script-page>header,.discussion-layout .script-page>.section-links,.discussion-layout .edit-banner{display:none!important}
+.discussion-layout #script{display:grid;grid-template-columns:330px minmax(0,1fr);height:100%;margin:0}
+.discussion-sidebar{overflow-y:auto;height:100%;box-sizing:border-box;padding:22px 18px;background:#edf1e9;border-right:1px solid #c8d0c2}
+.discussion-brand{padding-bottom:14px}
+.discussion-brand h1{font-size:1.3125rem;margin:0 0 8px;color:#243c31}
+.discussion-brand a{font-size:0.8125rem;color:#526059}
+.discussion-tree-group{padding:0!important;margin:16px 0!important;border:0!important}
+.discussion-tree-group h2{font-size:0.9375rem;line-height:1.6;margin:0 0 6px;color:#243c31}
+.discussion-tree-group ul{list-style:none;padding:0;margin:0}
+.discussion-tree-group li{padding:0;margin:2px 0;line-height:1.5}
+.discussion-tree-group a{display:block;padding:5px 8px;font-size:0.875rem;color:#526059;text-decoration:none;border-radius:4px;overflow-wrap:anywhere}
+.discussion-tree-group a:hover{background:#e0e8dc}
+.discussion-tree-group a[aria-current]{background:#d9e6d5;color:#214d36;font-weight:600}
+.discussion-panel{overflow-y:auto;height:100%;box-sizing:border-box;padding:36px 48px;scroll-behavior:auto}
+.discussion-content{max-width:960px;margin:0 auto}
+.discussion-content[hidden]{display:none!important}
+.discussion-parent{font-size:0.9375rem;color:#68736d;margin:0 0 12px}
+.discussion-content>h2{font-size:1.75rem;line-height:1.5;margin:0 0 26px;color:#243c31}
+.discussion-objective{background:#edf1e9;border-left:3px solid #91a88a;padding:18px 22px;margin-bottom:28px}
+.discussion-content h3{font-size:1.125rem;color:#326449;margin:0 0 12px}
+.discussion-content p{font-size:1.125rem;line-height:1.95}
+.discussion-objective p{margin:0;font-size:1rem}
+.discussion-explanation{padding:0!important;margin:0 0 28px!important;border:0!important}
+.discussion-explanation p{margin:0}
+.discussion-recording{border-top:1px solid #c8d0c2;padding-top:20px;margin-top:34px}
+.discussion-recording>summary{font-size:1rem;color:#326449;cursor:pointer}
+.discussion-layout .frame-preparation{display:none}
+@media(max-width:900px){.discussion-layout #script{grid-template-columns:260px minmax(0,1fr)}.discussion-panel{padding:26px}.discussion-content>h2{font-size:1.5rem}}
+@media(max-width:600px){.discussion-layout #script{grid-template-columns:165px minmax(0,1fr)}.discussion-sidebar{padding:14px 8px}.discussion-brand h1{font-size:1.0625rem}.discussion-tree-group h2{font-size:0.8125rem}.discussion-tree-group a{font-size:0.75rem;padding:5px}.discussion-panel{padding:20px 16px}.discussion-content>h2{font-size:1.25rem}.discussion-content p{font-size:1rem}.discussion-objective{padding:12px}}
+@media(min-width:901px){
+ .discussion-layout #script{grid-template-columns:360px minmax(0,1fr)}
+ .discussion-sidebar{padding:14px 12px}
+ .discussion-brand{padding-bottom:6px}
+ .discussion-brand h1{font-size:1.1875rem}
+ .discussion-tree-group{margin:9px 0!important}
+ .discussion-tree-group h2{font-size:0.875rem;line-height:1.4;margin-bottom:4px}
+ .discussion-tree-group li{margin:1px 0;line-height:1.4}
+ .discussion-tree-group a{padding:3px 7px;font-size:0.8125rem}
+}
+/* 讲述安排与口播在同一长页中；这些链接只负责定位。 */
+.discussion-modes{display:flex;gap:24px;margin:0 0 30px;border-bottom:1px solid #c8d0c2}
+.discussion-modes a{font-size:1rem;color:#68736d;text-decoration:none;padding:8px 0;border-bottom:2px solid transparent}
+.discussion-modes a[aria-current]{color:#326449;border-color:#326449;font-weight:600}
+.discussion-design[hidden],.discussion-recording[hidden]{display:none!important}
+.discussion-main-content{margin:0 0 30px}
+.discussion-reason{border-left:3px solid #bccbb4;padding:4px 0 4px 20px}
+.discussion-reason p{font-size:1rem;color:#526059;margin:0;line-height:1.9}
+.discussion-reason h3{font-size:0.9375rem}
+.discussion-recording{border:0;padding:0;margin:0}
+.discussion-recording .screen-frame-title{display:none}
+.discussion-tree-group h2 a{font:inherit;color:#243c31;padding:0}
+.discussion-unit-order{padding:0;list-style:none;line-height:2.3;font-size:1.125rem}
+.discussion-unit-order a{color:#326449;text-decoration:none}
+.discussion-unit-order a:hover{text-decoration:underline}
+
+
+.discussion-layout #script{grid-template-columns:330px minmax(0,1fr);min-height:0}
+.discussion-layout .discussion-panel,.discussion-layout .discussion-sidebar{min-height:0;overscroll-behavior:contain}
+.discussion-layout .stage-teaching{position:static;border:0;padding:0}
+.discussion-layout .stage-teaching[hidden],.discussion-layout .stage-script[hidden]{display:none}
+.discussion-layout .discussion-content{padding-bottom:48px!important}
+.discussion-content+.discussion-content{padding-top:36px!important}
+.discussion-brand .lesson-overview{font-size:0.8125rem}
+@media(max-width:600px){.discussion-layout #script{grid-template-columns:165px minmax(0,1fr)}}
+
+/* Unified hierarchy: parts and groups visible, individual screens collapsed. */
+.discussion-tree-section{border-bottom:1px solid #dce3d7}
+.discussion-tree-section summary{display:flex;align-items:baseline;gap:7px;padding:10px 8px;cursor:pointer;list-style:none;font-size:0.8125rem;font-weight:600;line-height:1.65;color:#354c3d;border-radius:6px}
+.discussion-tree-section summary::-webkit-details-marker{display:none}
+.discussion-tree-section summary::before{content:'›';flex:none;color:#71816d}
+.discussion-tree-section[open]>summary::before{transform:rotate(90deg)}
+.discussion-tree-section summary:hover,.discussion-tree-section.contains-current>summary{background:#e4ecdf;color:#214d36}
+.discussion-tree-section summary:focus-visible{outline:2px solid #66845c;outline-offset:-2px}
+.discussion-tree-section>ul{margin:2px 0 10px 15px;padding-left:9px;border-left:1px solid #cbd8c4}
+.discussion-tree-section>ul a{font-size:0.75rem;line-height:1.65;padding:6px 8px}
+.script-beat{scroll-margin-top:24px}.script-beat+.script-beat{margin-top:28px}
+.ppt-location{font-weight:600}
+
+.discussion-brand>a{display:inline-block;margin-right:10px;margin-bottom:6px}
+
+.ppt-plan table{width:100%;border-collapse:collapse;font-size:1rem;line-height:1.65}.ppt-plan th,.ppt-plan td{padding:14px;text-align:left;vertical-align:top;border-bottom:1px solid #d7d3c8}.ppt-plan th:first-child{width:22%}.ppt-plan th:nth-child(2){width:38%}.ppt-plan-jump{display:block;margin-top:16px;font-weight:700}
+
+/* Continuous content must fit the reading pane, including overviews on phones. */
+.discussion-panel{overflow-wrap:anywhere;min-width:0}
+.discussion-panel table{width:100%;table-layout:fixed}
+.discussion-panel pre{white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}
+.discussion-modes{flex-wrap:wrap}
+@media(max-width:600px){.discussion-panel th,.discussion-panel td{padding:8px 4px}}
+
+.review-screen-button { display:none; margin:4px 0 10px; padding:5px 12px; border:1px solid #b8c9be; border-radius:6px; background:#f3f8f4; color:#245039; cursor:pointer; font:inherit; font-size:0.875rem; }
+.comments-enabled .review-screen-button { display:inline-block; }
+.review-comment-help { padding:10px 0; color:#52645b; font-size:0.875rem; }
+
+/* Keep the divider outside both independently scrolling panes. */
+.discussion-layout #script{grid-template-columns:var(--directory-width,330px) 8px minmax(0,1fr)}
+.discussion-sidebar{min-width:0;overflow-wrap:anywhere}
+.discussion-resizer{height:100%;min-height:0;cursor:col-resize;touch-action:none;background:#e1e7dc;position:relative}
+.discussion-resizer::after{content:'';position:absolute;top:calc(50% - 24px);left:3px;width:2px;height:48px;border-radius:2px;background:#91a88a}
+.discussion-resizer:hover,.discussion-resizer:focus-visible,.resizing-directory .discussion-resizer{background:#b9cbb0;outline:0}
+.resizing-directory,.resizing-directory *{cursor:col-resize!important;user-select:none!important}
