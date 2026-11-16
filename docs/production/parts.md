@@ -7,7 +7,7 @@
 - 样式：[`courseware/shared/parts/parts.css`](../../courseware/shared/parts/parts.css)
 - 脚本：[`courseware/shared/parts/parts.js`](../../courseware/shared/parts/parts.js)（注入手绘抖动滤镜；不加载也能显示，只是边框不抖）
 - 陈列页：[`demos/parts/`](../../demos/parts/index.html)，还没有小节在用的零件在这里逐个预览，可分步推进
-- 制作流程：[课件制作手册](lesson-authoring-playbook.md)
+- 制作方法：[course-prep](../../.agents/skills/course-prep/references/ppt.md)
 - 样板：[1.2 节](../../courseware/ch01/lessons/02-agent/index.html)，逐页对应见[第 1 章视觉盘点](ch01-visual-inventory.md)
 - 已接入：第 1 章全部六节；[第 0 章](../../courseware/ch00/index.html)（访谈页，大号流程与阶梯）、[课程首页](../../courseware/index.html)（阅读站，课程路线与手绘卡片，样式在 `courseware/shared/home.css`）
 
@@ -32,9 +32,11 @@
 
 1. **颜色只用 `data-role`**：`us`（人）、`agent`、`tool`、`ctx`（上下文）、`gate`（风险/失败）、`ok`（通过）、`ink`（中性）。不要在页面里直接写色值。含义全课固定，不能挪作他用。
 2. **手绘给概念，工整给证据**：框、节点、贴纸、结论条会轻微抖动；代码、终端、diff、页面截图保持工整。
-3. **先选结构，再填内容**：一页只讲一个判断。先想这页是"流程""对照""分类"还是"自检"，再挑零件。
+3. **按内容关系组合零件**：从具体对象、依据与关系选择表达，文案与布局可以相互调整；流程、对照、分类和自检是参考形式。
 
 ## 零件目录
+
+下表描述现有零件及原示例；列数、格数、所在页及示例组合不构成新课的固定要求，按当前讲述设计选用或改造。
 
 | 零件 | 类名 | 什么时候用 | 课件中的例子 |
 |---|---|---|---|
@@ -160,4 +162,4 @@ v0.5 新增（2026-10-06，第 2 章 2.5）：
 - 陈列页只展示 v0.2 零件；v0.3 零件的实例直接看上表对应页面。
 - 陈列页使用全课统一字体子集（`courseware/shared/fonts/`，见[字体说明](fonts.md)）。
 - 手绘抖动依赖 SVG 滤镜，打印和"减少动态效果"设置下会关闭。
-- 仓库规范要求流程图用 pretty-mermaid / archscribe 制作；本次环境里没有这两个 skill，1.2 的三张图只重新呈现、未改动逻辑源，拓扑由检查脚本核对。
+- 历史制作记录：1.2 的三张图只重新呈现、未改动逻辑源，拓扑由检查脚本核对；不构成后续绘图工具要求。

@@ -1,0 +1,371 @@
+/* Render once: navigation must not destroy editable source nodes or local state. */
+(() => {
+  'use strict';
+  const data = window.narrationData;
+  const nav = document.querySelector('nav'), article = document.querySelector('article');
+  const panel = document.querySelector('.panel'), aside = document.querySelector('aside');
+  const entries = new Map(), links = new Map(), aliases = new Map(), mounted = new WeakSet();
+  const locator = data.ppt && createPptLocator(data.ppt);
+  const node = (tag, text, cls) => {
+    const el = document.createElement(tag);
+    if (text !== undefined) el.textContent = text;
+    if (cls) el.className = cls;
+    return el;
+  };
+  // Resize the existing columns without remounting scripts or comment anchors.
+  const root = document.querySelector('main'), sidebar = aside;
+  const divider = node('div', '', 'discussion-resizer');
+  divider.tabIndex = 0;
+  divider.setAttribute('role', 'separator');
+  divider.setAttribute('aria-label', '调整目录宽度');
+  divider.setAttribute('aria-orientation', 'vertical');
+  divider.title = '左右拖动调整目录宽度；方向键微调，双击恢复默认';
+  sidebar.id = 'discussion-sidebar';
+  divider.setAttribute('aria-controls', sidebar.id);
+  sidebar.after(divider);
+  const widthKey = 'narration-sidebar-width:' + location.pathname;
+  let preferredWidth = null, drag = null;
+  try {
+    const saved = Number(localStorage.getItem(widthKey));
+    if (Number.isFinite(saved) && saved > 0) preferredWidth = saved;
+  } catch (_) { /* Storage can be unavailable in private/local contexts. */ }
+  const limits = () => {
+    const width = root.clientWidth;
+    const min = width <= 520 ? 100 : 180;
+    return {min, max: Math.max(min, Math.min(600, width - (width <= 520 ? 220 : 360) - 8))};
+  };
+  const applyWidth = () => {
+    const {min, max} = limits();
+    const width = Math.round(Math.max(min, Math.min(max, preferredWidth ?? (root.clientWidth <= 520 ? 110 : root.clientWidth <= 800 ? 210 : 280))));
+    root.style.setProperty('--directory-width', width + 'px');
+    divider.setAttribute('aria-valuemin', min);
+    divider.setAttribute('aria-valuemax', max);
+    divider.setAttribute('aria-valuenow', width);
+    divider.setAttribute('aria-valuetext', width + ' 像素');
+  };
+  const saveWidth = () => {
+    try {
+      if (preferredWidth === null) localStorage.removeItem(widthKey);
+      else localStorage.setItem(widthKey, preferredWidth);
+    } catch (_) {}
+  };
+  const changeWidth = value => {
+    const {min, max} = limits();
+    preferredWidth = Math.max(min, Math.min(max, value));
+    applyWidth();
+  };
+  divider.addEventListener('pointerdown', event => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    divider.focus();
+    drag = {id:event.pointerId, x:event.clientX, width:sidebar.getBoundingClientRect().width};
+    divider.setPointerCapture(event.pointerId);
+    document.body.classList.add('resizing-directory');
+  });
+  divider.addEventListener('pointermove', event => {
+    if (drag?.id === event.pointerId) changeWidth(drag.width + event.clientX - drag.x);
+  });
+  const finishDrag = event => {
+    if (drag?.id !== event.pointerId) return;
+    drag = null;
+    document.body.classList.remove('resizing-directory');
+    if (divider.hasPointerCapture(event.pointerId)) divider.releasePointerCapture(event.pointerId);
+    saveWidth();
+  };
+  ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(type => divider.addEventListener(type, finishDrag));
+  divider.addEventListener('keydown', event => {
+    const {min, max} = limits();
+    const current = sidebar.getBoundingClientRect().width;
+    const values = {ArrowLeft:current - 10, ArrowRight:current + 10, Home:min, End:max};
+    if (!(event.key in values)) return;
+    event.preventDefault(); changeWidth(values[event.key]); saveWidth();
+  });
+  divider.addEventListener('dblclick', () => { preferredWidth = null; applyWidth(); saveWidth(); });
+  new ResizeObserver(applyWidth).observe(root);
+  applyWidth();
+
+
+  const title = item => [item.number, item.title].filter(Boolean).join(' ');
+  const own = (item, key) => Object.prototype.hasOwnProperty.call(item, key);
+  const status = node('p', '', 'navigation-status'); status.setAttribute('role', 'status');
+  panel.prepend(status);
+  document.querySelector('aside h1').textContent = data.title || '讲述页';
+  document.title = data.title || '讲述页';
+  function safeUrl(value) {
+    const url = new URL(value, location.href);
+    if (!['http:', 'https:', 'file:'].includes(url.protocol)) throw new Error('不支持的材料地址：' + value);
+    return url.href;
+  }
+  function externalLink(label, url) {
+    const a = node('a', label); a.href = safeUrl(url); a.target = '_blank'; a.rel = 'noopener'; return a;
+  }
+  function details(label, text, open = false, cls = '') {
+    const el = node('details', undefined, cls); el.open = open;
+    el.append(node('summary', label));
+    if (text !== undefined) el.append(node('div', text, 'detail-text'));
+    return el;
+  }
+  function register(item, el) {
+    if (!item.id || entries.has(item.id) || aliases.has(item.id)) throw new Error('缺少或重复的稳定 ID：' + item.id);
+    el.id = item.id; el.tabIndex = -1;
+    entries.set(item.id, el);
+    for (const alias of item.aliases || []) {
+      if (entries.has(alias) || aliases.has(alias)) throw new Error('重复的旧锚点：' + alias);
+      aliases.set(alias, item.id);
+    }
+  }
+  function toc(item, parent) {
+    const a = node('a', title(item)); a.href = '#' + encodeURIComponent(item.id);
+    parent.append(a); links.set(item.id, a); return a;
+  }
+  function pptLocation(parent, ppt) {
+    if (!ppt) return;
+    const label = locator?.label(ppt.id, ppt.step), href = locator?.href(ppt.id, ppt.step);
+    if (!label || !href) {
+      parent.append(node('span', 'PPT 定位待核对：' + ppt.id, 'warning'));
+      return;
+    }
+    const a = externalLink(label, href); a.className = 'ppt-location'; parent.append(a);
+  }
+  function promptBlock(block) {
+    const wrap = node('div', undefined, 'prompt-block'), row = node('div', undefined, 'resource-row');
+    const label = block.label || 'Prompt', raw = block.text ?? '';
+    row.append(block.url ? externalLink(label,block.url) : node('strong', label));
+    if (block.purpose) row.append(node('span', block.purpose, 'muted'));
+    if (block.location) row.append(node('span', block.location));
+    const button = node('button', '复制 ' + label); button.type = 'button';
+    const feedback = node('span', '', 'copy-status'); feedback.setAttribute('role', 'status');
+    const fold = details('查看原文'); const pre = node('pre', raw); fold.append(pre);
+    let fallback;
+    button.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(raw); feedback.textContent = '已复制'; }
+      catch {
+        fold.open = true;
+        // A rendered <pre> selection can omit its final newline in Chromium.
+        // A readonly control selects the exact source value for manual copying.
+        if (!fallback) {
+          fallback = node('textarea', undefined, 'copy-selection');
+          fallback.readOnly = true; fallback.value = raw;
+          fallback.setAttribute('aria-label', label + '原文（只读）');
+          fallback.rows = Math.min(12, Math.max(3, raw.split('\n').length));
+          pre.hidden = true; fold.append(fallback);
+        }
+        fallback.focus(); fallback.select();
+        feedback.textContent = '已选中原文，请复制';
+      }
+    });
+    row.append(button, feedback); wrap.append(row, fold); return wrap;
+  }
+  function materialBlock(items) {
+    const wrap = node('div', undefined, 'materials');
+    for (const item of items || []) {
+      if (own(item, 'text')) { wrap.append(promptBlock(item)); continue; }
+      const row = node('div', undefined, 'resource-row');
+      if (item.url) row.append(externalLink(item.label, item.url)); else row.append(node('strong', item.label));
+      if (item.purpose) row.append(node('span', item.purpose, 'muted'));
+      if (item.location) row.append(node('span', item.location));
+      wrap.append(row);
+    }
+    return wrap;
+  }
+  function renderBlocks(parent, blocks, owner, segment) {
+    for (const block of blocks) {
+      let el;
+      switch (block.type) {
+        case 'location':
+          el = node('div', block.text, 'location'); pptLocation(el, block.ppt); break;
+        case 'operation': {
+          el = node('div', undefined, 'operation');
+          if (block.timing) el.append(node('strong', block.timing, 'timing'));
+          const list = node('ol');
+          for (const step of block.steps || [block.text || '']) list.append(node('li', step));
+          el.append(list); break;
+        }
+        case 'script': {
+          el = node('div', undefined, 'script');
+          // Legacy item callback still receives the original item; new sources resolve block.ref.
+          const source = window.narrationAdapters?.renderScript?.(owner, block, segment);
+          if (source) {
+            if (!(source instanceof Node) || source instanceof DocumentFragment || mounted.has(source)) {
+              throw new Error('适配器须返回未重复挂载的原始节点：' + (block.ref || owner.id));
+            }
+            mounted.add(source); el.append(source);
+          } else if (block.ref) {
+            el.append(node('p', '口播源未接入：' + block.ref, 'warning'));
+          } else if (own(block, 'text')) el.append(node('blockquote', block.text));
+          else if (block._probe) continue;
+          else el.append(node('p', '逐字稿待补', 'pending'));
+          break;
+        }
+        case 'prompt': el = promptBlock(block); break;
+        case 'materials': el = materialBlock(block.items); break;
+        case 'note': el = node('p', block.text, 'notice'); break;
+        case 'preview': {
+          el = details(block.label || '画面预览', undefined, false, 'preview');
+          el.append(externalLink('打开原画面', block.url));
+          let loaded = false;
+          el.addEventListener('toggle', () => {
+            if (!el.open || loaded) return;
+            loaded = true;
+            const frame = node('iframe'); frame.title = block.label || '画面预览';
+            frame.loading = 'lazy'; frame.src = safeUrl(block.url); el.append(frame);
+          });
+          break;
+        }
+        case 'branch':
+          el = node('div', undefined, 'branch');
+          el.append(node('p', '备用条件：' + block.condition, 'condition'));
+          { const fold = details(block.label || '展开备用路线'); renderBlocks(fold, block.blocks || [], owner, segment); el.append(fold); }
+          break;
+        default: throw new Error('未知模块类型：' + block.type);
+      }
+      el.dataset.block = block.type; parent.append(el);
+    }
+  }
+  function hasScript(blocks) {
+    return blocks.some(b => (b.type === 'script' && !b._probe) || (b.blocks && hasScript(b.blocks)));
+  }
+  function segmentView(owner, segment, legacy = false) {
+    const el = node('section', undefined, 'segment');
+    if (segment.id) register(segment, el);
+    if (segment.title) el.append(node('h5', segment.title));
+    const blocks = segment.blocks || [];
+    const scriptPresent = hasScript(blocks);
+    if (segment.status) el.append(node('p', segment.status, 'pending'));
+    if (segment.limits) el.append(node('p', segment.limits, 'notice'));
+    if (segment.design) el.append(details('讲述设计', segment.design, !scriptPresent, 'design'));
+    if (segment.preparation) el.append(details('录前准备', segment.preparation, false, 'preparation'));
+    // Do not reinterpret old points as design or hide them when a script is present.
+    if (legacy && own(owner, 'points')) el.append(details('原讲述要点（待辨别）', owner.points, true, 'legacy-points'));
+    renderBlocks(el, blocks, owner, segment);
+    if (!scriptPresent && (segment.design || (legacy && own(owner, 'points')))) el.append(node('p', '逐字稿待补', 'pending'));
+    return el;
+  }
+  function legacyBlocks(item) {
+    const blocks = [];
+    if (item.screen || item.ppt) blocks.push({type:'location', text:item.screen || '', ppt:item.ppt});
+    if (item.operation) blocks.push({type:'operation', text:item.operation});
+    if (item.materials) blocks.push({type:'materials', items:item.materials});
+    if (own(item,'prompt')) blocks.push({type:'prompt', text:item.prompt});
+    if (own(item,'script') || item.scriptRef || (!item.segments && window.narrationAdapters?.renderScript)) {
+      blocks.push({type:'script', _probe:!own(item,'script') && !item.scriptRef, ...(own(item,'script') ? {text:item.script} : {}), ...(item.scriptRef ? {ref:item.scriptRef} : {})});
+    }
+    return blocks;
+  }
+  function entry(item, level) {
+    const section = node('section', undefined, 'entry level-' + level); register(item, section);
+    section.append(node('h' + level, title(item)));
+    if (item.content) section.append(node('p', item.content, 'overview'));
+    if (item.effect) section.append(node('p', '学生收获：' + item.effect, 'overview'));
+    if (item.status) section.append(node('p', item.status, 'pending'));
+    const legacy = legacyBlocks(item);
+    // Mixing old top-level body with new segments renders both explicitly, never drops fields.
+    if (legacy.length || own(item,'points') || item.design) {
+      if (item.segments?.length) section.append(node('p', '兼容内容：请核对旧字段与新讲解段是否重复', 'warning'));
+      const legacyView=segmentView(item, {blocks:legacy, design:item.design, limits:item.limits, preparation:item.preparation}, true);
+      if (legacyView.childNodes.length) section.append(legacyView);
+    } else {
+      if (item.limits) section.append(node('p', item.limits, 'notice'));
+      if (item.preparation) section.append(details('录前准备',item.preparation));
+    }
+    for (const segment of item.segments || []) section.append(segmentView(item, segment));
+    article.append(section);
+  }
+  function overview() {
+    const item = {id:'ppt-plan',title:'PPT 逐页安排'}, section = node('section',undefined,'entry level-2');
+    register(item,section);toc(item,nav);section.append(node('h2',item.title));
+    const plan = data.pptPlan;
+    if (!plan) section.append(node('p','PPT 页数与逐页安排待定','pending'));
+    else {
+      section.append(node('p',`PPT 共 ${plan.pages.length} 页`));
+      if (plan.status) section.append(node('p',plan.status,'pending'));
+      if (plan.pages.length) {
+        const table=node('table',undefined,'ppt-plan'), header=table.createTHead().insertRow();
+        for (const label of ['页与讲述段','讲解内容','展开与切换']) {const th=node('th',label);th.scope='col';header.append(th);}
+        const body=table.createTBody();
+        plan.pages.forEach((page,i)=>{
+          const row=body.insertRow(), cell=row.insertCell(), href=locator?.href(page.id);
+          cell.append(href ? externalLink(locator.label(page.id),href) : node('span',`第 ${i+1} 页（计划）`));
+          cell.append(node('div',page.frames));row.insertCell().textContent=page.content;row.insertCell().textContent=page.progression;
+        });section.append(table);
+      }
+    }
+    article.append(section);
+  }
+  overview();
+  for (const part of data.parts || []) {
+    const section=node('section',undefined,'nav-part');toc(part,section);entry(part,2);
+    for (const group of part.groups || []) {
+      const row=node('div',undefined,'nav-row');toc(group,row);section.append(row);entry(group,3);
+      const screens=group.screens || [];
+      if (screens.length) {
+        const list=node('div',undefined,'nav-children');list.hidden=true;
+        const toggle=node('button','›');toggle.type='button';toggle.setAttribute('aria-label','展开 '+title(group));toggle.setAttribute('aria-expanded','false');
+        // Controls IDs are independent of content IDs and checked for collisions below.
+        list.id='toc-children-'+links.size;toggle.setAttribute('aria-controls',list.id);
+        toggle.addEventListener('click',()=>{list.hidden=!list.hidden;toggle.textContent=list.hidden?'›':'⌄';toggle.setAttribute('aria-expanded',String(!list.hidden));toggle.setAttribute('aria-label',(list.hidden?'展开 ':'收起 ')+title(group));});
+        row.prepend(toggle);section.append(list);
+        for (const screen of screens) {toc(screen,list);entry(screen,4);}
+      }
+    }
+    nav.append(section);
+  }
+  const allIDs = new Set();
+  for (const el of document.querySelectorAll('[id]')) {
+    if (allIDs.has(el.id) || aliases.has(el.id)) throw new Error('页面 ID 冲突：'+el.id);
+    allIDs.add(el.id);
+  }
+  function mark(id) {
+    for (const [key,a] of links) {
+      if (key===id) a.setAttribute('aria-current','location'); else a.removeAttribute('aria-current');
+    }
+    for (const list of nav.querySelectorAll('.nav-children')) {
+      list.previousElementSibling.classList.toggle('contains-current',Boolean(list.querySelector('[aria-current]')));
+    }
+  }
+  let queued=false;
+  function follow() {
+    queued=false;
+    const top=panel.getBoundingClientRect().top+24;
+    let current=null;
+    for (const [id,el] of entries) {
+      if (!links.has(id)) continue;
+      if (!current || el.getBoundingClientRect().top<=top) current=id;
+      else break;
+    }
+    if (current) mark(current);
+  }
+  const schedule=()=>{if(!queued){queued=true;requestAnimationFrame(follow);}};
+  function jump(raw,focus=false) {
+    let id;
+    try {id=decodeURIComponent(raw.replace(/^#/,''));} catch {id=raw.replace(/^#/,'');}
+    id=aliases.get(id)||id;
+    if (!id) id='ppt-plan';
+    const target=entries.get(id) || document.getElementById(id);
+    if (!target || !article.contains(target)) {status.textContent='未找到定位：'+id;return;}
+    status.textContent='';
+    for (let ancestor=target.parentElement; ancestor && ancestor!==article; ancestor=ancestor.parentElement) {
+      if (ancestor.tagName==='DETAILS') ancestor.open=true;
+    }
+    const sidebarTop=aside.scrollTop;
+    panel.scrollTop+=target.getBoundingClientRect().top-panel.getBoundingClientRect().top-16;
+    if(focus) {target.focus({preventScroll:true});aside.scrollTop=sidebarTop;}
+    schedule();
+  }
+  document.addEventListener('click',event=>{
+    const a=event.target.closest('a[href^="#"]');
+    if (!a || event.button!==0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    if(location.hash!==a.hash) history.pushState(null,'',a.hash);
+    jump(a.hash,true);
+  });
+  addEventListener('popstate',()=>jump(location.hash));
+  addEventListener('hashchange',()=>jump(location.hash));
+  panel.addEventListener('scroll',schedule,{passive:true});
+  new ResizeObserver(schedule).observe(article);
+  addEventListener('resize',schedule);
+  // Passive scroll only marks the TOC; it never adds history or changes its scroll/folds.
+  requestAnimationFrame(()=>jump(location.hash));
+  // Formal course adapters attach the shared editor after original nodes are mounted.
+  if (location.protocol !== 'file:') window.narrationAdapters?.enableEditing?.(article);
+})();

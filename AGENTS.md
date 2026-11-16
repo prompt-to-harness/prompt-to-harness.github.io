@@ -7,7 +7,8 @@
 ## 你的角色
 
 - 你是备课伙伴，不是执行器：发现需求模糊、矛盾或遗漏时直接指出，不合理的安排给出明确意见和取舍，不要为了迎合默认设想都合理。信息缺失且会改变课程结构或教学效果时，先问最少的关键问题，再动手。
-- 课程设计在多台机器、多个 agent 和多位讲师之间协作。讨论得出的决定、偏好和核验记录写进本仓库（或私有仓库）的对应文件，不只存在于某个 agent 的本地记忆中。
+- 课程设计在多台机器、多个 agent 和多位讲师之间协作。需要其他窗口沿用的教学决定和偏好写回 Discussion、讲述页或 PPT 的对应内容。日常自查和构建结果随本轮对话交付。
+- Skill 的更新（含 `SKILL.md` 及其配套规则、脚本和元数据）必须得到讲师明确授权。调用 Skill、讨论问题或要求“统一规则”本身不等于授权修改 Skill；未获授权时先提供具体拟改内容，获授权后按范围落盘。
 
 ## 课程与受众
 
@@ -17,15 +18,17 @@
 
 ## 按任务阅读
 
-**改动课程内容一律先用项目 skill `lesson-polish`**（`.agents/skills/lesson-polish/SKILL.md`，`.claude/skills/` 下是指向它的软链接）：从平台大纲、内部大纲、章文件、分镜到页面文案和口播，它判断从哪一层改起、要同步哪些文件、先问谁、跑什么检查；只改措辞走快路径。下表是各类任务要读的规则。
+课程备课方法的唯一入口为项目 skill `course-prep`（`.agents/skills/course-prep/SKILL.md`）。`ch03-prep` 已注销，第三章内容与页面源的定位见 `courseware/ch03/README.md`，不再加载章节 Skill。原 `lesson-polish` 已注销，不再作为必用 Skill；旧入口只作跳转，不再提供独立备课流程。内容源、技术参数与检查工具按 course-prep 引用读取，不另行决定教学顺序、产物结构或阶段审批。下表按职责定位资料。
+
+备课内容只维护两层。Discussion 定教学目标、知识取舍和讲解安排。讲述线定各画面的讲法、证据、切换及 PPT 逐页安排，备课持续维护 Discussion、讲述页与 PPT。提前准备事项写进 Discussion，网页、日志和运行记录按讲述需要接到对应步骤。备课阶段完成授课所需的全部成果，包括可用的录制讲稿与操作入口，同时保证授课画面和教学安排适合学生。讲师确认后，再启动学生独立使用材料的制作；其交付范围与载体另行确定，见 [学生材料交接边界](docs/production/student-materials-handoff.md)。小节 README、LOG 和旧制作记录只供查阅。现有 `STORYBOARD.md` 作为历史资料只读，禁止新建或同步更新独立分镜。需要沿用其中的内容时，先把本次用到的独有信息接入当前 Discussion 或讲述线源，再继续制作。 [course-prep 的讲述设计](.agents/skills/course-prep/references/narration-html.md#执行路径)
 
 | 要做的事 | 先读 |
 | --- | --- |
 | 确认课次范围、知识点、演示、练习、验收，或判断哪份文档为准 | [docs/agents/sources-of-truth.md](docs/agents/sources-of-truth.md) |
-| 写或改文档、讲义、口播稿 | [docs/agents/editing-conventions.md](docs/agents/editing-conventions.md)，以及 [docs/production/editorial-checklist.md](docs/production/editorial-checklist.md)（编辑规则的唯一来源） |
-| 审查课件（内容、格式、展示效果） | `lesson-polish` 的 `review.md`；先读覆盖当前范围的已有记录，按 [docs/reviews/](docs/reviews/README.md) 的触发条件留痕；日常讨论和自查不另建记录 |
+| 写或改文档、讲义、口播稿 | [docs/agents/editing-conventions.md](docs/agents/editing-conventions.md)，按该入口直接列出的 ED 编号使用 `python3 tools/read-editorial-rules.py ED-编号 ...` 读取完整正文，不再经过公共任务表；编辑规范仍是规则正文唯一来源 |
+| 审查课件（内容、格式、展示效果） | [检查与定稿](.agents/skills/course-prep/references/recording-alignment-workflow.md)；先读覆盖当前范围的已有记录，按 [docs/reviews/](docs/reviews/README.md) 的触发条件留痕；日常讨论和自查不另建记录 |
 | 给某章或某页找外部佐证（官方文章、研究、X 帖子的截图和链接） | 项目 skill `external-sources`（`.agents/skills/external-sources/SKILL.md`，`.claude/skills/` 下是指向它的软链接）；规则见 [docs/production/external-sources.md](docs/production/external-sources.md) |
-| 设计或修改课件、图示 | [docs/agents/courseware-workflow.md](docs/agents/courseware-workflow.md)，以及 [docs/production/](docs/production/README.md) |
+| 设计或修改课件、图示 | [course-prep 的 PPT 方法](.agents/skills/course-prep/references/ppt.md)；播放器实现查 [工程约定](docs/agents/courseware-workflow.md)，视觉参数查 [视觉规范](docs/production/visual-design-system.md) |
 
 ## 公开仓库边界（不得削弱）
 
