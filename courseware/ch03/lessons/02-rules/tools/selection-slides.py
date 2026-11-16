@@ -9,9 +9,9 @@ def actions(*entries):
         f'<a href="{escape(url, quote=True)}" target="_blank" rel="noopener">{escape(label)} ↗</a>' for label,url in entries) + '</div>'
 
 def build(lesson, evidence):
-    def add(id,title,lead,html,steps):
+    def add(id,title,lead,html,steps,refs=None):
         lesson.scene(id=id,segment='调用与选用',title=title,lead=lead,html=html,
-                     steps=steps,layout='selection-slide')
+                     steps=steps,refs=refs or [],layout='selection-slide')
     add('p07','下一次任务怎样用上检查方法',
         '开发者反复遇到计步、重开和再次交代。现在的做法是每次再交代一次。下一步才把检查要求、经验方法和保存做法收进 Skill，供 AI 下次选用；实际是否采用以及结果怎样，仍需检查。',
         '<div class="selection-question"><p class="question">下一次任务怎样<br>用上检查方法？</p>'
@@ -47,7 +47,8 @@ def build(lesson, evidence):
         '<tr data-reveal="2"><th>确认可用</th><td>项目内启动 Codex → <code>/skills</code><br>找到 Game Playtest，核对来自当前项目</td></tr>'
         '</tbody></table><p class="selection-note">保留 SKILL.md 与引用资源的相对位置；能找到之后，还要实际调用</p>'
         +actions(('本课安装操作与固定版本','install-skill.html'),('官方安装说明','https://learn.chatgpt.com/docs/build-skills')),
-        ['来源与完整文件','项目与个人范围','切终端安装并检查发现'])
+        ['来源与完整文件','项目与个人范围','切终端安装并检查发现'],
+        refs=[{'text':'SkillsMP','url':'https://skillsmp.com/community','kind':'live'}])
 
     add('p07b','主动指定 game-playtest',
         '三条选择入口收成一条任务请求：指定的指导是 $game-playtest，本次规则写计步、重开和只给清单。画面不是终端仿画。选中后仍要核对返回是否符合本次规则。完整请求可以复制。',
