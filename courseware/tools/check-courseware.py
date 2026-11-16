@@ -6,7 +6,7 @@ import re
 from html import unescape
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import unquote, urlsplit
+from urllib.parse import unquote, urlsplit, urljoin
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--chapter", type=Path, help="Limit the check to one chapter directory; default checks all courseware")
@@ -17,15 +17,26 @@ resources = courseware.parent
 content_roots = (root, resources / 'starters')
 
 
+def source_files(directory, pattern):
+    # 独立练习项目的 npm 依赖和构建产物不属于课程内容源。
+    return (p for p in directory.rglob(pattern)
+            if not {'node_modules', 'dist'}.intersection(p.relative_to(directory).parts))
+
+
 class Page(HTMLParser):
     def __init__(self):
         super().__init__()
         self.ids = set()
         self.links = []
         self.scripts = []
+        self.base = None
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
+        if tag == 'base' and attrs.get('href'):
+            if self.base is None:
+                self.base = attrs['href']
+            return
         if attrs.get('id'):
             self.ids.add(attrs['id'])
         for key in ('href', 'src', 'data-lesson-page'):
@@ -36,13 +47,15 @@ class Page(HTMLParser):
 
 
 pages = {}
+base_urls = {}
 references = []
 scene_count = 0
-for path in sorted(p for directory in content_roots for p in directory.rglob('*.html')):
+for path in sorted(p for directory in content_roots for p in source_files(directory, '*.html')):
     page = Page()
     page.feed(path.read_text())
+    base_urls[path] = urljoin(path.as_uri(), page.base or '')
     for script in list(page.scripts):
-        source = path.parent / script
+        source = Path(unquote(urlsplit(urljoin(base_urls[path], script)).path))
         if source.name != 'lesson.js' or not source.is_file():
             continue
         data = json.loads(source.read_text().removeprefix('window.lesson = ').strip().removesuffix(';'))
@@ -54,12 +67,30 @@ for path in sorted(p for directory in content_roots for p in directory.rglob('*.
             # These HTML strings are inserted into the current document.
             page.feed(scene.get('html', ''))
             page.feed(scene.get('notes', ''))
+            for step in scene.get('repro', {}).get('steps', []):
+                page.links.extend(link['url'] for link in step.get('links', []))
+    # 对照阅读页的定位与材料链接由 screen-plan 动态插入。
+    screen_plan = path.parent / 'screen-plan.json'
+    script_paths = {urlsplit(script).path for script in page.scripts}
+    if 'speaker-screen.js' in script_paths and screen_plan.is_file():
+        plan = json.loads(screen_plan.read_text())
+        for frame in plan['frames'] + plan.get('authoring', {}).get('frames', []):
+            page.ids.add(frame['id'])
+            page.links.extend(link[1] for link in frame.get('links', []))
+        page.links.extend(item['url'] for item in plan.get('authoring', {}).get('materials', {}).values())
+        reading_data = path.parent / 'reading-data.js'
+        if 'reading-data.js' in script_paths and reading_data.is_file():
+            reading = json.loads(reading_data.read_text().split('window.readingPlan = ', 1)[1].split(';\n', 1)[0])
+            for frame in reading['frames']:
+                page.ids.update([frame['id'], 'content-' + frame['id']])
+            page.links.extend(item['url'] for item in reading['materials'].values())
+
     pages[path.resolve()] = page
     references.extend((path, url) for url in page.links)
 
 for path in sorted(courseware.rglob('*.css')):
     references.extend((path, url) for url in re.findall(r'url\([\'\"]?([^\'\")]+)', path.read_text()))
-markdown_files = [p for directory in content_roots for p in directory.rglob('*.md')]
+markdown_files = [p for directory in content_roots for p in source_files(directory, '*.md')]
 markdown_files += [resources / 'WORKSPACE.md', resources / 'courseware/README.md']
 for path in sorted(markdown_files):
     references.extend((path, url) for url in re.findall(r'\]\(([^\s)]+)\)', path.read_text()))
@@ -70,7 +101,11 @@ for source, url in references:
     parts = urlsplit(unescape(url))
     if parts.scheme or parts.netloc or parts.path.startswith('/'):
         continue
-    target = (source.parent / unquote(parts.path)).resolve() if parts.path else source.resolve()
+    # HTML <base> also applies to anchors and links inserted from lesson.js.
+    resolved = urlsplit(urljoin(base_urls.get(source, source.as_uri()), unescape(url)))
+    if resolved.scheme != 'file':
+        continue
+    target = Path(unquote(resolved.path)).resolve()
     checked += 1
     if not target.exists():
         errors.append(f'{source.relative_to(resources)}: missing {url}')

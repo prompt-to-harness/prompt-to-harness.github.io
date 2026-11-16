@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""2.2 页面内容源；分镜在 STORYBOARD.md，口播唯一来源为 script.json。"""
+"""2.2 页面内容源；历史分镜在 STORYBOARD.md（只读），口播唯一来源为 script.json。"""
 import sys
 from html import escape
 from pathlib import Path

@@ -160,56 +160,19 @@ for path in current:
             if old in line and not (keep and keep in line):
                 errors.append(f'ED-012 {path.relative_to(repo)}:{no} 已废弃的说法“{old}”，改用“{new}”')
 
-# ED-017: in a migrated chapter (has LOG.md), the chapter file, storyboards and lesson.js agree
+# ED-017: in a chapter with LOG.md, the chapter file and lesson.js titles agree.
 for log in sorted(courseware.glob('ch*/LOG.md')):
     chapter = log.parent
     readme = (chapter / 'README.md').read_text()
-    # 分镜先行：只在分镜里、还没做成页面的 id，或分镜已撤、页面还没删的 id，在章文件“待定”里登记过就放行
-    pending = readme.split('\n## 待定', 1)[1] if '\n## 待定' in readme else ''
     titles = {m.group(1): m.group(2) for m in
               re.finditer(r'^\| (\d+\.\d+) (.+?)（\d+ 分钟）', readme, re.M)}
     for lesson_js in sorted((chapter / 'lessons').glob('*/lesson.js')):
         text = lesson_js.read_text()
         lesson = json.loads(text[text.index('{'):text.rindex('}') + 1])
         number = '.'.join(str(int(x)) for x in lesson['section'].split('.'))
-        board = lesson_js.parent / 'STORYBOARD.md'
-        where = board.relative_to(repo)
-        if not board.exists():
-            errors.append(f'ED-017 {lesson_js.parent.relative_to(repo)} 缺 STORYBOARD.md')
-            continue
-        lines = board.read_text().splitlines()
-        h1 = re.match(r'# \S+ 逐页分镜：(.+?)(?:（[^）]*）)?$', lines[0]) if lines else None
-        names = {'章文件': titles.get(number), 'lesson.js': lesson['title'], '分镜': h1.group(1) if h1 else None}
-        if len(set(names.values())) > 1:
-            errors.append(f'ED-017 {number} 节标题不一致：' + '；'.join(f'{k}“{v}”' for k, v in names.items()))
-        page_ids = {s['id'] for s in lesson['scenes']}
-        board_ids = set(re.findall(r'^\| (p\d[\w-]*) \|', board.read_text(), re.M))
-        undesigned = sorted(i for i in page_ids - board_ids if not re.search(rf'\b{re.escape(i)}\b', pending))
-        unbuilt = sorted(i for i in board_ids - page_ids if not re.search(rf'\b{re.escape(i)}\b', pending))
-        if undesigned:
-            errors.append(f'ED-017 {where} 缺这些页面的分镜行：{undesigned}')
-        if unbuilt:
-            errors.append(f'ED-017 {where} 分镜里有、页面还没有，也没在章文件“待定”登记：{unbuilt}')
-        h2 = [(n, l[3:]) for n, l in enumerate(lines) if l.startswith('## ')]
-        first_h2 = h2[0][0] if h2 else len(lines)
-        if sum(1 for l in lines[1:first_h2] if l.strip()) > 1:
-            errors.append(f'ED-017 {where} 一级标题后、首个分区前只放一段导航')
-        headings = [title for _, title in h2]
-        sectioned = ['本节内容', '逐页安排', '素材状态与操作备注']
-        if any(title in sectioned for title in headings):
-            if headings != sectioned:
-                errors.append(f'ED-017 {where} 分区结构应依次为：本节内容、逐页安排、素材状态与操作备注；区内小标题用三级标题')
-            else:
-                for index, (line, title) in enumerate(h2):
-                    end = h2[index + 1][0] if index + 1 < len(h2) else len(lines)
-                    if not any(item.strip() for item in lines[line + 1:end]):
-                        errors.append(f'ED-017 {where} “{title}”分区为空')
-                # Page rows belong to presentation design, not the narrative or material notes.
-                for n, line in enumerate(lines):
-                    if re.match(r'^\| p\d[\w-]* \|', line) and not h2[1][0] < n < h2[2][0]:
-                        errors.append(f'ED-017 {where} 页面分镜行应放在“逐页安排”分区：{line.split("|")[1].strip()}')
-        elif not headings or headings[0] != '素材状态':
-            errors.append(f'ED-017 {where} 旧结构首个二级标题应是“素材状态”；分区结构应以“本节内容”开始')
+        chapter_title = titles.get(number)
+        if chapter_title != lesson['title']:
+            errors.append(f'ED-017 {number} 节标题不一致：章文件“{chapter_title}”，lesson.js“{lesson["title"]}”')
 
 
 # ED-007 / ED-010: filler phrases are a prompt to ask "does this add information", not a ban

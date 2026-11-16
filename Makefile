@@ -1,5 +1,5 @@
 # 推送前跑 `make check`；CI 跑同样的检查。首次使用先 `make setup`。
-.PHONY: setup viewers check links
+.PHONY: setup viewers check links serve
 
 setup:
 	uv run playwright install chromium
@@ -12,11 +12,19 @@ viewers:
 
 check: viewers
 	uv run courseware/tools/check-courseware.py
+	uv run python tools/test_script_comments.py
 	uv run tools/build-site.py
 	uv run courseware/ch01/tools/check-progressive.py
 	uv run courseware/tools/check-presentation.py
+	uv run courseware/tools/check-narration.py
+	uv run courseware/tools/check-script-editing.py
 	uv run courseware/tools/check-links.py
 
 # 列出全课外部链接并逐个访问（需联网，不进 CI；录制前跑一次）
 links:
 	uv run courseware/tools/check-links.py --list --online
+
+# 本机编辑；局域网仍只读。例：make serve PORT=8876
+PORT ?= 8841
+serve:
+	sh tools/edit-courseware.sh $(PORT)

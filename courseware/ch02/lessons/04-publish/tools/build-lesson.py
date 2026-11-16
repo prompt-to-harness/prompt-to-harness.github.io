@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """2.4 发布上线，看 Codex 怎么用 gh：本节页面源，生成 lesson.js。
 
-分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch02/tools/lessonkit.py；口播见 ../script.json。
+历史分镜见 ../STORYBOARD.md（只读）；页面登记、章节地图与输出见 courseware/ch02/tools/lessonkit.py；口播见 ../script.json。
 从 2.3 的结束快照（homepage-v2）开始；画面证据来自 2026-10-25 发布排练（lab-runs ch02/2.4-20261025-claude）和推送后用 gh 读部署的补跑（同目录 ghrun/），录制时每段先讲 PPT，再切现场讲相同和不同。
 """
 from html import escape
