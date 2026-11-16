@@ -1,0 +1,213 @@
+{
+  "source": "component-audio-20261114; historical games: purple-style-20261110-v1",
+  "files": [
+    {
+      "file": "before/index.html",
+      "sha256": "2ac3966010f59ef40722771624cab9eaab8292692c10ae00e61fe2c4658e8c46"
+    },
+    {
+      "file": "before/css/result-overlay.css",
+      "sha256": "9fbe23e4e757c4b1801f8028cb859589f75d3199c042b34bb929ccbd7d85e650"
+    },
+    {
+      "file": "before/css/stat-cards.css",
+      "sha256": "57488793c20cec06697688bb7802f4f96b96cf4d16930c55d1da270719de5682"
+    },
+    {
+      "file": "before/css/game.css",
+      "sha256": "755c1d6ece64927ab054d2012e43737b10897d81a774ec6714a99de20d86eb2d"
+    },
+    {
+      "file": "before/css/purple-theme.css",
+      "sha256": "2f15e299b76ac3df07a9b555fe27aa5e2c7f5c7b4d04b632ac65ecb5964ca5de"
+    },
+    {
+      "file": "before/js/game.js",
+      "sha256": "c4e679f6fc5ed62a6c6a1419616ebe7d0de44470acef24b322b7055de55c397e"
+    },
+    {
+      "file": "before/js/purple-ui-kit.js",
+      "sha256": "5a28b257232b9455b23989809e48fb942798690eb4629a2bc42896d7dc333a88"
+    },
+    {
+      "file": "after/index.html",
+      "sha256": "08e561f17534b417966cde712bafe82520d8ac3652edd64969f50a77de4a1fa4"
+    },
+    {
+      "file": "after/css/result-overlay.css",
+      "sha256": "9fbe23e4e757c4b1801f8028cb859589f75d3199c042b34bb929ccbd7d85e650"
+    },
+    {
+      "file": "after/css/stat-cards.css",
+      "sha256": "57488793c20cec06697688bb7802f4f96b96cf4d16930c55d1da270719de5682"
+    },
+    {
+      "file": "after/css/game.css",
+      "sha256": "9e5bbbd48efb14ca74de240932b09d12a0468ab4622c3b71356e66aa87649882"
+    },
+    {
+      "file": "after/css/purple-theme.css",
+      "sha256": "2f15e299b76ac3df07a9b555fe27aa5e2c7f5c7b4d04b632ac65ecb5964ca5de"
+    },
+    {
+      "file": "after/js/game.js",
+      "sha256": "f12fff9ed6b53ea82de8fdfdf504b6c15598674e4efc17724222253b84fbe35e"
+    },
+    {
+      "file": "after/js/purple-sound.js",
+      "sha256": "eac58d411f99aeb8baa9f335aead19d0dd12a5f97e3b4e446c121e65ceb47caa"
+    },
+    {
+      "file": "after/js/purple-ui-kit.js",
+      "sha256": "5a28b257232b9455b23989809e48fb942798690eb4629a2bc42896d7dc333a88"
+    },
+    {
+      "file": "first-failure/index.html",
+      "sha256": "08e561f17534b417966cde712bafe82520d8ac3652edd64969f50a77de4a1fa4"
+    },
+    {
+      "file": "first-failure/css/result-overlay.css",
+      "sha256": "9fbe23e4e757c4b1801f8028cb859589f75d3199c042b34bb929ccbd7d85e650"
+    },
+    {
+      "file": "first-failure/css/stat-cards.css",
+      "sha256": "57488793c20cec06697688bb7802f4f96b96cf4d16930c55d1da270719de5682"
+    },
+    {
+      "file": "first-failure/css/game.css",
+      "sha256": "9e5bbbd48efb14ca74de240932b09d12a0468ab4622c3b71356e66aa87649882"
+    },
+    {
+      "file": "first-failure/css/purple-theme.css",
+      "sha256": "2f15e299b76ac3df07a9b555fe27aa5e2c7f5c7b4d04b632ac65ecb5964ca5de"
+    },
+    {
+      "file": "first-failure/js/game.js",
+      "sha256": "d6ac1e8ceb8bb935112e319121751afd10891913a4b768cfb44538d1432d016d"
+    },
+    {
+      "file": "first-failure/js/purple-sound.js",
+      "sha256": "eac58d411f99aeb8baa9f335aead19d0dd12a5f97e3b4e446c121e65ceb47caa"
+    },
+    {
+      "file": "first-failure/js/purple-ui-kit.js",
+      "sha256": "5a28b257232b9455b23989809e48fb942798690eb4629a2bc42896d7dc333a88"
+    },
+    {
+      "file": "historical-template/index.html",
+      "sha256": "9040ca30024df4945aecf80a68e7fd3b687d273ff755f137c997fe31d81c7dda"
+    },
+    {
+      "file": "historical-template/styles.css",
+      "sha256": "d026d26e193d56abb15bcd1dfa278b0b65e42ab916c1f5319dec1a9dedde0a56"
+    },
+    {
+      "file": "historical-template/src/shell.js",
+      "sha256": "6257d5d966a0ba9c9685ba490eda3cbbf497240ee6a2afcbc2b66072a5689f87"
+    },
+    {
+      "file": "historical-template/src/sound.js",
+      "sha256": "eac58d411f99aeb8baa9f335aead19d0dd12a5f97e3b4e446c121e65ceb47caa"
+    },
+    {
+      "file": "historical-template/src/main.js",
+      "sha256": "3290daa9106200054d0f797ae4713865cfec70e45aa66f7345075d47ba27f14f"
+    },
+    {
+      "file": "historical-template/src/storage.js",
+      "sha256": "66317ecb41ef868ef8166822c3354c2925e8072fb6e33cc68059ee683703ed5d"
+    },
+    {
+      "file": "historical-components/index.html",
+      "sha256": "b5528c449f6355fbba4f1d323093c8cc7f612403c0ea714702bde6d9280394b8"
+    },
+    {
+      "file": "historical-components/css/result-overlay.css",
+      "sha256": "9fbe23e4e757c4b1801f8028cb859589f75d3199c042b34bb929ccbd7d85e650"
+    },
+    {
+      "file": "historical-components/css/stat-cards.css",
+      "sha256": "57488793c20cec06697688bb7802f4f96b96cf4d16930c55d1da270719de5682"
+    },
+    {
+      "file": "historical-components/css/game.css",
+      "sha256": "31b28ae2d19d027340b64d274003cab25123496cffd0d275bcffa41315c92a02"
+    },
+    {
+      "file": "historical-components/css/purple-theme.css",
+      "sha256": "2f15e299b76ac3df07a9b555fe27aa5e2c7f5c7b4d04b632ac65ecb5964ca5de"
+    },
+    {
+      "file": "historical-components/js/game.js",
+      "sha256": "beefe7ad0decea867d2a7df73669742c6762ea3e1a7437362a092bf337f3e6b8"
+    },
+    {
+      "file": "historical-components/js/purple-ui-kit.js",
+      "sha256": "5a28b257232b9455b23989809e48fb942798690eb4629a2bc42896d7dc333a88"
+    },
+    {
+      "file": "skill.diff",
+      "sha256": "752c367397d0b074cd433b1e8020343336827a3782a57367d6edf539c9a7f732"
+    },
+    {
+      "file": "game-repair.diff",
+      "sha256": "4b8875590a0050251c97089f87561b4ddf7aec43318a1d3b767fb11a64b6c405"
+    },
+    {
+      "file": "prompt.txt",
+      "sha256": "46648343f8068ffd491440083738d750230e3c8cdb16f188206172c5a0e23210"
+    },
+    {
+      "file": "screenshots/after-opening.jpg",
+      "sha256": "5be3d469ded10300eecf7c95dbe0d161dee4c67830f30c3e57cb525a19ce8ffe"
+    },
+    {
+      "file": "screenshots/after-audio-proof.jpg",
+      "sha256": "c81ab52c6ca0e513a3d05f57cdb0b29e2e88e88091cd8fe7fa5d343748163979"
+    },
+    {
+      "file": "screenshots/before-playing.jpg",
+      "sha256": "3485574f44930cbddcb35294c8fcd4c9642a659134200aa51db8750b90a42ae3"
+    },
+    {
+      "file": "screenshots/after-playing.jpg",
+      "sha256": "ac820d967283b0143a2c649ba83410edbecff9dc4b27699ea768884d0efdadb0"
+    },
+    {
+      "file": "screenshots/after-ending.jpg",
+      "sha256": "9a2ae36467dc1f4f1484a827dc5ae5af34fa51c0063fb5aea8bb6b91dc66e005"
+    },
+    {
+      "file": "screenshots/before-ending.jpg",
+      "sha256": "960b766ef490c14ed8d7533d0619a17e01d1f7c82ea8ee58428cae4e99e7b712"
+    },
+    {
+      "file": "screenshots/before-opening.jpg",
+      "sha256": "be82c3063cebc60efc5d5def7759a309f81bd5c8208a23fae8d34cc8fb368b65"
+    },
+    {
+      "file": "screenshots/before-mobile.jpg",
+      "sha256": "81af471ec7aea91b3fd23f424616d0d8f25d9cac75010830e7669e461df395b8"
+    },
+    {
+      "file": "screenshots/after-mobile.jpg",
+      "sha256": "e7badfdba21b9651df27ac627ca3e71c52233181a9bcaab8ce5d59151ebe50a5"
+    },
+    {
+      "file": "repair-prompt.txt",
+      "sha256": "cc414ee040bf6a61f91fb5f20ab81fdf452b9cc1eefddbd469aafdc378fa99f8"
+    },
+    {
+      "file": "original-skill.txt",
+      "sha256": "a2119c0e64f74e1818078e225fdd2a4643c58f85faaf743ea3ad799187c3c370"
+    },
+    {
+      "file": "revised-skill.txt",
+      "sha256": "f99f345fba6772710dd3e5760c83441464f0339531e8e4a1ab2ec9617bd998f3"
+    },
+    {
+      "file": "template-sound.js",
+      "sha256": "68b281af8818a9ce42e5aae6e3cc25f2844a1e50dc2122620fe710e81affc5d3"
+    }
+  ]
+}

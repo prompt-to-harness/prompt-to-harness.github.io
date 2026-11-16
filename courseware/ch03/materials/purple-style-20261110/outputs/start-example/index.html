@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>60 秒躲避与收集 · 开始界面原型</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+    <header class="masthead">
+      <span class="eyebrow">开始界面 · 本地原型</span>
+      <h1 class="title">60 秒躲避与收集</h1>
+      <p class="subtitle">躲开粉色障碍，收集绿色能量，坚持满 60 秒。</p>
+    </header>
+
+    <!-- 规则摘要：三个等宽统计块（时限 / 生命 / 得分） -->
+    <ul class="stats" aria-label="规则摘要">
+      <li class="stat stat--time">
+        <span class="stat__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="8.4"></circle>
+            <path d="M12 7.2v5.1l3.3 1.9"></path>
+          </svg>
+        </span>
+        <span class="stat__label">时限</span>
+        <span class="stat__value">60 秒</span>
+      </li>
+      <li class="stat stat--life">
+        <span class="stat__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20.1s-7.3-4.6-7.3-9.2a4.2 4.2 0 0 1 7.3-2.8 4.2 4.2 0 0 1 7.3 2.8c0 4.6-7.3 9.2-7.3 9.2z"></path>
+          </svg>
+        </span>
+        <span class="stat__label">生命</span>
+        <span class="stat__value">3 点</span>
+      </li>
+      <li class="stat stat--score">
+        <span class="stat__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6.2 4.6h11.6l2.4 4.1L12 19.4 3.8 8.7l2.4-4.1z"></path>
+            <path d="M3.8 8.7h16.4"></path>
+            <path d="M9.5 8.7 12 19.4l2.5-10.7"></path>
+          </svg>
+        </span>
+        <span class="stat__label">得分</span>
+        <span class="stat__value">收集累计</span>
+      </li>
+    </ul>
+
+    <!-- 主行动区：主按钮 + 音效开关 -->
+    <section class="panel" aria-label="开始控制">
+      <p class="panel__hint">点击「开始游戏」查看预览状态；音效开关可随时切换。</p>
+
+      <div class="actions">
+        <button class="btn btn--primary" id="start-btn" type="button">开始游戏</button>
+
+        <button class="btn btn--ghost btn--toggle" id="sound-btn" type="button" aria-pressed="true" aria-label="音效已开启，点击关闭">
+          <svg class="icon icon--on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 9.6h3.2L11 6.4v11.2L7.2 14.4H4z"></path>
+            <path d="M14.1 9.4a3.7 3.7 0 0 1 0 5.3"></path>
+            <path d="M16.6 6.9a7.3 7.3 0 0 1 0 10.3"></path>
+          </svg>
+          <svg class="icon icon--off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden>
+            <path d="M4 9.6h3.2L11 6.4v11.2L7.2 14.4H4z"></path>
+            <path d="M14.6 9.6l5 5"></path>
+            <path d="M19.6 9.6l-5 5"></path>
+          </svg>
+          <span class="btn__label" id="sound-label">音效 开</span>
+        </button>
+      </div>
+
+      <!-- 点击开始后出现的预览区（本次仅占位，不含玩法） -->
+      <div class="preview" id="preview" tabindex="-1" hidden>
+        <div class="preview__stage">
+          <span class="preview__badge">预览中</span>
+        </div>
+        <p class="preview__note">本次原型只做开始界面：躲避、收集与计分逻辑尚未接入。</p>
+      </div>
+    </section>
+
+    <p class="hint">本地原型 · 无外部资源与依赖 · 仅包含开始界面</p>
+
+    <p class="sr-only" id="live" role="status" aria-live="polite"></p>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

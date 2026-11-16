@@ -6,11 +6,13 @@ checklist and are applied by the courseware-editorial skill, not here.
 """
 import json
 from html import unescape
-from urllib.parse import urldefrag
+from urllib.parse import unquote, urldefrag
 import re
 import subprocess
 import sys
 from pathlib import Path
+
+from courseware_files import source_files
 
 courseware = Path(__file__).resolve().parents[1]
 repo = courseware.parent
@@ -39,7 +41,15 @@ def source_hints(scene):
     return found
 
 # ED-001: a screen element holding a single sentence must not end with 。
-screen_files = [p for p in courseware.rglob('*') if p.name in ('index.html', 'lesson.js') and 'archive' not in p.parts]
+screen_files = [p for p in source_files(courseware, '*') if p.name in ('index.html', 'lesson.js') and 'archive' not in p.parts]
+# Evidence pages contain explanatory prose and game snapshots retain their original UI text.
+debug_evidence = courseware / 'ch03/lessons/03-debug/evidence'
+trial_outputs = courseware / 'ch03/materials/purple-style-20261110/outputs'
+screen_files = [
+    path for path in screen_files
+    if trial_outputs not in path.parents
+    and debug_evidence not in path.parents
+]
 element_period = re.compile(r'>([^<>。]*)。</')
 field_period = re.compile(r'"(?:title|label|kicker)":\s*"([^"。]*)。"')
 # .p-evidence 阅读视图里的是请求记录原文（由 tracekit 或本节脚本从记录生成），引用不改写，不按屏幕文字检查
@@ -56,7 +66,7 @@ for path in sorted(screen_files):
             errors.append(f'ED-001 {path.relative_to(repo)}:{line} 单句屏幕文字以句号结尾：{m.group(1)[:30]}')
 
 # Page names: kicker is generated from chapter, section and segment by shared/app.js (docs/agents/courseware-workflow.md)
-for path in sorted(courseware.rglob('lesson.js')):
+for path in sorted(source_files(courseware, 'lesson.js')):
     if 'archive' in path.parts:
         continue
     data = json.loads(path.read_text().removeprefix('window.lesson = ').strip().removesuffix(';'))
@@ -83,7 +93,7 @@ for builder in sorted(builders):
             errors.append(f'ED-011 {p.relative_to(repo)} 与 {builder.name} 的输出不一致：改源文件，不要只改生成物')
 
 # ED-011: narration lives in each lesson's script.json; hand-written lesson.js must carry the same text
-for lesson_js in sorted(courseware.glob('**/lesson.js')):
+for lesson_js in sorted(source_files(courseware, 'lesson.js')):
     if 'archive' not in lesson_js.parts and not (lesson_js.parent / 'script.json').exists():
         errors.append(f'ED-011 {lesson_js.parent.relative_to(repo)} 缺少 script.json：口播的唯一来源，用 tools/rebuild-lesson.py 的说明补建')
 result = subprocess.run([sys.executable, str(courseware / 'tools' / 'rebuild-lesson.py'), '--check'], capture_output=True, text=True)
@@ -94,7 +104,7 @@ if result.returncode:
 stage = re.compile(r'【操作提示｜[^\n]+】')
 # 口播中途切窗口另起一段【切换｜目标】，不念；只占一行，后面不接口播
 cue = re.compile(r'【切换｜[^】\n]+】')
-for path in sorted(courseware.glob('**/script.json')):
+for path in sorted(source_files(courseware, 'script.json')):
     if 'archive' in path.parts:
         continue
     for scene_id, steps in json.loads(path.read_text()).items():
@@ -113,7 +123,7 @@ for path in sorted(courseware.glob('**/script.json')):
 
 # ED-013: 一页只定一种演示形态，操作提示里不留“现场演示时……”这类两可分支（提示，不报错）
 undecided = re.compile(r'现场演示时|如改为现场|若想换成现场|若改为现场')
-for path in sorted(courseware.rglob('script.json')):
+for path in sorted(source_files(courseware, 'script.json')):
     if 'archive' in path.parts:
         continue
     pages = sorted({scene_id for scene_id, steps in json.loads(path.read_text()).items()
@@ -126,7 +136,7 @@ md_roots = [courseware, repo / 'docs' / 'production', repo / 'docs' / 'design',
             repo / 'docs' / 'agents', repo / 'docs' / 'outline']
 link = re.compile(r'\[[^\]]*\]\(([^)#?\s]+)(?:[#?][^)]*)?\)')
 for root in md_roots:
-    for path in sorted(root.rglob('*.md')):
+    for path in sorted(source_files(root, '*.md')):
         # 提案是讨论稿，可能链到其他人尚未提交的记录，不在这里拦
         if 'archive' in path.parts or 'proposals' in path.parts:
             continue
@@ -134,7 +144,7 @@ for root in md_roots:
             target = m.group(1)
             if re.match(r'[a-z]+:', target) or target.startswith('/'):
                 continue
-            if not (path.parent / target).exists():
+            if not (path.parent / unquote(target)).exists():
                 errors.append(f'ED-011 {path.relative_to(repo)} 链接不存在：{target}')
 
 # ED-012: retired wording listed in docs/production/terminology.md must not come back in current sources
@@ -178,7 +188,7 @@ for log in sorted(courseware.glob('ch*/LOG.md')):
 # ED-007 / ED-010: filler phrases are a prompt to ask "does this add information", not a ban
 fillers = ['这样做是为了', '这里练习的就是', '大家看', '对吧', '其实']
 # 只数口播正文；【操作提示｜…】【切换｜…】不念，不计入
-for path in sorted(courseware.rglob('script.json')):
+for path in sorted(source_files(courseware, 'script.json')):
     if 'archive' in path.parts:
         continue
     text = '\n'.join(part for steps in json.loads(path.read_text()).values() for step in steps

@@ -1,0 +1,20 @@
+/* 3.2 局部视觉收束：保留全课画布、安全区、字体和角色配色。 */
+:is(.reading-slide,.skill-visual-slide) .skill-visual text[font-size="29"],
+:is(.reading-slide,.skill-visual-slide) .skill-visual text[font-size="30"],
+:is(.reading-slide,.skill-visual-slide) .skill-visual text[font-size="32"]{font-weight:700}
+/* 图解恢复既定手绘语言；代码框、表格、文字不加滤镜。 */
+.skill-visual .sv-sketch{filter:var(--sv-rough)}
+.skill-visual rect.sv-sketch{stroke-width:2.5}
+.skill-visual .sv-clean{filter:none}
+:is(.reading-slide,.skill-visual-slide) .skill-visual text[font-size="29"]:not(.sv-code),
+:is(.reading-slide,.skill-visual-slide) .skill-visual text[font-size="30"]:not(.sv-code),
+:is(.reading-slide,.skill-visual-slide) .skill-visual text[font-size="32"]:not(.sv-code){font-family:"Course Title",var(--font-body);font-weight:400}
+:is(.reading-slide,.skill-visual-slide) .skill-visual .sv-code{font-variant-ligatures:none}
+:is(.reading-actions,.skill-visual-slide .selection-actions,.skill-visual-slide .authoring-actions){gap:24px;font-size:17px;line-height:1.45}
+:is(.reading-actions,.skill-visual-slide .selection-actions,.skill-visual-slide .authoring-actions) a{text-decoration:none;border-bottom:1px solid #0b6b5f66;padding-bottom:2px;transition:border-color .15s,color .15s}
+:is(.reading-actions,.skill-visual-slide .selection-actions,.skill-visual-slide .authoring-actions) a:hover{border-color:#0b6b5f;color:#064f46}
+:is(.reading-actions,.skill-visual-slide .selection-actions,.skill-visual-slide .authoring-actions) a:focus-visible{outline:2px solid #0b6b5f;outline-offset:5px}
+.reading-menu nav{border-radius:0;box-shadow:none}
+.reading-menu nav a{padding:5px 0;border-bottom-color:#9c8b6633}
+.skill-visual-slide .sv-copy button{border-radius:3px;font-weight:700}
+@media(prefers-reduced-motion:reduce){.reading-actions a{transition:none}}

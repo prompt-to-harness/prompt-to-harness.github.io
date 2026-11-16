@@ -1,0 +1,54 @@
+/* 本节知识图：形象表达对象，连接表达归属、对应和引用。 */
+.skill-visual{display:block;width:100%;height:auto;overflow:visible}
+.skill-visual text{font-family:var(--font-body);dominant-baseline:alphabetic}
+.skill-visual .sv-hand{font-family:"Course Title",var(--font-body)}
+.skill-visual .sv-code{font-family:var(--font-code)}
+.skill-visual-slide .sv-boundary{font-size:21px;line-height:1.4;color:#526059;margin:2px 0 0}
+.skill-visual-slide .sv-copy{display:flex;align-items:center;gap:16px;font-size:19px;color:#526059;background:transparent;border:0;box-shadow:none;padding:0;margin:0}
+.skill-visual-slide .sv-copy button{font-size:18px;color:#0b6b5f;background:transparent;border:1px solid #0b6b5f;padding:5px 14px;border-radius:3px}
+.skill-visual-slide .sv-copy pre{font-size:19px;color:#243042;background:transparent;white-space:pre-wrap}
+body[data-mode=slides] .skill-visual-slide .scene-content{display:block;top:238px;height:394px}
+body[data-mode=slides] #p07.skill-visual-slide .scene-content{top:208px;height:424px;display:block}
+body[data-mode=slides] #p07:has([data-reveal="1"]:not(.step-hidden)) .p07-old-item{opacity:.38}
+body[data-mode=slides] #p07a.skill-visual-slide .scene-content{top:228px;height:404px}
+body[data-mode=slides] #p07a:has([data-reveal="1"]:not(.step-hidden)) .p07a-header-hint{opacity:.4}
+body[data-mode=slides] #p07install.skill-visual-slide .scene-content{top:220px;height:412px}
+body[data-mode=slides] #p07b.skill-visual-slide .scene-content{top:206px;height:426px}
+body[data-mode=slides] #p07b .sv-copy{position:absolute;right:16px;bottom:42px}
+body[data-mode=slides] #p07b .sv-copy pre{position:absolute;width:1px;height:1px;clip-path:inset(50%);overflow:hidden;white-space:nowrap;margin:0;padding:0;border:0}
+body[data-mode=slides] #p07c.skill-visual-slide .scene-content{top:230px;height:402px}
+body[data-mode=slides] #p07d.skill-visual-slide .scene-content{top:198px;height:434px}
+body[data-mode=slides] #p07e.skill-visual-slide .scene-content,body[data-mode=slides] #p07g.skill-visual-slide .scene-content,body[data-mode=slides] #p07h.skill-visual-slide .scene-content{top:230px;height:402px}
+body[data-mode=slides] #p07f.skill-visual-slide .scene-content{top:198px;height:434px}
+body[data-mode=slides] .skill-visual-slide .selection-actions,body[data-mode=slides] .skill-visual-slide .authoring-actions{position:absolute;bottom:0;left:0;margin:0;font-size:18px}
+body[data-mode=slides] #p07e:has([data-reveal="1"]:not(.step-hidden)) .sv-moving-example{transform:translate(563px,-83px)}
+.sv-moving-example{transition:transform .6s ease}
+body[data-mode=scroll] .skill-visual-slide .selection-actions,body[data-mode=scroll] .skill-visual-slide .authoring-actions{margin-top:20px}
+@media(max-width:850px){body[data-mode=scroll] .skill-visual-slide .scene-content{overflow-x:auto;padding-bottom:12px}body[data-mode=scroll] .skill-visual{min-width:900px}body[data-mode=scroll] .sv-copy{display:block}body[data-mode=scroll] .sv-copy pre{max-width:100%;overflow-wrap:anywhere}body[data-mode=scroll] .sv-boundary{font-size:18px}}
+@media(prefers-reduced-motion:reduce){.sv-moving-example{transition:none}}
+
+body[data-mode=scroll] .sv-copy pre[hidden]{display:block}
+
+#p07g:has([data-reveal="1"]:not(.step-hidden)) .sv-question-example,body[data-mode=scroll] #p07g .sv-question-example{visibility:hidden}
+
+/* 3.2.1：按实际单行标题及内容组高度安排完整正文矩形。
+   每页单独定位；标题文字、文件字段与操作入口避开录制覆盖层。 */
+body[data-mode=slides] :is(#p07,#p07a,#p07install,#p07b,#p07c,#p07d)>h2{top:82px}
+body[data-mode=slides] #p07>h2{display:block}
+body[data-mode=slides] #p07.skill-visual-slide .scene-content{top:205px;height:427px}
+body[data-mode=slides] #p07a.skill-visual-slide .scene-content{top:226px;height:406px}
+body[data-mode=slides] #p07install.skill-visual-slide .scene-content{top:226px;height:406px}
+body[data-mode=slides] #p07b.skill-visual-slide .scene-content{top:226px;height:406px}
+body[data-mode=slides] #p07c.skill-visual-slide .scene-content{top:226px;height:406px}
+body[data-mode=slides] #p07d.skill-visual-slide .scene-content{top:186px;height:446px}
+body[data-mode=slides] #p07:has([data-reveal="1"]:not(.step-hidden)) .p07-repeat,
+body[data-mode=scroll] #p07 .p07-repeat{visibility:hidden}
+:is(#p07,#p07a,#p07install,#p07b,#p07c,#p07d) .sv-hand{font-weight:400}
+
+/* 3.2.1 已确认版：内容与操作入口作为一组居中。 */
+body[data-mode=slides] :is(#p07,#p07a,#p07install,#p07b,#p07c,#p07d) .scene-content{display:flex!important;flex-direction:column;gap:14px;height:auto!important}
+body[data-mode=slides] .selection-operations{display:flex;align-items:center;justify-content:space-between;min-height:28px;gap:20px;padding:0 24px}
+body[data-mode=slides] .selection-operations:empty{display:none}
+body[data-mode=slides] :is(#p07,#p07a,#p07install,#p07b,#p07c,#p07d) .selection-actions{position:static!important;margin:0!important;line-height:1.45;font-size:18px}
+body[data-mode=slides] #p07b .sv-copy{position:static!important;margin:0;flex-shrink:0}
+body[data-mode=slides] :is(#p07,#p07a,#p07install,#p07b,#p07c,#p07d) .skill-visual{flex:none}

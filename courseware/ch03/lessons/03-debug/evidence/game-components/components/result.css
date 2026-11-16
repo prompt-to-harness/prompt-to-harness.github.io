@@ -1,0 +1,153 @@
+/* ============================================================
+   result.css —— 结算片段（模态结算面板 + 行内结算条）
+   两种形态：.result（模态）/ .result-bar（行内，不挡场地）
+   依赖：theme.css
+   ============================================================ */
+
+/* ---- 标记片段（模态）----
+<div class="result" id="result" hidden>
+  <div class="result__panel" role="dialog" aria-modal="true" aria-labelledby="result-title">
+    <div class="result__emoji" id="result-emoji" aria-hidden="true">🏆</div>
+    <h2 class="result__title" id="result-title">通关！</h2>
+    <p class="result__subtitle">本局用时 01:24</p>
+    <div class="result__score">
+      <span class="result__score-label">得分</span>
+      <span class="result__score-value">1280</span>
+      <span class="result__badge">新纪录</span>
+    </div>
+    <dl class="result__rows">
+      <div class="result__row"><dt>命中率</dt><dd>92%</dd></div>
+      <div class="result__row"><dt>失误</dt><dd>3</dd></div>
+      <div class="result__row"><dt>最佳</dt><dd>1350</dd></div>
+    </dl>
+    <div class="result__actions">
+      <button class="btn btn--primary" type="button">再来一局</button>
+      <button class="btn btn--ghost" type="button">返回</button>
+    </div>
+  </div>
+</div>
+---------------------- */
+
+.result {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(6, 9, 22, 0.72);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  animation: fade-in 0.22s ease;
+}
+
+.result[hidden] { display: none; }
+
+.result__panel {
+  width: min(420px, 100%);
+  max-height: 88vh;
+  overflow-y: auto;
+  text-align: center;
+  padding: 28px 24px;
+  background: linear-gradient(165deg, rgba(42, 49, 112, 0.96), rgba(30, 24, 60, 0.96));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  animation: rise 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+.result__emoji { font-size: 3rem; line-height: 1; }
+
+.result__title { margin: 10px 0 4px; font-size: 1.4rem; }
+
+.result__subtitle {
+  margin: 0 0 16px;
+  color: var(--text-dim);
+  font-size: 0.88rem;
+}
+
+.result__score {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 10px;
+  margin-bottom: 14px;
+  border-radius: var(--radius);
+  background: rgba(0, 0, 0, 0.24);
+  border: 1px solid var(--border);
+}
+
+.result__score-label { color: var(--text-dim); font-size: 0.82rem; }
+
+.result__score-value {
+  font-size: clamp(1.8rem, 6vw, 2.4rem);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(92deg, #fff 20%, #b9c2ff 70%, #7ce7d8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.result__badge {
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  color: #10233a;
+  background: linear-gradient(140deg, #ffd76e, #ffb648);
+  box-shadow: 0 4px 12px rgba(255, 182, 72, 0.35);
+}
+
+.result__rows {
+  margin: 0 0 18px;
+  display: grid;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  text-align: left;
+}
+
+.result__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 12px;
+  background: rgba(12, 16, 34, 0.72);
+  font-size: 0.88rem;
+}
+
+.result__row dt { color: var(--text-dim); }
+.result__row dd { margin: 0; font-variant-numeric: tabular-nums; }
+
+.result__row.is-best dd { color: var(--accent-2); }
+
+.result__actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+/* 失败态：面板描边换成警示色 */
+.result--fail .result__panel { border-color: rgba(251, 113, 133, 0.45); }
+.result--fail .result__score-value {
+  background: linear-gradient(92deg, #ffd9df 20%, #fb7185 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* ---- 行内结算条（不遮挡场地，用于局内即时反馈）---- */
+.result-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  font-size: 0.88rem;
+}
+
+.result-bar__value { font-weight: 650; font-variant-numeric: tabular-nums; }
+.result-bar__delta { color: var(--good); font-size: 0.8rem; }
+.result-bar__delta.is-down { color: var(--bad); }

@@ -1,0 +1,106 @@
+{
+  "early-win": {
+    "title": "04 号游戏：归档代码差异全文",
+    "run": "old5",
+    "sample": "archive",
+    "message": "diff",
+    "find": "matchedCount"
+  },
+  "old5-plan": {
+    "title": "04 号游戏：计划原文",
+    "run": "old5",
+    "sample": "archive",
+    "message": "plan"
+  },
+  "old5-answer": {
+    "title": "04 号游戏：交付原文",
+    "run": "old5",
+    "sample": "archive",
+    "message": "answer"
+  },
+  "difficulty-plan": {
+    "title": "产品规划原文",
+    "run": "mm-memory",
+    "sample": "session",
+    "line": 34,
+    "find": "Difficulty levels:"
+  },
+  "visual-plan": {
+    "title": "视觉规划原文",
+    "run": "mm-memory",
+    "sample": "session",
+    "line": 65
+  },
+  "request": {
+    "title": "05 号游戏：历史请求原文",
+    "run": "mm-memory",
+    "sample": "cli",
+    "message": "prompt"
+  },
+  "files": {
+    "title": "文件分工与交付原文",
+    "run": "mm-memory",
+    "sample": "cli",
+    "line": 134,
+    "mark": "files"
+  },
+  "failure": {
+    "title": "浏览器检查原始输出",
+    "run": "mm-memory",
+    "sample": "cli",
+    "line": 79
+  },
+  "count": {
+    "title": "计步实现原始命令",
+    "run": "mm-memory",
+    "sample": "cli",
+    "line": 16,
+    "find": "moves",
+    "mark": "count"
+  },
+  "fix": {
+    "title": "刷新修改原始命令",
+    "run": "mm-memory",
+    "sample": "cli",
+    "line": 82
+  },
+  "retest": {
+    "title": "复测原始输出",
+    "run": "mm-memory",
+    "sample": "cli",
+    "line": 85
+  },
+  "handoff": {
+    "title": "启动与交付原文",
+    "run": "mm-memory",
+    "sample": "cli",
+    "line": 134,
+    "mark": "handoff"
+  },
+  "rule-tests": {
+    "title": "通关与重开测试原始命令",
+    "run": "mm-memory",
+    "sample": "cli",
+    "line": 31,
+    "find": "通关"
+  },
+  "check-results": {
+    "title": "浏览器检查原始输出",
+    "run": "mm-memory",
+    "sample": "cli",
+    "line": 85,
+    "find": "通关"
+  },
+  "face-check": {
+    "title": "检查通过后看实际画面",
+    "run": "mm-memory",
+    "sample": "cli",
+    "line": 86
+  },
+  "face-fix": {
+    "title": "朝向修正原始命令",
+    "run": "mm-memory",
+    "sample": "cli",
+    "line": 90
+  }
+}

@@ -1,0 +1,211 @@
+/* ============================================================
+   playfield.css —— 场地片段（棋盘 / 卡牌 / canvas 舞台）
+   规则：场地居中，中心与下方中部保持干净；
+        状态靠颜色 + 边框 + 形状表达，不能只靠颜色。
+   依赖：theme.css（shake / pop 关键帧也在这里）
+   ============================================================ */
+
+/* ---- 标记片段 ----
+<div class="playfield">
+  <div class="playfield__grid" id="grid" style="--cols:4; --rows:4"></div>
+</div>
+---------------- */
+
+.playfield {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: var(--gap);
+  /* 下方预留出底部操作条的空间，保持下中部干净 */
+  padding-block-end: clamp(56px, 8vw, 96px);
+}
+
+/* 网格棋盘：列数由 JS 写入 --cols / --rows */
+.playfield__grid {
+  --cols: 4;
+  --rows: 4;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  gap: clamp(6px, 1.4vw, 12px);
+  width: 100%;
+  max-width: min(100%, calc(var(--cols) * 108px));
+  perspective: 1400px;
+}
+
+/* 格子按钮 */
+.tile {
+  appearance: none;
+  border: 1px solid var(--border);
+  border-radius: clamp(8px, 1.6vw, 13px);
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  aspect-ratio: 1 / 1;
+  font: inherit;
+  color: inherit;
+  background: var(--panel-strong);
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.12s ease, background 0.18s ease, border-color 0.18s ease;
+}
+
+.tile:hover { background: rgba(255, 255, 255, 0.18); }
+.tile:active { transform: translateY(1px) scale(0.99); }
+
+.tile.is-active {
+  background: linear-gradient(140deg, var(--accent), var(--accent-violet));
+  border-color: transparent;
+  box-shadow: 0 0 0 2px rgba(124, 140, 255, 0.55), 0 8px 18px rgba(0, 0, 0, 0.3);
+}
+
+.tile.is-matched {
+  background: linear-gradient(160deg, rgba(219, 255, 231, 0.95), rgba(180, 245, 205, 0.9));
+  border-color: var(--good);
+  color: #10233a;
+}
+
+.tile.is-wrong {
+  background: linear-gradient(160deg, rgba(255, 226, 232, 0.95), rgba(255, 205, 214, 0.9));
+  border-color: var(--bad);
+  animation: shake-x 0.42s ease;
+}
+
+.tile.is-locked { opacity: 0.42; cursor: not-allowed; }
+
+/* 3D 翻牌（记忆类玩法） */
+.card {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: none;
+  cursor: pointer;
+  aspect-ratio: 3 / 4;
+  perspective: 900px;
+  font: inherit;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.card__inner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.4, 0.15, 0.2, 1);
+}
+
+.card.is-open .card__inner,
+.card.is-matched .card__inner { transform: rotateY(180deg); }
+
+.card__face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: clamp(8px, 1.6vw, 13px);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+
+.card__back {
+  background:
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.08) 0 6px, transparent 6px 12px),
+    linear-gradient(140deg, var(--card-back-a), var(--card-back-b));
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+.card__back::after {
+  content: "\2606";
+  font-size: clamp(1rem, 3.4vw, 1.6rem);
+  color: rgba(255, 255, 255, 0.82);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.card__front {
+  transform: rotateY(180deg);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.96), rgba(226, 230, 255, 0.9));
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28);
+}
+
+.card__icon {
+  font-size: clamp(1.35rem, 5.2vw, 2.5rem);
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.22));
+  user-select: none;
+}
+
+.card.is-matched .card__front {
+  background: linear-gradient(160deg, rgba(219, 255, 231, 0.95), rgba(180, 245, 205, 0.9));
+  border-color: var(--good);
+}
+
+.card.is-matched .card__icon { opacity: 0.62; }
+
+.card.is-wrong .card__front {
+  background: linear-gradient(160deg, rgba(255, 226, 232, 0.95), rgba(255, 205, 214, 0.9));
+  border-color: var(--bad);
+  animation: shake 0.42s ease;
+}
+
+.card.just-matched .card__front { animation: pop 0.45s ease; }
+
+/* canvas / 3D 舞台：留在玻璃面板里，继承紫色氛围 */
+.stage {
+  position: relative;
+  width: 100%;
+  max-width: min(100%, 880px);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--panel);
+  overflow: hidden;
+}
+
+.stage canvas { display: block; width: 100%; height: auto; }
+
+/* 场地内的临时提示：落在场地边缘而不是中心 */
+.stage__prompt {
+  position: absolute;
+  inset-block-end: 12px;
+  inset-inline: 0;
+  margin-inline: auto;
+  width: fit-content;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(6, 9, 22, 0.72);
+  border: 1px solid var(--border);
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+/* ---- 翻牌专属关键帧 ----
+   关键：每个关键帧都要带上 rotateY(180deg)，
+   否则翻牌动画过程中卡片会翻回背面。 */
+@keyframes shake {
+  0%, 100% { transform: rotateY(180deg) translateX(0); }
+  20% { transform: rotateY(180deg) translateX(-7px); }
+  40% { transform: rotateY(180deg) translateX(6px); }
+  60% { transform: rotateY(180deg) translateX(-4px); }
+  80% { transform: rotateY(180deg) translateX(3px); }
+}
+
+/* 扁平元素（格子、按钮）用的横向抖动：不含 rotateY */
+@keyframes shake-x {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-7px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(3px); }
+}
+
+@keyframes pop {
+  0% { transform: rotateY(180deg) scale(1); }
+  45% { transform: rotateY(180deg) scale(1.13); }
+  100% { transform: rotateY(180deg) scale(1); }
+}

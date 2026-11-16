@@ -1,0 +1,244 @@
+/* Original visual CSS excerpts from the frozen Memory Match source.
+   Read as implementation reference; this is not a complete runnable game. */
+
+/* source styles.css lines 1-176 */
+/* ============================================================
+   记忆翻牌 · Memory Match —— 样式表
+   ============================================================ */
+
+:root {
+  --bg-0: #0c1022;
+  --bg-1: #171e3d;
+  --panel: rgba(255, 255, 255, 0.07);
+  --panel-strong: rgba(255, 255, 255, 0.12);
+  --border: rgba(255, 255, 255, 0.14);
+  --text: #eef1ff;
+  --text-dim: #a3abcf;
+  --accent: #7c8cff;
+  --accent-2: #56d6c6;
+  --good: #4ade80;
+  --bad: #fb7185;
+  --card-back-a: #4b5bd6;
+  --card-back-b: #8b5cf6;
+  --radius: 16px;
+  --shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(1100px 620px at 15% -10%, #2a3170 0%, transparent 55%),
+    radial-gradient(900px 600px at 100% 0%, #3b2a63 0%, transparent 50%),
+    linear-gradient(160deg, var(--bg-0), var(--bg-1));
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: clamp(16px, 3vw, 32px) clamp(12px, 3vw, 24px) 40px;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 2vw, 20px);
+  min-height: 100%;
+}
+
+.app__header { text-align: center; }
+
+.title {
+  margin: 0;
+  font-size: clamp(1.7rem, 4.5vw, 2.4rem);
+  letter-spacing: 0.5px;
+  background: linear-gradient(92deg, #fff 10%, #b9c2ff 60%, #7ce7d8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  margin: 6px 0 0;
+  color: var(--text-dim);
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(10px);
+}
+
+.field { display: flex; align-items: center; gap: 10px; }
+.field--actions { margin-left: auto; }
+.field__label { color: var(--text-dim); font-size: 0.85rem; }
+
+.segmented {
+  display: inline-flex;
+  padding: 3px;
+  gap: 3px;
+  background: rgba(0, 0, 0, 0.28);
+  border-radius: 11px;
+}
+
+.segmented__btn {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  padding: 7px 14px;
+  border-radius: 9px;
+  font: inherit;
+  font-size: 0.86rem;
+  color: var(--text-dim);
+  background: transparent;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.segmented__btn:hover { color: var(--text); }
+
+.segmented__btn[aria-checked="true"] {
+  background: linear-gradient(140deg, var(--accent), #9a6bff);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(124, 140, 255, 0.35);
+}
+
+.segmented__btn:focus-visible,
+.btn:focus-visible,
+.card:focus-visible {
+  outline: 3px solid var(--accent-2);
+  outline-offset: 2px;
+}
+
+.btn {
+  appearance: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 9px 16px;
+  border-radius: 11px;
+  border: 1px solid transparent;
+  transition: transform 0.12s ease, filter 0.18s ease, background 0.18s ease;
+  white-space: nowrap;
+}
+
+.btn:active { transform: translateY(1px) scale(0.99); }
+
+.btn--primary {
+  background: linear-gradient(140deg, var(--accent), #9a6bff);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(124, 140, 255, 0.32);
+}
+
+.btn--primary:hover { filter: brightness(1.08); }
+
+.btn--ghost {
+  background: var(--panel-strong);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.btn--ghost:hover { background: rgba(255, 255, 255, 0.18); }
+
+.btn--ghost[aria-pressed="false"] { opacity: 0.5; text-decoration: line-through; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: center;
+  padding: 10px 6px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+}
+
+.stat__label { font-size: 0.74rem; color: var(--text-dim); letter-spacing: 0.5px; }
+
+.stat__value {
+  font-size: clamp(1rem, 2.6vw, 1.25rem);
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+/* source styles.css lines 293-338 */
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(6, 9, 22, 0.72);
+  backdrop-filter: blur(6px);
+  z-index: 50;
+  animation: fade-in 0.22s ease;
+}
+
+.overlay[hidden] { display: none; }
+
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+.overlay__panel {
+  width: min(420px, 100%);
+  text-align: center;
+  padding: 30px 26px;
+  background: linear-gradient(165deg, rgba(42, 49, 112, 0.96), rgba(30, 24, 60, 0.96));
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+  animation: rise 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(22px) scale(0.95); }
+  to { opacity: 1; transform: none; }
+}
+
+.overlay__emoji { font-size: 3.2rem; line-height: 1; }
+
+.overlay__title { margin: 10px 0 6px; font-size: 1.45rem; }
+
+.overlay__text {
+  margin: 0 0 20px;
+  color: var(--text-dim);
+  font-size: 0.93rem;
+  line-height: 1.7;
+}
+
+.overlay__text strong { color: var(--text); }
+
+.overlay__actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+/* source styles.css lines 355-368 */
+@media (max-width: 520px) {
+  .toolbar { flex-direction: column; align-items: stretch; }
+  .field { justify-content: space-between; }
+  .field--actions { margin-left: 0; }
+  .field--actions .btn { flex: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

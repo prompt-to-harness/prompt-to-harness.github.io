@@ -1,0 +1,948 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3.2 第二部分 · 讲述材料与归纳样稿</title><link rel="stylesheet" href="../../../shared/tokens.css"><link rel="stylesheet" href="authoring-evidence.css"></head><body><main><header><a href="speaker.html?part=2">返回画面与讲述对照</a><h1>读懂、修改与从零编写 Skill</h1><p>11 月 7 日真实调用材料与课程归纳样稿。请求、返回、讲师核对意见分区；方案中的开发与检查均未执行。11 月 6 日规划在独立回放页保留。</p></header><nav aria-label="材料定位"><a href="#change">只改规划输出的一项要求</a><a href="#reads">先核对实际读到的版本</a><a href="#compare">从检查要点到可操作的三项结构</a><a href="#limits">结构采用以后，还要审阅内容</a><a href="#routing">同一修改版运行的真实读取顺序</a><a href="#sharing">两个入口，共用一份选型资料</a><a href="#core">正文保留什么，哪些内容可以移走</a><a href="#split">按任务需要选择资料与配套内容</a><a href="#practice">现场编辑与调用准备</a><a href="#create">从任务写成一份最小 Skill</a><a href="#memory">完整规则：v3 翻牌调用</a><a href="#memory-review">返回计划怎样逐项验真</a><a href="#missing">信息不足：为什么把提醒改成明确分支</a><a href="#transfer">换一种游戏：v3 躲避调用</a><a href="#check">两个情境，检查能否作出写法选择</a><a href="#handoff">用实际产物核对读、改、写</a></nav><section id="change"><p class="kind">历史材料</p><h2>只改规划输出的一项要求</h2><p>修改位置：课程演示副本 skills/game-studio/SKILL.md → Output Expectations → planning 条目。新增句属于课程改写。</p><pre><code>规划中的每个检查项都要写明前置状态、用户操作与预期可见结果，至少覆盖游戏结束和重新开始。这里只输出检查计划，不能将计划记为已执行结果。</code></pre><h3>两版使用同一请求</h3><pre><code>请使用 game-studio，为最小网页翻牌游戏给一份简短开发方案。玩家每次翻开两张牌，配对成功的牌保留，全部配对后结束，并能重新开始。先给方案，不写代码、不创建项目，也不启动浏览器。
+</code></pre><details><summary>两版隔离条件</summary><div class="table-scroll"><table><thead><tr><th>原版</th><th>修改版</th></tr></thead><tbody><tr><td>固定上游完整副本</td><td>保留相同目录与文件，增加这一行</td></tr><tr><td>name / description 原样</td><td>name / description 原样</td></tr><tr><td>original-verified 新会话</td><td>modified 新会话</td></tr></tbody></table></div></details><p><a href="../../materials/skill-authoring-20261107/planning-requirement.patch" target="_blank" rel="noopener">查看补丁原件 ↗</a> · <a href="https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/game-studio/SKILL.md" target="_blank" rel="noopener">game-studio 原文件 ↗</a></p><div class="section-route"><a href="#reads">下一段：先核对实际读到的版本 →</a></div></section><section id="reads"><p class="kind">历史材料</p><h2>先核对实际读到的版本</h2><p class="identity">original-verified · upstream · 2026-11-07 历史调用</p><h3>同轮请求</h3><pre><code>请使用 game-studio，为最小网页翻牌游戏给一份简短开发方案。玩家每次翻开两张牌，配对成功的牌保留，全部配对后结束，并能重新开始。先给方案，不写代码、不创建项目，也不启动浏览器。
+</code></pre><h3>发现与读取的核验记录</h3><p>可用说明：原生 rollout 第 3 行包含该 Skill。以下是实际工具读取；模型自述不作为读取凭据。</p><pre><code>/bin/zsh -lc &#x27;cat &lt;experiment&gt;/original-verified/workspace/.agents/skills/game-studio/SKILL.md&#x27;</code></pre><p>events.jsonl 第 4 行 · item_0 · exit 0</p><details><summary>版本与来源定位</summary><p>本轮完整正文已在工具返回中核对；文件 SHA-256</p><pre><code>87c32773f787b338064e3b7cf5e237a46b5c12e9ffe082927349ebb9584fd15b</code></pre><p>公开事件摘录与完整原始记录定位：<a href="../../materials/skill-authoring-20261107/manifest.json" target="_blank" rel="noopener">manifest.json ↗</a></p></details><p class="identity">modified · one-requirement · 2026-11-07 历史调用</p><h3>同轮请求</h3><pre><code>请使用 game-studio，为最小网页翻牌游戏给一份简短开发方案。玩家每次翻开两张牌，配对成功的牌保留，全部配对后结束，并能重新开始。先给方案，不写代码、不创建项目，也不启动浏览器。
+</code></pre><h3>发现与读取的核验记录</h3><p>可用说明：原生 rollout 第 3 行包含该 Skill。以下是实际工具读取；模型自述不作为读取凭据。</p><pre><code>/bin/zsh -lc &quot;ls -la &lt;experiment&gt;/modified/workspace/.agents/skills/ &amp;&amp; echo &#x27;---&#x27; &amp;&amp; cat &lt;experiment&gt;/modified/workspace/.agents/skills/game-studio/SKILL.md&quot;</code></pre><p>events.jsonl 第 4 行 · item_0 · exit 0</p><details><summary>版本与来源定位</summary><p>本轮完整正文已在工具返回中核对；文件 SHA-256</p><pre><code>a01ec3b23de9d1e8e5e4db8994462865a8114b0e930ccd16af1941bcce06f1c5</code></pre><p>公开事件摘录与完整原始记录定位：<a href="../../materials/skill-authoring-20261107/manifest.json" target="_blank" rel="noopener">manifest.json ↗</a></p></details><h3>修改版工具返回中已核对的课程新增句</h3><pre><code>规划中的每个检查项都要写明前置状态、用户操作与预期可见结果，至少覆盖游戏结束和重新开始。这里只输出检查计划，不能将计划记为已执行结果。</code></pre><div class="section-route"><a href="#change">← 上一段</a> · <a href="#compare">下一段：从检查要点到可操作的三项结构 →</a></div></section><section id="compare"><p class="kind">历史材料</p><h2>从检查要点到可操作的三项结构</h2><h3>原版：原本就有结束与重开</h3><h2>6. 测试方案</h2>
+<p><strong>规则层单测（Vitest）</strong></p>
+<ul>
+<li>洗牌后牌面成对且数量守恒；同牌判定正确</li>
+<li>不匹配时两张回到 <code>FACE_DOWN</code> 且 <code>moves</code> 递增</li>
+<li>配对牌不可再翻、计入进度</li>
+<li>全部配对触发一次 <code>WIN</code>；重开后状态完全复位（含 <code>moves</code>、进度、阶段）</li>
+</ul>
+<p><strong>浏览器 QA（<code>game-playtest</code>）</strong></p>
+<ul>
+<li>截图核对：初始态、翻一张、翻两张不匹配、翻两张匹配、结算面板</li>
+<li>桌面 + 移动两种视口，牌桌不溢出</li>
+<li><code>RESOLVING</code> 期间快速连点不应翻出第三张</li>
+<li>结算 → 重开 → 可正常再玩</li>
+<li>reduced-motion 下翻牌仍完成、状态不卡</li>
+</ul>
+<details><summary>打开完整原始返回</summary><p>已按 <code>game-studio</code> 的流程做了分类与路由，并读取了相关的 <code>web-game-foundations</code> / <code>phaser-2d-game</code> / <code>game-ui-frontend</code> / <code>playtest-checklist</code> 约定。下面是开发方案（不含代码）。</p>
+<hr />
+<h1>最小翻牌记忆游戏 — 开发方案</h1>
+<h2>1. 路由与栈选型</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>决策</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>类型</td>
+<td>2D 网格卡片 → 走插件 <strong>2D 默认路径</strong></td>
+</tr>
+<tr>
+<td>运行时</td>
+<td><strong>Phaser 3 + TypeScript + Vite</strong></td>
+</tr>
+<tr>
+<td>UI</td>
+<td>DOM 覆盖层（HUD / 结算 / 重开），画布只负责牌桌</td>
+</tr>
+<tr>
+<td>后续 specialist</td>
+<td><code>phaser-2d-game</code>（实现）、<code>game-ui-frontend</code>（HUD 方向）、<code>sprite-pipeline</code>（牌面资产）、<code>game-playtest</code>（QA）</td>
+</tr>
+<tr>
+<td>备选（需你点头才切换）</td>
+<td>纯 DOM + CSS 3D flip：代码量更小、无引擎依赖，但失去补间/粒子/资源管理，扩展多关卡或花哨动效时成本反超</td>
+</tr>
+</tbody>
+</table></div>
+<h2>2. 玩法设计</h2>
+<ul>
+<li><strong>幻想</strong>：安静、耐玩的桌面纸牌记忆挑战；无战斗、无失败惩罚。</li>
+<li><strong>玩家动词</strong>：翻开一张 → 翻开第二张 → 观察 → 继续 / 重开。</li>
+<li><strong>核心循环</strong>：翻牌 → 比对 → (配对保留 | 不配对翻回) → 直到全部配对。</li>
+<li><strong>失败态</strong>：<strong>没有失败态</strong>。只有&quot;步数多少&quot;的软指标。这点要在 UI 上体现为轻松语气而非评分。</li>
+<li><strong>一局时长</strong>：目标 1–3 分钟；默认 <strong>4×3 = 6 对</strong>，难度后续再加。</li>
+</ul>
+<p><strong>状态机（规则核心，纯逻辑，不依赖渲染）</strong></p>
+<ul>
+<li>单卡：<code>FACE_DOWN → FLIPPING_UP → FACE_UP → MATCHED</code> / <code>FLIPPING_DOWN → FACE_DOWN</code></li>
+<li>牌桌阶段：<code>IDLE → AWAITING_FIRST → AWAITING_SECOND → RESOLVING → (AWAITING_FIRST | WIN)</code></li>
+<li>关键约束：<code>RESOLVING</code> 阶段<strong>锁定输入</strong>（约 800ms 等待不匹配翻回），期间点击无效，避免误翻第三张。</li>
+</ul>
+<p><strong>规则细则</strong></p>
+<ol>
+<li>点未翻开的牌 → 记录为第一张；再点一张 → 第二张。</li>
+<li>两张 <code>faceId</code> 相同 → 进入 <code>MATCHED</code>，永久保留、不可再点。</li>
+<li>不同 → 短暂停顿后两张一起翻回，<code>moves</code> 计数 +1。</li>
+<li>全部牌进入 <code>MATCHED</code> → 触发 <code>WIN</code>：DOM 结算面板（用时/步数 + &quot;再来一局&quot;）。</li>
+<li><strong>重开</strong>：重新 Fisher–Yates 洗牌（可选 seeded RNG 便于复现 bug）、步数清零、配对数清零、状态回 <code>IDLE</code>；<strong>不重置玩家已选难度/牌对数量</strong>。重开按钮与结算面板都可触发。</li>
+</ol>
+<h2>3. 架构（遵循 plugin 边界规则）</h2>
+<pre><code>src/
+  game/simulation/   board.ts  rules.ts  rng.ts        ← 规则唯一真相源，可单元测试
+  game/content/      deck.ts (牌面配置/难度)
+  game/input/        actions.ts (reveal / restart / next)
+  game/assets/       manifest.ts (稳定键，不写死路径)
+  phaser/scenes/     BootScene / MenuScene / GameScene   ← 只做编排与表现
+  phaser/view/       cardView.ts  flipFx.ts
+  phaser/adapters/   sceneBridge.ts
+  ui/hud/  ui/overlays/                                 ← DOM：步数、配对进度、重开、结算
+</code></pre>
+<ul>
+<li>规则写在 <code>simulation/</code>，Phaser 场景只读状态并播放补间；<strong>禁止</strong>在 <code>update()</code> 里做规则判定。</li>
+<li>动画时长（翻转 180–220ms）属于视图层，不写进规则；规则只描述&quot;此刻能否翻牌&quot;。</li>
+<li>无存档需求；若后续加，只序列化 <code>simulation</code> 的可序列化状态（牌序、配对集合、步数），不存 sprite/tween。</li>
+</ul>
+<h2>4. UI 与输入</h2>
+<ul>
+<li><strong>HUD</strong>：顶部一条细栏 = 配对进度 <code>x/6</code> + 步数 + 重开按钮。不做常驻大面板，牌桌是主角。</li>
+<li><strong>结算</strong>：居中 modal（DOM，带背板与轻模糊），胜利文案 + 步数 + 再来一局。</li>
+<li><strong>主题</strong>：CSS 变量定义配色/字体/材质语言（纸感、暖色木质桌面），不使用默认字体堆栈。</li>
+<li><strong>输入映射</strong>：<code>reveal</code>（点击 / 键盘方向键+空格）、<code>restart</code>（按钮 / <code>R</code>）。指针与键盘都要有可见焦点态。</li>
+<li><strong>响应式</strong>：桌面 4×3，移动端自动 3×4；画布尺寸变化时网格重排，牌面不裁切。</li>
+<li><strong>动效克制</strong>：仅翻转与配对时的短暂高亮；尊重 <code>prefers-reduced-motion</code>，此时翻牌改为瞬时切换。</li>
+</ul>
+<h2>5. 资产工作流</h2>
+<ul>
+<li>必需：<code>card_back</code>、N 张 <code>card_face_&lt;id&gt;</code>、可选牌框/高光。</li>
+<li>走 <code>sprite-pipeline</code>：先定 1 张基准帧，统一锚点与缩放后再批量出图，避免牌面尺寸不一。</li>
+<li>尺寸统一（如 128×176 比例），Phaser 侧按同一 scale 缩放；牌面以色块+图形区分，不做写实美术，保证可读性。</li>
+<li>音频非必需；如加，只保留&quot;翻牌/配对成功&quot;两个音效，默认音量低。</li>
+<li>特效（配对成功的粒子）用 Phaser 内置粒子，不引入额外资源。</li>
+</ul>
+<h2>6. 测试方案</h2>
+<p><strong>规则层单测（Vitest）</strong></p>
+<ul>
+<li>洗牌后牌面成对且数量守恒；同牌判定正确</li>
+<li>不匹配时两张回到 <code>FACE_DOWN</code> 且 <code>moves</code> 递增</li>
+<li>配对牌不可再翻、计入进度</li>
+<li>全部配对触发一次 <code>WIN</code>；重开后状态完全复位（含 <code>moves</code>、进度、阶段）</li>
+</ul>
+<p><strong>浏览器 QA（<code>game-playtest</code>）</strong></p>
+<ul>
+<li>截图核对：初始态、翻一张、翻两张不匹配、翻两张匹配、结算面板</li>
+<li>桌面 + 移动两种视口，牌桌不溢出</li>
+<li><code>RESOLVING</code> 期间快速连点不应翻出第三张</li>
+<li>结算 → 重开 → 可正常再玩</li>
+<li>reduced-motion 下翻牌仍完成、状态不卡</li>
+</ul>
+<h2>7. 实施顺序</h2>
+<ol>
+<li>脚手架 + 规则模块 + 单测（先把游戏跑通在纯逻辑层）</li>
+<li>Phaser 场景接入仿真层，完成点击/翻牌/配对流程</li>
+<li>DOM HUD + 结算 + 重开</li>
+<li>牌面资产接入（先用色块占位）+ 动效打磨</li>
+<li>浏览器 QA 与响应式修整</li>
+</ol>
+<h2>8. 明确不做（本期）</h2>
+<p>多难度、计时赛模式、连击计分、排行榜、音效包、存档、触摸手势（三指等）。这些都留着，但会破坏&quot;最小可交付&quot;的边界。</p>
+<hr />
+<p>要我进入实现阶段的话，下一步我会切到 <code>phaser-2d-game</code> skill 落地第 1、2 步（脚手架 + 规则模块 + 单测），仍然不启动浏览器，只跑单测。</p>
+</details><h3>修改版：检查计划（原文）</h3><h2>7. 检查计划（<strong>待执行</strong>，非已通过结果）</h2>
+<p>每项含「前置状态 / 用户操作 / 预期可见结果」。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>前置状态</th>
+<th>用户操作</th>
+<th>预期可见结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>首次加载完成</td>
+<td>无</td>
+<td>16 张牌全部背面朝上平铺；HUD 显示步数 0、配对 0/8、计时 0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>初始状态</td>
+<td>点击任意一张牌</td>
+<td>该牌翻至正面并停住；HUD仍为 0/8（未判定）</td>
+</tr>
+<tr>
+<td>3</td>
+<td>已翻开第一张</td>
+<td>点击另一张牌</td>
+<td>第二张翻开；两张同时可见，出现匹配/不匹配结果</td>
+</tr>
+<tr>
+<td>4</td>
+<td>两张牌不匹配</td>
+<td>等待</td>
+<td>约 800ms 后两张同时翻回背面；步数 +1</td>
+</tr>
+<tr>
+<td>5</td>
+<td>两张牌匹配</td>
+<td>等待</td>
+<td>两张<strong>保持面朝上</strong>，配对计数 +1，该对不可再点击</td>
+</tr>
+<tr>
+<td>6</td>
+<td>判定动画进行中</td>
+<td>快速点击第三张牌</td>
+<td>无响应（输入锁定生效），不改变任何牌面</td>
+</tr>
+<tr>
+<td>7</td>
+<td>同一张牌已翻开</td>
+<td>再次点击该牌</td>
+<td>无响应，不重复计入步数</td>
+</tr>
+<tr>
+<td>8</td>
+<td>全部8 对已配对</td>
+<td>无（自动触发）</td>
+<td><strong>游戏结束</strong>：计时停止、翻牌锁定、结算面板出现并显示总步数与用时</td>
+</tr>
+<tr>
+<td>9</td>
+<td>结算面板可见</td>
+<td>点击「重新开始」</td>
+<td>面板关闭、全部牌翻回背面并重新洗牌布局、步数与配对数归零、计时从 0 重新开始</td>
+</tr>
+<tr>
+<td>10</td>
+<td>任意进行中状态</td>
+<td>点击 HUD 的「重新开始」</td>
+<td>同 #9 的完整重置，无残留计时器/动画回调</td>
+</tr>
+<tr>
+<td>11</td>
+<td>桌面视口</td>
+<td>缩放到手机宽度</td>
+<td>牌阵缩放不错位，牌面可点，HUD 不遮挡牌阵</td>
+</tr>
+<tr>
+<td>12</td>
+<td>系统开启 reduced motion</td>
+<td>翻牌</td>
+<td>无抖动、无缩放补间，改为快速淡入淡出，功能不受影响</td>
+</tr>
+</tbody>
+</table></div>
+<p>自动化部分：simulation层的单测（无浏览器）+ Playwright 走通「翻牌 → 配对 → 结束 → 重开」主链路并在结束/重开两个状态截图。视觉问题（牌面可读性、HUD 遮挡）以截图判定，不靠 DOM 断言。</p>
+<details><summary>打开完整原始返回</summary><p>已读取 <code>game-studio</code> 及其路由到的 <code>web-game-foundations</code>、<code>phaser-2d-game</code>、<code>game-ui-frontend</code>、<code>game-playtest</code> 指南，下面是方案（未创建任何文件、未启动浏览器）。</p>
+<hr />
+<h1>最小翻牌记忆游戏 — 开发方案</h1>
+<h2>1. 分类与路由</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>判定</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2D 网格 + 翻牌补间 + 指针输入</td>
+<td>2D 默认轨道 → <strong>Phaser</strong>（非 Three.js / 非 R3F / 非裸 WebGL）</td>
+</tr>
+<tr>
+<td>文本型 HUD、结算面板、按钮</td>
+<td><strong>DOM 覆盖层</strong>（不放进 canvas）</td>
+</tr>
+<tr>
+<td>素材</td>
+<td>无角色动画，<strong>不走 sprite-pipeline</strong>；牌面程序化绘制</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>技术栈</strong>：Phaser 3 + TypeScript + Vite，<code>src/ui/</code> 放 DOM HUD，画布只负责牌阵。
+<em>（纯 DOM/CSS 翻牌是可行的更轻量变体，但偏离本插件 2D 默认路径；除非你明确要零依赖，我按 Phaser 走。）</em></p>
+<h2>2. 玩法定义- <strong>幻想</strong>：一张小桌面上摊开的记忆牌阵，找齐所有对子。</h2>
+<ul>
+<li><strong>玩家动词</strong>：<code>flipCard</code>（点/触摸一张牌）、<code>restart</code>（重新开始）。</li>
+<li><strong>棋盘</strong>：4×4，8 对 = 16 张牌，牌面 8 个符号。</li>
+<li><strong>回合规则</strong>：每次翻两张 → 比对
+<ul>
+<li>一致：两张牌<strong>保留面朝上</strong>、锁定不可再翻，配对数 +1</li>
+<li>不一致：停留 ~800ms 让玩家看清，然后同时翻回背面</li>
+</ul>
+</li>
+<li><strong>锁定规则</strong>：判定动画期间输入锁定；第一张翻开时第三张不可点。</li>
+<li><strong>结束条件</strong>：8 对全部配对 → 停止计时、禁止翻牌、弹出结算面板。</li>
+<li><strong>失败状态</strong>：无失败，只有&quot;重开&quot;。</li>
+</ul>
+<h2>3. 架构边界（simulation / render 分离）</h2>
+<pre><code>src/
+  game/simulation/    # 纯 TS，可单测，不 import Phaser
+    state.ts          # 牌阵、阶段枚举、配对/步数/计时
+    systems/deck.ts   # 洗牌（种子随机 mulberry32，可复现）
+    systems/match.ts  # 翻牌、比对、锁定、胜负判定
+  game/input/actions.ts        # 动作表：flipCard / restart
+  game/assets/manifest.ts      # 稳定 key：card.back / card.face.symbol
+  phaser/scenes/BootScene.ts   # 仅加载
+  phaser/scenes/GameScene.ts  # 薄场景：读 simulation，产出 sprite
+  phaser/view/                 # 翻牌补间、匹配闪光
+  ui/hud/ ui/overlays/        # DOM：步数/配对数/计时/重开/结算
+</code></pre>
+<ul>
+<li>状态机阶段：<code>idle → awaitingFirst → awaitingSecond → resolving → won</code>（<code>restart</code> 从任意阶段回到 <code>idle</code>）。</li>
+<li>场景只做状态→sprite 的映射和补间播放；规则变更不得依赖补间时长。</li>
+<li>计时器由 simulation 拥有，DOM HUD 每帧从中读数渲染。</li>
+</ul>
+<h2>4. 视觉与 UI 方向</h2>
+<ul>
+<li><strong>材质语言</strong>：哑光纸牌 + 圆角卡背；一主色调（深蓝桌布）配高对比符号。</li>
+<li><strong>HUD（常驻，仅一处）</strong>：顶部一条窄状态条 —— 步数 / 已配对 x/8 / 计时 / 「重新开始」按钮。</li>
+<li><strong>结算面板</strong>：居中一次性出现，含用时与步数 + 重开按钮；不使用全屏标题卡。</li>
+<li><strong>动效</strong>：翻牌为 scaleX 1→0→1 的单次补间；匹配时轻微高亮，失误时轻微左右抖动。尊重 <code>prefers-reduced-motion</code>：降为淡入淡出、无抖动。</li>
+<li><strong>响应式</strong>：桌面 4×4 居中；窄屏缩放卡牌尺寸，必要时降到 4×3 换行，保持牌面可点面积 ≥44px。</li>
+<li><strong>可访问性</strong>：重开按钮是真实 <code>&lt;button&gt;</code>，可键盘操作；牌面带 <code>aria-label</code>。</li>
+</ul>
+<h2>5. 素材工作流</h2>
+<ul>
+<li>卡背：一张程序化生成的 PNG（或纯 Graphics 绘制）。</li>
+<li>牌面：8 个符号用 Graphics + Text 生成图集，运行时按 key 取用。</li>
+<li>清单只有 <code>card.back</code>、<code>card.face.*</code> 若干 key；代码中不出现文件路径。</li>
+<li>无3D 资产、无 GLB流程。</li>
+</ul>
+<h2>6. 实施顺序</h2>
+<ol>
+<li><strong>M1</strong> 脚手架 + simulation 纯函数 + Vitest 单测（洗牌唯一性、比对、胜负、重开归零）</li>
+<li><strong>M2</strong> GameScene 接入 simulation：翻牌补间、输入锁、失配回翻</li>
+<li><strong>M3</strong> DOM HUD + 结算面板 + 重开（完整状态重置：重新洗牌、计数归零、面板隐藏、解锁）</li>
+<li><strong>M4</strong> 响应式 + reduced-motion + 键盘可达5. <strong>M5</strong> 浏览器 playtest，按下面清单逐项核对</li>
+</ol>
+<h2>7. 检查计划（<strong>待执行</strong>，非已通过结果）</h2>
+<p>每项含「前置状态 / 用户操作 / 预期可见结果」。</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>前置状态</th>
+<th>用户操作</th>
+<th>预期可见结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>首次加载完成</td>
+<td>无</td>
+<td>16 张牌全部背面朝上平铺；HUD 显示步数 0、配对 0/8、计时 0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>初始状态</td>
+<td>点击任意一张牌</td>
+<td>该牌翻至正面并停住；HUD仍为 0/8（未判定）</td>
+</tr>
+<tr>
+<td>3</td>
+<td>已翻开第一张</td>
+<td>点击另一张牌</td>
+<td>第二张翻开；两张同时可见，出现匹配/不匹配结果</td>
+</tr>
+<tr>
+<td>4</td>
+<td>两张牌不匹配</td>
+<td>等待</td>
+<td>约 800ms 后两张同时翻回背面；步数 +1</td>
+</tr>
+<tr>
+<td>5</td>
+<td>两张牌匹配</td>
+<td>等待</td>
+<td>两张<strong>保持面朝上</strong>，配对计数 +1，该对不可再点击</td>
+</tr>
+<tr>
+<td>6</td>
+<td>判定动画进行中</td>
+<td>快速点击第三张牌</td>
+<td>无响应（输入锁定生效），不改变任何牌面</td>
+</tr>
+<tr>
+<td>7</td>
+<td>同一张牌已翻开</td>
+<td>再次点击该牌</td>
+<td>无响应，不重复计入步数</td>
+</tr>
+<tr>
+<td>8</td>
+<td>全部8 对已配对</td>
+<td>无（自动触发）</td>
+<td><strong>游戏结束</strong>：计时停止、翻牌锁定、结算面板出现并显示总步数与用时</td>
+</tr>
+<tr>
+<td>9</td>
+<td>结算面板可见</td>
+<td>点击「重新开始」</td>
+<td>面板关闭、全部牌翻回背面并重新洗牌布局、步数与配对数归零、计时从 0 重新开始</td>
+</tr>
+<tr>
+<td>10</td>
+<td>任意进行中状态</td>
+<td>点击 HUD 的「重新开始」</td>
+<td>同 #9 的完整重置，无残留计时器/动画回调</td>
+</tr>
+<tr>
+<td>11</td>
+<td>桌面视口</td>
+<td>缩放到手机宽度</td>
+<td>牌阵缩放不错位，牌面可点，HUD 不遮挡牌阵</td>
+</tr>
+<tr>
+<td>12</td>
+<td>系统开启 reduced motion</td>
+<td>翻牌</td>
+<td>无抖动、无缩放补间，改为快速淡入淡出，功能不受影响</td>
+</tr>
+</tbody>
+</table></div>
+<p>自动化部分：simulation层的单测（无浏览器）+ Playwright 走通「翻牌 → 配对 → 结束 → 重开」主链路并在结束/重开两个状态截图。视觉问题（牌面可读性、HUD 遮挡）以截图判定，不靠 DOM 断言。</p>
+<h2>8. 风险与取舍</h2>
+<ul>
+<li><strong>Phaser 相对纯 DOM 的开销</strong>：为最小游戏引入引擎。保留理由是补间、场景编排与后续扩展（关卡/计时赛）；若最终只做这一页且不加特效，纯 DOM + CSS 3D transform 是更省的方案 —— 需要的话我改轨道。</li>
+<li><strong>输入锁与补间时序</strong>：最易出 bug 处，用单一阶段枚举 + 定时器随 reset 清理来兜底。</li>
+<li><strong>无失败/无存档</strong>：不引入存档与难度系统，保持&quot;最小&quot;边界。</li>
+</ul>
+<hr />
+<p>要我继续进入实施（先做 M1 的 simulation + 单测）吗？也可以先把轨道换成纯 DOM 版本再开工。</p>
+</details><div class="section-route"><a href="#reads">← 上一段</a> · <a href="#limits">下一段：结构采用以后，还要审阅内容 →</a></div></section><section id="limits"><p class="kind">原话与讲师分析</p><h2>结构采用以后，还要审阅内容</h2><div class="table-scroll"><table><thead><tr><th>修改版原话</th><th>讲师核对意见（不是模型回复）</th></tr></thead><tbody><tr><td>无残留计时器/动画回调</td><td>纯手动检查需写可观察动作，例如重开、等待、再操作，核对新局没有被上一局影响</td></tr><tr><td>第一张翻开时第三张不可点。</td><td>与前文两张参与判断的过程对照，需明确锁定发生在哪个时点</td></tr><tr><td>桌面 4×4 居中；窄屏缩放卡牌尺寸，必要时降到 4×3 换行</td><td>同一方案规定 16 张牌，4×3 只能放 12 张，需纠正布局数量</td></tr></tbody></table></div><p>本次只确认新增要求被用于输出；完整方案仍有待修订项，计划中的检查尚未执行。</p><div class="section-route"><a href="#compare">← 上一段</a> · <a href="#routing">下一段：同一修改版运行的真实读取顺序 →</a></div></section><section id="routing"><p class="kind">历史材料</p><h2>同一修改版运行的真实读取顺序</h2><p>按 events.jsonl 完成事件行排列；不表示并行命令依次启动，也不表示对应工作已完成。先取得专项指导，后读取共享资料；中途有一次目录查找失败。</p><div class="table-scroll"><table><thead><tr><th>事件行 / item</th><th>工具命令（本机路径已去敏）</th><th>退出码</th></tr></thead><tbody><tr><td>4 / item_0</td><td>/bin/zsh -lc &quot;ls -la &lt;experiment&gt;/modified/workspace/.agents/skills/ &amp;&amp; echo &#x27;---&#x27; &amp;&amp; cat &lt;experiment&gt;/modified/workspace/.agents/skills/game-studio/SKILL.md&quot;</td><td>0</td></tr><tr><td>9 / item_1</td><td>/bin/zsh -lc &#x27;cat &quot;&lt;experiment&gt;/modified/workspace/.agents/skills/game-playtest/SKILL.md&quot;&#x27;</td><td>0</td></tr><tr><td>10 / item_2</td><td>/bin/zsh -lc &#x27;cat &quot;&lt;experiment&gt;/modified/workspace/.agents/skills/web-game-foundations/SKILL.md&quot;&#x27;</td><td>0</td></tr><tr><td>11 / item_4</td><td>/bin/zsh -lc &#x27;cat &quot;&lt;experiment&gt;/modified/workspace/.agents/skills/phaser-2d-game/SKILL.md&quot;&#x27;</td><td>0</td></tr><tr><td>12 / item_3</td><td>/bin/zsh -lc &#x27;cat &quot;&lt;experiment&gt;/modified/workspace/.agents/skills/game-ui-frontend/SKILL.md&quot;&#x27;</td><td>0</td></tr><tr><td>14 / item_5</td><td>/bin/zsh -lc &#x27;ls -la &quot;&lt;experiment&gt;/modified/workspace/.agents/skills/references&quot;&#x27;</td><td>1</td></tr><tr><td>16 / item_6</td><td>/bin/zsh -lc &quot;find &lt;experiment&gt;/modified -name &#x27;references&#x27; -type d 2&gt;/dev/null; echo &#x27;---&#x27;; find &lt;experiment&gt;/modified -maxdepth 4 -type d | head -50&quot;</td><td>0</td></tr><tr><td>18 / item_7</td><td>/bin/zsh -lc &#x27;cat &quot;&lt;experiment&gt;/modified/workspace/.agents/references/engine-selection.md&quot;&#x27;</td><td>0</td></tr><tr><td>20 / item_8</td><td>/bin/zsh -lc &#x27;cat &quot;&lt;experiment&gt;/modified/workspace/.agents/references/playtest-checklist.md&quot;&#x27;</td><td>0</td></tr><tr><td>22 / item_9</td><td>/bin/zsh -lc &#x27;cat &quot;&lt;experiment&gt;/modified/workspace/.agents/references/phaser-architecture.md&quot;&#x27;</td><td>0</td></tr></tbody></table></div><p><a href="https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/game-ui-frontend/SKILL.md#frontend-standards" target="_blank" rel="noopener">game-ui-frontend 原文件 · 界面指导 ↗</a> · <a href="https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/game-playtest/SKILL.md" target="_blank" rel="noopener">game-playtest 原文件 ↗</a> · <a href="https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/web-game-foundations/SKILL.md" target="_blank" rel="noopener">web-game-foundations 原文件 ↗</a></p><div class="section-route"><a href="#limits">← 上一段</a> · <a href="#sharing">下一段：两个入口，共用一份选型资料 →</a></div></section><section id="sharing"><p class="kind">固定文件关系 · 课程整理</p><h2>两个入口，共用一份选型资料</h2><div class="table-scroll"><table><thead><tr><th>引用来自</th><th>文件内路径</th><th>解析后的同一目标</th></tr></thead><tbody><tr><td>skills/game-studio/SKILL.md</td><td>../../references/engine-selection.md</td><td rowspan="2" class="shared-target">references/engine-selection.md<br><strong>两份 Skill 共用这一个文件</strong></td></tr><tr><td>skills/web-game-foundations/SKILL.md</td><td>../../references/engine-selection.md</td></tr></tbody></table></div><p>两条引用共用一个目标；资料只维护一份。引用存在与本次已读取是不同证据。</p><div class="table-scroll"><table><thead><tr><th>另一种复用</th><th>目标</th><th>提供什么</th></tr></thead><tbody><tr><td>game-studio 的界面路由</td><td>../game-ui-frontend/SKILL.md</td><td>独立的界面设计方法与检查标准</td></tr><tr><td>game-studio 的试玩路由</td><td>../game-playtest/SKILL.md</td><td>独立的试玩工作方法与报告要求</td></tr></tbody></table></div><p><a href="https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/game-studio/SKILL.md" target="_blank" rel="noopener">game-studio 原文件 ↗</a> · <a href="https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/web-game-foundations/SKILL.md" target="_blank" rel="noopener">web-game-foundations 原文件 ↗</a> · <a href="https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/references/engine-selection.md" target="_blank" rel="noopener">共享 engine-selection.md ↗</a> · <a href="https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/game-ui-frontend/SKILL.md#frontend-standards" target="_blank" rel="noopener">game-ui-frontend 原文件 · 界面指导 ↗</a> · <a href="https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/game-playtest/SKILL.md" target="_blank" rel="noopener">game-playtest 原文件 ↗</a></p><div class="section-route"><a href="#routing">← 上一段</a> · <a href="#core">下一段：正文保留什么，哪些内容可以移走 →</a></div></section><section id="core"><p class="kind">归纳内容备查 · 主讲使用对应 PPT</p><h2>正文保留什么，哪些内容可以移走</h2><div class="table-scroll"><table><thead><tr><th>内容与例子</th><th>处理</th><th>判断依据</th></tr></thead><tbody><tr><td>任务目的、必要输入、关键步骤、条件与例外、输出与检查</td><td>留在正文</td><td>每次开展这项工作需要；删掉会改变行动</td></tr><tr><td>engine-selection 的详细判断；变长的翻牌案例</td><td>按需放入 Reference</td><td>只在某类情况需要，入口保留读取条件和路径</td></tr><tr><td>重复口号、与任务无关的常识</td><td>删除</td><td>没有增加可执行的判断或约束</td></tr></tbody></table></div><p>按信息作用控制长度；不把行数当产品上限，不为精简删掉关键条件。正文也可以包含必要知识。</p><p><a href="https://developers.openai.com/plugins/build/skills" target="_blank" rel="noopener">官方写法与验证说明 ↗</a></p><div class="section-route"><a href="#sharing">← 上一段</a> · <a href="#split">下一段：按任务需要选择资料与配套内容 →</a></div></section><section id="split"><p class="kind">归纳内容备查 · 主讲使用对应 PPT</p><h2>按任务需要选择资料与配套内容</h2><div class="table-scroll"><table><thead><tr><th>遇到什么需要</th><th>怎样组织</th><th>入口还要交代什么</th></tr></thead><tbody><tr><td>较长的例子、规则表或背景</td><td>Reference；共享标准维护一处</td><td>什么时候读、实际路径、用来解决什么问题</td></tr><tr><td>可独立开展的试玩工作</td><td>另一份 Skill</td><td>何时使用、游戏入口与规则、希望得到的发现和证据</td></tr><tr><td>重复的图片整理或确定计算</td><td>脚本</td><td>调用条件、输入输出、如何核对结果</td></tr><tr><td>模板、待处理图片等输入</td><td>素材</td><td>使用位置、用途和必要限制</td></tr></tbody></table></div><p>当前小游戏手动检查计划：先用一个 SKILL.md，把任务说清，再按实际缺口增加资源。</p><div class="section-route"><a href="#core">← 上一段</a> · <a href="#practice">下一段：现场编辑与调用准备 →</a></div></section><section id="practice"><p class="kind">录制准备 · 主讲在编辑器与 Codex 操作</p><h2>现场编辑与调用准备</h2><p>录制前在仓库根目录执行以下准备。下载工具沿用固定提交并核对 37 个文件；修改演示项目先保留原版，<strong>不预先应用补丁</strong>。created 只建空目录，<strong>不复制完整 Skill</strong>。这与材料 README 中用于复建历史最终状态的命令用途不同。</p>
+<pre><code class="language-bash">COURSE_REPO=&quot;$PWD&quot;
+AUTHORING_DEMO=$(mktemp -d)
+python3 courseware/ch03/lessons/02-rules/tools/prepare-selection-demo.py &quot;$AUTHORING_DEMO/original&quot;
+cp -R &quot;$AUTHORING_DEMO/original/repo&quot; &quot;$AUTHORING_DEMO/modified&quot;
+mkdir -p &quot;$AUTHORING_DEMO/created/.agents/skills/game-check-plan&quot;
+</code></pre>
+<p>06 在编辑器打开 <code>$AUTHORING_DEMO/modified/.agents/skills/game-studio/SKILL.md</code>，按<a href="../../materials/skill-authoring-20261107/planning-requirement.patch">单行补丁</a>找到 Output Expectations 的 planning 条目，实际输入新增句、保存；终端用以下命令核对单文件差异。退出码 1 表示存在差异；预期只增加该句。</p>
+<pre><code class="language-bash">diff -u &quot;$AUTHORING_DEMO/original/repo/.agents/skills/game-studio/SKILL.md&quot; &quot;$AUTHORING_DEMO/modified/.agents/skills/game-studio/SKILL.md&quot;
+</code></pre>
+<p>随后进入修改版目录启动新会话，粘贴<a href="../../materials/skill-authoring-20261107/prompts/planning.txt">相同规划请求</a>。调用沿用课程已配置的 MiniMax 基线；运行前须已配置对应登录和依赖。新会话不续接原版，也不把新增输出要求再写进 Prompt。</p>
+<pre><code class="language-bash">cd &quot;$AUTHORING_DEMO/modified&quot;
+CLEAN_CODEX_HOME=&quot;$AUTHORING_DEMO/modified-home&quot; CLEAN_CODEX_AUTH=minimax CLEAN_CODEX_MODEL=MiniMax-M3.1-Flash &quot;$COURSE_REPO/tools/clean-codex.sh&quot; --tap
+</code></pre>
+<p>15–16 在编辑器打开 <code>$AUTHORING_DEMO/created</code>，现场新建 <code>.agents/skills/game-check-plan/SKILL.md</code>。从<a href="../../materials/skill-authoring-20261107/example/game-check-plan/SKILL.md">课程示例</a>依次取文件头、任务边界与输入分支、正常输入的输出要求；每段讲完实际写入并保存。采用已修订写法，但起点必须为空文件。</p>
+<p>17 在另一个终端进入该项目，保存后启动独立新会话，粘贴<a href="../../materials/skill-authoring-20261107/prompts/created-memory.txt">完整翻牌请求</a>。</p>
+<pre><code class="language-bash">cd &quot;$AUTHORING_DEMO/created&quot;
+CLEAN_CODEX_HOME=&quot;$AUTHORING_DEMO/created-memory-home&quot; CLEAN_CODEX_AUTH=minimax CLEAN_CODEX_MODEL=MiniMax-M3.1-Flash &quot;$COURSE_REPO/tools/clean-codex.sh&quot; --tap
+</code></pre>
+<p>等待时看注明日期和版本的回放，随后必须回本次会话，核对实际选用、读到的正文及返回。现场缺读取、漏要求或出现错误，就按具体问题调查、调整并重新调用，取得结果后再继续；等待可剪去。历史十二项、十项及五问不能作为现场固定台词，也不能将现场与历史直接作效果对照。缺失输入和躲避示例仍按讨论稿采用已保存调用，不要求重复跑完所有历史版本。</p>
+<div class="section-route"><a href="#split">← 上一段</a> · <a href="#create">下一段：从任务写成一份最小 Skill →</a></div></section><section id="create"><p class="kind">编写备查 · 主讲在真实编辑器操作</p><h2>从任务写成一份最小 Skill</h2><p>以下四态只供取文字和排练。正式讲述切到真实编辑器，从空文件逐段输入、保存，再在该项目的新会话调用；点击四态不能代替实操。创建位置：独立示范项目中的 .agents/skills/game-check-plan/SKILL.md。</p><div class="build-buttons" role="group" aria-label="编写步骤"><button type="button" data-build="0" aria-pressed="true">空目录</button><button type="button" data-build="1" aria-pressed="false">名称描述</button><button type="button" data-build="2" aria-pressed="false">输入分支</button><button type="button" data-build="3" aria-pressed="false">完整正文</button></div><div class="build-state" data-state="0"><pre><code>.agents/skills/game-check-plan/
+  （尚无文件）</code></pre></div><div class="build-state" data-state="1" hidden><pre><code>---
+name: game-check-plan
+description: 根据小游戏规则编写手动检查计划。需要验收步骤、结束或重开检查清单时使用；不负责实际试玩或修改代码。
+---</code></pre></div><div class="build-state" data-state="2" hidden><pre><code>---
+name: game-check-plan
+description: 根据小游戏规则编写手动检查计划。需要验收步骤、结束或重开检查清单时使用；不负责实际试玩或修改代码。
+---
+
+只根据用户提供的规则生成手动检查计划，不查找游戏实现，不实际试玩。
+
+## 先判断输入是否足够
+
+玩家操作、结束条件、重开规则中，缺少任何一项：只回复至多 5 个需要补充的问题，然后结束。本次不生成检查计划，不用假定玩法填空。</code></pre></div><div class="build-state" data-state="3" hidden><pre><code>---
+name: game-check-plan
+description: 根据小游戏规则编写手动检查计划。需要验收步骤、结束或重开检查清单时使用；不负责实际试玩或修改代码。
+---
+
+只根据用户提供的规则生成手动检查计划，不查找游戏实现，不实际试玩。
+
+## 先判断输入是否足够
+
+玩家操作、结束条件、重开规则中，缺少任何一项：只回复至多 5 个需要补充的问题，然后结束。本次不生成检查计划，不用假定玩法填空。
+
+## 规则足够时生成计划
+
+- 选出 6–10 项关键检查，覆盖正常游戏循环、结束和重开。
+- 每项写明前置状态、用户操作、预期可见结果。所列操作必须足以观察预期结果；检查隐藏内容前，要写出揭示或记录它的操作。
+- 预期只依据已给规则；未规定的界面文案、计数发生时点等放入待确认，不先假定后再询问。
+- 玩法与数值以当前请求为准，不沿用其他游戏的牌数、时间或分数。
+- 随机结果检查数量、范围等规则约束，不要求一次随机结果必须不同于上一次。
+- 只交付检查计划和必要的待确认条件，明确这些步骤尚未执行。
+</code></pre></div><p><a href="../../materials/skill-authoring-20261107/example/game-check-plan/SKILL.md" target="_blank" rel="noopener">当前最小 SKILL.md ↗</a> · <a href="authoring-evidence.html#practice" target="_blank" rel="noopener">现场编辑与调用准备 ↗</a> · <a href="../../materials/skill-authoring-20261107/README.md" target="_blank" rel="noopener">版本、运行条件与本地准备 ↗</a> · <a href="https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills" target="_blank" rel="noopener">官方本地发现位置 ↗</a></p><div class="section-route"><a href="#practice">← 上一段</a> · <a href="#memory">下一段：完整规则：v3 翻牌调用 →</a></div></section><section id="memory"><p class="kind">历史材料</p><h2>完整规则：v3 翻牌调用</h2><p class="identity">created-memory-v3 · v3 · 2026-11-07 历史调用</p><h3>同轮请求</h3><pre><code>请使用 game-check-plan，为下面的翻牌游戏写一份简短的手动检查计划：一共 12 张牌、6 对，开始时全部朝下；每翻两张算一步；配对成功后保留，不匹配的两张在约 1 秒后翻回，这段时间不能翻第三张；全部配对后结束。点击重新开始后重新洗牌，所有牌朝下，配对进度和步数归零。只给计划，不改代码、不启动浏览器。
+</code></pre><h3>发现与读取的核验记录</h3><p>可用说明：原生 rollout 第 3 行包含该 Skill。以下是实际工具读取；模型自述不作为读取凭据。</p><pre><code>/bin/zsh -lc &#x27;cat &lt;experiment&gt;/created-memory-v3/workspace/.agents/skills/game-check-plan/SKILL.md&#x27;</code></pre><p>events.jsonl 第 4 行 · item_0 · exit 0</p><details><summary>版本与来源定位</summary><p>本轮完整正文已在工具返回中核对；文件 SHA-256</p><pre><code>4b684efe20de913d1683e600bea682a490b6c749bdde949b547d6378e5e788f4</code></pre><p>公开事件摘录与完整原始记录定位：<a href="../../materials/skill-authoring-20261107/manifest.json" target="_blank" rel="noopener">manifest.json ↗</a></p></details><h3>同轮完整原始返回</h3><h2>手动检查计划：12 张牌翻牌配对</h2>
+<p><strong>规则依据</strong>：12 张牌 / 6 对，初始全部朝下；每翻两张算一步；配对成功保留，不匹配的两张约 1 秒后翻回且期间不能翻第三张；全部配对后结束；点重新开始 → 重新洗牌、全部朝下、进度与步数归零。</p>
+<p><strong>状态</strong>：以下步骤<strong>尚未执行</strong>（本次只交付计划，不试玩、不改代码）。</p>
+<hr />
+<h3>一、正常游戏循环</h3>
+<p><strong>C1 初始状态</strong></p>
+<ul>
+<li>前置：刚打开页面 /刚点过重新开始</li>
+<li>操作：观察牌面与计数区</li>
+<li>预期：12 张牌全部朝下（看不到图案）；步数 = 0；配对进度 = 0（显示形式见&quot;待确认&quot;A）</li>
+</ul>
+<p><strong>C2 翻开两张（不匹配）</strong></p>
+<ul>
+<li>前置：C1 状态</li>
+<li>操作：依次点击任意两张牌</li>
+<li>预期：第一张翻开后保持朝上；第二张翻开后两张都朝上；步数变为 1（计数时点见&quot;待确认&quot;D）</li>
+</ul>
+<p><strong>C3 不匹配后的等待与锁牌</strong></p>
+<ul>
+<li>前置：两张已翻开且图案不同</li>
+<li>操作：在约 0.5 秒时点击第三张牌；再等待到约 1.5 秒</li>
+<li>预期：等待期间第三张点击无效果——第三张不翻开，前两张保持朝上可见；约 1 秒后前两张自动翻回朝下（图案不可见），可再次点击这两张</li>
+</ul>
+<p><strong>C4 不匹配后的继续游戏</strong></p>
+<ul>
+<li>前置：两张已翻回朝下</li>
+<li>操作：再次点击这两张牌中的一张，再点第三张</li>
+<li>预期：可正常翻开；该次仍计1 步，步数变为 2</li>
+</ul>
+<p><strong>C5 配对成功并保留</strong></p>
+<ul>
+<li>前置：C1 状态（或任意进行中状态）</li>
+<li>操作：翻开两张图案相同的牌</li>
+<li>预期：两张牌保持朝上不再翻回；配对进度 +1（变为 1）；步数 +1</li>
+</ul>
+<p><strong>C6 配对牌不受后续操作影响</strong></p>
+<ul>
+<li>前置：已有 1 对配对并保持朝上</li>
+<li>操作：继续翻开其他牌（包括做一次不匹配）</li>
+<li>预期：已配对的两张始终朝上；不匹配的两张仍按约 1 秒翻回</li>
+</ul>
+<p><strong>C7 连续操作计数</strong></p>
+<ul>
+<li>前置：全新一局</li>
+<li>操作：连续完成 3 次&quot;翻两张（均不匹配）&quot;的操作，每次都等牌翻回后再翻下一张</li>
+<li>预期：步数最终为 3（每翻两张算一步，翻一张不计步）</li>
+</ul>
+<hr />
+<h3>二、结束条件</h3>
+<p><strong>C8 全部配对后结束</strong></p>
+<ul>
+<li>前置：已完成 5 对配对，进度为 5</li>
+<li>操作：翻开最后两张相同的牌</li>
+<li>预期：两张保留朝上，进度变为 6（6/6）；游戏进入结束状态——结束后的点击不再翻开任何牌（结束如何呈现见&quot;待确认&quot;B）</li>
+</ul>
+<hr />
+<h3>三、重开</h3>
+<p><strong>C9 重新开始</strong></p>
+<ul>
+<li>前置：任意进行中状态（例如已完成 2 对、步数 5，且有2 张不匹配的牌正处于朝上等待期）</li>
+<li>操作：点击&quot;重新开始&quot;按钮</li>
+<li>预期：牌重新洗牌并全部朝下（无残留朝上牌）；步数归零；配对进度归零；等待期中的旧牌不再翻回（见&quot;待确认&quot;C）</li>
+</ul>
+<p><strong>C10 重开后重开仍有效（回归）</strong></p>
+<ul>
+<li>前置：已完成 C9</li>
+<li>操作：再翻两张牌，然后再次点击重新开始</li>
+<li>预期：牌回到朝下、步数与进度再次归零，随后可正常开始新的一局</li>
+</ul>
+<hr />
+<h3>待确认条件（规则未规定，不预设）</h3>
+<ul>
+<li><strong>A 计数显示</strong>：界面是否显示步数与配对进度、显示位置与格式（如&quot;步数3&quot;、&quot;3/6&quot;）；页面上还需确认哪些元素是可见的。</li>
+<li><strong>B 结束呈现</strong>：全部配对后以什么方式表示结束（提示文案、弹窗、禁用状态等）。</li>
+<li><strong>C 重开时点</strong>：在&quot;约 1 秒等待期&quot;中点击重新开始，旧的翻回动画是否应被取消（即是否还会看到旧牌翻回）。</li>
+<li><strong>D 计数时点</strong>：步数是在第二张牌翻开时立即 +1，还是在不匹配判定结束、牌翻回后才 +1。</li>
+<li><strong>E 匹配后能否续翻</strong>：匹配成功后是否立即允许翻第三张牌（规则只明确禁止&quot;不匹配等待期&quot;内翻第三张）。</li>
+<li><strong>F 重开按钮</strong>：按钮的位置、是否需要二次确认、是否在结束态下同样可用。</li>
+</ul>
+<div class="section-route"><a href="#create">← 上一段</a> · <a href="#memory-review">下一段：返回计划怎样逐项验真 →</a></div></section><section id="memory-review"><p class="kind">讲师核对意见</p><h2>返回计划怎样逐项验真</h2><div class="table-scroll"><table><thead><tr><th>原回复位置</th><th>发现的问题</th><th>讲师核对意见</th></tr></thead><tbody><tr><td>C2：任意两张；C3：延续 C2 的不匹配状态</td><td>任意两张不保证不匹配</td><td>先通过观察确认是不匹配的一对，再检查等待与输入锁定</td></tr><tr><td>C5：任意已配对进度；预期进度变为 1</td><td>前置状态与固定数值冲突</td><td>预期应是原进度 +1</td></tr><tr><td>C9 与待确认 C</td><td>一处先断言动画行为，一处又待确认</td><td>用新局不受旧回调影响的可见结果核对，未知呈现先确认</td></tr></tbody></table></div><p>建议与原回复分开；这些建议尚未另行调用验证。</p><div class="section-route"><a href="#memory">← 上一段</a> · <a href="#missing">下一段：信息不足：为什么把提醒改成明确分支 →</a></div></section><section id="missing"><p class="kind">历史材料</p><h2>信息不足：为什么把提醒改成明确分支</h2><h3>两个版本使用相同请求</h3><pre><code>请使用 game-check-plan，为一个浏览器小游戏写手动检查计划。目前只确定页面上有“开始”和“重新开始”按钮，具体玩法和结束规则还没有定。只给计划或需要补充的信息，不改代码、不启动浏览器。
+</code></pre><h3>v2：缺少规则仍生成检查表</h3><h2>二、关键检查项（10 项）</h2>
+<blockquote>
+<p>每项均写明 <strong>前置状态 → 操作 → 预期可见结果</strong>。带 ⚠️ 的预期结果依赖上文待确认项，补齐规则后需逐条具体化。</p>
+</blockquote>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>前置状态</th>
+<th>用户操作</th>
+<th>预期可见结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C1</td>
+<td>首次打开页面，未开始任何一局</td>
+<td>观察页面，不做任何操作</td>
+<td>可见&quot;开始&quot;与&quot;重新开始&quot;两个按钮；&quot;重新开始&quot;处于禁用态（依 B1）；无未捕获的控制台报错；无空白画布或布局错位</td>
+</tr>
+<tr>
+<td>C2</td>
+<td>同 C1</td>
+<td>点击&quot;开始&quot;</td>
+<td>页面由初始态切换到进行态，出现玩法相关元素（依 A1/A2）；&quot;开始&quot;变为不可用或切换为其它控件；&quot;重新开始&quot;变为可用</td>
+</tr>
+<tr>
+<td>C3</td>
+<td>已开始一局，处于进行态</td>
+<td>按规则执行一次玩家操作（点击 / 按键 / 触摸）</td>
+<td>出现明确的可见反馈：状态变化、分数或计数变化、动画或音效（依 A1）</td>
+</tr>
+<tr>
+<td>C4</td>
+<td>进行态，条件已满足&quot;成功结束&quot;（依 A3）</td>
+<td>等待结束自动触发</td>
+<td>进入结束表现：出现结算面板或结束提示（依 A4）；显示的数据与规则一致；进行态元素不再响应输入</td>
+</tr>
+<tr>
+<td>C5</td>
+<td>进行态，条件已满足&quot;失败结束&quot;（依 A3）</td>
+<td>等待结束自动触发</td>
+<td>同样进入结束表现，且与成功结束在展示上可区分（依 A4）；进行态元素不再响应输入</td>
+</tr>
+<tr>
+<td>C6</td>
+<td>进行态</td>
+<td>按任意玩法输入键 / 点击玩法区域</td>
+<td>状态无变化（结束判定后输入被屏蔽）——⚠️ 依 A2 确认是否需要屏蔽输入</td>
+</tr>
+<tr>
+<td>C7</td>
+<td>处于结束态</td>
+<td>点击&quot;重新开始&quot;</td>
+<td>回到与 C1 相同的初始状态；&quot;重新开始&quot;重新变为禁用、&quot;开始&quot;恢复可用；结算表现消失</td>
+</tr>
+<tr>
+<td>C8</td>
+<td>处于结束态</td>
+<td>点击&quot;重新开始&quot;</td>
+<td>上一局的所有可变状态被清零：分数 / 计数、关卡或牌面、道具、计时器均回到初始值（依 A1/A5）；无上一局的元素残留在页面上</td>
+</tr>
+<tr>
+<td>C9</td>
+<td>处于结束态</td>
+<td>连续快速点击&quot;重新开始&quot;多次</td>
+<td>每次都得到一致的新一局初始状态；不出现叠加计数、重复元素、卡死或报错</td>
+</tr>
+<tr>
+<td>C10</td>
+<td>处于进行态</td>
+<td>点击&quot;重新开始&quot;</td>
+<td>⚠️ 依 B2：或立即中断并开新局（C7~C8 的检查项可复用验证），或按钮无反应且当前局继续正常进行</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>边界补充（仅当对应待确认项成立时追加）</strong></p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>前置状态</th>
+<th>用户操作</th>
+<th>预期可见结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C11</td>
+<td>初始态</td>
+<td>快速重复点击&quot;开始&quot;</td>
+<td>⚠️ 依 B3：不叠加开局、不重置已开始的内容、不报错</td>
+</tr>
+<tr>
+<td>C12</td>
+<td>进行态（存在倒计时）</td>
+<td>倒计时归零的瞬间</td>
+<td>结束判定结果唯一且可复现：不会既判成功又判失败；界面不同时停留在两态（依 B4）</td>
+</tr>
+<tr>
+<td>C13</td>
+<td>初始态</td>
+<td>连续多局开始–结束–重新开始</td>
+<td>若含随机元素，各次随机结果的数量与取值范围均落在规则约束内（依 B5）；<strong>不要求本次随机结果与上一次不同</strong></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<details><summary>打开完整原始返回</summary><p>已读取 <code>game-check-plan</code> 技能说明。按技能要求：<strong>只依据你给出的规则生成计划，不查找游戏实现</strong>，因此我没有查看项目代码、没有启动浏览器、没有改动任何文件。</p>
+<hr />
+<h1>手动检查计划（草案 · 规则未定版）</h1>
+<h2>一、待确认条件（阻塞项，缺则下列检查无法定稿）</h2>
+<h3>A. 核心玩法（必答，5 项内即可解锁大部分检查项）</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>待确认问题</th>
+<th>影响到的检查项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A1</td>
+<td>玩家在本局中要做的事是什么？（操作方式：鼠标点击 / 键盘 / 触摸；是否存在计分、限时、回合数）</td>
+<td>C3、C4</td>
+</tr>
+<tr>
+<td>A2</td>
+<td>一局的阶段有哪些？（开始 → 进行中 → 结束，是否有暂停、准备、结算等中间态）</td>
+<td>C2、C6</td>
+</tr>
+<tr>
+<td>A3</td>
+<td>触发结束的条件有哪些？哪些属于&quot;成功结束&quot;，哪些属于&quot;失败结束&quot;？</td>
+<td>C4、C5</td>
+</tr>
+<tr>
+<td>A4</td>
+<td>结束后页面显示什么？（是否有结算面板，展示哪些数据：分数 / 回合 / 用时 / 记录）</td>
+<td>C4、C5</td>
+</tr>
+<tr>
+<td>A5</td>
+<td>&quot;重新开始&quot;的语义：完全重置本局状态 / 新开一局但保留跨局累计（总分、最高分）/ 回到初始菜单</td>
+<td>C7、C8、C9</td>
+</tr>
+</tbody>
+</table></div>
+<h3>B. 边界与可选项（有则加检查项，无则删除对应行）</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>待确认问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B1</td>
+<td>开局前&quot;重新开始&quot;按钮是否应禁用（灰色不可点）？</td>
+</tr>
+<tr>
+<td>B2</td>
+<td>进行中点击&quot;重新开始&quot;的行为：立即中断并开新局 / 按钮禁用无反应？</td>
+</tr>
+<tr>
+<td>B3</td>
+<td>重复点击&quot;开始&quot;是否幂等（不叠加开局、不重置计时）？</td>
+</tr>
+<tr>
+<td>B4</td>
+<td>是否有倒计时？若有时，切到后台标签页时计时是否继续、返回后如何处理？</td>
+</tr>
+<tr>
+<td>B5</td>
+<td>是否含随机元素？随机结果的取值范围与数量约束是什么？</td>
+</tr>
+<tr>
+<td>B6</td>
+<td>是否有音效 / 动画 / 震动反馈？是否有失败（如资源加载失败）的降级表现？</td>
+</tr>
+<tr>
+<td>B7</td>
+<td>目标分辨率与移动端 / 触控适配要求？</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>二、关键检查项（10 项）</h2>
+<blockquote>
+<p>每项均写明 <strong>前置状态 → 操作 → 预期可见结果</strong>。带 ⚠️ 的预期结果依赖上文待确认项，补齐规则后需逐条具体化。</p>
+</blockquote>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>前置状态</th>
+<th>用户操作</th>
+<th>预期可见结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C1</td>
+<td>首次打开页面，未开始任何一局</td>
+<td>观察页面，不做任何操作</td>
+<td>可见&quot;开始&quot;与&quot;重新开始&quot;两个按钮；&quot;重新开始&quot;处于禁用态（依 B1）；无未捕获的控制台报错；无空白画布或布局错位</td>
+</tr>
+<tr>
+<td>C2</td>
+<td>同 C1</td>
+<td>点击&quot;开始&quot;</td>
+<td>页面由初始态切换到进行态，出现玩法相关元素（依 A1/A2）；&quot;开始&quot;变为不可用或切换为其它控件；&quot;重新开始&quot;变为可用</td>
+</tr>
+<tr>
+<td>C3</td>
+<td>已开始一局，处于进行态</td>
+<td>按规则执行一次玩家操作（点击 / 按键 / 触摸）</td>
+<td>出现明确的可见反馈：状态变化、分数或计数变化、动画或音效（依 A1）</td>
+</tr>
+<tr>
+<td>C4</td>
+<td>进行态，条件已满足&quot;成功结束&quot;（依 A3）</td>
+<td>等待结束自动触发</td>
+<td>进入结束表现：出现结算面板或结束提示（依 A4）；显示的数据与规则一致；进行态元素不再响应输入</td>
+</tr>
+<tr>
+<td>C5</td>
+<td>进行态，条件已满足&quot;失败结束&quot;（依 A3）</td>
+<td>等待结束自动触发</td>
+<td>同样进入结束表现，且与成功结束在展示上可区分（依 A4）；进行态元素不再响应输入</td>
+</tr>
+<tr>
+<td>C6</td>
+<td>进行态</td>
+<td>按任意玩法输入键 / 点击玩法区域</td>
+<td>状态无变化（结束判定后输入被屏蔽）——⚠️ 依 A2 确认是否需要屏蔽输入</td>
+</tr>
+<tr>
+<td>C7</td>
+<td>处于结束态</td>
+<td>点击&quot;重新开始&quot;</td>
+<td>回到与 C1 相同的初始状态；&quot;重新开始&quot;重新变为禁用、&quot;开始&quot;恢复可用；结算表现消失</td>
+</tr>
+<tr>
+<td>C8</td>
+<td>处于结束态</td>
+<td>点击&quot;重新开始&quot;</td>
+<td>上一局的所有可变状态被清零：分数 / 计数、关卡或牌面、道具、计时器均回到初始值（依 A1/A5）；无上一局的元素残留在页面上</td>
+</tr>
+<tr>
+<td>C9</td>
+<td>处于结束态</td>
+<td>连续快速点击&quot;重新开始&quot;多次</td>
+<td>每次都得到一致的新一局初始状态；不出现叠加计数、重复元素、卡死或报错</td>
+</tr>
+<tr>
+<td>C10</td>
+<td>处于进行态</td>
+<td>点击&quot;重新开始&quot;</td>
+<td>⚠️ 依 B2：或立即中断并开新局（C7~C8 的检查项可复用验证），或按钮无反应且当前局继续正常进行</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>边界补充（仅当对应待确认项成立时追加）</strong></p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>前置状态</th>
+<th>用户操作</th>
+<th>预期可见结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C11</td>
+<td>初始态</td>
+<td>快速重复点击&quot;开始&quot;</td>
+<td>⚠️ 依 B3：不叠加开局、不重置已开始的内容、不报错</td>
+</tr>
+<tr>
+<td>C12</td>
+<td>进行态（存在倒计时）</td>
+<td>倒计时归零的瞬间</td>
+<td>结束判定结果唯一且可复现：不会既判成功又判失败；界面不同时停留在两态（依 B4）</td>
+</tr>
+<tr>
+<td>C13</td>
+<td>初始态</td>
+<td>连续多局开始–结束–重新开始</td>
+<td>若含随机元素，各次随机结果的数量与取值范围均落在规则约束内（依 B5）；<strong>不要求本次随机结果与上一次不同</strong></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>三、待确认信息补齐后的执行说明</h2>
+<ol>
+<li><strong>以上步骤均尚未执行</strong>，本文件只是待执行的检查计划。</li>
+<li>补齐 A1–A5 后，C3–C6 的预期结果可从&quot;依规则&quot;细化为具体可观察的数值 / 文案 / 状态。</li>
+<li>补齐 B 组后，决定 C10–C13 保留还是删除。</li>
+<li>实际执行时，建议逐条记录 <strong>截图 / 操作步骤 / 实际结果 / 与预期的差异</strong>，便于复现。</li>
+</ol>
+<hr />
+<p><strong>下一步</strong>：请先回答 A1–A5（5 个问题），我就能把上表中的 ⚠️ 占位替换成确定预期，输出定稿版检查计划。若你希望我直接假定某种玩法（例如点击计分、限时生存），也可以指定，我按你的假定重写一份并在开头标注该假定。</p>
+</details><h3>根据返回修订正文</h3><pre><code>--- game-check-plan v2
++++ game-check-plan v3
+@@ -3,12 +3,17 @@
+ description: 根据小游戏规则编写手动检查计划。需要验收步骤、结束或重开检查清单时使用；不负责实际试玩或修改代码。
+ ---
+ 
+-只根据用户提供的规则生成手动检查计划，不查找游戏实现。
++只根据用户提供的规则生成手动检查计划，不查找游戏实现，不实际试玩。
+ 
+-- 先确认玩家操作、结束条件和重开规则；影响检查结论的缺失条件要询问或列为待确认。
+-- 未确定的条件不写成确定的预期结果；基础玩法缺失时先收集规则，不套用其他游戏的玩法。
+-- 覆盖正常游戏循环、结束和重开；只加入与当前规则有关的边界情况。
+-- 每个检查项写明前置状态、用户操作和预期可见结果。
+-- 涉及随机结果时，检查数量、范围等规则约束，不要求一次随机结果必须不同于上一次。
+-- 具体玩法与数值以当前需求为准，不将示例中的牌数、时间或分数当成所有游戏的规则。
+-- 优先列出 6–10 项关键检查和必要的待确认条件，明确这些步骤尚未执行。
++## 先判断输入是否足够
++
++玩家操作、结束条件、重开规则中，缺少任何一项：只回复至多 5 个需要补充的问题，然后结束。本次不生成检查计划，不用假定玩法填空。
++
++## 规则足够时生成计划
++
++- 选出 6–10 项关键检查，覆盖正常游戏循环、结束和重开。
++- 每项写明前置状态、用户操作、预期可见结果。所列操作必须足以观察预期结果；检查隐藏内容前，要写出揭示或记录它的操作。
++- 预期只依据已给规则；未规定的界面文案、计数发生时点等放入待确认，不先假定后再询问。
++- 玩法与数值以当前请求为准，不沿用其他游戏的牌数、时间或分数。
++- 随机结果检查数量、范围等规则约束，不要求一次随机结果必须不同于上一次。
++- 只交付检查计划和必要的待确认条件，明确这些步骤尚未执行。
+</code></pre><h3>v3：同请求复核</h3><p class="identity">created-missing-v3 · v3 · 2026-11-07 历史调用</p><h3>同轮请求</h3><pre><code>请使用 game-check-plan，为一个浏览器小游戏写手动检查计划。目前只确定页面上有“开始”和“重新开始”按钮，具体玩法和结束规则还没有定。只给计划或需要补充的信息，不改代码、不启动浏览器。
+</code></pre><h3>发现与读取的核验记录</h3><p>可用说明：原生 rollout 第 3 行包含该 Skill。以下是实际工具读取；模型自述不作为读取凭据。</p><pre><code>/bin/zsh -lc &#x27;cat &lt;experiment&gt;/created-missing-v3/workspace/.agents/skills/game-check-plan/SKILL.md&#x27;</code></pre><p>events.jsonl 第 5 行 · item_1 · exit 0</p><details><summary>版本与来源定位</summary><p>本轮完整正文已在工具返回中核对；文件 SHA-256</p><pre><code>4b684efe20de913d1683e600bea682a490b6c749bdde949b547d6378e5e788f4</code></pre><p>公开事件摘录与完整原始记录定位：<a href="../../materials/skill-authoring-20261107/manifest.json" target="_blank" rel="noopener">manifest.json ↗</a></p></details><p>已读 <code>game-check-plan</code> 技能。它要求先判断规则是否充分——<strong>玩家操作、结束条件、重开规则</strong>三项中缺少任意一项，就只回补充问题、不生成计划、不用假定玩法填空。</p>
+<p>当前输入只确认了页面有“开始”和“重新开始”按钮，三项关键规则全部缺失，因此本次<strong>不生成检查计划</strong>。请补充下面 5 个问题：</p>
+<p><strong>1. 玩家操作（游戏循环）</strong>
+一局里玩家具体做什么？例如：点击目标元素、拖拽放置、键盘/方向键控制、或者只是等待计分？是否需要连续操作，还是每步只需单次点击？</p>
+<p><strong>2. 结束条件</strong>
+一局在什么情况下判定结束？例如：时间到、分数达到阈值、错误/失误次数超限、完成所有目标、漏掉某个目标即结束？结束后页面显示什么（结束提示文案、最终分数、评级/名次）？</p>
+<p><strong>3. 计分与状态显示</strong>
+分数/进度在什么时候更新（每次操作即时更新，还是结束时结算）？界面上是否要显示分数、剩余时间、失误数、等级等数值？这些数值的显示位置和格式有规定吗？</p>
+<p><strong>4. 重开规则</strong>
+点击“重新开始”后：上一局的分数、进度、计时、失误记录是否全部清零？是否回到与首次点击“开始”完全相同的初始状态？另外，“开始”按钮点击后是立即进入可玩状态，还是有倒计时/准备阶段？</p>
+<p><strong>5. 数值范围与随机性</strong>
+如果存在随机元素（目标出现的位置、顺序、种类等），随机范围是什么，需要检查哪些约束？另外是否有多局之间需要保持的状态（最高分、累计得分）？若没有，请直接说明“无随机 / 无跨局状态”。</p>
+<hr />
+<p>收到这些答案后，我会按规则生成 6–10 项手动检查计划，覆盖正常游戏循环、结束、重开，每项写明前置状态、用户操作和预期可见结果；规则未规定的文案、计数时点等会单列为“待确认”，不会先行假定。</p>
+<p>说明：本次没有生成检查计划，也未执行任何检查步骤；我没有查找游戏实现或运行浏览器。</p>
+<div class="section-route"><a href="#memory-review">← 上一段</a> · <a href="#transfer">下一段：换一种游戏：v3 躲避调用 →</a></div></section><section id="transfer"><p class="kind">历史材料</p><h2>换一种游戏：v3 躲避调用</h2><p class="identity">created-transfer-v3 · v3 · 2026-11-07 历史调用</p><h3>同轮请求</h3><pre><code>请使用 game-check-plan，为下面的躲避收集游戏写一份简短的手动检查计划：用方向键移动，碰到金币加 1 分，碰到障碍立即结束；倒计时 60 秒归零也结束；结束后不能移动或继续加分。点击重新开始后恢复初始位置、分数归零、倒计时回到 60 秒并重新开局。只给计划，不改代码、不启动浏览器。
+</code></pre><h3>发现与读取的核验记录</h3><p>可用说明：原生 rollout 第 3 行包含该 Skill。以下是实际工具读取；模型自述不作为读取凭据。</p><pre><code>/bin/zsh -lc &#x27;cat &lt;experiment&gt;/created-transfer-v3/workspace/.agents/skills/game-check-plan/SKILL.md&#x27;</code></pre><p>events.jsonl 第 5 行 · item_1 · exit 0</p><details><summary>版本与来源定位</summary><p>本轮完整正文已在工具返回中核对；文件 SHA-256</p><pre><code>4b684efe20de913d1683e600bea682a490b6c749bdde949b547d6378e5e788f4</code></pre><p>公开事件摘录与完整原始记录定位：<a href="../../materials/skill-authoring-20261107/manifest.json" target="_blank" rel="noopener">manifest.json ↗</a></p></details><h3>同轮完整原始返回</h3><p>我已读取 <code>game-check-plan</code> 技能说明。规则三项齐全（操作方式、结束条件、重开规则），因此直接生成检查计划；不查找实现、不试玩、不改代码。</p>
+<hr />
+<h1>躲避收集游戏 · 手动检查计划</h1>
+<p><strong>依据</strong>：仅依据本次给出的规则（方向键移动；碰金币 +1 分；碰障碍立即结束；倒计时 60 秒归零结束；结束后不能移动或继续加分；点击重新开始 → 回到初始位置、分数归零、倒计时回到 60 秒并重新开局）。
+<strong>状态：以下步骤均尚未执行。</strong></p>
+<h2>一、开局状态（前置基线）</h2>
+<p><strong>前置状态</strong>：刚打开游戏页面，尚未按键。
+<strong>操作</strong>：不操作，仅观察屏幕。
+<strong>预期可见结果</strong>：分数显示为 0；倒计时显示为 60（或等值的初始读数）；角色/方块处于初始位置；障碍与金币在场上可见。</p>
+<h2>二、方向键移动</h2>
+<p><strong>前置状态</strong>：游戏进行中，倒计时未归零。
+<strong>操作</strong>：分别按一次上、下、左、右方向键，每次按键后观察角色位置，再按键回到起始区域附近。
+<strong>预期可见结果</strong>：每次按下对应方向键，角色朝该方向移动一格；不按方向键时角色不移动；移动过程中分数保持不变；倒计时持续递减。</p>
+<h2>三、金币加分</h2>
+<p><strong>前置状态</strong>：游戏进行中，已记录当前分数 N，并已记下场上至少 1 枚金币的位置。
+<strong>操作</strong>：用方向键移动到该金币所在位置，与金币重叠后停下。
+<strong>预期可见结果</strong>：分数从 N 变为 N+1（增加 1，不多不少）。</p>
+<h2>四、连续收集多枚金币</h2>
+<p><strong>前置状态</strong>：游戏进行中，已记录当前分数 N；场上至少还有 3 枚金币，且路径上不经过障碍。
+<strong>操作</strong>：依次移动到 3 枚金币位置，每枚都停留到重叠。
+<strong>预期可见结果</strong>：分数依次变为 N+1、N+2、N+3；角色在金币处不停留、可继续移动；倒计时继续递减。</p>
+<h2>五、碰到障碍立即结束</h2>
+<p><strong>前置状态</strong>：游戏进行中，已记录当前分数 N 与倒计时剩余值 T；已定位一处障碍。
+<strong>操作</strong>：用方向键移动到该障碍位置，与其重叠。
+<strong>预期可见结果</strong>：游戏立刻结束（不再有可继续的操作循环）；分数不再变化；倒计时停止递减（不再继续往下走）。</p>
+<h2>六、倒计时归零结束</h2>
+<p><strong>前置状态</strong>：游戏进行中，已记录当前分数 N。
+<strong>操作</strong>：不碰任何障碍与金币，等待倒计时从 60 走到 0。
+<strong>预期可见结果</strong>：倒计时读到 0 时游戏结束；分数保持 N 不再变化；倒计时停在 0。</p>
+<h2>七、结束后不能移动</h2>
+<p><strong>前置状态</strong>：已分别通过第五步（撞障碍）和第六步（超时）各结束一次游戏，当前处于&quot;已结束&quot;状态。
+<strong>操作</strong>：结束后再按上、下、左、右方向键若干次。
+<strong>预期可见结果</strong>：角色位置完全不变（无任何位移）；倒计时不再变化。</p>
+<h2>八、结束后不能继续加分</h2>
+<p><strong>前置状态</strong>：处于&quot;已结束&quot;状态，已记录结束瞬间的分数 M；场上仍有未被收集的金币。
+<strong>操作</strong>：用方向键尝试移动到那枚金币位置（角色应无法移动）。
+<strong>预期可见结果</strong>：分数仍为 M，未增加；金币处不产生任何加分。</p>
+<h2>九、重开按钮（撞障碍结束后）</h2>
+<p><strong>前置状态</strong>：通过第五步结束的游戏，页面显示重新开始按钮；已记下初始位置和分数。
+<strong>操作</strong>：点击&quot;重新开始&quot;按钮一次。
+<strong>预期可见结果</strong>：角色回到初始位置；分数归零；倒计时回到 60 并重新开始递减；方向键恢复可移动、可继续收集金币（分数能从 0 涨到 1）。</p>
+<h2>十、重开按钮（超时结束后）</h2>
+<p><strong>前置状态</strong>：通过第六步结束的游戏，页面显示重新开始按钮。
+<strong>操作</strong>：点击&quot;重新开始&quot;按钮一次。
+<strong>预期可见结果</strong>：与第九步一致——初始位置、分数 0、倒计时 60、方向键可动。
+<strong>附加操作</strong>：连续快速点击&quot;重新开始&quot;多次。
+<strong>预期可见结果</strong>：无异常（不出现分数跳变、倒计时异常、重复叠加角色或障碍）。</p>
+<hr />
+<h2>待确认条件（规则未规定，先记录实测值再判定，不预设）</h2>
+<ol>
+<li>分数与倒计时的<strong>显示形式</strong>：位置、是否带文字标签、倒计时是 <code>60</code> 递减还是 <code>1:00</code> 形式、是否按整秒递减。</li>
+<li><strong>金币被收集后是否消失</strong>（规则只规定加分，未说明金币本身的处理）。</li>
+<li><strong>角色与金币/障碍的判定方式</strong>：重叠即触发，还是需要压到中心、边缘接触即算。</li>
+<li><strong>分数与计时的计数时点</strong>：加分是在碰撞瞬间还是下一帧；倒计时从何时开始（页面加载即开始，还是首次按键后才开始）。</li>
+<li><strong>撞到障碍与倒计时归零同时发生</strong>时的处理（以哪一个为准）。</li>
+<li><strong>结束后画面显示什么</strong>：是否出现结束提示/遮罩、重开按钮的具体位置与文案。</li>
+<li><strong>“方向键”的具体范围</strong>：四个方向是否全部有效，按住不放是否持续移动。</li>
+<li><strong>重开后场上障碍/金币是否重置到与首局完全一致的位置</strong>（规则只要求角色位置与分数、倒计时复位）。</li>
+<li>重开后是否允许在倒计时归零前再次结束并再次重开（连续两轮重开是否正常）。</li>
+</ol>
+<hr />
+<p>以上为检查计划本身；我未打开游戏、未试玩、未修改任何代码。需要我把其中某几项展开成更细的分步操作表，或按&quot;撞障碍结束 / 超时结束&quot;分成两张独立清单吗？</p>
+<aside class="analysis"><h3>讲师核对意见</h3><p>本次换用了方向键、金币、障碍和 60 秒规则。返回自行加入“一次移动一格”和提前结束后倒计时冻结，输入未规定这些细节，应先确认；不把这些假定当成验收标准。</p></aside><div class="section-route"><a href="#missing">← 上一段</a> · <a href="#check">下一段：两个情境，检查能否作出写法选择 →</a></div></section><section id="check"><p class="kind">归纳内容备查 · 主讲使用对应 PPT</p><h2>两个情境，检查能否作出写法选择</h2><h3>情境一：翻牌特有的检查例子越来越长</h3><details><summary>展开解析</summary><p>正文保留通用检查方法。较长案例放进 references/memory-cases.md，入口写清使用条件：</p><pre><code>检查对象是记忆翻牌时，读取 references/memory-cases.md，按本次玩法选择适用案例；示例中的牌数和时长以当前需求为准。</code></pre></details><h3>情境二：另一个 Skill 也要用这套检查标准</h3><details><summary>展开解析</summary><p>把标准维护在双方都能访问的一处，各自引用真实路径；不要复制两份。只有出现能独立触发、具有自己输入和结果的工作，才拆另一份 Skill。game-studio 与 web-game-foundations 共用选型资料，game-playtest 则负责专项试玩。</p></details><p>以上路径是课程扩展示例，尚未创建或实跑。当前最小示例仍只有 SKILL.md。</p><div class="section-route"><a href="#transfer">← 上一段</a> · <a href="#handoff">下一段：用实际产物核对读、改、写 →</a></div></section><section id="handoff"><p class="kind">归纳内容备查 · 主讲使用对应 PPT</p><h2>用实际产物核对读、改、写</h2><div class="table-scroll"><table><thead><tr><th>本节留下的产物</th><th>核对什么</th></tr></thead><tbody><tr><td>一处正文修改与相同请求的返回</td><td>负责该行为的要求、实际读到的版本、输出是否落实</td></tr><tr><td>一份最小 SKILL.md 与三类请求</td><td>正常输入能生成计划，缺失规则先提问，不同玩法不沿用旧数值</td></tr><tr><td>正文、资料与独立工作的取舍</td><td>核心保留，细节按需读，共享知识只维护一处</td></tr></tbody></table></div><p>接下来用指导开发躲避游戏，再对照实际读取、实现与检查结果。当前产物是指导与计划，游戏行为留到真实开发中验证。</p><div class="section-route"><a href="#check">← 上一段</a></div></section></main><script>document.querySelectorAll('[data-build]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-state]').forEach(state=>state.hidden=state.dataset.state!==button.dataset.build);document.querySelectorAll('[data-build]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));}));</script></body></html>

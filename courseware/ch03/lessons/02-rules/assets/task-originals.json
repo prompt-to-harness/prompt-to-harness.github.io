@@ -1,0 +1,75 @@
+{
+  "commit": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "verified": "2026-11-11",
+  "sections": [
+    {
+      "id": "workflow",
+      "file": "skills/game-playtest/SKILL.md",
+      "heading": "Preferred Workflow",
+      "url": "https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/game-playtest/SKILL.md#preferred-workflow",
+      "lines": [
+        "2. Exercise the main verbs.",
+        "4. Check the UI layer independently from the render layer."
+      ],
+      "source_sha256": "413f2453c602678962fab62446144f2929fcd5b9239f209c7889cc592d2b5be8",
+      "summary": "启动后先确认能开始操作，再试玩核心动作并为代表性状态留截图。分别核对界面和渲染，最后按严重程度报告问题并给出复现步骤。"
+    },
+    {
+      "id": "tooling",
+      "file": "skills/game-playtest/SKILL.md",
+      "heading": "Tooling Guidance",
+      "url": "https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/game-playtest/SKILL.md#tooling-guidance",
+      "lines": [
+        "screenshots are mandatory because DOM assertions alone miss visual regressions."
+      ],
+      "source_sha256": "413f2453c602678962fab62446144f2929fcd5b9239f209c7889cc592d2b5be8",
+      "summary": "优先使用仓库已有的 Playwright 或同类工具。大量使用 Canvas 或 WebGL 的游戏需要截图，单靠 DOM 断言容易漏掉显示问题。难以稳定自动化时，按步骤人工试玩并留证。"
+    },
+    {
+      "id": "reporting",
+      "file": "skills/game-playtest/SKILL.md",
+      "heading": "Reporting Standard",
+      "url": "https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/game-playtest/SKILL.md#reporting-standard",
+      "lines": [
+        "- what the user sees",
+        "- how to reproduce it",
+        "- why it matters"
+      ],
+      "source_sha256": "413f2453c602678962fab62446144f2929fcd5b9239f209c7889cc592d2b5be8",
+      "summary": "先列发现。每条写清玩家看到的情况、复现方式、影响和可能负责的子系统。"
+    },
+    {
+      "id": "references",
+      "file": "skills/game-playtest/SKILL.md",
+      "heading": "References",
+      "url": "https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/game-playtest/SKILL.md#references",
+      "lines": [
+        "- Frontend review cues: `../game-ui-frontend/SKILL.md`",
+        "- Full checklist: `../../references/playtest-checklist.md`"
+      ],
+      "source_sha256": "413f2453c602678962fab62446144f2929fcd5b9239f209c7889cc592d2b5be8"
+    },
+    {
+      "id": "checklist",
+      "file": "references/playtest-checklist.md",
+      "heading": "Universal checks",
+      "url": "https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/references/playtest-checklist.md#universal-checks",
+      "lines": [
+        "- Do pause, failure, and recovery states work?"
+      ],
+      "source_sha256": "d8a4119f3912064c1328f7c537ff5fa94004f3aa81acba33d518758bf7fb8a3c"
+    },
+    {
+      "id": "frontend",
+      "file": "skills/game-ui-frontend/SKILL.md",
+      "heading": "Frontend Standards",
+      "url": "https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/game-ui-frontend/SKILL.md#frontend-standards",
+      "lines": [
+        "3. Build clear hierarchy.",
+        "6. Design for both desktop and mobile from the start."
+      ],
+      "source_sha256": "cd017fe0761207dcfd801f236490896cbf1cd6627ee267c801a19c7c780b7a01",
+      "summary": "让界面主次清楚，优先保住可玩的画面区域。从一开始同时考虑桌面和手机。3D 界面还要考虑镜头与输入控制的边界。"
+    }
+  ]
+}

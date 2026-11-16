@@ -8,6 +8,8 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit, urljoin
 
+from courseware_files import font_source_files, source_files
+
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--chapter", type=Path, help="Limit the check to one chapter directory; default checks all courseware")
 args = parser.parse_args()
@@ -15,12 +17,6 @@ courseware = Path(__file__).resolve().parents[1]
 root = args.chapter.resolve() if args.chapter else courseware
 resources = courseware.parent
 content_roots = (root, resources / 'starters')
-
-
-def source_files(directory, pattern):
-    # 独立练习项目的 npm 依赖和构建产物不属于课程内容源。
-    return (p for p in directory.rglob(pattern)
-            if not {'node_modules', 'dist'}.intersection(p.relative_to(directory).parts))
 
 
 class Page(HTMLParser):
@@ -85,10 +81,21 @@ for path in sorted(p for directory in content_roots for p in source_files(direct
                 page.ids.update([frame['id'], 'content-' + frame['id']])
             page.links.extend(item['url'] for item in reading['materials'].values())
 
+    if 'screen-plan.js' in script_paths and 'narration.js' in script_paths:
+        source = path.parent / 'screen-plan.js'
+        if source.is_file():
+            plan = json.loads(source.read_text().removeprefix('window.narrationData = ').strip().removesuffix(';'))
+            for part in plan['parts']:
+                groups = part.get('groups', [])
+                screens = [screen for group in groups for screen in group.get('screens', [])]
+                for entry in [part, *groups, *screens]:
+                    page.ids.add(entry['id'])
+                    page.links.extend(material['url'] for material in entry.get('materials', []))
+
     pages[path.resolve()] = page
     references.extend((path, url) for url in page.links)
 
-for path in sorted(courseware.rglob('*.css')):
+for path in sorted(source_files(courseware, '*.css')):
     references.extend((path, url) for url in re.findall(r'url\([\'\"]?([^\'\")]+)', path.read_text()))
 markdown_files = [p for directory in content_roots for p in source_files(directory, '*.md')]
 markdown_files += [resources / 'WORKSPACE.md', resources / 'courseware/README.md']
@@ -115,7 +122,7 @@ for source, url in references:
 # 播放页外壳：各章共用同一套播放器，页面必须加载同一组共享文件，且人像辅助框默认隐藏。
 # 外壳是人工保持一致的，漏掉其中一项（如 body 缺 camera-hidden）不会报错，只会在录制时才发现。
 shared_assets = ('shared/tokens.css', 'shared/styles.css', 'shared/presentation.css', 'shared/app.js', 'shared/presentation.js', 'shared/parts/parts.css', 'shared/parts/parts.js')
-for path in sorted(root.rglob('index.html')):
+for path in sorted(source_files(root, 'index.html')):
     if 'archive' in path.parts:
         continue
     text = path.read_text()
@@ -138,8 +145,7 @@ coverage = json.loads((courseware / 'tools' / 'font-coverage.json').read_text())
 font_text = ''.join(
     p.read_text(errors='ignore')
     for base in (courseware, resources / 'demos' / 'parts')
-    for p in sorted(base.rglob('*'))
-    if p.suffix in {'.js', '.html', '.css', '.svg'} and 'archive' not in p.parts and 'fonts' not in p.parts and 'materials' not in p.parts
+    for p in sorted(font_source_files(base))
 )
 han = {c for c in font_text if '\u4e00' <= c <= '\u9fff'}
 for font_id in ('title', 'cover', 'sans'):

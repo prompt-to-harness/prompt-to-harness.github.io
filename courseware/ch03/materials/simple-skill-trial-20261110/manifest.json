@@ -1,0 +1,138 @@
+{
+  "date": "2026-11-10",
+  "model": "MiniMax-M3.1-Flash",
+  "codex_cli": "0.163.0",
+  "raw_artifacts": [
+    {
+      "case": "setup-official",
+      "artifact": "prompt.txt",
+      "sha256": "11d759d9bc832dae4085628c374b84838b932e59afc5d9d8ffdc55ff9bf8d487",
+      "bytes": 168
+    },
+    {
+      "case": "setup-official",
+      "artifact": "logs/events.jsonl",
+      "sha256": "db30fd22c7a7614221c267945c8109e06cabe94dc616e3c0069ccb36e6341e94",
+      "bytes": 45036
+    },
+    {
+      "case": "setup-official",
+      "artifact": "logs/stderr.txt",
+      "sha256": "791a1747bb91979be37529eaa3bdbea2be18131e29b4b28afbe45452157f2b01",
+      "bytes": 3535
+    },
+    {
+      "case": "setup-official",
+      "artifact": "logs/final.md",
+      "sha256": "02e5a44c89f6f18f9a98f5820cd4c0abe39c47afe2cde726645a890167bbf6d1",
+      "bytes": 2151
+    },
+    {
+      "case": "setup-official",
+      "artifact": "logs/launch.json",
+      "sha256": "2f8fd4bbf4b984a3396eb1ea4afe6962f4886d978b4f9695e6baa701c614bfcf",
+      "bytes": 824
+    },
+    {
+      "case": "setup-official",
+      "artifact": "logs/exit.json",
+      "sha256": "8f6a39e390024212dba2bf46827820ba9106f50a1da92296d22c289543a40fe5",
+      "bytes": 45
+    },
+    {
+      "case": "brand-with-skill",
+      "artifact": "prompt.txt",
+      "sha256": "d529c2d1a7aff3588c7459272a4519ee4b00cf8676f9aea6f035417295a03b3f",
+      "bytes": 509
+    },
+    {
+      "case": "brand-with-skill",
+      "artifact": "logs/events.jsonl",
+      "sha256": "f377234bc1eaf50e5db100e5e225ee291ec1b9f8e16b416533b287b01e260b6f",
+      "bytes": 570
+    },
+    {
+      "case": "brand-with-skill",
+      "artifact": "logs/stderr.txt",
+      "sha256": "2984cd42c47a74e5d17a489c27746639c1e79789dbd0b2668c8ebf2425936364",
+      "bytes": 920
+    },
+    {
+      "case": "brand-with-skill",
+      "artifact": "logs/final.md",
+      "sha256": "b29726072ee2cb1c3994087cce9e0d1e2897a1ca09a6034717b1e042ad08bfe9",
+      "bytes": 214
+    },
+    {
+      "case": "brand-with-skill",
+      "artifact": "logs/launch.json",
+      "sha256": "d3a768048f27af9699aabea68a2a650c484ffc311919cab1fddaf30c1800a200",
+      "bytes": 1158
+    },
+    {
+      "case": "brand-with-skill",
+      "artifact": "logs/exit.json",
+      "sha256": "897921926ba1add4d5e0fd8a01a57bdfa0b1a8474217c3ed35ed8740d771c2c9",
+      "bytes": 44
+    },
+    {
+      "case": "brand-baseline",
+      "artifact": "prompt.txt",
+      "sha256": "2336a412062ac0280b3c482d6f2d7b49e85ffce5d29c7a73997cec9eeb91102d",
+      "bytes": 478
+    },
+    {
+      "case": "brand-baseline",
+      "artifact": "logs/events.jsonl",
+      "sha256": "04107cb4c17bff7874c981cef91cf3e8e0917ecfcc62bb367f2eaaa760b4be86",
+      "bytes": 23954
+    },
+    {
+      "case": "brand-baseline",
+      "artifact": "logs/stderr.txt",
+      "sha256": "22bb189e8493de6f19c59ee23ab6f249cc138d1e96ab47cb2f87416a60cfb9af",
+      "bytes": 1616
+    },
+    {
+      "case": "brand-baseline",
+      "artifact": "logs/final.md",
+      "sha256": "3a904b22c424117677dc8aada40c0a7fe090322e98501625d406052a77164a0f",
+      "bytes": 473
+    },
+    {
+      "case": "brand-baseline",
+      "artifact": "logs/launch.json",
+      "sha256": "65c9c84d8356ae68bf52e9973c5f4cd25ecedc907f1aecf62233849beaa9df25",
+      "bytes": 1062
+    },
+    {
+      "case": "brand-baseline",
+      "artifact": "logs/exit.json",
+      "sha256": "e149bc59407b5dd245bbdbf552028be28fa95f1aeb318076efdda471007ed82f",
+      "bytes": 45
+    }
+  ],
+  "sources": {
+    "setup-demo-app": {
+      "url": "https://developers.openai.com/blog/eval-skills",
+      "sha256": "219ffbbfa26a1ae67aaddc8b1ab45ac3dbcecd1831c9d1a02ac4882783e84bab",
+      "adaptation": "Source body unchanged; copied into .agents/skills for the course CLI."
+    },
+    "brand-guidelines": {
+      "url": "https://github.com/getsentry/skills/blob/e94f22214528d69899d09c627b3315ddc3544816/skills/brand-guidelines/SKILL.md",
+      "sha256": "59c75b089fc355f34862172222344801d267ea8158d1bcddb9d1338ba8e9bc39"
+    }
+  },
+  "exclusions": [
+    {
+      "case": "brand-baseline",
+      "reason": "Contaminated: agent searched adjacent directories and read the source skill."
+    }
+  ],
+  "limitations": [
+    "Single run does not demonstrate stability or net benefit.",
+    "Not run in Claude, Gemini or Copilot.",
+    "Sandbox denied the isolated HOME npm cache; the model used a temporary cache.",
+    "No deployment or personal homepage changes."
+  ]
+}

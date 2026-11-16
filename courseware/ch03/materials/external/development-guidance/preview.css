@@ -1,0 +1,20 @@
+body[data-mode='slides'] .scene.source-preview .scene-content{top:180px;width:1168px;height:452px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#243042}
+body[data-mode='slides'] .source-preview h2{font-size:40px;width:900px}
+body[data-mode='slides'] .source-preview .step-counter{display:none}
+.source-preview .p-refs{position:static!important;width:auto!important;margin:0!important;font-size:18px;line-height:1.5;flex-shrink:0}
+.source-preview .p-page-bar{padding:9px 18px;font:18px/1.3 'Course Sans';height:42px;box-sizing:border-box}
+.source-preview .source-image{display:block;width:100%;height:auto}
+.logic-page{width:1080px}.variation{display:grid;grid-template-columns:230px 64px 1fr;gap:0 22px;align-items:center}
+.task{border-left:4px solid #5a51d1;padding:15px 24px;background:#edebfb}.task span{font-size:21px}.task strong{display:block;font:32px/1.5 'Course Title';margin-top:10px}
+.branch{font:36px/1.25 'Course Sans';color:#9c8b66;text-align:center}
+.choices{display:grid;gap:12px}.choices div{display:flex;gap:24px;align-items:baseline}.choices b{font:27px 'Course Title'}.choices span{font:23px/1.4 'Course Sans'}
+.evidence-label{grid-column:1/-1;font:18px 'Course Sans';color:#6e6043;margin:22px 0 10px}
+.variation .p-page{grid-column:1/-1}.variation .source-image{padding:12px 18px;box-sizing:border-box}
+.scope-note{grid-column:1/-1;font:18px/1.5 'Course Sans';color:#626970;margin:12px 0 0}
+.testing-page{width:1120px}.our-case{height:66px;display:flex;gap:16px;align-items:center;border-bottom:1px solid #c7c0b1;margin-bottom:24px;padding-bottom:16px;box-sizing:border-box}
+.our-case span{font:19px 'Course Sans';color:#626970;max-width:120px}.our-case strong{font:25px 'Course Title';font-weight:400}.our-case i{font:26px 'Course Sans';color:#9c8b66}
+.testing-body{display:grid;grid-template-columns:800px 1fr;gap:28px;align-items:center}
+.connection>span{font:18px/1.5 'Course Sans';color:#626970}.connection h3{font:29px/1.45 'Course Title';margin:14px 0}.connection p{font:21px/1.7 'Course Sans';margin:0}.connection small{display:block;font:17px/1.5 'Course Sans';color:#626970;margin-top:20px}
+.preview-editor-note{position:fixed;z-index:100;left:24px;top:16px;font:16px/1.6 'Course Sans';color:#435047;max-width:1020px}.preview-editor-note b{margin-right:16px;color:#315f4d}
+
+.our-case span{max-width:none;white-space:nowrap}.connection small{font-size:18px}.scope-note{margin-bottom:0}

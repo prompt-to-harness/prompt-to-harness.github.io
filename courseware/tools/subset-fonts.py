@@ -18,6 +18,8 @@ import os
 import shutil
 from pathlib import Path
 
+from courseware_files import font_source_files
+
 from fontTools import subset
 from fontTools.ttLib import TTFont
 from fontTools.varLib import instancer
@@ -39,8 +41,7 @@ roots = [courseware, repo / "demos" / "parts"]
 text = "".join(
     p.read_text(errors="ignore")
     for root in roots
-    for p in sorted(root.rglob("*"))
-    if p.suffix in {".js", ".html", ".css", ".svg"} and "archive" not in p.parts and "fonts" not in p.parts and "materials" not in p.parts
+    for p in sorted(font_source_files(root))
 )
 text += "".join(chr(i) for i in range(32, 127))
 text += "←→↑↓↗＋−×÷✓✗·…—–，。；：！？“”‘’、（）「」《》【】〔〕￥％第章节上下页段步"

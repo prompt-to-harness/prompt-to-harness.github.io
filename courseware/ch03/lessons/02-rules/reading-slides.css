@@ -1,0 +1,85 @@
+/* 操作入口与知识图分开；链接统一定位到实际讲述对象。 */
+.reading-actions{display:flex;gap:22px;align-items:center;font-size:18px;line-height:1.5}
+.reading-actions a{color:#0b6b5f;text-underline-offset:4px}
+.reading-menu{position:relative;margin-left:auto}
+.reading-menu summary{cursor:pointer;color:#0b6b5f}
+.reading-menu nav{position:absolute;bottom:32px;right:0;width:390px;max-height:450px;overflow:auto;display:grid;gap:8px;padding:16px;background:#f4f2eb;border:1px solid #9c8b66;box-shadow:0 5px 18px #24304222;z-index:10}
+body[data-mode=slides] .reading-actions{position:absolute;bottom:0;left:0;right:0}
+body[data-mode=scroll] .reading-slide .skill-visual{min-width:950px}
+body[data-mode=scroll] .reading-slide .scene-content{overflow-x:auto}
+body[data-mode=scroll] .reading-actions{margin-top:18px;flex-wrap:wrap}
+body[data-mode=scroll] .reading-menu nav{position:static;width:auto}
+/* 关闭菜单时显式隐藏内容，供展示检查及辅助技术一致识别。 */
+.reading-menu:not([open]) nav{display:none}
+/* 3.2.3：用途、取用与真实证据按共同维度对齐。 */
+.resource-board{color:#243042;font-family:var(--font-body);font-size:22px;line-height:1.5;width:100%}
+.resource-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:22px}
+.resource-table th{text-align:left;color:#6e6043;font-size:20px;font-weight:500;border-bottom:2px solid #9c8b66;padding:8px 16px}
+.resource-table td{padding:14px 16px;border-bottom:1px solid #c8c3b6;vertical-align:middle}
+.resource-table th:first-child{width:44%}.resource-table th:nth-child(2){width:20%}
+.resource-table strong{font-weight:700}.resource-takeaway{font-size:23px;margin:20px 16px 0;color:#243042}
+.resource-connect{display:grid;grid-template-columns:1.15fr 1fr;gap:30px}
+.resource-connect h3{font-family:var(--font-body);font-size:23px;margin:0 0 18px;font-weight:700}
+.resource-instruction{border-left:4px solid #9c8b66;padding:12px 20px;background:#f2ede1}
+.resource-instruction dl{display:grid;grid-template-columns:78px 1fr;gap:12px 18px;margin:0;font-size:21px}
+.resource-instruction dt{color:#6e6043}.resource-instruction dd{margin:0}.resource-instruction code{font-size:20px}
+.resource-caption{font-size:18px;color:#6e6043;margin:16px 0 0;line-height:1.5}
+.resource-asset{padding:12px 0}.resource-asset-body{display:grid;grid-template-columns:190px 1fr;gap:20px;align-items:center}
+.resource-asset-body img{width:190px;max-height:190px;object-fit:contain;border:1px solid #c8c3b6;background:#fffdf7}
+.resource-asset-body p{margin:0 0 14px;font-size:21px}
+.usage-table th:first-child{width:24%}.usage-table th:nth-child(2){width:19%}.usage-table th:nth-child(3){width:30%}.usage-table td{font-size:20px;padding:14px 12px}
+.resource-summary{display:flex;justify-content:space-between;align-items:center;border-top:2px solid #9c8b66;margin-top:14px;padding-top:14px;gap:16px}
+.resource-summary strong{font-size:25px}.resource-summary span{font-size:20px;color:#6e6043}
+body[data-mode=slides] .resource-board{height:370px}
+body[data-mode=scroll] .resource-board{min-width:950px}
+/* 对照表保留已讲证据的可读性；未揭示行不留下空的分隔线。 */
+.resource-table tr.step-hidden td{border-color:transparent}
+.usage-table tr.step-past{opacity:.78}
+/* 知识图：先看组成，再用同一空间位置理解渐进披露。 */
+#p07o .step-past,#p07q .step-past{opacity:1}
+#p07q .map-body,#p07q .map-resources,#p07q .map-external{opacity:.32;transition:opacity .3s}
+#p07q:has(.phase-1:not(.step-hidden)) .map-body{opacity:1}
+#p07q:has(.phase-1:not(.step-hidden)) .map-meta{opacity:.55}
+#p07q:has(.phase-1:not(.step-hidden)) .map-note-0{display:none}
+#p07q:has(.phase-2:not(.step-hidden)) .map-note-1{display:none}
+#p07q:has(.phase-2:not(.step-hidden)) .map-meta,#p07q:has(.phase-2:not(.step-hidden)) .map-resources,#p07q:has(.phase-2:not(.step-hidden)) .map-external{opacity:1}
+body[data-mode=scroll] #p07q .map-meta,body[data-mode=scroll] #p07q .map-body,body[data-mode=scroll] #p07q .map-resources,body[data-mode=scroll] #p07q .map-external{opacity:1}
+body[data-mode=scroll] #p07q .map-note-0,body[data-mode=scroll] #p07q .map-note-1{display:none}
+.connection-thesis{margin:0 0 18px;font-size:24px;font-weight:700}
+.contract-table th:first-child{width:24%}.contract-table th:nth-child(2){width:20%}.contract-table th:nth-child(3){width:31%}.contract-table td{font-size:21px}
+.res-verb{display:inline-block;padding:2px 8px;border-radius:4px;font-size:18px;font-weight:700;margin-right:6px}
+.res-verb.is-ctx{background:#f2ede1;color:#6e6043;border:1px solid #9c8b66}
+.res-verb.is-tool{background:#e0f3ef;color:#0b6b5f;border:1px solid #0b6b5f}
+.body-knowledge{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.body-knowledge section{border-top:3px solid #9c8b66;padding:14px 16px;background:#f2ede1}
+.body-knowledge section:nth-child(2),.body-knowledge section:nth-child(4){border-top-color:#0b6b5f;background:#e0f3ef}
+.body-knowledge h3{font:26px "Course Title",sans-serif;margin:0 0 12px}.body-knowledge section:nth-child(2) h3,.body-knowledge section:nth-child(4) h3{color:#0b6b5f}.body-knowledge p{font-size:22px;line-height:1.65;margin:0}
+.body-examples{margin-top:22px;border-top:1px solid #c8c3b6;padding-top:6px}.body-examples p{display:grid;grid-template-columns:280px 1fr;font-size:21px;margin:10px 0;padding:8px 14px;background:#fffdf7;border-left:3px solid #9c8b66}.body-examples p:last-child{border-left-color:#0b6b5f}
+
+body[data-mode=slides] :is(#p07o,#p07q) .scene-content{top:200px;height:432px;display:block}
+/* 三个任务：避开讲师框（y 24-249, x 956-1256），知识与实例保持同屏，结果最后揭示。 */
+.task-board{font:21px/1.5 var(--font-body);color:#243042;width:100%}
+.task-pair{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:12px}
+.task-pair section{border-top:3px solid #9c8b66;padding:10px 14px;background:#f2ede1}
+.task-pair section:last-child{border-top-color:#0b6b5f;background:#e0f3ef}
+.task-pair h3{font:25px "Course Title",sans-serif;margin:0 0 6px}.task-pair section:last-child h3{color:#0b6b5f}.task-pair p{margin:0;font-size:20px}
+.task-table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:21px}
+.task-table th{text-align:left;color:#6e6043;font-weight:500;padding:6px 12px;border-bottom:2px solid #9c8b66}.task-table th:first-child{width:34%}
+.task-table td{padding:8px 12px;border-bottom:1px solid #c8c3b6}
+.task-action{font-weight:700;margin:0 12px 6px}
+.task-result{margin:12px 0 0;padding:10px 14px;border-left:4px solid #0b6b5f;background:#e0f3ef;font-size:21px}
+.task-result.is-risk{border-left-color:#ac3615;background:#fce6dd}.task-result.is-risk strong{color:#ac3615}
+.task-result.is-ok{border-left-color:#15803d;background:#e3f2e6}.task-result.is-ok strong{color:#15803d}
+.task-results{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:12px;padding:0}.task-results p{margin:0;padding:10px 14px;background:#e0f3ef;border-left:4px solid #0b6b5f}
+.task-results p.is-ok{background:#e3f2e6;border-left-color:#15803d}.task-results p.is-ok strong{color:#15803d}
+.task-results p.is-risk{background:#fce6dd;border-left-color:#ac3615}.task-results p.is-risk strong{color:#ac3615}
+.task-slide .step-past{opacity:1}
+body[data-mode=slides] .task-slide .scene-content{top:256px;height:376px;display:block}
+body[data-mode=slides] .task-slide .reading-actions{font-size:16px;gap:18px}
+body[data-mode=scroll] .task-board{min-width:950px}
+/* 新增知识页后仍为短段保留完整标签宽度。 */
+body[data-mode=slides] .segment-bar .segment:nth-child(2){min-width:210px}
+
+/* 3.2.4：图示避开讲师框；已揭示组成保持可读。 */
+body[data-mode=slides] .plugin-slide .scene-content{top:262px;height:370px;display:block}
+.plugin-slide .step-past{opacity:1}

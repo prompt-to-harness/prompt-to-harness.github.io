@@ -1,261 +1,152 @@
 window.lesson = {
-  "title": "挑一个缺陷，按证据修",
+  "title": "修改 Skill，并用它开发躲避游戏",
   "chapter": "第 3 章 · Vibe Coding + Plugin",
   "section": "03.03",
-  "summary": "先复现，再让 Codex 只调查，由人定规则，最后最小修改；调查常常比报告看得更深。",
+  "summary": "从同一个参考游戏生成两份 Skill，再用同一个开发任务核对实际复用了什么。",
   "scenes": [
     {
-      "id": "p15",
-      "segment": "挑一个",
-      "layout": "lesson-cover",
-      "label": "挑哪一个",
-      "title": "挑一个缺陷，按证据修",
-      "lead": "从 3.2 的问题清单里挑最先看到、最能稳定复现的那一条：翻错时步数不动",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:10px\"><div class=\"p-box\" data-role=\"gate\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"gate\">缺陷</span><h3>一局打不完</h3><p>12 张牌找不到一对</p></div><div class=\"p-join\" data-reveal=\"1\"><span>先挑</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"us\">最先看到的现象</span><h3>翻错时步数不动</h3><p>每次都能复现</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\">流程：<b>复现 → 只读调查 → 人定规则 → 最小修改 → 复验</b></div>",
+      "id": "skill-inputs",
+      "segment": "生成与审阅",
+      "label": "两种复用要求",
+      "title": "同一款翻牌游戏，两种复用要求",
+      "lead": "共用截图、源码和可见开发对话，在独立会话中生成",
+      "html": "<div class=\"skill-slide\"><div class=\"skill-inputs\"><figure class=\"skill-reference\"><img src=\"evidence/reference.png\" alt=\"紫色翻牌游戏，数据栏位于卡片上方\"><figcaption>同一作品：截图、源码、开发对话</figcaption></figure><div class=\"skill-requests\" data-reveal=\"1\"><div class=\"p-box\" data-role=\"agent\"><h3>整页模板组</h3><p>标题、横排 HUD、居中场地、结算浮层</p><strong>换玩法时，默认保留页面布局</strong></div><div class=\"p-box\" data-role=\"agent\"><h3>按需组件组</h3><p>主题、数据卡、结算浮层可单独用</p><strong>实时读数靠近场地，位置按玩法安排</strong></div></div></div><nav class=\"skill-evidence\" aria-label=\"本页材料\"><a href=\"evidence/index.html#reference\" target=\"_blank\" rel=\"noopener\">参考作品原图 ↗</a></nav></div>",
       "steps": [
-        "清单",
-        "挑一条",
-        "这一节的流程"
+        "参考作品",
+        "并行生成"
       ],
       "script": [
-        "【操作提示｜停留课件 p15 第 1 步，指向左侧“缺陷：一局打不完”卡；录前备好 3.2 的两栏问题清单，需要时可短暂切 VS Code 展示后回课件】\n\n回到 3.2 的问题清单。缺陷一栏里有“一局打不完”；还有一条最先看到、说不清性质的现象：翻错时步数不动。",
-        "【操作提示｜推进课件 p15 第 2 步，指向“先挑”箭头和右侧“翻错时步数不动”卡；不切窗口】\n\n我们先挑它：它每次都能复现，影响也明确，页面上的步数永远是 0。真实的调试常常就是这样，从最先看到的现象开始，而不是从最严重的那个开始。",
-        "【操作提示｜推进课件 p15 第 3 步，指向底部五步流程条，点出中间两步；到 p16 再切游戏页面】\n\n这一节的流程是五步：复现、让 Codex 只读调查、由人定规则、最小修改、复验。重点在中间两步。"
+        "【操作提示｜停在第 1 页第 1 步，指翻牌游戏截图里的数据栏和紫色卡片】\n\n上一节学完内容组织后，我们用使用时机、具体要求、资料入口和核对方法，重新审视了第一版风格指导。现在继续回答一个问题：这些要求放进 Skill 后，换一种玩法，实际能保留什么？这一节，我们从这款紫色翻牌游戏出发，请 AI 新写两份 Skill，再用它们开发躲避游戏，看哪些设计真正被带了过去。后面还会根据游戏的实际体验，修改其中一份。\n\n我们想把翻牌游戏的紫色风格用到躲避游戏里。拿数据栏来说，可以让 AI 沿用整页的横排布局，也可以把数据卡单独交给它，让它按新玩法决定摆在哪儿。",
+        "【操作提示｜展开第 1 页右侧两条要求】\n\n这里先准备两个独立工作区，放入同一份翻牌游戏源码和开发对话，再附上相同的开局、结算截图。我们从这些参考材料开始，请 AI 各新写一份 Skill，输出到各自工作区的 purple-game-ui 文件夹。两个会话只换提示词的最后一段。一个要求提供整页模板，默认保留布局。另一个要求拆出可单独使用的部件，再补一条实时游戏的布局建议。\n\n【操作提示｜切到讲述页本步的实验上下文和两条完整 Prompt，指共同输入与各自末段；展示已保存请求，随后进入实际输出文件】\n\n这里展示的是已经完成的两次实验，我们沿保存的请求和输出往下看。我们给它们的参考相同，但对资源组织和布局都提出了不同要求：整页组默认保留，组件组按玩法安排。下面看这些要求怎样写进 Skill，再看开发时实际用了什么。组件组这次会话结束前超时了，但文件已经写出；下面看的是这份落盘结果。"
       ],
       "teaching": [],
-      "source": "index.html#p15",
-      "seconds": 90
+      "source": "index.html#skill-inputs",
+      "seconds": 60
     },
     {
-      "id": "p16",
-      "segment": "复现",
-      "label": "能稳定复现吗",
-      "title": "先复现三次，再写报告",
-      "lead": "同样的步骤做三次，结果都一样，才算稳定复现；然后写成报告：步骤、期望、实际。不能稳定复现，就先别修。",
-      "html": "<div class=\"p-rec\" style=\"grid-template-columns:minmax(0,.5fr) minmax(0,1.6fr) minmax(0,.8fr);row-gap:10px;--rf:21px\"><div class=\"is-head\" data-reveal=\"0\"><span>次</span><span>步骤</span><span>步数</span></div><div data-reveal=\"0\"><span class=\"p-cell\">1</span><span class=\"p-cell\">开新一局 → 翻开两张不同的牌 → 等它们翻回</span><span class=\"p-cell\">0</span></div><div data-reveal=\"1\"><span class=\"p-cell\">2、3</span><span class=\"p-cell\">同上</span><span class=\"p-cell\">0、0</span></div></div><div class=\"p-code\" data-reveal=\"2\" style=\"margin-top:12px\"><div class=\"p-code-head\"><span>缺陷报告（讲师写的）</span></div><pre><span style=\"display:block\">期望：步数变成 1（页面写着“看看你要用多少步”）</span><span style=\"display:block\">实际：步数还是 0；<span class=\"hl\">只有配对成功时步数才加 1</span></span></pre></div>",
+      "id": "skill-files",
+      "segment": "生成与审阅",
+      "label": "正文与配套文件",
+      "title": "沿正文找到开发要用的文件",
+      "lead": "正文交代起点，也交代配套文件怎样使用",
+      "html": "<div class=\"skill-slide\"><div class=\"skill-files\"><div class=\"skill-route\"><h3>整页模板组</h3><div class=\"p-box\"><b>SKILL.md</b><p>从整页模板起步，保留布局</p></div><div class=\"skill-connector\">↓ 作为项目起点</div><div class=\"p-box\" data-role=\"context\"><code>templates/index.html</code><p>页面结构与配套交互</p></div></div><div class=\"skill-route\" data-reveal=\"1\"><h3>按需组件组</h3><div class=\"p-box\"><b>SKILL.md</b><p>正文给布局规则，再取用部件</p></div><div class=\"skill-resources\"><div><div class=\"skill-connector\">↓ 查阅具体方案</div><div class=\"p-box\" data-role=\"context\"><code>references/layout.md</code><p>玩法、布局形式与类名</p></div></div><div data-reveal=\"2\"><div class=\"skill-connector\">↓ 采用实现</div><div class=\"p-box\" data-role=\"context\"><code>stat-cards.css</code><p>可直接用的数据卡样式</p></div></div></div></div></div><nav class=\"skill-evidence\" aria-label=\"本页材料\"><a href=\"evidence/index.html#layout-template-skill\" target=\"_blank\" rel=\"noopener\">正文与模板 ↗</a><a href=\"evidence/index.html#layout-component-reference\" target=\"_blank\" rel=\"noopener\">布局 Reference ↗</a><a href=\"evidence/index.html#layout-component-resource\" target=\"_blank\" rel=\"noopener\">数据卡 CSS ↗</a></nav></div>",
       "steps": [
-        "第一次",
-        "再做两次",
-        "写成报告"
+        "整页模板",
+        "布局 Reference",
+        "可用资源"
       ],
       "script": [
-        "【操作提示｜课件 p16 第 1 步 → 切 Chrome 复用 3.1 的游戏标签页（讲师练习项目 npm run dev 实际打印的 Local 地址）；没有现场实现时打开课件 p14 链接的 practice/memory-v0/index.html，并明说是排练第 8 轮的实现；点重开开新一局，翻开两张不同的牌，等翻回后指认步数实际值。实际不是 0 时停录，核对用的是不是讲师修复前的记忆翻牌】\n\n先复现。开新一局，翻开两张不同的牌，等它们翻回去：步数 0。",
-        "【操作提示｜同一游戏标签页再做两次，每次先重开；三次结果保留截图，之后回课件推进 p16 第 2 步，指向第 2、3 次一行】\n\n再做两次，都是 0。三次结果一样，这才算稳定复现。",
-        "【操作提示｜推进课件 p16 第 3 步，指向缺陷报告里的高亮句；报告原文即 courseware/ch03/materials/mainline/fixtures/prompt-3.3-investigate.txt 的前四行。可切 VS Code 写进本章记录，念完暂停提示后回课件】\n\n然后写成报告：步骤、期望、实际。讲师写的报告里，实际这一栏多写了一句：“只有配对成功时步数才加 1”。请记住这一句，它待会儿会被 Codex 问住。请暂停视频，复现你挑的那一条，写成报告。"
+        "【操作提示｜先到 PPT 第 2 页第 1 步，点“正文与模板”；在材料页扫过 name 和 description，再定位布局原则】\n\n生成以后，怎么知道这两份 Skill 会让 AI 从哪儿起步？名称和描述说明它适合什么任务，具体怎么做得看正文。整页组的正文把「默认保留布局」写成了「只允许动场地」，约束比我们交代的更严。\n\n【操作提示｜在同一材料页向下滚动到“快速上手”，再到“templates/index.html · 页面结构摘录”，指标题、数据栏、场地和浮层】\n\n整页组还附了一份完整页面，数据栏已经排在场地上方。完整页面可以作为案例，给 AI 看成品长什么样。这里正文明确要求从这份页面开始改，所以它起的是模板的作用。",
+        "【操作提示｜回 PPT 第 2 页展开第 2 步，点“布局 Reference”；先指 SKILL.md 的布局规则，再下移到 Reference 的实时动作一行】\n\n生成组件 Skill 时，我们主动给了一条建议：玩家需要持续观察场地和读数，就让读数靠近场地，具体位置按玩法安排。现在看它怎样落实这条要求。\n\n正文把实时游戏的布局展开成左右侧栏或底部横条，并指向布局 Reference。Reference 又列出了实时动作游戏可以用的侧栏形式和对应类名。这样，下一次开发既有选择方向，也有具体方案可查。",
+        "【操作提示｜回 PPT 第 2 页展开第 3 步，点“数据卡 CSS”，指侧栏单列规则】\n\n选了侧栏，就有现成的 CSS 可以用。正文和 Reference 给出布局建议，CSS 提供选好以后能直接用的样式。\n\n【操作提示｜回本步讲述页，停在共用开发 Prompt，指 Skill 路径与三项 HUD】\n\n为了看这两份 Skill 用起来有什么区别，我们让 AI 分别用它们做同一个任务。先新建两个没有游戏代码的项目，把刚生成的两份完整 Skill 分别复制到各自项目的 .agents/skills/purple-game-ui 目录，正文和配套资源一起带过去。两份 Skill 名字相同，内容不同，所以要分开放。\n\n这就是请求里说的“从空项目开始”：起点只有本组 Skill，还没有躲避游戏。两次都做六十秒躲避游戏，玩家移动、躲障碍、收集得分，碰撞扣生命，时间到或生命耗尽时结算，还可以重开。游玩时显示时间、得分和生命；Prompt 里的 HUD 指的就是这些游戏读数。请求没有指定这三项的位置，正好可以看两份 Skill 各自给了什么布局依据。\n\n【操作提示｜展示本步“实验上下文与 Codex 操作”，确认两个工作区各自的 Skill；从已保存请求切到“本次历史整页游戏”和“本次历史组件游戏”，再返回第 3 页比较截图】\n\n生成 Skill 的会话到这里结束。实际开发使用新的会话，请求直接指定项目内的 Skill 路径，并要求保留 Skill 文件不变。每组只带自己的 Skill，不再附翻牌源码、开发对话，也不带生成 Skill 时的会话历史。这样才能看出这些文件本身给开发提供了什么。"
       ],
       "teaching": [],
-      "source": "index.html#p16",
+      "source": "index.html#skill-files",
       "seconds": 90
     },
     {
-      "id": "p17",
-      "segment": "只读调查",
-      "label": "先让 Codex 只调查",
-      "title": "先让 Codex 只调查，不改代码",
-      "lead": "缺陷报告已经写好：步骤、期望、实际。现在把它交给 Codex，但先只让它调查、不让它改：给只读权限，要它列出可以验证的假设、代码位置和几种改法的代价，由我们确认后再动手。",
-      "closing": "调查给出了两个独立缺陷。第二个是报告里没有的：12 个词各不相同，配对成功的分支永远走不到，这也解释了 3.2 里“一局打不完”。页面上的结论来自讲师的两次排练，两次都查出了这一层；在自己的项目里重做时，回答的措辞和结构会不一样。结论听起来合理还不够，下一页打开它指出的代码位置逐行核对。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);align-items:start\"><div class=\"p-box\" data-role=\"us\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"us\">请求 · read-only</span><ol class=\"p-notes\" style=\"margin-top:8px\"><li><span><b>复现步骤、期望、实际</b><small>就是刚才的报告</small></span></li><li><span><b>可以验证的假设</b><small>每条写出怎样验证</small></span></li><li><span><b>代码位置</b></span></li><li><span><b>几种改法和代价</b><small>我确认后再改</small></span></li></ol></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">Codex 的结论</span><p class=\"p-big\" style=\"font-weight:600;margin-top:8px\">有两个独立缺陷，第二个让第一个无法单独验证</p><ol class=\"p-notes\"><li data-reveal=\"1\"><span><b>步数只在配对成功的分支里加</b></span></li><li data-reveal=\"2\"><span><b>12 个词各不相同，一对都配不上</b><small>配对分支永远走不到</small></span></li></ol></div></div><p class=\"source-note\">调查与修复来自 2026-10-06 的两次排练（courseware/ch03/materials/mainline/debug-3.3.sh），两次调查结论一致。来自讲师机器上的排练运行（2026-10-06，Codex 0.160.0–0.160.1 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。</p>",
-      "repro": {
-        "label": "请求原文",
-        "steps": [
-          {
-            "text": "把这段请求发给 Codex（只读权限）",
-            "code": "记忆翻牌里有一个能复现的问题：\n步骤：开新一局 → 翻开两张不一样的牌 → 等它们翻回去。\n期望：步数变成 1（页面写着“看看你要用多少步”）。\n实际：步数还是 0；只有配对成功时步数才加 1。\n先只调查，不要改代码：\n1. 列出可能的原因，每条写成可以验证的假设，并说明怎样验证；\n2. 指出相关的代码位置；\n3. 给出几种改法和各自的代价。我确认后再改。"
-          }
-        ],
-        "note": ""
-      },
+      "id": "skill-games",
+      "segment": "开发与试玩",
+      "label": "同任务的两款游戏",
+      "title": "同样三项数据，两种场地布局",
+      "lead": "任务规定时间、得分、生命；截图均取开局约 3 秒",
+      "html": "<div class=\"skill-slide\"><div class=\"skill-games\"><figure><figcaption><b>整页模板组</b>　场地上方横排（截图上部）</figcaption><a href=\"evidence/layout-template.png\" target=\"_blank\" rel=\"noopener\"><img src=\"evidence/layout-template.png\" alt=\"整页组：时间、得分和生命横排在场地上方\"></a></figure><figure><figcaption><b>按需组件组</b>　场地右侧竖排（截图上部）</figcaption><a href=\"evidence/layout-components.png\" target=\"_blank\" rel=\"noopener\"><img src=\"evidence/layout-components.png\" alt=\"组件组：时间、得分和生命竖排在场地右侧\"></a></figure></div><div class=\"skill-trace\" data-reveal=\"1\"><span>正文与 Reference：布局建议</span><span>读取记录 + 成品侧栏类名</span><b>核对查阅与实际采用</b></div><nav class=\"skill-evidence\" aria-label=\"本页材料\"><a href=\"evidence/index.html#layout-run-hud\" target=\"_blank\" rel=\"noopener\">读取记录与侧栏类名 ↗</a></nav></div>",
       "steps": [
-        "只读请求",
-        "第一层",
-        "第二层"
+        "同状态画面",
+        "回查布局依据"
       ],
       "script": [
-        "【操作提示｜课件 p17 第 1 步，右侧结论来自 2026-10-06 的排练（debug-3.3.sh 用 codex exec -s read-only）。现场演示时切 Terminal，在讲师练习项目根目录以只读权限开新的 Codex 会话，发送页面“请求原文”；交互会话怎么设只读按录制版本核实，权限不明时不发送。等待回答可剪辑】\n\n把报告交给 Codex，但只给它只读权限，并且提三个要求：列出可能的原因，每条写成可以验证的假设；指出代码位置；给出几种改法和代价，我们确认后再改。",
-        "【操作提示｜推进课件 p17 第 2 步，指向“Codex 的结论”第一条；现场演示时切 Terminal 指认当次回答里对应的段落（排练原文见 materials/mainline/reference/3.3-investigate.run1.answer.md 的 H1）。结构不同按实际指认，不念排练原文】\n\n它的结论是：有两个独立缺陷。第一个和我们看到的一致：步数只在配对成功的分支里加 1，翻错的分支里没有。",
-        "【操作提示｜推进课件 p17 第 3 步，指向第二条“12 个词各不相同”。当次回答没查出这一层时如实说明，再指出排练两次都查出（reference/ 下 run1、run2）。调查后在普通 shell 运行 git status --short，确认只读调查没有改文件；念完暂停提示后回课件】\n\n第二个是报告里没有的：12 张牌是 12 个互不相同的词，一对都配不上，所以配对成功的分支永远走不到。它说，第二个让第一个无法单独验证。这和 3.2 里“一局打不完”对上了。讲师排练了两次，两次调查都查出了这一层。请暂停视频，用只读权限把你的报告交给 Codex。"
-      ],
-      "teaching": [
-        {
-          "title": "讲师提示",
-          "text": "调查回答以录制实际为准；保存原文进记录。排练两次的完整回答见 materials/mainline/reference/。"
-        }
-      ],
-      "source": "index.html#p17",
-      "seconds": 90
-    },
-    {
-      "id": "p18",
-      "segment": "只读调查",
-      "label": "根因在哪",
-      "title": "用代码位置验证，不靠“听起来合理”",
-      "lead": "打开它指出的位置自己看：词表 12 个词；生成牌组时每个词只生成一张；配对判断要求两张的词相同，永远不成立；步数只在这个分支里加。",
-      "html": "<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><style>.p-walk .p-src .p-ln i{width:56px;white-space:nowrap}</style><div class=\"p-walk\"><div data-reveal=\"0\"><div class=\"p-src\" style=\"--lh:34px\"><div class=\"p-fn\">src/components/MemoryGame.tsx</div><div class=\"p-ln\"><i>4</i><code>const CARD_FACES = [<span class=\"s\">'需求'</span>, <span class=\"s\">'迭代'</span>, …共 12 个]</code></div><div class=\"p-ln\"><i>43</i><code>CARD_FACES.map((face, id) =&gt; ({ id, face, … }))</code></div><div class=\"p-ln\"><i>107</i><code>if (first.face === second.face) {</code></div><div class=\"p-ln\"><i>116</i><code>    setMoves((prev) =&gt; prev + 1)</code></div><div class=\"p-ln\"><i>121</i><code>}  // 翻错：翻回，没有计步</code></div></div></div><ol class=\"p-notes\"><li data-reveal=\"0\"><span><b>12 个词</b><small>各不相同</small></span></li><li data-reveal=\"1\"><span><b>每词一张</b><small>map 只做一对一</small></span></li><li class=\"is-risk\" data-reveal=\"2\"><span><b>永远不相等</b><small>配对分支走不到</small></span></li><li data-reveal=\"3\"><span><b>步数只在这里加</b><small>所以永远是 0</small></span></li></ol></div>",
-      "steps": [
-        "词表",
-        "生成牌组",
-        "配对判断",
-        "计步"
-      ],
-      "script": [
-        "【操作提示｜课件 p18 第 1 步，画面行号来自排练实现。现场演示时切 VS Code 打开练习项目 src/components/MemoryGame.tsx，按 Codex 实际指出的位置定位词表 CARD_FACES；行号与口播不一致时留在课件讲排练实现，明说来源】\n\n不要因为它说得头头是道就相信，打开它指出的位置自己看。第 4 行起是词表，12 个词，各不相同。",
-        "【操作提示｜推进课件 p18 第 2 步；VS Code 定位生成牌组的 CARD_FACES.map（排练为第 43 行，在 createDeck 里）】\n\n第 43 行生成牌组：每个词生成一张牌，一共 12 张。没有复制，所以不成对。",
-        "【操作提示｜推进课件 p18 第 3 步；VS Code 定位 first.face === second.face 的判断（排练为第 107 行）】\n\n第 107 行判断两张牌的词是否相同。在这副牌里，这个条件永远不成立。",
-        "【操作提示｜推进课件 p18 第 4 步；VS Code 定位配对分支里的 setMoves（排练第 116 行）和其后的翻错分支（排练第 121 行起），看完回课件】\n\n第 116 行，步数只在这个分支里加 1。翻错的分支没有计步。两层原因连起来，就解释了我们看到的一切：步数永远是 0，剩余永远是 6 对，这局永远打不完。"
-      ],
-      "teaching": [
-        {
-          "title": "讲师提示",
-          "text": "行号来自排练实现；学员的实现不同，按 Codex 指出的位置读。"
-        }
-      ],
-      "source": "index.html#p18",
-      "seconds": 120
-    },
-    {
-      "id": "p19",
-      "segment": "观察与推断",
-      "label": "我的报告哪里不对",
-      "title": "观察到的，还是从代码推的？",
-      "lead": "Codex 反问报告里的那一句。它说得对：在这副牌里，配对成功根本不可能发生，那一句是讲师读代码推出来的，不是在页面上看到的。报告里要把观察和推断分开写。",
-      "html": "<div class=\"p-claim\" style=\"grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)\"><div class=\"p-box\" data-role=\"us\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"us\">报告里的一句</span><p class=\"p-big\" style=\"font-weight:500;margin-top:8px\">“只有配对成功时步数才加 1”</p></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"agent\">Codex 反问</span><p style=\"margin-top:8px;line-height:1.6\">这是在页面上看到的，还是从代码推的？按当前牌堆，<b>不可能观察到配对成功</b></p></div></div><div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;margin-top:14px\" data-reveal=\"2\"><div class=\"p-box is-soft\" data-role=\"ok\"><h3>观察</h3><p>翻错，步数是 0（三次）</p></div><div class=\"p-box is-soft\" data-role=\"ink\"><h3>推断（要标出来）</h3><p>配对成功时会加 1</p></div></div>",
-      "steps": [
-        "报告",
-        "反问",
-        "分开写"
-      ],
-      "script": [
-        "【操作提示｜停留课件 p19 第 1 步，指向左侧“报告里的一句”；画面反问来自排练回答。现场有对应段落时可切 Terminal 指认，没有时留在课件，明说是排练记录】\n\nCodex 的回答里还有一段，专门问我们报告里的那一句：“只有配对成功时步数才加 1”。",
-        "【操作提示｜推进课件 p19 第 2 步，指向右侧“Codex 反问”卡；不切窗口】\n\n它问：这是在页面上看到的，还是从代码推的？按当前这副牌，不可能观察到配对成功。它说得对。这一句是讲师读代码时推出来的，从来没在页面上看到过。",
-        "【操作提示｜推进课件 p19 第 3 步，指向下方“观察 / 推断”两栏；可切 VS Code 在本章记录 docs/evidence/CH03_MEMORY_GAME.md 的缺陷报告里把推断句标出来，再回课件】\n\n报告里观察和推断要分开写。观察是：翻错，步数是 0，三次都是。推断是：配对成功时会加 1，要标出来。混在一起，就会把调查带偏；这一次是 Codex 把我们拉了回来。"
+        "【操作提示｜打开第 3 页并排截图，先指两边的时间、得分和生命，再指数据栏位置】\n\n两款游戏都做出了任务要求的三项读数。整页组把模板里的四格改成三格，保留上方横排。组件组把同样三项竖着放在场地右侧。",
+        "【操作提示｜第 3 页展开第 2 步，打开“读取记录与侧栏类名”的 Inspect 入口，先指读取命令，再点“下一条记录”看原始补丁中的类名】\n\n组件组的日志里有读取布局 Reference 的命令，成品也用了 Skill 里的侧栏样式。显示哪三项是这次开发任务定的；布局方向则来自我们生成 Skill 时给的要求，经过正文和 Reference 展开，再配上现成样式。这次开发选用了右侧竖排，和我们刚才看到的指导与资源对应起来了。"
       ],
       "teaching": [],
-      "source": "index.html#p19",
-      "seconds": 90
+      "source": "index.html#skill-games",
+      "seconds": 60
     },
     {
-      "id": "p20",
-      "segment": "人定规则",
-      "label": "改之前先定什么",
-      "title": "改之前，先由人定两条规则",
-      "lead": "它给了几种改法，但有两件事它明确说不替我们定：用哪几个词配对（文案取舍）；步数怎么算。这是规则，不是代码问题。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr\"><div class=\"p-box\" data-role=\"gate\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"gate\">问题一</span><h3>用哪几个词配对？</h3><p class=\"p-sub\">Codex：“文案取舍是你的决定，我不自行定”</p></div><div class=\"p-box\" data-role=\"gate\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"gate\">问题二</span><h3>步数怎么算？</h3><p class=\"p-sub\">一张算一步？两张算一步？翻错算吗？</p></div></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"2\" style=\"margin-top:14px\"><span class=\"p-tag\" data-role=\"us\">我们定</span><p style=\"margin-top:6px;line-height:1.7\">6 对：需求、迭代、推理、部署、验收、协作<br>步数：每翻开两张算一步，成功和失败都算</p></div>",
-      "repro": {
-        "label": "回复原文",
-        "steps": [
-          {
-            "text": "在同一会话里回复 Codex（可写权限）",
-            "code": "第 2 点属实：我把 12 张全翻开过，没有两张相同的词，一局打不完。我报告里写的“只有配对成功时步数才加 1”是从代码推的，没在页面上看到过。\n规则由我定：\n1. 6 对牌，用这 6 个词：需求、迭代、推理、部署、验收、协作；\n2. 步数按“每翻开两张牌算一步”，配对成功和失败都算。\n牌组用你推荐的改法 A（6 个词各生成两张），步数用改法 A（翻开第二张时计数）。只改这两处，不顺手改别的；改完跑 build，并告诉我需要我在浏览器里复验哪些场景。"
-          }
-        ],
-        "note": ""
-      },
+      "id": "skill-reuse",
+      "segment": "开发与试玩",
+      "label": "实际复用的交互",
+      "title": "结算时看见实际复用了什么",
+      "lead": "回到同次运行的画面与代码，核对这次带进项目的内容",
+      "html": "<div class=\"skill-slide\"><div class=\"skill-reuse\"><div data-reveal=\"1\"><h3>整页模板组：页面与已有交互</h3><div class=\"skill-result-pair\"><div class=\"p-box\"><b>第一局结算</b><p>得分 10 · 切到静音</p></div><span>刷新<br>再玩 →</span><div class=\"p-box\"><b>第二局结算</b><p>得分 0 · 最佳 10</p><p>仍为静音</p></div></div><p class=\"skill-proof\">模板的保存逻辑接到了新游戏</p><div class=\"skill-local-links\"><a href=\"evidence/layout-first-result.jpg\" target=\"_blank\" rel=\"noopener\">第一局 ↗</a><a href=\"evidence/layout-second-result.jpg\" target=\"_blank\" rel=\"noopener\">刷新后 ↗</a><a href=\"evidence/index.html#layout-run-storage\" target=\"_blank\" rel=\"noopener\">模板与项目代码 ↗</a></div></div><div><h3>按需组件组：同一个浮层，两次使用</h3><div class=\"p-box skill-overlay\"><code>ResultOverlay</code><p>同一个实例，各自提供内容和按钮</p></div><div class=\"skill-result-pair\"><div class=\"p-box\"><b>开场</b><p>规则 + 开始按钮</p></div><div class=\"p-box\"><b>结算</b><p>成绩 + 重开按钮</p></div></div><div class=\"skill-local-links\"><a href=\"evidence/layout-components-opening.jpg\" target=\"_blank\" rel=\"noopener\">开场 ↗</a><a href=\"evidence/layout-components-ending.jpg\" target=\"_blank\" rel=\"noopener\">结算 ↗</a><a href=\"evidence/index.html#layout-run-overlay\" target=\"_blank\" rel=\"noopener\">两处调用 ↗</a></div></div></div><div class=\"skill-takeaway\" data-reveal=\"2\">以组件组为基础，保留布局选择，再补事件音效</div><nav class=\"skill-evidence\" aria-label=\"本页材料\"></nav></div>",
       "steps": [
-        "哪几个词",
-        "步数怎么算",
-        "我们定"
+        "开场与结算",
+        "刷新复验",
+        "回看两份 Skill"
       ],
       "script": [
-        "【操作提示｜停留课件 p20 第 1 步，指向“问题一”卡里的引文；引文出自排练第 1 次调查回答（materials/mainline/reference/3.3-investigate.run1.answer.md），当次回答没有这句时说明画面是排练原文】\n\n它列了几种改法，各有代价。但有两件事，它明确说不替我们定。第一，用哪几个词配对。原话是：文案取舍是你的决定，我不自行定。",
-        "【操作提示｜推进课件 p20 第 2 步，指向“问题二”卡；不切窗口】\n\n第二，步数怎么算。一张算一步，还是两张算一步？翻错算不算？3.2 里我们把它归为“规则还没人定”，现在必须定了，否则修完也不知道对不对。",
-        "【操作提示｜推进课件 p20 第 3 步 → 切 Terminal，在同一 Codex 会话换成可写权限后发送页面“回复原文”（fixtures/confirm-3.3.txt；排练用 workspace-write 续同一会话）。原文里“第 2 点”“改法 A”是排练回答的编号，当次编号不同先改成对应项再发；权限切换方式按录制版本核实。等待修改可剪辑，念完暂停提示后回课件】\n\n我们定：6 对牌，用需求、迭代、推理、部署、验收、协作这 6 个词；步数按每翻开两张算一步，成功和失败都算。把这两条连同“只改这两处，不顺手改别的”一起发给它。这是本章的第二条规则，而且是我们自己定的。请暂停视频，定下你的规则。"
+        "【操作提示｜进入第 4 页第 1 步，点“开场”，停在规则和开始按钮】\n\n数据栏说的是页面怎么排。再看交互，组件组一开始用浮层放游戏规则和开始按钮。\n\n【操作提示｜回到保留的 PPT，点“结算”，停在成绩和重开按钮】\n\n玩到结算，又出现了样式相同的浮层，内容换成了成绩和重开按钮。\n\n【操作提示｜回到保留的 PPT，点“两处调用”，指同一个实例】\n\n代码里用的是同一个浮层。两处各传入自己的内容和按钮，一份实现就用在了开场和结算。Skill 提供的是浮层能力，这次开发再决定用它展示规则还是成绩。",
+        "【操作提示｜回第 4 页展开第 2 步，点“第一局”，指 10 分和静音】\n\n整页组的模板原来就会保存成绩和音效设置。换成躲避游戏以后还会保存吗？复测的第一局得了十分，我在结算时切到静音，再刷新玩第二局。\n\n【操作提示｜回 PPT 点“刷新后”，指 0 分、历史最佳 10 和静音】\n\n第二局没得分，历史最佳还是十分，音效也保持静音。\n\n【操作提示｜回 PPT 点“模板与项目代码”，对照模板目录、复制记录和最终保存代码】\n\n项目代码里，AI 沿用了模板的保存逻辑，把纪录改成躲避游戏的最高分，音效开关也接到了结算里。",
+        "【操作提示｜回第 4 页第 3 步，保留左右两组复用结果】\n\n这次两份 Skill 给了 AI 不同的起点。整页模板带来了页面和已经接好的交互，组件包把我们提出的布局建议写成规则，配上能单独使用的部件。审阅时，既要看正文怎么组织文件，也要用成品和记录核对实际采用。\n\n我们不必在两份 Skill 里选一个赢家。我这次想继续用组件组，但希望它也有整页组的声音反馈。这个选择就给出了一个具体的迭代方向：保留哪些体验，再补哪项能力。"
       ],
       "teaching": [],
-      "source": "index.html#p20",
+      "source": "index.html#skill-reuse",
       "seconds": 90
     },
     {
-      "id": "p21",
-      "segment": "修改与复验",
-      "label": "改对了吗",
-      "title": "最小修改，再看相邻场景",
-      "lead": "先看范围：只动了游戏组件。再复验：原来的场景（翻错一次，步数变成 1），以及相邻场景：配对成功、完整打完一局、重开、最佳成绩，最后 build。",
-      "html": "<div style=\"display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start\"><div><div class=\"p-term\" data-reveal=\"0\"><div class=\"dim\">$ git diff --stat</div><div>src/components/MemoryGame.tsx  | 21</div><div>1 file changed, 12 insertions(+), 9 deletions(-)</div></div><div data-reveal=\"0\" style=\"margin-top:8px\"><details class=\"p-pop\"><summary>看完整 diff</summary><div class=\"p-pop-body\"><div class=\"p-pop-head\"><span>修复的完整 diff</span><button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div><style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style><div class=\"p-code\"><div class=\"p-code-head\"><span>src/components/MemoryGame.tsx</span><span>+12 −9</span></div><pre><span class=\"at\">@@ -4,19 +4,13 @@ import &#x27;./memory-game.css&#x27;</span><span style=\"display:block\"> const CARD_FACES = [</span><span style=\"display:block\">   &#x27;需求&#x27;,</span><span style=\"display:block\">   &#x27;迭代&#x27;,</span><span class=\"del\">-  &#x27;感知&#x27;,</span><span style=\"display:block\">   &#x27;推理&#x27;,</span><span class=\"del\">-  &#x27;量产&#x27;,</span><span style=\"display:block\">   &#x27;部署&#x27;,</span><span class=\"del\">-  &#x27;加速&#x27;,</span><span style=\"display:block\">   &#x27;验收&#x27;,</span><span class=\"del\">-  &#x27;端侧&#x27;,</span><span class=\"del\">-  &#x27;提示&#x27;,</span><span style=\"display:block\">   &#x27;协作&#x27;,</span><span class=\"del\">-  &#x27;智能体&#x27;,</span><span style=\"display:block\"> ] as const</span><span style=\"display:block\"> </span><span class=\"del\">-const PAIR_COUNT = CARD_FACES.length / 2</span><span class=\"add\">+const PAIR_COUNT = CARD_FACES.length</span><span style=\"display:block\"> const MISMATCH_DELAY_MS = 900</span><span style=\"display:block\"> const BEST_MOVES_KEY = &#x27;memory-game-best-moves&#x27;</span><span style=\"display:block\"> </span><span class=\"at\">@@ -40,7 +34,14 @@ function shuffle&lt;T&gt;(items: T[]): T[] {</span><span style=\"display:block\"> </span><span style=\"display:block\"> function createDeck(): Card[] {</span><span style=\"display:block\">   return shuffle(</span><span class=\"del\">-    CARD_FACES.map((face, id) =&gt; ({ id, face, flipped: false, matched: false })),</span><span class=\"add\">+    CARD_FACES.flatMap((face, index) =&gt;</span><span class=\"add\">+      [0, 1].map((copy) =&gt; ({</span><span class=\"add\">+        id: index * 2 + copy,</span><span class=\"add\">+        face,</span><span class=\"add\">+        flipped: false,</span><span class=\"add\">+        matched: false,</span><span class=\"add\">+      })),</span><span class=\"add\">+    ),</span><span style=\"display:block\">   )</span><span style=\"display:block\"> }</span><span style=\"display:block\"> </span><span class=\"at\">@@ -113,7 +114,6 @@ export default function MemoryGame() {</span><span style=\"display:block\">         ),</span><span style=\"display:block\">       )</span><span style=\"display:block\">       setOpenIds([])</span><span class=\"del\">-      setMoves((prev) =&gt; prev + 1)</span><span style=\"display:block\">       setStatus(`配对成功：${first.face}。`)</span><span style=\"display:block\">       return</span><span style=\"display:block\">     }</span><span class=\"at\">@@ -168,6 +168,9 @@ export default function MemoryGame() {</span><span style=\"display:block\">       prev.map((item) =&gt; (item.id === id ? { ...item, flipped: true } : item)),</span><span style=\"display:block\">     )</span><span style=\"display:block\">     setOpenIds((prev) =&gt; (prev.length &lt; 2 ? [...prev, id] : prev))</span><span class=\"add\">+    if (openIds.length === 1) {</span><span class=\"add\">+      setMoves((prev) =&gt; prev + 1)</span><span class=\"add\">+    }</span><span style=\"display:block\">   }</span><span style=\"display:block\"> </span><span style=\"display:block\">   function startNewGame() {</span></pre></div></div></details></div><p class=\"p-links\" data-reveal=\"3\" style=\"margin-top:12px\"><a href=\"../../practice/memory-v0/index.html\" target=\"_blank\" rel=\"noopener\">试玩修复前的版本</a><a href=\"../../practice/memory-v1/index.html\" target=\"_blank\" rel=\"noopener\">试玩修复后的版本</a></p></div><ul class=\"p-checks\"><li data-reveal=\"1\">翻错一次<small>步数 1</small></li><li data-reveal=\"2\">配对成功<small>步数也加 1，剩余减 1</small></li><li data-reveal=\"2\">完整打完一局<small>6 对配完，显示完成</small></li><li data-reveal=\"2\">重开、最佳成绩<small>归零；最佳不被更差的一局覆盖</small></li><li data-reveal=\"3\">npm run build<small>成功</small></li></ul></div><p class=\"source-note\">调查与修复来自 2026-10-06 的两次排练（courseware/ch03/materials/mainline/debug-3.3.sh），两次调查结论一致。来自讲师机器上的排练运行（2026-10-06，Codex 0.160.0–0.160.1 + MiniMax，codex exec）；随版本、模型、配置和任务变化，只说明结构。</p>",
+      "id": "audio-goal",
+      "segment": "音效迭代",
+      "label": "新增与保留",
+      "title": "保留组件的自由，补上事件音效",
+      "lead": "以组件组为基础，先说清这次想改变什么",
+      "html": "<div class=\"skill-slide\"><div class=\"audio-goal\"><figure><img src=\"evidence/layout-components.png\" alt=\"历史组件游戏：场地与侧边读数\"><figcaption>组件组 · 按玩法组织界面</figcaption></figure><div class=\"audio-intent\"><section><h3>继续保留</h3><p>侧边读数 · 开场确认</p><p>限时收集进度 · 可见反馈 · 结算重开</p></section><section class=\"audio-add\"><h3>这次增加</h3><p>收集、受伤时有声音</p><p>玩家可以关闭音效</p></section></div></div><div class=\"skill-takeaway\">检查新增能力，也检查原来想保留的体验</div><nav class=\"skill-evidence\" aria-label=\"本页材料\"><a href=\"evidence/audio-iteration/index.html#versions\" target=\"_blank\" rel=\"noopener\">两组历史游戏 ↗</a><a href=\"evidence/audio-iteration/index.html#origin\" target=\"_blank\" rel=\"noopener\">声音来源 ↗</a></nav></div>",
       "steps": [
-        "范围",
-        "原场景",
-        "相邻场景",
-        "build"
+        "新增与保留"
       ],
       "script": [
-        "【操作提示｜课件 p21 第 1 步 → 切 Terminal 普通 shell，在练习项目根目录运行 git diff --stat、git diff，并在 VS Code 看完整 diff；画面中的 stat 和 diff 为排练记录（只改 src/components/MemoryGame.tsx）。当次改动超出这一个文件时先停，不往下复验】\n\nCodex 改完。先看范围：git diff --stat 只有游戏组件这一个文件。点开完整的 diff：词表换成我们给的 6 个词，牌组每个词生成两张；翻开第二张时计一步。",
-        "【操作提示｜推进课件 p21 第 2 步 → 切 Chrome 复用游戏标签页并刷新（没有现场实现时用课件链接 practice/memory-v1，明说是排练修好的版本）；开新一局翻错一次，指认步数实际值。不是 1 时回 Codex 处理，不念成功】\n\n复验原来的场景：翻错一次，步数变成 1。",
-        "【操作提示｜推进课件 p21 第 3 步，同一标签页依次：配对一次看步数和剩余；完整打完一局；点重开看归零；再打一局比最佳成绩。打完一局可剪辑；最佳成绩受旧数据干扰时先清掉 localStorage 的 memory-game-best-moves。有一项不符就如实停下】\n\n再看相邻的场景，修一处最容易弄坏旁边：配对成功，步数也加 1，剩余减 1；完整打完一局，6 对配完，显示完成；重开以后归零；最佳成绩不会被更差的一局覆盖。",
-        "【操作提示｜推进课件 p21 第 4 步 → 切 Terminal 在练习项目根目录运行 npm run build，展示实际输出；失败时展示首个报错，不说修好。念完暂停提示后回课件】\n\n最后 build 成功。全部有证据，才算修好。请暂停视频，复验你的修改。"
+        "【操作提示｜回到 PPT 第 5 页“保留组件的自由，补上事件音效”，先指保留项，再指新增项】\n\n改之前，先说清楚怎样才算满足这次需求。我要加的是收集、受伤时的声音，而且玩家可以关掉它。我要保留的是开场确认、限时收集的进度提示、原来的可见反馈，以及结算后重开。\n\n布局也有一个判断标准：数据栏仍然可以按玩法安排，窄屏时不挡住场地。所以，之后即使侧栏从右边换到左边，只要符合这个要求，就可以接受。我们不是要求新游戏每个像素都和旧游戏一样。\n\n有了这两组检查点，才知道改完要看什么。现在先查声音从哪里来，看看有没有可以单独拿出来的实现。"
       ],
-      "teaching": [
-        {
-          "title": "讲师提示",
-          "text": "复验由人在浏览器里做；讲师批量重跑时用 probe2.py 代检，结果在 materials/mainline/reference/。"
-        }
-      ],
-      "repro": {
-        "label": "复现这个实验",
-        "steps": [
-          {
-            "text": "在课程仓库根目录，用排练第 8 轮的实现重跑一遍“只读调查 → 人定规则 → 修复”",
-            "code": "courseware/ch03/materials/mainline/debug-3.3.sh"
-          }
-        ],
-        "note": "需要 MINIMAX_API_KEY 与第 8 轮的运行目录；回答每次会不同。"
-      },
-      "source": "index.html#p21",
-      "seconds": 120
+      "teaching": [],
+      "source": "index.html#audio-goal",
+      "seconds": 30
     },
     {
-      "id": "p22",
-      "segment": "小结",
-      "label": "本节小结",
-      "title": "调查常常比报告看得更深",
-      "lead": "本节留下修复后的记忆翻牌、一份缺陷记录和一条我们自己定的规则（步数怎么算）。代码和记录分两次提交。下一节：做第二个游戏前，先看看做游戏的经验有没有人打包好了。",
-      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">五步</h3><div class=\"p-flow\" style=\"--n:5;font-size:18px\"><div class=\"p-node\"><b>复现</b></div><div class=\"p-node\"><b>只读调查</b></div><div class=\"p-node\" data-role=\"us\"><b>人定规则</b></div><div class=\"p-node\"><b>最小修改</b></div><div class=\"p-node\" data-role=\"ok\"><b>复验</b></div></div></div><div data-reveal=\"1\"><h3>留下的</h3><ul class=\"p-exits\" style=\"gap:10px\"><li class=\"is-pass\">修复后的记忆翻牌</li><li class=\"is-pass\">缺陷记录：观察与推断分开</li><li class=\"is-pass\">规则：步数怎么算</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"tool\"><h3>3.4 审插件</h3><p>做游戏的经验，有人打包好了吗？</p></div></div></div>",
+      "id": "audio-package",
+      "segment": "音效迭代",
+      "label": "指导与资源",
+      "title": "指导说明怎么用，资源提供实现",
+      "lead": "实际修改：正文追加接入要求，组件包新增一个声音文件",
+      "html": "<div class=\"skill-slide\"><div class=\"audio-package\"><section class=\"audio-file\"><header>SKILL.md · 新增指导</header><p>复制、导入声音资源</p><p>收集与受伤各调用一次</p><p>接入静音，保留可见反馈</p><p>复查声音与原有体验</p></section><div class=\"audio-join\">指向<br>→</div><section class=\"audio-file\"><header>purple-sound.js · 独立资源</header><code>sfx.pickup()<br>sfx.hurt()<br>setSoundEnabled(value)</code><p>来自历史整页游戏的声音实现</p><p>不依赖 HUD 的位置</p></section></div><div class=\"audio-unchanged\">原有三个 CSS 与 UI kit 未改　→　还要用新游戏检查结果</div><nav class=\"skill-evidence\" aria-label=\"本页材料\"><a href=\"evidence/audio-iteration/index.html#change\" target=\"_blank\" rel=\"noopener\">实际修改差异 ↗</a><a href=\"evidence/audio-iteration/index.html#generate\" target=\"_blank\" rel=\"noopener\">共同请求与采用记录 ↗</a></nav></div>",
       "steps": [
-        "五步",
-        "留下的",
-        "下一节"
+        "审阅修改范围"
       ],
       "script": [
-        "【操作提示｜停留课件 p22 第 1 步，指向五步流程中的“人定规则”节点；不切窗口】\n\n这一节的五步：复现、只读调查、人定规则、最小修改、复验。中间那一步“人定规则”最容易被跳过，可是不定规则，修完也不知道对不对。",
-        "【操作提示｜推进课件 p22 第 2 步，指向“留下的”三项。两次提交（先代码、后 docs/evidence/CH03_MEMORY_GAME.md）录前完成或在 Terminal 现场做，提交前用 git diff --cached 核对；不执行 push】\n\n留下三样东西：修复后的记忆翻牌；一份缺陷记录，观察和推断分开写；一条我们自己定的规则，步数怎么算，写进 CH03_MEMORY_GAME.md。代码一次提交，记录一次提交。",
-        "【操作提示｜推进课件 p22 第 3 步，指向“3.4 审插件”卡；本节结束，不打开插件相关页面】\n\n我们在这一节摸到了一些做游戏的经验：状态要清楚，等待和重开要处理好，成对的东西要真的成对。下一节做第二个游戏，先问一句：这些经验，有没有人打包好了？"
+        "【操作提示｜从讲述页打开“声音资源”原文查看页，查看导出与 pickup、hurt；用浏览器后退回讲述页，再点 P3.3-06-01 返回 PPT 第 6 页“指导说明怎么用，资源提供实现”】\n\n正文指到的这份文件，实际就是历史整页游戏采用的声音实现。这次没有重写三个 CSS，也没有重写浮层组件，只追加了正文和一个声音文件。\n\n资源负责提供可以调用的实现，正文负责告诉 AI 什么时候取用、接到哪些事件、怎样检查。两者配在一起，下一次开发才有明确的使用依据。\n\n不过，改动范围小，只能说明我们没有直接重写布局。新的游戏究竟会做成什么样，还得让另一个开发会话实际使用这份 Skill。"
       ],
-      "teaching": [
-        {
-          "title": "跟做产出",
-          "text": "缺陷记录（复现步骤、观察与推断、假设、根因、修复、复验）；定下的规则；修复后的记忆翻牌的代码提交与记录提交。"
-        }
+      "teaching": [],
+      "source": "index.html#audio-package",
+      "seconds": 30
+    },
+    {
+      "id": "audio-result",
+      "segment": "音效迭代",
+      "label": "按结果取舍",
+      "title": "按需求验收，再决定是否保留",
+      "lead": "本轮对照：原组件版与音效修复版，使用同一条开发请求",
+      "html": "<div class=\"skill-slide\"><div class=\"audio-verdict\"><section><h3>新增能力</h3><p>收集、受伤有声音</p><p>静音后停止播放</p><b>本轮已接入</b></section><section><h3>请求明确的保留项</h3><p>开场确认、侧栏布局</p><p>限时进度、视觉反馈、重开</p><b>主要约定体验仍在</b></section><section class=\"audio-remaining\"><h3>继续处理</h3><p>结算显示了文字标签</p><p>若交付触屏操作，须补实现</p><b>回到游戏继续修</b></section></div><div class=\"skill-takeaway\">保留这次 Skill 修改；换玩法后继续实际验证</div><nav class=\"skill-evidence\" aria-label=\"本页材料\"><a href=\"evidence/audio-iteration/before/index.html\" target=\"_blank\" rel=\"noopener\">原组件版 ↗</a><a href=\"evidence/audio-iteration/after/index.html\" target=\"_blank\" rel=\"noopener\">音效修复版 ↗</a><a href=\"evidence/audio-iteration/index.html#compare\" target=\"_blank\" rel=\"noopener\">前后实拍与结果 ↗</a></nav></div>",
+      "steps": [
+        "对照需求取舍"
       ],
-      "source": "index.html#p22",
-      "seconds": 90
+      "script": [
+        "【操作提示｜回到 PPT 第 7 页“按需求验收，再决定是否保留”，逐项对应刚才的试玩与截图】\n\n按这次确定的要求，我会保留这次 Skill 修改：新增指导和声音资源已经接到收集、受伤与静音上；开发请求里明确要求保留的开场、限时收集和主要视觉反馈，也在这次成品里逐项检查到了。结算标签的问题继续在游戏里修；如果交付范围包括触屏操作，再补对应的实现和检查。\n\n这次迭代的起点，是作品里一个具体的体验缺口。我们先查实际用了哪些指导和资源，再决定改哪里；修改后用同一个请求重新生成，检查新增能力，也检查要保留的体验。结果满足要求，就保留；还有缺口，就根据证据继续调整，必要时回退。\n\n这里的一次结果说明，这个声音能力在本例里迁入成功。以后换玩法，仍然要实际使用和验证。下一节我们再把视野打开，看看去哪里寻找值得体验的 Skill，以及怎样持续关注它们的变化。"
+      ],
+      "teaching": [],
+      "source": "index.html#audio-result",
+      "seconds": 30
     }
   ],
   "segments": [
     {
-      "label": "挑一个",
-      "seconds": 90
+      "label": "生成与审阅",
+      "seconds": 150
     },
     {
-      "label": "复现",
-      "seconds": 90
+      "label": "开发与试玩",
+      "seconds": 150
     },
     {
-      "label": "只读调查",
-      "seconds": 210
-    },
-    {
-      "label": "观察与推断",
-      "seconds": 90
-    },
-    {
-      "label": "人定规则",
-      "seconds": 90
-    },
-    {
-      "label": "修改与复验",
-      "seconds": 120
-    },
-    {
-      "label": "小结",
+      "label": "音效迭代",
       "seconds": 90
     }
   ]

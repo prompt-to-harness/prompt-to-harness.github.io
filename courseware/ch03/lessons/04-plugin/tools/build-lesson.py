@@ -1,137 +1,33 @@
 #!/usr/bin/env python3
-"""3.4 做游戏的经验，有人打包好了吗：本节唯一的内容源，生成 lesson.js。
-
-分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch03/tools/lessonkit.py。
-插件材料与安装链路见 courseware/ch03/materials/plugin/README.md。
-"""
-import sys
+"""Build 3.4 slides and narration data from the single script.json source."""
+import json
 from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from lessonkit import Lesson, MEASURED, chapter_map, ref, repro, teach  # noqa: E402
-
-lesson = Lesson(__file__, "3.4", "做游戏的经验，有人打包好了吗", summary="分清 Plugin 与 Skill，装之前先审；看懂 Skill 怎样按需进入请求。")
-scene = lesson.scene
-
-SHA = "82fd64bce3869f0d4c0bb2bf0e36a6e262ca5ad8"
-GS = f"https://github.com/openai/plugins/tree/{SHA}/plugins/game-studio"
-SRC = "Game Studio 0.1.0，openai/plugins 提交 82fd64b（2026-10-06 Codex 启动时同步到的版本；Game Studio 目录最后改动于 27651a4）"
-
-scene(
-    id="p23", segment="开篇", layout="lesson-cover",
-    label="有人打包好了吗", title="做游戏的经验，有现成的吗？",
-    lead="做第二个游戏之前，先找找看",
-    html=(
-        chapter_map(4) +
-        '<div class="p-pair" style="grid-template-columns:1fr auto 1fr;margin-top:18px">'
-        '<div class="p-box" data-role="us" data-reveal="1"><span class="p-tag" data-role="us">我们摸到的</span><p>状态要清楚 · 等待和重开要处理 · 成对的要真成对</p></div>'
-        '<div class="p-join" data-reveal="2"><span>有现成的？</span><i class="p-arrow"></i></div>'
-        '<div class="p-box" data-role="tool" data-reveal="2"><span class="p-tag" data-role="tool">Game Studio</span><p>OpenAI 官方插件目录里的一个插件</p></div></div>'
-    ),
-    steps=["地图", "我们摸到的", "找到 Game Studio"],
-)
-
-scene(
-    id="p24", segment="是什么",
-    label="Plugin 和 Skill", title="一个 Plugin，九个 Skill",
-    lead="Skill 是一个带 SKILL.md 的目录，写着某类任务的经验和做法；SKILL.md 是开放格式，多种 Agent 都能读。Plugin 是 Codex 把 Skill 和其他组件一起打包、安装、停用的单位；Game Studio 只含 Skill、本地脚本和图标。",
-    html=(
-        '<div class="p-pair" style="grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);align-items:start">'
-        '<div class="p-box" data-role="tool" data-reveal="0"><span class="p-tag" data-role="tool">Plugin · game-studio</span>'
-        '<ul class="p-tree" style="margin-top:8px;font-size:19px"><li><span class="p-path">.codex-plugin/plugin.json</span><span class="p-note">manifest</span></li>'
-        '<li class="is-open" data-reveal="1"><span class="p-path">skills/</span><span class="p-note">9 个 Skill</span></li>'
-        '<li data-reveal="2"><span class="p-path">scripts/</span><span class="p-note">3 个 Python 脚本</span></li><li data-reveal="2"><span class="p-path">assets/</span><span class="p-note">图标</span></li></ul></div>'
-        '<div class="p-box" data-role="ctx" data-reveal="1"><span class="p-tag" data-role="ctx">Skill · 一个目录</span>'
-        '<ul class="p-tree" style="margin-top:8px;font-size:19px"><li class="is-target"><span class="p-path">phaser-2d-game/SKILL.md</span></li><li class="is-dim"><span class="p-path">agents/openai.yaml</span></li></ul>'
-        '<p class="p-sub" style="margin-top:8px">名称 + 描述 + 正文的做法</p></div></div>'
-        '<div class="p-bar is-light" data-reveal="3">Skill 是<b>经验说明</b>；Plugin 是<b>打包安装的单位</b></div>'
-    ),
-    steps=["manifest", "Skill", "脚本与图标", "一句话"],
-    refs=[ref("Game Studio 目录（固定版本）", GS, group="原文")],
-)
-
-scene(
-    id="p25", segment="审查",
-    label="装之前审什么", title="装之前，逐项审",
-    lead="沿用 1.3 的权限判断：它从哪来、能做什么、会运行什么、会不会联网。每一项都要有可以打开核对的证据。",
-    html=(
-        '<ul class="p-checks" style="font-size:20px">'
-        '<li data-reveal="0">来源、版本、许可证<small>openai/plugins 官方仓库 · 0.1.0 · MIT · 固定到提交 82fd64b</small></li>'
-        '<li data-reveal="1">声明的能力<small>Interactive、Write：会在仓库里写代码</small></li>'
-        '<li data-reveal="2">会运行的脚本<small>3 个本地图片处理脚本（需要 Pillow），不联网；本课用几何图形，不运行</small></li>'
-                '<li class="is-no" data-reveal="3">允许修改的范围<small>要由我们写：只改游戏模块、入口和必要的样式</small></li></ul>'
-        '<p class="source-note">' + SRC + '</p>'
-    ),
-    steps=["来源与版本", "能力", "脚本", "其余与范围"],
-    refs=[ref("plugin.json", f"https://github.com/openai/plugins/blob/{SHA}/plugins/game-studio/.codex-plugin/plugin.json", group="原文"),
-          ref("scripts/", f"https://github.com/openai/plugins/tree/{SHA}/plugins/game-studio/scripts", group="原文")],
-)
-
-scene(
-    id="p26", segment="审查",
-    label="Skill 里写了什么", title="读两段 Skill 原文",
-    lead="第一段和 3.3 的经验对上了：计时器属于游戏状态。第二段先记住：2D 默认用 Phaser，除非用户另有要求。我们的 Brief 说要接进现有仓库，这会在 3.5 变成一个需要人做的决定。",
-    html=(
-        '<div class="p-box" data-role="tool" data-reveal="0"><span class="p-tag" data-role="tool">web-game-foundations/SKILL.md</span>'
-        '<p class="p-mono" style="margin-top:8px;font-size:21px">Separate simulation from rendering.<br>Simulation owns entities, turns, <b>timers</b>, collisions …</p></div>'
-        '<p class="p-sub" data-reveal="1" style="margin:8px 0 12px">对照 3.3：等待翻回的计时器、步数，都是游戏状态的一部分</p>'
-        '<div class="p-box" data-role="tool" data-reveal="2"><span class="p-tag" data-role="tool">game-studio/SKILL.md</span>'
-        '<p class="p-mono" style="margin-top:8px;font-size:21px">Default to a 2D <b>Phaser</b> path unless the user explicitly asks for …</p></div>'
-        '<div class="p-bar is-light" data-reveal="3">Skill 是<b>前人的经验</b>，不是我们的规则</div>'
-    ),
-    steps=["状态归属", "对照 3.3", "默认路线", "怎么看待"],
-    refs=[ref("web-game-foundations/SKILL.md", f"https://github.com/openai/plugins/blob/{SHA}/plugins/game-studio/skills/web-game-foundations/SKILL.md", group="原文"),
-          ref("game-studio/SKILL.md", f"https://github.com/openai/plugins/blob/{SHA}/plugins/game-studio/skills/game-studio/SKILL.md", group="原文")],
-)
-
-scene(
-    id="p27", segment="怎么装",
-    label="三种装法", title="同一份 Skill，三种装法",
-    lead="课程基线用 API key 登录，Codex 的官方插件目录是空的，也不能直接把官方仓库加成市场（市场名是保留名）。官方仓库里的 Skill 仍然能用：本课用课程准备的本地市场装插件，另外两种装法作对照。",
-    html=(
-        '<div class="p-matrix" style="grid-template-columns:minmax(0,1.3fr) repeat(3,minmax(0,1fr))">'
-        '<div class="is-head" data-reveal="0"><span></span><span>本地市场装插件</span><span>skill-installer</span><span>仓库 .agents/skills/</span></div>'
-        '<div data-reveal="0"><span>装在哪</span><span>本机插件缓存</span><span>本机 ~/.codex/skills</span><span>项目仓库</span></div>'
-        '<div data-reveal="1"><span>进不进 git</span><span>不进</span><span>不进</span><span>进</span></div>'
-        '<div data-reveal="1"><span>停用</span><span>一个开关管 9 个</span><span>删目录</span><span>改仓库、提交</span></div>'
-        '<div data-reveal="2" class="is-key"><span>本课</span><span>✓ 主路径</span><span>对照</span><span>对照</span></div></div>'
-        '<p class="source-note">三种装法均在课程基线（tools/clean-codex.sh，API key 登录）下实测，见 courseware/ch03/materials/plugin/README.md。ChatGPT 账号登录下的官方目录未测。</p>'
-    ),
-    steps=["装在哪", "git 与停用", "本课的选择"],
-    repro=repro([
-        ("在课程仓库根目录，准备只含 Game Studio 的本地市场（固定到官方仓库的一个提交）", "courseware/ch03/materials/plugin/setup-marketplace.sh lab-runs/ch03-plugin/mkt"),
-        ("在隔离环境里加入这个市场并安装", "CLEAN_CODEX_HOME=lab-runs/ch03-plugin/home tools/clean-codex.sh -- plugin list\nCLEAN_CODEX_KEEP_CONFIG=1 CLEAN_CODEX_HOME=lab-runs/ch03-plugin/home tools/clean-codex.sh -- plugin marketplace add \"$PWD/lab-runs/ch03-plugin/mkt\"\nCLEAN_CODEX_KEEP_CONFIG=1 CLEAN_CODEX_HOME=lab-runs/ch03-plugin/home tools/clean-codex.sh -- plugin add game-studio@course-lab"),
-    ], note="需要能访问 GitHub。用 ChatGPT 账号登录的 Codex 可直接在 /plugins 的官方目录里安装（未测）。"),
-)
-
-scene(
-    id="p28", segment="怎么装",
-    label="装好了，Codex 看到了什么", title="装好了，请求里只多了 9 行",
-    lead="安装后开新会话。请求里出现 9 行“名称：描述（文件位置）”，一共约 2.3 KB；9 份 SKILL.md 全文约 37.8 KB，不在请求里。用到某个 Skill 时，Codex 才去读它的全文。",
-    html=(
-                '<div class="p-code" data-reveal="0"><div class="p-code-head"><span>新会话的第一次请求（节选）</span><span>9 行 · 2,352 字节</span></div>'
-        '<pre><span style="display:block">- game-studio:phaser-2d-game: Implement 2D browser games …</span>'
-        '<span style="display:block">- game-studio:web-game-foundations: Set browser-game …</span><span style="display:block">  …（共 9 行）</span></pre></div>'
-        '<div class="p-pair" style="grid-template-columns:1fr auto 1fr;margin-top:12px" data-reveal="1">'
-        '<div class="p-box is-soft" data-role="ctx"><h3>平时</h3><p>名称 + 描述：2.3 KB</p></div><div class="p-join"><span>用到时</span><i class="p-arrow"></i></div>'
-        '<div class="p-box is-soft" data-role="tool"><h3>读全文</h3><p>9 份合计 37.8 KB</p></div></div>'
-    ),
-    steps=["新会话的请求", "按需读取"],
-    teaching=teach(("备课参考", "数字来自课程基线下的一次请求（claude-tap 记录，2026-10-06），见 materials/plugin/README.md；安装前同一请求里没有这 9 行。")),
-)
-
-scene(
-    id="p29", segment="小结",
-    label="本节小结", title="先审，再装，再看它进了哪里",
-    lead="本节留下一份审查记录（来源、版本、许可证、能力、脚本、允许范围、不运行的脚本）和安装证据。审查不通过或装不上时，使用课程快照继续 3.5 的分析，但不记作插件实操通过。下一节：调用它做第二个游戏。",
-    html=(
-        '<div class="p-sketch" style="align-items:start"><div data-reveal="0"><h3 style="text-align:center">一句话</h3>'
-        '<div class="p-star" style="width:280px;font-size:22px">Skill：经验<br>Plugin：打包</div></div>'
-        '<div data-reveal="1"><h3>留下的</h3><ul class="p-exits" style="gap:10px"><li class="is-pass">审查记录与允许范围</li><li class="is-pass">安装与新会话证据</li><li class="is-stop">不通过：课程快照，不记作实操</li></ul></div>'
-        '<div class="p-next" data-reveal="2"><h3>下一节</h3><div class="p-box" data-role="ctx"><h3>3.5 插件的主张</h3><p>它说 Phaser，我们的 Brief 怎么说？</p></div></div></div>'
-    ),
-    steps=["一句话", "留下的", "下一节"],
-    teaching=teach(("跟做产出", "CH03_GAME_STUDIO_PLUGIN_LAB.md：审查结论、允许修改的范围、不运行的脚本；安装与新会话请求中 9 个 Skill 的证据。")),
-)
-
-lesson.write()
+P=Path(__file__).resolve().parents[1]
+scripts=json.loads((P/'script.json').read_text())
+def a(url,text): return f'<a href="{url}" target="_blank" rel="noopener">{text} ↗</a>'
+def box(title,text,step=None):
+ r='' if step is None else f' data-reveal="{step}"'
+ return f'<div class="resource-box"{r}><h3>{title}</h3>{text}</div>'
+def item(name,desc,url): return f'<div class="resource-item">{a(url,name)}<p>{desc}</p></div>'
+scenes=[]
+def scene(id,title,html,steps,segment='寻找 Skill'):
+ assert len(scripts[id])==len(steps)
+ scenes.append(dict(id=id,title=title,label=title,segment=segment,lead='',html='<div class="resources-slide">'+html+'</div>',steps=steps,script=scripts[id],teaching=[],source='index.html#'+id,seconds=30*len(steps)))
+scene('ui-opening','社区里，已经有很多现成的 Skill',
+ '<div class="opening-layout"><figure><img src="assets/impeccable-hotel.webp" alt="Impeccable 作者展示的酒店主题网页"><figcaption>'+a('https://impeccable.style/gallery/','Impeccable 作者作品')+'</figcaption></figure><div class="use-list"><div><h3>UI 与前端设计</h3><p>frontend-design · Impeccable</p></div><div data-reveal="1"><h3>前端审查</h3><p>Vercel · web-design-guidelines</p><h3>开发规划 / 测试</h3><p>Superpowers · writing-plans<br>test-driven-development</p></div></div></div>', ['现成的 UI 指导','还有其他开发用途'])
+scene('platform-map','找 Skill，可以从三个入口开始',
+ '<div class="entry-map">'+box('聚合平台','<p>集中搜索、按主题逛</p><span class="entry-symbol">搜</span>')+box('GitHub','<p>看项目说明与指导原文</p><span class="entry-symbol">{ }</span>')+box('直接找提供者','<p>Coding Agent 官方<br>技术团队 · 独立作者</p><span class="entry-symbol">人</span>')+'</div><p class="quiet-line">同一份 Skill，可能在几个入口都能找到</p>', ['三种找法'])
+scene('recommended-entries','先收藏这几个入口',
+ '<div class="directory"><section><h3>聚合平台</h3>'+item('skills.sh','主题与热门','https://www.skills.sh/')+item('SkillsMP','按条件筛选','https://skillsmp.com/search')+'</section><section><h3>GitHub 集合</h3>'+item('Anthropic Skills','Coding Agent 官方示例','https://github.com/anthropics/skills')+item('Vercel agent-skills','技术团队的前端指导','https://github.com/vercel-labs/agent-skills')+item('Superpowers','开发规划、测试与调试','https://github.com/obra/superpowers')+'</section><section><h3>提供者网站</h3>'+item('Impeccable','看设计作品与说明','https://impeccable.style/')+'<p class="directory-note">按自己的需要<br>继续探索</p></section></div>', ['六个入口'])
+scene('lifecycle-slide','Skill 也会更新，或不再需要',
+ '<div class="life-layout">'+box('有的被移除','<p>Matt Pocock · 合并冲突 Skill</p><p class="life-main">作者认为 agent 已能处理<br>移除专门指导</p><p class="condition">较弱模型可能仍需要</p>'+a('https://www.aihero.dev/skills-changelog-v13-implement-spec-pr-retro-and-glossary-md','v1.3 更新说明 · 2026-10-05'))+box('有的调整写法','<p>Superpowers · writing-plans</p><p class="life-main">针对提前开始实现的行为<br>让指导更聚焦于规划</p>'+a('https://github.com/obra/superpowers/blob/main/RELEASE-NOTES.md#v642-2026-09-25','v6.4.2 · 2026-09-25'),1)+'</div>', ['移除与适用条件','更新与持续关注'],'持续追踪')
+scene('official-slide','先关注自己正在用的工具',
+ '<div class="official-layout">'+box('Codex','<p>功能变化 · 当前用法</p>'+item('更新记录','发布了什么','https://developers.openai.com/codex/changelog/')+item('Skill 文档','现在怎么用','https://developers.openai.com/codex/skills/'))+box('Claude Code','<p>产品更新 · 工作方法</p>'+item('Changelog','版本变化','https://code.claude.com/docs/en/changelog')+item('Code with Claude','官方活动与主题录像','https://claude.com/code-with-claude/san-francisco'))+'</div><p class="quiet-line">使用 Cursor，也可以关注 '+a('https://cursor.com/changelog','Cursor Changelog')+'</p>', ['官方渠道'],'持续追踪')
+scene('authors-slide','看实践者怎么用，也看他们怎么改',
+ '<div class="author-layout"><section><h3>Matt Pocock</h3><p>开发做法 · Skill · 文章与视频</p>'+a('https://www.aihero.dev/videos','AI Hero')+'</section><section><h3>Simon Willison</h3><p>实验记录 · 原始链接 · 使用限制</p>'+a('https://simonwillison.net/tags/skills/','Skills 专题')+'</section></div><div class="author-more" data-reveal="1"><span>进阶：'+a('https://blog.fsck.com/','Jesse Vincent')+' · 工作流回顾</span><strong>所用工具的官方渠道 ＋ 一两位实践者</strong></div>', ['两位互补的作者','按需要选择'],'持续追踪')
+scene('tips-slide','三个顺手可用的小技巧',
+ '<div class="tips-layout">'+box('沿资源找作者','<p>一份 Skill → 作者 → 更多项目与文章</p>'+a('https://github.com/mattpocock/skills','Matt 的 Skills 仓库'))+box('同名，看来源','<p>记下 owner / repo<br>别只记 Skill 名称</p>',1)+box('留意维护状态','<p>有安装说明，也可能已归档</p><span class="archived">Archived</span><p>'+a('https://www.aihero.dev/skills-resolving-merge-conflicts','归档页示例')+'</p>',2)+'</div>', ['反向追踪','辨认同名','维护状态'],'实用 tips')
+lesson=dict(title='寻找值得体验的 Skill，持续追踪 AI Coding',chapter='第 3 章 · Vibe Coding + Plugin',section='03.04',summary='寻找现成 Skill，关注官方与实践者，再补几个实用技巧。',scenes=scenes,segments=[dict(label='寻找 Skill',seconds=240),dict(label='持续追踪',seconds=300),dict(label='实用 tips',seconds=150)])
+(P/'lesson.js').write_text('window.lesson = '+json.dumps(lesson,ensure_ascii=False,indent=2)+';\n')
+(P/'narration-script.js').write_text('window.narrationScripts = '+json.dumps(scripts,ensure_ascii=False,indent=2)+';\n')
+print('3.4: 7 pages, 12 steps; script.json is the sole narration source')

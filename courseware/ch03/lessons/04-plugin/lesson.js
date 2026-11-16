@@ -1,242 +1,151 @@
 window.lesson = {
-  "title": "做游戏的经验，有人打包好了吗",
+  "title": "寻找值得体验的 Skill，持续追踪 AI Coding",
   "chapter": "第 3 章 · Vibe Coding + Plugin",
   "section": "03.04",
-  "summary": "分清 Plugin 与 Skill，装之前先审；看懂 Skill 怎样按需进入请求。",
+  "summary": "寻找现成 Skill，关注官方与实践者，再补几个实用技巧。",
   "scenes": [
     {
-      "id": "p23",
-      "segment": "开篇",
-      "layout": "lesson-cover",
-      "label": "有人打包好了吗",
-      "title": "做游戏的经验，有现成的吗？",
-      "lead": "做第二个游戏之前，先找找看",
-      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>3.1</b>加个游戏</li><li class=\"is-done\"><b>3.2</b>谁定的规则</li><li class=\"is-done\"><b>3.3</b>按证据修</li><li class=\"is-now\"><b>3.4</b>审插件</li><li><b>3.5</b>插件的主张</li><li><b>3.6</b>说明在哪</li><li><b>3.7</b>重开清理</li></ol><div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:18px\"><div class=\"p-box\" data-role=\"us\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"us\">我们摸到的</span><p>状态要清楚 · 等待和重开要处理 · 成对的要真成对</p></div><div class=\"p-join\" data-reveal=\"2\"><span>有现成的？</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"tool\">Game Studio</span><p>OpenAI 官方插件目录里的一个插件</p></div></div>",
+      "id": "ui-opening",
+      "title": "社区里，已经有很多现成的 Skill",
+      "label": "社区里，已经有很多现成的 Skill",
+      "segment": "寻找 Skill",
+      "lead": "",
+      "html": "<div class=\"resources-slide\"><div class=\"opening-layout\"><figure><img src=\"assets/impeccable-hotel.webp\" alt=\"Impeccable 作者展示的酒店主题网页\"><figcaption><a href=\"https://impeccable.style/gallery/\" target=\"_blank\" rel=\"noopener\">Impeccable 作者作品 ↗</a></figcaption></figure><div class=\"use-list\"><div><h3>UI 与前端设计</h3><p>frontend-design · Impeccable</p></div><div data-reveal=\"1\"><h3>前端审查</h3><p>Vercel · web-design-guidelines</p><h3>开发规划 / 测试</h3><p>Superpowers · writing-plans<br>test-driven-development</p></div></div></div></div>",
       "steps": [
-        "地图",
-        "我们摸到的",
-        "找到 Game Studio"
+        "现成的 UI 指导",
+        "还有其他开发用途"
       ],
       "script": [
-        "【操作提示｜停留课件 p23 第 1 步，指向章节地图上的 3.4；不切窗口。录前确认 3.3 修复后的记忆翻牌已提交、练习仓库工作区干净（git status --short 无输出）】\n\n到这里，记忆翻牌已经修好。接下来要做第二个游戏：60 秒躲避与收集。",
-        "【操作提示｜推进第 2 步，指向“我们摸到的”卡片；不切窗口】\n\n3.3 我们自己摸到了几条经验：状态要清楚，等待和重开要处理好，成对的东西要真的成对。这些都是一次次踩坑换来的。",
-        "【操作提示｜推进第 3 步，出现“有现成的？”和 Game Studio 卡片；本页只点名，不打开 GitHub、不安装】\n\n有没有人已经把做游戏的经验打包好了？有：OpenAI 官方插件目录里有一个 Game Studio。这一节先弄清它是什么，审一遍，再决定装不装。"
+        "【操作提示｜PPT 课件：停留第 1 页第 1 步，展示 UI 样例】\n\n上一节，我们把自己喜欢的游戏界面风格整理成了一份 Skill。社区里也有很多人在分享这类指导。比如 Anthropic 的 frontend-design，还有 Impeccable。这里这张酒店网页，就是 Impeccable 作者展示的作品。你喜欢这种方向，就可以进一步看看它提供了哪些设计指导。",
+        "【操作提示｜PPT 课件：推进第 2 步，展开其他开发用途】\n\n现成的 Skill 还可以帮助我们审查前端界面、安排开发计划、组织测试。以后遇到需要，可以先看看社区有没有合适的选择。这一节就给大家一些值得逛的入口，再推荐一些可以长期关注的信息源。"
       ],
       "teaching": [],
-      "source": "index.html#p23",
-      "seconds": 90
-    },
-    {
-      "id": "p24",
-      "segment": "是什么",
-      "label": "Plugin 和 Skill",
-      "title": "一个 Plugin，九个 Skill",
-      "lead": "Skill 是一个带 SKILL.md 的目录，写着某类任务的经验和做法；SKILL.md 是开放格式，多种 Agent 都能读。Plugin 是 Codex 把 Skill 和其他组件一起打包、安装、停用的单位；Game Studio 只含 Skill、本地脚本和图标。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);align-items:start\"><div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"tool\">Plugin · game-studio</span><ul class=\"p-tree\" style=\"margin-top:8px;font-size:19px\"><li><span class=\"p-path\">.codex-plugin/plugin.json</span><span class=\"p-note\">manifest</span></li><li class=\"is-open\" data-reveal=\"1\"><span class=\"p-path\">skills/</span><span class=\"p-note\">9 个 Skill</span></li><li data-reveal=\"2\"><span class=\"p-path\">scripts/</span><span class=\"p-note\">3 个 Python 脚本</span></li><li data-reveal=\"2\"><span class=\"p-path\">assets/</span><span class=\"p-note\">图标</span></li></ul></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ctx\">Skill · 一个目录</span><ul class=\"p-tree\" style=\"margin-top:8px;font-size:19px\"><li class=\"is-target\"><span class=\"p-path\">phaser-2d-game/SKILL.md</span></li><li class=\"is-dim\"><span class=\"p-path\">agents/openai.yaml</span></li></ul><p class=\"p-sub\" style=\"margin-top:8px\">名称 + 描述 + 正文的做法</p></div></div><div class=\"p-bar is-light\" data-reveal=\"3\">Skill 是<b>经验说明</b>；Plugin 是<b>打包安装的单位</b></div>",
-      "steps": [
-        "manifest",
-        "Skill",
-        "脚本与图标",
-        "一句话"
-      ],
-      "script": [
-        "【操作提示｜课件 p24 第 1 步，指向左侧树里的 .codex-plugin/plugin.json。需要看原文时在 Chrome 新开标签页“Game Studio”，打开本页参考链接“Game Studio 目录（固定版本）”（提交 82fd64b），看完回课件】\n\nGame Studio 是一个 Plugin。打开它的目录，最上面是 plugin.json，叫 manifest，写着名字、版本、作者、许可证和它声明的能力。",
-        "【操作提示｜推进第 2 步，指向 skills/ 和右侧 phaser-2d-game/SKILL.md；可复用“Game Studio”标签页点进 skills/ 数出 9 个目录，不展开全文】\n\nskills 目录里有 9 个 Skill。每个 Skill 就是一个目录，核心是一个 SKILL.md：开头是名称和一句描述，正文写着这类任务的经验和做法。SKILL.md 是开放格式，不只 Codex，别的 Agent 也能读。",
-        "【操作提示｜推进第 3 步，指向 scripts/ 和 assets/；不切窗口。MCP、连接器、Hook 课件上没有对应行，只口头带过】\n\n另外还有 3 个 Python 脚本和图标。按 Codex 的定义，Plugin 还可以带 MCP 服务器、应用连接器和 Hook；Game Studio 都没有。",
-        "【操作提示｜推进第 4 步，指向底部一句话；不切窗口】\n\n一句话区分：Skill 是一份经验说明；Plugin 是把它们打包、安装、停用的单位。"
-      ],
-      "refs": [
-        {
-          "kind": "live",
-          "group": "原文",
-          "text": "Game Studio 目录（固定版本）",
-          "url": "https://github.com/openai/plugins/tree/82fd64bce3869f0d4c0bb2bf0e36a6e262ca5ad8/plugins/game-studio"
-        }
-      ],
-      "teaching": [],
-      "source": "index.html#p24",
-      "seconds": 120
-    },
-    {
-      "id": "p25",
-      "segment": "审查",
-      "label": "装之前审什么",
-      "title": "装之前，逐项审",
-      "lead": "沿用 1.3 的权限判断：它从哪来、能做什么、会运行什么、会不会联网。每一项都要有可以打开核对的证据。",
-      "html": "<ul class=\"p-checks\" style=\"font-size:20px\"><li data-reveal=\"0\">来源、版本、许可证<small>openai/plugins 官方仓库 · 0.1.0 · MIT · 固定到提交 82fd64b</small></li><li data-reveal=\"1\">声明的能力<small>Interactive、Write：会在仓库里写代码</small></li><li data-reveal=\"2\">会运行的脚本<small>3 个本地图片处理脚本（需要 Pillow），不联网；本课用几何图形，不运行</small></li><li class=\"is-no\" data-reveal=\"3\">允许修改的范围<small>要由我们写：只改游戏模块、入口和必要的样式</small></li></ul><p class=\"source-note\">Game Studio 0.1.0，openai/plugins 提交 82fd64b（2026-10-06 Codex 启动时同步到的版本；Game Studio 目录最后改动于 27651a4）</p>",
-      "steps": [
-        "来源与版本",
-        "能力",
-        "脚本",
-        "其余与范围"
-      ],
-      "script": [
-        "【操作提示｜课件 p25 第 1 步，指向“来源、版本、许可证”和底部来源说明。可复用 Chrome“Game Studio”标签页指认仓库和提交号 82fd64b；不要切到 main 分支的最新版本】\n\n装之前逐项审。来源：OpenAI 的官方 plugins 仓库，作者 OpenAI。我们固定到一个具体的提交，以后它更新了，我们审的也还是这一版。版本 0.1.0，MIT 许可证。",
-        "【操作提示｜推进第 2 步，指向“声明的能力”；需要时打开本页参考链接 plugin.json 指认 Interactive、Write，看完回课件】\n\nmanifest 里声明的能力是 Interactive 和 Write：它会在我们的仓库里写代码。这和 1.3 讲的一样：会写，就要划范围。",
-        "【操作提示｜推进第 3 步，指向“会运行的脚本”；可打开参考链接 scripts/ 列出 3 个脚本。只看不运行，不安装 Pillow】\n\n会运行的脚本：3 个本地图片处理脚本，用来做精灵图，需要 Pillow，代码里没有网络请求。我们用几何图形，不需要它们，记下“不运行”。",
-        "【操作提示｜推进第 4 步，指向标红的“允许修改的范围”。现场演示时切 VS Code，在练习仓库新建或打开 docs/evidence/CH03_GAME_STUDIO_PLUGIN_LAB.md，写入来源、版本、许可证、能力、脚本、允许范围和不运行的脚本；说完暂停提示后回课件】\n\n没有 MCP、连接器和 Hook。最后一项要我们自己写：允许它改哪里。只改游戏模块、入口和必要的样式。把这些写进 CH03_GAME_STUDIO_PLUGIN_LAB.md。请暂停视频，打开它的目录，逐项核对。"
-      ],
-      "refs": [
-        {
-          "kind": "live",
-          "group": "原文",
-          "text": "plugin.json",
-          "url": "https://github.com/openai/plugins/blob/82fd64bce3869f0d4c0bb2bf0e36a6e262ca5ad8/plugins/game-studio/.codex-plugin/plugin.json"
-        },
-        {
-          "kind": "live",
-          "group": "原文",
-          "text": "scripts/",
-          "url": "https://github.com/openai/plugins/tree/82fd64bce3869f0d4c0bb2bf0e36a6e262ca5ad8/plugins/game-studio/scripts"
-        }
-      ],
-      "teaching": [],
-      "source": "index.html#p25",
-      "seconds": 120
-    },
-    {
-      "id": "p26",
-      "segment": "审查",
-      "label": "Skill 里写了什么",
-      "title": "读两段 Skill 原文",
-      "lead": "第一段和 3.3 的经验对上了：计时器属于游戏状态。第二段先记住：2D 默认用 Phaser，除非用户另有要求。我们的 Brief 说要接进现有仓库，这会在 3.5 变成一个需要人做的决定。",
-      "html": "<div class=\"p-box\" data-role=\"tool\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"tool\">web-game-foundations/SKILL.md</span><p class=\"p-mono\" style=\"margin-top:8px;font-size:21px\">Separate simulation from rendering.<br>Simulation owns entities, turns, <b>timers</b>, collisions …</p></div><p class=\"p-sub\" data-reveal=\"1\" style=\"margin:8px 0 12px\">对照 3.3：等待翻回的计时器、步数，都是游戏状态的一部分</p><div class=\"p-box\" data-role=\"tool\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"tool\">game-studio/SKILL.md</span><p class=\"p-mono\" style=\"margin-top:8px;font-size:21px\">Default to a 2D <b>Phaser</b> path unless the user explicitly asks for …</p></div><div class=\"p-bar is-light\" data-reveal=\"3\">Skill 是<b>前人的经验</b>，不是我们的规则</div>",
-      "steps": [
-        "状态归属",
-        "对照 3.3",
-        "默认路线",
-        "怎么看待"
-      ],
-      "script": [
-        "【操作提示｜课件 p26 第 1 步，指向 web-game-foundations/SKILL.md 引文里的 timers。课件引文是节选，核对原文可在 Chrome 打开本页参考链接（固定提交），看完回课件】\n\n审查不只看 manifest，也读几段 Skill 原文。web-game-foundations 里有一条架构规则：把模拟和渲染分开；模拟负责实体、回合、计时器、碰撞……",
-        "【操作提示｜推进第 2 步，指向“对照 3.3”一行；不切窗口】\n\n对照 3.3：等待翻回的那个计时器、步数，都是游戏状态的一部分。我们踩坑摸到的经验，这里写成了一条规则。",
-        "【操作提示｜推进第 3 步，指向 game-studio/SKILL.md 引文里的 Phaser；不切窗口，3.5 的冲突只预告不展开】\n\n再看 game-studio 这个总入口的一句：2D 默认走 Phaser，除非用户明确要求别的。先记住这一句。我们的 Brief 会说“接进现有仓库、新依赖先说理由”，两者会在 3.5 碰上。",
-        "【操作提示｜推进第 4 步，指向底部“前人的经验，不是我们的规则”；不切窗口】\n\n所以怎么看待 Skill？它是前人的经验，写得很好，但它不是我们的规则。冲突的时候，由我们按证据决定。"
-      ],
-      "refs": [
-        {
-          "kind": "live",
-          "group": "原文",
-          "text": "web-game-foundations/SKILL.md",
-          "url": "https://github.com/openai/plugins/blob/82fd64bce3869f0d4c0bb2bf0e36a6e262ca5ad8/plugins/game-studio/skills/web-game-foundations/SKILL.md"
-        },
-        {
-          "kind": "live",
-          "group": "原文",
-          "text": "game-studio/SKILL.md",
-          "url": "https://github.com/openai/plugins/blob/82fd64bce3869f0d4c0bb2bf0e36a6e262ca5ad8/plugins/game-studio/skills/game-studio/SKILL.md"
-        }
-      ],
-      "teaching": [],
-      "source": "index.html#p26",
-      "seconds": 120
-    },
-    {
-      "id": "p27",
-      "segment": "怎么装",
-      "label": "三种装法",
-      "title": "同一份 Skill，三种装法",
-      "lead": "课程基线用 API key 登录，Codex 的官方插件目录是空的，也不能直接把官方仓库加成市场（市场名是保留名）。官方仓库里的 Skill 仍然能用：本课用课程准备的本地市场装插件，另外两种装法作对照。",
-      "html": "<div class=\"p-matrix\" style=\"grid-template-columns:minmax(0,1.3fr) repeat(3,minmax(0,1fr))\"><div class=\"is-head\" data-reveal=\"0\"><span></span><span>本地市场装插件</span><span>skill-installer</span><span>仓库 .agents/skills/</span></div><div data-reveal=\"0\"><span>装在哪</span><span>本机插件缓存</span><span>本机 ~/.codex/skills</span><span>项目仓库</span></div><div data-reveal=\"1\"><span>进不进 git</span><span>不进</span><span>不进</span><span>进</span></div><div data-reveal=\"1\"><span>停用</span><span>一个开关管 9 个</span><span>删目录</span><span>改仓库、提交</span></div><div data-reveal=\"2\" class=\"is-key\"><span>本课</span><span>✓ 主路径</span><span>对照</span><span>对照</span></div></div><p class=\"source-note\">三种装法均在课程基线（tools/clean-codex.sh，API key 登录）下实测，见 courseware/ch03/materials/plugin/README.md。ChatGPT 账号登录下的官方目录未测。</p>",
-      "steps": [
-        "装在哪",
-        "git 与停用",
-        "本课的选择"
-      ],
-      "script": [
-        "【操作提示｜课件 p27 第 1 步，指向表头和“装在哪”一行，以及底部来源说明。官方目录为空、市场名是保留名，都是 API key 登录下的预检记录（materials/plugin/README.md），不现场演示 /plugins 或把官方仓库加成市场】\n\n怎么装？先说一个实测结果：课程基线用 API key 登录，这时 Codex 的官方插件目录是空的，也不能把官方仓库直接加成市场，它的名字是保留名。但官方仓库里的 Skill 本身不需要账号，有三种装法。",
-        "【操作提示｜推进第 2 步，指向“进不进 git”“停用”两行；不切窗口，skill-installer 和 .agents/skills 两种装法不现场演示】\n\n第一种，课程准备了一个只含 Game Studio 的本地市场，从里面装插件。第二种，用 Codex 内置的 skill-installer，只把需要的 Skill 装到本机。第三种，把 Skill 目录直接放进仓库的 .agents/skills。区别在于：装在哪，进不进 git。只有第三种跟着仓库走，换台电脑、换个人都一样。",
-        "【操作提示｜推进第 3 步，指向“本课 ✓ 主路径”；不切窗口。安装命令在本页“复现这个实验”里，放到下一页再运行】\n\n停用也不同：插件一个开关管 9 个 Skill；另外两种要删目录或改仓库。本课用第一种，因为我们要完整走一遍插件的生命周期：审查、安装、使用、停用。另外两种记在审查记录里，3.6 还会用到“进不进 git”这个问题。"
-      ],
-      "repro": {
-        "label": "复现这个实验",
-        "steps": [
-          {
-            "text": "在课程仓库根目录，准备只含 Game Studio 的本地市场（固定到官方仓库的一个提交）",
-            "code": "courseware/ch03/materials/plugin/setup-marketplace.sh lab-runs/ch03-plugin/mkt"
-          },
-          {
-            "text": "在隔离环境里加入这个市场并安装",
-            "code": "CLEAN_CODEX_HOME=lab-runs/ch03-plugin/home tools/clean-codex.sh -- plugin list\nCLEAN_CODEX_KEEP_CONFIG=1 CLEAN_CODEX_HOME=lab-runs/ch03-plugin/home tools/clean-codex.sh -- plugin marketplace add \"$PWD/lab-runs/ch03-plugin/mkt\"\nCLEAN_CODEX_KEEP_CONFIG=1 CLEAN_CODEX_HOME=lab-runs/ch03-plugin/home tools/clean-codex.sh -- plugin add game-studio@course-lab"
-          }
-        ],
-        "note": "需要能访问 GitHub。用 ChatGPT 账号登录的 Codex 可直接在 /plugins 的官方目录里安装（未测）。"
-      },
-      "teaching": [],
-      "source": "index.html#p27",
-      "seconds": 90
-    },
-    {
-      "id": "p28",
-      "segment": "怎么装",
-      "label": "装好了，Codex 看到了什么",
-      "title": "装好了，请求里只多了 9 行",
-      "lead": "安装后开新会话。请求里出现 9 行“名称：描述（文件位置）”，一共约 2.3 KB；9 份 SKILL.md 全文约 37.8 KB，不在请求里。用到某个 Skill 时，Codex 才去读它的全文。",
-      "html": "<div class=\"p-code\" data-reveal=\"0\"><div class=\"p-code-head\"><span>新会话的第一次请求（节选）</span><span>9 行 · 2,352 字节</span></div><pre><span style=\"display:block\">- game-studio:phaser-2d-game: Implement 2D browser games …</span><span style=\"display:block\">- game-studio:web-game-foundations: Set browser-game …</span><span style=\"display:block\">  …（共 9 行）</span></pre></div><div class=\"p-pair\" style=\"grid-template-columns:1fr auto 1fr;margin-top:12px\" data-reveal=\"1\"><div class=\"p-box is-soft\" data-role=\"ctx\"><h3>平时</h3><p>名称 + 描述：2.3 KB</p></div><div class=\"p-join\"><span>用到时</span><i class=\"p-arrow\"></i></div><div class=\"p-box is-soft\" data-role=\"tool\"><h3>读全文</h3><p>9 份合计 37.8 KB</p></div></div>",
-      "steps": [
-        "新会话的请求",
-        "按需读取"
-      ],
-      "script": [
-        "【操作提示｜课件 p28 第 1 步，画面为 2026-10-06 的 claude-tap 记录节选。现场演示时切 Terminal，在课程仓库根目录按 p27“复现这个实验”的命令装好插件（需能访问 GitHub；市场目录已存在会报错），再用 CLEAN_CODEX_KEEP_CONFIG=1 CLEAN_CODEX_HOME=lab-runs/ch03-plugin/home tools/clean-codex.sh --tap 开新会话，发“只读：列出你现在能用的 skill 名称，不要读取任何文件。”；在浏览器自动打开的请求面板里找 game-studio: 开头的 9 行，行数和字节数以实际为准】\n\n审查通过，安装。装完要开一个新会话，Skill 才生效。用 2.1 学过的请求查看工具看新会话的第一次请求：多了 9 行，每行是一个 Skill 的名称、一句描述和文件位置，一共约 2.3 KB。",
-        "【操作提示｜推进第 2 步，指向“平时 2.3 KB / 读全文 37.8 KB”；两个数字是讲师统计，不现场计算。可回请求面板确认第一次请求里没有 SKILL.md 正文；暂停提示后回课件，插件保持启用，3.5 还要用】\n\n9 份 SKILL.md 的全文合起来约 37.8 KB，并不在请求里。平时只放名称和描述，Codex 判断用得上某个 Skill 时，才去读它的全文。这叫渐进披露。记住这个结构：平时只放摘要，需要时才展开。3.6 讲 Memory 时它还会出现。请暂停视频，安装，开新会话，在请求里找到这 9 行。"
-      ],
-      "teaching": [
-        {
-          "title": "备课参考",
-          "text": "数字来自课程基线下的一次请求（claude-tap 记录，2026-10-06），见 materials/plugin/README.md；安装前同一请求里没有这 9 行。"
-        }
-      ],
-      "source": "index.html#p28",
+      "source": "index.html#ui-opening",
       "seconds": 60
     },
     {
-      "id": "p29",
-      "segment": "小结",
-      "label": "本节小结",
-      "title": "先审，再装，再看它进了哪里",
-      "lead": "本节留下一份审查记录（来源、版本、许可证、能力、脚本、允许范围、不运行的脚本）和安装证据。审查不通过或装不上时，使用课程快照继续 3.5 的分析，但不记作插件实操通过。下一节：调用它做第二个游戏。",
-      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">一句话</h3><div class=\"p-star\" style=\"width:280px;font-size:22px\">Skill：经验<br>Plugin：打包</div></div><div data-reveal=\"1\"><h3>留下的</h3><ul class=\"p-exits\" style=\"gap:10px\"><li class=\"is-pass\">审查记录与允许范围</li><li class=\"is-pass\">安装与新会话证据</li><li class=\"is-stop\">不通过：课程快照，不记作实操</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"ctx\"><h3>3.5 插件的主张</h3><p>它说 Phaser，我们的 Brief 怎么说？</p></div></div></div>",
+      "id": "platform-map",
+      "title": "找 Skill，可以从三个入口开始",
+      "label": "找 Skill，可以从三个入口开始",
+      "segment": "寻找 Skill",
+      "lead": "",
+      "html": "<div class=\"resources-slide\"><div class=\"entry-map\"><div class=\"resource-box\"><h3>聚合平台</h3><p>集中搜索、按主题逛</p><span class=\"entry-symbol\">搜</span></div><div class=\"resource-box\"><h3>GitHub</h3><p>看项目说明与指导原文</p><span class=\"entry-symbol\">{ }</span></div><div class=\"resource-box\"><h3>直接找提供者</h3><p>Coding Agent 官方<br>技术团队 · 独立作者</p><span class=\"entry-symbol\">人</span></div></div><p class=\"quiet-line\">同一份 Skill，可能在几个入口都能找到</p></div>",
       "steps": [
-        "一句话",
-        "留下的",
-        "下一节"
+        "三种找法"
       ],
       "script": [
-        "【操作提示｜停留课件 p29 第 1 步，指向“Skill：经验 / Plugin：打包”；不切窗口】\n\nSkill 是经验，Plugin 是打包。",
-        "【操作提示｜推进第 2 步，指向“留下的”三项；可切 VS Code 展示 docs/evidence/CH03_GAME_STUDIO_PLUGIN_LAB.md 里已写的审查记录和安装证据，未录现场时只讲课件】\n\n这一节留下审查记录和安装证据，都写进 CH03_GAME_STUDIO_PLUGIN_LAB.md。如果审查不通过，或者你的环境装不上，就用课程快照继续 3.5 的分析，但要明确记下来：这不算插件实操通过。",
-        "【操作提示｜推进第 3 步，指向“3.5 插件的主张”卡片；不切窗口。本节结束不要停用插件】\n\n下一节，我们真的调用它做第二个游戏。它说 2D 默认 Phaser，我们的 Brief 会怎么说？"
+        "【操作提示｜PPT 课件：切第 2 页，三个寻找入口同屏】\n\n找 Skill，大致有这几个入口。聚合平台把不同作者的资源放在一起，适合搜索，也适合按主题随便逛一逛。GitHub 可以直接看一个项目的说明和指导原文。还有一种方式，是直接去看提供者发布的内容：既有 Coding Agent 官方，也有做前端工具的团队，还有持续分享作品的个人作者。同一个项目，可能在这几个地方都能找到。"
       ],
-      "teaching": [
-        {
-          "title": "跟做产出",
-          "text": "CH03_GAME_STUDIO_PLUGIN_LAB.md：审查结论、允许修改的范围、不运行的脚本；安装与新会话请求中 9 个 Skill 的证据。"
-        }
+      "teaching": [],
+      "source": "index.html#platform-map",
+      "seconds": 30
+    },
+    {
+      "id": "recommended-entries",
+      "title": "先收藏这几个入口",
+      "label": "先收藏这几个入口",
+      "segment": "寻找 Skill",
+      "lead": "",
+      "html": "<div class=\"resources-slide\"><div class=\"directory\"><section><h3>聚合平台</h3><div class=\"resource-item\"><a href=\"https://www.skills.sh/\" target=\"_blank\" rel=\"noopener\">skills.sh ↗</a><p>主题与热门</p></div><div class=\"resource-item\"><a href=\"https://skillsmp.com/search\" target=\"_blank\" rel=\"noopener\">SkillsMP ↗</a><p>按条件筛选</p></div></section><section><h3>GitHub 集合</h3><div class=\"resource-item\"><a href=\"https://github.com/anthropics/skills\" target=\"_blank\" rel=\"noopener\">Anthropic Skills ↗</a><p>Coding Agent 官方示例</p></div><div class=\"resource-item\"><a href=\"https://github.com/vercel-labs/agent-skills\" target=\"_blank\" rel=\"noopener\">Vercel agent-skills ↗</a><p>技术团队的前端指导</p></div><div class=\"resource-item\"><a href=\"https://github.com/obra/superpowers\" target=\"_blank\" rel=\"noopener\">Superpowers ↗</a><p>开发规划、测试与调试</p></div></section><section><h3>提供者网站</h3><div class=\"resource-item\"><a href=\"https://impeccable.style/\" target=\"_blank\" rel=\"noopener\">Impeccable ↗</a><p>看设计作品与说明</p></div><p class=\"directory-note\">按自己的需要<br>继续探索</p></section></div></div>",
+      "steps": [
+        "六个入口"
       ],
-      "source": "index.html#p29",
+      "script": [
+        "【操作提示｜PPT 课件：切第 3 页，指推荐入口及一句看点】\n\n可以先收藏这几个入口。skills.sh 适合看主题和热门资源，SkillsMP 可以按条件筛选。GitHub 上，Anthropic 的集合适合看官方示例，Vercel 的集合偏前端实践，Superpowers 则包含规划、测试这些开发工作流。设计类还可以看 Impeccable 的作品网站。这里的链接可以留着按需要探索，我们先打开 skills.sh，拿刚才的 frontend-design 找一次。"
+      ],
+      "teaching": [],
+      "source": "index.html#recommended-entries",
+      "seconds": 30
+    },
+    {
+      "id": "lifecycle-slide",
+      "title": "Skill 也会更新，或不再需要",
+      "label": "Skill 也会更新，或不再需要",
+      "segment": "持续追踪",
+      "lead": "",
+      "html": "<div class=\"resources-slide\"><div class=\"life-layout\"><div class=\"resource-box\"><h3>有的被移除</h3><p>Matt Pocock · 合并冲突 Skill</p><p class=\"life-main\">作者认为 agent 已能处理<br>移除专门指导</p><p class=\"condition\">较弱模型可能仍需要</p><a href=\"https://www.aihero.dev/skills-changelog-v13-implement-spec-pr-retro-and-glossary-md\" target=\"_blank\" rel=\"noopener\">v1.3 更新说明 · 2026-10-05 ↗</a></div><div class=\"resource-box\" data-reveal=\"1\"><h3>有的调整写法</h3><p>Superpowers · writing-plans</p><p class=\"life-main\">针对提前开始实现的行为<br>让指导更聚焦于规划</p><a href=\"https://github.com/obra/superpowers/blob/main/RELEASE-NOTES.md#v642-2026-09-25\" target=\"_blank\" rel=\"noopener\">v6.4.2 · 2026-09-25 ↗</a></div></div></div>",
+      "steps": [
+        "移除与适用条件",
+        "更新与持续关注"
+      ],
+      "script": [
+        "【操作提示｜PPT 课件：回到第 4 页第 1 步，看移除案例及条件】\n\n这些入口可以收藏，但里面的 Skill 不一定会一直适用。Matt Pocock 就移除过一份解决合并冲突的 Skill：他发现自己用的 agent 已经能处理这件事，不再需要专门指导。不过，用能力较弱的模型，仍可能需要它。同一份 Skill 有没有用，也会随着使用条件变化。",
+        "【操作提示｜PPT 课件：推进第 2 步，看更新案例】\n\n还有一些 Skill 会继续保留，但写法会调整。Superpowers 的更新记录提到，有些模型在写计划时会提前尝试实现项目，因此修改了 writing-plans，让它更集中地记录实现需要的决定。模型、工具和使用方式都在变，我们平时看一些官方和实践者的内容，就更容易注意到这些变化。"
+      ],
+      "teaching": [],
+      "source": "index.html#lifecycle-slide",
+      "seconds": 60
+    },
+    {
+      "id": "official-slide",
+      "title": "先关注自己正在用的工具",
+      "label": "先关注自己正在用的工具",
+      "segment": "持续追踪",
+      "lead": "",
+      "html": "<div class=\"resources-slide\"><div class=\"official-layout\"><div class=\"resource-box\"><h3>Codex</h3><p>功能变化 · 当前用法</p><div class=\"resource-item\"><a href=\"https://developers.openai.com/codex/changelog/\" target=\"_blank\" rel=\"noopener\">更新记录 ↗</a><p>发布了什么</p></div><div class=\"resource-item\"><a href=\"https://developers.openai.com/codex/skills/\" target=\"_blank\" rel=\"noopener\">Skill 文档 ↗</a><p>现在怎么用</p></div></div><div class=\"resource-box\"><h3>Claude Code</h3><p>产品更新 · 工作方法</p><div class=\"resource-item\"><a href=\"https://code.claude.com/docs/en/changelog\" target=\"_blank\" rel=\"noopener\">Changelog ↗</a><p>版本变化</p></div><div class=\"resource-item\"><a href=\"https://claude.com/code-with-claude/san-francisco\" target=\"_blank\" rel=\"noopener\">Code with Claude ↗</a><p>官方活动与主题录像</p></div></div></div><p class=\"quiet-line\">使用 Cursor，也可以关注 <a href=\"https://cursor.com/changelog\" target=\"_blank\" rel=\"noopener\">Cursor Changelog ↗</a></p></div>",
+      "steps": [
+        "官方渠道"
+      ],
+      "script": [
+        "【操作提示｜PPT 课件：切第 5 页，按所用工具指官方入口】\n\n官方渠道，先关注自己正在用的工具。用 Codex，就看更新记录了解新功能，看文档查当前用法。Claude Code 也有更新记录；想看工作方法，还可以看 Code with Claude 的官方活动录像。用 Cursor 的同学，收藏它的更新页就可以。"
+      ],
+      "teaching": [],
+      "source": "index.html#official-slide",
+      "seconds": 30
+    },
+    {
+      "id": "authors-slide",
+      "title": "看实践者怎么用，也看他们怎么改",
+      "label": "看实践者怎么用，也看他们怎么改",
+      "segment": "持续追踪",
+      "lead": "",
+      "html": "<div class=\"resources-slide\"><div class=\"author-layout\"><section><h3>Matt Pocock</h3><p>开发做法 · Skill · 文章与视频</p><a href=\"https://www.aihero.dev/videos\" target=\"_blank\" rel=\"noopener\">AI Hero ↗</a></section><section><h3>Simon Willison</h3><p>实验记录 · 原始链接 · 使用限制</p><a href=\"https://simonwillison.net/tags/skills/\" target=\"_blank\" rel=\"noopener\">Skills 专题 ↗</a></section></div><div class=\"author-more\" data-reveal=\"1\"><span>进阶：<a href=\"https://blog.fsck.com/\" target=\"_blank\" rel=\"noopener\">Jesse Vincent ↗</a> · 工作流回顾</span><strong>所用工具的官方渠道 ＋ 一两位实践者</strong></div></div>",
+      "steps": [
+        "两位互补的作者",
+        "按需要选择"
+      ],
+      "script": [
+        "【操作提示｜PPT 课件：切第 6 页第 1 步，介绍 Matt 与 Simon】\n\n实践者的内容，主要看他们怎么把工具用到任务里，以及之后做了哪些调整。Matt Pocock 的 AI Hero 有文章、视频和 Skill 项目，适合结合具体开发做法来看。Simon Willison 会记录实验和原始链接，适合了解新能力，也看看它在实际尝试中有哪些限制。",
+        "【操作提示｜PPT 课件：推进第 2 步，补充 Jesse 与起步组合】\n\n如果想继续深入，可以看 Superpowers 作者 Jesse Vincent 对工作流的回顾。刚开始不必把这些人全部追完：先选自己所用工具的官方渠道，再加一两位看得进去、内容互补的作者。文章或视频都可以，重要的是能持续看到具体做法和后续修正。"
+      ],
+      "teaching": [],
+      "source": "index.html#authors-slide",
+      "seconds": 60
+    },
+    {
+      "id": "tips-slide",
+      "title": "三个顺手可用的小技巧",
+      "label": "三个顺手可用的小技巧",
+      "segment": "实用 tips",
+      "lead": "",
+      "html": "<div class=\"resources-slide\"><div class=\"tips-layout\"><div class=\"resource-box\"><h3>沿资源找作者</h3><p>一份 Skill → 作者 → 更多项目与文章</p><a href=\"https://github.com/mattpocock/skills\" target=\"_blank\" rel=\"noopener\">Matt 的 Skills 仓库 ↗</a></div><div class=\"resource-box\" data-reveal=\"1\"><h3>同名，看来源</h3><p>记下 owner / repo<br>别只记 Skill 名称</p></div><div class=\"resource-box\" data-reveal=\"2\"><h3>留意维护状态</h3><p>有安装说明，也可能已归档</p><span class=\"archived\">Archived</span><p><a href=\"https://www.aihero.dev/skills-resolving-merge-conflicts\" target=\"_blank\" rel=\"noopener\">归档页示例 ↗</a></p></div></div></div>",
+      "steps": [
+        "反向追踪",
+        "辨认同名",
+        "维护状态"
+      ],
+      "script": [
+        "【操作提示｜PPT 课件：切第 7 页第 1 步，介绍反向追踪】\n\n最后补三个小技巧，找资源和追踪信息时都用得上。第一个，遇到喜欢的 Skill，可以顺着它找到作者。我们用刚才介绍过的 Matt 看一下。",
+        "【操作提示｜PPT 课件：回到第 7 页第 2 步，展开同名看来源】\n\n第二个，同名的 Skill 要认一下来源。前面搜 frontend-design，就可能遇到不同作者的同名条目。记下作者和仓库，比只记名字更容易找回原来的那一份。",
+        "【操作提示｜PPT 课件：推进第 3 步，展开归档提示并收束】\n\n第三个，有安装说明，也要看维护状态。刚才提到的合并冲突 Skill，旧页面还在，但已经标了 Archived，也就是已归档。遇到这种提示，要再看作者的说明。今天这些入口可以先收藏起来，遇到需要再去找；平时选少量来源持续看就够了。"
+      ],
+      "teaching": [],
+      "source": "index.html#tips-slide",
       "seconds": 90
     }
   ],
   "segments": [
     {
-      "label": "开篇",
-      "seconds": 90
-    },
-    {
-      "label": "是什么",
-      "seconds": 120
-    },
-    {
-      "label": "审查",
+      "label": "寻找 Skill",
       "seconds": 240
     },
     {
-      "label": "怎么装",
-      "seconds": 150
+      "label": "持续追踪",
+      "seconds": 300
     },
     {
-      "label": "小结",
-      "seconds": 90
+      "label": "实用 tips",
+      "seconds": 150
     }
   ]
 };

@@ -1,168 +1,105 @@
 #!/usr/bin/env python3
-"""3.3 挑一个缺陷，按证据修：本节唯一的内容源，生成 lesson.js。
-
-分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch03/tools/lessonkit.py。
-调查与修复的真实输出见 courseware/ch03/materials/mainline/reference/（由 debug-3.3.sh 运行得到）。
-"""
+"""Build the seven slides for 3.3 using the chapter player."""
 import sys
-from html import escape
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from lessonkit import Lesson, MEASURED, NARROW, diff_boxes, pop, repro, teach  # noqa: E402
+from lessonkit import Lesson  # noqa: E402
 
-lesson = Lesson(__file__, "3.3", "挑一个缺陷，按证据修", summary="先复现，再让 Codex 只调查，由人定规则，最后最小修改；调查常常比报告看得更深。")
-scene = lesson.scene
-
-REF = Path(__file__).resolve().parents[3] / "materials" / "mainline" / "reference"
-RUN = "调查与修复来自 2026-10-06 的两次排练（courseware/ch03/materials/mainline/debug-3.3.sh），两次调查结论一致。" + MEASURED
-INVESTIGATE = (REF.parent / "fixtures" / "prompt-3.3-investigate.txt").read_text().strip()
-CONFIRM = (REF.parent / "fixtures" / "confirm-3.3.txt").read_text().strip()
-FIX_DIFF = REF / "3.3-fix.diff"
-FIX_STAT = (REF / "3.3-fix.diffstat").read_text().strip().splitlines() if (REF / "3.3-fix.diffstat").exists() else []
-
-scene(
-    id="p15", segment="挑一个", layout="lesson-cover",
-    label="挑哪一个", title="挑一个缺陷，按证据修",
-    lead="从 3.2 的问题清单里挑最先看到、最能稳定复现的那一条：翻错时步数不动",
-    html=(
-        '<div class="p-pair" style="grid-template-columns:1fr auto 1fr;margin-top:10px">'
-        '<div class="p-box" data-role="gate" data-reveal="0"><span class="p-tag" data-role="gate">缺陷</span><h3>一局打不完</h3><p>12 张牌找不到一对</p></div>'
-        '<div class="p-join" data-reveal="1"><span>先挑</span><i class="p-arrow"></i></div>'
-        '<div class="p-box" data-role="us" data-reveal="1"><span class="p-tag" data-role="us">最先看到的现象</span><h3>翻错时步数不动</h3><p>每次都能复现</p></div></div>'
-        '<div class="p-bar is-light" data-reveal="2">流程：<b>复现 → 只读调查 → 人定规则 → 最小修改 → 复验</b></div>'
-    ),
-    steps=["清单", "挑一条", "这一节的流程"],
+lesson = Lesson(
+    __file__, "3.3", "修改 Skill，并用它开发躲避游戏",
+    summary="从同一个参考游戏生成两份 Skill，再用同一个开发任务核对实际复用了什么。",
 )
 
-scene(
-    id="p16", segment="复现",
-    label="能稳定复现吗", title="先复现三次，再写报告",
-    lead="同样的步骤做三次，结果都一样，才算稳定复现；然后写成报告：步骤、期望、实际。不能稳定复现，就先别修。",
-    html=(
-        '<div class="p-rec" style="grid-template-columns:minmax(0,.5fr) minmax(0,1.6fr) minmax(0,.8fr);row-gap:10px;--rf:21px">'
-        '<div class="is-head" data-reveal="0"><span>次</span><span>步骤</span><span>步数</span></div>'
-        '<div data-reveal="0"><span class="p-cell">1</span><span class="p-cell">开新一局 → 翻开两张不同的牌 → 等它们翻回</span><span class="p-cell">0</span></div>'
-        '<div data-reveal="1"><span class="p-cell">2、3</span><span class="p-cell">同上</span><span class="p-cell">0、0</span></div></div>'
-        '<div class="p-code" data-reveal="2" style="margin-top:12px"><div class="p-code-head"><span>缺陷报告（讲师写的）</span></div>'
-        '<pre><span style="display:block">期望：步数变成 1（页面写着“看看你要用多少步”）</span><span style="display:block">实际：步数还是 0；<span class="hl">只有配对成功时步数才加 1</span></span></pre></div>'
-    ),
-    steps=["第一次", "再做两次", "写成报告"],
+def link(target, label):
+    return f'<a href="evidence/{target}" target="_blank" rel="noopener">{label} ↗</a>'
+
+
+def wrap(body, links):
+    return '<div class="skill-slide">' + body + '<nav class="skill-evidence" aria-label="本页材料">' + links + '</nav></div>'
+
+
+lesson.scene(
+    id="skill-inputs", segment="生成与审阅", label="两种复用要求",
+    title="同一款翻牌游戏，两种复用要求", lead="共用截图、源码和可见开发对话，在独立会话中生成",
+    html=wrap(
+        '<div class="skill-inputs"><figure class="skill-reference"><img src="evidence/reference.png" alt="紫色翻牌游戏，数据栏位于卡片上方"><figcaption>同一作品：截图、源码、开发对话</figcaption></figure>'
+        '<div class="skill-requests" data-reveal="1"><div class="p-box" data-role="agent"><h3>整页模板组</h3><p>标题、横排 HUD、居中场地、结算浮层</p><strong>换玩法时，默认保留页面布局</strong></div>'
+        '<div class="p-box" data-role="agent"><h3>按需组件组</h3><p>主题、数据卡、结算浮层可单独用</p><strong>实时读数靠近场地，位置按玩法安排</strong></div></div></div>',
+        link('index.html#reference', '参考作品原图')),
+    steps=["参考作品", "并行生成"],
 )
 
-scene(
-    id="p17", segment="只读调查",
-    label="先让 Codex 只调查", title="先让 Codex 只调查，不改代码",
-    lead="缺陷报告已经写好：步骤、期望、实际。现在把它交给 Codex，但先只让它调查、不让它改：给只读权限，要它列出可以验证的假设、代码位置和几种改法的代价，由我们确认后再动手。",
-    closing="调查给出了两个独立缺陷。第二个是报告里没有的：12 个词各不相同，配对成功的分支永远走不到，这也解释了 3.2 里“一局打不完”。页面上的结论来自讲师的两次排练，两次都查出了这一层；在自己的项目里重做时，回答的措辞和结构会不一样。结论听起来合理还不够，下一页打开它指出的代码位置逐行核对。",
-    html=(
-        '<div class="p-pair" style="grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);align-items:start">'
-        '<div class="p-box" data-role="us" data-reveal="0"><span class="p-tag" data-role="us">请求 · read-only</span>'
-        '<ol class="p-notes" style="margin-top:8px"><li><span><b>复现步骤、期望、实际</b><small>就是刚才的报告</small></span></li>'
-        '<li><span><b>可以验证的假设</b><small>每条写出怎样验证</small></span></li><li><span><b>代码位置</b></span></li>'
-        '<li><span><b>几种改法和代价</b><small>我确认后再改</small></span></li></ol></div>'
-        '<div class="p-box" data-role="agent" data-reveal="1"><span class="p-tag" data-role="agent">Codex 的结论</span>'
-        '<p class="p-big" style="font-weight:600;margin-top:8px">有两个独立缺陷，第二个让第一个无法单独验证</p>'
-        '<ol class="p-notes"><li data-reveal="1"><span><b>步数只在配对成功的分支里加</b></span></li>'
-        '<li data-reveal="2"><span><b>12 个词各不相同，一对都配不上</b><small>配对分支永远走不到</small></span></li></ol></div></div>'
-        '<p class="source-note">' + RUN + '</p>'
-    ),
-    repro=repro([("把这段请求发给 Codex（只读权限）", INVESTIGATE)], label="请求原文"),
-    steps=["只读请求", "第一层", "第二层"],
-    teaching=teach(("讲师提示", "调查回答以录制实际为准；保存原文进记录。排练两次的完整回答见 materials/mainline/reference/。")),
+lesson.scene(
+    id="skill-files", segment="生成与审阅", label="正文与配套文件",
+    title="沿正文找到开发要用的文件", lead="正文交代起点，也交代配套文件怎样使用",
+    html=wrap(
+        '<div class="skill-files"><div class="skill-route"><h3>整页模板组</h3><div class="p-box"><b>SKILL.md</b><p>从整页模板起步，保留布局</p></div><div class="skill-connector">↓ 作为项目起点</div><div class="p-box" data-role="context"><code>templates/index.html</code><p>页面结构与配套交互</p></div></div>'
+        '<div class="skill-route" data-reveal="1"><h3>按需组件组</h3><div class="p-box"><b>SKILL.md</b><p>正文给布局规则，再取用部件</p></div><div class="skill-resources"><div><div class="skill-connector">↓ 查阅具体方案</div><div class="p-box" data-role="context"><code>references/layout.md</code><p>玩法、布局形式与类名</p></div></div><div data-reveal="2"><div class="skill-connector">↓ 采用实现</div><div class="p-box" data-role="context"><code>stat-cards.css</code><p>可直接用的数据卡样式</p></div></div></div></div></div>',
+        link('index.html#layout-template-skill', '正文与模板') + link('index.html#layout-component-reference', '布局 Reference') + link('index.html#layout-component-resource', '数据卡 CSS')),
+    steps=["整页模板", "布局 Reference", "可用资源"],
 )
 
-scene(
-    id="p18", segment="只读调查",
-    label="根因在哪", title="用代码位置验证，不靠“听起来合理”",
-    lead="打开它指出的位置自己看：词表 12 个词；生成牌组时每个词只生成一张；配对判断要求两张的词相同，永远不成立；步数只在这个分支里加。",
-    html=(
-        NARROW + '<style>.p-walk .p-src .p-ln i{width:56px;white-space:nowrap}</style>' +
-        '<div class="p-walk"><div data-reveal="0"><div class="p-src" style="--lh:34px">'
-        '<div class="p-fn">src/components/MemoryGame.tsx</div>'
-        '<div class="p-ln"><i>4</i><code>const CARD_FACES = [<span class="s">\'需求\'</span>, <span class="s">\'迭代\'</span>, …共 12 个]</code></div>'
-        '<div class="p-ln"><i>43</i><code>CARD_FACES.map((face, id) =&gt; ({ id, face, … }))</code></div>'
-        '<div class="p-ln"><i>107</i><code>if (first.face === second.face) {</code></div>'
-        '<div class="p-ln"><i>116</i><code>    setMoves((prev) =&gt; prev + 1)</code></div>'
-        '<div class="p-ln"><i>121</i><code>}  // 翻错：翻回，没有计步</code></div></div></div>'
-        '<ol class="p-notes"><li data-reveal="0"><span><b>12 个词</b><small>各不相同</small></span></li>'
-        '<li data-reveal="1"><span><b>每词一张</b><small>map 只做一对一</small></span></li>'
-        '<li class="is-risk" data-reveal="2"><span><b>永远不相等</b><small>配对分支走不到</small></span></li>'
-        '<li data-reveal="3"><span><b>步数只在这里加</b><small>所以永远是 0</small></span></li></ol></div>'
-    ),
-    steps=["词表", "生成牌组", "配对判断", "计步"],
-    teaching=teach(("讲师提示", "行号来自排练实现；学员的实现不同，按 Codex 指出的位置读。")),
+lesson.scene(
+    id="skill-games", segment="开发与试玩", label="同任务的两款游戏",
+    title="同样三项数据，两种场地布局", lead="任务规定时间、得分、生命；截图均取开局约 3 秒",
+    html=wrap(
+        '<div class="skill-games"><figure><figcaption><b>整页模板组</b>　场地上方横排（截图上部）</figcaption><a href="evidence/layout-template.png" target="_blank" rel="noopener"><img src="evidence/layout-template.png" alt="整页组：时间、得分和生命横排在场地上方"></a></figure>'
+        '<figure><figcaption><b>按需组件组</b>　场地右侧竖排（截图上部）</figcaption><a href="evidence/layout-components.png" target="_blank" rel="noopener"><img src="evidence/layout-components.png" alt="组件组：时间、得分和生命竖排在场地右侧"></a></figure></div>'
+        '<div class="skill-trace" data-reveal="1"><span>正文与 Reference：布局建议</span><span>读取记录 + 成品侧栏类名</span><b>核对查阅与实际采用</b></div>',
+        link('index.html#layout-run-hud', '读取记录与侧栏类名')),
+    steps=["同状态画面", "回查布局依据"],
 )
 
-scene(
-    id="p19", segment="观察与推断",
-    label="我的报告哪里不对", title="观察到的，还是从代码推的？",
-    lead="Codex 反问报告里的那一句。它说得对：在这副牌里，配对成功根本不可能发生，那一句是讲师读代码推出来的，不是在页面上看到的。报告里要把观察和推断分开写。",
-    html=(
-        '<div class="p-claim" style="grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)">'
-        '<div class="p-box" data-role="us" data-reveal="0"><span class="p-tag" data-role="us">报告里的一句</span><p class="p-big" style="font-weight:500;margin-top:8px">“只有配对成功时步数才加 1”</p></div>'
-        '<div class="p-box" data-role="agent" data-reveal="1"><span class="p-tag" data-role="agent">Codex 反问</span><p style="margin-top:8px;line-height:1.6">这是在页面上看到的，还是从代码推的？按当前牌堆，<b>不可能观察到配对成功</b></p></div></div>'
-        '<div class="p-pair" style="grid-template-columns:1fr 1fr;margin-top:14px" data-reveal="2">'
-        '<div class="p-box is-soft" data-role="ok"><h3>观察</h3><p>翻错，步数是 0（三次）</p></div>'
-        '<div class="p-box is-soft" data-role="ink"><h3>推断（要标出来）</h3><p>配对成功时会加 1</p></div></div>'
-    ),
-    steps=["报告", "反问", "分开写"],
+lesson.scene(
+    id="skill-reuse", segment="开发与试玩", label="实际复用的交互",
+    title="结算时看见实际复用了什么", lead="回到同次运行的画面与代码，核对这次带进项目的内容",
+    html=wrap(
+        '<div class="skill-reuse"><div data-reveal="1"><h3>整页模板组：页面与已有交互</h3><div class="skill-result-pair"><div class="p-box"><b>第一局结算</b><p>得分 10 · 切到静音</p></div><span>刷新<br>再玩 →</span><div class="p-box"><b>第二局结算</b><p>得分 0 · 最佳 10</p><p>仍为静音</p></div></div><p class="skill-proof">模板的保存逻辑接到了新游戏</p>'
+        '<div class="skill-local-links">' + link('layout-first-result.jpg', '第一局') + link('layout-second-result.jpg', '刷新后') + link('index.html#layout-run-storage', '模板与项目代码') + '</div></div>'
+        '<div><h3>按需组件组：同一个浮层，两次使用</h3><div class="p-box skill-overlay"><code>ResultOverlay</code><p>同一个实例，各自提供内容和按钮</p></div><div class="skill-result-pair"><div class="p-box"><b>开场</b><p>规则 + 开始按钮</p></div><div class="p-box"><b>结算</b><p>成绩 + 重开按钮</p></div></div><div class="skill-local-links">' + link('layout-components-opening.jpg', '开场') + link('layout-components-ending.jpg', '结算') + link('index.html#layout-run-overlay', '两处调用') + '</div></div></div>'
+        '<div class="skill-takeaway" data-reveal="2">以组件组为基础，保留布局选择，再补事件音效</div>', ''),
+    steps=["开场与结算", "刷新复验", "回看两份 Skill"],
 )
 
-scene(
-    id="p20", segment="人定规则",
-    label="改之前先定什么", title="改之前，先由人定两条规则",
-    lead="它给了几种改法，但有两件事它明确说不替我们定：用哪几个词配对（文案取舍）；步数怎么算。这是规则，不是代码问题。",
-    html=(
-        '<div class="p-pair" style="grid-template-columns:1fr 1fr">'
-        '<div class="p-box" data-role="gate" data-reveal="0"><span class="p-tag" data-role="gate">问题一</span><h3>用哪几个词配对？</h3><p class="p-sub">Codex：“文案取舍是你的决定，我不自行定”</p></div>'
-        '<div class="p-box" data-role="gate" data-reveal="1"><span class="p-tag" data-role="gate">问题二</span><h3>步数怎么算？</h3><p class="p-sub">一张算一步？两张算一步？翻错算吗？</p></div></div>'
-        '<div class="p-box" data-role="us" data-reveal="2" style="margin-top:14px"><span class="p-tag" data-role="us">我们定</span>'
-        '<p style="margin-top:6px;line-height:1.7">6 对：需求、迭代、推理、部署、验收、协作<br>步数：每翻开两张算一步，成功和失败都算</p></div>'
-    ),
-    repro=repro([("在同一会话里回复 Codex（可写权限）", CONFIRM)], label="回复原文"),
-    steps=["哪几个词", "步数怎么算", "我们定"],
+lesson.scene(
+    id="audio-goal", segment="音效迭代", label="新增与保留",
+    title="保留组件的自由，补上事件音效", lead="以组件组为基础，先说清这次想改变什么",
+    html=wrap(
+        '<div class="audio-goal"><figure><img src="evidence/layout-components.png" alt="历史组件游戏：场地与侧边读数"><figcaption>组件组 · 按玩法组织界面</figcaption></figure>'
+        '<div class="audio-intent"><section><h3>继续保留</h3><p>侧边读数 · 开场确认</p><p>限时收集进度 · 可见反馈 · 结算重开</p></section>'
+        '<section class="audio-add"><h3>这次增加</h3><p>收集、受伤时有声音</p><p>玩家可以关闭音效</p></section></div></div>'
+        '<div class="skill-takeaway">检查新增能力，也检查原来想保留的体验</div>',
+        link('audio-iteration/index.html#versions','两组历史游戏') + link('audio-iteration/index.html#origin','声音来源')),
+    steps=["新增与保留"],
 )
 
-fix_html = diff_boxes(FIX_DIFF) if FIX_DIFF.exists() else '<p class="p-sub">修复 diff 待补</p>'
-stat_rows = "".join(f"<div>{escape(r.split('|')[0].strip() + ('  | ' + r.split('|')[1].strip().split()[0] if '|' in r else ''))}</div>" for r in FIX_STAT[-3:]) or "<div>待补</div>"
-scene(
-    id="p21", segment="修改与复验",
-    label="改对了吗", title="最小修改，再看相邻场景",
-    lead="先看范围：只动了游戏组件。再复验：原来的场景（翻错一次，步数变成 1），以及相邻场景：配对成功、完整打完一局、重开、最佳成绩，最后 build。",
-    html=(
-        '<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start">'
-        '<div><div class="p-term" data-reveal="0"><div class="dim">$ git diff --stat</div>' + stat_rows + '</div>'
-        '<div data-reveal="0" style="margin-top:8px">' + pop("修复的完整 diff", "看完整 diff", NARROW + fix_html) + '</div>'
-        '<p class="p-links" data-reveal="3" style="margin-top:12px"><a href="../../practice/memory-v0/index.html" target="_blank" rel="noopener">试玩修复前的版本</a><a href="../../practice/memory-v1/index.html" target="_blank" rel="noopener">试玩修复后的版本</a></p>'
-        '</div>'
-        '<ul class="p-checks">'
-        '<li data-reveal="1">翻错一次<small>步数 1</small></li>'
-        '<li data-reveal="2">配对成功<small>步数也加 1，剩余减 1</small></li>'
-        '<li data-reveal="2">完整打完一局<small>6 对配完，显示完成</small></li>'
-        '<li data-reveal="2">重开、最佳成绩<small>归零；最佳不被更差的一局覆盖</small></li>'
-        '<li data-reveal="3">npm run build<small>成功</small></li></ul></div>'
-        '<p class="source-note">' + RUN + '</p>'
-    ),
-    steps=["范围", "原场景", "相邻场景", "build"],
-    teaching=teach(("讲师提示", "复验由人在浏览器里做；讲师批量重跑时用 probe2.py 代检，结果在 materials/mainline/reference/。")),
-    repro=repro([
-        ("在课程仓库根目录，用排练第 8 轮的实现重跑一遍“只读调查 → 人定规则 → 修复”", "courseware/ch03/materials/mainline/debug-3.3.sh"),
-    ], note="需要 MINIMAX_API_KEY 与第 8 轮的运行目录；回答每次会不同。"),
+lesson.scene(
+    id="audio-package", segment="音效迭代", label="指导与资源",
+    title="指导说明怎么用，资源提供实现", lead="实际修改：正文追加接入要求，组件包新增一个声音文件",
+    html=wrap(
+        '<div class="audio-package"><section class="audio-file"><header>SKILL.md · 新增指导</header><p>复制、导入声音资源</p><p>收集与受伤各调用一次</p><p>接入静音，保留可见反馈</p><p>复查声音与原有体验</p></section>'
+        '<div class="audio-join">指向<br>→</div>'
+        '<section class="audio-file"><header>purple-sound.js · 独立资源</header><code>sfx.pickup()<br>sfx.hurt()<br>setSoundEnabled(value)</code><p>来自历史整页游戏的声音实现</p><p>不依赖 HUD 的位置</p></section></div>'
+        '<div class="audio-unchanged">原有三个 CSS 与 UI kit 未改　→　还要用新游戏检查结果</div>',
+        link('audio-iteration/index.html#change','实际修改差异') + link('audio-iteration/index.html#generate','共同请求与采用记录')),
+    steps=["审阅修改范围"],
 )
 
-scene(
-    id="p22", segment="小结",
-    label="本节小结", title="调查常常比报告看得更深",
-    lead="本节留下修复后的记忆翻牌、一份缺陷记录和一条我们自己定的规则（步数怎么算）。代码和记录分两次提交。下一节：做第二个游戏前，先看看做游戏的经验有没有人打包好了。",
-    html=(
-        '<div class="p-sketch" style="align-items:start"><div data-reveal="0"><h3 style="text-align:center">五步</h3>'
-        '<div class="p-flow" style="--n:5;font-size:18px"><div class="p-node"><b>复现</b></div><div class="p-node"><b>只读调查</b></div><div class="p-node" data-role="us"><b>人定规则</b></div><div class="p-node"><b>最小修改</b></div><div class="p-node" data-role="ok"><b>复验</b></div></div></div>'
-        '<div data-reveal="1"><h3>留下的</h3><ul class="p-exits" style="gap:10px"><li class="is-pass">修复后的记忆翻牌</li><li class="is-pass">缺陷记录：观察与推断分开</li><li class="is-pass">规则：步数怎么算</li></ul></div>'
-        '<div class="p-next" data-reveal="2"><h3>下一节</h3><div class="p-box" data-role="tool"><h3>3.4 审插件</h3><p>做游戏的经验，有人打包好了吗？</p></div></div></div>'
-    ),
-    steps=["五步", "留下的", "下一节"],
-    teaching=teach(("跟做产出", "缺陷记录（复现步骤、观察与推断、假设、根因、修复、复验）；定下的规则；修复后的记忆翻牌的代码提交与记录提交。")),
+lesson.scene(
+    id="audio-result", segment="音效迭代", label="按结果取舍",
+    title="按需求验收，再决定是否保留", lead="本轮对照：原组件版与音效修复版，使用同一条开发请求",
+    html=wrap(
+        '<div class="audio-verdict"><section><h3>新增能力</h3><p>收集、受伤有声音</p><p>静音后停止播放</p><b>本轮已接入</b></section>'
+        '<section><h3>请求明确的保留项</h3><p>开场确认、侧栏布局</p><p>限时进度、视觉反馈、重开</p><b>主要约定体验仍在</b></section>'
+        '<section class="audio-remaining"><h3>继续处理</h3><p>结算显示了文字标签</p><p>若交付触屏操作，须补实现</p><b>回到游戏继续修</b></section></div>'
+        '<div class="skill-takeaway">保留这次 Skill 修改；换玩法后继续实际验证</div>',
+        link('audio-iteration/before/index.html','原组件版') + link('audio-iteration/after/index.html','音效修复版') + link('audio-iteration/index.html#compare','前后实拍与结果')),
+    steps=["对照需求取舍"],
 )
 
 lesson.write()
+
+# Preserve legacy evidence anchors as routes to retained original records.
+import subprocess
+subprocess.run([sys.executable, str(Path(__file__).resolve().parents[5] / "tools/ch03-showcase/sync-process-links.py")], check=True)

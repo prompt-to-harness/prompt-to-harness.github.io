@@ -1,0 +1,14 @@
+flowchart LR
+  subgraph Skill[一份 Skill]
+    subgraph Entry[SKILL.md]
+      Meta[文件头：识别与选用]
+      Body[正文：核心工作指导]
+    end
+    Ref[references：查阅细节]
+    Script[scripts：执行处理]
+    Asset[assets：使用材料]
+    Body -->|查阅| Ref
+    Body -->|运行| Script
+    Body -->|使用| Asset
+  end
+  Body -.->|引用专项指导| Other[另一份 Skill 的 SKILL.md]

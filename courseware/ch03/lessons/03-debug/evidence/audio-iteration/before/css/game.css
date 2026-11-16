@@ -1,0 +1,112 @@
+/* 游戏自有布局与场地样式，颜色一律引用 --pg-* 令牌 */
+
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(14px, 3vw, 26px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 2vw, 18px);
+  min-height: 100vh;
+}
+
+.head { text-align: center; }
+
+/* 场地 + 侧边 rail HUD */
+.game {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "field hud";
+  gap: 12px;
+  align-items: start;
+}
+
+.field {
+  grid-area: field;
+  position: relative;
+  border-radius: var(--pg-radius);
+  border: 1px solid var(--pg-border);
+  background:
+    radial-gradient(600px 320px at 20% 0%, rgba(124, 140, 255, 0.16), transparent 60%),
+    rgba(8, 11, 26, 0.72);
+  overflow: hidden;
+  box-shadow: var(--pg-shadow);
+  touch-action: none;
+}
+
+.field canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+}
+
+.field__toast {
+  position: absolute;
+  left: 50%;
+  top: 14px;
+  transform: translate(-50%, -12px);
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(9, 12, 28, 0.8);
+  border: 1px solid var(--pg-border-strong);
+  font-size: 0.86rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.field__toast.is-on {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* HUD：贴场地右缘的竖向 rail */
+.hud {
+  grid-area: hud;
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  min-width: 118px;
+}
+
+.foot { text-align: center; }
+
+/* 受伤 / 收集反馈 */
+.field.is-hurt { animation: pg-hurt 0.35s ease; }
+
+@keyframes pg-hurt {
+  0%, 100% { box-shadow: var(--pg-shadow); }
+  30% { box-shadow: 0 0 0 3px var(--pg-bad), 0 0 42px rgba(251, 113, 133, 0.55); }
+}
+
+.field.is-pick { animation: pg-pick 0.3s ease; }
+
+@keyframes pg-pick {
+  0%, 100% { box-shadow: var(--pg-shadow); }
+  35% { box-shadow: 0 0 0 3px var(--pg-accent-3), 0 0 36px rgba(86, 214, 198, 0.45); }
+}
+
+/* 窄屏：rail 变为场地下方横排，不遮挡场地 */
+@media (max-width: 720px) {
+  .game {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "field" "hud";
+  }
+
+  .hud {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    min-width: 0;
+  }
+
+  .hud .pg-stat {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px;
+    padding: 7px 8px;
+  }
+
+  .hud .pg-stat__value { font-size: 1rem; }
+  .hud .pg-stat__label { font-size: 0.7rem; }
+}

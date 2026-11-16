@@ -1,0 +1,174 @@
+/* ============================================================
+   controls.css —— 控件片段（按钮 / 分段控件 / 开关 / 图标键）
+   依赖：theme.css
+   ============================================================ */
+
+/* ---- 标记片段 ----
+<div class="toolbar">
+  <div class="segmented" role="radiogroup" aria-label="难度">
+    <button class="segmented__btn" role="radio" aria-checked="true">简单</button>
+    <button class="segmented__btn" role="radio" aria-checked="false">普通</button>
+  </div>
+  <div class="toolbar__actions">
+    <button class="btn btn--ghost" type="button" aria-pressed="true">🔊 音效</button>
+    <button class="btn btn--primary" type="button">↻ 重新开始</button>
+  </div>
+</div>
+---------------- */
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.toolbar__actions { display: flex; gap: 8px; margin-left: auto; }
+
+/* 表单行：标签 + 控件 */
+.field { display: flex; align-items: center; gap: 10px; }
+.field__label { color: var(--text-dim); font-size: 0.85rem; }
+
+/* 按钮 */
+.btn {
+  appearance: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 9px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  transition: transform 0.12s ease, filter 0.18s ease, background 0.18s ease;
+  white-space: nowrap;
+}
+
+.btn:active { transform: translateY(1px) scale(0.99); }
+
+.btn--primary {
+  background: linear-gradient(140deg, var(--accent), var(--accent-violet));
+  color: #fff;
+  box-shadow: var(--glow);
+}
+
+.btn--primary:hover { filter: brightness(1.08); }
+
+.btn--ghost {
+  background: var(--panel-strong);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.btn--ghost:hover { background: rgba(255, 255, 255, 0.18); }
+
+.btn--ghost[aria-pressed="false"] { opacity: 0.5; text-decoration: line-through; }
+
+.btn--danger {
+  background: linear-gradient(140deg, #fb7185, #f43f5e);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(251, 113, 133, 0.3);
+}
+
+.btn--sm { padding: 6px 11px; font-size: 0.8rem; }
+
+/* 图标键：HUD 里的次级操作 */
+.icon-btn {
+  appearance: none;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--panel-strong);
+  color: var(--text);
+  font-size: 0.9rem;
+  line-height: 1;
+  transition: transform 0.12s ease, background 0.18s ease;
+}
+
+.icon-btn:hover { background: rgba(255, 255, 255, 0.2); }
+.icon-btn:active { transform: translateY(1px) scale(0.96); }
+
+/* 分段控件 */
+.segmented {
+  display: inline-flex;
+  padding: 3px;
+  gap: 3px;
+  background: rgba(0, 0, 0, 0.28);
+  border-radius: var(--radius-sm);
+}
+
+.segmented__btn {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  padding: 7px 14px;
+  border-radius: 9px;
+  font: inherit;
+  font-size: 0.86rem;
+  color: var(--text-dim);
+  background: transparent;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.segmented__btn:hover { color: var(--text); }
+
+.segmented__btn[aria-checked="true"] {
+  background: linear-gradient(140deg, var(--accent), var(--accent-violet));
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(124, 140, 255, 0.35);
+}
+
+/* 开关 */
+.switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 0.84rem;
+  color: var(--text-dim);
+}
+
+.switch__track {
+  position: relative;
+  width: 38px;
+  height: 21px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.34);
+  border: 1px solid var(--border);
+  transition: background 0.18s ease;
+}
+
+.switch__knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  transition: transform 0.18s ease, background 0.18s ease;
+}
+
+.switch[aria-checked="true"] .switch__track {
+  background: linear-gradient(140deg, rgba(124, 140, 255, 0.6), rgba(154, 107, 255, 0.6));
+}
+
+.switch[aria-checked="true"] .switch__knob {
+  transform: translateX(17px);
+  background: #fff;
+}
+
+@media (max-width: 520px) {
+  .toolbar { flex-direction: column; align-items: stretch; }
+  .toolbar__actions { margin-left: 0; }
+  .toolbar__actions .btn { flex: 1; }
+}

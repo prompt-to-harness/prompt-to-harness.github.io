@@ -1,0 +1,58 @@
+/* ============================================================
+   60 秒躲避与收集 —— 玩法专属样式（叠加在主题 styles.css 之后）
+   ============================================================ */
+
+.app--game { max-width: 1040px; }
+
+/* 游玩中只保留 HUD（时间 / 得分 / 生命），标题与提示行收起 */
+.app--game.is-playing .app__header,
+.app--game.is-playing .app__footer { display: none; }
+
+.hud {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.arena {
+  position: relative;
+  padding: 10px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.arena__canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 900 / 560;
+  border-radius: 12px;
+  background:
+    radial-gradient(700px 420px at 30% 0%, rgba(74, 91, 214, 0.28), transparent 60%),
+    radial-gradient(600px 380px at 100% 100%, rgba(139, 92, 246, 0.26), transparent 60%),
+    rgba(10, 14, 34, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  outline: none;
+  touch-action: none;
+}
+
+.arena__canvas:focus-visible { outline: 3px solid var(--accent-2); outline-offset: 3px; }
+
+.lives { letter-spacing: 2px; }
+
+.overlay__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0 0 18px;
+}
+
+.overlay__best { margin: 12px 0 0; color: var(--text-dim); font-size: 0.85rem; }
+
+@media (max-width: 520px) {
+  .hud { gap: 8px; }
+  .overlay__stats { gap: 8px; }
+}

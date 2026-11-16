@@ -1,0 +1,20 @@
+/* 本游戏专属样式：只放"这个游戏特有的东西"。
+   通用样式一律来自 components/ 下的片段。 */
+
+.stage {
+  max-width: min(100%, 860px);
+}
+
+.stage canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* 场地内的操控提示，出现在底部而不是中心 */
+.stage__prompt {
+  pointer-events: none;
+}
+
+/* 结算面板里的「新纪录」角标默认隐藏，由 JS 控制 */
+.result__badge[hidden] { display: none; }

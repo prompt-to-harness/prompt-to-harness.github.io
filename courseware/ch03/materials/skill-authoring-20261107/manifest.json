@@ -1,0 +1,1280 @@
+{
+  "experiment": "skill-authoring-20261107-v1",
+  "upstream_commit": "0722921d5542fc593105c27bd52630babd8b8c2a",
+  "model": "MiniMax-M3.1-Flash",
+  "codex_cli": "0.163.0",
+  "claude_tap": "0.1.146",
+  "local_locator": "lab-runs/ch03-skill-authoring-20261107/trial-location.json",
+  "public_policy": "Final replies are complete, with only local path redaction if needed. Raw requests, rollouts and trace databases remain outside the public repository.",
+  "runs": [
+    {
+      "case": "original-verified",
+      "skill": "game-studio",
+      "version": "upstream",
+      "prompt": "prompts/planning.txt",
+      "prompt_sha256": "c19f746cb5e58cc17ccd683c11d9e8e67f52c6a33cf4ba249eb7ec3097632a25",
+      "skill_sha256": "87c32773f787b338064e3b7cf5e237a46b5c12e9ffe082927349ebb9584fd15b",
+      "started_at_utc": "2026-11-07T13:58:35.773255+00:00",
+      "elapsed_seconds": 70.78,
+      "completed": true,
+      "workspace_input_files_unchanged": true,
+      "skill_catalog": [
+        {
+          "rollout_line": 3,
+          "role": "developer",
+          "name_present": true
+        }
+      ],
+      "exact_skill_reads": [
+        {
+          "events_line": 4,
+          "item_id": "item_0",
+          "command": "/bin/zsh -lc 'cat <experiment>/original-verified/workspace/.agents/skills/game-studio/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "87c32773f787b338064e3b7cf5e237a46b5c12e9ffe082927349ebb9584fd15b"
+        }
+      ],
+      "tool_events": [
+        {
+          "events_line": 4,
+          "item_id": "item_0",
+          "command": "/bin/zsh -lc 'cat <experiment>/original-verified/workspace/.agents/skills/game-studio/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "87c32773f787b338064e3b7cf5e237a46b5c12e9ffe082927349ebb9584fd15b"
+        },
+        {
+          "events_line": 6,
+          "item_id": "item_1",
+          "command": "/bin/zsh -lc 'ls -la <experiment>/original-verified/workspace/.agents/skills/game-studio/ && ls -la <experiment>/original-verified/workspace/'",
+          "exit_code": 0,
+          "output_sha256": "084538e3fe15de2fdb95f73d3e13b446eecb6379500b08767a67546b48181cab"
+        },
+        {
+          "events_line": 8,
+          "item_id": "item_2",
+          "command": "/bin/zsh -lc 'ls -R <experiment>/original-verified/workspace/.agents/ | head -60'",
+          "exit_code": 0,
+          "output_sha256": "0b313c6af0a4a9e556335c4883d9dd69072b0e40f540baa788736e212b4d6d9b"
+        },
+        {
+          "events_line": 10,
+          "item_id": "item_3",
+          "command": "/bin/zsh -lc 'cat <experiment>/original-verified/workspace/.agents/skills/phaser-2d-game/SKILL.md <experiment>/original-verified/workspace/.agents/skills/web-game-foundations/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "7b11ca5238248e6c53b9f75cc28d247f1fc9e4bf118c00230e7ea7bc266e73ee"
+        },
+        {
+          "events_line": 12,
+          "item_id": "item_4",
+          "command": "/bin/zsh -lc 'cat <experiment>/original-verified/workspace/.agents/references/engine-selection.md <experiment>/original-verified/workspace/.agents/references/phaser-architecture.md'",
+          "exit_code": 0,
+          "output_sha256": "1c1d40d7cba7faa0b9d643426e38a4dc193ac51bece2cbc57d6f7c32e9a8b751"
+        },
+        {
+          "events_line": 14,
+          "item_id": "item_5",
+          "command": "/bin/zsh -lc 'cat <experiment>/original-verified/workspace/.agents/skills/game-ui-frontend/SKILL.md <experiment>/original-verified/workspace/.agents/references/playtest-checklist.md'",
+          "exit_code": 0,
+          "output_sha256": "7a4c9a00344c29ea965efae69c880981948f50c8084797526759da7a463c8944"
+        }
+      ],
+      "trace_records": 4,
+      "reply": "responses/original-verified.md",
+      "reply_sha256": "f58d6f2826ce17076107ddf55d8bbd830b8ada7ff302f3caee58731d79e21fc1",
+      "reply_path_redacted": false,
+      "artifacts": [
+        {
+          "path": "original-verified/prompt.txt",
+          "bytes": 256,
+          "sha256": "c19f746cb5e58cc17ccd683c11d9e8e67f52c6a33cf4ba249eb7ec3097632a25"
+        },
+        {
+          "path": "original-verified/inputs.json",
+          "bytes": 4378,
+          "sha256": "27499c3e471ad9c4cfad1ec465580c953e8dd2886b2f47148c98a3dd8b6ab31c"
+        },
+        {
+          "path": "original-verified/workspace/.agents/skills/game-studio/SKILL.md",
+          "bytes": 5396,
+          "sha256": "87c32773f787b338064e3b7cf5e237a46b5c12e9ffe082927349ebb9584fd15b"
+        },
+        {
+          "path": "original-verified/logs/launch.json",
+          "bytes": 1063,
+          "sha256": "dc1655d6e9445bd8cf68f20ed0f8f0c5ebe59e65767462bc13fc6404191df69f"
+        },
+        {
+          "path": "original-verified/logs/events.jsonl",
+          "bytes": 37198,
+          "sha256": "2fd4c9ff38161897dba574e9d4f937d4397272c0411deebacae8b5f7686245f6"
+        },
+        {
+          "path": "original-verified/logs/stderr.log",
+          "bytes": 2594,
+          "sha256": "d19cfb7937a63577de26dddea93d218f6369a00e53b31df29d8098747e3c7354"
+        },
+        {
+          "path": "original-verified/logs/final.md",
+          "bytes": 5927,
+          "sha256": "f58d6f2826ce17076107ddf55d8bbd830b8ada7ff302f3caee58731d79e21fc1"
+        },
+        {
+          "path": "original-verified/logs/result.json",
+          "bytes": 714,
+          "sha256": "6eb0a56a7fd6561fafad964b5751e04669efd96d2241363fedb96352c4bd321e"
+        },
+        {
+          "path": "original-verified/logs/trace-snapshot.sqlite3",
+          "bytes": 233472,
+          "sha256": "476c804153bd41bc56922c9ea27d75a1052a93f9b28456d1fe7347f97b6648cc"
+        },
+        {
+          "path": "original-verified/home/.codex/sessions/2026/11/07/rollout-2026-11-07T21-58-44-01a1b64d-f3c6-7653-a554-616d770eecb6.jsonl",
+          "bytes": 137092,
+          "sha256": "e4cba1ab9428f9f95c03e8e2f31f8bb9f298e192368b91cee333bc1601ba615a"
+        }
+      ]
+    },
+    {
+      "case": "modified",
+      "skill": "game-studio",
+      "version": "one-requirement",
+      "prompt": "prompts/planning.txt",
+      "prompt_sha256": "c19f746cb5e58cc17ccd683c11d9e8e67f52c6a33cf4ba249eb7ec3097632a25",
+      "skill_sha256": "a01ec3b23de9d1e8e5e4db8994462865a8114b0e930ccd16af1941bcce06f1c5",
+      "started_at_utc": "2026-11-07T13:53:45.174162+00:00",
+      "elapsed_seconds": 170.49,
+      "completed": true,
+      "workspace_input_files_unchanged": true,
+      "skill_catalog": [
+        {
+          "rollout_line": 3,
+          "role": "developer",
+          "name_present": true
+        }
+      ],
+      "exact_skill_reads": [
+        {
+          "events_line": 4,
+          "item_id": "item_0",
+          "command": "/bin/zsh -lc \"ls -la <experiment>/modified/workspace/.agents/skills/ && echo '---' && cat <experiment>/modified/workspace/.agents/skills/game-studio/SKILL.md\"",
+          "exit_code": 0,
+          "output_sha256": "03c82b841514046f5bb72b83541519840b52857243ff8e2271ec7fd6cb16e57d"
+        }
+      ],
+      "tool_events": [
+        {
+          "events_line": 4,
+          "item_id": "item_0",
+          "command": "/bin/zsh -lc \"ls -la <experiment>/modified/workspace/.agents/skills/ && echo '---' && cat <experiment>/modified/workspace/.agents/skills/game-studio/SKILL.md\"",
+          "exit_code": 0,
+          "output_sha256": "03c82b841514046f5bb72b83541519840b52857243ff8e2271ec7fd6cb16e57d"
+        },
+        {
+          "events_line": 9,
+          "item_id": "item_1",
+          "command": "/bin/zsh -lc 'cat \"<experiment>/modified/workspace/.agents/skills/game-playtest/SKILL.md\"'",
+          "exit_code": 0,
+          "output_sha256": "413f2453c602678962fab62446144f2929fcd5b9239f209c7889cc592d2b5be8"
+        },
+        {
+          "events_line": 10,
+          "item_id": "item_2",
+          "command": "/bin/zsh -lc 'cat \"<experiment>/modified/workspace/.agents/skills/web-game-foundations/SKILL.md\"'",
+          "exit_code": 0,
+          "output_sha256": "ef35c1954fa07d10673c1a5a7749656319494fd0675dd2be9671e2dd3cbd7e1b"
+        },
+        {
+          "events_line": 11,
+          "item_id": "item_4",
+          "command": "/bin/zsh -lc 'cat \"<experiment>/modified/workspace/.agents/skills/phaser-2d-game/SKILL.md\"'",
+          "exit_code": 0,
+          "output_sha256": "f740df62cb4c6c0f7f5457be4f860d9d163f4cd1df78326c5a61de03d9d7efb8"
+        },
+        {
+          "events_line": 12,
+          "item_id": "item_3",
+          "command": "/bin/zsh -lc 'cat \"<experiment>/modified/workspace/.agents/skills/game-ui-frontend/SKILL.md\"'",
+          "exit_code": 0,
+          "output_sha256": "cd017fe0761207dcfd801f236490896cbf1cd6627ee267c801a19c7c780b7a01"
+        },
+        {
+          "events_line": 14,
+          "item_id": "item_5",
+          "command": "/bin/zsh -lc 'ls -la \"<experiment>/modified/workspace/.agents/skills/references\"'",
+          "exit_code": 1,
+          "output_sha256": "d79fe6d40572314f6378349c829a931a5aede1697bdfea3ee2c318214c7c60ba"
+        },
+        {
+          "events_line": 16,
+          "item_id": "item_6",
+          "command": "/bin/zsh -lc \"find <experiment>/modified -name 'references' -type d 2>/dev/null; echo '---'; find <experiment>/modified -maxdepth 4 -type d | head -50\"",
+          "exit_code": 0,
+          "output_sha256": "4ff9518075a2757092c6c07ca2cf4d2385a79820b86b840757088a217e5ab24f"
+        },
+        {
+          "events_line": 18,
+          "item_id": "item_7",
+          "command": "/bin/zsh -lc 'cat \"<experiment>/modified/workspace/.agents/references/engine-selection.md\"'",
+          "exit_code": 0,
+          "output_sha256": "8a4113a5a51d89a679d258aef17ecd0e6b85544c303e8b807f7971c5726c5f70"
+        },
+        {
+          "events_line": 20,
+          "item_id": "item_8",
+          "command": "/bin/zsh -lc 'cat \"<experiment>/modified/workspace/.agents/references/playtest-checklist.md\"'",
+          "exit_code": 0,
+          "output_sha256": "d8a4119f3912064c1328f7c537ff5fa94004f3aa81acba33d518758bf7fb8a3c"
+        },
+        {
+          "events_line": 22,
+          "item_id": "item_9",
+          "command": "/bin/zsh -lc 'cat \"<experiment>/modified/workspace/.agents/references/phaser-architecture.md\"'",
+          "exit_code": 0,
+          "output_sha256": "c7c5b4c611d5c7aa40349a49d6fc37fa52e13d6c326088a662d55b717db877ae"
+        }
+      ],
+      "trace_records": 6,
+      "reply": "responses/modified.md",
+      "reply_sha256": "9cc9aabf4c578770eff4a0bd3b26debe906ab0021223b54930bcc5bebeffc413",
+      "reply_path_redacted": false,
+      "artifacts": [
+        {
+          "path": "modified/prompt.txt",
+          "bytes": 256,
+          "sha256": "c19f746cb5e58cc17ccd683c11d9e8e67f52c6a33cf4ba249eb7ec3097632a25"
+        },
+        {
+          "path": "modified/inputs.json",
+          "bytes": 4378,
+          "sha256": "832a2bcce3ee3c9f9cf2d66f36714415a434806cc9540a6b3e64b24560d4a3df"
+        },
+        {
+          "path": "modified/workspace/.agents/skills/game-studio/SKILL.md",
+          "bytes": 5602,
+          "sha256": "a01ec3b23de9d1e8e5e4db8994462865a8114b0e930ccd16af1941bcce06f1c5"
+        },
+        {
+          "path": "modified/logs/launch.json",
+          "bytes": 891,
+          "sha256": "13aff4ba39db0cb51ca6aac287f5f52c205fbe120de460710efb2a0002e56ed4"
+        },
+        {
+          "path": "modified/logs/events.jsonl",
+          "bytes": 44991,
+          "sha256": "b7ae49005da4e263be46af819e9f82440146d990a05efa06dfdb73f2a838fda7"
+        },
+        {
+          "path": "modified/logs/stderr.log",
+          "bytes": 2260,
+          "sha256": "f150e6b578d5e2713b2664d32df13bf3458ffe834a1b0d0e2ee9d34ea92a13e1"
+        },
+        {
+          "path": "modified/logs/final.md",
+          "bytes": 6571,
+          "sha256": "9cc9aabf4c578770eff4a0bd3b26debe906ab0021223b54930bcc5bebeffc413"
+        },
+        {
+          "path": "modified/logs/result.json",
+          "bytes": 706,
+          "sha256": "e4af8a7325c812b9753e40b4b39b29bc4ebd75f3048518146ab824ea2f62ea8b"
+        },
+        {
+          "path": "modified/logs/trace-snapshot.sqlite3",
+          "bytes": 266240,
+          "sha256": "35c6bc9b0e44c57c16adaa4c2e001acca9edc74283c812f03a86f1a3df977ee4"
+        },
+        {
+          "path": "modified/home/.codex/sessions/2026/11/07/rollout-2026-11-07T21-55-54-01a1b64b-5c9e-7440-b672-b2058f583bb5.jsonl",
+          "bytes": 162431,
+          "sha256": "4fa5eff2490e33ae54b76cd1ce2b116dab0fc4b12b4e2e0a2dd3b70bfee2263d"
+        }
+      ]
+    },
+    {
+      "case": "created-memory",
+      "skill": "game-check-plan",
+      "version": "v1",
+      "prompt": "prompts/created-memory.txt",
+      "prompt_sha256": "4a68aee126231a5a69caadfb4942ab7b2c8469d95f1b144f815d94c0762ca8c7",
+      "skill_sha256": "3c6e9e7bd138cbacd78cb5b0cac256be205784e7a8bee2b4c22a2131f4138baa",
+      "started_at_utc": "2026-11-07T13:54:44.372171+00:00",
+      "elapsed_seconds": 129.02,
+      "completed": true,
+      "workspace_input_files_unchanged": true,
+      "skill_catalog": [
+        {
+          "rollout_line": 3,
+          "role": "developer",
+          "name_present": true
+        }
+      ],
+      "exact_skill_reads": [
+        {
+          "events_line": 5,
+          "item_id": "item_1",
+          "command": "/bin/zsh -lc 'cat <experiment>/created-memory/workspace/.agents/skills/game-check-plan/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "3c6e9e7bd138cbacd78cb5b0cac256be205784e7a8bee2b4c22a2131f4138baa"
+        }
+      ],
+      "tool_events": [
+        {
+          "events_line": 5,
+          "item_id": "item_1",
+          "command": "/bin/zsh -lc 'cat <experiment>/created-memory/workspace/.agents/skills/game-check-plan/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "3c6e9e7bd138cbacd78cb5b0cac256be205784e7a8bee2b4c22a2131f4138baa"
+        },
+        {
+          "events_line": 7,
+          "item_id": "item_2",
+          "command": "/bin/zsh -lc \"cd <experiment>/created-memory/workspace && ls -la && find . -maxdepth 3 -type f \\\\( -name '*.html' -o -name '*.js' -o -name '*.ts' -o -name '*.jsx' -o -name '*.md' \\\\) -not -path '*/node_modules/*' -not -path '*/.git/*' | head -50\"",
+          "exit_code": 0,
+          "output_sha256": "2acb48605b671f62ef7ae970fad0661921882bf42f50fe59f3bc53ba86b5decc"
+        }
+      ],
+      "trace_records": 3,
+      "reply": "responses/created-memory.md",
+      "reply_sha256": "151b8e2619cd2622a11c13352a8f2c695f7709ab71a7429cca046d9eda7b678b",
+      "reply_path_redacted": false,
+      "artifacts": [
+        {
+          "path": "created-memory/prompt.txt",
+          "bytes": 425,
+          "sha256": "4a68aee126231a5a69caadfb4942ab7b2c8469d95f1b144f815d94c0762ca8c7"
+        },
+        {
+          "path": "created-memory/inputs.json",
+          "bytes": 116,
+          "sha256": "b5bd11b463d89deb8e0a2efd41b10c97170cb27f814ff93c310ca8e260fe1610"
+        },
+        {
+          "path": "created-memory/workspace/.agents/skills/game-check-plan/SKILL.md",
+          "bytes": 746,
+          "sha256": "3c6e9e7bd138cbacd78cb5b0cac256be205784e7a8bee2b4c22a2131f4138baa"
+        },
+        {
+          "path": "created-memory/logs/launch.json",
+          "bytes": 915,
+          "sha256": "10e2bb6862f641498159fa62daa7e64587e60917fef372089ba21832364fa1c4"
+        },
+        {
+          "path": "created-memory/logs/events.jsonl",
+          "bytes": 8283,
+          "sha256": "7a0805db72089d123c50e1a47ed72de423b694bceb9091a414b4eddf52dabe49"
+        },
+        {
+          "path": "created-memory/logs/stderr.log",
+          "bytes": 2295,
+          "sha256": "47d5632ae730b43a2db6e846fa8f5a008c887a24a6ee1877c62034c29f9c0fa4"
+        },
+        {
+          "path": "created-memory/logs/final.md",
+          "bytes": 5278,
+          "sha256": "151b8e2619cd2622a11c13352a8f2c695f7709ab71a7429cca046d9eda7b678b"
+        },
+        {
+          "path": "created-memory/logs/result.json",
+          "bytes": 711,
+          "sha256": "d0638de88441c429f4b753fb3a896290ddcacc48788e3f6c38ad0cba6ed476b7"
+        },
+        {
+          "path": "created-memory/logs/trace-snapshot.sqlite3",
+          "bytes": 172032,
+          "sha256": "5f81ca10548bb8e26282e2d9cbb2071a032e5658ba0256aacb3d94c5e904e90a"
+        },
+        {
+          "path": "created-memory/home/.codex/sessions/2026/11/07/rollout-2026-11-07T21-56-04-01a1b64b-8438-7ff3-919b-f9b38157ff45.jsonl",
+          "bytes": 63812,
+          "sha256": "3220184d20924d50500fcd9276fbb1f8925a97f741716b012aae0b80a043d8d5"
+        }
+      ]
+    },
+    {
+      "case": "created-missing-verified",
+      "skill": "game-check-plan",
+      "version": "v1",
+      "prompt": "prompts/created-missing.txt",
+      "prompt_sha256": "1ce046f82260cc8190dc825e5f11e38e7ba909c0e9c260b7a8da2ada1525fc33",
+      "skill_sha256": "3c6e9e7bd138cbacd78cb5b0cac256be205784e7a8bee2b4c22a2131f4138baa",
+      "started_at_utc": "2026-11-07T13:58:35.773528+00:00",
+      "elapsed_seconds": 128.87,
+      "completed": true,
+      "workspace_input_files_unchanged": true,
+      "skill_catalog": [
+        {
+          "rollout_line": 3,
+          "role": "developer",
+          "name_present": true
+        }
+      ],
+      "exact_skill_reads": [
+        {
+          "events_line": 5,
+          "item_id": "item_1",
+          "command": "/bin/zsh -lc 'cat <experiment>/created-missing-verified/workspace/.agents/skills/game-check-plan/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "3c6e9e7bd138cbacd78cb5b0cac256be205784e7a8bee2b4c22a2131f4138baa"
+        }
+      ],
+      "tool_events": [
+        {
+          "events_line": 5,
+          "item_id": "item_1",
+          "command": "/bin/zsh -lc 'cat <experiment>/created-missing-verified/workspace/.agents/skills/game-check-plan/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "3c6e9e7bd138cbacd78cb5b0cac256be205784e7a8bee2b4c22a2131f4138baa"
+        },
+        {
+          "events_line": 7,
+          "item_id": "item_2",
+          "command": "/bin/zsh -lc 'ls -la <experiment>/created-missing-verified/workspace && ls -R <experiment>/created-missing-verified/workspace/.agents/skills'",
+          "exit_code": 0,
+          "output_sha256": "0a6f1826ec6a3f9138d7b503178864d86ad143b3e8fce9d9a4a349e01581a19a"
+        },
+        {
+          "events_line": 9,
+          "item_id": "item_3",
+          "command": "/bin/zsh -lc \"ls -la <experiment>/created-missing-verified/ <experiment>/ 2>&1 | head -60; echo '--- traces ---'; ls -la <experiment>/created-missing-verified/workspace/.traces 2>&1\"",
+          "exit_code": 0,
+          "output_sha256": "6a91640874826b47b511f2c47fd74d1c45422eb9c34bfd47aa54d16381799b2c"
+        },
+        {
+          "events_line": 11,
+          "item_id": "item_4",
+          "command": "/bin/zsh -lc \"find <experiment> -maxdepth 4 -type f \\\\( -name '*.html' -o -name '*.js' -o -name '*.json' -o -name '*.md' -o -name '*.ts' \\\\) 2>/dev/null | head -50\"",
+          "exit_code": 0,
+          "output_sha256": "cff5936398bbd2141ea448d11d9639c6b43cd2ab4e6cf43cd7b451d9ce0d237b"
+        }
+      ],
+      "trace_records": 3,
+      "reply": "responses/created-missing-verified.md",
+      "reply_sha256": "910ecbe534aa4a6ccca5b73533a39ba469ebd903ab0625f232108b4c2cb9fa7e",
+      "reply_path_redacted": false,
+      "artifacts": [
+        {
+          "path": "created-missing-verified/prompt.txt",
+          "bytes": 266,
+          "sha256": "1ce046f82260cc8190dc825e5f11e38e7ba909c0e9c260b7a8da2ada1525fc33"
+        },
+        {
+          "path": "created-missing-verified/inputs.json",
+          "bytes": 116,
+          "sha256": "b5bd11b463d89deb8e0a2efd41b10c97170cb27f814ff93c310ca8e260fe1610"
+        },
+        {
+          "path": "created-missing-verified/workspace/.agents/skills/game-check-plan/SKILL.md",
+          "bytes": 746,
+          "sha256": "3c6e9e7bd138cbacd78cb5b0cac256be205784e7a8bee2b4c22a2131f4138baa"
+        },
+        {
+          "path": "created-missing-verified/logs/launch.json",
+          "bytes": 1091,
+          "sha256": "5ae66eeda3e1877d15ed9c55189503ef323d2cef3c0fed6cd7fbd647caeb6b86"
+        },
+        {
+          "path": "created-missing-verified/logs/events.jsonl",
+          "bytes": 19213,
+          "sha256": "a2ca9574c511cb3c914bacb75eabd327a7496d8a76d95aa4959e51a07c282851"
+        },
+        {
+          "path": "created-missing-verified/logs/stderr.log",
+          "bytes": 3287,
+          "sha256": "a54853900966ab29b822400f6bf9463757e563b918f972986af04f8ac6bb7514"
+        },
+        {
+          "path": "created-missing-verified/logs/final.md",
+          "bytes": 9115,
+          "sha256": "910ecbe534aa4a6ccca5b73533a39ba469ebd903ab0625f232108b4c2cb9fa7e"
+        },
+        {
+          "path": "created-missing-verified/logs/result.json",
+          "bytes": 722,
+          "sha256": "f00879828cda325362c2891a36576921ae1c8d4fa7e3b4276bb603f86a595f39"
+        },
+        {
+          "path": "created-missing-verified/logs/trace-snapshot.sqlite3",
+          "bytes": 212992,
+          "sha256": "c43e38945700662acc095a21aca9e2808e877f318861ce566afcee7ada58310a"
+        },
+        {
+          "path": "created-missing-verified/home/.codex/sessions/2026/11/07/rollout-2026-11-07T21-58-36-01a1b64d-d4e2-7502-9646-d3eb90f0d64a.jsonl",
+          "bytes": 120331,
+          "sha256": "6358ce1a7ac9c1cabe7e20567e01d1bcb23f1b1641d0a469ca7cad17b5151c9c"
+        }
+      ]
+    },
+    {
+      "case": "created-memory-v2",
+      "skill": "game-check-plan",
+      "version": "v2",
+      "prompt": "prompts/created-memory.txt",
+      "prompt_sha256": "4a68aee126231a5a69caadfb4942ab7b2c8469d95f1b144f815d94c0762ca8c7",
+      "skill_sha256": "0a35e1c64e8a30de3ca03942d277dacaaf64c76e257fe72d4d7526f1afb1c2df",
+      "started_at_utc": "2026-11-07T14:02:09.375409+00:00",
+      "elapsed_seconds": 37.73,
+      "completed": true,
+      "workspace_input_files_unchanged": true,
+      "skill_catalog": [
+        {
+          "rollout_line": 3,
+          "role": "developer",
+          "name_present": true
+        }
+      ],
+      "exact_skill_reads": [
+        {
+          "events_line": 5,
+          "item_id": "item_1",
+          "command": "/bin/zsh -lc 'cat <experiment>/created-memory-v2/workspace/.agents/skills/game-check-plan/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "0a35e1c64e8a30de3ca03942d277dacaaf64c76e257fe72d4d7526f1afb1c2df"
+        }
+      ],
+      "tool_events": [
+        {
+          "events_line": 5,
+          "item_id": "item_1",
+          "command": "/bin/zsh -lc 'cat <experiment>/created-memory-v2/workspace/.agents/skills/game-check-plan/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "0a35e1c64e8a30de3ca03942d277dacaaf64c76e257fe72d4d7526f1afb1c2df"
+        }
+      ],
+      "trace_records": 2,
+      "reply": "responses/created-memory-v2.md",
+      "reply_sha256": "5a0fed2d4d7e6a5d569d7103e0255b6f67dec22d170b2ff8df85092896a89f5d",
+      "reply_path_redacted": false,
+      "artifacts": [
+        {
+          "path": "created-memory-v2/prompt.txt",
+          "bytes": 425,
+          "sha256": "4a68aee126231a5a69caadfb4942ab7b2c8469d95f1b144f815d94c0762ca8c7"
+        },
+        {
+          "path": "created-memory-v2/inputs.json",
+          "bytes": 116,
+          "sha256": "0d32841dde5a378e03460c9a64cb06aa173ed28d4a5dea115ea28456d2eb4b21"
+        },
+        {
+          "path": "created-memory-v2/workspace/.agents/skills/game-check-plan/SKILL.md",
+          "bytes": 1033,
+          "sha256": "0a35e1c64e8a30de3ca03942d277dacaaf64c76e257fe72d4d7526f1afb1c2df"
+        },
+        {
+          "path": "created-memory-v2/logs/launch.json",
+          "bytes": 1063,
+          "sha256": "ab73497b26966e6582be7527e5ec0b371abb6915ad286fa98259b3a6b4f834b6"
+        },
+        {
+          "path": "created-memory-v2/logs/events.jsonl",
+          "bytes": 6709,
+          "sha256": "35a6f660763944ec77c15112e8b6539632ee888d1a64d7b3211106c94fd5fd2b"
+        },
+        {
+          "path": "created-memory-v2/logs/stderr.log",
+          "bytes": 1945,
+          "sha256": "9455c96b1381a3e0a3758b87e9e71d61d78d0b6803bf7464696f05e77b70e7f1"
+        },
+        {
+          "path": "created-memory-v2/logs/final.md",
+          "bytes": 4505,
+          "sha256": "5a0fed2d4d7e6a5d569d7103e0255b6f67dec22d170b2ff8df85092896a89f5d"
+        },
+        {
+          "path": "created-memory-v2/logs/result.json",
+          "bytes": 712,
+          "sha256": "9f226bccb3d9573bac2af01ea69a13ac213230e73ea2681fcb01c40457574c36"
+        },
+        {
+          "path": "created-memory-v2/logs/trace-snapshot.sqlite3",
+          "bytes": 176128,
+          "sha256": "95790d03177ca2ad119d773874ef166b31ec10e122dd6b09581c70a95cb05ae9"
+        },
+        {
+          "path": "created-memory-v2/home/.codex/sessions/2026/11/07/rollout-2026-11-07T22-02-09-01a1b651-169e-74d2-a5cb-f8b3ba20e14e.jsonl",
+          "bytes": 86049,
+          "sha256": "0ecbb635ce6993141a3c83f63294c9a93d9d52c8a87970421e24db8cbc217f97"
+        }
+      ]
+    },
+    {
+      "case": "created-missing-v2",
+      "skill": "game-check-plan",
+      "version": "v2",
+      "prompt": "prompts/created-missing.txt",
+      "prompt_sha256": "1ce046f82260cc8190dc825e5f11e38e7ba909c0e9c260b7a8da2ada1525fc33",
+      "skill_sha256": "0a35e1c64e8a30de3ca03942d277dacaaf64c76e257fe72d4d7526f1afb1c2df",
+      "started_at_utc": "2026-11-07T14:02:09.375692+00:00",
+      "elapsed_seconds": 45.11,
+      "completed": true,
+      "workspace_input_files_unchanged": true,
+      "skill_catalog": [
+        {
+          "rollout_line": 3,
+          "role": "developer",
+          "name_present": true
+        }
+      ],
+      "exact_skill_reads": [
+        {
+          "events_line": 4,
+          "item_id": "item_0",
+          "command": "/bin/zsh -lc 'cat <experiment>/created-missing-v2/workspace/.agents/skills/game-check-plan/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "0a35e1c64e8a30de3ca03942d277dacaaf64c76e257fe72d4d7526f1afb1c2df"
+        }
+      ],
+      "tool_events": [
+        {
+          "events_line": 4,
+          "item_id": "item_0",
+          "command": "/bin/zsh -lc 'cat <experiment>/created-missing-v2/workspace/.agents/skills/game-check-plan/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "0a35e1c64e8a30de3ca03942d277dacaaf64c76e257fe72d4d7526f1afb1c2df"
+        },
+        {
+          "events_line": 6,
+          "item_id": "item_1",
+          "command": "/bin/zsh -lc 'find <experiment>/created-missing-v2/workspace/.agents/skills/game-check-plan -type f | head -50'",
+          "exit_code": 0,
+          "output_sha256": "e3d851f7598cb02c27bd43ca3c470289164ed596cefce22203ece29a70b33038"
+        }
+      ],
+      "trace_records": 3,
+      "reply": "responses/created-missing-v2.md",
+      "reply_sha256": "db2640a0d797120b717d51b439c03e6e9baa34129444e73c9ed28ca85434f7cf",
+      "reply_path_redacted": false,
+      "artifacts": [
+        {
+          "path": "created-missing-v2/prompt.txt",
+          "bytes": 266,
+          "sha256": "1ce046f82260cc8190dc825e5f11e38e7ba909c0e9c260b7a8da2ada1525fc33"
+        },
+        {
+          "path": "created-missing-v2/inputs.json",
+          "bytes": 116,
+          "sha256": "0d32841dde5a378e03460c9a64cb06aa173ed28d4a5dea115ea28456d2eb4b21"
+        },
+        {
+          "path": "created-missing-v2/workspace/.agents/skills/game-check-plan/SKILL.md",
+          "bytes": 1033,
+          "sha256": "0a35e1c64e8a30de3ca03942d277dacaaf64c76e257fe72d4d7526f1afb1c2df"
+        },
+        {
+          "path": "created-missing-v2/logs/launch.json",
+          "bytes": 1067,
+          "sha256": "45b7011f8532a035fb9f0ca6008951f8edaaa20006e959831ef6ac60ed8516cd"
+        },
+        {
+          "path": "created-missing-v2/logs/events.jsonl",
+          "bytes": 8429,
+          "sha256": "d8e6d78617c2b7ef0ab37b82875bf96888ff760ff9f5ae7ad0cfa6970aa78c84"
+        },
+        {
+          "path": "created-missing-v2/logs/stderr.log",
+          "bytes": 2110,
+          "sha256": "b9d888f55aa32bc8bbb1f1c8e8cc9b57a14fb705f8dc6d0058bc41c391c5d726"
+        },
+        {
+          "path": "created-missing-v2/logs/final.md",
+          "bytes": 5612,
+          "sha256": "db2640a0d797120b717d51b439c03e6e9baa34129444e73c9ed28ca85434f7cf"
+        },
+        {
+          "path": "created-missing-v2/logs/result.json",
+          "bytes": 714,
+          "sha256": "2ce590c6914b273b138f6e674b21c2cf57223b11de8a53b1d8e04d67874818e4"
+        },
+        {
+          "path": "created-missing-v2/logs/trace-snapshot.sqlite3",
+          "bytes": 172032,
+          "sha256": "afcdaa347f34f56ab64ad6bac52b545233da87e1f6576c68fbd14ba777c9f3e0"
+        },
+        {
+          "path": "created-missing-v2/home/.codex/sessions/2026/11/07/rollout-2026-11-07T22-02-17-01a1b651-352e-72c1-91f7-fd869d97d9b2.jsonl",
+          "bytes": 75440,
+          "sha256": "2368bc8ce66b6a9ed2067d5b75c16bc737bc14e36205e90ae331747cfc7358de"
+        }
+      ]
+    },
+    {
+      "case": "created-transfer-v2",
+      "skill": "game-check-plan",
+      "version": "v2",
+      "prompt": "prompts/created-transfer.txt",
+      "prompt_sha256": "d0469db7adc6b4a2fe0f5b5a6d4c476808b4743a309008f480aff9f62c35e7d9",
+      "skill_sha256": "0a35e1c64e8a30de3ca03942d277dacaaf64c76e257fe72d4d7526f1afb1c2df",
+      "started_at_utc": "2026-11-07T14:02:47.102873+00:00",
+      "elapsed_seconds": 33.56,
+      "completed": true,
+      "workspace_input_files_unchanged": true,
+      "skill_catalog": [
+        {
+          "rollout_line": 3,
+          "role": "developer",
+          "name_present": true
+        }
+      ],
+      "exact_skill_reads": [
+        {
+          "events_line": 5,
+          "item_id": "item_1",
+          "command": "/bin/zsh -lc 'cat <experiment>/created-transfer-v2/workspace/.agents/skills/game-check-plan/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "0a35e1c64e8a30de3ca03942d277dacaaf64c76e257fe72d4d7526f1afb1c2df"
+        }
+      ],
+      "tool_events": [
+        {
+          "events_line": 5,
+          "item_id": "item_1",
+          "command": "/bin/zsh -lc 'cat <experiment>/created-transfer-v2/workspace/.agents/skills/game-check-plan/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "0a35e1c64e8a30de3ca03942d277dacaaf64c76e257fe72d4d7526f1afb1c2df"
+        },
+        {
+          "events_line": 7,
+          "item_id": "item_2",
+          "command": "/bin/zsh -lc 'ls -laR <experiment>/created-transfer-v2/workspace/.agents/skills/game-check-plan/ 2>/dev/null'",
+          "exit_code": 0,
+          "output_sha256": "400c8af1d92fc664768be00f1678fb22f672f98d1e9f0f4fa1f966a86c487b9d"
+        }
+      ],
+      "trace_records": 3,
+      "reply": "responses/created-transfer-v2.md",
+      "reply_sha256": "fd4f28d0a170d839ca131a2f74114466e996e06b53e6ebdc9c77b2925ff17e14",
+      "reply_path_redacted": false,
+      "artifacts": [
+        {
+          "path": "created-transfer-v2/prompt.txt",
+          "bytes": 391,
+          "sha256": "d0469db7adc6b4a2fe0f5b5a6d4c476808b4743a309008f480aff9f62c35e7d9"
+        },
+        {
+          "path": "created-transfer-v2/inputs.json",
+          "bytes": 116,
+          "sha256": "0d32841dde5a378e03460c9a64cb06aa173ed28d4a5dea115ea28456d2eb4b21"
+        },
+        {
+          "path": "created-transfer-v2/workspace/.agents/skills/game-check-plan/SKILL.md",
+          "bytes": 1033,
+          "sha256": "0a35e1c64e8a30de3ca03942d277dacaaf64c76e257fe72d4d7526f1afb1c2df"
+        },
+        {
+          "path": "created-transfer-v2/logs/launch.json",
+          "bytes": 1071,
+          "sha256": "73abc84cc3e80f854b20aa01629d2541b360c042bd8d92f65d080fb418671286"
+        },
+        {
+          "path": "created-transfer-v2/logs/events.jsonl",
+          "bytes": 8991,
+          "sha256": "3aca6a531f4aa211419aaf74a2fddeeaf4c0a67e9fb824c1fe2af15383e25301"
+        },
+        {
+          "path": "created-transfer-v2/logs/stderr.log",
+          "bytes": 2170,
+          "sha256": "e3ccf425304d29140f7d8ecb45f033040d01542d4c70801e21ac94d0cbc64409"
+        },
+        {
+          "path": "created-transfer-v2/logs/final.md",
+          "bytes": 6020,
+          "sha256": "fd4f28d0a170d839ca131a2f74114466e996e06b53e6ebdc9c77b2925ff17e14"
+        },
+        {
+          "path": "created-transfer-v2/logs/result.json",
+          "bytes": 715,
+          "sha256": "80b0159777c6598cdd2b018a770b17b05d6e497fa5436f415b6f42a30043de7c"
+        },
+        {
+          "path": "created-transfer-v2/logs/trace-snapshot.sqlite3",
+          "bytes": 184320,
+          "sha256": "bdedb61897a64337f5e93cee56e827e282ba7891c0bfea2a7789094dd77f1d41"
+        },
+        {
+          "path": "created-transfer-v2/home/.codex/sessions/2026/11/07/rollout-2026-11-07T22-02-47-01a1b651-a9f5-7782-b3ac-2146901816e1.jsonl",
+          "bytes": 78069,
+          "sha256": "6e80a8c87303b5272d8c036b5ac3fbf89e8b02d316ab3f62958e2e4121ff604e"
+        }
+      ]
+    },
+    {
+      "case": "created-memory-v3",
+      "skill": "game-check-plan",
+      "version": "v3",
+      "prompt": "prompts/created-memory.txt",
+      "prompt_sha256": "4a68aee126231a5a69caadfb4942ab7b2c8469d95f1b144f815d94c0762ca8c7",
+      "skill_sha256": "4b684efe20de913d1683e600bea682a490b6c749bdde949b547d6378e5e788f4",
+      "started_at_utc": "2026-11-07T14:03:50.301561+00:00",
+      "elapsed_seconds": 41.53,
+      "completed": true,
+      "workspace_input_files_unchanged": true,
+      "skill_catalog": [
+        {
+          "rollout_line": 3,
+          "role": "developer",
+          "name_present": true
+        }
+      ],
+      "exact_skill_reads": [
+        {
+          "events_line": 4,
+          "item_id": "item_0",
+          "command": "/bin/zsh -lc 'cat <experiment>/created-memory-v3/workspace/.agents/skills/game-check-plan/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "4b684efe20de913d1683e600bea682a490b6c749bdde949b547d6378e5e788f4"
+        }
+      ],
+      "tool_events": [
+        {
+          "events_line": 4,
+          "item_id": "item_0",
+          "command": "/bin/zsh -lc 'cat <experiment>/created-memory-v3/workspace/.agents/skills/game-check-plan/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "4b684efe20de913d1683e600bea682a490b6c749bdde949b547d6378e5e788f4"
+        },
+        {
+          "events_line": 6,
+          "item_id": "item_1",
+          "command": "/bin/zsh -lc 'find <experiment>/created-memory-v3/workspace/.agents/skills/game-check-plan -type f | head -50'",
+          "exit_code": 0,
+          "output_sha256": "fda458b142338183c10987f03025899cd40207b5a866077b3cfcf547d31cd0e3"
+        }
+      ],
+      "trace_records": 3,
+      "reply": "responses/created-memory-v3.md",
+      "reply_sha256": "28491599be83db1458dc39563df41be09a6c6b42beed263ec3a2c2feaec083f0",
+      "reply_path_redacted": false,
+      "artifacts": [
+        {
+          "path": "created-memory-v3/prompt.txt",
+          "bytes": 425,
+          "sha256": "4a68aee126231a5a69caadfb4942ab7b2c8469d95f1b144f815d94c0762ca8c7"
+        },
+        {
+          "path": "created-memory-v3/inputs.json",
+          "bytes": 116,
+          "sha256": "9e6230fc688a28840a684c64e939cac320ae7a354f601ba5cd6829419010f6c5"
+        },
+        {
+          "path": "created-memory-v3/workspace/.agents/skills/game-check-plan/SKILL.md",
+          "bytes": 1213,
+          "sha256": "4b684efe20de913d1683e600bea682a490b6c749bdde949b547d6378e5e788f4"
+        },
+        {
+          "path": "created-memory-v3/logs/launch.json",
+          "bytes": 1063,
+          "sha256": "a848af1aa63e990372a7f90abfd6a6e1e3a24f9abbd59e08c4aad72eb25195d4"
+        },
+        {
+          "path": "created-memory-v3/logs/events.jsonl",
+          "bytes": 6876,
+          "sha256": "d014abb2ea5d8b053433a27efd1829d2f3f91e0895f00e5f06933af360789c94"
+        },
+        {
+          "path": "created-memory-v3/logs/stderr.log",
+          "bytes": 1892,
+          "sha256": "5a52547edbaff824fdb69fc8eafc027d4c4473aef8ebfe70933cf4dbc269fabc"
+        },
+        {
+          "path": "created-memory-v3/logs/final.md",
+          "bytes": 3894,
+          "sha256": "28491599be83db1458dc39563df41be09a6c6b42beed263ec3a2c2feaec083f0"
+        },
+        {
+          "path": "created-memory-v3/logs/result.json",
+          "bytes": 713,
+          "sha256": "d967f60a3e43d34bc95137058b221bf8dccea447896d61d9c07475644481b373"
+        },
+        {
+          "path": "created-memory-v3/logs/trace-snapshot.sqlite3",
+          "bytes": 184320,
+          "sha256": "efc9ea56694161aade3feb9cab92ec5f28c6f48e40e192a81e879e0d864a5e0c"
+        },
+        {
+          "path": "created-memory-v3/home/.codex/sessions/2026/11/07/rollout-2026-11-07T22-03-59-01a1b652-c43c-7970-8a92-cf4ba87ddb03.jsonl",
+          "bytes": 64146,
+          "sha256": "90301cd7e4d60e71fe13447f89ac2c281870e67d47522dacd2432a0762ee50e0"
+        }
+      ]
+    },
+    {
+      "case": "created-missing-v3",
+      "skill": "game-check-plan",
+      "version": "v3",
+      "prompt": "prompts/created-missing.txt",
+      "prompt_sha256": "1ce046f82260cc8190dc825e5f11e38e7ba909c0e9c260b7a8da2ada1525fc33",
+      "skill_sha256": "4b684efe20de913d1683e600bea682a490b6c749bdde949b547d6378e5e788f4",
+      "started_at_utc": "2026-11-07T14:03:50.301850+00:00",
+      "elapsed_seconds": 54.16,
+      "completed": true,
+      "workspace_input_files_unchanged": true,
+      "skill_catalog": [
+        {
+          "rollout_line": 3,
+          "role": "developer",
+          "name_present": true
+        }
+      ],
+      "exact_skill_reads": [
+        {
+          "events_line": 5,
+          "item_id": "item_1",
+          "command": "/bin/zsh -lc 'cat <experiment>/created-missing-v3/workspace/.agents/skills/game-check-plan/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "4b684efe20de913d1683e600bea682a490b6c749bdde949b547d6378e5e788f4"
+        }
+      ],
+      "tool_events": [
+        {
+          "events_line": 5,
+          "item_id": "item_1",
+          "command": "/bin/zsh -lc 'cat <experiment>/created-missing-v3/workspace/.agents/skills/game-check-plan/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "4b684efe20de913d1683e600bea682a490b6c749bdde949b547d6378e5e788f4"
+        },
+        {
+          "events_line": 7,
+          "item_id": "item_2",
+          "command": "/bin/zsh -lc \"ls -la <experiment>/created-missing-v3/workspace/ && echo '---' && find <experiment>/created-missing-v3/workspace -maxdepth 3 -not -path '*/.git/*' | head -100\"",
+          "exit_code": 0,
+          "output_sha256": "d85694664eb1bb359516e0873239d4d3aedea470eeab43f1764a8397937607c5"
+        }
+      ],
+      "trace_records": 2,
+      "reply": "responses/created-missing-v3.md",
+      "reply_sha256": "267d36a88e1b8f13fc0e3c81855bb3647b2317adc225934999dbeddacdd886c3",
+      "reply_path_redacted": false,
+      "artifacts": [
+        {
+          "path": "created-missing-v3/prompt.txt",
+          "bytes": 266,
+          "sha256": "1ce046f82260cc8190dc825e5f11e38e7ba909c0e9c260b7a8da2ada1525fc33"
+        },
+        {
+          "path": "created-missing-v3/inputs.json",
+          "bytes": 116,
+          "sha256": "9e6230fc688a28840a684c64e939cac320ae7a354f601ba5cd6829419010f6c5"
+        },
+        {
+          "path": "created-missing-v3/workspace/.agents/skills/game-check-plan/SKILL.md",
+          "bytes": 1213,
+          "sha256": "4b684efe20de913d1683e600bea682a490b6c749bdde949b547d6378e5e788f4"
+        },
+        {
+          "path": "created-missing-v3/logs/launch.json",
+          "bytes": 1067,
+          "sha256": "01858c32cf6bdd0573008c6389f101256b04111b6c3e7c857848a89a378870ba"
+        },
+        {
+          "path": "created-missing-v3/logs/events.jsonl",
+          "bytes": 6007,
+          "sha256": "d62061421a7eab0ecb00f9aebf67a4aa9b75479c81450fa48cc330ea9f664a5f"
+        },
+        {
+          "path": "created-missing-v3/logs/stderr.log",
+          "bytes": 2164,
+          "sha256": "31d717ca6f5eb7933130f168c82d788229de34a04c413aa7dd92a3d5bf756764"
+        },
+        {
+          "path": "created-missing-v3/logs/final.md",
+          "bytes": 2156,
+          "sha256": "267d36a88e1b8f13fc0e3c81855bb3647b2317adc225934999dbeddacdd886c3"
+        },
+        {
+          "path": "created-missing-v3/logs/result.json",
+          "bytes": 713,
+          "sha256": "bbea383731f88558fe700f06771586ba3e15611af766bad64164866cfc4b187e"
+        },
+        {
+          "path": "created-missing-v3/logs/trace-snapshot.sqlite3",
+          "bytes": 151552,
+          "sha256": "ecac8176e7c50c0142a3b84cd0f6628f1e4e8f2eaa2234ed1554f3f8ac39bb4d"
+        },
+        {
+          "path": "created-missing-v3/home/.codex/sessions/2026/11/07/rollout-2026-11-07T22-03-52-01a1b652-a5a8-7270-a12e-b6aeb511afd0.jsonl",
+          "bytes": 50361,
+          "sha256": "62561605511003446b4d2103e16b7c30b80d7ccc5ac6ae93edc964536cc2ade9"
+        }
+      ]
+    },
+    {
+      "case": "created-transfer-v3",
+      "skill": "game-check-plan",
+      "version": "v3",
+      "prompt": "prompts/created-transfer.txt",
+      "prompt_sha256": "d0469db7adc6b4a2fe0f5b5a6d4c476808b4743a309008f480aff9f62c35e7d9",
+      "skill_sha256": "4b684efe20de913d1683e600bea682a490b6c749bdde949b547d6378e5e788f4",
+      "started_at_utc": "2026-11-07T14:04:31.835389+00:00",
+      "elapsed_seconds": 52.25,
+      "completed": true,
+      "workspace_input_files_unchanged": true,
+      "skill_catalog": [
+        {
+          "rollout_line": 3,
+          "role": "developer",
+          "name_present": true
+        }
+      ],
+      "exact_skill_reads": [
+        {
+          "events_line": 5,
+          "item_id": "item_1",
+          "command": "/bin/zsh -lc 'cat <experiment>/created-transfer-v3/workspace/.agents/skills/game-check-plan/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "4b684efe20de913d1683e600bea682a490b6c749bdde949b547d6378e5e788f4"
+        }
+      ],
+      "tool_events": [
+        {
+          "events_line": 5,
+          "item_id": "item_1",
+          "command": "/bin/zsh -lc 'cat <experiment>/created-transfer-v3/workspace/.agents/skills/game-check-plan/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "4b684efe20de913d1683e600bea682a490b6c749bdde949b547d6378e5e788f4"
+        }
+      ],
+      "trace_records": 2,
+      "reply": "responses/created-transfer-v3.md",
+      "reply_sha256": "a6ce930faafb54a7cf61ecf103d2e63470a80e8e54dc6281afe1e6c099847d4c",
+      "reply_path_redacted": false,
+      "artifacts": [
+        {
+          "path": "created-transfer-v3/prompt.txt",
+          "bytes": 391,
+          "sha256": "d0469db7adc6b4a2fe0f5b5a6d4c476808b4743a309008f480aff9f62c35e7d9"
+        },
+        {
+          "path": "created-transfer-v3/inputs.json",
+          "bytes": 116,
+          "sha256": "9e6230fc688a28840a684c64e939cac320ae7a354f601ba5cd6829419010f6c5"
+        },
+        {
+          "path": "created-transfer-v3/workspace/.agents/skills/game-check-plan/SKILL.md",
+          "bytes": 1213,
+          "sha256": "4b684efe20de913d1683e600bea682a490b6c749bdde949b547d6378e5e788f4"
+        },
+        {
+          "path": "created-transfer-v3/logs/launch.json",
+          "bytes": 1071,
+          "sha256": "dba5171913c71505414facfa9b2889695de4b91daa1969a11ecc6b82f20dd196"
+        },
+        {
+          "path": "created-transfer-v3/logs/events.jsonl",
+          "bytes": 7986,
+          "sha256": "e69e3852c8eff7cd43cfcaf86737bc71c50446a49ae66e63f1548a6ab7ebfb7b"
+        },
+        {
+          "path": "created-transfer-v3/logs/stderr.log",
+          "bytes": 2660,
+          "sha256": "18eb669b039ebb74fa599a557e7589c0a026ddcfb3d665ec1d2ed1c6ed7d3fe6"
+        },
+        {
+          "path": "created-transfer-v3/logs/final.md",
+          "bytes": 5575,
+          "sha256": "a6ce930faafb54a7cf61ecf103d2e63470a80e8e54dc6281afe1e6c099847d4c"
+        },
+        {
+          "path": "created-transfer-v3/logs/result.json",
+          "bytes": 714,
+          "sha256": "67f8987bcb80224bfd0de11471118d3ec5c85706fb9aa52db3bb38753bb0f0d9"
+        },
+        {
+          "path": "created-transfer-v3/logs/trace-snapshot.sqlite3",
+          "bytes": 155648,
+          "sha256": "1b2771b1c4df6896f4896a0d5017c85f3f71556168c74c2c73cd217780594f36"
+        },
+        {
+          "path": "created-transfer-v3/home/.codex/sessions/2026/11/07/rollout-2026-11-07T22-04-32-01a1b653-4304-7291-8954-8f45b6a96969.jsonl",
+          "bytes": 56769,
+          "sha256": "6c457dd42f75d3eecc810ef79f38b487674ecd02ad11f1cb8b27ee50d91b361f"
+        }
+      ]
+    }
+  ],
+  "excluded_attempts": [
+    {
+      "case": "original",
+      "exclusion": {
+        "reason": "A bootstrap precondition failed because model events had started; the outer shell continued and launched a duplicate case into the same log directory. Both runs stopped. Keep raw sessions and trace for audit; exclude shared stdout/final logs from teaching evidence.",
+        "replacement": "original-verified"
+      },
+      "retained_artifacts": [
+        {
+          "path": "original/INVALID.json",
+          "bytes": 322,
+          "sha256": "69fb43afb8595f610ad7481f1d40c0e895be8c976fffa9909a50428531ce29d3"
+        },
+        {
+          "path": "original/prompt.txt",
+          "bytes": 256,
+          "sha256": "c19f746cb5e58cc17ccd683c11d9e8e67f52c6a33cf4ba249eb7ec3097632a25"
+        },
+        {
+          "path": "original/inputs.json",
+          "bytes": 4378,
+          "sha256": "27499c3e471ad9c4cfad1ec465580c953e8dd2886b2f47148c98a3dd8b6ab31c"
+        },
+        {
+          "path": "original/logs/stderr.log",
+          "bytes": 716,
+          "sha256": "f77ab827d46c6408993795b1fd60bb6a50b10ec80208ee73b962e0d954ef59cd"
+        },
+        {
+          "path": "original/logs/result.json",
+          "bytes": 304,
+          "sha256": "6cf55c20057c08a18bd96f789bdf357c4f3742f144b01734996a0ab661663c44"
+        },
+        {
+          "path": "original/logs/events.jsonl",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "original/logs/launch.json",
+          "bytes": 891,
+          "sha256": "7785773a98e08761fd42e706b8c2b9ca28535a4c802ca40136fe005149140de3"
+        }
+      ]
+    },
+    {
+      "case": "created-missing",
+      "exclusion": {
+        "reason": "A bootstrap precondition failed because model events had started; the outer shell continued and launched a duplicate case into the same log directory. Both runs stopped. Keep raw sessions and trace for audit; exclude shared stdout/final logs from teaching evidence.",
+        "replacement": "created-missing-verified"
+      },
+      "retained_artifacts": [
+        {
+          "path": "created-missing/INVALID.json",
+          "bytes": 329,
+          "sha256": "4104c1d039239d1af67fea7b23f3073d048b2347afacf691e4c3746da01f6578"
+        },
+        {
+          "path": "created-missing/prompt.txt",
+          "bytes": 266,
+          "sha256": "1ce046f82260cc8190dc825e5f11e38e7ba909c0e9c260b7a8da2ada1525fc33"
+        },
+        {
+          "path": "created-missing/inputs.json",
+          "bytes": 116,
+          "sha256": "b5bd11b463d89deb8e0a2efd41b10c97170cb27f814ff93c310ca8e260fe1610"
+        },
+        {
+          "path": "created-missing/home/.codex/sessions/2026/11/07/rollout-2026-11-07T21-57-44-01a1b64d-0a94-73a1-9e3d-77c3daf9bc60.jsonl",
+          "bytes": 33973,
+          "sha256": "55f46d3fac8ae451528fea4b43656bd9113c5153879d85a0c6b878a69e98d837"
+        },
+        {
+          "path": "created-missing/home/.codex/sessions/2026/11/07/rollout-2026-11-07T21-57-44-01a1b64d-0aa2-7993-9e5d-65195dc89772.jsonl",
+          "bytes": 60662,
+          "sha256": "e560662bcbaa789cba2959d2206b5302524034a1833d9caec54ff5486a54cbba"
+        },
+        {
+          "path": "created-missing/logs/stderr.log",
+          "bytes": 2516,
+          "sha256": "a6f87e62480b33f8c32a9e927c90163e984d994d132b210cdfe38ad07a796cd2"
+        },
+        {
+          "path": "created-missing/logs/result.json",
+          "bytes": 619,
+          "sha256": "aadc267beaa1e0e173acbd0a6c96d4da570ae4a9b8ffd3ab72f552760916f0c2"
+        },
+        {
+          "path": "created-missing/logs/events.jsonl",
+          "bytes": 16475,
+          "sha256": "716963d7302ee5c44566a6944721283bb47a8d9bb9403f4e57773366af76f289"
+        },
+        {
+          "path": "created-missing/logs/launch.json",
+          "bytes": 919,
+          "sha256": "6af962d29ecf690c3b6fe6a098bfae55ae165a28eb1a700053ffacc1d7e11146"
+        }
+      ]
+    },
+    {
+      "case": "created-transfer",
+      "exclusion": {
+        "reason": "Runtime bootstrap stalled before any model event; interrupted, preserved and replaced in a fresh case directory.",
+        "replacement": "created-transfer-v2"
+      },
+      "retained_artifacts": [
+        {
+          "path": "created-transfer/INVALID.json",
+          "bytes": 171,
+          "sha256": "8288dcc1e16b3f10791fc6b5bd3fb4c8eade3aafc336ae2591f58c38ea218ef1"
+        },
+        {
+          "path": "created-transfer/prompt.txt",
+          "bytes": 391,
+          "sha256": "d0469db7adc6b4a2fe0f5b5a6d4c476808b4743a309008f480aff9f62c35e7d9"
+        },
+        {
+          "path": "created-transfer/inputs.json",
+          "bytes": 116,
+          "sha256": "b5bd11b463d89deb8e0a2efd41b10c97170cb27f814ff93c310ca8e260fe1610"
+        },
+        {
+          "path": "created-transfer/logs/stderr.log",
+          "bytes": 808,
+          "sha256": "35eb06cfebd57c355381a8affa42dc2198aa8ebf17456498cf1c663fc34d6cc9"
+        },
+        {
+          "path": "created-transfer/logs/result.json",
+          "bytes": 311,
+          "sha256": "4749d38fbc5891c4ba326c674ca7387399a5c02e4882c47709b700ab9cb1db1c"
+        },
+        {
+          "path": "created-transfer/logs/events.jsonl",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "created-transfer/logs/launch.json",
+          "bytes": 923,
+          "sha256": "194d057eb30e40530c144597bce00ee70e405c219a0378b403c7a2e1a16c6896"
+        }
+      ]
+    }
+  ],
+  "comparison_checks": {
+    "same_prompt": true,
+    "same_discovery_catalog_after_path_normalization": true,
+    "normalized_catalog_sha256": "1ca73379b109cfe010c23035d00dc6f500a98cdc1d49850da85fe23c2caafd10",
+    "changed_workspace_files": [
+      ".agents/skills/game-studio/SKILL.md"
+    ],
+    "game_check_plan_current_sha256": "4b684efe20de913d1683e600bea682a490b6c749bdde949b547d6378e5e788f4"
+  },
+  "frozen_support_files": [
+    {
+      "path": "clean-codex.sh",
+      "bytes": 10821,
+      "sha256": "d2036e22c53cd5782d5e4e33a81153a2685aca105126e7d564a3c41a125226fb"
+    },
+    {
+      "path": "codex-model-catalog.json",
+      "bytes": 1638,
+      "sha256": "747489a4c9e3546f59799a80c1845b70d91dc04022b4b4b34daf389bb5addacc"
+    },
+    {
+      "path": "planning-requirement.patch",
+      "bytes": 291,
+      "sha256": "5a169efda7acab1b8c615379a4a31b5793a5f2d4febdfa8b338237bb4a8d51cb"
+    },
+    {
+      "path": "source/game-check-plan-v1.md",
+      "bytes": 746,
+      "sha256": "3c6e9e7bd138cbacd78cb5b0cac256be205784e7a8bee2b4c22a2131f4138baa"
+    },
+    {
+      "path": "source/game-check-plan-v2.md",
+      "bytes": 1033,
+      "sha256": "0a35e1c64e8a30de3ca03942d277dacaaf64c76e257fe72d4d7526f1afb1c2df"
+    },
+    {
+      "path": "source/game-check-plan-v3.md",
+      "bytes": 1213,
+      "sha256": "4b684efe20de913d1683e600bea682a490b6c749bdde949b547d6378e5e788f4"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+--- first-game/js/game.js
++++ repaired-game/js/game.js
+@@ -15,20 +15,6 @@
+ const INVULN = 1.2;         // 受伤后的无敌时间
+ 
+ const W = 960, H = 600;
+-
+-/* 高分屏清晰渲染 */
+-const DPR = Math.min(2, window.devicePixelRatio || 1);
+-canvas.width = W * DPR;
+-canvas.height = H * DPR;
+-
+-/* 从主题令牌读取实际颜色（canvas 不认 var()） */
+-const CSS = getComputedStyle(document.documentElement);
+-const C = {
+-  accent3: CSS.getPropertyValue('--pg-accent-3').trim() || '#56d6c6',
+-  accent2: CSS.getPropertyValue('--pg-accent-2').trim() || '#9a6bff',
+-  warn: CSS.getPropertyValue('--pg-warn').trim() || '#fbbf24',
+-  bad: CSS.getPropertyValue('--pg-bad').trim() || '#fb7185',
+-};
+ 
+ /* ------------------------------------------------------------- DOM */
+ const canvas = document.getElementById('canvas');
+@@ -39,6 +25,43 @@
+ const introEl = document.getElementById('intro');
+ const soundBtn = document.getElementById('sound-btn');
+ const hintEl = document.getElementById('field-hint');
++
++/* 高分屏清晰渲染（必须在拿到 canvas 之后再设置尺寸） */
++const DPR = Math.min(2, window.devicePixelRatio || 1);
++canvas.width = W * DPR;
++canvas.height = H * DPR;
++
++/*
++ * 从主题令牌读取实际颜色（canvas 不认 var()）。
++ * 用惰性 getter 读取，避免样式表尚未解析完时拿到空值。
++ */
++const FALLBACK = {
++  accent3: '#56d6c6',
++  accent2: '#9a6bff',
++  warn: '#fbbf24',
++  bad: '#fb7185',
++};
++const tokenCache = new Map();
++
++function readToken(name, fallback) {
++  if (tokenCache.has(name)) return tokenCache.get(name);
++  let value = '';
++  try {
++    value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
++  } catch {
++    value = '';
++  }
++  const result = value || fallback;
++  tokenCache.set(name, result);
++  return result;
++}
++
++const C = {
++  get accent3() { return readToken('--pg-accent-3', FALLBACK.accent3); },
++  get accent2() { return readToken('--pg-accent-2', FALLBACK.accent2); },
++  get warn()    { return readToken('--pg-warn', FALLBACK.warn); },
++  get bad()     { return readToken('--pg-bad', FALLBACK.bad); },
++};
+ 
+ /* ---------------------------------------------------------- HUD 读数 */
+ const stats = renderStats(hudEl, [
+@@ -477,5 +500,6 @@
+ 
+ /* ==================================================== 启动 ========== */
+ updateHud();
++refreshSoundBtn();
+ showIntro();
+ requestAnimationFrame(loop);
