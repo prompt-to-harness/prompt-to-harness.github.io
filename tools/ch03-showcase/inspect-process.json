@@ -1,0 +1,1079 @@
+{
+  "records": {
+    "selection-terminal": {
+      "root": "repo",
+      "title": "3.2 主动调用",
+      "date": "2026-11-07",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "原生会话归档；2026-11-07 九份游戏 Skill 环境，不代表后续四份安装环境",
+      "samples": {
+        "session": {
+          "path": "lab-runs/ch03-skill-selection-20261107/terminal/home/.codex/sessions/2026/11/07/rollout-2026-11-07T21-33-21-01a1b636-b5ad-73d3-87a3-4d4117ceafde.jsonl",
+          "mode": "session"
+        },
+        "01-skills-menu": {
+          "path": "lab-runs/ch03-skill-selection-20261107/terminal/logs/01-skills-menu.txt",
+          "mode": "document",
+          "boundary": "终端屏幕文字原件；不是截图或模型消息"
+        },
+        "02-skill-list": {
+          "path": "lab-runs/ch03-skill-selection-20261107/terminal/logs/02-skill-list.txt",
+          "mode": "document",
+          "boundary": "终端屏幕文字原件；不是截图或模型消息"
+        },
+        "03-inserted": {
+          "path": "lab-runs/ch03-skill-selection-20261107/terminal/logs/03-inserted.txt",
+          "mode": "document",
+          "boundary": "终端屏幕文字原件；不是截图或模型消息"
+        }
+      }
+    },
+    "selection-original-positive": {
+      "root": "repo",
+      "title": "3.2 原描述·试玩清单",
+      "date": "2026-11-07",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "原生会话归档；2026-11-07 九份游戏 Skill 环境，不代表后续四份安装环境",
+      "samples": {
+        "session": {
+          "path": "lab-runs/ch03-skill-selection-20261107/original-positive/home/.codex/sessions/2026/11/07/rollout-2026-11-07T21-31-15-01a1b634-c9ce-73c0-9f93-5db82d346ac7.jsonl",
+          "mode": "session"
+        }
+      }
+    },
+    "selection-original-negative": {
+      "root": "repo",
+      "title": "3.2 原描述·按钮文案",
+      "date": "2026-11-07",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "原生会话归档；2026-11-07 九份游戏 Skill 环境，不代表后续四份安装环境",
+      "samples": {
+        "session": {
+          "path": "lab-runs/ch03-skill-selection-20261107/original-negative/home/.codex/sessions/2026/11/07/rollout-2026-11-07T21-32-08-01a1b635-99bf-7e62-9697-7ce3f2367363.jsonl",
+          "mode": "session"
+        }
+      }
+    },
+    "selection-revised-positive-verified": {
+      "root": "repo",
+      "title": "3.2 改写描述·试玩清单",
+      "date": "2026-11-07",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "原生会话归档；2026-11-07 九份游戏 Skill 环境，不代表后续四份安装环境",
+      "samples": {
+        "session": {
+          "path": "lab-runs/ch03-skill-selection-20261107/revised-positive-verified/home/.codex/sessions/2026/11/07/rollout-2026-11-07T21-42-19-01a1b63e-ebf4-7c13-8a1e-14a7d7a2564a.jsonl",
+          "mode": "session"
+        }
+      }
+    },
+    "selection-revised-negative": {
+      "root": "repo",
+      "title": "3.2 改写描述·按钮文案",
+      "date": "2026-11-07",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "原生会话归档；2026-11-07 九份游戏 Skill 环境，不代表后续四份安装环境",
+      "samples": {
+        "session": {
+          "path": "lab-runs/ch03-skill-selection-20261107/revised-negative/home/.codex/sessions/2026/11/07/rollout-2026-11-07T21-43-32-01a1b640-0acf-7302-9ffe-00e850d8c737.jsonl",
+          "mode": "session"
+        }
+      }
+    },
+    "playtest-a": {
+      "root": "repo",
+      "title": "3.2 任务 A",
+      "date": "2026-11-11",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "已保存原始 CLI 事件；系统输入和工具内部过程以归档范围为限",
+      "samples": {
+        "cli": {
+          "path": "lab-runs/ch0323-old5-20261111/a-discover/events.jsonl",
+          "mode": "cli",
+          "prompt": "lab-runs/ch0323-old5-20261111/a-discover/prompt.txt"
+        },
+        "continued": {
+          "path": "lab-runs/ch0323-old5-20261111/a-discover/continued-events.jsonl",
+          "mode": "cli",
+          "boundary": "同任务续跑 CLI 事件；续跑请求未单独保存在此文件，不补造"
+        },
+        "session": {
+          "path": "lab-runs/ch0323-old5-20261111/a-discover/rollout.jsonl",
+          "mode": "session",
+          "boundary": "留存原生会话；CLI 初次与续跑文件另列，不假定此会话覆盖全部续跑"
+        }
+      }
+    },
+    "playtest-b": {
+      "root": "repo",
+      "title": "3.2 任务 B",
+      "date": "2026-11-11",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "已保存原始 CLI 事件；系统输入和工具内部过程以归档范围为限",
+      "samples": {
+        "cli": {
+          "path": "lab-runs/ch0323-old5-20261111/b-repair/events.jsonl",
+          "mode": "cli",
+          "prompt": "lab-runs/ch0323-old5-20261111/b-repair/prompt.txt"
+        },
+        "continued": {
+          "path": "lab-runs/ch0323-old5-20261111/b-repair/continued-events.jsonl",
+          "mode": "cli",
+          "boundary": "同任务续跑 CLI 事件；续跑请求未单独保存在此文件，不补造"
+        },
+        "session": {
+          "path": "lab-runs/ch0323-old5-20261111/b-repair/rollout.jsonl",
+          "mode": "session",
+          "boundary": "留存原生会话；CLI 初次与续跑文件另列，不假定此会话覆盖全部续跑"
+        }
+      }
+    },
+    "playtest-c": {
+      "root": "repo",
+      "title": "3.2 任务 C",
+      "date": "2026-11-11",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "已保存原始 CLI 事件；系统输入和工具内部过程以归档范围为限",
+      "samples": {
+        "cli": {
+          "path": "lab-runs/ch0323-old5-20261111/c-responsive/events.jsonl",
+          "mode": "cli",
+          "prompt": "lab-runs/ch0323-old5-20261111/c-responsive/prompt.txt"
+        },
+        "continued": {
+          "path": "lab-runs/ch0323-old5-20261111/c-responsive/continued-events.jsonl",
+          "mode": "cli",
+          "boundary": "同任务续跑 CLI 事件；续跑请求未单独保存在此文件，不补造"
+        },
+        "session": {
+          "path": "lab-runs/ch0323-old5-20261111/c-responsive/rollout.jsonl",
+          "mode": "session",
+          "boundary": "留存原生会话；CLI 初次与续跑文件另列，不假定此会话覆盖全部续跑"
+        }
+      }
+    },
+    "plugin-call": {
+      "root": "repo",
+      "title": "3.2 Plugin 安装后的短调用",
+      "date": "2026-11-12",
+      "model": "archive (model not recorded in retained CLI events)",
+      "boundary": "原始 CLI 事件；独立请求文件未留存，请求仅存公开预跑记录",
+      "samples": {
+        "cli": {
+          "path": "lab-runs/plugin-install-20261112/ch0324-call.jsonl",
+          "mode": "cli"
+        },
+        "installation": {
+          "path": "lab-runs/plugin-install-20261112/ch0324-install.json",
+          "mode": "document",
+          "language": "json",
+          "boundary": "首次安装的 JSON 返回原件；未找到对应终端命令执行日志"
+        }
+      }
+    },
+    "layout-author-template": {
+      "root": "purple",
+      "title": "3.3 整页 Skill 作者",
+      "date": "2026-11-12",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "已保存原始 CLI 事件与独立请求文件",
+      "samples": {
+        "cli": {
+          "path": "author-layout-template-20261112/logs/events.jsonl",
+          "mode": "cli",
+          "prompt": "author-layout-template-20261112/prompt.txt"
+        }
+      }
+    },
+    "layout-author-components": {
+      "root": "purple",
+      "title": "3.3 组件 Skill 作者",
+      "date": "2026-11-12",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "已保存原始 CLI 事件；组件作者在 720 秒超时，没有最终成功回复",
+      "samples": {
+        "cli": {
+          "path": "author-layout-components-20261112/logs/events.jsonl",
+          "mode": "cli",
+          "prompt": "author-layout-components-20261112/prompt.txt"
+        }
+      }
+    },
+    "layout-template": {
+      "root": "purple",
+      "title": "3.3 历史整页游戏",
+      "date": "2026-11-12",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "已保存原始 CLI 事件与独立请求文件",
+      "samples": {
+        "cli": {
+          "path": "dodge-compare-layout-template-game/logs/events.jsonl",
+          "mode": "cli",
+          "prompt": "dodge-compare-layout-template-game/prompt.txt"
+        }
+      }
+    },
+    "layout-components": {
+      "root": "purple",
+      "title": "3.3 历史组件游戏",
+      "date": "2026-11-12",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "已保存原始 CLI 事件与独立请求文件",
+      "samples": {
+        "cli": {
+          "path": "dodge-compare-layout-components-game/logs/events.jsonl",
+          "mode": "cli",
+          "prompt": "dodge-compare-layout-components-game/prompt.txt"
+        },
+        "session": {
+          "mode": "session",
+          "path": "dodge-compare-layout-components-game/home/.codex/sessions/2026/11/12/rollout-2026-11-12T17-10-13-01a1cf05-9c56-7b41-8950-563cae60679d.jsonl",
+          "boundary": "同一任务原生会话，含 CLI 文件变更事件未附带的原始补丁"
+        }
+      }
+    },
+    "audio-baseline": {
+      "root": "audio",
+      "title": "3.3 E1 原组件版",
+      "date": "2026-11-14",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "已保存原始 CLI 事件；系统输入和工具内部过程以归档范围为限",
+      "samples": {
+        "cli": {
+          "path": "baseline/logs/events.jsonl",
+          "mode": "cli",
+          "prompt": "baseline/prompt.txt"
+        }
+      }
+    },
+    "audio-first": {
+      "root": "audio",
+      "title": "3.3 E2 加音效首轮",
+      "date": "2026-11-14",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "已保存原始 CLI 事件；系统输入和工具内部过程以归档范围为限",
+      "samples": {
+        "cli": {
+          "path": "with-audio/logs/events.jsonl",
+          "mode": "cli",
+          "prompt": "with-audio/prompt.txt"
+        }
+      }
+    },
+    "audio-repair": {
+      "root": "audio",
+      "title": "3.3 E3 只修游戏",
+      "date": "2026-11-14",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "已保存原始 CLI 事件；系统输入和工具内部过程以归档范围为限",
+      "samples": {
+        "cli": {
+          "path": "with-audio-repaired/logs/events.jsonl",
+          "mode": "cli",
+          "prompt": "with-audio-repaired/prompt.txt"
+        }
+      }
+    }
+  },
+  "topics": {
+    "face-review": {
+      "title": "05 号游戏 · 从初始请求到画面复查",
+      "steps": [
+        {
+          "run": "mm-memory",
+          "sample": "cli",
+          "message": "prompt",
+          "label": "初始请求与自主决定的细节"
+        },
+        {
+          "run": "mm-memory",
+          "sample": "cli",
+          "line": 85,
+          "label": "完整一局与重开归零的浏览器输出",
+          "highlight_groups": [
+            [
+              0
+            ],
+            [
+              1
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6
+            ]
+          ]
+        },
+        {
+          "run": "mm-memory",
+          "sample": "cli",
+          "line": 86,
+          "label": "61 项通过，继续看画面"
+        },
+        {
+          "run": "mm-memory",
+          "sample": "cli",
+          "line": 89,
+          "label": "发现开局露出牌面"
+        },
+        {
+          "run": "mm-memory",
+          "sample": "cli",
+          "line": 60,
+          "label": "原检查只查 is-open"
+        },
+        {
+          "run": "mm-memory",
+          "sample": "cli",
+          "line": 96,
+          "label": "修正后复查：补中途截图并重跑检查"
+        }
+      ]
+    },
+    "selection-explicit": {
+      "title": "主动选择、正文带入与回复",
+      "steps": [
+        {
+          "run": "selection-terminal",
+          "sample": "01-skills-menu",
+          "text": [
+            "List skills"
+          ],
+          "label": "终端菜单",
+          "line": 1
+        },
+        {
+          "run": "selection-terminal",
+          "sample": "02-skill-list",
+          "text": [
+            "Game Playtest"
+          ],
+          "label": "选择条目",
+          "line": 1
+        },
+        {
+          "run": "selection-terminal",
+          "sample": "03-inserted",
+          "text": [
+            "$game-playtest"
+          ],
+          "label": "插入名称",
+          "line": 1
+        },
+        {
+          "run": "selection-terminal",
+          "sample": "session",
+          "text": [
+            "$game-playtest"
+          ],
+          "label": "提交请求",
+          "line": 10
+        },
+        {
+          "run": "selection-terminal",
+          "sample": "session",
+          "text": [
+            "<name>game-playtest</name>"
+          ],
+          "label": "带入 Skill 正文",
+          "line": 12
+        },
+        {
+          "run": "selection-terminal",
+          "sample": "session",
+          "text": [
+            "计步"
+          ],
+          "label": "返回清单",
+          "line": 98
+        }
+      ]
+    },
+    "selection-request": {
+      "title": "不点名的原始请求",
+      "steps": [
+        {
+          "run": "selection-original-positive",
+          "sample": "session",
+          "text": [
+            "重点检查计步和重开"
+          ],
+          "label": "原始请求",
+          "line": 10
+        }
+      ]
+    },
+    "selection-metadata": {
+      "title": "同次会话可用说明",
+      "steps": [
+        {
+          "run": "selection-original-positive",
+          "sample": "session",
+          "text": [
+            "game-playtest: Run browser-game playtests and frontend QA."
+          ],
+          "label": "可用 Skill 描述",
+          "line": 3
+        }
+      ]
+    },
+    "selection-read": {
+      "title": "实际读取及返回",
+      "steps": [
+        {
+          "run": "selection-original-positive",
+          "sample": "session",
+          "text": [
+            "game-playtest/SKILL.md"
+          ],
+          "label": "读取命令",
+          "line": 14
+        },
+        {
+          "run": "selection-original-positive",
+          "sample": "session",
+          "text": [
+            "name: game-playtest"
+          ],
+          "label": "读取返回",
+          "line": 18
+        }
+      ]
+    },
+    "selection-result": {
+      "title": "清单原文",
+      "steps": [
+        {
+          "run": "selection-original-positive",
+          "sample": "session",
+          "text": [
+            "A2",
+            "A3",
+            "B1",
+            "B3"
+          ],
+          "label": "计步与重开条目",
+          "line": 32
+        }
+      ]
+    },
+    "selection-description": {
+      "title": "原版与改写版的四次独立复核",
+      "steps": [
+        {
+          "run": "selection-original-positive",
+          "sample": "session",
+          "text": [
+            "game-playtest:"
+          ],
+          "label": "核对实际描述",
+          "line": 3
+        },
+        {
+          "run": "selection-original-positive",
+          "sample": "session",
+          "text": [
+            "请"
+          ],
+          "label": "同轮请求",
+          "line": 10
+        },
+        {
+          "run": "selection-original-positive",
+          "sample": "session",
+          "text": [
+            "重开"
+          ],
+          "label": "同轮返回",
+          "line": 32
+        },
+        {
+          "run": "selection-original-negative",
+          "sample": "session",
+          "text": [
+            "game-playtest:"
+          ],
+          "label": "核对实际描述",
+          "line": 3
+        },
+        {
+          "run": "selection-original-negative",
+          "sample": "session",
+          "text": [
+            "请"
+          ],
+          "label": "同轮请求",
+          "line": 10
+        },
+        {
+          "run": "selection-original-negative",
+          "sample": "session",
+          "text": [
+            "重新开始"
+          ],
+          "label": "同轮返回",
+          "line": 29
+        },
+        {
+          "run": "selection-revised-positive-verified",
+          "sample": "session",
+          "text": [
+            "game-playtest:"
+          ],
+          "label": "核对实际描述",
+          "line": 3
+        },
+        {
+          "run": "selection-revised-positive-verified",
+          "sample": "session",
+          "text": [
+            "请"
+          ],
+          "label": "同轮请求",
+          "line": 10
+        },
+        {
+          "run": "selection-revised-positive-verified",
+          "sample": "session",
+          "text": [
+            "重开"
+          ],
+          "label": "同轮返回",
+          "line": 32
+        },
+        {
+          "run": "selection-revised-negative",
+          "sample": "session",
+          "text": [
+            "game-playtest:"
+          ],
+          "label": "核对实际描述",
+          "line": 3
+        },
+        {
+          "run": "selection-revised-negative",
+          "sample": "session",
+          "text": [
+            "请"
+          ],
+          "label": "同轮请求",
+          "line": 10
+        },
+        {
+          "run": "selection-revised-negative",
+          "sample": "session",
+          "text": [
+            "点击重新开始"
+          ],
+          "label": "同轮返回",
+          "line": 27
+        }
+      ]
+    },
+    "playtest-a": {
+      "title": "任务 A 的原始请求",
+      "steps": [
+        {
+          "run": "playtest-a",
+          "sample": "cli",
+          "text": [
+            "$game-playtest"
+          ],
+          "label": "原始请求",
+          "message": "prompt"
+        }
+      ]
+    },
+    "playtest-b": {
+      "title": "任务 B 的原始请求",
+      "steps": [
+        {
+          "run": "playtest-b",
+          "sample": "cli",
+          "text": [
+            "$game-playtest"
+          ],
+          "label": "原始请求",
+          "message": "prompt"
+        }
+      ]
+    },
+    "playtest-c": {
+      "title": "任务 C 的原始请求",
+      "steps": [
+        {
+          "run": "playtest-c",
+          "sample": "cli",
+          "text": [
+            "$game-playtest"
+          ],
+          "label": "原始请求",
+          "message": "prompt"
+        }
+      ]
+    },
+    "playtest-a-output": {
+      "title": "提前通关的浏览器输出",
+      "steps": [
+        {
+          "run": "playtest-a",
+          "sample": "continued",
+          "text": [
+            "pair-3",
+            "matched_cards=6 result=True"
+          ],
+          "label": "第三对后的实际输出",
+          "line": 148
+        }
+      ]
+    },
+    "playtest-a-report": {
+      "title": "任务 A 的完整报告",
+      "steps": [
+        {
+          "run": "playtest-a",
+          "sample": "continued",
+          "text": [
+            "3 对牌"
+          ],
+          "label": "发现与结论",
+          "line": 157
+        }
+      ]
+    },
+    "playtest-b-read": {
+      "title": "沿正文读取清单",
+      "steps": [
+        {
+          "run": "playtest-b",
+          "sample": "cli",
+          "text": [
+            "playtest-checklist.md"
+          ],
+          "label": "实际读取",
+          "line": 7
+        }
+      ]
+    },
+    "playtest-b-verify": {
+      "title": "修复后的重开复验",
+      "steps": [
+        {
+          "run": "playtest-b",
+          "sample": "continued",
+          "text": [
+            "三对时不出现通关横幅",
+            "通关后点击",
+            "恢复后牌局可继续游玩"
+          ],
+          "label": "重开复验输出",
+          "line": 19
+        }
+      ]
+    },
+    "playtest-b-script": {
+      "title": "验证脚本原始写入",
+      "steps": [
+        {
+          "run": "playtest-b",
+          "sample": "continued",
+          "text": [
+            "memory_verify.py"
+          ],
+          "label": "写入验证脚本",
+          "line": 16
+        }
+      ]
+    },
+    "playtest-c-read": {
+      "title": "沿引用读取清单及前端指导",
+      "steps": [
+        {
+          "run": "playtest-c",
+          "sample": "cli",
+          "text": [
+            "playtest-checklist.md"
+          ],
+          "label": "试玩清单",
+          "line": 16
+        },
+        {
+          "run": "playtest-c",
+          "sample": "cli",
+          "text": [
+            "game-ui-frontend/SKILL.md"
+          ],
+          "label": "前端指导",
+          "line": 18
+        }
+      ]
+    },
+    "playtest-c-verify": {
+      "title": "窄屏检查原始输出",
+      "steps": [
+        {
+          "run": "playtest-c",
+          "sample": "continued",
+          "text": [
+            "overlap"
+          ],
+          "label": "重叠面积",
+          "line": 21
+        },
+        {
+          "run": "playtest-c",
+          "sample": "continued",
+          "text": [
+            "'metaVisible': False"
+          ],
+          "label": "窄屏底部观察",
+          "line": 168
+        }
+      ]
+    },
+    "plugin-install": {
+      "title": "安装返回原件",
+      "steps": [
+        {
+          "run": "plugin-call",
+          "sample": "installation",
+          "text": [
+            "pluginId",
+            "installedPath"
+          ],
+          "label": "安装 JSON 返回",
+          "line": 1
+        }
+      ]
+    },
+    "plugin-read": {
+      "title": "读取安装缓存中的 Skill 和 Reference",
+      "steps": [
+        {
+          "run": "plugin-call",
+          "sample": "cli",
+          "text": [
+            "game-playtest/SKILL.md"
+          ],
+          "label": "Skill 读取返回",
+          "line": 6
+        },
+        {
+          "run": "plugin-call",
+          "sample": "cli",
+          "text": [
+            "playtest-checklist.md"
+          ],
+          "label": "Reference 读取返回",
+          "line": 8
+        }
+      ]
+    },
+    "plugin-result": {
+      "title": "实际返回的完整清单",
+      "steps": [
+        {
+          "run": "plugin-call",
+          "sample": "cli",
+          "text": [
+            "第 1～5 对",
+            "第 6 对",
+            "动画中重开"
+          ],
+          "label": "通关与重开检查",
+          "line": 10
+        }
+      ]
+    },
+    "layout-authors": {
+      "title": "两份 Skill 的真实作者请求",
+      "steps": [
+        {
+          "run": "layout-author-template",
+          "sample": "cli",
+          "text": [
+            "默认保留页面布局"
+          ],
+          "label": "整页作者请求",
+          "message": "prompt"
+        },
+        {
+          "run": "layout-author-components",
+          "sample": "cli",
+          "text": [
+            "具体位置按玩法安排"
+          ],
+          "label": "组件作者请求",
+          "message": "prompt"
+        }
+      ]
+    },
+    "layout-game-requests": {
+      "title": "同一游戏任务、两份指导",
+      "steps": [
+        {
+          "run": "layout-template",
+          "sample": "cli",
+          "text": [
+            "60 秒"
+          ],
+          "label": "整页组请求",
+          "message": "prompt"
+        },
+        {
+          "run": "layout-components",
+          "sample": "cli",
+          "text": [
+            "60 秒"
+          ],
+          "label": "组件组请求",
+          "message": "prompt"
+        }
+      ]
+    },
+    "layout-hud": {
+      "title": "从布局读取到侧栏实现",
+      "steps": [
+        {
+          "run": "layout-components",
+          "sample": "cli",
+          "text": [
+            "references/layout.md"
+          ],
+          "label": "读取布局资料",
+          "line": 6
+        },
+        {
+          "run": "layout-components",
+          "sample": "session",
+          "text": [
+            "pg-stats--rail"
+          ],
+          "label": "写入侧栏类名",
+          "line": 53
+        }
+      ]
+    },
+    "layout-overlay": {
+      "title": "同一浮层用于开场与结算",
+      "steps": [
+        {
+          "run": "layout-components",
+          "sample": "cli",
+          "text": [
+            "new ResultOverlay",
+            "overlay.open"
+          ],
+          "label": "游戏代码原始写入",
+          "line": 17
+        }
+      ]
+    },
+    "layout-storage": {
+      "title": "模板读取、复制与交互实现",
+      "steps": [
+        {
+          "run": "layout-template",
+          "sample": "cli",
+          "text": [
+            "storage.js",
+            "sound.js"
+          ],
+          "label": "读取存储和声音模块",
+          "line": 13
+        },
+        {
+          "run": "layout-template",
+          "sample": "cli",
+          "text": [
+            "cp .agents/skills/purple-game-ui/templates/src/sound.js"
+          ],
+          "label": "复制声音模块",
+          "line": 15
+        },
+        {
+          "run": "layout-template",
+          "sample": "cli",
+          "text": [
+            "recordBestScore"
+          ],
+          "label": "写入成绩保存",
+          "line": 21
+        }
+      ]
+    },
+    "layout-sound-read": {
+      "title": "历史整页组读取声音模块",
+      "steps": [
+        {
+          "run": "layout-template",
+          "sample": "cli",
+          "text": [
+            "sound.js"
+          ],
+          "label": "实际读取声音",
+          "line": 13
+        },
+        {
+          "run": "layout-template",
+          "sample": "cli",
+          "text": [
+            "sound.js"
+          ],
+          "label": "复制声音",
+          "line": 16
+        }
+      ]
+    },
+    "audio-generate": {
+      "title": "同请求独立生成，再核对采用",
+      "steps": [
+        {
+          "run": "audio-baseline",
+          "sample": "cli",
+          "text": [
+            "只做单一难度"
+          ],
+          "label": "E1 原始请求",
+          "message": "prompt"
+        },
+        {
+          "run": "audio-first",
+          "sample": "cli",
+          "text": [
+            "只做单一难度"
+          ],
+          "label": "E2 原始请求",
+          "message": "prompt"
+        },
+        {
+          "run": "audio-first",
+          "sample": "cli",
+          "text": [
+            "SKILL.md"
+          ],
+          "label": "读取正文",
+          "line": 5
+        },
+        {
+          "run": "audio-first",
+          "sample": "cli",
+          "text": [
+            "purple-sound.js"
+          ],
+          "label": "读取声音资源",
+          "line": 8
+        },
+        {
+          "run": "audio-first",
+          "sample": "cli",
+          "text": [
+            "purple-sound.js"
+          ],
+          "label": "复制声音资源",
+          "line": 12
+        }
+      ]
+    },
+    "audio-first-reply": {
+      "title": "E2 完成回复与验证边界",
+      "steps": [
+        {
+          "run": "audio-first",
+          "sample": "cli",
+          "text": [
+            "游戏已完成",
+            "浏览器实测留给你"
+          ],
+          "label": "完整回复",
+          "line": 64
+        }
+      ]
+    },
+    "audio-repair": {
+      "title": "真实报错、修复和回复",
+      "steps": [
+        {
+          "run": "audio-repair",
+          "sample": "cli",
+          "text": [
+            "Cannot access 'canvas' before initialization"
+          ],
+          "label": "报错与修复请求",
+          "message": "prompt"
+        },
+        {
+          "run": "audio-repair",
+          "sample": "cli",
+          "text": [
+            "Only `js/game.js` was modified."
+          ],
+          "label": "修改范围与返回",
+          "line": 128
+        }
+      ]
+    },
+    "audio-repair-reply": {
+      "title": "E3 修复回复原文",
+      "steps": [
+        {
+          "run": "audio-repair",
+          "sample": "cli",
+          "text": [
+            "Only `js/game.js` was modified.",
+            "浏览器"
+          ],
+          "label": "修复范围与验证边界",
+          "line": 128
+        }
+      ]
+    }
+  },
+  "routes": {
+    "courseware/ch03/lessons/02-rules/selection-evidence.html#explicit": "selection-explicit",
+    "courseware/ch03/lessons/02-rules/selection-evidence.html#implicit-request": "selection-request",
+    "courseware/ch03/lessons/02-rules/selection-evidence.html#metadata": "selection-metadata",
+    "courseware/ch03/lessons/02-rules/selection-evidence.html#read": "selection-read",
+    "courseware/ch03/lessons/02-rules/selection-evidence.html#result": "selection-result",
+    "courseware/ch03/lessons/02-rules/selection-evidence.html#description": "selection-description",
+    "courseware/ch03/materials/playtest-old5-20261111/evidence.html#run-a": "playtest-a",
+    "courseware/ch03/materials/playtest-old5-20261111/evidence.html#run-b": "playtest-b",
+    "courseware/ch03/materials/playtest-old5-20261111/evidence.html#run-c": "playtest-c",
+    "courseware/ch03/materials/playtest-old5-20261111/evidence.html#run-a-output": "playtest-a-output",
+    "courseware/ch03/materials/playtest-old5-20261111/evidence.html#run-a-report": "playtest-a-report",
+    "courseware/ch03/materials/playtest-old5-20261111/evidence.html#run-b-read": "playtest-b-read",
+    "courseware/ch03/materials/playtest-old5-20261111/evidence.html#run-b-verify": "playtest-b-verify",
+    "courseware/ch03/materials/playtest-old5-20261111/evidence.html#run-b-script": "playtest-b-script",
+    "courseware/ch03/materials/playtest-old5-20261111/evidence.html#run-c-read": "playtest-c-read",
+    "courseware/ch03/materials/playtest-old5-20261111/evidence.html#run-c-verify": "playtest-c-verify",
+    "courseware/ch03/materials/plugin-install-20261112/evidence.html#install": "plugin-install",
+    "courseware/ch03/materials/plugin-install-20261112/evidence.html#read": "plugin-read",
+    "courseware/ch03/materials/plugin-install-20261112/evidence.html#result": "plugin-result",
+    "courseware/ch03/lessons/03-debug/evidence/index.html#layout-run-hud": "layout-hud",
+    "courseware/ch03/lessons/03-debug/evidence/index.html#layout-run-overlay": "layout-overlay",
+    "courseware/ch03/lessons/03-debug/evidence/index.html#layout-run-storage": "layout-storage",
+    "courseware/ch03/lessons/03-debug/evidence/audio-iteration/index.html#history-read": "layout-sound-read",
+    "courseware/ch03/lessons/03-debug/evidence/audio-iteration/index.html#generate": "audio-generate",
+    "courseware/ch03/lessons/03-debug/evidence/audio-iteration/index.html#first-reply": "audio-first-reply",
+    "courseware/ch03/lessons/03-debug/evidence/audio-iteration/index.html#repair": "audio-repair",
+    "courseware/ch03/lessons/03-debug/evidence/audio-iteration/index.html#repair-reply": "audio-repair-reply"
+  },
+  "gaps": [
+    {
+      "location": "3.2.4 安装命令",
+      "reason": "保留 ch0324-install.json 安装返回；未找到同轮终端命令执行日志。"
+    },
+    {
+      "location": "3.2.4 短调用请求",
+      "reason": "CLI 事件不含用户请求，未找到独立请求原件；现有请求来自公开预跑记录，明确标作请求留存。"
+    },
+    {
+      "location": "3.3 E0 修改组件 Skill",
+      "reason": "由主备课会话修改实验副本，未找到可对应此次修改的独立原始执行记录；保留实际补丁和文件，不能用 E2 生成记录代替。"
+    }
+  ]
+}

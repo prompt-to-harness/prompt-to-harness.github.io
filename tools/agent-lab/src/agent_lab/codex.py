@@ -125,6 +125,9 @@ model_reasoning_effort = "max"
 forced_login_method = "api"
 cli_auth_credentials_store = "file"
 allow_login_shell = false
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+approvals_reviewer = "auto_review"
 
 [model_providers.minimax]
 name = "MiniMax"
@@ -191,7 +194,7 @@ def validate_args(forwarded: list[str]) -> None:
         raise ValueError("课程启动器只用于本地 MiniMax 会话，不支持登录或远程服务命令")
 
 
-def launch(tap: bool, forwarded: list[str]) -> int:
+def launch(tap: bool, forwarded: list[str], *, inspect: bool = False) -> int:
     try:
         validate_args(forwarded)
         if os.name != "posix":
@@ -225,6 +228,14 @@ def launch(tap: bool, forwarded: list[str]) -> int:
                        "--tap-live-port", str(dashboard_port(home)),
                        "--", *codex_args]
         try:
+            if inspect:
+                from .inspect_view import run_and_open
+                exec_mode = forwarded[:1] == ["exec"]
+                json_requested = exec_mode and "--json" in forwarded[1:]
+                if exec_mode and not json_requested:
+                    command.insert(len(command) - len(forwarded) + 1, "--json")
+                return run_and_open(command, env, system_env=dict(os.environ),
+                                    exec_mode=exec_mode, json_requested=json_requested)
             return subprocess.call(command, env=env)
         except KeyboardInterrupt:
             return 130

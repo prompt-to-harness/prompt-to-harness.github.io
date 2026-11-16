@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "scope": "3.1 六份成品展示编号；不替换归档 ID、日志文件名、事件号或原文",
+  "cases": [
+    {
+      "display_id": "01",
+      "original_name": "A1",
+      "archive_id": "a1",
+      "image": "assets/cases/a1.png",
+      "game": "games/a1/index.html",
+      "source_kind": "原始 rollout",
+      "source_reference": "本地 inspect/course-manifest.json 的 sources（原文件名与 SHA-256）",
+      "presentation": "game-only.html?run=a1"
+    },
+    {
+      "display_id": "02",
+      "original_name": "A2",
+      "archive_id": "a2",
+      "image": "assets/cases/a2.png",
+      "game": "games/a2/index.html",
+      "source_kind": "原始 rollout",
+      "source_reference": "本地 inspect/course-manifest.json 的 sources（原文件名与 SHA-256）",
+      "presentation": "game-only.html?run=a2"
+    },
+    {
+      "display_id": "03",
+      "original_name": "B2",
+      "archive_id": "b2",
+      "image": "assets/cases/b2.png",
+      "game": "games/b2/index.html",
+      "source_kind": "原始 rollout",
+      "source_reference": "本地 inspect/course-manifest.json 的 sources（原文件名与 SHA-256）",
+      "presentation": "game-only.html?run=b2"
+    },
+    {
+      "display_id": "04",
+      "original_name": "早期 05",
+      "archive_id": "old5",
+      "image": "assets/cases/old5.png",
+      "game": "games/old5/index.html",
+      "source_kind": "历史导出，完整日志缺失",
+      "source_reference": "courseware/ch03/runs/data.js · r1007-5",
+      "presentation": "game-only.html?run=old5"
+    },
+    {
+      "display_id": "05",
+      "original_name": "紫色版",
+      "archive_id": "mm-memory",
+      "image": "assets/cases/mm-memory.png",
+      "game": "games/mm-memory/index.html",
+      "source_kind": "CLI 原始事件与 rollout 补档",
+      "source_reference": "本地 inspect/course-manifest.json 的 sources（原文件名与 SHA-256）",
+      "presentation": "game-only.html?run=mm-memory"
+    },
+    {
+      "display_id": "06",
+      "original_name": "F1",
+      "archive_id": "f1",
+      "image": "assets/cases/f1.png",
+      "game": "games/f1/index.html",
+      "source_kind": "原始 rollout",
+      "source_reference": "本地 inspect/course-manifest.json 的 sources（原文件名与 SHA-256）",
+      "presentation": "game-only.html?run=f1"
+    }
+  ],
+  "homepage_example": {
+    "url": "homepage/index.html",
+    "kind": "后续整合示例",
+    "game_archive_id": "a2",
+    "process_note": "A2 历史日志不对应此整合过程"
+  }
+}

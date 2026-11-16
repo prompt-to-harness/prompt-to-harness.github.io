@@ -214,7 +214,24 @@ class ArgumentTests(unittest.TestCase):
 
     def test_tap_and_resume(self):
         self.assertEqual(parse_args(["codex", "--tap", "--", "resume", "--last"]),
-                         ("codex", True, ["resume", "--last"]))
+                         ("codex", True, False, ["resume", "--last"]))
+
+    def test_inspect_dispatches_without_tap(self):
+        args = ["agent-lab", "codex", "--inspect", "--", "exec", "hello"]
+        with patch("sys.argv", args), patch("agent_lab.codex.launch", return_value=0) as launch:
+            self.assertEqual(main(), 0)
+            launch.assert_called_once_with(False, ["exec", "hello"], inspect=True)
+
+    def test_inspect_accepts_interactive_codex(self):
+        self.assertEqual(parse_args(["codex", "--inspect"]), ("codex", False, True, []))
+
+    def test_inspect_requires_a_new_saved_session(self):
+        for forwarded in (["resume", "--last"], ["exec", "resume", "--last"],
+                          ["exec", "--ephemeral", "hello"]):
+            with self.subTest(forwarded=forwarded), contextlib.redirect_stderr(io.StringIO()):
+                args = ["codex", "--inspect", "--", *forwarded] if forwarded else ["codex", "--inspect"]
+                with self.assertRaises(SystemExit):
+                    parse_args(args)
 
     def test_codex_is_dispatched(self):
         with patch("sys.argv", ["agent-lab", "codex", "--tap"]), patch(

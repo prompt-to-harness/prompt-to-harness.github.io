@@ -1,0 +1,1202 @@
+{
+  "a1": {
+    "title": "一句话，16 张科技牌",
+    "summary": "同一条短请求，生成了 8 对科技 emoji，还自行加入最佳纪录。",
+    "why": "与 A2 并排看：未指定的牌数、内容和附加功能，走向了不同结果。",
+    "tags": [
+      "16 张 · 8 对",
+      "900 ms",
+      "自行扩展"
+    ],
+    "caveat": "短请求包含“无需开浏览器”，但该轮仍尝试了浏览器验证；记录完整保留这一偏离。",
+    "recommended": true,
+    "phases": [
+      {
+        "start": 1,
+        "title": "读取任务与主页",
+        "summary": "了解现有结构、课程约定和工具环境。"
+      },
+      {
+        "start": 27,
+        "title": "实现并接入主页",
+        "summary": "创建翻牌组件，接入入口与样式；完成首次构建。"
+      },
+      {
+        "start": 43,
+        "title": "尝试验证与修正可访问性",
+        "summary": "修正背面标签泄露答案；多次尝试浏览器验证，受环境限制未成功。"
+      },
+      {
+        "start": 76,
+        "title": "拆分规则层",
+        "summary": "改为纯 reducer 验证；处理编码和大小写文件名冲突。"
+      },
+      {
+        "start": 96,
+        "title": "规则测试与修错",
+        "summary": "修正测试脚本，定位最佳纪录被未通关成绩污染的问题。"
+      },
+      {
+        "start": 127,
+        "title": "渲染检查与最终交付",
+        "summary": "完成 46 项逻辑检查、SSR、构建和 diff 复核。"
+      }
+    ],
+    "provider": "MiniMax API（会话 provider=minimax）",
+    "model_short": "MiniMax · Codex",
+    "skill": "未见读取游戏 Skill",
+    "skill_status": "unobserved",
+    "skill_evidence": "已查该轮完整执行记录，未发现读取 SKILL.md 或 Game Studio 的工具调用；不据此声称完全没有其他内置指导。",
+    "effort": "max",
+    "base_commit": "848f059903f3d72a69b0aca83575c2d6327b393d",
+    "baseline_short": "第二章主页",
+    "control_source": "run.json + 原始会话 session_meta / turn_context",
+    "config_note": "workspace-write；网络关闭；approval=never",
+    "category": "同条件复跑",
+    "comparison_group": "repeat-a",
+    "prompt_sha256": "1101ccb9a0421b30b9637650fd87b6c2500f135732098c2c5df81ab1cbb9dee3",
+    "compare": "可在本 Prompt 组内比较两次输出差异；跨 A/B/C 组改变了请求内容。采样参数与上游服务状态未完整归档，不将差异单独归因于某一随机参数。",
+    "plan_behavior": "直接实施",
+    "architecture": "纯规则层 + React 界面",
+    "validation_summary": "46 项规则检查、SSR、构建；浏览器未成功启动",
+    "iteration_summary": "修复最佳纪录污染；处理文件名冲突；多次修正测试脚本",
+    "conversation_source": "一次任务输入，无追加反馈",
+    "experiment_title": "A1 · 一句话 / 第 1 次",
+    "round_breakdown": "一次任务输入 → Agent 自主实现、检查和修正",
+    "round_reason": "没有追加用户输入。运行中的多次工具动作和内部修正发生在同一次用户委托内。"
+  },
+  "a2": {
+    "title": "同一句话，8 张项目牌",
+    "summary": "与 A1 输入一致；这次用主页项目与人物内容组成 4 对牌。",
+    "why": "适合做 3.1 主样本：能直观看到同一句话并未唯一规定产品。",
+    "tags": [
+      "8 张 · 4 对",
+      "800 ms",
+      "主页内容"
+    ],
+    "caveat": "",
+    "recommended": true,
+    "phases": [
+      {
+        "start": 1,
+        "title": "读取任务与基线",
+        "summary": "读取项目文档、主页及工具链，先跑基线构建。"
+      },
+      {
+        "start": 35,
+        "title": "创建游戏与样式",
+        "summary": "写组件，接入主页，并完成首次构建。"
+      },
+      {
+        "start": 51,
+        "title": "分离可测试规则",
+        "summary": "将规则抽成纯函数并调整组件。"
+      },
+      {
+        "start": 56,
+        "title": "逻辑与渲染检查",
+        "summary": "修正测试假设和打包方式，47 项检查通过，再检查整页渲染。"
+      },
+      {
+        "start": 71,
+        "title": "检查产物并交付",
+        "summary": "检查构建范围、样式和最终 diff。"
+      }
+    ],
+    "provider": "MiniMax API（会话 provider=minimax）",
+    "model_short": "MiniMax · Codex",
+    "skill": "未见读取游戏 Skill",
+    "skill_status": "unobserved",
+    "skill_evidence": "已查该轮完整执行记录，未发现读取 SKILL.md 或 Game Studio 的工具调用；不据此声称完全没有其他内置指导。",
+    "effort": "max",
+    "base_commit": "848f059903f3d72a69b0aca83575c2d6327b393d",
+    "baseline_short": "第二章主页",
+    "control_source": "run.json + 原始会话 session_meta / turn_context",
+    "config_note": "workspace-write；网络关闭；approval=never",
+    "category": "同条件复跑",
+    "comparison_group": "repeat-a",
+    "prompt_sha256": "1101ccb9a0421b30b9637650fd87b6c2500f135732098c2c5df81ab1cbb9dee3",
+    "compare": "可在本 Prompt 组内比较两次输出差异；跨 A/B/C 组改变了请求内容。采样参数与上游服务状态未完整归档，不将差异单独归因于某一随机参数。",
+    "plan_behavior": "直接实施",
+    "architecture": "纯规则层 + React 界面",
+    "validation_summary": "47 项逻辑 / 渲染检查、整页 SSR、构建",
+    "iteration_summary": "修正测试假设与匹配表达式；调整测试打包方式",
+    "conversation_source": "一次任务输入，无追加反馈",
+    "experiment_title": "A2 · 一句话 / 第 2 次",
+    "round_breakdown": "一次任务输入 → Agent 自主实现、检查和修正",
+    "round_reason": "没有追加用户输入。运行中的多次工具动作和内部修正发生在同一次用户委托内。"
+  },
+  "b1": {
+    "title": "写清规则，12 张 emoji",
+    "summary": "明确指定 12 张、800 ms、两张记一步，生成混合 emoji 牌组。",
+    "why": "与 A 组对照：写清哪些规则，哪些差异就应当收敛。",
+    "tags": [
+      "12 张 · 6 对",
+      "800 ms",
+      "明确规则"
+    ],
+    "caveat": "",
+    "recommended": true,
+    "phases": [
+      {
+        "start": 1,
+        "title": "读取明确规则",
+        "summary": "读需求、现有源码与项目约定。"
+      },
+      {
+        "start": 18,
+        "title": "实现第一版",
+        "summary": "创建组件与样式并通过构建。"
+      },
+      {
+        "start": 29,
+        "title": "抽出规则与验证",
+        "summary": "从渲染检查转向真实 reducer 模拟。"
+      },
+      {
+        "start": 64,
+        "title": "修复计步问题",
+        "summary": "测试发现配对先更新状态导致不记步；修复并重跑。"
+      },
+      {
+        "start": 76,
+        "title": "翻牌样式与交付",
+        "summary": "调整 3D 翻转结构，复核构建与 diff；40 项规则检查通过。"
+      }
+    ],
+    "provider": "MiniMax API（会话 provider=minimax）",
+    "model_short": "MiniMax · Codex",
+    "skill": "未见读取游戏 Skill",
+    "skill_status": "unobserved",
+    "skill_evidence": "已查该轮完整执行记录，未发现读取 SKILL.md 或 Game Studio 的工具调用；不据此声称完全没有其他内置指导。",
+    "effort": "max",
+    "base_commit": "848f059903f3d72a69b0aca83575c2d6327b393d",
+    "baseline_short": "第二章主页",
+    "control_source": "run.json + 原始会话 session_meta / turn_context",
+    "config_note": "workspace-write；网络关闭；approval=never",
+    "category": "同条件复跑",
+    "comparison_group": "repeat-b",
+    "prompt_sha256": "896167d377e0e7df86f94153b15ae92fd2f1c996c4d7cdd3c1aea3248c117810",
+    "compare": "可在本 Prompt 组内比较两次输出差异；跨 A/B/C 组改变了请求内容。采样参数与上游服务状态未完整归档，不将差异单独归因于某一随机参数。",
+    "plan_behavior": "直接实施",
+    "architecture": "纯 reducer + React 界面",
+    "validation_summary": "40 项规则检查、SSR、构建",
+    "iteration_summary": "测试发现配对后不记步；修正计步与翻转样式",
+    "conversation_source": "一次任务输入，无追加反馈",
+    "experiment_title": "B1 · 明确规则 / 第 1 次",
+    "round_breakdown": "一次任务输入 → Agent 自主实现、检查和修正",
+    "round_reason": "没有追加用户输入。运行中的多次工具动作和内部修正发生在同一次用户委托内。"
+  },
+  "b2": {
+    "title": "同样 12 张，另一套牌面",
+    "summary": "沿用 B 组同一份明确需求，牌面内容和实现仍有差别。",
+    "why": "保留“规则收敛、实现仍有差异”的第二份证据。",
+    "tags": [
+      "12 张 · 6 对",
+      "800 ms",
+      "过程有返修"
+    ],
+    "caveat": "",
+    "recommended": false,
+    "phases": [
+      {
+        "start": 1,
+        "title": "读取项目与需求",
+        "summary": "核对技术栈与明确规则。"
+      },
+      {
+        "start": 18,
+        "title": "实现与首轮构建",
+        "summary": "写组件和样式，完成首轮构建。"
+      },
+      {
+        "start": 34,
+        "title": "抽离规则并测试",
+        "summary": "建立纯逻辑验证。"
+      },
+      {
+        "start": 45,
+        "title": "修正牌数与配对显示",
+        "summary": "发现误做 24 张及“12/6”计数显示，修正源代码和测试。"
+      },
+      {
+        "start": 58,
+        "title": "渲染复核与交付",
+        "summary": "32 项规则检查、SSR、构建通过，补记录并复核 diff。"
+      }
+    ],
+    "provider": "MiniMax API（会话 provider=minimax）",
+    "model_short": "MiniMax · Codex",
+    "skill": "未见读取游戏 Skill",
+    "skill_status": "unobserved",
+    "skill_evidence": "已查该轮完整执行记录，未发现读取 SKILL.md 或 Game Studio 的工具调用；不据此声称完全没有其他内置指导。",
+    "effort": "max",
+    "base_commit": "848f059903f3d72a69b0aca83575c2d6327b393d",
+    "baseline_short": "第二章主页",
+    "control_source": "run.json + 原始会话 session_meta / turn_context",
+    "config_note": "workspace-write；网络关闭；approval=never",
+    "category": "同条件复跑",
+    "comparison_group": "repeat-b",
+    "prompt_sha256": "896167d377e0e7df86f94153b15ae92fd2f1c996c4d7cdd3c1aea3248c117810",
+    "compare": "可在本 Prompt 组内比较两次输出差异；跨 A/B/C 组改变了请求内容。采样参数与上游服务状态未完整归档，不将差异单独归因于某一随机参数。",
+    "plan_behavior": "直接实施",
+    "architecture": "纯规则层 + React 界面",
+    "validation_summary": "32 项规则检查、SSR、构建",
+    "iteration_summary": "把误做的 24 张改回 12 张；修正配对数显示",
+    "conversation_source": "一次任务输入，无追加反馈",
+    "experiment_title": "B2 · 明确规则 / 第 2 次",
+    "round_breakdown": "一次任务输入 → Agent 自主实现、检查和修正",
+    "round_reason": "没有追加用户输入。运行中的多次工具动作和内部修正发生在同一次用户委托内。"
+  },
+  "c1": {
+    "title": "四要素 · 单组件实现",
+    "summary": "同样 12 张牌，在目标、背景、约束和验收写清后完成。",
+    "why": "与 C2 对照，相同约束没有强制相同代码结构。",
+    "tags": [
+      "12 张 · 6 对",
+      "单组件规则",
+      "仅 src/"
+    ],
+    "caveat": "",
+    "recommended": false,
+    "phases": [
+      {
+        "start": 1,
+        "title": "阅读四要素需求",
+        "summary": "读取目标、背景、约束、验收及现有文件。"
+      },
+      {
+        "start": 12,
+        "title": "实现组件与样式",
+        "summary": "规则与状态留在组件文件，另写样式。"
+      },
+      {
+        "start": 22,
+        "title": "构建与规则检查",
+        "summary": "构建后用 Node 验证 reducer，修正 SSR 打包设置。"
+      },
+      {
+        "start": 41,
+        "title": "修整尺寸并交付",
+        "summary": "加固卡片比例，检查改动范围与最终规则。"
+      }
+    ],
+    "provider": "MiniMax API（会话 provider=minimax）",
+    "model_short": "MiniMax · Codex",
+    "skill": "未见读取游戏 Skill",
+    "skill_status": "unobserved",
+    "skill_evidence": "已查该轮完整执行记录，未发现读取 SKILL.md 或 Game Studio 的工具调用；不据此声称完全没有其他内置指导。",
+    "effort": "max",
+    "base_commit": "848f059903f3d72a69b0aca83575c2d6327b393d",
+    "baseline_short": "第二章主页",
+    "control_source": "run.json + 原始会话 session_meta / turn_context",
+    "config_note": "workspace-write；网络关闭；approval=never",
+    "category": "同条件复跑",
+    "comparison_group": "repeat-c",
+    "prompt_sha256": "877999c892d9a68f2a7041338c571e5d3e2ebc09c342490a67ca7bb5df176466",
+    "compare": "可在本 Prompt 组内比较两次输出差异；跨 A/B/C 组改变了请求内容。采样参数与上游服务状态未完整归档，不将差异单独归因于某一随机参数。",
+    "plan_behavior": "直接实施",
+    "architecture": "组件内 reducer + 独立 CSS",
+    "validation_summary": "18 项逻辑检查、SSR、构建",
+    "iteration_summary": "修正 SSR 打包设置；加固卡片尺寸",
+    "conversation_source": "一次任务输入，无追加反馈",
+    "experiment_title": "C1 · 四要素 / 第 1 次",
+    "round_breakdown": "一次任务输入 → Agent 自主实现、检查和修正",
+    "round_reason": "没有追加用户输入。运行中的多次工具动作和内部修正发生在同一次用户委托内。"
+  },
+  "c2": {
+    "title": "四要素 · 独立规则层",
+    "summary": "相同的四要素需求，这次把规则独立成文件。",
+    "why": "能从产品结果深入到实现过程：约束可守住，组织方式仍可不同。",
+    "tags": [
+      "12 张 · 6 对",
+      "独立规则层",
+      "仅 src/"
+    ],
+    "caveat": "",
+    "recommended": true,
+    "phases": [
+      {
+        "start": 1,
+        "title": "读取需求与源码",
+        "summary": "了解现有项目及明确的变更范围。"
+      },
+      {
+        "start": 20,
+        "title": "实现第一版",
+        "summary": "完成游戏及接入，跑首次构建。"
+      },
+      {
+        "start": 28,
+        "title": "纠正状态并拆分规则",
+        "summary": "发现已配对卡残留在 flippedIds，修正后抽出纯规则模块。"
+      },
+      {
+        "start": 42,
+        "title": "运行规则与渲染验证",
+        "summary": "修正测试的步数期望；24 项规则检查与 SSR 通过。"
+      },
+      {
+        "start": 63,
+        "title": "移动端调整与交付",
+        "summary": "复核 diff，将完成面板移到牌盘上方。"
+      }
+    ],
+    "provider": "MiniMax API（会话 provider=minimax）",
+    "model_short": "MiniMax · Codex",
+    "skill": "未见读取游戏 Skill",
+    "skill_status": "unobserved",
+    "skill_evidence": "已查该轮完整执行记录，未发现读取 SKILL.md 或 Game Studio 的工具调用；不据此声称完全没有其他内置指导。",
+    "effort": "max",
+    "base_commit": "848f059903f3d72a69b0aca83575c2d6327b393d",
+    "baseline_short": "第二章主页",
+    "control_source": "run.json + 原始会话 session_meta / turn_context",
+    "config_note": "workspace-write；网络关闭；approval=never",
+    "category": "同条件复跑",
+    "comparison_group": "repeat-c",
+    "prompt_sha256": "877999c892d9a68f2a7041338c571e5d3e2ebc09c342490a67ca7bb5df176466",
+    "compare": "可在本 Prompt 组内比较两次输出差异；跨 A/B/C 组改变了请求内容。采样参数与上游服务状态未完整归档，不将差异单独归因于某一随机参数。",
+    "plan_behavior": "直接实施",
+    "architecture": "独立规则层 + React 界面",
+    "validation_summary": "24 项规则检查、SSR、构建",
+    "iteration_summary": "修正已配对卡残留状态；将完成面板移到牌盘上方",
+    "conversation_source": "一次任务输入，无追加反馈",
+    "experiment_title": "C2 · 四要素 / 第 2 次",
+    "round_breakdown": "一次任务输入 → Agent 自主实现、检查和修正",
+    "round_reason": "没有追加用户输入。运行中的多次工具动作和内部修正发生在同一次用户委托内。"
+  },
+  "d1": {
+    "title": "先确认，再调慢翻回",
+    "summary": "先给计划并确认；交付后将翻错停留从 800 ms 改为 1 秒。",
+    "why": "保留一次小反馈如何落实到代码、构建和记录的完整过程。",
+    "tags": [
+      "16 张 · 8 对",
+      "1000 ms",
+      "计划后实施"
+    ],
+    "caveat": "确认和反馈由实验驱动器注入，不是课堂真实学员互动。",
+    "recommended": true,
+    "phases": [
+      {
+        "start": 1,
+        "title": "读取任务与基线",
+        "summary": "读取现状并验证基线。"
+      },
+      {
+        "start": 27,
+        "title": "给方案并获得确认",
+        "summary": "三问交互组件不可用，改文字询问；驱动器按推荐方案确认。"
+      },
+      {
+        "start": 32,
+        "title": "创建游戏",
+        "summary": "实现 16 张牌并通过首次构建。"
+      },
+      {
+        "start": 41,
+        "title": "渲染与规则验证",
+        "summary": "SSR 后抽出纯规则测试，修正测试步数预期。"
+      },
+      {
+        "start": 67,
+        "title": "记录与首轮交付",
+        "summary": "写证据文档、修复变量遮蔽并重新构建。"
+      },
+      {
+        "start": 80,
+        "title": "反馈后调整翻回时长",
+        "summary": "接收 1 秒停留反馈，改常量、重跑构建并同步文档。"
+      }
+    ],
+    "provider": "MiniMax API（会话 provider=minimax）",
+    "model_short": "MiniMax · Codex",
+    "skill": "未见读取游戏 Skill",
+    "skill_status": "unobserved",
+    "skill_evidence": "已查该轮完整执行记录，未发现读取 SKILL.md 或 Game Studio 的工具调用；不据此声称完全没有其他内置指导。",
+    "effort": "未显式设置",
+    "base_commit": "848f059903f3d72a69b0aca83575c2d6327b393d",
+    "baseline_short": "第二章主页",
+    "control_source": "run.json + 原始会话 session_meta / turn_context",
+    "config_note": "不同驱动器或交互方式；详见运行记录",
+    "category": "多轮交互",
+    "comparison_group": "interactive",
+    "compare": "追加反馈、驱动方式或推理配置不同，仅作为交互过程样本；不并入同条件复跑。",
+    "plan_behavior": "先计划，确认后实施",
+    "architecture": "组件内纯规则 + React 界面",
+    "validation_summary": "规则模拟、SSR、构建；未打开浏览器",
+    "iteration_summary": "反馈后将翻回 800 ms 改为 1000 ms；同步证据文档",
+    "conversation_source": "驱动器代输入",
+    "experiment_title": "D1 · 计划确认与追加反馈",
+    "round_breakdown": "请求 → 按推荐确认 → 把翻回调为 1 秒",
+    "round_reason": "三条输入是实验步骤文件事先写好的，由 tmux 代输入。第二轮执行计划，第三轮调整体验参数；不能说是模型被真实玩家试玩后迫使返工。"
+  },
+  "e1": {
+    "title": "从三档难度，收回到 12 张",
+    "summary": "初版自行扩展难度和最佳成绩；反馈后收敛为固定动物牌。",
+    "why": "可展示“能做出来”以后，仍要由人选择要保留的产品范围。",
+    "tags": [
+      "12 张动物牌",
+      "1000 ms",
+      "删减功能"
+    ],
+    "caveat": "反馈来自模拟学员；展示的是本轮最终收敛版本。",
+    "recommended": true,
+    "phases": [
+      {
+        "start": 1,
+        "title": "短请求与读取现状",
+        "summary": "原请求只要求加入翻牌游戏。"
+      },
+      {
+        "start": 20,
+        "title": "生成扩展版",
+        "summary": "实现难度选项、最佳纪录与首屏入口。"
+      },
+      {
+        "start": 36,
+        "title": "规则验证与修整",
+        "summary": "拆分规则、运行测试与 SSR；处理样式和记录。"
+      },
+      {
+        "start": 101,
+        "title": "首版交付与偏好反馈",
+        "summary": "模拟学员要求取消入口、固定动物牌、延长停留等。"
+      },
+      {
+        "start": 103,
+        "title": "收敛产品并再交付",
+        "summary": "落实四处修改、同步测试并重新验证。"
+      }
+    ],
+    "provider": "MiniMax API（会话 provider=minimax）",
+    "model_short": "MiniMax · Codex",
+    "skill": "未见读取游戏 Skill",
+    "skill_status": "unobserved",
+    "skill_evidence": "已查该轮完整执行记录，未发现读取 SKILL.md 或 Game Studio 的工具调用；不据此声称完全没有其他内置指导。",
+    "effort": "max",
+    "base_commit": "39b4f05285d4f3b7c4af97ed03508e4489c8f8e8",
+    "baseline_short": "第二章主页",
+    "control_source": "run.json + 原始会话 session_meta / turn_context",
+    "config_note": "不同驱动器或交互方式；详见运行记录",
+    "category": "多轮交互",
+    "comparison_group": "interactive",
+    "compare": "追加反馈、驱动方式或推理配置不同，仅作为交互过程样本；不并入同条件复跑。",
+    "plan_behavior": "先实施，首版后收反馈",
+    "architecture": "纯规则层 + React 界面",
+    "validation_summary": "规则校验、SSR、构建；无浏览器截图",
+    "iteration_summary": "按反馈取消难度等扩展，固定 12 张动物牌，调整翻回时长",
+    "conversation_source": "模拟学员",
+    "experiment_title": "E1 · Harbor 模拟学员 / 第 1 次",
+    "round_breakdown": "请求并做出首版 → 集中补偏好、修改",
+    "round_reason": "模拟学员原本被要求先要计划，却漏了这一步。开发方按简短请求先做出三档难度等；第二轮再补动物牌、固定牌数、无首屏入口和 1 秒停留等偏好。是首版后调整产品范围，不是一次做不出来。"
+  },
+  "e2": {
+    "title": "动物牌 · 保留逐张计数",
+    "summary": "计划确认后做 12 张动物牌，随后修正“狐狸”的错误文字。",
+    "why": "保留细小内容错误如何被反馈、定位并修正的例子。",
+    "tags": [
+      "12 张动物牌",
+      "1000 ms",
+      "文字修正"
+    ],
+    "caveat": "这版按每翻一张计数；不要和“两张记一步”的版本混为同一规则。",
+    "recommended": false,
+    "phases": [
+      {
+        "start": 1,
+        "title": "读取项目并给计划",
+        "summary": "探索现状，提出玩法方案。"
+      },
+      {
+        "start": 19,
+        "title": "确认需求与实现",
+        "summary": "按动物牌、无首屏入口、1 秒锁定要求开发。"
+      },
+      {
+        "start": 29,
+        "title": "构建与计数口径调整",
+        "summary": "构建通过；按原计划将计数调整为逐张翻牌次数。"
+      },
+      {
+        "start": 40,
+        "title": "反馈并修正动物名称",
+        "summary": "模拟学员指出“狐犬”；两次猜码位仍错，查到正确字符后修复。"
+      },
+      {
+        "start": 59,
+        "title": "验证交付与收尾",
+        "summary": "再次构建通过，确认无需补文档。"
+      }
+    ],
+    "provider": "MiniMax API（会话 provider=minimax）",
+    "model_short": "MiniMax · Codex",
+    "skill": "未见读取游戏 Skill",
+    "skill_status": "unobserved",
+    "skill_evidence": "已查该轮完整执行记录，未发现读取 SKILL.md 或 Game Studio 的工具调用；不据此声称完全没有其他内置指导。",
+    "effort": "max",
+    "base_commit": "39b4f05285d4f3b7c4af97ed03508e4489c8f8e8",
+    "baseline_short": "第二章主页",
+    "control_source": "run.json + 原始会话 session_meta / turn_context",
+    "config_note": "不同驱动器或交互方式；详见运行记录",
+    "category": "多轮交互",
+    "comparison_group": "interactive",
+    "compare": "追加反馈、驱动方式或推理配置不同，仅作为交互过程样本；不并入同条件复跑。",
+    "plan_behavior": "先计划，确认后实施",
+    "architecture": "React 组件内状态",
+    "validation_summary": "构建与源码检查；未完成浏览器试玩",
+    "iteration_summary": "改计数口径；两次猜错码位后查证并修正“狐狸”",
+    "conversation_source": "模拟学员",
+    "experiment_title": "E2 · Harbor 模拟学员 / 第 2 次",
+    "round_breakdown": "请求计划 → 确认细节并实施 → 改“狐狸” → 结束",
+    "round_reason": "第一轮按实验要求先给计划；第二轮确认后做出游戏；第三轮指出源码中“狐犬”的真实文字问题；第四轮只接受结果。4 条用户输入并不等于 4 次开发返工。"
+  },
+  "f1": {
+    "title": "把“翻牌次数”改成“步数”",
+    "summary": "只读检查后补反馈，最终实现两张记一步和通关后再来一局。",
+    "why": "保存“检查实际行为—说清差异—定点修改”的完整链路。",
+    "tags": [
+      "12 张动物牌",
+      "两张记一步",
+      "通关后重开"
+    ],
+    "caveat": "使用模拟学员驱动；原始请求以 JSON 消息数组形式传入，查看原文可见。",
+    "recommended": false,
+    "phases": [
+      {
+        "start": 1,
+        "title": "读取项目并计划",
+        "summary": "读需求、仓库约定并验证基线。"
+      },
+      {
+        "start": 33,
+        "title": "确认并实现",
+        "summary": "按模拟学员指定的动物牌、1 秒锁定等要求实现。"
+      },
+      {
+        "start": 47,
+        "title": "逻辑与渲染检查",
+        "summary": "修正测试与打包问题，完成规则和整页检查。"
+      },
+      {
+        "start": 105,
+        "title": "交付后只读核对",
+        "summary": "逐项核对，暴露计数口径与重开按钮差异。"
+      },
+      {
+        "start": 127,
+        "title": "落实新反馈",
+        "summary": "两张记一步、改文案、只在通关后显示按钮。"
+      },
+      {
+        "start": 138,
+        "title": "验证两种状态并交付",
+        "summary": "验证进行中与通关状态，修正验证脚本后完成构建与记录。"
+      }
+    ],
+    "provider": "MiniMax API（会话 provider=minimax）",
+    "model_short": "MiniMax · Codex",
+    "skill": "未见读取游戏 Skill",
+    "skill_status": "unobserved",
+    "skill_evidence": "已查该轮完整执行记录，未发现读取 SKILL.md 或 Game Studio 的工具调用；不据此声称完全没有其他内置指导。",
+    "effort": "max",
+    "base_commit": "848f059903f3d72a69b0aca83575c2d6327b393d",
+    "baseline_short": "第二章主页",
+    "control_source": "run.json + 原始会话 session_meta / turn_context",
+    "config_note": "不同驱动器或交互方式；详见运行记录",
+    "category": "多轮交互",
+    "comparison_group": "interactive",
+    "compare": "追加反馈、驱动方式或推理配置不同，仅作为交互过程样本；不并入同条件复跑。",
+    "plan_behavior": "先计划，确认后实施",
+    "architecture": "纯规则函数 + React 界面",
+    "validation_summary": "规则检查、SSR、21 项状态检查、构建",
+    "iteration_summary": "只读检查后，按反馈改为两张记一步、通关后才显示重开",
+    "conversation_source": "模拟学员",
+    "experiment_title": "F1 · promptfoo 模拟学员",
+    "round_breakdown": "请求计划 → 确认并实施 → 只读核查 → 修改",
+    "round_reason": "模拟用户无法直接读代码，因此第三轮请开发 Agent 核查。记录明确揭示按张计数和常驻重开按钮；第四轮明确两张记一步、通关后再来一局。包含需求口径明确和实现调整，不把所有差异都说成原需求违约。"
+  },
+  "g1": {
+    "title": "动物牌 · 窄屏改成三列",
+    "summary": "交付后针对窄屏反馈加断点，手机上改为三列。",
+    "why": "适合查看产品反馈如何落实到响应式表现。",
+    "tags": [
+      "12 张动物牌",
+      "窄屏三列",
+      "1000 ms"
+    ],
+    "caveat": "",
+    "recommended": false,
+    "phases": [
+      {
+        "start": 1,
+        "title": "读取基线并计划",
+        "summary": "读项目并跑基线构建。"
+      },
+      {
+        "start": 23,
+        "title": "确认并实现",
+        "summary": "确认 12 张动物牌、无首屏入口、1 秒锁定等要求。"
+      },
+      {
+        "start": 39,
+        "title": "交付与响应式反馈",
+        "summary": "模拟学员询问窄屏是否拥挤、重开是否清零。"
+      },
+      {
+        "start": 41,
+        "title": "调整布局并说明重开",
+        "summary": "新增窄屏三列断点，构建后解释重置行为。"
+      }
+    ],
+    "provider": "MiniMax API（会话 provider=minimax）",
+    "model_short": "MiniMax · Codex",
+    "skill": "未见读取游戏 Skill",
+    "skill_status": "unobserved",
+    "skill_evidence": "已查该轮完整执行记录，未发现读取 SKILL.md 或 Game Studio 的工具调用；不据此声称完全没有其他内置指导。",
+    "effort": "max",
+    "base_commit": "848f059903f3d72a69b0aca83575c2d6327b393d",
+    "baseline_short": "第二章主页",
+    "control_source": "run.json + 原始会话 session_meta / turn_context",
+    "config_note": "不同驱动器或交互方式；详见运行记录",
+    "category": "多轮交互",
+    "comparison_group": "interactive",
+    "compare": "追加反馈、驱动方式或推理配置不同，仅作为交互过程样本；不并入同条件复跑。",
+    "plan_behavior": "先计划，确认后实施",
+    "architecture": "React 组件 + 独立 CSS",
+    "validation_summary": "构建与源码检查",
+    "iteration_summary": "按窄屏反馈增加三列布局；解释重开如何清零",
+    "conversation_source": "模拟学员",
+    "experiment_title": "G1 · 自建模拟学员 / 第 1 次",
+    "round_breakdown": "请求计划 → 确认并实施 → 提窄屏问题、确认重开",
+    "round_reason": "模拟学员按预设先确认偏好；交付后问窄屏是否拥挤，并确认重开清零。后段确实增加三列断点，但没有真实手机玩家的试玩记录。"
+  },
+  "g2": {
+    "title": "动物牌 · 保持严格类型",
+    "summary": "明确动物牌、固定难度和不存最佳成绩，按现有严格类型实现。",
+    "why": "保留另一套同需求产物，也能看到无关技术问题如何收回。",
+    "tags": [
+      "12 张动物牌",
+      "1000 ms",
+      "严格类型"
+    ],
+    "caveat": "",
+    "recommended": false,
+    "phases": [
+      {
+        "start": 1,
+        "title": "读取项目与给计划",
+        "summary": "探索仓库，基线构建成功后给出计划。"
+      },
+      {
+        "start": 37,
+        "title": "确认产品与约束",
+        "summary": "模拟学员明确六项偏好，并要求严格度沿用现有配置。"
+      },
+      {
+        "start": 42,
+        "title": "实现并接入",
+        "summary": "创建游戏、样式及主页挂载，修正补丁顺序。"
+      },
+      {
+        "start": 60,
+        "title": "检查与最终交付",
+        "summary": "完成后段检查、证据记录及最终构建。"
+      }
+    ],
+    "provider": "MiniMax API（会话 provider=minimax）",
+    "model_short": "MiniMax · Codex",
+    "skill": "未见读取游戏 Skill",
+    "skill_status": "unobserved",
+    "skill_evidence": "已查该轮完整执行记录，未发现读取 SKILL.md 或 Game Studio 的工具调用；不据此声称完全没有其他内置指导。",
+    "effort": "max",
+    "base_commit": "848f059903f3d72a69b0aca83575c2d6327b393d",
+    "baseline_short": "第二章主页",
+    "control_source": "run.json + 原始会话 session_meta / turn_context",
+    "config_note": "不同驱动器或交互方式；详见运行记录",
+    "category": "多轮交互",
+    "comparison_group": "interactive",
+    "compare": "追加反馈、驱动方式或推理配置不同，仅作为交互过程样本；不并入同条件复跑。",
+    "plan_behavior": "先计划，确认后实施",
+    "architecture": "React 组件 + 全局样式",
+    "validation_summary": "构建、源码与产物检查",
+    "iteration_summary": "修正补丁顺序；保持现有 strict 配置并补证据文档",
+    "conversation_source": "模拟学员",
+    "experiment_title": "G2 · 自建模拟学员 / 第 2 次",
+    "round_breakdown": "请求计划 → 确认需求 → 催继续做",
+    "round_reason": "前两轮属于预设的计划确认。开发方表示先检查 TS 配置后，模拟学员补了“严格度你看着办”；第三条发生在最终实现前，没有带来新一轮产品修正。"
+  },
+  "h1": {
+    "title": "动物牌 · 确认何时开始计时",
+    "summary": "确认从第一张牌开始计时；保持无音效、仅通关后重开。",
+    "why": "较完整地保留“计划—追问—实施—验证—确认”的过程。",
+    "tags": [
+      "12 张动物牌",
+      "首张开始计时",
+      "通关后重开"
+    ],
+    "caveat": "",
+    "recommended": false,
+    "phases": [
+      {
+        "start": 1,
+        "title": "读取现状与计划",
+        "summary": "验证基线，提出多个待确认选项。"
+      },
+      {
+        "start": 27,
+        "title": "确认并回答计时问题",
+        "summary": "确认动物牌、1 秒锁定等，明确首张翻牌才开始计时。"
+      },
+      {
+        "start": 29,
+        "title": "实现并构建",
+        "summary": "写组件、接入主页并加入样式。"
+      },
+      {
+        "start": 44,
+        "title": "验证与规则重构",
+        "summary": "preview 受限，转向 SSR 和纯 reducer；40 项规则检查通过。"
+      },
+      {
+        "start": 74,
+        "title": "记录与首轮交付",
+        "summary": "完成构建、写证据文档；本地提交因权限受限未完成。"
+      },
+      {
+        "start": 95,
+        "title": "最终偏好确认",
+        "summary": "模拟学员确认不加音效、不加局中重开；仅更新文档。"
+      }
+    ],
+    "provider": "MiniMax API（会话 provider=minimax）",
+    "model_short": "MiniMax · Codex",
+    "skill": "未见读取游戏 Skill",
+    "skill_status": "unobserved",
+    "skill_evidence": "已查该轮完整执行记录，未发现读取 SKILL.md 或 Game Studio 的工具调用；不据此声称完全没有其他内置指导。",
+    "effort": "max",
+    "base_commit": "c0a950199fd7bac79ddd1118498af559891e208f",
+    "baseline_short": "第二章主页",
+    "control_source": "run.json + 原始会话 session_meta / turn_context",
+    "config_note": "不同驱动器或交互方式；详见运行记录",
+    "category": "多轮交互",
+    "comparison_group": "interactive",
+    "compare": "追加反馈、驱动方式或推理配置不同，仅作为交互过程样本；不并入同条件复跑。",
+    "plan_behavior": "先计划，确认后实施",
+    "architecture": "组件内纯 reducer",
+    "validation_summary": "40 项规则检查、SSR、构建；preview 启动受限",
+    "iteration_summary": "回答计时起点问题；修正测试期望；末轮只同步偏好文档",
+    "conversation_source": "模拟学员",
+    "experiment_title": "H1 · 后续模拟学员",
+    "round_breakdown": "请求计划 → 确认并问计时 → 接受现状",
+    "round_reason": "第二轮确定偏好并问计时起点。末轮确认不加音效和局中重开，开发方只同步证据文档；不是第三轮重新修改游戏。"
+  },
+  "old1": {
+    "title": "早期 01 · 8 张项目牌",
+    "summary": "项目标题与标签组成 4 对牌；匹配后有短暂等待。",
+    "why": "保留早期产品分歧与检查不足的证据。",
+    "tags": [
+      "8 张 · 4 对",
+      "早期主线"
+    ],
+    "caveat": "仅有历史导出节选，缺少完整命令输出。",
+    "recommended": false,
+    "phases": [
+      {
+        "start": 1,
+        "title": "计划与确认",
+        "summary": "保留当时导出的计划与统一确认。"
+      },
+      {
+        "start": 4,
+        "title": "实现与接入",
+        "summary": "组件、主页和样式；修正移动端 CSS 顺序。"
+      },
+      {
+        "start": 16,
+        "title": "构建与交付",
+        "summary": "历史构建通过，保留 diff 和交付回复。"
+      }
+    ],
+    "category": "早期复跑",
+    "comparison_group": "early",
+    "provider": "MiniMax API（历史批次记录）",
+    "model_short": "MiniMax Preview · Codex",
+    "skill": "历史记录未见游戏 Skill",
+    "skill_status": "unknown",
+    "skill_evidence": "批次记录为 clean-codex 独立环境；原始完整日志缺失，不能复核全部 Skill 状态。",
+    "effort": "历史记录未核定",
+    "base_commit": "未在现存导出中核定",
+    "baseline_short": "第二章主页",
+    "control_source": "courseware/ch03/runs/data.js 的 batch.fixed",
+    "config_note": "Codex 0.160.1；Flash-Preview；独立环境串行运行",
+    "compare": "可以看同批历史产物差异；与 10 月 21 日批次的 CLI、模型版本不同，不能混为同条件。",
+    "plan_behavior": "先计划，统一代答确认",
+    "architecture": "React 组件（历史 diff）",
+    "validation_summary": "构建通过（历史导出）",
+    "iteration_summary": "修正媒体查询顺序；完整输出缺失",
+    "conversation_source": "历史统一代答",
+    "experiment_title": "早期 01 · 计划后实施",
+    "round_breakdown": "请求计划 → 统一按推荐确认",
+    "round_reason": "历史批次预先要求先计划后实施，统一代答确认；只有两条输入的导出材料，不把它称为一次失败后返工。"
+  },
+  "old2": {
+    "title": "早期 02 · 6 张项目牌",
+    "summary": "3 对项目牌；没有计时，界面更简。",
+    "why": "保留早期产品分歧与检查不足的证据。",
+    "tags": [
+      "6 张 · 3 对",
+      "缺陷样本"
+    ],
+    "caveat": "背面 aria-label 泄露牌面信息；保留作检查样本。完整运行输出缺失。",
+    "recommended": false,
+    "phases": [
+      {
+        "start": 1,
+        "title": "计划与确认",
+        "summary": "导出的方案与统一确认。"
+      },
+      {
+        "start": 4,
+        "title": "实现与接入",
+        "summary": "创建组件、接入主页、编写样式。"
+      },
+      {
+        "start": 12,
+        "title": "构建与记录",
+        "summary": "构建通过，检查产物并写文档。"
+      }
+    ],
+    "category": "早期复跑",
+    "comparison_group": "early",
+    "provider": "MiniMax API（历史批次记录）",
+    "model_short": "MiniMax Preview · Codex",
+    "skill": "历史记录未见游戏 Skill",
+    "skill_status": "unknown",
+    "skill_evidence": "批次记录为 clean-codex 独立环境；原始完整日志缺失，不能复核全部 Skill 状态。",
+    "effort": "历史记录未核定",
+    "base_commit": "未在现存导出中核定",
+    "baseline_short": "第二章主页",
+    "control_source": "courseware/ch03/runs/data.js 的 batch.fixed",
+    "config_note": "Codex 0.160.1；Flash-Preview；独立环境串行运行",
+    "compare": "可以看同批历史产物差异；与 10 月 21 日批次的 CLI、模型版本不同，不能混为同条件。",
+    "plan_behavior": "先计划，统一代答确认",
+    "architecture": "React 组件（历史 diff）",
+    "validation_summary": "构建与产物检查（历史导出）",
+    "iteration_summary": "过程未记录有效修错；后来复查发现背面标签泄露答案",
+    "conversation_source": "历史统一代答",
+    "experiment_title": "早期 02 · 计划后实施",
+    "round_breakdown": "请求计划 → 统一按推荐确认",
+    "round_reason": "历史批次预先要求先计划后实施，统一代答确认；只有两条输入的导出材料，不把它称为一次失败后返工。"
+  },
+  "old3": {
+    "title": "早期 03 · 项目配关键词",
+    "summary": "12 张牌按项目与关键词配对，规则解释却仍说找相同牌面。",
+    "why": "保留早期产品分歧与检查不足的证据。",
+    "tags": [
+      "12 张 · 6 对",
+      "说明与规则不符"
+    ],
+    "caveat": "文案与真实配对规则不一致；完整运行输出缺失。",
+    "recommended": false,
+    "phases": [
+      {
+        "start": 1,
+        "title": "计划与确认",
+        "summary": "导出的方案与统一确认。"
+      },
+      {
+        "start": 4,
+        "title": "实现第一版",
+        "summary": "创建组件、挂载与样式。"
+      },
+      {
+        "start": 13,
+        "title": "修正布局与验证",
+        "summary": "修正媒体查询顺序，做 SSR 与洗牌配对检查。"
+      },
+      {
+        "start": 28,
+        "title": "复核并交付",
+        "summary": "检查范围和产物，保留最终回复。"
+      }
+    ],
+    "category": "早期复跑",
+    "comparison_group": "early",
+    "provider": "MiniMax API（历史批次记录）",
+    "model_short": "MiniMax Preview · Codex",
+    "skill": "历史记录未见游戏 Skill",
+    "skill_status": "unknown",
+    "skill_evidence": "批次记录为 clean-codex 独立环境；原始完整日志缺失，不能复核全部 Skill 状态。",
+    "effort": "历史记录未核定",
+    "base_commit": "未在现存导出中核定",
+    "baseline_short": "第二章主页",
+    "control_source": "courseware/ch03/runs/data.js 的 batch.fixed",
+    "config_note": "Codex 0.160.1；Flash-Preview；独立环境串行运行",
+    "compare": "可以看同批历史产物差异；与 10 月 21 日批次的 CLI、模型版本不同，不能混为同条件。",
+    "plan_behavior": "先计划，统一代答确认",
+    "architecture": "React 组件（历史 diff）",
+    "validation_summary": "构建、SSR、洗牌配对检查（历史导出）",
+    "iteration_summary": "修正媒体查询；配对说明与实际规则的差异仍保留",
+    "conversation_source": "历史统一代答",
+    "experiment_title": "早期 03 · 计划后实施",
+    "round_breakdown": "请求计划 → 统一按推荐确认",
+    "round_reason": "历史批次预先要求先计划后实施，统一代答确认；只有两条输入的导出材料，不把它称为一次失败后返工。"
+  },
+  "old5": {
+    "title": "早期 05 · 提前通关缺陷",
+    "summary": "初始 12 张、6 对，但配对 3 对就可能触发结束。",
+    "why": "保留早期产品分歧与检查不足的证据。",
+    "tags": [
+      "12 张 · 6 对",
+      "通关缺陷"
+    ],
+    "caveat": "保留原产物用于观察，不作为可直接采用的录制基线；完整运行输出缺失。",
+    "recommended": false,
+    "phases": [
+      {
+        "start": 1,
+        "title": "计划与确认",
+        "summary": "导出的方案与统一确认。"
+      },
+      {
+        "start": 4,
+        "title": "实现第一版",
+        "summary": "写组件、主页接入和样式。"
+      },
+      {
+        "start": 13,
+        "title": "构建与交付",
+        "summary": "历史构建通过；后续复查发现通关判定缺陷。"
+      }
+    ],
+    "category": "早期复跑",
+    "comparison_group": "early",
+    "provider": "MiniMax API（历史批次记录）",
+    "model_short": "MiniMax Preview · Codex",
+    "skill": "历史记录未见游戏 Skill",
+    "skill_status": "unknown",
+    "skill_evidence": "批次记录为 clean-codex 独立环境；原始完整日志缺失，不能复核全部 Skill 状态。",
+    "effort": "历史记录未核定",
+    "base_commit": "未在现存导出中核定",
+    "baseline_short": "第二章主页",
+    "control_source": "courseware/ch03/runs/data.js 的 batch.fixed",
+    "config_note": "Codex 0.160.1；Flash-Preview；独立环境串行运行",
+    "compare": "可以看同批历史产物差异；与 10 月 21 日批次的 CLI、模型版本不同，不能混为同条件。",
+    "plan_behavior": "先计划，统一代答确认",
+    "architecture": "React 组件（历史 diff）",
+    "validation_summary": "构建与产物检查（历史导出）",
+    "iteration_summary": "过程未记录通关修复；后来发现 3 对即可能提前完成",
+    "conversation_source": "历史统一代答",
+    "experiment_title": "早期 05 · 计划后实施",
+    "round_breakdown": "请求计划 → 统一按推荐确认",
+    "round_reason": "历史批次预先要求先计划后实施，统一代答确认；只有两条输入的导出材料，不把它称为一次失败后返工。"
+  },
+  "mm-memory": {
+    "title": "Memory Match · 三档难度",
+    "summary": "MiniMax 从空目录开发，原生网页实现翻牌、音效、难度与成绩。",
+    "why": "展示独立游戏成品，也保留“断言通过后看画面仍发现反面错误”的关键过程。",
+    "tags": [
+      "原生网页",
+      "三档难度",
+      "未加载游戏 Skill"
+    ],
+    "caveat": "浏览器检查读取隐藏配对信息，不等于自然玩家试玩；此处是修复后的最终版本。",
+    "recommended": true,
+    "phases": [
+      {
+        "start": 1,
+        "title": "接收独立任务与检查环境",
+        "summary": "明确不加载游戏 Skill，确认空目录与浏览器工具。"
+      },
+      {
+        "start": 10,
+        "title": "搭建游戏与规则",
+        "summary": "创建纯规则层、页面、样式、交互和测试。"
+      },
+      {
+        "start": 37,
+        "title": "单元测试与修错",
+        "summary": "修正工具转义、测试预期和不应限制偶数对数的实现；23 项通过。"
+      },
+      {
+        "start": 49,
+        "title": "浏览器测试与计步修复",
+        "summary": "启动真实浏览器测试，修复翻错时步数不更新的问题。"
+      },
+      {
+        "start": 84,
+        "title": "查看画面并修复翻面",
+        "summary": "61 项断言后检查截图，发现初始露正面及动画覆盖翻转；修复。"
+      },
+      {
+        "start": 95,
+        "title": "完成状态与手机复核",
+        "summary": "查看通关画面、完善焦点，69 项浏览器断言通过并检查手机。"
+      },
+      {
+        "start": 102,
+        "title": "启动边界与最终交付",
+        "summary": "确认 file 协议受限，完善 README，运行最终验证。"
+      }
+    ],
+    "category": "MiniMax 独立",
+    "comparison_group": "minimax-standalone",
+    "provider": "MiniMax API（冻结实验记录）",
+    "model_short": "MiniMax · Codex",
+    "skill": "明确不加载游戏 Skill",
+    "skill_status": "off",
+    "skill_evidence": "初始请求明确禁止加载游戏 Skill；执行记录未见相关读取。",
+    "effort": "未从 CLI 事件核定",
+    "base_commit": "空目录，无共同代码提交",
+    "baseline_short": "独立空项目",
+    "control_source": "冻结快照 experiment/README.md、原始 Prompt 与 CLI 事件",
+    "config_note": "两个全新项目、两个独立会话；玩法与需求不同",
+    "compare": "只能展示各自的开发过程。翻牌与躲避不是同一个任务，不能据这两份成品判断 Skill 的净效果。",
+    "plan_behavior": "自主实施，无追加确认",
+    "architecture": "纯规则层 + 原生网页",
+    "validation_summary": "23 项规则测试、69 项浏览器断言、截图审看",
+    "iteration_summary": "修复翻错计步；61 项断言后看截图发现露正面，再修 CSS",
+    "conversation_source": "一次自主开发任务",
+    "experiment_title": "MiniMax · 独立翻牌 / 无游戏 Skill",
+    "round_breakdown": "一次任务输入 → Agent 自主实现、检查和修正",
+    "round_reason": "没有追加用户输入。运行中的多次工具动作和内部修正发生在同一次用户委托内。"
+  },
+  "mm-dodge": {
+    "title": "Neon Drift · 霓虹闪避",
+    "summary": "MiniMax 读取本地 Game Studio 指导后，做出 60 秒躲避收集游戏。",
+    "why": "保留完整 Skill 阅读、架构实现、试玩、反馈修改和生产构建链路。",
+    "tags": [
+      "Phaser",
+      "60 秒一局",
+      "读取 Game Studio"
+    ],
+    "caveat": "60 秒结束测试维持玩家存活；与翻牌任务不同，不能作为 Skill 有无的控制实验。",
+    "recommended": true,
+    "phases": [
+      {
+        "start": 1,
+        "title": "读取 Skill 与选择路线",
+        "summary": "读取入口及关联指导，确定 Phaser 与程序绘制素材路线。"
+      },
+      {
+        "start": 22,
+        "title": "搭建项目和规则系统",
+        "summary": "创建项目、页面样式和独立模拟规则。"
+      },
+      {
+        "start": 48,
+        "title": "实现画面与交互",
+        "summary": "生成程序纹理、渲染层、场景与 DOM 界面，并修复运行问题。"
+      },
+      {
+        "start": 83,
+        "title": "规则与浏览器验证",
+        "summary": "建立测试入口，34 项规则检查，启动浏览器场景验证。"
+      },
+      {
+        "start": 115,
+        "title": "审看画面并反复调整",
+        "summary": "根据截图完善场景、反馈和移动端 HUD。"
+      },
+      {
+        "start": 163,
+        "title": "修复手机布局与暂停按钮",
+        "summary": "调整菜单布局和 hidden 被样式覆盖的问题，补返回标题检查。"
+      },
+      {
+        "start": 191,
+        "title": "生产构建复验与交付",
+        "summary": "生产构建复验 31 项浏览器断言，完善文档。"
+      }
+    ],
+    "category": "MiniMax 独立",
+    "comparison_group": "minimax-standalone",
+    "provider": "MiniMax API（冻结实验记录）",
+    "model_short": "MiniMax · Codex",
+    "skill": "已读取 Game Studio",
+    "skill_status": "on",
+    "skill_evidence": "执行记录第 5、8、18 条可定位入口及关联指导读取；Game Studio 快照 0722921d5542fc593105c27bd52630babd8b8c2a。",
+    "effort": "未从 CLI 事件核定",
+    "base_commit": "空目录，无共同代码提交",
+    "baseline_short": "独立空项目",
+    "control_source": "冻结快照 experiment/README.md、原始 Prompt 与 CLI 事件",
+    "config_note": "两个全新项目、两个独立会话；玩法与需求不同",
+    "compare": "只能展示各自的开发过程。翻牌与躲避不是同一个任务，不能据这两份成品判断 Skill 的净效果。",
+    "plan_behavior": "先读 Skill，再自主实施",
+    "architecture": "独立模拟规则 + Phaser + DOM UI",
+    "validation_summary": "34 项规则检查、31 项浏览器断言、生产构建复验",
+    "iteration_summary": "看截图反复调整手机 HUD、菜单布局和暂停按钮；补测试",
+    "conversation_source": "一次自主开发任务",
+    "experiment_title": "MiniMax · 独立躲避 / Game Studio",
+    "round_breakdown": "一次任务输入 → Agent 自主实现、检查和修正",
+    "round_reason": "没有追加用户输入。运行中的多次工具动作和内部修正发生在同一次用户委托内。"
+  },
+  "cx-memory": {
+    "title": "独立初版 · 水果记忆",
+    "summary": "6 对水果、750 ms 翻回，保留原生网页初版。",
+    "why": "保留与 11 月 6 日 MiniMax 独立版本的产品对照。",
+    "tags": [
+      "12 张水果牌",
+      "750 ms",
+      "原生网页"
+    ],
+    "caveat": "只有开发复盘和检查记录；原始完整生成会话未定位，不能把复盘补写成逐步执行日志。",
+    "recommended": false,
+    "phases": [],
+    "category": "Agent 独立",
+    "comparison_group": "agent-standalone",
+    "provider": "原开发 Agent（未核定为 MiniMax API）",
+    "model_short": "原 Agent · 模型未核定",
+    "skill": "首份实现前未读游戏指导",
+    "skill_status": "recap",
+    "skill_evidence": "依照开发复盘；两个游戏的初次联合验证在读取指导之后，没有独立的无 Skill 验证基线。",
+    "effort": "未核定",
+    "base_commit": "未核定",
+    "baseline_short": "独立项目",
+    "control_source": "starters/ch03-games-20261105/README.md",
+    "config_note": "缺少原始生成会话；不能核定完整运行配置",
+    "compare": "作为开发探索产物单独保留；不归入 MiniMax 同条件对照或 Skill 开关实验。",
+    "plan_behavior": "直接实施（据复盘）",
+    "architecture": "原生 DOM / CSS / JavaScript",
+    "validation_summary": "复盘记载通关、重开及浏览器试玩；生成日志缺失",
+    "iteration_summary": "无完整原始生成记录，无法逐项核定开发修正",
+    "conversation_source": "开发复盘，原对话未定位",
+    "experiment_title": "原 Agent · 独立翻牌",
+    "round_breakdown": "原始会话缺失，不能拆分",
+    "round_reason": "保留开发复盘，不据复盘猜测用户输入轮次或轮次成因。"
+  },
+  "cx-dodge": {
+    "title": "独立初版 · 躲避与收集",
+    "summary": "青色玩家、金色收集物、红色障碍；60 秒、3 条生命。",
+    "why": "保留与 11 月 6 日 MiniMax 独立版本的产品对照。",
+    "tags": [
+      "Phaser",
+      "60 秒 · 3 命",
+      "触屏按钮"
+    ],
+    "caveat": "只有开发复盘和检查记录；原始完整生成会话未定位，不能把复盘补写成逐步执行日志。",
+    "recommended": false,
+    "phases": [],
+    "category": "Agent 独立",
+    "comparison_group": "agent-standalone",
+    "provider": "原开发 Agent（未核定为 MiniMax API）",
+    "model_short": "原 Agent · 模型未核定",
+    "skill": "开发复盘记载读取 Game Studio",
+    "skill_status": "recap",
+    "skill_evidence": "依照开发复盘；两个游戏的初次联合验证在读取指导之后，没有独立的无 Skill 验证基线。",
+    "effort": "未核定",
+    "base_commit": "未核定",
+    "baseline_short": "独立项目",
+    "control_source": "starters/ch03-games-20261105/README.md",
+    "config_note": "缺少原始生成会话；不能核定完整运行配置",
+    "compare": "作为开发探索产物单独保留；不归入 MiniMax 同条件对照或 Skill 开关实验。",
+    "plan_behavior": "先读指导后实施（据复盘）",
+    "architecture": "独立规则 + Phaser + DOM UI",
+    "validation_summary": "复盘记载规则检查、暂停恢复、实际试玩两局",
+    "iteration_summary": "试玩后发现矮窗口 HUD 可见性与反馈问题；保留初版",
+    "conversation_source": "开发复盘，原对话未定位",
+    "experiment_title": "原 Agent · 独立躲避",
+    "round_breakdown": "原始会话缺失，不能拆分",
+    "round_reason": "保留开发复盘，不据复盘猜测用户输入轮次或轮次成因。"
+  }
+}

@@ -92,7 +92,7 @@ class ClaudeTests(unittest.TestCase):
 
     def test_arguments_allow_print_resume_but_not_routing_changes(self):
         self.assertEqual(parse_args(["claude", "--tap", "--", "-p", "hello"]),
-                         ("claude", True, ["-p", "hello"]))
+                         ("claude", True, False, ["-p", "hello"]))
         claude.validate_args(["--resume", "session"])
         claude.validate_args(["-p", "auth"])
         for args in (["--model=other"], ["--settings", "personal.json"],
