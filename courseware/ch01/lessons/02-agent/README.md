@@ -1,6 +1,6 @@
 # 1.2 Agent 执行机制与 AI 协作基础
 
-[打开课件](index.html) · [画面预览](preview.png) · [逐步讲稿](speaker.html) · [分镜](STORYBOARD.md)
+[打开课件](index.html) · [画面预览](preview.png) · [逐步讲稿](speaker.html) · [历史分镜](STORYBOARD.md)
 
 沿用原 P09–P14 的主线，2026-10-15 起课程路线集中在 0.1 开场访谈，本节保留五段；沿用 1.1 欢迎语任务，末尾行业路标只作口播。原锚点除 `p13` 外保留。页面、步骤与时长预算以 `lesson.js` 为准，实际课堂时长和教学效果未试讲验证。
 

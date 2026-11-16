@@ -1,6 +1,8 @@
 # 3.4 逐页分镜：做游戏的经验，有人打包好了吗
 
-> 依据：旧版排练设计（已退出当前章设计）；当前依据见[内部大纲第三章](../../../../docs/outline/course-outline-internal.md#第-3-章vibe-coding-与能力扩展--用两个小游戏理解-skill-与-plugin)，本分镜待同步；草稿，未试讲。安装链路与三种装法见 `courseware/ch03/materials/plugin/README.md`。
+> 历史分镜，只读备查。后续备课更新 Discussion 或本节讲述线源。独有且仍有效的内容可按需迁入当前源。
+
+> 依据：旧版排练设计（已退出当前章设计）；当前依据见[第三章讨论版](../../../../docs/outline/ch03-discussion.md)，本分镜待同步；草稿，未试讲。安装链路与三种装法见 `courseware/ch03/materials/plugin/README.md`。
 
 **本节一句话**：Skill 是一份按需加载的经验说明，Plugin 是把它们打包安装的单位；装之前先审。
 

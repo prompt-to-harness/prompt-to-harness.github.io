@@ -1,0 +1,1018 @@
+{
+  "experiment": "purple-style-20261110-v1",
+  "model": "MiniMax-M3.1-Flash",
+  "cli": "0.163.0",
+  "source_snapshot": "minimax-games-20261106-v1",
+  "source_files": {
+    "source-game/docs/screenshot-initial.png": "84c99156361bfe07c277cbd2dd16ee55c823cc96b2c47c00f5766b0876aa3728",
+    "source-game/docs/screenshot-mobile.png": "1c64fa173bec593afb1fcacbd7cb37aca0ff0ce3be5275a227c215299eb42dbd",
+    "source-game/docs/screenshot-win.png": "9caf2bebca9652bbb4748a4fe2e812c7940d78f499aa3c7699faecee194815fa",
+    "source-game/index.html": "a0c690eb3afd5bd5d9f4b559f3e7edd917672e454d87318706e033e97f7579db",
+    "source-game/src/difficulty.js": "045cfc79fdbb496a1592c3db9ba36df0af69fd0d0b0887ae775f5f08b655c31b",
+    "source-game/src/game-core.js": "7656c90c9e4b39249a2f28ff27b2478abb15982a37621a67092262d08e0282a9",
+    "source-game/src/icons.js": "4c4c851a06b5ce0afea41538a23405978904db13b0e93dd72d94f8136d266a44",
+    "source-game/src/main.js": "f056a4b58b0754452c00732cddca0e909e6415cd2c9fd48267110b29a3abdbb3",
+    "source-game/src/sound.js": "68b281af8818a9ce42e5aae6e3cc25f2844a1e50dc2122620fe710e81affc5d3",
+    "source-game/src/storage.js": "b24505cb382a4c343bbcf6f003ad3d2e75ab79600a42a7cd37d97437d860ed3b",
+    "source-game/styles.css": "77767d325edaa6da32e30afd756c88ceabc30076083ed33a09279acb0f9bfb70"
+  },
+  "local_locator": "lab-runs/ch03-purple-style-20261110/trial-location.json",
+  "runs": [
+    {
+      "case": "start-text",
+      "exit_code": 0,
+      "timeout": false,
+      "started_at_utc": "2026-11-10T09:52:40.509808+00:00",
+      "elapsed_seconds": 699.22,
+      "completed": true,
+      "changed_files": [
+        "output/styles.css",
+        "output/index.html",
+        "output/implementation-notes.md"
+      ],
+      "usage": [
+        {
+          "input_tokens": 2117546,
+          "cached_input_tokens": 2036265,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 60676,
+          "reasoning_output_tokens": 32224
+        }
+      ],
+      "output_hashes": {
+        ".agents/skills/purple-game-style/SKILL.md": "ca62cf77f62570a5433ad1c0d8dd17442c4c30c98caccb16d919cbbd0a0c8cf1",
+        "output/implementation-notes.md": "7bc8a78b57def24d706dcf27048b3ea99c3d4042fc044b566d9c0a24e915dccd",
+        "output/index.html": "839b39ec344abd83f695ee277dfe6bc1d4ff5dd6f83967a95c0c9e380feb820f",
+        "output/styles.css": "983b31801217d2df168c9087a0a729c2eedee9171f0c5f83b26ea0652824e49b"
+      },
+      "commands": [
+        {
+          "line": 5,
+          "item_id": "item_1",
+          "command": "/bin/zsh -lc 'ls -la <experiment>/start-text/workspace && echo \"---\" && ls -laR <experiment>/start-text/workspace/.agents 2>/dev/null | head -60'",
+          "exit_code": 0,
+          "output_sha256": "34c587b29ec975d08002a73b4761a92a9a054c0d2164e7f11351eebbe6a3bc1a"
+        },
+        {
+          "line": 7,
+          "item_id": "item_2",
+          "command": "/bin/zsh -lc 'cat <experiment>/start-text/workspace/.agents/skills/purple-game-style/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "ca62cf77f62570a5433ad1c0d8dd17442c4c30c98caccb16d919cbbd0a0c8cf1"
+        },
+        {
+          "line": 10,
+          "item_id": "item_4",
+          "command": "/bin/zsh -lc \"cd <experiment>/start-text/workspace && ls -laR .traces && echo \\\"=== find all ===\\\" && find . -type f -not -path './.git/*' | head -50 && echo \\\"=== parent ===\\\" && ls -la <experiment>/start-text/\"",
+          "exit_code": 0,
+          "output_sha256": "447077a8d3c4200e3eca06765479f4eca21f1ecaaaf8459c154957c4fcb68111"
+        },
+        {
+          "line": 13,
+          "item_id": "item_6",
+          "command": "/bin/zsh -lc 'which node python3 2>/dev/null; ls /Applications/ 2>/dev/null | grep -i -E \"chrome|chromium|safari|edge\" ; ls \"/Applications/Google Chrome.app/Contents/MacOS/\" 2>/dev/null'",
+          "exit_code": 0,
+          "output_sha256": "64010514e63452bc1b777f6cee2e1ed7aa5522268a5124a46c9eddcb66402a40"
+        },
+        {
+          "line": 22,
+          "item_id": "item_12",
+          "command": "/bin/zsh -lc \"mkdir -p /tmp/pg-probe && cp output/styles.css /tmp/pg-probe/ && node -e \\\"\nconst fs=require('fs');\nlet h=fs.readFileSync('output/index.html','utf8');\nconst headErr=\"'`<script>window.addEventListener('\"'error',function(e){(window.__errs=window.__errs||[]).push(String(e.message));});</script>\\\\n\"'`;\nh=h.replace('\"'<link rel=\\\\\\\"stylesheet\\\\\\\"', headErr+'<link rel=\\\\\\\"stylesheet\\\\\\\"');\nconst probe=\"'`<script>\nsetTimeout(function(){\n  document.getElementById('\"'sound-toggle').click();\n  document.getElementById('start-btn').click();\n  setTimeout(function(){\n    var g=function(id){return document.getElementById(id);};\n    var cs=function(id){return getComputedStyle(g(id));};\n    var report={\n      errors: window.__errs||[],\n      live: g('live').textContent,\n      startLabel: g('start-label').textContent,\n      startAriaDisabled: g('start-btn').getAttribute('aria-disabled'),\n      soundPressed: g('sound-toggle').getAttribute('aria-pressed'),\n      soundText: g('sound-state').textContent,\n      soundOpacity: cs('sound-toggle').opacity,\n      soundLineThrough: cs('sound-toggle').querySelector('.btn__text').textDecorationLine,\n      runningVisibility: cs('state-running').visibility,\n      runningOpacity: cs('state-running').opacity,\n      idleVisibility: cs('state-idle').visibility,\n      previewShown: g('state-running').textContent.indexOf('预览中')>=0,\n      bodyScrollW: document.documentElement.scrollWidth,\n      innerW: window.innerWidth\n    };\n    var pre=document.createElement('pre'); pre.id='probe-report'; pre.textContent=JSON.stringify(report,null,2);\n    document.body.appendChild(pre);\n  },700);\n},300);\n</script>\\\\n\"'`;\nh=h.replace('\"'</body>', probe+'</body>');\nfs.writeFileSync('/tmp/pg-probe/probe.html',h);\nconsole.log('probe written');\n\\\"\"",
+          "exit_code": 1,
+          "output_sha256": "f294489defcd418548a09f5070383672de6ec60e1f074336efb48b9570849ede"
+        },
+        {
+          "line": 26,
+          "item_id": "item_14",
+          "command": "/bin/zsh -lc 'node /tmp/pg-probe/make-probe.js output/index.html /tmp/pg-probe/probe-run.html run && node /tmp/pg-probe/make-probe.js output/index.html /tmp/pg-probe/probe-idle.html idle && ls -la /tmp/pg-probe/'",
+          "exit_code": 0,
+          "output_sha256": "ecd47d811349efbab05fbe3f42876da8d7422ebd2bea49a495ff041a2f2aa291"
+        },
+        {
+          "line": 28,
+          "item_id": "item_15",
+          "command": "/bin/zsh -lc 'CHROME=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\"\ncd /tmp/pg-probe\n\"$CHROME\" --headless=new --disable-gpu --no-sandbox --hide-scrollbars --force-device-scale-factor=2 --window-size=1440,900 --virtual-time-budget=4000 --screenshot=/tmp/pg-probe/desk-idle.png \"file:///tmp/pg-probe/probe-idle.html\" 2>&1 | tail -3\n\"$CHROME\" --headless=new --disable-gpu --no-sandbox --hide-scrollbars --force-device-scale-factor=2 --window-size=390,844 --virtual-time-budget=4000 --screenshot=/tmp/pg-probe/mob-idle.png \"file:///tmp/pg-probe/probe-idle.html\" 2>&1 | tail -3\n\"$CHROME\" --headless=new --disable-gpu --no-sandbox --hide-scrollbars --force-device-scale-factor=2 --window-size=1440,900 --virtual-time-budget=5000 --screenshot=/tmp/pg-probe/desk-run.png \"file:///tmp/pg-probe/probe-run.html\" 2>&1 | tail -3\n\"$CHROME\" --headless=new --disable-gpu --no-sandbox --hide-scrollbars --force-device-scale-factor=2 --window-size=390,844 --virtual-time-budget=5000 --screenshot=/tmp/pg-probe/mob-run.png \"file:///tmp/pg-probe/probe-run.html\" 2>&1 | tail -3\nls -la /tmp/pg-probe/*.png'",
+          "exit_code": 1,
+          "output_sha256": "9e56115694596a6aa46ed0cc89e3b142ff8329f1bdaa7d80ab761af7a036698e"
+        },
+        {
+          "line": 30,
+          "item_id": "item_16",
+          "command": "/bin/zsh -lc 'CHROME=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\"\n\"$CHROME\" --headless --disable-gpu --no-sandbox --screenshot=/tmp/pg-probe/desk-idle.png --window-size=1440,900 --virtual-time-budget=4000 \"file:///tmp/pg-probe/probe-idle.html\" 2>&1 | tail -20; echo \"EXIT=$?\"; ls -la /tmp/pg-probe/'",
+          "exit_code": 0,
+          "output_sha256": "d3a3fdd76dbae6c642aa794527063bbfbf9eadbe80b65ce194820d676b0e2fbd"
+        },
+        {
+          "line": 32,
+          "item_id": "item_17",
+          "command": "/bin/zsh -lc 'CHROME=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\"\n\"$CHROME\" --headless --disable-gpu --no-sandbox --user-data-dir=/tmp/pg-probe/chrome-profile --screenshot=/tmp/pg-probe/desk-idle.png --window-size=1440,900 --virtual-time-budget=4000 \"file:///tmp/pg-probe/probe-idle.html\" > /tmp/pg-probe/chrome.log 2>&1; echo \"EXIT=$?\"; echo '\"'--- log ---'; cat /tmp/pg-probe/chrome.log; ls -la /tmp/pg-probe/\"",
+          "exit_code": 0,
+          "output_sha256": "47c414ca7d058c593eab3a4543bd64024043a3b99e7dcd3aa957813366892073"
+        },
+        {
+          "line": 34,
+          "item_id": "item_18",
+          "command": "/bin/zsh -lc 'CHROME=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\"\n\"$CHROME\" --headless=old --no-sandbox --no-zygote --single-process --disable-gpu --disable-dev-shm-usage --disable-crash-reporter --user-data-dir=/tmp/pg-probe/cp2 --dump-dom \"data:text/html,<h1>hello</h1>\" 2>&1 | head -20; echo \"EXIT=${PIPESTATUS[0]}\"'",
+          "exit_code": 0,
+          "output_sha256": "5f7466536ca82eaa49949e4d32de246899f55fe2d997b08693cd41a28f1f5687"
+        },
+        {
+          "line": 37,
+          "item_id": "item_20",
+          "command": "/bin/zsh -lc 'cd /tmp/pg-probe && qlmanage -t -s 1400 -o /tmp/pg-probe <experiment>/start-text/workspace/output/index.html 2>&1 | tail -5; ls -la /tmp/pg-probe/*.png 2>/dev/null || echo \"no png from qlmanage\"'",
+          "exit_code": 0,
+          "output_sha256": "de3e2d7da3356d466534b385a1f7dda7fb2d57f3a8b5a18c507d9e795c24315c"
+        },
+        {
+          "line": 39,
+          "item_id": "item_21",
+          "command": "/bin/zsh -lc \"node -e \\\"\nconst fs=require('fs');\nconst h=fs.readFileSync('output/index.html','utf8');\nconst m=h.match(/<script>([\\\\s\\\\S]*?)<\\\\/script>/);\nfs.writeFileSync('/tmp/pg-probe/extracted.js', m[1]);\n\\\" && node --check /tmp/pg-probe/extracted.js && echo \\\"JS SYNTAX OK\\\" && node -e \\\"\nconst fs=require('fs');\nconst h=fs.readFileSync('output/index.html','utf8');\nconst ids=[...h.matchAll(/id=\\\\\\\"([\"'^'\"\\\\\\\"]+)\\\\\\\"/g)].map(m=>m[1]);\nconst dupes=ids.filter((v,i)=>ids.indexOf(v)\"'!==i);\nconsole.log('\"'ids:',ids.length,'dupes:',dupes);\nconst used=[...h.matchAll(/getElementById\\\\('([\"'^'\"']+)'\\\\)/g)].map(m=>m[1]);\nconst missing=used.filter(u=>\"'!ids.includes(u));\nconsole.log('\"'js ids used:',used.join(','));\nconsole.log('MISSING refs:',missing.length?missing:'none');\nconst css=fs.readFileSync('output/styles.css','utf8');\nconsole.log('css braces balanced:', (css.match(/{/g)||[]).length===(css.match(/}/g)||[]).length);\nconst defined=[...css.matchAll(/(--[a-z0-9-]+):/g)].map(m=>m[1]);\nconst refs=[...css.matchAll(/var\\\\((--[a-z0-9-]+)\\\\)/g)].map(m=>m[1]);\nconst undef=[...new Set(refs)].filter(r=>\"'!defined.includes(r));\nconsole.log('\"'undefined css vars:',undef.length?undef:'none');\nconsole.log('html external refs:', [...h.matchAll(/(src|href)=\\\\\\\"([\"'^'\"\\\\\\\"]+)\\\\\\\"/g)].map(m=>m[2]));\n\\\"\"",
+          "exit_code": 0,
+          "output_sha256": "6293f30976a105364e9b7859483c0a223504ef19f82341d9aeb74badeffb5471"
+        },
+        {
+          "line": 41,
+          "item_id": "item_22",
+          "command": "/bin/zsh -lc \"node -e \\\"try{require('jsdom');console.log('jsdom OK')}catch(e){console.log('no jsdom')}\\\"; npm ls -g --depth=0 2>/dev/null | head -20; python3 -c \\\"import importlib.util as u; print('playwright' if u.find_spec('playwright') else 'no playwright')\\\" 2>/dev/null; ls ~/.npm 2>/dev/null | head -3\"",
+          "exit_code": 0,
+          "output_sha256": "a79e2da73ec9c9a87ad599e2f578832853ff378b1e467f5ffb8866d66aee3dc9"
+        },
+        {
+          "line": 43,
+          "item_id": "item_23",
+          "command": "/bin/zsh -lc 'CHROME=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\"\nmkdir -p /tmp/pg-probe/home\nHOME=/tmp/pg-probe/home TMPDIR=/tmp/pg-probe \"$CHROME\" --headless=old --no-sandbox --disable-gpu --disable-dev-shm-usage --user-data-dir=/tmp/pg-probe/cp3 --dump-dom \"data:text/html,<p id=x>ok</p>\" 2>&1 | head -20; echo \"EXIT=${PIPESTATUS[0]}\"'",
+          "exit_code": 0,
+          "output_sha256": "5f7466536ca82eaa49949e4d32de246899f55fe2d997b08693cd41a28f1f5687"
+        },
+        {
+          "line": 48,
+          "item_id": "item_26",
+          "command": "/bin/zsh -lc 'node /tmp/pg-probe/dom-harness.js output/index.html; echo \"HARNESS_EXIT=$?\"'",
+          "exit_code": 0,
+          "output_sha256": "f25a4547ed346de8be484fdc815b7e675197b3ff0ae737680b8ea6d670d0bb5a"
+        },
+        {
+          "line": 57,
+          "item_id": "item_31",
+          "command": "/bin/zsh -lc 'node /tmp/pg-probe/dom-harness.js output/index.html 2>&1 | head -60; echo \"HARNESS_EXIT=${PIPESTATUS[0]}\"'",
+          "exit_code": 0,
+          "output_sha256": "ab5921b131e197740802e073c83354e389fa35084ebb47112832d603e21dbcca"
+        },
+        {
+          "line": 61,
+          "item_id": "item_33",
+          "command": "/bin/zsh -lc 'node /tmp/pg-probe/dom-harness.js output/index.html 2>&1 | tail -75; echo \"HARNESS_EXIT=${PIPESTATUS[0]}\"'",
+          "exit_code": 0,
+          "output_sha256": "22b8f0eb77b800c3ffa2aeb15a3146482f3488a9ec7b157c2e3502f128854ebc"
+        },
+        {
+          "line": 63,
+          "item_id": "item_34",
+          "command": "/bin/zsh -lc 'which wkhtmltoimage wkhtmltopdf weasyprint cutycapt 2>/dev/null; \"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --version 2>&1 | head -3; echo \"---qlmanage tmp---\"; cp output/index.html /tmp/pg-probe/index.html && qlmanage -t -s 1200 -o /tmp/pg-probe /tmp/pg-probe/index.html 2>&1 | tail -4; ls /tmp/pg-probe/ | head'",
+          "exit_code": 0,
+          "output_sha256": "34388c5fdcc037795a5d1a6a01577faccf6f5e2536a553062ffe44f3972b4541"
+        },
+        {
+          "line": 65,
+          "item_id": "item_35",
+          "command": "/bin/zsh -lc 'CHROME=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\"\n\"$CHROME\" --headless=old --no-sandbox --no-zygote --single-process --disable-gpu --disable-dev-shm-usage --disable-breakpad --disable-crash-reporter --enable-logging=stderr --v=0 --user-data-dir=/tmp/pg-probe/cp5 --virtual-time-budget=4000 --screenshot=/tmp/pg-probe/shot.png --window-size=1440,900 \"file:///tmp/pg-probe/probe-idle.html\" 2>&1 | head -25; echo \"EXIT=${PIPESTATUS[0]}\"; ls -la /tmp/pg-probe/*.png 2>/dev/null || echo \"no png\"'",
+          "exit_code": 0,
+          "output_sha256": "51e83ae9fa04e292bd9b597b6b90600649ed91e6ce415245dc5ef66148772591"
+        },
+        {
+          "line": 68,
+          "item_id": "item_37",
+          "command": "/bin/zsh -lc 'cd output && grep -n -E \"''^(:root|body|'\"\\\\.panel|\\\\.btn\\\\b|\\\\.btn--primary|\\\\.btn--secondary|\\\\.btn--toggle|\\\\.game-title|\\\\.stat__value|\\\\.stat__icon--|\\\\.legend__item--|\\\\.toolbar\\\\b|\\\\.databar|@media|\\\\.stage__state|\\\\.game-subtitle|\\\\.stat__label)\\\" styles.css | head -50; echo \\\"=== html anchors ===\\\"; grep -n -E \\\"game-title|game-subtitle|sound-toggle|start-btn|stat__label|stat__value|state-idle|state-running|reset-btn|footnote|legend\\\" index.html | head -40\"",
+          "exit_code": 0,
+          "output_sha256": "daa3c293c7f25a869d76630e9f0fae3f838ba7386b7a836abc81cf92ea932ba0"
+        },
+        {
+          "line": 70,
+          "item_id": "item_38",
+          "command": "/bin/zsh -lc \"node -e \\\"\n// 静态盒模型估算（CJK 1em、数字/拉丁 0.55em），仅用于排查 390px 溢出\nconst w=(s,fs,ls=0)=>{let x=0;for(const ch of s){x += /[一-鿿　-〿＀-￯]/.test(ch)? fs : fs*0.55;} return x + s.length*ls;};\nconst page=390-2*Math.max(12,Math.min(24,3.9*3.2));\nconst inner=page-2*14;\nconst col=(page-20)/3, statInner=col-16;\nconst rows=[\n ['title 27.76px','60 秒躲避与收集',27.76,0.5,page],\n ['subtitle 14.4px','躲开危险、收集星星，在倒计时结束前堆出最高分。',14.4,0,page],\n ['toolbar settings row','设置',11.84,0.5,inner],\n ['stat label 单局时长','单局时长',11.84,0.5,statInner],\n ['stat value 收集得分','收集得分',15.68,0.5,statInner],\n ['stat value 60秒','60秒',17.6,0.5,statInner],\n ['stage headline','按下「开始游戏」进入 60 秒预览',18.4,0.5,inner-28],\n ['legend row','危险 奖励 玩家',11.84,0.4,inner-28],\n ['footnote','键盘 Tab 聚焦按钮、Enter 开始预览 · 本原型只实现开始界面。',11.84,0.5,page]\n];\nconsole.log('page content width @390 =', page.toFixed(1), '| databar col =', col.toFixed(1), '| stat inner =', statInner.toFixed(1));\nfor(const [k,s,fs,ls,avail] of rows){const est=w(s,fs,ls);console.log((est<=avail?'OK  ':'OVER')+'  '+k.padEnd(22)+' est '+est.toFixed(1)+'px / avail '+avail.toFixed(1)+'px');}\nconsole.log('legend 3 items est =', (82.4*3+16).toFixed(1), 'px / avail', (inner-28).toFixed(1));\n\\\"\"",
+          "exit_code": 0,
+          "output_sha256": "e20d5373b73afbf2514265f5d16402a3d541b6f734c6d06bd6a10ddc3f8c7f45"
+        },
+        {
+          "line": 74,
+          "item_id": "item_40",
+          "command": "/bin/zsh -lc \"node -e \\\"\nconst w=(s,fs,ls=0)=>{let x=0;for(const ch of s){x += /[一-鿿　-〿＀-￯·]/.test(ch)? fs : fs*0.55;} return x + s.length*ls;};\nconst page=390-2*12.48;\nconsole.log('footnote est', w('键盘 Tab 聚焦、Enter 开始预览 · 本原型只覆盖开始界面。',11.84,0.5).toFixed(1), '/', page.toFixed(1));\n\\\" && node /tmp/pg-probe/dom-harness.js output/index.html 2>&1 | tail -3 && node --check /tmp/pg-probe/extracted.js 2>/dev/null; node -e \\\"\nconst fs=require('fs');const h=fs.readFileSync('output/index.html','utf8');\nconst m=h.match(/<script>([\\\\s\\\\S]*?)<\\\\/script>/);fs.writeFileSync('/tmp/pg-probe/extracted2.js',m[1]);\n\\\" && node --check /tmp/pg-probe/extracted2.js && echo \\\"JS SYNTAX OK (final)\\\"\"",
+          "exit_code": 0,
+          "output_sha256": "c60058f97715e5cc72403f9587dccd79896601efe3fb67face3ccadc5d92c160"
+        },
+        {
+          "line": 79,
+          "item_id": "item_43",
+          "command": "/bin/zsh -lc \"cd output && sed -n '178,182p;196,200p' index.html | cat -n && echo \\\"=== exact ===\\\" && grep -n -E \\\"预览中</p>|role=\\\\\\\"status\\\\\\\"|id=\\\\\\\"live\\\\\\\"\\\" index.html\"",
+          "exit_code": 0,
+          "output_sha256": "237e198160571299b909427295c96f28f53a3dd7fe9075d8b1de981b876e5d5d"
+        },
+        {
+          "line": 83,
+          "item_id": "item_45",
+          "command": "/bin/zsh -lc \"cd <experiment>/start-text/workspace\n\necho \\\"=== 1. 交付文件 ===\\\"\nls -la output/\necho\necho \\\"=== 2. 指导文件未被修改（mtime 仍为 17:52，目录内无其他文件） ===\\\"\nls -la .agents/skills/purple-game-style/\nfind .agents .traces -type f | sed 's|\"'^|  found: |'\"'\necho\necho \\\"=== 3. 工作区无其他改动（无 git 仓库则跳过） ===\\\"\nif [ -d .git ]; then git status --short; else echo \\\"  (无 .git，未做任何提交/发布)  \\\"; fi\necho\necho \\\"=== 4. 无外部资源引用 ===\\\"\ngrep -n -E \\\"https?://|cdn|fonts\\\\.|@import|src=\\\" output/index.html output/styles.css || echo \\\"  仅本地 ./styles.css，无外部 URL\\\"\necho\necho \\\"=== 5. 最终功能断言（DOM shim 跑真实内联脚本） ===\\\"\nnode /tmp/pg-probe/dom-harness.js output/index.html 2>&1 | tail -2\necho\necho \\\"=== 6. 语法与引用完整性 ===\\\"\nnode -e \\\"\nconst fs=require('fs');const h=fs.readFileSync('output/index.html','utf8');const c=fs.readFileSync('output/styles.css','utf8');\nconst m=h.match(/<script>([\\\\s\\\\S]*?)<\\\\/script>/);fs.writeFileSync('/tmp/pg-probe/final.js',m[1]);\nconst ids=[...h.matchAll(/id=\\\\\\\"([\"'^'\"\\\\\\\"]+)\\\\\\\"/g)].map(x=>x[1]);\nconst used=[...h.matchAll(/getElementById\\\\('([\"'^'\"']+)'\\\\)/g)].map(x=>x[1]);\nconsole.log('  ids:',ids.length,'| 重复:',ids.filter((v,i)=>ids.indexOf(v)\"'!==i).length,'\"'| JS 缺失引用:',used.filter(u=>\"'!ids.includes(u)).length);\nconst defined=[...c.matchAll(/(--[a-z0-9-]+):/g)].map(x=>x[1]);\nconst refs=[...new Set([...c.matchAll(/var'\"\\\\((--[a-z0-9-]+)\\\\)/g)].map(x=>x[1]))];\nconsole.log('  CSS 花括号平衡:',(c.match(/{/g)||[]).length===(c.match(/}/g)||[]).length,'| 未定义 CSS 变量:',refs.filter(r=>\"'!defined.includes(r)).length);\nconsole.log('\"'  关闭标签计数: div',(h.match(/<div/g)||[]).length,'/',(h.match(/<\\\\/div>/g)||[]).length,'| button',(h.match(/<button/g)||[]).length,'/',(h.match(/<\\\\/button>/g)||[]).length,'| span',(h.match(/<span/g)||[]).length,'/',(h.match(/<\\\\/span>/g)||[]).length);\n\\\"\nnode --check /tmp/pg-probe/final.js && echo \\\"  JS 语法: OK\\\"\nnode -e \\\"\nconst fs=require('fs');const h=fs.readFileSync('output/index.html','utf8');\nconst open=(h.match(/<(div|section|header|main|ul|li|p|button|span|svg|h1)\\\\b/g)||[]).length;\nconst close=(h.match(/<\\\\/(div|section|header|main|ul|li|p|button|span|svg|h1)>/g)||[]).length;\nconsole.log('  HTML 元素开合计数:',open,'/',close, open===close?'OK':'CHECK');\n\\\"\"",
+          "exit_code": 0,
+          "output_sha256": "0b66c6491d783e59eacc903b05272c4691f397eed07762d96799b71ba6130277"
+        },
+        {
+          "line": 86,
+          "item_id": "item_47",
+          "command": "/bin/zsh -lc 'CHROME=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\"\nmkdir -p /private/tmp/pg-chrome\n\"$CHROME\" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --user-data-dir=/private/tmp/pg-chrome/prof --crash-dumps-dir=/private/tmp/pg-chrome --enable-logging=stderr --v=1 --virtual-time-budget=5000 --window-size=1440,900 --screenshot=/private/tmp/pg-chrome/desk.png \"file:///private/tmp/pg-probe/probe-idle.html\" > /private/tmp/pg-chrome/out.log 2>&1; echo \"EXIT=$?\"; wc -c /private/tmp/pg-chrome/out.log; head -25 /private/tmp/pg-chrome/out.log; ls -la /private/tmp/pg-chrome/*.png 2>/dev/null || echo \"NO PNG\"'",
+          "exit_code": 0,
+          "output_sha256": "d8b8e476f1acf7ec4771fca2611238c3b9013942c2214b2f5df83eb54a9c50b3"
+        },
+        {
+          "line": 88,
+          "item_id": "item_48",
+          "command": "/bin/zsh -lc \"sed -n '1,100p' output/index.html\"",
+          "exit_code": 0,
+          "output_sha256": "afae66a1921e1b19b55e029d267e9c42bbdbe53fbf49e3279591fe1830cfeedf"
+        },
+        {
+          "line": 91,
+          "item_id": "item_50",
+          "command": "/bin/zsh -lc 'cd <experiment>/start-text/workspace && find . -type f | sort && echo && wc -l output/index.html output/styles.css output/implementation-notes.md'",
+          "exit_code": 0,
+          "output_sha256": "c445116b7e92ec11f7d863e9c7214e4308492cfa2aa22df1679517b7199fe68d"
+        }
+      ],
+      "prompt_sha256": "f4ea22a6b3403f1b330e57ca38f2bc14440a1205d00917ec8861aedfd0ed7f5b",
+      "input_files_unchanged": true,
+      "note": "正常结束"
+    },
+    {
+      "case": "start-example",
+      "exit_code": 0,
+      "timeout": false,
+      "started_at_utc": "2026-11-10T09:52:40.510567+00:00",
+      "elapsed_seconds": 564.54,
+      "completed": true,
+      "changed_files": [
+        "output/styles.css",
+        "output/app.js",
+        "output/index.html",
+        "output/implementation-notes.md"
+      ],
+      "usage": [
+        {
+          "input_tokens": 1450961,
+          "cached_input_tokens": 1383322,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 46684,
+          "reasoning_output_tokens": 19256
+        }
+      ],
+      "output_hashes": {
+        ".agents/skills/purple-game-style/SKILL.md": "50d28f779b2d509f0542b619b947bbf5e6cae94c60e3ca13003fe3a420c77544",
+        ".agents/skills/purple-game-style/references/source-visual.css": "16c2ec98ca28d120a72c46a2282edb6053722d94571d703bbda8f8e39ed634e0",
+        "output/app.js": "91461be866312bd10936ff5ba5f0886b4fd0a956f8d8d6b7ddb8eae8fd0baa79",
+        "output/implementation-notes.md": "80aa6e102b3a08a7941a49da45342d6aa380a11cd960577ce7c45a989364ef64",
+        "output/index.html": "a61c48e61e78ed48f0f675f7faf2fde971cf6e6e6a561bd48952c51e2bbecbc4",
+        "output/styles.css": "ce488a028cab55f790fb22ec172ac0017231ecd6d2cb5b2835d9314629500b54"
+      },
+      "commands": [
+        {
+          "line": 5,
+          "item_id": "item_1",
+          "command": "/bin/zsh -lc \"find <experiment>/start-example/workspace -type f -not -path '*/.git/*' | head -100\"",
+          "exit_code": 0,
+          "output_sha256": "666bed1b0b4f5347584de15512e6e760b5143f362f2a1da0db12371c853a0f60"
+        },
+        {
+          "line": 7,
+          "item_id": "item_2",
+          "command": "/bin/zsh -lc 'cat <experiment>/start-example/workspace/.agents/skills/purple-game-style/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "50d28f779b2d509f0542b619b947bbf5e6cae94c60e3ca13003fe3a420c77544"
+        },
+        {
+          "line": 9,
+          "item_id": "item_3",
+          "command": "/bin/zsh -lc 'cat <experiment>/start-example/workspace/.agents/skills/purple-game-style/references/source-visual.css'",
+          "exit_code": 0,
+          "output_sha256": "16c2ec98ca28d120a72c46a2282edb6053722d94571d703bbda8f8e39ed634e0"
+        },
+        {
+          "line": 11,
+          "item_id": "item_4",
+          "command": "/bin/zsh -lc 'ls -la <experiment>/start-example/workspace/ && ls -la <experiment>/start-example/'",
+          "exit_code": 0,
+          "output_sha256": "66215998ee60ff07d47b66d8639566e410c90c2bb524d09d03ec5aa3f9e158d1"
+        },
+        {
+          "line": 14,
+          "item_id": "item_6",
+          "command": "/bin/zsh -lc \"ls -la workspace/.traces/ 2>/dev/null; echo '--- apps ---'; ls /Applications/ 2>/dev/null | head -40; echo '--- bins ---'; which python3 node npx; echo '--- chrome ---'; ls '/Applications/Google Chrome.app/Contents/MacOS/' 2>/dev/null\"",
+          "exit_code": 0,
+          "output_sha256": "fefecbb34fac9eed91738e1b69a30ba232b399ebc35c9abbbe738074baca500b"
+        },
+        {
+          "line": 19,
+          "item_id": "item_9",
+          "command": "/bin/zsh -lc 'ls -la output/ && head -5 output/index.html'",
+          "exit_code": 0,
+          "output_sha256": "d14d4c21560d1e402b06fb7865d1a0586293d68dbbb033ce7dc4714ade6e3798"
+        },
+        {
+          "line": 27,
+          "item_id": "item_14",
+          "command": "/bin/zsh -lc \"node --version; '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --version\"",
+          "exit_code": 0,
+          "output_sha256": "b910dc5866c10db0e50569aa10f56936e26e6d32d95a982cd0c2eb09d8c2ea9c"
+        },
+        {
+          "line": 29,
+          "item_id": "item_15",
+          "command": "/bin/zsh -lc \"mkdir -p /tmp/purple-verify && '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=1 --virtual-time-budget=2000 --window-size=1280,860 --screenshot=/tmp/purple-verify/desktop.png \\\"file://<experiment>/start-example/workspace/output/index.html\\\" 2>&1 | tail -5; ls -la /tmp/purple-verify/\"",
+          "exit_code": 0,
+          "output_sha256": "7008e57e7f4df1b1c0c40feaa515ceb6e16576e266f25541e9df53b1fa6382cb"
+        },
+        {
+          "line": 31,
+          "item_id": "item_16",
+          "command": "/bin/zsh -lc \"cd /tmp/purple-verify && '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --disable-gpu --no-sandbox --hide-scrollbars --virtual-time-budget=3000 --window-size=1280,860 --screenshot=/tmp/purple-verify/desktop.png \\\"file://<experiment>/start-example/workspace/output/index.html\\\" ; echo \\\"exit=\"'$?\"; ls -la /tmp/purple-verify/'",
+          "exit_code": 0,
+          "output_sha256": "2c4c787e7ef2a5e9258eda9cb682093c1e7431e96503e8d4005cfd9fa855a8e4"
+        },
+        {
+          "line": 33,
+          "item_id": "item_17",
+          "command": "/bin/zsh -lc \"cd /tmp/purple-verify && '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless --disable-gpu --no-sandbox --disable-dev-shm-usage --user-data-dir=/tmp/purple-verify/profile --hide-scrollbars --virtual-time-budget=3000 --window-size=1280,860 --screenshot=/tmp/purple-verify/desktop.png \\\"file://<experiment>/start-example/workspace/output/index.html\\\" ; echo \\\"exit=\"'$?\"; ls -la /tmp/purple-verify/'",
+          "exit_code": 0,
+          "output_sha256": "d712663ecd0f6a3fdb62e1b1a516d9c48710b562951e609a3de361ee28a4418f"
+        },
+        {
+          "line": 35,
+          "item_id": "item_18",
+          "command": "/bin/zsh -lc \"'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --no-sandbox --disable-gpu --remote-debugging-port=9333 --user-data-dir=/tmp/purple-verify/p2 about:blank > /tmp/purple-verify/chrome.log 2>&1 & sleep 4; echo '--- log ---'; cat /tmp/purple-verify/chrome.log; echo '--- port ---'; curl -s --max-time 3 http://127.0.0.1:9333/json/version || echo 'no cdp'\"",
+          "exit_code": 0,
+          "output_sha256": "07b5f4ee1bd062c3bb064d38f6245f3c91749376f447d40fd812b9cc4752c13b"
+        },
+        {
+          "line": 37,
+          "item_id": "item_19",
+          "command": "/bin/zsh -lc \"cd /tmp/purple-verify && '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --no-sandbox --disable-gpu --user-data-dir=/tmp/purple-verify/p3 --dump-dom 'data:text/html,<h1>hello</h1>' 2>&1 | head -30; echo \\\"exit=\"'${pipestatus[1]}\"'",
+          "exit_code": 0,
+          "output_sha256": "a5c3eefefbf63db899ff0071196b47b89a238a10fcd49dda88432bd389cb67ac"
+        },
+        {
+          "line": 39,
+          "item_id": "item_20",
+          "command": "/bin/zsh -lc \"which wkhtmltoimage wkhtmltopdf weasyprint 2>/dev/null; python3 -c \\\"import importlib.util as u; print('weasyprint', u.find_spec('weasyprint') is not None); print('playwright', u.find_spec('playwright') is not None); print('selenium', u.find_spec('selenium') is not None)\\\" 2>&1; ls /Applications/Safari.app/Contents/MacOS/ 2>/dev/null; which qlmanage\"",
+          "exit_code": 0,
+          "output_sha256": "2b618b02cb19bc884a8bf0c95509e1dc1981f79586cb1f7522325b9b0006b473"
+        },
+        {
+          "line": 41,
+          "item_id": "item_21",
+          "command": "/bin/zsh -lc 'cd /tmp/purple-verify && qlmanage -t -s 1200 -o /tmp/purple-verify <experiment>/start-example/workspace/output/index.html 2>&1 | tail -5; ls -la /tmp/purple-verify/'",
+          "exit_code": 0,
+          "output_sha256": "f68b1eee29d5deb3561e1ce0d6b10013f42e9fe9982532fbfdc1b31a55c2a9a6"
+        },
+        {
+          "line": 43,
+          "item_id": "item_22",
+          "command": "/bin/zsh -lc \"cd /tmp/purple-verify && '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=old --single-process --no-zygote --no-sandbox --disable-gpu --disable-crashpad --user-data-dir=/tmp/purple-verify/p4 --dump-dom 'data:text/html,<h1>hi</h1>' 2>&1 | head -20; echo \\\"exit=\"'${pipestatus[1]}\"'",
+          "exit_code": 0,
+          "output_sha256": "a5c3eefefbf63db899ff0071196b47b89a238a10fcd49dda88432bd389cb67ac"
+        },
+        {
+          "line": 48,
+          "item_id": "item_25",
+          "command": "/bin/zsh -lc 'node /tmp/purple-verify/verify.js; echo \"exit=$?\"'",
+          "exit_code": 0,
+          "output_sha256": "f16884ff794b073551b0a80150b0f4b09fa0f6055bbeba034a87e9ef2da144ca"
+        },
+        {
+          "line": 53,
+          "item_id": "item_28",
+          "command": "/bin/zsh -lc \"node /tmp/purple-verify/verify.js 2>&1 | grep -E 'FAIL|ALL CHECKS|CHECK\\\\(S\\\\)|class 都有样式|icon 规则'; echo \\\"exit=\"'${pipestatus[1]}\"'",
+          "exit_code": 0,
+          "output_sha256": "0d651a15012fbf7e91ea54caf94b2bb0b7ee4951fcfb445b03b9fcef4946ce2e"
+        },
+        {
+          "line": 56,
+          "item_id": "item_30",
+          "command": "/bin/zsh -lc \"python3 - <<'PY'\nfrom html.parser import HTMLParser\nimport re\nsrc=open('<experiment>/start-example/workspace/output/index.html',encoding='utf-8').read()\nVOID={'meta','link','br','hr','img','input','source','path','circle','use','area','base','col','embed','track','wbr'}\nclass P(HTMLParser):\n    def __init__(s):\n        super().__init__(convert_charrefs=True); s.stack=[]; s.errs=[]\n    def handle_starttag(s,t,a):\n        if t not in VOID: s.stack.append((t,s.getpos()))\n    def handle_startendtag(s,t,a): pass\n    def handle_endtag(s,t):\n        if t in VOID: return\n        if not s.stack: s.errs.append(('extra close',t,s.getpos())); return\n        if s.stack[-1][0]==t: s.stack.pop()\n        else: s.errs.append(('mismatch',t,s.getpos(),'open='+s.stack[-1][0]))\np=P(); p.feed(src)\nprint('unclosed:',p.stack)\nprint('errors:',p.errs)\nprint('text len:',len(re.sub(r'<[\"'^>]+>'\"','',src).strip()))\n# 宽度推算\nfor vw in (390,1280):\n    app_pad=min(max(vw*0.03,12),24)\n    panel_pad=min(max(vw*0.03,16),24)\n    content=min(vw,960)-2*app_pad\n    inner=content-2*panel_pad\n    stat=(content-20)/3\n    print(f'vw={vw}: content={content:.0f}px panel-inner={inner:.0f}px stat={stat:.1f}px stat-text={stat-8:.1f}px')\nPY\"",
+          "exit_code": 0,
+          "output_sha256": "d25b0c89c969b7146094bcf02e057cd34de213d8a46bf5a7806e108333236038"
+        },
+        {
+          "line": 59,
+          "item_id": "item_32",
+          "command": "/bin/zsh -lc \"cd <experiment>/start-example/workspace && (git status --porcelain 2>/dev/null || echo 'not a git repo'); echo '--- skill files mtime ---'; ls -la .agents/skills/purple-game-style/ .agents/skills/purple-game-style/references/; echo '--- output ---'; ls -la output/; echo '--- sizes ---'; wc -l output/*\"",
+          "exit_code": 0,
+          "output_sha256": "5c4a7a757667c1def16e79f2d01ba3012fe06c258ff027f4a0f05d48b3a43654"
+        },
+        {
+          "line": 62,
+          "item_id": "item_34",
+          "command": "/bin/zsh -lc \"python3 - <<'PY'\nimport io\ncontent = '''# 60 秒躲避与收集 · 开始界面原型 —— 实现说明\n\n交付物：\"'`output/index.html`（页面）、`output/styles.css`（本地样式）、`output/app.js`（原生交互脚本）、`output/implementation-notes.md`（本文件）。\n无外部资源、无依赖、未安装任何包、未提交或发布、未启动常驻服务。\n\n## 1. 实际读取的指导 / 配套文件\n\n本次只读取了当前项目内提供的两个文件，均位于 `.agents/skills/purple-game-style/`，读取后未做任何修改（文件 mtime 仍为初始的 17:52）：\n\n| 文件 | 读取方式 | 用途 |\n|---|---|---|\n| `.agents/skills/purple-game-style/SKILL.md` | 全文读取 | 色彩角色、材质与层级、控件反馈、语义配色、动效与排版、版式骨架、复用检查清单 |\n| `.agents/skills/purple-game-style/references/source-visual.css` | 全文读取 | 原作视觉节选：`body` 背景三层叠加、`.toolbar`/`.stat`/`.btn--primary`/`.btn--ghost`/`.btn--ghost[aria-pressed=\"false\"]`、`.title`/`.stat__value`、`.overlay*`、`@media (max-width: 520px)`、`prefers-reduced-motion` 降级块 |\n\n未读取：任何其他项目目录、历史聊天记录、网络资源；项目内除上述两文件外只有一个空的 `.traces/` 目录。\n\n## 2. 三处风格实现与对应依据\n\n### 2.1 页面底：双光晕 + 160° 线性渐变，固定不随滚动\n\n```css\nbody {\n  background:\n    radial-gradient(1100px 620px at 15% -10%, var(--glow-a) 0%, transparent 55%),\n    radial-gradient(900px 600px at 100% 0%, var(--glow-b) 0%, transparent 50%),\n    linear-gradient(160deg, var(--bg-0), var(--bg-1));\n  background-attachment: fixed;\n}\n```\n\n**依据**：SKILL.md §2「页面底为三层叠加：左上 1100×620 径向光晕 `#2a3170`、右上 900×600 径向光晕 `#3b2a63`、再叠 160° 线性渐变 `#0c1022`→`#171e3d`；底色固定，不随页面滚动」（标注为〔原作值〕）；`source-visual.css` 的 `body` 规则逐值一致。色值在 `:root` 中以 `--bg-0/--bg-1/--glow-a/--glow-b` 命名后引用，组件内不散写色值（SKILL.md §1「先定义语义 token 再在组件里引用」）。\n\n### 2.2 材质层级：玻璃面板（统计块 / 主行动面板）与斜纹纹理（预览占位）\n\n```css\n.stat, .panel {\n  background: var(--panel);            /* rgba(255,255,255,0.07) */\n  border: 1px solid var(--border);      /* rgba(255,255,255,0.14) */\n  backdrop-filter: blur(10px);\n  border-radius: var(--r-stat);         /* 13px */\n  box-shadow: 0 6px 16px rgba(0,0,0,0.24);\n}\n.preview__stage {\n  background:\n    repeating-linear-gradient(45deg, rgba(255,255,255,0.08) 0 6px, transparent 6px 12px),\n    linear-gradient(140deg, var(--stripe-a), var(--stripe-b));\n  border: 1px solid rgba(255,255,255,0.22);\n  box-shadow: inset 0 1px 0 rgba(255,255,255,0.28), ...;\n}\n```\n\n**依据**：SKILL.md §2 三种材质与四级层级——玻璃面板（`rgba(255,255,255,0.07)` 填充 + 1px `rgba(255,255,255,0.14)` 描边 + 10px 背景模糊 + 圆角 + 阴影，层级靠「亮度 + 模糊度 + 不透明度」表达）、斜纹纹理（45° 白色 8% 实线 6px 与透明 6px 交替，叠在 140° 渐变 `#4b5bd6`→`#8b5cf6` 上，描边 `rgba(255,255,255,0.22)`，顶边 `rgba(255,255,255,0.28)` 内高光），以及 §3 的圆角阶梯（5/9/11/13/16/22px）与阴影阶梯（`0 4px 12px`→`0 6px 16px`→`0 8px 20px`→`0 18px 40px rgba(0,0,0,0.35)`）。`source-visual.css` 中 `.stat`/`.toolbar`/`.overlay__panel` 为同一组数值的原作实现。斜纹纹理在此处的用途是「占位块」——SKILL.md §2 明确把「占位块」列为该材质的原始用途之一。\n\n### 2.3 控件三态反馈 + 音效开关的关闭态表达 + 焦点环\n\n```css\n.btn { transition: transform 0.12s ease, filter 0.18s ease, background 0.18s ease; }\n.btn:active { transform: translateY(1px) scale(0.99); }\n.btn--primary {\n  background: linear-gradient(140deg, var(--accent), var(--accent-stop));\n  color: #fff;\n  box-shadow: 0 8px 20px rgba(124,140,255,0.32);\n}\n.btn--primary:hover { filter: brightness(1.08); }   /* 只提亮度，不换色 */\n.btn--ghost { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.14); }\n.btn--ghost:hover { background: rgba(255,255,255,0.18); }\n.btn--toggle[aria-pressed=\"false\"] { opacity: 0.62; }\n.btn--toggle[aria-pressed=\"false\"] .btn__label { text-decoration: line-through; }\n.btn:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }\n```\n\n**依据**：SKILL.md §4 控件与反馈表（主按钮 140° 渐变 + `0 8px 20px rgba(124,140,255,0.32)`；hover 亮度 1.08 不换色；active 下沉 1px 缩放 0.99 / 0.12s；次级按钮 `rgba(255,255,255,0.12)` 底 + 1px 描边、hover 提到 0.18；状态开关关闭态＝透明度 + 删除线且不换另一种主色；常规过渡 0.18s ease、按下 0.12s ease；焦点环 3px 实线 `#56d6c6` + 2px 偏移，仅键盘可见焦点时出现）与 §6 的动效时长档。`source-visual.css` 中 `.btn--primary`/`.btn--ghost`/`.btn--ghost[aria-pressed=\"false\"]`/`.segmented__btn:focus-visible` 为同一组原作实现。\n\n### 2.4 补充：标题渐变文字、等宽数字、动效降级\n\n标题使用 92° 渐变文字 `#fff` 10% → `#b9c2ff` 60% → `#7ce7d8` 100%、字号 `clamp(1.7rem, 4.5vw, 2.4rem)`、字距 0.5px（SKILL.md §6；`source-visual.css` 的 `.title`）；统计数值 1–1.25rem / 字重 650 / `font-variant-numeric: tabular-nums`（§6〔迁移建议〕：会跳动的数字必须用等宽数字）；文件末尾保留原作的 `prefers-reduced-motion` 降级块（§6「必须提供 `prefers-reduced-motion` 降级」；`source-visual.css` 末尾）。\n\n## 3. 自行决定的部分（Skill 允许范围内的取舍）\n\n1. **整体布局**：标题区 → 规则摘要数据条（3 个等宽统计块）→ 主行动玻璃面板（提示 + 主按钮 + 音效开关 + 预览占位）→ 页脚提示。SKILL.md §7 是〔迁移建议〕「只继承居中 + 固定最大宽度 + 窄屏自适应」，本次未沿用原作的「工具栏 / 数据条 / 主舞台」三段式与四列统计，而是按开始界面的实际内容重排为单列四段。\n2. **语义色分配**：生命图标 `#fb7185`（危险）、得分图标 `#4ade80`（奖励）、时限图标 `#a3abcf`（中性）。三者的冗余信息由「形状（心形 / 宝石 / 时钟）+ 文字标签」提供，不只靠颜色（SKILL.md §5）。统计数值本身一律用文字-主 `#eef1ff`，**没有**把主色 `#7c8cff` 复用到数值上，以免与主按钮抢主角（SKILL.md §1「主色只给当前唯一的主行动」）。\n3. **音效关闭态透明度 0.62**（原作 0.5）：为了 0.9rem 文字在深色底上的可读性；状态冗余仍由 `aria-pressed` + 喇叭/静音图标 + 「音效 开/关」文案三重承担（SKILL.md §4〔迁移建议〕「颜色不能是唯一的状态通道」）。\n4. **图标用内联 SVG 线性图标**而非 emoji：无外部资源依赖，且避免系统 emoji 外观差异；图标本身 `aria-hidden`，状态由 `aria-pressed` + 随开/关更新的 `aria-label` 承担。\n5. **预览占位区的处理**：采用斜纹纹理材质代表「未来的玩法区域」，再叠一层 `rgba(12,16,34,0.55)` 蒙版压暗，使它读作「尚未接入的空舞台」，同时保持主按钮是同屏唯一主角。SKILL.md 中 0.72 + 6px 模糊那组数值是浮层遮罩〔原作值〕，此处 0.55 是自行取的更轻的占位压暗值。\n6. **预览区不是模态浮层**，因此未实现浮层的焦点陷阱 / Esc 关闭 / 焦点归还（SKILL.md §8 仅约束浮层）。改为：点击「开始游戏」后按钮文案变为「预览中」并置为 `disabled`（原型没有真实关卡，重复点击无意义），预览区显示，焦点移到预览区（`tabindex=\"-1\"`），并用 `role=\"status\"` 的 `.sr-only` 区域播报状态。\n7. **文案与统计口径**：「收集累计」只是为了与另两块保持「上标签下数值」的排版一致；每次收集加多少分、障碍物长什么样、失败如何反馈等玩法专属内容本次未定义。\n8. **音效只切换 UI 状态**，不产生任何真实音频（原型范围所限）。\n\n## 4. 未验证 / 未能验证的部分（如实说明）\n\n- **未做浏览器渲染验证**：本机 Chrome 在当前沙箱中启动即崩溃（`--headless` / `--dump-dom` / 远程调试端口三种方式均为 exit 134 且无任何输出），`qlmanage`（WebKit）报「sandbox initialization failed」，且无 wkhtmltoimage / weasyprint / playwright / selenium，也不允许安装依赖。因此 **渐变、玻璃模糊、阴影、焦点环、字体回退、`backdrop-filter` 的真实观感未经渲染确认**，也未产出桌面 / 390px 的截图对比。\n- **已做的替代验证**（脚本在 `/tmp/purple-verify/verify.js`，可复现）：\n  - 静态：Python `html.parser` 解析 `index.html` —— 标签无未闭合 / 错配；全文无 `http(s)` 外链、无 `@import`、无 `@font-face`、无远程 `url()`；HTML 里用到的 class 全部有对应样式；CSS 花括号配对、`var()` 引用全部有定义；SKILL 的 14 个关键色值逐个比对通过。\n  - 行为：用最小 DOM stub 在 Node 中**真实执行** `output/app.js`，断言：点击开始 → 按钮文案「预览中」、`disabled=true`、预览区显示、焦点移到预览区；点击音效 → `aria-pressed` 在 true/false 间翻转、图标切换、标签在「音效 开/关」间切换、`aria-live` 播报对应状态。全部通过（33 项检查无失败）。\n  - 布局：按 `clamp()` 与 `@media (max-width: 520px)` 公式推算盒宽 —— 390px 下内容宽 366px、面板内宽 334px、统计块 115.3px（文本盒 107.3px），最长的「收集累计」4 字约 64px，不会溢出或换行；1280px 下统计块 297.3px。此为算式推演，非真实渲染测量。\n- **仍未验证**：真实鼠标 / 键盘下的焦点环表现、`prefers-reduced-motion` 的实际降级动画、`backdrop-filter` 在各浏览器的支持差异、iOS Safari 与移动端实际显示效果。\n\n## 5. 复用检查清单自评（对应 SKILL.md §9）\n\n底色双光晕固定 ✅｜面板半透明玻璃 ✅｜主色只出现在主按钮 ✅（统计数值用文字-主，预览区为斜纹纹理并压暗）｜焦点环 3px `#56d6c6` + 2px 偏移且仅 `:focus-visible` ✅｜hover 靠亮度不换色 ✅｜三态反馈齐全 ✅｜危险 / 奖励 / 玩家语义可区分且不只靠颜色（图标形状 + 文字标签）✅｜瞬时反馈与持续语义（本原型无玩法语义元素）N/A｜数字用等宽数字 ✅｜浮层焦点陷阱 / Esc / 焦点归还 N/A（本次无浮层，替代处理见 §3.6）｜动效降级 ✅｜玩法专属内容已替换为「躲避与收集」文案与图标，未残留原作的牌阵 / 翻牌元素 ✅\n'\"'''\npath='<experiment>/start-example/workspace/output/implementation-notes.md'\nio.open(path,'w',encoding='utf-8').write(content)\nprint('written', len(content), 'chars')\nPY\nls -la output/\"",
+          "exit_code": 0,
+          "output_sha256": "000fd743de365d6cf0bd445d2fe3167a485f86bbeb8f32db429438cfd3908e8f"
+        },
+        {
+          "line": 67,
+          "item_id": "item_37",
+          "command": "/bin/zsh -lc \"node /tmp/purple-verify/verify.js 2>&1 | tee /tmp/purple-verify/result.txt | tail -3; echo '--- pass count ---'; grep -c '\"'^PASS'\"' /tmp/purple-verify/result.txt; grep -c '\"'^FAIL'\"' /tmp/purple-verify/result.txt; echo '--- icon[hidden] rule present ---'; grep -n 'icon\\\\[hidden\\\\]' output/styles.css\"",
+          "exit_code": 0,
+          "output_sha256": "779f618b1058a8582410ca9b436162eb5d3dea7d999e4e7b45f1fc19e1850692"
+        },
+        {
+          "line": 69,
+          "item_id": "item_38",
+          "command": "/bin/zsh -lc \"python3 - <<'PY'\nimport io\np='<experiment>/start-example/workspace/output/implementation-notes.md'\ns=io.open(p,encoding='utf-8').read()\ns=s.replace('全部通过（33 项检查无失败）','全部通过（38 项检查无失败）')\nold='4. **图标用内联 SVG 线性图标**而非 emoji：无外部资源依赖，且避免系统 emoji 外观差异；图标本身 \"'`aria-hidden`，状态由 `aria-pressed` + 随开/关更新的 `aria-label` 承担。'\"'\nnew=old+' 另外补了一条 \"'`.btn--toggle .icon[hidden] { display: none; }` 兜底规则：`hidden` 属性是 HTML 全局属性，UA 样式表通常按 HTML 命名空间限定，放在内联 SVG 上不一定生效，故显式声明以保证「开/关」图标互斥显示。'\"'\nassert old in s\ns=s.replace(old,new)\nio.open(p,'w',encoding='utf-8').write(s)\nprint('ok', len(s))\nPY\ngrep -n '38 项检查\\\\|icon\\\\[hidden\\\\]' output/implementation-notes.md\"",
+          "exit_code": 0,
+          "output_sha256": "85158449c498abc2931a129766006e03a4c09443babe4509a6f6accb7688588b"
+        },
+        {
+          "line": 72,
+          "item_id": "item_40",
+          "command": "/bin/zsh -lc \"echo '=== index.html ==='; cat output/index.html; echo; echo '=== app.js ==='; cat output/app.js\"",
+          "exit_code": 0,
+          "output_sha256": "326a6636732c3222246a048843920f2583958bea546622efe2adf47145c633a9"
+        },
+        {
+          "line": 74,
+          "item_id": "item_41",
+          "command": "/bin/zsh -lc \"echo '=== deliverables ==='; ls -la output/; echo; echo '=== input files unchanged (mtime 17:52) ==='; ls -l .agents/skills/purple-game-style/SKILL.md .agents/skills/purple-game-style/references/source-visual.css; echo; echo '=== final verification ==='; node /tmp/purple-verify/verify.js 2>&1 | tail -4\"",
+          "exit_code": 0,
+          "output_sha256": "54060dbb4189c136d67eb0a04da942c618c84f5a28fe1723b0b650fff52423c2"
+        }
+      ],
+      "prompt_sha256": "f4ea22a6b3403f1b330e57ca38f2bc14440a1205d00917ec8861aedfd0ed7f5b",
+      "input_files_unchanged": true,
+      "note": "正常结束"
+    },
+    {
+      "case": "hud-text",
+      "exit_code": -15,
+      "timeout": true,
+      "started_at_utc": "2026-11-10T09:52:40.510035+00:00",
+      "elapsed_seconds": 720.01,
+      "completed": false,
+      "changed_files": [
+        "output/app.js",
+        "output/styles.css",
+        "output/index.html",
+        "output/implementation-notes.md"
+      ],
+      "usage": [],
+      "output_hashes": {
+        ".agents/skills/purple-game-style/SKILL.md": "ca62cf77f62570a5433ad1c0d8dd17442c4c30c98caccb16d919cbbd0a0c8cf1",
+        "output/app.js": "2284cdbbcc298a0998e891eb49feb6bbfa7af2b182d9e15ea88e0aefca4d248d",
+        "output/implementation-notes.md": "5f9eacf703d67b1eda3dc3519ed33f66209efbb38c8e72ac59bae1b1df5aa809",
+        "output/index.html": "58092d5662d2033bfa9d39484a634fcc4a7b1c14de1d40e083107fc42015e082",
+        "output/styles.css": "799aa6411c790845520a40f499c4acd0fc83a62f5bf2ee4c867887eb09ef1d27"
+      },
+      "commands": [
+        {
+          "line": 5,
+          "item_id": "item_1",
+          "command": "/bin/zsh -lc \"ls -la && echo \\\"---TREE---\\\" && find . -not -path './.git/*' -not -path './node_modules/*' -type f | head -100\"",
+          "exit_code": 0,
+          "output_sha256": "64fd4a289c6f2a360c8f9500966968e62625c4d0d63cdbb2f96fb303d6c2dd90"
+        },
+        {
+          "line": 7,
+          "item_id": "item_2",
+          "command": "/bin/zsh -lc 'cat .agents/skills/purple-game-style/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "ca62cf77f62570a5433ad1c0d8dd17442c4c30c98caccb16d919cbbd0a0c8cf1"
+        },
+        {
+          "line": 9,
+          "item_id": "item_3",
+          "command": "/bin/zsh -lc \"ls -laR .traces .agents 2>&1; echo \\\"---ALL FILES incl hidden---\\\"; find . -not -path './.git/*' | sort\"",
+          "exit_code": 0,
+          "output_sha256": "5bea6dfd9752f704ad5672eef84eec2157963ebd93293fffc2f7c88da8160a05"
+        },
+        {
+          "line": 11,
+          "item_id": "item_4",
+          "command": "/bin/zsh -lc 'ls -la <experiment>/hud-text/ 2>&1 | head -30'",
+          "exit_code": 0,
+          "output_sha256": "e4bb514e5f5dbdc10c8d12959bc4bbfa146ace25149ed0f8eb2d35622b54faeb"
+        },
+        {
+          "line": 14,
+          "item_id": "item_6",
+          "command": "/bin/zsh -lc 'ls /Applications/ 2>/dev/null | head -30; echo \"--- browsers ---\"; for b in \"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" \"/Applications/Chromium.app/Contents/MacOS/Chromium\" \"/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge\" \"/Applications/Safari.app/Contents/MacOS/Safari\"; do [ -x \"$b\" ] && echo \"OK: $b\"; done; echo \"--- node/py ---\"; which node python3 npx 2>/dev/null; node -v 2>/dev/null; python3 -V 2>/dev/null'",
+          "exit_code": 0,
+          "output_sha256": "e5b0196df2da66e51d6e287cdbd03460385d5945be19d878e13a74c7e9cace01"
+        },
+        {
+          "line": 18,
+          "item_id": "item_9",
+          "command": "/bin/zsh -lc 'mkdir -p output && echo ok'",
+          "exit_code": 0,
+          "output_sha256": "dc51b8c96c2d745df3bd5590d990230a482fd247123599548e0632fdbf97fc22"
+        },
+        {
+          "line": 27,
+          "item_id": "item_14",
+          "command": "/bin/zsh -lc \"cat > /tmp/verify.mjs <<'VERIFYEOF'\nimport { spawn } from 'node:child_process';\nimport { writeFileSync, mkdirSync } from 'node:fs';\n\nconst CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';\nconst URL_FILE = 'file://<experiment>/hud-text/workspace/output/index.html';\nconst OUT = '/tmp/shots';\nmkdirSync(OUT, { recursive: true });\n\nconst port = 9333;\nconst chrome = spawn(CHROME, [\n  '--headless=new', '--remote-debugging-port=' + port,\n  '--user-data-dir=/tmp/chrome-verify-profile', '--no-first-run', '--no-default-browser-check',\n  '--disable-gpu', '--hide-scrollbars', '--force-device-scale-factor=1', 'about:blank',\n], { stdio: 'ignore' });\n\nconst sleep = (ms) => new Promise(r => setTimeout(r, ms));\n\nasync function getWsUrl() {\n  for (let i = 0; i < 80; i++) {\n    try {\n      const res = await fetch('http://127.0.0.1:' + port + '/json/list');\n      const list = await res.json();\n      const page = list.find(t => t.type === 'page');\n      if (page) return page.webSocketDebuggerUrl;\n    } catch {}\n    await sleep(250);\n  }\n  throw new Error('chrome did not start');\n}\n\nconst wsUrl = await getWsUrl();\nconst ws = new WebSocket(wsUrl);\nawait new Promise(r => ws.addEventListener('open', r, { once: true }));\n\nlet msgId = 0;\nconst pending = new Map();\nws.addEventListener('message', (ev) => {\n  const m = JSON.parse(ev.data);\n  if (m.id && pending.has(m.id)) {\n    const p = pending.get(m.id); pending.delete(m.id);\n    m.error ? p.reject(new Error(JSON.stringify(m.error))) : p.resolve(m.result);\n  }\n});\n\nfunction send(method, params = {}) {\n  const id = ++msgId;\n  return new Promise((resolve, reject) => {\n    pending.set(id, { resolve, reject });\n    ws.send(JSON.stringify({ id, method, params }));\n    setTimeout(() => { if (pending.has(id)) { pending.delete(id); reject(new Error('timeout ' + method)); } }, 20000);\n  });\n}\n\nasync function evaluate(expression) {\n  const r = await send('Runtime.evaluate', { expression, returnByValue: true, awaitPromise: true });\n  if (r.exceptionDetails) throw new Error('JS error: ' + JSON.stringify(r.exceptionDetails));\n  return r.result.value;\n}\nasync function shot(name) {\n  const r = await send('Page.captureScreenshot', { format: 'png' });\n  writeFileSync(OUT + '/' + name + '.png', Buffer.from(r.data, 'base64'));\n}\nasync function key(type, keyName, code, extra = {}) {\n  await send('Input.dispatchKeyEvent', Object.assign({ type, key: keyName, code }, extra));\n}\n\nawait send('Page.enable');\nawait send('Runtime.enable');\nconst out = {};\n\nawait send('Emulation.setDeviceMetricsOverride', { width: 1280, height: 900, deviceScaleFactor: 1, mobile: false });\nawait send('Page.navigate', { url: URL_FILE });\nawait sleep(1200);\n\nout.desktop = await evaluate(\"'`(() => {\n  const g = s => document.querySelector(s);\n  const cs = el => getComputedStyle(el);\n  const r = el => { const b = el.getBoundingClientRect(); return {x:+b.x.toFixed(1),y:+b.y.toFixed(1),w:+b.width.toFixed(1),h:+b.height.toFixed(1)}; };\n  const field = g('\"'.field');\n  const fb = field.getBoundingClientRect();\n  const ents = [...document.querySelectorAll('.entity')].map(e => {\n    const b = e.querySelector('.shape').getBoundingClientRect();\n    return { cls: e.className.replace('entity ',''),\n      inside: b.left >= fb.left-1 && b.right <= fb.right+1 && b.top >= fb.top-1 && b.bottom <= fb.bottom+1,\n      w:+b.width.toFixed(1), h:+b.height.toFixed(1) };\n  });\n  const toggle = g('#pauseToggle');\n  toggle.focus();\n  const focusStyle = { outlineColor: cs(toggle).outlineColor, outlineWidth: cs(toggle).outlineWidth, outlineStyle: cs(toggle).outlineStyle };\n  toggle.blur();\n  return {\n    time: g('#statTime').textContent, lives: g('#statLives').textContent, score: g('#statScore').textContent,\n    toggleLabel: g('#toggleLabel').textContent,\n    toggleAriaPressed: toggle.getAttribute('aria-pressed'),\n    overlayHidden: g('#pauseOverlay').hidden,\n    toggleBg: cs(toggle).backgroundImage,\n    hudRect: r(g('.hud')), stageRect: r(g('.stage')), fieldRect: r(field),\n    entities: ents,\n    docScrollW: document.documentElement.scrollWidth, innerW: window.innerWidth,\n    pageH: document.documentElement.scrollHeight,\n    bodyBg: cs(document.body).backgroundImage.slice(0,90),\n    titleGrad: cs(g('.title')).backgroundImage,\n    numVariant: cs(g('#statTime')).fontVariantNumeric,\n    focusStyle,\n    statLabelColor: cs(g('.stat__label')).color,\n    statValueColor: cs(g('.stat__value')).color,\n    statBg: cs(g('.stat')).backgroundColor,\n    hudBg: cs(g('.hud')).backgroundColor,\n    hudBlur: cs(g('.hud')).backdropFilter,\n    hudRadius: cs(g('.hud')).borderRadius,\n    heartsFill: cs(g('.hearts svg')).fill,\n    gemFill: cs(g('.entity--gem .shape--gem svg path')).fill,\n    titleFontSize: cs(g('.title')).fontSize,\n    titleLetterSpacing: cs(g('.title')).letterSpacing,\n    legendText: g('.legend').textContent.replace(/\\\\\\\\s+/g,' ').trim()\n  };\n})()\"'`);\nawait shot('\"'desktop-playing');\n\nawait evaluate(\\\"document.getElementById('pauseToggle').click()\\\");\nawait sleep(500);\nout.afterPauseClick = await evaluate(\"'`(() => {\n  const g = s => document.querySelector(s);\n  const cs = el => getComputedStyle(el);\n  const panel = g('\"'#pausePanel');\n  const pb = panel.getBoundingClientRect();\n  const sb = g('#stage').getBoundingClientRect();\n  return {\n    overlayHidden: g('#pauseOverlay').hidden,\n    toggleLabel: g('#toggleLabel').textContent,\n    toggleAriaPressed: g('#pauseToggle').getAttribute('aria-pressed'),\n    toggleIsPrimary: g('#pauseToggle').classList.contains('btn--primary'),\n    toggleBg: cs(g('#pauseToggle')).backgroundImage,\n    resumeIsPrimary: g('#resumeBtn').classList.contains('btn--primary'),\n    resumeBg: cs(g('#resumeBtn')).backgroundImage,\n    activeElement: document.activeElement.id,\n    panelRect: {x:+pb.x.toFixed(1),y:+pb.y.toFixed(1),w:+pb.width.toFixed(1),h:+pb.height.toFixed(1)},\n    panelInsideStage: pb.top >= sb.top && pb.bottom <= sb.bottom,\n    overlayBg: cs(g('#pauseOverlay')).backgroundColor,\n    overlayBackdrop: cs(g('#pauseOverlay')).backdropFilter,\n    panelBg: cs(panel).backgroundImage,\n    panelRadius: cs(panel).borderRadius,\n    panelTitle: g('#pauseTitle').textContent,\n    panelStats: [...document.querySelectorAll('.panel__stat-value')].map(e=>e.textContent),\n    panelDesc: g('#pauseDesc').textContent\n  };\n})()\"'`);\nawait shot('\"'desktop-paused');\n\nout.tabTrap = await evaluate(\\\"(() => { document.getElementById('restartBtn').focus(); return document.activeElement.id; })()\\\");\nawait key('rawKeyDown', 'Tab', 'Tab', { windowsVirtualKeyCode: 9, nativeVirtualKeyCode: 9 });\nawait key('keyUp', 'Tab', 'Tab', { windowsVirtualKeyCode: 9, nativeVirtualKeyCode: 9 });\nawait sleep(150);\nout.tabTrap.tabFromLast = await evaluate(\\\"document.activeElement.id\\\");\nawait evaluate(\\\"document.getElementById('resumeBtn').focus()\\\");\nawait key('rawKeyDown', 'Tab', 'Tab', { windowsVirtualKeyCode: 9, nativeVirtualKeyCode: 9, modifiers: 8 });\nawait key('keyUp', 'Tab', 'Tab', { windowsVirtualKeyCode: 9, nativeVirtualKeyCode: 9, modifiers: 8 });\nawait sleep(150);\nout.tabTrap.shiftTabFromFirst = await evaluate(\\\"document.activeElement.id\\\");\n\nawait key('rawKeyDown', 'Escape', 'Escape', { windowsVirtualKeyCode: 27, nativeVirtualKeyCode: 27 });\nawait key('keyUp', 'Escape', 'Escape', { windowsVirtualKeyCode: 27, nativeVirtualKeyCode: 27 });\nawait sleep(350);\nout.afterEsc = await evaluate(\"'`(() => {\n  const g = s => document.querySelector(s);\n  return { overlayHidden: g('\"'#pauseOverlay').hidden, toggleLabel: g('#toggleLabel').textContent,\n    toggleIsPrimary: g('#pauseToggle').classList.contains('btn--primary'), activeElement: document.activeElement.id };\n})()\"'`);\n\nawait evaluate(\"document.getElementById('\"'pauseToggle').click()\\\");\nawait sleep(350);\nout.pausedAgain = await evaluate(\"'`(() => ({ label: document.getElementById('\"'toggleLabel').textContent, overlayHidden: document.getElementById('pauseOverlay').hidden }))()\"'`);\nawait evaluate(\"document.getElementById('\"'pauseToggle').click()\\\");\nawait sleep(350);\nout.resumedViaHudButton = await evaluate(\"'`(() => {\n  const g = s => document.querySelector(s);\n  return { overlayHidden: g('\"'#pauseOverlay').hidden, label: g('#toggleLabel').textContent,\n    time: g('#statTime').textContent, lives: g('#statLives').textContent, score: g('#statScore').textContent,\n    toggleIsPrimary: g('#pauseToggle').classList.contains('btn--primary'),\n    stagePaused: g('#stage').classList.contains('is-paused') };\n})()\"'`);\n\nawait send('\"'Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 2, mobile: true });\nawait sleep(500);\nawait evaluate(\\\"window.scrollTo(0,0)\\\");\nawait sleep(250);\nout.mobile = await evaluate(\"'`(() => {\n  const g = s => document.querySelector(s);\n  const r = el => { const b = el.getBoundingClientRect(); return {x:+b.x.toFixed(1),y:+b.y.toFixed(1),w:+b.width.toFixed(1),h:+b.height.toFixed(1)}; };\n  const field = g('\"'.field');\n  const fb = field.getBoundingClientRect();\n  const ents = [...document.querySelectorAll('.entity')].map(e => {\n    const b = e.querySelector('.shape').getBoundingClientRect();\n    return { cls: e.className.replace('entity ',''),\n      inside: b.left >= fb.left-1 && b.right <= fb.right+1 && b.top >= fb.top-1 && b.bottom <= fb.bottom+1 };\n  });\n  const stats = [...document.querySelectorAll('.stat')].map(s => r(s));\n  return {\n    innerW: window.innerWidth, docScrollW: document.documentElement.scrollWidth,\n    horizontalOverflow: document.documentElement.scrollWidth > window.innerWidth,\n    hudRect: r(g('.hud')), stageRect: r(g('.stage')), fieldRect: r(field),\n    stats, statTexts: [...document.querySelectorAll('.stat__value')].map(e=>e.textContent),\n    toggleRect: r(g('#pauseToggle')), legendRect: r(g('.legend')),\n    entities: ents,\n    legendOverflow: g('.legend').scrollWidth > g('.legend').clientWidth,\n    pageH: document.documentElement.scrollHeight,\n    fieldAspect: (fb.width / fb.height).toFixed(2)\n  };\n})()\"'`);\nawait shot('\"'mobile-playing');\n\nawait evaluate(\\\"document.getElementById('pauseToggle').click()\\\");\nawait sleep(500);\nout.mobilePaused = await evaluate(\"'`(() => {\n  const g = s => document.querySelector(s);\n  const r = el => { const b = el.getBoundingClientRect(); return {x:+b.x.toFixed(1),y:+b.y.toFixed(1),w:+b.width.toFixed(1),h:+b.height.toFixed(1)}; };\n  const pb = g('\"'#pausePanel').getBoundingClientRect();\n  const sb = g('#stage').getBoundingClientRect();\n  return {\n    overlayHidden: g('#pauseOverlay').hidden, label: g('#toggleLabel').textContent,\n    panelRect: r(g('#pausePanel')),\n    panelInsideStage: pb.top >= sb.top-1 && pb.bottom <= sb.bottom+1,\n    resumeBtnRect: r(g('#resumeBtn')), restartBtnRect: r(g('#restartBtn')),\n    actionsWrap: getComputedStyle(g('.panel__actions')).flexWrap,\n    toggleRect: r(g('#pauseToggle')),\n    docScrollW: document.documentElement.scrollWidth,\n    horizontalOverflow: document.documentElement.scrollWidth > window.innerWidth\n  };\n})()\"'`);\nawait shot('\"'mobile-paused');\n\nconsole.log(JSON.stringify(out, null, 2));\nws.close();\nchrome.kill();\nprocess.exit(0);\nVERIFYEOF\nnode /tmp/verify.mjs 2>&1 | tail -220\"",
+          "exit_code": 0,
+          "output_sha256": "150f80eac5ca66338f7f4097d7d67371f088890f21f61ffd9f3eccdef05f85ce"
+        },
+        {
+          "line": 29,
+          "item_id": "item_15",
+          "command": "/bin/zsh -lc 'timeout 30 \"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --remote-debugging-port=9334 --user-data-dir=/tmp/cr-profile-2 --no-first-run --no-default-browser-check --disable-gpu --dump-dom \"file://<experiment>/hud-text/workspace/output/index.html\" 2>&1 | head -50'",
+          "exit_code": 0,
+          "output_sha256": "eb346461f6d61257fce988834972770b3a50ab9b043de19376b1ef0dcaf4b0cd"
+        },
+        {
+          "line": 31,
+          "item_id": "item_16",
+          "command": "/bin/zsh -lc '\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --remote-debugging-port=9334 --user-data-dir=/tmp/cr-profile-2 --no-first-run --no-default-browser-check --disable-gpu --virtual-time-budget=3000 --dump-dom \"file://<experiment>/hud-text/workspace/output/index.html\" 2>&1 | head -60'",
+          "exit_code": 0,
+          "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "line": 33,
+          "item_id": "item_17",
+          "command": "/bin/zsh -lc '\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --remote-debugging-port=9334 --user-data-dir=/tmp/cr-profile-3 --no-first-run --no-default-browser-check --disable-gpu --virtual-time-budget=3000 --dump-dom \"file://<experiment>/hud-text/workspace/output/index.html\" > /tmp/dom.txt 2>/tmp/dom.err; echo \"EXIT=$?\"; wc -c /tmp/dom.txt /tmp/dom.err; head -c 800 /tmp/dom.err'",
+          "exit_code": 0,
+          "output_sha256": "e3f6903ab7ffdd99cbd15180b5a3bf9829e0653782f21a73974232e8675e8655"
+        },
+        {
+          "line": 35,
+          "item_id": "item_18",
+          "command": "/bin/zsh -lc '\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --no-sandbox --disable-setuid-sandbox --disable-dev-shm-usage --remote-debugging-port=9334 --user-data-dir=/tmp/cr-profile-4 --no-first-run --no-default-browser-check --disable-gpu --virtual-time-budget=3000 --dump-dom \"file://<experiment>/hud-text/workspace/output/index.html\" > /tmp/dom.txt 2>/tmp/dom.err; echo \"EXIT=$?\"; wc -c /tmp/dom.txt /tmp/dom.err; head -c 1500 /tmp/dom.err; head -c 400 /tmp/dom.txt'",
+          "exit_code": 0,
+          "output_sha256": "e3f6903ab7ffdd99cbd15180b5a3bf9829e0653782f21a73974232e8675e8655"
+        },
+        {
+          "line": 37,
+          "item_id": "item_19",
+          "command": "/bin/zsh -lc '\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --version 2>&1; echo \"EXIT=$?\"; echo \"--- qlmanage ---\"; which qlmanage osascript sips 2>&1'",
+          "exit_code": 0,
+          "output_sha256": "720357cc33ec708d71d9be93fbdd6f34179bde2bc9543aecef560306522675fc"
+        },
+        {
+          "line": 39,
+          "item_id": "item_20",
+          "command": "/bin/zsh -lc '\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --no-sandbox --disable-crash-reporter --disable-breakpad --enable-logging=stderr --v=1 --remote-debugging-port=9334 --user-data-dir=/tmp/cr-profile-5 --no-first-run --disable-gpu about:blank > /tmp/c.out 2>/tmp/c.err; echo \"EXIT=$?\"; head -40 /tmp/c.err'",
+          "exit_code": 0,
+          "output_sha256": "cb9959daca8ce92c69176d77ab46be365c99154d479ef5a8223905b2679adf43"
+        },
+        {
+          "line": 41,
+          "item_id": "item_21",
+          "command": "/bin/zsh -lc 'mkdir -p /tmp/ql && qlmanage -t -s 1400 -o /tmp/ql output/index.html 2>&1 | tail -5; ls -la /tmp/ql'",
+          "exit_code": 0,
+          "output_sha256": "a166acbdd01c14c52ed4f11d0c30d9d34d4e98185935cc6dd1edd1c64c7a8e95"
+        },
+        {
+          "line": 44,
+          "item_id": "item_23",
+          "command": "/bin/zsh -lc 'CH=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\"\nfor mode in \"--headless=old\" \"--headless=new --single-process\" \"--headless=new --disable-gpu-sandbox --use-angle=swiftshader\" \"--headless=new --in-process-gpu --disable-features=Crashpad\"; do\n  echo \"=== $mode ===\"\n  \"$CH\" $mode --no-sandbox --disable-dev-shm-usage --user-data-dir=/tmp/cr-p-$RANDOM --no-first-run --virtual-time-budget=2000 --dump-dom \"file://$PWD/output/index.html\" >/tmp/o.txt 2>/tmp/e.txt\n  echo \"exit=$? out=$(wc -c </tmp/o.txt) err=$(wc -c </tmp/e.txt)\"\n  head -c 200 /tmp/e.txt\ndone'",
+          "exit_code": 0,
+          "output_sha256": "5aae36dc5889191640acaf6c791d104d71c9454293f0f31619576ac055db5127"
+        },
+        {
+          "line": 46,
+          "item_id": "item_24",
+          "command": "/bin/zsh -lc 'screencapture -x /tmp/desk.png 2>&1; echo \"exit=$?\"; ls -la /tmp/desk.png 2>/dev/null | head -2; echo \"--- osascript test ---\"; osascript -e '\"'return 1+1' 2>&1 | head -3; echo \\\"exit=\"'$?\"'",
+          "exit_code": 0,
+          "output_sha256": "5219c4d82c072938af5480077e20e2f31392ae5868d25c15cfc2ac2160d2cad6"
+        },
+        {
+          "line": 49,
+          "item_id": "item_26",
+          "command": "/bin/zsh -lc \"cat > /tmp/dom-test.mjs <<'TESTEOF'\n// 用最小 DOM stub 执行真实 output/app.js，验证暂停/继续的交互逻辑（无第三方依赖）\nimport { readFileSync } from 'node:fs';\nimport vm from 'node:vm';\n\nconst APP = '<experiment>/hud-text/workspace/output/app.js';\n\nclass El {\n  constructor(id, tag, cls = '') {\n    this.id = id; this.tagName = tag.toUpperCase();\n    this._classes = new Set(cls.split(/\\\\s+/).filter(Boolean));\n    this.attrs = {}; this._text = ''; this.hidden = false;\n    this.listeners = {}; this.children = []; this.parent = null;\n    this.classList = {\n      add: (...c) => c.forEach(x => this._classes.add(x)),\n      remove: (...c) => c.forEach(x => this._classes.delete(x)),\n      contains: c => this._classes.has(c),\n      toggle: (c, on) => { on === undefined ? (this._classes.has(c) ? this._classes.delete(c) : this._classes.add(c)) : (on ? this._classes.add(c) : this._classes.delete(c)); }\n    };\n  }\n  get textContent() { return this._text; } set textContent(v) { this._text = String(v); }\n  setAttribute(k, v) { this.attrs[k] = String(v); }\n  getAttribute(k) { return k in this.attrs ? this.attrs[k] : null; }\n  addEventListener(t, fn) { (this.listeners[t] ||= []).push(fn); }\n  focus() { doc.activeElement = this; }\n  blur() { if (doc.activeElement === this) doc.activeElement = doc.body; }\n  dispatch(type, ev = {}) {\n    const e = Object.assign({ type, preventDefault() {}, shiftKey: false, target: this }, ev);\n    (this.listeners[type] || []).forEach(fn => fn(e));\n  }\n  matches(part) {\n    part = part.trim();\n    if (\"'!part) return false;\n    const neg = part.includes('\"':not(');\n    let base = part;\n    if (neg) {\n      const inner = part.match(/:not\\\\(([\"'^)]*)'\"\\\\)/)[1];\n      base = part.replace(/:not\\\\([\"'^)]*'\"\\\\)/, '').trim();\n      if (inner.startsWith('[')) {\n        const key = inner.slice(1, inner.indexOf('=')).replace(/\\\\]\"'$/, '\"'');\n        const val = inner.includes('=') ? inner.slice(inner.indexOf('=') + 1).replace(/\"'^\"|\"$/g, '\"'') : null;\n        if (val === null ? key in this.attrs : this.attrs[key] === val) return false;\n      } else if (inner.toUpperCase() === 'DISABLED') {\n        if ('disabled' in this.attrs) return false;\n      }\n    }\n    if (\"'!base) return true;\n    if (base.startsWith('\"'[')) {\n      const key = base.slice(1, base.indexOf(']'));\n      return key in this.attrs;\n    }\n    if (base.startsWith('.')) return this._classes.has(base.slice(1));\n    return this.tagName === base.toUpperCase();\n  }\n  querySelectorAll(sel) {\n    const parts = sel.split(',').map(s => s.trim());\n    const out = [];\n    const walk = (n) => { for (const c of n.children) { if (parts.some(p => c.matches(p))) out.push(c); walk(c); } };\n    walk(this);\n    return out;\n  }\n}\n\nconst doc = {\n  activeElement: null,\n  body: null,\n  listeners: {},\n  getElementById(id) { return this.byId[id] || null; },\n  addEventListener(t, fn) { (this.listeners[t] ||= []).push(fn); },\n  dispatch(t, ev = {}) { (this.listeners[t] || []).forEach(fn => fn(Object.assign({ type: t, preventDefault() {} }, ev))); }\n};\n\nconst ids = ['pauseToggle','toggleLabel','pauseOverlay','pausePanel','resumeBtn','restartBtn','stage','statTime','statLives','statScore','panelTime','panelLives','panelScore'];\nconst byId = {};\nids.forEach((id, i) => { byId[id] = new El(id, id === 'stage' ? 'section' : (id.startsWith('stat') || id.startsWith('panel') && \"'!id.includes('\"'Btn') ? 'span' : 'div')); });\nbyId.pauseToggle._classes = new Set(['btn', 'btn--primary', 'hud__toggle']);\nbyId.resumeBtn._classes = new Set(['btn', 'btn--primary']);\nbyId.restartBtn._classes = new Set(['btn', 'btn--ghost']);\nbyId.resumeBtn.parent = byId.pausePanel;\nbyId.restartBtn.parent = byId.pausePanel;\nbyId.pausePanel.children = [byId.resumeBtn, byId.restartBtn];\ndoc.byId = byId;\ndoc.body = new El('body', 'body');\ndoc.activeElement = doc.body;\n\nconst rafQueue = [];\nconst ctx = vm.createContext({\n  document: doc,\n  requestAnimationFrame: (fn) => { rafQueue.push(fn); return rafQueue.length; },\n  console,\n});\nvm.runInContext(readFileSync(APP, 'utf8'), ctx, { filename: 'app.js' });\nconst flush = () => { while (rafQueue.length) rafQueue.shift()(); };\n\nconst results = [];\nconst check = (name, cond, detail) => { results.push({ name, pass: \"'!!cond, detail }); };\nconst state = () => ({\n  overlayHidden: byId.pauseOverlay.hidden,\n  label: byId.toggleLabel.textContent,\n  pressed: byId.pauseToggle.getAttribute('\"'aria-pressed'),\n  togglePrimary: byId.pauseToggle.classList.contains('btn--primary'),\n  toggleGhost: byId.pauseToggle.classList.contains('btn--ghost'),\n  active: doc.activeElement.id,\n  time: byId.statTime.textContent, lives: byId.statLives.textContent, score: byId.statScore.textContent,\n});\n\n// 1 初始状态\nlet s = state();\ncheck('初始：暂停面板隐藏', s.overlayHidden === true);\ncheck('初始：按钮文案为“暂停”', s.label === '暂停', s.label);\ncheck('初始：HUD 按钮是主按钮', s.togglePrimary === true);\ncheck('初始：HUD 数值为 00:42 / 3 / 120', s.time === '00:42' && s.lives === '3' && s.score === '120', [s.time,s.lives,s.score]);\n\n// 2 点击「暂停」\nbyId.pauseToggle.dispatch('click');\nflush();\ns = state();\ncheck('点暂停：面板出现', s.overlayHidden === false);\ncheck('点暂停：按钮文案变为“继续”', s.label === '继续', s.label);\ncheck('点暂停：aria-pressed=true', s.pressed === 'true');\ncheck('点暂停：焦点移到浮层主行动“继续游戏”', s.active === 'resumeBtn', s.active);\ncheck('点暂停：HUD 按钮降级为次级（主色让给浮层）', s.toggleGhost === true && s.togglePrimary === false);\ncheck('点暂停：HUD 数值未变', s.time === '00:42' && s.lives === '3' && s.score === '120');\n\n// 3 Tab 陷阱\nbyId.restartBtn.focus();\ndoc.dispatch('keydown', { key: 'Tab', code: 'Tab' });\ncheck('Tab 陷阱：末位按钮 Tab 回到首位', doc.activeElement.id === 'resumeBtn', doc.activeElement.id);\nbyId.resumeBtn.focus();\ndoc.dispatch('keydown', { key: 'Tab', code: 'Tab', shiftKey: true });\ncheck('Tab 陷阱：Shift+Tab 从首位绕到末位', doc.activeElement.id === 'restartBtn', doc.activeElement.id);\n\n// 4 Esc 关闭 + 焦点归还\ndoc.dispatch('keydown', { key: 'Escape', code: 'Escape' });\ns = state();\ncheck('Esc：面板关闭', s.overlayHidden === true);\ncheck('Esc：文案恢复“暂停”', s.label === '暂停', s.label);\ncheck('Esc：焦点归还触发按钮', s.active === 'pauseToggle', s.active);\ncheck('Esc：HUD 按钮恢复主按钮', s.togglePrimary === true && s.toggleGhost === false);\n\n// 5 需求主流程：点暂停 → 按钮变“继续” → 点“继续”回到原状态\nbyId.pauseToggle.dispatch('click');\nflush();\ns = state();\ncheck('主流程：再次点暂停后面板出现且文案为“继续”', s.overlayHidden === false && s.label === '继续');\nbyId.pauseToggle.dispatch('click');\nflush();\ns = state();\ncheck('主流程：点“继续”后面板关闭', s.overlayHidden === true);\ncheck('主流程：点“继续”后文案回到“暂停”', s.label === '暂停', s.label);\ncheck('主流程：回到原状态（00:42 / 3 / 120）', s.time === '00:42' && s.lives === '3' && s.score === '120', [s.time,s.lives,s.score]);\ncheck('主流程：舞台 is-paused 已移除', byId.stage.classList.contains('is-paused') === false);\n\n// 6 浮层内“继续游戏”按钮同样生效\nbyId.pauseToggle.dispatch('click'); flush();\nbyId.resumeBtn.dispatch('click'); flush();\ns = state();\ncheck('浮层“继续游戏”按钮：关闭面板并回到原状态', s.overlayHidden === true && s.label === '暂停' && s.time === '00:42');\n\n// 7 空格快捷键\ndoc.activeElement = doc.body;\ndoc.dispatch('keydown', { key: ' ', code: 'Space' }); flush();\ncheck('空格：可打开暂停面板', state().overlayHidden === false);\ndoc.activeElement = doc.body;\ndoc.dispatch('keydown', { key: ' ', code: 'Space' }); flush();\ncheck('空格：可关闭暂停面板', state().overlayHidden === true);\n\n// 8 重新开始（次级行动）复位示意数值\nbyId.pauseToggle.dispatch('click'); flush();\nbyId.restartBtn.dispatch('click'); flush();\ns = state();\ncheck('重新开始：数值复位 01:00 / 3 / 0', s.time === '01:00' && s.lives === '3' && s.score === '0', [s.time,s.lives,s.score]);\ncheck('重新开始：面板关闭', s.overlayHidden === true);\n\nlet failed = 0;\nfor (const r of results) { if (\"'!r.pass) failed++; console.log((r.pass ? '\"'PASS  ' : 'FAIL  ') + r.name + (r.detail \"'!== undefined && !r.pass ? '\"'  -> ' + JSON.stringify(r.detail) : '')); }\nconsole.log('\\\\n' + (results.length - failed) + '/' + results.length + ' 通过');\nprocess.exit(failed ? 1 : 0);\nTESTEOF\nnode /tmp/dom-test.mjs\"",
+          "exit_code": 1,
+          "output_sha256": "7fbcdcd3348a1e8e197bdb821b042e20541adec4b0ddf477f1d2b55ba7c3161f"
+        },
+        {
+          "line": 52,
+          "item_id": "item_28",
+          "command": "/bin/zsh -lc \"cat > /tmp/dom-test.mjs <<'TESTEOF'\n// 用「从真实 index.html 解析出来的」最小 DOM 执行真实 output/app.js，验证暂停/继续交互（无第三方依赖）\nimport { readFileSync } from 'node:fs';\nimport vm from 'node:vm';\n\nconst DIR = '<experiment>/hud-text/workspace/output/';\nconst html = readFileSync(DIR + 'index.html', 'utf8');\nconst appSrc = readFileSync(DIR + 'app.js', 'utf8');\n\nclass El {\n  constructor(tag, attrs) {\n    this.tagName = tag.toUpperCase();\n    this.attrs = attrs;\n    this._classes = new Set((attrs.class || '').split(/\\\\s+/).filter(Boolean));\n    this._text = '';\n    this.hidden = 'hidden' in attrs;\n    this.children = []; this.parent = null; this.listeners = {};\n    this.classList = {\n      add: (...c) => c.forEach(x => this._classes.add(x)),\n      remove: (...c) => c.forEach(x => this._classes.delete(x)),\n      contains: c => this._classes.has(c),\n    };\n  }\n  get id() { return this.attrs.id || ''; }\n  get textContent() { return this._text; }\n  set textContent(v) { this._text = String(v); }\n  setAttribute(k, v) { this.attrs[k] = String(v); }\n  getAttribute(k) { return k in this.attrs ? this.attrs[k] : null; }\n  addEventListener(t, fn) { (this.listeners[t] ||= []).push(fn); }\n  focus() { doc.activeElement = this; }\n  blur() { if (doc.activeElement === this) doc.activeElement = doc.body; }\n  dispatch(type, ev = {}) {\n    const e = Object.assign({ type, preventDefault() {}, shiftKey: false, target: this }, ev);\n    (this.listeners[type] || []).forEach(fn => fn(e));\n  }\n  matches(part) {\n    part = part.trim();\n    if (\"'!part) return false;\n    let base = part;\n    const neg = part.match(/:not'\"\\\\(([\"'^)]*)'\"\\\\)/);\n    if (neg) {\n      base = part.replace(/:not\\\\([\"'^)]*'\"\\\\)/, '').trim();\n      const inner = neg[1];\n      if (inner.startsWith('[')) {\n        const key = inner.slice(1, inner.indexOf('='));\n        const val = inner.includes('=') ? inner.slice(inner.indexOf('=') + 1).replace(/[\\\"']/g, '') : null;\n        if (val === null ? key in this.attrs : this.attrs[key] === val) return false;\n      } else if (inner.toUpperCase() === 'DISABLED' && 'disabled' in this.attrs) return false;\n    }\n    if (\"'!base) return true;\n    if (base.startsWith('\"'[')) { const k = base.slice(1, base.indexOf(']')); return k in this.attrs; }\n    if (base.startsWith('.')) return this._classes.has(base.slice(1));\n    return this.tagName === base.toUpperCase();\n  }\n  querySelectorAll(sel) {\n    const parts = sel.split(',').map(s => s.trim());\n    const out = [];\n    const walk = (n) => { for (const c of n.children) { if (parts.some(p => c.matches(p))) out.push(c); walk(c); } };\n    walk(this);\n    return out;\n  }\n}\n\n// ---- 解析 HTML（忽略 svg / script 子树） ----\nconst byId = {}; const stack = []; let skip = 0; const root = new El('#root', {});\nconst tokens = html.replace(/<\"'!--['\"\\\\s\\\\S]*?-->/g, '').match(/<[\"'^>]+>|[''^<]+/g) || [];\nfor (const tk of tokens) {\n  if (tk[0] !== '\"'<') {\n    if (\"'!skip) { const t = tk.replace(/'\"\\\\s+/g, ' '); if (t.trim()) { const c = stack[stack.length-1]; if (c) c._text += t; } }\n    continue;\n  }\n  if (skip) { if (/\"'^<'\"\\\\//.test(tk)) { skip--; stack.pop(); } continue; }\n  const m = tk.match(/\"'^<'\"\\\\s*(\\\\/?)\\\\s*([a-zA-Z][\\\\w:-]*)([\"'^>]*?)('\"\\\\/?)>\"'$/);\n  if (!m) continue;\n  if (m[1] === '\"'/') { stack.pop(); continue; }\n  const tag = m[2].toLowerCase();\n  const attrs = {};\n  const re = /([a-zA-Z_:][-a-zA-Z0-9_:.]*)(?:\\\\s*=\\\\s*(?:\\\"([\"'^\"]*)\"|'\"'([\"'^'\"']*)'|([\"'^'\"\\\\s\\\"'>]+)))?/g;\n  let am;\n  while ((am = re.exec(m[3] || ''))) attrs[am[1].toLowerCase()] = (am[2] ?? am[3] ?? am[4] ?? '');\n  const el = new El(tag, attrs);\n  const parent = stack[stack.length-1] || root;\n  parent.children.push(el); el.parent = parent;\n  if (el.id) byId[el.id] = el;\n  const voidEl = ['meta','link','br','hr','img','input','source','path','rect','circle','stop','use'].includes(tag);\n  if (m[4] === '/' || voidEl) continue;\n  if (tag === 'svg' || tag === 'script' || tag === 'style') { skip = 1; stack.push(el); continue; }\n  stack.push(el);\n}\n\nconst doc = {\n  byId, activeElement: null, body: null, listeners: {},\n  getElementById: id => byId[id] || null,\n  addEventListener(t, fn) { (this.listeners[t] ||= []).push(fn); },\n  dispatch(t, ev = {}) { (this.listeners[t] || []).forEach(fn => fn(Object.assign({ type: t, preventDefault() {} }, ev))); },\n};\ndoc.body = root.children.find(c => c.tagName === 'BODY') || root;\ndoc.activeElement = doc.body;\n\nconst raf = [];\nconst ctx = vm.createContext({ document: doc, requestAnimationFrame: fn => raf.push(fn), console });\nvm.runInContext(appSrc, ctx, { filename: 'app.js' });\nconst flush = () => { while (raf.length) raf.shift()(); };\n\nconst results = [];\nconst check = (name, cond, detail) => results.push({ name, pass: \"'!!cond, detail });\nconst g = id => byId[id];\nconst state = () => ({\n  overlayHidden: g('\"'pauseOverlay').hidden, label: g('toggleLabel').textContent,\n  pressed: g('pauseToggle').getAttribute('aria-pressed'),\n  togglePrimary: g('pauseToggle').classList.contains('btn--primary'),\n  toggleGhost: g('pauseToggle').classList.contains('btn--ghost'),\n  active: doc.activeElement.id, time: g('statTime').textContent,\n  lives: g('statLives').textContent, score: g('statScore').textContent,\n});\n\n// ---- A. HTML 初始状态 ----\nlet s = state();\ncheck('HTML：暂停面板初始为 hidden', s.overlayHidden === true);\ncheck('HTML：按钮初始文案为“暂停”', s.label === '暂停', s.label);\ncheck('HTML：HUD 数值 00:42 / 3 / 120', s.time === '00:42' && s.lives === '3' && s.score === '120', [s.time,s.lives,s.score]);\ncheck('HTML：生命含 3 个心形图标', g('statLives').parent.querySelectorAll('svg').length === 3);\ncheck('HTML：暂停面板含继续/重新开始两个按钮', g('pausePanel').querySelectorAll('button').length === 2);\ncheck('HTML：游戏区含 1 玩家 / 4 收集物 / 3 障碍物', g('stage').querySelectorAll('.entity--player').length === 1 && g('stage').querySelectorAll('.entity--gem').length === 4 && g('stage').querySelectorAll('.entity--hazard').length === 3,\n  [g('stage').querySelectorAll('.entity--player').length, g('stage').querySelectorAll('.entity--gem').length, g('stage').querySelectorAll('.entity--hazard').length]);\n\n// ---- B. 点「暂停」 ----\ng('pauseToggle').dispatch('click'); flush();\ns = state();\ncheck('点暂停：面板出现', s.overlayHidden === false);\ncheck('点暂停：按钮文案变为“继续”', s.label === '继续', s.label);\ncheck('点暂停：aria-pressed=true', s.pressed === 'true');\ncheck('点暂停：焦点移到浮层主行动“继续游戏”', s.active === 'resumeBtn', s.active);\ncheck('点暂停：HUD 按钮降级为次级（主色让给浮层唯一主行动）', s.toggleGhost === true && s.togglePrimary === false);\ncheck('点暂停：HUD 数值未变', s.time === '00:42' && s.lives === '3' && s.score === '120');\ncheck('点暂停：舞台标记 is-paused', g('stage').classList.contains('is-paused'));\n\n// ---- C. Tab 焦点陷阱 ----\ng('restartBtn').focus();\ndoc.dispatch('keydown', { key: 'Tab', code: 'Tab' });\ncheck('焦点陷阱：末位按钮按 Tab 回到首位', doc.activeElement.id === 'resumeBtn', doc.activeElement.id);\ng('resumeBtn').focus();\ndoc.dispatch('keydown', { key: 'Tab', code: 'Tab', shiftKey: true });\ncheck('焦点陷阱：Shift+Tab 从首位绕到末位', doc.activeElement.id === 'restartBtn', doc.activeElement.id);\n\n// ---- D. Esc 关闭 + 焦点归还 ----\ndoc.dispatch('keydown', { key: 'Escape', code: 'Escape' });\ns = state();\ncheck('Esc：面板关闭', s.overlayHidden === true);\ncheck('Esc：文案恢复“暂停”', s.label === '暂停', s.label);\ncheck('Esc：焦点归还触发按钮', s.active === 'pauseToggle', s.active);\ncheck('Esc：HUD 按钮恢复主按钮', s.togglePrimary === true && s.toggleGhost === false);\n\n// ---- E. 需求主流程：点暂停 → 按钮变“继续” → 点“继续”回到原状态 ----\ng('pauseToggle').dispatch('click'); flush();\ns = state();\ncheck('主流程：点暂停后面板出现且文案为“继续”', s.overlayHidden === false && s.label === '继续');\ng('pauseToggle').dispatch('click'); flush();\ns = state();\ncheck('主流程：点“继续”后面板关闭', s.overlayHidden === true);\ncheck('主流程：点“继续”后文案回到“暂停”', s.label === '暂停', s.label);\ncheck('主流程：回到原状态（00:42 / 3 / 120）', s.time === '00:42' && s.lives === '3' && s.score === '120', [s.time,s.lives,s.score]);\ncheck('主流程：舞台 is-paused 已移除', \"'!g('\"'stage').classList.contains('is-paused'));\ncheck('主流程：HUD 按钮恢复主按钮', s.togglePrimary === true);\n\n// ---- F. 浮层内「继续游戏」同样生效 ----\ng('pauseToggle').dispatch('click'); flush();\ng('resumeBtn').dispatch('click'); flush();\ns = state();\ncheck('浮层「继续游戏」：关闭面板并回到原状态', s.overlayHidden === true && s.label === '暂停' && s.time === '00:42');\n\n// ---- G. 空格快捷键 ----\ndoc.activeElement = doc.body;\ndoc.dispatch('keydown', { key: ' ', code: 'Space', target: doc.body }); flush();\ncheck('空格：可打开暂停面板', state().overlayHidden === false);\ndoc.activeElement = doc.body;\ndoc.dispatch('keydown', { key: ' ', code: 'Space', target: doc.body }); flush();\ncheck('空格：可关闭暂停面板', state().overlayHidden === true);\n\n// ---- H. 次级行动「重新开始」 ----\ng('pauseToggle').dispatch('click'); flush();\ng('restartBtn').dispatch('click'); flush();\ns = state();\ncheck('重新开始：数值复位 01:00 / 3 / 0', s.time === '01:00' && s.lives === '3' && s.score === '0', [s.time,s.lives,s.score]);\ncheck('重新开始：面板关闭', s.overlayHidden === true);\n\nlet failed = 0;\nfor (const r of results) { if (\"'!r.pass) failed++; console.log((r.pass ? '\"'PASS  ' : 'FAIL  ') + r.name + (\"'!r.pass && r.detail !== undefined ? '\"'  -> ' + JSON.stringify(r.detail) : '')); }\nconsole.log('\\\\n' + (results.length - failed) + '/' + results.length + ' 通过');\nprocess.exit(failed ? 1 : 0);\nTESTEOF\nnode /tmp/dom-test.mjs\"",
+          "exit_code": 1,
+          "output_sha256": "6967f96e5f827e1b981bbb41027dde253b1dc7370e14d4386acace92aa925a36"
+        },
+        {
+          "line": 55,
+          "item_id": "item_30",
+          "command": "/bin/zsh -lc \"cd /tmp && python3 - <<'PY'\nimport re\np='/tmp/dom-test.mjs'\ns=open(p).read()\ns=s.replace(\\\"const byId = {}; const stack = []; let skip = 0; const root = new El('#root', {});\\\",\n            \\\"const byId = {}; const stack = []; let skip = 0; let skipTag = ''; const root = new El('#root', {});\\\")\ns=s.replace(\\\"  if (skip) { if (/\"'^<'\"\\\\\\\\//.test(tk)) { skip--; stack.pop(); } continue; }\\\",\n            \\\"  if (skip) { const c = tk.match(/\"'^<'\"\\\\\\\\/\\\\\\\\s*([a-zA-Z][\\\\\\\\w:-]*)/); if (c && c[1].toLowerCase() === skipTag) { skip--; stack.pop(); } continue; }\\\")\ns=s.replace(\\\"  if (tag === 'svg' || tag === 'script' || tag === 'style') { skip = 1; stack.push(el); continue; }\\\",\n            \\\"  if (tag === 'svg' || tag === 'script' || tag === 'style') { skip = 1; skipTag = tag; stack.push(el); continue; }\\\")\nopen(p,'w').write(s)\nprint('patched')\nPY\nnode /tmp/dom-test.mjs\"",
+          "exit_code": 0,
+          "output_sha256": "edc0908a9c27d345c885a15123c9f7970ac6aebca0eb1fcf210b69552311513b"
+        },
+        {
+          "line": 61,
+          "item_id": "item_34",
+          "command": "/bin/zsh -lc \"cat > /tmp/static-check.mjs <<'STATICEOF'\nimport { readFileSync } from 'node:fs';\nimport { execFileSync } from 'node:child_process';\n\nconst DIR = '<experiment>/hud-text/workspace/output/';\nconst html = readFileSync(DIR + 'index.html', 'utf8');\nconst css  = readFileSync(DIR + 'styles.css', 'utf8');\nconst js   = readFileSync(DIR + 'app.js', 'utf8');\n\nconst out = [];\nconst ok = (n, c, d) => out.push({ n, p: \"'!!c, d });\n\n// ---------- 解析工具 ----------\nfunction declMap(body) {\n  const m = {};\n  for (const part of body.split('\"';')) {\n    const i = part.indexOf(':');\n    if (i < 0) continue;\n    m[part.slice(0, i).trim()] = part.slice(i + 1).trim();\n  }\n  return m;\n}\n// last = 最后一次出现（媒体查询在文件末尾 → 覆盖生效）；first = 基础规则\nfunction rule(sel, which = 'last') {\n  const re = new RegExp('(?:\"'^|[};])[''^{};]*?'\"\\\\\\\\b' + sel.replace(/[.*+?\"'^${}()|['\"\\\\]\\\\\\\\]/g, '\\\\\\\\\"'$&'\"') + '\\\\\\\\s*\\\\\\\\{([\"'^}]*)'\"\\\\\\\\}', 'g');\n  const hits = [...css.matchAll(re)].map(m => declMap(m[1]));\n  if (\"'!hits.length) return null;\n  return which === '\"'last' ? hits[hits.length - 1] : hits[0];\n}\nconst px = v => v ? parseFloat(v) : 0;\nconst rem = v => v ? parseFloat(v) * 16 : 0;\nfunction clampPx(v, vw) {\n  const m = v.match(/clamp\\\\(([\"'^,]+),([''^,]+),([''^)]+)'\"\\\\)/);\n  if (\"'!m) return px(v);\n  const lo = px(m[1]), mid = m[2].trim().endsWith('\"'vw') ? (parseFloat(m[2]) / 100) * vw : px(m[2]), hi = px(m[3]);\n  return Math.min(Math.max(mid, lo), hi);\n}\n// 粗略字宽模型：CJK 1em，数字/大写 0.6em，小写 0.5em，空格 0.28em\nfunction textW(str, fs) {\n  let w = 0;\n  for (const ch of str) {\n    const c = ch.codePointAt(0);\n    if (c >= 0x2e80) w += 1.0;\n    else if (/[0-9A-Z]/.test(ch)) w += 0.6;\n    else if (ch === ' ') w += 0.28;\n    else if (ch === '·') w += 0.5;\n    else if (/[a-z]/.test(ch)) w += 0.52;\n    else w += 0.35;\n  }\n  return w * fs;\n}\n\n// ---------- 1. 结构与语法 ----------\nlet depth = 0, minDepth = 0;\nfor (const ch of css) { if (ch === '{') depth++; else if (ch === '}') { depth--; minDepth = Math.min(minDepth, depth); } }\nok('CSS 花括号配平', depth === 0 && minDepth === 0, 'net=' + depth + ' min=' + minDepth);\ntry { execFileSync('node', ['--check', DIR + 'app.js'], { stdio: 'pipe' }); ok('app.js 语法检查通过', true); }\ncatch (e) { ok('app.js 语法检查通过', false, String(e.stderr || e).slice(0, 200)); }\n\n// ---------- 2. 无外部依赖 ----------\nconst ext = [...(html + css + js).matchAll(/(https?:)?\\\\/\\\\/[a-z0-9.-]+\\\\.[a-z]{2,}/gi)].map(m => m[0]);\nok('无外部资源引用（http/CDN/外链）', ext.length === 0, ext.join(', '));\nconst imports = [...js.matchAll(/\\\\bimport\\\\s|\\\\brequire\\\\s*\\\\(/g)].map(m => m[0]);\nok('JS 无 import/require', imports.length === 0, imports.join(', '));\nok('HTML 只引用同目录本地样式/脚本', /href=\\\"styles\\\\.css\\\"/.test(html) && /src=\\\"app\\\\.js\\\"/.test(html));\n\n// ---------- 3. 引用完整性 ----------\nconst htmlIds = new Set([...html.matchAll(/\\\\sid=\\\"([\"'^\"]+)\"/g)].map(m => m[1]));\nconst jsIds = [...js.matchAll(/getElementById'\"\\\\('([\"'^'\"']+)'\\\\)/g)].map(m => m[1]);\nok('app.js 引用的 id 全部存在于 HTML', jsIds.every(i => htmlIds.has(i)), jsIds.filter(i => \"'!htmlIds.has(i)).join('\"','));\nconst ariaRefs = [...html.matchAll(/aria-(?:controls|labelledby|describedby)=\\\"([\"'^\"]+)\"/g)].flatMap(m => m[1].split(/'\"\\\\s+/));\nok('ARIA 引用目标全部存在', ariaRefs.every(i => htmlIds.has(i)), ariaRefs.filter(i => \"'!htmlIds.has(i)).join('\"','));\nconst dupIds = [...html.matchAll(/\\\\sid=\\\"([\"'^\"]+)\"/g)].map(m => m[1]).filter((v, i, a) => a.indexOf(v) !== i);\nok('\"'HTML 无重复 id', dupIds.length === 0, dupIds.join(','));\n\n// ---------- 4. CSS token / 类名一致性 ----------\nconst rootDecl = declMap(css.match(/:root\\\\s*\\\\{([\"'^}]*)'\"\\\\}/)[1]);\nconst defined = new Set(Object.keys(rootDecl).filter(k => k.startsWith('--')));\nconst used = new Set([...css.matchAll(/var\\\\((--[a-z0-9-]+)/gi)].map(m => m[1]));\nok('所有 var(--token) 均已在 :root 定义', [...used].every(t => defined.has(t)), [...used].filter(t => \"'!defined.has(t)).join('\"','));\nconst htmlClasses = new Set([...html.matchAll(/class=\\\"([\"'^\"]+)\"/g)].flatMap(m => m[1].split(/'\"\\\\s+/)).filter(Boolean));\nconst cssClasses = new Set([...css.matchAll(/\\\\.([a-zA-Z][\\\\w-]*)/g)].map(m => m[1]));\nconst orphan = [...htmlClasses].filter(c => \"'!cssClasses.has(c));\nok('\"'HTML 中每个 class 都有对应样式', orphan.length === 0, orphan.join(','));\n\n// ---------- 5. 关键色值与规范一致 ----------\nconst bodyBg = rule('.page-bg');\nok('页面底含双光晕 + 160° 线性渐变', /radial-gradient\\\\(1100px 620px/.test(bodyBg.background) && /radial-gradient\\\\(900px 600px/.test(bodyBg.background) && /linear-gradient\\\\(160deg/.test(bodyBg.background));\nconst primary = rule('.btn--primary');\nok('主按钮为 140° 主色渐变', /linear-gradient\\\\(140deg/.test(primary.background) && /--primary/.test(primary.background) && /--primary-2/.test(primary.background));\nconst focus = rule('.btn:focus-visible');\nok('焦点环 3px 青绿 + 2px 偏移', focus.outline.replace(/\\\\s+/g,' ').trim() === '3px solid var(--focus) outline-offset: 2px' || (/3px solid var\\\\(--focus\\\\)/.test(focus.outline) && /2px/.test(focus.outline)), JSON.stringify(focus));\nok('存在 prefers-reduced-motion 降级', /prefers-reduced-motion: reduce/.test(css) && /animation-duration: \\\\.001ms/.test(css) && /transition-duration: \\\\.001ms/.test(css));\nok('数字使用等宽数字 tabular-nums', /tabular-nums/.test(css));\nok('浮层遮罩为 rgba(6,9,22,.72) + 6px 模糊', /rgba\\\\(6, 9, 22, \\\\.72\\\\)/.test(css) && /blur\\\\(6px\\\\)/.test(css));\nok('浮层面板为 165° 有色玻璃 + 22px 圆角', /linear-gradient\\\\(165deg, rgba\\\\(42, 49, 112, \\\\.96\\\\), rgba\\\\(30, 24, 60, \\\\.96\\\\)\\\\)/.test(css) && /--r-sheet: 22px/.test(css));\n\n// ---------- 6. 布局算术（桌面 1280 与手机 390） ----------\nfunction layout(vw, vh, mobile) {\n  const g = (sel, which) => rule(sel, which || (mobile ? 'last' : 'first'));\n  const app = g('.app');\n  const appPad = mobile ? 12 : px(app.padding.split(' ')[1] || app.padding);\n  const contentW = vw - appPad * 2;\n\n  const hud = g('.hud'), stats = g('.stats'), stat = g('.stat'), tog = g('.hud__toggle');\n  const hudPadX = mobile ? 12 : px(hud.padding.split(' ')[1] || hud.padding);\n  const hudInner = contentW - hudPadX * 2;\n  const statsGap = px(stats.gap);\n  const toggleW = mobile ? hudInner : px(tog['min-width']);\n  const statsW = mobile ? hudInner : hudInner - px(hud.gap) - toggleW;\n  const statW = (statsW - statsGap * 2) / 3;\n  const statPadX = mobile ? 9 : px(stat.padding.split(' ')[1] || stat.padding);\n  const statContentW = statW - statPadX * 2;\n  const labelFs = rem(g('.stat__label').fontSize);\n  const valueFs = rem(g('.stat__value').fontSize);\n\n  const stage = g('.stage');\n  const stagePad = mobile ? 10 : px(stage.padding.split(' ')[1] || stage.padding);\n  const fieldW = contentW - stagePad * 2;\n  const field = g('.field');\n  const ar = field['aspect-ratio'].split('/').map(s => parseFloat(s.trim()));\n  const fieldH = Math.min(fieldW * ar[1] / ar[0], mobile ? Infinity : px(field['max-height'].match(/[\\\\d.]+px/)?.[0] || '9999'));\n\n  // 元素定位\n  const ents = [...html.matchAll(/class=\\\"entity (entity--[a-z]+)\\\" style=\\\"--x:([\\\\d.]+)%; --y:([\\\\d.]+)%\\\"/g)].map(m => ({\n    cls: m[1], x: +m[2], y: +m[3]\n  }));\n  const uOf = { 'entity--player': clampPx(g('.entity--player')['--u'], vw), 'entity--gem': clampPx(g('.entity--gem')['--u'], vw), 'entity--hazard': clampPx(g('.entity--hazard')['--u'], vw) };\n  let entOverflow = [];\n  for (const e of ents) {\n    const u = uOf[e.cls];\n    const cx = fieldW * e.x / 100, cy = fieldH * e.y / 100;\n    const half = u / 2;\n    const extra = e.cls === 'entity--player' ? u * 0.6 + 18 : 0; // 玩家下方“你”标签\n    if (cx - half < 0 || cx + half > fieldW || cy - half < 0 || cy + half + extra > fieldH)\n      entOverflow.push(e.cls + '@' + e.x + '%/' + e.y + '%');\n  }\n\n  // HUD 文案宽度\n  const labels = ['剩余时间', '生命', '分数'];\n  const values = ['00:42', '3', '120'];\n  const livesRowW = textW('3', valueFs) + 9 + 3 * 13 + 2 * 3;\n  const statFits = labels.every((l, i) => textW(l, labelFs) <= statContentW) &&\n    ['00:42', '3', '120'].every((v, i) => textW(v, valueFs) <= statContentW) && livesRowW <= statContentW;\n\n  // 浮层面板高度估算\n  const panel = g('.panel');\n  const pIcon = px(g('.panel__icon').width);\n  const pTitleFs = rem(g('.panel__title').fontSize);\n  const pDescFs = rem(g('.panel__desc').fontSize);\n  const pPad = mobile ? 16 : px(panel.padding.split(' ')[0]);\n  const pInnerW = Math.min(420, contentW - 2 * stagePad - 32) - 2 * (mobile ? 14 : px(panel.padding.split(' ')[1] || panel.padding));\n  const descLines = Math.ceil(textW('游戏进度已冻结，倒计时与分数保持当前状态。', pDescFs) / pInnerW);\n  const panelH = pPad + (mobile ? 12 : 16) + pIcon + 12 + pTitleFs * 1.25 + 8 + descLines * pDescFs * 1.7 + 16 + 54 + 18 + 44 + 12 + 16;\n  const overlayInnerH = (fieldH + stagePad * 2) - 32;\n\n  return { vw, contentW, hudInner, statW, statContentW, fieldW, fieldH: +fieldH.toFixed(1), entOverflow, statFits,\n    panelH: +panelH.toFixed(0), overlayInnerH: +overlayInnerH.toFixed(0), panelFits: panelH <= overlayInnerH,\n    descLines };\n}\nconst desk = layout(1280, 900, false);\nconst mob  = layout(390, 844, true);\nok('桌面 1280：HUD 三个统计块不溢出', desk.statFits, JSON.stringify(desk));\nok('桌面 1280：所有游戏元素在游戏区内', desk.entOverflow.length === 0, desk.entOverflow.join(','));\nok('桌面 1280：暂停面板可完整显示（无需滚动）', desk.panelFits, 'panel=' + desk.panelH + ' overlay=' + desk.overlayInnerH);\nok('手机 390：无横向溢出', mob.contentW <= 390 && mob.hudInner <= 390 && mob.fieldW <= 390, JSON.stringify(mob));\nok('手机 390：HUD 三个统计块不溢出', mob.statFits, 'statContent=' + mob.statContentW.toFixed(1));\nok('手机 390：所有游戏元素在游戏区内', mob.entOverflow.length === 0, mob.entOverflow.join(','));\nok('手机 390：暂停面板可完整显示（无需滚动）', mob.panelFits, 'panel=' + mob.panelH + ' overlay=' + mob.overlayInnerH);\n\nfor (const r of out) console.log((r.p ? 'PASS  ' : 'FAIL  ') + r.n + (\"'!r.p && r.d !== undefined ? '\"'  -> ' + r.d : ''));\nconst failed = out.filter(r => \"'!r.p).length;\nconsole.log('\"'\\\\n' + (out.length - failed) + '/' + out.length + ' 通过');\nconsole.log('\\\\n桌面布局：' + JSON.stringify(desk));\nconsole.log('手机布局：' + JSON.stringify(mob));\nprocess.exit(failed ? 1 : 0);\nSTATICEOF\nnode /tmp/static-check.mjs\"",
+          "exit_code": 1,
+          "output_sha256": "ea141d901765093a1460c3f9f1352967ef6f5d196ee9bdb45ef0be42e8cecbe5"
+        },
+        {
+          "line": 63,
+          "item_id": "item_35",
+          "command": "/bin/zsh -lc \"cd /tmp && python3 - <<'PY'\np='/tmp/static-check.mjs'\ns=open(p).read()\ns=s.replace(\\\"'(?:\"'^|[};])[''^{};]*?'\"\\\\\\\\\\\\\\\\b' + sel.replace\\\", \\\"'(?:\"'^|[};])[''^{};]*?'\"' + sel.replace\\\")\nopen(p,'w').write(s)\nPY\ngrep -n \\\"const re = new RegExp\\\" /tmp/static-check.mjs; node /tmp/static-check.mjs\"",
+          "exit_code": 1,
+          "output_sha256": "3706e9e2aa2927ab6dec35e5bec17f90969351c581b3914c3f5f2bba61bde291"
+        },
+        {
+          "line": 66,
+          "item_id": "item_37",
+          "command": "/bin/zsh -lc \"grep -n \\\"descLines = Math\\\" /tmp/static-check.mjs | head -3; grep -c \\\"游戏进度已冻结\\\" /tmp/static-check.mjs; node -e \\\"const s=require('fs').readFileSync('/tmp/static-check.mjs','utf8'); const m=s.match(/textW\\\\('([\"'^'\"']*)'/); console.log(JSON.stringify(m && m[1]), m && m[1].length);\\\"\"",
+          "exit_code": 0,
+          "output_sha256": "8a8ded17d98d7ad59a43384410d6740d9c4da2bd99fb25ec6d14f7b24e5f7e3b"
+        },
+        {
+          "line": 68,
+          "item_id": "item_38",
+          "command": "/bin/zsh -lc \"cd /tmp && node -e \\\"\nconst css=require('fs').readFileSync('<experiment>/hud-text/workspace/output/styles.css','utf8');\nfunction rule(sel,which='last'){const re=new RegExp('(?:\"'^|[};])[''^{};]*?'\"'+sel.replace(/[.*+?\"'^${}()|['\"\\\\]\\\\\\\\\\\\\\\\]/g,'\\\\\\\\\\\\\\\\\\\\\"'$&'\"')+'\\\\\\\\\\\\\\\\s*\\\\\\\\\\\\\\\\{([\"'^}]*)'\"\\\\\\\\\\\\\\\\}','g');const hits=[...css.matchAll(re)].map(m=>m[1]);console.log(sel,which,'hits=',hits.length, JSON.stringify(hits[hits.length-1]||hits[0]));}\nrule('.panel__desc','last');rule('.panel__desc','first');rule('.stat__value','last');\n\\\"\"",
+          "exit_code": 0,
+          "output_sha256": "32f416b8e212be4c8ad234c5ddcc40588c31fe12cffb95f516d01c387766dc76"
+        },
+        {
+          "line": 70,
+          "item_id": "item_39",
+          "command": "/bin/zsh -lc \"node -e \\\"\nfunction textW(str, fs){let w=0;for(const ch of str){const c=ch.codePointAt(0);if(c>=0x2e80)w+=1.0;else if(/[0-9A-Z]/.test(ch))w+=0.6;else if(ch===' ')w+=0.28;else if(ch==='·')w+=0.5;else if(/[a-z]/.test(ch))w+=0.52;else w+=0.35;}return w*fs;}\nconst s='游戏进度已冻结，倒计时与分数保持当前状态。';\nconsole.log('len',s.length,'w',textW(s,13.76),'ceil',Math.ceil(textW(s,13.76)/286));\n\\\" ; echo '--- from the actual script ---'; node -e \\\"\nconst src=require('fs').readFileSync('/tmp/static-check.mjs','utf8');\nconst i=src.indexOf('const descLines');\nconsole.log(JSON.stringify(src.slice(i-260,i+140)));\n\\\"\"",
+          "exit_code": 0,
+          "output_sha256": "d2329dfd8d877f080b9cfea4918a0c19444cdfb549c6cde32e826844926a419d"
+        },
+        {
+          "line": 72,
+          "item_id": "item_40",
+          "command": "/bin/zsh -lc \"cd /tmp && python3 - <<'PY'\np='/tmp/static-check.mjs'\ns=open(p).read()\ns=s.replace(\\\"  const descLines = Math.ceil\\\", \\\"  console.log('DBG', mobile, JSON.stringify(g('.panel__desc')), pDescFs, pInnerW);\n  const descLines = Math.ceil\\\")\nopen(p,'w').write(s)\nPY\nnode /tmp/static-check.mjs 2>&1 | grep -E \\\"DBG|descLines\\\" | head -10\"",
+          "exit_code": 0,
+          "output_sha256": "8beb9479ab324ac5e37e4864379770181fbbdd7ce064d4eb11aba215c73a63fa"
+        },
+        {
+          "line": 74,
+          "item_id": "item_41",
+          "command": "/bin/zsh -lc \"cat > /tmp/static-check.mjs <<'STATICEOF'\nimport { readFileSync } from 'node:fs';\nimport { execFileSync } from 'node:child_process';\n\nconst DIR = '<experiment>/hud-text/workspace/output/';\nconst html = readFileSync(DIR + 'index.html', 'utf8');\nconst cssRaw = readFileSync(DIR + 'styles.css', 'utf8');\nconst css = cssRaw.replace(/\\\\/\\\\*[\\\\s\\\\S]*?\\\\*\\\\//g, '');   // 去掉注释再解析（注释会粘到第一条声明上）\nconst js   = readFileSync(DIR + 'app.js', 'utf8');\n\nconst out = [];\nconst ok = (n, c, d) => out.push({ n, p: \"'!!c, d });\n\nfunction declMap(body) {\n  const m = {};\n  for (const part of body.split('\"';')) {\n    const i = part.indexOf(':');\n    if (i < 0) continue;\n    m[part.slice(0, i).trim()] = part.slice(i + 1).trim();\n  }\n  return m;\n}\nfunction rule(sel, which = 'last') {\n  const re = new RegExp('(?:\"'^|[};])[''^{};]*?'\"' + sel.replace(/[.*+?\"'^${}()|['\"\\\\]\\\\\\\\]/g, '\\\\\\\\\"'$&'\"') + '\\\\\\\\s*\\\\\\\\{([\"'^}]*)'\"\\\\\\\\}', 'g');\n  const hits = [...css.matchAll(re)].map(m => declMap(m[1]));\n  if (\"'!hits.length) return {};\n  return which === '\"'last' ? hits[hits.length - 1] : hits[0];\n}\nconst px = v => (v && v.endsWith('px') ? parseFloat(v) : (v ? parseFloat(v) : 0));\nconst rem = v => (v && v.endsWith('rem') ? parseFloat(v) * 16 : 0);\nfunction clampPx(v, vw) {\n  const m = (v || '').match(/clamp\\\\(([\"'^,]+),([''^,]+),([''^)]+)'\"\\\\)/);\n  if (\"'!m) return px(v);\n  const lo = px(m[1]), mid = m[2].trim().endsWith('\"'vw') ? (parseFloat(m[2]) / 100) * vw : px(m[2]), hi = px(m[3]);\n  return Math.min(Math.max(mid, lo), hi);\n}\nfunction textW(str, fs) {\n  let w = 0;\n  for (const ch of str) {\n    const c = ch.codePointAt(0);\n    if (c >= 0x2e80) w += 1.0;\n    else if (/[0-9A-Z]/.test(ch)) w += 0.6;\n    else if (ch === ' ') w += 0.28;\n    else if (ch === '·') w += 0.5;\n    else if (/[a-z]/.test(ch)) w += 0.52;\n    else w += 0.35;\n  }\n  return w * fs;\n}\n\n// ---------- 1. 结构与语法 ----------\nlet depth = 0, minDepth = 0;\nfor (const ch of css) { if (ch === '{') depth++; else if (ch === '}') { depth--; minDepth = Math.min(minDepth, depth); } }\nok('CSS 花括号配平', depth === 0 && minDepth === 0, 'net=' + depth);\ntry { execFileSync('node', ['--check', DIR + 'app.js'], { stdio: 'pipe' }); ok('app.js 语法检查通过', true); }\ncatch (e) { ok('app.js 语法检查通过', false, String(e.stderr || e).slice(0, 200)); }\nok('HTML 结构标签闭合（div/section/ul/li 计数配平）', (() => {\n  const c = t => (html.match(new RegExp('<' + t + '(?\"'!['\"\\\\\\\\w-])', 'g')) || []).length - (html.match(new RegExp('</' + t + '>', 'g')) || []).length;\n  return ['div','section','ul','li','span','button','header','footer','main','p','h1','h2'].every(t => c(t) === 0);\n})(), ['div','section','ul','li'].map(t => t + ':' + ((html.match(new RegExp('<' + t + '(?\"'!['\"\\\\\\\\w-])', 'g')) || []).length - (html.match(new RegExp('</' + t + '>', 'g')) || []).length)).join(' '));\n\n// ---------- 2. 无外部依赖 ----------\nconst ext = [...(html + cssRaw + js).matchAll(/(https?:)?\\\\/\\\\/[a-z0-9.-]+\\\\.[a-z]{2,}/gi)].map(m => m[0]);\nok('无外部资源引用（http/CDN/外链）', ext.length === 0, ext.join(', '));\nok('JS 无 import/require', \"'!/'\"\\\\bimport\\\\s|\\\\brequire\\\\s*\\\\(/.test(js));\nok('HTML 只引用同目录本地样式/脚本', /href=\\\"styles\\\\.css\\\"/.test(html) && /src=\\\"app\\\\.js\\\"/.test(html));\n\n// ---------- 3. 引用完整性 ----------\nconst htmlIds = new Set([...html.matchAll(/\\\\sid=\\\"([\"'^\"]+)\"/g)].map(m => m[1]));\nconst jsIds = [...js.matchAll(/getElementById'\"\\\\('([\"'^'\"']+)'\\\\)/g)].map(m => m[1]);\nok('app.js 引用的 id 全部存在于 HTML', jsIds.every(i => htmlIds.has(i)), jsIds.filter(i => \"'!htmlIds.has(i)).join('\"','));\nconst ariaRefs = [...html.matchAll(/aria-(?:controls|labelledby|describedby)=\\\"([\"'^\"]+)\"/g)].flatMap(m => m[1].split(/'\"\\\\s+/));\nok('ARIA 引用目标全部存在', ariaRefs.every(i => htmlIds.has(i)), ariaRefs.filter(i => \"'!htmlIds.has(i)).join('\"','));\nconst dupIds = [...html.matchAll(/\\\\sid=\\\"([\"'^\"]+)\"/g)].map(m => m[1]).filter((v, i, a) => a.indexOf(v) !== i);\nok('\"'HTML 无重复 id', dupIds.length === 0, dupIds.join(','));\n\n// ---------- 4. CSS token / 类名一致性 ----------\nconst rootDecl = declMap(css.match(/:root\\\\s*\\\\{([\"'^}]*)'\"\\\\}/)[1]);\nconst defined = new Set(Object.keys(rootDecl).filter(k => k.startsWith('--')));\nconst used = new Set([...css.matchAll(/var\\\\((--[a-z0-9-]+)/gi)].map(m => m[1]));\nconst localVars = new Set(['--x', '--y', '--u']);\nconst undef = [...used].filter(t => \"'!defined.has(t) && !localVars.has(t));\nok('\"'所有 var(--token) 均已在 :root 定义（或为元素局部变量）', undef.length === 0, undef.join(','));\nconst htmlClasses = new Set([...html.matchAll(/class=\\\"([\"'^\"]+)\"/g)].flatMap(m => m[1].split(/'\"\\\\s+/)).filter(Boolean));\nconst cssClasses = new Set([...css.matchAll(/\\\\.([a-zA-Z][\\\\w-]*)/g)].map(m => m[1]));\nconst orphan = [...htmlClasses].filter(c => \"'!cssClasses.has(c));\nok('\"'HTML 中每个 class 都有对应样式', orphan.length === 0, orphan.join(','));\n\n// ---------- 5. 关键风格值与 Skill 一致 ----------\nok('页面底含双光晕 + 160° 线性渐变', /radial-gradient\\\\(1100px 620px/.test(rule('.page-bg').background) && /radial-gradient\\\\(900px 600px/.test(rule('.page-bg').background) && /linear-gradient\\\\(160deg/.test(rule('.page-bg').background));\nok('主按钮为 140° 主色渐变 + 白字', /linear-gradient\\\\(140deg/.test(rule('.btn--primary').background) && /var\\\\(--primary\\\\)/.test(rule('.btn--primary').background) && /var\\\\(--primary-2\\\\)/.test(rule('.btn--primary').background) && rule('.btn--primary').color === '#fff');\nok('焦点环 3px 青绿 + 2px 偏移（仅 :focus-visible）', /3px solid var\\\\(--focus\\\\)/.test(rule('.btn:focus-visible').outline) && /2px/.test(rule('.btn:focus-visible')['outline-offset']));\nok('hover 只提亮度不换色', /brightness\\\\(1\\\\.08\\\\)/.test(rule('.btn--primary:hover').filter) && \"'!/background/.test(rule('\"'.btn--primary:hover').filter));\nok('active 下沉 1px 缩放 0.99 / 0.12s', /translateY\\\\(1px\\\\) scale\\\\(\\\\.99\\\\)/.test(rule('.btn:active').transform));\nok('玻璃面板 7% 填充 + 14% 描边 + 10px 模糊 + 16px 圆角', /rgba\\\\(255, 255, 255, \\\\.07\\\\)/.test(rule('.hud').background) && /rgba\\\\(255, 255, 255, \\\\.14\\\\)/.test(rule('.hud').border) && /blur\\\\(10px\\\\)/.test(rule('.hud').backdropFilter) && /var\\\\(--r-panel\\\\)/.test(rule('.hud').borderRadius));\nok('次级按钮 12% 底 + 14% 描边，hover 提到 18%', /rgba\\\\(255, 255, 255, \\\\.12\\\\)/.test(rule('.btn--ghost').background) && /rgba\\\\(255, 255, 255, \\\\.18\\\\)/.test(rule('.btn--ghost:hover').background));\nok('统计块使用凹槽底 28%', /var\\\\(--groove\\\\)/.test(rule('.stat').background));\nok('存在 prefers-reduced-motion 降级', /prefers-reduced-motion: reduce/.test(cssRaw) && /animation-duration: \\\\.001ms/.test(css) && /transition-duration: \\\\.001ms/.test(css));\nok('数字使用等宽数字 tabular-nums', /tabular-nums/.test(css));\nok('标题为 92° 渐变文字', /linear-gradient\\\\(92deg/.test(rule('.title').background));\nok('浮层遮罩 rgba(6,9,22,.72) + 6px 模糊', /rgba\\\\(6, 9, 22, \\\\.72\\\\)/.test(rule('.overlay').background) && /blur\\\\(6px\\\\)/.test(rule('.overlay').backdropFilter));\nok('浮层面板 165° 有色玻璃 + 22px 圆角 + 浮层阴影', /linear-gradient\\\\(165deg, rgba\\\\(42, 49, 112, \\\\.96\\\\), rgba\\\\(30, 24, 60, \\\\.96\\\\)\\\\)/.test(rule('.panel').background) && /var\\\\(--r-sheet\\\\)/.test(rule('.panel').borderRadius) && /var\\\\(--sh-4\\\\)/.test(rule('.panel').boxShadow));\nok('危险/奖励/玩家三色相分离（玫红 / 绿 / 靛紫）', /--danger: #fb7185/.test(css) && /--reward: #4ade80/.test(css) && /--primary: #7c8cff/.test(css));\n\n// ---------- 6. 布局算术 ----------\nfunction layout(vw, vh, mobile) {\n  const g = (sel, which) => rule(sel, which || (mobile ? 'last' : 'first'));\n  const app = g('.app');\n  const appPad = mobile ? 12 : px(app.padding.split(' ')[1] || app.padding);\n  const maxW = px(app['max-width']);\n  const contentW = Math.min(maxW, vw - appPad * 2);\n\n  const hud = g('.hud'), stats = g('.stats'), stat = g('.stat'), tog = g('.hud__toggle');\n  const hudPadX = mobile ? 12 : px(hud.padding.split(' ')[1] || hud.padding);\n  const hudInner = contentW - hudPadX * 2;\n  const statsGap = px(stats.gap);\n  const toggleW = mobile ? hudInner : px(tog['min-width']);\n  const statsW = mobile ? hudInner : hudInner - px(hud.gap) - toggleW;\n  const statW = (statsW - statsGap * 2) / 3;\n  const statPadX = mobile ? 9 : px(stat.padding.split(' ')[1] || stat.padding);\n  const statContentW = statW - statPadX * 2;\n  const labelFs = rem(g('.stat__label').fontSize);\n  const valueFs = rem(g('.stat__value').fontSize);\n\n  const stage = g('.stage');\n  const stagePad = mobile ? 10 : px(stage.padding.split(' ')[1] || stage.padding);\n  const fieldW = contentW - stagePad * 2;\n  const field = g('.field');\n  const ar = field['aspect-ratio'].split('/').map(s => parseFloat(s.trim()));\n  const cap = mobile ? Infinity : px((field['max-height'] || '').match(/[\\\\d.]+px/)?.[0] || '9999');\n  const fieldH = Math.min(fieldW * ar[1] / ar[0], cap);\n\n  const ents = [...html.matchAll(/class=\\\"entity (entity--[a-z]+)\\\" style=\\\"--x:([\\\\d.]+)%; --y:([\\\\d.]+)%\\\"/g)].map(m => ({ cls: m[1], x: +m[2], y: +m[3] }));\n  const uOf = { 'entity--player': clampPx(g('.entity--player')['--u'], vw), 'entity--gem': clampPx(g('.entity--gem')['--u'], vw), 'entity--hazard': clampPx(g('.entity--hazard')['--u'], vw) };\n  const entOverflow = [];\n  for (const e of ents) {\n    const u = uOf[e.cls], cx = fieldW * e.x / 100, cy = fieldH * e.y / 100, half = u / 2;\n    const extra = e.cls === 'entity--player' ? u * 0.6 + 18 : 0;\n    if (cx - half < 0 || cx + half > fieldW || cy - half < 0 || cy + half + extra > fieldH) entOverflow.push(e.cls + '@' + e.x + '/' + e.y);\n  }\n  const labels = ['剩余时间', '生命', '分数'], values = ['00:42', '3', '120'];\n  const livesRowW = textW('3', valueFs) + 9 + 3 * 13 + 2 * 3;\n  const statFits = labels.every(l => textW(l, labelFs) <= statContentW) && values.every(v => textW(v, valueFs) <= statContentW) && livesRowW <= statContentW;\n\n  const panel = g('.panel');\n  const pIcon = px(g('.panel__icon').width);\n  const pTitleFs = rem(g('.panel__title').fontSize);\n  const pDescFs = rem(g('.panel__desc').fontSize);\n  const pPad = mobile ? 16 : px(panel.padding.split(' ')[0]);\n  const pPadX = mobile ? 14 : px(panel.padding.split(' ')[1] || panel.padding);\n  const pInnerW = Math.min(420, contentW - 2 * stagePad - 32) - 2 * pPadX;\n  const descW = textW('游戏进度已冻结，倒计时与分数保持当前状态。', pDescFs);\n  const descLines = Math.max(1, Math.ceil(descW / pInnerW));\n  const panelH = pPad + (mobile ? 12 : 16) + pIcon + 12 + pTitleFs * 1.25 + 8 + descLines * pDescFs * 1.7 + 16 + 54 + 18 + 44 + 12 + 16;\n  const overlayInnerH = (fieldH + stagePad * 2) - 32;\n  return { vw, contentW, hudInner, statW: +statW.toFixed(1), statContentW: +statContentW.toFixed(1), fieldW, fieldH: +fieldH.toFixed(1),\n    entOverflow, statFits, panelH: +panelH.toFixed(0), overlayInnerH: +overlayInnerH.toFixed(0), panelFits: panelH <= overlayInnerH, descLines,\n    descW: +descW.toFixed(0) };\n}\nconst desk = layout(1280, 900, false);\nconst mob  = layout(390, 844, true);\nok('桌面 1280：HUD 三个统计块文字不溢出', desk.statFits, JSON.stringify(desk));\nok('桌面 1280：所有游戏元素落在游戏区内', desk.entOverflow.length === 0, desk.entOverflow.join(','));\nok('桌面 1280：暂停面板完整显示（无需滚动）', desk.panelFits, 'panel=' + desk.panelH + ' overlay=' + desk.overlayInnerH);\nok('手机 390：无横向溢出', mob.contentW <= 390 && mob.hudInner <= 390 && mob.fieldW <= 390, JSON.stringify(mob));\nok('手机 390：HUD 三个统计块文字不溢出', mob.statFits, 'statContent=' + mob.statContentW + ' livesRow=' + (textW('3', rem(rule('.stat__value','last').fontSize)) + 9 + 45).toFixed(1));\nok('手机 390：所有游戏元素落在游戏区内', mob.entOverflow.length === 0, mob.entOverflow.join(','));\nok('手机 390：暂停面板完整显示（无需滚动）', mob.panelFits, 'panel=' + mob.panelH + ' overlay=' + mob.overlayInnerH);\nok('手机 390：统计块可读下限（字号 ≥ .74rem 标签 / ≥1.15rem 数值）', rem(rule('.stat__label','last').fontSize) >= 11 && rem(rule('.stat__value','last').fontSize) >= 18);\n\nfor (const r of out) console.log((r.p ? 'PASS  ' : 'FAIL  ') + r.n + (\"'!r.p && r.d !== undefined ? '\"'  -> ' + r.d : ''));\nconst failed = out.filter(r => \"'!r.p).length;\nconsole.log('\"'\\\\n' + (out.length - failed) + '/' + out.length + ' 通过');\nconsole.log('\\\\n桌面 1280×900：' + JSON.stringify(desk));\nconsole.log('手机 390×844：' + JSON.stringify(mob));\nprocess.exit(failed ? 1 : 0);\nSTATICEOF\nnode /tmp/static-check.mjs\"",
+          "exit_code": 1,
+          "output_sha256": "14951af95aa57baf71fc86593589d0af3dd1a856f568366a8dafc549a713464b"
+        },
+        {
+          "line": 77,
+          "item_id": "item_43",
+          "command": "/bin/zsh -lc \"cat > /tmp/fix-check.py <<'PYEOF'\nimport io\np='/tmp/static-check.mjs'\ns=io.open(p,encoding='utf-8').read()\n\nold_style = s[s.index(\\\"ok('玻璃面板 7% 填充\\\"):s.index(\\\"ok('存在 prefers-reduced-motion 降级'\\\")]\nnew_style = \\\"\\\"\\\"ok('玻璃面板：token 层 = 7% 填充 / 14% 描边，组件引用 token', /--glass-fill: rgba\\\\\\\\(255, 255, 255, \\\\\\\\.07\\\\\\\\)/.test(css) && /--glass-stroke: rgba\\\\\\\\(255, 255, 255, \\\\\\\\.14\\\\\\\\)/.test(css) && /var\\\\\\\\(--glass-fill\\\\\\\\)/.test(rule('.hud').background) && /var\\\\\\\\(--glass-stroke\\\\\\\\)/.test(rule('.hud').border));\nok('玻璃面板：10px 背景模糊 + 16px 圆角 + 浮层阴影', /blur\\\\\\\\(10px\\\\\\\\)/.test(rule('.hud')['backdrop-filter']) && /var\\\\\\\\(--r-panel\\\\\\\\)/.test(rule('.hud')['border-radius']) && /var\\\\\\\\(--sh-4\\\\\\\\)/.test(rule('.hud')['box-shadow']) && /--r-panel: 16px/.test(css));\nok('次级按钮 12% 底 + 14% 描边，hover 提到 18%', /--btn-2-fill: rgba\\\\\\\\(255, 255, 255, \\\\\\\\.12\\\\\\\\)/.test(css) && /--btn-2-hover: rgba\\\\\\\\(255, 255, 255, \\\\\\\\.18\\\\\\\\)/.test(css) && /var\\\\\\\\(--btn-2-fill\\\\\\\\)/.test(rule('.btn--ghost').background) && /var\\\\\\\\(--btn-2-hover\\\\\\\\)/.test(rule('.btn--ghost:hover').background));\nok('统计块使用凹槽底 28%', /--groove: rgba\\\\\\\\(0, 0, 0, \\\\\\\\.28\\\\\\\\)/.test(css) && /var\\\\\\\\(--groove\\\\\\\\)/.test(rule('.stat').background));\nok('色彩 token 与 Skill 原作值一致', ['--bg-deep: #0c1022','--bg-lift: #171e3d','--glow-blue: #2a3170','--glow-purple: #3b2a63','--primary: #7c8cff','--primary-2: #9a6bff','--focus: #56d6c6','--reward: #4ade80','--danger: #fb7185','--text-1: #eef1ff','--text-2: #a3abcf'].every(t => (css + ' ').includes(t + ';')));\n\\\"\\\"\\\"\ns = s.replace(old_style, new_style)\n\ns = s.replace(\\\"rule('.btn:focus-visible')['outline-offset']\\\", \\\"rule('.btn:focus-visible')['outline-offset']\\\")\ns = s.replace(\\\"/3px solid var\\\\\\\\(--focus\\\\\\\\)/.test(rule('.btn:focus-visible').outline)\\\", \\\"/3px solid var\\\\\\\\(--focus\\\\\\\\)/.test(rule('.btn:focus-visible').outline)\\\")\ns = s.replace(\\\"/var\\\\\\\\(--r-sheet\\\\\\\\)/.test(rule('.panel').borderRadius) && /var\\\\\\\\(--sh-4\\\\\\\\)/.test(rule('.panel').boxShadow)\\\",\n              \\\"/var\\\\\\\\(--r-sheet\\\\\\\\)/.test(rule('.panel')['border-radius']) && /var\\\\\\\\(--sh-4\\\\\\\\)/.test(rule('.panel')['box-shadow']) && /--r-sheet: 22px/.test(css)\\\")\ns = s.replace(\\\"/blur\\\\\\\\(6px\\\\\\\\)/.test(rule('.overlay').backdropFilter)\\\", \\\"/blur\\\\\\\\(6px\\\\\\\\)/.test(rule('.overlay')['backdrop-filter'])\\\")\ns = s.replace(\\\"/blur\\\\\\\\(10px\\\\\\\\)/.test(rule('.hud').backdropFilter)\\\", \\\"/blur\\\\\\\\(10px\\\\\\\\)/.test(rule('.hud')['backdrop-filter'])\\\")\ns = s.replace(\\\"rem(rule('.stat__label','last').fontSize)\\\", \\\"rem(rule('.stat__label','last')['font-size'])\\\")\ns = s.replace(\\\"rem(rule('.stat__value','last').fontSize)\\\", \\\"rem(rule('.stat__value','last')['font-size'])\\\")\ns = s.replace(\\\"const labelFs = rem(g('.stat__label').fontSize);\\\", \\\"const labelFs = rem(g('.stat__label')['font-size']);\\\")\ns = s.replace(\\\"const valueFs = rem(g('.stat__value').fontSize);\\\", \\\"const valueFs = rem(g('.stat__value')['font-size']);\\\")\ns = s.replace(\\\"const pIcon = px(g('.panel__icon').width);\\\", \\\"const pIcon = px(g('.panel__icon').width);\\\")\ns = s.replace(\\\"const pTitleFs = rem(g('.panel__title').fontSize);\\\", \\\"const pTitleFs = rem(g('.panel__title')['font-size']);\\\")\ns = s.replace(\\\"const pDescFs = rem(g('.panel__desc').fontSize);\\\", \\\"const pDescFs = rem(g('.panel__desc')['font-size']);\\\")\ns = s.replace(\\\"const pPadX = mobile ? 14 : px(panel.padding.split(' ')[1] || panel.padding);\\\", \\\"const pPadX = mobile ? 14 : px(panel.padding.split(' ')[1] || panel.padding);\\\")\ns = s.replace(\\\"rem(rule('.stat__value','last')['font-size'])\\\", \\\"rem(rule('.stat__value','last')['font-size'])\\\")\nio.open(p,'w',encoding='utf-8').write(s)\nprint('patched')\nPYEOF\npython3 /tmp/fix-check.py && node /tmp/static-check.mjs\"",
+          "exit_code": 1,
+          "output_sha256": "8caa317b5f83dc777732a4eb8c64b9554700b1f587109182499182eef628b142"
+        },
+        {
+          "line": 79,
+          "item_id": "item_44",
+          "command": "/bin/zsh -lc \"grep -n \\\"glass-fill\\\\|groove: 28\\\\|r-sheet\\\\|btn-2-fill\\\" /tmp/static-check.mjs | head -12\"",
+          "exit_code": 0,
+          "output_sha256": "db71e89494848ea8d6d91ff8b9997ce992f8dfe615fd96f8ae9e11ab82168ec1"
+        },
+        {
+          "line": 81,
+          "item_id": "item_45",
+          "command": "/bin/zsh -lc \"cd /tmp && node --input-type=module -e \\\"\nimport {readFileSync} from 'node:fs';\nconst css = readFileSync('<experiment>/hud-text/workspace/output/styles.css','utf8').replace(/\\\\/\\\\*[\\\\s\\\\S]*?\\\\*\\\\//g,'');\nfunction declMap(body){const m={};for(const part of body.split(';')){const i=part.indexOf(':');if(i<0)continue;m[part.slice(0,i).trim()]=part.slice(i+1).trim();}return m;}\nfunction rule(sel,which='last'){const re=new RegExp('(?:\"'^|[};])[''^{};]*?'\"'+sel.replace(/[.*+?\"'^'\"\\\\\"'${}()|['\"\\\\]\\\\\\\\\\\\\\\\]/g,'\\\\\\\\\\\\\\\\\\\\\"'$&'\"')+'\\\\\\\\\\\\\\\\s*\\\\\\\\\\\\\\\\{([\"'^}]*)'\"\\\\\\\\\\\\\\\\}','g');const hits=[...css.matchAll(re)].map(m=>declMap(m[1]));if(\"'!hits.length)return {};return which==='\"'last'?hits[hits.length-1]:hits[0];}\nfor (const s of ['.hud','.stat','.panel','.overlay','.btn--ghost']) console.log(s, JSON.stringify(rule(s,'first')));\n\\\"\"",
+          "exit_code": 0,
+          "output_sha256": "224d631dd35af5c3ddc0b7b74a7ed2c0ec3baf0e6533b2526790978b9b340bd8"
+        },
+        {
+          "line": 83,
+          "item_id": "item_46",
+          "command": "/bin/zsh -lc \"cd /tmp && node --input-type=module -e \\\"\nimport {readFileSync} from 'node:fs';\nconst raw = readFileSync('<experiment>/hud-text/workspace/output/styles.css','utf8');\nconst css = raw.replace(/\\\\/\\\\*[\\\\s\\\\S]*?\\\\*\\\\//g,'');\nconst tests = [\n ['--glass-fill token', /--glass-fill: rgba\\\\\\\\(255, 255, 255, \\\\\\\\.07\\\\\\\\)/, css],\n ['--glass-fill var', /var\\\\\\\\(--glass-fill\\\\\\\\)/, 'var(--glass-fill)'],\n ['r-sheet 22', /--r-sheet: 22px/, css],\n ['groove', /--groove: rgba\\\\\\\\(0, 0, 0, \\\\\\\\.28\\\\\\\\)/, css],\n];\nfor (const [n,r,t] of tests) console.log(n, r.test(t));\nconsole.log('sample:', JSON.stringify(css.slice(css.indexOf('--glass-fill'), css.indexOf('--glass-fill')+60)));\nconsole.log('sample2:', JSON.stringify(css.slice(css.indexOf('--groove'), css.indexOf('--groove')+50)));\n\\\"\"",
+          "exit_code": 0,
+          "output_sha256": "a5956a91743a340dc4decf374ecd0426a5cccc6f72eb0284f95be12c53a76d05"
+        },
+        {
+          "line": 86,
+          "item_id": "item_48",
+          "command": "/bin/zsh -lc \"cd /tmp && python3 - <<'PYEOF'\nimport io\np='/tmp/static-check.mjs'\ns=io.open(p,encoding='utf-8').read()\ns=s.replace(\\\"rule('.hud').background\\\", \\\"rule('.hud','first').background\\\")\ns=s.replace(\\\"rule('.hud').border)\\\", \\\"rule('.hud','first').border)\\\")\ns=s.replace(\\\"rule('.hud')['backdrop-filter']\\\", \\\"rule('.hud','first')['backdrop-filter']\\\")\ns=s.replace(\\\"rule('.hud')['border-radius']\\\", \\\"rule('.hud','first')['border-radius']\\\")\ns=s.replace(\\\"rule('.hud')['box-shadow']\\\", \\\"rule('.hud','first')['box-shadow']\\\")\ns=s.replace(\\\"rule('.stat').background\\\", \\\"rule('.stat','first').background\\\")\ns=s.replace(\\\"rule('.panel').background\\\", \\\"rule('.panel','first').background\\\")\ns=s.replace(\\\"rule('.panel')['border-radius']\\\", \\\"rule('.panel','first')['border-radius']\\\")\ns=s.replace(\\\"rule('.panel')['box-shadow']\\\", \\\"rule('.panel','first')['box-shadow']\\\")\nio.open(p,'w',encoding='utf-8').write(s)\nprint('patched')\nPYEOF\nnode /tmp/static-check.mjs\"",
+          "exit_code": 0,
+          "output_sha256": "268021227f9fc7e687ed7bf52cc51ec5beab6c35139f1d9da98e26ce501ece85"
+        },
+        {
+          "line": 89,
+          "item_id": "item_50",
+          "command": "/bin/zsh -lc \"cd output && wc -l index.html styles.css app.js && echo '--- 结构 ---' && grep -n 'class=\\\"\\\\|<section\\\\|<button\\\\|<h1\\\\|<h2\\\\|<ul\\\\|<footer\\\\|<header' index.html | sed 's/\"'^'\"\\\\([0-9]*\\\\):.*\\\\(class=\\\"[\"'^\"]*\"'\"\\\\|section\\\\|button\\\\|h1\\\\|h2\\\\|ul\\\\|footer\\\\|header\\\\).*/\\\\1: \\\\2/' | head -40\"",
+          "exit_code": 0,
+          "output_sha256": "091350dee57e74970c6afe967e56fb53eab3efe344b6f6ba6ddc1b41ed54bbac"
+        },
+        {
+          "line": 94,
+          "item_id": "item_53",
+          "command": "/bin/zsh -lc \"node /tmp/dom-test.mjs | tail -4; echo '=========='; node /tmp/static-check.mjs | tail -6; echo '=========='; ls -la output/; echo '--- skill unchanged? ---'; md5 .agents/skills/purple-game-style/SKILL.md; wc -c .agents/skills/purple-game-style/SKILL.md; echo '--- git status (read-only) ---'; git -C . status --porcelain 2>&1 | head\"",
+          "exit_code": 0,
+          "output_sha256": "f897aab5bf83c9628774b36a62a269748023cd9a4ec7fafe1343a0e8e784f4fe"
+        }
+      ],
+      "prompt_sha256": "bd3a11aea416fdb82b1c0ed0c4a6917d35161ae2a7535abbdde9f1470691691b",
+      "input_files_unchanged": true,
+      "note": "页面已生成；模型自检阶段达到 720 秒时限，无最终回复；协调者另行真实浏览器检查"
+    },
+    {
+      "case": "hud-example",
+      "exit_code": -15,
+      "timeout": true,
+      "started_at_utc": "2026-11-10T09:52:40.510662+00:00",
+      "elapsed_seconds": 720.01,
+      "completed": false,
+      "changed_files": [
+        "output/styles.css",
+        "output/app.js",
+        "output/index.html",
+        "output/implementation-notes.md"
+      ],
+      "usage": [],
+      "output_hashes": {
+        ".agents/skills/purple-game-style/SKILL.md": "50d28f779b2d509f0542b619b947bbf5e6cae94c60e3ca13003fe3a420c77544",
+        ".agents/skills/purple-game-style/references/source-visual.css": "16c2ec98ca28d120a72c46a2282edb6053722d94571d703bbda8f8e39ed634e0",
+        "output/app.js": "33ae399773787703519d0fb9dd16123c91e157dcff6d61f61003cdf419cf1524",
+        "output/implementation-notes.md": "28c186565f87fa6cf86be914a75b878f93f682c72e0b2ace5523e828597f4a6c",
+        "output/index.html": "49d61f637104df79afd05ed4ecfa1845bf6e58667fcccbfd60509560db2a6a27",
+        "output/styles.css": "02e735fdad7416ce970c4b34d978979c6b8a0c1c3e04ada2ad07536ceb466267"
+      },
+      "commands": [
+        {
+          "line": 5,
+          "item_id": "item_1",
+          "command": "/bin/zsh -lc \"find <experiment>/hud-example/workspace -type f -not -path '*/.git/*' | head -100\"",
+          "exit_code": 0,
+          "output_sha256": "55ad20cfe4b02501942c335c459f8f1bf499e3423f24d6b17ad11030ecb5f2fb"
+        },
+        {
+          "line": 7,
+          "item_id": "item_2",
+          "command": "/bin/zsh -lc 'cat <experiment>/hud-example/workspace/.agents/skills/purple-game-style/SKILL.md'",
+          "exit_code": 0,
+          "output_sha256": "50d28f779b2d509f0542b619b947bbf5e6cae94c60e3ca13003fe3a420c77544"
+        },
+        {
+          "line": 9,
+          "item_id": "item_3",
+          "command": "/bin/zsh -lc 'cat <experiment>/hud-example/workspace/.agents/skills/purple-game-style/references/source-visual.css'",
+          "exit_code": 0,
+          "output_sha256": "16c2ec98ca28d120a72c46a2282edb6053722d94571d703bbda8f8e39ed634e0"
+        },
+        {
+          "line": 12,
+          "item_id": "item_5",
+          "command": "/bin/zsh -lc \"ls -la; echo '---'; command -v node python3 chrome google-chrome chromium 2>/dev/null; ls /Applications | head -30; echo '---'; ls \\\"/Applications/Google Chrome.app/Contents/MacOS/\\\" 2>/dev/null\"",
+          "exit_code": 0,
+          "output_sha256": "29b18135f95488bff6303fe104b287fb60dc816d89eac6ec5cc1347441c55a17"
+        },
+        {
+          "line": 15,
+          "item_id": "item_7",
+          "command": "/bin/zsh -lc 'mkdir -p <experiment>/hud-example/workspace/output && echo ok'",
+          "exit_code": 0,
+          "output_sha256": "dc51b8c96c2d745df3bd5590d990230a482fd247123599548e0632fdbf97fc22"
+        },
+        {
+          "line": 25,
+          "item_id": "item_12",
+          "command": "/bin/zsh -lc 'node --check output/app.js && echo \"JS syntax OK\" && ls -la output/'",
+          "exit_code": 0,
+          "output_sha256": "619ca13c5f8aef2a06579b6c1471b886bad9634cf59855d73c4f19c69bd08383"
+        },
+        {
+          "line": 27,
+          "item_id": "item_13",
+          "command": "/bin/zsh -lc 'CHROME=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\"; \"$CHROME\" --version; mkdir -p /tmp/pg-verify; \"$CHROME\" --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=1 --window-size=1440,900 --virtual-time-budget=2000 --screenshot=/tmp/pg-verify/desktop-running.png \"file://<experiment>/hud-example/workspace/output/index.html\" 2>&1 | tail -5; ls -la /tmp/pg-verify/'",
+          "exit_code": 0,
+          "output_sha256": "29ce48c17cec7286201b912b053ec8753f958833f082af631f3a7fdd111881d8"
+        },
+        {
+          "line": 29,
+          "item_id": "item_14",
+          "command": "/bin/zsh -lc 'CHROME=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\"; \"$CHROME\" --headless --disable-gpu --no-sandbox --hide-scrollbars --window-size=1440,900 --virtual-time-budget=2000 --screenshot=/tmp/pg-verify/desktop-running.png \"file://<experiment>/hud-example/workspace/output/index.html\"; echo \"exit=$?\"; ls -la /tmp/pg-verify/'",
+          "exit_code": 0,
+          "output_sha256": "a5b774dc66d226f5a815cadeb8ec4a1b8758a0743230b29cb1f5911ab513e19c"
+        },
+        {
+          "line": 31,
+          "item_id": "item_15",
+          "command": "/bin/zsh -lc 'CHROME=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\"; \"$CHROME\" --headless=new --disable-gpu --no-sandbox --user-data-dir=/tmp/pg-verify/profile --hide-scrollbars --window-size=1440,900 --virtual-time-budget=2000 --screenshot=/tmp/pg-verify/desktop-running.png \"file://<experiment>/hud-example/workspace/output/index.html\" 2>&1 | head -30; echo \"exit=$?\"; ls -la /tmp/pg-verify/'",
+          "exit_code": 0,
+          "output_sha256": "08f2bd40a2de52f21d67bd5b44025669b71839643459cf63c8bb8a237914d0a9"
+        },
+        {
+          "line": 33,
+          "item_id": "item_16",
+          "command": "/bin/zsh -lc 'CHROME=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\"; \"$CHROME\" --headless=new --disable-gpu --no-sandbox --user-data-dir=/tmp/pg-verify/profile2 --window-size=1440,900 --screenshot=/tmp/pg-verify/t.png \"data:text/html,<h1>hello</h1>\" > /tmp/pg-verify/log.txt 2>&1; echo \"exit=$?\"; cat /tmp/pg-verify/log.txt | head -40; ls -la /tmp/pg-verify/'",
+          "exit_code": 0,
+          "output_sha256": "84405567b59c572d085e8e4d1b1ab2c90447f5dc2121285b6ac2607c3baa386d"
+        },
+        {
+          "line": 35,
+          "item_id": "item_17",
+          "command": "/bin/zsh -lc 'cd /tmp/pg-verify && qlmanage -t -s 1200 -o /tmp/pg-verify <experiment>/hud-example/workspace/output/index.html 2>&1 | head -20; ls -la /tmp/pg-verify/'",
+          "exit_code": 0,
+          "output_sha256": "058d61059b001f5b45b606d16abc825f1dfdcf07d5e7973b039abb2eb4396281"
+        },
+        {
+          "line": 37,
+          "item_id": "item_18",
+          "command": "/bin/zsh -lc 'CHROME=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\"; \"$CHROME\" --headless=new --no-sandbox --single-process --disable-gpu --disable-crashpad --disable-breakpad --no-first-run --no-default-browser-check --disable-extensions --disable-dev-shm-usage --disable-features=Crashpad,Translate,MediaRouter --user-data-dir=/tmp/pg-verify/p3 --window-size=800,600 --screenshot=/tmp/pg-verify/t2.png \"data:text/html,<h1>hello</h1>\" 2>&1 | head -20; echo \"exit=${PIPESTATUS[0]}\"; ls -la /tmp/pg-verify/'",
+          "exit_code": 0,
+          "output_sha256": "29495c97dfd6a418630b78ce0bcfdf11576e32aee2b6ab52a0c5dd785120fbdc"
+        },
+        {
+          "line": 39,
+          "item_id": "item_19",
+          "command": "/bin/zsh -lc \"command -v wkhtmltoimage wkhtmltopdf weasyprint cutycapt rsvg-convert magick convert 2>/dev/null; python3 -c \\\"import playwright; print('playwright ok')\\\" 2>&1 | tail -1; npm ls -g --depth=0 2>/dev/null | head -20; ls /opt/homebrew/bin | head -40\"",
+          "exit_code": 0,
+          "output_sha256": "9b93cd3f4d32c5cb0147c270595a7e26e40b3655b9db81ca36fbebecd198a849"
+        },
+        {
+          "line": 42,
+          "item_id": "item_21",
+          "command": "/bin/zsh -lc \"timeout 15 osascript -e 'tell application \\\"System Events\\\" to get name of every process' 2>&1 | head -5; echo \\\"osascript exit=\"'$?\"; ls /usr/bin/safaridriver /usr/sbin/screencapture 2>/dev/null'",
+          "exit_code": 0,
+          "output_sha256": "42d5c22fe3f77fda436adfc1ad21b56d467a8c754b3a93923714dd667cd22522"
+        },
+        {
+          "line": 44,
+          "item_id": "item_22",
+          "command": "/bin/zsh -lc \"osascript -e 'tell application \\\"System Events\\\" to get name of every process' 2>&1 | head -3; echo \\\"exit=\"'$?\"'",
+          "exit_code": 0,
+          "output_sha256": "3a7faa2186ebfb5467ded5403336a3bc5a84eac8a109d1325152c080b4028127"
+        },
+        {
+          "line": 49,
+          "item_id": "item_25",
+          "command": "/bin/zsh -lc 'node /tmp/pg-verify/check.js'",
+          "exit_code": 0,
+          "output_sha256": "5d1d2dd6d6297441735baa527f9ff836576bfd181dc83d6c87940ad573ef86c3"
+        },
+        {
+          "line": 56,
+          "item_id": "item_29",
+          "command": "/bin/zsh -lc 'node /tmp/pg-verify/check.js'",
+          "exit_code": 0,
+          "output_sha256": "d43f7b6de949eb55cd81702d85019b25a918bf3121f62ae1e5a92af5cae448c5"
+        },
+        {
+          "line": 58,
+          "item_id": "item_30",
+          "command": "/bin/zsh -lc \"grep -n -- \\\"--primary\\\\|--ghost\\\\|--player\\\\|--gem\\\" output/styles.css | head; echo '--- inline x/y in html:'; grep -c -- '--x:' output/index.html\"",
+          "exit_code": 0,
+          "output_sha256": "7948235afd5cef13fc8b0edf8e3b818711340ea361823beaa89c01915605ffbd"
+        },
+        {
+          "line": 60,
+          "item_id": "item_31",
+          "command": "/bin/zsh -lc 'CHROME=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\"; HOME=/tmp/pg-verify TMPDIR=/tmp/pg-verify \"$CHROME\" --headless=new --no-sandbox --no-zygote --single-process --disable-gpu --disable-dev-shm-usage --disable-crashpad --user-data-dir=/tmp/pg-verify/p5 --window-size=1440,900 --screenshot=/tmp/pg-verify/desk.png \"file://<experiment>/hud-example/workspace/output/index.html\" > /tmp/pg-verify/log2.txt 2>&1; echo \"exit=$?\"; head -30 /tmp/pg-verify/log2.txt; ls -la /tmp/pg-verify/*.png 2>/dev/null || echo \"no png\"'",
+          "exit_code": 0,
+          "output_sha256": "0f5506bf8c7167f77fdefb07fd4d24b4e3d6b112f37addd44990cf026232d5f4"
+        },
+        {
+          "line": 63,
+          "item_id": "item_33",
+          "command": "/bin/zsh -lc 'cat output/index.html'",
+          "exit_code": 0,
+          "output_sha256": "ceee19fb1df2b7359ff39ecf4420291817343647d5969d29152b192fab65cf6e"
+        },
+        {
+          "line": 72,
+          "item_id": "item_38",
+          "command": "/bin/zsh -lc 'node /tmp/pg-verify/dom-test.js'",
+          "exit_code": 1,
+          "output_sha256": "cf89a8093ba98eb42d80f80a74493411e8f8f8a84a6cca39e10ef7e99cd68b3b"
+        },
+        {
+          "line": 76,
+          "item_id": "item_40",
+          "command": "/bin/zsh -lc 'node /tmp/pg-verify/dom-test.js'",
+          "exit_code": 1,
+          "output_sha256": "f951099427a7280ea0d2578961f2a2a4bf9511565abb64eef741daaa774e6d60"
+        },
+        {
+          "line": 80,
+          "item_id": "item_42",
+          "command": "/bin/zsh -lc 'node /tmp/pg-verify/dom-test.js'",
+          "exit_code": 1,
+          "output_sha256": "621f765f1f1cfb0bf5c5c8040a2f49a54ee0393c90531ee623b631ca7bcc431d"
+        },
+        {
+          "line": 84,
+          "item_id": "item_44",
+          "command": "/bin/zsh -lc 'node /tmp/pg-verify/dom-test.js'",
+          "exit_code": 1,
+          "output_sha256": "6da787ff00c445d348a0486f7be768537ffca781311fda3bc7afb9a38a099d96"
+        },
+        {
+          "line": 88,
+          "item_id": "item_46",
+          "command": "/bin/zsh -lc 'node /tmp/pg-verify/dom-test.js'",
+          "exit_code": 0,
+          "output_sha256": "2f8b5dde81d880852c4468957b08548bceed50c4520e758ec6f7ee00bd3c5b67"
+        },
+        {
+          "line": 91,
+          "item_id": "item_48",
+          "command": "/bin/zsh -lc \"sed -n '1,140p' output/styles.css\"",
+          "exit_code": 0,
+          "output_sha256": "cf12ab539c463ac26eae2f1c225d73d114e0fd8841af7aa1b0a076fac42e68fc"
+        },
+        {
+          "line": 96,
+          "item_id": "item_51",
+          "command": "/bin/zsh -lc \"node /tmp/pg-verify/check.js 2>&1 | sed -n '1,20p'; echo '=== dom test ==='; node /tmp/pg-verify/dom-test.js | tail -3\"",
+          "exit_code": 0,
+          "output_sha256": "2a7176b27c5e97429fcde195b96937c34078c29e36eda1676a062274623e093a"
+        },
+        {
+          "line": 103,
+          "item_id": "item_55",
+          "command": "/bin/zsh -lc 'node --check output/app.js && node /tmp/pg-verify/dom-test.js'",
+          "exit_code": 0,
+          "output_sha256": "2f8b5dde81d880852c4468957b08548bceed50c4520e758ec6f7ee00bd3c5b67"
+        },
+        {
+          "line": 108,
+          "item_id": "item_58",
+          "command": "/bin/zsh -lc \"ls -la output/; echo '=== notes head ==='; sed -n '1,20p' output/implementation-notes.md; echo '=== backtick balance ==='; grep -o '\\\\\"'`'\"' output/implementation-notes.md | wc -l\"",
+          "exit_code": 0,
+          "output_sha256": "c34582648bd31ebd2340b13a72fe63886e3ce1cbefa5ac2708a3c6f47fd7bfd1"
+        },
+        {
+          "line": 110,
+          "item_id": "item_59",
+          "command": "/bin/zsh -lc \"echo '=== skill files untouched (mtime) ==='; ls -la .agents/skills/purple-game-style/ .agents/skills/purple-game-style/references/; echo; echo '=== final checks ==='; node --check output/app.js && echo 'JS syntax OK'; node /tmp/pg-verify/check.js | grep -A5 'PROBLEMS'; node /tmp/pg-verify/dom-test.js | tail -2\"",
+          "exit_code": 0,
+          "output_sha256": "8b7ee06a4981adf5c0755a164f1de4acde00183925e2a5d40a13a2f4dfe33731"
+        }
+      ],
+      "prompt_sha256": "bd3a11aea416fdb82b1c0ed0c4a6917d35161ae2a7535abbdde9f1470691691b",
+      "input_files_unchanged": true,
+      "note": "页面已生成；模型自检阶段达到 720 秒时限，无最终回复；协调者另行真实浏览器检查"
+    }
+  ],
+  "author_result": {
+    "case": "author",
+    "exit_code": 0,
+    "timeout": false,
+    "started_at_utc": "2026-11-10T09:40:52.551847+00:00",
+    "elapsed_seconds": 283.39,
+    "completed": true,
+    "changed_files": [
+      "purple-game-style/SKILL.md",
+      "purple-game-style/authoring-notes.md"
+    ],
+    "usage": [
+      {
+        "input_tokens": 380964,
+        "cached_input_tokens": 337146,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 20816,
+        "reasoning_output_tokens": 9698
+      }
+    ],
+    "output_hashes": {
+      "purple-game-style/SKILL.md": "d367520c15164744742506d848344670e77918b3476e036d3096b55c04d1352a",
+      "purple-game-style/authoring-notes.md": "f6e419d903bde06e1376aaca3a3b4438efb303b684953c1e4a90f95082f2d479",
+      "source-game/docs/screenshot-initial.png": "84c99156361bfe07c277cbd2dd16ee55c823cc96b2c47c00f5766b0876aa3728",
+      "source-game/docs/screenshot-mobile.png": "1c64fa173bec593afb1fcacbd7cb37aca0ff0ce3be5275a227c215299eb42dbd",
+      "source-game/docs/screenshot-win.png": "9caf2bebca9652bbb4748a4fe2e812c7940d78f499aa3c7699faecee194815fa",
+      "source-game/index.html": "a0c690eb3afd5bd5d9f4b559f3e7edd917672e454d87318706e033e97f7579db",
+      "source-game/src/difficulty.js": "045cfc79fdbb496a1592c3db9ba36df0af69fd0d0b0887ae775f5f08b655c31b",
+      "source-game/src/game-core.js": "7656c90c9e4b39249a2f28ff27b2478abb15982a37621a67092262d08e0282a9",
+      "source-game/src/icons.js": "4c4c851a06b5ce0afea41538a23405978904db13b0e93dd72d94f8136d266a44",
+      "source-game/src/main.js": "f056a4b58b0754452c00732cddca0e909e6415cd2c9fd48267110b29a3abdbb3",
+      "source-game/src/sound.js": "68b281af8818a9ce42e5aae6e3cc25f2844a1e50dc2122620fe710e81affc5d3",
+      "source-game/src/storage.js": "b24505cb382a4c343bbcf6f003ad3d2e75ab79600a42a7cd37d97437d860ed3b",
+      "source-game/styles.css": "77767d325edaa6da32e30afd756c88ceabc30076083ed33a09279acb0f9bfb70"
+    }
+  },
+  "refined_author_result": {
+    "case": "author-refined",
+    "exit_code": 0,
+    "timeout": false,
+    "started_at_utc": "2026-11-10T09:45:47.491219+00:00",
+    "elapsed_seconds": 550.04,
+    "completed": true,
+    "changed_files": [
+      "purple-game-style/SKILL.md",
+      "revision-notes.md"
+    ],
+    "usage": [
+      {
+        "input_tokens": 1025012,
+        "cached_input_tokens": 978432,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 41918,
+        "reasoning_output_tokens": 24169
+      }
+    ],
+    "output_hashes": {
+      "initial-skill.md": "d367520c15164744742506d848344670e77918b3476e036d3096b55c04d1352a",
+      "purple-game-style/SKILL.md": "ca62cf77f62570a5433ad1c0d8dd17442c4c30c98caccb16d919cbbd0a0c8cf1",
+      "revision-notes.md": "526207545511bd89cc3731db9c334a65f4901102294c7c1c87fa16165323a721",
+      "source-game/docs/screenshot-initial.png": "84c99156361bfe07c277cbd2dd16ee55c823cc96b2c47c00f5766b0876aa3728",
+      "source-game/docs/screenshot-mobile.png": "1c64fa173bec593afb1fcacbd7cb37aca0ff0ce3be5275a227c215299eb42dbd",
+      "source-game/docs/screenshot-win.png": "9caf2bebca9652bbb4748a4fe2e812c7940d78f499aa3c7699faecee194815fa",
+      "source-game/index.html": "a0c690eb3afd5bd5d9f4b559f3e7edd917672e454d87318706e033e97f7579db",
+      "source-game/src/difficulty.js": "045cfc79fdbb496a1592c3db9ba36df0af69fd0d0b0887ae775f5f08b655c31b",
+      "source-game/src/game-core.js": "7656c90c9e4b39249a2f28ff27b2478abb15982a37621a67092262d08e0282a9",
+      "source-game/src/icons.js": "4c4c851a06b5ce0afea41538a23405978904db13b0e93dd72d94f8136d266a44",
+      "source-game/src/main.js": "f056a4b58b0754452c00732cddca0e909e6415cd2c9fd48267110b29a3abdbb3",
+      "source-game/src/sound.js": "68b281af8818a9ce42e5aae6e3cc25f2844a1e50dc2122620fe710e81affc5d3",
+      "source-game/src/storage.js": "b24505cb382a4c343bbcf6f003ad3d2e75ab79600a42a7cd37d97437d860ed3b",
+      "source-game/styles.css": "77767d325edaa6da32e30afd756c88ceabc30076083ed33a09279acb0f9bfb70"
+    }
+  },
+  "browser_checks": "Chromium 153.0.8010.12, Playwright, 1200x900 and 390x844; screenshot and interaction checks against final files"
+}

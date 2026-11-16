@@ -21,8 +21,8 @@ body[data-mode='slides'] .m31-p01 .scene-content {top:180px;width:1168px;height:
 body[data-mode='slides'] .m31-p01 .m31-content {padding:0;}
 .m31-opening {width:100%;display:grid;grid-template-columns:480px 1fr;gap:48px;align-items:center;height:100%;}
 .m31-opening-copy h3 {font-size:34px;line-height:1.55;margin-bottom:18px;}
-.m31-opening .m31-demo {padding:0;margin-top:12px;font:24px/1.6 'Course Sans',sans-serif;gap:16px;color:#515c69;text-decoration:underline;text-decoration-color:#a9afa9;text-underline-offset:7px;text-decoration-thickness:1px;}
-.m31-opening .m31-demo:hover, .m31-opening .m31-demo:focus-visible {color:#315f4d;text-decoration-color:currentColor;}
+.m31-opening .m31-demo, .m31-knowledge .m31-gallery-link {padding:0;margin-top:12px;font:24px/1.6 'Course Sans',sans-serif;gap:16px;color:#515c69;text-decoration:underline;text-decoration-color:#a9afa9;text-underline-offset:7px;text-decoration-thickness:1px;}
+.m31-opening .m31-demo:hover, .m31-opening .m31-demo:focus-visible, .m31-knowledge .m31-gallery-link:hover, .m31-knowledge .m31-gallery-link:focus-visible {color:#315f4d;text-decoration-color:currentColor;}
 .m31-home-sketch {border:1.5px solid #aab3a9;border-radius:14px;background:#f5f4ef;overflow:hidden;}
 .m31-browser-bar {display:flex;align-items:center;gap:7px;border-bottom:1px solid #d6d9cf;padding:12px 18px;background:#eaece4;}
 .m31-browser-bar i {width:7px;height:7px;border:1px solid #8a978c;border-radius:50%;}
@@ -163,9 +163,12 @@ body[data-mode='scroll'] .m31-knowledge .v-group {width:100%;}
 }
 
 /* 完整请求沿用第二章的原文与复制控件，局部适配第三章画布。 */
-body[data-mode='slides'] .m31-prompt .scene-content {top:180px;height:452px;display:flex;align-items:center;}
+body[data-mode='slides'] .m31-prompt .scene-content {top:180px;height:452px;display:flex;flex-direction:column;justify-content:center;gap:20px;}
 body[data-mode='slides'] .m31-prompt .prompt {width:100%;height:auto;margin:0;}
 body[data-mode='slides'] .m31-prompt .prompt pre {font-size:23px;line-height:1.6;padding:24px;}
+.m31-launch {width:100%;}
+.m31-launch p {margin:0 0 6px;}
+.m31-launch .p-term {overflow-wrap:anywhere;}
 
 /* 3.1 收尾：参照、初稿问题与下一节回看。 */
 body[data-mode='slides'] .m31-p06a h2{left:744px;top:150px;font-size:38px;line-height:1.35}
@@ -179,3 +182,5 @@ body[data-mode='slides'] .m31-reflection{position:absolute;left:688px;top:240px;
   align-items: flex-start;
   gap: .35em;
 }
+
+.m31-knowledge .m31-gallery-link {display:flex;width:fit-content;margin-inline:auto;}

@@ -4743,7 +4743,7 @@ window.readingPlan = {
               },
               {
                 "surface": "实际重开脚本",
-                "action": "打开任务 2 的实际脚本节选，指认点击、状态读取和预期检查。",
+                "action": "打开任务 2 的 Inspect 原始脚本写入命令，指认点击、状态读取和预期检查。",
                 "materials": [
                   "restartScript"
                 ],

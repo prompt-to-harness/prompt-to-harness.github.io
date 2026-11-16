@@ -1,0 +1,147 @@
+{
+  "case": "hud-text",
+  "page_errors": [],
+  "external_requests": [],
+  "checks": [
+    {
+      "viewport": "desktop",
+      "no_horizontal_overflow": true,
+      "data": {
+        "width": 1200,
+        "scrollWidth": 1200,
+        "bodyText": "60 秒躲避与收集\n\n躲开玫红色的危险脉冲，收集翠绿色的能量晶体 · 界面示意原型\n\n剩余时间\n00:42\n生命\n3\n分数\n120\n暂停\n玩家 · 你\n收集物 · +10 分\n障碍物 · 碰到扣 1 命\n示意模式 · 未实现移动与碰撞\n你\n\n操作：方向键 / WASD 移动 · 空格暂停或继续 · Esc 关闭暂停面板\n\n本页面为界面示意原型：HUD 数值为固定示意值，未实现移动、碰撞与计分逻辑。",
+        "buttons": [
+          {
+            "text": "暂停",
+            "aria": null,
+            "rect": {
+              "x": 927,
+              "y": 144.5,
+              "width": 118,
+              "height": 44
+            }
+          },
+          {
+            "text": "继续游戏",
+            "aria": null,
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0
+            }
+          },
+          {
+            "text": "重新开始",
+            "aria": null,
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0
+            }
+          }
+        ],
+        "css": [
+          {
+            "tag": "BODY",
+            "bg": "rgb(12, 16, 34) none repeat scroll 0% 0% / auto padding-box border-box",
+            "color": "rgb(238, 241, 255)"
+          },
+          {
+            "tag": "MAIN",
+            "bg": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+            "color": "rgb(238, 241, 255)"
+          },
+          {
+            "tag": "BUTTON",
+            "bg": "rgba(0, 0, 0, 0) linear-gradient(140deg, rgb(124, 140, 255), rgb(154, 107, 255)) repeat scroll 0% 0% / auto padding-box border-box",
+            "color": "rgb(255, 255, 255)"
+          },
+          {
+            "tag": "BUTTON",
+            "bg": "rgba(0, 0, 0, 0) linear-gradient(140deg, rgb(124, 140, 255), rgb(154, 107, 255)) repeat scroll 0% 0% / auto padding-box border-box",
+            "color": "rgb(255, 255, 255)"
+          },
+          {
+            "tag": "BUTTON",
+            "bg": "rgba(255, 255, 255, 0.12) none repeat scroll 0% 0% / auto padding-box border-box",
+            "color": "rgb(238, 241, 255)"
+          }
+        ]
+      }
+    },
+    {
+      "viewport": "mobile",
+      "no_horizontal_overflow": true,
+      "data": {
+        "width": 390,
+        "scrollWidth": 390,
+        "bodyText": "60 秒躲避与收集\n\n躲开玫红色的危险脉冲，收集翠绿色的能量晶体 · 界面示意原型\n\n剩余时间\n00:42\n生命\n3\n分数\n120\n暂停\n玩家 · 你\n收集物 · +10 分\n障碍物 · 碰到扣 1 命\n示意模式 · 未实现移动与碰撞\n你\n\n操作：方向键 / WASD 移动 · 空格暂停或继续 · Esc 关闭暂停面板\n\n本页面为界面示意原型：HUD 数值为固定示意值，未实现移动、碰撞与计分逻辑。",
+        "buttons": [
+          {
+            "text": "暂停",
+            "aria": null,
+            "rect": {
+              "x": 25,
+              "y": 197.84375,
+              "width": 340,
+              "height": 44
+            }
+          },
+          {
+            "text": "继续游戏",
+            "aria": null,
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0
+            }
+          },
+          {
+            "text": "重新开始",
+            "aria": null,
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0
+            }
+          }
+        ],
+        "css": [
+          {
+            "tag": "BODY",
+            "bg": "rgb(12, 16, 34) none repeat scroll 0% 0% / auto padding-box border-box",
+            "color": "rgb(238, 241, 255)"
+          },
+          {
+            "tag": "MAIN",
+            "bg": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+            "color": "rgb(238, 241, 255)"
+          },
+          {
+            "tag": "BUTTON",
+            "bg": "rgba(0, 0, 0, 0) linear-gradient(140deg, rgb(124, 140, 255), rgb(154, 107, 255)) repeat scroll 0% 0% / auto padding-box border-box",
+            "color": "rgb(255, 255, 255)"
+          },
+          {
+            "tag": "BUTTON",
+            "bg": "rgba(0, 0, 0, 0) linear-gradient(140deg, rgb(124, 140, 255), rgb(154, 107, 255)) repeat scroll 0% 0% / auto padding-box border-box",
+            "color": "rgb(255, 255, 255)"
+          },
+          {
+            "tag": "BUTTON",
+            "bg": "rgba(255, 255, 255, 0.12) none repeat scroll 0% 0% / auto padding-box border-box",
+            "color": "rgb(238, 241, 255)"
+          }
+        ]
+      }
+    }
+  ],
+  "interaction": {
+    "resume_present": true,
+    "returns_pause": true
+  }
+}

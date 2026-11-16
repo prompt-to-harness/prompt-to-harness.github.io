@@ -1,0 +1,147 @@
+{
+  "case": "start-text",
+  "page_errors": [],
+  "external_requests": [],
+  "checks": [
+    {
+      "viewport": "desktop",
+      "no_horizontal_overflow": true,
+      "data": {
+        "width": 1200,
+        "scrollWidth": 1200,
+        "bodyText": "开始界面 · 局部原型\n\n60 秒躲避与收集\n\n躲开危险、收集星星，在倒计时结束前堆出最高分。\n\n设置\n音效：开\n开始游戏\n单局时长\n60秒\n初始生命\n3点\n得分来源\n收集得分\n\n按下「开始游戏」进入 60 秒预览\n\n玩法本体、危险物与计分尚未接入，这里只是开始界面的占位舞台。\n\n危险\n扣血\n奖励\n加分\n玩家\n存活\n\n键盘 Tab 聚焦、Enter 开始预览 · 本原型只覆盖开始界面。",
+        "buttons": [
+          {
+            "text": "音效：开",
+            "aria": null,
+            "rect": {
+              "x": 295.6875,
+              "y": 171.125,
+              "width": 126,
+              "height": 44
+            }
+          },
+          {
+            "text": "开始游戏",
+            "aria": null,
+            "rect": {
+              "x": 815,
+              "y": 171.125,
+              "width": 126,
+              "height": 44
+            }
+          },
+          {
+            "text": "",
+            "aria": null,
+            "rect": {
+              "x": 557.1875,
+              "y": 540.34375,
+              "width": 85.609375,
+              "height": 36
+            }
+          }
+        ],
+        "css": [
+          {
+            "tag": "BODY",
+            "bg": "radial-gradient(1100px 620px at 14% -12%, rgb(42, 49, 112) 0%, rgba(42, 49, 112, 0) 62%) no-repeat fixed 0% 0% / auto padding-box border-box, radial-gradient(900px 600px at 88% -10%, rgb(59, 42, 99) 0%, rgba(59, 42, 99, 0) 64%) no-repeat fixed 0% 0% / auto padding-box border-box, rgb(12, 16, 34) linear-gradient(160deg, rgb(12, 16, 34) 0%, rgb(23, 30, 61) 100%) no-repeat fixed 0% 0% / auto padding-box border-box",
+            "color": "rgb(238, 241, 255)"
+          },
+          {
+            "tag": "MAIN",
+            "bg": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+            "color": "rgb(238, 241, 255)"
+          },
+          {
+            "tag": "BUTTON",
+            "bg": "rgba(255, 255, 255, 0.12) none repeat scroll 0% 0% / auto padding-box border-box",
+            "color": "rgb(238, 241, 255)"
+          },
+          {
+            "tag": "BUTTON",
+            "bg": "rgb(124, 140, 255) linear-gradient(140deg, rgb(124, 140, 255) 0%, rgb(154, 107, 255) 100%) repeat scroll 0% 0% / auto padding-box border-box",
+            "color": "rgb(255, 255, 255)"
+          },
+          {
+            "tag": "BUTTON",
+            "bg": "rgba(255, 255, 255, 0.12) none repeat scroll 0% 0% / auto padding-box border-box",
+            "color": "rgb(238, 241, 255)"
+          }
+        ]
+      }
+    },
+    {
+      "viewport": "mobile",
+      "no_horizontal_overflow": true,
+      "data": {
+        "width": 390,
+        "scrollWidth": 390,
+        "bodyText": "开始界面 · 局部原型\n\n60 秒躲避与收集\n\n躲开危险、收集星星，在倒计时结束前堆出最高分。\n\n设置\n音效：开\n开始游戏\n单局时长\n60秒\n初始生命\n3点\n得分来源\n收集得分\n\n按下「开始游戏」进入 60 秒预览\n\n玩法本体、危险物与计分尚未接入，这里只是开始界面的占位舞台。\n\n危险\n扣血\n奖励\n加分\n玩家\n存活\n\n键盘 Tab 聚焦、Enter 开始预览 · 本原型只覆盖开始界面。",
+        "buttons": [
+          {
+            "text": "音效：开",
+            "aria": null,
+            "rect": {
+              "x": 236.53125,
+              "y": 138.359375,
+              "width": 126,
+              "height": 44
+            }
+          },
+          {
+            "text": "开始游戏",
+            "aria": null,
+            "rect": {
+              "x": 27.46875,
+              "y": 194.359375,
+              "width": 335.0625,
+              "height": 44
+            }
+          },
+          {
+            "text": "",
+            "aria": null,
+            "rect": {
+              "x": 152.1875,
+              "y": 554.6875,
+              "width": 85.609375,
+              "height": 36
+            }
+          }
+        ],
+        "css": [
+          {
+            "tag": "BODY",
+            "bg": "radial-gradient(1100px 620px at 14% -12%, rgb(42, 49, 112) 0%, rgba(42, 49, 112, 0) 62%) no-repeat fixed 0% 0% / auto padding-box border-box, radial-gradient(900px 600px at 88% -10%, rgb(59, 42, 99) 0%, rgba(59, 42, 99, 0) 64%) no-repeat fixed 0% 0% / auto padding-box border-box, rgb(12, 16, 34) linear-gradient(160deg, rgb(12, 16, 34) 0%, rgb(23, 30, 61) 100%) no-repeat fixed 0% 0% / auto padding-box border-box",
+            "color": "rgb(238, 241, 255)"
+          },
+          {
+            "tag": "MAIN",
+            "bg": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+            "color": "rgb(238, 241, 255)"
+          },
+          {
+            "tag": "BUTTON",
+            "bg": "rgba(255, 255, 255, 0.12) none repeat scroll 0% 0% / auto padding-box border-box",
+            "color": "rgb(238, 241, 255)"
+          },
+          {
+            "tag": "BUTTON",
+            "bg": "rgb(124, 140, 255) linear-gradient(140deg, rgb(124, 140, 255) 0%, rgb(154, 107, 255) 100%) repeat scroll 0% 0% / auto padding-box border-box",
+            "color": "rgb(255, 255, 255)"
+          },
+          {
+            "tag": "BUTTON",
+            "bg": "rgba(255, 255, 255, 0.12) none repeat scroll 0% 0% / auto padding-box border-box",
+            "color": "rgb(238, 241, 255)"
+          }
+        ]
+      }
+    }
+  ],
+  "interaction": {
+    "sound_changed": true,
+    "start_feedback": true
+  }
+}
