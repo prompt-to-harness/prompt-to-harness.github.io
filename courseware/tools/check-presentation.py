@@ -88,6 +88,44 @@ def visible(page):
     return page.evaluate("getComputedStyle(document.querySelector('.camera-guide')).visibility") == 'visible'
 
 
+def check_popovers(page, path, where):
+    # 每节各选一个页内弹窗和复现步骤，核对内外点击、关闭入口和阅读模式。
+    cases = page.evaluate("""() => ['p-pop', 'p-repro'].flatMap(kind => {
+      const panel = document.querySelector(`.scene .${kind}`);
+      if (!panel) return [];
+      const id = panel.closest('.scene').id;
+      const scene = window.lesson.scenes.find(s => s.id === id);
+      return [{kind, id, step: Math.max(0, (scene.steps?.length || 1) - 1)}];
+    })""")
+    for case in cases:
+        sid, kind = case['id'], case['kind']
+        label = f'{where} [{sid} {kind}]'
+        page.goto(path.as_uri() + f'?mode=slides&step={case["step"]}#{sid}')
+        panel = page.locator(f'#{sid} .{kind}').first
+        summary = panel.locator(':scope > summary')
+        summary.click()
+        panel.locator(f':scope > .{kind}-body').click(position={'x': 4, 'y': 4})
+        if not panel.evaluate('(p) => p.open'):
+            errors.append(f'{label}: 点击弹窗内部不应收起')
+        page.locator('.toolbar').click(position={'x': 4, 'y': 4})
+        if panel.evaluate('(p) => p.open'):
+            errors.append(f'{label}: 演示模式点击弹窗外部没有收起')
+            panel.evaluate('(p) => p.open = false')
+        summary.click()
+        if kind == 'p-pop':
+            panel.locator('.p-pop-head button').click()
+        else:
+            summary.focus()
+            summary.press('Enter')  # 部分旧版复现层会盖住 summary，键盘仍可收起。
+        if panel.evaluate('(p) => p.open'):
+            errors.append(f'{label}: 原有关闭入口失效')
+        page.goto(path.as_uri() + f'?mode=scroll#{sid}')
+        summary.click()
+        page.locator('.toolbar').click(position={'x': 4, 'y': 4})
+        if not panel.evaluate('(p) => p.open'):
+            errors.append(f'{label}: 阅读模式点击外部不应收起行内内容')
+
+
 with sync_playwright() as p:
     browser = p.chromium.launch()
     for path in pages:
@@ -119,6 +157,7 @@ with sync_playwright() as p:
                 if len(layout['seen']) != page.locator('.scene').count():
                     errors.append(f'{where}: 逐步前进只走到 {len(layout["seen"])} 页，未覆盖全部页面')
                 errors += [f'{where} {issue}' for issue in layout['issues']]
+                check_popovers(page, path, where)
             context.close()
         # Reading mode on a phone: no page-level horizontal scrolling.
         context = browser.new_context(viewport={'width': 390, 'height': 844}, reduced_motion='reduce')

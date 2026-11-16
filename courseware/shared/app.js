@@ -220,6 +220,16 @@
   document.querySelector('#previous').addEventListener('click', () => navigateFooter(-1));
   document.querySelector('#next').addEventListener('click', () => navigateFooter(1));
 
+  // 演示模式点弹窗外部收起；图片放大等原生 dialog 由自身处理关闭。
+  document.addEventListener('click', event => {
+    if (mode !== 'slides' || event.target.closest('dialog')) return;
+    lesson.querySelectorAll('.p-pop[open], .p-repro[open]').forEach(details => {
+      const content = details.querySelector('.p-pop-body, .p-repro-body');
+      const summary = details.querySelector('summary');
+      if (!content.contains(event.target) && !summary.contains(event.target)) details.open = false;
+    });
+  }, true);
+
   lesson.addEventListener('click', async event => {
     const connect = event.target.closest('[data-demo-connect]');
     if (connect) {
