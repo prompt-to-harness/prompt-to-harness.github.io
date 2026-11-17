@@ -14,3 +14,17 @@ aside{min-width:0;overflow-wrap:anywhere}
 .discussion-resizer::after{content:'';position:absolute;top:calc(50% - 24px);left:3px;width:2px;height:48px;border-radius:2px;background:#91a88a}
 .discussion-resizer:hover,.discussion-resizer:focus-visible,.resizing-directory .discussion-resizer{background:#b9cbb0;outline:0}
 .resizing-directory,.resizing-directory *{cursor:col-resize!important;user-select:none!important}
+
+/* Two views share source nodes. These styles only ship with this opt-in template. */
+body{display:flex;flex-direction:column;height:100dvh}
+.mode-toolbar{flex:none;display:flex;align-items:center;gap:8px;min-height:54px;padding:8px 20px;background:var(--side);border-bottom:1px solid var(--line)}
+.mode-toolbar strong{font-size:14px;margin-right:8px}.mode-toolbar button{font-size:15px}
+.mode-toolbar button[aria-pressed="true"]{background:#d9e6d4;border-color:#779881}
+main{flex:1;min-height:0;height:auto}.design-text{font-size:18px;line-height:1.85;white-space:pre-wrap;margin:10px 0 18px}
+.arrangement h4{font-size:16px;margin:14px 0 6px}.level-4 h4,.segment h5{font-size:15px;font-weight:400;line-height:1.7;color:var(--muted);margin:0 0 10px}
+.level-4{margin-top:18px}.script{font-size:20px;line-height:1.85;border:1px solid #d1d5cc;border-radius:4px;padding:14px 16px;margin:10px 0 16px}.script blockquote+blockquote{margin-top:12px}
+.object-cue{display:flex;align-items:baseline;gap:16px;padding:10px 16px;margin:10px 0;border-left:3px solid var(--cue-edge,#8c978e);border-radius:3px;background:var(--cue-fill,#eef0eb);font-size:15px;line-height:1.7}
+.object-cue-ppt{--cue-edge:#728da2;--cue-fill:#edf2f5}.object-cue-terminal{--cue-edge:#93829f;--cue-fill:#f1eef4}
+.object-cue-browser,.object-cue-inspect{--cue-edge:#779881;--cue-fill:#edf3ee}.object-cue-label{flex:0 0 64px}.object-cue-content{min-width:0;overflow-wrap:anywhere}.object-cue .materials{margin:3px 0}.object-cue .resource-row{margin:0}
+.slide-demo{display:block;height:auto;min-height:100dvh}.slide-demo .panel{max-width:1000px;margin:auto;padding-bottom:40px}.slide-demo nav{display:flex;gap:8px;flex-wrap:wrap}.slide-demo nav a{display:inline-block}.slide-demo .input-text{font:16px/1.8 ui-monospace,monospace;padding:16px}.slide-demo .input-section{margin:24px 0}.slide-demo .slide-notice{color:var(--muted);font-size:14px}.slide-demo .step-controls{display:flex;gap:10px;margin:14px 0}
+@media(max-width:600px){.mode-toolbar{padding:8px 12px;gap:6px}.mode-toolbar strong{display:none}.object-cue{padding:9px 10px;gap:8px}.object-cue-label{flex-basis:50px}.script{font-size:17px;padding:10px 12px}.design-text{font-size:16px}.slide-demo .panel{padding:20px 14px}}
