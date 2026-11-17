@@ -1,1 +1,10 @@
-<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>PPT 定位示例</title><link rel="stylesheet" href="speaker.css"><script src="ppt-location.js"></script><script src="example-data.js"></script><article class="panel"><h1>PPT 定位示例（非课程正文）</h1><p id="position"></p><p>用于核对页序与步骤链接，实际课程接入自己的播放器。</p><a href="index.html#step-03">返回讲述页</a></article><script>const locator=createPptLocator(narrationData.ppt);document.querySelector('#position').textContent=locator.label(location.hash.slice(1),Number(new URLSearchParams(location.search).get('step')||0))||'定位无效';</script></html>
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PPT 接入示例</title><link rel="stylesheet" href="speaker.css">
+<script src="ppt-location.js" defer></script><script src="example-data.js" defer></script><script src="slides.js" defer></script>
+</head><body class="slide-demo"><article class="panel">
+<p class="slide-notice">PPT 接入示例 · 非课程正文；演示输入复制、页序与主讲路线</p>
+<nav aria-label="全部收录页"></nav><p id="position"></p><h1></h1><div id="slide-content"></div>
+<div class="step-controls"><button id="previous" type="button">上一步</button><button id="next" type="button">下一步</button></div>
+<p id="route"></p><a id="return" href="index.html">返回讲述页</a>
+</article></body></html>
