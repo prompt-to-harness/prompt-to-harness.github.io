@@ -1,0 +1,638 @@
+/* 第 5 章共用排版与组件样式（遵循 docs/production/visual-design-system.md）：
+ * 1. 开篇页 .lesson-cover 保留长仓体 64px，单行导语下移 .scene-content 避开手绘红圈；
+ * 2. 普通页严格落在 y=262..632 正文矩形内，绝不侵入 y=640..680 字幕安全区；
+ * 3. JSON 证据统一用浅色纸面 .p-code，合并图节点附非纯颜色符号徽章；
+ * 4. 360px 窄屏阅读模式自适应折行，零横向滚动。 */
+
+body[data-mode="slides"] .lesson-cover .lede {
+  top: 192px;
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+body[data-mode="slides"] .lesson-cover .scene-content {
+  top: 268px;
+  height: 362px;
+  gap: 16px;
+}
+
+body[data-mode="slides"] .scene:not(.lesson-cover):not(.evidence-scene) .scene-content {
+  gap: 12px;
+}
+
+body[data-mode="slides"] .segment-bar .segment {
+  min-width: max-content;
+}
+
+/* ---------- 开篇交接双栏卡 ---------- */
+.ch5-cover-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) auto minmax(0, 1.08fr);
+  gap: 16px;
+  align-items: stretch;
+  margin-top: 8px;
+}
+
+.ch5-cover-arrow {
+  align-self: center;
+  font: 400 34px/1 var(--p-title);
+  color: var(--p-muted);
+  padding: 0 2px;
+}
+
+.ch5-cover-grid .p-box {
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ch5-cover-grid .p-box h3 {
+  font-size: 23px;
+  margin: 4px 0 6px;
+}
+
+.ch5-cover-grid .p-box p {
+  font-size: 19px;
+  line-height: 1.45;
+}
+
+.ch5-mini-list {
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ch5-mini-list li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 19px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.ch5-mini-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #15803D;
+  font-weight: 700;
+}
+
+/* ---------- 全章共用锚点：JSON Diff 分层接线与隔离图 ---------- */
+.ch5-arch {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ch5-arch-chain {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+  align-items: stretch;
+}
+
+.ch5-arch-node {
+  position: relative;
+  isolation: isolate;
+  padding: 10px 13px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 4px;
+  min-width: 0;
+}
+
+.ch5-arch-node::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border: 2px solid var(--c, #243042);
+  border-radius: 12px 9px 13px 10px;
+  background: var(--cl, #FFFDF7);
+  filter: url(#p-rough);
+}
+
+.ch5-arch-node + .ch5-arch-node::after {
+  content: "→";
+  position: absolute;
+  left: -17px;
+  top: 50%;
+  transform: translateY(-50%);
+  font: 700 20px/1 var(--p-body);
+  color: #5B6573;
+}
+
+.ch5-arch-node.is-todo {
+  opacity: 0.48;
+}
+
+.ch5-arch-node.is-todo::before {
+  border-style: dashed;
+  background: transparent;
+}
+
+.ch5-arch-node.is-active::before {
+  border-width: 3px;
+  background: #243042;
+}
+
+.ch5-arch-node.is-active,
+.ch5-arch-node.is-active h3,
+.ch5-arch-node.is-active p,
+.ch5-arch-node.is-active code {
+  color: #fff;
+}
+
+.ch5-arch-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.ch5-arch-badge {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.25;
+  background: rgba(36, 48, 66, 0.09);
+  color: inherit;
+  white-space: nowrap;
+}
+
+.ch5-arch-node.is-active .ch5-arch-badge {
+  background: #FFD76A;
+  color: #243042;
+}
+
+.ch5-arch-node.is-done .ch5-arch-badge {
+  background: #E3F2E6;
+  color: #11652F;
+}
+
+.ch5-arch-node h3 {
+  font: 400 22px/1.25 var(--p-title);
+  margin: 2px 0 0;
+}
+
+.ch5-arch-node p {
+  font-size: 16.5px;
+  line-height: 1.35;
+  color: var(--p-muted);
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.ch5-arch-guard {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  padding: 6px 14px;
+  border: 1.5px dashed #D9481C;
+  border-radius: 8px;
+  background: #FCE6DD;
+  font-size: 17.5px;
+  line-height: 1.35;
+  color: #8E2C0C;
+}
+
+.ch5-arch-guard b {
+  color: #A8350F;
+  white-space: nowrap;
+}
+
+.ch5-arch-guard code {
+  font-family: var(--p-mono);
+  font-size: 16.5px;
+  background: rgba(255, 255, 255, 0.68);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+/* ---------- 工整 JSON 输入块与合并图结构树 ---------- */
+.ch5-code.p-code {
+  font-size: 17.5px;
+  line-height: 1.42;
+}
+
+.ch5-code.p-code .p-code-head {
+  align-items: center;
+  padding: 5px 12px;
+  font-size: 16.5px;
+  font-weight: 700;
+}
+
+.ch5-code.p-code pre {
+  padding: 8px 12px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+.ch5-code.is-err {
+  border: 2px solid #D9481C;
+}
+
+.ch5-code.is-err .p-code-head {
+  background: #FCE6DD;
+  border-bottom-color: #D9481C;
+  color: #A8350F;
+}
+
+.ch5-tree.p-tree {
+  padding: 9px 14px;
+  font-size: 18px;
+  line-height: 1.38;
+}
+
+.ch5-tree.p-tree ul {
+  padding-left: 22px;
+  margin-left: 8px;
+}
+
+.ch5-tree.p-tree li {
+  padding: 2px 0;
+}
+
+.ch5-sym {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 7px;
+  border-radius: 4px;
+  font-family: var(--p-mono);
+  font-size: 15.5px;
+  font-weight: 700;
+  vertical-align: 1px;
+}
+
+.ch5-sym.is-add {
+  background: #E3F2E6;
+  color: #11652F;
+  border: 1px solid #15803D;
+}
+
+.ch5-sym.is-rem {
+  background: #FCE6DD;
+  color: #A8350F;
+  border: 1px solid #D9481C;
+}
+
+.ch5-sym.is-chg {
+  background: #E0F3EF;
+  color: #0B6B5F;
+  border: 1px solid #0F8A7A;
+}
+
+.ch5-sym.is-anc {
+  background: #E8EAEE;
+  color: #243042;
+}
+
+.ch5-sym.is-cnt {
+  background: #243042;
+  color: #FFD76A;
+  font-family: var(--p-body);
+}
+
+.ch5-sym.is-nocnt {
+  background: transparent;
+  color: #5B6573;
+  border: 1px dashed #B9B3A6;
+  font-family: var(--p-body);
+  font-weight: 500;
+}
+
+/* ---------- 素材看板与核对表 ---------- */
+.ch5-fx-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px 12px;
+}
+
+.ch5-fx-card {
+  background: #FFFDF7;
+  border: 1.5px solid #B9B3A6;
+  border-left: 4px solid var(--c, #243042);
+  border-radius: 8px;
+  padding: 8px 12px;
+  min-width: 0;
+}
+
+.ch5-fx-card code {
+  display: block;
+  font-family: var(--p-mono);
+  font-size: 17.5px;
+  font-weight: 700;
+  color: #243042;
+}
+
+.ch5-fx-card span {
+  display: block;
+  margin-top: 3px;
+  font-size: 17.5px;
+  line-height: 1.32;
+  color: #4A5260;
+}
+
+.ch5-table {
+  display: grid;
+  grid-template-columns: 214px 96px minmax(0, 1fr);
+  border-top: 2px solid #243042;
+  background: #FFFDF7;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.ch5-table > div {
+  display: contents;
+}
+
+.ch5-table > div > span {
+  padding: 4px 10px;
+  border-bottom: 1px solid #DCD7CA;
+  font-size: 17px;
+  line-height: 1.28;
+  display: flex;
+  align-items: center;
+}
+
+.ch5-table > .is-head > span {
+  background: #ECE8DE;
+  font-size: 16px;
+  font-weight: 700;
+  color: #4A5260;
+  border-bottom: 1.5px solid #B9B3A6;
+}
+
+/* ---------- 双栏暂停自检题卡 ---------- */
+.ch5-quiz-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: stretch;
+  margin-top: 4px;
+}
+
+.ch5-qcard {
+  position: relative;
+  isolation: isolate;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 210px;
+  min-width: 0;
+}
+
+.ch5-qcard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: #FFFDF7;
+  border: 2px solid #B9B3A6;
+  border-radius: 12px 10px 13px 9px;
+  filter: url(#p-rough);
+}
+
+.ch5-qcard-head {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  padding-right: 146px;
+}
+
+.ch5-qcard-num {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #243042;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font: 400 22px/1 var(--p-title);
+}
+
+.ch5-qcard-say {
+  font: 700 20px/1.4 var(--p-body);
+  color: #18202B;
+  margin: 2px 0 0;
+}
+
+.ch5-qcard-ans {
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 19px;
+  line-height: 1.42;
+  background: var(--cl);
+  border-left: 4px solid var(--c);
+  color: #18202B;
+}
+
+/* ---------- 涂鸦小结重点贴纸（替代窄腰五角星，零溢出） ---------- */
+.ch5-takeaway-card {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  max-width: 326px;
+  margin: 8px auto 0;
+  padding: 20px 16px;
+  text-align: center;
+  transform: rotate(-1.5deg);
+  box-sizing: border-box;
+}
+
+.ch5-takeaway-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: #FFF1BF;
+  border: 3px solid #243042;
+  border-radius: 14px 10px 16px 11px;
+  box-shadow: 5px 6px 0 rgba(36, 48, 66, 0.14);
+  filter: url(#p-rough);
+}
+
+.ch5-takeaway-pin {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #243042;
+  color: #FFD76A;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.ch5-takeaway-card p {
+  font: 400 23px/1.4 var(--p-title);
+  color: #243042;
+  margin: 0;
+}
+
+.p-sketch .p-exits li {
+  font-size: 21px;
+  line-height: 1.38;
+  align-items: flex-start;
+  overflow-wrap: anywhere;
+}
+
+.p-sketch .p-exits li::before {
+  margin-top: 2px;
+}
+
+.p-sketch .p-exits code {
+  font-size: 18.5px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- 5.5 机制示意图组件 ---------- */
+.ch5-timeline {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) 54px minmax(0, 0.95fr);
+  gap: 0;
+  align-items: center;
+}
+
+.ch5-tl-spine {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 16px;
+  border-left: 4px solid #243042;
+  background: rgba(255, 253, 247, 0.7);
+  border-radius: 0 10px 10px 0;
+}
+
+.ch5-tl-step {
+  padding: 8px 12px;
+  background: #FFFDF7;
+  border: 1.5px solid #B9B3A6;
+  border-radius: 8px;
+  font-size: 19px;
+  line-height: 1.38;
+}
+
+.ch5-tl-step b {
+  color: #243042;
+}
+
+.ch5-tl-bridge {
+  text-align: center;
+  font: 700 24px/1 var(--p-mono);
+  color: #0F8A7A;
+}
+
+.ch5-fork-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) 52px minmax(0, 1.15fr);
+  align-items: center;
+  gap: 8px;
+}
+
+.ch5-fork-branches {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ch5-compact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
+}
+
+.ch5-compact-mid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0 4px;
+}
+
+.ch5-stack-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.ch5-stack-item {
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid #DCD7CA;
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+/* ---------- 窄屏阅读模式（360px 零横向溢出） ---------- */
+@media (max-width: 760px) {
+  body[data-mode="scroll"] .ch5-cover-grid,
+  body[data-mode="scroll"] .ch5-arch-chain,
+  body[data-mode="scroll"] .ch5-fx-grid,
+  body[data-mode="scroll"] .ch5-quiz-grid,
+  body[data-mode="scroll"] .ch5-timeline,
+  body[data-mode="scroll"] .ch5-fork-wrap,
+  body[data-mode="scroll"] .ch5-compact-grid,
+  body[data-mode="scroll"] .ch5-2col {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  body[data-mode="scroll"] .ch5-cover-arrow,
+  body[data-mode="scroll"] .ch5-arch-node + .ch5-arch-node::after {
+    display: none;
+  }
+
+  body[data-mode="scroll"] .ch5-tl-bridge {
+    transform: rotate(90deg);
+    margin: 6px 0;
+  }
+
+  body[data-mode="scroll"] .ch5-qcard {
+    min-height: 0;
+  }
+
+  body[data-mode="scroll"] .ch5-qcard-head {
+    padding-right: 0;
+  }
+
+  body[data-mode="scroll"] .ch5-table {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  body[data-mode="scroll"] .ch5-table > .is-head {
+    display: none;
+  }
+
+  body[data-mode="scroll"] .p-map > li {
+    flex: 1 1 42%;
+    min-width: 0;
+  }
+
+  body[data-mode="scroll"] .p-map > li.is-now::after {
+    inset: -3px 1px;
+  }
+
+  body[data-mode="scroll"] .ch5-takeaway-card {
+    max-width: 100%;
+    transform: none;
+  }
+}

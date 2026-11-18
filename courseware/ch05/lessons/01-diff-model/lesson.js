@@ -2,7 +2,12 @@ window.lesson = {
   "title": "规格写好了，怎么知道第一个任务做对了",
   "chapter": "第 5 章 · SDD",
   "section": "05.01",
-  "summary": "从一组能当场核对的输入看清差异模型，立住本章工作方式，再用六组已核算期望判断第一个任务的完成边界。",
+  "summary": "从一组能当场核对的输入看清差异模型，立住本章工作方式，再用七组已核算期望判断第一个任务的完成边界。",
+  "prep": [
+    "在教学副本 jsoncrack.com 核对当前位于 course/ch05-baseline 规格提交，git status --short 工作区干净",
+    "编辑器预先打开 docs/specs/TASKS.md（TASK-01）、SPEC.md、ACCEPTANCE.md 与 docs/specs/fixtures/",
+    "准备一个位于仓库外的工作目录（如 /tmp/ch05-check）存放不入库的一次性核对脚本"
+  ],
   "scenes": [
     {
       "id": "p01",
@@ -10,17 +15,17 @@ window.lesson = {
       "layout": "lesson-cover",
       "label": "规格写好了，怎么知道第一个任务做对了",
       "title": "怎么知道第一个任务做对了？",
-      "lead": "上一章留下了已经提交的规格基线，生产代码里还没有 JSON Diff。这一章按规格把 JSON Diff 分片实现。这一节先回答：规格写好了，怎么知道第一个任务做对了？",
-      "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>5.1</b>差异模型</li><li><b>5.2</b>合并图</li><li><b>5.3</b>双输入</li><li><b>5.4</b>整体验收</li><li><b>5.5</b>可带走的招数</li></ol><div class=\"p-bar is-light\" data-reveal=\"1\" style=\"margin-top:22px\">第 4 章留下：<b>已提交的规格基线</b>；生产代码里还没有 JSON Diff</div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:14px\">本节要留下：已验证的差异模型、工作区外的一次性核对脚本和实际检查结果，以及 <code>CH05_IMPLEMENTATION.md</code> 初稿</div>",
+      "lead": "上一章提交了规格基线，生产代码还没有 JSON Diff；这一节先完成并核对第一个任务",
+      "html": "<ol class=\"p-map\"><li class=\"is-now\"><b>5.1</b>差异模型</li><li><b>5.2</b>合并图</li><li><b>5.3</b>双输入</li><li><b>5.4</b>整体验收</li><li><b>5.5</b>可带走的招数</li></ol><div class=\"ch5-cover-grid\"><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ctx\">第 4 章已就位</span><h3>已提交的五层规格与固定素材</h3><p><code>docs/specs/</code> 与 <code>fixtures/</code> 已入库，生产代码尚未改动</p></div><div class=\"ch5-cover-arrow\" data-reveal=\"2\" aria-hidden=\"true\">→</div><div class=\"p-box\" data-role=\"us\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"us\">5.1 完成后留下</span><ul class=\"ch5-mini-list\"><li>通过七组固定素材验证的纯函数差异模型</li><li>工作区外的一次性核对脚本与检查结果</li><li><code>CH05_IMPLEMENTATION.md</code> 实施记录初稿</li></ul></div></div>",
       "steps": [
         "本章位置",
-        "第 4 章留下什么",
+        "第 4 章已就位",
         "本节要留下什么"
       ],
       "script": [
-        "【操作提示｜停留课件 p01 第 1 步，指向章节地图上的 5.1；不切窗口】\n\n上一章，我们提交了规格基线，生产代码里还没有 JSON Diff。从这一章开始，我们按已经提交的规格，把 JSON Diff 一块一块做出来。地图上，这一节是 5.1。",
-        "【操作提示｜推进第 2 步，指向第 4 章留下的规格基线；不切窗口】\n\n先核对当前副本处在规格提交上，工作区干净。然后打开自己的差异模型任务，以及它关联的规则和案例。讲师演示用的是当前基线上的 TASK-01，以及关联的 REQ 和 AC；每个人的编号不必相同，但都要能在自己的文件里找到对应内容。",
-        "【操作提示｜推进第 3 步，指向本节要留下的内容；讲完进入 p02】\n\n这一节要留下已验证的差异模型，工作区外的一次性核对脚本和实际检查结果，以及 CH05_IMPLEMENTATION.md 初稿。规格写好了，怎么知道第一个任务做对了？我们先不要从任务步骤讲起，先看一组很小、但能当场核对的输入。"
+        "【操作提示｜停留课件 p01 第 1 步，指向五节路线图的首节；不切窗口】\n\n上一章我们定下了五层规格并提交了基线，但生产代码里还没有一行 JSON Diff。从这一章开始，我们按拆好的任务，把 JSON Diff 一层一层做出来。",
+        "【操作提示｜推进第 2 步，指向左侧“第 4 章已就位”卡片；不切窗口】\n\n动手前先核对仓库状态：当前处于规格基线提交上，工作区干净。打开自己的差异模型任务以及关联的 Spec、Acceptance 和固定素材。讲师演示用的是 TASK-01；每个人的编号不必相同，只要能在自己的文档里找到对应规则就行。",
+        "【操作提示｜推进第 3 步，指向右侧“本节交付”卡片；讲完进入 p02】\n\n这一节做完，我们要留下经过验证的纯函数差异模型、工作区外的一次性核对脚本和检查结果，以及一份实施记录初稿。规格写好了，怎么知道第一个任务做对了？我们先不讲步骤，先看一组一眼能算清楚的输入。"
       ],
       "teaching": [],
       "source": "index.html#p01",
@@ -31,19 +36,19 @@ window.lesson = {
       "segment": "可核对的输入",
       "label": "这组输入，差异该是多少",
       "title": "这组输入，差异该是多少？",
-      "lead": "规格已经写好，先不要从任务步骤讲起。下面是实际的 fixtures/key-order，请先按已经批准的规则判断：这组输入，差异该是多少？",
-      "html": "<style>#p02 .p02-row{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:20px;margin-top:14px;align-items:stretch}#p02 .p02-trees{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch;min-width:0}#p02 .p02-trees>div{display:flex;flex-direction:column;min-width:0}#p02 .p02-trees .p-tree{flex:1;padding:8px 14px;font-size:18px;line-height:1.4}#p02 .p-tree li{padding:1px 0}#p02 .p-tree ul{padding-left:24px;margin-left:8px}#p02 .p02-ask{display:flex;flex-direction:column;justify-content:center;height:100%;box-sizing:border-box;padding:16px 20px}#p02 .p02-ask h3{font-size:24px;margin:10px 0 0;line-height:1.4}</style><div class=\"p02-row\"><div class=\"p02-trees\" data-reveal=\"0\"><div><h3 style=\"font-size:18px;margin:0 0 6px\">Before</h3><ul class=\"p-tree\"><li><span class=\"p-path\">user</span><ul><li><span class=\"p-path\">name: Lin</span></li><li><span class=\"p-path\">age: 20</span></li></ul></li><li><span class=\"p-path\">active: true</span></li></ul></div><div><h3 style=\"font-size:18px;margin:0 0 6px\">After</h3><ul class=\"p-tree\"><li><span class=\"p-path\">active: true</span></li><li><span class=\"p-path\">user</span><ul><li><span class=\"p-path\">age: 20</span></li><li><span class=\"p-path\">name: Lin</span></li></ul></li></ul></div></div><div class=\"p-box p02-ask\" data-role=\"us\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"us\">请先判断</span><h3>这组输入，差异该是多少？</h3></div></div><div class=\"p-bar is-light\" data-reveal=\"1\" style=\"margin-top:12px\">字段与值相同，只是顶层和嵌套对象的<b>键顺序</b>不同</div><div class=\"p-bar\" data-reveal=\"3\" style=\"margin-top:10px\">差异数 <b>0</b>，全部 <code>unchanged</code>，不该出现「字段顺序变化」</div><p class=\"source-note\">实际素材：docs/specs/fixtures/key-order/；按已批准规则判断，不是产品跑出来的结果</p>",
+      "lead": "先不讲任务步骤，打开 docs/specs/fixtures/key-order/，按已批准规则判断比较结果。",
+      "html": "<div class=\"ch5-2col\" style=\"display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:20px;align-items:stretch\"><div class=\"ch5-2col\" style=\"display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:stretch\" data-reveal=\"0\"><div class=\"p-code ch5-code\"><div class=\"p-code-head\"><span>Before</span><span>key-order/before.json</span></div><pre><span style=\"display:block\">{</span><span style=\"display:block\">  &quot;user&quot;: { &quot;name&quot;: &quot;Lin&quot;, &quot;age&quot;: 20 },</span><span style=\"display:block\">  &quot;active&quot;: true</span><span style=\"display:block\">}</span></pre></div><div class=\"p-code ch5-code\"><div class=\"p-code-head\"><span>After</span><span>key-order/after.json</span></div><pre><span style=\"display:block\">{</span><span style=\"display:block\">  &quot;active&quot;: true,</span><span style=\"display:block\">  &quot;user&quot;: { &quot;age&quot;: 20, &quot;name&quot;: &quot;Lin&quot; }</span><span style=\"display:block\">}</span></pre></div></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"2\" style=\"display:flex;flex-direction:column;justify-content:center;padding:16px 20px\"><span class=\"p-tag\" data-role=\"us\">请先判断</span><h3 style=\"font-size:25px;margin:4px 0 8px\">按已批准的 Spec，差异数是几？</h3><p style=\"font-size:19px;color:var(--p-muted)\">提示：回想 4.3 对字段顺序的决定</p></div></div><div class=\"p-bar is-light\" data-reveal=\"1\">两份 JSON 的字段集合与值完全一致，只是顶层与 <code>user</code> 内部的<b>键顺序</b>调换了</div><div class=\"p-bar\" data-reveal=\"3\">差异数为 <b>0</b>，所有路径均为 <code>unchanged</code>，不出现「字段顺序变化」条目（<code>REQ-007</code> · <code>AC-006</code>）</div><p class=\"source-note\">实际素材：docs/specs/fixtures/key-order/；按已批准规则核算</p>",
       "steps": [
-        "Before 和 After",
-        "键顺序不同",
+        "固定输入 Before 与 After",
+        "只是键顺序不同",
         "先自己判断",
-        "差异数是 0"
+        "差异数为 0"
       ],
       "script": [
-        "【操作提示｜停留课件 p02 第 1 步，指向左侧 Before 和右侧 After；不切窗口】\n\n打开 docs/specs/fixtures/key-order/。左边是 Before，右边是 After。这是规格里已经固定的输入，不是产品跑出来的结果。",
-        "【操作提示｜推进第 2 步，对照两侧的字段和键顺序；不切窗口】\n\n请对照两边。字段和值是相同的，只是顶层和嵌套对象的键顺序不同。Before 里先是 user 再是 active，user 里先是 name 再是 age；After 里先是 active 再是 user，user 里先是 age 再是 name。",
-        "【操作提示｜推进第 3 步，指向判断卡片；留出时间让学员判断；不切窗口】\n\n请先按已经批准的规则判断：这组输入，差异该是多少？4.3已经由人决定，对象键顺序忽略。",
-        "【操作提示｜推进第 4 步，指向结论；讲完进入 p03】\n\n差异数应为 0，所有路径都是 unchanged，也不该出现「字段顺序变化」这类条目。4.4已经把这条规则写成了固定输入和零差异的期望，当前基线上是 REQ-007、AC-006，以实际文件为准。这页先看见可核对的结果，先不谈任务步骤。检查的是键顺序，还是对调两侧？这两件事要先分清。"
+        "【操作提示｜停留课件 p02 第 1 步，指向左侧 Before 与 After 两份 JSON；不切窗口】\n\n这是规格素材里的 key-order 输入。左边是 Before，右边是 After，它们都是已经写进仓库的固定测试数据。",
+        "【操作提示｜推进第 2 步，指向底部键顺序说明条；不切窗口】\n\n对比两边的内容：所有字段名和值都一模一样，唯一的变化是顶层对象和 user 内部字段的排列顺序调换了。",
+        "【操作提示｜推进第 3 步，指向右侧判断框，停顿两秒；不切窗口】\n\n先按上一章批准的规则判断一下：这两份 JSON 比较下来，差异数应该是多少？",
+        "【操作提示｜推进第 4 步，指向“0 处差异”结论；讲完进入 p03】\n\n答案是 0 处差异。4.3 已经明确忽略对象键顺序，4.4 也把零差异和全部路径 unchanged 写成了固定期望。不过，忽略键顺序和把左右两份输入对调完全是两码事，这层边界要先分清。"
       ],
       "teaching": [],
       "source": "index.html#p02",
@@ -52,19 +57,19 @@ window.lesson = {
     {
       "id": "p03",
       "segment": "可核对的输入",
-      "label": "检查的是键顺序，还是对调两侧",
-      "title": "检查的是键顺序，还是对调两侧？",
-      "lead": "上一页的零差异，检查的是对象键顺序。请分清这件事和对调 Before 与 After 有什么不同，以及比较时该怎样对齐两侧。先看对照，再看对齐方式。",
-      "html": "<div class=\"p-pair\" style=\"grid-template-columns:1fr 1fr;gap:24px\" data-reveal=\"0\"><div class=\"p-box\" data-role=\"ctx\"><span class=\"p-tag\" data-role=\"ctx\">键换序</span><h3 style=\"margin:10px 0 0\">字段与值相同，只是键顺序不同</h3><p>差异数是 0</p></div><div class=\"p-box\" data-role=\"gate\"><span class=\"p-tag\" data-role=\"gate\">对调两侧</span><h3 style=\"margin:10px 0 0\">把 Before 和 After 对调</h3><p>新增和删除会反向</p></div></div><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"1\" style=\"padding:12px 18px;margin-top:16px\"><span class=\"p-tag\" data-role=\"ctx\">现有解析器</span><h3 style=\"font-size:22px;margin:8px 0 0\">按出现顺序发放节点 id；若复用，键换序会被误报</h3></div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:16px\">差异模型要<b>按路径对齐</b>两侧，不复用那套 id</div>",
+      "label": "检查键顺序，还是对调两侧",
+      "title": "检查键顺序，还是对调两侧？",
+      "lead": "分清对象内部键换序与对调 Before / After 的区别，并看清为什么不能复用现有解析器的节点 id。",
+      "html": "<div class=\"ch5-2col\" style=\"display:grid;grid-template-columns:1fr 1fr;gap:20px\" data-reveal=\"0\"><div class=\"p-box\" data-role=\"ctx\" style=\"padding:14px 18px\"><div class=\"p-head\"><h3>对象内部键换序</h3><span class=\"p-tag\" data-role=\"ctx\">结果不变</span></div><p style=\"font-family:var(--p-mono);font-size:18px\">{\"a\":1,\"b\":2} ↔ {\"b\":2,\"a\":1}</p><p style=\"margin-top:6px\">两侧同路径取值相同，差异数恒为 <b>0</b></p></div><div class=\"p-box\" data-role=\"gate\" style=\"padding:14px 18px\"><div class=\"p-head\"><h3>对调 Before 与 After</h3><span class=\"p-tag\" data-role=\"gate\">方向反转</span></div><p style=\"font-family:var(--p-mono);font-size:18px\">{\"x\":1} → {} 为 removed；反过来是 added</p><p style=\"margin-top:6px\">不能笼统写成「输入顺序不影响结果」</p></div></div><div class=\"p-pair\" style=\"margin-top:4px\"><div class=\"p-box is-soft\" data-role=\"gate\" data-reveal=\"1\" style=\"padding:12px 16px\"><span class=\"p-tag\" data-role=\"gate\">现有 parser.ts 的风险</span><p style=\"font-size:19.5px\">按字段<b>出现顺序</b>发放节点 id，直接复用会把键换序误报成差异</p></div><div class=\"p-join\" data-reveal=\"2\"><span>改用</span><i class=\"p-arrow\"></i></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"2\" style=\"padding:12px 16px\"><span class=\"p-tag\" data-role=\"tool\">差异模型做法</span><p style=\"font-size:19.5px\">绕开节点 id，统一按 <code>/user/name</code> 这样的 <b>JSON 路径</b>对齐两侧</p></div></div>",
       "steps": [
-        "两种不是同一件事",
-        "不要复用节点 id",
-        "按路径对齐"
+        "键换序 vs 对调两侧",
+        "parser.ts 顺序 id 风险",
+        "按 JSON 路径对齐"
       ],
       "script": [
-        "【操作提示｜停留课件 p03 第 1 步，指向并排的两种情况；不切窗口】\n\n左边是刚才那组换序输入：字段与值相同，只是键顺序不同，差异数是 0。右边是对调 Before 和 After。两侧对调时，新增和删除本身就会反向。这不是同一件事，不能写成「输入顺序不能改变确定结果」。",
-        "【操作提示｜推进第 2 步，指向解析器节点 id 的说明；不切窗口】\n\n还有一个容易混在一起的点。现有解析器按出现顺序发放节点 id。如果比较时复用这些 id，键换序会被误报成差异。",
-        "【操作提示｜推进第 3 步，指向对齐方式；讲完进入 p04】\n\n差异模型要按路径对齐两侧，不复用那套 id。这一页只把对齐方式讲清，不展开实现细节。键换序让人立刻看见第一项工作的一部分结果，但它还不能覆盖任务要求的全部案例。除了键换序，第一个任务还要看什么？"
+        "【操作提示｜停留课件 p03 第 1 步，对照上方左右两张卡片；不切窗口】\n\n同一种顺序变化不能混为一谈。对象内部键换序时，两侧键值集合完全一致，差异数是 0；但如果把 Before 和 After 两侧对调，原本删掉的 x 就会反过来变成新增的 x，结果方向截然相反。",
+        "【操作提示｜推进第 2 步，指向下方左侧 parser.ts 风险框；不切窗口】\n\n落到 JSON Crack 源码里还有一个风险：现有的 parser.ts 是按字段出现的先后顺序发放节点 id 的。如果直接拿这套节点 id 去比对，键一换序就会产生大量假差异。",
+        "【操作提示｜推进第 3 步，指向下方右侧路径对齐结论；讲完进入 p04】\n\n所以差异模型必须绕开节点 id，改按 /user/name 这样的 JSON 路径对齐两侧。看清了键换序，我们再看第一个任务一共要覆盖哪些情况。"
       ],
       "teaching": [],
       "source": "index.html#p03",
@@ -73,19 +78,19 @@ window.lesson = {
     {
       "id": "p04",
       "segment": "可核对的输入",
-      "label": "除了键换序，第一个任务还要看什么",
-      "title": "除了键换序，第一个任务还要看什么？",
-      "lead": "键换序让人看见第一项工作的一部分结果，但还不能覆盖任务要求的全部案例。这一页先列出范围，先不下完成结论。除了键换序，第一个任务还要看什么？",
-      "html": "<div class=\"p-box\" data-role=\"ctx\" data-reveal=\"0\" style=\"padding:12px 20px\"><span class=\"p-tag\" data-role=\"ctx\"><code>TASK-01</code> 还要覆盖</span><p style=\"font-size:22px;margin:10px 0 0\"><code>identical</code> · <code>nested</code> · <code>array-index</code> · <code>type-change</code> · <code>subtree</code></p></div><div class=\"p-bar is-light\" data-reveal=\"0\" style=\"margin-top:12px\">对应 <code>AC-002</code>、<code>AC-003</code>、<code>AC-005</code> 至 <code>AC-009</code>、<code>AC-011</code>，以实际文件为准</div><div class=\"p-bar\" data-reveal=\"1\" style=\"margin-top:10px\">筛选界面属于后续任务。本节只核对状态、差异数，以及「下层有变化」标记</div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:10px\">期望表和「是否已经完成」，放到看完检查之后再判断</div>",
+      "label": "除了键换序，模型还要覆盖哪些情况",
+      "title": "除了键换序，模型还要覆盖哪些情况？",
+      "lead": "键换序只验证了一条规则；当前基线上 TASK-01 一共要跑通七组固定素材。",
+      "html": "<div class=\"ch5-fx-grid\" data-reveal=\"0\"><div class=\"ch5-fx-card\" data-role=\"ctx\"><code>key-order</code><span>对象键换序 → 0 处差异</span></div><div class=\"ch5-fx-card\" data-role=\"ctx\"><code>identical</code><span>字节完全一致 → 0 处差异</span></div><div class=\"ch5-fx-card\" data-role=\"us\"><code>nested</code><span>增 / 删 / 改各 1，祖先不计 → 3 处</span></div><div class=\"ch5-fx-card\" data-role=\"us\"><code>array-index</code><span>[10,20] → [5,10,20] 按下标 → 3 处</span></div></div><div class=\"ch5-fx-grid\" style=\"grid-template-columns:repeat(3,minmax(0,1fr))\" data-reveal=\"1\"><div class=\"ch5-fx-card\" data-role=\"tool\"><code>type-change</code><span>1 → \"1\" 记 changed → 1 处</span></div><div class=\"ch5-fx-card\" data-role=\"tool\"><code>subtree</code><span>整棵子树增删只计根 → 2 处</span></div><div class=\"ch5-fx-card\" data-role=\"ok\"><code>null-equiv</code><span>null 等同路径不存在（REQ-038）</span></div></div><div class=\"p-bar\" data-reveal=\"2\">本节只核对纯函数输出的<b>状态、差异数与下层变化标记</b>；合并图、双输入、筛选与超限留给后续任务</div><p class=\"source-note\">对应 AC-002、AC-003、AC-005～AC-009、AC-011、AC-020、AC-021（编号以各自规格为准）</p>",
       "steps": [
-        "还要覆盖的素材",
-        "本节核对什么",
-        "完成与否稍后判断"
+        "四组基础比较规则",
+        "三组类型、子树与空值规则",
+        "本节纯函数核对边界"
       ],
       "script": [
-        "【操作提示｜停留课件 p04 第 1 步，指向还要覆盖的素材；不切窗口】\n\n当前基线上，TASK-01 还要在 identical、nested、array-index、type-change、subtree 上给出与已核算期望一致的结果。对应验收是 AC-002、AC-003、AC-005 到 AC-009，以及 AC-011。编号以实际文件为准。",
-        "【操作提示｜推进第 2 步，指向本节核对的范围；不切窗口】\n\n筛选界面属于后面的任务。这一节只核对模型是否给出状态、差异数，以及供后续筛选使用的「下层有变化」标记。",
-        "【操作提示｜推进第 3 步，指向稍后判断的说明；讲完进入 p05】\n\n完整的期望表，以及「这一个任务是否已经完成」，放到看完检查之后再判断。现在先看，怎样让 Agent 只完成这一个任务。"
+        "【操作提示｜停留课件 p04 第 1 步，扫过上方四张基础素材卡；不切窗口】\n\n除了键换序和完全相同的零差异输入，TASK-01 还要覆盖嵌套对象的增删改与变化祖先标记，以及数组按索引逐项对齐——中间插入元素后，后面的下标按错位记为 changed，不做元素移动配对。",
+        "【操作提示｜推进第 2 步，指向第二排三张边界素材卡；不切窗口】\n\n再往下还有三类边界规则：数字 1 变成字符串 \"1\" 统一记为 changed；整棵子树新增或删除时，子节点虽然各自带状态，但差异数只在子树根部记 1 处；另外按已批准的 REQ-038，字段值为 null 等同于该路径不存在，也要用 null-equiv 素材核对。",
+        "【操作提示｜推进第 3 步，指向底部任务范围边界条；讲完进入 p05】\n\n这七组素材共同构成了纯函数差异模型的验收面。至于合并图节点、双输入界面、筛选开关和超限提示，都属于后续任务。范围清楚了，该怎么把这一个任务稳稳交给 Agent？"
       ],
       "teaching": [],
       "source": "index.html#p04",
@@ -96,19 +101,24 @@ window.lesson = {
       "segment": "本章怎么干活",
       "label": "怎样让 Agent 只完成这一个任务",
       "title": "怎样让 Agent 只完成这一个任务？",
-      "lead": "有了可核对的范围，再确定这次怎么让 Agent 只完成这一个任务。先看清起点、验证方式，以及请求里要写清的几件事。先看懂，这一页还不发出请求。",
-      "html": "<div class=\"p-grid\" style=\"--n:3\"><div class=\"p-box\" data-role=\"us\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"us\">起点</span><h3 style=\"font-size:22px;margin:8px 0 0\">从规格提交创建功能分支</h3><p>核对版本和工作区</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ctx\">验证</span><h3 style=\"font-size:22px;margin:8px 0 0\">一次性脚本，不入库</h3><p>对照六组已核算期望，再跑共享包 lint；不引入测试框架</p></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"agent\">请求要素</span><h3 style=\"font-size:22px;margin:8px 0 0\">任务、案例和允许范围</h3><p>带上关联规则、素材、全局约束和非目标</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:14px\">允许新增 <code>packages/jsoncrack-react/src/diff/</code> 并更新导出；不改共享组件、渲染、网页版和现有 <code>parser.ts</code></div><div style=\"margin-top:12px\" data-reveal=\"2\"><details class=\"p-pop\"><summary>一份请求草案</summary><div class=\"p-pop-body\"><div class=\"p-pop-head\"><span>演示请求草案（按自己的规格调整）</span><button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div><p style=\"margin:0 0 8px\">这份草案供备课实跑使用，不是固定的复制模板。用自己已经审过的规格和任务组织请求。</p><p style=\"margin:0 0 8px\">要写清：只完成当前差异模型任务；用六组已核算期望核对，不要用待验证的比较逻辑生成期望；一次性脚本留在工作区外，不要提交；然后再运行 <code>pnpm --filter jsoncrack-react run lint</code></p><p style=\"margin:0\"><code>null</code> 与字段缺失仍是未决项，不要写成实现决定。值等价判定收敛到一个可替换的函数，除此之外不预设语义。</p></div></details></div>",
+      "lead": "先在全章架构图里锁死修改边界，再明确离线核对方式与委托请求要素。",
+      "html": "<div class=\"ch5-arch\" data-reveal=\"0\"><div class=\"ch5-arch-chain\"><div class=\"ch5-arch-node is-active\" data-role=\"us\"><div><div class=\"ch5-arch-top\"><span><code>packages/jsoncrack-react/src/diff/</code></span><span class=\"ch5-arch-badge\">本节实现</span></div><h3>5.1 差异模型</h3></div><p>按路径对齐两侧，算状态、计数与祖先标记</p></div><div class=\"ch5-arch-node is-todo\" data-role=\"ctx\"><div><div class=\"ch5-arch-top\"><span><code>NodeData / EdgeData + 可选入口</code></span><span class=\"ch5-arch-badge\">后续任务</span></div><h3>5.2 合并图映射</h3></div><p>保留 removed 与必要祖先，赋予状态符号</p></div><div class=\"ch5-arch-node is-todo\" data-role=\"ctx\"><div><div class=\"ch5-arch-top\"><span><code>apps/www DiffView + 独立状态</code></span><span class=\"ch5-arch-badge\">后续任务</span></div><h3>5.3 双输入与错误</h3></div><p>接入 Before / After，出错保留上次结果</p></div><div class=\"ch5-arch-node is-todo\" data-role=\"ctx\"><div><div class=\"ch5-arch-top\"><span><code>只看变化 + 无外链超限 + 全量走查</code></span><span class=\"ch5-arch-badge\">后续任务</span></div><h3>5.4 摘要 · 筛选 · 验收</h3></div><p>补齐摘要与筛选，走完 AC-001~021 与回归</p></div></div><div class=\"ch5-arch-guard\"><b>隔离保护（全章不动）：</b><span><code>parser.ts</code> 顺序节点 id</span> · <span><code>useJson</code> 单输入状态链路</span> · <span><code>NotSupported</code> 原超限组件</span> · <span><code>apps/vscode</code> 插件端</span></div></div><div class=\"ch5-2col\" style=\"display:grid;grid-template-columns:1fr 1.15fr;gap:16px;align-items:stretch\"><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\" style=\"padding:12px 16px\"><div class=\"p-head\"><h3 style=\"font-size:22px\">离线验证（不引测试框架）</h3><span class=\"p-tag\" data-role=\"ctx\">怎么验</span></div><p style=\"font-size:19px\">工作区外一次性脚本跑齐 <b>7 组固定素材</b>对照手算期望，再跑 <code>pnpm --filter jsoncrack-react run lint</code></p></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"2\" style=\"padding:12px 16px\"><div class=\"p-head\"><h3 style=\"font-size:22px\">请求要素与未决收敛</h3><span class=\"p-tag\" data-role=\"agent\">怎么派</span></div><p style=\"font-size:19px\">带齐 <code>TASK-01</code>、关联规则与全局非目标；<code>null</code> 按 <code>REQ-038</code> 等同缺失，其余未决细则收敛进单一值比较函数</p><div style=\"margin-top:8px\"><details class=\"p-pop\"><summary>查看请求要素参考</summary><div class=\"p-pop-body\"><div class=\"p-pop-head\"><span>TASK-01 委托请求要素参考（按自己的规格调整）</span><button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div><p style=\"margin:0 0 8px\">请阅读 <code>TASK-01</code> 及关联的已批准 Spec、Acceptance、<code>docs/specs/fixtures/</code> 固定素材与全局非目标，只完成差异模型任务</p><p style=\"margin:0 0 8px\">允许范围：新增 <code>packages/jsoncrack-react/src/diff/</code> 并更新共享包导出；不改共享组件、渲染、网页版与 <code>parser.ts</code>。按路径对齐两侧；<code>null</code> 与字段缺失按 <code>REQ-038</code> 同等处理，<code>1</code> 与 <code>1.0</code> 等未决细则收敛到可替换函数</p><p style=\"margin:0\">用留在工作区外的一次性脚本跑齐 <code>key-order</code>、<code>identical</code>、<code>nested</code>、<code>array-index</code>、<code>type-change</code>、<code>subtree</code>、<code>null-equiv</code> 七组已核算期望（不调用待测逻辑自产期望），并运行 <code>pnpm --filter jsoncrack-react run lint</code></p></div></details></div></div></div>",
       "steps": [
-        "确定起点",
-        "怎样验证",
-        "请求里要写清什么"
+        "锁死架构修改边界",
+        "工作区外脚本与 lint 验证",
+        "委托要素与请求参考"
       ],
       "script": [
-        "【操作提示｜停留课件 p05 第 1 步，指向起点；不切窗口】\n\n先确定起点。从规格提交创建本地功能分支，核对版本和工作区是否干净。已有改动或检查受阻时，保留现场并先处理起点；不能把未运行或失败的检查记为通过。",
-        "【操作提示｜推进第 2 步，指向验证方式；不切窗口】\n\n这个仓库没有测试框架。验证方式是：用一次性脚本，不入库，把模型跑在刚才说的六组素材上，对照已经核算过的期望；再运行 pnpm --filter jsoncrack-react run lint。不要引入测试框架，也不要在仓库里留下测试套件。",
-        "【操作提示｜推进第 3 步，指向请求要素和允许范围；讲完进入 p06】\n\n请求里要让 Agent 读到当前的差异模型任务、关联的 Spec 和 Acceptance、固定素材，以及全局约束和非目标。还要写清本次做什么、用哪些案例核对、允许改到哪里。当前基线上，允许范围是新增 packages/jsoncrack-react/src/diff/ 下的差异模型，并更新共享包导出；不改共享组件、不改渲染、不改网页版、不改现有 parser.ts。null 与字段缺失仍是未决项，不要写成实现决定；值等价判定要收敛到一个可替换的函数。用自己已经审过的规格组织请求。分镜里有一份演示请求草案，供备课实跑使用，不是固定的复制模板。这段只讲一次，当作本章的工作方式，后面不再重讲。当前副本对得上起点吗？请求该怎么发出？接下来会切到现场去做。"
+        "【操作提示｜停留课件 p05 第 1 步，指向全章架构图里的 5.1 高亮模块与底部隔离带；不切窗口】\n\n从规格提交切出本地功能分支后，先看清这次改动在工程里的位置：我们只在共享包新增独立的 diff 目录并补充导出，底下列出的 parser.ts、单输入状态和插件端一行都不碰。",
+        "【操作提示｜推进第 2 步，指向左下角离线验证卡片；不切窗口】\n\n因为原仓库没有内置单元测试框架，这一章统一采用轻量离线核对：写一份留在工作区外、不入库的一次性脚本，把模型跑在刚才那七组固定素材上比对期望，再跑通共享包的 lint 检查。",
+        "【操作提示｜推进第 3 步，指向右下角委托要素与请求参考弹窗；讲完进入 p06】\n\n发给 Codex 的请求要把当前任务、关联 Spec 与 Acceptance、固定素材和全局非目标一起带齐。null 与字段缺失按已批准的等价规则实现，其余像 1 和 1.0 这类未决细则收敛到一个可替换的值比较函数里，不在本节擅自拍板。这段任务级工作方式只在这一节立一次，后面各节直接沿用。"
       ],
-      "teaching": [],
+      "teaching": [
+        {
+          "title": "工作方式只立一次",
+          "text": "5.1 用这一页把“定范围 → 委托 → 独立期望核对 → 查 diff”立住，5.2–5.4 直接沿用，不再重复讲流程定义。"
+        }
+      ],
       "source": "index.html#p05",
       "seconds": 90
     },
@@ -117,13 +127,13 @@ window.lesson = {
       "segment": "本章怎么干活",
       "label": "当前副本对得上起点吗？请求该怎么发出",
       "title": "当前副本对得上起点吗？请求该怎么发出？",
-      "lead": "本页在演练之后再写",
-      "html": "<div class=\"p-bar is-light\" data-reveal=\"0\">待备课实跑后再写；不预写 Agent 回答</div>",
+      "lead": "本页在正式录制演练后按真实运行结果补充",
+      "html": "<div class=\"p-bar is-light\" data-reveal=\"0\">实操页占位：正式录制时在教学副本核对分支起点并发出 TASK-01 请求</div>",
       "steps": [
-        "待演练后制作"
+        "待录制演练后补充"
       ],
       "script": [
-        "【操作提示｜停留课件 p06 第 1 步】\n\n本页待演练后再写。"
+        "【操作提示｜停留课件 p06 第 1 步】\n\n本页待正式录制演练后补充。"
       ],
       "teaching": [],
       "source": "index.html#p06",
@@ -134,13 +144,13 @@ window.lesson = {
       "segment": "完成边界",
       "label": "怎样判断这一次做到了完成边界",
       "title": "怎样判断这一次做到了完成边界？",
-      "lead": "本页在演练之后再写",
-      "html": "<div class=\"p-bar is-light\" data-reveal=\"0\">待备课实跑后再写；不预写运行结果</div>",
+      "lead": "本页在正式录制演练后按真实运行结果补充",
+      "html": "<div class=\"p-bar is-light\" data-reveal=\"0\">实操页占位：正式录制时展示 git status、diff 范围与七组素材核对输出</div>",
       "steps": [
-        "待演练后制作"
+        "待录制演练后补充"
       ],
       "script": [
-        "【操作提示｜停留课件 p07 第 1 步】\n\n本页待演练后再写。"
+        "【操作提示｜停留课件 p07 第 1 步】\n\n本页待正式录制演练后补充。"
       ],
       "teaching": [],
       "source": "index.html#p07",
@@ -149,19 +159,19 @@ window.lesson = {
     {
       "id": "p08",
       "segment": "完成边界",
-      "label": "相同输入和键换序都通过了，差异模型任务就完成了吗",
-      "title": "相同输入和键换序都通过了，差异模型任务就完成了吗？",
-      "lead": "如果相同输入和对象键换序都通过了，差异模型任务就一定完成了吗？请先判断，再看六组已核算的期望。这是本节的学员判断，先不要下结论。",
-      "html": "<style>body[data-mode=slides] #p08 .scene-content{top:220px;gap:8px}#p08 .p-matrix span{padding:4px 10px;font-size:17px;line-height:1.35}#p08 .p08-ask{padding:10px 20px}#p08 .p08-ask h3{font-size:24px;margin:8px 0 0;line-height:1.4}</style><div class=\"p-box p08-ask\" data-role=\"us\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"us\">学员判断</span><h3>相同输入和键换序都通过了，差异模型任务就完成了吗？</h3></div><div class=\"p-matrix\" style=\"grid-template-columns:200px minmax(0,1fr);margin-top:8px\" data-reveal=\"1\"><div class=\"is-head\"><span>素材</span><span>已核算的期望</span></div><div><span><code>fixtures/key-order</code></span><span>差异数 0，无任何状态或「下层有变化」标记</span></div><div><span><code>fixtures/identical</code></span><span>差异数 0，无任何标记</span></div><div><span><code>fixtures/nested</code></span><span>差异数 3；<code>/user/age</code> 为 <code>changed</code>，<code>/active</code> 为 <code>removed</code>，<code>/role</code> 为 <code>added</code>；<code>/</code> 与 <code>/user</code> 带「下层有变化」标记，不计入差异数</span></div><div><span><code>fixtures/array-index</code></span><span><code>[10,20]</code> 变为 <code>[5,10,20]</code>，差异数 3：下标 0、1 为 <code>changed</code>，下标 2 为 <code>added</code>，不报告移动或元素配对</span></div><div><span><code>fixtures/type-change</code></span><span><code>/v</code> 由数字 <code>1</code> 变为字符串 <code>\"1\"</code>，记为 <code>changed</code>，差异数 1</span></div><div><span><code>fixtures/subtree</code></span><span>差异数 2：<code>/gone</code> 与 <code>/extra</code> 各计 1 处；其子路径各自带状态，但不单独计处</span></div></div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:8px\"><b>没有</b>，数组、类型变化、嵌套路径和子树计数若属于该任务，仍要按各自要求检查；还要回看允许范围和可解释的 diff</div><p class=\"source-note\">期望以当前规格基线的实际文件为准</p>",
+      "label": "只过两组案例，模型任务算完成了吗",
+      "title": "只过两组案例，模型任务算完成了吗？",
+      "lead": "相同输入和对象键换序都通过了，先对照完整期望表判断还差什么。",
+      "html": "<div class=\"ch5-table\"><div class=\"is-head\"><span>固定素材</span><span>当前状态</span><span>独立核算期望（不能由待测逻辑生成）</span></div><div data-reveal=\"0\"><span><code>fixtures/key-order</code></span><span><em style=\"font-style:normal\" class=\"p-chip\" data-role=\"ok\">已抽查 ✓</em></span><span>差异数 0，全部 unchanged，无下层变化标记</span></div><div data-reveal=\"0\"><span><code>fixtures/identical</code></span><span><em style=\"font-style:normal\" class=\"p-chip\" data-role=\"ok\">已抽查 ✓</em></span><span>差异数 0，无任何标记</span></div><div data-reveal=\"1\"><span><code>fixtures/nested</code></span><span><em style=\"font-style:normal\" class=\"p-chip\" data-role=\"gate\">仍须核对</em></span><span>差异数 3（age 改 · active 删 · role 增）；/ 与 /user 标下层有变化但不计处</span></div><div data-reveal=\"1\"><span><code>fixtures/array-index</code></span><span><em style=\"font-style:normal\" class=\"p-chip\" data-role=\"gate\">仍须核对</em></span><span>[10,20] → [5,10,20] 差异数 3（下标 0、1 改，下标 2 增），不做移动配对</span></div><div data-reveal=\"1\"><span><code>fixtures/type-change</code></span><span><em style=\"font-style:normal\" class=\"p-chip\" data-role=\"gate\">仍须核对</em></span><span>/v 由 1 变为 \"1\" 记 changed，差异数 1</span></div><div data-reveal=\"1\"><span><code>fixtures/subtree</code></span><span><em style=\"font-style:normal\" class=\"p-chip\" data-role=\"gate\">仍须核对</em></span><span>差异数 2（只在 /gone 与 /extra 根计处，子节点带状态不单计）</span></div><div data-reveal=\"1\"><span><code>fixtures/null-equiv</code></span><span><em style=\"font-style:normal\" class=\"p-chip\" data-role=\"gate\">仍须核对</em></span><span>{\"a\":null} 与 {} 差异数 0；{\"a\":1} 变 {\"a\":null} 记 /a removed、差异数 1</span></div></div><div class=\"p-bar\" data-reveal=\"2\">还不算完成：<b>7 组期望全部对上</b>、<code>lint</code> 通过，且 <code>git diff</code> 只落在允许范围内，才能标记任务完成</div>",
       "steps": [
-        "先判断",
-        "六组已核算期望",
-        "还不算完成"
+        "已抽查的两组零差异案例",
+        "其余五组必查规则",
+        "回看 diff 边界才算完成"
       ],
       "script": [
-        "【操作提示｜停留课件 p08 第 1 步，指向判断问题；停顿数秒；不切窗口】\n\n现在请判断：如果相同输入和对象键换序两个案例都通过了，差异模型任务就一定完成了吗？",
-        "【操作提示｜推进第 2 步，指向六组已核算期望表；不切窗口】\n\n先看这六组已经核算过的期望。key-order 和 identical，差异数都是 0，没有任何状态或「下层有变化」标记。nested 差异数是 3：/user/age 为 changed，/active 为 removed，/role 为 added；根路径和 /user 带「下层有变化」标记，不计入差异数。array-index 是 10、20 变成 5、10、20，差异数 3，下标 0、1 为 changed，下标 2 为 added，不报告移动或元素配对。type-change 是 /v 由数字 1 变成字符串「1」，记为 changed，差异数 1。subtree 差异数是 2：/gone 与 /extra 各计 1 处，子路径各自带状态，但不单独计处。这些期望以实际文件为准。",
-        "【操作提示｜推进第 3 步，指向结论；讲完进入 p09】\n\n没有。这两个结果只覆盖对应案例。数组、类型变化、嵌套路径和整棵子树计数如果属于该任务，仍要按各自的要求检查。检查通过后，还要回看允许修改的范围和可解释的 diff，才有依据标记这个任务完成。其他任务的验收仍留给后续步骤。错误输入和节点上限不在这一节用来判断差异模型是否完成。检查结果和期望不一致时，这两种做法哪样对？"
+        "【操作提示｜停留课件 p08 第 1 步，指向表格前两行“已抽查”；停顿两秒让学员思考】\n\n假设现在相同输入和对象键换序两组案例都已经跑通了，能不能就此宣布差异模型任务已经完成？",
+        "【操作提示｜推进第 2 步，指向下方五组“仍须核对”的素材期望；不切窗口】\n\n对照完整期望表就能看出来：前两组只验证了零差异路径。嵌套增删改及祖先不计处、数组按索引错位、类型变化、整棵子树只在根计处，以及 null 与字段缺失等价，这五组规则一个都不能少，而且期望值必须来自人工核算，绝不能调用待测代码自己生成。",
+        "【操作提示｜推进第 3 步，指向底部完成边界结论条；讲完进入 p09】\n\n只有七组固定素材全部对上，共享包 lint 通过，并且回看 git diff 确认改动严格落在允许目录内、工作区没有遗留临时脚本，才有依据标记 TASK-01 完成。"
       ],
       "teaching": [],
       "source": "index.html#p08",
@@ -170,19 +180,19 @@ window.lesson = {
     {
       "id": "p09",
       "segment": "自检与交接",
-      "label": "检查结果和期望不一致时，这两种做法哪样对",
-      "title": "检查结果和期望不一致时，这两种做法哪样对？",
-      "lead": "跑完检查后，结果有可能和已经核算过的期望对不上。这一问和上一页的完成边界不是同一件事。请先自己判断这两种做法哪样对，再看参考结论。",
-      "html": "<span class=\"p-pause\" data-reveal=\"0\">暂停 · 先自己判断，再往下看</span><div class=\"p-qlist\"><div class=\"p-qrow\"><span class=\"p-n\">1</span><div><h3>把预期改成当前实现的结果，让检查通过</h3><div data-reveal=\"1\"><p>不对。不能为了让检查通过，改已经核算过的期望</p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">2</span><div><h3>先确认输入、期望与 Spec，再看实现和核对脚本哪里偏离</h3><div data-reveal=\"2\"><p>对。先核对依据，再看实现和脚本各自哪里偏离</p></div></div></div></div><p class=\"source-note\">教学对照，不是某一次实际运行</p>",
+      "label": "核对结果与期望不符，哪种做法对",
+      "title": "核对结果与期望不符，哪种做法对？",
+      "lead": "跑完一次性脚本后，如果某组输出和手算期望对不上，先自己判断该怎么处理。",
+      "html": "<span class=\"p-pause\" data-reveal=\"0\">暂停 · 先自己判断，再看参考结论</span><div class=\"ch5-quiz-grid\"><div class=\"ch5-qcard\"><div class=\"ch5-qcard-head\"><span class=\"ch5-qcard-num\">1</span><p class=\"ch5-qcard-say\">把脚本里的预期改成当前实现跑出来的结果，让检查先通过</p></div><span class=\"p-stamp\" data-role=\"gate\" data-reveal=\"1\">✗ 做法不对</span><div class=\"ch5-qcard-ans\" data-role=\"gate\" data-reveal=\"1\">不对。期望来自已批准的规则与人工核算，改期望迁就实现会让检查彻底失效</div></div><div class=\"ch5-qcard\"><div class=\"ch5-qcard-head\"><span class=\"ch5-qcard-num\">2</span><p class=\"ch5-qcard-say\">先核对固定输入、手算期望与 Spec，再排查模型实现或脚本哪里写偏了</p></div><span class=\"p-stamp\" data-role=\"ok\" data-reveal=\"2\">✓ 做法正确</span><div class=\"ch5-qcard-ans\" data-role=\"ok\" data-reveal=\"2\">对。先确认判断基准无误，再定位代码或脚本偏离，绝不拿错误逻辑自证正确</div></div></div>",
       "steps": [
-        "两种做法",
-        "第一种",
-        "第二种"
+        "暂停比较两种做法",
+        "做法一为什么错",
+        "做法二为什么对"
       ],
       "script": [
-        "【操作提示｜停留课件 p09 第 1 步，指向暂停标记和两种做法；停顿数秒；不切窗口】\n\n停下来看这两种做法。检查结果和已经核算过的期望不一致时，哪样对？",
-        "【操作提示｜推进第 2 步，指向第一种做法的参考判断；不切窗口】\n\n第一种做法是，把预期改成当前实现的结果，让检查通过。这样不对。期望来自已经批准的行为和人工核算，不能为了让检查通过，改已经核算过的期望，也不能调用同一套待验证的比较逻辑来生成自己的期望。",
-        "【操作提示｜推进第 3 步，指向第二种做法的参考判断；讲完进入 p10】\n\n第二种做法是，先确认输入、期望与 Spec，再看实现和核对脚本各自哪里偏离。这样对。带着什么进入 5.2？我们把这一节要留下的东西收住。"
+        "【操作提示｜停留课件 p09 第 1 步，指向暂停提示与左右两张做法卡；停顿三秒】\n\n跑脚本核对时，如果发现某组输出和手算期望不一致，这里有两种处理做法。请先暂停判断一下，哪一种才对？",
+        "【操作提示｜推进第 2 步，指向左侧卡片盖章与解析；不切窗口】\n\n做法一是把脚本里的预期改成当前代码跑出来的结果，让检查先绿。这相当于拿实现去篡改规格，检查立刻失去意义。",
+        "【操作提示｜推进第 3 步，指向右侧卡片盖章与解析；讲完进入 p10】\n\n做法二是先核对固定输入、手算期望与已批准的 Spec，确认基准无误后，再排查模型实现或核对脚本哪里写偏了。守住独立期望，检查才真能拦住问题。"
       ],
       "teaching": [],
       "source": "index.html#p09",
@@ -193,17 +203,17 @@ window.lesson = {
       "segment": "自检与交接",
       "label": "带着什么进入 5.2",
       "title": "带着什么进入 5.2？",
-      "lead": "实现可以与讲师不同，但要能解释固定输入、预期、实际结果和代码改动。受阻时记录实际进展，不承诺章节级恢复点。请看这一节留下什么，以及怎样进入 5.2。",
-      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">一个判断</h3><div class=\"p-star\" style=\"width:280px;font-size:22px\">两个案例通过了<br>还不等于任务完成</div></div><div data-reveal=\"1\"><h3>留下的</h3><ul class=\"p-exits\" style=\"gap:10px\"><li class=\"is-pass\">已验证的差异模型</li><li class=\"is-pass\">工作区外的一次性脚本和实际检查结果</li><li class=\"is-pass\">CH05_IMPLEMENTATION.md 初稿</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>5.2 合并图</h3><p>拿着已验证的模型，去看被删除的字段怎样出现在合并图里</p></div></div></div>",
+      "lead": "实现写法可以与讲师不同，但必须能解释固定输入、预期、实际结果与代码改动。",
+      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">本节核心判断</h3><div class=\"ch5-takeaway-card\"><span class=\"ch5-takeaway-pin\">记住这件事</span><p>跑通两个例子<br>不等于任务完成<br>全量期望 + diff 边界都要过</p></div></div><div data-reveal=\"1\"><h3>本节留下</h3><ul class=\"p-exits\" style=\"gap:10px\"><li class=\"is-pass\"><span>通过七组素材验证的差异模型</span></li><li class=\"is-pass\"><span>工作区外的一次性核对脚本与结果</span></li><li class=\"is-pass\"><span><code>CH05_IMPLEMENTATION.md</code> 初稿</span></li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节 5.2</h3><div class=\"p-box\" data-role=\"us\"><h3>合并图映射</h3><p>拿着已验证的模型，解决被删除的字段怎样画到结果图上</p></div></div></div>",
       "steps": [
-        "一个判断",
-        "留下的",
-        "下一节"
+        "核心判断",
+        "本节留下的成果",
+        "进入 5.2 合并图"
       ],
       "script": [
-        "【操作提示｜停留课件 p10 第 1 步，指向中间的判断；不切窗口】\n\n回到开头的问题。规格写好了，要知道第一个任务做对了，不能只看相同输入和键换序有没有通过。要对照任务要求的全部已核算期望，还要回看允许修改的范围和可解释的 diff。",
-        "【操作提示｜推进第 2 步，指向“留下的”；不切窗口】\n\n这一节要留下已验证的差异模型，工作区外的一次性核对脚本和实际检查结果，以及 CH05_IMPLEMENTATION.md 初稿，记录本次任务、关联依据、实际检查结果和未解决的问题。实现可以与讲师不同，但要能解释固定输入、预期、实际结果和代码改动。运行或环境受阻时，记录实际进展与错误，从已有的本地提交和课程提供的排障材料继续；不能承诺章节级恢复点。",
-        "【操作提示｜推进第 3 步，指向下一节卡片】\n\n下一节 5.2，我们拿着已验证的模型，去看被删除的字段怎样出现在合并图里。"
+        "【操作提示｜停留课件 p10 第 1 步，指向左侧重点贴纸；不切窗口】\n\n收束一下 5.1：一两个样例跑通不代表任务完成，必须跑齐关联案例并守住允许修改的文件边界。",
+        "【操作提示｜推进第 2 步，指向中间“本节留下”清单；不切窗口】\n\n完成本节后，分支上留下通过七组素材核对的纯函数差异模型、工作区外的一次性核对脚本，以及记录了任务依据与检查结果的 CH05_IMPLEMENTATION.md 初稿。",
+        "【操作提示｜推进第 3 步，指向右侧下一节预告卡】\n\n现在模型已经能算出哪个字段被删掉了，但 JSON Crack 原本只接收一份 JSON 构图。下一节 5.2，我们解决被删掉的字段怎样画到结果图上。"
       ],
       "teaching": [],
       "source": "index.html#p10",
