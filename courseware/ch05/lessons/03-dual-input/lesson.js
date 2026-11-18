@@ -3,6 +3,10 @@ window.lesson = {
   "chapter": "第 5 章 · SDD",
   "section": "05.03",
   "summary": "先用同一组嵌套素材做一次正常比较，立住两侧输入和一张结果图，再看一侧输入出错时，错误状态和上次成功结果是两件事，错误不能把已有结果冲掉。",
+  "prep": [
+    "确认教学副本处于同一功能分支，TASK-01 模型与 TASK-02 合并图映射已完成且共享包已 build",
+    "准备启动 pnpm dev:www 本地服务，编辑器定位 docs/specs/TASKS.md（TASK-03）与 fixtures/error/"
+  ],
   "scenes": [
     {
       "id": "p21",
@@ -10,17 +14,17 @@ window.lesson = {
       "layout": "lesson-cover",
       "label": "一边输入错了，已经得到的结果怎么办",
       "title": "已经得到的结果怎么办？",
-      "lead": "前两节留下了已验证的差异模型和合并图映射，网页里还不能同时输入两份 JSON。这一节要回答：一边输入错了，已经得到的结果怎么办？",
-      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>5.1</b>差异模型</li><li class=\"is-done\"><b>5.2</b>合并图</li><li class=\"is-now\"><b>5.3</b>双输入</li><li><b>5.4</b>整体验收</li><li><b>5.5</b>可带走的招数</li></ol><div class=\"p-bar is-light\" data-reveal=\"1\" style=\"margin-top:22px\">5.1、5.2 留下：<b>已验证的差异模型和合并图映射</b>；网页里还不能同时输入两份 JSON</div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:14px\">本节要留下：可操作的双输入和错误路径，并更新 <code>CH05_IMPLEMENTATION.md</code></div>",
+      "lead": "模型与合并图数据已就绪；这一节在网页接入双输入，处理单侧输入报错",
+      "html": "<ol class=\"p-map\"><li class=\"is-done\"><b>5.1</b>差异模型</li><li class=\"is-done\"><b>5.2</b>合并图</li><li class=\"is-now\"><b>5.3</b>双输入</li><li><b>5.4</b>整体验收</li><li><b>5.5</b>可带走的招数</li></ol><div class=\"ch5-cover-grid\"><div class=\"p-box is-soft\" data-role=\"ctx\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ctx\">5.1–5.2 已就位</span><h3>共享包已有差异模型与合并图映射</h3><p>底层比较与图数据已打通，但网页版尚无双输入视图</p></div><div class=\"ch5-cover-arrow\" data-reveal=\"2\" aria-hidden=\"true\">→</div><div class=\"p-box\" data-role=\"us\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"us\">5.3 完成后留下</span><ul class=\"ch5-mini-list\"><li>可编辑的 Before / After 双输入视图</li><li>独立 Diff 状态与单侧报错保留结果路径</li><li>更新后的 <code>CH05_IMPLEMENTATION.md</code></li></ul></div></div>",
       "steps": [
         "本章位置",
-        "5.1、5.2 留下什么",
+        "5.1–5.2 已就位",
         "本节要留下什么"
       ],
       "script": [
-        "【操作提示｜停留课件 p21 第 1 步，指向章节地图上的 5.3；不切窗口】\n\n前两节，我们留下了已验证的差异模型和合并图映射，网页里还不能同时输入两份 JSON。地图上，这一节是 5.3。",
-        "【操作提示｜推进第 2 步，指向 5.1、5.2 留下的模型与映射；不切窗口】\n\n先确认当前副本仍在同一条功能分支上，差异模型和映射任务已经完成。然后打开自己的双输入任务，以及它关联的规则和案例。讲师演示用的是当前基线上的 TASK-03，以及关联的 REQ 和 AC；每个人的编号不必相同，但都要能在自己的文件里找到对应内容。",
-        "【操作提示｜推进第 3 步，指向本节要留下的内容；讲完进入 p22】\n\n这一节要留下可操作的双输入和错误路径，并更新 CH05_IMPLEMENTATION.md。一边输入错了，已经得到的结果怎么办？我们先不要从界面步骤讲起，先用 4.4、5.1、5.2 同一组嵌套素材，做一次正常比较。"
+        "【操作提示｜停留课件 p21 第 1 步，指向五节路线图的 5.3；不切窗口】\n\n前两节我们在共享包里做好了差异模型和合并图映射，但打开网页版编辑器，用户依然只能填一份 JSON。",
+        "【操作提示｜推进第 2 步，指向左侧“5.1–5.2 已就位”卡片；不切窗口】\n\n确认当前仍在同一条功能分支上、共享包已经构建通过后，打开双输入与错误状态任务和关联的验收案例。讲师演示对应基线上的 TASK-03。",
+        "【操作提示｜推进第 3 步，指向右侧“本节交付”卡片；讲完进入 p22】\n\n这一节要把 Before 和 After 两个输入区接到网页视图里，并重点解决一个交互问题：一边输入改错了，已经算出来的结果该怎么办？我们先从一次正常比较立住参照基准。"
       ],
       "teaching": [],
       "source": "index.html#p21",
@@ -29,19 +33,19 @@ window.lesson = {
     {
       "id": "p22",
       "segment": "已经得到的结果",
-      "label": "一次正常比较，界面上要同时看见什么",
-      "title": "一次正常比较，界面上要同时看见什么？",
-      "lead": "先不要讲错误处理。用同一组 fixtures/nested 做一次正常比较，把两侧输入和一张结果图立住，作为后面对照的「已经得到的结果」。",
-      "html": "<style>#p22 .p22-row{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:20px;margin-top:8px;align-items:stretch}#p22 .p22-inputs{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:stretch;min-width:0}#p22 .p53-field,#p22 .p22-result{display:flex;flex-direction:column;min-width:0;height:100%;box-sizing:border-box}#p22 .p53-field{border:1px solid var(--p-rule);border-radius:12px;padding:10px 12px;background:var(--p-card)}#p22 .p53-field-head .p-tag{margin:0}#p22 .p53-field-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 6px}#p22 .p53-field h3,#p22 .p22-result h3{font-size:18px;margin:0}#p22 .p53-field pre{margin:0;flex:1;font-family:var(--p-mono);font-size:15px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere}#p22 .p22-result .p-tree{flex:1;padding:8px 14px;font-size:18px;line-height:1.4}#p22 .p-tree li{padding:1px 0}#p22 .p-tree ul{padding-left:24px;margin-left:8px}</style><div class=\"p22-row\"><div data-reveal=\"0\"><h3 style=\"font-size:20px;margin:0 0 8px\">两个可编辑输入</h3><div class=\"p22-inputs\"><div class=\"p53-field\" data-role=\"ink\"><div class=\"p53-field-head\"><h3>Before</h3></div><pre>{\"user\":{\"name\":\"Lin\",\"age\":20},\"active\":true}</pre></div><div class=\"p53-field\" data-role=\"ink\"><div class=\"p53-field-head\"><h3>After</h3></div><pre>{\"user\":{\"name\":\"Lin\",\"age\":21},\"role\":\"student\"}</pre></div></div></div><div class=\"p22-result\" data-reveal=\"1\"><h3 style=\"font-size:20px;margin:0 0 8px\">一张结果图</h3><ul class=\"p-tree\"><li class=\"is-open\"><span class=\"p-path\">user</span><span class=\"p-note\">unchanged · 下面有变化</span><ul><li><span class=\"p-path\">name: Lin</span></li><li class=\"is-target\"><span class=\"p-path\">age: 20 → 21</span><span class=\"p-note\">changed</span></li></ul></li><li class=\"is-block\"><span class=\"p-path\">active: true</span><span class=\"p-note\">removed</span></li><li class=\"is-allow\"><span class=\"p-path\">role: student</span><span class=\"p-note\">added</span></li></ul><div class=\"p-bar is-light\" style=\"margin-top:10px\">差异数 <b>3</b> · <code>/active</code>、<code>/role</code>、<code>/user/age</code></div></div></div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:14px\">输入 → 解析 → 已有模型与映射 → 更新界面；UI 只调用已有逻辑，不复制算法</div><p class=\"source-note\">输入区为课程自绘示意，不固化布局；结果图用来对照要看见的内容，不是产品界面</p>",
+      "label": "一次正常比较，界面上要看见什么",
+      "title": "一次正常比较，界面上要看见什么？",
+      "lead": "先用 fixtures/nested 完成一次成功比较，立住后续错误对照时要保护的「上次有效结果」。",
+      "html": "<div class=\"ch5-2col\" style=\"display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:20px;align-items:stretch\"><div data-reveal=\"0\"><h3 style=\"font-size:20px;margin:0 0 6px\">两个可编辑输入位置（REQ-001）</h3><div class=\"ch5-2col\" style=\"display:grid;grid-template-columns:1fr 1fr;gap:12px\"><div class=\"p-code ch5-code\"><div class=\"p-code-head\"><span>Before</span><span>可编辑</span></div><pre><span style=\"display:block\">{</span><span style=\"display:block\">  &quot;user&quot;: { &quot;name&quot;: &quot;Lin&quot;, &quot;age&quot;: 20 },</span><span style=\"display:block\">  &quot;active&quot;: true</span><span style=\"display:block\">}</span></pre></div><div class=\"p-code ch5-code\"><div class=\"p-code-head\"><span>After</span><span>可编辑</span></div><pre><span style=\"display:block\">{</span><span style=\"display:block\">  &quot;user&quot;: { &quot;name&quot;: &quot;Lin&quot;, &quot;age&quot;: 21 },</span><span style=\"display:block\">  &quot;role&quot;: &quot;student&quot;</span><span style=\"display:block\">}</span></pre></div></div></div><div data-reveal=\"1\" style=\"display:flex;flex-direction:column;justify-content:space-between\"><div><h3 style=\"font-size:20px;margin:0 0 6px\">唯一一张结果合并图（AC-001）</h3><ul class=\"p-tree ch5-tree\"><li class=\"is-open\"><span class=\"p-path\">user</span><span class=\"ch5-sym is-anc\">= unchanged · 下层有变化</span><ul><li><span class=\"p-path\">name: Lin</span></li><li class=\"is-target\"><span class=\"p-path\">age: 20 → 21</span><span class=\"ch5-sym is-chg\">~ changed</span></li></ul></li><li class=\"is-block\"><span class=\"p-path\">active: true</span><span class=\"ch5-sym is-rem\">− removed</span></li><li class=\"is-allow\"><span class=\"p-path\">role: student</span><span class=\"ch5-sym is-add\">+ added</span></li></ul></div><div class=\"p-bar is-light\" style=\"margin-top:8px;padding:7px 14px;font-size:19px\">当前有效结果：差异数 <b>3</b> · <code>/active</code>、<code>/role</code>、<code>/user/age</code></div></div></div><div class=\"p-bar\" data-reveal=\"2\">两侧文本 → 既有 <code>jsonc-parser</code> 解析 → 共享包模型与映射 → 更新画布（UI 不复制比较算法）</div><p class=\"source-note\">输入区布局属未决项 REQ-032，此处仅示意两个输入位置与单张合并图的关系</p>",
       "steps": [
-        "两侧输入",
-        "一张结果图",
-        "输入怎样变成界面"
+        "Before 与 After 双输入",
+        "唯一一张合并结果图",
+        "UI 调用共享包逻辑"
       ],
       "script": [
-        "【操作提示｜停留课件 p22 第 1 步，指向两侧输入位置上的 Before 和 After；不切窗口】\n\n打开 docs/specs/fixtures/nested/。界面上要同时有两个可编辑的输入位置，分别标注 Before 与 After。这是规格里已经固定的输入。",
-        "【操作提示｜推进第 2 步，指向唯一的结果图、差异数和三条路径；不切窗口】\n\n比较完成后，应只有一张结果图。差异数为 3，/active、/role、/user/age 能在这张图上被看见。当前基线上是 REQ-001、AC-001，以实际文件为准。请先把这次成功结果立住，后面对照时，指的就是它。",
-        "【操作提示｜推进第 3 步，指向输入到界面的路径；讲完进入 p23】\n\n两侧输入先经过合法性解析，再交给已经有的差异模型和合并图映射，最后更新界面。UI 只调用已有逻辑，不再复制一套算法。先不要讲错误处理。有了这张已经得到的结果图，再看一边输入错了会怎样。"
+        "【操作提示｜停留课件 p22 第 1 步，指向左侧 Before 与 After 两个输入块；不切窗口】\n\n用同一组 nested 素材做一次正常比较：界面上同时有两个可编辑输入区，分别标明 Before 和 After。",
+        "【操作提示｜推进第 2 步，指向右侧唯一合并图与差异数；不切窗口】\n\n比较完成后，屏幕上只渲染一张合并图，差异数为 3，/active、/role 和 /user/age 都在这张图上。这就是我们要守住的“上次成功比较结果”。",
+        "【操作提示｜推进第 3 步，指向底部数据流长条；讲完进入 p23】\n\n顺着调用链看一眼：两侧文本先经网页版既有的解析器检查合法性，通过后直接调用共享包的差异模型和合并图映射更新画布，UI 层绝不自己再写一套比较算法。有了这张有效结果图，现在把其中一侧故意改坏。"
       ],
       "teaching": [],
       "source": "index.html#p22",
@@ -50,19 +54,19 @@ window.lesson = {
     {
       "id": "p23",
       "segment": "已经得到的结果",
-      "label": "一边输入错了，已经得到的结果怎么办",
-      "title": "一边输入错了，已经得到的结果怎么办？",
-      "lead": "有了已经得到的结果图，再把 Before 改成非法 JSON。请对照「被清空成空状态」和「错误和结果分开」。这一页把现象讲清，不展开实现细节。",
-      "html": "<style>#p23 .p23-input{margin-top:4px}#p23 .p53-field{border:1px solid var(--p-rule);border-radius:12px;padding:10px 14px;background:var(--p-card);max-width:420px}#p23 .p53-field.is-error{border-color:var(--c);background:var(--cl)}#p23 .p53-field-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 6px}#p23 .p53-field-head .p-tag{margin:0}#p23 .p53-field h3{font-size:18px;margin:0}#p23 .p53-field pre{margin:0;font-family:var(--p-mono);font-size:18px;line-height:1.45}#p23 .p23-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:14px;align-items:stretch}#p23 .p23-col{display:flex;flex-direction:column;min-width:0}#p23 .p23-col h3{font-size:20px;margin:0 0 8px}#p23 .p23-empty{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;min-height:168px;border:1.5px dashed var(--p-rule);border-radius:12px;color:var(--p-muted);font-size:20px;padding:16px}#p23 .p23-col .p-tree{flex:1;padding:8px 14px;font-size:18px;line-height:1.4}#p23 .p-tree li{padding:1px 0}#p23 .p-tree ul{padding-left:24px;margin-left:8px}body[data-mode=\"slides\"] #p23 .scene-content{top:220px;height:440px;gap:10px}body[data-mode=\"slides\"] #p23 .p53-field{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 12px}body[data-mode=\"slides\"] #p23 .p53-field-head{margin:0}body[data-mode=\"slides\"] #p23 .p53-field pre{padding:6px 12px}body[data-mode=\"slides\"] #p23 .p23-row{margin-top:0}body[data-mode=\"slides\"] #p23 .p23-col .p-bar{padding:8px 12px;font-size:18px;line-height:1.4}body[data-mode=\"slides\"] #p23 .p23-col .p-tree{line-height:1.3}body[data-mode=\"slides\"] #p23 .scene-content>.p-bar{margin-top:0!important;padding:8px 12px;font-size:20px;line-height:1.4}</style><div class=\"p23-input\" data-reveal=\"0\"><div class=\"p53-field is-error\" data-role=\"gate\"><div class=\"p53-field-head\"><h3>Before</h3><span class=\"p-tag\" data-role=\"gate\">出错侧</span></div><pre>{\"user\": }</pre></div></div><div class=\"p23-row\"><div class=\"p23-col\" data-reveal=\"1\"><h3>被清空成空状态</h3><div class=\"p23-empty\">上次结果消失</div></div><div class=\"p23-col\" data-reveal=\"2\"><h3>错误和结果分开</h3><div class=\"p-bar is-light\" style=\"margin-bottom:10px\">错误提示指向 <b>Before</b></div><ul class=\"p-tree\"><li class=\"is-open\"><span class=\"p-path\">user</span><span class=\"p-note\">unchanged · 下面有变化</span><ul><li><span class=\"p-path\">name: Lin</span></li><li class=\"is-target\"><span class=\"p-path\">age: 20 → 21</span><span class=\"p-note\">changed</span></li></ul></li><li class=\"is-block\"><span class=\"p-path\">active: true</span><span class=\"p-note\">removed</span></li><li class=\"is-allow\"><span class=\"p-path\">role: student</span><span class=\"p-note\">added</span></li></ul><div class=\"p-bar is-light\" style=\"margin-top:10px\">合并图仍在，差异数仍为 <b>3</b></div></div></div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:14px\">错误状态和上次成功结果是两件事，错误不能把已有结果冲掉</div><p class=\"source-note\">非法输入来自 docs/specs/fixtures/error/invalid-before.json；对照为课程自绘示意，不是产品界面</p>",
+      "label": "一边输入错了，已有结果该怎么办",
+      "title": "一边输入错了，已有结果该怎么办？",
+      "lead": "成功比较一次后，把 Before 改成非法 JSON，对照两种处理方式。",
+      "html": "<div class=\"ch5-2col\" style=\"display:grid;grid-template-columns:1.1fr .9fr;gap:14px;align-items:center\" data-reveal=\"0\"><div class=\"p-code ch5-code is-err\"><div class=\"p-code-head\"><span>Before · invalid-before.json</span><span>语法错误</span></div><pre><span class=\"del\">{&quot;user&quot;: }</span></pre></div><div class=\"p-bar is-light\" style=\"padding:10px 16px;font-size:19px\">After 仍为合法 <code>nested/after.json</code>；此时上一轮已有 3 处差异结果</div></div><div class=\"ch5-2col\" style=\"display:grid;grid-template-columns:1fr 1.15fr;gap:20px;align-items:stretch\"><div class=\"p-box is-dashed\" data-role=\"gate\" data-reveal=\"1\" style=\"padding:14px 18px;display:flex;flex-direction:column;justify-content:center\"><div class=\"p-head\"><h3>冲掉已有结果</h3><span class=\"p-tag\" data-role=\"gate\">✗ 违反规格</span></div><p style=\"font-size:19.5px;color:#A8350F\">画布被清空成空白状态，上一轮算出的合并图与差异数全部丢失</p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"2\" style=\"padding:12px 16px\"><div class=\"p-head\"><h3 style=\"font-size:22px\">错误提示与上次结果分开</h3><span class=\"p-tag\" data-role=\"ok\">✓ REQ-020 / 021</span></div><p style=\"font-size:18.5px;margin-bottom:6px\">1. 错误提示明确指向 <b>Before</b>（不连坐 After）</p><p style=\"font-size:18.5px\">2. 上次成功的<b>合并图与差异数 3</b> 原样保留在界面上</p></div></div><p class=\"source-note\">非法输入素材：docs/specs/fixtures/error/invalid-before.json</p>",
       "steps": [
-        "Before 改成非法 JSON",
-        "被清空成空状态",
-        "错误和结果分开"
+        "把 Before 改成非法 JSON",
+        "错误做法：清空已有结果",
+        "规格要求：报错与保留结果分开"
       ],
       "script": [
-        "【操作提示｜停留课件 p23 第 1 步，指向改成非法 JSON 的 Before；不切窗口】\n\n现在把 Before 改成 docs/specs/fixtures/error/invalid-before.json，内容是 {\"user\": }，这是故意不合法的 JSON。请先判断：已经得到的结果该怎么办？",
-        "【操作提示｜推进第 2 步，指向「被清空成空状态」；不切窗口】\n\n先看一种做法：上次成功比较的结果被清空，界面变成空状态。已经得到的结果消失了。",
-        "【操作提示｜推进第 3 步，指向「错误和结果分开」与结论；讲完进入 p24】\n\n再看应有的对照：错误提示要指向出错的那一侧，也就是 Before；但合并图还在，差异数仍读作 3，不能被清空成空状态。当前基线上是 REQ-020、REQ-021、AC-014，以实际文件为准。错误状态和上次成功结果是两件事，错误不能把已经得到的结果冲掉。这一页把现象讲清，不展开实现细节。"
+        "【操作提示｜停留课件 p23 第 1 步，指向顶部出错的 Before 输入框；停顿两秒】\n\n现在把 Before 改成 {\"user\": } 这段非法 JSON，After 保持合法。想一想，刚才已经画出来的那张合并图该怎么处理？",
+        "【操作提示｜推进第 2 步，指向左下角错误做法卡片；不切窗口】\n\n如果一遇到解析报错就把画布清空成空白态，用户刚看了一半的对比结果瞬间就没了，想对照着修输入都没法看。",
+        "【操作提示｜推进第 3 步，指向右下角规格要求卡片；讲完进入 p24】\n\n按已批准的 REQ-020 和 REQ-021，错误提示要明确指向出错的 Before，同时上一次成功比较的合并图与差异数 3 必须继续保留在界面上。错误状态和上次有效结果是两份独立状态，报错不能冲掉已有结果。"
       ],
       "teaching": [],
       "source": "index.html#p23",
@@ -71,19 +75,19 @@ window.lesson = {
     {
       "id": "p24",
       "segment": "已经得到的结果",
-      "label": "本节要检查到哪一步，才算双输入和错误路径做完",
-      "title": "本节要检查到哪一步，才算双输入和错误路径做完？",
-      "lead": "这一页先说明本节还要核对的错误路径，先不下完成结论。本节检查的是可操作的双输入和错误恢复，不是整功能验收。",
-      "html": "<div class=\"p-grid\" style=\"--n:2\"><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">首次即出错</span><h3 style=\"font-size:22px;margin:8px 0 0\">空状态，提示指向 Before</h3><p>从未成功比较过，界面上不能出现比较结果</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"ctx\">After 侧出错</span><h3 style=\"font-size:22px;margin:8px 0 0\">提示指向 After</h3><p>不能同时把 Before 说成出错方</p></div></div><div class=\"p-bar is-light\" data-reveal=\"1\" style=\"margin-top:14px\">恢复成合法的 nested 输入后，结果按<b>当前两侧</b>更新，不停留在上一轮错误或旧结果上</div><div class=\"p-bar\" data-reveal=\"2\" style=\"margin-top:10px\">「只看变化」、摘要、超限提示和 360px 正式走查属于 <b>5.4</b>；差异数仍能读到，不等于摘要区已经完成</div><p class=\"source-note\">期望表放到看完检查之后再完整对照；编号以当前规格基线的实际文件为准</p>",
+      "label": "双输入与错误恢复，还要核对哪些场景",
+      "title": "双输入与错误恢复，还要核对哪些场景？",
+      "lead": "除「成功后再改坏 Before」外，TASK-03 还要走通其余三类状态转换与隔离检查。",
+      "html": "<div class=\"p-grid\" style=\"--n:2;gap:12px 18px\"><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"0\" style=\"padding:12px 16px\"><div class=\"p-head\"><h3 style=\"font-size:22px\">首次打开即输入非法 JSON</h3><span class=\"p-tag\" data-role=\"ctx\">AC-012</span></div><p style=\"font-size:18.5px\">尚无历史结果可留，必须显示<b>空状态</b>与指向出错侧的提示，不能出现比较图</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"0\" style=\"padding:12px 16px\"><div class=\"p-head\"><h3 style=\"font-size:22px\">After 侧单独出错</h3><span class=\"p-tag\" data-role=\"ctx\">AC-013</span></div><p style=\"font-size:18.5px\">错误提示精准指向 <b>After</b>，绝不能同时把合法的 Before 也标成出错方</p></div><div class=\"p-box\" data-role=\"tool\" data-reveal=\"1\" style=\"padding:12px 16px\"><div class=\"p-head\"><h3 style=\"font-size:22px\">非法输入恢复为合法</h3><span class=\"p-tag\" data-role=\"tool\">状态恢复</span></div><p style=\"font-size:18.5px\">按当前两侧最新内容重新比较并刷新结果图，不卡在旧错误或旧图上</p></div><div class=\"p-box\" data-role=\"us\" data-reveal=\"2\" style=\"padding:12px 16px\"><div class=\"p-head\"><h3 style=\"font-size:22px\">隔离初查与 5.4 分工</h3><span class=\"p-tag\" data-role=\"us\">阶段边界</span></div><p style=\"font-size:18.5px\">核对 <code>?json=</code>、导入弹窗与比对零外发；摘要、筛选、超限与 360px 留给 <b>5.4</b></p></div></div>",
       "steps": [
-        "还要核对的错误路径",
-        "恢复合法输入后要更新",
-        "摘要和筛选留给 5.4"
+        "首次即错与 After 出错",
+        "恢复合法输入后刷新",
+        "单输入隔离与阶段边界"
       ],
       "script": [
-        "【操作提示｜停留课件 p24 第 1 步，指向首次出错和 After 侧出错；不切窗口】\n\n还要检查另外两种情况。刚打开页面、从未成功比较过，Before 一开始就是非法 JSON：这时没有历史结果可留，应显示空状态和指向 Before 的错误提示，界面上不能出现比较结果。当前基线上是 REQ-022、AC-012。After 侧出错时，提示要明确指向 After，不能同时把 Before 说成出错方。当前基线上是 AC-013。",
-        "【操作提示｜推进第 2 步，指向恢复合法输入后要更新；不切窗口】\n\n把非法输入恢复成合法的 nested 案例后，结果要按当前两侧输入更新，不能停在上一轮错误或旧结果上。",
-        "【操作提示｜推进第 3 步，指向留给 5.4 的部分；讲完进入 p25】\n\n本节检查的是可操作的双输入和错误恢复，不是整功能验收。「只看变化」开关、差异摘要、超限提示和 360px 窄屏的正式走查，属于 5.4。差异数在上次结果里仍能读到，也不等于摘要区已经完成。完整的期望表，放到看完检查之后再对照。现在先看，怎样让 Agent 只完成双输入和错误恢复，不顺手做筛选。"
+        "【操作提示｜停留课件 p24 第 1 步，指向左上和右上两张错误场景卡；不切窗口】\n\n除了成功后改坏 Before，还要核对另外两条错误路径：刚打开页面、从未成功比较过就输入非法 JSON 时，没有任何历史结果可留，必须显示空状态并标明出错侧；反过来只把 After 改坏时，错误提示只能指向 After，不能连带把 Before 也标错。",
+        "【操作提示｜推进第 2 步，指向左下角恢复更新卡片；不切窗口】\n\n接着把非法输入改回合法 JSON，确认合并图与差异数随之重新计算刷新，不会卡在旧结果或旧报错上。",
+        "【操作提示｜推进第 3 步，指向右下角隔离与阶段边界卡；讲完进入 p25】\n\n最后用 ?json= 参数和导入弹窗抽查原有单输入链路未被污染，并打开网络面板确认比对请求没有外发 JSON 内容。至于「只看变化」开关、摘要面板、超限提示和 360px 窄窗走查，统一留给 5.4。"
       ],
       "teaching": [],
       "source": "index.html#p24",
@@ -92,19 +96,19 @@ window.lesson = {
     {
       "id": "p25",
       "segment": "怎样发出请求",
-      "label": "怎样让 Agent 只完成双输入和错误恢复，不顺手做筛选",
-      "title": "怎样让 Agent 只完成双输入和错误恢复，不顺手做筛选？",
-      "lead": "有了要核对的界面范围，再确定这次怎么让 Agent 只完成双输入和错误恢复。先看清起点、验证方式，以及请求里要写清的几件事。先看懂，这一页还不发出请求。",
-      "html": "<div class=\"p-grid\" style=\"--n:3\"><div class=\"p-box\" data-role=\"us\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"us\">起点</span><h3 style=\"font-size:22px;margin:8px 0 0\">接着 5.2 的功能分支</h3><p>核对模型与映射仍在，工作区可继续</p></div><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\"><span class=\"p-tag\" data-role=\"ctx\">验证</span><h3 style=\"font-size:22px;margin:8px 0 0\">lint，再走查网页</h3><p>按错误路径走查，并用 <code>?json=</code> 与导入弹窗做单输入回归；不引入测试框架</p></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"2\"><span class=\"p-tag\" data-role=\"agent\">请求要素</span><h3 style=\"font-size:22px;margin:8px 0 0\">任务、案例和允许范围</h3><p>输入是已验证的模型与映射；产出可操作的双输入和错误恢复</p></div></div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:14px\">允许新增两份输入区、独立 Diff 状态和 Diff 视图分支；不改 <code>useJson</code> 与单输入链路，也不改既有 Graph / Tree / 导入 / <code>?json=</code> / widget。不要把「只看变化」、摘要、超限或 360px 走查当作本节完成条件</div><div style=\"margin-top:12px\" data-reveal=\"2\"><details class=\"p-pop\"><summary>一份请求草案</summary><div class=\"p-pop-body\"><div class=\"p-pop-head\"><span>演示请求草案（按自己的规格调整）</span><button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div><p style=\"margin:0 0 8px\">这份草案供备课实跑使用，不是固定的复制模板。用自己已经审过的规格和任务组织请求。</p><p style=\"margin:0 0 8px\">要写清：只完成当前的双输入与错误状态任务；输入是已验证的差异模型和图映射；用 <code>nested</code> 和 <code>error</code> 素材在界面上核对正常比较、出错后保留上次结果、首次出错、After 侧出错和恢复后更新，不要用正在实现的界面逻辑生成期望；然后运行 <code>pnpm --filter www run lint</code>，再启动 <code>pnpm dev:www</code> 走查，并用 <code>?json=</code> 与导入弹窗各走一次。执行比较时可以打开网络面板，核对比对请求里不出现这两份 JSON 的内容；不要切换「只看变化」，也不要把摘要、超限提示或 360px 走查作为这次的完成条件。</p><p style=\"margin:0\">布局与输入方式仍是未决项，不要固化。第 6 章才会批准「明确提示当前图是上次有效结果」，不要把该提示设为必做，也不要刻意移除已经有的等价行为。</p></div></details></div>",
+      "label": "怎样接入双输入，又不污染单输入链路",
+      "title": "怎样接入双输入，又不污染单输入链路？",
+      "lead": "在 apps/www 独立建立 DiffView 与 Diff 状态，严禁改写共用的 useJson。",
+      "html": "<div class=\"ch5-arch\" data-reveal=\"0\"><div class=\"ch5-arch-chain\"><div class=\"ch5-arch-node is-done\" data-role=\"ok\"><div><div class=\"ch5-arch-top\"><span><code>packages/jsoncrack-react/src/diff/</code></span><span class=\"ch5-arch-badge\">✓ 已验证</span></div><h3>5.1 差异模型</h3></div><p>按路径对齐两侧，算状态、计数与祖先标记</p></div><div class=\"ch5-arch-node is-done\" data-role=\"ok\"><div><div class=\"ch5-arch-top\"><span><code>NodeData / EdgeData + 可选入口</code></span><span class=\"ch5-arch-badge\">✓ 已验证</span></div><h3>5.2 合并图映射</h3></div><p>保留 removed 与必要祖先，赋予状态符号</p></div><div class=\"ch5-arch-node is-active\" data-role=\"us\"><div><div class=\"ch5-arch-top\"><span><code>apps/www DiffView + 独立状态</code></span><span class=\"ch5-arch-badge\">本节实现</span></div><h3>5.3 双输入与错误</h3></div><p>接入 Before / After，出错保留上次结果</p></div><div class=\"ch5-arch-node is-todo\" data-role=\"ctx\"><div><div class=\"ch5-arch-top\"><span><code>只看变化 + 无外链超限 + 全量走查</code></span><span class=\"ch5-arch-badge\">后续任务</span></div><h3>5.4 摘要 · 筛选 · 验收</h3></div><p>补齐摘要与筛选，走完 AC-001~021 与回归</p></div></div><div class=\"ch5-arch-guard\"><b>隔离保护（全章不动）：</b><span><code>parser.ts</code> 顺序节点 id</span> · <span><code>useJson</code> 单输入状态链路</span> · <span><code>NotSupported</code> 原超限组件</span> · <span><code>apps/vscode</code> 插件端</span></div></div><div class=\"ch5-2col\" style=\"display:grid;grid-template-columns:1fr 1.15fr;gap:16px;align-items:stretch\"><div class=\"p-box\" data-role=\"ctx\" data-reveal=\"1\" style=\"padding:12px 16px\"><div class=\"p-head\"><h3 style=\"font-size:22px\">lint + 网页实操走查</h3><span class=\"p-tag\" data-role=\"ctx\">怎么验</span></div><p style=\"font-size:18.5px\">跑通 <code>pnpm --filter www run lint</code>，起 <code>pnpm dev:www</code> 走查四类错误恢复及 <code>?json=</code> / 导入弹窗回归</p></div><div class=\"p-box\" data-role=\"agent\" data-reveal=\"2\" style=\"padding:12px 16px\"><div class=\"p-head\"><h3 style=\"font-size:22px\">未决布局与 CR-01 边界</h3><span class=\"p-tag\" data-role=\"agent\">怎么派</span></div><p style=\"font-size:18.5px\">输入布局 <code>REQ-032</code> 保持可调整不固化；旧结果可见提示文案属第 6 章 <code>CR-01</code>，本节不设必做</p><div style=\"margin-top:8px\"><details class=\"p-pop\"><summary>查看请求要素参考</summary><div class=\"p-pop-body\"><div class=\"p-pop-head\"><span>TASK-03 委托请求要素参考（按自己的规格调整）</span><button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div><p style=\"margin:0 0 8px\">请阅读 <code>TASK-03</code> 及关联 Spec、Acceptance 与固定素材，基于已验证的模型与合并图映射接入网页双输入与错误状态</p><p style=\"margin:0 0 8px\">允许范围：在 <code>apps/www</code> 新增 <code>DiffView</code> 两份输入区、独立 Diff store（第二份输入、最后一次有效结果、错误信息）及编辑器视图分支。不改 <code>useJson</code>、不改单输入链路与插件端，不在 UI 复制比较算法，布局保持可调</p><p style=\"margin:0\">运行 <code>pnpm --filter www run lint</code>，启动 <code>pnpm dev:www</code> 核对正常比较、单侧出错保留结果、首次即错空状态、恢复刷新及 <code>?json=</code> 与导入弹窗无污染</p></div></details></div></div></div>",
       "steps": [
-        "确定起点",
-        "怎样验证",
-        "请求里要写清什么"
+        "独立状态隔离 useJson",
+        "网页走查与单输入回归",
+        "未决项与第 6 章边界"
       ],
       "script": [
-        "【操作提示｜停留课件 p25 第 1 步，指向起点；不切窗口】\n\n先确定起点。接着 5.2 的功能分支，核对差异模型和映射还在，工作区可以继续。已有改动或检查受阻时，保留现场并先处理起点；不能把未运行或失败的检查记为通过。",
-        "【操作提示｜推进第 2 步，指向验证方式；不切窗口】\n\n这个仓库没有测试框架。验证方式是：运行 pnpm --filter www run lint，再启动 pnpm dev:www，按首次出错、After 侧出错、出错后保留上次结果来走查；再用 ?json= 与导入弹窗各走一次，确认单输入路径没有被 Diff 状态污染。执行比较时可以打开网络面板，只核对比对请求里有没有带走这两份 JSON 的内容，不要切换「只看变化」。不要引入测试框架，也不要把「只看变化」、摘要、超限提示或 360px 正式走查当作本节的完成条件。",
-        "【操作提示｜推进第 3 步，指向请求要素和允许范围；讲完进入 p26】\n\n请求里要让 Agent 读到当前的双输入与错误状态任务、关联的 Spec 和 Acceptance、固定素材，以及全局约束和非目标。还要写清：输入是已经验证的差异模型和图映射，本次产出可操作的双输入界面和错误恢复，用哪些案例核对界面，允许改到哪里。当前基线上，允许在网页版新增 Diff 视图的两份输入区，新增独立的 Diff 状态，并在现有编辑页增加 Diff 视图分支；不改 useJson，不改 useFile.setContents 链路，也不改 GraphView、TreeView、导入弹窗、?json= 和 widget 的既有行为。不要在界面里复制一套差异算法，输入合法性沿用网页版既有解析依赖。两份输入的最终形态与落位方式仍是未决项，保持可调整，不要固化布局。第 6 章才会批准「明确提示当前图是上次有效结果」，这次不要把该提示设为必做，也不要刻意移除已经有的等价行为。用自己已经审过的规格组织请求。分镜里有一份演示请求草案，供备课实跑使用，不是固定的复制模板。当前副本对得上起点吗？请求该怎么发出？接下来会切到现场去做。"
+        "【操作提示｜停留课件 p25 第 1 步，指向架构图点亮的 5.3 节点与底部 useJson 隔离带；不切窗口】\n\n看架构图里的隔离关键点：网页版原有的 useJson 被 GraphView、TreeView、导入弹窗和 widget 多处共用。所以我们在 apps/www 新增 DiffView 视图分支和独立的 Diff store，专门存第二份输入、错误信息和上次有效结果，绝不往 useJson 里混写 Diff 状态。",
+        "【操作提示｜推进第 2 步，指向左下角网页验证卡片；不切窗口】\n\n验证时先跑通网页包 www 的 lint，再启动 pnpm dev:www，把刚才四类正常、报错、恢复与单输入回归场景逐一在浏览器里亲手试一遍。",
+        "【操作提示｜推进第 3 步，指向右下角未决与下章边界卡片；讲完进入 p26】\n\n还要交代两条规格边界：两份输入区最终摆成什么布局属于未决项 REQ-032，实现保持简洁可调；至于在结果区额外印一行“当前为上次有效结果”的可见提示，那是第 6 章才会批准的 CR-01，本节不强制要求。"
       ],
       "teaching": [],
       "source": "index.html#p25",
@@ -115,13 +119,13 @@ window.lesson = {
       "segment": "怎样发出请求",
       "label": "当前副本对得上起点吗？请求该怎么发出",
       "title": "当前副本对得上起点吗？请求该怎么发出？",
-      "lead": "本页在演练之后再写",
-      "html": "<div class=\"p-bar is-light\" data-reveal=\"0\">待备课实跑后再写；不预写 Agent 回答</div>",
+      "lead": "本页在正式录制演练后按真实运行结果补充",
+      "html": "<div class=\"p-bar is-light\" data-reveal=\"0\">实操页占位：正式录制时在 5.2 分支基础上发出 TASK-03 双输入请求</div>",
       "steps": [
-        "待演练后制作"
+        "待录制演练后补充"
       ],
       "script": [
-        "【操作提示｜停留课件 p26 第 1 步】\n\n本页待演练后再写。"
+        "【操作提示｜停留课件 p26 第 1 步】\n\n本页待正式录制演练后补充。"
       ],
       "teaching": [],
       "source": "index.html#p26",
@@ -132,13 +136,13 @@ window.lesson = {
       "segment": "完成边界",
       "label": "怎样判断双输入和错误路径做到了完成边界",
       "title": "怎样判断双输入和错误路径做到了完成边界？",
-      "lead": "本页在演练之后再写",
-      "html": "<div class=\"p-bar is-light\" data-reveal=\"0\">待备课实跑后再写；不预写运行结果</div>",
+      "lead": "本页在正式录制演练后按真实运行结果补充",
+      "html": "<div class=\"p-bar is-light\" data-reveal=\"0\">实操页占位：正式录制时在浏览器走查正常比较、报错保留与单输入回归</div>",
       "steps": [
-        "待演练后制作"
+        "待录制演练后补充"
       ],
       "script": [
-        "【操作提示｜停留课件 p27 第 1 步】\n\n本页待演练后再写。"
+        "【操作提示｜停留课件 p27 第 1 步】\n\n本页待正式录制演练后补充。"
       ],
       "teaching": [],
       "source": "index.html#p27",
@@ -147,19 +151,19 @@ window.lesson = {
     {
       "id": "p28",
       "segment": "完成边界",
-      "label": "一侧输入非法时，错误状态与上次成功结果各由什么证据确认",
-      "title": "一侧输入非法时，错误状态与上次成功结果各由什么证据确认？",
-      "lead": "一侧输入非法时，错误状态与上次成功的比较结果各由什么证据确认？请先判断，再看要核对的对象。这是本节的学员判断，先不要下结论。",
-      "html": "<div class=\"p-box\" data-role=\"us\" data-reveal=\"0\" style=\"padding:12px 20px\"><span class=\"p-tag\" data-role=\"us\">学员判断</span><h3 style=\"font-size:24px;margin:8px 0 0\">一侧输入非法时，错误状态与上次成功结果各由什么证据确认？</h3></div><div class=\"p-bar\" data-reveal=\"1\" style=\"margin-top:14px\">要看页面和刚才的输入操作：错误提示指向哪一侧；上次结果是否仍在——合并图还在，差异数仍为 <b>3</b>，没有变成空状态</div><div class=\"p-bar is-light\" data-reveal=\"2\" style=\"margin-top:10px\">只看 Agent 回复或一次正常路径，还不够；筛选、摘要和窄屏留给 5.4</div><p class=\"source-note\">期望以当前规格基线的实际文件为准</p>",
+      "label": "出错保留结果，要看哪两项页面证据",
+      "title": "出错保留结果，要看哪两项页面证据？",
+      "lead": "单侧输入非法时，必须同时在页面上亲眼核实错误归属与历史结果保留。",
+      "html": "<div class=\"ch5-2col\" style=\"display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:stretch\"><div class=\"p-box\" data-role=\"gate\" data-reveal=\"0\" style=\"padding:20px 22px\"><div class=\"p-head\"><h3>证据一：错误归属准确</h3><span class=\"p-tag\" data-role=\"gate\">看报错框</span></div><p style=\"font-size:19.5px\">分别改坏 Before 与 After，确认提示只指向出错的那一侧，不误报对侧</p></div><div class=\"p-box\" data-role=\"ok\" data-reveal=\"1\" style=\"padding:20px 22px\"><div class=\"p-head\"><h3>证据二：上次结果仍在</h3><span class=\"p-tag\" data-role=\"ok\">看结果图</span></div><p style=\"font-size:19.5px\">成功比出 3 处差异后再改坏输入，确认合并图与差异数 <b>3</b> 依然显示在画面上</p></div></div><div class=\"p-bar\" data-reveal=\"2\">只看 Agent 回复或只跑一次合法输入，不足以证明错误恢复符合验收</div>",
       "steps": [
-        "先判断",
-        "错误和结果各看什么",
-        "只看回复还不够"
+        "核对错误提示归属",
+        "核对上次合并图未丢失",
+        "拒绝只看口头完成汇报"
       ],
       "script": [
-        "【操作提示｜停留课件 p28 第 1 步，指向判断问题；停顿数秒；不切窗口】\n\n现在请判断：一侧输入非法时，错误状态与上次成功的比较结果，各由什么证据确认？",
-        "【操作提示｜推进第 2 步，指向错误提示和上次结果各看什么；不切窗口】\n\n要结合页面和刚才的输入操作来回答。错误提示指向哪一侧；上次结果是否仍在——合并图还在，差异数仍为 3，没有变成空状态。",
-        "【操作提示｜推进第 3 步，指向只看回复还不够；讲完进入 p29】\n\n只看 Agent 回复，或只看一次正常比较的路径，还不足以说明错误恢复符合验收。筛选、摘要和窄屏留给 5.4。检查结果和期望不一致时怎么处理，前面已经判断过，这里不再重讲。刚打开页面、还从未成功比较过，一侧输入就非法，这两种做法哪样对？"
+        "【操作提示｜停留课件 p28 第 1 步，指向左侧错误归属证据卡；停顿两秒】\n\n双输入接好后，判断一下：单侧输入非法时，究竟要看哪两项页面证据才能确认错误恢复达标？第一项是错误归属——分别改坏 Before 和 After，亲眼看到报错精准指向出错的那一侧。",
+        "【操作提示｜推进第 2 步，指向右侧历史结果保留证据卡；不切窗口】\n\n第二项是历史结果保留——必须先完成一次成功比较，再改坏一侧输入，确认刚才那张合并图和差异数 3 依然稳稳停在画面上，没有退回空状态。",
+        "【操作提示｜推进第 3 步，指向底部结论条；讲完进入 p29】\n\n如果只听 Agent 口头汇报“已处理错误”，或者只在网页上测了一次合法输入，都不足以签收这个任务。"
       ],
       "teaching": [],
       "source": "index.html#p28",
@@ -168,19 +172,19 @@ window.lesson = {
     {
       "id": "p29",
       "segment": "自检与交接",
-      "label": "刚打开页面、还从未成功比较过，一侧输入就非法，这两种做法哪样对",
-      "title": "刚打开页面、还从未成功比较过，一侧输入就非法，这两种做法哪样对？",
-      "lead": "刚打开页面、还从未成功比较过，一侧输入就非法。这一问和上一页「成功后再出错」不是同一件事。请先自己判断这两种做法哪样对，再看参考结论。",
-      "html": "<span class=\"p-pause\" data-reveal=\"0\">暂停 · 先自己判断，再往下看</span><div class=\"p-qlist\"><div class=\"p-qrow\"><span class=\"p-n\">1</span><div><h3>界面上还可以留着某次演示用过的旧结果</h3><div data-reveal=\"1\"><p>不对。此时没有可保留的上次结果，不能拿别的结果来充数</p></div></div></div><div class=\"p-qrow\"><span class=\"p-n\">2</span><div><h3>此时没有历史结果，应显示空状态和指向出错侧的提示，不能拿别的结果来充数</h3><div data-reveal=\"2\"><p>对。首次出错和「成功后再出错」不是同一件事</p></div></div></div></div><p class=\"source-note\">教学对照，不是某一次实际运行</p>",
+      "label": "首次打开就输入非法 JSON，哪种做法对",
+      "title": "首次打开就输入非法 JSON，哪种做法对？",
+      "lead": "刚打开页面、从未成功比较过，一侧输入就是非法 JSON，先判断界面该如何表现。",
+      "html": "<span class=\"p-pause\" data-reveal=\"0\">暂停 · 先自己判断，再看参考结论</span><div class=\"ch5-quiz-grid\"><div class=\"ch5-qcard\"><div class=\"ch5-qcard-head\"><span class=\"ch5-qcard-num\">1</span><p class=\"ch5-qcard-say\">界面上展示一份默认示例图或之前残留的旧比较结果</p></div><span class=\"p-stamp\" data-role=\"gate\" data-reveal=\"1\">✗ 做法不对</span><div class=\"ch5-qcard-ans\" data-role=\"gate\" data-reveal=\"1\">不对。从未成功比较过就没有历史结果，摆出任何比较图都会误导用户</div></div><div class=\"ch5-qcard\"><div class=\"ch5-qcard-head\"><span class=\"ch5-qcard-num\">2</span><p class=\"ch5-qcard-say\">界面显示空状态，并给出明确指向出错侧的错误提示</p></div><span class=\"p-stamp\" data-role=\"ok\" data-reveal=\"2\">✓ 做法正确</span><div class=\"ch5-qcard-ans\" data-role=\"ok\" data-reveal=\"2\">对。「首次即错」与「成功后再出错」前提不同，无历史结果时必须显示空状态（AC-012）</div></div></div>",
       "steps": [
-        "两种做法",
-        "第一种",
-        "第二种"
+        "暂停比较两种表现",
+        "表现一为什么错",
+        "表现二为什么对"
       ],
       "script": [
-        "【操作提示｜停留课件 p29 第 1 步，指向暂停标记和两种做法；停顿数秒；不切窗口】\n\n停下来看这两种做法。刚打开页面、还从未成功比较过，一侧输入就非法时，哪样对？",
-        "【操作提示｜推进第 2 步，指向第一种做法的参考判断；不切窗口】\n\n第一种做法是，界面上还可以留着某次演示用过的旧结果。这样不对。此时没有可保留的上次结果，不能拿别的结果来充数。",
-        "【操作提示｜推进第 3 步，指向第二种做法的参考判断；讲完进入 p30】\n\n第二种做法是，此时没有历史结果，应显示空状态和指向出错侧的提示。这样对。首次出错和「成功后再出错」不是同一件事。带着什么进入 5.4？我们把这一节要留下的东西收住。"
+        "【操作提示｜停留课件 p29 第 1 步，指向暂停提示与两张做法卡；停顿三秒】\n\n换一个边界情境：刚刷新打开页面、一次成功比较都还没有过，用户一上来就在 Before 填了非法 JSON。下面两种界面表现哪一种对？",
+        "【操作提示｜推进第 2 步，指向左侧卡片盖章与解析；不切窗口】\n\n做法一在画布上展示一份默认示例或上次残留的旧图。从未成功比较过却摆出一张比较结果，会直接误导用户以为当前输入比出了这张图。",
+        "【操作提示｜推进第 3 步，指向右侧卡片盖章与解析；讲完进入 p30】\n\n做法二展示空状态，同时给出指向 Before 的错误提示。“首次即错”没有历史结果可留，必须和“成功后再出错”严格区分开。"
       ],
       "teaching": [],
       "source": "index.html#p29",
@@ -191,17 +195,17 @@ window.lesson = {
       "segment": "自检与交接",
       "label": "带着什么进入 5.4",
       "title": "带着什么进入 5.4？",
-      "lead": "实现可以与讲师不同，但要能解释固定输入、预期、实际界面和代码改动。受阻时记录实际进展，不承诺章节级恢复点。请看这一节留下什么，以及怎样进入 5.4。",
-      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">一个判断</h3><div class=\"p-star\" style=\"width:280px;font-size:22px\">错误和上次结果是两件事<br>错误不能把已有结果冲掉</div></div><div data-reveal=\"1\"><h3>留下的</h3><ul class=\"p-exits\" style=\"gap:10px\"><li class=\"is-pass\">可操作的双输入和错误路径</li><li class=\"is-pass\">更新后的 CH05_IMPLEMENTATION.md</li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节</h3><div class=\"p-box\" data-role=\"us\"><h3>5.4 整体验收</h3><p>再补上摘要与筛选，对照整组验收判断整个功能有没有做完</p></div></div></div>",
+      "lead": "网页端已能输入两份 JSON 并妥善处理报错，且没有污染原有单输入链路。",
+      "html": "<div class=\"p-sketch\" style=\"align-items:start\"><div data-reveal=\"0\"><h3 style=\"text-align:center\">本节核心判断</h3><div class=\"ch5-takeaway-card\"><span class=\"ch5-takeaway-pin\">记住这件事</span><p>报错与上次结果分开<br>改坏一侧不冲掉旧图<br>首次即错才显示空状态</p></div></div><div data-reveal=\"1\"><h3>本节留下</h3><ul class=\"p-exits\" style=\"gap:10px\"><li class=\"is-pass\"><span>独立于 <code>useJson</code> 的双输入视图</span></li><li class=\"is-pass\"><span>通过走查的单侧报错与恢复路径</span></li><li class=\"is-pass\"><span>更新后的 <code>CH05_IMPLEMENTATION.md</code></span></li></ul></div><div class=\"p-next\" data-reveal=\"2\"><h3>下一节 5.4</h3><div class=\"p-box\" data-role=\"us\"><h3>收尾与整体验收</h3><p>补齐差异摘要与「只看变化」，对照全套验收和 Review 收口整章功能</p></div></div></div>",
       "steps": [
-        "一个判断",
-        "留下的",
-        "下一节"
+        "核心判断",
+        "本节留下的成果",
+        "进入 5.4 整体验收"
       ],
       "script": [
-        "【操作提示｜停留课件 p30 第 1 步，指向中间的判断；不切窗口】\n\n回到开头的问题。一边输入错了，已经得到的结果怎么办？错误状态和上次成功结果是两件事，错误不能把已经得到的结果冲掉。",
-        "【操作提示｜推进第 2 步，指向“留下的”；不切窗口】\n\n这一节要留下可操作的双输入和错误路径，以及更新后的 CH05_IMPLEMENTATION.md。实现可以与讲师不同，但要能解释固定输入、预期、实际界面和代码改动。运行或环境受阻时，记录实际进展与错误，从已有的本地提交和课程提供的排障材料继续；不能承诺章节级恢复点。",
-        "【操作提示｜推进第 3 步，指向下一节卡片】\n\n下一节 5.4，我们再补上摘要与筛选，对照整组验收判断整个功能有没有做完。"
+        "【操作提示｜停留课件 p30 第 1 步，指向左侧重点贴纸；不切窗口】\n\n总结 5.3 的核心认识：错误提示和上次成功结果是两件独立的状态，一侧写错不能把已经算好的结果图冲掉。",
+        "【操作提示｜推进第 2 步，指向中间“本节留下”清单；不切窗口】\n\n完成本节后，网页版已经具备独立于 useJson 的双输入视图与完整的报错恢复路径，实施记录也同步更新。",
+        "【操作提示｜推进第 3 步，指向右侧下一节预告卡】\n\n走到这里，模型、映射和双输入都通了。下一节 5.4，我们补齐差异摘要和「只看变化」筛选，再回答：各部分都做了，能说整个功能完成了吗？"
       ],
       "teaching": [],
       "source": "index.html#p30",

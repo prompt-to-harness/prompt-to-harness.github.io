@@ -1,8 +1,8 @@
-"""第 6 章各节 build-lesson.py 共用的骨架（从第 5 章 lessonkit.py 复制，只改章节常量）：页面登记、章节地图与输出。
+"""第 6 章各节 build-lesson.py 共用的骨架：页面登记、章节地图、外部截图、重画图内联与输出。
 
 每节的 tools/build-lesson.py 只写本节内容：
 
-    lesson = Lesson(__file__, "4.1", "接手大项目，还能边聊边改吗", summary="…")
+    lesson = Lesson(__file__, "6.1", "已有规格，为什么还要再接一套框架", summary="…")
     scene = lesson.scene
     scene(id="p02", …)
     lesson.write()
@@ -17,6 +17,7 @@ from pathlib import Path
 
 CHAPTER = "第 6 章 · 社区 SDD"
 SECTIONS = [("6.1", "定位 SDD 与 GSD"), ("6.2", "构建工作流"), ("6.3", "验收流程"), ("6.4", "完成 CR-01"), ("6.5", "应用招数")]
+EXTERNAL = Path(__file__).resolve().parents[1] / "materials/external"
 
 # 阅读模式窄屏下，代码讲解（p-walk）、正反对照（p-claim）与主栏加侧栏（p-aside）改为单列，代码行允许折行
 NARROW = '<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style>'
@@ -43,6 +44,38 @@ def ref(text, url, group="", kind="live", quote=""):
         # 文本片段里的 - , & 是分隔符，必须转义（quote 默认不转义 -）
         url += "#:~:text=" + urllib.parse.quote(quote, safe="").replace("-", "%2D")
     return {"kind": kind, "group": group, "text": text, "url": url}
+
+
+def shot(src, bar, alt, height=380, note="", reveal=0, note_reveal=None):
+    """证据页（layout="evidence-scene"）里的外部截图：顶栏 bar 写“站点 · 作者 · 日期”，图片放在本节 external/。
+
+    包裹指向原图的 <a>，共享播放器自动提供点击弹窗放大预览（docs/production/parts.md“图片放大”）。
+    """
+    n_attr = f' data-reveal="{note_reveal}"' if note_reveal is not None else ""
+    note_html = f'<p class="p-shot-note" style="font-size:19px"{n_attr}>{note}</p>' if note else ""
+    attr = f' data-reveal="{reveal}"' if reveal is not None else ""
+    return (
+        f'<div class="p-shot" style="--shot-h:{height}px"{attr}><div class="p-page">'
+        f'<div class="p-page-bar"><i></i><i></i><i></i>{bar}</div>'
+        f'<a href="{escape(src)}"><img src="{escape(src)}" alt="{escape(alt)}"></a></div>{note_html}</div>'
+    )
+
+
+def redrawn(topic, name, style="course", source="", reveal=None, max_height=340, note="", external=False):
+    """内联 materials/external/<topic>/redraw-<name>-<style>.svg（由 courseware/tools/redraw.py 生成）。
+
+    当 SVG 内部已按 <g data-reveal="0/1/2"> 分步时，reveal 保持 None，让外层常显、内部逐层浮现；
+    external=True 用于外部文献图表重画（使用 .p-shot，须配 live 原文链接）；课程自绘结构图保持 external=False。
+    """
+    assert style in ("course", "excalidraw"), style
+    svg = (EXTERNAL / topic / f"redraw-{name}-{style}.svg").read_text().strip()
+    svg = svg.replace('<svg ', f'<svg style="display:block;max-width:100%;height:auto;max-height:{max_height}px" ', 1)
+    attr = f' data-reveal="{reveal}"' if reveal is not None else ""
+    source_html = f'<p class="source-note">{escape(source)}</p>' if source else ""
+    note_html = f'<p class="p-shot-note" style="font-size:18px">{escape(note)}</p>' if note else ""
+    if external:
+        return f'<div class="p-shot"{attr}>{svg}{note_html}{source_html}</div>'
+    return f'<div style="display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0"{attr}>{svg}{note_html}{source_html}</div>'
 
 
 def repro(steps, note="", label="复现这个实验"):
@@ -112,8 +145,7 @@ def chapter_map(now):
     return '<ol class="p-map">' + "".join(items) + "</ol>"
 
 
-# 全章锚点图：五层规格（4.1 STORYBOARD“围绕同一句需求介绍五层关系”）。4.1 逐层揭示，4.2–4.5 点亮本节对应层。
-# 每层：名称、眼前要回答的问题、留下的文件
+# 全章锚点图：五层规格（与第 4 章一致，6.1 回顾时用缩小版展示“已有规格在 docs/specs/”）。
 LAYERS = [
     ("Brief", "谁在什么场景下用，这次做到哪？", "BRIEF.md"),
     ("Spec", "什么算不同，用户看到什么？", "SPEC.md"),
@@ -121,20 +153,12 @@ LAYERS = [
     ("Plan", "在这个仓库里怎么改？", "PLAN.md"),
     ("Tasks", "按什么顺序做，怎样算完成？", "TASKS.md"),
 ]
-# 两条返回回路：(从哪层, 回到哪层, 说明)
 LOOPS = [("Acceptance", "Spec", "规则没定 → 回 Spec"), ("Tasks", "Plan", "改法要调 → 回 Plan")]
 ANCHOR_STYLES = ("stairs", "flow", "files")
 
 
 def anchor(style="stairs", lit=(), done=(), reveal_each=False, loops=False, loop_reveal=None, mini=False, reveal=None):
-    """五层锚点图。全章用阶梯 stairs（讲师 2026-11-05 选定）；flow（流程加回路）、files（文件清单）是当时的备选样稿。
-
-    lit 为本页点亮的层（实心）；done 为已完成的层；两者都为空时五层照常显示。
-    其余层画成虚线、变淡，表示后面的小节才补。reveal_each=True 时第 i 层带 data-reveal=i（4.1 逐层揭示）。
-    loops=True 时画两条返回回路（只有 flow 画成回线，其余风格写在底部），loop_reveal 是它们出现的步骤。
-    颜色：五层都是写进仓库、给人和 Agent 读的文件，用 ctx；回到 Spec 要人决定，用 us。
-    mini=True 是各节开篇用的缩小版（只用于 stairs）：只留层名和文件名，不写问题；reveal 是整张图出现的步骤。
-    """
+    """五层规格阶梯锚点图。"""
     assert style in ANCHOR_STYLES, style
     names = [n for n, _, _ in LAYERS]
     assert set(lit) <= set(names) and set(done) <= set(names), (lit, done)
@@ -188,7 +212,6 @@ def anchor(style="stairs", lit=(), done=(), reveal_each=False, loops=False, loop
             s = state(name)
             css = todo_css if s == "todo" else ""
             solid = "background:var(--c);" if s == "lit" else ""
-            # 节点底色由 ::before 画，实心时用一层内衬盖住
             inner = (f'<h3 style="{"color:#fff;" if s == "lit" else ""}">{name}</h3>'
                      f'<p style="font-size:18px;{"color:#fff;" if s == "lit" else ""}">{q}</p>'
                      f'<p style="font-family:var(--p-mono);font-size:15px;margin-top:6px;{"color:#fff;" if s == "lit" else ""}">{f}</p>')
@@ -203,7 +226,6 @@ def anchor(style="stairs", lit=(), done=(), reveal_each=False, loops=False, loop
                          f'<span class="p-back-label" style="font-size:19px">{text}</span></div>')
         return f'<div class="p-flow" style="--n:5;column-gap:26px;align-items:stretch">{"".join(cells)}{back}</div>'
 
-    # files：随代码进 Git 的五份文件逐行列出（存放在 JSON Crack 仓库的 docs/specs/，2026-11-07 确认）
     rows = []
     for i, (name, q, f) in enumerate(LAYERS):
         s = state(name)
@@ -226,9 +248,7 @@ def anchor(style="stairs", lit=(), done=(), reveal_each=False, loops=False, loop
 class Lesson:
     def __init__(self, builder, number, title, summary, prep=()):
         self.here = Path(builder).resolve().parents[1]
-        # 录前准备：开录前一次做完的事，逐字稿页顶单独一块（courseware/shared/speaker.js），不上画面
         self.prep = list(prep)
-        # 口播的唯一来源：本节目录下的 script.json，按页面 id 存每页的口播数组；页面里可直接改，见 tools/serve-courseware.py
         self.scripts = json.loads((self.here / "script.json").read_text())
         self.number, self.title, self.summary = number, title, summary
         self.scenes = []
@@ -246,7 +266,7 @@ class Lesson:
         scene = {}
         for key, value in kw.items():
             scene[key] = value
-            if key == "steps":  # script 紧跟 steps，保持 lesson.js 里的键顺序
+            if key == "steps":
                 scene["script"] = script
         self.scenes.append(scene)
 

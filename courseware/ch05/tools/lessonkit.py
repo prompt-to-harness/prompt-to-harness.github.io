@@ -1,10 +1,10 @@
-"""第 5 章各节 build-lesson.py 共用的骨架（从第 4 章 lessonkit.py 复制，只改章节常量）：页面登记、章节地图与输出。
+"""第 5 章各节 build-lesson.py 共用的骨架与视觉零件库。
 
-每节的 tools/build-lesson.py 只写本节内容：
+每节的 tools/build-lesson.py 维护本节画面结构，口播唯一来源在同目录 script.json：
 
-    lesson = Lesson(__file__, "4.1", "接手大项目，还能边聊边改吗", summary="…")
+    lesson = Lesson(__file__, "5.1", "规格写好了，怎么知道第一个任务做对了", summary="…", prep=[…])
     scene = lesson.scene
-    scene(id="p02", …)
+    scene(id="p01", …)
     lesson.write()
 
 steps 与 script 一一对应；data-reveal 最大值 = 步骤数 - 1。
@@ -16,10 +16,21 @@ from html import escape
 from pathlib import Path
 
 CHAPTER = "第 5 章 · SDD"
-SECTIONS = [("5.1", "差异模型"), ("5.2", "合并图"), ("5.3", "双输入"), ("5.4", "整体验收"), ("5.5", "可带走的招数")]
+SECTIONS = [
+    ("5.1", "差异模型"),
+    ("5.2", "合并图"),
+    ("5.3", "双输入"),
+    ("5.4", "整体验收"),
+    ("5.5", "可带走的招数"),
+]
 
-# 阅读模式窄屏下，代码讲解（p-walk）、正反对照（p-claim）与主栏加侧栏（p-aside）改为单列，代码行允许折行
-NARROW = '<style>@media(max-width:600px){body[data-mode=scroll] .p-walk,body[data-mode=scroll] .p-claim,body[data-mode=scroll] .p-aside{grid-template-columns:minmax(0,1fr)!important}body[data-mode=scroll] .p-walk .p-ln,body[data-mode=scroll] .p-walk .p-ln code{height:auto;min-height:var(--lh,38px);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}}</style>'
+# 全章共用的 JSON Diff 四步实施切片（5.1–5.4 逐节推进）
+ARCH_SLICES = [
+    ("model", "5.1 差异模型", "packages/jsoncrack-react/src/diff/", "按路径对齐两侧，算状态、计数与祖先标记"),
+    ("graph", "5.2 合并图映射", "NodeData / EdgeData + 可选入口", "保留 removed 与必要祖先，赋予状态符号"),
+    ("input", "5.3 双输入与错误", "apps/www DiffView + 独立状态", "接入 Before / After，出错保留上次结果"),
+    ("ui", "5.4 摘要 · 筛选 · 验收", "只看变化 + 无外链超限 + 全量走查", "补齐摘要与筛选，走完 AC-001~021 与回归"),
+]
 
 
 def teach(*pairs):
@@ -27,74 +38,61 @@ def teach(*pairs):
 
 
 def ref(text, url, group="", kind="live", quote=""):
-    """一条原文链接，放进 scene(refs=[…])，由播放器渲染（courseware/shared/app.js）。
-
-    kind="live"：画面最下一行（零件 .p-refs），随最后一步出现，录制时点开；
-    kind="read"：不上画面，只在阅读模式与讲解全文列出。
-    同一 group 的相邻链接合成一组。网址固定到具体版本，不指向会变的 main。
-    quote：本页引用的是长文的某一段时，写那段开头的几个字（原文照抄、页面里唯一），拼成文本片段链接
-    #:~:text=…，打开后滚到那段并高亮；页面有稳定的标题锚点时直接在 url 里写 #锚点，不用 quote。
-    规则见 docs/production/external-sources.md“链接到段落”。
-    """
+    """一条原文链接，放进 scene(refs=[…])，由播放器渲染（courseware/shared/app.js）。"""
     assert kind in ("live", "read"), kind
     assert url.startswith("https://"), url
     if quote:
         assert "#" not in url, ("quote 和 #锚点只用一种", url)
-        # 文本片段里的 - , & 是分隔符，必须转义（quote 默认不转义 -）
         url += "#:~:text=" + urllib.parse.quote(quote, safe="").replace("-", "%2D")
     return {"kind": kind, "group": group, "text": text, "url": url}
 
 
 def repro(steps, note="", label="复现这个实验"):
-    """页面上的折叠按钮：点开才显示复现步骤，放进 scene(repro=…)，由播放器渲染（courseware/shared/app.js）。
-
-    steps 为 [(说明, 命令或 None), …]；命令按原样显示，可选中复制。演示模式下按钮在标题上方一行、
-    不占正文位置，展开后叠在画面上方；阅读模式下在副标题之后展开。
-    """
+    """页面上的折叠按钮：点开才显示复现步骤，放进 scene(repro=…)。"""
     assert steps and all(len(s) == 2 and s[0] for s in steps), steps
     return {"label": label, "steps": [{"text": t, "code": c or ""} for t, c in steps], "note": note}
 
 
 def code_lines(*rows):
-    """.p-code 里的逐行内容：rows 为 (类名, 已转义的文本)；类名 add / del / hl / at，空串为普通行。
-
-    每行一个块级 span，避免 pre 里的换行符和块级 .add/.del 叠出空行。
-    """
+    """.p-code 里的逐行内容：rows 为 (类名, 已转义的文本)；类名 add / del / hl / at，空串为普通行。"""
     return "".join(
         f'<span class="{cls}">{text}</span>' if cls else f'<span style="display:block">{text}</span>'
         for cls, text in rows
     )
 
 
-def diff_boxes(path):
-    """把一份 git diff 按文件拆成 .p-code 代码框：去掉 git 头，保留 @@ 行，行内容原样转义。"""
-    boxes = []
-    for chunk in Path(path).read_text().split("diff --git ")[1:]:
-        rows = chunk.splitlines()
-        name = rows[0].split(" b/")[-1]
-        new = any(r.startswith("new file") for r in rows)
-        body, started = [], False
-        for r in rows[1:]:
-            if r.startswith("@@"):
-                started = True
-                body.append(("at", escape(r)))
-            elif started:
-                cls = "add" if r.startswith("+") else "del" if r.startswith("-") else ""
-                body.append((cls, escape(r) or " "))
-        plus = sum(1 for c, _ in body if c == "add")
-        minus = sum(1 for c, _ in body if c == "del")
-        boxes.append(
-            f'<div class="p-code"><div class="p-code-head"><span>{name}{"（新文件）" if new else ""}</span><span>+{plus} −{minus}</span></div>'
-            f"<pre>{code_lines(*body)}</pre></div>"
-        )
-    return "".join(boxes)
+def json_card(head_left, lines, head_right="", error=False):
+    """工整浅色纸面 JSON 代码卡片（复用 .p-code，取代深黑裸 pre）。
+
+    lines: 字符串列表，或 (cls, text) 元组列表（cls 取 '' / 'add' / 'del' / 'hl'）。
+    """
+    norm = [(r if isinstance(r, tuple) else ("", r)) for r in lines]
+    body = code_lines(*[(c, escape(t)) for c, t in norm])
+    err_cls = " is-err" if error else ""
+    right_html = f"<span>{head_right}</span>" if head_right else ""
+    return (
+        f'<div class="p-code ch5-code{err_cls}">'
+        f'<div class="p-code-head"><span>{head_left}</span>{right_html}</div>'
+        f"<pre>{body}</pre></div>"
+    )
+
+
+def sym_badge(kind, text=None):
+    """节点状态符号徽章（同时用符号和文字表达状态，呼应 REQ-026 非纯颜色可辨认）。"""
+    presets = {
+        "add": ("is-add", "+ added"),
+        "rem": ("is-rem", "− removed"),
+        "chg": ("is-chg", "~ changed"),
+        "anc": ("is-anc", "= unchanged · 下层有变化"),
+        "cnt": ("is-cnt", "计 1"),
+        "nocnt": ("is-nocnt", "不计"),
+    }
+    cls, default_txt = presets[kind]
+    return f'<span class="ch5-sym {cls}">{text or default_txt}</span>'
 
 
 def pop(title, label, body):
-    """页内弹窗（零件 .p-pop）：label 是按钮文字，title 是弹窗标题，body 为内容 HTML。
-
-    演示模式点开后盖住整个正文区；祖先元素不要设 position，否则只盖住所在那一栏。
-    """
+    """页内弹窗（零件 .p-pop）：label 是按钮文字，title 是弹窗标题，body 为内容 HTML。"""
     return (
         f'<details class="p-pop"><summary>{label}</summary><div class="p-pop-body">'
         f'<div class="p-pop-head"><span>{title}</span>'
@@ -112,115 +110,109 @@ def chapter_map(now):
     return '<ol class="p-map">' + "".join(items) + "</ol>"
 
 
-# 全章锚点图：五层规格（4.1 STORYBOARD“围绕同一句需求介绍五层关系”）。4.1 逐层揭示，4.2–4.5 点亮本节对应层。
-# 每层：名称、眼前要回答的问题、留下的文件
-LAYERS = [
-    ("Brief", "谁在什么场景下用，这次做到哪？", "BRIEF.md"),
-    ("Spec", "什么算不同，用户看到什么？", "SPEC.md"),
-    ("Acceptance", "给定输入，怎样判对错？", "ACCEPTANCE.md"),
-    ("Plan", "在这个仓库里怎么改？", "PLAN.md"),
-    ("Tasks", "按什么顺序做，怎样算完成？", "TASKS.md"),
-]
-# 两条返回回路：(从哪层, 回到哪层, 说明)
-LOOPS = [("Acceptance", "Spec", "规则没定 → 回 Spec"), ("Tasks", "Plan", "改法要调 → 回 Plan")]
-ANCHOR_STYLES = ("stairs", "flow", "files")
+def cover_handoff(now, prev_tag, prev_title, prev_desc, next_tag, deliverables):
+    """每节开篇页统一构图：五节路线图 + 左右交接双栏（上节起点 → 本节交付）。"""
+    items = "".join(f"<li>{d}</li>" for d in deliverables)
+    return (
+        chapter_map(now)
+        + '<div class="ch5-cover-grid">'
+        f'<div class="p-box is-soft" data-role="ctx" data-reveal="1">'
+        f'<span class="p-tag" data-role="ctx">{prev_tag}</span>'
+        f"<h3>{prev_title}</h3><p>{prev_desc}</p></div>"
+        '<div class="ch5-cover-arrow" data-reveal="2" aria-hidden="true">→</div>'
+        f'<div class="p-box" data-role="us" data-reveal="2">'
+        f'<span class="p-tag" data-role="us">{next_tag}</span>'
+        f'<ul class="ch5-mini-list">{items}</ul></div>'
+        "</div>"
+    )
 
 
-def anchor(style="stairs", lit=(), done=(), reveal_each=False, loops=False, loop_reveal=None, mini=False, reveal=None):
-    """五层锚点图。全章用阶梯 stairs（讲师 2026-11-05 选定）；flow（流程加回路）、files（文件清单）是当时的备选样稿。
-
-    lit 为本页点亮的层（实心）；done 为已完成的层；两者都为空时五层照常显示。
-    其余层画成虚线、变淡，表示后面的小节才补。reveal_each=True 时第 i 层带 data-reveal=i（4.1 逐层揭示）。
-    loops=True 时画两条返回回路（只有 flow 画成回线，其余风格写在底部），loop_reveal 是它们出现的步骤。
-    颜色：五层都是写进仓库、给人和 Agent 读的文件，用 ctx；回到 Spec 要人决定，用 us。
-    mini=True 是各节开篇用的缩小版（只用于 stairs）：只留层名和文件名，不写问题；reveal 是整张图出现的步骤。
-    """
-    assert style in ANCHOR_STYLES, style
-    names = [n for n, _, _ in LAYERS]
-    assert set(lit) <= set(names) and set(done) <= set(names), (lit, done)
-    plain = not lit and not done
-
-    def state(name):
-        if plain:
-            return ""
-        return "lit" if name in lit else ("done" if name in done else "todo")
-
-    def rv(i):
-        return f' data-reveal="{i}"' if reveal_each else ""
-
-    lrv = f' data-reveal="{loop_reveal}"' if loop_reveal is not None else ""
-    todo_css = "opacity:.42"
-
-    if style == "stairs" and mini:
-        cells = []
-        for i, (name, _, f) in enumerate(LAYERS):
-            s = state(name)
-            cls = "p-box" + (" is-solid" if s == "lit" else " is-dashed" if s == "todo" else "")
-            css = todo_css if s == "todo" else ""
-            cells.append(
-                f'<div class="p-stair" style="--i:{i}"><div class="{cls}" data-role="ctx" style="padding:8px 12px;{css}">'
-                f'<h3 style="font-size:20px;margin:0">{name}</h3>'
-                f'<p style="font-family:var(--p-mono);font-size:14px;margin:2px 0 0">{f}</p></div></div>'
-            )
-        attr = f' data-reveal="{reveal}"' if reveal is not None else ""
-        return f'<div class="p-stairs"{attr} style="--n:5;--rise:14px;column-gap:12px;height:auto">{"".join(cells)}</div>'
-
-    if style == "stairs":
-        cells = []
-        for i, (name, q, f) in enumerate(LAYERS):
-            s = state(name)
-            cls = "p-box" + (" is-solid" if s == "lit" else " is-dashed" if s == "todo" else "")
-            css = todo_css if s == "todo" else ""
-            cells.append(
-                f'<div class="p-stair" style="--i:{i}"{rv(i)}><div class="{cls}" data-role="ctx" style="padding:12px 14px;{css}">'
-                f'<span class="p-tag" data-role="ctx">{name}</span><h3 style="font-size:23px;margin:8px 0 6px">{q}</h3>'
-                f'<p style="font-family:var(--p-mono);font-size:16px;margin:0">{f}</p></div></div>'
-            )
-        foot = ""
-        if loops:
-            foot = (f'<div class="p-base"{lrv} style="display:flex;gap:28px;font-size:20px">'
-                    + "".join(f'<span>↺ {t}</span>' for _, _, t in LOOPS) + "</div>")
-        return f'<div class="p-stairs" style="--n:5;--rise:34px;column-gap:14px">{"".join(cells)}{foot}</div>'
-
-    if style == "flow":
-        cells = []
-        for i, (name, q, f) in enumerate(LAYERS):
-            s = state(name)
-            css = todo_css if s == "todo" else ""
-            solid = "background:var(--c);" if s == "lit" else ""
-            # 节点底色由 ::before 画，实心时用一层内衬盖住
-            inner = (f'<h3 style="{"color:#fff;" if s == "lit" else ""}">{name}</h3>'
-                     f'<p style="font-size:18px;{"color:#fff;" if s == "lit" else ""}">{q}</p>'
-                     f'<p style="font-family:var(--p-mono);font-size:15px;margin-top:6px;{"color:#fff;" if s == "lit" else ""}">{f}</p>')
-            cells.append(f'<div class="p-node" data-role="ctx"{rv(i)} style="padding:12px 10px;{css}">'
-                         f'{"<i style=" + chr(34) + "position:absolute;inset:3px;z-index:-1;border-radius:12px;" + solid + chr(34) + "></i>" if solid else ""}{inner}</div>')
-        back = ""
-        if loops:
-            for frm, to, text in LOOPS:
-                a, b = names.index(to) + 1, names.index(frm) + 1
-                role = "us" if to == "Spec" else "ink"
-                back += (f'<div class="p-back" data-role="{role}"{lrv} style="grid-column:{a}/{b + 1};--span:{b - a + 1};--gap:26px">'
-                         f'<span class="p-back-label" style="font-size:19px">{text}</span></div>')
-        return f'<div class="p-flow" style="--n:5;column-gap:26px;align-items:stretch">{"".join(cells)}{back}</div>'
-
-    # files：随代码进 Git 的五份文件逐行列出（存放在 JSON Crack 仓库的 docs/specs/，2026-11-07 确认）
-    rows = []
-    for i, (name, q, f) in enumerate(LAYERS):
-        s = state(name)
-        cls = "p-item" + (" is-picked" if s == "lit" else "")
-        css = todo_css + ";border-style:dashed;background:transparent" if s == "todo" else ""
-        rows.append(
-            f'<div class="{cls}"{rv(i)} style="display:grid;grid-template-columns:200px 150px minmax(0,1fr);gap:14px;align-items:baseline;{css}">'
-            f'<span style="font-family:var(--p-mono);font-size:18px;font-weight:700">{f}</span>'
-            f'<span style="font-weight:700">{name}</span><span>{q}</span></div>'
+def diff_arch(active, done=(), reveal=0):
+    """全章共用的 JSON Diff 模块分层接线与隔离保护图（5.1–5.4 方案页逐节点亮）。"""
+    keys = {k for k, _, _, _ in ARCH_SLICES}
+    assert active in keys and set(done) <= keys, (active, done)
+    nodes = []
+    for key, title, loc, desc in ARCH_SLICES:
+        if key == active:
+            cls, role, badge = "is-active", "us", "本节实现"
+        elif key in done:
+            cls, role, badge = "is-done", "ok", "✓ 已验证"
+        else:
+            cls, role, badge = "is-todo", "ctx", "后续任务"
+        nodes.append(
+            f'<div class="ch5-arch-node {cls}" data-role="{role}">'
+            f'<div><div class="ch5-arch-top"><span><code>{loc}</code></span>'
+            f'<span class="ch5-arch-badge">{badge}</span></div>'
+            f"<h3>{title}</h3></div>"
+            f"<p>{desc}</p></div>"
         )
-    foot = ""
-    if loops:
-        foot = (f'<div class="p-foot"{lrv} style="display:flex;gap:28px">'
-                + "".join(f'<span>↺ {t}</span>' for _, _, t in LOOPS) + "</div>")
-    return (f'<div class="p-set is-solid" data-role="ctx" style="padding:14px 20px 16px">'
-            '<h3 style="font-size:22px">五份文件<span style="font-size:18px;color:var(--p-muted);margin-left:12px">随代码一起进 Git</span></h3>'
-            f'<div class="p-items" style="display:flex;flex-direction:column;gap:8px">{"".join(rows)}</div>{foot}</div>')
+    rv = f' data-reveal="{reveal}"' if reveal is not None else ""
+    return (
+        f'<div class="ch5-arch"{rv}>'
+        f'<div class="ch5-arch-chain">{"".join(nodes)}</div>'
+        '<div class="ch5-arch-guard"><b>隔离保护（全章不动）：</b>'
+        "<span><code>parser.ts</code> 顺序节点 id</span> · "
+        "<span><code>useJson</code> 单输入状态链路</span> · "
+        "<span><code>NotSupported</code> 原超限组件</span> · "
+        "<span><code>apps/vscode</code> 插件端</span></div>"
+        "</div>"
+    )
+
+
+def quiz_cards(q1_say, q1_ans, q2_say, q2_ans, right=2):
+    """双栏并排暂停自检题卡（印章揭晓，替代左上角稀疏列表与手写体长句）。"""
+    assert right in (1, 2), right
+
+    def card(idx, say, ans):
+        ok = idx == right
+        role = "ok" if ok else "gate"
+        stamp = "✓ 做法正确" if ok else "✗ 做法不对"
+        return (
+            f'<div class="ch5-qcard">'
+            f'<div class="ch5-qcard-head"><span class="ch5-qcard-num">{idx}</span>'
+            f'<p class="ch5-qcard-say">{say}</p></div>'
+            f'<span class="p-stamp" data-role="{role}" data-reveal="{idx}">{stamp}</span>'
+            f'<div class="ch5-qcard-ans" data-role="{role}" data-reveal="{idx}">{ans}</div>'
+            f"</div>"
+        )
+
+    return (
+        '<span class="p-pause" data-reveal="0">暂停 · 先自己判断，再看参考结论</span>'
+        '<div class="ch5-quiz-grid">'
+        + card(1, q1_say, q1_ans)
+        + card(2, q2_say, q2_ans)
+        + "</div>"
+    )
+
+
+def sketch_recap(pin_label, core_lines, exits_head, exits, next_head, next_title, next_desc):
+    """每节末页涂鸦小结（旋转重点贴纸 + 交付列表 + 下一节承接，360px 零溢出）。"""
+    core_html = "<br>".join(core_lines)
+    exit_items = "".join(f'<li class="is-pass"><span>{e}</span></li>' for e in exits)
+    return (
+        '<div class="p-sketch" style="align-items:start">'
+        f'<div data-reveal="0"><h3 style="text-align:center">{pin_label}</h3>'
+        f'<div class="ch5-takeaway-card"><span class="ch5-takeaway-pin">记住这件事</span>'
+        f"<p>{core_html}</p></div></div>"
+        f'<div data-reveal="1"><h3>{exits_head}</h3>'
+        f'<ul class="p-exits" style="gap:10px">{exit_items}</ul></div>'
+        f'<div class="p-next" data-reveal="2"><h3>{next_head}</h3>'
+        f'<div class="p-box" data-role="us"><h3>{next_title}</h3><p>{next_desc}</p></div></div>'
+        "</div>"
+    )
+
+
+def pending(scene_fn, pid, segment, question, note):
+    """实操页轻量占位（待正式录制时按真实运行结果填入，不预写 Agent 回复或运行输出）。"""
+    scene_fn(
+        id=pid,
+        segment=segment,
+        label=question.rstrip("？"),
+        title=question,
+        lead="本页在正式录制演练后按真实运行结果补充",
+        html=f'<div class="p-bar is-light" data-reveal="0">{note}</div>',
+        steps=["待录制演练后补充"],
+    )
 
 
 class Lesson:
@@ -228,7 +220,7 @@ class Lesson:
         self.here = Path(builder).resolve().parents[1]
         # 录前准备：开录前一次做完的事，逐字稿页顶单独一块（courseware/shared/speaker.js），不上画面
         self.prep = list(prep)
-        # 口播的唯一来源：本节目录下的 script.json，按页面 id 存每页的口播数组；页面里可直接改，见 tools/serve-courseware.py
+        # 口播唯一来源：本节目录下的 script.json
         self.scripts = json.loads((self.here / "script.json").read_text())
         self.number, self.title, self.summary = number, title, summary
         self.scenes = []
@@ -242,11 +234,11 @@ class Lesson:
         kw["seconds"] = 30 * len(kw["steps"])
         assert kw["id"] in self.scripts, f"script.json 里没有 {kw['id']} 的口播"
         script = self.scripts[kw["id"]]
-        assert len(kw["steps"]) == len(script), (kw["id"], "steps 与 script 条数不一致")
+        assert len(script) == len(kw["steps"]), (kw["id"], "steps 与 script 条数不一致")
         scene = {}
         for key, value in kw.items():
             scene[key] = value
-            if key == "steps":  # script 紧跟 steps，保持 lesson.js 里的键顺序
+            if key == "steps":
                 scene["script"] = script
         self.scenes.append(scene)
 
@@ -270,6 +262,7 @@ class Lesson:
             "scenes": scenes,
             "segments": segments,
         }
-        (self.here / "lesson.js").write_text("window.lesson = " + json.dumps(lesson, ensure_ascii=False, indent=2) + ";\n")
-
+        (self.here / "lesson.js").write_text(
+            "window.lesson = " + json.dumps(lesson, ensure_ascii=False, indent=2) + ";\n"
+        )
         print(f"{self.number}: {len(scenes)} pages, {sum(len(s['steps']) for s in scenes)} steps")

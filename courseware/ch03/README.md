@@ -19,7 +19,7 @@
 | 3.2 | [讲述页](lessons/02-rules/speaker.html) | [PPT](lessons/02-rules/index.html?mode=slides#p07) |
 | 3.3 | [Discussion](../../docs/outline/ch03-discussion.md#33-修改-skill并用它开发躲避游戏) | |
 | 3.4 | [讲述设计](lessons/04-plugin/speaker.html) · [源](lessons/04-plugin/screen-plan.js) | [7 页课件](lessons/04-plugin/index.html?mode=slides)与对应口播已制作；SkillsMP 补充段待复查，待讲师审阅 |
-| 3.5 | [Discussion](../../docs/outline/ch03-discussion.md#35-经验分享占位) | |
+| 3.5 | [分镜](lessons/05-vibe-showcase/STORYBOARD.md) · [逐字稿](lessons/05-vibe-showcase/speaker.html) | [10 页课件（含 3 页实操与试玩演示）](lessons/05-vibe-showcase/index.html?mode=slides#p01)与对应口播已制作；待录前实跑与试讲 |
 
 课程定稿后，录制逐字稿页、学员阅读页和章首页从确认后的内容生成。3.1、3.2 的同源录制视图可用本节 `screen-plan.json` 的 `recordingReady: true` 开放。
 

@@ -1,19 +1,27 @@
 #!/usr/bin/env python3
 """6.2 怎样在当前仓库把 GSD 工作流建起来：页面源，生成 lesson.js；连贯内容以分镜为准。
 
-分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch06/tools/lessonkit.py。
+分镜见 ../STORYBOARD.md；页面登记、章节地图、外部截图与重画图内联见 courseware/ch06/tools/lessonkit.py。
 口播在 script.json；生成前先修改这些源文件。
-非实操页按已确认的逐页内容制作；p16、p17 先占位，待备课实跑后再写。不预写 Agent 回答或运行结果。
+非实操页已完成视觉重设计、手绘规格接入图（p15）与零新增依赖 node:test 公开佐证页（p15a）；p16、p17 先占位。
 """
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from lessonkit import Lesson, chapter_map  # noqa: E402
+from lessonkit import Lesson, chapter_map, redrawn, ref, shot  # noqa: E402
+
+GSD_REPO = "https://github.com/open-gsd/gsd-core"
+GSD_SHA = "b5b9814f033b6d32810562fd4068e1f107da29ec"
 
 lesson = Lesson(
     __file__, "6.2", "怎样在当前仓库把 GSD 工作流建起来",
-    summary="先说清 CR-01 改什么、不改什么及四个验收案例，再核对接手检查点，把已有规格接进工作流；本节不改生产代码。",
+    summary="先说清 CR-01 改什么、不改什么及四个验收案例，再核对接手检查点，采用零新增依赖方案把已有规格接进工作流；本节不改生产代码。",
+    prep=[
+        "在已完成 6.1 onboard 与 mapper 摸底的 JSON Crack 课程副本上继续；确认 git diff 对生产源码仍为空。",
+        "提前打开 docs/specs/SPEC.md 与 docs/specs/ACCEPTANCE.md，便于演示追加 REQ-CR01 与四个 AC-CR01-* 案例。",
+        "确认 node --test 在当前 Node.js 24+ 环境下可直接运行，本节只写入验证去向与计划，不提前修改生产实现。",
+    ],
 )
 scene = lesson.scene
 
@@ -32,81 +40,129 @@ scene(
     id="p11", segment="开篇", layout="lesson-cover",
     label="怎样在当前仓库把 GSD 工作流建起来",
     title="怎样在当前仓库把 GSD 工作流建起来？",
-    lead="6.1 已经留下定位、边界和第一次上手。这一节先问怎样把工作流建起来；本章目标仍是 CR-01，随后用一两页说清。",
+    lead="6.1 已立住边界并完成只读摸底；这一节先明确靶子 CR-01，再把已有规格接进工作流，不改生产代码",
     html=(
         chapter_map(2)
-        + '<div class="p-bar is-light" data-reveal="1" style="margin-top:22px">6.1 留下：<b>SDD 与 GSD 的定位</b>、不能覆盖已有文档的边界，以及一次经抽查的上手</div>'
-        + '<div class="p-bar" data-reveal="2" style="margin-top:14px">本节问题：怎样在当前仓库把 GSD 工作流建起来？先问怎么建流，目标在随后说清</div>'
+        + '<div class="p-pair" style="grid-template-columns:1fr auto 1fr;margin-top:18px" data-reveal="1">'
+        '<div class="p-box" data-role="ctx" style="padding:14px 18px">'
+        '<div class="p-head"><h3>6.1 已完成</h3><span class="p-tag" data-role="ctx">只读摸底</span></div>'
+        '<p>立住不覆盖 <code>docs/specs/</code> 的边界，留下代码库调查文档</p></div>'
+        '<div class="p-join"><span>6.2 建流</span><i class="p-arrow"></i></div>'
+        '<div class="p-box" data-role="tool" style="padding:14px 18px">'
+        '<div class="p-head"><h3>指向 CR-01 建工作流</h3><span class="p-tag" data-role="tool">只排计划</span></div>'
+        '<p>追加规则与四个案例，导入规格并确定零新增依赖验证矩阵</p></div></div>'
+        + '<div class="p-bar" data-reveal="2" style="margin-top:12px">本节问题：怎样在当前仓库把 GSD 工作流建起来？先定清靶子 CR-01，再动手建流</div>'
     ),
-    steps=["本章位置", "6.1 留下什么", "本节问题"],
+    steps=["本章位置", "从摸底到建流", "本节问题"],
 )
 
 scene(
     id="p12", segment="本章目标",
     label="CR-01 到底改的是什么，不改什么",
-    title="CR-01 到底改的是什么，不改什么？",
-    lead="本章目标仍是 CR-01：给「上次有效结果」补一句对用户可见的说明。这不是比较逻辑的重写，而是把「现在看见的是旧结果」说清楚。",
+    title="CR-01 到底改什么，不改什么？",
+    lead="本章目标仍是 CR-01：不动底层比较算法，只在输入变非法、界面仍保留上次有效结果时，给用户补一句明确可见的提示。",
     html=(
-        '<div class="p-pair" style="grid-template-columns:1fr 1fr;gap:24px">'
-        '<div class="p-box" data-role="ctx" data-reveal="0"><span class="p-tag" data-role="ctx">原规则</span>'
-        '<h3 style="margin:10px 0 0">输入非法时保留上次有效结果</h3>'
-        "<p>结果区不必解释「这是旧结果」</p></div>"
-        '<div class="p-box" data-role="us" data-reveal="1"><span class="p-tag" data-role="us">新增</span>'
-        '<h3 style="margin:10px 0 0">补一句可见提示</h3>'
-        "<p>「上次有效结果（当前输入无效）」</p></div></div>"
-        '<div class="p-bar" data-reveal="2" style="margin-top:16px">非目标：不改比较算法，不增加历史列表、自动保存或上传</div>'
+        '<div class="p-pair" style="grid-template-columns:1fr auto 1fr;gap:18px;align-items:stretch">'
+        '<div class="p-page" data-reveal="0">'
+        '<div class="p-page-bar"><i></i><i></i><i></i>第 5 章原规则 · After 改为非法 {</div>'
+        '<div style="padding:14px 16px;display:grid;gap:10px">'
+        '<div style="padding:6px 10px;background:#FCE6DD;border-left:4px solid #D9481C;font-size:18px;color:#A8350F">After 输入错误：JSON 语法无效</div>'
+        '<div style="padding:12px;border:1.5px dashed #B9B3A6;border-radius:6px;background:#F9F7F1;font-size:19px">'
+        '<b>结果图：</b>保留上次有效比较（<code>n: 1 → 2</code> · 1 处 changed）<br>'
+        '<span style="color:#5B6573;font-size:17px">结果区静默无提示，容易误认成当前输入的新结果</span></div></div></div>'
+        '<div class="p-join" data-reveal="1"><span>CR-01</span><i class="p-arrow"></i></div>'
+        '<div class="p-page" data-reveal="1">'
+        '<div class="p-page-bar"><i></i><i></i><i></i>CR-01 新增规则 · 明确告知旧结果</div>'
+        '<div style="padding:14px 16px;display:grid;gap:10px">'
+        '<div style="padding:6px 10px;background:#FCE6DD;border-left:4px solid #D9481C;font-size:18px;color:#A8350F">After 输入错误：JSON 语法无效</div>'
+        '<div style="padding:7px 12px;background:#FFF1BF;border:2px solid #243042;border-radius:6px;font-size:18px;font-weight:700;color:#243042">上次有效结果（当前输入无效）</div>'
+        '<div style="padding:10px 12px;border:1.5px solid #15803D;border-radius:6px;background:#E3F2E6;font-size:18px;color:#11652F">'
+        '保留原图与差异摘要；两侧恢复有效后移除提示并更新</div></div></div></div>'
+        '<div class="p-bar" data-reveal="2" style="margin-top:12px">非目标锁死：不改差异算法、四种状态、计数、筛选与上限；不加历史列表、自动保存或上传</div>'
     ),
-    steps=["原规则", "新增的可见提示", "不改什么"],
+    steps=["第 5 章原规则的静默区", "CR-01 新增可见提示", "非目标锁死"],
 )
 
 scene(
     id="p13", segment="本章目标",
     label="怎样才算这条规则被说清楚了",
-    title="怎样才算这条规则被说清楚了？",
-    lead="四个固定验收已经写在大纲里，本节直接采用，不另发明一组。期望都写在可见行为和提示是否出现上。规格追加到原五层文档，不把新规则说成第五章的旧缺陷。",
+    title="怎样才算把这条规则说清楚了？",
+    lead="沿用大纲里的四个固定验收案例，全部落在用户看得见的行为与提示显隐上；规格追加进原五层文档，不把新规则说成第五章的旧缺陷。",
     html=(
-        '<div class="p-matrix" style="grid-template-columns:120px minmax(0,1.1fr) minmax(0,1.2fr);margin-top:4px" data-reveal="0">'
-        '<div class="is-head"><span>验收</span><span>输入与动作</span><span>期望</span></div>'
-        '<div><span><code>AC-CR01-1</code></span><span>比较成功后，把 After 改成 <code>{</code></span><span>保留原结果与摘要，显示旧结果提示和 After 错误</span></div>'
-        '<div><span><code>AC-CR01-2</code></span><span>再把 Before 也改成 <code>{</code>，随后只恢复 After</span><span>两侧分别报错；只恢复一侧后，旧结果提示不消失</span></div>'
-        '<div><span><code>AC-CR01-3</code></span><span>再把 Before 恢复并完成比较</span><span>两侧有效，提示消失，摘要变为零差异</span></div>'
-        '<div><span><code>AC-CR01-4</code></span><span>全新页面尚未成功比较，就输入非法 JSON</span><span>只显示错误或空状态，不声称存在上次结果</span></div>'
-        "</div>"
-        '<div class="p-bar is-light" data-reveal="1" style="margin-top:12px">期望都写在<b>可见行为</b>和提示是否出现上，不另发明一组案例</div>'
-        '<div class="p-bar" data-reveal="2" style="margin-top:10px">规格追加到原五层文档，不把新规则说成第五章的旧缺陷。若已有等价提示，只先记下「行为已有」，实施分支留到 6.4</div>'
-        '<p class="source-note">案例沿用内部大纲；不写死尚未存在的路径或运行结果</p>'
+        '<div class="p-matrix" style="grid-template-columns:138px minmax(0,1.08fr) minmax(0,1.25fr)" data-reveal="0">'
+        '<div class="is-head"><span>验收编号</span><span>输入与连续动作</span><span>用户可见期望</span></div>'
+        '<div><span><code>AC-CR01-1</code></span><span>比较成功后，把 After 改为 <code>{</code></span><span>保留 <code>n</code> 的 changed 与原摘要；<b>显示旧结果提示</b>与 After 错误</span></div>'
+        '<div><span><code>AC-CR01-2</code></span><span>把 Before 也改为 <code>{</code>，再只恢复 After</span><span>双错分别标明；仅恢复一侧后仍标 Before 错，<b>旧结果提示不消失</b></span></div>'
+        '<div><span><code>AC-CR01-3</code></span><span>接着把 Before 恢复为 <code>{"n":2}</code></span><span>两侧有效并完成比较，<b>移除旧结果提示</b>，摘要更新为零差异</span></div>'
+        '<div class="is-key"><span><code>AC-CR01-4</code></span><span>全新页面尚未成功比较，直接输入非法 JSON</span><span>只显示错误或空状态，<b>绝不声称存在上次有效结果</b></span></div>'
+        '</div>'
+        '<div class="p-bar is-light" data-reveal="1" style="margin-top:10px;font-size:20px">四条期望全写在<b>用户可见行为</b>上，不绑死私有状态字段或 CSS 类名</div>'
+        '<div class="p-bar" data-reveal="2" style="margin-top:8px;font-size:20px">在原 <code>SPEC.md</code> / <code>ACCEPTANCE.md</code> 上追加，不追溯成旧缺陷；若已有等价提示只先记下检查点</div>'
     ),
-    steps=["四个固定验收", "期望写在可见行为上", "追加规格，不追溯成旧缺陷"],
+    steps=["四个固定验收案例", "期望落在可见行为", "追加规格，不追溯旧缺陷"],
 )
 
 scene(
     id="p14", segment="当前仓库",
     label="「当前仓库」指的是哪一份工作，建流前要核对什么",
-    title="「当前仓库」指的是哪一份工作，建流前要核对什么？",
-    lead="所谓当前仓库，不是课件仓库，而是学员自己的 JSON Crack 课程副本。建流前要核对接手检查点；缺哪一项，就在现场记下，不把检查点伪装成已完成的交接。",
+    title="「当前仓库」指哪份，建流前查什么？",
+    lead="所谓当前仓库，不是课件仓库，而是学员自己的 JSON Crack 课程副本。建流前逐项核对真实检查点，缺哪项就当场记下。",
     html=(
-        '<div class="p-box" data-role="us" data-reveal="0" style="padding:16px 20px">'
-        '<span class="p-tag" data-role="us">当前仓库</span>'
-        '<h3 style="font-size:24px;margin:10px 0 0">不是课件仓库，而是学员自己的 JSON Crack 课程副本</h3>'
-        "<p>第 4、5 章已经在这份副本里写出 <code>docs/specs/</code>，并实现过通过第五章验收的 JSON Diff</p></div>"
-        '<div class="p-bar" data-reveal="1" style="margin-top:14px">检查点：可定位的实现提交、<code>docs/specs/</code> 仍是需求依据、原验收状态、已有测试与已知缺口、能解释的关键路径</div>'
-        '<div class="p-bar is-light" data-reveal="2" style="margin-top:10px">不写死尚未存在的路径、测试名单、commit 或运行数字。缺哪一项，就在现场记下</div>'
+        '<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:24px;align-items:start">'
+        '<ul class="p-tree" data-reveal="0" style="font-size:19px">'
+        '<li class="is-dim"><span class="p-path">prompt-to-harness/</span><span class="p-note">课件仓库（不是操作对象）</span></li>'
+        '<li class="is-open"><span class="p-path">jsoncrack.com/</span><span class="p-note">本地课程副本</span>'
+        '<ul>'
+        '<li class="is-target"><span class="p-path">docs/specs/</span><span class="p-note">权威五层规格</span></li>'
+        '<li class="is-allow"><span class="p-path">packages/ · apps/www/</span><span class="p-note">第 5 章实现</span></li>'
+        '<li><span class="p-path">.planning/</span><span class="p-note">GSD 工作区</span></li>'
+        '</ul></li></ul>'
+        '<ol class="p-notes">'
+        '<li class="is-ok" data-reveal="1"><span><b>本地实现检查点可定位</b><small>通过第 5 章验收的提交与干净工作区</small></span></li>'
+        '<li class="is-ok" data-reveal="1"><span><b>五层规格仍是唯一依据</b><small><code>docs/specs/</code> 未被初始化改写</small></span></li>'
+        '<li data-reveal="1"><span><b>原验收状态与已知缺口清楚</b><small>哪些案例已核对、哪些待补自动检查</small></span></li>'
+        '<li class="is-risk" data-reveal="2"><span><b>只认现场事实，不预写数字</b><small>缺哪一项就如实登记，不拿假设充当交接</small></span></li>'
+        '</ol></div>'
     ),
-    steps=["不是课件仓库", "建流前的检查点", "不把检查点写成已完成的交接"],
+    steps=["认准 JSON Crack 课程副本", "核对建流前检查点", "缺项如实登记"],
 )
 
 scene(
     id="p15", segment="怎样建流",
     label="怎样把已有规格接进工作流，而不另起一套规划",
-    title="怎样把已有规格接进工作流，而不另起一套规划？",
-    lead="导入已有 docs/specs/，权威需求仍留在原处。选定验证方式并写入工作流，计划不超过三个串行任务。本节不改生产实现。",
-    html=(
-        '<div class="p-bar" data-reveal="0">导入已有 <code>docs/specs/</code>，权威需求仍留在原处；框架工作区只管理执行进度</div>'
-        '<div class="p-bar is-light" data-reveal="1" style="margin-top:12px">验证方式：纯逻辑走单元，界面状态走组件或交互，关键恢复路径走 E2E，视觉体验留给人工</div>'
-        '<div class="p-bar" data-reveal="2" style="margin-top:12px">计划不超过三个串行任务，并标出允许范围、断言和停止条件。原验收仍要有验证去向，不按覆盖率验收</div>'
-        '<div class="p-bar is-light" data-reveal="3" style="margin-top:12px">本节以建流为主，还不改生产实现。工作流跑起来，不等于 CR-01 已经做完</div>'
+    title="已有规格怎样单向接进工作流？",
+    lead="通过 ingest-docs、discuss-phase 与 plan-phase 把 docs/specs/ 接入 .planning/：权威需求留在原处，计划压缩为不超过三个串行任务，本节不改生产代码。",
+    html=redrawn(
+        "gsd-workflow",
+        "gsd-specs-handoff",
+        style="course",
+        max_height=308,
+        source="课程自绘：对应大纲 6.2 将已有 docs/specs/ 接入 GSD .planning/ 的单向依赖与三任务上限约定",
     ),
-    steps=["导入已有规格", "选定验证方式", "计划不超过三个任务", "本节不改生产实现"],
+    steps=["左：权威规格只追加", "中：GSD 建流三步与禁令", "右：进度区与三个串行任务"],
+    refs=[
+        ref("GSD Core v1.13.0 固定源码", f"{GSD_REPO}/tree/{GSD_SHA}", "框架源码"),
+    ],
+)
+
+scene(
+    id="p15a", segment="怎样建流", layout="evidence-scene",
+    label="不往仓库装新包，靠什么跑自动验证",
+    title="不往仓库装新包，靠什么跑自动验证？",
+    lead="衔接第 5 章不在上游仓库预装第三方测试框架的基线，采用零新增依赖方案：用 Node.js 24+ 内置的 node:test 与 node:assert 编写自动断言，不污染 pnpm-lock.yaml。",
+    html=shot(
+        "external/nodejs-builtin-test-runner.png",
+        "nodejs.org · Node.js Documentation · Test runner (node:test)",
+        "Node.js 官方文档内置 node:test 测试运行器与同步断言示例截图",
+        height=340,
+        note="零新增依赖分流：逻辑/状态契约走 node:test · 恢复路径走浏览器回归 · 视觉可读性归人工观察",
+        reveal=0,
+        note_reveal=1,
+    ),
+    steps=["看 Node.js 内置测试运行器", "零新增依赖四层分流"],
+    refs=[
+        ref("Node.js 官方文档：node:test", "https://nodejs.org/api/test.html", "官方依据"),
+    ],
 )
 
 pending(
@@ -124,56 +180,59 @@ pending(
 scene(
     id="p18", segment="判断与自检",
     label="工作流已经跑起来了，本章目标是不是就完成了",
-    title="工作流已经跑起来了，本章目标是不是就完成了？",
-    lead="GSD 已经按计划跑起来了，是不是就等于本章目标完成了？请先判断，再看本节实际证明了什么。",
+    title="工作流跑起来了，目标就算完成了吗？",
+    lead="GSD 工作流和计划生成完毕后，请先对照三道关卡判断本章目标是否已经完成。",
     html=(
-        '<div class="p-box" data-role="us" data-reveal="0" style="padding:16px 20px">'
-        '<span class="p-tag" data-role="us">学员判断</span>'
-        '<h3 style="font-size:24px;margin:10px 0 0">工作流已经跑起来了，本章目标是不是就完成了？</h3></div>'
-        '<div class="p-bar" data-reveal="1" style="margin-top:16px"><b>没有</b>。本节只把目标写进工作流，验证去向和停止条件也能对上看</div>'
-        '<div class="p-bar is-light" data-reveal="2" style="margin-top:12px">流程是否符合预期，要到 6.3 验收；提示有没有做对，要到 6.4 用失败测试和人工 UAT 证明</div>'
+        '<div class="p-box" data-role="us" data-reveal="0" style="padding:12px 18px">'
+        '<div class="p-head"><h3 style="font-size:24px">学员判断：计划和映射都生成好了，CR-01 是不是就算做完了？</h3><span class="p-tag" data-role="us">先想一步</span></div></div>'
+        '<div class="p-flow" style="--n:3;column-gap:40px;margin-top:12px" data-reveal="1">'
+        '<div class="p-node" data-role="ok"><span class="p-num">6.2 · 本节完成</span><h3>工作流与计划就位</h3><p>CR-01 已追加，验证矩阵已排好</p></div>'
+        '<div class="p-node" data-role="gate"><span class="p-num">6.3 · 还没核对</span><h3>流程本身合不合格</h3><p>停止条件与验证去向待人工验收</p></div>'
+        '<div class="p-node" data-role="ctx" style="opacity:.7"><span class="p-num">6.4 · 还没实施</span><h3>提示行为做没做对</h3><p>待跑失败测试、最小修改与 UAT</p></div></div>'
+        '<div class="p-bar" data-reveal="2" style="margin-top:12px"><b>还没有</b>：建好工作流只是排好路线；6.3 先验流程，6.4 再用红绿测试与人工 UAT 证明结果</div>'
     ),
-    steps=["先判断", "还没有完成", "6.3 验收流程，6.4 证明提示"],
+    steps=["先做判断", "对照三道关卡", "建好流不等于做完变更"],
 )
 
 scene(
     id="p19", segment="判断与自检",
     label="导入后框架生成了一份新的产品需求，哪种做法对",
-    title="导入后框架生成了一份新的产品需求，哪种做法对？",
-    lead="导入之后，框架有可能生成一份新的产品需求。请先自己判断这两种做法哪样对，再看参考结论。",
+    title="导入后多出一份新产品需求，怎么选？",
+    lead="导入规格后，如果框架在工作区生成了一份新的产品需求文档，请先暂停判断下面两种做法哪一种正确。",
     html=(
-        '<span class="p-pause" data-reveal="0">暂停 · 先自己判断，再往下看</span>'
-        '<div class="p-qlist">'
-        '<div class="p-qrow"><span class="p-n">1</span><div>'
-        "<h3>用它替换原来的五层规格，按新需求继续规划</h3>"
-        '<div data-reveal="1"><p>不对。不能另写一套无关联的 GSD 产品需求，去覆盖已经批准的规格</p></div></div></div>'
-        '<div class="p-qrow"><span class="p-n">2</span><div>'
-        "<h3>把它当作待核对材料，仍以已有规格为需求依据，只追加本次批准的 CR-01</h3>"
-        '<div data-reveal="2"><p>对。权威需求仍留在 <code>docs/specs/</code>，只追加这次批准的变更</p></div></div></div>'
-        "</div>"
-        '<p class="source-note">教学对照，不是某一次实际导入结果</p>'
+        '<span class="p-pause" data-reveal="0">暂停 · 先比较两种做法，自己选定再往下看</span>'
+        '<div class="p-quiz" style="margin-top:12px">'
+        '<div class="p-q" data-role="gate">'
+        '<div class="p-say">做法 A：用新生成的产品需求替换原来的五层规格，后面直接按新需求规划</div>'
+        '<span class="p-stamp" data-role="gate" data-reveal="1">✗ 偷换依据</span>'
+        '<div style="margin-top:8px;font-size:19px;color:#A8350F" data-reveal="1">另起一套无关联的 GSD 需求，会让非目标、节点上限和错误恢复约束悄悄脱钩</div></div>'
+        '<div class="p-q" data-role="ok">'
+        '<div class="p-say">做法 B：把它当作待核对材料，仍以 <code>docs/specs/</code> 为需求依据，只追加批准的 CR-01</div>'
+        '<span class="p-stamp" data-role="ok" data-reveal="2">✓ 单向接入</span>'
+        '<div style="margin-top:8px;font-size:19px;color:#11652F" data-reveal="2">权威需求留在 <code>docs/specs/</code>，框架工作区只承载映射与进度</div></div></div>'
     ),
-    steps=["两种做法", "第一种", "第二种"],
+    steps=["暂停比较两种做法", "做法 A：偷换依据", "做法 B：单向接入"],
 )
 
 scene(
     id="p20", segment="小结",
     label="带着什么进入 6.3", title="带着什么进入 6.3？",
-    lead="本节还没有改生产代码。请看这一节留下什么，以及 6.3 要问的问题。不要把下一节预告成开始实现。",
+    lead="本节还没有修改生产代码。收住 6.2 留下的规格变更、零新增依赖验证矩阵和计划初稿，进入 6.3 验收这条流程。",
     html=(
-        '<div class="p-sketch" style="align-items:start">'
-        '<div data-reveal="0"><h3 style="text-align:center">一个判断</h3>'
-        '<div class="p-star" style="width:300px;font-size:22px">工作流跑起来了<br>还不等于目标完成</div></div>'
-        '<div data-reveal="1"><h3>留下的</h3><ul class="p-exits" style="gap:10px">'
-        '<li class="is-pass">经人批准的 CR-01 规格</li>'
-        '<li class="is-pass">指向它的工作流和验证矩阵</li>'
-        '<li class="is-pass">计划初稿；原规格没有被覆盖</li></ul></div>'
+        '<div class="p-sketch">'
+        '<div class="p-ribbon" data-reveal="0">6.2 小结 · 靶子写进规格，进度交给工作流</div>'
+        '<div data-reveal="0"><h3 style="text-align:center">一个核心判断</h3>'
+        '<div class="p-star" style="width:220px;font-size:22px">工作流跑起来<br>只是排好路线<br>还不等于做完</div></div>'
+        '<div data-reveal="1"><h3>本节留下的</h3><ul class="p-exits" style="gap:10px">'
+        '<li class="is-pass" style="font-size:21px">追加进原规格的 CR-01 与四案例</li>'
+        '<li class="is-pass" style="font-size:21px">零新增依赖验证分流矩阵</li>'
+        '<li class="is-pass" style="font-size:21px">≤ 3 个串行任务计划（未改生产码）</li></ul></div>'
         '<div class="p-next" data-reveal="2"><h3>下一节</h3><div class="p-box" data-role="us">'
-        "<h3>6.3 验收流程</h3>"
-        "<p>怎样判断这条 GSD 流程符合预期？</p></div></div>"
-        "</div>"
+        '<h3>6.3 验收流程</h3>'
+        '<p>先别急着写代码：怎样判断这条 GSD 流程符合预期？</p></div></div>'
+        '</div>'
     ),
-    steps=["一个判断", "留下的", "下一节"],
+    steps=["一个核心判断", "本节留下的", "下一节 6.3"],
 )
 
 lesson.write()

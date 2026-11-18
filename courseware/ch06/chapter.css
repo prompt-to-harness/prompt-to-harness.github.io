@@ -1,4 +1,6 @@
-/* 第 6 章的长标题、验收表和分段进度条在演示画布内保持可读。 */
+/* 第 6 章的长标题、示意图、验收表和分段进度条在演示画布内保持舒适留白与可读性。
+ * 普通页统一沿用 .scene-content { top: 262px; height: 370px }（避开右上角 y=24..249 人像区域，底边不越过 y=632）。
+ * 证据页沿用 presentation.css 的 .evidence-scene .scene-content { top: 160px; width: 900px; height: 510px }。 */
 body[data-mode="slides"] .lesson-cover h2 {
   top: 82px;
   font-size: 46px;
@@ -6,29 +8,54 @@ body[data-mode="slides"] .lesson-cover h2 {
 }
 
 body[data-mode="slides"] .lesson-cover .lede {
-  top: 203px;
+  top: 202px;
   font-size: 20px;
   line-height: 1.4;
 }
 
 body[data-mode="slides"] .lesson-cover .scene-content {
-  top: 278px;
+  top: 274px;
 }
 
 body[data-mode="slides"] .segment-bar .segment {
   min-width: max-content;
 }
 
-body[data-mode="slides"] #p13 .scene-content {
-  top: 220px;
+body[data-mode="slides"] .scene:not(.lesson-cover):not(.evidence-scene) .scene-content {
   gap: 10px;
 }
 
 body[data-mode="slides"] #p13 .p-matrix span {
   padding: 6px 10px;
-  font-size: 19px;
+  font-size: 18.5px;
 }
 
 body[data-mode="slides"] #p13 .p-matrix .is-head span {
   font-size: 17px;
+}
+
+body[data-mode="slides"] #p22 .p-checks {
+  gap: 5px;
+}
+
+body[data-mode="slides"] #p22 .p-checks li {
+  padding: 5px 14px;
+  font-size: 19.5px;
+}
+
+body[data-mode="slides"] #p22 .p-refs {
+  margin-top: 4px;
+}
+
+body[data-mode="slides"] #p24 .p-rec .p-cell,
+body[data-mode="slides"] #p24 .p-rec .p-why,
+body[data-mode="slides"] #p28 .p-rec .p-cell,
+body[data-mode="slides"] #p28 .p-rec .p-why {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+/* SVG 内部按 <g data-reveal> 揭示时，已揭示步骤保持清晰不发虚，便于全图结构对照 */
+.scene .lesson-diagram .step-past {
+  opacity: 1;
 }
