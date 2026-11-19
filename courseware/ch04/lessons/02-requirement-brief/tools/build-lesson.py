@@ -11,7 +11,17 @@ from html import escape
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from lessonkit import NARROW, Lesson, anchor, chapter_map, pop, ref, repro  # noqa: E402
+from lessonkit import (  # noqa: E402
+    NARROW,
+    Lesson,
+    cover_handoff,
+    pop,
+    quiz_cards,
+    ref,
+    repro,
+    review_board,
+    sketch_recap,
+)
 
 NOTE_FILE = Path(__file__).resolve().parents[3] / "materials/requirement-note/note.md"
 NOTE = NOTE_FILE.read_text(encoding="utf-8").strip()
@@ -52,7 +62,7 @@ BRIEF_SECTIONS = [
     ("成功信号", "怎样算做好；暂时不能核算的，留到验收再落实"),
     ("Open 问题", "没定下来、会改变实现的问题，附原文出处；建议标明是建议"),
 ]
-SHORT_PROMPT = "<style>#{id} .prompt{{height:290px}}</style>"
+SHORT_PROMPT = "<style>body[data-mode='slides'] #{id} .prompt{{height:auto;min-height:230px;max-height:336px;display:flex;flex-direction:column;overflow:hidden}}body[data-mode='slides'] #{id} .prompt pre{{overflow:auto;flex:1;min-height:0}}</style>"
 
 lesson = Lesson(__file__, "4.2", "贴上需求原文，就能直接写吗", summary="用 MCP 读取需求原文并核对来源，带着需求调查源码，把愿望、事实和未决问题分开，写成第一份规格 Brief。")
 scene = lesson.scene
@@ -82,10 +92,16 @@ scene(
     id="p13", segment="开篇", layout="lesson-cover",
     label="贴上需求原文，就能直接写吗", title="贴上原文，就能直接写吗？",
     lead="需求方把想法写进了飞书里的一份需求笔记。这一节把原文取回仓库，带着它调查源码，写出第一份规格 Brief",
-    html=(
-        chapter_map(2)
-        + '<div style="margin-top:26px">' + anchor(lit=("Brief",), mini=True, reveal=1) + '</div>'
-        + '<div class="p-bar is-light" data-reveal="2" style="margin-top:18px">这一节点亮 <b>Brief</b>：谁在什么场景下用，这次做到哪</div>'
+    html=cover_handoff(
+        now=2, lit=("Brief",), done=(),
+        prev_tag="4.1 承接", prev_title="固定基线与五层分工",
+        prev_desc="版本副本 · 新人简报 · 最小用例 · SDD 地图",
+        next_tag="4.2 产出",
+        deliverables=[
+            "需求原文快照 <code>requirement-note.md</code>",
+            "带有源码出处的 <code>BRIEF.md</code>",
+            "三类信息分开 + Open 问题清单",
+        ],
     ),
     steps=["本章位置", "这一节补哪一层", "Brief 回答什么"],
 )
@@ -93,23 +109,30 @@ scene(
 # ---------- 需求原文 ----------
 want = SECTIONS["希望做到"]
 html_p14 = (
-    '<style>#p14 .x-note p,#p14 .x-note li{font-size:15px;line-height:1.4;margin:0}#p14 .x-note b,#p14 .x-note code{font-size:15px}</style>'
-    '<blockquote data-quote="需求笔记 note.md" style="margin:0;padding:0;border:0;font-size:inherit;line-height:inherit">'
-    '<div class="p-box x-note" data-role="us" style="padding:12px 18px">'
-    '<div style="display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:22px">'
-    '<div>'
-    f'<div data-reveal="0"><h3 style="font-size:20px;margin:0 0 2px">{escape(TITLE)}</h3>'
-    f'<p style="margin:0 0 6px;color:var(--p-muted)">{" · ".join(escape(v) for _, v in META)}</p>'
-    f'<p style="margin:0"><b>背景</b>　{inline(" ".join(SECTIONS["背景"]))}</p></div>'
-    '<div data-reveal="1" style="margin-top:6px"><b>希望做到</b><ol style="margin:2px 0 0;padding-left:22px">'
+    '<style>'
+    'body[data-mode="slides"] #p14 .scene-content{gap:8px}'
+    '#p14 .x-note{padding:8px 14px;gap:5px}'
+    '#p14 .x-note p,#p14 .x-note li,#p14 .x-note b,#p14 .x-note code{font-size:17px;line-height:1.28;margin:0}'
+    '#p14 .x-note ol,#p14 .x-note ul{margin:2px 0 0;padding-left:20px}'
+    '#p14 .x-note li+li{margin-top:2px}'
+    '</style>'
+    '<blockquote data-quote="需求笔记 note.md" class="ch4-note-quote">'
+    '<div class="ch4-note-doc x-note">'
+    '<div data-reveal="0">'
+    f'<div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap">'
+    f'<h3 style="font-size:18.5px;margin:0">{escape(TITLE)}</h3>'
+    f'<span style="font-size:17px;color:var(--p-muted)">{" · ".join(escape(v) for _, v in META)}</span></div>'
+    f'<p style="margin-top:3px"><b>背景</b>　{inline(" ".join(SECTIONS["背景"]))}</p></div>'
+    '<div class="ch4-2col" style="--cols:minmax(0,1.72fr) minmax(0,0.82fr);gap:14px">'
+    '<div data-reveal="1"><b>希望做到</b><ol>'
     + "".join(f"<li>{inline(x)}</li>" for x in want) +
-    '</ol></div></div>'
-    '<div data-reveal="2"><b>还没想清楚的</b><ul style="margin:4px 0 10px;padding-left:20px">'
+    '</ol></div>'
+    '<div data-reveal="2"><b>还没想清楚的</b><ul style="margin-bottom:6px">'
     + "".join(f"<li>{inline(x)}</li>" for x in SECTIONS["还没想清楚的"]) +
     '</ul><b>怎样算做好了</b>'
-    + "".join(f'<p style="margin:4px 0 0">{inline(x)}</p>' for x in SECTIONS["怎样算做好了"]) +
+    + "".join(f'<p style="margin-top:2px">{inline(x)}</p>' for x in SECTIONS["怎样算做好了"]) +
     '</div></div></div></blockquote>'
-    '<div class="p-bar" data-reveal="3" style="margin-top:10px">它在飞书里，不在仓库里：<b>Agent 怎样读到它？</b></div>'
+    '<div class="p-bar" data-reveal="3" style="margin-top:0">它在飞书里，不在仓库里：<b>Agent 怎样读到它？</b></div>'
 )
 scene(
     id="p14", segment="需求原文",
@@ -130,19 +153,19 @@ scene(
     label="MCP 是什么", title="MCP：让 Agent 调用外部工具",
     lead="MCP（Model Context Protocol）是让 Agent 连接外部工具的一种约定。客户端连上 MCP 服务，服务列出它提供的工具；Agent 决定调用哪个，工具的返回进入对话。讲师已在本机接好飞书 MCP，接入步骤与更多用法在 4.6。",
     html=(
-        '<div class="p-flow" style="--n:3;column-gap:60px" data-reveal="0">'
+        '<div class="p-flow" style="--n:3;column-gap:56px" data-reveal="0">'
         '<div class="p-node" data-role="agent"><h3>Codex</h3><p>MCP 客户端</p></div>'
         '<div class="p-node" data-role="tool"><h3>lark-mcp</h3><p>MCP 服务，在本机运行</p></div>'
         '<div class="p-node" data-role="ink"><h3>飞书</h3><p>需求笔记所在的文档</p></div>'
         '</div>'
-        '<div class="p-set is-solid" data-role="tool" data-reveal="1" style="margin-top:14px;padding:10px 18px">'
-        '<h3 style="font-size:20px;margin:0 0 8px">它列出的工具：名称、参数、说明</h3>'
-        '<div class="p-items" style="display:flex;flex-direction:column;gap:6px">'
-        '<div class="p-item" style="font-size:18px"><code>wiki_v2_space_getNode</code>　解析知识库节点，拿到文档 ID</div>'
-        '<div class="p-item" style="font-size:18px"><code>docx_v1_document_rawContent</code>　按文档 ID 读取正文</div>'
+        '<div class="p-set is-solid" data-role="tool" data-reveal="1" style="margin-top:8px;padding:8px 16px">'
+        '<h3 style="font-size:19px;margin:0 0 5px">它列出的工具：名称、参数、说明</h3>'
+        '<div class="p-items" style="display:flex;flex-direction:column;gap:5px">'
+        '<div class="p-item" style="font-size:18px;padding:5px 10px"><code>wiki_v2_space_getNode</code>　解析知识库节点，拿到文档 ID</div>'
+        '<div class="p-item" style="font-size:18px;padding:5px 10px"><code>docx_v1_document_rawContent</code>　按文档 ID 读取正文</div>'
         '</div></div>'
-        '<p data-reveal="2" style="margin:10px 0 0;font-size:19px">Agent 决定调用哪个工具，返回进入对话，和第 2 章看到的工具返回是同一回事</p>'
-        '<div class="p-bar" data-reveal="3" style="margin-top:10px">它在本机运行、带着讲师的凭证，所以<b>只开放这两个读取工具</b></div>'
+        '<p data-reveal="2" style="margin:6px 0 0;font-size:18.5px">Agent 决定调用哪个工具，返回进入对话，和第 2 章看到的工具返回是同一回事</p>'
+        '<div class="p-bar" data-reveal="3" style="margin-top:8px">它在本机运行、带着讲师的凭证，所以<b>只开放这两个读取工具</b></div>'
     ),
     steps=["三方", "工具列表", "调用与返回", "只开放读取"],
 )
@@ -154,16 +177,19 @@ scene(
     lead="讲师在基线副本里新开 Codex 会话，先确认飞书服务只开放了两个工具，再请 Agent 读取需求笔记、原样保存为快照，并说明调用了哪些工具。",
     html=(
         SHORT_PROMPT.format(id="p16") +
+        '<style>#p16 .p-notes{gap:5px}#p16 .p-notes li{padding:5px 12px;font-size:17.5px;line-height:1.32}</style>'
         '<div class="demo-notes"><ol class="p-notes">'
         '<li data-reveal="0"><span><b>读哪篇</b><small>给出链接；知识库链接先解析节点</small></span></li>'
         f'<li data-reveal="1"><span><b>原样保存</b><small>{SNAPSHOT}，不总结、不改写</small></span></li>'
         '<li data-reveal="2"><span><b>说清过程</b><small>调用了哪些工具、返回了什么、标题和读取时间</small></span></li>'
         '<li class="is-risk" data-reveal="3"><span><b>失败就报错</b><small>不猜测内容</small></span></li></ol>'
+        '<div class="ch4-pop-dock" data-reveal="3" style="margin-top:4px;padding:5px 12px;flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:wrap">'
+        '<span class="ch4-pop-dock-hint">确认服务只列 2 个读取工具</span>'
         + pop("Codex 里的 MCP 服务", "示例画面：/mcp",
               '<a href="assets/codex-mcp-list-20261108.png"><img src="assets/codex-mcp-list-20261108.png" '
-              'alt="Codex 输入 /mcp 后列出四个已连接的 MCP 服务，其中 feishu 有 2 个工具" style="display:block;max-width:100%;height:auto"></a>'
-              '<p style="font-size:16px;color:var(--p-muted);margin:8px 0 0">2026-11-08 讲师在基线副本里输入 /mcp 的结果；feishu 是飞书服务，其余三项是 Codex 自带的</p>')
-        + '</div>'
+              'alt="Codex 输入 /mcp 后列出四个已连接的 MCP 服务，其中 feishu 有 2 个工具" style="display:block;max-width:100%;max-height:360px;width:auto;margin:auto"></a>'
+              '<p style="font-size:17px;color:var(--p-muted);margin:8px 0 0">2026-11-08 讲师在基线副本里输入 /mcp 的结果；feishu 是飞书服务，其余三项是 Codex 自带的</p>')
+        + '</div></div>'
     ),
     steps=["读哪篇", "原样保存", "说清过程", "失败就报错"],
 )
@@ -173,7 +199,7 @@ scene(
     label="读到的和原文一样吗", title="读到的，和原文一样吗？",
     lead="先核对，再使用：看工具调用的先后和返回，把保存的快照和飞书原文对照一段，再记下这次读取的来源。用课程快照的学员，在来源里写明是快照。",
     html=(
-        '<div style="display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:24px;align-items:start">'
+        '<div class="ch4-2col" style="--cols:minmax(0,1.08fr) minmax(0,1fr);align-items:start">'
         '<ol class="p-watch">'
         '<li data-reveal="0">解析节点<small><code>wiki_v2_space_getNode</code> → 文档 ID</small></li>'
         '<li data-reveal="0">读取正文<small><code>docx_v1_document_rawContent</code> → 正文</small></li>'
@@ -202,8 +228,8 @@ scene(
     label="原文够不够决定行为", title="原文够不够让人决定行为？",
     lead="逐句看原文，会发现几种不同的话：愿望、约束、连需求方也没想清楚的，还有要回到代码里才能判断的。话写得再顺，也不会自己变成规则。",
     html=(
-        '<style>#p18 .p-matrix span{padding:5px 10px}#p18 .p-chip{font-size:15px;padding:2px 10px}</style>'
-        '<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) 150px">'
+        '<style>#p18 .p-matrix span{padding:4px 10px}#p18 .p-chip{font-size:17px;padding:2px 10px}</style>'
+        '<div class="p-matrix" style="grid-template-columns:minmax(0,1fr) 156px">'
         '<div class="is-head" data-reveal="0"><span>原文</span><span>这句话是</span></div>'
         + "".join(
             f'<div><span data-reveal="0" style="font-size:18px">“{escape(q)}”</span>'
@@ -221,6 +247,7 @@ scene(
     label="带着需求查什么", title="带着需求，查什么？",
     lead="承接 4.1 的新人简报，这次带着需求往下查：沿输入、解析、图数据、渲染找出网页版的最小链路，回答会影响 JSON Diff 的几个问题。每条结论附路径和行号，只读不改。",
     html=(
+        SHORT_PROMPT.format(id="p19") +
         '<div class="demo-notes"><ol class="p-notes">'
         '<li data-reveal="0"><span><b>沿一条链路</b><small>输入 → 解析 → 图数据 → 渲染</small></span></li>'
         '<li data-reveal="1"><span><b>回答几个问题</b><small>节点上限、共用代码、检查命令</small></span></li>'
@@ -238,11 +265,11 @@ scene(
         NARROW +
         '<style>#p20 .p-src .p-ln{height:auto;min-height:30px}#p20 .p-src .p-ln code{white-space:pre-wrap;overflow-wrap:anywhere}</style>'
         '<div class="p-walk"><div>'
-        '<div class="p-src" data-reveal="1" style="--lh:30px">'
+        '<div class="p-src" data-reveal="1" style="--lh:26px">'
         '<div class="p-fn">apps/www/.env · src/constants/graph.ts（固定版本）</div>'
         '<div class="p-ln"><i>1</i><code>NEXT_PUBLIC_NODE_LIMIT=800</code></div>'
         '<div class="p-ln"><i>6</i><code>export const SUPPORTED_LIMIT = +(process.env.NEXT_PUBLIC_NODE_LIMIT as string);</code></div></div>'
-        '<div class="p-src" data-reveal="2" style="--lh:30px;margin-top:12px">'
+        '<div class="p-src" data-reveal="2" style="--lh:26px;margin-top:10px">'
         '<div class="p-fn">packages/jsoncrack-react/src/JSONCrackComponent.tsx（固定版本）</div>'
         '<div class="p-ln"><i>182</i><code>const graph = parseGraph(jsonText);</code></div>'
         '<div class="p-ln"><i>192</i><code>if (graph.nodes.length &gt; maxRenderableNodes) {</code></div></div>'
@@ -266,10 +293,10 @@ scene(
     label="事实与要人决定的", title="哪些是事实，哪些要人决定？",
     lead="有了原文和调查结果，就能把三类信息分开：愿望来自原文，事实要有源码或配置的出处，未决问题要人来决定。Agent 的建议可以连同依据记下，但仍是未决问题。",
     html=(
-        '<div class="p-grid" style="--n:3">'
-        '<div class="p-box" data-role="us" data-reveal="0"><span class="p-tag" data-role="us">愿望与目标</span><h3 style="margin:8px 0 6px">同时放两份 JSON，对比后高亮不同</h3><p>依据：需求原文</p></div>'
-        '<div class="p-box" data-role="ctx" data-reveal="1"><span class="p-tag" data-role="ctx">已查实的事实</span><h3 style="margin:8px 0 6px">图数据从哪个入口产生，节点上限由什么设定</h3><p>依据：源码与配置，附出处</p></div>'
-        '<div class="p-box" data-role="gate" data-reveal="2"><span class="p-tag" data-role="gate">未决问题</span><h3 style="margin:8px 0 6px">键换序算不算差异，数组怎样对齐，删除的字段怎样显示</h3><p>依据：要人决定，留给 4.3</p></div>'
+        '<div class="ch4-3col">'
+        '<div class="p-box" data-role="us" data-reveal="0"><span class="p-tag" data-role="us">愿望与目标</span><h3 style="margin:8px 0 6px;font-size:21px">同时放两份 JSON，对比后高亮不同</h3><p style="font-size:18px;margin:0">依据：需求原文</p></div>'
+        '<div class="p-box" data-role="ctx" data-reveal="1"><span class="p-tag" data-role="ctx">已查实的事实</span><h3 style="margin:8px 0 6px;font-size:21px">图数据从哪个入口产生，节点上限由什么设定</h3><p style="font-size:18px;margin:0">依据：源码与配置，附出处</p></div>'
+        '<div class="p-box" data-role="gate" data-reveal="2"><span class="p-tag" data-role="gate">未决问题</span><h3 style="margin:8px 0 6px;font-size:21px">键换序算不算差异，数组怎样对齐，删除的字段怎样显示</h3><p style="font-size:18px;margin:0">依据：要人决定，留给 4.3</p></div>'
         '</div>'
         '<div class="p-bar" data-reveal="3" style="margin-top:16px">Agent 建议“数组按索引比较”：<b>记下建议和依据，它仍是未决问题</b></div>'
     ),
@@ -282,6 +309,7 @@ scene(
     label="让 Agent 起草 Brief", title="让 Agent 起草 Brief",
     lead="依据原文快照和调查结果，请 Agent 起草 docs/specs/BRIEF.md。七个小节固定；没定下来的问题附原文出处列进 Open 问题，建议要标明是建议。讲师随后逐节审。",
     html=(
+        SHORT_PROMPT.format(id="p22") +
         '<div class="demo-notes"><ol class="p-notes">'
         '<li data-reveal="0"><span><b>依据什么</b><small>原文快照和刚才的调查结果</small></span></li>'
         '<li data-reveal="1"><span><b>七个小节</b><small>来源、场景、目标、非目标、约束、成功信号、Open 问题</small></span></li>'
@@ -295,14 +323,19 @@ scene(
     id="p23", segment="形成 Brief",
     label="Brief 审什么", title="Brief 写好了，审什么？",
     lead="讲师逐节审 Brief，亲自确认“目标”。审出的问题请 Agent 按意见修改，或自己改。改完看 git status：新增内容只在 docs/specs/ 下，生产代码没动。本节不提交，到 4.5 和其余规格一起提交。",
-    html=(
-        '<ol class="p-watch" style="display:grid;grid-template-columns:1fr 1fr;gap:10px 18px">'
-        '<li data-reveal="0">来源<small>链接、标题、读取方式与时间齐不齐</small></li>'
-        '<li data-reveal="0">目标<small>只写这次要做的功能，约束和没把握的不混进来</small></li>'
-        '<li data-reveal="1">非目标<small>每条有原文依据，或标为待确认</small></li>'
-        '<li data-reveal="1">已核实约束<small>每条有出处：源码给路径和行号，原文给位置</small></li>'
-        '<li data-reveal="2">Open 问题<small>附原文出处；建议标明是建议，不当规则</small></li></ol>'
-        '<div class="p-bar is-light" data-reveal="3" style="margin-top:16px"><code>git status</code> 只出现 <b>docs/specs/</b>，本节不提交</div>'
+    html=review_board(
+        doc_tag="docs/specs/BRIEF.md（7 个固定小节）",
+        docs=[
+            ("来源 · 目标 · 成功信号", "链接 / 标题 / 方式 / 时间；目标只写这次功能"),
+            ("非目标 · 约束 · Open", "非目标有依据或待确认；Open 附出处，建议标明"),
+        ],
+        doc_note="发现问题交给 Agent 按意见改，或自己改完再核对",
+        checks=[
+            (0, "来源与目标", "五项齐不齐；约束和没把握的不混进目标"),
+            (1, "非目标与已核实约束", "每条给出处，不替需求方做决定"),
+            (2, "Open 问题", "附原文出处；Agent 建议只标明，不直接当规则"),
+        ],
+        footer_bar="<code>git status</code> 只出现 <b>docs/specs/</b>，本节不提交",
     ),
     steps=["来源与目标", "非目标与约束", "Open 问题", "改完看 git status"],
     repro=repro(
@@ -317,14 +350,14 @@ scene(
     id="p24", segment="自检与交接",
     label="两句话能当规则或授权吗", title="这两句话，能当规则或授权吗？",
     lead="判断一句话能不能直接用，先问它出自谁、有没有依据、由谁决定。",
-    html=(
-        '<span class="p-pause" data-reveal="0">暂停 · 先自己判断，再往下看</span>'
-        '<div class="p-qlist">'
-        '<div class="p-qrow"><span class="p-n">1</span><div><h3>Agent 建议“数组按索引比较”，能直接写进 Brief 当作已批准规则吗？</h3>'
-        '<div data-reveal="1"><p>不能。记下建议和依据，采用与否要人决定，留在 Open 问题里，交给 4.3</p></div></div></div>'
-        '<div class="p-qrow"><span class="p-n">2</span><div><h3>原文最后一句“开发同学看完可以直接动手做”，算不算可以跳过 Open 问题的授权？</h3>'
-        '<div data-reveal="2"><p>不算。这是需求方的说法，记下即可；会改变实现的问题还没定，就不能动手<br><a href="#p21">回看三类信息</a></p></div></div></div>'
-        '</div>'
+    html=quiz_cards(
+        "Agent 建议“数组按索引比较”，能直接写进 Brief 当作已批准规则吗？",
+        "<b>不能</b>：记下建议和依据，采用与否要人决定，留在 Open 问题里，交给 4.3",
+        "原文最后一句“开发同学看完可以直接动手做”，算不算可以跳过 Open 问题的授权？",
+        '<b>不算</b>：这是需求方的说法，记下即可；会改变实现的问题还没定，就不能动手<br><a href="#p21">回看三类信息</a>',
+        stamps=("✗ 不能当规则", "✗ 不算授权"),
+        labels=("Agent 建议", "需求方末尾"),
+        verdicts=(False, False),
     ),
     steps=["两个问题", "Agent 的建议", "原文里的“直接动手”"],
 )
@@ -333,12 +366,12 @@ scene(
     id="p25", segment="自检与交接",
     label="小结", title="这一节留下什么",
     lead="原文取回仓库并核对了来源，带着需求查清了相关的源码事实，写出了带出处的 Brief。下一节逐项决定 Open 问题里的行为。",
-    html=(
-        '<div class="p-sketch" style="align-items:start">'
-        '<div data-reveal="0"><h3 style="text-align:center">一个判断</h3><div class="p-star" style="width:250px;font-size:22px">出自谁<br>有没有依据<br>由谁决定</div></div>'
-        '<div data-reveal="1"><h3>留下的</h3><ul class="p-exits" style="gap:10px"><li class="is-pass">需求原文快照</li><li class="is-pass">带来源和事实的 Brief</li><li class="is-pass">Open 问题清单</li></ul></div>'
-        '<div class="p-next" data-reveal="2"><h3>下一节</h3><div class="p-box" data-role="us"><h3>4.3 要求写得再细，为什么还会跑偏？</h3><p>逐项决定 Open 问题里的行为</p></div></div>'
-        '</div>'
+    html=sketch_recap(
+        "一个判断", "KEY",
+        ["出自谁", "有没有依据", "由谁决定"],
+        "留下的",
+        ["需求原文快照", "带来源和事实的 Brief", "Open 问题清单"],
+        "下一节", "4.3 要求写得再细，为什么还会跑偏？", "逐项决定 Open 问题里的行为",
     ),
     steps=["一个判断", "留下的", "下一节"],
 )

@@ -10,7 +10,17 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
 from html import escape
 
-from lessonkit import NARROW, Lesson, anchor, chapter_map, pop, ref, repro  # noqa: E402
+from lessonkit import (  # noqa: E402
+    NARROW,
+    Lesson,
+    anchor,
+    chapter_map,
+    pop,
+    q3_cards,
+    ref,
+    repro,
+    sketch_recap,
+)
 
 lesson = Lesson(__file__, "4.1", "接手大项目，还能边聊边改吗", summary="核对固定基线，用新人简报和最小用例认识已有工程，再由新增需求引出五层规格。", prep=[
     "在已有项目之外的空目录里，按 p02 实验说明第 1–4 步取得副本并创建 course/ch04-baseline，再按 p05 实验说明第 1–5 步装好依赖；录制时 A、B 和 p06 都用这一份副本，p02 只现场演示核对。",
@@ -26,7 +36,7 @@ RELEASE = "v5.0.0"
 SHA = "e99288b4eff060dcd53428f2a3a5c2f28eecffa6"
 BRANCH = "course/ch04-baseline"
 # 请求只有几行：降低 prompt-scene 的请求框高度，给底部原文链接留出一行
-SHORT_PROMPT = "<style>#{id} .prompt{{height:290px}}</style>"
+SHORT_PROMPT = "<style>body[data-mode='slides'] #{id} .prompt{{height:auto;min-height:250px;max-height:330px}}</style>"
 # 锚点图风格：讲师 2026-11-05 从三种样稿中选定阶梯（stairs），4.2–4.5 沿用
 ANCHOR = "stairs"
 REQUIREMENT = "为 JSON Crack 增加 JSON 对比功能，把不同的地方高亮出来"
@@ -49,14 +59,14 @@ scene(
     lead="本章接手开源工程 JSON Crack，为新增的 JSON 对比功能准备规格",
     html=(
         chapter_map(1) +
-        '<div class="p-pair" style="grid-template-columns:1fr auto 1fr;margin-top:18px">'
-        '<div class="p-box" data-role="us" data-reveal="1"><span class="p-tag" data-role="us">前三章</span><h3>从想法出发</h3><p>个人主页与小游戏，边做边补要求</p></div>'
-        '<div class="p-join" data-reveal="1"><span>这一章</span><i class="p-arrow"></i></div>'
-        '<div class="p-box" data-role="ink" data-reveal="1"><span class="p-tag" data-role="ink">第 4 章</span><h3>接手已有工程</h3><p>JSON Crack：正在维护的开源项目</p></div></div>'
-        '<div class="p-pair" style="grid-template-columns:1fr auto 1fr;margin-top:14px" data-reveal="2">'
-        '<div class="p-box is-soft" data-role="ink"><h3>现有能力</h3><p>把 JSON 转成交互图，浏览结构</p></div>'
-        '<div class="p-join"><span>在它上面加</span><i class="p-arrow"></i></div>'
-        '<div class="p-box is-dashed" data-role="ink"><h3>要加的功能</h3><p>JSON Diff：比较两份 JSON，高亮不同</p></div></div>'
+        '<div class="ch4-split" style="--cols:minmax(0,1fr) 74px minmax(0,1fr);margin-top:8px">'
+        '<div class="p-box" data-role="us" data-reveal="1" style="padding:10px 16px"><span class="p-tag" data-role="us">前三章</span><h3 style="margin:6px 0 0">从想法出发</h3><p style="font-size:18.5px;margin:4px 0 0">个人主页与小游戏，边做边补要求</p></div>'
+        '<div class="ch4-arrow" data-reveal="1"><span>这一章</span><i>→</i></div>'
+        '<div class="p-box" data-role="ink" data-reveal="1" style="padding:10px 16px"><span class="p-tag" data-role="ink">第 4 章</span><h3 style="margin:6px 0 0">接手已有工程</h3><p style="font-size:18.5px;margin:4px 0 0">JSON Crack：正在维护的开源项目</p></div></div>'
+        '<div class="ch4-split" style="--cols:minmax(0,1fr) 74px minmax(0,1fr);margin-top:6px" data-reveal="2">'
+        '<div class="p-box is-soft" data-role="ink" style="padding:10px 16px"><h3 style="margin:0">现有能力</h3><p style="font-size:18.5px;margin:4px 0 0">把 JSON 转成交互图，浏览结构</p></div>'
+        '<div class="ch4-arrow"><span>在它上面加</span><i>→</i></div>'
+        '<div class="p-box is-dashed" data-role="ink" style="padding:10px 16px"><h3 style="margin:0">要加的功能</h3><p style="font-size:18.5px;margin:4px 0 0">JSON Diff：比较两份 JSON，高亮不同</p></div></div>'
     ),
     steps=["本章位置", "换一种情境", "现有能力与要加的功能"],
 )
@@ -67,20 +77,20 @@ scene(
     label="取得并核对基线", title="先拿到同一份起点",
     lead="课件给出上游仓库、Release 和完整 commit。依据它们取得副本，再核对手里的这一份是不是这一版。",
     html=(
-        '<div style="display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:28px;align-items:start">'
-        '<div class="p-matrix" data-reveal="0" style="grid-template-columns:minmax(0,.55fr) minmax(0,1.45fr)">'
+        '<div class="ch4-2col-wide" style="align-items:start">'
+        '<div class="p-matrix" data-reveal="0" style="grid-template-columns:minmax(0,.52fr) minmax(0,1.48fr)">'
         '<div class="is-head"><span>课件给出</span><span>内容</span></div>'
         '<div><span>上游仓库</span><span>AykutSarac/jsoncrack.com</span></div>'
         f'<div><span>Release</span><span>{RELEASE}</span></div>'
         f'<div class="is-key"><span>完整 commit</span><span style="font-family:var(--p-mono);font-size:17px;overflow-wrap:anywhere">{SHA}</span></div>'
         '</div>'
-        '<div class="p-matrix" data-reveal="1" style="grid-template-columns:minmax(0,.6fr) minmax(0,1.4fr)">'
+        '<div class="p-matrix" data-reveal="1" style="grid-template-columns:minmax(0,.58fr) minmax(0,1.42fr)">'
         '<div class="is-head"><span>本地核对</span><span>应该是</span></div>'
         '<div><span>HEAD</span><span>等于完整 commit</span></div>'
         f'<div><span>分支</span><span>{BRANCH}</span></div>'
         '<div><span>工作区</span><span>干净，没有未提交的改动</span></div>'
         '</div></div>'
-        '<div class="p-bar is-light" data-reveal="2" style="margin-top:22px">Release 帮助识别版本，<b>完整 commit</b> 固定实际使用的代码；后面的结论都对应这一版</div>'
+        '<div class="p-bar is-light" data-reveal="2" style="margin-top:16px">Release 帮助识别版本，<b>完整 commit</b> 固定实际使用的代码；后面的结论都对应这一版</div>'
     ),
     steps=["课件给出的三项信息", "取得副本并核对", "为什么固定这一版"],
     refs=[
@@ -125,14 +135,14 @@ scene(
     html=(
         NARROW +
         '<div class="p-walk"><div>'
-        '<div class="p-src" data-reveal="1" style="--lh:30px">'
+        '<div class="p-src" data-reveal="1" style="--lh:26px">'
         '<div class="p-fn">README.md（固定版本，第 108–119 行）</div>'
         '<div class="p-ln"><i>108</i><code>3. Install packages</code></div>'
         '<div class="p-ln"><i>111</i><code>   pnpm install</code></div>'
         '<div class="p-ln"><i>114</i><code>4. Run the web app</code></div>'
         '<div class="p-ln"><i>117</i><code>   pnpm dev:www</code></div>'
         '<div class="p-ln"><i>119</i><code><span class="c">   # Running on http://localhost:3000/</span></code></div></div>'
-        '<div class="p-src" data-reveal="2" style="--lh:30px;margin-top:12px">'
+        '<div class="p-src" data-reveal="2" style="--lh:26px;margin-top:10px">'
         '<div class="p-fn">package.json（固定版本，第 15、31–35 行）</div>'
         '<div class="p-ln"><i>15</i><code>"dev:www": "turbo run dev --filter=www",</code></div>'
         '<div class="p-ln"><i>32</i><code>"node": "&gt;=24",</code></div>'
@@ -183,21 +193,22 @@ scene(
     label="这次实际走到了哪一步", title="这次实际走到了哪一步？",
     lead="先看 Agent 回复里哪些结论标为实测，有没有附上命令和输出；再自己启动服务，在浏览器里核对。Agent 建议运行某条命令，说明它提出了一个步骤；命令输出和浏览器画面，才说明这次走到了哪里。浏览器里的输入和观察由讲师来做。",
     html=(
-        '<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:26px;align-items:start">'
-        '<div><div class="p-code" data-reveal="2"><div class="p-code-head"><span>示例 JSON</span><span>粘进左侧编辑器</span></div>'
-        f'<pre style="padding:10px 14px;white-space:pre;overflow-x:auto">{escape(SAMPLE)}</pre></div>'
+        '<div class="ch4-2col" style="--cols:minmax(0,1fr) minmax(0,1.12fr);align-items:start">'
+        '<div class="ch4-stack"><div class="p-code" data-reveal="2"><div class="p-code-head"><span>示例 JSON</span><span>粘进左侧编辑器</span></div>'
+        f'<pre style="padding:10px 14px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:17px">{escape(SAMPLE)}</pre></div>'
+        '<div class="ch4-pop-dock" data-reveal="2"><span class="ch4-pop-dock-hint">无法现场启动时，点开核对实跑编辑器画面</span>'
         + pop("示例画面", "示例画面",
               '<a href="assets/editor-sample-20261106.png"><img src="assets/editor-sample-20261106.png" '
               'alt="JSON Crack 编辑器：左侧是示例 JSON，右侧交互图里根节点显示 name、skills、profile，skills 展开为 JavaScript 和 Python，profile 展开为 city: Hangzhou" '
               'style="display:block;max-width:100%;height:auto"></a>'
-              '<p style="font-size:16px;color:var(--p-muted);margin:8px 0 0">2026-11-06 讲师在基线副本上启动服务，粘贴本页示例 JSON 后的编辑器画面（JSON Crack v5.0.0）</p>')
-        + '</div>'
+              '<p style="font-size:17px;color:var(--p-muted);margin:8px 0 0">2026-11-06 讲师在基线副本上启动服务，粘贴本页示例 JSON 后的编辑器画面（JSON Crack v5.0.0）</p>')
+        + '</div></div>'
         '<ol class="p-watch">'
         '<li data-reveal="0">Agent 的回复<small>哪条标为实测 · 有没有命令和输出</small></li>'
         '<li data-reveal="1">在终端启动服务<small>哪个副本 · 出现 Ready · 地址</small></li>'
         '<li data-reveal="2">输入<small>普通字段、数组、嵌套对象</small></li>'
         '<li data-reveal="3">画面<small>每个字段在图里的哪个节点</small></li></ol></div>'
-        '<div class="p-bar is-light" data-reveal="3" style="margin-top:20px">命令输出和画面，才说明<b>这次走到了哪里</b></div>'
+        '<div class="p-bar is-light" data-reveal="3" style="margin-top:14px">命令输出和画面，才说明<b>这次走到了哪里</b></div>'
     ),
     steps=["Agent 的回复", "启动服务", "输入", "画面"],
     repro=repro([
@@ -216,15 +227,15 @@ scene(
     label="初始需求", title="要加的功能，说清楚了吗？",
     lead="看过现有能力，再看本章唯一的初始需求。它指向了具体产品和改动方向，下面四个问题还没有答案。",
     html=(
-        f'<div class="p-box" data-role="us" data-reveal="0" style="padding:18px 24px"><span class="p-tag" data-role="us">初始需求</span>'
-        f'<h3 style="font-size:32px;margin:10px 0 0">“{REQUIREMENT}”</h3></div>'
-        '<div class="p-grid" style="--n:4;margin-top:20px" data-reveal="1">'
-        '<div class="p-box is-dashed" data-role="ink"><h3>谁在用？</h3><p>什么场景下比较两份 JSON</p></div>'
-        '<div class="p-box is-dashed" data-role="ink"><h3>什么算不同？</h3><p>换顺序、换类型、删字段</p></div>'
-        '<div class="p-box is-dashed" data-role="ink"><h3>怎样检查？</h3><p>给定输入，结果对不对</p></div>'
-        '<div class="p-box is-dashed" data-role="ink"><h3>怎么改？</h3><p>在现有工程里选什么改法</p></div>'
+        f'<div class="p-box" data-role="us" data-reveal="0" style="padding:14px 20px"><span class="p-tag" data-role="us">初始需求</span>'
+        f'<h3 style="font-size:28px;margin:8px 0 0">“{REQUIREMENT}”</h3></div>'
+        '<div class="ch4-grid-4" style="margin-top:14px" data-reveal="1">'
+        '<div class="p-box is-dashed" data-role="ink"><h3>谁在用？</h3><p style="font-size:18px;margin:4px 0 0">什么场景下比较两份 JSON</p></div>'
+        '<div class="p-box is-dashed" data-role="ink"><h3>什么算不同？</h3><p style="font-size:18px;margin:4px 0 0">换顺序、换类型、删字段</p></div>'
+        '<div class="p-box is-dashed" data-role="ink"><h3>怎样检查？</h3><p style="font-size:18px;margin:4px 0 0">给定输入，结果对不对</p></div>'
+        '<div class="p-box is-dashed" data-role="ink"><h3>怎么改？</h3><p style="font-size:18px;margin:4px 0 0">在现有工程里选什么改法</p></div>'
         '</div>'
-        '<div class="p-bar is-light" data-reveal="2" style="margin-top:20px">方向已经明确，还不足以<b>直接动手</b></div>'
+        '<div class="p-bar is-light" data-reveal="2" style="margin-top:14px">方向已经明确，还不足以<b>直接动手</b></div>'
     ),
     steps=["一句需求", "四个还不知道的问题", "还不能直接动手"],
 )
@@ -234,19 +245,19 @@ scene(
     label="长 Prompt 能当规格吗", title="把 Prompt 写到三千字，行不行？",
     lead="长 Prompt 做完四件事，也能当规格用。但这类工作往往伴随长上下文，压缩之后，早先写下的约束容易丢失或变淡。",
     html=(
-        '<div class="p-pair" style="grid-template-columns:1fr auto 1.1fr">'
-        '<div class="p-box" data-role="us" data-reveal="0"><span class="p-tag" data-role="us">可以</span><h3>做完四件事的长 Prompt</h3>'
-        '<ul style="margin:8px 0 6px;padding-left:22px;font-size:21px;line-height:1.6"><li>事实核验</li><li>规则批准</li><li>验收设计</li><li>实施拆分</li></ul>'
-        '<p>字数写长，不会自动完成它们</p></div>'
-        '<div class="p-join" data-reveal="1"><span>多轮补充<br>和执行</span><i class="p-arrow"></i></div>'
-        '<div class="p-box" data-role="gate" data-reveal="1"><span class="p-tag" data-role="gate">不推荐</span><h3>长上下文被压缩之后</h3>'
-        '<div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;font-size:19px">'
+        '<div class="ch4-split" style="--cols:minmax(0,1fr) 86px minmax(0,1.08fr)">'
+        '<div class="p-box" data-role="us" data-reveal="0" style="padding:12px 16px"><span class="p-tag" data-role="us">可以</span><h3 style="margin:6px 0 2px">做完四件事的长 Prompt</h3>'
+        '<ul style="margin:4px 0;padding-left:20px;font-size:18.5px;line-height:1.45"><li>事实核验</li><li>规则批准</li><li>验收设计</li><li>实施拆分</li></ul>'
+        '<p style="font-size:18px;margin:0">字数写长，不会自动完成它们</p></div>'
+        '<div class="ch4-arrow" data-reveal="1"><span>多轮补充<br>和执行</span><i>→</i></div>'
+        '<div class="p-box" data-role="gate" data-reveal="1" style="padding:12px 16px"><span class="p-tag" data-role="gate">不推荐</span><h3 style="margin:6px 0 2px">长上下文被压缩之后</h3>'
+        '<div style="display:flex;flex-direction:column;gap:5px;margin-top:4px;font-size:18px">'
         '<span class="p-item">约束：对象键换序……</span>'
-        '<span class="p-item" style="opacity:.45;border-style:dashed">约束：数组插入……</span>'
-        '<span class="p-item" style="opacity:.25;border-style:dashed;text-decoration:line-through">约束：删除的字段……</span>'
-        '</div><p style="margin-top:8px">少了哪一条，事后不容易发现</p></div></div>'
-        '<div class="p-bar" data-reveal="2" style="margin-top:18px">把约定写成<b>能单独查阅、按版本维护的文件</b>：SDD，规格驱动开发</div>'
-        '<p class="source-note">右栏为课程自绘示意，不代表某个产品的具体压缩方式</p>'
+        '<span class="p-item" style="border-style:dashed;color:#5B6573;background:#F7F4EC">约束：数组插入……（逐渐变淡）</span>'
+        '<span class="p-item" style="border-style:dashed;color:#6E7684;background:#F3EFE6;text-decoration:line-through">约束：删除的字段……</span>'
+        '</div><p style="font-size:18px;margin:6px 0 0">少了哪一条，事后不容易发现</p></div></div>'
+        '<div class="p-bar" data-reveal="2" style="margin-top:8px">把约定写成<b>能单独查阅、按版本维护的文件</b>：SDD，规格驱动开发</div>'
+        '<p class="source-note" style="margin-top:2px">右栏为课程自绘示意，不代表某个产品的具体压缩方式</p>'
     ),
     steps=["做完四件事也能用", "长上下文里的风险", "写成文件：SDD"],
 )
@@ -265,17 +276,15 @@ scene(
     label="对应与返回", title="写好以后，怎么对上？",
     lead="验收案例对应需求，实现任务指向相关需求和验收。发现问题时，先判断它在决定什么，再回到对应的层。",
     html=(
-        '<div class="p-flow" style="--n:3;column-gap:60px" data-reveal="0">'
-        '<div class="p-node" data-role="ctx"><h3>实现任务</h3><p>Tasks</p></div>'
-        '<div class="p-node" data-role="ctx"><h3>验收案例</h3><p>Acceptance</p></div>'
-        '<div class="p-node" data-role="ctx"><h3>需求规则</h3><p>Spec</p></div>'
+        '<div class="ch4-trace-chain" style="--n:3" data-reveal="0">'
+        '<div class="p-box ch4-trace-step" data-role="ctx"><h3>实现任务</h3><p>Tasks</p></div>'
+        '<div class="p-box ch4-trace-step" data-role="tool"><h3>验收案例</h3><p>Acceptance</p></div>'
+        '<div class="p-box ch4-trace-step" data-role="us"><h3>需求规则</h3><p>Spec</p></div>'
         '</div>'
-        '<p style="font-size:19px;color:var(--p-muted);margin:6px 0 0" data-reveal="0">箭头表示“对应到”：改一条需求时，能找到要复核的案例和任务</p>'
-        '<div class="p-pair" style="grid-template-columns:1fr auto 1fr;margin-top:16px" data-reveal="1">'
-        '<div class="p-box" data-role="us"><h3>案例暴露规则没定</h3><p>回 Spec，由人决定，再同步验收</p></div>'
-        '<div class="p-join"><b>或</b></div>'
-        '<div class="p-box" data-role="ink"><h3>只是改法要调</h3><p>回 Plan，核对相关任务</p></div></div>'
-        '<div class="p-bar is-light" data-reveal="2" style="margin-top:16px">Spec 写<b>用户能观察到的行为</b>，Plan 写<b>代码怎么改</b></div>'
+        '<div class="ch4-2col" style="margin-top:12px" data-reveal="1">'
+        '<div class="p-box is-dashed" data-role="us"><h3>↩ 案例暴露规则没定</h3><p style="font-size:18.5px;margin:4px 0 0">回 Spec，由人决定，再同步验收</p></div>'
+        '<div class="p-box is-dashed" data-role="ink"><h3>↩ 只是改法要调</h3><p style="font-size:18.5px;margin:4px 0 0">回 Plan，核对相关任务</p></div></div>'
+        '<div class="p-bar is-light" data-reveal="2" style="margin-top:12px">Spec 写<b>用户能观察到的行为</b>，Plan 写<b>代码怎么改</b></div>'
     ),
     steps=["对应关系", "两种返回", "行为与改法分开"],
 )
@@ -287,11 +296,11 @@ scene(
     lead="先判断每句话正在决定什么，再放进对应的层。",
     html=(
         '<span class="p-pause" data-reveal="0">暂停 · 先自己判断，再往下看</span>'
-        '<div class="p-qlist">'
-        '<div class="p-qrow"><span class="p-n">1</span><div><h3>“谁需要这个功能？”</h3><div data-reveal="1"><p>Brief：说明使用者、场景和目标</p></div></div></div>'
-        '<div class="p-qrow"><span class="p-n">2</span><div><h3>“键换顺序算不算变？”</h3><div data-reveal="2"><p>Spec：由人决定可观察行为，随后再配验收案例</p></div></div></div>'
-        '<div class="p-qrow"><span class="p-n">3</span><div><h3>“先改哪里？”</h3><div data-reveal="3"><p>Plan：结合现有代码选择方案<br><a href="#p09">回看五层规格</a></p></div></div></div>'
-        '</div>'
+        + q3_cards([
+            ("Brief", "us", "1. “谁需要这个功能？”", "说明使用者、场景和目标"),
+            ("Spec", "tool", "2. “键换顺序算不算变？”", "由人决定可观察行为，随后再配验收案例"),
+            ("Plan", "ctx", "3. “先改哪里？”", '结合现有代码选择方案<br><a href="#p09">回看五层规格</a>'),
+        ], ans_reveals=(1, 2, 3))
     ),
     steps=["三个问题", "谁需要", "键换顺序", "先改哪里"],
 )
@@ -300,12 +309,12 @@ scene(
     id="p12", segment="自检与交接",
     label="小结", title="这一节留下什么",
     lead="固定起点、认识工程，再把新增需求的问题放回五层。下一节从需求原文开始，形成 Brief。",
-    html=(
-        '<div class="p-sketch" style="align-items:start">'
-        '<div data-reveal="0"><h3 style="text-align:center">一个判断</h3><div class="p-star" style="width:250px;font-size:24px">先问在决定什么<br>再放进对应层</div></div>'
-        '<div data-reveal="1"><h3>留下的</h3><ul class="p-exits" style="gap:10px"><li class="is-pass">对上版本的副本</li><li class="is-pass">能核对的简报</li><li class="is-pass">跑通一次的最小用例</li><li class="is-pass">五层各自的分工</li></ul></div>'
-        '<div class="p-next" data-reveal="2"><h3>下一节</h3><div class="p-box" data-role="us"><h3>4.2 贴上需求原文，就能直接写吗？</h3><p>从飞书里的需求笔记开始</p></div></div>'
-        '</div>'
+    html=sketch_recap(
+        "一个判断", "KEY",
+        ["先问在决定什么", "再放进对应层"],
+        "留下的",
+        ["对上版本的副本", "能核对的简报", "跑通一次的最小用例", "五层各自的分工"],
+        "下一节", "4.2 贴上需求原文，就能直接写吗？", "从飞书里的需求笔记开始",
     ),
     steps=["一个判断", "留下的", "下一节"],
 )

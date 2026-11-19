@@ -9,7 +9,18 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from lessonkit import Lesson, anchor, chapter_map, pop, repro  # noqa: E402
+from lessonkit import (  # noqa: E402
+    Lesson,
+    cover_handoff,
+    judge_split,
+    pop,
+    quiz_cards,
+    repro,
+    review_board,
+    sketch_recap,
+    spec_delegation,
+    sym_badge,
+)
 
 # p44 案例组：(揭示组, 案例或检查组, 核对要点)
 GROUPS = [
@@ -54,13 +65,13 @@ TREE_AFTER = (
 
 TREE_FILTERED = (
     '<ul class="p-tree">'
-    '<li class="is-open"><span class="p-path">user</span><span class="p-note">unchanged · 下面有变化</span>'
+    f'<li class="is-open"><span class="p-path">user</span>{sym_badge("anc", "▽ 下面有变化")}{sym_badge("nocnt", "保留定位")}'
     '<ul>'
-    '<li class="is-dim"><span class="p-path">name: Lin</span><span class="p-note">隐藏</span></li>'
-    '<li class="is-target"><span class="p-path">age: 20 → 21</span><span class="p-note">changed</span></li>'
+    f'<li class="is-dim"><span class="p-path">name: Lin</span>{sym_badge("nocnt", "隐藏")}</li>'
+    f'<li class="is-target"><span class="p-path">age: 20 → 21</span>{sym_badge("chg", "~ changed")}</li>'
     '</ul></li>'
-    '<li class="is-block"><span class="p-path">active: true</span><span class="p-note">removed</span></li>'
-    '<li class="is-allow"><span class="p-path">role: student</span><span class="p-note">added</span></li>'
+    f'<li class="is-block"><span class="p-path">active: true</span>{sym_badge("rem", "− removed")}</li>'
+    f'<li class="is-allow"><span class="p-path">role: student</span>{sym_badge("add", "+ added")}</li>'
     '</ul>'
 )
 
@@ -70,10 +81,16 @@ scene(
     id="p39", segment="开篇", layout="lesson-cover",
     label="光靠文字规则，拿什么判对错", title="光靠文字，拿什么判对错？",
     lead="上一节留下了经过审查的 Spec。这一节用固定输入、动作和可核算结果，写成第三份规格 Acceptance",
-    html=(
-        chapter_map(4)
-        + '<div style="margin-top:26px">' + anchor(lit=("Acceptance",), done=("Brief", "Spec"), mini=True, reveal=1) + '</div>'
-        + '<div class="p-bar is-light" data-reveal="2" style="margin-top:18px">手里有：<b>自己的 SPEC.md</b></div>'
+    html=cover_handoff(
+        now=4, lit=("Acceptance",), done=("Brief", "Spec"),
+        prev_tag="4.3 承接", prev_title="经过审查的 SPEC.md",
+        prev_desc="核心规则 · 代价范围 · Open 问题去向",
+        next_tag="4.4 产出",
+        deliverables=[
+            "按规则手算过的嵌套样例",
+            "<code>ACCEPTANCE.md</code>（Given–When–Then）",
+            "固定素材 <code>docs/specs/fixtures/</code>",
+        ],
     ),
     steps=["本章位置", "这一节补哪一层", "从自己的 Spec 开始"],
 )
@@ -85,27 +102,24 @@ scene(
     label="这句话够不够", title="只显示变化，并统计差异数量",
     lead="这句规则看似明确。光靠它，还不够判断做对了。下面是合成样例，先按已确认的规则自己判断，不是产品跑出来的结果。",
     html=(
-        '<div class="p-box" data-role="us" data-reveal="0" style="padding:12px 20px">'
+        '<div class="p-box" data-role="us" data-reveal="0" style="padding:10px 18px">'
         '<span class="p-tag" data-role="us">一句规则</span>'
-        '<h3 style="font-size:24px;margin:8px 0 0">“只显示变化，并统计差异数量”</h3></div>'
+        '<h3 style="font-size:22px;margin:6px 0 0">“只显示变化，并统计差异数量”</h3></div>'
         '<style>'
-        '#p40 .p40-row{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:20px;margin-top:14px;align-items:stretch}'
-        '#p40 .p40-trees{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch;min-width:0}'
+        '#p40 .p40-trees{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:stretch;min-width:0}'
         '#p40 .p40-trees>div{display:flex;flex-direction:column;min-width:0}'
-        '#p40 .p40-trees .p-tree{flex:1;padding:8px 14px;font-size:18px;line-height:1.4}'
-        '#p40 .p-tree li{padding:1px 0}#p40 .p-tree ul{padding-left:24px;margin-left:8px}'
-        '#p40 .p40-ask{display:flex;flex-direction:column;justify-content:center;height:100%;box-sizing:border-box;padding:16px 20px}'
-        '#p40 .p40-ask h3{font-size:24px;margin:10px 0 0;line-height:1.4}'
-        '#p40 .p40-ask p{margin:10px 0 0;font-size:18px;color:var(--p-muted)}'
+        '#p40 .p40-trees .p-tree{flex:1;padding:8px 12px;font-size:17.5px;line-height:1.4}'
+        '#p40 .p-tree li{padding:1px 0}#p40 .p-tree ul{padding-left:22px;margin-left:8px}'
+        '@media(max-width:760px){body[data-mode="scroll"] #p40 .p40-trees{grid-template-columns:minmax(0,1fr)}}'
         '</style>'
-        '<div class="p40-row">'
+        '<div class="ch4-split" style="--cols:minmax(0,1.25fr) minmax(0,0.75fr);gap:18px;margin-top:12px">'
         '<div class="p40-trees" data-reveal="1">'
         + plain_tree("Before", TREE_BEFORE) + plain_tree("After", TREE_AFTER) + '</div>'
-        '<div class="p-box p40-ask" data-role="us" data-reveal="2">'
+        '<div class="p-box" data-role="us" data-reveal="2" style="display:flex;flex-direction:column;justify-content:center;padding:14px 18px">'
         '<span class="p-tag" data-role="us">请先判断</span>'
-        '<h3>哪些地方变了，各是什么状态？</h3>'
-        '<p>这页先不公布答案</p></div></div>'
-        '<p class="source-note">合成教学样例，按已确认规则手算；JSON Diff 尚未实现</p>'
+        '<h3 style="font-size:22px;margin:8px 0 0;line-height:1.38">哪些地方变了，各是什么状态？</h3>'
+        '<p style="margin:8px 0 0;font-size:18px;color:var(--p-muted)">这页先不公布答案</p></div></div>'
+        '<p class="source-note" style="margin-top:6px">合成教学样例，按已确认规则手算；JSON Diff 尚未实现</p>'
     ),
     steps=["一句规则", "一对结构树", "先自己判断"],
 )
@@ -116,28 +130,31 @@ scene(
     lead="按已经确认的规则，把路径和状态核对出来。这是手算结果，不是产品跑出来的。",
     html=(
         '<style>'
-        '#p41 .p41-row{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:20px;align-items:start}'
-        '#p41 .p41-trees{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:stretch;min-width:0}'
+        '#p41 .p41-trees{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:stretch;min-width:0}'
         '#p41 .p41-trees>div{display:flex;flex-direction:column;min-width:0}'
-        '#p41 .p41-trees .p-tree{flex:1;padding:8px 12px;font-size:17px;line-height:1.4}'
-        '#p41 .p-tree li{padding:1px 0}#p41 .p-tree ul{padding-left:22px;margin-left:8px}'
+        '#p41 .p41-trees .p-tree{flex:1;padding:6px 10px;font-size:17px;line-height:1.35}'
+        '#p41 .p-tree li{padding:1px 0}#p41 .p-tree ul{padding-left:20px;margin-left:6px}'
+        '#p41 .p-matrix span{padding:5px 10px}'
+        '@media(max-width:760px){body[data-mode="scroll"] #p41 .p41-trees{grid-template-columns:minmax(0,1fr)}}'
         '</style>'
-        '<div class="p41-row">'
+        '<div class="ch4-split" style="--cols:minmax(0,0.88fr) minmax(0,1.12fr);gap:16px;align-items:start">'
         '<div class="p41-trees" data-reveal="0">'
         + plain_tree("Before", TREE_BEFORE) + plain_tree("After", TREE_AFTER) + '</div>'
         '<div>'
-        '<div class="p-matrix" style="grid-template-columns:1.1fr .8fr 1.3fr" data-reveal="0">'
+        '<div class="p-matrix" style="grid-template-columns:minmax(0,0.9fr) minmax(0,1.15fr) minmax(0,1.1fr)" data-reveal="0">'
         '<div class="is-head"><span>路径</span><span>直接状态</span><span>理由</span></div>'
-        '<div><span style="font-family:var(--p-mono)">/user/age</span><span><code>changed</code></span><span>数值由 20 变成 21</span></div>'
-        '<div><span style="font-family:var(--p-mono)">/active</span><span><code>removed</code></span><span>只存在于 Before</span></div>'
-        '<div><span style="font-family:var(--p-mono)">/role</span><span><code>added</code></span><span>只存在于 After</span></div>'
+        f'<div><span style="font-family:var(--p-mono);font-size:17px">/user/age</span><span>{sym_badge("chg", "~ changed")}</span><span style="font-size:17.5px">数值由 20 变成 21</span></div>'
+        f'<div><span style="font-family:var(--p-mono);font-size:17px">/active</span><span>{sym_badge("rem", "− removed")}</span><span style="font-size:17.5px">只存在于 Before</span></div>'
+        f'<div><span style="font-family:var(--p-mono);font-size:17px">/role</span><span>{sym_badge("add", "+ added")}</span><span style="font-size:17.5px">只存在于 After</span></div>'
         '</div>'
-        '<div class="p-box is-soft" data-role="ctx" data-reveal="1" style="padding:10px 16px;margin-top:14px">'
+        '<div class="p-box is-soft" data-role="ctx" data-reveal="1" style="padding:8px 12px;margin-top:8px">'
+        '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'
         '<span class="p-tag" data-role="ctx">/user</span>'
-        '<p style="margin:8px 0 0"><code>unchanged</code>，带 <code>hasDiffDescendant</code>，不计入</p></div>'
+        f'{sym_badge("anc", "▽ hasDiffDescendant")}{sym_badge("nocnt", "不计入")}</div>'
+        '<p style="margin:5px 0 0;font-size:17.5px">对象本身是 <code>unchanged</code>，靠派生标记带路</p></div>'
         '</div></div>'
-        '<div class="p-bar" data-reveal="2" style="margin-top:12px">直接差异共 <b>3 处</b>；还没有打开“只看变化”</div>'
-        '<p class="source-note">按已确认规则手算；JSON Diff 尚未实现</p>'
+        '<div class="p-bar" data-reveal="2" style="margin-top:8px">直接差异共 <b>3 处</b>；还没有打开“只看变化”</div>'
+        '<p class="source-note" style="margin-top:4px">按已确认规则手算；JSON Diff 尚未实现</p>'
     ),
     steps=["三条路径", "/user 怎么计", "共 3 处"],
 )
@@ -147,14 +164,22 @@ scene(
     label="筛选后计数变不变", title="筛选后留下了 /user，差异数要不要变成 4？",
     lead="打开“只看变化”后，图上会留下什么？请先判断差异数变不变。",
     html=(
-        '<div style="display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:24px;align-items:start">'
-        f'<div data-reveal="0"><h3 style="font-size:20px;margin:0 0 8px">只看变化（示意）</h3>{TREE_FILTERED}</div>'
-        '<div class="p-box" data-role="us" data-reveal="1" style="padding:12px 18px">'
-        '<span class="p-tag" data-role="us">学员判断</span>'
-        '<h3 style="font-size:24px;margin:10px 0 0">留下了 <code>/user</code>，差异数要不要从 3 变成 4？</h3></div>'
-        '</div>'
-        '<div class="p-bar" data-reveal="2" style="margin-top:16px">不要，仍为 <b>3</b>。保留祖先是为了定位，筛选前后计数不变</div>'
-        '<p class="source-note">合并图为课程自绘示意，JSON Diff 尚未实现</p>'
+        '<style>#p42 .p-tree{padding:8px 14px;font-size:17px;line-height:1.38}</style>'
+        + judge_split(
+            left_html=(
+                f'<div data-reveal="0"><h3 style="font-size:19px;margin:0 0 8px">只看变化（示意）</h3>{TREE_FILTERED}</div>'
+            ),
+            right_cards=(
+                '<div class="p-box" data-role="us" data-reveal="1" style="padding:12px 16px">'
+                '<span class="p-tag" data-role="us">学员判断</span>'
+                '<h3 style="font-size:21px;margin:8px 0 0">留下了 <code>/user</code>，差异数要不要从 3 变成 4？</h3></div>'
+                '<div class="p-box" data-role="ok" data-reveal="2" style="padding:12px 16px">'
+                '<span class="p-tag" data-role="ok">✓ 不要，仍为 3 处</span>'
+                '<p style="font-size:18px;margin:8px 0 0">保留 <code>/user</code> 祖先只为了定位差异，筛选前后计数规则不变</p></div>'
+            ),
+            cols="minmax(0,1.16fr) minmax(0,0.84fr)",
+        )
+        + '<p class="source-note" style="margin-top:8px">合并图为课程自绘示意，JSON Diff 尚未实现</p>'
     ),
     steps=["筛选后留下什么", "先判断计数", "仍为 3"],
 )
@@ -166,20 +191,23 @@ scene(
     label="写成可核对的案例", title="怎样把刚才的判断写成可重复核对的案例？",
     lead="刚才的判断不能只留在讲述里。写成输入、动作和预期，以后每次都能按同样条件检查。这就是 Acceptance。",
     html=(
-        '<div class="p-matrix" style="grid-template-columns:160px minmax(0,1fr)" data-reveal="0">'
-        '<div class="is-head"><span>部分</span><span>这条案例写什么</span></div>'
-        '<div><span><b>Given</b>　给定</span><span>上面固定的 Before 和 After，筛选设为关闭</span></div>'
-        '<div><span><b>When</b>　操作</span><span>比较两份输入，再开启“只看变化”</span></div>'
-        '<div><span><b>Then</b>　预期</span><span><code>/user/age</code> 为 <code>changed</code>、<code>/active</code> 为 <code>removed</code>、<code>/role</code> 为 <code>added</code>；差异数为 3，筛选前后不变；<code>/user</code> 保留，<code>/user/name</code> 隐藏</span></div>'
+        '<div class="ch4-2col-wide" style="--cols:minmax(0,1.32fr) minmax(0,0.88fr);gap:14px;align-items:start">'
+        '<div class="ch4-gwt" data-reveal="0">'
+        '<div class="ch4-gwt-row"><span class="p-tag" data-role="ctx">Given · 给定</span>'
+        '<span style="font-size:18px">上面固定的 Before 和 After，筛选设为关闭</span></div>'
+        '<div class="ch4-gwt-row"><span class="p-tag" data-role="tool">When · 操作</span>'
+        '<span style="font-size:18px">比较两份输入，再开启“只看变化”</span></div>'
+        '<div class="ch4-gwt-row"><span class="p-tag" data-role="ok">Then · 预期</span>'
+        '<span style="font-size:17.5px"><code>/user/age</code> 为 <code>changed</code>、<code>/active</code> 为 <code>removed</code>、<code>/role</code> 为 <code>added</code>；差异数为 3，筛选前后不变；<code>/user</code> 保留，<code>/user/name</code> 隐藏</span></div>'
         '</div>'
-        '<div class="p-grid" style="--n:2;margin-top:16px" data-reveal="1">'
-        '<div class="p-box" data-role="ctx"><span class="p-tag" data-role="ctx">写入哪里</span>'
-        '<h3 style="font-size:22px;margin:8px 0 0"><code>ACCEPTANCE.md</code></h3>'
-        '<p>给 <code>AC-*</code> 编号，关联自己 Spec 里的 <code>REQ-*</code></p></div>'
+        '<div class="ch4-stack">'
+        '<div class="p-box" data-role="ctx" data-reveal="1"><span class="p-tag" data-role="ctx">写入哪里</span>'
+        '<h3 style="font-size:21px;margin:6px 0 4px"><code>ACCEPTANCE.md</code></h3>'
+        '<p style="font-size:18px;margin:0">给 <code>AC-*</code> 编号，关联自己 Spec 里的 <code>REQ-*</code></p></div>'
         '<div class="p-box" data-role="ctx" data-reveal="2"><span class="p-tag" data-role="ctx">固定素材</span>'
-        '<h3 style="font-size:22px;margin:8px 0 0"><code>docs/specs/fixtures/</code></h3>'
-        '<p>和其它规格资产放在一起，不能只写“应该正确”</p></div>'
-        '</div>'
+        '<h3 style="font-size:21px;margin:6px 0 4px"><code>docs/specs/fixtures/</code></h3>'
+        '<p style="font-size:18px;margin:0">和其它规格资产放在一起，不能只写“应该正确”</p></div>'
+        '</div></div>'
     ),
     steps=["Given–When–Then", "编号和关联", "固定素材放哪里"],
 )
@@ -189,14 +217,14 @@ scene(
     label="一条案例够不够", title="一条案例够不够覆盖全部规则？",
     lead="一个嵌套案例盖不住全部已批准规则。回到 Spec，优先复用上一节已经用过的小例子，再补错误和使用条件。",
     html=(
-        '<style>#p44 .p-matrix span{padding:4px 10px;font-size:18px;line-height:1.3}</style>'
-        '<div class="p-matrix" style="grid-template-columns:200px minmax(0,1fr)">'
+        '<style>#p44 .p-matrix span{padding:4px 10px;font-size:17.5px;line-height:1.28}</style>'
+        '<div class="p-matrix" style="grid-template-columns:195px minmax(0,1fr)">'
         '<div class="is-head" data-reveal="0"><span>案例或检查组</span><span>需要核对什么</span></div>'
         + "".join(
             f'<div data-reveal="{g}"><span style="font-weight:700">{b}</span><span>{d}</span></div>'
             for g, b, d in GROUPS)
         + '</div>'
-        '<div class="p-bar" data-reveal="3" style="margin-top:10px">这几组通过了，还<b>不能</b>宣布整功能验收完成：错误、上限、窄屏、可辨认、本地处理仍要核对</div>'
+        '<div class="p-bar" data-reveal="3" style="margin-top:8px">这几组通过了，还<b>不能</b>宣布整功能验收完成：错误、上限、窄屏、可辨认、本地处理仍要核对</div>'
     ),
     steps=["常见案例", "类型、错误与上限", "窄屏与本地处理", "几个案例通过就算完成吗"],
 )
@@ -205,18 +233,29 @@ scene(
     id="p45", segment="写成验收",
     label="让 Agent 起草验收", title="怎样让 Agent 起草验收？",
     lead="结合自己已经审过的 Spec 组织请求：说明依据和目标文件，要求每条案例写清固定输入、动作和预期，并关联实际存在的 REQ",
-    html=(
-        '<div class="p-pair" style="grid-template-columns:1fr 1fr;gap:24px">'
-        '<div class="p-box" data-role="agent" data-reveal="0"><span class="p-tag" data-role="agent">依据与产出</span>'
-        '<h3 style="margin:10px 0">已审过的 <code>SPEC.md</code></h3>'
-        '<p>请 Agent 起草 <code>ACCEPTANCE.md</code> 和固定素材</p></div>'
-        '<div class="p-box" data-role="ctx" data-reveal="1"><span class="p-tag" data-role="ctx">每条案例</span>'
-        '<h3 style="margin:10px 0">输入 · 动作 · 预期</h3>'
-        '<p>关联实际存在的 <code>REQ-*</code></p></div></div>'
-        '<div class="p-bar is-light" data-reveal="2" style="margin-top:16px">只写规格和验收素材，<b>不改生产代码</b>；未决行为交给人</div>'
-        '<div class="p-box is-soft" data-role="us" data-reveal="3" style="padding:10px 16px;margin-top:14px">'
-        '<span class="p-tag" data-role="us">表达示例 · 按实际情况调整</span>'
-        '<p style="font-size:20px;margin:8px 0 0">“依据已审过的 Spec 起草 Acceptance 和固定素材；每条案例写清输入、动作和预期，并关联实际存在的 REQ。”</p></div>'
+    html=spec_delegation(
+        inputs=[("docs/specs/SPEC.md", "已审过且已批准的 REQ-*"), ("p41–p44 手算", "路径、状态、计数与 8 组边界")],
+        inputs_note="若发现规则冲突，先回 4.3 把 Spec 审清楚",
+        elements=[
+            (0, "依据与目标", "依据与产出", "按已审过的 <code>SPEC.md</code> 起草验收和固定素材"),
+            (1, "案例写法", "每条案例", "Given / When / Then 固定，关联实际存在的 <code>REQ-*</code>"),
+            (2, "改动范围", "范围与未决", "只写规格和验收素材，不改生产代码；未决交给人"),
+            (3, "请求参考", "按实际调整", "打开真实文件抽查，不只看“已完成”"),
+        ],
+        output_title="请 Agent 起草",
+        output_files=[("docs/specs/ACCEPTANCE.md", "含 AC-* 与预期"), ("docs/specs/fixtures/", "固定测试 JSON 输入")],
+        pop_title="请求表达示例",
+        pop_label="示例：按实际 Spec 调整",
+        pop_body=(
+            '<p style="margin:0 0 8px;font-size:17px">按你自己的 Spec 与规则编号改写，下面只展示表达方式</p>'
+            '<div class="p-code"><div class="p-code-head"><span>请求示例</span></div>'
+            '<pre style="padding:12px 14px;white-space:pre-wrap;font-size:18px;line-height:1.55">'
+            '依据已审过的 docs/specs/SPEC.md 起草 docs/specs/ACCEPTANCE.md 和 docs/specs/fixtures/。\n'
+            '每条案例写清固定输入、动作和预期，并关联实际存在的 REQ-*。\n'
+            '只写规格和验收素材，不修改生产代码；尚未决定的行为留给人决定。'
+            '</pre></div>'
+        ),
+        pop_hint="把 Spec 依据与范围写进请求，示例仅供参考",
     ),
     steps=["依据与产出", "案例怎么写", "范围与未决事项", "按实际组织请求"],
     repro=repro([
@@ -230,21 +269,22 @@ scene(
     id="p46", segment="写成验收",
     label="验收文档审什么", title="验收文档审什么？",
     lead="打开 Agent 生成的 ACCEPTANCE.md 和固定素材，对照手算和自己的 Spec 抽查。打开实际文件核对，不要只看“已完成”。",
-    html=(
-        '<style>@media(max-width:760px){body[data-mode="scroll"] #p46 .p-watch,'
-        'body[data-mode="scroll"] #p46 .p-pop .p-pair{grid-template-columns:minmax(0,1fr)!important}'
-        'body[data-mode="scroll"] #p46 .p-watch li{display:grid;grid-template-columns:36px minmax(0,1fr);gap:4px 12px}'
-        'body[data-mode="scroll"] #p46 .p-watch li small{grid-column:2}'
-        'body[data-mode="scroll"] #p46 .review-actions .p-bar{min-width:0!important}}</style>'
-        '<ol class="p-watch" style="gap:14px">'
-        '<li data-reveal="0">嵌套案例<small>路径、状态、计数、筛选是否和手算一致</small></li>'
-        '<li data-reveal="1">错误或边界<small>前置、动作、预期是否足以重做</small></li>'
-        '<li data-reveal="2">覆盖检查<small>已批准规则都有对应 AC，并且真正在核对那条行为</small></li></ol>'
-        '<div class="review-actions" data-reveal="3" style="display:flex;align-items:center;gap:16px;margin-top:16px;flex-wrap:wrap">'
-        '<div class="p-bar is-light" style="flex:1;min-width:360px;margin:0">审完看 <b>git status</b>：新增只在 docs/specs/；本节不提交</div>'
-        + pop("一次实跑：路径写法和本地处理口径", "示例：路径与口径",
-              '<p style="margin:0">2026-11-10 备课实跑；以下是初稿和修改稿的摘录。每次生成的编号和内容可能不同</p>'
-              '<div class="p-pair" style="grid-template-columns:1fr 1fr;gap:16px">'
+    html=review_board(
+        doc_tag="ACCEPTANCE.md + fixtures/",
+        docs=[
+            ("docs/specs/ACCEPTANCE.md", "Given/When/Then 清楚，关联实际的 REQ-*"),
+            ("docs/specs/fixtures/", "输入输出固定可重现，与路径口径一致"),
+        ],
+        doc_note="发现与规则冲突时，先回 4.3 把 Spec 审清楚",
+        checks=[
+            (0, "嵌套案例", "路径、状态、计数、筛选是否和手算一致"),
+            (1, "错误或边界", "前置、动作、预期是否足以按同步骤重做"),
+            (2, "覆盖检查", "已批准规则都有对应 AC，并且真正在核对那条行为"),
+        ],
+        footer_bar="审完看 <b>git status</b>：新增只在 docs/specs/；本节不提交",
+        example_pop=pop("一次实跑：路径写法和本地处理口径", "示例：路径与口径",
+              '<p style="margin:0 0 10px;font-size:17px">2026-11-10 备课实跑；以下是初稿和修改稿的摘录。每次生成的编号和内容可能不同</p>'
+              '<div class="ch4-2col">'
               '<div class="p-box" data-role="gate"><span class="p-tag" data-role="gate">初稿</span>'
               '<h3 style="font-size:20px">路径和口径</h3>'
               '<p>路径写成 <code>user.age</code></p>'
@@ -252,8 +292,7 @@ scene(
               '<div class="p-box" data-role="us"><span class="p-tag" data-role="us">修改后</span>'
               '<h3 style="font-size:20px">统一写法，收紧核对范围</h3>'
               '<p>路径统一成 <code>/user/age</code>，根为 <code>/</code></p>'
-              '<p>只核对此次比较有没有把 JSON 内容发出去</p></div></div>')
-        + '</div>'
+              '<p>只核对此次比较有没有把 JSON 内容发出去</p></div></div>'),
     ),
     steps=["嵌套案例", "错误或边界", "覆盖检查", "修改并检查"],
     repro=repro([
@@ -269,15 +308,14 @@ scene(
     id="p47", segment="自检与交接",
     label="哪段能当验收案例", title="这两段文字，哪段能当验收案例？",
     lead="能重复核对的，才能当验收案例。",
-    html=(
-        '<span class="p-pause" data-reveal="0">暂停 · 先自己判断，再往下看</span>'
-        '<div class="p-qlist">'
-        '<div class="p-qrow"><span class="p-n">1</span><div><h3>“比较这两份 JSON，筛选后结果应该正确。”</h3>'
-        '<div data-reveal="1"><p>不能当。没写清是哪些路径、什么状态、差异数是多少</p></div></div></div>'
-        '<div class="p-qrow"><span class="p-n">2</span><div>'
-        '<h3>“<code>/user/age</code> 为 <code>changed</code>，<code>/active</code> 为 <code>removed</code>，<code>/role</code> 为 <code>added</code>；差异数为 3，筛选前后不变；<code>/user</code> 保留，<code>/user/name</code> 隐藏。”</h3>'
-        '<div data-reveal="2"><p>能当。输入、动作对上后，可以按同样条件再检查一遍<br><a href="#p43">回看怎样写成案例</a></p></div></div></div>'
-        '</div>'
+    html=quiz_cards(
+        "“比较这两份 JSON，筛选后结果应该正确。”",
+        "<b>不能当</b>：没写清是哪些路径、什么状态、差异数是多少",
+        "“<code>/user/age</code> 为 <code>changed</code>，<code>/active</code> 为 <code>removed</code>，<code>/role</code> 为 <code>added</code>；差异数为 3，筛选前后不变；<code>/user</code> 保留，<code>/user/name</code> 隐藏。”",
+        '<b>能当</b>：输入、动作对上后，可以按同样条件再检查一遍<br><a href="#p43">回看怎样写成案例</a>',
+        right=2,
+        stamps=("✗ 不能当", "✓ 能当"),
+        labels=("第一段", "第二段"),
     ),
     steps=["两段文字", "第一段", "第二段"],
 )
@@ -286,16 +324,12 @@ scene(
     id="p48", segment="自检与交接",
     label="小结", title="这一节留下什么",
     lead="已批准的规则被写成可核算的案例。未决规则仍由人决定。下一节再决定怎么实施。",
-    html=(
-        '<div class="p-sketch" style="align-items:start">'
-        '<div data-reveal="0"><h3 style="text-align:center">一个判断</h3><div class="p-star" style="width:250px;font-size:22px">固定输入<br>动作和预期<br>能重复核对</div></div>'
-        '<div data-reveal="1"><h3>留下的</h3><ul class="p-exits" style="gap:10px">'
-        '<li class="is-pass">经过核算的 ACCEPTANCE.md</li>'
-        '<li class="is-pass">docs/specs/fixtures/</li>'
-        '<li class="is-pass">REQ-* 与 AC-* 的对应关系</li></ul></div>'
-        '<div class="p-next" data-reveal="2"><h3>下一节</h3><div class="p-box" data-role="us">'
-        '<h3>4.5 都定清楚了，为什么不一次写完？</h3><p>决定怎样实施；规格到 4.5 一起提交</p></div></div>'
-        '</div>'
+    html=sketch_recap(
+        "一个判断", "KEY",
+        ["固定输入", "动作和预期", "能重复核对"],
+        "留下的",
+        ["经过核算的 ACCEPTANCE.md", "docs/specs/fixtures/", "REQ-* 与 AC-* 的对应关系"],
+        "下一节", "4.5 都定清楚了，为什么不一次写完？", "决定怎样实施；规格到 4.5 一起提交",
     ),
     steps=["一个判断", "留下的", "下一节"],
 )
