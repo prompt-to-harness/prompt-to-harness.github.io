@@ -4,7 +4,7 @@
 
 分镜见 ../STORYBOARD.md；页面登记、章节地图与输出见 courseware/ch04/tools/lessonkit.py。
 口播在 script.json；生成前先修改这些源文件。
-非实操页按已确认的逐页内容制作；p59、p60、p70、p71 已按 2026-11-14 口径改过；p61 已按新分镜重写接入演示，画面不展示凭证；p62 已按新分镜写出首版，画面不预写文档正文或 Agent 转述，请求里使用活动方案链接占位符；p63 已按新分镜写出首版，画面不预写更新后的正文或上传结果，请求里使用评审补充和演示目录链接占位符；p64 已按新分镜写出首版，画面不预写改后的格子，请求里使用分场次报名统计链接占位符，人数用当场给出的占位；p65 已按新分镜写出首版，画面不预写创建结果或示例记录，请求里使用演示目录链接占位符；p66 已按实跑结果补上「效果示意」按钮，主画面不预写图表，安装指引与效果示意均用页内按钮展开，并写明默认远程渲染与数据安全；p67 已按第二次实跑补上「效果示意」按钮，主画面不预写行程或地图，安装指引与效果示意均用页内按钮展开，Key 不进入公开材料；p68 已按四次实跑写出，主画面以田字四格介绍四个 MCP，安装指引、测试请求和效果示意分别用各格内按钮展开；主画面不预写车次、页面内容、文档原文或三维结果；不把 Key 写入公开材料。不预写尚未实跑的 Agent 回复。
+非实操页按已确认的逐页内容制作；p59、p60、p70、p71 已按 2026-11-14 口径改过；p61 已按新分镜重写接入演示，画面不展示凭证；p62 已按新分镜写出首版，画面不预写文档正文或 Agent 转述，请求里使用活动方案链接占位符；p63 已按新分镜写出首版，统一为“更新、新建”飞书云文档，画面不预写更新后的正文或新建结果，请求里使用评审补充和演示目录链接占位符；p64 已按新分镜写出首版，画面不预写改后的格子，请求里使用分场次报名统计链接占位符，人数用当场给出的占位；p65 已按新分镜写出首版，画面不预写创建结果或示例记录，请求里使用演示目录链接占位符；p66 已按实跑结果补上「效果示意」按钮，主画面不预写图表，安装指引与效果示意均用页内按钮展开，并写明默认远程渲染与数据安全；p67 已按第二次实跑补上「效果示意」按钮，主画面不预写行程或地图，安装指引与效果示意均用页内按钮展开，Key 不进入公开材料；p68 已按四次实跑写出，主画面以田字四格介绍四个 MCP，安装指引、测试请求和效果示意分别用各格内按钮展开；主画面不预写车次、页面内容、文档原文或三维结果；不把 Key 写入公开材料。不预写尚未实跑的 Agent 回复。
 飞书读写演示用官方 CLI，实用推荐短演示仍用 MCP；不要把 CLI 写成 MCP。
 """
 import html
@@ -13,7 +13,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from lessonkit import Lesson, anchor, chapter_map, pop, repro  # noqa: E402
+from lessonkit import Lesson, cover_handoff, pop, ref, sketch_recap  # noqa: E402
 
 lesson = Lesson(
     __file__, "4.6", "除了读一份需求，MCP 日常还能怎么帮我们干活",
@@ -27,11 +27,16 @@ scene(
     id="p59", segment="开篇", layout="lesson-cover",
     label="除了读一份需求，MCP 日常还能怎么帮我们干活", title="还能怎么帮我们干活？",
     lead="上一节已经提交规格基线。这一节不再改 JSON Diff，先做飞书 CLI 主演示，再做实用 MCP 工具推荐",
-    html=(
-        '<style>body[data-mode="slides"] .segment:nth-child(4){min-width:190px}</style>'
-        + chapter_map(6)
-        + '<div style="margin-top:26px">' + anchor(lit=(), done=("Brief", "Spec", "Acceptance", "Plan", "Tasks"), mini=True, reveal=1) + '</div>'
-        + '<div class="p-bar is-light" data-reveal="2" style="margin-top:18px">本节先做<b>飞书 CLI 主演示</b>，再做<b>实用 MCP 工具推荐</b>；以看懂为主，按需要选做即可</div>'
+    html=cover_handoff(
+        now=6, lit=(), done=("Brief", "Spec", "Acceptance", "Plan", "Tasks"),
+        prev_tag="4.5 规格基线已提交", prev_title="五层规格全部到位",
+        prev_desc="JSON Diff 主线在第 5 章按任务推进，本节不改规格",
+        next_tag="4.6 工具实践",
+        deliverables=[
+            "飞书 CLI（Skill）与飞书 MCP 接入与区别",
+            "云文档读写、电子表格与多维表格实操",
+            "实用 MCP 工具对照与结果核验清单",
+        ],
     ),
     steps=["本章位置", "规格主线交给第 5 章", "先飞书主演示，再推荐短演示"],
 )
@@ -43,23 +48,15 @@ scene(
     label="怎样把飞书接到这次要用的工具上", title="怎样把飞书接到这次要用的工具上？",
     lead="接入飞书有两种方式。下一页把两套都接上，后面的读写演示用飞书 CLI",
     html=(
-        '<style>'
-        '#p60 .scene-content{gap:10px}'
-        '#p60 .p-grid{gap:14px}'
-        '#p60 .p-grid .p-box{padding:14px 18px}'
-        '#p60 .p-grid h3{font-size:24px;margin:8px 0 0}'
-        '#p60 .p-grid p{margin:6px 0 0;font-size:20px;line-height:1.45}'
-        '#p60 .p-bar{margin-top:4px;padding:10px 18px}'
-        '</style>'
-        '<div class="p-grid" style="--n:2" data-reveal="0">'
+        '<div class="ch4-2col" data-reveal="0">'
         '<div class="p-box" data-role="us"><span class="p-tag" data-role="us">个人使用</span>'
-        '<h3>推荐飞书 CLI</h3>'
-        '<p>本质上是一组技能。Agent 通过技能调用，<br>适合个人使用</p></div>'
-        '<div class="p-box" data-role="ctx"><span class="p-tag" data-role="ctx">团队环境</span>'
-        '<h3>推荐飞书 MCP</h3>'
-        '<p>在团队里要搭建 Agent 工作流时<br>更适合</p></div></div>'
-        '<div class="p-bar" data-reveal="1">主要区别：CLI 本质上是一组技能，适合个人使用；团队里搭建 Agent 工作流时，MCP 更适合</div>'
-        '<div class="p-bar is-light" data-reveal="2">下一页把两套都接上；后面的读写演示用飞书 CLI。没接上也可以看</div>'
+        '<h3 style="font-size:23px;margin:8px 0 0">推荐飞书 CLI</h3>'
+        '<p style="margin:6px 0 0;font-size:19px;line-height:1.45">本质上是一组技能。Agent 通过技能调用，<br>适合个人使用</p></div>'
+        '<div class="p-box" data-role="tool"><span class="p-tag" data-role="tool">团队环境</span>'
+        '<h3 style="font-size:23px;margin:8px 0 0">推荐飞书 MCP</h3>'
+        '<p style="margin:6px 0 0;font-size:19px;line-height:1.45">在团队里要搭建 Agent 工作流时<br>更适合</p></div></div>'
+        '<div class="p-bar" data-reveal="1" style="margin-top:14px">主要区别：CLI 本质上是一组技能，适合个人使用；团队里搭建 Agent 工作流时，MCP 更适合</div>'
+        '<div class="p-bar is-light" data-reveal="2" style="margin-top:10px">下一页把两套都接上；后面的读写演示用飞书 CLI。没接上也可以看</div>'
     ),
     steps=["两种接入方式", "两者的区别", "下一页接入，后面用 CLI 演示"],
 )
@@ -89,21 +86,14 @@ def jump(text, url):
     return {"jump": True, "text": text, "links": [{"text": text, "url": url}]}
 
 
-# ---------- 飞书 CLI 主演示 ----------
+# ---------- 飞书 CLI ----------
 scene(
-    id="p61", segment="飞书 CLI 主演示",
+    id="p61", segment="飞书 CLI",
     label="怎样登录并接上飞书 MCP 和飞书 CLI",
     title="怎样登录并接上飞书 MCP 和飞书 CLI？",
     lead="这一页要把两套都接上。接好之后，后面的读写演示用飞书 CLI。不要把密钥或授权详情贴进对话。",
     html=(
         '<style>'
-        '#p61 .scene-content{gap:10px}'
-        'body[data-mode="slides"] #p61 .scene-content{grid-template-columns:1fr 1fr;gap:14px}'
-        'body[data-mode="slides"] #p61 .scene-content>.p-bar{grid-column:1/-1}'
-        '#p61 .p-box{padding:14px 18px}'
-        '#p61 .p-box h3{font-size:24px;margin:8px 0 0}'
-        '#p61 .p-box p{margin:6px 0 0;font-size:20px;line-height:1.45}'
-        '#p61 .p-bar{margin-top:4px;padding:10px 18px}'
         '#p61 .p-go{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}'
         '#p61 .p-repro .p-jumps{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 14px}'
         '#p61 .p-repro .p-jumps a{display:inline-flex;align-items:center;gap:6px;'
@@ -114,17 +104,18 @@ scene(
         '#p61 .p-repro .p-jumps a:focus-visible{outline:2px solid #243042;outline-offset:2px}'
         '</style>'
         '<div class="p-bar is-light" data-reveal="0">一套是飞书 MCP，一套是飞书官方 CLI。以看懂为主，按需要选做；没接上也可以看后面的演示</div>'
-        '<div class="p-box" data-role="ctx" data-reveal="1">'
-        '<span class="p-tag" data-role="ctx">飞书 MCP</span>'
-        '<h3>从创建应用讲到配置</h3>'
-        '<p>创建应用 → 安装并配置 lark-mcp</p>'
-        '<p>完成标志：应用已创建，本地已配置，Agent 能调用飞书工具</p>'
+        '<div class="ch4-2col" style="margin-top:14px">'
+        '<div class="p-box" data-role="tool" data-reveal="1">'
+        '<span class="p-tag" data-role="tool">飞书 MCP</span>'
+        '<h3 style="font-size:22px;margin:8px 0 0">从创建应用讲到配置</h3>'
+        '<p style="margin:6px 0 0;font-size:18.5px;line-height:1.45">创建应用 → 安装并配置 lark-mcp</p>'
+        '<p style="margin:4px 0 0;font-size:18.5px;line-height:1.45">完成标志：应用已创建，本地已配置，Agent 能调用飞书工具</p>'
         f'<p class="p-go"><a href="{MCP_DOC}" target="_blank" rel="noopener">打开官方接入文档</a></p></div>'
         '<div class="p-box" data-role="us" data-reveal="2">'
         '<span class="p-tag" data-role="us">飞书 CLI</span>'
-        '<h3>把文档链接交给 Agent</h3>'
-        '<p>交给官方文档链接 → 自助安装 Skill → 返回授权链接，由人完成授权</p>'
-        f'<p class="p-go"><a href="{CLI_DOC}" target="_blank" rel="noopener">打开官方说明</a></p></div>'
+        '<h3 style="font-size:22px;margin:8px 0 0">把文档链接交给 Agent</h3>'
+        '<p style="margin:6px 0 0;font-size:18.5px;line-height:1.45">交给官方文档链接 → 自助安装 Skill → 返回授权链接，由人完成授权</p>'
+        f'<p class="p-go"><a href="{CLI_DOC}" target="_blank" rel="noopener">打开官方说明</a></p></div></div>'
     ),
     steps=["两套都要接上", "接上飞书 MCP", "接上飞书 CLI"],
     repro={
@@ -160,12 +151,12 @@ PROMPT_P62 = "请阅读 <活动方案链接> 这个飞书文档，告诉我这�
 
 
 scene(
-    id="p62", segment="飞书 CLI 主演示", layout="prompt-scene", prompt=PROMPT_P62,
+    id="p62", segment="飞书 CLI", layout="prompt-scene", prompt=PROMPT_P62,
     label="怎样用一句话加一个链接，让 Agent 读出飞书云文档",
     title="怎样用一句话加一个链接，让 Agent 读出飞书云文档？",
     lead="将占位符换成你有权访问的活动方案链接，再发给本地 Agent。不要改写这篇用于阅读的文档",
     html=(
-        '<style>#p62 .prompt{height:220px}</style>'
+        "<style>body[data-mode='slides'] #p62 .prompt{height:auto;min-height:190px;max-height:280px}</style>"
         '<div class="demo-notes"><ol class="p-notes">'
         '<li data-reveal="0"><span><b>先看清这句请求</b><small>只要一句话和一个链接</small></span></li>'
         '<li data-reveal="1"><span><b>发给本地 Agent</b><small>看它有没有去读这份文档</small></span></li>'
@@ -199,37 +190,23 @@ PROMPT_P63_CREATE = (
 
 
 scene(
-    id="p63", segment="飞书 CLI 主演示",
-    label="除了读取，怎样让 Agent 更新、上传飞书云文档",
-    title="除了读取，怎样让 Agent 更新、上传飞书云文档？",
-    lead="要写清改哪一份、改什么，不要覆盖无关内容。更新和上传是两件事，都要回到实际位置核对。不要改活动方案，也不要改 4.2 的需求笔记",
+    id="p63", segment="飞书 CLI",
+    label="除了读取，怎样让 Agent 更新、新建飞书云文档",
+    title="除了读取，怎样让 Agent 更新、新建飞书云文档？",
+    lead="要写清改哪一份、改什么，不要覆盖无关内容。更新和新建是两件事，都要回到实际位置核对。不要改活动方案，也不要改 4.2 的需求笔记",
     html=(
-        '<style>'
-        '#p63 .scene-content{gap:10px}'
-        '#p63 .p-box{padding:14px 18px}'
-        '#p63 .p-box h3{font-size:24px;margin:8px 0 0}'
-        '#p63 .p-box p{margin:6px 0 0;font-size:20px;line-height:1.45}'
-        '#p63 .p-bar{margin-top:4px;padding:10px 18px}'
-        '#p63 .p-go{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}'
-        '#p63 .p-repro .p-jumps{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 14px}'
-        '#p63 .p-repro .p-jumps a{display:inline-flex;align-items:center;gap:6px;'
-        'padding:8px 14px;border:1.5px solid #243042;border-radius:8px;'
-        'background:#FFFDF7;color:#243042;font-weight:700;text-decoration:none}'
-        '#p63 .p-repro .p-jumps a::after{content:"↗";color:#5B6573;font-weight:400}'
-        '#p63 .p-repro .p-jumps a:hover,#p63 .p-repro .p-jumps a:focus-visible{background:#F1EEE4}'
-        '#p63 .p-repro .p-jumps a:focus-visible{outline:2px solid #243042;outline-offset:2px}'
-        '</style>'
+        '<div class="ch4-p63-pair">'
         '<div class="p-box" data-role="ctx" data-reveal="0">'
-        '<span class="p-tag" data-role="ctx">更新</span>'
-        '<h3>只改评审补充的第 2 条</h3>'
-        '<p>把第 2 条改成“每个主题结束后安排 10 分钟答疑”。不要改其他条目，也不要改活动方案</p>'
+        '<span class="p-tag" data-role="ctx">更新 · 定点只改一条</span>'
+        '<h3 style="font-size:22px;margin:8px 0 0">只改评审补充的第 2 条</h3>'
+        '<p style="margin:6px 0 0;font-size:18.5px;line-height:1.45">把第 2 条改成“每个主题结束后安排 10 分钟答疑”。不要改其他条目，也不要改活动方案</p>'
         '</div>'
-        '<div class="p-bar is-light" data-reveal="1">打开实际文档，核对第 2 条是否写成了 10 分钟答疑。对话里说“已更新”还不够</div>'
         '<div class="p-box" data-role="us" data-reveal="2">'
-        '<span class="p-tag" data-role="us">新建</span>'
-        '<h3>在演示目录新建签到说明</h3>'
-        '<p>新建「开发者分享会 · 签到和入场说明」。更新和上传是两件事，都要回到实际位置核对</p>'
-        '</div>'
+        '<span class="p-tag" data-role="us">新建 · 指定目录</span>'
+        '<h3 style="font-size:22px;margin:8px 0 0">在演示目录新建签到说明</h3>'
+        '<p style="margin:6px 0 0;font-size:18.5px;line-height:1.45">新建「开发者分享会 · 签到和入场说明」。更新和新建是两件事，都要回到实际位置核对</p>'
+        '</div></div>'
+        '<div class="p-bar is-light" data-reveal="1" style="margin-top:14px">打开实际文档，核对第 2 条是否写成了 10 分钟答疑。对话里说“已更新”还不够</div>'
     ),
     steps=["指定文档和改动范围", "打开实际文档核对", "新建后再核对位置和内容"],
     repro={
@@ -262,20 +239,18 @@ PROMPT_P64 = (
 
 
 scene(
-    id="p64", segment="飞书 CLI 主演示", layout="prompt-scene", prompt=PROMPT_P64,
+    id="p64", segment="飞书 CLI", layout="prompt-scene", prompt=PROMPT_P64,
     label="怎样用一段 prompt 修改飞书电子表格",
     title="怎样用一段 prompt 修改飞书电子表格？",
     lead="先分清这是单独的电子表格，不要用云文档里的普通表格代替。只改一个格子，再打开实际表格核对",
     html=(
-        '<style>'
-        '#p64 .p-go{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}'
-        '</style>'
+        "<style>body[data-mode='slides'] #p64 .prompt{height:auto;min-height:220px;max-height:335px}</style>"
         '<div class="demo-notes"><ol class="p-notes">'
         '<li data-reveal="0"><span><b>先看清这是电子表格</b><small>不要用云文档里的普通表格代替</small></span></li>'
         '<li data-reveal="1"><span><b>发给本地 Agent</b><small>只改场次 C 的已报名，人数由讲师当场给出</small></span></li>'
         '<li data-reveal="2"><span><b>打开实际表格核对</b><small>看刚才改的那一格，不能只看对话</small></span></li>'
         '</ol>'
-        '<p>将占位符换成你有权访问的报名统计链接，再填写人数</p></div>'
+        '<p style="margin:10px 0 0;font-size:18px;color:var(--p-muted)">将占位符换成你有权访问的报名统计链接，再填写人数</p></div>'
     ),
     steps=["先看清这是电子表格", "发给本地 Agent", "打开实际表格核对"],
 )
@@ -293,20 +268,18 @@ PROMPT_P65 = (
 
 
 scene(
-    id="p65", segment="飞书 CLI 主演示", layout="prompt-scene", prompt=PROMPT_P65,
+    id="p65", segment="飞书 CLI", layout="prompt-scene", prompt=PROMPT_P65,
     label="怎样用一段 prompt 创建任务追踪多维表格",
     title="怎样用一段 prompt 创建任务追踪多维表格？",
     lead="用一段 prompt 新建多维表格，用来追踪团队任务。这一页是创建，不要用已有表顶替。建好后打开实际表格核对",
     html=(
-        '<style>'
-        '#p65 .p-go{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}'
-        '</style>'
+        "<style>body[data-mode='slides'] #p65 .prompt{height:auto;min-height:220px;max-height:335px}</style>"
         '<div class="demo-notes"><ol class="p-notes">'
         '<li data-reveal="0"><span><b>先看清要建什么</b><small>成员任务、创建时间、优先级、当前进度</small></span></li>'
         '<li data-reveal="1"><span><b>发给本地 Agent</b><small>建在演示目录，不要用已有表顶替</small></span></li>'
         '<li data-reveal="2"><span><b>打开实际多维表格核对</b><small>看位置、字段和记录，不能只看对话</small></span></li>'
         '</ol>'
-        '<p>将占位符换成你有权访问的演示目录链接</p></div>'
+        '<p style="margin:10px 0 0;font-size:18px;color:var(--p-muted)">将占位符换成你有权访问的演示目录链接</p></div>'
     ),
     steps=["先看清要建什么", "发给本地 Agent", "打开实际多维表格核对"],
 )
@@ -372,26 +345,31 @@ PREVIEW_P66 = (
 
 
 scene(
-    id="p66", segment="实用 MCP 工具推荐", layout="prompt-scene", prompt=PROMPT_P66,
+    id="p66", segment="实用 MCP", layout="prompt-scene", prompt=PROMPT_P66,
     label="同一份数据怎样变成图",
     title="同一份数据怎样变成图？",
     lead="先核对照入的三个教学数据，再用 AntV Chart MCP 生成柱状图。生成后打开项目根目录里的图片核对，不能只看对话。默认会把图表交到远程服务去渲染，本机启动了 MCP，并不等于数据只留在本机。不要把图表回写到飞书当作必须完成的环节",
     html=(
         "<style>"
+        "body[data-mode='slides'] #p66 .prompt{height:auto;min-height:220px;max-height:348px;display:flex;flex-direction:column;overflow:hidden}"
+        "body[data-mode='slides'] #p66 .prompt pre{overflow:auto;flex:1;min-height:0}"
+        "#p66 .demo-notes{gap:8px}"
+        "#p66 .p-notes{gap:6px}#p66 .p-notes li{padding:6px 12px;font-size:17.5px;line-height:1.32}"
         "#p66 .p-go{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}"
-        "#p66 .p-risk{padding:10px 14px;border:2px solid #D9481C;border-radius:10px 8px 11px 9px;"
-        "background:#FCE6DD;font-size:16px;line-height:1.45;color:#243042}"
+        "#p66 .p-risk{padding:8px 12px;border:2px solid #D9481C;border-radius:10px 8px 11px 9px;"
+        "background:#FCE6DD;font-size:17px;line-height:1.38;color:#243042}"
         "#p66 .p-risk a{color:inherit;overflow-wrap:anywhere}"
-        "#p66 .p-pop .p-guide{display:grid;gap:10px;font-size:16px;line-height:1.5}"
+        "#p66 .p-pop summary{font-size:17px;padding:4px 10px}"
+        "#p66 .p-pop .p-guide{display:grid;gap:10px;font-size:17px;line-height:1.5}"
         "#p66 .p-pop .p-guide p,#p66 .p-pop .p-guide h3{margin:0}"
-        "#p66 .p-pop .p-guide h3{font-size:18px}"
+        "#p66 .p-pop .p-guide h3{font-size:18.5px}"
         "#p66 .p-pops{display:flex;flex-wrap:nowrap;gap:8px;align-items:flex-start;"
         "min-width:0;width:100%;max-width:100%}"
         "#p66 .p-pop{flex:0 0 auto;min-width:0}"
         "#p66 .p-preview,#p66 .p-guide{min-width:0;max-width:100%}"
         "#p66 .p-preview{display:block}"
         "#p66 .p-preview img{display:block;width:100%;max-width:100%;height:auto;background:#fff}"
-        "#p66 .p-preview-cap{margin:0;font-size:16px;color:var(--p-muted)}"
+        "#p66 .p-preview-cap{margin:0;font-size:17px;color:var(--p-muted)}"
         "body[data-mode='slides'] #p66 .p-preview img{max-height:390px;width:auto;margin-inline:auto}"
         "body[data-mode='scroll'] #p66 .p-pops{position:relative}"
         "body[data-mode='scroll'] #p66 .p-pop-body{position:absolute;left:0;right:0;width:auto;"
@@ -501,16 +479,19 @@ PREVIEW_P67 = (
 
 
 scene(
-    id="p67", segment="实用 MCP 工具推荐", layout="prompt-scene", prompt=PROMPT_P67,
+    id="p67", segment="实用 MCP", layout="prompt-scene", prompt=PROMPT_P67,
     label="出行约束怎样落到地点和路线",
     title="出行约束怎样落到地点和路线？",
     lead="先看清这几条出行约束，再用高德地图 MCP 做一次真实查询。生成后分别核对文字行程、电脑浏览器里的路线，以及能否在 APP 里打开专属地图。专属地图的 https 等价链接常常只打开官网首页，不等于已经看到路线；返回一个链接，也不等于手机已经打开",
     html=(
         "<style>"
+        "body[data-mode='slides'] #p67 .prompt{height:auto;min-height:220px;max-height:348px;display:flex;flex-direction:column;overflow:hidden}"
+        "body[data-mode='slides'] #p67 .prompt pre{overflow:auto;flex:1;min-height:0;font-size:18px;line-height:1.45}"
+        "#p67 .p-pop summary{font-size:17px;padding:4px 10px}"
         "#p67 .p-go{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}"
-        "#p67 .p-pop .p-guide{display:grid;gap:10px;font-size:16px;line-height:1.5}"
+        "#p67 .p-pop .p-guide{display:grid;gap:10px;font-size:17px;line-height:1.5}"
         "#p67 .p-pop .p-guide p,#p67 .p-pop .p-guide h3{margin:0}"
-        "#p67 .p-pop .p-guide h3{font-size:18px}"
+        "#p67 .p-pop .p-guide h3{font-size:18.5px}"
         "#p67 .p-pops{display:flex;flex-wrap:nowrap;gap:8px;align-items:flex-start;"
         "min-width:0;width:100%;max-width:100%}"
         "#p67 .p-pop{flex:0 0 auto;min-width:0}"
@@ -518,8 +499,8 @@ scene(
         "#p67 .p-preview-stack{display:grid;gap:10px}"
         "#p67 .p-preview{display:block}"
         "#p67 .p-preview img{display:block;width:100%;max-width:100%;height:auto;background:#fff}"
-        "#p67 .p-preview-cap{margin:0;font-size:16px;color:var(--p-muted)}"
-        "body[data-mode='slides'] #p67 .p-pop[open] .p-pop-body{max-height:100%;overflow:auto}"
+        "#p67 .p-preview-cap{margin:0;font-size:17px;color:var(--p-muted)}"
+        "body[data-mode='slides'] #p67 .p-pop[open] .p-pop-body{overflow:auto}"
         "body[data-mode='scroll'] #p67 .p-pops{position:relative}"
         "body[data-mode='scroll'] #p67 .p-pop-body{position:absolute;left:0;right:0;width:auto;"
         "max-width:100%;min-width:0;box-sizing:border-box;z-index:2}"
@@ -613,13 +594,14 @@ def preview_img(src, alt, cap):
     )
 
 
-def mcp_card(role, tag, title, hint, prompt_title, prompt_text, preview_title, preview_html, guide_html):
+def mcp_card(role, tag, title, hint, prompt_title, prompt_text, preview_title, preview_html, guide_html, reveal=0):
     return (
-        f'<div class="p-box p-mcp" data-role="{role}">'
+        f'<div class="ch4-mcp-card" data-role="{role}" data-reveal="{reveal}">'
+        '<div class="ch4-mcp-head">'
         f'<span class="p-tag" data-role="{role}">{html.escape(tag)}</span>'
-        f"<h3>{html.escape(title)}</h3>"
-        f'<p class="hint">{hint}</p>'
-        '<div class="p-acts">'
+        f"<h3>{html.escape(title)}</h3></div>"
+        f'<p style="margin:0;font-size:17.5px;line-height:1.38;color:var(--p-ink)">{hint}</p>'
+        '<div class="ch4-mcp-acts">'
         + pop68(f"{title} 安装指引", "安装指引", guide_html)
         + prompt_pop(prompt_title, prompt_text)
         + pop68(preview_title, "效果示意", preview_html)
@@ -738,8 +720,15 @@ PREVIEW_P68_PLAYWRIGHT = preview_img(
     "一次实跑在可见浏览器窗口里打开后的页面。课上仍要在当场弹出的窗口里核对",
 )
 PREVIEW_P68_CONTEXT7 = (
-    "<p>一次实跑查到的是 Playwright 的 page.goto，并打开了返回的官方文档链接做核对。"
-    "课上仍要打开当场返回的链接，检查库名、版本和内容是否对得上当前问题</p>"
+    '<div class="p-guide">'
+    '<p>实跑查到 <code>/microsoft/playwright</code> 的 <code>page.goto</code> 关键参数与默认行为，随后需打开返回的官方文档核对版本和原文</p>'
+    '<div class="p-code"><div class="p-code-head"><span>Playwright API 核对摘录</span></div>'
+    '<pre style="padding:10px 14px;font-size:16.5px;line-height:1.45">await page.goto(url, options);\n'
+    '- waitUntil: "load" (默认) | "domcontentloaded" | "networkidle" | "commit"\n'
+    '- timeout: 导航超时（毫秒）；支持与 baseURL 拼接</pre></div>'
+    '<p class="p-go"><a href="https://playwright.dev/docs/api/class-page#page-goto" target="_blank" rel="noopener">打开官方文档核对 page.goto</a></p>'
+    '<p class="p-preview-cap">课上仍要打开当场返回的文档链接，检查库名、版本和内容是否对得上当前问题</p>'
+    '</div>'
 )
 PREVIEW_P68_BLENDER = preview_img(
     "assets/blender-torus-20261116.jpg",
@@ -749,38 +738,15 @@ PREVIEW_P68_BLENDER = preview_img(
 
 
 scene(
-    id="p68", segment="实用 MCP 工具推荐",
+    id="p68", segment="实用 MCP",
     label="这几个常用 MCP 各能看见什么结果",
     title="这几个常用 MCP 各能看见什么结果？",
-    lead="四个常用 MCP 排成田字。各格内的安装指引、测试请求和效果示意可按需要展开。课上仍以当场看见的结果为准",
+    lead="四个常用 MCP 排成田字，都要看见实际结果，做不到的按实际范围讲。点击卡内按钮查看指引、请求与效果示意",
     html=(
         "<style>"
-        "body[data-mode='slides'] #p68 .scene-content{top:236px;height:432px;gap:10px}"
-        "body[data-mode='slides'] #p68 .lede{width:1168px}"
-        "#p68 .p-wrap{display:flex;flex-direction:column;gap:10px;height:100%;min-width:0}"
-        "#p68 .p-grid{flex:1;gap:12px;align-items:stretch;min-height:0;"
-        "grid-template-columns:1fr 1fr}"
-        "body[data-mode='scroll'] #p68 .p-grid{grid-template-columns:1fr 1fr!important}"
-        "@media(max-width:700px){body[data-mode='scroll'] #p68 .p-grid{grid-template-columns:1fr!important}}"
-        "#p68 .p-mcp{display:flex;flex-direction:column;min-height:0;padding:12px 16px;"
-        "position:static;isolation:auto;border:2px solid var(--c,#243042);"
-        "border-radius:14px 10px 15px 11px;background:var(--cl,#FFFDF7)}"
-        "#p68 .p-mcp::before{content:none;display:none}"
-        "#p68 .p-mcp .p-tag{margin-bottom:6px;font-size:16px;padding:4px 8px}"
-        "#p68 .p-mcp h3{font-size:22px;margin:0 0 4px;line-height:1.3}"
-        "#p68 .p-mcp .hint{margin:0;font-size:16px;line-height:1.4;flex:1;color:var(--p-ink)}"
-        "#p68 .p-acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}"
-        "#p68 .p-foot{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}"
-        "#p68 .p-foot .p-note{margin:0;font-size:16px;line-height:1.35;color:var(--p-muted);flex:1;min-width:0}"
         "#p68 .p-go{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}"
-        "#p68 .p-pop .p-guide{display:grid;gap:10px;font-size:16px;line-height:1.5}"
-        "#p68 .p-pop .p-guide p,#p68 .p-pop .p-guide h3{margin:0}"
-        "#p68 .p-pop .p-guide h3{font-size:18px}"
-        "#p68 .p-pop .p-guide .p-code pre{white-space:pre-wrap;overflow-wrap:anywhere}"
-        "#p68 .p-preview,#p68 .p-guide{min-width:0;max-width:100%}"
-        "#p68 .p-preview{display:block}"
-        "#p68 .p-preview img{display:block;width:100%;max-width:100%;height:auto;background:#fff}"
-        "#p68 .p-preview-cap{margin:0;font-size:16px;color:var(--p-muted)}"
+        "#p68 .p-wrap{display:flex;flex-direction:column;height:100%;min-height:0;min-width:0}"
+        "#p68 .ch4-mcp-grid{flex:1}"
         "#p68 .p-pop .prompt{margin:0;padding:0;background:#000;color:#FAFAF7;"
         "border:1px solid #000;border-radius:8px;overflow:hidden}"
         "#p68 .p-pop .prompt-label{background:#000;color:#FAFAF7;border-bottom:1px solid #545454;"
@@ -789,50 +755,43 @@ scene(
         "font-size:18px;padding:5px 12px;white-space:nowrap}"
         "#p68 .p-pop .copy-button:hover{background:#303030}"
         "#p68 .p-pop .prompt pre{display:block;margin:0;padding:18px;background:#000;color:#FAFAF7;"
-        "border:0;border-radius:0;font:20px/1.6 var(--font-code,var(--p-mono,monospace));"
+        "border:0;border-radius:0;font:19px/1.55 var(--font-code,var(--p-mono,monospace));"
         "white-space:pre-wrap;overflow-wrap:anywhere}"
         "#p68 .p-pop .prompt code{background:none;color:inherit;font:inherit;padding:0;border:0}"
-        "body[data-mode='slides'] #p68 .p-preview img{max-height:360px;width:auto;margin-inline:auto}"
-        "body[data-mode='slides'] #p68 .p-pop[open] .p-pop-body{overflow:auto}"
-        "body[data-mode='scroll'] #p68 .p-wrap{position:relative;height:auto;"
-        "margin-bottom:var(--p-pop-space,0px)}"
+        "body[data-mode='scroll'] #p68 .p-wrap{position:relative;height:auto;margin-bottom:var(--p-pop-space,0px)}"
         "body[data-mode='scroll'] #p68 .p-pop-body{position:absolute;left:0;right:0;top:100%;"
         "width:auto;max-width:100%;min-width:0;box-sizing:border-box;margin-top:8px;"
         "max-height:min(70vh,640px);overflow:auto;z-index:2}"
         "</style>"
-        '<div class="p-wrap">'
-        '<div class="p-grid" style="--n:2">'
+        '<div class="p-wrap"><div class="ch4-mcp-grid">'
         + mcp_card(
             "ctx", "社区", "12306-mcp",
             "查询 12306 的列车时刻、余票和中转，只查不买",
             "发给 Codex 的请求 · 12306", PROMPT_P68_12306,
             "12306-mcp 效果示意", PREVIEW_P68_12306,
-            GUIDE_P68_12306,
+            GUIDE_P68_12306, reveal=0,
         )
         + mcp_card(
             "tool", "官方", "Playwright MCP",
             "控制本机浏览器，打开网页并查看或操作页面内容",
             "发给 Codex 的请求 · Playwright", PROMPT_P68_PLAYWRIGHT,
             "Playwright MCP 效果示意", PREVIEW_P68_PLAYWRIGHT,
-            GUIDE_P68_PLAYWRIGHT,
+            GUIDE_P68_PLAYWRIGHT, reveal=1,
         )
         + mcp_card(
             "tool", "官方", "Context7",
-            "查阅指定库的最新文档。查询会发到线上服务。",
+            "查阅指定库的最新文档（查询发往线上服务）",
             "发给 Codex 的请求 · Context7", PROMPT_P68_CONTEXT7,
             "Context7 效果示意", PREVIEW_P68_CONTEXT7,
-            GUIDE_P68_CONTEXT7,
+            GUIDE_P68_CONTEXT7, reveal=2,
         )
         + mcp_card(
             "ctx", "社区", "MCP for Blender",
             "操作本机已打开的 Blender，在 3D 视窗里创建或修改场景",
             "发给 Codex 的请求 · Blender", PROMPT_P68_BLENDER,
             "MCP for Blender 效果示意", PREVIEW_P68_BLENDER,
-            GUIDE_P68_BLENDER,
+            GUIDE_P68_BLENDER, reveal=3,
         )
-        + "</div>"
-        '<div class="p-foot">'
-        + '<p class="p-note">四个都要看见实际结果，不能只看对话。哪一个当时做不到，就按实际范围讲，不换别的工具顶上</p>'
         + "</div></div>"
     ),
     steps=["12306 查车次或中转", "Playwright 打开页面核对", "Context7 查接口文档", "Blender 在本机看到圆环"],
@@ -844,49 +803,35 @@ scene(
 scene(
     id="p69", segment="其他推荐",
     label="还可以再看这三个", title="还可以再看这三个？",
-    lead="画面来自项目公开演示，不是这一节已经实跑的结果。不要求装齐",
+    lead="画面来自项目公开演示，不是这一节已经实跑的结果。GitHub 与 MiniMax 为官方实现，FreeCAD 为社区实现，不要求装齐",
     html=(
-        '<style>'
-        'body[data-mode="slides"] #p69 .scene-content{top:236px;height:432px;gap:10px}'
-        'body[data-mode="slides"] #p69 .lede{width:1168px}'
-        '#p69 .p-grid{gap:14px;height:100%;align-items:stretch}'
-        '#p69 .p-grid .p-box{padding:10px 12px;display:flex;flex-direction:column;min-height:0}'
-        '#p69 .p-tag{margin-bottom:6px;font-size:16px;padding:4px 8px}'
-        '#p69 .p-grid h3{font-size:22px;margin:0;line-height:1.3}'
-        '#p69 .p-grid .hint{margin:4px 0 8px;font-size:16px;line-height:1.35}'
-        '#p69 .shot{flex:1;min-height:0;overflow:hidden;border-radius:6px;background:#111}'
-        '#p69 .shot a,#p69 .shot img{display:block;width:100%;height:100%}'
-        '#p69 .shot img{object-fit:contain}'
-        '#p69 .src{font-size:13px;color:var(--p-muted);margin:6px 0 0;line-height:1.3}'
-        '</style>'
-        '<div class="p-grid" style="--n:3">'
-        '<div class="p-box" data-role="us" data-reveal="0">'
-        '<span class="p-tag" data-role="us">官方</span>'
-        '<h3>GitHub MCP</h3>'
-        '<p class="hint">在仓库里列出 Issue、再开新 Issue。写操作要确认</p>'
-        '<div class="shot"><a href="assets/github-mcp-open-issue-official.gif">'
+        '<div class="ch4-rec-grid">'
+        '<div class="p-box ch4-rec-card" data-role="tool" data-reveal="0">'
+        '<div class="ch4-mcp-head"><span class="p-tag" data-role="tool">官方</span><h3>GitHub MCP</h3></div>'
+        '<p style="margin:0;font-size:17.5px;line-height:1.35">在仓库里列出 Issue、再开新 Issue；写操作要确认</p>'
+        '<div class="ch4-shot"><a href="assets/github-mcp-open-issue-official.gif">'
         '<img src="assets/github-mcp-open-issue-official.gif" '
-        'alt="VS Code Copilot 调用 GitHub MCP：已列出 Issue，创建新 Issue 前出现 Continue 确认"></a></div>'
-        '<p class="src">官方 v0.3.0 发布页演示</p></div>'
-        '<div class="p-box" data-role="ctx" data-reveal="1">'
-        '<span class="p-tag" data-role="ctx">官方</span>'
-        '<h3>MiniMax MCP</h3>'
-        '<p class="hint">生成图、语音或视频后，打开文件来看</p>'
-        '<div class="shot"><a href="assets/minimax-mcp-video-result-official.jpg">'
+        'alt="VS Code Copilot 调用 GitHub MCP：已列出 Issue，创建新 Issue 前出现 Continue 确认"></a></div></div>'
+        '<div class="p-box ch4-rec-card" data-role="tool" data-reveal="1">'
+        '<div class="ch4-mcp-head"><span class="p-tag" data-role="tool">官方</span><h3>MiniMax MCP</h3></div>'
+        '<p style="margin:0;font-size:17.5px;line-height:1.35">生成图、语音或视频后，打开生成的文件来看</p>'
+        '<div class="ch4-shot"><a href="assets/minimax-mcp-video-result-official.jpg">'
         '<img src="assets/minimax-mcp-video-result-official.jpg" '
-        'alt="系统播放器正在播放 MiniMax 生成的冲浪视频 video_25659_20250409_195209.mp4"></a></div>'
-        '<p class="src">官方说明里打开生成视频后的画面</p></div>'
-        '<div class="p-box" data-role="ctx" data-reveal="2">'
-        '<span class="p-tag" data-role="ctx">社区</span>'
-        '<h3>FreeCAD MCP</h3>'
-        '<p class="hint">建模过程要在 FreeCAD 窗口里看见</p>'
-        '<div class="shot"><a href="assets/freecad-mcp-flange-official.gif">'
+        'alt="系统播放器正在播放 MiniMax 生成的冲浪视频 video_25659_20250409_195209.mp4"></a></div></div>'
+        '<div class="p-box ch4-rec-card" data-role="ctx" data-reveal="2">'
+        '<div class="ch4-mcp-head"><span class="p-tag" data-role="ctx">社区</span><h3>FreeCAD MCP</h3></div>'
+        '<p style="margin:0;font-size:17.5px;line-height:1.35">建模过程要在 FreeCAD 窗口里看见</p>'
+        '<div class="ch4-shot"><a href="assets/freecad-mcp-flange-official.gif">'
         '<img src="assets/freecad-mcp-flange-official.gif" '
-        'alt="对话里调用 FreeCAD MCP，右侧窗口逐步出现法兰盘三维模型"></a></div>'
-        '<p class="src">项目仓库里的法兰盘建模演示</p></div>'
+        'alt="对话里调用 FreeCAD MCP，右侧窗口逐步出现法兰盘三维模型"></a></div></div>'
         '</div>'
     ),
     steps=["GitHub 官方 MCP", "MiniMax 官方 MCP", "FreeCAD 社区 MCP"],
+    refs=[
+        ref("GitHub MCP v0.3.0 发布说明", "https://github.com/github/github-mcp-server/releases/tag/v0.3.0", "公开演示"),
+        ref("MiniMax-AI/MiniMax-MCP 仓库", "https://github.com/MiniMax-AI/MiniMax-MCP", "公开演示"),
+        ref("neka-nat/freecad-mcp 仓库", "https://github.com/neka-nat/freecad-mcp", "公开演示"),
+    ],
 )
 
 scene(
@@ -895,13 +840,15 @@ scene(
     lead="请先判断，再看参考结论。这是本节的学员判断",
     html=(
         '<span class="p-pause" data-reveal="0">暂停 · 先自己判断，再往下看</span>'
-        '<div class="p-box" data-role="us" data-reveal="0" style="padding:16px 20px">'
+        '<div class="p-box" data-role="us" data-reveal="0" style="padding:12px 18px">'
         '<span class="p-tag" data-role="us">学员判断</span>'
-        '<h3 style="font-size:26px;margin:10px 0 0">如果对话里出现“文档已经改好了”或“多维表格已创建”，下一步该做什么？</h3></div>'
-        '<div class="p-bar" data-reveal="1" style="margin-top:16px">打开实际文档或多维表格，核对<b>位置、标题或字段、正文或记录</b>是否符合刚才的请求。不能只看对话里的“已完成”</div>'
-        '<div class="p-box is-soft" data-role="ctx" data-reveal="2" style="padding:12px 18px;margin-top:14px">'
-        '<span class="p-tag" data-role="ctx">同样适用于后面的演示</span>'
-        '<p style="font-size:20px;margin:8px 0 0">更新或创建之后，也要回到实际结果看变化。对话说明和可见结果，各有要核对的对象</p></div>'
+        '<h3 style="font-size:23px;margin:6px 0 0">如果对话里出现“文档已经改好了”或“多维表格已创建”，下一步该做什么？</h3></div>'
+        '<div class="ch4-judge-grid" style="margin-top:12px">'
+        '<div class="p-box" data-role="ok" data-reveal="1"><span class="p-tag" data-role="ok">✓ 打开实际结果核对</span>'
+        '<p style="font-size:18px;margin:6px 0 0;line-height:1.45">打开实际文档或多维表格，核对<b>位置、标题或字段、正文或记录</b>是否符合请求，不只看“已完成”</p></div>'
+        '<div class="p-box is-soft" data-role="ctx" data-reveal="2"><span class="p-tag" data-role="ctx">同样适用于后续演示</span>'
+        '<p style="font-size:18px;margin:6px 0 0;line-height:1.45">更新或创建后也要回到实际结果看变化；对话说明与可见产物各有要核对的对象</p></div>'
+        '</div>'
     ),
     steps=["先判断", "打开实际结果核对", "更新或创建后也要再看"],
 )
@@ -910,15 +857,12 @@ scene(
     id="p71", segment="自检与交接",
     label="小结", title="这一节留下什么",
     lead="看懂即可。选做的成果和规格主线分开，不打断这次交接",
-    html=(
-        '<div class="p-sketch" style="align-items:start">'
-        '<div data-reveal="0"><h3 style="text-align:center">一个判断</h3><div class="p-star" style="font-size:22px">对照来源<br>和实际结果<br>不能只看对话</div></div>'
-        '<div data-reveal="1"><h3>留下的</h3><ul class="p-exits" style="gap:10px">'
-        '<li class="is-pass">带来源与结果核对的材料</li>'
-        '<li class="is-pass">附使用条件的工具清单</li></ul></div>'
-        '<div class="p-next" data-reveal="2"><h3>下一章</h3><div class="p-box" data-role="us">'
-        '<h3>第 5 章按任务实现</h3><p>JSON Diff 仍从 4.5 已提交的规格基线进入第 5 章</p></div></div>'
-        '</div>'
+    html=sketch_recap(
+        "一个判断", "KEY",
+        ["对照来源", "和实际结果", "不能只看对话"],
+        "留下的",
+        ["带来源与结果核对的材料", "附使用条件的工具清单"],
+        "下一章", "第 5 章按任务实现", "JSON Diff 仍从 4.5 已提交的规格基线进入第 5 章",
     ),
     steps=["一个判断", "留下的", "交给第 5 章"],
 )

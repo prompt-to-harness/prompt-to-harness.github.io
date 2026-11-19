@@ -223,6 +223,233 @@ def anchor(style="stairs", lit=(), done=(), reveal_each=False, loops=False, loop
             f'<div class="p-items" style="display:flex;flex-direction:column;gap:8px">{"".join(rows)}</div>{foot}</div>')
 
 
+def layer_strip(lit=(), done=(), compact=False, reveal=None):
+    """升级版五层横向进度卡（需配合 ch04/chapter.css）：清晰标注已完成、本节聚焦与待补层。"""
+    names = [n for n, _, _ in LAYERS]
+    assert set(lit) <= set(names) and set(done) <= set(names), (lit, done)
+    cells = []
+    for name, _, fname in LAYERS:
+        if name in lit:
+            cls, badge = "is-lit", "本节"
+        elif name in done:
+            cls, badge = "is-done", "✓"
+        else:
+            cls, badge = "is-todo", "后续"
+        if compact:
+            cells.append(
+                f'<div class="ch4-layer {cls}">'
+                f'<h3>{name}</h3><span class="ch4-layer-state">{badge}</span></div>'
+            )
+        else:
+            cells.append(
+                f'<div class="ch4-layer {cls}">'
+                f'<div class="ch4-layer-top"><h3>{name}</h3><span class="ch4-layer-state">{badge}</span></div>'
+                f"<code>{fname}</code></div>"
+            )
+    attr = f' data-reveal="{reveal}"' if reveal is not None else ""
+    mode_cls = " is-compact" if compact else ""
+    return f'<div class="ch4-layers{mode_cls}"{attr}>{"".join(cells)}</div>'
+
+
+def cover_handoff(now, lit, done, prev_tag, prev_title, prev_desc, next_tag, deliverables):
+    """开篇页统一构图：六节地图 + 五层横向进度卡 + 左右交接双栏（上节起点 → 本节交付）。"""
+    items = "".join(f"<li>{d}</li>" for d in deliverables)
+    return (
+        chapter_map(now)
+        + layer_strip(lit=lit, done=done, reveal=1)
+        + '<div class="ch4-handoff" data-reveal="2">'
+        f'<div class="p-box is-soft" data-role="ctx">'
+        f'<span class="p-tag" data-role="ctx">{prev_tag}</span>'
+        f"<h3>{prev_title}</h3><p>{prev_desc}</p></div>"
+        '<div class="ch4-arrow" aria-hidden="true"><i>→</i></div>'
+        f'<div class="p-box" data-role="us">'
+        f'<span class="p-tag" data-role="us">{next_tag}</span>'
+        f'<ul class="ch4-mini-list">{items}</ul></div>'
+        "</div>"
+    )
+
+
+def spec_delegation(inputs, inputs_note, elements, output_title, output_files, pop_title, pop_label, pop_body, pop_hint):
+    """三段式「规格委托蓝图」（左输入依据 → 中请求四要素 → 右产出与示例弹窗，弹窗置于 .p-box 外以便全宽展开）。
+
+    inputs: [(文件名, 简短说明), ...]
+    elements: [(reveal步, data-key, 标签, 正文), ...]
+    output_files: [(文件名, 简短说明), ...]
+    """
+    in_html = "".join(
+        f'<div class="ch4-file-chip" data-role="ctx"><code>{f}</code><span>{d}</span></div>'
+        for f, d in inputs
+    )
+    el_html = "".join(
+        f'<div class="ch4-contract-row" data-key="{key}" data-reveal="{rv}">'
+        f'<span class="ch4-contract-key">{tag}</span><span>{body}</span></div>'
+        for rv, key, tag, body in elements
+    )
+    out_html = "".join(
+        f'<div class="ch4-file-chip" data-role="agent"><code>{f}</code><span>{d}</span></div>'
+        for f, d in output_files
+    )
+    return (
+        '<div class="ch4-delegation">'
+        '<div class="ch4-del-col" data-reveal="0">'
+        '<div class="p-box ch4-del-card" data-role="ctx">'
+        '<span class="p-tag" data-role="ctx" style="margin-bottom:2px;align-self:flex-start">读哪些依据</span>'
+        f'<div class="ch4-file-stack">{in_html}</div>'
+        f'<p class="ch4-del-note">{inputs_note}</p></div></div>'
+        f'<div class="ch4-contract">{el_html}</div>'
+        '<div class="ch4-del-col">'
+        '<div class="p-box ch4-del-card" data-role="agent" data-reveal="0">'
+        f'<span class="p-tag" data-role="agent" style="margin-bottom:2px;align-self:flex-start">{output_title}</span>'
+        f'<div class="ch4-file-stack">{out_html}</div></div>'
+        '<div class="ch4-pop-dock" data-reveal="3">'
+        f'<span class="ch4-pop-dock-hint">{pop_hint}</span>'
+        + pop(pop_title, pop_label, pop_body)
+        + "</div></div></div>"
+    )
+
+
+def review_board(doc_tag, docs, doc_note, checks, footer_bar, example_pop=None):
+    """文档审查看板：左待审文档骨架卡 + 右编号抽查清单 + 底部门禁条与备课实跑弹窗。
+
+    docs: [(文件路径, 结构要点), ...]
+    checks: [(reveal步, 标题, 说明), ...]
+    """
+    doc_html = "".join(
+        f'<div class="ch4-doc-card"><code>{f}</code><p>{d}</p></div>'
+        for f, d in docs
+    )
+    chk_html = "".join(
+        f'<li data-reveal="{rv}"><span><b>{t}</b><small>{s}</small></span></li>'
+        for rv, t, s in checks
+    )
+    pop_html = example_pop or ""
+    return (
+        '<div class="ch4-review-grid">'
+        '<div class="p-box ch4-doc-outline" data-role="ctx" data-reveal="0">'
+        f'<span class="p-tag" data-role="ctx" style="margin-bottom:0;align-self:flex-start">{doc_tag}</span>'
+        f"{doc_html}"
+        f'<p class="ch4-del-note">{doc_note}</p></div>'
+        f'<ol class="ch4-review-list">{chk_html}</ol></div>'
+        '<div class="ch4-review-foot" data-reveal="3">'
+        f'<div class="p-bar is-light">{footer_bar}</div>{pop_html}</div>'
+    )
+
+
+def quiz_cards(
+    q1_say,
+    q1_ans,
+    q2_say,
+    q2_ans,
+    right=2,
+    stamps=("✗ 不能当", "✓ 能当"),
+    labels=("第一段", "第二段"),
+    verdicts=None,
+):
+    """双栏并排暂停自检题卡（工整印刷体排引文 + 独立顶部印章栏，零重叠）。"""
+    explicit_verdicts = verdicts is not None
+    if verdicts is None:
+        assert right in (1, 2), right
+        verdicts = (right == 1, right == 2)
+    bad_stamp, ok_stamp = stamps
+
+    def card(idx, label, say, ans, ok):
+        role = "ok" if ok else "gate"
+        stamp = stamps[idx - 1] if explicit_verdicts else (ok_stamp if ok else bad_stamp)
+        return (
+            '<div class="ch4-qcard">'
+            '<div class="ch4-qcard-top">'
+            f'<div class="ch4-qcard-id"><span class="ch4-qcard-num">{idx}</span>'
+            f'<span class="ch4-qcard-label">{label}</span></div>'
+            f'<span class="ch4-qcard-stamp" data-role="{role}" data-reveal="{idx}">{stamp}</span></div>'
+            f'<p class="ch4-qcard-say">{say}</p>'
+            f'<div class="ch4-qcard-ans" data-role="{role}" data-reveal="{idx}">{ans}</div>'
+            "</div>"
+        )
+
+    return (
+        '<span class="p-pause" data-reveal="0">暂停 · 先自己判断，再看参考结论</span>'
+        '<div class="ch4-quiz-grid">'
+        + card(1, labels[0], q1_say, q1_ans, bool(verdicts[0]))
+        + card(2, labels[1], q2_say, q2_ans, bool(verdicts[1]))
+        + "</div>"
+    )
+
+
+def sketch_recap(pin_label, pin_badge, core_lines, exits_head, exits, next_head, next_title, next_desc):
+    """每节末页涂鸦小结（旋转重点贴纸卡 + 绿勾交付清单 + 下一节/下一章承接）。"""
+    core_html = "<br>".join(core_lines)
+    exit_items = "".join(f'<li class="is-pass"><span>{e}</span></li>' for e in exits)
+    return (
+        '<div class="p-sketch" style="align-items:start">'
+        f'<div data-reveal="0"><h3 style="text-align:center">{pin_label}</h3>'
+        f'<div class="ch4-takeaway-card"><span class="ch4-takeaway-pin">{pin_badge}</span>'
+        f"<p>{core_html}</p></div></div>"
+        f'<div data-reveal="1"><h3>{exits_head}</h3>'
+        f'<ul class="p-exits" style="gap:10px">{exit_items}</ul></div>'
+        f'<div class="p-next" data-reveal="2"><h3>{next_head}</h3>'
+        f'<div class="p-box" data-role="us"><h3>{next_title}</h3><p>{next_desc}</p></div></div>'
+        "</div>"
+    )
+
+
+def sym_badge(kind, text=None):
+    """节点状态符号徽章（同时用符号与文字表达状态，呼应非纯颜色可辨认规则）。"""
+    presets = {
+        "add": ("is-add", "+ added"),
+        "rem": ("is-rem", "− removed"),
+        "chg": ("is-chg", "~ changed"),
+        "anc": ("is-anc", "= unchanged · 下层有变化"),
+        "nocnt": ("is-nocnt", "不计入"),
+    }
+    cls, default_txt = presets[kind]
+    return f'<span class="ch4-sym {cls}">{text or default_txt}</span>'
+
+
+def json_box(title, body, badge=None, role="ctx", cls=""):
+    """统一样式的代码/JSON 样本卡片。"""
+    head_badge = f'<span class="p-tag" data-role="{role}">{escape(badge)}</span>' if badge else ""
+    extra = f" {cls}" if cls else ""
+    return (
+        f'<div class="p-box ch4-tree-card{extra}" data-role="{role}">'
+        f'<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">'
+        f'<strong>{escape(title)}</strong>{head_badge}</div>'
+        f'<pre class="ch4-json-pre">{escape(body)}</pre>'
+        f'</div>'
+    )
+
+
+def judge_split(left_html, right_cards, cols="minmax(0,0.92fr) minmax(0,1.08fr)", cls=""):
+    """左样本 + 右判定卡分栏，用于规则与验收示例对照。"""
+    extra = f" {cls}" if cls else ""
+    return (
+        f'<div class="ch4-split{extra}" style="--cols:{cols}">'
+        f'<div class="ch4-stack">{left_html}</div>'
+        f'<div class="ch4-stack">{right_cards}</div>'
+        f'</div>'
+    )
+
+
+def q3_cards(items, ans_reveals=None):
+    """三栏判断/结论卡，每项为 (tag, role, title, body, stamp=None, reveal=None)。"""
+    cards = []
+    for idx, item in enumerate(items):
+        tag, role, title, body = item[:4]
+        stamp = item[4] if len(item) > 4 else None
+        reveal = item[5] if len(item) > 5 else None
+        rv = f' data-reveal="{reveal}"' if reveal is not None else ""
+        arv = f' data-reveal="{ans_reveals[idx]}"' if ans_reveals else ""
+        card_role = "ink" if ans_reveals else role
+        st_html = f'<span class="ch4-stamp {"is-ok" if role == "ok" else "is-bad"}"{arv}>{escape(stamp)}</span>' if stamp else ""
+        cards.append(
+            f'<div class="p-box ch4-q3-card" data-role="{card_role}"{rv}>'
+            f'<div class="ch4-q3-head"><span class="p-tag" data-role="{role}"{arv}>{escape(tag)}</span>{st_html}</div>'
+            f'<h3 style="margin:0;font-size:21px">{title}</h3>'
+            f'<p style="margin:0;font-size:18px;line-height:1.45"{arv}>{body}</p>'
+            f'</div>'
+        )
+    return '<div class="ch4-q3-grid">' + "".join(cards) + "</div>"
+
+
 class Lesson:
     def __init__(self, builder, number, title, summary, prep=()):
         self.here = Path(builder).resolve().parents[1]
