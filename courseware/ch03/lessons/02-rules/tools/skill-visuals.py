@@ -63,7 +63,7 @@ def build(prompt):
     b+=bubble(164,82,424,152,L(192,137,['计步怎么算？','重开要检查什么？'],28,52))
     b+=G(P('M610 158 H676',C,2.5,arrow=True)+paper(700,82,426,152,C,'#f2ede1')
          +T(728,124,'Skill',32,kind='sv-hand')+T(728,171,'保存检查方法与要求',28,kind='sv-hand')
-         +P('M914 246 V280',A,2.5,arrow=True)+T(914,316,'同类任务，AI 按需选用',27,A,anchor='middle',kind='sv-hand'),1)
+         +P('M914 246 V280',A,2.5,arrow=True)+T(914,316,'同类任务，AI 按需选用',27,A,anchor='middle',kind='sv-hand'),0)
     b+=T(24,382,'风格指导初稿 → 学习调用与组织 → 回看并修改',26,C)
     scenes['p07']=svg('review-p07',b,414,'每次重新交代的检查方法，保存为 Skill 后供 AI 在同类任务中按需选用')
     # Folder boundary = Plugin; small papers = Skills; selection opens that same document.
@@ -86,7 +86,11 @@ def build(prompt):
      return f'<circle cx="{x}" cy="{y}" r="17" fill="#fffdf7" stroke="{color}" stroke-width="2"/>'+T(x,y+7,str(n),21,color,anchor='middle')
     b=R(24,22,326,264,'#fffdf7',C)+badge(60,60,1,C)+T(92,69,'取得文件',28,C,kind='sv-hand')
     b+=T(46,120,'核对来源与版本',24)+T(46,162,'保留引用资料及相对位置',22,C)
-    b+=G(P('M360 150 H388',I,2.5,arrow=True)+R(400,22,352,264,'#fffdf7',TOOL)
+    b+='<foreignObject x="42" y="200" width="300" height="66"><div xmlns="http://www.w3.org/1999/xhtml" class="install-demo-entries">'
+    b+=''.join('<a href="install-demo.html?demo='+case+'">'+label+'</a>' for case,label in [('github','GitHub'),('skillsmp','SkillsMP'),('installer','安装器')])
+    b+='</div></foreignObject>'
+
+    b+=G(P('M360 150 H388',I,2.5,arrow=True)+R(400,22,352,330,'#fffdf7',TOOL)
          +badge(436,60,2,TOOL)+T(468,69,'放入项目',28,TOOL,kind='sv-hand')
          +R(422,94,308,58,'#e0f3ef',TOOL)+T(438,132,'.agents/skills/',25,TOOL,kind='sv-code')
          +T(424,204,'个人跨项目使用时',20,C)+T(424,245,'~/.agents/skills/',21,C,kind='sv-code'),1)
@@ -95,7 +99,13 @@ def build(prompt):
          +T(824,120,'项目内启动 Codex',23)
          +R(824,140,144,44,'#e0f3ef',TOOL)+T(840,171,'/skills',26,TOOL,kind='sv-code')
          +T(824,223,'找到 Game Playtest',22)+T(824,257,'核对当前项目来源',21,C),2)
-    scenes['p07install']=svg('review-install',b,306,'取得完整文件，放到项目目录，再在 Codex 中确认能发现当前项目的 Skill')
+    from pathlib import Path
+    install_prompt = Path(__file__).resolve().parents[1].joinpath('install-project-prompt.txt').read_text().strip()
+    b+=G('<foreignObject x="424" y="275" width="304" height="52">'
+         '<div xmlns="http://www.w3.org/1999/xhtml" class="prompt install-inline-prompt">'
+         '<button type="button" data-install-preview>安装 Prompt ↗</button>'
+         '<pre hidden>'+e(install_prompt)+'</pre></div></foreignObject>',1)
+    scenes['p07install']=svg('review-install',b,372,'取得完整文件，放到项目目录，再在 Codex 中确认能发现当前项目的 Skill')
     # Keep the terminal selection route, then combine the selected reference with task details.
     b=T(24,24,'终端选择入口',21,C)
     for i,(x,w,label) in enumerate([(24,148,'/skills'),(220,196,'List skills'),(468,228,'Game Playtest')]):
@@ -105,39 +115,92 @@ def build(prompt):
     b+=R(44,112,278,38,'#e0f3ef',TOOL)+T(60,140,'$game-playtest',26,TOOL,kind='sv-code')
     b+=T(342,139,'＋  本次任务',26,kind='sv-hand')
     b+=P('M48 158 H1112','#c8c3b6',1)
-    b+=T(48,188,'任务',22,C)+T(138,188,'为记忆翻牌整理人工试玩清单',26)
-    b+=R(40,200,1084,68,'#f2ede1','none',rough=False)+T(48,225,'规则',22,C)+T(138,221,'每翻两张算一步',24)
-    b+=T(138,257,'重开：牌面关闭，配对进度与步数归零',24)
-    b+=T(48,298,'范围',22,C)+T(138,298,'只给清单，不改代码、不启动浏览器',24)
-    b+=R(24,332,1116,42,'#f2ede1','none',rough=False)+T(44,362,'返回后，用这些规则核对清单',27,kind='sv-hand')
+    b+=T(48,188,'任务',22,C)+T(138,188,'实际试玩翻牌游戏，找出问题',26)
+    b+=R(40,200,1084,68,'#f2ede1','none',rough=False)+T(48,225,'背景',22,C)+T(138,221,'准备放在个人主页上的游戏初版',24)
+    b+=T(138,257,'运行环境见 ENVIRONMENT.md',24)
+    b+=T(48,298,'范围',22,C)+T(138,298,'先检查，暂时不修改游戏代码',24)
+    b+=R(24,332,1116,42,'#f2ede1','none',rough=False)+T(44,362,'交付试玩报告：是否适合上线，哪些问题优先处理',27,kind='sv-hand')
     scenes['p07b']=svg('review-call',b,374,'终端依次选择 /skills、List skills、Game Playtest；选中的引用与本次任务、规则和范围共同组成请求')
     # Semantic alignment is separate from observed file reading; use correspondence lines rather than trigger arrows.
     b=R(8,24,532,208,'#fffdf7',I)+T(24,61,'本次请求',27,kind='sv-hand')+T(182,61,'未指定 Skill',20,C)
-    b+=T(24,114,'为浏览器翻牌游戏',27)+T(24,160,'整理人工试玩清单',27)
-    b+=T(24,204,'具体规则：计步与重开',22,C)
+    b+=T(24,114,'为浏览器翻牌游戏',27)+T(24,160,'实际试玩并报告问题',27)
+    b+=T(24,204,'本次目标：评估是否适合上线',22,C)
     match=R(660,24,480,208,'#f2ede1',C)+T(682,61,'game-playtest',22,kind='sv-code')
     match+=T(682,114,'Run browser-game',23,kind='sv-code')+T(682,160,'playtests and frontend QA. …',22,kind='sv-code')
     match+=P('M24 124 H264',C,2.5)+P('M682 124 H942',C,2.5)
     match+=P('M24 170 H264',TOOL,2.5)+P('M682 170 H1030',TOOL,2.5)
     match+=P('M552 112 H646',C,1.5,dashed=True)+P('M552 158 H646',TOOL,1.5,dashed=True)
     match+=T(682,204,'描述节选；语义对应不保证触发',21,C)
-    b+=G(match,1)
+    b+=match
     fact=R(8,252,1132,92,'#e0f3ef',TOOL,rough=False)+T(24,290,'本次读取证据',27,TOOL,kind='sv-hand')
     fact+=T(286,290,'cat …/game-playtest/SKILL.md',23,TOOL,kind='sv-code')+T(286,328,'退出 0，工具返回文件正文',22)
-    b+=G(fact,2)
+    b+=fact
     scenes['p07c']=svg('review-match',b,344,'请求与可用描述同屏对应，下面独立展示读取命令与文件返回事实')
-    # Two connected tasks: express the scope, then check both sides of the boundary.
-    b=T(24,30,'“帮助开发游戏”',24,C)+T(252,30,'范围太宽',21,WARN)
-    b+=R(24,58,1116,186,'#fffdf7',C)+T(48,84,'description · 课程改写',22,kind='sv-code')
-    b+=R(40,104,1084,38,'#f2ede1','none',rough=False)+T(48,132,'任务',22,C)+T(132,132,'浏览器游戏试玩与前端质量检查',25)
-    b+=G(R(40,150,1084,38,'#f2ede1','none',rough=False)+T(48,178,'情境',22,C)+T(132,178,'人工试玩清单、烟雾测试、界面检查',25)
-         +R(40,196,1084,38,'#fce6dd','none',rough=False)+T(48,224,'排除',22,WARN)+T(132,224,'仅润色按钮文案，不涉及游戏检查',25),1)
-    review=T(24,304,'用两类请求复核',27,kind='sv-hand')
-    review+=T(280,304,'先确认新会话载入新版',21,C)
-    review+=R(24,326,536,62,'#e3f2e6',OK)+T(40,365,'整理试玩清单',25)+P('M224 356 H270',OK,2,arrow=True)+T(290,365,'应选用',25,OK,kind='sv-hand')+T(402,365,'查漏选',21,C)
-    review+=R(592,326,548,62,'#fce6dd',WARN)+T(608,365,'只润色按钮文案',25)+P('M810 356 H848',WARN,2,arrow=True)+T(866,365,'不应选用',25,WARN,kind='sv-hand')+T(1008,365,'查误选',21,C)
-    b+=G(review,2)
-    scenes['p07d']=svg('review-scope',b,402,'描述说明任务、适用情境和排除范围，再用应选用与不应选用的请求复核')
+    # 两次回放用同一组角色列。实线沿请求方向，虚线表示文件内容返回。
+    actors = [(95, '用户', I), (323, 'Codex 客户端', C),
+              (553, '模型', A), (783, '本地工具', TOOL), (1041, 'SKILL.md', C)]
+
+    def lanes(last_row, muted=()):
+        diagram = ''
+        for x, label, color in actors:
+            if label in muted:
+                continue
+            diagram += R(x-85, 4, 170, 42, '#fffdf7', color, rough=False)
+            diagram += T(x, 33, label, 23, color, anchor='middle', weight=600)
+            diagram += P(f'M{x} 46 V{last_row}', '#b9bcb5', 1, dashed=True)
+        return diagram
+
+    def message(sender, recipient, y, label, color=I, returned=False):
+        x, target = actors[sender][0], actors[recipient][0]
+        return (T((x+target)/2, y-9, label, 21, color, anchor='middle')
+                + P(f'M{x} {y} H{target}', color, 2, dashed=returned, arrow=True))
+
+    b = lanes(301, muted=('本地工具',))
+    b += message(0, 1, 94, '选中 Game Playtest', I)
+    b += R(26, 111, 206, 62, '#f2ede1', C, rough=False)
+    b += T(129, 136, '同一个任务', 18, C, anchor='middle')
+    b += T(129, 160, '整理翻牌试玩清单', 21, I, anchor='middle')
+    b += message(0, 1, 203, '发送任务和引用')
+    b += message(1, 4, 234, '根据引用定位文件', C)
+    b += message(4, 1, 264, '取得 Skill 正文', TOOL, returned=True)
+    b += message(1, 2, 299, '任务与 Skill 正文', A)
+    scenes['p07d'] = svg('explicit-flow', b, 316, '用户选中 game-playtest 并发送任务和引用，客户端定位 Skill 文件、取得正文并随任务交给模型')
+
+    b = lanes(337)
+    b += message(0, 1, 86, '只发送任务')
+    b += message(1, 2, 129, '任务与可用目录', C)
+    b += R(565, 143, 410, 34, '#edebfb', A, rough=False)
+    b += T(580, 167, '目录中的名称和描述提供匹配依据', 21, A)
+    b += message(2, 3, 208, '请求读取', A)
+    b += message(3, 4, 251, '打开 SKILL.md', TOOL)
+    b += message(4, 3, 294, '文件正文', TOOL, returned=True)
+    b += message(3, 2, 337, '返回正文', TOOL, returned=True)
+    scenes['p07d-implicit'] = svg('implicit-flow', b, 350, '用户只发送任务，客户端给模型任务和可用目录，模型依据描述选中 Skill 并请求本地工具读取，工具从文件取得正文并返回给模型')
+
+    # 用文件头里的实际字段承接前两页的选择对象。
+    b = paper(12, 4, 728, 272, C)
+    b += T(38, 41, 'SKILL.md', 26, kind='sv-code', weight=600)
+    b += T(206, 41, '课程示例 · 文件头', 20, C)
+    b += R(35, 60, 679, 51, '#f2ede1', 'none', rough=False)
+    b += T(53, 93, 'name: game-playtest', 25, C, kind='sv-code', weight=600)
+    b += R(35, 127, 679, 126, '#edebfb', 'none', rough=False)
+    b += T(53, 157, 'description: >-', 23, A, kind='sv-code', weight=600)
+    b += T(77, 191, '对浏览器游戏做试玩和前端质量检查。', 24)
+    b += L(77, 221, ['适用于整理人工试玩清单、验证操作后的', '游戏状态，或用截图检查画面。'], 23, 27)
+    b += T(806, 40, '课程写法', 19, C)
+    b += P('M725 86 H790', C, 2, arrow=True)
+    b += T(806, 80, '人在列表里辨认', 25, C, weight=600)
+    b += T(806, 109, '用两三个词说清工作', 22)
+    b += P('M725 181 H790', A, 2, arrow=True)
+    b += T(806, 175, '模型据此匹配任务', 25, A, weight=600)
+    b += L(806, 207, ['先写用途，再写适用情境', '一到两句，包含任务关键词'], 21, 30)
+    b += P('M12 305 H1140', C, 1)
+    b += T(14, 337, 'Agent Skills 规范上限', 20, C, weight=600)
+    b += T(284, 337, 'name  64 个字符', 22)
+    b += T(566, 337, 'description  1,024 个字符', 22)
+    scenes['p07d-writing'] = svg(
+        'skill-frontmatter', b, 351,
+        '课程示例。name 让人在列表里辨认，建议两三个词。description 供模型匹配，建议用一到两句写清用途和情境。规范上限分别为 64 与 1,024 个字符。')
 
     # p07e：从正文实际移出长例子，仍用条件与路径连回原入口。
     body=paper(280,4,480,321,CONTEXT)+txt(309,45,'SKILL.md',29,kind='sv-code')+path('M310 61 H728',CONTEXT,1)
@@ -185,7 +248,7 @@ def apply(data,prompt):
         # 操作入口沿原源文件维护；只替换学员主画面。
         old=scene['html']
         actions=re.search(r'<div class="(?:selection|authoring)-actions">.*?</div>',old,re.S)
-        if scene['id'] in {'p07','p07a','p07install','p07b','p07c','p07d'}:
+        if scene['id'] in {'p07','p07a','p07install','p07b','p07c','p07d','p07d-implicit','p07d-writing'}:
             copy = ('<div class="prompt sv-copy"><span>完整请求</span><button type="button" class="copy-button" data-selection-copy>复制请求</button><pre hidden><code>' + e(prompt) + '</code></pre></div>') if scene['id'] == 'p07b' else ''
             scene['html'] = visuals[scene['id']] + '<div class="selection-operations">' + (actions.group() if actions else '') + copy + '</div>'
         else:

@@ -1,0 +1,23 @@
+[
+  {
+    "id": "github",
+    "title": "GitHub 安装 · game-playtest",
+    "promptFile": "install-github-prompt.txt",
+    "note": "仅演示通过 game-playtest 链接请求安装；本次空环境与后续实操项目分开。",
+    "url": "https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/game-playtest/SKILL.md"
+  },
+  {
+    "id": "skillsmp",
+    "title": "SkillsMP 安装 · skill-creator",
+    "promptFile": "install-skillsmp-prompt.txt",
+    "note": "平台安装 Prompt 原文；录制时可从详情页复制最新内容。若询问位置，选择当前项目；来源为 Anthropic，不覆盖 Codex 内置的同名 Skill。",
+    "url": "https://skillsmp.com/creators/anthropics/skills/skills-skill-creator"
+  },
+  {
+    "id": "installer",
+    "title": "调用 skill-installer · frontend-design",
+    "promptFile": "install-installer-prompt.txt",
+    "note": "这两行默认安装到本次隔离环境的个人 Skill 目录。输入 /skills 选中安装器时，不要重复添加 $skill-installer。",
+    "url": "https://github.com/anthropics/skills/tree/main/skills/frontend-design"
+  }
+]

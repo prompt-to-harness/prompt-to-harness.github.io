@@ -20,7 +20,7 @@
     '3.2.1.3a 安装后怎样确认可发现',
     '3.2.1.4 主动调用后怎样核对回答',
     '3.2.1.5 不点名时怎样核对选用与读取',
-    '3.2.1.6 描述怎样写清范围并复核'
+    '3.2.1.6 Skill 的名称和描述怎么写'
   ];
   const directoryGroups = first.units.map((unit, index) => ({title:directoryTitles[index], frames:unit.frames}));
   window.unifiedSpeakerPlan = {
@@ -29,10 +29,13 @@
     units:[...first.units,...reading.units], frames:[...frames,...reading.frames],
     contentDesign:{units:[{directoryTitle:'3.2.1 安装、主动调用、语言触发与描述调整',directoryGroups,title:'3.2.1 安装、调用与描述复核',status:first.status,pptPlan:first.pptPlan,discussion:'../../../../docs/outline/ch03-discussion.md#:~:text=3.2.1%20安装',guides:first.units,items:firstItems},...reading.contentDesign.units]}
   };
-  const anchor = hash.slice(1);
+  const anchor = hash === '#f02' ? 'f01' : hash === '#content-f02' ? 'content-f01' : hash.slice(1);
   const sceneFrame = frames.find(frame => frame.scene === anchor);
   const target = sceneFrame?.id || (anchor === 'p08' ? 'b31' : anchor) || (params.get('part') === '2' ? 'b31' : frames[0].id);
   const recordingView = first.recordingReady === true && params.get('view') === 'recording';
-  const search = recordingView ? '?view=recording' : '';
+  const searchParams = new URLSearchParams();
+  if (recordingView) searchParams.set('view', 'recording');
+  if (params.has('mode')) searchParams.set('mode', params.get('mode'));
+  const search = searchParams.size ? '?' + searchParams.toString() : '';
   history.replaceState(null, '', 'speaker.html' + search + '#' + target);
 })();

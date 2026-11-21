@@ -18,14 +18,14 @@
   window.addEventListener('resize', repaint);
   // 第一部分页间切换后，重绘 SVG，避免 Chromium 复用旧缩放字形。
   document.addEventListener('lesson-position', () => {
-    if (['p07','p07a','p07install','p07b','p07c','p07d'].includes(location.hash.slice(1))) repaint();
+    if (['p07','p07a','p07install','p07b','p07c','p07d','p07d-implicit','p07d-writing'].includes(location.hash.slice(1))) repaint();
   });
   document.fonts.ready.then(repaint);
 })();
 
 // Center the actual complete content group; keep positions stable across reveals.
 (() => {
- const ids=['p07','p07a','p07install','p07b','p07c','p07d'];
+ const ids=['p07','p07a','p07install','p07b','p07c','p07d','p07d-implicit','p07d-writing'];
  function layout(){
   if(document.body.dataset.mode !== 'slides')return;
   for(const id of ids){

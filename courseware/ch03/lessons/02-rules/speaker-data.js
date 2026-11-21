@@ -7,32 +7,24 @@ window.screenPlan = {
       "step": 0,
       "start": 0,
       "end": 1,
-      "title": "下一次任务怎样用上检查方法",
-      "surface": "PPT · p07 第 1 步",
-      "visible": "上一节风格指导初稿 → 本节学习调用、阅读与组织 → 学完内容组织后回看；下方以游戏检查为具体案例。",
-      "explain": "接住 3.1 初稿，说明本节用检查案例学习方法，学完内容组织后审阅风格指导；3.3 才展开紫色案例的实际开发。",
-      "action": "停留问题画面，再推进一次。",
-      "reuse": "口播已按讲述线同步，沿用 script.json 与既有评论坐标。",
-      "group": "从开发经历引入",
-      "materials": [
-        "p07"
-      ]
-    },
-    {
-      "id": "f02",
-      "scene": "p07",
-      "step": 1,
-      "start": 0,
-      "end": 1,
       "title": "经验成为可选用的指导",
-      "surface": "PPT · p07 第 2 步",
-      "visible": "原有检查问题保留，第二步出现 Skill 和可复用方法，标注供 AI 下次选用。",
-      "explain": "把可复用的检查方法组织成 Skill，下一次同类任务可以选用；本次游戏的计步和重开规则仍由请求给定。这里先认识用途，再找一份负责试玩的现成指导。",
+      "surface": "PPT · p07",
+      "visible": "同时呈现检查问题和可复用指导。",
+      "explain": "沿用上一节整理可复用指导和尝试写 Skill 的经历。接下来用翻牌试玩清单做同一任务的两次演示，先主动指定 game-playtest，再看不点名时会怎样。",
       "action": "讲完后转到 p07a。",
       "reuse": "口播已按讲述线同步，沿用 script.json 与既有评论坐标。",
       "group": "从开发经历引入",
       "materials": [
         "p07"
+      ],
+      "recordingBeats": [
+        {
+          "kind": "ppt",
+          "text": "回顾怎样把可复用的方法组织成 Skill"
+        },
+        {
+          "part": 1
+        }
       ]
     },
     {
@@ -44,12 +36,21 @@ window.screenPlan = {
       "title": "整套插件与一份试玩指导",
       "surface": "PPT · p07a 第 1 步",
       "visible": "文件夹标明 Game Studio Plugin，内有 game-studio、game-playtest、phaser-2d-game，圈出 game-playtest。沿“展开这份”连到同一份 SKILL.md。任务条、文件头区和虚线“下面是正文”可见；name 与 description 尚未展开。",
-      "explain": "先用 Game Studio 的外边界说明整套 Plugin 的范围，再看边界内并列的规划、试玩、实现等多份 Skill：它们各自提供一类任务的指导。当前任务是整理翻牌试玩清单，所以突出其中的 game-playtest；从这一项连到它自己的 SKILL.md，展开后仍保留整套与其他 Skill。学员应能直接指出“Game Studio 是这个包，game-playtest 是包里本次选用的一份”，而不是从目录缩进自行推断关系。",
+      "explain": "用 Game Studio Plugin 的外边界说明规划、实现、试玩等指导如何打包。本次任务是为翻牌游戏整理人工试玩清单，指认包里的 game-playtest，再沿连线找到这份指导自己的 SKILL.md。",
       "action": "先指 Plugin 外边界，再看内部并列的多份 Skill，最后沿 game-playtest 的连线指到它自己的 SKILL.md。推进后只增加文件头，整套与选中项保持可见。",
       "reuse": "口播已按讲述线同步，沿用 script.json 与既有评论坐标。",
       "group": "认识 Plugin 与 Skill",
       "materials": [
         "p07a"
+      ],
+      "recordingBeats": [
+        {
+          "kind": "ppt",
+          "text": "指认 Game Studio Plugin 和其中的 game-playtest"
+        },
+        {
+          "part": 1
+        }
       ]
     },
     {
@@ -57,35 +58,63 @@ window.screenPlan = {
       "scene": "p07a",
       "step": 1,
       "start": 0,
-      "end": 3,
+      "end": 4,
       "title": "在真实文件头里认识名称与描述",
       "surface": "PPT p07a 第 2 步 → GitHub 原文件",
       "visible": "保留插件、任务条和文件分区。文件头区增加 name: game-playtest，以及两行 description 节选。正文区仍只标位置。从页底入口另开真实文件读完整描述。",
-      "explain": "在已经定位的 game-playtest 上展开同一份 SKILL.md 的文件头，再到原文件看完整描述。name 确认这份指导的身份；description 中的浏览器游戏试玩、前端质量检查等范围，是判断试玩清单任务是否适合它的依据。文件头属于刚才选中的 Skill，其他正文和引用留到后续讲，不能把它误认成整个 Plugin 的描述。",
-      "action": "在 p07a 第 2 步打开原文，依次指认 name 与 description，解释清单任务为何适合它。保留原文标签，回 PPT 进入 p07install；不提前讲自然语言选用的完整机制。",
+      "explain": "用 name 核对所选指导的身份，用 description 核对浏览器试玩和截图等工作是否在它的范围内。描述说明适用范围，实际是否选用、是否读到正文留到不点名的回放中核对。本次请求只产出清单，清单中的浏览器检查和截图都留待执行。",
+      "action": "在 PPT 讲名称和描述的用途，再打开固定版本原文，指认描述里的试玩与检查范围。",
       "reuse": "口播已按讲述线同步，沿用 script.json 与既有评论坐标。",
       "group": "读名称与描述",
       "materials": [
         "p07a",
         "skill"
+      ],
+      "recordingBeats": [
+        {
+          "kind": "ppt",
+          "text": "展开 name 与 description"
+        },
+        {
+          "part": 1
+        },
+        {
+          "kind": "browser",
+          "material": "skill"
+        },
+        {
+          "part": 2
+        },
+        {
+          "part": 3
+        }
       ]
     },
     {
       "id": "f05",
       "scene": "p07a",
       "step": 1,
-      "start": 4,
-      "end": 5,
+      "start": 5,
+      "end": 6,
       "title": "确认用途后进入安装",
-      "surface": "PPT p07a 第 2 步 → p07install",
-      "visible": "p07a 文件头与选中项仍在，讲完转入安装页。",
-      "explain": "已通过描述确认用途，接下来取得文件并让当前项目发现它；主动选择在安装后进行。",
-      "action": "从原文返回 p07a，讲完安装承接，进入 p07install；复制请求留到安装完成后的 p07b。",
+      "surface": "GitHub 原文件 → PPT p07install",
+      "visible": "先停留在原文的 description，再切到安装页。",
+      "explain": "从已经确认用途的 game-playtest 接到安装。下一步先让同一个演示项目能找到它。",
+      "action": "停留 GitHub 原文说完过渡，再切到 p07install 第 1 步。",
       "reuse": "口播已按讲述线同步，沿用 script.json 与既有评论坐标。",
       "group": "读名称与描述",
       "materials": [
-        "p07b",
-        "explicit"
+        "skill",
+        "p07install"
+      ],
+      "recordingBeats": [
+        {
+          "kind": "browser",
+          "text": "停留在 GitHub 原文"
+        },
+        {
+          "part": 6
+        }
       ]
     },
     {
@@ -93,16 +122,66 @@ window.screenPlan = {
       "scene": "p07install",
       "step": 0,
       "start": 0,
-      "end": 1,
+      "end": 5,
       "title": "来源与完整文件",
       "surface": "PPT 第 3 页 p07install · 第 1 步",
       "visible": "来源、固定版本与配套文件；安装器只作补充入口。",
       "explain": "先确认取得的是准备使用的那份指导，并保留它引用的资料。文件内容完整，后面实际读取才有依据；本段不展开目录操作。",
-      "action": "指认来源和配套文件后展开安装范围。",
+      "action": "在 PPT 引出安装链接，再切回 GitHub 原文指认地址栏。讲完其他来源的查找办法后打开 SkillsMP，介绍站点，再进入详情页找 Install。",
       "reuse": "口播已按讲述线同步，沿用 script.json 与既有评论坐标。",
       "group": "安装 Skill",
       "materials": [
-        "p07install"
+        "p07install",
+        "skill",
+        "skillsmp",
+        "install-demo-github",
+        "install-demo-skillsmp",
+        "install-demo-installer"
+      ],
+      "recordingBeats": [
+        {
+          "kind": "ppt",
+          "text": "找到 Skill 的安装入口"
+        },
+        {
+          "part": 1
+        },
+        {
+          "kind": "browser",
+          "material": "skill",
+          "text": "切回原文，指地址栏并复制链接"
+        },
+        {
+          "part": 2
+        },
+        {
+          "kind": "terminal",
+          "material": "install-demo-github",
+          "text": "打开本例的独立终端，复制 GitHub 安装请求并发送；按实际结果核对"
+        },
+        {
+          "part": 3
+        },
+        {
+          "kind": "browser",
+          "material": "skillsmp",
+          "text": "打开 SkillsMP，展示站点"
+        },
+        {
+          "part": 4
+        },
+        {
+          "kind": "browser",
+          "text": "点进这份 Skill 的详情页，指 Install 按钮和可复制的 Prompt"
+        },
+        {
+          "part": 5
+        },
+        {
+          "kind": "terminal",
+          "material": "install-demo-skillsmp",
+          "text": "打开另一份独立终端，粘贴 SkillsMP 平台安装 Prompt；若询问范围，选当前项目"
+        }
       ]
     },
     {
@@ -110,16 +189,34 @@ window.screenPlan = {
       "scene": "p07install",
       "step": 1,
       "start": 0,
-      "end": 1,
+      "end": 2,
       "title": "项目与个人安装范围",
       "surface": "PPT 第 3 页 p07install · 第 2 步",
-      "visible": "项目 .agents/skills/ 与个人 ~/.agents/skills/；本次项目范围突出。",
+      "visible": "第二框的安装 Prompt 查看与复制入口；Prompt 明确项目安装位置与四份 Skill、配套资料。",
       "explain": "本次项目范围准备试玩和界面两份主要指导，以及它们引用的 web-game-foundations、react-three-fiber-game，共四份 Skill 和 13 份 Reference。后两份作为配套，不展开架构与 3D 开发。完整 Plugin 留在 3.2.4；个人范围的原解释保持。",
-      "action": "讲清本次安装位置，再展开确认发现；暂不操作安装器。",
+      "action": "先使用安装器示例的独立终端，再指认项目与个人范围；第二框原有的项目安装 Prompt 入口保持。三个演示的项目和 Codex 配置彼此独立，不改后续课程项目。",
       "reuse": "口播已按讲述线同步，沿用 script.json 与既有评论坐标。",
       "group": "安装 Skill",
       "materials": [
-        "p07install"
+        "p07install",
+        "install-demo-installer"
+      ],
+      "recordingBeats": [
+        {
+          "kind": "terminal",
+          "text": "打开第三份独立终端，显式调用 skill-installer，粘贴 frontend-design 链接；本例默认装到隔离环境的个人目录",
+          "material": "install-demo-installer"
+        },
+        {
+          "part": 1
+        },
+        {
+          "kind": "ppt",
+          "text": "指认项目与个人安装范围"
+        },
+        {
+          "part": 2
+        }
       ]
     },
     {
@@ -127,17 +224,25 @@ window.screenPlan = {
       "scene": "p07install",
       "step": 2,
       "start": 0,
-      "end": 7,
+      "end": 0,
       "title": "实际安装并确认发现",
-      "surface": "PPT 第 3 步 → 安装操作页 → 终端目录与 Skill 列表",
-      "visible": "四份 Skill、13 份 Reference 与准备结果；在列表指认前两份和两份配套指导，随后按原安排调用 game-playtest。",
+      "surface": "PPT 第 3 步 → 演示项目的 Codex Skill 列表",
+      "visible": "第三框的 /skills 命令及复制按钮；Codex 中的 Game Playtest 条目与项目来源。",
       "explain": "沿取得文件、在项目中发现、核对来源依次判断。下载成功只确认文件取得，列表中出现且来源正确才确认当前会话能找到本次版本；后面再实际调用。",
-      "action": "操作页执行带 --scope 3.2.1 的四份版准备命令，再按原顺序核对取得文件、项目发现与来源。交互发现和调用需用新版环境预跑；旧九份版实测不能替代。",
+      "action": "等待 Prompt 安装完成，复制第三框的 /skills，在演示项目 Codex 中查找 Game Playtest 并核对来源；不重复执行准备脚本。录前仍需走通安装与发现。",
       "reuse": "口播已按讲述线同步，沿用 script.json 与既有评论坐标。",
       "group": "安装 Skill",
       "materials": [
-        "p07install",
-        "install"
+        "p07install"
+      ],
+      "recordingBeats": [
+        {
+          "kind": "ppt",
+          "text": "复制第三框的 /skills 命令"
+        },
+        {
+          "part": 0
+        }
       ]
     },
     {
@@ -145,12 +250,12 @@ window.screenPlan = {
       "scene": "p07b",
       "step": 0,
       "start": 0,
-      "end": 1,
-      "title": "在终端选择 Skill",
-      "surface": "Codex CLI · 现场",
-      "visible": "/skills 菜单；List skills；Game Playtest 列表项；选中后输入框中的 $game-playtest。",
-      "explain": "沿实际菜单选择 Game Playtest，选中后用输入框里的 $game-playtest 确认引用已经加入请求。选择的对象是刚才那份 Skill；此时尚未交代本次游戏规则，也没有产生检查结果。由这个可见引用接到下一段输入具体任务。",
-      "action": "依次输入 /skills、回车、进入 List skills、选中 Game Playtest。",
+      "end": 3,
+      "title": "选择 Skill 并提交原请求",
+      "surface": "PPT · 终端现场",
+      "visible": "选择 Skill 并提交原请求",
+      "explain": "先说明 04 号翻牌游戏初版的实际试玩目标、暂不改代码和报告交付，再选择 Skill 发送任务。",
+      "action": "保留项目路径与 Skill 列表的对比演示，再回到 04 号游戏项目；展示 PPT 中完整请求，讲清任务后复制。终端选择 Game Playtest，在 $game-playtest 后粘贴并发送。",
       "reuse": "口播已按讲述线同步，沿用 script.json 与既有评论坐标。",
       "group": "主动调用",
       "materials": [
@@ -161,34 +266,34 @@ window.screenPlan = {
       "id": "f07",
       "scene": "p07b",
       "step": 0,
-      "start": 2,
-      "end": 3,
-      "title": "把当前规则交给它",
-      "surface": "Codex CLI · 现场，发送前",
-      "visible": "$game-playtest 后面的请求，包含翻牌规则、重点检查项和本轮范围。",
-      "explain": "把已有的 Skill 引用与后面粘贴的项目规则分开辨认：Skill 提供试玩方法，请求补充每翻两张算一步、重开后哪些状态归零，以及只给清单的范围。学员应能说明为什么选完 Skill 还要给任务信息，并能用这些明确规则检查稍后的返回。",
-      "action": "在 Skill 引用后粘贴已复制的请求；停在发送前读清规则、范围，讲完再发送，不再切回 PPT 取文本。",
+      "start": 4,
+      "end": 5,
+      "title": "加载当前会话的 Skill 目录",
+      "surface": "Inspect AI · 预存回放",
+      "visible": "加载当前会话的 Skill 目录",
+      "explain": "加载当前会话的 Skill 目录",
+      "action": "Inspect AI 第一步。定位第 3 行，指完整的可用 Skill 列表。",
       "reuse": "口播已按讲述线同步，沿用 script.json 与既有评论坐标。",
       "group": "主动调用",
       "materials": [
-        "p07b"
+        "explicitStep1"
       ]
     },
     {
       "id": "f08",
       "scene": "p07b",
       "step": 0,
-      "start": 4,
-      "end": 5,
-      "title": "等待时看历史请求",
-      "surface": "Inspect · 主动调用请求",
-      "visible": "同轮带 Skill 引用的请求与返回重开条目：所有牌面关闭（含已保留配对牌），配对计数归 0。",
-      "explain": "先确认历史请求中的显式引用与重开规则，再看同轮返回。",
-      "action": "定位原始请求；下一条记录为 Skill 正文，再下一条为回复。",
+      "start": 6,
+      "end": 7,
+      "title": "按引用查找 Game Playtest",
+      "surface": "Inspect AI · 预存回放",
+      "visible": "按引用查找 Game Playtest",
+      "explain": "按引用查找 Game Playtest",
+      "action": "Inspect AI 第二步。留在第 3 行，指 Game Playtest 条目的名称和文件位置。",
       "reuse": "口播已按讲述线同步，沿用 script.json 与既有评论坐标。",
       "group": "主动调用",
       "materials": [
-        "explicitRequest"
+        "explicitStep2"
       ]
     },
     {
@@ -197,32 +302,73 @@ window.screenPlan = {
       "step": 0,
       "start": 8,
       "end": 9,
-      "title": "用重开条目核对回答",
-      "surface": "Inspect · 主动调用回复",
-      "visible": "对照请求与所有牌面关闭（含配对牌），解释清单如何展开规则；尚未实际试玩。",
-      "explain": "对照请求与所有牌面关闭（含配对牌），解释清单如何展开规则；尚未实际试玩。",
-      "action": "按对应口播提示定位本段，讲完进入下一画面。",
+      "title": "任务原文与带入的正文",
+      "surface": "Inspect AI · 预存回放",
+      "visible": "任务原文与带入的正文",
+      "explain": "任务原文与带入的正文",
+      "action": "Inspect AI 第三步和第四步。先在第 10 行指原始任务，再到第 12 行展开 <skill> 消息，指名称、路径和文件头。",
       "reuse": "口播已按讲述线同步，沿用 script.json 与既有评论坐标。",
       "group": "主动调用",
       "materials": [
-        "explicitResult"
+        "explicitStep3",
+        "explicitStep4"
       ]
     },
     {
       "id": "f09",
       "scene": "p07b",
       "step": 0,
-      "start": 6,
-      "end": 7,
-      "title": "回来检查现场返回",
-      "surface": "Codex CLI · 现场回看",
-      "visible": "本次实际选中的 Skill 与返回清单。",
-      "explain": "现场返回要做两项不同核对：引用是不是 game-playtest，清单预期是不是符合请求。具体对照“两张一步”和“重开后牌面关闭、配对进度及步数归零”；引用正确不能代替内容正确。结果按现场说明，不能借预存回放替现场宣布成功。",
-      "action": "按现场事实核对引用、计步与重开；未返回就剪去等待，取得实际结果再继续。回到保留的 p07b，推进到 p07c 第 1 步。",
+      "start": 10,
+      "end": 11,
+      "title": "模型拿到试玩流程",
+      "surface": "Inspect AI · 预存回放",
+      "visible": "模型拿到试玩流程",
+      "explain": "模型拿到试玩流程",
+      "action": "nspect AI 第五步。留在第 12 行，指 Preferred Workflow 的高亮；讲完转到同轮最终回答。",
       "reuse": "口播已按讲述线同步，沿用 script.json 与既有评论坐标。",
       "group": "主动调用",
       "materials": [
-        "p07b"
+        "explicitStep5"
+      ]
+    },
+    {
+      "id": "f09-outcome",
+      "scene": "p07b",
+      "step": 0,
+      "start": 12,
+      "end": 17,
+      "title": "手动调用最后交出了什么",
+      "surface": "Inspect AI · 预存回放与现场核对",
+      "visible": "手动调用最后交出了什么",
+      "explain": "以本轮报告回应试玩任务，区分历史结果与现场实际返回；详细使用过程留待后文。",
+      "action": "打开 E 版第 404 行最终回答，先看结论与首项问题，再看回复结构；按口播提示核对现场任务。",
+      "group": "主动调用",
+      "materials": [
+        "explicitOutcome"
+      ],
+      "recordingBeats": [
+        {
+          "kind": "inspect",
+          "material": "explicitOutcome"
+        },
+        {
+          "part": 13
+        },
+        {
+          "kind": "inspect",
+          "material": "explicitOutcome",
+          "text": "留在最终回答，向下查看问题分组、表格与建议顺序。"
+        },
+        {
+          "part": 15
+        },
+        {
+          "kind": "terminal",
+          "text": "回到现场任务，核对本次实际报告；按实际结果说明。"
+        },
+        {
+          "part": 17
+        }
       ]
     },
     {
@@ -230,120 +376,153 @@ window.screenPlan = {
       "scene": "p07c",
       "step": 0,
       "start": 0,
-      "end": 1,
-      "title": "不点名，直接提出任务",
-      "surface": "PPT · p07c 第 1 步",
-      "visible": "左侧只有本次请求：为浏览器翻牌游戏、整理人工试玩清单、重点检查计步和重开，并标明未指定 Skill。描述与读取事实尚未出现。",
-      "explain": "与刚才包含 $game-playtest 的请求相比，这次保留试玩清单任务，去掉对 Skill 的指定。学员先识别这项差别，随后才有理由追问：用户没有点名时，模型从哪里获得可选指导的信息？本段进入的是已有实录。",
-      "action": "本段用预跑实录，不再发一轮现场任务。",
+      "end": 2,
+      "title": "发送同一段任务",
+      "surface": "PPT · 终端现场",
+      "visible": "发送同一段任务",
+      "explain": "发送同一段任务",
+      "action": "同一项目开新会话，从 PPT 复制同一段 Prompt，直接发送。回放打开 Inspect AI 第一步，指第 10 行的消息开头。",
       "reuse": "口播已按讲述线同步，沿用 script.json 与既有评论坐标。",
       "group": "语言触发与读取",
       "materials": [
-        "p07c"
+        "p07b",
+        "autoStep1"
       ]
     },
     {
       "id": "f11",
       "scene": "p07c",
-      "step": 1,
-      "start": 0,
-      "end": 2,
-      "title": "把需求和可用描述对在一起",
-      "surface": "PPT · p07c 第 2 步",
-      "visible": "左侧请求与右侧 description 同屏。浏览器游戏对应 browser-game，试玩清单对应 playtests and frontend QA。计步和重开标为“本次规则，不是选用依据”。说明对应的是任务与情境，不是关键词相等。随后切真实回放。",
-      "explain": "把请求中的“浏览器翻牌游戏”与描述中的 browser-game、把“人工试玩清单”与 playtests 的任务含义对应起来。这些可见内容说明为何这份指导与请求相关；不是按字面关键词相等就必然触发。描述给出选用依据，是否实际读取还要看下一段同次运行记录。",
-      "action": "在第 2 步指认任务与描述的对应；暂不推进读取行，接着切到已有回放。",
+      "step": 0,
+      "start": 3,
+      "end": 5,
+      "title": "用可用目录和描述判断",
+      "surface": "Inspect AI · 预存回放",
+      "visible": "用可用目录和描述判断",
+      "explain": "用可用目录和描述判断",
+      "action": "Inspect AI 第二步和第三步。先指第 3 行的完整列表，再切到同一行的 Game Playtest 高亮，指名称和描述。",
       "reuse": "口播已按讲述线同步，沿用 script.json 与既有评论坐标。",
       "group": "语言触发与读取",
       "materials": [
-        "p07c"
+        "autoStep2",
+        "autoStep3"
       ]
     },
     {
-      "id": "f12",
+      "id": "f12-choice",
       "scene": "p07c",
-      "step": 2,
-      "start": 0,
-      "end": 1,
-      "title": "按本次记录看输入",
-      "surface": "自然语言回放 · 完整请求",
-      "visible": "自然语言调用的完整请求，没有指定 Skill。",
-      "explain": "先确认这轮没有点名，与刚才主动指定的请求区分；接下来核对会话可用说明。",
-      "action": "停在完整请求，确认没有 Skill 名称，讲完再进入可用说明。",
-      "reuse": "口播已按讲述线同步，沿用 script.json 与既有评论坐标。",
+      "step": 0,
+      "start": 6,
+      "end": 7,
+      "title": "模型根据描述说明选用理由",
+      "surface": "Inspect AI · F 版预存回放",
+      "visible": "第 43 行：任务与描述匹配，决定读取 Game Playtest",
+      "explain": "先用日志中的选用理由确认模型已决定取用，再接实际读取与正文返回。",
+      "action": "Inspect AI 第四步，停在第 43 行选用理由；随后进入第五步比较另一份 Skill。",
       "group": "语言触发与读取",
       "materials": [
-        "request",
-        "metadata"
+        "autoChoice"
+      ],
+      "recordingBeats": [
+        {
+          "kind": "inspect",
+          "material": "autoChoice"
+        },
+        {
+          "part": 7
+        }
       ]
     },
     {
-      "id": "f12-metadata",
+      "id": "f12-compare",
       "scene": "p07c",
-      "step": 2,
+      "step": 0,
       "start": 8,
       "end": 9,
-      "title": "确认该轮可用说明",
-      "surface": "自然语言回放 · 可用说明",
-      "visible": "会话提供的 game-playtest 名称、描述与文件位置。",
-      "explain": "该轮可用列表提供候选信息，是否读到正文还要看下一段实际读取。",
-      "action": "定位 game-playtest 名称、描述与文件位置，讲完切实际读取。",
-      "reuse": "口播已按讲述线同步，沿用 script.json 与既有评论坐标。",
+      "title": "比较另一份可能相关的 Skill",
+      "surface": "Inspect AI · F 版预存回放",
+      "visible": "第 43 行：web-game-foundations 可能相关，当前试玩以 game-playtest 为主",
+      "explain": "从本轮比较接到显式指定与 Description 适用范围的写法。",
+      "action": "Inspect AI 第五步，高亮同条记录中对 web-game-foundations 与 game-playtest 的比较。",
       "group": "语言触发与读取",
       "materials": [
-        "metadata"
+        "autoCompare"
+      ],
+      "recordingBeats": [
+        {
+          "kind": "inspect",
+          "material": "autoCompare"
+        },
+        {
+          "part": 9
+        }
       ]
     },
     {
       "id": "f13",
       "scene": "p07c",
-      "step": 2,
-      "start": 2,
-      "end": 3,
-      "title": "用工具返回确认实际读取",
-      "surface": "Inspect · 原始读取事件和返回",
-      "visible": "实际读取命令、退出状态与工具返回文件内容。",
-      "explain": "从工具返回确认本次取得了 game-playtest 正文，区别于仅在可用说明里出现；回答是否符合规则留下一段核对。",
-      "action": "停在实际读取命令与工具返回，讲完切同轮返回清单。",
+      "step": 0,
+      "start": 10,
+      "end": 11,
+      "title": "模型发出读取请求",
+      "surface": "Inspect AI · 预存回放",
+      "visible": "模型发出读取请求",
+      "explain": "模型发出读取请求",
+      "action": "Inspect AI 第六步。打开第 46 行的工具调用，指命令末尾的 game-playtest/SKILL.md。",
       "reuse": "口播已按讲述线同步，沿用 script.json 与既有评论坐标。",
       "group": "语言触发与读取",
       "materials": [
-        "read",
-        "result"
-      ]
-    },
-    {
-      "id": "f13-result",
-      "scene": "p07c",
-      "step": 2,
-      "start": 6,
-      "end": 7,
-      "title": "用两张一步核对清单",
-      "surface": "自然语言回放 · A2/A3",
-      "visible": "第一张 0、第二张 1，把两张一步展开为操作与预期；实际读取与回答正确分别核对。",
-      "explain": "第一张 0、第二张 1，把两张一步展开为操作与预期；实际读取与回答正确分别核对。",
-      "action": "按对应口播提示定位本段，讲完进入下一画面。",
-      "reuse": "口播已按讲述线同步，沿用 script.json 与既有评论坐标。",
-      "group": "语言触发与读取",
-      "materials": [
-        "result"
+        "autoStep4"
       ]
     },
     {
       "id": "f14",
       "scene": "p07c",
-      "step": 2,
-      "start": 4,
-      "end": 5,
-      "title": "从本次成功匹配转向描述检查",
-      "surface": "PPT · 回到 p07c 第 3 步",
-      "visible": "保留请求、描述与对应线。下方新增本次可见事实：cat …/game-playtest/SKILL.md，退出 0，工具返回正文，并标明不展示模型内部判断。",
-      "explain": "回到同屏保留的需求、描述与实际读取摘要，收住这次已经成功选用的事实。下一页讨论的是以后漏选或误选时如何检查描述，而不是修复本次已经出现的失败；先确认 Skill 可用，再讨论描述是否准确表达适用范围。",
-      "action": "从回放返回保留的 PPT，推进到 p07c 第 3 步，讲本次原描述已匹配；再翻到 p07d 第 1 步。",
+      "step": 0,
+      "start": 12,
+      "end": 14,
+      "title": "工具返回试玩流程",
+      "surface": "Inspect AI · 预存回放",
+      "visible": "工具返回试玩流程",
+      "explain": "工具返回试玩流程",
+      "action": "Inspect AI 第七步。打开第 50 行的工具返回，指 Preferred Workflow 的高亮；讲完看 F 版同轮最终回答。",
       "reuse": "口播已按讲述线同步，沿用 script.json 与既有评论坐标。",
       "group": "语言触发与读取",
       "materials": [
+        "autoStep5"
+      ]
+    },
+    {
+      "id": "f14-outcome",
+      "scene": "p07c",
+      "step": 0,
+      "start": 15,
+      "end": 17,
+      "title": "自然语言调用也交出了问题报告",
+      "surface": "Inspect AI · 预存回放与现场核对",
+      "visible": "自然语言调用也交出了问题报告",
+      "explain": "以本轮报告回应试玩任务，区分历史结果与现场实际返回；详细使用过程留待后文。",
+      "action": "依次按口播中的操作提示查看同轮报告并核对现场结果。",
+      "group": "语言触发与读取",
+      "materials": [
+        "implicitOutcome",
         "p07c"
+      ],
+      "recordingBeats": [
+        {
+          "kind": "inspect",
+          "material": "implicitOutcome"
+        },
+        {
+          "part": 16
+        },
+        {
+          "kind": "terminal",
+          "text": "回到本次自然语言任务，核对实际读取和报告。"
+        },
+        {
+          "kind": "ppt",
+          "text": "过渡页 · 回顾两条调用路径"
+        }
       ]
     },
     {
@@ -352,68 +531,121 @@ window.screenPlan = {
       "step": 0,
       "start": 0,
       "end": 1,
-      "title": "先说清负责哪项工作",
-      "surface": "PPT · p07d 第 1 步",
-      "visible": "划去“帮助开发游戏”，旁注范围太宽。description 纸页内第一条写职责原句，色带右侧标注“负责什么”。",
-      "explain": "用“帮助开发游戏”可能同时包含规划、实现、画图，与当前明确的“浏览器游戏试玩与前端质量检查”对比，解释对象和工作都要写清。学员要能判断描述是否足以区分任务，而不只是记住“任务范围”这个字段名称。这个过宽说法是讲解用的假设，不是本次原描述。",
-      "action": "保持范围行可见，再推进补情境。",
-      "reuse": "口播已按讲述线同步，沿用 script.json 与既有评论坐标。",
-      "group": "描述写法与复核",
+      "title": "用户选中，客户端带入正文",
+      "surface": "PPT 第一屏 · 手动指定流程图",
+      "visible": "用户、Codex 客户端、模型、Skill 文件。沿箭头展示任务和引用、定位文件、取得正文、正文随任务带入模型。",
+      "explain": "把用户的显式选择与客户端的文件定位分开讲。",
+      "action": "从左起沿用户、客户端和文件走一遍，再指回到模型的箭头。",
+      "group": "调用回顾与名称、描述写法",
       "materials": [
         "p07d"
+      ],
+      "recordingBeats": [
+        {
+          "kind": "ppt",
+          "material": "p07d",
+          "text": "沿箭头从用户指到 Codex 客户端，再指文件和模型"
+        },
+        {
+          "part": 1
+        }
       ]
     },
     {
       "id": "f16",
-      "scene": "p07d",
-      "step": 1,
+      "scene": "p07d-implicit",
+      "step": 0,
       "start": 0,
       "end": 2,
-      "title": "补充情境和不适用边界",
-      "surface": "PPT · p07d 第 2 步",
-      "visible": "同一描述纸页增加两条色带：准备人工试玩清单等情境，标注“什么时候用”；仅润色按钮文案，标注“什么情况不用”。",
-      "explain": "在已说明的任务范围上，增加“准备人工试玩清单”作为适用情境，再用“只润色按钮文案、不检查游戏”说明不适用边界。两条共同帮助决定什么时候选这份 Skill；选中以后怎样检查由正文提供。本页讲的是课程改写示例，实际改动与原文到复核材料里对照。",
-      "action": "指认新增情境和边界；保留课程改写标识。",
-      "reuse": "口播已按讲述线同步，沿用 script.json 与既有评论坐标。",
-      "group": "描述写法与复核",
+      "title": "模型匹配，工具读取正文",
+      "surface": "PPT 第二屏 · 自然语言触发流程图",
+      "visible": "沿用第一屏的角色位置，增加本次实际参与的本地工具。可用目录先到模型，随后显示读取请求和正文返回。",
+      "explain": "回顾模型以可用目录中的名称和描述判断，再通过本地工具取得正文。",
+      "action": "沿箭头指出选择和读取各由谁完成，然后进入名称和描述写法。",
+      "group": "调用回顾与名称、描述写法",
       "materials": [
-        "p07d"
+        "p07d-implicit"
+      ],
+      "recordingBeats": [
+        {
+          "kind": "ppt",
+          "material": "p07d-implicit",
+          "text": "先指目录和模型，再指本地工具和正文返回"
+        },
+        {
+          "part": 1
+        },
+        {
+          "part": 2
+        }
       ]
     },
     {
       "id": "f17",
-      "scene": "p07d",
-      "step": 2,
+      "scene": "p07d-writing",
+      "step": 0,
       "start": 0,
-      "end": 1,
-      "title": "先在 PPT 讲复核方法",
-      "surface": "PPT · p07d 第 3 步",
-      "visible": "保留描述。下方出现“修改后复核”和“① 新会话已载入新版”。两张请求卡分别指向应选用·查漏选、不应选用·查误选。",
-      "explain": "先确认会话收到的是新版 description，再把两个请求分别连到预期：整理试玩清单应选用 game-playtest；只润色按钮提示不应选用它。前者检查漏选，后者检查误选，随后用实际选用、读取和返回逐项核对。方法在 PPT 讲，观察结果到下一段材料中看。",
-      "action": "停留 PPT 讲完这一段，再切回放；此时不让画面提前落在材料顶部的原描述。",
-      "reuse": "口播已按讲述线同步，沿用 script.json 与既有评论坐标。",
-      "group": "描述写法与复核",
+      "end": 2,
+      "title": "Anthropic · 名称和描述怎么写",
+      "surface": "PPT 第三屏 → Anthropic 官方文章",
+      "visible": "game-playtest 文件头；Anthropic 的命名与描述示例",
+      "explain": "名称写出具体工作。描述写清做什么、什么时候用。",
+      "action": "先在 PPT 指 game-playtest 示例，再打开本段的 Anthropic 链接，依次讲名称和描述。",
+      "group": "调用回顾与名称、描述写法",
       "materials": [
-        "p07d",
-        "description"
+        "p07d-writing",
+        "skill-authoring-guide"
+      ],
+      "recordingBeats": [
+        {
+          "kind": "ppt",
+          "text": "用 game-playtest 说明怎样命名"
+        },
+        {
+          "part": 1
+        },
+        {
+          "kind": "browser",
+          "material": "skill-authoring-guide",
+          "text": "先看 Naming conventions，再看 Writing effective descriptions"
+        },
+        {
+          "part": 2
+        }
       ]
     },
     {
       "id": "f18",
-      "scene": "p07d",
-      "step": 2,
-      "start": 2,
+      "scene": "p07d-writing",
+      "step": 0,
+      "start": 3,
       "end": 5,
-      "title": "读出四轮结果，再解释改写效果",
-      "surface": "Inspect · 四轮原始记录 → PPT p07d 第 3 步",
-      "visible": "四轮各自的可用说明、原始请求与回复，保留读取动作上下文。",
-      "explain": "先读观察：原版、改写版在清单任务均读取，在按钮文案任务均未见读取。这两条请求没有表现出两版效果差别，因此本例展示范围表达和复核方法。以后具体发生漏选或误选，保留该请求，改完再检查同一任务。回 PPT 只收束这一判断，随后以“选用之后正文怎样指导工作”进入 3.2.2。",
-      "action": "按“下一条记录”核对四轮原文；改写示例在 PPT。回 p07d 第 3 步收束，再进入 3.2.2。",
-      "reuse": "口播已按讲述线同步，沿用 script.json 与既有评论坐标。",
-      "group": "描述写法与复核",
+      "title": "Agent Skills · 名称和描述的字符上限",
+      "surface": "Agent Skills 规范 → PPT 第三屏",
+      "visible": "左侧 SKILL.md 文件头；右侧引线对应人工辨认与模型匹配；底部单列规范上限",
+      "explain": "用真实任务说法解释适用情境。区分课上的一到两句和规范字符上限。",
+      "action": "打开本段的 Agent Skills 规范核对字符上限，最后回 PPT 指写作建议。",
+      "group": "调用回顾与名称、描述写法",
       "materials": [
-        "description",
-        "p07d"
+        "skill-length-validator",
+        "p07d-writing"
+      ],
+      "recordingBeats": [
+        {
+          "kind": "browser",
+          "material": "skill-length-validator",
+          "text": "打开 Agent Skills 规范，核对两个字段的字符上限"
+        },
+        {
+          "part": 4
+        },
+        {
+          "kind": "ppt",
+          "text": "回课件，指课上长度建议"
+        },
+        {
+          "part": 5
+        }
       ]
     }
   ],
@@ -2564,14 +2796,13 @@ window.screenPlan = {
       "note": "22 个标题不是 22 个同级知识点。01 是对象与任务引入；07 是验证中的一个必要步骤；10 是分工问题的引入；17 是编写后的调用步骤；22 是交接。它们可保留为定位与操作段，但讲解分量应服务所在环节。核心展开应放在 03–05 的正文作用、06–09 的修改判断、11–12 的两类复用、15–20 的独立编写与检查。03 的转交关系与 11 的专项指导、12 的实例与 14 的归纳分别承担铺垫／展开、实例／迁移依据，不能各自重复全套内容。暂不据此增删小标题、安排新画面或修改逐字稿，先审本层内容及其必要性。"
     }
   },
-  "intro": "按 Discussion 的七个讲解环节组织 3.2.1，六页 PPT 与真实材料按实际展示顺序对应；口播仍从唯一源编辑保存。",
-  "status": "2026-11-11：3.2.1 六页 PPT 与对应口播已按讲述线同步；历史回放与现场结果分别处理。页面与操作检查见本轮交付；现场安装、模型调用与试讲未重跑。",
+  "intro": "按 Discussion 的七个讲解环节组织 3.2.1，八页 PPT 与真实材料按实际展示顺序对应；口播仍从唯一源编辑保存。",
+  "status": "2026-11-21：讲师已确认 3.2.1 的逐字稿与 PPT；手动调用六步、自然语言调用八步及目录定位已核对。现场安装与模型调用未在本轮重跑，未据此声明试讲完成。",
   "units": [
     {
       "group": "从开发经历引入",
       "frames": [
-        "f01",
-        "f02"
+        "f01"
       ],
       "explanation": "从翻牌检查引出“下一次任务怎样用上已有方法”，说明 Skill 的可复用用途；不把调用成功当成可靠性改善。",
       "transition": "用 Game Studio 中的试玩指导看一份真实 Skill。"
@@ -2610,35 +2841,36 @@ window.screenPlan = {
         "f07",
         "f08",
         "f08-result",
-        "f09"
+        "f09",
+        "f09-outcome"
       ],
-      "explanation": "主动选择并提交规则；等待时用历史重开条目解释怎样核对回答，随后回现场检查本次结果。",
-      "transition": "去掉显式指定，用同类任务观察模型怎样选用指导。"
+      "explanation": "先在终端选中 Game Playtest，借 PPT 复制原请求并发送；随后切到预存 Inspect 回放，沿可用目录、指定条目、任务引用、正文带入展开。讲清客户端按明确引用查找可用 Skill，并把本地 SKILL.md 正文和任务一起交给模型。停在 Preferred Workflow，参考文件留到后续部分。",
+      "transition": "接着发送同一段任务原文，去掉 Skill 引用，比较正文如何进入模型上下文。"
     },
     {
       "group": "语言触发与读取",
       "frames": [
         "f10",
         "f11",
-        "f12",
-        "f12-metadata",
+        "f12-choice",
+        "f12-compare",
         "f13",
-        "f13-result",
-        "f14"
+        "f14",
+        "f14-outcome"
       ],
-      "explanation": "用描述解释任务匹配，用同轮记录确认读取，再用 A2/A3 解释“两张一步”怎样成为清单预期。",
-      "transition": "本次原描述已匹配；接着讨论漏选或误选时怎样检查描述。"
+      "explanation": "在同一项目新开会话，用 PPT 复制同一段请求，直接发送；切到预存 Inspect 回放，先看无引用的任务，再看完整目录与 Game Playtest 的描述，最后看模型的读取命令和工具返回的 Preferred Workflow。讲清客户端提供任务和可用目录，模型依据描述判断适用性，再通过工具取得正文。到拿到正文为止。",
+      "transition": "回扣显式调用与自然语言触发中客户端、模型的分工，再进入描述适用范围的写法与复核。"
     },
     {
-      "group": "描述写法与复核",
+      "group": "调用回顾与名称、描述写法",
       "frames": [
         "f15",
         "f16",
         "f17",
         "f18"
       ],
-      "explanation": "先明确范围与两类请求的预期，再读四轮观察，依据实际结果解释改写的效果边界。",
-      "transition": "带着调用与选用的认识，进入第二部分，读懂正文怎样提供具体指导。"
+      "explanation": "回顾两条调用链路，用 Anthropic 的文章讲名称与描述，再用 OpenAI 资料讲描述写法和字符上限。",
+      "transition": "从名称和描述的写法，接到官方文章里的完整 Skill 组成与组织方法。"
     }
   ],
   "materials": {
@@ -2659,7 +2891,7 @@ window.screenPlan = {
       "url": "index.html?mode=slides#p07c"
     },
     "p07d": {
-      "label": "PPT · 描述写法与复核",
+      "label": "PPT · 手动指定流程图",
       "url": "index.html?mode=slides#p07d"
     },
     "skill": {
@@ -2694,6 +2926,10 @@ window.screenPlan = {
       "label": "PPT · 安装 Skill",
       "url": "index.html?mode=slides&step=0#p07install"
     },
+    "skillsmp": {
+      "label": "SkillsMP · 查找安装入口",
+      "url": "https://skillsmp.com/"
+    },
     "install": {
       "label": "固定版本与安装操作",
       "url": "install-skill.html"
@@ -2705,6 +2941,94 @@ window.screenPlan = {
     "explicitResult": {
       "label": "主动调用原始回复 · Inspect",
       "url": "http://127.0.0.1:4397/inspect/?topic=selection-explicit&position=5"
+    },
+    "explicitStep1": {
+      "label": "Inspect AI · 第一步 · 完整 Skill 目录",
+      "url": "http://127.0.0.1:4397/inspect/?topic=selection-explicit-lesson&position=0"
+    },
+    "explicitStep2": {
+      "label": "Inspect AI · 第二步 · Game Playtest 条目",
+      "url": "http://127.0.0.1:4397/inspect/?topic=selection-explicit-lesson&position=1"
+    },
+    "explicitStep3": {
+      "label": "Inspect AI · 第三步 · 带引用的任务",
+      "url": "http://127.0.0.1:4397/inspect/?topic=selection-explicit-lesson&position=2"
+    },
+    "explicitStep4": {
+      "label": "Inspect AI · 第四步 · 客户端带入的正文",
+      "url": "http://127.0.0.1:4397/inspect/?topic=selection-explicit-lesson&position=3"
+    },
+    "explicitStep5": {
+      "label": "Inspect AI · 第五步 · Preferred Workflow",
+      "url": "http://127.0.0.1:4397/inspect/?topic=selection-explicit-lesson&position=4"
+    },
+    "autoStep1": {
+      "label": "Inspect AI · 第一步 · 同一段任务",
+      "url": "http://127.0.0.1:4397/inspect/?topic=selection-auto-lesson&position=0"
+    },
+    "autoStep2": {
+      "label": "Inspect AI · 第二步 · 完整 Skill 目录",
+      "url": "http://127.0.0.1:4397/inspect/?topic=selection-auto-lesson&position=1"
+    },
+    "autoStep3": {
+      "label": "Inspect AI · 第三步 · Game Playtest 条目",
+      "url": "http://127.0.0.1:4397/inspect/?topic=selection-auto-lesson&position=2"
+    },
+    "autoStep4": {
+      "label": "Inspect AI · 第六步 · 模型请求读取",
+      "url": "http://127.0.0.1:4397/inspect/?topic=selection-auto-lesson&position=5"
+    },
+    "autoStep5": {
+      "label": "Inspect AI · 第七步 · 工具返回 Preferred Workflow",
+      "url": "http://127.0.0.1:4397/inspect/?topic=selection-auto-lesson&position=6"
+    },
+    "p07d-writing": {
+      "label": "PPT · Skill 的名称和描述怎么写",
+      "url": "index.html?mode=slides#p07d-writing"
+    },
+    "skill-authoring-guide": {
+      "label": "Anthropic · Skill authoring best practices",
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices#naming-conventions"
+    },
+    "p07d-implicit": {
+      "label": "PPT · 自然语言触发流程图",
+      "url": "index.html?mode=slides#p07d-implicit"
+    },
+    "skill-length-validator": {
+      "label": "Agent Skills · 字段规范",
+      "url": "https://agentskills.io/specification#frontmatter"
+    },
+    "install-demo-github": {
+      "label": "GitHub 安装 · Prompt 与独立终端",
+      "url": "install-demo.html?demo=github"
+    },
+    "install-demo-skillsmp": {
+      "label": "SkillsMP 安装 · Prompt 与独立终端",
+      "url": "install-demo.html?demo=skillsmp"
+    },
+    "install-demo-installer": {
+      "label": "调用 skill-installer 安装 · Prompt 与独立终端",
+      "url": "install-demo.html?demo=installer"
+    },
+    "explicitOutcome": {
+      "label": "Inspect AI · 第六步 · 最终试玩报告",
+      "url": "http://127.0.0.1:4397/inspect/?topic=selection-explicit-lesson&position=5"
+    },
+    "explicitOutcomeShot": {
+      "label": "E · 三对即通关截图",
+      "url": "../../materials/playtest-prompts-20261118/e-premature-win.png"
+    },
+    "implicitOutcome": {
+      "label": "Inspect AI · 第八步 · 最终试玩报告",
+      "url": "http://127.0.0.1:4397/inspect/?topic=selection-auto-lesson&position=7"
+    },
+    "autoChoice": {
+      "label": "Inspect AI · 第四步 · 模型说明选用理由",
+      "url": "http://127.0.0.1:4397/inspect/?topic=selection-auto-lesson&position=3"
+    },
+    "autoCompare": {
+      "label": "Inspect AI · 第五步 · 比较另一份 Skill",
+      "url": "http://127.0.0.1:4397/inspect/?topic=selection-auto-lesson&position=4"
     }
   },
   "visualRevision": {
@@ -4196,15 +4520,15 @@ window.screenPlan = {
     }
   },
   "pptPlan": {
-    "total": 6,
-    "status": "六页 PPT 与对应口播已同步；现场结果按实际核对。",
+    "total": 8,
+    "status": "八页 PPT 与对应口播已同步；现场结果按实际核对。",
     "pages": [
       {
         "page": 1,
         "scene": "p07",
-        "frames": "f01–f02",
+        "frames": "f01",
         "content": "接住风格指导初稿，以检查案例学习 Skill 的使用方法",
-        "progression": "问题 → 可复用指导；转向真实 Skill",
+        "progression": "同时呈现问题与可复用指导，随后转向真实 Skill",
         "status": "已同步"
       },
       {
@@ -4227,24 +4551,40 @@ window.screenPlan = {
         "page": 4,
         "scene": "p07b",
         "frames": "f06–f09（含 f08-result）",
-        "content": "主动指定与本次规则的分工，怎样核对清单",
-        "progression": "复制请求 → 终端提交 → 历史重开条目 → 现场结果",
+        "content": "提交带引用的请求，查看正文怎样带入",
+        "progression": "复制请求 → 提交 → 查目录 → 客户端带入正文",
         "status": "已同步"
       },
       {
         "page": 5,
         "scene": "p07c",
-        "frames": "f10–f14（含 f12-metadata、f13-result）",
-        "content": "描述提供匹配依据，记录证明读取，规则用于核对回答",
-        "progression": "请求 → 描述 → 回放读取与 A2/A3 → 读取摘要",
+        "frames": "f10、f11、f13、f14",
+        "content": "过渡页：从已回放的读取证据切到两种调用路径的回顾（无对应口播）",
+        "progression": "请求 → 目录与描述 → 读取命令 → 正文返回",
         "status": "已同步"
       },
       {
         "page": 6,
         "scene": "p07d",
-        "frames": "f15–f18",
-        "content": "表达适用范围，用两类请求复核并解释四轮结果",
-        "progression": "任务范围 → 情境边界 → 两类预期 → 四轮观察 → 正文阅读",
+        "frames": "f15",
+        "content": "用户选中 Skill，客户端按引用带入正文",
+        "progression": "用户选择 → 客户端查找 → 正文随任务带入",
+        "status": "已同步"
+      },
+      {
+        "page": 7,
+        "scene": "p07d-implicit",
+        "frames": "f16",
+        "content": "模型依据目录匹配任务并请求工具读取",
+        "progression": "任务与目录 → 模型匹配 → 工具读取并返回正文",
+        "status": "已同步"
+      },
+      {
+        "page": 8,
+        "scene": "p07d-writing",
+        "frames": "f17–f18",
+        "content": "用 game-playtest 讲名称、描述写法与长度",
+        "progression": "PPT 示例 → Anthropic 讲名称和描述 → OpenAI 核对上限 → 回 PPT 指写作建议",
         "status": "已同步"
       }
     ]

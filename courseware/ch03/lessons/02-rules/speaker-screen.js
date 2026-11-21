@@ -16,6 +16,20 @@
   const nodes = new Map([...root.querySelectorAll('[data-scene]')].map(p => [
     [p.dataset.scene, p.dataset.step, p.dataset.part].join(':'), p
   ]));
+  // Validate every sequence before moving source nodes, so a stale mapping
+  // cannot leave the fallback page missing narration when initialization fails.
+  for (const frame of plan.frames) {
+    if (frame.presentation !== 'sequence') continue;
+    for (const [index, screen] of frame.screens.entries()) {
+      if (!screen.beats) continue;
+      const used = screen.beats.flatMap(beat => beat.paragraphs || []);
+      const count = (screen.reuse || []).length;
+      if (used.length !== count || new Set(used).size !== count ||
+          used.some(part => !Number.isInteger(part) || part < 0 || part >= count)) {
+        throw new Error('口播映射不完整或重复：' + frame.id + ' / 画面 ' + (index + 1));
+      }
+    }
+  }
   document.body.classList.add('screen-outline');
   document.documentElement.classList.add('screen-outline-page');
   document.title = recordingView ? '3.2 · 录制讲师页' : unified ? '3.2 · 讲述页' : '3.2 · 历史取材';
@@ -50,11 +64,11 @@
   function paragraph(parent, text, className = '') {
     const p = el('p', className, text); parent.append(p); return p;
   }
-  function materials(parent, keys = []) {
+  function materials(parent, keys = [], compact = false) {
     for (const key of keys) {
       const item = plan.materials[key];
       if (!item) throw new Error('材料入口缺失：' + key);
-      const a = el('a', '', item.label + ' ↗');
+      const a = el('a', '', (compact ? item.label.replace(/^PPT\s*·\s*/, '') : item.label) + ' ↗');
       a.href = item.url; a.target = '_blank'; a.rel = 'noopener'; parent.append(a);
     }
   }
@@ -118,9 +132,130 @@
     const selfLink = el('a', '', String(index + 1).padStart(2, '0'));
     selfLink.href = '#' + frame.id; selfLink.title = frame.title;
     heading.append(selfLink, document.createTextNode(' · ' + frame.title)); section.append(heading);
-    if (frame.boundary) paragraph(section, frame.boundary, 'screen-boundary');
+    if (frame.boundary && frame.presentation !== 'sequence') paragraph(section, frame.boundary, 'screen-boundary');
 
-    if (authoring && !frame.selectionFrame) {
+    if (frame.selectionFrame && (frame.recordingBeats || ['p07b', 'p07c'].includes(frame.scene))) {
+      heading.remove();
+      function objectCue(kind, title) {
+        const block = el('div', 'object-cue object-cue-' + kind);
+        block.append(el('strong', 'object-cue-label', title));
+        const content = el('div', 'object-cue-content');
+        block.append(content); section.append(block);
+        return content;
+      }
+      function spoken(part) {
+        const passage = el('div', 'script-passage');
+        passage.append(takeSource(frame.scene, frame.step, part));
+        section.append(passage);
+      }
+      if (frame.recordingBeats) {
+        const spokenParts = new Set(frame.recordingBeats.map(beat => beat.part));
+        for (let part = frame.start; part <= frame.end; part++) {
+          if (!spokenParts.has(part)) takeSource(frame.scene, frame.step, part);
+        }
+        const cueLabels = {ppt: 'PPT', browser: '网页', terminal: '终端', inspect: 'Inspect'};
+        for (const beat of frame.recordingBeats) {
+          if (beat.part !== undefined) {
+            spoken(beat.part);
+            continue;
+          }
+          const cue = objectCue(beat.kind, cueLabels[beat.kind]);
+          if (beat.material) {
+            materials(cue, [beat.material]);
+            if (beat.text) cue.append(document.createTextNode(beat.text));
+          } else if (beat.kind === 'ppt') {
+            const link = el('a', '', beat.text + ' ↗');
+            link.href = 'index.html?mode=slides&step=' + (beat.step ?? frame.step) + '#' + frame.scene;
+            link.target = '_blank'; link.rel = 'noopener';
+            cue.append(link);
+          } else {
+            cue.textContent = beat.text;
+          }
+        }
+      } else if (frame.id === 'f06') {
+        takeSource(frame.scene, frame.step, frame.start);
+        objectCue('terminal', '终端').append(document.createTextNode('选中 Game Playtest'));
+        spoken(frame.start + 1);
+        const ppt = objectCue('ppt', 'PPT');
+        const link = el('a', '', '复制提示词 ↗');
+        link.href = 'index.html?mode=slides&step=0#p07b';
+        link.target = '_blank'; link.rel = 'noopener';
+        ppt.append(link);
+        const prompt = details(ppt, '提示词原文');
+        prompt.append(takeSource(frame.scene, frame.step, frame.start + 2));
+        objectCue('terminal', '终端').append(document.createTextNode('粘贴请求并发送'));
+        spoken(frame.start + 3);
+      } else if (frame.id === 'f10') {
+        takeSource(frame.scene, frame.step, frame.start);
+        const ppt = objectCue('ppt', 'PPT');
+        const link = el('a', '', '复制同一段提示词 ↗');
+        link.href = 'index.html?mode=slides&step=0#p07b';
+        link.target = '_blank'; link.rel = 'noopener';
+        ppt.append(link);
+        objectCue('terminal', '终端').append(
+          document.createTextNode('同一项目开新会话，粘贴原请求并发送'));
+        spoken(frame.start + 1);
+        materials(objectCue('inspect', 'Inspect'), ['autoStep1']);
+        spoken(frame.start + 2);
+      } else if (frame.id === 'f11') {
+        takeSource(frame.scene, frame.step, frame.start);
+        materials(objectCue('inspect', 'Inspect'), ['autoStep2']);
+        spoken(frame.start + 1);
+        materials(objectCue('inspect', 'Inspect'), ['autoStep3']);
+        spoken(frame.start + 2);
+      } else {
+        materials(objectCue('inspect', 'Inspect'), frame.materials);
+        const passage = el('div', 'script-passage');
+        for (let part = frame.start; part <= frame.end; part++) {
+          const node = takeSource(frame.scene, frame.step, part);
+          if (node.classList.contains('narration')) passage.append(node);
+        }
+        section.append(passage);
+      }
+    } else if (frame.presentation === 'sequence') {
+      heading.remove();
+      section.classList.add('sequence-frame');
+      for (const screen of frame.screens) {
+        const beats = screen.beats || [
+          {kind:screen.kind || (screen.ppt ? 'ppt' : 'browser'), materials:screen.materials, text:screen.action},
+          {paragraphs:(screen.reuse || []).map((_, index) => index)}
+        ];
+        const used = new Set();
+        for (const beat of beats) {
+          if (beat.paragraphs) {
+            const passage = el('div', 'script-passage');
+            for (const index of beat.paragraphs) {
+              if (used.has(index)) throw new Error('口播重复映射：' + frame.id + '/' + index);
+              used.add(index);
+              const source = frame.reuse[screen.reuse[index]];
+              if (!source) throw new Error('口播映射缺失：' + frame.id + '/' + index);
+              passage.append(takeSource(source.scene, source.step, source.part));
+            }
+            // 已由就近对象提示承接的旧切换节点仍保留源坐标，但不重复展示。
+            if (beat.hidden) passage.hidden = true;
+            section.append(passage);
+          } else {
+            const labels = {ppt:'PPT',browser:'网页',terminal:'终端',inspect:'Inspect'};
+            if (!labels[beat.kind]) throw new Error('未知画面类型：' + beat.kind);
+            const cue = el('div', 'object-cue object-cue-' + beat.kind);
+            if (beat.materials?.length) {
+              cue.id = 'cue-' + beat.materials[0];
+              cue.dataset.cueTarget = 'true';
+            }
+            cue.append(el('strong', 'object-cue-label', labels[beat.kind]));
+            const content = el('div', 'object-cue-content');
+            materials(content, beat.materials, true);
+            if (beat.text) {
+              let action = beat.text.replace(/^(网页|PPT|Inspect|终端)\s*·\s*/, '');
+              if (beat.kind === 'ppt') action = action.replace(/^(?:打开|推进|回到)\s+p\d+[a-z\d-]*(?:\s*第\s*\d+\s*步)?[，、]?\s*/i, '');
+              paragraph(content, action, 'object-cue-action');
+            }
+            cue.append(content); section.append(cue);
+          }
+        }
+        if (used.size !== (screen.reuse || []).length) throw new Error('尚有口播未显示：' + frame.id);
+      }
+    } else if (authoring && !frame.selectionFrame) {
       for (const screen of frame.screens) {
         const row = el('div', 'script-beat'), cue = el('p', 'script-cue');
         cue.append(el('strong', '', screenSurface(screen)), el('span', '', screen.action)); row.append(cue);
@@ -254,7 +389,26 @@
       const directoryLists = new Map(), directoryNumbers = new Map();
       for (const section of guide.directoryGroups || []) {
         const row = el('li', 'discussion-tree-section');
-        const details = el('details'), heading = el('summary', '', section.title), children = el('ul');
+        const details = el('details'), heading = el('summary', 'directory-section-heading'), children = el('ul');
+        const toggle = el('button', 'directory-section-toggle', '›');
+        toggle.type = 'button';
+        toggle.setAttribute('aria-label', '展开或收起 ' + section.title);
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.onclick = event => { event.preventDefault(); details.open = !details.open; };
+        details.addEventListener('toggle', () => {
+          toggle.setAttribute('aria-expanded', String(details.open));
+          toggle.textContent = details.open ? '⌄' : '›';
+        });
+        const sectionLink = el('a', '', section.title);
+        sectionLink.href = '#' + section.frames[0];
+        sectionLink.dataset.directoryAction = 'locate';
+        sectionLink.onclick = event => {
+          event.preventDefault();
+          history.pushState(null, '', sectionLink.hash);
+          showItem();
+        };
+        heading.onclick = event => event.preventDefault();
+        heading.append(toggle, sectionLink);
         details.append(heading, children); row.append(details); list.append(row);
         section.frames.forEach((frame, index) => {
           directoryLists.set(frame, children);
@@ -282,8 +436,10 @@
         }
         (directoryLists.get(item.frame) || list).append(li); links.set(item.frame, link);
         const article = el('article', 'discussion-content'); article.id = 'content-' + item.frame;
-        paragraph(article, guide.title, 'discussion-parent');
-        article.append(el('h2', '', item.title));
+        if (!guide.directoryGroups && item.presentation !== 'sequence') paragraph(article, guide.title, 'discussion-parent');
+        const directorySection = guide.directoryGroups?.find(group => group.frames.includes(item.frame));
+        const isDetail = directorySection && directorySection.frames[0] !== item.frame;
+        article.append(el('h2', isDetail ? 'discussion-detail-title' : '', item.title));
         const modes = el('nav', 'discussion-modes'); modes.setAttribute('aria-label', '查看层级');
         const designLink = el('a', '', unified ? '讲述安排' : '内容设计'); designLink.href = '#content-' + item.frame;
         const scriptLink = el('a', '', unified ? '画面与口播' : '画面与逐字稿'); scriptLink.href = '#' + item.frame;
@@ -291,7 +447,31 @@
         scriptLink.onclick = () => { location.hash = item.frame; showItem(); };
         modes.append(designLink, scriptLink); article.append(modes);
         const design = el('div', 'discussion-design');
-        if (item.screens) {
+        if (item.presentation === 'sequence') {
+          const arrangement = item.arrangement?.length ? item.arrangement : (item.content ? [item.content] : []);
+          for (const text of arrangement) paragraph(design, text, 'discussion-main-content');
+          if (item.transition) paragraph(design, item.transition);
+          design.append(el('h3', '', '涉及材料'));
+          const list = el('ul', 'arrangement-materials');
+          const keys = [...new Set((item.screens || []).flatMap(screen => screen.materials || []))];
+          const listedPages = new Set();
+          for (const key of keys) {
+            const material = plan.materials[key], url = new URL(material.url, location.href);
+            const pageId = url.hash.slice(1);
+            const wholePage = url.pathname === new URL('index.html',location.href).pathname && window.pptLocator?.label(pageId);
+            if (wholePage && listedPages.has(pageId)) continue;
+            const row = el('li');
+            if (wholePage) {
+              listedPages.add(pageId);
+              const title = window.lesson.scenes.find(scene => scene.id === pageId)?.title || material.label;
+              const link = el('a','',wholePage + ' · ' + title + ' ↗');
+              link.href = window.pptLocator.href(pageId,0); link.target='_blank'; link.rel='noopener'; row.append(link);
+            } else materials(row, [key]);
+            if (plan.materials[key].purpose) row.append(el('span', '', ' — ' + plan.materials[key].purpose));
+            list.append(row);
+          }
+          design.append(list);
+        } else if (item.screens && !item.content) {
           const order = el('ol', 'discussion-unit-order');
           for (const [screenIndex, screen] of item.screens.entries()) {
             const step = el('li');
@@ -311,6 +491,28 @@
           paragraph(design, item.content, 'discussion-main-content');
           const reason = el('aside', 'discussion-reason');
           reason.append(el('h3', '', '这段的作用与边界')); paragraph(reason, item.reason); design.append(reason);
+          if (item.screens?.length) {
+            design.append(el('h3', '', '涉及材料'));
+            materialLinks(design, [...new Set(item.screens.flatMap(screen => screen.materials || []))]);
+          }
+        }
+        if (plan.frames.find(frame => frame.id === item.frame)?.selectionFrame) {
+          design.replaceChildren();
+          const section = guide.directoryGroups?.find(group => group.frames.includes(item.frame));
+          const firstFrame = section?.frames[0];
+          if (firstFrame === item.frame) {
+            article.querySelector('h2').textContent = section.title;
+            const frame = plan.frames.find(frame => frame.id === item.frame);
+            const arrangement = plan.units.find(unit => unit.group === frame.group);
+            paragraph(design, arrangement?.explanation, 'discussion-main-content');
+            paragraph(design, arrangement?.transition);
+            design.append(el('h3', '', '涉及材料'));
+            const keys = [...new Set(section.frames.flatMap(id =>
+              plan.frames.find(frame => frame.id === id)?.materials || []))];
+            materialLinks(design, keys);
+          } else {
+            modes.remove();
+          }
         }
         article.append(design);
         const recording = el('div', 'discussion-recording');
@@ -326,6 +528,7 @@
           if (id !== item.frame) frameAliases.set(id, item.frame);
         }
         article.append(recording); panel.append(article);
+        for (const cue of recording.querySelectorAll('[data-cue-target]')) screenTargets.set(cue.id, item.frame);
         articles.set(item.frame, { article, recording, design, designLink, scriptLink });
       }
     }
@@ -337,9 +540,10 @@
     splitter.setAttribute('aria-label', '调整目录宽度，向左拖至边缘收起');
     splitter.setAttribute('aria-orientation', 'vertical');
     splitter.setAttribute('aria-controls', sidebar.id);
-    const restore = el('button', 'discussion-restore', '展开目录');
-    restore.type = 'button'; restore.setAttribute('aria-controls', sidebar.id);
-    root.replaceChildren(sidebar, splitter, panel, restore);
+    const directoryToggle = el('button', 'discussion-directory-toggle', '收起目录');
+    directoryToggle.type = 'button';
+    directoryToggle.setAttribute('aria-controls', sidebar.id);
+    root.replaceChildren(sidebar, splitter, panel);
     const widthKey = 'ch03-rules-discussion-sidebar';
     let width = innerWidth > 900 ? 360 : innerWidth > 600 ? 260 : 165;
     let lastOpenWidth = width;
@@ -351,8 +555,8 @@
       root.classList.toggle('sidebar-collapsed', width === 0);
       sidebar.inert = width === 0;
       sidebar.setAttribute('aria-hidden', String(width === 0));
-      restore.hidden = width !== 0;
-      restore.setAttribute('aria-expanded', String(width !== 0));
+      directoryToggle.textContent = width ? '收起目录' : '展开目录';
+      directoryToggle.setAttribute('aria-expanded', String(width !== 0));
       splitter.setAttribute('aria-valuemin', '0');
       splitter.setAttribute('aria-valuemax', String(maximum()));
       splitter.setAttribute('aria-valuenow', String(Math.round(width)));
@@ -369,12 +573,7 @@
       }
     } catch { /* 使用默认宽度 */ }
     applyWidth(width);
-    const collapse = el('button', 'discussion-collapse', '收起目录');
-    collapse.type = 'button';
-    collapse.setAttribute('aria-controls', sidebar.id);
-    collapse.onclick = () => { applyWidth(0); saveWidth(); restore.focus(); };
-    sidebar.prepend(collapse);
-    restore.onclick = () => { applyWidth(lastOpenWidth); saveWidth(); collapse.focus(); };
+    directoryToggle.onclick = () => { applyWidth(width ? 0 : lastOpenWidth); saveWidth(); };
     let dragStart = null;
     splitter.onpointerdown = event => {
       if (event.button !== 0) return;
@@ -406,7 +605,29 @@
       saveWidth();
     };
     window.addEventListener('resize', () => applyWidth(width));
-    let scriptMode = false;
+    let scriptMode = recordingView || (params.get('mode') ?
+      params.get('mode') === 'script' : !location.hash.startsWith('#content-') && !location.hash.startsWith('#unit-'));
+    const toolbar = el('nav', 'speaker-mode-toolbar');
+    toolbar.setAttribute('aria-label', '讲述页显示模式');
+    toolbar.append(directoryToggle, el('strong', '', '显示模式'));
+    const designModeButton = el('button', '', '讲述安排');
+    const scriptModeButton = el('button', '', '画面与口播');
+    toolbar.append(designModeButton, scriptModeButton);
+    document.body.append(toolbar);
+    document.body.classList.add('has-speaker-mode-toolbar');
+    function setMode(value) {
+      const visible = [...articles].filter(([, item]) => !item.article.hidden);
+      const top = panel.getBoundingClientRect().top + 100;
+      const current = visible.filter(([, item]) => item.article.getBoundingClientRect().top <= top).at(-1) || visible[0];
+      scriptMode = value;
+      const url = new URL(location.href);
+      url.searchParams.set('mode', value ? 'script' : 'design');
+      if (current) url.hash = (value ? '' : 'content-') + current[0];
+      history.replaceState(null, '', url);
+      showItem();
+    }
+    designModeButton.onclick = () => setMode(false);
+    scriptModeButton.onclick = () => setMode(true);
     const markItem = (selected, currentScreen = '') => {
       for (const [key, link] of links) link.toggleAttribute('aria-current', key === selected);
       for (const [id, a] of screenNavLinks) a.toggleAttribute('aria-current', id === currentScreen);
@@ -417,6 +638,8 @@
       // Keep the sidebar scroll independent from content navigation.
     };
     const showItem = () => {
+      const currentMode = new URLSearchParams(location.search).get('mode');
+      if (currentMode) scriptMode = recordingView || currentMode === 'script';
       const hash = location.hash.slice(1);
       const originalRequested = hash.startsWith('content-') ? hash.slice(8) : hash;
       const legacyItem = plan.contentDesign.units.flatMap(unit => unit.items).find(item => item.legacyAliases?.includes(originalRequested));
@@ -424,24 +647,43 @@
       // 已有具体讲述项优先；仅尚无内容的旧地址回退到部分概览。
       const pendingPlugin = unified && !articles.has(requested) && /^3\.2\.4(?:\.\d+)?$/.test(requested);
       const screenTarget = screenTargets.get(requested);
-      const id = screenTarget || (pendingPlugin ? 'unit-4' : frameAliases.get(requested) || requested);
+      let id = screenTarget || (pendingPlugin ? 'unit-4' : frameAliases.get(requested) || requested);
+      // 口播模式隐藏部分概览；一级目录应定位到该部分首个环节，不能回退到全节开头。
+      const unitIndex = /^unit-(\d+)$/.exec(id);
+      if (scriptMode && unitIndex) {
+        const guide = plan.contentDesign.units[Number(unitIndex[1]) - 1];
+        const firstItem = guide?.items.find(item => articles.get(item.frame)?.recording);
+        if (firstItem) id = firstItem.frame;
+      }
       const hasTarget = articles.has(id) && (!recordingView || articles.get(id).recording);
       const selected = hasTarget ? id : plan.frames[0].id;
-      scriptMode = recordingView || !screenTarget && articles.has(id) && !!articles.get(id).recording && !hash.startsWith('content-');
-      for (const [key, item] of articles) {
-        item.article.hidden = recordingView && !item.recording;
+      designModeButton.setAttribute('aria-pressed', String(!scriptMode));
+      scriptModeButton.setAttribute('aria-pressed', String(scriptMode));
+      for (const [, item] of articles) {
         if (item.recording) {
-          item.recording.hidden = false; item.design.hidden = recordingView;
-          item.designLink.toggleAttribute('aria-current', !scriptMode);
-          item.scriptLink.toggleAttribute('aria-current', scriptMode);
+          item.recording.hidden = !scriptMode;
+          item.design.hidden = scriptMode;
+          item.article.hidden = !scriptMode && !item.design.textContent.trim();
+          item.designLink.parentElement.hidden = true;
+        } else {
+          item.article.hidden = scriptMode;
         }
       }
-      const current = articles.get(selected);
-      const target = frameAliases.has(requested) ? frameNodes.get(requested) : (scriptMode ? current.recording : current.article);
-      panel.scrollTop += target.getBoundingClientRect().top - panel.getBoundingClientRect().top - 36;
+      let current = articles.get(selected);
+      if (current.article.hidden) {
+        const group = plan.contentDesign.units.flatMap(unit => unit.directoryGroups || [])
+          .find(group => group.frames.includes(selected));
+        const parent = group && articles.get(group.frames[0]);
+        current = parent && !parent.article.hidden ? parent :
+          [...articles.values()].find(item => !item.article.hidden);
+      }
+      const target = scriptMode && !unitIndex ? current.recording || current.article : current.article;
+      panel.scrollTop += target.getBoundingClientRect().top - panel.getBoundingClientRect().top - 24;
       if (screenTarget && !recordingView) {
         const screen = document.getElementById(requested);
-        panel.scrollTop += screen.getBoundingClientRect().top - panel.getBoundingClientRect().top - 24;
+        if (screen && screen.getClientRects().length) {
+          panel.scrollTop += screen.getBoundingClientRect().top - panel.getBoundingClientRect().top - 24;
+        }
       }
       markItem(selected, requested);
     };

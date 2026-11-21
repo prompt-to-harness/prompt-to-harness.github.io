@@ -90,7 +90,7 @@ def add_records(api, manifest, raw_files):
         for step in spec['steps']:
             rid,sid=step['run'],step['sample']
             mid=step.get('message') or manifest[rid]['maps'][sid][str(step['line'])]
-            if 'text' not in step:
+            if 'text' not in step and 'text_span' not in step:
                 focus = manifest[rid]['focus']
                 passages = focus.get(f'{sid}/{mid}')
                 if not passages:
@@ -110,13 +110,26 @@ def add_records(api, manifest, raw_files):
             message=next(m for m in sample.messages if m.id==mid)
             text=readable(message)
             passages=[]
-            for needle in step['text']:
+            needles = list(step.get('text', []))
+            if span := step.get('text_span'):
+                _, separator, tail = text.partition(span['from'])
+                body, end, _ = tail.partition(span['until'])
+                if not separator or not end:
+                    raise ValueError(f'{name}: original text span missing in {rid}/{sid}/{mid}')
+                needles.append((separator + body).rstrip())
+            for needle in needles:
                 if needle not in text:raise ValueError(f'{name}: original text missing in {rid}/{sid}/{mid}: {needle}')
                 passages.append({'text':needle,'occurrence':1})
             mark=name+'-'+str(len(steps))
             manifest[rid]['focus'][f'{sid}/{mid}/{mark}']=passages
-            steps.append({'run':rid,'sample':sid,'message':mid,'mark':mark,'label':step['label']})
+            steps.append({'run':rid,'sample':sid,'message':mid,'mark':mark,'label':step['label'],
+                          **({'evidence_image': step['evidence_image']} if step.get('evidence_image') else {}),
+                          **({'display_escaped_newlines': True} if step.get('display_escaped_newlines') else {})})
         topics[name]={'title':spec['title'],'steps':steps}
+        if spec.get('numbered_navigation'):
+            topics[name]['numbered_navigation'] = True
+        if spec.get('navigation_group'):
+            topics[name]['navigation_group'] = spec['navigation_group']
         if 'main_positions' in spec:
             topics[name]['main_positions'] = spec['main_positions']
     return topics

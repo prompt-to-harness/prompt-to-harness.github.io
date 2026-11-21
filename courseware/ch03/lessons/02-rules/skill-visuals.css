@@ -33,7 +33,7 @@ body[data-mode=scroll] .sv-copy pre[hidden]{display:block}
 
 /* 3.2.1：按实际单行标题及内容组高度安排完整正文矩形。
    每页单独定位；标题文字、文件字段与操作入口避开录制覆盖层。 */
-body[data-mode=slides] :is(#p07,#p07a,#p07install,#p07b,#p07c,#p07d)>h2{top:82px}
+body[data-mode=slides] :is(#p07,#p07a,#p07install,#p07b,#p07c,#p07d,#p07d-implicit,#p07d-writing)>h2{top:82px}
 body[data-mode=slides] #p07>h2{display:block}
 body[data-mode=slides] #p07.skill-visual-slide .scene-content{top:205px;height:427px}
 body[data-mode=slides] #p07a.skill-visual-slide .scene-content{top:226px;height:406px}
@@ -43,12 +43,23 @@ body[data-mode=slides] #p07c.skill-visual-slide .scene-content{top:226px;height:
 body[data-mode=slides] #p07d.skill-visual-slide .scene-content{top:186px;height:446px}
 body[data-mode=slides] #p07:has([data-reveal="1"]:not(.step-hidden)) .p07-repeat,
 body[data-mode=scroll] #p07 .p07-repeat{visibility:hidden}
-:is(#p07,#p07a,#p07install,#p07b,#p07c,#p07d) .sv-hand{font-weight:400}
+:is(#p07,#p07a,#p07install,#p07b,#p07c,#p07d,#p07d-implicit,#p07d-writing) .sv-hand{font-weight:400}
 
 /* 3.2.1 已确认版：内容与操作入口作为一组居中。 */
-body[data-mode=slides] :is(#p07,#p07a,#p07install,#p07b,#p07c,#p07d) .scene-content{display:flex!important;flex-direction:column;gap:14px;height:auto!important}
+body[data-mode=slides] :is(#p07,#p07a,#p07install,#p07b,#p07c,#p07d,#p07d-implicit,#p07d-writing) .scene-content{display:flex!important;flex-direction:column;gap:14px;height:auto!important}
 body[data-mode=slides] .selection-operations{display:flex;align-items:center;justify-content:space-between;min-height:28px;gap:20px;padding:0 24px}
 body[data-mode=slides] .selection-operations:empty{display:none}
-body[data-mode=slides] :is(#p07,#p07a,#p07install,#p07b,#p07c,#p07d) .selection-actions{position:static!important;margin:0!important;line-height:1.45;font-size:18px}
+body[data-mode=slides] :is(#p07,#p07a,#p07install,#p07b,#p07c,#p07d,#p07d-implicit,#p07d-writing) .selection-actions{position:static!important;margin:0!important;line-height:1.45;font-size:18px}
 body[data-mode=slides] #p07b .sv-copy{position:static!important;margin:0;flex-shrink:0}
-body[data-mode=slides] :is(#p07,#p07a,#p07install,#p07b,#p07c,#p07d) .skill-visual{flex:none}
+body[data-mode=slides] :is(#p07,#p07a,#p07install,#p07b,#p07c,#p07d,#p07d-implicit,#p07d-writing) .skill-visual{flex:none}
+
+/* Installation request opens from the project-scope box. */
+#p07install .install-inline-prompt{display:flex;gap:8px;border:0;background:none;padding:0;margin:0}
+#p07install .install-inline-prompt button{font:21px/1.4 sans-serif;padding:8px 18px;border:1px solid #287f75;border-radius:5px;background:#e0f3ef;color:#205f57;cursor:pointer;white-space:nowrap}
+.install-prompt-dialog{max-width:900px;width:85vw;max-height:80vh;padding:28px;border:2px solid #287f75;border-radius:12px;background:#fffdf7;color:#26231d}
+.install-prompt-dialog::backdrop{background:#0008}
+.install-prompt-dialog pre{white-space:pre-wrap;overflow-wrap:anywhere;font:20px/1.65 sans-serif}
+.install-prompt-dialog button{font:18px sans-serif;padding:8px 18px;cursor:pointer}
+
+body[data-mode=slides] #p07install .selection-operations{margin-top:24px}
+.install-prompt-dialog .install-dialog-actions{display:flex;gap:16px;justify-content:flex-end;margin-top:20px}

@@ -23,6 +23,7 @@ from http import HTTPStatus
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlsplit, parse_qs
+from course_install_demo import launch_install_demo
 from script_comments import CommentError, lesson_for, load_comments, mutate_comment, prune_orphan_comments
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -31,6 +32,7 @@ REBUILD = COURSEWARE / 'tools' / 'rebuild-lesson.py'
 EDIT_PATH = '/__script/edit'
 PING_PATH = '/__script/ping'
 COMMENTS_PATH = '/__script/comments'
+INSTALL_DEMO_PATH = '/__demo/install-terminal'
 LESSON_PREFIX = 'window.lesson = '  # 与 rebuild-lesson.py 写出的格式一致
 LOCAL_HOSTS = {'127.0.0.1', 'localhost'}
 LOOPBACK_CLIENTS = {'127.0.0.1', '::1', '::ffff:127.0.0.1'}
@@ -185,7 +187,7 @@ class Handler(SimpleHTTPRequestHandler):
             # 只有本机能编辑；别的机器 ping 不通，逐字稿页就保持只读
             if not self.loopback_client():
                 return self.send_error(HTTPStatus.NOT_FOUND)
-            return self.send_json(HTTPStatus.OK, {'ok': True, 'comments': True})
+            return self.send_json(HTTPStatus.OK, {'ok': True, 'comments': True, 'installDemo': True})
         if urlsplit(self.path).path == COMMENTS_PATH:
             if not self.loopback_client():
                 return self.send_error(HTTPStatus.NOT_FOUND)
@@ -211,7 +213,7 @@ class Handler(SimpleHTTPRequestHandler):
         return self.loopback_client() and origin in LOCAL_HOSTS and self.headers.get('Content-Type', '').startswith('application/json')
 
     def do_POST(self):
-        if self.path not in {EDIT_PATH, COMMENTS_PATH}:
+        if self.path not in {EDIT_PATH, COMMENTS_PATH, INSTALL_DEMO_PATH}:
             return self.send_error(HTTPStatus.NOT_FOUND)
         if not self.local_request():
             return self.send_json(HTTPStatus.FORBIDDEN, {'error': '只接受本机页面的请求'})
@@ -222,13 +224,18 @@ class Handler(SimpleHTTPRequestHandler):
             payload = json.loads(self.rfile.read(length))
             if not isinstance(payload, dict):
                 raise ValueError('JSON object required')
+            if self.path == INSTALL_DEMO_PATH:
+                if self.headers.get('Origin') != 'http://' + self.headers.get('Host', ''):
+                    return self.send_json(HTTPStatus.FORBIDDEN, {'error': '只接受同源页面请求'})
+                result = launch_install_demo(payload)
+                return self.send_json(HTTPStatus.OK, result)
             with EDIT_LOCK:
                 result = mutate_comment(payload) if self.path == COMMENTS_PATH else apply_edit(payload)
         except EditConflict as error:
             return self.send_json(HTTPStatus.CONFLICT, {'error': str(error), 'current': error.current})
         except (EditError, CommentError) as error:
             return self.send_json(HTTPStatus.CONFLICT, {'error': str(error)})
-        except (KeyError, ValueError, TypeError, subprocess.TimeoutExpired) as error:
+        except (KeyError, ValueError, TypeError, OSError, subprocess.SubprocessError) as error:
             return self.send_json(HTTPStatus.BAD_REQUEST, {'error': f'请求无效：{error!r}'})
         if self.path == EDIT_PATH:
             where = f"讲述段 {payload['screen']}" if payload.get('screen') is not None else f'开场白第 {payload["intro"] + 1} 段' if payload.get('intro') is not None else f'{payload["scene"]} 第 {payload["step"] + 1} 步'
