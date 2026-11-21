@@ -22,3 +22,22 @@
     catch{button.textContent='请选中请求复制'}
   });
 })();
+
+// Keep the full installation request readable without crowding its step card.
+document.addEventListener('click', event => {
+  const trigger = event.target.closest('[data-install-preview]');
+  if (!trigger) return;
+  const dialog = document.createElement('dialog');
+  dialog.className = 'install-prompt-dialog';
+  const title = document.createElement('h2'); title.textContent = '安装到当前项目';
+  const pre = document.createElement('pre'); pre.textContent = trigger.closest('.prompt').querySelector('pre').textContent;
+  const close = document.createElement('button'); close.textContent = '关闭'; close.addEventListener('click', () => dialog.close());
+  const copy = document.createElement('button'); copy.textContent = '复制 Prompt';
+  copy.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(pre.textContent); copy.textContent = '已复制'; }
+    catch { copy.textContent = '请选中文字复制'; }
+  });
+  const actions = document.createElement('div'); actions.className = 'install-dialog-actions'; actions.append(copy, close);
+  dialog.append(title, pre, actions); document.body.append(dialog);
+  dialog.addEventListener('close', () => dialog.remove(), {once:true}); dialog.showModal();
+});

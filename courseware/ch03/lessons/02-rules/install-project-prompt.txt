@@ -1,0 +1,6 @@
+请从以下固定版本安装 game-playtest、game-ui-frontend、web-game-foundations、react-three-fiber-game，共四份 Skill：
+https://github.com/openai/plugins/tree/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio
+
+只安装到当前项目的 .agents/skills/，不要安装到个人全局目录。保留这四份 Skill 的完整目录及其引用的配套资料；包级 references 放到 .agents/references/，保持相对路径有效。不要安装整个 Plugin，不覆盖已有的同名文件；如有冲突，先告诉我。
+
+完成后列出安装位置，检查文件引用是否有效，并说明在 Codex 中如何确认这些 Skill 已可用。

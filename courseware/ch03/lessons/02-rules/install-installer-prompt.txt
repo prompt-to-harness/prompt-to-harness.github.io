@@ -1,0 +1,2 @@
+$skill-installer
+https://github.com/anthropics/skills/tree/main/skills/frontend-design

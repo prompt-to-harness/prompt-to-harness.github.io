@@ -1,0 +1,1 @@
+Follow https://skillsmp.com/skill-install/prompt.md to install only the Agent Skill at https://github.com/anthropics/skills/tree/main/skills/skill-creator.
