@@ -273,6 +273,32 @@
           "prompt": "with-audio-repaired/prompt.txt"
         }
       }
+    },
+    "selection-short-explicit": {
+      "root": "repo",
+      "title": "3.2.1 显式调用 · E 短请求",
+      "date": "2026-11-18",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "04 号游戏试玩副本中的独立全新会话；四份项目 Skill。原生 CLI 运行日志，不包含终端菜单选择画面；仅转换留存记录。",
+      "samples": {
+        "session": {
+          "path": "lab-runs/ch0323-prompt-trials-20261118/e-short/home/.codex/sessions/2026/11/18/rollout-2026-11-18T17-54-46-01a1ee14-8c00-7861-addf-4809a62cf603.jsonl",
+          "mode": "session"
+        }
+      }
+    },
+    "selection-short-implicit": {
+      "root": "repo",
+      "title": "3.2.1 自然语言触发 · F 短请求",
+      "date": "2026-11-18",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "04 号游戏试玩副本中的独立全新会话；四份项目 Skill。原生 CLI 运行日志，不包含终端菜单选择画面；仅转换留存记录。",
+      "samples": {
+        "session": {
+          "path": "lab-runs/ch0323-prompt-trials-20261118/f-short-implicit/home/.codex/sessions/2026/11/18/rollout-2026-11-18T18-04-16-01a1ee1d-3eb6-7600-89cc-49805680c0f1.jsonl",
+          "mode": "session"
+        }
+      }
     }
   },
   "topics": {
@@ -1071,6 +1097,150 @@
           ],
           "label": "修复范围与验证边界",
           "line": 128
+        }
+      ]
+    },
+    "selection-explicit-lesson": {
+      "title": "显式调用",
+      "numbered_navigation": true,
+      "steps": [
+        {
+          "run": "selection-short-explicit",
+          "sample": "session",
+          "label": "第一步 · 完整 Skill 目录",
+          "line": 3,
+          "text_span": {
+            "from": "### Available skills",
+            "until": "</skills_instructions>"
+          }
+        },
+        {
+          "run": "selection-short-explicit",
+          "sample": "session",
+          "label": "第二步 · Game Playtest 条目",
+          "line": 3,
+          "text": [
+            "game-playtest: Run browser-game playtests and frontend QA."
+          ]
+        },
+        {
+          "run": "selection-short-explicit",
+          "sample": "session",
+          "line": 10,
+          "label": "第三步 · 带引用的任务",
+          "text": [
+            "$game-playtest",
+            "实际试玩当前的翻牌游戏，看看还有哪些问题。"
+          ]
+        },
+        {
+          "run": "selection-short-explicit",
+          "sample": "session",
+          "label": "第四步 · 客户端带入的正文",
+          "line": 12,
+          "text": [
+            "<name>game-playtest</name>"
+          ]
+        },
+        {
+          "run": "selection-short-explicit",
+          "sample": "session",
+          "line": 12,
+          "label": "第五步 · Preferred Workflow",
+          "text_span": {
+            "from": "## Preferred Workflow",
+            "until": "## Tooling Guidance"
+          }
+        },
+        {
+          "run": "selection-short-explicit",
+          "sample": "session",
+          "line": 404,
+          "label": "第六步 · 最终试玩报告",
+          "text": [
+            "配好第 3 对时 matchedCount 正好等于 6 → 弹出「全部配对完成，用时 0:02，翻了 3 步。」，但棋盘上还有 **6 张牌翻不动**。游戏**永远无法通关**。截图：`evidence/shot_03_premature_win.png`。"
+          ]
+        }
+      ]
+    },
+    "selection-auto-lesson": {
+      "title": "自然语言触发",
+      "numbered_navigation": true,
+      "steps": [
+        {
+          "run": "selection-short-implicit",
+          "sample": "session",
+          "line": 10,
+          "label": "第一步 · 同一段任务",
+          "text": [
+            "## Goal",
+            "实际试玩当前的翻牌游戏，看看还有哪些问题。"
+          ]
+        },
+        {
+          "run": "selection-short-implicit",
+          "sample": "session",
+          "label": "第二步 · 完整 Skill 目录",
+          "line": 3,
+          "text_span": {
+            "from": "### Available skills",
+            "until": "</skills_instructions>"
+          }
+        },
+        {
+          "run": "selection-short-implicit",
+          "sample": "session",
+          "label": "第三步 · Game Playtest 条目",
+          "line": 3,
+          "text": [
+            "game-playtest: Run browser-game playtests and frontend QA. Use when the user asks for smoke tests, screenshot-based verification, browser automation, HUD or overlay review, or structured issue-finding in a browser game. (file: r1/game-playtest/SKILL.md)"
+          ]
+        },
+        {
+          "run": "selection-short-implicit",
+          "sample": "session",
+          "line": 43,
+          "label": "第四步 · 模型说明选用理由",
+          "text": [
+            "Also I should read the game-playtest skill since the task is a browser game playtest. The skill instructions say to use it when the user asks for smoke tests, screenshot-based verification, browser automation, HUD review, structured issue-finding in a browser game. This matches. Let me read the skill."
+          ]
+        },
+        {
+          "run": "selection-short-implicit",
+          "sample": "session",
+          "line": 43,
+          "label": "第五步 · 比较另一份 Skill",
+          "text": [
+            "Also `web-game-foundations` might be relevant but the task is a playtest, so game-playtest is the key one."
+          ]
+        },
+        {
+          "run": "selection-short-implicit",
+          "sample": "session",
+          "label": "第六步 · 模型请求读取",
+          "line": 46,
+          "text": [
+            "game-playtest/SKILL.md"
+          ]
+        },
+        {
+          "run": "selection-short-implicit",
+          "sample": "session",
+          "line": 50,
+          "label": "第七步 · 工具返回 Preferred Workflow",
+          "text_span": {
+            "from": "## Preferred Workflow",
+            "until": "## Tooling Guidance"
+          }
+        },
+        {
+          "run": "selection-short-implicit",
+          "sample": "session",
+          "line": 344,
+          "label": "第八步 · 最终试玩报告",
+          "text": [
+            "配对 3 组后横幅弹出「全部配对完成，用时 0:08，翻了 7 步。」，统计显示「配对 6/6」，**但 12 张卡里还有 6 张是背面朝上**。此时点剩余的卡片完全没反应，计时器也停了 —— 真正的「6 组全配对」永远达不到。"
+          ]
         }
       ]
     }

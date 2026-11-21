@@ -1,0 +1,2 @@
+帮我安装这个 Skill：
+https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/game-playtest/SKILL.md

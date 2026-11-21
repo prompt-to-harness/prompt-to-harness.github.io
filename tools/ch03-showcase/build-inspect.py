@@ -68,6 +68,9 @@ def messages_for(rows, source, mode):
             elif kind in ('function_call_output', 'custom_tool_call_output'):
                 cid = p.get('call_id', '')
                 value = p.get('output', '')
+                # Render text blocks with their original line breaks; raw events retain the envelope.
+                if isinstance(value, list) and all(isinstance(block, dict) and block.get('type') in ('text', 'input_text', 'output_text') and isinstance(block.get('text'), str) for block in value):
+                    value = text_content(value)
                 created = [ChatMessageTool(id=mid, content=value if isinstance(value, str) else json.dumps(value, ensure_ascii=False, indent=2), tool_call_id=cid, function=calls.get(cid, 'tool'), metadata=meta)]
         elif mode == 'cli':
             if row.get('type') == 'item.started' and kind == 'command_execution':

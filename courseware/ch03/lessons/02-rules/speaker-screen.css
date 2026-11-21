@@ -2,6 +2,8 @@
 .script-page{max-width:1280px!important;padding:36px 40px!important}
 .script-page>header{max-width:1000px;margin-bottom:24px}
 .script-page>header h1{font-size:2.125rem}
+/* 切换提示允许多行，固定小圆角避免胶囊边缘侵入文字区域。 */
+.script-page .switch-cue{box-sizing:border-box;border-radius:10px;padding:10px 14px}
 .section-links a[aria-current]{font-weight:700}
 .screen-nav{background:var(--color-paper);position:sticky;top:0;z-index:10;border-bottom:1px solid #c8ccc5}
 .screen-nav a{color:#46534c}
@@ -167,11 +169,6 @@ body.discussion-layout{height:100dvh;overflow:hidden;margin:0}
 .discussion-splitter:hover,.discussion-splitter:focus-visible,.resizing-directory .discussion-splitter{background:#b7ccb0}
 .resizing-directory,.resizing-directory *{cursor:col-resize!important;user-select:none!important}
 .sidebar-collapsed .discussion-sidebar{visibility:hidden;padding:0;border:0;overflow:hidden}
-.discussion-restore{position:absolute;top:12px;left:20px;z-index:5}
-.discussion-restore,.discussion-collapse{padding:7px 12px;background:var(--color-paper);border:1px solid #aebbb1;border-radius:4px;color:#326449;font:inherit;cursor:pointer}
-.discussion-collapse{margin-bottom:12px}
-.discussion-restore[hidden]{display:none}
-.sidebar-collapsed .discussion-panel{padding-top:66px}
 
 .discussion-layout #script{min-height:0}
 .discussion-layout .discussion-panel,.discussion-layout .discussion-sidebar{min-height:0;overscroll-behavior:contain}
@@ -200,3 +197,52 @@ body.discussion-layout{height:100dvh;overflow:hidden;margin:0}
 .discussion-panel pre{white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}
 .discussion-modes{flex-wrap:wrap}
 @media(max-width:600px){.discussion-panel th,.discussion-panel td{padding:8px 4px}}
+
+
+/* 3.2.1.4：按实际使用对象区分入口和操作，口播沿用原节点。 */
+.screen-outline .object-cues{display:grid;gap:8px;margin:12px 0 18px}
+.screen-outline .object-cue{display:flex;align-items:baseline;gap:16px;padding:11px 16px;border-left:3px solid var(--cue-edge);border-radius:3px;background:var(--cue-fill);color:#46534c;font:400 .9375rem/1.7 var(--font-body)}
+.screen-outline .object-cue-ppt{--cue-edge:#728da2;--cue-fill:#edf2f5}
+.screen-outline .object-cue-terminal{--cue-edge:#93829f;--cue-fill:#f1eef4}
+.screen-outline .object-cue-browser,.screen-outline .object-cue-inspect{--cue-edge:#779881;--cue-fill:#edf3ee}
+.screen-outline .object-cue-label{flex:0 0 64px;font-weight:600}
+.screen-outline .object-cue-content{min-width:0;overflow-wrap:anywhere}
+.screen-outline .object-cue-content a{display:block;color:inherit;text-underline-offset:3px}
+@media(max-width:600px){.screen-outline .object-cue{gap:10px;padding:10px 12px}}
+
+.screen-outline .screen-frame>.object-cue{margin:12px 0}
+.screen-outline .object-cue-content details{margin:6px 0 0}
+.screen-outline .sequence-frame>.object-cue{margin:16px 0 10px}
+.screen-outline .sequence-frame .object-cue-action{font:inherit;line-height:inherit;margin:3px 0 0}
+.screen-outline .sequence-frame .object-cue-action a{display:inline}
+.arrangement-materials{padding-left:20px;font-size:1rem;line-height:1.8}
+.arrangement-materials li{margin:8px 0}
+.arrangement-materials a{color:#326449;text-underline-offset:3px}
+.arrangement-materials span{color:#526059}
+
+.discussion-content h2.discussion-detail-title{
+  font-size:1rem;
+  font-weight:400;
+  line-height:1.7;
+  color:#68736d;
+  margin:0 0 16px;
+}
+
+.speaker-mode-toolbar{position:fixed;top:0;left:0;right:0;height:54px;box-sizing:border-box;z-index:1000;display:flex;align-items:center;gap:8px;padding:8px 20px;background:#edf1e9;border-bottom:1px solid #c8d0c2;color:#46534c;font:400 .9375rem var(--font-body)}
+.speaker-mode-toolbar strong{font-size:.875rem;margin-right:12px}
+.speaker-mode-toolbar button{font:inherit;padding:5px 14px;border:1px solid #aebbb4;border-radius:4px;background:transparent;color:inherit;cursor:pointer}
+.speaker-mode-toolbar button[aria-pressed="true"]{background:#d9e6d5;border-color:#779881;color:#214d36}
+body.has-speaker-mode-toolbar .script-page{padding-top:54px!important;box-sizing:border-box}
+@media(max-width:600px){
+  .speaker-mode-toolbar{gap:6px;padding:8px 12px}
+  .speaker-mode-toolbar strong{display:none}
+  .speaker-mode-toolbar button{padding:5px 10px;white-space:nowrap}
+}
+.discussion-content:has(.discussion-detail-title){padding-top:12px!important;padding-bottom:12px!important;margin-top:0!important;border-top:0!important}
+
+.discussion-tree .directory-section-heading{display:flex;align-items:baseline;list-style:none}
+.discussion-tree .directory-section-heading::-webkit-details-marker{display:none}
+.discussion-tree .directory-section-heading::marker{content:''}
+.discussion-tree .directory-section-toggle{flex:0 0 24px;padding:4px 0;border:0;background:transparent;color:#526059;font:inherit;cursor:pointer}
+.discussion-tree .directory-section-heading>a{flex:1;min-width:0}
+.discussion-tree-section summary.directory-section-heading::before{content:none}

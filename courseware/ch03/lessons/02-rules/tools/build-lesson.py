@@ -146,7 +146,7 @@ data['pptSceneIds'] = selection.IDS + authoring_slides.IDS
 spec = importlib.util.spec_from_file_location('skill_visuals', Path(__file__).with_name('skill-visuals.py'))
 skill_visuals = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(skill_visuals)
-skill_visuals.apply(data, evidence['prompt'])
+skill_visuals.apply(data, (HERE.parents[1] / 'materials/playtest-prompts-20261118/f-short-implicit.md').read_text().strip())
 # 3.2.2 当前六段讲述线的配套知识页；旧第二部分深链保留。
 spec = importlib.util.spec_from_file_location('reading_slides', Path(__file__).with_name('reading-slides.py'))
 reading_slides = importlib.util.module_from_spec(spec)
