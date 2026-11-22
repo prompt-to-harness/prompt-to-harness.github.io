@@ -28,6 +28,7 @@ NOTE = NOTE_FILE.read_text(encoding="utf-8").strip()
 SNAPSHOT = "docs/specs/sources/requirement-note.md"
 UPSTREAM = "https://github.com/AykutSarac/jsoncrack.com"
 SHA = "e99288b4eff060dcd53428f2a3a5c2f28eecffa6"
+FEISHU_NOTE_URL = "https://my.feishu.cn/wiki/TMvww5IMRiiP63kd3QFc6lvhnfh"
 # 请求原文与 STORYBOARD“演示请求草案”一致
 PROMPT_READ = (
     "用飞书 MCP 读取这篇需求笔记：<需求笔记链接>。如果是知识库链接，先解析节点拿到文档 ID，再读取正文。"
@@ -140,11 +141,20 @@ scene(
     lead="这是需求方写在飞书里的需求笔记（课程合成材料）。先把原文读一遍，再看 Agent 怎样读到它。没有接入飞书 MCP 时，按实验说明把原文保存成快照，后面的步骤都一样。",
     html=html_p14,
     steps=["背景", "希望做到", "还没想清楚的", "它在哪里"],
-    repro=repro([
-        ("在基线副本的根目录建好存放规格文档的目录。", "mkdir -p docs/specs/sources"),
-        (f"把下面的原文原样保存为 {SNAPSHOT}，不要改写。", NOTE),
-        ("稍后写 Brief 时，在“来源”一节写明：原文来自课程快照，并记下保存时间。", None),
-    ], note="讲师现场用飞书 MCP 读取同一份原文；用快照的学员，后面的调查与 Brief 步骤完全相同。", label="实验说明：用课程快照取得原文"),
+    repro={
+        "label": "实验说明：原文链接与课程快照",
+        "steps": [
+            {
+                "text": "飞书文档原文：可点击打开飞书需求笔记查看，或复制下方链接供飞书 MCP 读取。",
+                "code": FEISHU_NOTE_URL,
+                "links": [{"text": "打开飞书需求笔记", "url": FEISHU_NOTE_URL}],
+            },
+            {"text": "未接入飞书 MCP 时，在基线副本的根目录建好存放规格文档的目录。", "code": "mkdir -p docs/specs/sources"},
+            {"text": f"把下面的原文原样保存为 {SNAPSHOT}，不要改写。", "code": NOTE},
+            {"text": "稍后写 Brief 时，在“来源”一节写明：原文来自课程快照，并记下保存时间。", "code": ""},
+        ],
+        "note": "讲师现场用飞书 MCP 读取同一份原文；用快照的学员，后面的调查与 Brief 步骤完全相同。",
+    },
 )
 
 # ---------- MCP ----------
