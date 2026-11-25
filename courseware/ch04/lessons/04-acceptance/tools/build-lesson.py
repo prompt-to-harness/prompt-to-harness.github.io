@@ -6,6 +6,7 @@
 实跑请求保存在分镜；页面展示组织请求的要素、审查观察点和一次备课实跑示例。
 """
 import sys
+from html import escape
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
@@ -33,6 +34,30 @@ GROUPS = [
     (2, "窄屏、可辨认", "360px 宽窗口可操作、可查看；状态不单靠颜色；键盘不是必做组"),
     (2, "本地处理", "只查这次比较有没有把 JSON 发出去"),
 ]
+
+PROMPT_P45_TEACHER = """请先阅读已经审过的 docs/specs/SPEC.md，根据其中已批准（Approved）的 32 条规则（REQ-001~REQ-031 与 REQ-038），起草 docs/specs/ACCEPTANCE.md，并在 docs/specs/fixtures/ 下保存固定素材与素材索引。同时建立实际存在的 REQ-* 与 AC-* 的对应关系。
+
+这一步只新建 docs/specs/ACCEPTANCE.md 和 docs/specs/fixtures/ 下的文件，不要修改生产代码，也不要修改 docs/specs/BRIEF.md、docs/specs/SPEC.md 或 docs/specs/sources/requirement-note.md。
+
+要求：
+1. 每条验收案例使用 Given–When–Then 写清固定输入、操作步骤和可核算的预期；JSON 路径统一用斜杠形式（例如 /user/age、/active、/role，根路径写成 /），不要混用点号写法。
+2. 每条案例关联 SPEC.md 中实际存在的 REQ-*，不要编造编号。一个案例可以同时核对多条规则。
+3. 只为 32 条 Approved 规则固定验收标准。6 条 Draft（REQ-032~REQ-037，如 1 与 1.0、本地存储、节点点击详情等）与 5 条 Deferred（REQ-039~REQ-043）单独列出留给人决定，不要自行补成标准答案，也不要改动状态。
+4. 纳入下面这对已经手算过的嵌套案例，并保存对应 fixture：
+   Before：{"user":{"name":"Lin","age":20},"active":true}
+   After：{"user":{"name":"Lin","age":21},"role":"student"}
+   预期按已批准规则核算：/user/age 为 changed、/active 为 removed、/role 为 added，/user 为 unchanged 且带 hasDiffDescendant 不计入差异数；直接差异共 3 处；开启“只看变化”后保留 /user、隐藏 /user/name、差异数仍为 3。
+5. 扩展到一组验收，覆盖全部 Approved 规则：
+   - 相同输入与只改对象键顺序（差异数都为 0）；
+   - 增删改与整棵对象或数组增删（只在根计 1 处，内部子节点仍逐个标为 added / removed）；
+   - 数组按索引比较：[10,20] → [5,10,20]（两处 changed、一处 added，共 3 处，不报告移动）；
+   - 类型变化（如 1 变成 "1" 统一记为 changed）与字段值为 null 等同于路径不存在（REQ-003），固定对应案例；
+   - 非法输入：分别验证 Before 出错、After 出错（保留上次有效结果），以及首次比较即出错（显示空状态和错误提示），改回合法输入后恢复正常比较；
+   - 窄屏与可辨认：360px 宽窗口中两侧输入、错误提示和结果都能操作与查看；每种状态除颜色外还有文字或符号（键盘操作未在 SPEC 批准，不写为必做组）；
+   - 本地处理：只核对本次比较和切换“只看变化”时，两份 JSON 内容没有因比较功能被发送到网络（页面上其他无关请求不视为违反）；
+   - 原有单输入链路兼容（REQ-038）：核对新增 JSON Diff 功能后，原有单份 JSON 输入与可视化查看保持可用。
+6. 节点上限案例按 pnpm dev:www 环境的 2000 核算，removed 节点也计入上限；准备低于上限与超过上限的可重现对照素材（写清节点数估算口径，不把行数直接当节点数），超过上限时只提示图太大、不渲染合并图，且不出现指向外部产品的升级链接。
+7. 在 ACCEPTANCE.md 中附上 REQ-* 与 AC-* 的覆盖对应表，检查全部 32 条 Approved 规则至少各有 1 条对应 AC-*，且每条 AC-* 都能指回需求并真正在核对那条行为。完成后运行 git status --short --untracked-files=all 给我看。"""
 
 lesson = Lesson(
     __file__, "4.4", "光靠文字规则，拿什么判对错",
@@ -247,13 +272,18 @@ scene(
         pop_title="请求表达示例",
         pop_label="示例：按实际 Spec 调整",
         pop_body=(
-            '<p style="margin:0 0 8px;font-size:17px">按你自己的 Spec 与规则编号改写，下面只展示表达方式</p>'
-            '<div class="p-code"><div class="p-code-head"><span>请求示例</span></div>'
-            '<pre style="padding:12px 14px;white-space:pre-wrap;font-size:18px;line-height:1.55">'
+            '<p style="margin:0 0 8px;font-size:17px">按你自己的 Spec 与规则编号改写，下面先给简版表达方式，再附课堂演练时教师使用的完整 Prompt 供参考</p>'
+            '<div class="p-code"><div class="p-code-head"><span>请求示例（简版）</span></div>'
+            '<pre style="padding:12px 14px;white-space:pre-wrap;font-size:17px;line-height:1.55">'
             '依据已审过的 docs/specs/SPEC.md 起草 docs/specs/ACCEPTANCE.md 和 docs/specs/fixtures/。\n'
             '每条案例写清固定输入、动作和预期，并关联实际存在的 REQ-*。\n'
             '只写规格和验收素材，不修改生产代码；尚未决定的行为留给人决定。'
             '</pre></div>'
+            '<p style="margin:12px 0 6px;font-size:17px"><b>课堂演练时教师 Prompt（供参考）</b>：按自己的 Spec 编号与实际规则调整，不必逐字照抄</p>'
+            '<div class="p-code"><div class="p-code-head"><span>课堂演练时教师 Prompt（供参考）</span></div>'
+            '<pre style="padding:12px 14px;white-space:pre-wrap;font-size:15.5px;line-height:1.55">'
+            + escape(PROMPT_P45_TEACHER)
+            + '</pre></div>'
         ),
         pop_hint="把 Spec 依据与范围写进请求，示例仅供参考",
     ),
