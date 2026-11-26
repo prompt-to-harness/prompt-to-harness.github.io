@@ -14,7 +14,7 @@ def build(lesson,pop):
   return link(urls[path],label)
  def prompt(id,label):
   text=screens[id]['prompts'][0]['text']
-  return pop(label,label,('<p>四要素整理稿，尚未重新执行；本轮结果对应实际发送原文。</p>' if id=='audio-guidance' else '')+'<div class="creation-prompt"><pre>'+escape(text)+'</pre><button type="button" data-creation-copy>复制完整 Prompt</button><span role="status"></span></div>')
+  return pop(label,label,('<p>四要素整理稿，尚未重新执行；本轮结果对应实际发送原文</p>' if id=='audio-guidance' else '')+'<div class="creation-prompt"><pre>'+escape(text)+'</pre><button type="button" data-creation-copy>复制完整 Prompt</button><span role="status"></span></div>')
  def actual_prompt():
   text=(lesson.here/'evidence/audio-reference-iteration/author-prompt.txt').read_text()
   return pop('本轮实际发送 Prompt · 可复制','本轮实际发送 Prompt','<div class="creation-prompt"><pre>'+escape(text)+'</pre><button type="button" data-creation-copy>复制完整 Prompt</button><span role="status"></span></div>')

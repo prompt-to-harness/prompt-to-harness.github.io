@@ -78,7 +78,9 @@ body[data-mode=slides] .task-slide .scene-content{top:256px;height:376px;display
 body[data-mode=slides] .task-slide .reading-actions{font-size:16px;gap:18px}
 body[data-mode=scroll] .task-board{min-width:950px}
 /* 新增知识页后仍为短段保留完整标签宽度。 */
-body[data-mode=slides] .segment-bar .segment:nth-child(2){min-width:210px}
+body[data-mode=slides] .segment-bar .segment:nth-child(2){min-width:235px}
+body[data-mode=slides] .segment-bar .segment:nth-child(3){min-width:225px}
+body[data-mode=slides] .segment-bar .segment:nth-child(4){min-width:160px}
 
 /* 3.2.4：图示避开讲师框；已揭示组成保持可读。 */
 body[data-mode=slides] .plugin-slide .scene-content{top:262px;height:370px;display:block}

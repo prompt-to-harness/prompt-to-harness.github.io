@@ -117,7 +117,7 @@ class BrowserTests(unittest.TestCase):
         (cls.root / 'tools').mkdir()
         (cls.root / 'courseware/tools').mkdir()
         (cls.root / 'courseware/shared').symlink_to(REPO / 'courseware/shared', target_is_directory=True)
-        for name in ('serve-courseware.py', 'script_comments.py'):
+        for name in ('serve-courseware.py', 'script_comments.py', 'course_install_demo.py'):
             shutil.copy(REPO / 'tools' / name, cls.root / 'tools' / name)
         shutil.copy(REPO / 'courseware/tools/rebuild-lesson.py', cls.root / 'courseware/tools/rebuild-lesson.py')
         cls.server = subprocess.Popen([sys.executable, str(cls.root / 'tools/serve-courseware.py'), '--port', '0'],

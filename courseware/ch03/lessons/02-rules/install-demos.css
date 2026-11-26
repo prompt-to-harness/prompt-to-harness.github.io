@@ -1,5 +1,5 @@
 #p07install .install-demo-entries{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
-#p07install .install-demo-entries a{font:inherit;font-size:19px;padding:9px 12px;border:1px solid #287f75;border-radius:6px;color:#205f57;background:#e0f3ef;text-decoration:none}
+#p07install .install-demo-entries a{font:inherit;font-size:17px;padding:7px 9px;border:1px solid #287f75;border-radius:6px;color:#205f57;background:#e0f3ef;text-decoration:none}
 #p07install .install-demo-hint{font-size:18px;color:#6a6557;margin:10px 0 16px}
 #p07install .install-step:first-child .selection-actions{gap:8px;display:flex;flex-direction:column;align-items:flex-start}
 #p07install .install-step:first-child .selection-actions a{font-size:18px}
@@ -16,5 +16,6 @@
 .install-demo-inline{display:inline-flex;flex-wrap:wrap;gap:8px;margin:6px 12px;font:15px/1.5 system-ui,sans-serif}
 .install-demo-inline .install-demo-status{flex-basis:100%}
 @media(max-width:600px){.install-demo-dialog{padding:18px}.install-demo-dialog pre{font-size:16px}.install-demo-dialog h2{font-size:23px}}
-.install-demo-inline{display:flex;margin:8px 0}
+.install-demo-inline{display:flex;min-width:0;max-width:100%;margin:8px 0}
+.install-demo-inline button{max-width:100%;box-sizing:border-box}
 .install-demo-inline .install-demo-status:empty{display:none}
