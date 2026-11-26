@@ -1,0 +1,58 @@
+/* 游戏专属样式：只叠加在紫色主题之上，不改主题文件 */
+
+:root { --app-max: 1020px; }
+
+.stats--game { --stat-cols: 3; }
+
+.stat__value--lives { color: var(--bad); letter-spacing: 4px; }
+.stat__value--lives.is-low { animation: pulse-bad 0.6s ease infinite alternate; }
+
+@keyframes pulse-bad {
+  from { opacity: 0.55; }
+  to { opacity: 1; }
+}
+
+.field-wrap {
+  width: 100%;
+  padding: clamp(8px, 1.6vw, 14px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stage {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-sm);
+  background:
+    radial-gradient(700px 420px at 50% 120%, rgba(154, 107, 255, 0.22), transparent 70%),
+    linear-gradient(160deg, #101634, #1b1440);
+  border: 1px solid var(--border);
+  touch-action: none;
+}
+
+.field-tip {
+  margin: 0;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.84rem;
+  transition: opacity 0.18s ease;
+}
+
+.field-tip[hidden] { display: none; }
+
+.overlay__emoji { filter: drop-shadow(0 0 18px rgba(154, 107, 255, 0.6)); }
+
+.overlay__text { white-space: pre-line; }
+
+.stage.is-hit { animation: shake 0.28s ease; }
+
+@keyframes shake {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-6px, 3px); }
+  50% { transform: translate(5px, -3px); }
+  75% { transform: translate(-3px, -2px); }
+  100% { transform: translate(0, 0); }
+}

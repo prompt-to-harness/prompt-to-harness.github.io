@@ -1,0 +1,152 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>original-skill</title><style>body{margin:0;background:#f8f7f3;color:#26332e;font:18px/1.7 system-ui}main{max-width:1100px;margin:auto;padding:36px 28px}h1{font-size:36px}h2{margin-top:48px}a{color:#28664d}nav{display:flex;gap:20px;flex-wrap:wrap}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#fff;border:1px solid #ddd;padding:20px;font:14px/1.65 monospace}img{width:100%;border-radius:12px}.source-stops{position:sticky;top:0;background:#f8f7f3;padding:12px 0;border-bottom:1px solid #ccc;z-index:5}.source-stops button{font:inherit;padding:4px 12px;cursor:pointer}section,pre span{scroll-margin-top:100px}pre span:target{background:#fff1bf;outline:2px solid #c4a954}.pair{display:grid;grid-template-columns:1fr 1fr;gap:24px}small{color:#647068}@media(max-width:700px){.pair{grid-template-columns:1fr}}</style><main><a href="index.html">← 材料汇总</a><h1>original-skill</h1><nav class="source-stops" data-source="original-skill/SKILL.md" data-evidence-stops="[{&quot;id&quot;: &quot;stage-contract&quot;, &quot;label&quot;: &quot;场地检查清单&quot;}, {&quot;id&quot;: &quot;L125&quot;, &quot;label&quot;: &quot;避免样式冲突&quot;}]"></nav><pre><span id="L1">---</span>
+<span id="L2">name: purple-game-ui</span>
+<span id="L3">description: 用「记忆翻牌」小游戏的紫色霓虹视觉风格，为浏览器小游戏搭建可直接套用的页面骨架——标题区、横排 HUD（工具条 + 四个数据卡）、居中场地、结算浮层。当用户要「做一个和之前那个紫色调游戏站一样的小游戏」「复用紫色界面风格」「套用同一个页面布局」时使用。</span>
+<span id="L4">---</span>
+<span id="L5"></span>
+<span id="L6"># 紫色游戏站界面风格（Purple Game UI）</span>
+<span id="L7"></span>
+<span id="L8">本 Skill 提供**一个可直接运行的页面模板** + **一个与玩法无关的 HUD 控制器**，</span>
+<span id="L9">目标：新做一个小游戏时，默认**只替换中间的场地（stage）**，标题、HUD、浮层保持不变，</span>
+<span id="L10">让所有小游戏看起来像出自同一个游戏站。</span>
+<span id="L11"></span>
+<span id="L12">## 何时使用</span>
+<span id="L13"></span>
+<span id="L14">- 「再做一个游戏，风格和上次那个紫色的保持一致」</span>
+<span id="L15">- 「把这套布局复用到另一个玩法上」</span>
+<span id="L16">- 「我只要换玩法，页面别动」</span>
+<span id="L17"></span>
+<span id="L18">## 核心原则</span>
+<span id="L19"></span>
+<span id="L20">1. **布局是契约，玩法是变量。** 页面自上而下永远是这个顺序：</span>
+<span id="L21">   `标题 → 横向 HUD 工具条 → 四格数据条 → 居中场地 → 底部提示 → 结算浮层`。</span>
+<span id="L22">   换玩法时只允许动「居中场地」内部。</span>
+<span id="L23">2. **零依赖、零构建。** 原生 HTML + CSS + ES Modules，不需要 npm、不需要打包器。</span>
+<span id="L24">   但 **不能用 `file://` 直接打开**（ES Modules 会被 CORS 拦截），必须起一个 http 静态服务器。</span>
+<span id="L25">3. **动效与音效是风格的一部分。** 紫色渐变、毛玻璃面板、发光描边、WebAudio 合成音，</span>
+<span id="L26">   都直接从模板继承，不要另起炉灶。</span>
+<span id="L27"></span>
+<span id="L28">## 目录结构</span>
+<span id="L29"></span>
+<span id="L30">```</span>
+<span id="L31">purple-game-ui/</span>
+<span id="L32">├── SKILL.md                 # 本文件</span>
+<span id="L33">├── templates/</span>
+<span id="L34">│   ├── index.html           # 页面模板（骨架已就位）</span>
+<span id="L35">│   ├── styles.css           # 全部样式：设计令牌 + 布局 + 组件 + 可选装饰件</span>
+<span id="L36">│   └── src/</span>
+<span id="L37">│       ├── shell.js         # HUD 控制器：难度切换 / 音效开关 / 重开 / 数据条 / 计时 / 浮层</span>
+<span id="L38">│       ├── storage.js       # localStorage 封装（隐私模式降级）</span>
+<span id="L39">│       └── sound.js         # WebAudio 合成音效</span>
+<span id="L40">└── references/</span>
+<span id="L41">    ├── design-tokens.md     # 令牌表 + 配色 + 尺寸规则</span>
+<span id="L42">    └── patterns.md          # 换玩法时的落地清单、可复用装饰件、常见坑</span>
+<span id="L43">```</span>
+<span id="L44"></span>
+<span id="L45">## 快速上手</span>
+<span id="L46"></span>
+<span id="L47">1. 复制整个 `templates/` 目录到新游戏目录，改名为 `index.html` + `styles.css` + `src/` 即可。</span>
+<span id="L48">2. 打开 `index.html`，把 `&lt;!-- ===== 场地：唯一需要替换的区域 ===== --&gt;` 标记之间换成你的玩法 DOM。</span>
+<span id="L49">3. 在你的玩法脚本里 `import { shell } from &#x27;./shell.js&#x27;`，用 `shell` 更新 HUD：</span>
+<span id="L50"></span>
+<span id="L51">```js</span>
+<span id="L52">import { shell } from &#x27;./shell.js&#x27;;</span>
+<span id="L53"></span>
+<span id="L54">shell.setStat(&#x27;moves&#x27;, &#x27;3&#x27;);              // 更新「步数」</span>
+<span id="L55">shell.setStat(&#x27;pairs&#x27;, &#x27;2/8&#x27;);            // 更新「配对」</span>
+<span id="L56">shell.setStat(&#x27;time&#x27;, &#x27;0:12&#x27;);            // 更新「用时」</span>
+<span id="L57">shell.setStat(&#x27;best&#x27;, &#x27;9 步 · 0:01&#x27;);     // 更新「最佳」</span>
+<span id="L58">shell.startTimer();                       // 从此刻开始计时</span>
+<span id="L59">shell.stopTimer();</span>
+<span id="L60">shell.showResult({                        // 弹结算浮层</span>
+<span id="L61">  emoji: &#x27;🎉&#x27;,</span>
+<span id="L62">  title: &#x27;全部配对完成！&#x27;,</span>
+<span id="L63">  lines: [&#x27;本局用时 &lt;strong&gt;0:03&lt;/strong&gt;，共 &lt;strong&gt;9&lt;/strong&gt; 步。&#x27;],</span>
+<span id="L64">  primary: { label: &#x27;再玩一局&#x27;, onClick: () =&gt; shell.newGame() },</span>
+<span id="L65">  secondary: { label: &#x27;查看牌面&#x27;, onClick: () =&gt; shell.hideResult() },</span>
+<span id="L66">});</span>
+<span id="L67">shell.sfx.match();</span>
+<span id="L68">```</span>
+<span id="L69"></span>
+<span id="L70">4. 起服务器（任意静态服务器均可）：</span>
+<span id="L71"></span>
+<span id="L72">```bash</span>
+<span id="L73">cd &lt;新游戏目录&gt;</span>
+<span id="L74">python3 -m http.server 8000     # → http://127.0.0.1:8000/</span>
+<span id="L75">```</span>
+<span id="L76"></span>
+<span id="L77">## 页面骨架契约</span>
+<span id="L78"></span>
+<span id="L79">```html</span>
+<span id="L80">&lt;main class=&quot;app&quot;&gt;</span>
+<span id="L81">  &lt;header class=&quot;app__header&quot;&gt;</span>
+<span id="L82">    &lt;h1 class=&quot;title&quot;&gt;🧠 记忆翻牌&lt;/h1&gt;     &lt;!-- 标题：渐变文字 + emoji 图标 --&gt;</span>
+<span id="L83">    &lt;p class=&quot;subtitle&quot;&gt;一句话玩法说明&lt;/p&gt;</span>
+<span id="L84">  &lt;/header&gt;</span>
+<span id="L85"></span>
+<span id="L86">  &lt;section class=&quot;toolbar&quot;&gt;              &lt;!-- HUD 左：分段难度选择 --&gt;</span>
+<span id="L87">    &lt;div class=&quot;field&quot;&gt;…&lt;/div&gt;</span>
+<span id="L88">    &lt;div class=&quot;field field--actions&quot;&gt;…  &lt;!-- HUD 右：音效开关 + 重新开始 --&gt;</span>
+<span id="L89">  &lt;/section&gt;</span>
+<span id="L90"></span>
+<span id="L91">  &lt;section class=&quot;stats&quot;&gt;                &lt;!-- HUD 下：四格数据条 --&gt;</span>
+<span id="L92">    &lt;div class=&quot;stat&quot;&gt;&lt;span class=&quot;stat__label&quot;&gt;步数&lt;/span&gt;&lt;span class=&quot;stat__value&quot;&gt;0&lt;/span&gt;&lt;/div&gt;</span>
+<span id="L93">    &lt;!-- 用时 / 配对 / 最佳 --&gt;</span>
+<span id="L94">  &lt;/section&gt;</span>
+<span id="L95"></span>
+<span id="L96">  &lt;section class=&quot;board-wrap&quot;&gt;           &lt;!-- 居中场地：唯一允许更换玩法的区域 --&gt;</span>
+<span id="L97">    &lt;div class=&quot;board&quot; id=&quot;board&quot;&gt;&lt;/div&gt;</span>
+<span id="L98">  &lt;/section&gt;</span>
+<span id="L99"></span>
+<span id="L100">  &lt;footer class=&quot;app__footer&quot;&gt;&lt;p class=&quot;hint&quot;&gt;键盘操作提示&lt;/p&gt;&lt;/footer&gt;</span>
+<span id="L101">&lt;/main&gt;</span>
+<span id="L102"></span>
+<span id="L103">&lt;div class=&quot;overlay&quot; id=&quot;overlay&quot; hidden&gt;  &lt;!-- 结算浮层 --&gt;</span>
+<span id="L104">  &lt;div class=&quot;overlay__panel&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot;&gt;…&lt;/div&gt;</span>
+<span id="L105">&lt;/div&gt;</span>
+<span id="L106">```</span>
+<span id="L107"></span>
+<span id="L108">## 四个必须守住的视觉规则</span>
+<span id="L109"></span>
+<span id="L110">1. **背景**：三层叠加——两个 `radial-gradient` 光晕（左上蓝紫、右上紫红）压在深蓝紫 `linear-gradient` 之上，`background-attachment: fixed`。</span>
+<span id="L111">2. **面板**：`rgba(255,255,255,.07)` 半透明 + `1px solid rgba(255,255,255,.14)` 边框 + `backdrop-filter: blur(10px)`。</span>
+<span id="L112">3. **主按钮**：紫色渐变 `linear-gradient(140deg, var(--accent), #9a6bff)` + 外发光阴影；次按钮是毛玻璃 ghost。</span>
+<span id="L113">4. **焦点可见**：所有可交互元素 `:focus-visible` 用 `3px solid var(--accent-2)`（青绿）描边，键盘操作必须看得见。</span>
+<span id="L114"></span>
+<span id="L115">## 换玩法时的检查清单</span>
+<span id="L116"></span>
+<span id="L117">- [ ] `&lt;h1&gt;` 换标题与 emoji，`&lt;p class=&quot;subtitle&quot;&gt;` 换一句话玩法说明</span>
+<span id="L118">- [ ] 数据条四个标签按新玩法改（例：步数 / 用时 / 得分 / 最佳）</span>
+<span id="L119"><span id="stage-contract">- [ ] 场地内容整体替换，但容器保留 `.board-wrap` + `.board`（居中 + 宽度约束）</span></span>
+<span id="L120">- [ ] 难度分段按钮数量按新玩法调整，或整块换成别的控件</span>
+<span id="L121">- [ ] 结算浮层的文案与按钮语义对齐新玩法（「再玩一局」通常保留）</span>
+<span id="L122">- [ ] 音效：`sfx.flip/match/mismatch/win` 按需调用；`sound.js` 里的音高可改</span>
+<span id="L123">- [ ] `shell.js` 中 `difficulty` 默认值与 `storage.js` 的 `STORAGE_KEY` 换成新游戏自己的（避免多款游戏共用一份存档）</span>
+<span id="L124"></span>
+<span id="L125">## 反模式（踩过的坑）</span>
+<span id="L126"></span>
+<span id="L127">- ❌ 改玩法时顺手改了 `.app` 的子元素顺序 → 版式跑偏。顺序是契约。</span>
+<span id="L128">- ❌ 在 CSS 动画的 `transform` 里写不完整的 transform，会覆盖掉原本的 `rotateY/translateX` 组合 → 动画中元素跳回原位。**每个关键帧都要带上完整 transform。**</span>
+<span id="L129">- ❌ 用 `file://` 打开测试 → ES Modules 被 CORS 拦截，必须走 http。</span>
+<span id="L130">- ❌ 浮层用 `display:none` 切换导致焦点丢失 → 用 `hidden` 属性 + `[hidden]{display:none}`，关闭时把焦点还给触发按钮。</span>
+<span id="L131"></span>
+<span id="L132">## 验证</span>
+<span id="L133"></span>
+<span id="L134">改完至少做一次真实浏览器检查（截图 + 点击），确认：</span>
+<span id="L135"></span>
+<span id="L136">1. 窄屏（≤520px）下工具条竖排、数据条仍是四列或合理换行、无横向滚动。</span>
+<span id="L137">2. 键盘 Tab 可见焦点环，浮层打开时焦点在面板内、Esc 可关闭。</span>
+<span id="L138">3. 结算浮层弹出后背景变暗 + 模糊，关闭后焦点回到「重新开始」。</span>
+<span id="L139">4. 刷新页面后最佳成绩与难度仍在（localStorage 生效）。</span>
+<span id="L140"></span>
+<span id="L141">详细的令牌表、装饰件清单与更多模式见 `references/`。</span>
+<span id="L142"></span>
+<span id="L143">## 附带的演示玩法</span>
+<span id="L144"></span>
+<span id="L145">`templates/src/main.js` 是一个**可直接运行的翻牌配对演示**，用来验证模板可用（它复用 `.card` 样式件）。</span>
+<span id="L146">换成新玩法时删掉它重写即可——`shell.js` 不依赖它。</span>
+<span id="L147"></span>
+<span id="L148">## 来源</span>
+<span id="L149"></span>
+<span id="L150">本 Skill 的视觉与交互规范提取自工作区里的参考作品 `source-game/`（记忆翻牌）及其开发对话</span>
+<span id="L151">`source-dialogue.md`：紫色双光晕背景、毛玻璃 HUD、渐变标题、四个数据格、结算浮层、</span>
+<span id="L152">以及那次开发中踩到并修掉的 4 个真实缺陷（见 `references/patterns.md` 第四节）。</span></pre><script src="../../evidence-navigation.js"></script></main></html>

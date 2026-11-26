@@ -1,0 +1,193 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>方案二 · 实际使用的 Skill</title><style>body{margin:36px auto;max-width:1500px;padding:0 28px;background:#f6f5ef;color:#273c33;font:20px/1.6 system-ui}h1{font-size:34px}h2{font-size:25px}a{color:#286447}nav{display:flex;gap:22px;flex-wrap:wrap}main{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin:30px 0}article{min-width:0}img{width:100%;border:1px solid #ccc}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:17px/1.7 ui-monospace,monospace;background:#fffef8;padding:24px}details{margin:24px 0}summary{cursor:pointer}small{font-size:17px}section{scroll-margin-top:24px;margin:36px 0}blockquote{margin:0;background:#fffef8;padding:18px;font-size:18px}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:12px;border-bottom:1px solid #ccc}@media(max-width:800px){main{grid-template-columns:1fr}}</style><h1>方案二 · 实际使用的 Skill</h1><nav><a href="index.html#skills">返回对比</a></nav><pre>---
+name: purple-game-ui
+description: 为浏览器小游戏套用「记忆翻牌」参考作沉淀的紫色霓虹 UI 体系——设计令牌、玻璃面板、分段控件、数据块、结算浮层、动效与无障碍基线。当任务要求新做或改造一个网页小游戏、并且界面应与这套紫色风格一致时使用。只管视觉与界面实现，不决定玩法、计分规则、棋盘布局或翻牌机制。
+---
+
+# 紫色游戏 UI
+
+把参考作品《记忆翻牌》的界面层沉淀成可复用的紫色霓虹体系，让**不同**的小游戏看起来像同一个系列。
+
+本 Skill 只覆盖**表现层**：颜色、排版、面板与控件、动效、无障碍基线、以及参考项目实测得出的实现约束。玩法、关卡、计分、棋盘形状由具体任务决定，不要从本 Skill 推导。
+
+## 落地步骤
+
+1. 复制 `assets/purple-theme.css` 到新项目（作为基础样式表，与项目自己的样式表一起加载）。**不要修改这个文件**——它是跨项目共享的基线。
+2. 按下面的「页面骨架」搭外壳：标题区 → 工具条 → 数据块 → 游戏主体 → 页脚；结算用浮层。
+3. 游戏主体的布局自己写（棋盘、关卡网格、战场……），只复用主题提供的类名。
+4. 如果新游戏确实有「牌面翻转」，再引入 `assets/card-flip.css`，并读 `references/card-game.md`。
+5. 起本地服务：`node scripts/serve.cjs [目录] [端口]`。**不要直接双击 `index.html`**（见「实现约束」第 1 条）。
+
+## 页面骨架
+
+```html
+&lt;body&gt;
+  &lt;main class=&quot;app&quot;&gt;
+    &lt;header class=&quot;app__header&quot;&gt;
+      &lt;h1 class=&quot;title&quot;&gt;🎯 游戏名&lt;/h1&gt;
+      &lt;p class=&quot;subtitle&quot;&gt;一句话说清玩法。&lt;/p&gt;
+    &lt;/header&gt;
+
+    &lt;section class=&quot;toolbar panel&quot; aria-label=&quot;设置&quot;&gt;
+      &lt;div class=&quot;field&quot;&gt;
+        &lt;span class=&quot;field__label&quot; id=&quot;mode-label&quot;&gt;模式&lt;/span&gt;
+        &lt;div class=&quot;segmented&quot; id=&quot;mode-group&quot; role=&quot;radiogroup&quot; aria-labelledby=&quot;mode-label&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;field field--actions&quot;&gt;
+        &lt;button class=&quot;btn btn--ghost&quot; id=&quot;sound-toggle&quot; type=&quot;button&quot; aria-pressed=&quot;true&quot;&gt;🔊 音效&lt;/button&gt;
+        &lt;button class=&quot;btn btn--primary&quot; id=&quot;restart-btn&quot; type=&quot;button&quot;&gt;↻ 重新开始&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class=&quot;stats&quot; aria-label=&quot;本局数据&quot;&gt;
+      &lt;div class=&quot;stat&quot;&gt;&lt;span class=&quot;stat__label&quot;&gt;得分&lt;/span&gt;&lt;span class=&quot;stat__value&quot; id=&quot;stat-score&quot;&gt;0&lt;/span&gt;&lt;/div&gt;
+      &lt;div class=&quot;stat&quot;&gt;&lt;span class=&quot;stat__label&quot;&gt;用时&lt;/span&gt;&lt;span class=&quot;stat__value&quot; id=&quot;stat-time&quot;&gt;0:00&lt;/span&gt;&lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class=&quot;app__main&quot;&gt;
+      &lt;!-- 游戏主体：布局由本项目决定 --&gt;
+    &lt;/section&gt;
+
+    &lt;footer class=&quot;app__footer&quot;&gt;
+      &lt;p class=&quot;hint&quot;&gt;键盘操作：&lt;kbd&gt;←&lt;/kbd&gt;&lt;kbd&gt;→&lt;/kbd&gt; 移动，&lt;kbd&gt;Enter&lt;/kbd&gt; 操作。&lt;/p&gt;
+    &lt;/footer&gt;
+  &lt;/main&gt;
+
+  &lt;div class=&quot;overlay&quot; id=&quot;overlay&quot; hidden&gt;
+    &lt;div class=&quot;overlay__panel&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot;
+         aria-labelledby=&quot;overlay-title&quot; aria-describedby=&quot;overlay-text&quot;&gt;
+      &lt;div class=&quot;overlay__emoji&quot; id=&quot;overlay-emoji&quot; aria-hidden=&quot;true&quot;&gt;🎉&lt;/div&gt;
+      &lt;h2 class=&quot;overlay__title&quot; id=&quot;overlay-title&quot;&gt;完成！&lt;/h2&gt;
+      &lt;p class=&quot;overlay__text&quot; id=&quot;overlay-text&quot;&gt;&lt;/p&gt;
+      &lt;div class=&quot;overlay__actions&quot;&gt;
+        &lt;button class=&quot;btn btn--primary&quot; id=&quot;overlay-again&quot; type=&quot;button&quot;&gt;再玩一局&lt;/button&gt;
+        &lt;button class=&quot;btn btn--ghost&quot; id=&quot;overlay-close&quot; type=&quot;button&quot;&gt;继续查看&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+```
+
+## 视觉规则
+
+### 底色与光晕
+
+三层叠加，深靛蓝打底，左上一团靛蓝光、右上一团紫光，页面滚动时光晕固定不动：
+
+```css
+background:
+  radial-gradient(1100px 620px at 15% -10%, #2a3170 0%, transparent 55%),
+  radial-gradient(900px 600px at 100% 0%, #3b2a63 0%, transparent 50%),
+  linear-gradient(160deg, var(--bg-0), var(--bg-1));
+background-attachment: fixed;
+```
+
+### 颜色令牌
+
+只用这些令牌，不要在项目样式里写死色值（要调色就改令牌）。
+
+| 令牌 | 值 | 用途 |
+|---|---|---|
+| `--bg-0` | `#0c1022` | 底色渐变起点（最深） |
+| `--bg-1` | `#171e3d` | 底色渐变终点 |
+| `--panel` | `rgba(255,255,255,.07)` | 面板、数据块底色 |
+| `--panel-strong` | `rgba(255,255,255,.12)` | 次级按钮底色 |
+| `--border` | `rgba(255,255,255,.14)` | 面板描边（1px） |
+| `--text` | `#eef1ff` | 主文字 |
+| `--text-dim` | `#a3abcf` | 次要文字、字段标签 |
+| `--accent` | `#7c8cff` | 长春花蓝：主渐变起点、选中态 |
+| `--accent-2` | `#56d6c6` | 青绿：**焦点环**专用 |
+| `--accent-3` | `#9a6bff` | 紫：主渐变末端 |
+| `--good` | `#4ade80` | 成功 / 达成状态 |
+| `--bad` | `#fb7185` | 失败 / 错误状态 |
+| `--radius` | `16px` | 面板、浮层圆角 |
+| `--radius-sm` | `11px` | 按钮、分段控件圆角 |
+| `--shadow` | `0 18px 40px rgba(0,0,0,.35)` | 浮层面板阴影 |
+| `--app-max` | `960px` | 版心宽度，需要更宽的布局时在项目里覆盖 |
+
+两个派生渐变已定义好：`--title-grad`（标题文字渐变 `#fff → #b9c2ff → #7ce7d8`，配 `background-clip:text`）与 `--accent-grad`（主按钮 / 选中态 `linear-gradient(140deg, var(--accent), var(--accent-3))`）。
+
+### 排版
+
+- 字体栈：`-apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Noto Sans SC&quot;, sans-serif`——系统字体，**不引入 web font**，中文靠后面的回退项。
+- 标题 `clamp(1.7rem, 4.5vw, 2.4rem)`，字距 `.5px`；副标题 `clamp(.85rem, 2vw, .95rem)`，用 `--text-dim`。
+- 数据块标签 `.74rem` + `--text-dim` + 字距 `.5px`；数值 `clamp(1rem, 2.6vw, 1.25rem)`、`font-weight: 650`、**`font-variant-numeric: tabular-nums`**（数值跳动时不左右抖）。
+- 尺寸全部用 `clamp()` 跟随视口缩放，不要写固定 px。
+
+### 层次与形状
+
+- 面板 = 半透明白底 + 1px 半透明描边 + `border-radius: 16px` + `backdrop-filter: blur(10px)`。数据块圆角 `13px`，按钮/分段控件 `11px`，浮层面板 `22px`。
+- 浮层面板底色是**不透明紫蓝渐变** `linear-gradient(165deg, rgba(42,49,112,.96), rgba(30,24,60,.96))`，不要用 `--panel` 的半透明底（后面有内容会透出来）。
+- 主按钮带外发光 `0 8px 20px rgba(124,140,255,.32)`，hover 用 `filter: brightness(1.08)`（不要改背景色，保持渐变）。
+
+## 组件配方
+
+结构与类名见 `assets/purple-theme.css`，这里只记要点。
+
+**分段控件**（互斥选项）：外层 `.segmented` 是深色凹槽（`rgba(0,0,0,.28)`，内边距 3px，间距 3px），子项 `.segmented__btn` 透明底。选中态靠 `aria-checked=&quot;true&quot;` 上渐变 + 发光，不要用 JS 加「active」类去同步两套状态。语义用 `role=&quot;radiogroup&quot;` / `role=&quot;radio&quot;`；若选项其实是独立开关，用 `aria-pressed` 即可（主题样式对两者都生效）。
+
+**按钮**：`.btn` 是基础，`.btn--primary` 是唯一的主行动（渐变实心），`.btn--ghost` 是次级（半透明）。关闭状态的开关用 `aria-pressed=&quot;false&quot;` 表达，主题已含「半透明 + 删除线」样式，不必再写。
+
+**数据块**：`.stats` 是 grid，列数用 `--stat-cols` 覆盖（默认 4）。每个数据块是 `.stat` + `.stat__label` + `.stat__value`。数值更新时**整体重算**再写回，不要在多个事件里各改各的（见「实现约束」第 4 条）。
+
+**浮层**：结构固定为 `.overlay &gt; .overlay__panel`。`.overlay` 本身 `position: fixed; inset: 0` 做遮罩 + 模糊；用 `hidden` 属性控制显隐，**不要**用 `display:none` 与 `hidden` 混用（主题里 `.overlay[hidden] { display: none }` 已处理）。
+
+## 动效基线
+
+| 场景 | 参数 |
+|---|---|
+| 颜色 / 底色过渡 | `0.18s ease` |
+| 按压反馈 | `transform: translateY(1px) scale(0.99)`，`0.12s ease` |
+| 浮层淡入 | `fade-in 0.22s ease` |
+| 浮层面板升起 | `rise 0.3s cubic-bezier(.2,.9,.3,1.2)` |
+| 翻牌（仅翻牌游戏） | `transform 0.45s cubic-bezier(.4,.15,.2,1)` |
+
+**必须**保留全局 `prefers-reduced-motion` 降级块（主题文件已有），不要在项目里把它覆盖掉。
+
+**通用陷阱**：CSS 动画里的 `transform` 会**整体覆盖**元素已有的 `transform`。任何「已有 transform（旋转/位移/缩放）+ 附加动画」的组合，都必须把原变换写进每一个关键帧，否则动画进行中原变换会丢失。参考项目的翻牌 bug 就是这么来的（详见 `references/card-game.md`）。
+
+## 无障碍基线
+
+- 焦点环：主题用 `:where(a, button, [tabindex]):focus-visible` 给 `3px` 的 `--accent-2` 描边 + `2px` 偏移。零特异性，方便项目按自己的形状改写。
+- 浮层：`role=&quot;dialog&quot;` + `aria-modal=&quot;true&quot;` + `aria-labelledby`/`aria-describedby`；**打开时把焦点移进面板**，Tab / Shift+Tab 在面板内循环，Esc 关闭，**关闭后把焦点还给触发它的元素**（浮层里不能残留焦点）。
+- 开关按钮用 `aria-pressed`，互斥选项用 `aria-checked`。
+- 装饰性 emoji（标题图标、结算大表情）必须 `aria-hidden=&quot;true&quot;`；**emoji 的可读性依赖系统字体**，不能承担唯一的信息表达，关键信息旁边要有文字。参考项目曾用 `🃏` 做标题图标，在部分平台渲染成空白方块——选 glyph 前先确认能渲染，或直接换成更通用的符号。
+- 实时变化的数值（计时、分数）用 `aria-live=&quot;polite&quot;` 标注容器，避免屏幕阅读器逐秒打断。
+
+## 响应式基线
+
+- 断点 `520px`：工具条改为纵向堆叠，操作按钮组撑满宽度。
+- 版心 `--app-max` 默认 `960px`；需要更宽的布局（多栏、棋盘）在项目里覆盖这个变量，不要改版心以外的排版规则。
+- 牌阵 / 棋盘这类「数量 × 尺寸」的区域要算好上限宽度，否则在窄屏会溢出。
+
+## 实现约束（参考项目实测得出）
+
+1. **ES Modules 必须走 HTTP**：`file://` 下模块脚本被 CORS 拦截，双击 `index.html` 打不开。用 `node scripts/serve.cjs` 或任何静态服务器。
+2. **核心逻辑与 DOM 解耦**：把游戏规则写成不碰 DOM 的纯状态机模块（可在 Node 里直接跑单测），UI 层只负责渲染状态。
+3. **状态机返回显式事件类型**（如 `first / match / mismatch / locked`），UI 只根据事件编排动画与音效，**不要在 UI 里自己改游戏状态**——两边各改一份必然不同步。
+4. **界面数据整体重算**：状态变化时从状态重新算出所有显示值再写回。参考项目曾出现「不匹配时步数计数器不刷新」的 bug——因为只在某个分支更新了它。
+5. **localStorage 要能降级**：先探测可用性（隐私模式下写入会抛异常），读写都包 try/catch，失败时静默降级为「不持久化」，不能让整个游戏打不开。
+6. **音效用 WebAudio 现场合成**，不依赖外部音频文件；`AudioContext` 惰性创建（首次用户交互后再 `resume()`），因为浏览器要求先有交互才允许出声。
+7. **暴露只读调试句柄**（如 `window.&lt;game&gt;.state`）给自动化测试读，比让测试去猜 DOM 更稳。
+8. **光看代码不算验证**：用 headless Chrome + DevTools Protocol 做真实点击的端到端检查（点击目标、真实计时、窄屏无溢出）。参考项目正是靠浏览器实测抓出了 4 个真实缺陷——其中 2 个是纯代码审查看不出来的视觉/状态 bug。
+
+## 哪些不属于本 Skill（翻牌专属）
+
+以下是《记忆翻牌》这个**具体游戏**的决定，不是紫色主题的一部分。**不要**把它们套到新游戏上：
+
+- 牌阵形状与数量规则（3×4 / 4×4 / 4×6，以及「牌数 = 对数 × 2」）。
+- 「翻开两张记一步」的计步方式、计时从第一次翻牌开始、最佳成绩按「步数优先、时间次之」比较。
+- 不匹配停留 900ms 再翻回、通关后 420ms 弹结算面板、时钟 200ms 刷新一次。
+- 牌背的菱形条纹与 `☆` 角标、12 个 emoji 图案、前景牌的 3:4 比例与 `108px` 单列宽。
+- 「配对」这一概念本身。
+
+如果新游戏确实是翻牌类，这些细节以及 3D 翻转的实现陷阱在 `references/card-game.md`，按需读取；CSS 直接用 `assets/card-flip.css`。
+
+## 文件
+
+| 文件 | 作用 | 何时读 |
+|---|---|---|
+| `assets/purple-theme.css` | 主题层：令牌 + 全部可复用组件 | 每个新项目都要复制 |
+| `assets/card-flip.css` | 翻牌专属样式 | 只有游戏需要牌面翻转时 |
+| `references/card-game.md` | 翻牌的 DOM 结构、状态机、翻转陷阱 | 只有游戏需要翻牌时 |
+| `scripts/serve.cjs` | 零依赖静态服务器（Node 标准库） | 本地起服务 |
+</pre></html>

@@ -1,0 +1,196 @@
+/* ==========================================================================
+   game.css — 「60 秒躲避与收集」专有样式（叠加在 purple-theme.css 之上）
+   ========================================================================== */
+
+html, body { height: 100%; }
+
+body.pg-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------------ 顶栏 */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px clamp(12px, 3vw, 22px) 6px;
+  flex: 0 0 auto;
+}
+
+.topbar__title { min-width: 0; }
+
+.topbar__title .pg-title { font-size: clamp(1.1rem, 3.4vw, 1.6rem); }
+
+.topbar__title .pg-subtitle {
+  font-size: 0.78rem;
+  margin-top: 2px;
+}
+
+/* ------------------------------------------------------------ 布局 */
+.game {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas: "hud field";
+  gap: clamp(8px, 1.4vw, 14px);
+  align-items: start;
+  padding: 0 clamp(10px, 3vw, 22px) clamp(10px, 2vw, 18px);
+}
+
+.game__hud {
+  grid-area: hud;
+  align-self: start;
+}
+
+.game__field {
+  grid-area: field;
+  min-width: 0;
+  min-height: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ------------------------------------------------------------ 场地 */
+.field {
+  position: relative;
+  width: 100%;
+  max-width: min(100%, calc((100dvh - 160px) * 1.538));
+  aspect-ratio: 800 / 520;
+  border-radius: var(--pg-radius-lg);
+  border: 1px solid var(--pg-border);
+  background:
+    radial-gradient(700px 420px at 50% 0%, rgba(124, 140, 255, 0.14), transparent 70%),
+    linear-gradient(160deg, rgba(23, 30, 61, 0.9), rgba(12, 16, 34, 0.95));
+  box-shadow: var(--pg-shadow);
+  overflow: hidden;
+}
+
+.field__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+/* 受击时的红闪 */
+.field__flash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, rgba(251, 113, 133, 0) 30%, rgba(251, 113, 133, 0.55) 100%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.field.is-hit .field__flash { opacity: 1; transition: opacity 0.06s ease; }
+
+/* -------------------------------------------------------- 虚拟方向键 */
+.dpad {
+  display: none;
+  grid-template-columns: repeat(3, 54px);
+  grid-template-rows: repeat(2, 46px);
+  gap: 6px;
+  justify-content: center;
+  padding: 10px 0 2px;
+  flex: 0 0 auto;
+}
+
+.dpad__btn {
+  border-radius: 12px;
+  border: 1px solid var(--pg-border);
+  background: var(--pg-panel-strong);
+  color: var(--pg-text);
+  font-size: 1rem;
+  cursor: pointer;
+  user-select: none;
+  touch-action: none;
+}
+
+.dpad__btn:active { background: rgba(124, 140, 255, 0.4); }
+.dpad__btn--up { grid-column: 2; grid-row: 1; }
+.dpad__btn--left { grid-column: 1; grid-row: 2; }
+.dpad__btn--down { grid-column: 2; grid-row: 2; }
+.dpad__btn--right { grid-column: 3; grid-row: 2; }
+
+/* ------------------------------------------------------------ 规则卡 */
+.rules__list {
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 9px;
+  text-align: left;
+}
+
+.rules__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 0.86rem;
+  color: var(--pg-text-dim);
+  line-height: 1.5;
+}
+
+.rules__icon {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 7px;
+  background: var(--pg-panel-strong);
+  border: 1px solid var(--pg-border);
+  font-size: 0.8rem;
+}
+
+.rules__item strong { color: var(--pg-text); }
+
+/* ------------------------------------------------------------ 窄屏 */
+@media (max-width: 760px), (max-height: 560px) {
+  .game {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    grid-template-areas: "field" "hud";
+    align-items: stretch;
+  }
+
+  .game__hud { align-self: end; }
+
+  /* 窄屏：rail 变为贴场地底部的紧凑横条，不遮挡场地 */
+  .game__hud .pg-stats--rail {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .game__hud .pg-stats--rail .pg-stat {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px;
+    padding: 7px 8px;
+    border-radius: var(--pg-radius-sm);
+  }
+
+  .game__hud .pg-stats--rail .pg-stat__label { font-size: 0.68rem; }
+  .game__hud .pg-stats--rail .pg-stat__value { font-size: 0.98rem; }
+
+  /* 竖屏时限制场地高度，保证 HUD 与方向键都还在视口内 */
+  .field { max-width: min(100%, calc(52dvh * 1.538)); }
+}
+
+@media (pointer: coarse) {
+  .dpad { display: grid; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .field.is-hit .field__flash { opacity: 0; }
+}

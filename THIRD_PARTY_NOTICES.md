@@ -36,3 +36,9 @@
 同节 `selection-evidence.json` 及生成的回放页保留该版本 game-playtest 的名称与描述首句节选，用于对照实际选用记录；完整描述和正文通过固定版本链接查看。课程改写的 description 单独标识，不冒充上游原文。
 
 同节 `assets/task-originals.json` 和生成的 `task-originals.html` 引用上述固定版本的少量英文条目，用于原站无法访问时的课堂备用。课程转述单独标出，各段链接到上游原文。
+
+## Skill 创建方法截图
+
+3.3 方法模块使用 [Agent Skills 创建指南](https://agentskills.io/skill-creation/best-practices#start-from-real-expertise)和 [OpenAI 创建说明](https://learn.chatgpt.com/docs/build-skills#create-a-skill)的局部原文截图，用于说明任务材料与内置创建工具。英文原文归各自权利人所有；中文解释及三次演示安排由本课程编写，不将课程安排称为官方分类或效果排名，不复制第三方全文。
+
+3.3 三个创建方法模块中的 `external/agentskills-*.png` 和 `external/openai-create-skill.png` 是上述官方公开页面的局部截图，用于讲解任务经验、项目资料与内置创建工具。截图保留原文，页面显示来源名称；原文与复现命令登记在 [第三章外部材料索引](courseware/ch03/materials/external/README.md)。

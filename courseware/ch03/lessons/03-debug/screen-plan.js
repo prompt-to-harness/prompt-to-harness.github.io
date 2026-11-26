@@ -5,9 +5,9 @@ window.narrationData = {
     {
       "id": "part-1",
       "number": "3.3.1",
-      "title": "从同一款翻牌游戏生成两份 Skill",
-      "content": "全节共 7 页 PPT。第 1 页两种复用要求；第 2 页正文与资源；第 3 页布局与采用证据；第 4 页交互复用与迭代过渡；第 5 页新增与保留目标；第 6 页指导与资源的配合；第 7 页按结果取舍。代码、记录和游戏演示在对应真实材料中展开。音效段完整逐字稿已接入，人工试听、录屏收音及试讲待完成。 本节生成、修改与修复展示已完成实验的真实请求和输出；操作上下文就近写在对应步骤。重新执行时使用副本，按新结果判断，不能把重演冒充原记录。",
-      "effect": "能从正文分辨完整案例是供查阅还是直接作为项目起点，并找到说明选用条件的 Reference 和实际可用的文件。",
+      "title": "从已有材料实操生成并审阅 Skill",
+      "content": "生成、安装与调用后，依次看方案一、二、三的游戏效果，再进入方案一界面过小的完整迭代例子。",
+      "effect": "能对照实际文件说出复用方式的差别，并通过游戏检查风格与布局；不把单次产物差异当作创建方法排名。",
       "materials": [
         {
           "label": "第三章 Discussion",
@@ -18,63 +18,413 @@ window.narrationData = {
         {
           "id": "group-1-1",
           "number": "3.3.1.1",
-          "title": "从紫色翻牌游戏出发",
+          "title": "生成方式怎样选择",
           "screens": [
             {
               "id": "reference",
               "number": "3.3.1.1.1",
-              "title": "打开翻牌游戏",
-              "screen": "PPT 01 第 1 步 · 紫色翻牌游戏截图",
-              "operation": "停在第 1 页第 1 步，指翻牌游戏截图里的数据栏和紫色卡片。",
-              "points": "接住 3.2 回看环节修改后的指导：从审阅要求进入新玩法验证。以同一款紫色游戏的截图、源码和可见开发对话为参考，核对要求如何成为 Skill，并实际用于躲避游戏。",
+              "title": "把已有作品里的经验保存下来",
+              "screen": "紫色翻牌作品截图",
+              "operation": "打开参考作品，指紫色视觉、数据卡和结算画面。",
+              "points": "新增开场：先明确想复用什么，再解释创建方式。 全节口播约定（讲师要求）：后面实际操作、展示的细节不在前面复述；要求在 Prompt 展示处讲，结果在实际文件或试玩处讲，转场只留必要承接。",
               "materials": [
                 {
-                  "label": "紫色翻牌游戏参考画面",
-                  "url": "evidence/index.html#reference"
-                }
-              ],
-              "ppt": {
-                "id": "skill-inputs",
-                "step": 0
-              },
-              "transition": "看见相同的紫色风格后，切到两条作者请求：输入相同，组织目标不同。"
-            },
-            {
-              "id": "slide-1",
-              "number": "3.3.1.1.2",
-              "title": "两条请求怎么不同",
-              "screen": "PPT 01 · 同一款翻牌游戏，两种复用要求",
-              "operation": "展开第 1 页右侧两条要求。",
-              "points": "整页组要求把标题、横排 HUD、居中场地和结算做成页面模板。组件组要求把主题、数据卡和结算做成可单独用的资源，并说明实时读数怎样贴近场地。两份 Skill 在独立会话里并行生成。 比较资源组织和布局要求如何共同落实到文件与成品。",
-              "ppt": {
-                "id": "skill-inputs",
-                "step": 1
-              },
-              "transition": "不要只凭请求猜产物；打开实际落盘正文，确认 AI 把要求写成了什么。",
-              "prompts": [
-                {
-                  "label": "整页组 · 实际完整生成请求",
-                  "text": "参考这个游戏的截图、源码和原始开发对话，帮我做一份能复用它的紫色界面风格的 Skill，后面开发其他小游戏时使用。请把完整 Skill 写到工作区根目录的 purple-game-ui 文件夹。\n\n我想做一系列看起来属于同一个游戏站的小游戏。请把标题、横排 HUD、居中场地和结算浮层做成一份可以直接套用的页面模板。换玩法时，默认保留页面布局。"
+                  "label": "参考作品 · 开局截图",
+                  "url": "evidence/reference.png"
                 },
                 {
-                  "label": "组件组 · 实际完整生成请求",
-                  "text": "参考这个游戏的截图、源码和原始开发对话，帮我做一份能复用它的紫色界面风格的 Skill，后面开发其他小游戏时使用。请把完整 Skill 写到工作区根目录的 purple-game-ui 文件夹。\n\n我想让不同玩法的小游戏共用这套紫色视觉。请把主题、数据卡和结算浮层做成能单独用的资源，再给一条布局建议：如果游戏需要持续观察场地和读数，就让 HUD 靠近场地边缘，具体位置按玩法安排。"
+                  "label": "参考作品 · 结算截图",
+                  "url": "evidence/reference-win.png"
                 }
               ],
-              "task": {
-                "context": "历史独立 Codex CLI 会话的回放。两份工作区各有同一份 source-game/ 源码与 source-dialogue.md；source-game/docs/ 内有开局、窄屏、结算截图。实际调用附带开局 screenshot-initial.png 与结算 screenshot-win.png 两张图片；窄屏图在目录中供读取。不是只有一句 Prompt 的空上下文。",
-                "actions": [
-                  "在讲述页展开整页、组件两条完整请求，比较末段；两条分别用于两个独立工作区/会话，不能合在同一条消息发送。",
-                  "回放时展示已保存请求与本步列出的输入文件说明；若另行重演，在 Codex 打开各自材料工作区、附加同样两张图，再分别发送对应请求。重演使用新副本，结果按新输出讲。",
-                  "等待后打开各自根目录 purple-game-ui/SKILL.md 和配套文件；从请求切到正文，检查“默认保留”如何落成指导。"
-                ],
-                "result": "整页会话完成；组件会话在 720 秒时超时，已写出 Skill 文件，后续使用的是这个落盘快照，并无组件作者的最终成功回复。原作者 Skill 是输出，之后要复制到开发项目的 .agents/skills/purple-game-ui/。",
-                "source": "purple-style-20261110-v1/author-layout-template-20261112 与 author-layout-components-20261112：prompt.txt、logs/launch.json、inputs.json、result.json；完整会话与 source-dialogue.md 保留在私有实验包。"
-              },
+              "transition": "先看创建过程与内容依据这两个选择。",
+              "script": "【操作提示｜打开参考作品截图，依次指背景、数据卡和结算浮层】\n\n前面我们用过、也读过 Skill。这一节，试着第一小节紫色的视觉风格整理成 Skill。\n\n让后面的小游戏都能待到类似的视觉效果。",
+              "status": "讲述线与逐字稿已按当前主线接入；人工试听、录屏收音和讲师试讲待完成。",
+              "cueMaterials": [
+                {
+                  "match": "【操作提示｜打开参考作品截图，依次指背景、数据卡和结算浮层】",
+                  "labels": [
+                    "参考作品 · 开局截图"
+                  ]
+                }
+              ],
+              "displayCueOverrides": {
+                "0": "打开参考作品的开局截图，指背景、数据卡和按钮"
+              }
+            },
+            {
+              "id": "creation-methods",
+              "title": "先整理上下文，再选择创建方式",
+              "screen": "PPT · 材料与创建方式 → 三个方法模块",
+              "operation": "展示已有开发对话、源码和截图；用一句话引出三种创建方式，具体路径与要求在对应 Prompt 处讲。",
+              "points": "官方建议从任务与项目资料出发；Codex 提供内置创建工具。本课据此安排三次实操，不声称官方规定了三种互斥方法。 讲师要求：开场只用两三句话交代；后面会实际展示并发送 Prompt，文件路径和请求细节留到操作时讲，不提前复述。",
+              "transition": "先在终端从同一份作品材料直接提炼。",
+              "script": "【操作提示｜打开“先把已有对话和成品交给 AI”PPT，依次指开发对话、源码和截图的对应路径】\n\n我们可以让 AI 来帮我做，当然我们需要把足够的上下文给到他，例如我这里把开发对话、最终源码和截图交给 AI，让它帮我们整理。\n我们给他一些额外的上下文，让他以不同的方式进行整理，这里展示三种常见的方式。",
               "materials": [
                 {
-                  "label": "两份作者请求原文 · Inspect",
-                  "url": "http://127.0.0.1:4397/inspect/?topic=layout-authors"
+                  "label": "PPT · 材料与创建方式",
+                  "url": "index.html?mode=slides#creation-evidence"
+                },
+                {
+                  "label": "Agent Skills · 真实经验与项目材料",
+                  "url": "https://agentskills.io/skill-creation/best-practices#start-from-real-expertise"
+                },
+                {
+                  "label": "OpenAI · 内置 skill-creator",
+                  "url": "https://learn.chatgpt.com/docs/build-skills#create-a-skill"
+                }
+              ],
+              "status": "讲述线与逐字稿已按当前主线接入；人工试听、录屏收音和讲师试讲待完成。",
+              "number": "3.3.1.1.2",
+              "cueMaterials": [
+                {
+                  "match": "【操作提示｜打开“先把已有对话和成品交给 AI”PPT，依次指开发对话、源码和截图的对应路径】",
+                  "labels": [
+                    "PPT · 材料与创建方式"
+                  ]
+                }
+              ],
+              "cuePpt": {
+                "0": {
+                  "id": "creation-evidence",
+                  "step": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "group-creation-demos",
+          "number": "3.3.1.2",
+          "title": "在终端完成三次生成",
+          "screens": [
+            {
+              "id": "demo-direct",
+              "number": "3.3.1.2.1",
+              "title": "从已有上下文直接生成",
+              "screen": "PPT 官方截图 → PPT 完整 Prompt → 复制确认 → 终端发送 → 读取记录与输出",
+              "operation": "展示本方法与完整请求，复制并发送；生成后只确认输出目录，再切下一步。",
+              "points": "本段只讲请求怎样写、怎样发送。三种方式全部结束后，再统一打开 Skill 和游戏作简短对比；历史 YAML 修复留在备查记录，不进入主讲。",
+              "transition": "返回下一张方法 PPT，先读官方截图。",
+              "status": "创建演示已有预跑；具体产物比较统一进入后面的三组材料。",
+              "materials": [
+                {
+                  "label": "PPT · 完整请求与复制",
+                  "url": "index.html?mode=slides#create-direct"
+                },
+                {
+                  "label": "三次演示准备与检查",
+                  "url": "creation-demo-guide.html#direct"
+                },
+                {
+                  "label": "Inspect · 本例实际读取与输出",
+                  "url": "http://127.0.0.1:4397/inspect/?topic=create-direct"
+                }
+              ],
+              "script": "【操作提示｜PPT｜打开第 2 页“从已有上下文直接生成”，保持完整 Prompt 关闭；先带读左侧原文截图与圈注，再指右侧手绘流程】\n\n第一种，直接让 AI 从这些材料里提炼经验。\n\n【操作提示｜PPT｜点击“查看完整 Prompt”；先定位“目标”和“上下文”，再向下滚动到“约束”和“完成标准”，此时不复制、不切窗口】\n\n我把材料路径写在请求里，也可以让它自己找。这里特别说明：提炼通用的紫色风格，把翻牌专属的规则分开。\n\n【操作提示｜PPT｜点击弹窗内“复制完整 Prompt”，确认“已复制”；关闭弹窗，停在右侧手绘流程】\n\n【操作提示｜终端｜使用准备入口的 direct 启动命令打开独立录制工作区；先列出 source-game/、source-game/docs/ 和 source-dialogue.md，再粘贴刚复制的请求，检查完整后发送】\n\n【操作提示｜终端｜等待可快进；生成结束后只确认 purple-game-ui 目录已生成，随后切到下一种方式。正文、配套文件和历史修复记录不在这里展开】\n\n【切换｜PPT：返回第 3 页，关闭上例 Prompt；开始下一种创建方式】",
+              "cueMaterials": [
+                {
+                  "match": "【操作提示｜PPT｜打开第 2 页“从已有上下文直接生成”，保持完整 Prompt 关闭；先带读左侧原文截图与圈注，再指右侧手绘流程】",
+                  "labels": [
+                    "PPT · 完整请求与复制"
+                  ]
+                },
+                {
+                  "match": "【操作提示｜PPT｜点击“查看完整 Prompt”；先定位“目标”和“上下文”，再向下滚动到“约束”和“完成标准”，此时不复制、不切窗口】",
+                  "labels": []
+                },
+                {
+                  "match": "【操作提示｜PPT｜点击弹窗内“复制完整 Prompt”，确认“已复制”；关闭弹窗，停在右侧手绘流程】",
+                  "labels": []
+                },
+                {
+                  "match": "【操作提示｜终端｜使用准备入口的 direct 启动命令打开独立录制工作区；先列出 source-game/、source-game/docs/ 和 source-dialogue.md，再粘贴刚复制的请求，检查完整后发送】",
+                  "labels": []
+                },
+                {
+                  "match": "【操作提示｜终端｜等待可快进；生成结束后只确认 purple-game-ui 目录已生成，随后切到下一种方式。正文、配套文件和历史修复记录不在这里展开】",
+                  "labels": []
+                },
+                {
+                  "match": "【切换｜PPT：返回第 3 页，关闭上例 Prompt；开始下一种创建方式】",
+                  "labels": []
+                }
+              ],
+              "cuePpt": {
+                "0": {
+                  "id": "create-direct",
+                  "step": 0
+                },
+                "2": {
+                  "id": "create-direct",
+                  "step": 0
+                },
+                "4": {
+                  "id": "create-direct",
+                  "step": 0
+                },
+                "7": {
+                  "id": "create-creator",
+                  "step": 0
+                }
+              },
+              "suppressCues": [
+                2,
+                4,
+                7
+              ],
+              "displayCueOverrides": {
+                "0": "PPT：打开“从已有上下文直接生成”，先讲原文截图与流程；讲到请求时打开完整 Prompt，依次指目标、上下文、约束和完成标准；讲完复制并关闭，再切终端发送"
+              }
+            },
+            {
+              "id": "demo-creator",
+              "number": "3.3.1.2.2",
+              "title": "调用内置 skill-creator 生成",
+              "screen": "PPT 官方截图 → PPT 完整 Prompt → 复制确认 → 终端发送 → 读取记录与输出",
+              "operation": "展示本方法与完整请求，复制并发送；生成后只确认输出目录，再切下一步。",
+              "points": "本段只讲请求怎样写、怎样发送。三种方式全部结束后，再统一打开 Skill 和游戏作简短对比；历史 YAML 修复留在备查记录，不进入主讲。",
+              "transition": "返回下一张方法 PPT，先读官方截图。",
+              "status": "创建演示已有预跑；具体产物比较统一进入后面的三组材料。",
+              "materials": [
+                {
+                  "label": "PPT · 完整请求与复制",
+                  "url": "index.html?mode=slides#create-creator"
+                },
+                {
+                  "label": "三次演示准备与检查",
+                  "url": "creation-demo-guide.html#creator"
+                },
+                {
+                  "label": "Inspect · 本例实际读取与输出",
+                  "url": "http://127.0.0.1:4397/inspect/?topic=create-creator"
+                }
+              ],
+              "script": "【操作提示｜PPT｜从上一例终端返回第 3 页“调用内置 skill-creator 生成”；保持 Prompt 关闭，先指左侧原文截图中的 Codex 和 $skill-creator】\n\n第二种，用 Codex 内置的 skill-creator 帮我们创建。\n\n【操作提示｜PPT｜点击“查看完整 Prompt”，先指第一行 $skill-creator，再带读目标、上下文、约束和完成标准】\n\nprompt 和第一种类似，请求开头加上 $skill-creator\n\n【操作提示｜PPT｜点击“复制完整 Prompt”，确认“已复制”，关闭弹窗；指右侧流程中的 $skill-creator】\n\n换个新会话，发送这条请求。\n\n【操作提示｜终端｜使用准备入口的 creator 启动命令打开独立录制工作区；确认与第一例相同的材料文件，粘贴并发送请求】\n\n【操作提示｜终端｜等待可快进；生成结束后只确认 purple-game-ui 目录已生成，随后切到下一种方式】\n\n【切换｜PPT：返回第 4 页，关闭上例 Prompt；开始下一种创建方式】",
+              "cueMaterials": [
+                {
+                  "match": "【操作提示｜PPT｜从上一例终端返回第 3 页“调用内置 skill-creator 生成”；保持 Prompt 关闭，先指左侧原文截图中的 Codex 和 $skill-creator】",
+                  "labels": [
+                    "PPT · 完整请求与复制"
+                  ]
+                },
+                {
+                  "match": "【操作提示｜PPT｜点击“查看完整 Prompt”，先指第一行 $skill-creator，再带读目标、上下文、约束和完成标准】",
+                  "labels": []
+                },
+                {
+                  "match": "【操作提示｜PPT｜点击“复制完整 Prompt”，确认“已复制”，关闭弹窗；指右侧流程中的 $skill-creator】",
+                  "labels": []
+                },
+                {
+                  "match": "【操作提示｜终端｜使用准备入口的 creator 启动命令打开独立录制工作区；确认与第一例相同的材料文件，粘贴并发送请求】",
+                  "labels": []
+                },
+                {
+                  "match": "【操作提示｜终端｜等待可快进；生成结束后只确认 purple-game-ui 目录已生成，随后切到下一种方式】",
+                  "labels": []
+                },
+                {
+                  "match": "【切换｜PPT：返回第 4 页，关闭上例 Prompt；开始下一种创建方式】",
+                  "labels": []
+                }
+              ],
+              "cuePpt": {
+                "0": {
+                  "id": "create-creator",
+                  "step": 0
+                },
+                "2": {
+                  "id": "create-creator",
+                  "step": 0
+                },
+                "4": {
+                  "id": "create-creator",
+                  "step": 0
+                },
+                "8": {
+                  "id": "create-reference",
+                  "step": 0
+                }
+              },
+              "suppressCues": [
+                2,
+                4,
+                8
+              ],
+              "displayCueOverrides": {
+                "0": "PPT：打开“调用内置 skill-creator 生成”，先讲原文截图与流程；讲到请求时展开完整 Prompt，指 $skill-creator 和四要素；讲完复制并关闭，再切终端发送"
+              }
+            },
+            {
+              "id": "demo-reference",
+              "number": "3.3.1.2.3",
+              "title": "补充 Reference 后生成",
+              "screen": "PPT 官方截图 → PPT 完整 Prompt → 复制确认 → 终端发送 → 读取记录与输出",
+              "operation": "展示本方法与完整请求，复制并发送；生成后只确认输出目录，再切下一步。",
+              "points": "本段只讲请求怎样写、怎样发送。三种方式全部结束后，再统一打开 Skill 和游戏作简短对比；历史 YAML 修复留在备查记录，不进入主讲。",
+              "transition": "留在第三份生成会话，发送安装请求。",
+              "status": "创建演示已有预跑；具体产物比较统一进入后面的三组材料。",
+              "materials": [
+                {
+                  "label": "PPT · 完整请求与复制",
+                  "url": "index.html?mode=slides#create-reference"
+                },
+                {
+                  "label": "三次演示准备与检查",
+                  "url": "creation-demo-guide.html#reference"
+                },
+                {
+                  "label": "Reference 原文 · 固定版本",
+                  "url": "https://github.com/openai/plugins/blob/82fd64bce3869f0d4c0bb2bf0e36a6e262ca5ad8/plugins/game-studio/skills/game-ui-frontend/SKILL.md#frontend-standards"
+                },
+                {
+                  "label": "Inspect · 本例实际读取与输出",
+                  "url": "http://127.0.0.1:4397/inspect/?topic=create-reference"
+                }
+              ],
+              "script": "【操作提示｜PPT｜从上一例终端返回第 4 页“补充 Reference 后生成”；保持 Prompt 关闭，先带读左侧原文截图与圈注，再指右侧“材料 + Reference”】\n\n第三种，给模型一个同类型的 skill 作为参考，这里以 game-ui-frontend 为参考。\n\n【操作提示｜PPT｜点击“查看完整 Prompt”；先指共同的材料路径，再滚动到 reference/game-ui-frontend.md、借鉴原则及排除项】\n\nPrompt 里面和他说明了想要它参考什么，不参考什么，例如希望借鉴按玩法安排读数和逐步展示信息的原则，不要参考三维游戏要求。\n这一例不调用 skill-creator，单独看补充参考的做法；\n当然，我们也可以把两种方式结合起来。\n\n【操作提示｜PPT｜点击“复制完整 Prompt”，确认“已复制”，关闭弹窗；此时再切终端】\n\n【操作提示｜终端｜使用准备入口的 reference 启动命令打开工作区；展示原有材料及 reference/game-ui-frontend.md，粘贴、核对并发送请求】\n\n【操作提示｜终端：等待第三份生成完成，确认 purple-game-ui/SKILL.md 已落盘，停在这个会话。下一步直接让它安装，不先打开保存的对比结果】",
+              "cueMaterials": [
+                {
+                  "match": "【操作提示｜PPT｜从上一例终端返回第 4 页“补充 Reference 后生成”；保持 Prompt 关闭，先带读左侧原文截图与圈注，再指右侧“材料 + Reference”】",
+                  "labels": [
+                    "PPT · 完整请求与复制"
+                  ]
+                },
+                {
+                  "match": "【操作提示｜PPT｜点击“查看完整 Prompt”；先指共同的材料路径，再滚动到 reference/game-ui-frontend.md、借鉴原则及排除项】",
+                  "labels": []
+                },
+                {
+                  "match": "【操作提示｜PPT｜点击“复制完整 Prompt”，确认“已复制”，关闭弹窗；此时再切终端】",
+                  "labels": []
+                },
+                {
+                  "match": "【操作提示｜终端｜使用准备入口的 reference 启动命令打开工作区；展示原有材料及 reference/game-ui-frontend.md，粘贴、核对并发送请求】",
+                  "labels": []
+                },
+                {
+                  "match": "【操作提示｜终端：等待第三份生成完成，确认 purple-game-ui/SKILL.md 已落盘，停在这个会话。下一步直接让它安装，不先打开保存的对比结果】",
+                  "labels": []
+                }
+              ],
+              "cuePpt": {
+                "0": {
+                  "id": "create-reference",
+                  "step": 0
+                },
+                "2": {
+                  "id": "create-reference",
+                  "step": 0
+                },
+                "4": {
+                  "id": "create-reference",
+                  "step": 0
+                }
+              },
+              "suppressCues": [
+                2,
+                4
+              ],
+              "displayCueOverrides": {
+                "0": "PPT：打开“补充 Reference 后生成”，先讲原文截图与流程；讲到请求时展开完整 Prompt，指材料路径、Reference、借鉴原则与排除项；讲完复制并关闭，再切终端发送"
+              }
+            }
+          ]
+        },
+        {
+          "id": "group-1-3",
+          "number": "3.3.1.3",
+          "title": "安装调用，再看保存结果",
+          "screens": [
+            {
+              "id": "slide-2",
+              "number": "3.3.1.3.1",
+              "title": "安装第三份 Skill，再调用它开发游戏",
+              "screen": "第三份生成会话 → 安装 → 游戏项目新会话 → 发送开发请求",
+              "operation": "在第三份生成会话中，让 AI 把 Skill 安装到旁边的 ../game-reference 游戏项目；确认完整包已安装。从目标项目新开会话发送开发请求，等待时切到保存结果。",
+              "points": "本段教安装与调用：在生成原对话委托安装完整 Skill；在游戏项目调用时指定 Skill 和新任务。窗口切换只进操作提示，不把讲解重心放在终端动作。",
+              "materials": [
+                {
+                  "label": "三份 Skill 与游戏对比",
+                  "url": "evidence/creation-comparison/index.html#skills"
+                },
+                {
+                  "label": "PPT：三组与共用开发请求",
+                  "url": "index.html?mode=slides#skill-inputs"
+                }
+              ],
+              "transition": "等待现场任务时，切到保存案例，先看 Skill 再看游戏。",
+              "script": "【操作提示｜终端：留在方案三生成 Skill 的原对话。展开本步安装请求，确认 ../game-reference 是旁边的游戏项目，直接复制并发送；目标已有旧结果时另用空目录并同步修改请求】\n\n我们看一下第一种方式的 skill 是不是生成好了，\n我们让 AI 把它安装到游戏项目，后面做游戏就能调用它。\n让 skill 去安装上了，后面我们有类似需求的时候，我们就可以通过调用这个 Skill 来生成同风格的小游戏。\n\n【操作提示｜终端：等待安装完成，查看 ../game-reference/.agents/skills/purple-game-ui/，确认 SKILL.md 与配套文件齐全。另开终端进入 game-reference，启动 Codex；确认当前工作目录为游戏项目。终端切换只操作，不口述】\n\n【操作提示｜PPT：展开第 5 页的开发请求，指使用 Skill 的路径与游戏玩法，复制请求；切回游戏项目会话粘贴并发送。本步下方提供同一条完整请求】\n\n我提前用这三版 Skill 生成了同一个躲避的小游戏，我们来看一下这三个 skill 的具体效果怎么样\n\n【切换｜浏览器：保留现场任务运行，打开“三种方案的游戏效果”HTML 页面；页面显示“提前准备的结果”，不把保存游戏当作本次现场输出】\n\n",
+              "status": "安装与调用操作已写入录制稿；现场新任务尚未执行。保存的三款游戏已检查移动、结算和重开。",
+              "prompts": [
+                {
+                  "label": "安装第三份 Skill · 在生成会话发送",
+                  "text": "把刚生成的 Skill 安装到旁边的 ../game-reference 游戏项目，配套文件一起带上，保留原件。"
+                },
+                {
+                  "label": "第三份 Skill · 新项目开发请求（三组共用）",
+                  "text": "使用当前工作区 .agents/skills/purple-game-ui/SKILL.md，从空项目做一个「60 秒躲避与收集」网页小游戏，沿用 Skill 的紫色界面风格。玩家用方向键或 WASD 移动，躲避障碍，收集物品得分；碰撞扣生命，时间到或生命耗尽时结算，可以重开。只做单一难度，界面不提供难度选择。游玩时界面只显示时间、得分和生命，重开按钮只出现在结算画面。用原生 HTML/CSS/JS，入口放在根目录 index.html。保持 Skill 文件不变，完成后告诉我用了哪些 Skill 文件。浏览器试玩留给我。\n"
+                }
+              ],
+              "cueMaterials": [
+                {
+                  "match": "【操作提示｜终端：留在方案三生成 Skill 的原对话。展开本步安装请求，确认 ../game-reference 是旁边的游戏项目，直接复制并发送；目标已有旧结果时另用空目录并同步修改请求】",
+                  "labels": []
+                },
+                {
+                  "match": "【操作提示｜终端：等待安装完成，查看 ../game-reference/.agents/skills/purple-game-ui/，确认 SKILL.md 与配套文件齐全。另开终端进入 game-reference，启动 Codex；确认当前工作目录为游戏项目。终端切换只操作，不口述】",
+                  "labels": []
+                },
+                {
+                  "match": "【操作提示｜PPT：展开第 5 页的开发请求，指使用 Skill 的路径与游戏玩法，复制请求；切回游戏项目会话粘贴并发送。本步下方提供同一条完整请求】",
+                  "labels": [
+                    "PPT：三组与共用开发请求"
+                  ]
+                },
+                {
+                  "match": "【切换｜浏览器：保留现场任务运行，打开“三种方案的游戏效果”HTML 页面；页面显示“提前准备的结果”，不把保存游戏当作本次现场输出】",
+                  "labels": [
+                    "三份 Skill 与游戏对比"
+                  ]
+                }
+              ],
+              "cuePpt": {
+                "3": {
+                  "id": "skill-inputs"
+                }
+              }
+            },
+            {
+              "id": "review-defaults",
+              "number": "3.3.1.3.2",
+              "title": "依次看三个方案的游戏效果",
+              "screen": "三款已保存游戏 → 方案三试玩",
+              "operation": "依次试玩方案一、二、三；只观察效果，不提前展开声音迭代。最后返回方案一的问题画面。",
+              "points": "使用结果帮助发现值得改进的问题；先看全貌，再一次讲完整一个迭代例子。",
+              "materials": [
+                {
+                  "label": "三份 Skill 与游戏对比",
+                  "url": "evidence/creation-comparison/index.html#skills"
+                },
+                {
+                  "label": "PPT：三组与共用开发请求",
+                  "url": "index.html?mode=slides#skill-inputs"
+                }
+              ],
+              "transition": "从方案一界面过小进入第一个完整迭代例子。",
+              "script": "【操作提示｜浏览器：打开“三种方案的游戏效果”。按方案一、方案二、方案三依次打开试玩；每款观察风格、场地和基本操作后关闭标签，再开下一款，避免声音串入。此处只看效果，不展开原因或修改】\n\n同样是躲避与收集游戏，三份 Skill 基本都符合我们想要紫色风格，但是其他的具体效果还是有差别。\n我们先看方案一，再看方案二和三。\n\n【操作提示｜浏览器：三款看完后回汇总页，再打开方案一，停在实验中界面过小的画面。下一部分沿这个问题完整展开，不先讲方案三的声音需求】",
+              "status": "方案一、三的代码与后续历史游戏逐文件一致；方案三 Skill 与音效迭代原稿逐字节一致。录前仍需人工试听与收音确认。",
+              "cueMaterials": [
+                {
+                  "match": "【操作提示｜浏览器：打开“三种方案的游戏效果”。按方案一、方案二、方案三依次打开试玩；每款观察风格、场地和基本操作后关闭标签，再开下一款，避免声音串入。此处只看效果，不展开原因或修改】",
+                  "labels": [
+                    "三份 Skill 与游戏对比"
+                  ]
+                },
+                {
+                  "match": "【操作提示｜浏览器：三款看完后回汇总页，再打开方案一，停在实验中界面过小的画面。下一部分沿这个问题完整展开，不先讲方案三的声音需求】",
+                  "labels": []
                 }
               ]
             }
@@ -82,95 +432,37 @@ window.narrationData = {
         },
         {
           "id": "group-1-2",
-          "number": "3.3.1.2",
-          "title": "沿正文读到实际文件",
+          "number": "3.3.1.4",
+          "title": "进入第一个迭代例子",
           "screens": [
             {
-              "id": "review-defaults",
-              "number": "3.3.1.2.1",
-              "title": "先看正文给了什么起点",
-              "screen": "材料页 · 整页组正文与模板摘录",
-              "operation": "先显示 PPT 第 2 页第 1 步，再点“正文与模板”；在材料页看文件头与布局原则，向下滚动到“快速上手”和“templates/index.html · 页面结构摘录”，不另开模板文件。",
-              "points": "整页组把页面结构和配套实现一起交给下一次开发。组件组把作者请求给出的布局建议展开成按玩法选择的规则，再提供可直接取用的组件。整页组的正文还把提示词里的「默认保留」写成了「只允许动场地」，审阅时可以指出这两句话给开发留下的空间不同。",
-              "ppt": {
-                "id": "skill-files",
-                "step": 0
-              },
+              "id": "slide-1",
+              "number": "3.3.1.4.1",
+              "title": "先处理界面过小的问题",
+              "screen": "方案一修改前游戏",
+              "operation": "保持方案一画面，进入第一个例子。",
+              "points": "先完整讲界面过小，再讲方案三加声音；不在两个例子间往返。",
+              "transition": "进入 3.3.2 的原因定位、修改与独立验证。",
               "materials": [
                 {
-                  "label": "整页组正文与模板",
-                  "url": "evidence/index.html#layout-template-skill"
-                }
-              ],
-              "transition": "整页组已经给出页面起点；接着看组件组如何让开发者选择布局和资源。"
-            },
-            {
-              "id": "slide-2",
-              "number": "3.3.1.2.2",
-              "title": "案例、Reference 和资源分别怎么用",
-              "screen": "材料页 · 组件组正文引用与布局 Reference",
-              "operation": "回 PPT 第 2 页展开第 2 步，再点“布局 Reference”；先指正文已有的布局规则和查阅入口，再指 Reference 的实时动作一行。",
-              "points": "接回 3.2：正文交代从哪开始、什么时候取用什么。一份完整案例可以留给 AI 查阅，也可以像这次整页模板一样作为开发起点。布局方向由作者请求提出，正文已有规则和用法示例，Reference 再补充玩法与布局形式的对应，CSS 和 JS 则提供实际可采用的实现。看使用方式就能分清它们的作用。",
-              "ppt": {
-                "id": "skill-files",
-                "step": 1
-              },
-              "materials": [
-                {
-                  "label": "正文引用与布局 Reference",
-                  "url": "evidence/index.html#layout-component-reference"
-                }
-              ],
-              "transition": "知道每类文件的作用后，展开数据卡实现，再用同一个新玩法检验它们。"
-            }
-          ]
-        },
-        {
-          "id": "group-1-3",
-          "number": "3.3.1.3",
-          "title": "把两份 Skill 用到同一任务",
-          "screens": [
-            {
-              "id": "generate",
-              "number": "3.3.1.3.1",
-              "title": "准备两个独立工作区",
-              "screen": "材料页 · 数据卡 CSS → 讲述页 · 共用开发请求",
-              "operation": "回 PPT 第 2 页展开第 3 步，点“数据卡 CSS”查看单列规则；回讲述页本步展开实际开发请求，核对两个独立工作区；打开两款历史成品后回 PPT 第 3 页。",
-              "points": "两组从各自的空项目起步，用同一条开发请求显式指定工作区里的 Skill。任务明确三项数据，位置由开发决定。组件 Skill 在生成会话超时前已写入文件，使用的是这份落盘快照。",
-              "prompt": "使用当前工作区 .agents/skills/purple-game-ui/SKILL.md，从空项目做一个「60 秒躲避与收集」网页小游戏，沿用 Skill 的紫色界面风格。玩家用方向键或 WASD 移动，躲避障碍，收集物品得分；碰撞扣生命，时间到或生命耗尽时结算，可以重开。只做单一难度，界面不提供难度选择。游玩时界面只显示时间、得分和生命，重开按钮只出现在结算画面。用原生 HTML/CSS/JS，入口放在根目录 index.html。保持 Skill 文件不变，完成后告诉我用了哪些 Skill 文件。浏览器试玩留给我。",
-              "ppt": {
-                "id": "skill-files",
-                "step": 2
-              },
-              "materials": [
-                {
-                  "label": "数据卡 CSS",
-                  "url": "evidence/index.html#layout-component-resource"
+                  "label": "三方案游戏汇总",
+                  "url": "evidence/creation-comparison/index.html"
                 },
                 {
-                  "label": "本次历史整页游戏",
-                  "url": "evidence/audio-iteration/historical-template/index.html"
-                },
-                {
-                  "label": "本次历史组件游戏",
-                  "url": "evidence/audio-iteration/historical-components/index.html"
-                },
-                {
-                  "label": "两组游戏开发请求原文 · Inspect",
-                  "url": "http://127.0.0.1:4397/inspect/?topic=layout-game-requests"
+                  "label": "方案一修改前游戏",
+                  "url": "evidence/creation-comparison/direct/index.html"
                 }
               ],
-              "transition": "不现场等待完整生成；交代两个独立项目和同一请求后，切到已经留存的两组结果。",
-              "task": {
-                "context": "历史两组游戏开发，均为新的独立会话。每个项目起跑时只有本组完整 Skill，放在 .agents/skills/purple-game-ui/；没有成品游戏，没有作者会话历史，不再附翻牌源码与对话。",
-                "actions": [
-                  "核对工作区里的 Skill 版本：整页包来自前一步整页输出，组件包来自组件落盘快照；两个包名称相同，靠工作区区分。",
-                  "分别在两个项目的 Codex 会话使用下面同一条实际请求；录制采用已完成运行的请求和记录回放，生成等待剪短。",
-                  "返回结果先看根目录 index.html 是否生成，再打开本段两个历史游戏入口；后面的截图、采用记录必须对应这两次运行。"
-                ],
-                "result": "整页与组件两次游戏开发均有成品。课堂比较横排/侧栏、浮层与存储；不能打开旧的三组实验 game-components 等页面来替代这次 layout 组。",
-                "source": "purple-style-20261110-v1/dodge-compare-layout-template-game 与 dodge-compare-layout-components-game：prompt.txt、logs/inputs.json、workspace/。"
-              }
+              "script": "【切换｜浏览器：保持方案一修改前的游戏画面，进入 3.3.2；不切回方案三或声音来源材料】\n\n",
+              "status": "讲述线与逐字稿已按当前主线接入；人工试听、录屏收音和讲师试讲待完成。",
+              "cueMaterials": [
+                {
+                  "match": "【切换｜浏览器：保持方案一修改前的游戏画面，进入 3.3.2；不切回方案三或声音来源材料】",
+                  "labels": [
+                    "方案一修改前游戏"
+                  ]
+                }
+              ]
             }
           ]
         }
@@ -179,143 +471,349 @@ window.narrationData = {
     {
       "id": "part-2",
       "number": "3.3.2",
-      "title": "用两份 Skill 开发同一个躲避游戏",
-      "content": "先比较同一任务的两款游戏怎样摆数据栏，再用开场、结算和刷新复测说明实际复用的交互。本部分用第 3、4 页。",
-      "effect": "能从一次实际交互追回正文、Reference 或资源，并说明这两种组织方式在本次项目里各带来了什么。",
+      "title": "例一：定位并修复界面过小的问题",
+      "content": "围绕方案一连续讲问题、原因、修改和新对话验证。实际请求、回复、Inspect 日志、Skill 差异与新游戏已归档；单轮场地问题未复现，其他玩法待验证。",
+      "effect": "能用证据判断该改游戏还是 Skill，并通过新对话检查改进能否复用。",
       "materials": [
         {
-          "label": "第三章 Discussion · 3.3",
-          "url": "../../../../docs/outline/ch03-discussion.md#33-修改-skill并用它开发躲避游戏"
+          "label": "三方案游戏汇总",
+          "url": "evidence/creation-comparison/index.html"
+        },
+        {
+          "label": "方案一修改前游戏",
+          "url": "evidence/creation-comparison/direct/index.html"
         }
       ],
       "groups": [
         {
-          "id": "group-2-1",
+          "id": "group-size-iteration",
           "number": "3.3.2.1",
-          "title": "同一个任务，数据栏怎么摆",
+          "title": "把问题说具体",
           "screens": [
             {
-              "id": "results",
+              "id": "size-problem",
               "number": "3.3.2.1.1",
-              "title": "同样三项数据怎样摆",
-              "screen": "PPT 03 · 两款游戏并排截图",
-              "operation": "打开第 3 页并排截图，先指两边的时间、得分和生命，再指数据栏位置。",
-              "points": "两款成品均显示任务指定的三项数据，整页组保留横排，组件组采用右侧竖排。先比同一请求明确要求的三项读数，再比它没有指定的位置；不把一张截图当作结构优劣排名。",
-              "ppt": {
-                "id": "skill-games",
-                "step": 0
-              },
+              "title": "例一：界面过小，从效果提出问题",
+              "screen": "方案一修改前的实际游戏",
+              "operation": "打开修改前截图（1280×920）并试玩方案一，指出场地约 99×74；返回 PPT，转到实际排查请求。",
+              "points": "把可观察的问题和想改善的效果交给 AI；此时只确认现象，不预设是 Skill、样式或游戏实现造成。",
               "materials": [
                 {
-                  "label": "本次历史整页游戏",
-                  "url": "evidence/audio-iteration/historical-template/index.html"
+                  "label": "PPT：问题截图与试玩",
+                  "url": "index.html?mode=slides#skill-files"
                 },
                 {
-                  "label": "本次历史组件游戏",
-                  "url": "evidence/audio-iteration/historical-components/index.html"
-                }
-              ],
-              "transition": "位置不同只是观察；下一屏看读取记录和成品类名，判断这次差异有哪些依据。"
-            },
-            {
-              "id": "slide-3",
-              "number": "3.3.2.1.2",
-              "title": "从侧栏追回布局建议",
-              "screen": "材料页 · 读取记录与侧栏类名",
-              "operation": "打开 Inspect“读取记录与侧栏类名”，先看高亮的布局资料读取命令，再点“下一条记录”看原始写入补丁中的 pg-stats--rail。",
-              "points": "先接回作者请求给出的布局方向，再核对正文与 Reference 的建议、读取记录、成品 pg-stats--rail 和右侧竖排画面。正文和示例也有侧栏引导；这些材料共同支持本次采用判断。",
-              "ppt": {
-                "id": "skill-games",
-                "step": 1
-              },
-              "materials": [
+                  "label": "三方案游戏汇总",
+                  "url": "evidence/creation-comparison/index.html"
+                },
                 {
-                  "label": "组件组读取记录与侧栏类名 · Inspect",
-                  "url": "http://127.0.0.1:4397/inspect/?topic=layout-hud"
+                  "label": "方案一修改前游戏",
+                  "url": "evidence/creation-comparison/direct/index.html"
                 }
               ],
-              "transition": "布局之外，组件能否被重新组合？切到同一浮层在开场与结算的两次使用。"
+              "status": "本轮真实材料已归档并接入；场地、窄屏、扣生命、结算和重开已核对。收集得分、人工试听、其他玩法回归与讲师试讲待完成。",
+              "script": "【操作提示｜PPT：打开“方案一：风格保留了，场地却太小”，指场地位置；点“打开游戏”试玩，随后回到 PPT】\n\n这里整个视觉风格还可以，还有文字的玩法提示，但是游戏的界面明显有问题，太小了。\n我们试试，看看能不能玩。\n\n粗略看起来除了游戏界面大小外，其他的功能都是正常的。",
+              "cueMaterials": [
+                {
+                  "match": "【操作提示｜PPT：打开“方案一：风格保留了，场地却太小”，指场地位置；点“打开游戏”试玩，随后回到 PPT】",
+                  "labels": [
+                    "PPT：问题截图与试玩"
+                  ]
+                }
+              ],
+              "cuePpt": {
+                "0": {
+                  "id": "skill-files",
+                  "step": 0
+                }
+              }
             }
           ]
         },
         {
-          "id": "group-2-2",
+          "id": "group-size-2",
           "number": "3.3.2.2",
-          "title": "在结算处看见实际复用",
+          "title": "用证据判断该改哪里",
           "screens": [
             {
-              "id": "component-run",
+              "id": "size-diagnosis",
               "number": "3.3.2.2.1",
-              "title": "组件组的浮层再出现一次",
-              "screen": "材料页 · 组件组开场和结算实拍 → 浮层代码",
-              "operation": "PPT 第 4 页第 1 步，依次打开开场、结算截图和两处调用；各材料另开标签，讲完关掉材料标签，回到保留的 PPT。",
-              "points": "开场与结算共用一个 ResultOverlay，各自传入内容和按钮。开场的规则和确认按钮由本次开发赋予，组件提供可复用浮层能力。指明“资源提供能力、开发决定用途”，为后面独立接入声音作准备。",
-              "ppt": {
-                "id": "skill-reuse",
-                "step": 0
-              },
+              "title": "提出问题，进入实际请求",
+              "screen": "实际诊断日志 → 对应游戏代码或 Skill 原句",
+              "operation": "PPT 提出问题；说完“我们看一下提前跑的运行日志”就进入 Inspect，按目标、上下文、要求讲实际 Prompt。",
+              "points": "如果只是游戏实现的问题，改游戏；如果是 Skill 中的指导或配套资源把问题带到新项目，修改对应源头。不能凭一次解释直接定因。",
               "materials": [
                 {
-                  "label": "组件组开场实拍",
-                  "url": "evidence/layout-components-opening.jpg"
+                  "label": "实际 Prompt · Inspect",
+                  "url": "http://127.0.0.1:4397/inspect/?topic=size-diagnosis&position=0"
                 },
                 {
-                  "label": "组件组结算实拍",
-                  "url": "evidence/layout-components-ending.jpg"
-                },
-                {
-                  "label": "同一浮层的两处调用 · Inspect",
-                  "url": "http://127.0.0.1:4397/inspect/?topic=layout-overlay"
+                  "label": "PPT：提出问题",
+                  "url": "index.html?mode=slides#size-request"
                 }
               ],
-              "transition": "组件能改用途；整页模板还可能带来现成的交互能力。切整页组的结算、刷新和声音设置。"
+              "status": "本轮真实材料已归档并接入；场地、窄屏、扣生命、结算和重开已核对。收集得分、人工试听、其他玩法回归与讲师试讲待完成。",
+              "script": "【操作提示｜PPT：打开“把问题交给 AI，先找主要原因”，先停在请求重点；不在 PPT 重复展开讲完整 Prompt】\n\n把这个问题交给 AI，让它查清楚原因。\n关键是查清楚问题从哪里来：看看这次游戏实现哪里出了错，是 Skill 里有没有不合理的指导，还是模型写代码出了问题\n\n我们看一下提前跑的运行日志。\n\n【切换｜Inspect：点击本段“实际 Prompt · Inspect”，进入排查记录的第一条“实际发送请求”。先指目标，再指截图、源码、Skill 和生成记录路径，最后指先分析、找主要原因和给出建议的要求】\n\n我这里是新开了一个对话，把任务目标和必要的上下文一起给到了它。\n\n让它结合截图、代码、Skill 和生成记录，先找主要原因，再给修改建议。",
+              "transition": "在同一个 Inspect 页面看 AI 回复，不先回 PPT。",
+              "cueMaterials": [
+                {
+                  "match": "【操作提示｜PPT：打开“把问题交给 AI，先找主要原因”，先停在请求重点；不在 PPT 重复展开讲完整 Prompt】",
+                  "labels": [
+                    "PPT：提出问题"
+                  ]
+                },
+                {
+                  "match": "【切换｜Inspect：点击本段“实际 Prompt · Inspect”，进入排查记录的第一条“实际发送请求”。先指目标，再指截图、源码、Skill 和生成记录路径，最后指先分析、找主要原因和给出建议的要求】",
+                  "labels": [
+                    "实际 Prompt · Inspect"
+                  ]
+                }
+              ],
+              "inspectBefore": [
+                {
+                  "part": 4,
+                  "label": "Inspect AI · 第一步 · 实际发送请求",
+                  "url": "http://127.0.0.1:4397/inspect/?topic=size-diagnosis&position=0"
+                }
+              ],
+              "suppressCues": [
+                3
+              ],
+              "cuePpt": {
+                "0": {
+                  "id": "size-request",
+                  "step": 0
+                }
+              }
             },
             {
-              "id": "baseline-run",
+              "id": "size-diagnosis-reply",
               "number": "3.3.2.2.2",
-              "title": "整页组刷新后还记得什么",
-              "screen": "材料页 · 两局结算截图 → 模板与项目实现",
-              "operation": "回 PPT 第 4 页展开第 2 步，打开两张已保存截图，再在 Inspect 依次看模板读取、资源复制和成绩保存的原始命令；不现场重现固定分数。",
-              "points": "这次换了场地和计分方式，模板原有的音效设置与成绩保存仍接到了新游戏。新实现把翻牌成绩改成躲避游戏最高分，并把音效开关移到结算。可以用准备好的复测结果讲，现场得分以当次试玩为准。",
-              "ppt": {
-                "id": "skill-reuse",
-                "step": 1
-              },
+              "title": "在 Inspect 里看分析回复",
+              "screen": "Inspect：实际最终回复",
+              "operation": "在同一个 Inspect 页面依次点击“下一处”，查看第二步“场地变小的直接原因”和第三步“Skill 的上游原因”。",
+              "points": "如果只是游戏实现的问题，改游戏；如果是 Skill 中的指导或配套资源把问题带到新项目，修改对应源头。不能凭一次解释直接定因。",
               "materials": [
                 {
-                  "label": "刷新前 · 第一局结算",
-                  "url": "evidence/layout-first-result.jpg"
-                },
-                {
-                  "label": "刷新后 · 第二局结算",
-                  "url": "evidence/layout-second-result.jpg"
-                },
-                {
-                  "label": "整页组模板与项目代码 · Inspect",
-                  "url": "http://127.0.0.1:4397/inspect/?topic=layout-storage"
+                  "label": "排查回复 · 连续看原因与建议",
+                  "url": "http://127.0.0.1:4397/inspect/?topic=size-diagnosis&position=1"
                 }
               ],
-              "transition": "声音不是凭空出现的候选灵感，模板已有资源支持。先收束两组结构差异，再提出自己的复用选择。"
+              "status": "本轮真实材料已归档并接入；场地、窄屏、扣生命、结算和重开已核对。收集得分、人工试听、其他玩法回归与讲师试讲待完成。",
+              "script": "【操作提示｜Inspect：从第一步“实际发送请求”点“下一处”，依次查看第二步“场地变小的直接原因”和第三步“Skill 的上游原因”】\n\n它给出的结论是，游戏里的两条样式发生了冲突，后面的网格样式覆盖了新样式，把画布挤进了网格的第一列。这是场地变小的直接原因。\n\n我们看下面这一条，大概的意思就是，Skill 要求所有玩法都保留这个网格容器。\n我们打开原文看一下，具体是 Skill 的哪个部分有这样的要求？",
+              "transition": "带着回复里的判断回到原 Skill 核对。",
+              "cueMaterials": [
+                {
+                  "match": "【操作提示｜Inspect：从第一步“实际发送请求”点“下一处”，依次查看第二步“场地变小的直接原因”和第三步“Skill 的上游原因”】",
+                  "labels": [
+                    "排查回复 · 连续看原因与建议"
+                  ]
+                }
+              ],
+              "inspectBefore": [
+                {
+                  "part": 1,
+                  "label": "Inspect AI · 第二步 · 场地变小的直接原因",
+                  "url": "http://127.0.0.1:4397/inspect/?topic=size-diagnosis&position=1"
+                },
+                {
+                  "part": 2,
+                  "label": "Inspect AI · 第三步 · Skill 的上游原因",
+                  "url": "http://127.0.0.1:4397/inspect/?topic=size-diagnosis&position=2"
+                }
+              ],
+              "suppressCues": [
+                0
+              ]
+            },
+            {
+              "id": "size-diagnosis-source",
+              "number": "3.3.2.2.3",
+              "title": "回到 Skill 原文判断修改方向",
+              "screen": "PPT 原因页 → 原 Skill 场地要求",
+              "operation": "回到原因页，打开原 Skill 的场地要求，核对 .board 的复用要求；随后进入修改段。",
+              "points": "如果只是游戏实现的问题，改游戏；如果是 Skill 中的指导或配套资源把问题带到新项目，修改对应源头。不能凭一次解释直接定因。",
+              "materials": [
+                {
+                  "label": "PPT：为什么这次要改 Skill",
+                  "url": "index.html?mode=slides#size-cause"
+                },
+                {
+                  "label": "原 Skill：场地要求",
+                  "url": "evidence/size-iteration/original-skill.html#stage-contract"
+                }
+              ],
+              "status": "本轮真实材料已归档并接入；场地、窄屏、扣生命、结算和重开已核对。收集得分、人工试听、其他玩法回归与讲师试讲待完成。",
+              "script": "【切换｜PPT → Skill：点本段“PPT：为什么这次要改 Skill”，再点“定位原始 Skill”；也可直接用本段原文入口。定位保留 .board-wrap + .board 的要求】\n\n这里确实要求保留同一个网格容器，这个不太合理，我们想要的是一个通用的 Skill，场地具体采用什么容器，应该根据游戏自身的特征来决定。\n初步来看，问题分析是对的，我们看一下他给的建议怎么样？\n\n",
+              "transition": "按玩法区分场地容器，同时保留视觉风格。",
+              "cueMaterials": [
+                {
+                  "match": "【切换｜PPT → Skill：点本段“PPT：为什么这次要改 Skill”，再点“定位原始 Skill”；也可直接用本段原文入口。定位保留 .board-wrap + .board 的要求】",
+                  "labels": [
+                    "原 Skill：场地要求"
+                  ]
+                }
+              ],
+              "displayCueOverrides": {
+                "0": "打开原 Skill，定位保留 .board-wrap + .board 的要求"
+              }
             }
           ]
         },
         {
-          "id": "group-2-3",
+          "id": "group-size-3",
           "number": "3.3.2.3",
-          "title": "把试玩结果接回 Skill 的组织",
+          "title": "对照原因修改并复查",
           "screens": [
             {
-              "id": "slide-4",
+              "id": "size-change",
               "number": "3.3.2.3.1",
-              "title": "回到两份 Skill 带进开发的东西",
-              "screen": "PPT 04 · 页面起点与按需取用",
-              "operation": "回第 4 页，保留左右两组复用结果。",
-              "points": "整页模板在本次开发里提供了一套已经搭好的页面和交互，组件包提供了由作者要求展开的布局指导和可重新组合的实现。回到 3.2 的读法，审阅时沿正文检查案例、经验和资源怎样被取用，实际用一次，再看结果有没有落实原来的意图。",
-              "ppt": {
-                "id": "skill-reuse",
-                "step": 2
+              "title": "修改原因所在，保留前后对照",
+              "screen": "实际修改请求 → 修订 Skill 与 diff",
+              "operation": "展开实际修改请求，进入接续会话的 Inspect；打开修订 Skill 与 diff，定位场地容器选择及 templates/styles.css，旧游戏保持不变。",
+              "points": "只解释修复原因所需的改动；区分改游戏、改 Skill 及两者都改，保留真实修改范围。",
+              "materials": [
+                {
+                  "label": "AI 的五条修改建议 · Inspect",
+                  "url": "http://127.0.0.1:4397/inspect/?topic=size-diagnosis&position=3"
+                },
+                {
+                  "label": "PPT：修改请求与新原文位置",
+                  "url": "index.html?mode=slides#size-revision"
+                },
+                {
+                  "label": "修改记录 · Inspect",
+                  "url": "http://127.0.0.1:4397/inspect/?topic=size-change&position=0"
+                },
+                {
+                  "label": "修订 Skill",
+                  "url": "evidence/size-iteration/revised-skill.html#stage-contract"
+                },
+                {
+                  "label": "实际 diff",
+                  "url": "evidence/size-iteration/diff.html#L35"
+                }
+              ],
+              "status": "本轮真实材料已归档并接入；场地、窄屏、扣生命、结算和重开已核对。收集得分、人工试听、其他玩法回归与讲师试讲待完成。",
+              "script": "【操作提示｜回到同一份排查日志，点击“下一处”进入第四步“按玩法选择场地容器”，继续依次查看第五步“补齐场地样式”、第六步“避免类名冲突”、第七步“检查场地尺寸”和第八步“难度控件建议”；单独进入可点击本段链接】\n\n它建议先修改 Skill，减少后续复用时出现类似问题。\n第一条建议是说不再要求所有游戏都用原来的网格布局，而是按照不同的游戏类型选择容器。\n第二条是提供对应的样式。不过，它在这里也给了具体的宽度，我们需要再做一下筛选。\n第三条是给 AI 加一个类似问题的提醒，因为我们上一轮出现了样式冲突。\n第四条，它给了一些具体的场地宽度和宽高比要求，这些限制不太必要，但实际检查场地尺寸还是需要的。\n第五条和这次的问题没有直接关系，只是它觉得存在风险，所以补充了一下。这一轮先不展开。\n\n【切换｜PPT：进入“保留视觉风格，布局随玩法调整”，展开“查看修改 Prompt · 可复制”，指不要把当前游戏的宽度、比例写成通用要求】\n\n总体来看，这些建议大部分是合理的，但我们不需要全部照着做。按玩法选容器、补上对应样式，还有避免样式冲突的提醒，这些可以保留。实际检查场地也需要，但他在第四条提到的统一规定宽度和比例这个不太需要。\n\n我们看一下让他继续修改 skill的提示词。让它重点修改场地容器的问题，同时不要把当前游戏的宽度和比例设成通用规则。\n\n改完之后，我们还是用同一个需求重新生成，看看场地能不能正常展开，原来的玩法还能不能用。\n\n【切换｜材料：打开“修订 Skill”，定位“场地容器怎么选”；再看“实际 diff”中新增的 .stage 与尺寸参数。此处短暂停留，随后进入新对话验证】",
+              "cueMaterials": [
+                {
+                  "match": "【操作提示｜回到同一份排查日志，点击“下一处”进入第四步“按玩法选择场地容器”，继续依次查看第五步“补齐场地样式”、第六步“避免类名冲突”、第七步“检查场地尺寸”和第八步“难度控件建议”；单独进入可点击本段链接】",
+                  "labels": [
+                    "AI 的五条修改建议 · Inspect"
+                  ]
+                },
+                {
+                  "match": "【切换｜PPT：进入“保留视觉风格，布局随玩法调整”，展开“查看修改 Prompt · 可复制”，指不要把当前游戏的宽度、比例写成通用要求】",
+                  "labels": [
+                    "PPT：修改请求与新原文位置"
+                  ]
+                },
+                {
+                  "match": "【切换｜材料：打开“修订 Skill”，定位“场地容器怎么选”；再看“实际 diff”中新增的 .stage 与尺寸参数。此处短暂停留，随后进入新对话验证】",
+                  "labels": [
+                    "修订 Skill",
+                    "实际 diff"
+                  ]
+                }
+              ],
+              "inspectBefore": [
+                {
+                  "part": 1,
+                  "label": "Inspect AI · 第四步 · 五条修改建议",
+                  "url": "http://127.0.0.1:4397/inspect/?topic=size-diagnosis&position=3",
+                  "text": "留在同一段回复中，按顺序查看五条建议"
+                }
+              ],
+              "suppressCues": [
+                0,
+                6
+              ],
+              "cuePpt": {
+                "2": {
+                  "id": "size-revision",
+                  "step": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "group-size-4",
+          "number": "3.3.2.4",
+          "title": "在新对话里验证改进",
+          "screens": [
+            {
+              "id": "size-revalidate",
+              "number": "3.3.2.4.1",
+              "title": "新对话验证，改进有没有留在 Skill 里",
+              "screen": "独立新对话请求 → 实际读取 → 新生成游戏",
+              "operation": "打开原开发请求，展示本轮独立生成的 Inspect 记录；从材料 #validation 看相同窗口下的前后截图，再进入新游戏，按方向键启动、碰撞至结算并重开。未实测的收集与音效不照念通过。",
+              "points": "当前对话已有修复上下文；新对话用于检查改进是否由 Skill 带入。一次成功只支持本次结果；问题重现则继续定位，不凑成功结局。",
+              "materials": [
+                {
+                  "label": "修改后 Skill · 容器与尺寸",
+                  "url": "evidence/size-iteration/revised-skill.html#stage-contract"
+                },
+                {
+                  "label": "修改前后差异",
+                  "url": "evidence/size-iteration/diff.html#L35"
+                },
+                {
+                  "label": "PPT：重新验证与原请求复制",
+                  "url": "index.html?mode=slides#size-check"
+                },
+                {
+                  "label": "重新生成 · Inspect",
+                  "url": "http://127.0.0.1:4397/inspect/?topic=size-validation&position=0"
+                },
+                {
+                  "label": "本轮最终游戏",
+                  "url": "evidence/size-iteration/game/index.html"
+                },
+                {
+                  "label": "本轮游戏 · 16∶10 的实际设置",
+                  "url": "evidence/size-iteration/game-styles.html#L472"
+                }
+              ],
+              "status": "本轮真实材料已归档并接入；场地、窄屏、扣生命、结算和重开已核对。收集得分、人工试听、其他玩法回归与讲师试讲待完成。",
+              "script": "【操作提示｜PPT：进入“用新对话验证修改后的 Skill”，展开开发请求；打开“重新生成 · Inspect”，核对新会话使用修订 Skill、开发请求与原来一致；随后打开“本轮最终游戏”】\n\n这里我也提前做了实验，就不实际跑了。\n我们来看一下，生成的游戏效果怎么样。\n\n【操作提示｜游戏：按方向键启动，观察场地，再碰撞、结算并重开；需要对比时回看方案一修改前的游戏。观察到场地正常后继续，不把未检查的收集和音效说成通过】\n\n场地过小的问题没有再出现。\n（游戏结束不要点击关闭，点击之后会有 bug😂）\n\n【切换｜材料：打开“修改后 Skill · 容器与尺寸”，先看容器选择；点页内“下一处”看宽度、比例的默认值及覆盖说明。需要对照时打开“修改前后差异”，也可用页内“上一处 / 下一处”查看后续改动】\n\n我们再回头看一下，修改后的 Skill 到底改了什么。\n原来要求所有游戏保留网格容器，现在是网格玩法用 .board，其他玩法用 .stage。宽度和比例也可以根据具体游戏调整。\n\n这里还是有默认值，比如画布默认是四比三，但它不是所有游戏都必须遵守的规则，可以按玩法覆盖。\n\n【切换｜网页：查看本轮游戏样式中设置的十六比十比例】\n\n这次生成的游戏就是正常的比例，说明模型这次确实根据游戏做了调整。\n这里一定还有更好的方案，但是我们课程上主要给大家做一个示例。\n接下来我们再看看方案二和方案三。",
+              "cueMaterials": [
+                {
+                  "match": "【操作提示｜PPT：进入“用新对话验证修改后的 Skill”，展开开发请求；打开“重新生成 · Inspect”，核对新会话使用修订 Skill、开发请求与原来一致；随后打开“本轮最终游戏”】",
+                  "labels": [
+                    "PPT：重新验证与原请求复制"
+                  ]
+                },
+                {
+                  "match": "【操作提示｜游戏：按方向键启动，观察场地，再碰撞、结算并重开；需要对比时回看方案一修改前的游戏。观察到场地正常后继续，不把未检查的收集和音效说成通过】",
+                  "labels": [
+                    "本轮最终游戏"
+                  ]
+                },
+                {
+                  "match": "【切换｜材料：打开“修改后 Skill · 容器与尺寸”，先看容器选择；点页内“下一处”看宽度、比例的默认值及覆盖说明。需要对照时打开“修改前后差异”，也可用页内“上一处 / 下一处”查看后续改动】",
+                  "labels": [
+                    "修改后 Skill · 容器与尺寸"
+                  ]
+                },
+                {
+                  "match": "【切换｜网页：查看本轮游戏样式中设置的十六比十比例】",
+                  "labels": [
+                    "本轮游戏 · 16∶10 的实际设置"
+                  ]
+                }
+              ],
+              "displayCueOverrides": {
+                "0": "PPT：进入“用新对话验证修改后的 Skill”，展开开发请求",
+                "4": "打开修改后 Skill，依次查看容器选择与宽度、比例的默认值"
               },
-              "transition": "两组比较到这里回答了“同一个需求，Skill 可以怎样组织”。下一步从选择转向迭代：我喜欢组件组的布局自由、开场提醒与限时收集，但希望收集和受伤也有声音。退出 PPT，保持这两组历史游戏作为需求来源，进入音效材料的版本表。"
+              "cuePpt": {
+                "0": {
+                  "id": "size-check",
+                  "step": 0
+                }
+              }
             }
           ]
         }
@@ -324,48 +822,225 @@ window.narrationData = {
     {
       "id": "part-3",
       "number": "3.3.3",
-      "title": "给组件组补上音效，再判断迭代结果",
-      "content": "从两组比较中的具体选择继续，以组件组补声音完成一次迭代。第 5 页定新增与保留目标，第 6 页解释指导与资源的配合，第 7 页对照结果取舍；其间直接看实际差异、运行记录和游戏。历史生成与修复用已保存记录回放，游戏反馈实际演示。原定 8–10 分钟，时长待试讲。",
-      "effect": "能根据具体需求和实际采用链路修改 Skill，并区分 Skill 修改、生成实现修复以及结果验收。",
+      "title": "例二：增加声音，并验证能否复用",
+      "content": "方案二快速试玩后进入方案三。按明确优化目标、确定复用方式、修改 Skill、实际调用验证四步增加音效能力。首轮实现错误只在验证环节简短处理。",
+      "effect": "能把希望复用的新能力写进 Skill，并检查新增能力和原有行为。",
       "materials": [
         {
-          "label": "真实材料总入口",
-          "url": "evidence/audio-iteration/index.html"
+          "label": "声音优化 · Inspect 运行记录",
+          "url": "http://127.0.0.1:4397/inspect/?topic=audio-reference-author"
         }
       ],
       "groups": [
         {
-          "id": "group-3-1",
+          "id": "group-2-1",
           "number": "3.3.3.1",
-          "title": "从两组优点提出一项具体需求",
+          "title": "快速看方案二，再试玩方案三",
           "screens": [
             {
-              "id": "iteration-need",
+              "id": "generate",
               "number": "3.3.3.1.1",
-              "title": "想保留什么，想增加什么",
-              "screen": "D 历史组件游戏 → D 历史整页游戏；材料版本表",
-              "operation": "先看组件开场，确认后指侧栏和收集物剩余进度；再看整页收集或受伤的声音。录前确认输出与录屏收音，现场不以仪表代替听感。 整页组按方向键开始，音效开关在结算浮层；录前若残留静音，先完成一局，在结算处开启音效后重开，不临场寻找开场按钮。 历史整页原件场地较小，录屏时局部放大场地与读数；不改历史游戏布局冒充原结果。",
-              "points": "明确选择组件组为基础；保留按玩法布置、开场提醒和限时收集反馈，新增收集/受伤声音及静音。无声是相对本次需求的缺口，不是所有游戏的错误。两组已有的按钮按压和浮层基础效果不需要再迁入。",
-              "transition": "带着新增与保留需求回到第 5 页，先确定检查点，再查来源。",
+              "title": "快速试玩方案二",
+              "screen": "方案二游戏",
+              "operation": "从“三组游戏”进入方案二，移动、收集、碰撞，快速查看结算和重开；本轮只作简短试玩，未触发或未听到的效果不作成功判断",
+              "points": "方案二快速过，不重讲 Skill 或生成日志，不把短暂试玩称为完整验收。",
               "materials": [
                 {
-                  "label": "D/E 版本与游戏入口",
-                  "url": "evidence/audio-iteration/index.html#versions"
+                  "label": "三组游戏",
+                  "url": "evidence/creation-comparison/index.html"
                 },
                 {
-                  "label": "D 历史整页组 · 试听入口",
-                  "url": "evidence/audio-iteration/historical-template/index.html"
-                },
+                  "label": "方案二游戏",
+                  "url": "evidence/creation-comparison/creator/index.html"
+                }
+              ],
+              "transition": "按本组顺序进入下一步；材料看完回对应 PPT",
+              "script": "【操作提示｜打开方案二，简短试玩移动、收集、碰撞及重开；观察后再下判断，不展开生成日志】\n\n我们试玩一下方案二,方案二的效果还挺好的。\n接着我们看一下方案 3",
+              "status": "讲述线与逐字稿已按当前主线接入；人工试听、录屏收音和讲师试讲待完成。",
+              "cueMaterials": [
                 {
-                  "label": "D 历史组件组 · 对照入口",
+                  "match": "【操作提示｜打开方案二，简短试玩移动、收集、碰撞及重开；观察后再下判断，不展开生成日志】",
+                  "labels": [
+                    "方案二游戏"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "slide-3",
+              "number": "3.3.3.1.2",
+              "title": "试玩方案三",
+              "screen": "方案三游戏",
+              "operation": "关闭方案二游戏，打开方案三，确认规则后开始；收集一次、受伤一次，指分数和生命变化；留出无口播的观察时间",
+              "points": "从实际试玩进入优化需求，不重复布局采用记录。",
+              "materials": [
+                {
+                  "label": "方案三游戏",
                   "url": "evidence/audio-iteration/historical-components/index.html"
                 }
               ],
-              "status": "课件与逐字稿已接入；人工试听、录屏收音及讲师试讲待完成。",
-              "script": "【操作提示｜从第 4 页切到材料版本表，打开“D 历史组件组”，停在规则浮层；确认开始后指侧栏与收集物进度】\n\n材料表里的 D，就是刚才比较的两款历史游戏。我们先回到组件组，看哪些体验值得保留。\n\n我喜欢组件组的这几个地方：进入游戏先提醒规则，数据栏贴着场地，收集物还有一个表示剩余时间的进度环。它不是只换了翻牌游戏的场地，而是按这个玩法重新组织了界面。\n\n【操作提示｜切到“D 历史整页组”，确认音效开启，收集物品并触碰障碍；只保留当前游戏发声】\n\n整页组让我想保留的是另一件事：收集和受伤除了画面变化，还有声音反馈。我希望组件组也能有这个体验。这个需求很小，我们不用重新选一份 Skill，就从现有组件组继续改。",
+              "transition": "按本组顺序进入下一步；材料看完回对应 PPT",
+              "script": "【操作提示｜关闭方案二，打开方案三；确认开始，触发收集与受伤，指分数和生命变化。留出停口播的时间确认有无声音】\n\n",
+              "status": "讲述线与逐字稿已按当前主线接入；人工试听、录屏收音和讲师试讲待完成。",
+              "cueMaterials": [
+                {
+                  "match": "【操作提示｜关闭方案二，打开方案三；确认开始，触发收集与受伤，指分数和生命变化。留出停口播的时间确认有无声音】",
+                  "labels": [
+                    "方案三游戏"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "group-2-2",
+          "number": "3.3.3.2",
+          "title": "明确优化目标",
+          "screens": [
+            {
+              "id": "iteration-need",
+              "number": "3.3.3.2.1",
+              "title": "让后续游戏也带上声音",
+              "screen": "方案三游戏 → PPT 优化目标",
+              "operation": "从试玩提出声音需求，检查原 Skill 资源与工作流及原开发请求，再明确修改 Skill 的理由。",
+              "points": "先核对原任务与 Skill，再决定修改层级；未要求音效不等于模型漏做。跨任务复用目标决定补进 Skill。",
+              "transition": "按本组顺序进入下一步；材料看完回对应 PPT",
+              "materials": [
+                {
+                  "label": "PPT · 当前步骤",
+                  "url": "index.html?mode=slides#audio-goal"
+                },
+                {
+                  "label": "方案三游戏",
+                  "url": "evidence/audio-iteration/historical-components/index.html"
+                },
+                {
+                  "label": "方案三原开发请求",
+                  "url": "http://127.0.0.1:4397/inspect/?topic=layout-game-requests&position=1"
+                },
+                {
+                  "label": "原 Skill · 资源表与工作流",
+                  "url": "evidence/audio-reference-iteration/original-skill.html#L8"
+                }
+              ],
+              "status": "讲述线与逐字稿已按当前主线接入；人工试听、录屏收音和讲师试讲待完成。",
+              "script": "【操作提示｜停在方案三游戏提出声音需求；随后打开“原 Skill · 资源与工作流”，先看资源表，再用页内“下一处”看工作流。核对原开发请求没有要求音效，Skill 也没有声音接入要求】\n\n方案三这里，整体的界面和前面两个 Skill 生成的界面不太一致。\n但是我觉得也还不错，唯一的问题就是缺少声音反馈。\n我希望它像前两个一样，收集、受伤的时候也有声音提醒。\n我们先看一下，当前这个 Skill 有没有声音相关的要求。\n\n【操作提示｜保持原 Skill 页面，对照资源与工作流解释判断；不把缺少声音文件本身当成缺陷】\n\n这里可以看到，它提供了界面样式和交互组件，但没有声音资源，也没有要求模型接入声音。\n\n我们可以和让模型把声音能力补进 Skill。\n\n【切换｜PPT：进入“让后续游戏也带上声音反馈”，明确本轮新增与保留项】",
+              "cueMaterials": [
+                {
+                  "match": "【操作提示｜停在方案三游戏提出声音需求；随后打开“原 Skill · 资源与工作流”，先看资源表，再用页内“下一处”看工作流。核对原开发请求没有要求音效，Skill 也没有声音接入要求】",
+                  "labels": [
+                    "方案三游戏"
+                  ]
+                },
+                {
+                  "match": "【操作提示｜保持原 Skill 页面，对照资源与工作流解释判断；不把缺少声音文件本身当成缺陷】",
+                  "labels": [
+                    "原 Skill · 资源表与工作流"
+                  ]
+                },
+                {
+                  "match": "【切换｜PPT：进入“让后续游戏也带上声音反馈”，明确本轮新增与保留项】",
+                  "labels": [
+                    "PPT · 当前步骤"
+                  ]
+                }
+              ],
+              "cuePpt": {
+                "5": {
+                  "id": "audio-goal",
+                  "step": 0
+                }
+              },
+              "displayCueOverrides": {
+                "0": "停在方案三游戏，提出缺少声音反馈的需求",
+                "2": "打开原 Skill，查看资源表与完整工作流，核对现有组件和资源接入要求"
+              },
+              "suppressCues": [
+                5
+              ]
+            },
+            {
+              "id": "iteration-criteria",
+              "number": "3.3.3.2.2",
+              "title": "明确新增与保留",
+              "screen": "PPT · 明确优化目标",
+              "operation": "PPT：指收集、受伤及音效开关，再指保留项；不在此展开代码",
+              "points": "先定义新增能力与保留项，后面按这些条件验收。",
+              "transition": "按本组顺序进入下一步；材料看完回对应 PPT",
+              "materials": [
+                {
+                  "label": "PPT · 当前步骤",
+                  "url": "index.html?mode=slides#audio-goal"
+                },
+                {
+                  "label": "优化请求与回复 · Inspect",
+                  "url": "http://127.0.0.1:4397/inspect/?topic=audio-reference-author"
+                }
+              ],
+              "status": "讲述线与逐字稿已按当前主线接入；人工试听、录屏收音和讲师试讲待完成。",
+              "script": "【操作提示｜PPT：先讲新增与保留项，再展开“查看优化 Prompt · 四要素稿”。该稿为整理稿，尚未重跑；回放时展开“本轮实际发送 Prompt”，随后点“打开优化日志”】\n\n让他从原来的参考游戏里提取声音，补进这份 Skill，同时保留现有的视觉和布局能力。\n\n【切换｜Inspect：先看本轮实际请求，用“下一处”看声音来源与保留要求；再用“下一条记录”看模型读取原声音和最终回复】\n\n我们看一下实际运行记录，看看它从原来的材料里提取了什么，又补了哪些使用要求。",
+              "cueMaterials": [
+                {
+                  "match": "【操作提示｜PPT：先讲新增与保留项，再展开“查看优化 Prompt · 四要素稿”。该稿为整理稿，尚未重跑；回放时展开“本轮实际发送 Prompt”，随后点“打开优化日志”】",
+                  "labels": [
+                    "PPT · 当前步骤"
+                  ]
+                },
+                {
+                  "match": "【切换｜Inspect：先看本轮实际请求，用“下一处”看声音来源与保留要求；再用“下一条记录”看模型读取原声音和最终回复】",
+                  "labels": [
+                    "优化请求与回复 · Inspect"
+                  ]
+                }
+              ],
+              "inspectBefore": [
+                {
+                  "part": 3,
+                  "label": "Inspect AI · author · 实际请求",
+                  "url": "http://127.0.0.1:4397/inspect/?topic=audio-reference-author&position=0"
+                }
+              ],
+              "suppressCues": [
+                2
+              ],
+              "cuePpt": {
+                "0": {
+                  "id": "audio-goal",
+                  "step": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "group-3-1",
+          "number": "3.3.3.3",
+          "title": "确定复用方式",
+          "screens": [
+            {
+              "id": "audio-origin",
+              "number": "3.3.3.3.1",
+              "title": "从已有游戏找可复用实现",
+              "screen": "PPT · 确定复用方式 → 声音源码",
+              "operation": "本轮依据为 2026-11-20 原参考游戏声音实验，操作与材料以本段正文和链接为准。",
+              "points": "本例选择复用已有声音实现；不把缺少资源文件等同 Skill 有错，也不宣称所有声音需求都必须附代码。",
+              "transition": "按本组顺序进入下一步；材料看完回对应 PPT",
+              "materials": [
+                {
+                  "label": "原 Skill",
+                  "url": "evidence/audio-reference-iteration/original-skill.html#L8"
+                },
+                {
+                  "label": "声音来源",
+                  "url": "evidence/audio-reference-iteration/reference-sound.html#L9"
+                }
+              ],
+              "status": "讲述线与逐字稿已按当前主线接入；人工试听、录屏收音和讲师试讲待完成。",
+              "script": "【操作提示｜打开“声音来源”，查看最初参考游戏的声音源文件】\n\n最初给 AI 的紫色翻牌游戏里已经有声音。我们回到创建 Skill 的对话，让它从这份原始材料里提取，不需要再引入其他方案。",
               "preflight": {
                 "title": "录前人工试听：历史整页组",
-                "summary": "入口用本步“D 历史整页组 · 试听入口”。本段在录制前做一次；正式讲述只展示收集与受伤。原件场地较小，录屏局部放大场地和读数，不修改游戏代码。",
+                "summary": "录前可用本步试听入口确认声音来源；正式讲述重点看声音文件和事件调用，必要时短听。场地较小，录屏局部放大场地与读数，不改游戏代码。",
                 "steps": [
                   {
                     "action": "关掉其他正在运行的游戏标签页，确认浏览器标签未静音、系统输出设备正确。按方向键或 WASD 启动；玩家是青白色圆点，收集青色宝石，避开紫色方块。",
@@ -389,116 +1064,76 @@ window.narrationData = {
                   }
                 ],
                 "status": "已补走：开启和静音两局均收集1颗、得分10，并发生受伤和生命耗尽结算；静音按钮状态正确，刷新后仍保持静音；测试结束已恢复开启。模块开关逻辑测试通过。声音是否可听及音色质量仍需讲师完成本表试听，不能用按钮或代码代替。"
-              }
+              },
+              "cueMaterials": [
+                {
+                  "match": "【操作提示｜打开“声音来源”，查看最初参考游戏的声音源文件】",
+                  "labels": [
+                    "声音来源"
+                  ]
+                }
+              ]
             },
             {
-              "id": "iteration-criteria",
-              "number": "3.3.3.1.2",
-              "title": "先确定待会怎样判断",
-              "screen": "PPT 05 · 新增与保留目标",
-              "operation": "切回 PPT 第 5 页，先指继续保留，再指这次增加；说明侧栏可左右选择，窄屏不遮挡。",
-              "points": "验收两部分：新声音在事件发生时生效且可关闭；开场确认、9秒消失、可见反馈、结算重开仍可用。布局自由体现为可按玩法组织，不能由一幅漂亮截图证明。",
-              "transition": "从第 5 页进入声音来源材料，沿实际文件定位修改依据。",
+              "id": "audio-scope",
+              "number": "3.3.3.3.2",
+              "title": "确定怎样复用",
+              "screen": "声音源码 → PPT · 确定复用方式",
+              "operation": "本轮依据为 2026-11-20 原参考游戏声音实验，操作与材料以本段正文和链接为准。",
+              "points": "资源提供实现，指导承担适用条件与事件接入。",
+              "transition": "按本组顺序进入下一步；材料看完回对应 PPT",
               "materials": [
                 {
-                  "label": "本轮先定检查点",
-                  "url": "evidence/audio-iteration/index.html#criteria"
+                  "label": "声音文件与接口",
+                  "url": "evidence/audio-reference-iteration/reference-sound.html#L50"
                 }
               ],
-              "status": "课件与逐字稿已接入；人工试听、录屏收音及讲师试讲待完成。",
-              "ppt": {
-                "id": "audio-goal",
-                "step": 0
-              }
+              "status": "讲述线与逐字稿已按当前主线接入；人工试听、录屏收音和讲师试讲待完成。",
+              "script": "【操作提示｜停在原声音文件，查看 flip、match、mismatch 和 win】\n\n原来这些声音对应翻牌、配对和胜利。换一种玩法，声音可以复用，事件要重新对应，不能把翻牌的规则一起照搬过去。",
+              "cueMaterials": [
+                {
+                  "match": "【操作提示｜停在原声音文件，查看 flip、match、mismatch 和 win】",
+                  "labels": [
+                    "声音文件与接口"
+                  ]
+                }
+              ]
             }
           ]
         },
         {
           "id": "group-3-2",
-          "number": "3.3.3.2",
-          "title": "沿实际采用链路找到修改位置",
-          "screens": [
-            {
-              "id": "audio-origin",
-              "number": "3.3.3.2.1",
-              "title": "模板支持到哪里，游戏又补了什么",
-              "screen": "原组件正文/目录 → 原模板 sound.js → 历史整页 src/sound.js 与 main.js",
-              "operation": "指组件原包没有声音文件；对照模板 flip/match 与历史游戏 pickup/hurt；最后定位 main.js 的 shell.sfx 调用和Inspect 中的原始读取与复制命令。",
-              "points": "整页 Skill 提供了独立声音基础，生成游戏又扩展玩法事件。迁入的是这份已采用的游戏声音文件；不能说收集和受伤音色全是原模板自带，也不能把所有动效差异归因于它。",
-              "transition": "文件不依赖 HUD 位置，因此可以只迁入声音，保留组件的组织方式。",
-              "materials": [
-                {
-                  "label": "声音来源与源码",
-                  "url": "evidence/audio-iteration/index.html#origin"
-                },
-                {
-                  "label": "原组件正文",
-                  "url": "evidence/audio-iteration/source-view.html#original"
-                },
-                {
-                  "label": "历史整页声音完整源码",
-                  "url": "evidence/audio-iteration/source-view.html#historical-sound"
-                },
-                {
-                  "label": "历史整页组读取与复制声音 · Inspect",
-                  "url": "http://127.0.0.1:4397/inspect/?topic=layout-sound-read"
-                }
-              ],
-              "status": "课件与逐字稿已接入；人工试听、录屏收音及讲师试讲待完成。",
-              "script": "【操作提示｜从第 5 页“声音来源”打开材料 #origin；打开“原组件正文”，在 UTF-8 原文查看页定位资源清单】\n\n组件组提供了主题、数据卡和浮层的实现，这份资源清单里没有声音模块。我们想补的能力，在原包里还没有现成的支持。\n\n【操作提示｜看完原组件正文后，用浏览器后退回材料 #origin，下移到“原模板 · 翻牌与配对音效”，再到“历史整页游戏 · 新增玩法音效”】\n\n整页组的模板里有一份独立的声音代码，原来服务于翻牌、配对和胜利。做躲避游戏时，AI 又在这份实现上补了收集、受伤和开始的声音。因此，这次可以借用的是模板的声音基础，加上实际游戏里已经写出的玩法音效。\n\n【操作提示｜从讲述页打开“历史声音读取与复制 · Inspect”，逐条看原始命令；实际事件调用在保存源码中核对】\n\n开发记录里能找到读取和复制声音文件的动作，游戏代码也在收集和受伤时调用了它。这样，我们就找到了声音的具体来源和使用位置，可以据此决定怎么迁入组件组。"
-            },
-            {
-              "id": "audio-scope",
-              "number": "3.3.3.2.2",
-              "title": "为什么这次修改 Skill",
-              "screen": "声音模块与组件正文并看",
-              "operation": "指模块导出 sfx 与开关；再回到组件正文的资源入口。",
-              "points": "只想修这一款游戏，可以改游戏；希望以后用组件 Skill 开发也取得声音能力，就把可复用实现和取用方法放入 Skill。本次不迁入整页骨架，不为一次代码初始化错误预先堆规则。",
-              "transition": "接着审阅实际修改：资源解决实现，正文解决何时和怎样采用。",
-              "materials": [
-                {
-                  "label": "声音模块与开关原文",
-                  "url": "evidence/audio-iteration/source-view.html#historical-sound"
-                },
-                {
-                  "label": "来源与模块",
-                  "url": "evidence/audio-iteration/index.html#origin"
-                },
-                {
-                  "label": "实际差异",
-                  "url": "evidence/audio-iteration/index.html#change"
-                }
-              ],
-              "status": "课件与逐字稿已接入；人工试听、录屏收音及讲师试讲待完成。",
-              "script": "【操作提示｜打开“声音模块与开关原文”，先指 setSoundEnabled/isSoundEnabled，再下移到 export const sfx；讲完本段后回讲述页的实际修改委托】\n\n这份声音代码没有规定数据栏放左边还是右边，也不负责开场浮层。游戏只需要在合适的事件发生时调用它，所以我们可以把声音作为独立资源加进去。\n\n如果只想让眼前这一款游戏有声音，直接改游戏就够了。这次我希望以后使用组件 Skill 开发游戏时，也能取得这项能力，因此要把实现和使用指导一起放进 Skill。"
-            }
-          ]
-        },
-        {
-          "id": "group-3-3",
-          "number": "3.3.3.3",
-          "title": "修改并审阅 Skill",
+          "number": "3.3.3.4",
+          "title": "修改 Skill",
           "screens": [
             {
               "id": "audio-guidance",
-              "number": "3.3.3.3.1",
-              "title": "正文增加哪些具体指导",
-              "screen": "实际修改委托与已有上下文 → E0 Skill diff",
-              "operation": "先展示实际委托与既有上下文，交代副本修改；收到结果后再打开实际 diff，按正文顺序审阅复制导入、接线、静音和复验。 E0 对应执行原始记录未找到；此处只展示保存的委托、实际补丁与文件，不把 E2 生成过程当作 E0 修改过程。",
-              "points": "这次修改来自讲师在当前备课对话的委托，由主备课 Codex 修改实验副本，没有独立作者生成会话。指导把“想要声音”落实为资源入口、事件接线和检查要求；任务明确无声时不接入。",
-              "transition": "看新增声音文件，再回第 6 页概括正文与资源怎样配合。",
+              "number": "3.3.3.4.1",
+              "title": "把需求落实到 Skill",
+              "screen": "PPT · 修改 Skill → 实际委托 → Skill diff",
+              "operation": "本轮依据为 2026-11-20 原参考游戏声音实验，操作与材料以本段正文和链接为准。",
+              "points": "回放真实委托与结果；解释资源入口、事件接线和检查要求怎样支持复用。",
+              "transition": "按本组顺序进入下一步；材料看完回对应 PPT",
               "materials": [
                 {
-                  "label": "实际正文差异（E0 执行原始记录未找到）",
-                  "url": "evidence/audio-iteration/index.html#change"
+                  "label": "实际修改差异",
+                  "url": "evidence/audio-reference-iteration/skill-diff.html#L1"
+                },
+                {
+                  "label": "修改后的 Skill",
+                  "url": "evidence/audio-reference-iteration/revised-skill.html#L41"
+                },
+                {
+                  "label": "实际修改记录 · Inspect",
+                  "url": "http://127.0.0.1:4397/inspect/?topic=audio-reference-author"
                 }
               ],
-              "status": "课件与逐字稿已接入；人工试听、录屏收音及讲师试讲待完成。",
-              "script": "【操作提示｜讲述页展开“E0 · 讲师在已有备课对话中的实际委托”，指以组件组为基础、保留体验和前后对比；已有上下文说明常显】\n\n有了声音来源的依据，我把这个需求交给 Codex：以组件组为基础加声音，同时保留原来的布局、开场提醒和其他效果。这里是在刚才分析之后继续提要求，所以“这个方向”指的就是已经核实的独立声音实现和保留项。原组件包和整页游戏的声音文件都可以供它读取。我让它在原组件 Skill 的副本上修改，原件留下来供后面对照。这一步先得到修改后的 Skill，再用它生成游戏。\n\n【操作提示｜材料 #change，先说明 E0 执行原记录未找到，再展示保存的实际 diff，从“游戏事件的声音反馈”开始按正文顺序读；本段回放已完成修改，不另发生成请求】\n\n这就是按刚才的需求改出的实际差异。正文先说明：开发交互小游戏时接入这份声音资源，任务明确要求无声时除外。接着告诉 AI 复制哪个文件、导入哪些接口。\n\n【操作提示｜下移到事件接线和音效开关两条，指 pickup、hurt 和“每次事件调用一次”】\n\n这里把声音和游戏事件对应起来：收集成功调用 pickup，受伤调用 hurt。每次事件调用一次，避免在每帧绘制时不停播放。再往下，要求提供音效开关，并从玩家的真实操作开始播放。\n\n【操作提示｜下移到最后两条，指保留视觉反馈与复查要求】\n\n最后两条回应了我们的保留要求。声音加上去以后，原来的闪光、数值变化和浮层还要在；验证时既要试声音和静音，也要复查原来的布局与反馈。这样的指导才把一个“想要声音”的需求落实到了开发动作。",
+              "status": "讲述线与逐字稿已按当前主线接入；人工试听、录屏收音和讲师试讲待完成。",
+              "script": "【操作提示｜继续在 Inspect 看最终回复；然后打开“修改后的 Skill”，定位声音规则，用页内“下一处”查看用法；需要核对修改时打开“实际修改差异”】\n\n它把原来的几种声音整理成事件接口，还新增了收集等音效。哪些来自原作品、哪些是这次新加的，要对着原文件核对。\n\n",
               "prompts": [
                 {
                   "label": "E0 · 讲师在已有备课对话中的实际委托",
-                  "text": "那就按这个方向做一次实验，以组件组的 Skill 为基础，把整页组的音效能力加进去，再实际生成游戏，看看音效是否生效，以及原来的布局、开场提醒和其他效果有没有受到影响。保留修改前后的对比，先不要改课件。"
+                  "text": "Goal｜目标\n继续优化刚才的 purple-game-ui Skill，让以后用它生成的小游戏也能带上最初紫色翻牌游戏的声音反馈。\n\nContext｜上下文\n沿用这段对话里的 Skill、参考游戏源码 source-game 和开发对话 source-dialogue.md。请检查原游戏的声音实现和用法，提取适合复用的部分。\n\nConstraints｜约束\n只修改当前工作区的 purple-game-ui，补充声音资源和使用说明。不同玩法按事件选择或适配音效，并提供声音开关；保留原有紫色视觉、布局建议、数据卡和结算浮层，不把翻牌玩法的事件和布局设成通用规则。这一步先不生成游戏，之后在新对话里调用验证。\n\nDone when｜完成标准\n声音资源和对应的使用说明已补进 Skill，并检查文件、接口与说明是否一致。说明从原游戏提取了什么、修改了哪些指导，以及检查结果和未验证的部分。\n"
                 }
               ],
               "task": {
@@ -510,188 +1145,134 @@ window.narrationData = {
                 ],
                 "result": "实际只追加 SKILL.md 并新增 assets/js/purple-sound.js；三份 CSS 与 UI kit 没变。此处的结果是修改后的 Skill，还不是游戏成功发声。",
                 "source": "component-audio-20261114/skill.diff；baseline/workspace/.agents/skills/purple-game-ui/ 为原版，with-audio/workspace/.agents/skills/purple-game-ui/ 为修订版；source.json 与 verification/skill-changed-files.json 供备课核对。"
+              },
+              "cueMaterials": [
+                {
+                  "match": "【操作提示｜继续在 Inspect 看最终回复；然后打开“修改后的 Skill”，定位声音规则，用页内“下一处”查看用法；需要核对修改时打开“实际修改差异”】",
+                  "labels": [
+                    "修改后的 Skill"
+                  ]
+                }
+              ],
+              "displayCueOverrides": {
+                "0": "打开修改后的 Skill，查看声音规则和用法"
               }
             },
             {
               "id": "audio-resource",
-              "number": "3.3.3.3.2",
-              "title": "资源与保留项怎样审阅",
-              "screen": "新增声音资源 → PPT 06 · 指导与资源的配合",
-              "operation": "打开“声音资源”原文查看页，先看顶部 setSoundEnabled/isSoundEnabled，再向下定位 export const sfx 与 pickup/hurt；随后回讲述页点 P3.3-06-01。",
-              "points": "三份 CSS 和 UI kit 没改，声音实现不读取 HUD 或浮层布局；这说明修改范围集中，尚不能证明生成结果没有回归。需要下一次独立使用来检验。",
-              "transition": "从第 6 页打开共同请求与采用记录，检查独立使用。",
+              "number": "3.3.3.4.2",
+              "title": "对照指导与实现",
+              "screen": "新增声音文件 → PPT · 修改 Skill",
+              "operation": "本轮依据为 2026-11-20 原参考游戏声音实验，操作与材料以本段正文和链接为准。",
+              "points": "正文与资源对应核对，不逐行讲实现。",
+              "transition": "按本组顺序进入下一步；材料看完回对应 PPT",
               "materials": [
                 {
-                  "label": "声音资源",
-                  "url": "evidence/audio-iteration/source-view.html#added-sound"
+                  "label": "新增声音文件",
+                  "url": "evidence/audio-reference-iteration/added-sound.html#L1"
                 },
                 {
-                  "label": "Skill 差异",
-                  "url": "evidence/audio-iteration/source-view.html#skill-diff"
+                  "label": "声音使用说明",
+                  "url": "evidence/audio-reference-iteration/sound-guide.html#L1"
                 }
               ],
-              "status": "课件与逐字稿已接入；人工试听、录屏收音及讲师试讲待完成。",
-              "ppt": {
-                "id": "audio-package",
-                "step": 0
-              }
+              "status": "讲述线与逐字稿已按当前主线接入；人工试听、录屏收音和讲师试讲待完成。",
+              "script": "【操作提示｜打开“新增声音文件”，再打开“声音使用说明”】\n\n接下来换一个新对话，看看模型能不能只靠这份 Skill，把声音带进新游戏。",
+              "cueMaterials": [
+                {
+                  "match": "【操作提示｜打开“新增声音文件”，再打开“声音使用说明”】",
+                  "labels": [
+                    "新增声音文件",
+                    "声音使用说明"
+                  ]
+                }
+              ],
+              "suppressCues": [
+                0
+              ]
             }
           ]
         },
         {
-          "id": "group-3-4",
-          "number": "3.3.3.4",
-          "title": "再次生成，核对采用并处理真实失败",
+          "id": "group-3-3",
+          "number": "3.3.3.5",
+          "title": "实际调用验证",
           "screens": [
             {
               "id": "audio-regenerate",
-              "number": "3.3.3.4.1",
-              "title": "两次使用同一条新请求",
-              "screen": "E1/E2 共用 Prompt；版本表",
-              "operation": "展示两个工作区的输入条件与可复制共同请求；回放提交、完成回复和采用记录，再进入首轮浏览器结果。",
-              "points": "历史 D 用于发现需求；前后检验用本轮 E1 与 E2。共同请求额外写明保留项，没有重复音效要求，所以不能把保留体验全归功于 Skill。E1 无声；E2 先检查采用，尚未验收成功。",
-              "transition": "从正文读到资源并复制还只是执行过程，接着核对游戏事件调用。",
+              "number": "3.3.3.5.1",
+              "title": "在新对话中调用修改后的 Skill",
+              "screen": "PPT · 实际调用验证 → 修改版游戏",
+              "operation": "本轮依据为 2026-11-20 原参考游戏声音实验，操作与材料以本段正文和链接为准。",
+              "points": "历史游戏用于发现需求；本轮只展示修改版 Skill 的一次新调用。请求没有要求声音，但明确了其他保留体验，不能将这些体验全部归功于 Skill。",
+              "transition": "按本组顺序进入下一步；材料看完回对应 PPT",
               "materials": [
                 {
-                  "label": "共同请求与实际读取 · Inspect",
-                  "url": "http://127.0.0.1:4397/inspect/?topic=audio-generate"
-                },
-                {
-                  "label": "E2 完成回复原文 · Inspect",
-                  "url": "http://127.0.0.1:4397/inspect/?topic=audio-first-reply"
+                  "label": "PPT · 当前步骤",
+                  "url": "index.html?mode=slides#audio-result"
                 }
               ],
-              "status": "课件与逐字稿已接入；人工试听、录屏收音及讲师试讲待完成。",
-              "script": "【操作提示｜从第 6 页回讲述页本步，展示实验上下文，展开“E1 / E2 · 两个空项目使用同一条实际请求”；先看第一段，再看保留体验段】\n\n为了检查改过的 Skill 能不能独立使用，这次我们重新准备了两个没有游戏代码的项目，一个只放原组件 Skill，一个只放加过声音的版本，再用两个独立会话生成。两边都不带之前的游戏，也不带修改 Skill 时的讨论。两次使用的是眼前这条完全相同的请求。\n\n请求里明确保留了侧栏、开场确认和九秒限时收集。这样做是为了把我们想要的体验说清楚。它没有另提声音，声音的接入要求来自修改后的 Skill。\n\n前面那两款历史游戏帮助我们提出需求；现在这两次生成用来检查修改。材料里把原组件 Skill 新生成的游戏标为 E1，加过声音的 Skill 新生成的游戏标为 E2。我们要比较的是这两款新游戏。这里看已经保存的运行记录，生成等待的过程就略过去。\n\n【操作提示｜打开讲述页“E2 首轮回复 · Inspect”，核对完成回复，再进入下一步读取记录】\n\n回复说游戏已经完成，也列出了声音文件。不过它把浏览器试玩留给了我们，我们要沿实际记录和游戏继续核对。",
+              "status": "讲述线与逐字稿已按当前主线接入；人工试听、录屏收音和讲师试讲待完成。",
+              "script": "【操作提示｜PPT：打开开发请求，说明使用修改后的 Skill；随后打开本轮游戏】\n\n我们开新的对话，调用修改后的 skill 生成一个小游戏。\n我们看下提前跑完的效果",
               "prompts": [
                 {
-                  "label": "E1 / E2 · 两个空项目使用同一条实际请求",
-                  "text": "使用当前工作区 .agents/skills/purple-game-ui/SKILL.md，从空项目做一个「60 秒躲避与收集」网页小游戏，沿用 Skill 的紫色界面风格。玩家用方向键或 WASD 移动，躲避障碍，收集物品得分；碰撞扣生命，时间到或生命耗尽时结算，可以重开。只做单一难度，界面不提供难度选择。游玩时游戏读数只显示时间、得分和生命，重开按钮只出现在结算画面。\n\n保留组件组的这些体验：HUD 在桌面端靠场地侧边，窄屏合理排列且不遮挡场地；进入游戏先显示可确认的规则提醒，确认后开始计时；收集物品显示剩余存在时间的进度条或进度环，9 秒未收集会消失；收集、受伤有可见反馈。保留按钮按压与开场、结算浮层的视觉效果。\n\n用原生 HTML/CSS/JS，入口放在根目录 index.html。保持 Skill 文件不变，完成后告诉我用了哪些 Skill 文件。浏览器试玩留给我。"
+                  "label": "修改版 Skill 的实际开发请求",
+                  "text": "使用当前工作区 .agents/skills/purple-game-ui/SKILL.md，从空项目做一个「60 秒躲避与收集」网页小游戏，沿用 Skill 的紫色界面风格。玩家用方向键或 WASD 移动，躲避障碍，收集物品得分；碰撞扣生命，时间到或生命耗尽时结算，可以重开。只做单一难度，界面不提供难度选择。游玩时游戏读数只显示时间、得分和生命，重开按钮只出现在结算画面。\n\n同时保留这些体验：HUD 在桌面端靠场地侧边，窄屏合理排列且不遮挡场地；进入游戏先显示可确认的规则提醒，确认后开始计时；收集物品显示剩余存在时间的进度条或进度环，9 秒未收集会消失；收集、受伤有可见反馈。保留按钮按压与开场、结算浮层的视觉效果。\n\n用原生 HTML/CSS/JS，入口放在根目录 index.html。保持 Skill 文件不变，完成后告诉我用了哪些 Skill 文件。浏览器试玩留给我。\n"
                 }
               ],
               "task": {
-                "context": "E1 与 E2 是本轮新的独立空项目、独立 Codex CLI 会话。E1 只放原组件 Skill，E2 只放修订 Skill，都放在 .agents/skills/purple-game-ui/；不带历史游戏、不带 E0 修改讨论。两次请求逐字一致，额外明确要保留的体验，未另要求声音。",
+                "context": "修改版 Skill 放在独立空项目中，在新会话发送实际请求；请求未额外要求声音。",
                 "actions": [
-                  "核对两个工作区的 .agents/skills/purple-game-ui/SKILL.md：原版无声音段，修订版有声音段与资源；完整配套文件一并保留。",
-                  "展开并复制下面共同请求，分别交给对应项目的独立开发会话；本次讲解回放实际请求与记录，不重新生成来追求相同画面。",
-                  "生成结束先看回复中的采用文件和未验证项，再看实际读取、复制和调用，最后开浏览器。E2 首轮先失败，接下一步反馈修复。"
+                  "展示开发请求，打开修改版游戏，试玩收集、受伤和静音；再检查原有体验。"
                 ],
-                "result": "E1 生成无声游戏；E2 回复声称接入声音，但首次加载因 canvas 初始化顺序错误未能进入开场。E3 是后续修复版，不用 E3 替换 E2 的首次结果。",
-                "source": "component-audio-20261114/baseline 与 with-audio：prompt.txt、logs/inputs.json、events.jsonl、final.md、workspace/；浏览器检查以本轮 verification/ 为准。"
+                "result": "本次游戏接入声音；浏览器音频信号检查通过，人工试听与录屏收音待确认。结算文字仍有标签问题。",
+                "source": "evidence/audio-reference-iteration/checks-summary.md"
+              },
+              "cueMaterials": [
+                {
+                  "match": "【操作提示｜PPT：打开开发请求，说明使用修改后的 Skill；随后打开本轮游戏】",
+                  "labels": [
+                    "PPT · 当前步骤"
+                  ]
+                }
+              ],
+              "displayCueOverrides": {
+                "0": "PPT：打开开发请求，随后查看修改版游戏"
+              },
+              "cuePpt": {
+                "0": {
+                  "id": "audio-result",
+                  "step": 0
+                }
               }
             },
-            {
-              "id": "audio-adoption",
-              "number": "3.3.3.4.2",
-              "title": "读到、复制、调用是三件事",
-              "screen": "E2 item_1 → item_3 → item_5 → js/game.js",
-              "operation": "依次指读正文、读声音文件、复制文件；再查 sfx.pickup / hurt 及 setSoundEnabled 的事件位置。",
-              "points": "本轮记录证明新资源进入开发，并在成品接到实际事件。不要把读文件或最终回复“用了”当作可用性结论；首次浏览器仍有下一屏的报错。",
-              "transition": "保留首轮真实状态，打开错误及反馈记录，说明接线不等于游戏能运行。",
-              "materials": [
-                {
-                  "label": "采用链路 · Inspect",
-                  "url": "http://127.0.0.1:4397/inspect/?topic=audio-generate&position=2"
-                },
-                {
-                  "label": "E2 首轮代码",
-                  "url": "evidence/audio-iteration/source-view.html#first-code"
-                }
-              ],
-              "status": "课件与逐字稿已接入；人工试听、录屏收音及讲师试讲待完成。",
-              "script": "【操作提示｜打开采用记录的 Inspect 定位，先看读取正文，再用“下一条记录”看读取声音资源】\n\n先确认开发会话实际拿到了什么。第一条记录读取了修改后的正文，下一条又读取了声音文件、组件文件和布局资料。所以声音指导和实现都进入了这次开发。\n\n【操作提示｜在 Inspect 用“下一条记录”看复制 purple-sound.js；再打开源码查看的 first-code，指开关、hurt 和 pickup】\n\n接着，声音文件被复制进新项目。生成的游戏在收集、受伤处调用它，也把音效按钮接到了开关接口。现在我们能把指导、资源和代码中的使用位置连起来了。\n\n这些记录还不能代替打开游戏。本次第一次加载，就在初始化时遇到了一个错误。"
-            },
-            {
-              "id": "audio-repair",
-              "number": "3.3.3.4.3",
-              "title": "先修实现，再验证 Skill 迭代",
-              "screen": "E2 首轮失败 → 实际反馈与 game-repair.diff → E3",
-              "operation": "展示真实报错，再展示完整修复反馈及成品副本上下文；检查修改差异后打开 E3 复测。",
-              "points": "E3 是在 E2 副本上修游戏，不是重新修改 Skill。只有 game.js 改动，保留失败原件；不能把修复版称作首次生成成功，也没有证据把这次错误直接归因于声音指导。",
-              "transition": "现在才切到 E1 和 E3 试玩，以原先检查点判断结果。",
-              "materials": [
-                {
-                  "label": "真实错误、反馈及修复 · Inspect",
-                  "url": "http://127.0.0.1:4397/inspect/?topic=audio-repair"
-                },
-                {
-                  "label": "修复前后文件差异",
-                  "url": "evidence/audio-iteration/index.html#repair-diff"
-                },
-                {
-                  "label": "E2 首轮失败原件",
-                  "url": "evidence/audio-iteration/first-failure/index.html"
-                },
-                {
-                  "label": "E3 修后游戏",
-                  "url": "evidence/audio-iteration/after/index.html"
-                },
-                {
-                  "label": "E3 修复回复原文 · Inspect",
-                  "url": "http://127.0.0.1:4397/inspect/?topic=audio-repair-reply"
-                }
-              ],
-              "status": "课件与逐字稿已接入；人工试听、录屏收音及讲师试讲待完成。",
-              "script": "【操作提示｜进入修复请求的 Inspect 定位，展示真实反馈中的 ReferenceError 与 js/game.js:21；不等待失败游戏互动】\n\n第一次打开时，游戏在取得 canvas 之前就使用了它，没能进入开场提醒。这时要把可定位的错误交回 Codex。\n\n【操作提示｜讲述页展开“E3 · 真实报错后的完整修复反馈”，指错误位置、保留项与修改边界】\n\n这条反馈同时给了错误、文件位置和要保留的体验。我让它修现有游戏，Skill 文件不改，也不要重新生成整个游戏。修复会话拿到的是首轮成品副本，所以它有具体代码可以查。\n\n【操作提示｜打开修复前后文件差异 #repair-diff，指 canvas 定义和尺寸设置的先后；再指颜色读取及按钮初始化的改动】\n\n这次修复调整了初始化顺序，也处理了颜色读取和音效按钮的初始文字，改动在游戏的 game.js 里。我们把首轮失败的 E2 原件保留着，修复后的副本标为 E3。接下来拿原组件 Skill 生成的 E1，和修复后的 E3 对照试玩。遇到这种具体实现错误，先修实现，再继续验收，不需要马上往 Skill 里堆一条规则。\n\n【操作提示｜从讲述页打开“E3 修复回复 · Inspect”，指只改 game.js 与浏览器未验证项；然后从讲述页“E1 原版”进入下一步】\n\n修复回复也说明了修改范围，但真实浏览器效果还没有检查。我们现在打开游戏，把刚才定下的检查点逐个走完。",
-              "prompts": [
-                {
-                  "label": "E3 · 真实报错后的完整修复反馈",
-                  "text": "这是上一轮按组件 Skill 加入音效后生成的游戏，实际浏览器首次加载报错：ReferenceError: Cannot access 'canvas' before initialization，位置 js/game.js:21，画面没有进入开场提醒。请根据这个真实错误修复游戏实现，保留现有布局、开场确认、9秒限时收集进度、可见反馈和已接入的音效及静音。不要修改 .agents/skills 下的任何文件，不要重新生成整个游戏。检查初始化能运行，说明实际修改和未验证项目。浏览器验证留给我。"
-                }
-              ],
-              "task": {
-                "context": "另建 E2 首轮成品的副本作为修复工作区，包含 index.html、css/、js/ 和同一份修订 Skill；不是空项目。实际由另一 Codex CLI 调用读取成品与本条错误反馈完成修复，没有再次修改 Skill。",
-                "actions": [
-                  "先打开 E2 首轮错误证据，明确报错内容、文件位置和没有开场提醒的现象。",
-                  "展开下面实际修复反馈：给出错误与位置、保留项、禁止改 Skill 和禁止重生成整个游戏；回放这个已完成调用。",
-                  "检查修复回复及 game-repair.diff，确认改的是 js/game.js；随后用 E3 游戏再打开同一入口，先检查开场初始化，再试玩声音及保留项。"
-                ],
-                "result": "只改 js/game.js；修后能进入开场。回复中的模拟检查不能替代浏览器试玩，结算标签和触控缺口仍保留在后面的结果判断中。",
-                "source": "component-audio-20261114/with-audio-repaired/prompt.txt、logs/inputs.json、final.md、workspace/ 与 game-repair.diff。"
-              }
-            }
-          ]
-        },
-        {
-          "id": "group-3-5",
-          "number": "3.3.3.5",
-          "title": "对照需求判断结果",
-          "screens": [
             {
               "id": "audio-playtest",
-              "number": "3.3.3.5.1",
+              "number": "3.3.3.5.4",
               "title": "先听声音，再试静音",
-              "screen": "E1 原版与 E3 修后游戏，依次操作",
-              "operation": "先在 E1 开场确认、收集和受伤；再在 E3 重复，观察分数/生命变化并听声音；关闭音效后再触发受伤、结算与重开。每次只开一个发声游戏，避免串音。 E1 点击“开始游戏”，E3 点击“确认并开始”；E3 的音效开关进入场地后操作，静音验证前不要刷新。 收集物随机出现，不固定移动路线和触发顺序；先指认玩家，再按当次位置靠近收集物或障碍。未触发所需事件时继续试玩，不照念成功句。",
+              "screen": "修改版游戏，依次操作",
+              "operation": "本轮依据为 2026-11-20 原参考游戏声音实验，操作与材料以本段正文和链接为准。",
               "points": "新增能力必须和实际事件对应，开关必须有效。现有浏览器信号验证支持声音输出和静音结论；录制前仍须人工试听及收音检查。若现场无声，先查静音与播放条件，不能靠源码宣布演示成功。",
               "transition": "声音成立后还不能结束，继续检查之前明确要保留的体验。",
               "materials": [
                 {
-                  "label": "E1 原版",
-                  "url": "evidence/audio-iteration/before/index.html"
-                },
-                {
-                  "label": "E3 修后版",
-                  "url": "evidence/audio-iteration/after/index.html"
+                  "label": "修改版本轮游戏",
+                  "url": "evidence/audio-reference-iteration/with-audio/index.html"
                 }
               ],
-              "status": "课件与逐字稿已接入；人工试听、录屏收音及讲师试讲待完成。",
-              "script": "【操作提示｜打开 E1 原版，确认规则后收集、受伤；关闭该游戏标签，再打开 E3 修后版，停在开场】\n\n原版里能看到收集和受伤的画面反馈，没有声音。现在用修复后的音效版做相同的操作，重点看声音是否跟着事件发生。\n\n【操作提示｜E3 确认开始，进入场地后确认“音效：开”；先指橙色圆点为玩家、青色晶体为收集物、紫色尖刺为障碍；按实际位置移动，收集和受伤都触发且听到后再读下一段，顺序可随本局调整。若未听到，暂停录制，按本步“录前人工试听与录屏收音”检查，不照念成功结论】\n\n收集时，分数增加，同时有声音；受伤时，生命减少，也有对应的声音。新能力已经接到了玩法上。\n\n【操作提示｜关闭音效，再触碰障碍，等生命耗尽后重开；确认这些动作无声再继续】\n\n关掉音效以后，受伤、结算和重开仍然能操作，声音停下来了。开关也符合我们的要求。我们还得继续检查，原来想保留的体验有没有受影响。",
+              "status": "讲述线与逐字稿已按当前主线接入；人工试听、录屏收音和讲师试讲待完成。",
+              "script": "【操作提示｜打开本轮修改版游戏，确认开始后触发收集、受伤，停口播试听；再关闭声音重复操作。自动信号检测已通过，人工试听后再讲听感】\n\n试玩一下，整套效果还不错",
               "preflight": {
-                "title": "录前人工试听与录屏收音：E1 / E3",
-                "summary": "使用本步“E1 原版”和“E3 修后版”入口，每次只运行一款。以下是录前验收，不念出口；完成后再执行下方正式逐字稿。",
+                "title": "录前人工试听与录屏收音",
+                "summary": "使用本步修改版游戏入口。以下是录前验收，不念出口；完成后再执行下方正式逐字稿。",
                 "steps": [
                   {
-                    "action": "先开 E1，点“开始游戏”，收集金色光球并碰紫色障碍；随后关掉这个游戏标签。",
-                    "pass": "得分每次增加10、生命减少，视觉反馈可见；没有游戏音。若听到声音，先排查其他标签或应用。"
-                  },
-                  {
-                    "action": "开 E3，点“确认并开始”，查看左侧“音效：开”；移动橙色圆点收集青色晶体，并触碰紫色尖刺。",
+                    "action": "打开修改版游戏，点“确认并开始”，查看左侧“音效：开”；移动橙色圆点收集青色晶体，并触碰紫色尖刺。",
                     "pass": "收集得分加1时有较高的短音；受伤扣1生命时有较低的声音；每次事件能同时看见数值/画面反馈。"
                   },
                   {
                     "action": "点“音效：开”使其变为“音效：关”；继续收集、受伤、结算并点“再玩一局”。这一轮不要刷新。",
-                    "pass": "静音后所有事件都无声，玩法及重开正常；重开仍显示“音效：关”。再开启后收集/受伤能恢复发声。E3 刷新会恢复音效开启，不能用刷新代替静音重开。"
+                    "pass": "静音后所有事件都无声，玩法及重开正常；重开仍显示“音效：关”。再开启后收集/受伤能恢复发声。刷新会恢复音效开启，不能用刷新代替静音重开。"
                   },
                   {
                     "action": "用正式录制时的录屏软件、麦克风和输出设备录一个短样片：先说“声音开启”，停口播触发收集和受伤；再说“现在静音”，关闭音效后触发相同事件。所需事件没出现就延长样片，不凑固定时长。",
@@ -702,48 +1283,115 @@ window.narrationData = {
                     "pass": "无明显音画错位、爆音或双重回声；游戏音清晰但不盖过讲解。麦克风有声音、游戏音缺失也算未通过，不能直接录完整段。"
                   }
                 ],
-                "status": "已实走 E1/E3 收集、受伤、E3 音效按钮切换与静音重开；已有浏览器音频信号记录。此次补测两份原始声音模块：开启收集/受伤安排4次音符，静音后5类事件新增0次，重新开启收集恢复2次。该项使用音频替身，只核对代码开关；人工听感和最终录屏音轨仍待完成。"
-              }
+                "status": "已实走修改版游戏的收集、受伤、音效按钮切换与静音重开；已有浏览器音频信号记录。此次补测两份原始声音模块：开启收集/受伤安排4次音符，静音后5类事件新增0次，重新开启收集恢复2次。该项使用音频替身，只核对代码开关；人工听感和最终录屏音轨仍待完成。"
+              },
+              "cueMaterials": [
+                {
+                  "match": "【操作提示｜打开本轮修改版游戏，确认开始后触发收集、受伤，停口播试听；再关闭声音重复操作。自动信号检测已通过，人工试听后再讲听感】",
+                  "labels": [
+                    "修改版本轮游戏"
+                  ]
+                }
+              ]
             },
             {
               "id": "audio-regression",
-              "number": "3.3.3.5.2",
+              "number": "3.3.3.5.5",
               "title": "原来的体验还在吗",
-              "screen": "E1/E3 开场、游戏中和结算；窄屏截图",
-              "operation": "重载后停在开场，观察确认前不计时；进入后指进度环并让一个收集物消失；触发受伤视觉反馈；结算、重开。窄屏用截图补充，避免现场改窗口打断。 窄屏图片需向下滚到场地下方的 HUD；结算截图点击原图放大后再指字面量标签，关闭图片标签返回材料。",
+              "screen": "修改版游戏的开场、游戏中和结算；窄屏截图",
+              "operation": "本轮依据为 2026-11-20 原参考游戏声音实验，操作与材料以本段正文和链接为准。",
               "points": "对照实际画面：侧栏由右到左仍符合需求；开场、进度、浮层与可见反馈保留。9秒边界已有受控逻辑验证，现场按实际观察讲，不把测试替身称为真人试玩。结算有字面量 strong 标签，明确指出；手机排版通过但音效版没有原版额外触屏拖动。",
-              "transition": "回第 7 页，对照新增、保留及未解决项作取舍。",
+              "transition": "回结果材料，对照新增、保留及未解决项作取舍。",
               "materials": [
                 {
-                  "label": "前后实拍与检查边界",
-                  "url": "evidence/audio-iteration/index.html#compare"
+                  "label": "修改版本轮游戏",
+                  "url": "evidence/audio-reference-iteration/with-audio/index.html"
                 }
               ],
-              "status": "课件与逐字稿已接入；人工试听、录屏收音及讲师试讲待完成。",
-              "script": "【操作提示｜重新加载 E3，开场停留后确认；指时间从确认后开始变化】\n\n这轮开发请求明确要求先确认开场，再开始计时。现在声音接上了，我们也按这条要求核对：规则提醒还在，确认之后时间才开始变化。\n\n【操作提示｜指收集物进度环，让一个未收集物自然消失，再触发受伤；随后等结算并点击重开】\n\n收集物仍然显示剩余时间，过期会消失。受伤时还有画面反馈，结算后也能重开。这些都是改之前说好要保留的内容。\n\n【操作提示｜材料 #compare，查看“窄屏布局”两图并向下滚到场地下方的读数；再到“结算”，点击 E3 截图放大，指正文中的 strong 标签】\n\n桌面侧栏从右边换到了左边，窄屏时读数排在场地下方，符合这次允许按玩法安排的位置要求。结算文案还有一个问题：强调文字的标签直接显示出来了，这一处还需要修游戏。\n\n原版还额外做了触屏拖动，音效版没有。如果我们要把手机触控也作为交付要求，就必须继续补齐。只检查窄屏排版，还不能说手机上已经完整可玩。"
+              "status": "讲述线与逐字稿已按当前主线接入；人工试听、录屏收音和讲师试讲待完成。",
+              "script": "【操作提示｜修改版游戏：检查开场确认、物品存在时间、画面反馈、结算和重开】\n\n",
+              "cueMaterials": [
+                {
+                  "match": "【操作提示｜修改版游戏：检查开场确认、物品存在时间、画面反馈、结算和重开】",
+                  "labels": [
+                    "修改版本轮游戏"
+                  ]
+                }
+              ]
             },
             {
               "id": "audio-verdict",
-              "number": "3.3.3.5.3",
-              "title": "决定保留什么，继续修什么",
-              "screen": "PPT 07 · 按需求判断取舍",
-              "operation": "回 PPT 第 7 页，按新增、保留、继续处理三组对照刚才结果，再讲保留与后续调整的判断。",
-              "points": "学生带走的流程：从作品提出具体缺口和保留项，沿运行材料找修改依据，审阅指导与资源，再独立生成、实际检查并决定保留/继续调整/回退。一轮结果支持本例可行，不证明普遍稳定。",
-              "transition": "3.3 到这里完成从阅读结构到使用与迭代；下一节转向寻找值得体验的现成 Skill 和持续关注更新，不再引入另一个迭代案例。",
+              "number": "3.3.3.5.6",
+              "title": "按新增与保留项判断效果",
+              "screen": "PPT · 实际调用验证",
+              "operation": "本轮依据为 2026-11-20 原参考游戏声音实验，操作与材料以本段正文和链接为准。",
+              "points": "收束能力优化；不把单轮验证等同所有任务都可靠。",
+              "transition": "按本组顺序进入下一步；材料看完回对应 PPT",
               "materials": [
                 {
-                  "label": "结果与不足",
-                  "url": "evidence/audio-iteration/index.html#compare"
-                },
-                {
-                  "label": "修改依据",
-                  "url": "evidence/audio-iteration/index.html#change"
+                  "label": "PPT · 当前步骤",
+                  "url": "index.html?mode=slides#audio-result"
                 }
               ],
-              "status": "课件与逐字稿已接入；人工试听、录屏收音及讲师试讲待完成。",
-              "ppt": {
-                "id": "audio-result",
-                "step": 0
+              "status": "讲述线与逐字稿已按当前主线接入；人工试听、录屏收音和讲师试讲待完成。",
+              "script": "【操作提示｜回到 PPT 验证页；结合本轮实际结果收束，不沿用旧实验的触控或初始化结论】\n\n这轮声音已经带进新游戏了，但还有游戏细节要修。给 Skill 增加能力，既要把能复用的资源和用法整理进去，也要换个对话实际调用，检查新能力和原有功能。",
+              "cueMaterials": [
+                {
+                  "match": "【操作提示｜回到 PPT 验证页；结合本轮实际结果收束，不沿用旧实验的触控或初始化结论】",
+                  "labels": [
+                    "PPT · 当前步骤"
+                  ]
+                }
+              ],
+              "cuePpt": {
+                "0": {
+                  "id": "audio-result",
+                  "step": 0
+                }
+              }
+            },
+            {
+              "id": "size-summary",
+              "number": "3.3.3.5.7",
+              "title": "总结一轮 Skill 优化",
+              "screen": "PPT · 优化步骤与注意事项",
+              "operation": "在方案三验证结束后打开总结页，回顾步骤与独立验证的范围。",
+              "points": "参考 Anthropic 与 Agent Skills 的观察、改进、评估循环，按本案例归纳；不称为官方唯一固定流程。",
+              "transition": "结束本节。",
+              "materials": [
+                {
+                  "label": "PPT · 一轮 Skill 优化怎么做",
+                  "url": "index.html?mode=slides#size-summary"
+                }
+              ],
+              "script": "【切换｜PPT：打开“一轮 Skill 优化怎么做”，沿左侧前三步，再到右侧第四步，回顾刚才的案例】\n\n我们做下总结\n当我们要去优化我们自己的 Skill 的时候，需要通过实际的任务调用，定位到 Skill 的问题具体出在哪里，再针对它做优化。\n\n【操作提示｜PPT：指右侧“独立验证”框，依次对应框内的三个检查项】\n\n优化完成之后，最重要的是新开一个对话，重新执行一遍任务，看看问题是不是还会出现。\n如果继续在之前的对话里测试，模型可能会用到前面讨论过的修复信息，我们就不太好判断是不是 Skill 本身起了作用。\n所以这里用新对话、空项目和同一条请求重新做。\n这样，我们就做完了一轮 Skill 优化。当然，一次通过还不能说明已经稳定解决。这次模型调整了比例，但换一种玩法，它是不是还能选得合适，还需要继续测试。\n如果你的 Skill 是自己用的，可以在使用过程中一边迭代。\n正式一些，可以多做测试\n同一个任务多跑几遍，看结果稳不稳定；换一种玩法，看这条指导能不能复用。\n\n也可以让不同的 AI 帮你一起找问题，最后还是要实际跑一下，看看效果。",
+              "cueMaterials": [
+                {
+                  "match": "【切换｜PPT：打开“一轮 Skill 优化怎么做”，沿左侧前三步，再到右侧第四步，回顾刚才的案例】",
+                  "labels": [
+                    "PPT · 一轮 Skill 优化怎么做"
+                  ]
+                },
+                {
+                  "match": "【操作提示｜PPT：指右侧“独立验证”框，依次对应框内的三个检查项】",
+                  "labels": []
+                }
+              ],
+              "cuePpt": {
+                "0": {
+                  "id": "size-summary",
+                  "step": 0
+                },
+                "2": {
+                  "id": "size-summary",
+                  "step": 0
+                }
+              },
+              "suppressCues": [
+                2
+              ],
+              "displayCueOverrides": {
+                "0": "PPT：打开“一轮 Skill 优化怎么做”，先沿左侧前三步回顾案例；讲到独立验证时指右侧框及其中的三个检查项"
               }
             }
           ]

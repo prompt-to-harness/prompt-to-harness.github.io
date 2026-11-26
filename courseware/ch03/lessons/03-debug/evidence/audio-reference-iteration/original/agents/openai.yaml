@@ -1,0 +1,8 @@
+interface:
+  display_name: "Purple Game UI"
+  short_description: "紫色小游戏视觉系统：主题令牌、数据卡、结算浮层"
+  brand_color: "#7C8CFF"
+  default_prompt: "Use $purple-game-ui to style this browser mini-game with the shared purple theme, stat cards, and result overlay."
+
+policy:
+  allow_implicit_invocation: true

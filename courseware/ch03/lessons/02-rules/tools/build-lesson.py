@@ -154,7 +154,7 @@ spec.loader.exec_module(reading_slides)
 data['scenes'][len(selection.IDS):len(selection.IDS)] = reading_slides.build(scripts, plan['reading'])
 data['readingSceneIds'] = reading_slides.IDS
 data['authoringSceneIds'] = reading_slides.IDS
-data['pptSceneIds'] = selection.IDS + reading_slides.IDS
+data['pptSceneIds'] = selection.IDS + [id for id in reading_slides.IDS if id not in ('p07l', 'p07q', 'p07t1', 'p07t2', 'p07t3')]
 data['summary'] = '调用并匹配 Skill，读懂正文与按需引用的资料、脚本和资源，用真实记录核对实际使用。'
 (HERE / 'lesson.js').write_text('window.lesson = ' + json.dumps(data, ensure_ascii=False, indent=2) + ';\n')
 by_id = {s['id']: s for s in data['scenes'] + speaker_scenes}

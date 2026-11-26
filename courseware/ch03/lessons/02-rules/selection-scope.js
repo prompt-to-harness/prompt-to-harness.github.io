@@ -5,6 +5,12 @@
   if (speaker) window.lesson.scenes = window.lesson.scenes.filter(s => !window.lesson.authoringSceneIds.includes(s.id));
   // 第二部分从完整原稿移动对应节点，沿用共享编辑与评论；不要先过滤掉 p08。
   if (speaker) return;
+  // Removed MCP/Hook teaching page now lands on the unified Plugin summary.
+  if (location.hash === '#p324b' || (location.hash === '#p324a' && Number(params.get('step')) > 1)) {
+    const target = new URL(location.href);
+    target.hash = 'p324a'; target.searchParams.set('step', '1');
+    history.replaceState(null, '', target);
+  }
   const ids = new Set(window.lesson.pptSceneIds);
   const anchor=location.hash.slice(1);
   if (new URLSearchParams(location.search).has('legacy') || (anchor && !ids.has(anchor) && window.lesson.scenes.some(s=>s.id===anchor))) return;

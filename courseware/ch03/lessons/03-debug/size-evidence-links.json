@@ -1,0 +1,10 @@
+{
+  "prompt": "http://127.0.0.1:4397/inspect/?topic=size-diagnosis&position=0",
+  "cause": "http://127.0.0.1:4397/inspect/?topic=size-diagnosis&position=1",
+  "upstream": "http://127.0.0.1:4397/inspect/?topic=size-diagnosis&position=2",
+  "advice": "http://127.0.0.1:4397/inspect/?topic=size-diagnosis&position=3",
+  "change": "http://127.0.0.1:4397/inspect/?topic=size-change&position=0",
+  "reply": "http://127.0.0.1:4397/inspect/?topic=size-change&position=1",
+  "validation": "http://127.0.0.1:4397/inspect/?topic=size-validation&position=0",
+  "files": "http://127.0.0.1:4397/inspect/?topic=size-validation&position=1"
+}

@@ -1,0 +1,57 @@
+{
+  "boundary": "方案一与方案三复用最初的 Skill 和游戏；方案三就是后续音效迭代的修改前版本，方案一的游戏提供声音代码。方案二保留 skill-creator 补跑结果。三组游戏开发请求一致；创建材料与运行日期不同，只展示保存案例，不给创建方式排名。",
+  "cases": [
+    {
+      "id": "direct",
+      "run": "dodge-compare-layout-template-game",
+      "skill_sha256": "1342abc35c0e5244095eeebad24f82fc0984c7919b199d2e9b70baf4cf776bf0",
+      "prompt_sha256": "cdf5336713fb2022c11b53f4287819d3193eb6600f10a41688d63baa7ee285ea",
+      "skill_files": [
+        "SKILL.md",
+        "references/design-tokens.md",
+        "references/patterns.md",
+        "templates/index.html",
+        "templates/src/main.js",
+        "templates/src/shell.js",
+        "templates/src/sound.js",
+        "templates/src/storage.js",
+        "templates/styles.css"
+      ],
+      "completed": true
+    },
+    {
+      "id": "creator",
+      "run": "dodge-compare-creator-game-20261119",
+      "skill_sha256": "b3573f133b90859db77847243bbcfc9ff3b310d9ab42b8ae8ae0e532312e674e",
+      "prompt_sha256": "cdf5336713fb2022c11b53f4287819d3193eb6600f10a41688d63baa7ee285ea",
+      "skill_files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "assets/card-flip.css",
+        "assets/purple-theme.css",
+        "references/card-game.md",
+        "scripts/serve.cjs"
+      ],
+      "completed": true
+    },
+    {
+      "id": "reference",
+      "run": "dodge-compare-layout-components-game",
+      "skill_sha256": "a2119c0e64f74e1818078e225fdd2a4643c58f85faaf743ea3ad799187c3c370",
+      "prompt_sha256": "cdf5336713fb2022c11b53f4287819d3193eb6600f10a41688d63baa7ee285ea",
+      "skill_files": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "assets/css/purple-theme.css",
+        "assets/css/result-overlay.css",
+        "assets/css/stat-cards.css",
+        "assets/html/components.html",
+        "assets/js/purple-ui-kit.js",
+        "assets/preview.html",
+        "references/layout.md",
+        "references/tokens.md"
+      ],
+      "completed": true
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+{
+  "initial": {
+    "state": "ready",
+    "score": 0,
+    "lives": 3,
+    "timeLeft": 60,
+    "x": 400,
+    "items": 0
+  },
+  "rules_visible": true,
+  "before_interaction_audio": 0,
+  "started": {
+    "state": "playing",
+    "score": 0,
+    "lives": 3,
+    "timeLeft": 59.61660000000002,
+    "x": 400,
+    "items": 1
+  },
+  "moved": {
+    "state": "playing",
+    "score": 0,
+    "lives": 3,
+    "timeLeft": 59.366600000000034,
+    "x": 471.25,
+    "items": 1
+  },
+  "pickup": {
+    "game": {
+      "state": "playing",
+      "score": 10,
+      "lives": 3,
+      "timeLeft": 58.91670000000006,
+      "x": 471.25,
+      "items": 0
+    },
+    "oscillators": 1,
+    "peak": 0.06357601284980774
+  },
+  "hurt": {
+    "game": {
+      "state": "playing",
+      "score": 10,
+      "lives": 2,
+      "timeLeft": 58.45000000000009,
+      "x": 471.25,
+      "items": 0
+    },
+    "oscillators": 1,
+    "peak": 0.036467455327510834
+  },
+  "mute_pickup": {
+    "game": {
+      "state": "playing",
+      "score": 20,
+      "lives": 2,
+      "timeLeft": 57.433400000000155,
+      "x": 471.25,
+      "items": 1
+    },
+    "oscillators": 0,
+    "peak": 0
+  },
+  "mute_hurt": {
+    "game": {
+      "state": "playing",
+      "score": 20,
+      "lives": 1,
+      "timeLeft": 56.98340000000018,
+      "x": 471.25,
+      "items": 1
+    },
+    "oscillators": 0,
+    "peak": 0
+  },
+  "expires_after_9s_controlled": true,
+  "end_text": "60 秒躲避与收集\n\n方向键 / WASD 移动 · 躲开障碍，抓住限时水晶\n\n🔇 静音\n剩余时间\n0\n得分\n20\n生命\n1\n🏁\n时间到，挑战结束！\n\n你撑满了 60 秒，一共收集了 <strong>2</strong> 颗水晶。\n\n得分\n20\n收集水晶\n2 颗\n剩余生命\n1 / 3\n用时\n12 秒\n再玩一局",
+  "restart": {
+    "state": "playing",
+    "score": 0,
+    "lives": 3,
+    "timeLeft": 60,
+    "x": 400,
+    "items": 0
+  },
+  "mobile_overflow": false,
+  "dpad_visible": false,
+  "dpad_moves": true,
+  "errors": [],
+  "touch_device": {
+    "dpad_visible_touch_device": true,
+    "mobile_overflow": false
+  },
+  "artifact_hashes": {
+    "index.html": "dad7c05a07642f676bf6a47c9581556500f50df05ebcce6b1563d352db5297f3",
+    "css/result-overlay.css": "49999cd73c0dc9c6aac073275751459421f06dbd54484bc23e127fd5e196046c",
+    "css/stat-cards.css": "57488793c20cec06697688bb7802f4f96b96cf4d16930c55d1da270719de5682",
+    "css/game.css": "20f3433f7d5c36cceed737b2b4899bc1ba9eecde5f080c061a185dcf5ed74777",
+    "css/purple-theme.css": "2f15e299b76ac3df07a9b555fe27aa5e2c7f5c7b4d04b632ac65ecb5964ca5de",
+    "js/game.js": "e9c9bb02773702cb09e9cb60245b13814dedd91bd8d1d66d6f0acc49bf76c911",
+    "js/purple-sound.js": "38f6641c81fdda55b0bd843f8cc77116e5c002dfe7c32ec8672d1b4dedae5a79",
+    "js/purple-ui-kit.js": "5a28b257232b9455b23989809e48fb942798690eb4629a2bc42896d7dc333a88",
+    ".agents/skills/purple-game-ui/SKILL.md": "45140604a87c1d38de959818fda5096efc6e73e22d230a3d5dcf7f1471942b9e",
+    ".agents/skills/purple-game-ui/references/sound.md": "5028e5b651cac592fb22a352843f74d425d5701c412c1a00f46fe1f6a55caab0",
+    ".agents/skills/purple-game-ui/references/tokens.md": "220660cc921ea1a60dcd0c1fa433350eec19c17e44d415e034ec29cf8363461e",
+    ".agents/skills/purple-game-ui/references/layout.md": "afecfe2638495894c194fe5011cc421c23dac3ba28892720bbde91d89bac518c",
+    ".agents/skills/purple-game-ui/agents/openai.yaml": "7b153f652ed3387ac19feacf206e27d43b28a1ec3d99b19085e885604804b4a7",
+    ".agents/skills/purple-game-ui/scripts/verify-resources.mjs": "2be76ad89506012751bea0745c5b3720aa606cae19372c0f73795fbe4666e970",
+    ".agents/skills/purple-game-ui/assets/preview.html": "9966454922b39fbf4367670f53039d0a0e1366b7937167c102d5b4358c65ed3e",
+    ".agents/skills/purple-game-ui/assets/css/result-overlay.css": "49999cd73c0dc9c6aac073275751459421f06dbd54484bc23e127fd5e196046c",
+    ".agents/skills/purple-game-ui/assets/css/stat-cards.css": "57488793c20cec06697688bb7802f4f96b96cf4d16930c55d1da270719de5682",
+    ".agents/skills/purple-game-ui/assets/css/purple-theme.css": "2f15e299b76ac3df07a9b555fe27aa5e2c7f5c7b4d04b632ac65ecb5964ca5de",
+    ".agents/skills/purple-game-ui/assets/js/purple-sound.js": "38f6641c81fdda55b0bd843f8cc77116e5c002dfe7c32ec8672d1b4dedae5a79",
+    ".agents/skills/purple-game-ui/assets/js/purple-ui-kit.js": "5a28b257232b9455b23989809e48fb942798690eb4629a2bc42896d7dc333a88",
+    ".agents/skills/purple-game-ui/assets/html/components.html": "d5e01bb2c4aecc7f7da9261d71e7e9ec73d8e1f0648f87c8a64bcb0bdf8fff3e"
+  }
+}

@@ -1,0 +1,270 @@
+diff --git a/purple-game-ui/SKILL.md b/purple-game-ui/SKILL.md
+index 84984ed..77d1a0a 100644
+--- a/purple-game-ui/SKILL.md
++++ b/purple-game-ui/SKILL.md
+@@ -1,6 +1,6 @@
+ ---
+ name: purple-game-ui
+-description: 用「记忆翻牌」小游戏的紫色霓虹视觉风格，为浏览器小游戏搭建可直接套用的页面骨架——标题区、横排 HUD（工具条 + 四个数据卡）、居中场地、结算浮层。当用户要「做一个和之前那个紫色调游戏站一样的小游戏」「复用紫色界面风格」「套用同一个页面布局」时使用。
++description: 用「记忆翻牌」小游戏的紫色霓虹视觉风格，为浏览器小游戏搭建可直接套用的页面骨架——标题区、横排 HUD（工具条 + 四个数据卡）、居中场地（网格 / 画布 / 自由布局三种场地容器按玩法选）、结算浮层。当用户要「做一个和之前那个紫色调游戏站一样的小游戏」「复用紫色界面风格」「套用同一个页面布局」时使用。
+ ---
+ 
+ # 紫色游戏站界面风格（Purple Game UI）
+@@ -19,7 +19,7 @@ description: 用「记忆翻牌」小游戏的紫色霓虹视觉风格，为浏
+ 
+ 1. **布局是契约，玩法是变量。** 页面自上而下永远是这个顺序：
+    `标题 → 横向 HUD 工具条 → 四格数据条 → 居中场地 → 底部提示 → 结算浮层`。
+-   换玩法时只允许动「居中场地」内部。
++   换玩法时只允许动「居中场地」内部——**但场地容器本身要按玩法换**（见「场地容器怎么选」）。
+ 2. **零依赖、零构建。** 原生 HTML + CSS + ES Modules，不需要 npm、不需要打包器。
+    但 **不能用 `file://` 直接打开**（ES Modules 会被 CORS 拦截），必须起一个 http 静态服务器。
+ 3. **动效与音效是风格的一部分。** 紫色渐变、毛玻璃面板、发光描边、WebAudio 合成音，
+@@ -94,7 +94,7 @@ python3 -m http.server 8000     # → http://127.0.0.1:8000/
+   </section>
+ 
+   <section class="board-wrap">           <!-- 居中场地：唯一允许更换玩法的区域 -->
+-    <div class="board" id="board"></div>
++    <div class="board" id="board"></div>   <!-- 或 <div class="stage">…</div>，二选一 -->
+   </section>
+ 
+   <footer class="app__footer"><p class="hint">键盘操作提示</p></footer>
+@@ -105,6 +105,24 @@ python3 -m http.server 8000     # → http://127.0.0.1:8000/
+ </div>
+ ```
+ 
++## 场地容器怎么选（网格 / 画布 / 自由布局）
++
++`.board-wrap` 只负责**居中**，所有玩法都用它。真正要按玩法选的是它里面的**场地容器**，
++两种容器语义互斥，**一个场地只用一个，不要把两个类挂到同一个元素上**：
++
++| 场地容器 | 适用玩法 | 它自带什么 | 场地内部用 | 宽度怎么调 |
++|---|---|---|---|---|
++| `.board` | **仅网格 / 棋盘类**：翻牌配对、消除、扫雷、2048 | `display:grid` + 按 `--cols` 算出的宽度上限 | `.card` / `.tile` / `.board__cell` | `--cols`、`--rows`、`--cell`（列宽基准，默认 108px） |
++| `.stage` | **非网格类**：画布、自由布局、列表 | 纵向 flex + 水平居中，不施加列宽约束 | 画布用 `.stage-canvas`，提示用 `.stage__tip` | `--stage-max`（宽度上限，默认占满内容区） |
++
++画布元素本身（`.stage-canvas`）的长宽比用 `--stage-ratio` 控制（默认 4/3），宽度上限用 `--stage-max`
++控制。**不要把某一款游戏的像素尺寸或比例写进模板**——那是该游戏自己的取值，写在自己的
++`styles.css` 或行内 style 里。
++
++⚠️ 常见事故：把 `.board`（网格容器）当成「通用场地容器」保留在画布玩法上。
++`.board` 的宽度上限是按**列**算的，`<canvas>` 作为它的第一个网格项只会被分到**第一列的宽度**，
++场地因此塌缩成一小块。画布 / 自由布局玩法请用 `.stage`。
++
+ ## 四个必须守住的视觉规则
+ 
+ 1. **背景**：三层叠加——两个 `radial-gradient` 光晕（左上蓝紫、右上紫红）压在深蓝紫 `linear-gradient` 之上，`background-attachment: fixed`。
+@@ -116,7 +134,10 @@ python3 -m http.server 8000     # → http://127.0.0.1:8000/
+ 
+ - [ ] `<h1>` 换标题与 emoji，`<p class="subtitle">` 换一句话玩法说明
+ - [ ] 数据条四个标签按新玩法改（例：步数 / 用时 / 得分 / 最佳）
+-- [ ] 场地内容整体替换，但容器保留 `.board-wrap` + `.board`（居中 + 宽度约束）
++- [ ] 场地内容整体替换，外层保留 `.board-wrap`（只管居中）
++- [ ] 场地容器按玩法二选一：网格 / 棋盘类用 `.board`（带 `--cols` / `--rows`），
++      画布 / 自由布局类用 `.stage`；**不要把 `.board` 和 `.stage` 叠在同一个元素上**
++- [ ] 场地宽度用 `--stage-max` / `--cols` / `--cell` 之类**变量**表达，不要写死某款游戏的像素值
+ - [ ] 难度分段按钮数量按新玩法调整，或整块换成别的控件
+ - [ ] 结算浮层的文案与按钮语义对齐新玩法（「再玩一局」通常保留）
+ - [ ] 音效：`sfx.flip/match/mismatch/win` 按需调用；`sound.js` 里的音高可改
+@@ -125,6 +146,10 @@ python3 -m http.server 8000     # → http://127.0.0.1:8000/
+ ## 反模式（踩过的坑）
+ 
+ - ❌ 改玩法时顺手改了 `.app` 的子元素顺序 → 版式跑偏。顺序是契约。
++- ❌ 把 `.board` 当成通用场地容器保留下来 → 它是**网格**容器（自带列宽上限），
++  挂到画布 / 自由布局场地上会把内容挤进第一列。非网格玩法改用 `.stage`。
++- ❌ 同一个元素上叠加语义冲突的类 → 同特异度下**后写的规则赢**，
++  很容易让先写的规则被悄悄覆盖，布局塌缩且无从察觉。改完 CSS 至少量一次元素宽度。
+ - ❌ 在 CSS 动画的 `transform` 里写不完整的 transform，会覆盖掉原本的 `rotateY/translateX` 组合 → 动画中元素跳回原位。**每个关键帧都要带上完整 transform。**
+ - ❌ 用 `file://` 打开测试 → ES Modules 被 CORS 拦截，必须走 http。
+ - ❌ 浮层用 `display:none` 切换导致焦点丢失 → 用 `hidden` 属性 + `[hidden]{display:none}`，关闭时把焦点还给触发按钮。
+@@ -133,10 +158,14 @@ python3 -m http.server 8000     # → http://127.0.0.1:8000/
+ 
+ 改完至少做一次真实浏览器检查（截图 + 点击），确认：
+ 
+-1. 窄屏（≤520px）下工具条竖排、数据条仍是四列或合理换行、无横向滚动。
+-2. 键盘 Tab 可见焦点环，浮层打开时焦点在面板内、Esc 可关闭。
+-3. 结算浮层弹出后背景变暗 + 模糊，关闭后焦点回到「重新开始」。
+-4. 刷新页面后最佳成绩与难度仍在（localStorage 生效）。
++1. **量一次场地尺寸**：在 DevTools 里看场地元素的 `getBoundingClientRect()`，
++   确认宽度和比例符合你的设计意图（网格类按 `--cols × --cell` 估算，
++   画布类按 `--stage-max` / `--stage-ratio` 估算）。
++   场地只有几十像素宽、或只占了容器第一列的宽度，说明容器类用错了。
++2. 窄屏（≤520px）下工具条竖排、数据条仍是四列或合理换行、无横向滚动。
++3. 键盘 Tab 可见焦点环，浮层打开时焦点在面板内、Esc 可关闭。
++4. 结算浮层弹出后背景变暗 + 模糊，关闭后焦点回到「重新开始」。
++5. 刷新页面后最佳成绩与难度仍在（localStorage 生效）。
+ 
+ 详细的令牌表、装饰件清单与更多模式见 `references/`。
+ 
+diff --git a/purple-game-ui/references/design-tokens.md b/purple-game-ui/references/design-tokens.md
+index 9fb2d92..de1dae3 100644
+--- a/purple-game-ui/references/design-tokens.md
++++ b/purple-game-ui/references/design-tokens.md
+@@ -56,6 +56,15 @@ background-attachment: fixed;
+ 页面宽度 `max-width: 960px`；页面内边距 `clamp(16px,3vw,32px) clamp(12px,3vw,24px) 40px`；
+ 区块间距 `clamp(12px,2vw,20px)`；场地间距 `clamp(6px,1.4vw,12px)`。
+ 
++场地尺寸用变量表达，**具体数值属于某一款游戏就写在它自己的 CSS 里**：
++
++| 变量 | 默认值 | 作用 |
++|---|---|---|
++| `--cols` / `--rows` | `4` | `.board`（网格场地）的列数 / 行数 |
++| `--cell` | `108px` | `.board` 每列的宽度基准（场地宽度上限 = `--cols × --cell`） |
++| `--stage-max` | `100%` | `.stage` / `.stage-canvas` 的宽度上限 |
++| `--stage-ratio` | `4 / 3` | `.stage-canvas` 的长宽比 |
++
+ ## 动效
+ 
+ | 名称 | 时长 / 曲线 | 用途 |
+diff --git a/purple-game-ui/references/patterns.md b/purple-game-ui/references/patterns.md
+index 5449cae..7fa19b7 100644
+--- a/purple-game-ui/references/patterns.md
++++ b/purple-game-ui/references/patterns.md
+@@ -3,7 +3,8 @@
+ ## 一、换玩法的标准流程
+ 
+ 1. `cp -r purple-game-ui/templates <new-game>`
+-2. 改 `index.html`：标题、subtitle、四个 `.stat__label`、场地内容。
++2. 改 `index.html`：标题、subtitle、四个 `.stat__label`、场地内容，
++   并**按玩法选场地容器**（网格类 `.board` / 非网格类 `.stage`，见第三节）。
+ 3. 改 `src/storage.js` 的 `STORAGE_KEY`（必须，否则多款游戏共用存档）。
+ 4. 删掉 `src/main.js`，写你自己的玩法脚本；用 `shell.init({ modes, onRestart, onModeChange })` 接管 HUD。
+ 5. `python3 -m http.server 8000`，浏览器里点一遍。
+@@ -24,13 +25,31 @@
+ | `shell.showResult({...})` | 弹结算浮层 |
+ | `shell.sfx.match()` 等 | 播放音效 |
+ 
+-## 三、可复用的场地件
++## 三、场地容器与可复用的场地件
++
++### 3.1 场地容器（先选容器，再填内容）
++
++`.board-wrap` 只负责居中，所有玩法通用；它里面的**场地容器按玩法二选一**：
++
++| 容器 | 适用 | 自带行为 | 别用在哪 |
++|---|---|---|---|
++| `.board` | 网格 / 棋盘类（翻牌、消除、扫雷、2048） | `display:grid`，宽度上限 = `--cols × --cell`（`--cell` 默认 108px） | **别用在画布 / 自由布局场地上** |
++| `.stage` | 画布、自由布局、列表类 | 纵向 flex + 水平居中，宽度上限 = `--stage-max`（默认占满内容区） | 网格类用 `.board` 更省事 |
++
++`.board` 的宽度上限是**按列**算的：把 `<canvas>` 放进 `.board`，canvas 只会拿到第一列的宽度，
++场地会塌成一小块——这是网格场地被当成通用场地容器用时最典型的故障。
++同一个元素上不要同时挂 `.board` 和 `.stage`（同特异度下后写的规则赢，先写的会被静默覆盖）。
++
++### 3.2 可复用的场地件
+ 
+ `styles.css` 第 8 区提供三套现成的场地件，按需取用：
+ 
+ - **`.card`**（翻牌类）：3D 翻牌，状态类 `is-open` / `is-matched` / `is-wrong` / `just-matched`。
+ - **`.tile`**（格子类）：消除、2048、扫雷。`is-hint` 高亮、`is-bad` 错误态。
+-- **`.stage-canvas`**（画布类）：弹球、贪吃蛇等需要 `<canvas>` 的玩法。
++- **`.stage-canvas`**（画布类）：弹球、贪吃蛇、躲避收集等需要 `<canvas>` 的玩法。
++  宽度上限用 `--stage-max`、长宽比用 `--stage-ratio`（默认 4/3）调整，
++  **具体数值属于某一款游戏时写在它自己的 CSS 里，不要写回模板**。
++- **`.stage__tip`**（场地内提示）：场地下方的说明 / 开局提示文字。
+ 
+ 不用的那套可以直接删掉，不影响其它区块。
+ 
+@@ -48,6 +67,11 @@
+ 6. **emoji 跨平台观感**：emoji 外观依赖系统字体，Windows / macOS / Android 不一致。
+    想要稳定视觉就换成内联 SVG 图标。
+ 7. **窄屏**：≤520px 时工具条竖排、数据条变 2×2 网格。改了工具条结构要重新检查。
++8. **场地容器选错**：`.board` 是网格容器，自带按列算的宽度上限；
++   挂到画布 / 自由布局场地上，内容会被挤进第一列。非网格场地用 `.stage`。
++9. **同元素叠类**：语义冲突的类写在同特异度下**后写的赢**，
++   先写的规则会被静默覆盖（版式塌缩且没有报错）。
++   改完 CSS 用 DevTools 量一次场地元素的实际宽度，别只看代码。
+ 
+ ## 五、常见玩法的字段映射
+ 
+diff --git a/purple-game-ui/templates/index.html b/purple-game-ui/templates/index.html
+index ab4b02a..270da33 100644
+--- a/purple-game-ui/templates/index.html
++++ b/purple-game-ui/templates/index.html
+@@ -37,7 +37,12 @@
+     <div class="stat"><span class="stat__label">最佳</span><span class="stat__value" id="stat-best">—</span></div>
+   </section>
+ 
+-  <!-- ===== 场地：唯一需要替换的区域。容器保留 .board-wrap + .board ===== -->
++  <!-- ===== 场地：唯一需要替换的区域 =====
++       .board-wrap 只负责居中，两种玩法都用它；
++       场地容器要按玩法二选一（不要两个都用）：
++         · 网格 / 棋盘类（翻牌、消除、扫雷）→ .board，并写 --cols / --rows
++         · 画布 / 自由布局类 → .stage（内容纵向居中，画布元素用 .stage-canvas）
++       本模板的演示玩法是网格类，所以用 .board。 -->
+   <section class="board-wrap">
+     <div class="board" id="board" style="--cols: 4; --rows: 4">
+       <!-- 玩法 DOM 由你的脚本渲染到这里 -->
+diff --git a/purple-game-ui/templates/styles.css b/purple-game-ui/templates/styles.css
+index d924d3a..f4b2c75 100644
+--- a/purple-game-ui/templates/styles.css
++++ b/purple-game-ui/templates/styles.css
+@@ -185,17 +185,49 @@ body {
+   font-variant-numeric: tabular-nums;
+ }
+ 
+-/* ---------- 7 场地容器（居中） ---------- */
++/* ---------- 7 场地容器（居中 + 按玩法选场地容器） ---------- */
++
++/* 7a. .board-wrap —— 只负责「居中」，与场地类型无关。
++   所有玩法的场地都放在它里面；它不施加任何宽度约束。 */
+ .board-wrap { display: flex; justify-content: center; }
+ 
++/* 7b. .stage —— 通用（非网格）场地容器：画布、自由布局、列表类玩法用这个。
++   宽度上限由 --stage-max 控制，默认占满内容区；想更窄就在元素上写 --stage-max。
++   内容纵向排列并水平居中，场地内部的提示文字用 .stage__tip。
++   需要撑满宽度的子元素加 align-self: stretch。 */
++.stage {
++  display: flex;
++  flex-direction: column;
++  align-items: center;
++  gap: clamp(8px, 1.6vw, 14px);
++  width: 100%;
++  max-width: var(--stage-max, 100%);
++  min-width: 0;
++}
++
++.stage__tip {
++  margin: 0;
++  text-align: center;
++  color: var(--text-dim);
++  font-size: 0.85rem;
++}
++
++.stage__tip[hidden] { display: none; }
++
++/* 7c. .board —— **网格场地容器**，仅供网格 / 棋盘类玩法
++   （翻牌配对、消除、扫雷、2048 …）。
++   ⚠️ .board 自带 display:grid 和「按列数算出的宽度上限」，
++      它不是通用容器：把它挂到画布 / 自由布局的场地上，内容会被挤进第一列。
++      非网格玩法请改用 .stage（见 7b）。 */
+ .board {
+   --cols: 4;
+   --rows: 4;
++  --cell: 108px; /* 每列的宽度基准，按玩法需要调 */
+   display: grid;
+   grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+   gap: clamp(6px, 1.4vw, 12px);
+   width: 100%;
+-  max-width: min(100%, calc(var(--cols) * 108px));
++  max-width: min(100%, calc(var(--cols) * var(--cell)));
+   perspective: 1400px;
+ }
+ 
+@@ -330,12 +362,15 @@ body {
+ .tile.is-hint { outline: 2px solid var(--accent-2); }
+ .tile.is-bad { background: linear-gradient(160deg, rgba(251, 113, 133, 0.6), rgba(190, 60, 90, 0.5)); }
+ 
+-/* 8c 轨道 / 目标（弹球、贪吃蛇类） */
++/* 8c 轨道 / 目标（弹球、贪吃蛇、躲避收集等画布类玩法） */
++/* 画布元素本身：宽度上限与长宽比都可调，不要把某一款游戏的尺寸写死。
++   --stage-max   宽度上限（默认按 8 列 × 64px 估算，可按玩法覆盖）
++   --stage-ratio 长宽比（默认 4/3，可按玩法改成 1/1、16/9 …） */
+ .stage-canvas {
+   display: block;
+   width: 100%;
+-  max-width: min(100%, calc(var(--cols, 8) * 64px));
+-  aspect-ratio: 4 / 3;
++  max-width: min(100%, var(--stage-max, calc(var(--cols, 8) * 64px)));
++  aspect-ratio: var(--stage-ratio, 4 / 3);
+   border-radius: var(--radius);
+   border: 1px solid var(--border);
+   background:

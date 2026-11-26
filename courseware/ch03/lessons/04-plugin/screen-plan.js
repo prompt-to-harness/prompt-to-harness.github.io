@@ -7,37 +7,37 @@ window.narrationData = {
       {
         "frames": "3.4.1.1.1 · 社区里已经有很多现成的 Skill",
         "content": "现成 Skill 的四组用途与代表",
-        "progression": "先 UI 样例，再展开审查、规划、测试三个用途；具体名字留画面，不逐个介绍。",
+        "progression": "第 1 步展示设计案例，短切 Impeccable Gallery 后回第 2 步展开其他用途。",
         "id": "ui-opening"
       },
       {
         "frames": "3.4.1.1.2 · 找 Skill 的三个入口",
-        "content": "聚合平台、GitHub、提供者：三种找法",
+        "content": "聚合平台、GitHub、提供者：沿用讲师的三种找法",
         "progression": "只讲三种找法，不提前列品牌或演示按钮；迅速切具体推荐。",
         "id": "platform-map"
       },
       {
         "frames": "3.4.1.1.3 · 先收藏这几个入口",
-        "content": "七个推荐入口及各自看点",
-        "progression": "具体名字和一句看点；随后网站只演示怎么找、怎么看，不重复推荐理由。",
+        "content": "三组八个推荐入口及各自看点",
+        "progression": "Codex、Claude Code、Cursor 同列官方插件目录；后二者简要给操作入口，Codex 主演示后置。",
         "id": "recommended-entries"
       },
       {
-        "frames": "3.4.2.1.1 · 用实际删除例子引出持续关注",
+        "frames": "3.4.2.1.1 · 从更新记录判断是否适用",
         "content": "Skill 可能更新或不再需要：实际作者案例",
-        "progression": "先 Matt 删除及条件，再用 Superpowers 更新补一句；引出关注来源。",
+        "progression": "直接讲模型能力提升会让部分 Skill 过时或被淘汰，再引出关注社区最近的调整与讨论趋势。案例由 PPT 提供证据，口播不展开人物、出处和事件经过。第二步画面有一句：跟自己的任务有关，再拿来试。",
         "id": "lifecycle-slide"
       },
       {
         "frames": "3.4.2.2.1 · 官方渠道：看变化，也看怎么用",
-        "content": "官方渠道：产品更新、用法、活动录像",
-        "progression": "Codex、Claude 为主，Cursor 小型补充；网页按需。",
+        "content": "官方渠道：先看正在用的工具，换工具也看更新和用法",
+        "progression": "Codex 为主例，指更新记录和 Skill 文档；Claude Code 与 Cursor 说明换工具也一样，活动录像只在 Claude 侧。网页按需。",
         "id": "official-slide"
       },
       {
         "frames": "3.4.2.2.2 · 作者推荐：具体做法、实验和维护经验",
-        "content": "Matt、Simon 与进阶补充 Jesse",
-        "progression": "按看点推荐，不念履历或粉丝数。",
+        "content": "Karpathy：X 动态与 YouTube 讲解；其他人选待讲师补充",
+        "progression": "第一步以 Karpathy 为例看 X 上的动态与社区讨论；第二步展开 YouTube，并指关注清单的人物、频道与链接。其他人选不预填。",
         "id": "authors-slide"
       },
       {
@@ -53,7 +53,7 @@ window.narrationData = {
       "id": "find",
       "number": "3.4.1",
       "title": "从哪里找到值得体验的 Skill",
-      "content": "整体讲述逻辑：从上一节自己整理 UI 风格的经历接入，让学员先看到社区有现成选择，再把范围打开到审查、规划和测试。接着用三种找法组织资源入口，随即给具体推荐，让学员知道先去哪里。前三页 PPT 分别承担“有什么”“去哪找”“推荐哪些”，推荐清单在这里交代清楚，网站不再重讲推荐理由。进入网页后，用 frontend-design 走一次搜索和详情，再展示榜单、主题与条件筛选，解决“知道名字怎么找、不知道名字怎么逛”。随后用 Vercel 的一个适用场景说明找到以后看什么，最后短看设计项目的作品入口。讲到学员知道从哪开始、如何继续找、在哪里看用途与来源就收住；回到第 4 页，用“找到的资源以后也会变化”接入持续追踪。重点放在推荐与网页用法，分类短讲，不把初筛展开成评估课程。",
+      "content": "先用 Impeccable 的界面作品引出社区现成 Skill，短看作者 Gallery 与说明入口，再回 PPT 扩展到审查、规划与测试。寻找入口统一为聚合平台、作者与团队的集合、工具官方插件目录；第 2 页讲三种找法，第 3 页给八个推荐入口。Claude Code 与 Cursor 只介绍已核实的入口，Codex 保留平台浏览末尾的主演示。浏览路线为 skills.sh 搜索与详情、榜单与主题、SkillsMP 条件补充、Vercel 原仓库、Codex 插件与技能目录；随后回第 4 页接持续追踪。",
       "materials": [
         {
           "label": "Discussion 3.4.1",
@@ -76,7 +76,7 @@ window.narrationData = {
                 {
                   "id": "ui-opening-design",
                   "title": "社区里已经有很多现成的 Skill",
-                  "design": "开篇停在 PPT，用一句话承接上一节自己整理 UI 风格的 Skill。先显示 frontend-design、Impeccable 和一张作者作品，说明社区已有现成的视觉设计指导；再展开三个用途卡片：前端审查（Vercel web-design-guidelines）、开发规划（Superpowers writing-plans）、测试（Superpowers test-driven-development）。卡片保留具体名字，口头只讲用途，不逐个读英文名称，也不介绍作者和网站。收在“除了自己做，也可以先找现成的”，切到寻找入口。",
+                  "design": "从前面自己整理、修改 Skill 的经历接入，PPT 第 1 步展示 Impeccable 作者的酒店作品，保留讲师对作者作品的原有介绍。随即打开 Gallery，补充 Impeccable 的具体用途， 看其他作品主题，指 Docs 和 GitHub 的说明入口；回同页第 2 步，扩展到前端审查、规划与测试。Impeccable 在此承担具体资源案例，不再与插件目录并列。",
                   "limits": "这些是用途推荐，不代表本课已实测全部项目；Superpowers 是一套工作流集合，不暗示各项都可无条件独立安装。",
                   "status": "",
                   "preparation": "",
@@ -92,6 +92,10 @@ window.narrationData = {
                     {
                       "type": "script",
                       "ref": "ui-opening:0"
+                    },
+                    {
+                      "type": "script",
+                      "ref": "web-gallery:0"
                     },
                     {
                       "type": "location",
@@ -137,6 +141,12 @@ window.narrationData = {
                           "url": "https://impeccable.style/gallery/",
                           "location": "Boutique hotel → With Impeccable 的作品",
                           "purpose": "只选一张作者展示截图，不作提效对照"
+                        },
+                        {
+                          "label": "Gallery",
+                          "url": "https://impeccable.style/gallery/",
+                          "location": "作品列表",
+                          "purpose": "展示继续浏览作品的入口，不重讲开篇样例"
                         }
                       ]
                     },
@@ -157,7 +167,7 @@ window.narrationData = {
                 {
                   "id": "platform-map-design",
                   "title": "找 Skill 的三个入口",
-                  "design": "这页只给三种找法，每种一句话：聚合平台——集中搜、按主题逛；GitHub——直接看项目与原文；提供者——从 Coding Agent 官方、技术团队或独立作者的发布入口找。画面用三个类别名和通用图标，不提前放下一页的品牌清单，也不讲搜索按钮和具体 Skill。“这些入口会重叠，同一个项目可能几处都能找到”一句带过，立即切具体推荐。",
+                  "design": "沿用讲师手改的讲述：聚合平台汇集不同作者的资源，并可看社区数据，帮助判断是否受认可；GitHub 阅读说明和原文；也可直接找 Coding Agent 官方、团队或个人作者。几种找法会重叠。下一页按已确认的三组推荐列具体入口。",
                   "limits": "",
                   "status": "",
                   "preparation": "",
@@ -220,7 +230,7 @@ window.narrationData = {
                 {
                   "id": "recommended-entries-design",
                   "title": "先收藏这几个入口",
-                  "design": "沿用上一页的三个位置，直接放七个入口及一句看点：skills.sh 看主题与热门；SkillsMP 按条件筛选；anthropics/skills 看官方示例；vercel-labs/agent-skills 看前端指导；obra/superpowers 看开发工作流；Codex 插件目录按用途找插件，点到发布者与随附 Skill；Impeccable 看设计作品。对应标明官方团队或独立项目身份，不重复第 1 页的具体 Skill 用途。七个入口都留链接，口头重点点出下面会打开的几站；Anthropic 和 Superpowers 留给自行探索。接着说“先打开 skills.sh，拿刚才的 frontend-design 找一次”，进入浏览器。",
+                  "design": "三个文件夹分别放聚合平台（skills.sh、SkillsMP）、作者与团队的集合（Anthropic Skills、Vercel agent-skills、Superpowers）、工具官方插件目录（Codex、Claude Code、Cursor）。Impeccable 已在开场案例展示，不列入目录。Claude Code 指 /plugin → Discover；Cursor 指 Marketplace 与 Customize；二者只介绍入口，不另开完整演示。说明官方维护目录不代表所有插件均为官方开发。随后进入 skills.sh，Codex 主演示仍放平台浏览末尾。 口播以讲师手改推荐段为底稿，保留搜索与 GitHub 集合的原句，仅在末尾补充 Claude Code、Cursor 和转场；只规范资源名称拼写。",
                   "limits": "",
                   "status": "",
                   "preparation": "",
@@ -277,10 +287,22 @@ window.narrationData = {
                           "purpose": "按用途发现插件及随附 Skill，查看发布者"
                         },
                         {
-                          "label": "Impeccable",
-                          "url": "https://impeccable.style/",
-                          "location": "Gallery 与设计说明",
-                          "purpose": "独立设计项目；先看作品与用途"
+                          "label": "Claude Code 插件目录",
+                          "url": "https://code.claude.com/docs/en/discover-plugins",
+                          "location": "Install a plugin → /plugin → Discover",
+                          "purpose": "官方文档确认搜索与查看详情入口"
+                        },
+                        {
+                          "label": "Cursor Marketplace",
+                          "url": "https://cursor.com/marketplace",
+                          "location": "插件目录；工具内 Customize",
+                          "purpose": "官方插件发现入口"
+                        },
+                        {
+                          "label": "Cursor 插件文档",
+                          "url": "https://cursor.com/docs/plugins",
+                          "location": "The marketplace",
+                          "purpose": "核对目录与工具内搜索方式"
                         }
                       ]
                     },
@@ -308,8 +330,8 @@ window.narrationData = {
                 {
                   "id": "search-detail-design",
                   "title": "搜索 UI Skill，打开候选详情",
-                  "design": "输入 frontend-design，选择 anthropics/skills。详情页只停两处：Summary 对照自己要做的事，SKILL.md 与 Repository 定位具体内容和来源，不在这里展开原文。用途第 1 页已经说过，不重新介绍项目。Related Skills 只指一下可以继续找相近资源，不逐项点击。随后看不知道名称时怎么逛。",
-                  "limits": "搜索与详情路径已在浏览器走通；结果数量、名次不写进讲稿。",
+                  "design": "搜索 frontend-design，先认作者和仓库，再打开 anthropics/skills 的详情。依次看用途、SKILL.md 与来源、安装命令和相关条目；只说明如何继续了解与安装，不执行命令。随后看不知道名称时怎么逛。 查看完整项目时使用安装命令内的 GitHub 地址，讲述页提供直达链接；Repository 的可见位置尚未核实，不作为必需操作入口。",
+                  "limits": "已核对网页文本中的安装命令和 GitHub 地址；当前浏览器界面的 Repository 位置未核实，录制使用源仓库直达链接。",
                   "status": "",
                   "preparation": "",
                   "blocks": [
@@ -320,6 +342,10 @@ window.narrationData = {
                     {
                       "type": "script",
                       "ref": "web-search:0"
+                    },
+                    {
+                      "type": "script",
+                      "ref": "web-search:1"
                     },
                     {
                       "type": "operation",
@@ -338,8 +364,14 @@ window.narrationData = {
                         {
                           "label": "候选详情",
                           "url": "https://www.skills.sh/anthropics/skills/frontend-design",
-                          "location": "Summary / SKILL.md / Repository / Related Skills",
+                          "location": "Summary / SKILL.md / 安装命令 / Related Skills",
                           "purpose": "读取用途及来源"
+                        },
+                        {
+                          "label": "Anthropic 源仓库",
+                          "url": "https://github.com/anthropics/skills",
+                          "location": "安装命令中的 GitHub 地址",
+                          "purpose": "直接打开作者维护的完整项目"
                         }
                       ]
                     }
@@ -460,7 +492,7 @@ window.narrationData = {
                 {
                   "id": "source-repository-design",
                   "title": "到 GitHub 看提供者原文",
-                  "design": "先说明从聚合平台发现候选后，可以回源仓库看适用场景，并交代换用前面推荐的 Vercel 作例子。打开 Vercel agent-skills，直接停在 web-design-guidelines 的 Use when，指“Check accessibility”这一项：如果当前需要检查界面可访问性，就有理由进一步看看它。随后指 skills 目录，说明从这里能进入具体指导。这里落实“是否适合我的任务”，不再介绍 Vercel、重列全部 Skill 或讲 GitHub History；维护状态留给后面的 tips。讲完短看设计类项目的另一种入口。",
+                  "design": "从 Vercel README 的 web-design-guidelines 适用场景切入，以键盘操作说明可访问性检查的需要；进入 skills/web-design-guidelines/SKILL.md 简看指导，再回 README 指安装说明。只介绍阅读和安装入口，不完整带读或执行安装。 讲完直接切 Codex 插件目录。",
                   "limits": "已核对 README 的适用场景和目录入口；本段只看一种具体用途。",
                   "status": "",
                   "preparation": "",
@@ -474,8 +506,12 @@ window.narrationData = {
                       "ref": "web-repo:0"
                     },
                     {
+                      "type": "script",
+                      "ref": "web-repo:1"
+                    },
+                    {
                       "type": "operation",
-                      "text": "讲完切 Impeccable Gallery",
+                      "text": "讲完切 Codex 桌面端的插件入口",
                       "timing": "讲完后"
                     },
                     {
@@ -506,47 +542,33 @@ window.narrationData = {
               ]
             },
             {
-              "id": "creator-gallery",
-              "number": "3.4.1.2.5",
-              "title": "到提供者网站看作品与适用方向",
+              "id": "codex-directory",
+              "number": "3.4.1.2.6",
+              "title": "在 Codex 里找插件与单个 Skill",
               "segments": [
                 {
-                  "id": "creator-gallery-design",
-                  "title": "到提供者网站看作品与适用方向",
-                  "design": "打开 Impeccable Gallery，只指出作品集入口和可继续浏览的作品。开篇已经展示过酒店作品，这里不再放大它、不重讲风格，也不重复指 Docs / GitHub。只讲作品集这条直观找法，不再小结所有入口；回 PPT 第 4 页，再引出 Skill 会变化。",
-                  "limits": "作者作品用于了解风格，不作为我们复现过的效果证明。",
+                  "id": "codex-directory-design",
+                  "title": "在 Codex 里找插件与单个 Skill",
+                  "design": "网站浏览结束后切 Codex 桌面端。先展示插件与技能两个选项；以 Game Studio 和 Gameplay Test 回扣前节，讲清插件可包含多份 Skill。搜索插件、打开详情看随附 Skill 与发布者，指出加号安装入口；再切技能，说明按单个 Skill 寻找与安装。保留讲师按需安装的提醒。讲完回 PPT 第 4 页，以找到的资源仍会变化接持续追踪。",
+                  "limits": "沿用讲师本轮提供的桌面端观察；插件还可能提供工具，不将其定义为只有 Skill 的集合。本节只浏览和介绍安装入口，不实际安装。",
                   "status": "",
-                  "preparation": "",
+                  "preparation": "录前确认当前版本的插件／技能选项、Game Studio 搜索结果、随附 Skill 和加号位置。",
                   "blocks": [
                     {
                       "type": "location",
-                      "text": "浏览器 · Impeccable Gallery"
+                      "text": "Codex 桌面端 · 插件与技能目录"
                     },
                     {
                       "type": "script",
-                      "ref": "web-gallery:0"
+                      "ref": "app-codex:0"
                     },
                     {
-                      "type": "operation",
-                      "text": "讲完回 PPT 第 4 页",
-                      "timing": "讲完后"
+                      "type": "script",
+                      "ref": "app-codex:1"
                     },
                     {
-                      "type": "materials",
-                      "items": [
-                        {
-                          "label": "Impeccable",
-                          "url": "https://impeccable.style/",
-                          "location": "Gallery 与设计说明",
-                          "purpose": "独立设计项目；先看作品与用途"
-                        },
-                        {
-                          "label": "Gallery",
-                          "url": "https://impeccable.style/gallery/",
-                          "location": "作品列表",
-                          "purpose": "展示继续浏览作品的入口，不重讲开篇样例"
-                        }
-                      ]
+                      "type": "script",
+                      "ref": "app-codex:2"
                     }
                   ]
                 }
@@ -560,7 +582,7 @@ window.narrationData = {
       "id": "follow",
       "number": "3.4.2",
       "title": "怎样持续追踪 AI Coding 的进展",
-      "content": "整体讲述逻辑：承接前面已经找到的 Skill，先用作者实际删除和更新指导的例子说明，今天有用的内容以后也可能需要调整。这段只负责引出“还要持续关注”，不展开生命周期理论。随后直接给信息源推荐：第 5 页讲官方渠道，帮助学员知道工具发布了什么、当前怎么用；第 6 页讲实践者，帮助学员看到具体做法、实验和后续修正。两页按各自看点介绍，不重复前面的资源清单，也不要求来源只谈 Skill。需要让推荐更具体时，才短开活动或视频目录，看内容范围后回到 PPT。收在“所用工具的官方渠道，加一两位看得进去的作者即可”，然后转入整节的小技巧，不继续扩展订阅或信息管理流程。",
+      "content": "整体讲述逻辑：承接前面已经找到的 Skill，直接说明模型能力提升会让部分 Skill 过时或被淘汰，再引出关注社区最近的调整与讨论趋势；作者案例留在 PPT 作为证据，不逐个讲经过。这段只负责引出“还要持续关注”，不展开生命周期理论。随后直接给信息源推荐：第 5 页讲官方渠道，帮助学员知道工具发布了什么、当前怎么用；第 6 页以 Karpathy 为例，介绍通过 X 关注动态、通过 YouTube 深入了解；其他推荐人选待讲师补充。两页按各自看点介绍，不重复前面的资源清单，也不要求来源只谈 Skill。需要让推荐更具体时，才短开活动或视频目录，看内容范围后回到 PPT。收在“所用工具的官方渠道，加一两位看得进去的作者即可”，然后转入整节的小技巧，不继续扩展订阅或信息管理流程。",
       "materials": [
         {
           "label": "Discussion 3.4.2",
@@ -578,12 +600,12 @@ window.narrationData = {
             {
               "id": "lifecycle-slide",
               "number": "3.4.2.1.1",
-              "title": "用实际删除例子引出持续关注",
+              "title": "从更新记录判断是否适用",
               "segments": [
                 {
                   "id": "lifecycle-slide-design",
-                  "title": "用实际删除例子引出持续关注",
-                  "design": "先展示 Matt 的 resolving-merge-conflicts：作者曾提供，后来移除，理由是自己的 agent 已能处理；旁边保留“较弱模型可能仍需要”。讲清这是作者在自己的使用条件下的取舍。再用一条短注说明 Superpowers 也因模型规划行为改变而更新 writing-plans；不展开具体规划方法。收在“今天找到的好东西，后面也值得继续看它怎么变”，顺势给官方和作者推荐。",
+                  "title": "从更新记录判断是否适用",
+                  "design": "PPT 保留 Matt 移除指导和 Superpowers 修改指导的两条证据及来源。第一步直接讲模型能力提升会让部分 Skill 过时或被淘汰；第二步引出社区会分享 Skill 的更新与取舍，可以看看近期的讨论趋势，再挑与自己任务相关的方法尝试。口播不完整复述谁在什么地方做了什么。后续官方、作者推荐和 tips 也直接表达观点与建议，人物资料和案例细节留在画面；网页讲解只保留帮助当前操作的说明。",
                   "limits": "不能推出模型变强必然淘汰全部 Skill，也不能把分发入口迁移等同能力淘汰。",
                   "status": "",
                   "preparation": "",
@@ -653,7 +675,7 @@ window.narrationData = {
                 {
                   "id": "official-slide-design",
                   "title": "官方渠道：看变化，也看怎么用",
-                  "design": "PPT 并列 Codex 更新与文档、Claude Code 更新与官方活动录像。先给每组“看什么”：功能与当前用法；工程经验与工作流示范。Cursor 更新入口放小型补充，不逐条读版本日志。对视频只推荐主题目录，不宣称已观看整场。讲完可用官方活动目录短看一次内容范围，然后回 PPT 作者页。",
+                  "design": "PPT 以正在用的 Codex 为主例，放更新记录和 Skill 文档；右侧用 Claude Code 的更新与活动录像、Cursor 的更新说明换工具也一样。先讲自己所用工具发布了什么、现在怎么用，再指活动和录像里的方法。Cursor 不逐条读版本日志。对视频只推荐主题目录，不宣称已观看整场。讲完可用官方活动目录短看一次内容范围，然后回 PPT 作者页。",
                   "limits": "活动介绍已核验，未观看完整视频；录制时核对官方重定向落点。",
                   "status": "",
                   "preparation": "",
@@ -672,7 +694,7 @@ window.narrationData = {
                     },
                     {
                       "type": "branch",
-                      "condition": "仅需展示目录时选用；官方活动目录与 AI Hero 视频目录二选一，默认均跳过，直接继续下一页 PPT",
+                      "condition": "仅需展示目录时选用；官方活动目录与 Karpathy 的 YouTube 频道二选一，默认均跳过，直接继续下一页 PPT",
                       "label": "可选网页补充",
                       "blocks": [
                         {
@@ -733,10 +755,10 @@ window.narrationData = {
                 {
                   "id": "authors-slide-design",
                   "title": "作者推荐：具体做法、实验和维护经验",
-                  "design": "PPT 重点给 Matt 与 Simon：前者有 Skill、文章、视频及纠偏，后者长期记录实验并提供原始材料。Jesse 放进阶补充，看实际工作流为什么调整。不重复 lifecycle 的两个故事。给一个简单起步建议：所用工具的官方渠道，加一两位自己看得进去的作者即可；无需追完。网页展示选 Matt 的视频目录，看选题而不播放付费内容，随后进入 tips。",
-                  "limits": "作者推荐不等于认可其全部理论；目录含付费内容，课堂仅浏览公开介绍。",
-                  "status": "",
-                  "preparation": "",
+                  "design": "第一步指 Karpathy 和左侧尾部朝向他的 X 气泡，气泡内有近期动态、社区讨论和 @karpathy。第二步在右侧展开 YouTube 卡片，并指下方关注清单。PPT 和口播只介绍关注方式、平台和已确认示例，详细名单另在关注清单人工整理，确认后发给学员。其他人选暂不预填。",
+                  "limits": "未逐段观看频道视频，不讲述具体视频中未经核对的结果。",
+                  "status": "关注清单已建协作稿；其他推荐与学员领取入口待讲师整理确认",
+                  "preparation": "录制前确认关注清单已整理并可交付，再把口播“会整理一份”改为“整理了一份”，补实际领取位置。",
                   "blocks": [
                     {
                       "type": "location",
@@ -764,7 +786,7 @@ window.narrationData = {
                     },
                     {
                       "type": "branch",
-                      "condition": "仅需展示目录时选用；官方活动目录与 AI Hero 视频目录二选一，默认均跳过，直接继续下一页 PPT",
+                      "condition": "仅需展示目录时选用；官方活动目录与 Karpathy 的 YouTube 频道二选一，默认均跳过，直接继续下一页 PPT",
                       "label": "可选网页补充",
                       "blocks": [
                         {
@@ -777,22 +799,28 @@ window.narrationData = {
                       "type": "materials",
                       "items": [
                         {
-                          "label": "AI Hero 视频与文章",
-                          "url": "https://www.aihero.dev/videos",
-                          "location": "开发相关选题卡片",
-                          "purpose": "Matt 的持续内容入口"
+                          "label": "Karpathy 个人网站",
+                          "url": "https://karpathy.ai/",
+                          "location": "YouTube 与 X 链接",
+                          "purpose": "本人发布的账号入口与内容介绍"
                         },
                         {
-                          "label": "Simon Skills 专题",
-                          "url": "https://simonwillison.net/tags/skills/",
-                          "location": "日期与文章列表",
-                          "purpose": "持续实验入口"
+                          "label": "Karpathy · X",
+                          "url": "https://twitter.com/karpathy",
+                          "location": "@karpathy",
+                          "purpose": "近期动态与想法"
                         },
                         {
-                          "label": "Jesse 博客",
-                          "url": "https://blog.fsck.com/",
-                          "location": "文章列表",
-                          "purpose": "工作流维护经验"
+                          "label": "Karpathy · YouTube",
+                          "url": "https://www.youtube.com/@AndrejKarpathy",
+                          "location": "频道视频列表",
+                          "purpose": "大模型原理与使用分享"
+                        },
+                        {
+                          "label": "AI 信息源关注清单（协作稿）",
+                          "url": "../../../../docs/research/ai-follow-list.md",
+                          "location": "已确认人选与待补充表",
+                          "purpose": "讲师人工整理；确认后交付学员，当前不发布"
                         }
                       ]
                     },

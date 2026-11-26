@@ -107,12 +107,31 @@ cue = re.compile(r'【切换｜[^】\n]+】')
 for path in sorted(source_files(courseware, 'script.json')):
     if 'archive' in path.parts:
         continue
+    lesson_path = path.parent / 'lesson.js'
+    scenes = {}
+    if lesson_path.exists():
+        lesson_data = json.loads(lesson_path.read_text().removeprefix('window.lesson = ').strip().removesuffix(';'))
+        scenes = {scene['id']: scene for scene in lesson_data['scenes']}
     for scene_id, steps in json.loads(path.read_text()).items():
+        scene = scenes.get(scene_id, {})
+        external = scene.get('narration_source')
+        external_valid = False
+        if external:
+            try:
+                source_path = path.parent / external['file']
+                plan = json.loads(source_path.read_text().removeprefix('window.narrationData = ').strip().removesuffix(';'))
+                matches = [screen for part in plan['parts'] for group in part.get('groups', [])
+                           for screen in group.get('screens', []) if screen['id'] == external['screen']]
+                external_valid = len(matches) == 1 and any(
+                    text.strip() and not text.startswith('【') for text in matches[0].get('script', '').split('\n\n'))
+                if not external_valid: raise ValueError('口播定位缺失或没有正文')
+            except (OSError, KeyError, ValueError) as exc:
+                errors.append(f'ED-013 {path.relative_to(repo)} {scene_id} 外部口播源无效：{exc}')
         for i, step in enumerate(steps, 1):
             parts = step.split('\n\n')
             if not stage.fullmatch(parts[0]):
                 errors.append(f'ED-013 {path.relative_to(repo)} {scene_id} 第 {i} 步没有以【操作提示｜…】开头')
-            elif not any(part.strip() and not stage.fullmatch(part) and not part.startswith('【切换｜') for part in parts[1:]):
+            elif scene.get('narration') != 'none' and not external_valid and not any(part.strip() and not stage.fullmatch(part) and not part.startswith('【切换｜') for part in parts[1:]):
                 errors.append(f'ED-013 {path.relative_to(repo)} {scene_id} 第 {i} 步只有操作提示，没有口播正文')
             for part in parts:
                 if part.startswith('【切换｜') and not cue.fullmatch(part):

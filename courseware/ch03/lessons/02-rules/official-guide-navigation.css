@@ -1,0 +1,11 @@
+::highlight(course-source){background:#ffedab;color:inherit}
+#course-source-nav{position:fixed;z-index:2147483647;bottom:12px;left:50%;transform:translateX(-50%);max-width:calc(100vw - 24px);width:max-content;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border:1px solid #b9c4b6;border-radius:8px;background:#f5f5ed;box-shadow:0 3px 18px #0002;color:#243c31;font:14px/1.5 system-ui,sans-serif}
+#course-source-nav button,#course-source-nav select{font:inherit;color:inherit;background:#fff;border:1px solid #b9c4b6;border-radius:4px;padding:5px 8px;cursor:pointer}
+#course-source-nav button:disabled{opacity:.45;cursor:default}
+#course-source-nav a{color:#24633c;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+#course-source-nav label{display:flex;align-items:center;gap:6px}
+#course-source-nav .source-identity{font-size:12px;color:#657061;white-space:nowrap}
+#course-source-nav[data-error]{border-color:#a33;color:#a33}
+@media(max-width:900px){#course-source-nav{flex-wrap:wrap;width:calc(100vw - 24px);box-sizing:border-box;gap:6px;padding:8px}.source-identity{width:100%;text-align:center}}
+
+.course-source-object{outline:3px solid #b78b28;outline-offset:6px;border-radius:6px;background:#fff7df}

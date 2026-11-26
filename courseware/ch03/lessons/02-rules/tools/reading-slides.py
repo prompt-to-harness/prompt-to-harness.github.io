@@ -3,7 +3,7 @@ from html import escape
 import importlib.util
 from pathlib import Path
 
-IDS = ['p07i', 'p07j', 'p07j1', 'p07t1', 'p07t2', 'p07t3', 'p07o', 'p07p', 'p07m', 'p07l', 'p07q', 'p324c', 'p324a', 'p324b']
+IDS = ['p07o', 'p07m', 'p07os', 'p07p', 'p07ox', 'p07l', 'p07q', 'p07t1', 'p07t2', 'p07t3', 'p323-summary', 'p324a']
 
 
 def build(scripts, reading):
@@ -28,7 +28,7 @@ def build(scripts, reading):
         html+='</div>'
         narration=['\n\n'.join(paragraphs[i] for i in indices) for indices in spans]
         assert all(narration), id
-        scenes.append(dict(id=id,segment=group_by_source[source],title=title,label=title,lead=lead,
+        scenes.append(dict(id=id,segment=group_by_source.get(source, '历史取材：简单 Skill 示例'),title=title,label=title,lead=lead,
             layout='selection-slide reading-slide', html=html,steps=steps,script=narration,
             source='index.html#'+id,seconds=35*len(steps)))
 
@@ -47,7 +47,7 @@ def build(scripts, reading):
     body+=path('M652 260 H710',color='#0b6b5f',width=2.5,arrow=True)
     body+=rect(722,196,430,126,'#e0f3ef','#0b6b5f',8)+t(746,244,'选用后的详细指导',28,color='#0b6b5f',kind='sv-hand')+t(746,284,'怎样做、看什么、交出什么',20)
     add('p07i','从“是否选用”读到“具体怎样工作”','文件头的名称与描述帮助识别和选用，Markdown 正文用标题、列表和代码块交代具体工作方法。图内为结构示意，description 的中文是概括；正文写哪些内容、用什么标题，按任务组织。',body,
-        ['文件头与正文的职责'],'r322-1',[[0,1]],[('下一页：认识官方示例','index.html?mode=slides&part=2&step=0#p07j')])
+        ['文件头与正文的职责'],'r322-legacy-1',[[0,1]],[('下一页：认识官方示例','index.html?mode=slides&part=2&step=0#p07j')])
 
     # 用途先给出可指认的关系；浏览器框只说明交付结构，不画成真实截图，也不预告技术栈。
     body=t(0,34,'界面实验／问题复现',26,weight=700)+path('M292 26 H348',width=2.5,arrow=True)+t(364,34,'搭建最小 React 演示应用',26,color='#0b6b5f',weight=700)
@@ -61,7 +61,7 @@ def build(scripts, reading):
     # game-playtest 的定位入口放到小结页：讲完小结才切到试玩原文，入口就近。
     play_more=[('game-playtest：全貌',PLAY),('Overview：工作视角',materials['overview']['url']),('Preferred Workflow：步骤',materials['workflow']['url']),('Tooling Guidance：条件',materials['tooling']['url']),('Common Checks：检查点',materials['common']['url']),('Reporting：输出要求',materials['reporting']['url']),('References：资料入口',materials['references']['url']),('第一节朝向检查证据',materials['faceEvidence']['url']),('补充案例：步数刷新',materials['countEvidence']['url'])]
     add('p07j','setup-demo-app 用来搭建什么','这份官方示例为界面实验或问题复现搭建简单 React 网页，包含标题区和两张卡片。画面为交付结构示意，后续在真实原文中阅读技术、目录、步骤和完成标准。',body,
-        ['用途与交付对象'],'r322-1',[[2]],[('打开 setup-demo-app 原文',OFFICIAL),('示例读完，返回任务小结','index.html?mode=slides&part=2&step=0#p07j1')])
+        ['用途与交付对象'],'r322-legacy-1',[[2]],[('打开 setup-demo-app 原文',OFFICIAL),('示例读完，返回任务小结','index.html?mode=slides&part=2&step=0#p07j1')])
 
     # 主流程与回路分占不同通道：上方修正（严格留在 viewBox 顶部安全区内），下方提供检查依据；产出使用中性墨色而非 Agent 紫色。
     body=v.paper(0,22,325,264,'#6e6043')+t(22,56,'工作要求',30,color='#6e6043',kind='sv-hand')+t(22,84,'When to use / What to build',19,color='#6e6043',kind='sv-code')
@@ -76,7 +76,7 @@ def build(scripts, reading):
     body+=path('M162 296 V344 Q162 356 180 356 H988 Q1005 356 1005 340 V328',color='#6e6043',width=2,dashed=True,arrow=True)
     body+=rect(522,338,124,28,'#f4f2eb','none',rough=False)+t(584,358,'判断依据',20,color='#6e6043',anchor='middle')
     add('p07j1','把执行、自检与修正接起来','正文可以把工作要求、执行方法和检查连接起来。完成标准和前面的明确要求共同作为自检依据；发现不符合后继续修正。图为工作关系示意，未表示官方示例曾实际运行。具体内容仍按任务取舍。',body,
-        ['要求、执行、产出与自检的关系'],'r322-2',[[4,5,6]],[('继续：早期 05 翻牌游戏',materials['old5']['url']),('回看官方示例',OFFICIAL)],play_more)
+        ['要求、执行、产出与自检的关系'],'r322-legacy-2',[[4,5,6]],[('继续：早期 05 翻牌游戏',materials['old5']['url']),('回看官方示例',OFFICIAL)],play_more)
 
     # 作用、已读例子和原文位置对齐；例子缩短后，原文标题可以保持代码字号。
     body=t(16,28,'正文里的作用',22,color='#6e6043')+t(188,28,'已读到的例子',22)+t(776,28,'原文位置',20,color='#6e6043')
@@ -106,7 +106,7 @@ def build(scripts, reading):
         body+=t(24,y,name,22,color='#0b6b5f')+path(f'M156 {y-2} H472','#0b6b5f',1.5,dashed=True)
         example+=t(572,y,name,22,color='#6e6043')+t(696,y,filled[i],22)
     body+=group(example,1)
-    body+=group(rect(0,312,1152,44,'#f2ede1','#6e6043',6)+t(24,340,'条件',20,color='#6e6043')+t(96,340,'canvas / WebGL',22,kind='sv-code')+t(360,340,'→',24)+t(396,340,'必须查看截图',22,color='#0b6b5f')+t(1132,340,'条件 + 检查要求',20,color='#6e6043',anchor='end'),2)
+    body+=group(rect(0,312,1152,44,'#f2ede1','#6e6043',6)+t(24,340,'条件',20,color='#6e6043')+t(104,340,'创建新文档 → 创建流程',22)+t(600,340,'修改已有文档 → 编辑流程',22,color='#0b6b5f'),2)
     add('p07l','模板和示例怎样交代输出要求','模板列出报告要填的四项；填好的示例示范复现步骤、现象、影响与排查方向要具体到可接手的程度。示意不是原文新增段落或新调用结果；一句话也可以同时包含条件和检查要求。',body,
         ['报告的空结构','同一结构填入具体内容','一句指导中的条件与要求'],'r322-5',[[1],[2],[3]],[('报告要求原文',materials['reporting']['url']),('补充案例：步数刷新记录',materials['countEvidence']['url'])])
 
@@ -155,5 +155,20 @@ def build(scripts, reading):
     spec = importlib.util.spec_from_file_location('plugin_slides', Path(__file__).with_name('plugin-slides.py'))
     plugins = importlib.util.module_from_spec(spec); spec.loader.exec_module(plugins)
     plugins.apply(scenes, scripts, reading)
+    # 日志之后用同屏对应收束，不新增运行结论。
+    body=t(22,32,'Skill 中的通用指导',28,color='#6e6043',kind='sv-hand')+t(610,32,'日志中的具体操作',28,kind='sv-hand')
+    rows=[('检查主要操作，保留关键截图','逐对配牌，检查通关状态并截图'),
+          ('提供检查清单与工具建议','读取清单，编写并运行试玩脚本'),
+          ('约定报告内容','整理问题现象、复现步骤和证据')]
+    for i,(guidance,action) in enumerate(rows):
+        y=58+i*78
+        body+=rect(0,y,510,60,'#f2ede1','#9c8b66',7)+t(22,y+38,guidance,25)
+        body+=path(f'M530 {y+30} H580',color='#8e95a2',width=2)
+        body+=t(610,y+38,action,25)
+    body+=path('M0 306 H1152',color='#c8c3b6',width=1)
+    body+=t(576,350,'对照关键要求与后续操作，看指导怎样用到这次任务中',26,anchor='middle',kind='sv-hand')
+    add('p323-summary','从运行日志看 Skill 的指导怎样被使用','',body,
+        ['指导与本次操作、报告的对应'],'r323-summary',[list(range(5))],[('接下来：整理自己的 Skill','../03-debug/speaker.html')])
+    scenes[-1]['segment']=groups['3.2.3']
     # 旧页保留深链；正式页序按当前讲述线排列。
     return sorted(scenes, key=lambda scene: IDS.index(scene['id']) if scene['id'] in IDS else len(IDS))

@@ -1,0 +1,307 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>revised/assets/js/purple-sound.js</title><style>body{margin:0;background:#f8f7f3;color:#26332e;font:18px/1.6 system-ui}main{max-width:1100px;margin:auto;padding:24px 24px 100px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:white;border:1px solid #ddd;padding:20px;font:14px/1.65 monospace}</style><main><h1>revised/assets/js/purple-sound.js</h1><nav data-source="revised/assets/js/purple-sound.js" data-evidence-stops="[{&quot;id&quot;: &quot;L1&quot;, &quot;label&quot;: &quot;声音文件&quot;}]"></nav><pre><span id="L1">/* ==========================================================================</span>
+<span id="L2">   purple-sound.js — 紫色小游戏音效（可单独使用）</span>
+<span id="L3">   -------------------------------------------------------------------------</span>
+<span id="L4">   来源：初版紫色翻牌游戏的 WebAudio 合成器（原 sound.js），已扩展为</span>
+<span id="L5">   「与玩法无关的事件音效表」——翻牌游戏只是它的一个使用方。</span>
+<span id="L6"></span>
+<span id="L7">   特性：</span>
+<span id="L8">     · 零音频文件，纯 WebAudio 现场合成</span>
+<span id="L9">     · 惰性创建 AudioContext；浏览器要求先有用户交互才允许播放</span>
+<span id="L10">     · 可全局静音、可调主音量、设置持久化</span>
+<span id="L11">     · 事件名通用（tap / move / select / success / error / …），各玩法自行取用</span>
+<span id="L12">     · 可用 defineCue() 覆盖或新增自己的音效</span>
+<span id="L13"></span>
+<span id="L14">   用法：</span>
+<span id="L15">     import { play, bindSoundToggle, setSoundEnabled } from &#x27;./purple-sound.js&#x27;;</span>
+<span id="L16">     play(&#x27;success&#x27;);</span>
+<span id="L17">     bindSoundToggle(document.getElementById(&#x27;sound-toggle&#x27;));</span>
+<span id="L18">   ========================================================================== */</span>
+<span id="L19"></span>
+<span id="L20">/* ------------------------------------------------------------------ 状态 */</span>
+<span id="L21"></span>
+<span id="L22">let ctx = null;</span>
+<span id="L23">let enabled = true;</span>
+<span id="L24">let masterVolume = 0.6;</span>
+<span id="L25">let unlockBound = false;</span>
+<span id="L26">const activeVoices = new Map();   // osc -&gt; 预计结束时间</span>
+<span id="L27">const MAX_VOICES = 12;</span>
+<span id="L28"></span>
+<span id="L29">/* ------------------------------------------------------------ 音效事件表 */</span>
+<span id="L30"></span>
+<span id="L31">/*</span>
+<span id="L32">  每个 cue 是一组 step，按顺序播放。step 字段：</span>
+<span id="L33">    type    振荡器波形：sine / triangle / square / sawtooth</span>
+<span id="L34">    freq    起始频率 Hz（可带 freq2 做滑音）</span>
+<span id="L35">    freq2   结束频率 Hz（可选）</span>
+<span id="L36">    duration 时长 秒</span>
+<span id="L37">    gain    音量 0..1（再乘主音量）</span>
+<span id="L38">    delay   相对起点的延迟 秒</span>
+<span id="L39"></span>
+<span id="L40">  事件名刻意保持通用：不要把「翻牌」「配对」这类玩法动作写进表里。</span>
+<span id="L41">*/</span>
+<span id="L42">const DEFAULT_CUES = {</span>
+<span id="L43">  /* 轻点 / 落子 / 按钮：最常用的一次反馈 */</span>
+<span id="L44">  tap: [</span>
+<span id="L45">    { type: &#x27;triangle&#x27;, freq: 520, duration: 0.07, gain: 0.09 },</span>
+<span id="L46">  ],</span>
+<span id="L47"></span>
+<span id="L48">  /* 光标移动 / 焦点切换：必须很轻，否则连续触发会吵 */</span>
+<span id="L49">  move: [</span>
+<span id="L50">    { type: &#x27;sine&#x27;, freq: 380, duration: 0.05, gain: 0.045 },</span>
+<span id="L51">  ],</span>
+<span id="L52"></span>
+<span id="L53">  /* 选中 / 打开菜单 / 展开面板 */</span>
+<span id="L54">  select: [</span>
+<span id="L55">    { type: &#x27;sine&#x27;, freq: 660, duration: 0.08, gain: 0.10 },</span>
+<span id="L56">    { type: &#x27;sine&#x27;, freq: 880, duration: 0.10, gain: 0.08, delay: 0.05 },</span>
+<span id="L57">  ],</span>
+<span id="L58"></span>
+<span id="L59">  /* 拿到东西 / 得分 / 资源到账：向上的短滑音 */</span>
+<span id="L60">  pickup: [</span>
+<span id="L61">    { type: &#x27;triangle&#x27;, freq: 523, freq2: 784, duration: 0.12, gain: 0.11 },</span>
+<span id="L62">  ],</span>
+<span id="L63"></span>
+<span id="L64">  /* 命中 / 达成一次目标：双音上行 */</span>
+<span id="L65">  success: [</span>
+<span id="L66">    { type: &#x27;sine&#x27;, freq: 660, duration: 0.12, gain: 0.13 },</span>
+<span id="L67">    { type: &#x27;sine&#x27;, freq: 990, duration: 0.16, gain: 0.11, delay: 0.08 },</span>
+<span id="L68">  ],</span>
+<span id="L69"></span>
+<span id="L70">  /* 失误 / 犯规 / 受到惩罚：单音低沉的锯齿波 */</span>
+<span id="L71">  error: [</span>
+<span id="L72">    { type: &#x27;sawtooth&#x27;, freq: 196, duration: 0.20, gain: 0.07 },</span>
+<span id="L73">  ],</span>
+<span id="L74"></span>
+<span id="L75">  /* 倒计时 / 滴答：极短的滴声 */</span>
+<span id="L76">  tick: [</span>
+<span id="L77">    { type: &#x27;sine&#x27;, freq: 1000, duration: 0.03, gain: 0.05 },</span>
+<span id="L78">  ],</span>
+<span id="L79"></span>
+<span id="L80">  /* 通关 / 任务完成：四音上行琶音（结算浮层弹出时用） */</span>
+<span id="L81">  complete: [</span>
+<span id="L82">    { type: &#x27;triangle&#x27;, freq: 523, duration: 0.26, gain: 0.13 },</span>
+<span id="L83">    { type: &#x27;triangle&#x27;, freq: 659, duration: 0.26, gain: 0.13, delay: 0.11 },</span>
+<span id="L84">    { type: &#x27;triangle&#x27;, freq: 784, duration: 0.26, gain: 0.13, delay: 0.22 },</span>
+<span id="L85">    { type: &#x27;triangle&#x27;, freq: 1047, duration: 0.26, gain: 0.13, delay: 0.33 },</span>
+<span id="L86">  ],</span>
+<span id="L87"></span>
+<span id="L88">  /* 失败 / 结束：三音下行 */</span>
+<span id="L89">  fail: [</span>
+<span id="L90">    { type: &#x27;sawtooth&#x27;, freq: 440, duration: 0.18, gain: 0.08 },</span>
+<span id="L91">    { type: &#x27;sawtooth&#x27;, freq: 349, duration: 0.18, gain: 0.08, delay: 0.14 },</span>
+<span id="L92">    { type: &#x27;sawtooth&#x27;, freq: 262, duration: 0.30, gain: 0.08, delay: 0.28 },</span>
+<span id="L93">  ],</span>
+<span id="L94">};</span>
+<span id="L95"></span>
+<span id="L96">const cues = { ...DEFAULT_CUES };</span>
+<span id="L97"></span>
+<span id="L98">/* ------------------------------------------------------------------ 工具 */</span>
+<span id="L99"></span>
+<span id="L100">function getContext() {</span>
+<span id="L101">  if (!enabled) return null;</span>
+<span id="L102">  if (ctx === null) {</span>
+<span id="L103">    const Ctor = typeof window !== &#x27;undefined&#x27;</span>
+<span id="L104">      ? (window.AudioContext || window.webkitAudioContext)</span>
+<span id="L105">      : null;</span>
+<span id="L106">    if (!Ctor) return null;</span>
+<span id="L107">    try {</span>
+<span id="L108">      ctx = new Ctor();</span>
+<span id="L109">    } catch {</span>
+<span id="L110">      ctx = null;</span>
+<span id="L111">    }</span>
+<span id="L112">  }</span>
+<span id="L113">  if (ctx &amp;&amp; ctx.state === &#x27;suspended&#x27; &amp;&amp; typeof ctx.resume === &#x27;function&#x27;) {</span>
+<span id="L114">    ctx.resume().catch(() =&gt; {});</span>
+<span id="L115">  }</span>
+<span id="L116">  return ctx;</span>
+<span id="L117">}</span>
+<span id="L118"></span>
+<span id="L119">function tone(step, startAt) {</span>
+<span id="L120">  const audio = getContext();</span>
+<span id="L121">  if (!audio) return;</span>
+<span id="L122"></span>
+<span id="L123">  const start = startAt + (step.delay || 0);</span>
+<span id="L124">  const endAt = start + step.duration + 0.02;</span>
+<span id="L125"></span>
+<span id="L126">  // 清理已经结束的声部（onended 未必在所有环境触发，这里按时间兜底）</span>
+<span id="L127">  for (const [osc, end] of activeVoices) {</span>
+<span id="L128">    if (end &lt;= audio.currentTime) activeVoices.delete(osc);</span>
+<span id="L129">  }</span>
+<span id="L130">  if (activeVoices.size &gt;= MAX_VOICES) return;</span>
+<span id="L131"></span>
+<span id="L132">  const osc = audio.createOscillator();</span>
+<span id="L133">  const vol = audio.createGain();</span>
+<span id="L134">  const peak = Math.max(0.0001, (step.gain ?? 0.1) * masterVolume);</span>
+<span id="L135"></span>
+<span id="L136">  osc.type = step.type || &#x27;sine&#x27;;</span>
+<span id="L137">  osc.frequency.setValueAtTime(step.freq, start);</span>
+<span id="L138">  if (step.freq2) osc.frequency.exponentialRampToValueAtTime(step.freq2, start + step.duration);</span>
+<span id="L139"></span>
+<span id="L140">  vol.gain.setValueAtTime(0.0001, start);</span>
+<span id="L141">  vol.gain.exponentialRampToValueAtTime(peak, start + 0.015);</span>
+<span id="L142">  vol.gain.exponentialRampToValueAtTime(0.0001, start + step.duration);</span>
+<span id="L143"></span>
+<span id="L144">  osc.connect(vol).connect(audio.destination);</span>
+<span id="L145">  activeVoices.set(osc, endAt);</span>
+<span id="L146">  osc.onended = () =&gt; activeVoices.delete(osc);</span>
+<span id="L147">  osc.start(start);</span>
+<span id="L148">  osc.stop(endAt);</span>
+<span id="L149">}</span>
+<span id="L150"></span>
+<span id="L151">/* ---------------------------------------------------------------- 公共 API */</span>
+<span id="L152"></span>
+<span id="L153">/** 全局开关。关闭后所有 play() 静默失败。 */</span>
+<span id="L154">export function setSoundEnabled(value) {</span>
+<span id="L155">  enabled = Boolean(value);</span>
+<span id="L156">  return enabled;</span>
+<span id="L157">}</span>
+<span id="L158"></span>
+<span id="L159">export function isSoundEnabled() {</span>
+<span id="L160">  return enabled;</span>
+<span id="L161">}</span>
+<span id="L162"></span>
+<span id="L163">/** 主音量 0..1，默认 0.6。 */</span>
+<span id="L164">export function setMasterVolume(value) {</span>
+<span id="L165">  const v = Number(value);</span>
+<span id="L166">  masterVolume = Number.isFinite(v) ? Math.min(1, Math.max(0, v)) : masterVolume;</span>
+<span id="L167">  return masterVolume;</span>
+<span id="L168">}</span>
+<span id="L169"></span>
+<span id="L170">export function getMasterVolume() {</span>
+<span id="L171">  return masterVolume;</span>
+<span id="L172">}</span>
+<span id="L173"></span>
+<span id="L174">/**</span>
+<span id="L175"> * 新增或覆盖一个音效事件。</span>
+<span id="L176"> * @param {string} name 事件名（建议用通用语义，不要用玩法专有名词）</span>
+<span id="L177"> * @param {Array&lt;{type?:string,freq:number,freq2?:number,duration?:number,gain?:number,delay?:number}&gt;} steps</span>
+<span id="L178"> */</span>
+<span id="L179">export function defineCue(name, steps) {</span>
+<span id="L180">  if (!name || !Array.isArray(steps) || steps.length === 0) return false;</span>
+<span id="L181">  cues[name] = steps.map((s) =&gt; ({</span>
+<span id="L182">    type: s.type || &#x27;sine&#x27;,</span>
+<span id="L183">    freq: Number(s.freq) || 440,</span>
+<span id="L184">    freq2: s.freq2 == null ? undefined : Number(s.freq2),</span>
+<span id="L185">    duration: Number(s.duration) || 0.12,</span>
+<span id="L186">    gain: s.gain == null ? 0.1 : Number(s.gain),</span>
+<span id="L187">    delay: Number(s.delay) || 0,</span>
+<span id="L188">  }));</span>
+<span id="L189">  return true;</span>
+<span id="L190">}</span>
+<span id="L191"></span>
+<span id="L192">export function getCueNames() {</span>
+<span id="L193">  return Object.keys(cues);</span>
+<span id="L194">}</span>
+<span id="L195"></span>
+<span id="L196">export function hasCue(name) {</span>
+<span id="L197">  return Object.prototype.hasOwnProperty.call(cues, name);</span>
+<span id="L198">}</span>
+<span id="L199"></span>
+<span id="L200">/**</span>
+<span id="L201"> * 播放一个音效事件。</span>
+<span id="L202"> * @param {string} name 事件名；未知事件返回 false（不抛错）</span>
+<span id="L203"> * @param {{delay?:number, gain?:number}} [opts] 额外延迟 / 音量倍率</span>
+<span id="L204"> * @returns {boolean} 是否真的播放了</span>
+<span id="L205"> */</span>
+<span id="L206">export function play(name, opts = {}) {</span>
+<span id="L207">  if (!enabled) return false;</span>
+<span id="L208">  const steps = cues[name];</span>
+<span id="L209">  if (!steps) return false;</span>
+<span id="L210">  const audio = getContext();</span>
+<span id="L211">  if (!audio) return false;</span>
+<span id="L212"></span>
+<span id="L213">  const base = audio.currentTime + (opts.delay || 0);</span>
+<span id="L214">  const gainScale = opts.gain == null ? 1 : Math.max(0, Number(opts.gain) || 0);</span>
+<span id="L215">  for (const step of steps) {</span>
+<span id="L216">    tone({ ...step, gain: step.gain * gainScale }, base);</span>
+<span id="L217">  }</span>
+<span id="L218">  return true;</span>
+<span id="L219">}</span>
+<span id="L220"></span>
+<span id="L221">/**</span>
+<span id="L222"> * 在第一次用户交互时解锁音频（部分浏览器要求）。</span>
+<span id="L223"> * 可以重复调用，内部只绑定一次。</span>
+<span id="L224"> */</span>
+<span id="L225">export function unlockAudio() {</span>
+<span id="L226">  if (unlockBound) return;</span>
+<span id="L227">  unlockBound = true;</span>
+<span id="L228">  if (typeof document === &#x27;undefined&#x27;) return;</span>
+<span id="L229">  const unlock = () =&gt; {</span>
+<span id="L230">    const audio = getContext();</span>
+<span id="L231">    if (audio &amp;&amp; audio.state === &#x27;suspended&#x27; &amp;&amp; typeof audio.resume === &#x27;function&#x27;) {</span>
+<span id="L232">      audio.resume().catch(() =&gt; {});</span>
+<span id="L233">    }</span>
+<span id="L234">  };</span>
+<span id="L235">  document.addEventListener(&#x27;pointerdown&#x27;, unlock, { once: true });</span>
+<span id="L236">  document.addEventListener(&#x27;keydown&#x27;, unlock, { once: true });</span>
+<span id="L237">  document.addEventListener(&#x27;touchstart&#x27;, unlock, { once: true });</span>
+<span id="L238">}</span>
+<span id="L239"></span>
+<span id="L240">/* ------------------------------------------------------------ 静音开关 UI */</span>
+<span id="L241"></span>
+<span id="L242">const STORAGE_KEY = &#x27;purple-game-ui.sound&#x27;;</span>
+<span id="L243"></span>
+<span id="L244">function safeStorage() {</span>
+<span id="L245">  try {</span>
+<span id="L246">    if (typeof window === &#x27;undefined&#x27; || !window.localStorage) return null;</span>
+<span id="L247">    const probe = &#x27;__pg_sound_probe__&#x27;;</span>
+<span id="L248">    window.localStorage.setItem(probe, probe);</span>
+<span id="L249">    window.localStorage.removeItem(probe);</span>
+<span id="L250">    return window.localStorage;</span>
+<span id="L251">  } catch {</span>
+<span id="L252">    return null;   // 隐私模式等场景：降级为不持久化</span>
+<span id="L253">  }</span>
+<span id="L254">}</span>
+<span id="L255"></span>
+<span id="L256">/**</span>
+<span id="L257"> * 把一个按钮绑成「音效开关」，并持久化状态。</span>
+<span id="L258"> *</span>
+<span id="L259"> * 按钮文案自动切换为 🔊 音效 / 🔇 静音，aria-pressed 同步更新</span>
+<span id="L260"> *（aria-pressed=true 表示声音开着）。</span>
+<span id="L261"> *</span>
+<span id="L262"> * @param {HTMLElement} button</span>
+<span id="L263"> * @param {{defaultOn?:boolean, onChange?:(on:boolean)=&gt;void}} [opts]</span>
+<span id="L264"> * @returns {{isOn:()=&gt;boolean, toggle:()=&gt;boolean}}</span>
+<span id="L265"> */</span>
+<span id="L266">export function bindSoundToggle(button, opts = {}) {</span>
+<span id="L267">  const defaultOn = opts.defaultOn !== false;</span>
+<span id="L268">  const store = safeStorage();</span>
+<span id="L269"></span>
+<span id="L270">  let on = defaultOn;</span>
+<span id="L271">  if (store) {</span>
+<span id="L272">    const saved = store.getItem(STORAGE_KEY);</span>
+<span id="L273">    if (saved === &#x27;on&#x27;) on = true;</span>
+<span id="L274">    else if (saved === &#x27;off&#x27;) on = false;</span>
+<span id="L275">  }</span>
+<span id="L276"></span>
+<span id="L277">  const paint = () =&gt; {</span>
+<span id="L278">    if (!button) return;</span>
+<span id="L279">    button.textContent = on ? &#x27;🔊 音效&#x27; : &#x27;🔇 静音&#x27;;</span>
+<span id="L280">    button.setAttribute(&#x27;aria-pressed&#x27;, String(on));</span>
+<span id="L281">    button.setAttribute(&#x27;aria-label&#x27;, on ? &#x27;关闭音效&#x27; : &#x27;开启音效&#x27;);</span>
+<span id="L282">  };</span>
+<span id="L283"></span>
+<span id="L284">  const apply = () =&gt; {</span>
+<span id="L285">    setSoundEnabled(on);</span>
+<span id="L286">    if (store) {</span>
+<span id="L287">      try { store.setItem(STORAGE_KEY, on ? &#x27;on&#x27; : &#x27;off&#x27;); } catch { /* 忽略 */ }</span>
+<span id="L288">    }</span>
+<span id="L289">    paint();</span>
+<span id="L290">    if (typeof opts.onChange === &#x27;function&#x27;) opts.onChange(on);</span>
+<span id="L291">  };</span>
+<span id="L292"></span>
+<span id="L293">  if (button) {</span>
+<span id="L294">    button.type = &#x27;button&#x27;;</span>
+<span id="L295">    button.classList.add(&#x27;pg-btn&#x27;, &#x27;pg-btn--ghost&#x27;);</span>
+<span id="L296">    button.addEventListener(&#x27;click&#x27;, () =&gt; {</span>
+<span id="L297">      on = !on;</span>
+<span id="L298">      apply();</span>
+<span id="L299">    });</span>
+<span id="L300">  }</span>
+<span id="L301"></span>
+<span id="L302">  apply();</span>
+<span id="L303">  return {</span>
+<span id="L304">    isOn: () =&gt; on,</span>
+<span id="L305">    toggle: () =&gt; { on = !on; apply(); return on; },</span>
+<span id="L306">  };</span>
+<span id="L307">}</span></pre></main><script src="../../evidence-navigation.js"></script></html>

@@ -1,0 +1,55 @@
+{
+  "tap": {
+    "starts": [
+      {
+        "freq": 440,
+        "type": "triangle"
+      }
+    ],
+    "peak": 0.050991661846637726
+  },
+  "pickup": {
+    "starts": [
+      {
+        "freq": 440,
+        "type": "triangle"
+      }
+    ],
+    "peak": 0.0634404867887497
+  },
+  "error": {
+    "starts": [
+      {
+        "freq": 440,
+        "type": "sawtooth"
+      }
+    ],
+    "peak": 0.036467455327510834
+  },
+  "complete": {
+    "starts": [
+      {
+        "freq": 440,
+        "type": "triangle"
+      },
+      {
+        "freq": 440,
+        "type": "triangle"
+      },
+      {
+        "freq": 440,
+        "type": "triangle"
+      },
+      {
+        "freq": 440,
+        "type": "triangle"
+      }
+    ],
+    "peak": 0.07509905099868774
+  },
+  "muted": {
+    "starts": [],
+    "peak": 0
+  },
+  "errors": []
+}

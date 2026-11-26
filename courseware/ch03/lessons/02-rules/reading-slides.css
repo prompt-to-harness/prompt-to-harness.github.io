@@ -36,7 +36,7 @@ body[data-mode=scroll] .resource-board{min-width:950px}
 .resource-table tr.step-hidden td{border-color:transparent}
 .usage-table tr.step-past{opacity:.78}
 /* 知识图：先看组成，再用同一空间位置理解渐进披露。 */
-#p07o .step-past,#p07q .step-past{opacity:1}
+#p07o .step-past,#p07os .step-past,#p07q .step-past{opacity:1}
 #p07q .map-body,#p07q .map-resources,#p07q .map-external{opacity:.32;transition:opacity .3s}
 #p07q:has(.phase-1:not(.step-hidden)) .map-body{opacity:1}
 #p07q:has(.phase-1:not(.step-hidden)) .map-meta{opacity:.55}
@@ -56,7 +56,7 @@ body[data-mode=scroll] #p07q .map-note-0,body[data-mode=scroll] #p07q .map-note-
 .body-knowledge h3{font:26px "Course Title",sans-serif;margin:0 0 12px}.body-knowledge section:nth-child(2) h3,.body-knowledge section:nth-child(4) h3{color:#0b6b5f}.body-knowledge p{font-size:22px;line-height:1.65;margin:0}
 .body-examples{margin-top:22px;border-top:1px solid #c8c3b6;padding-top:6px}.body-examples p{display:grid;grid-template-columns:280px 1fr;font-size:21px;margin:10px 0;padding:8px 14px;background:#fffdf7;border-left:3px solid #9c8b66}.body-examples p:last-child{border-left-color:#0b6b5f}
 
-body[data-mode=slides] :is(#p07o,#p07q) .scene-content{top:200px;height:432px;display:block}
+body[data-mode=slides] :is(#p07o,#p07os,#p07ox,#p07q) .scene-content{top:200px;height:432px;display:block}
 /* 三个任务：避开讲师框（y 24-249, x 956-1256），知识与实例保持同屏，结果最后揭示。 */
 .task-board{font:21px/1.5 var(--font-body);color:#243042;width:100%}
 .task-pair{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:12px}
@@ -83,3 +83,106 @@ body[data-mode=slides] .segment-bar .segment:nth-child(2){min-width:210px}
 /* 3.2.4：图示避开讲师框；已揭示组成保持可读。 */
 body[data-mode=slides] .plugin-slide .scene-content{top:262px;height:370px;display:block}
 .plugin-slide .step-past{opacity:1}
+
+/* 锚点图保留完整空间关系，以焦点区分当前讲述对象。 */
+.anchor-map :is(.map-meta,.map-body,.map-resources,.map-external){opacity:.35}
+.anchor-map.focus-body :is(.map-meta,.map-body),.anchor-map.focus-resources .map-resources,.anchor-map.focus-external .map-external{opacity:1}
+
+/* 两张详情页：以完整内容组在标题与导航之间居中，保留原文入口。 */
+body[data-mode=slides] :is(#p07m,#p07p) .scene-content{top:141.8px;height:540.2px;display:flex;flex-direction:column;justify-content:center;gap:0}
+body[data-mode=slides] :is(#p07m,#p07p) .resource-board{height:auto;display:block;flex:none}
+body[data-mode=slides] :is(#p07m,#p07p) .reading-actions{position:static;margin-top:22px;flex:none}
+.work-route,.reference-scene{font-size:22px;line-height:1.4}
+.route-stations{display:grid;grid-template-columns:1fr 35px 1fr 35px 1fr 35px 1fr;align-items:start}
+.route-stations section{padding:0 12px}
+.route-number{font:20px monospace;color:#9c8b66}
+.route-stations h3{font:28px "Course Title";margin:5px 0 12px;color:#0b6b5f}
+.route-stations p{margin:0;font-size:21px}
+.route-arrow{font-size:30px;color:#9c8b66;padding-top:42px}
+.route-example{border-top:2px solid #c8c3b6;margin-top:18px;padding-top:12px;font-size:21px;min-height:59px}
+.route-return{width:53%;margin:12px auto 0;border-top:2px solid #9c8b66;text-align:center;color:#6e6043;font-size:18px;padding-top:5px}
+.diagram-note{font-size:18px;color:#6e6043;margin:18px 0 0}
+.route-input{margin:10px 0 0;font-size:20px}.route-input strong{font-weight:500;color:#0b6b5f}.route-input>span{margin:0 18px;color:#9c8b66}
+.reference-pair{display:grid;grid-template-columns:1.3fr 150px 1fr;align-items:center;gap:20px}
+.reference-source{padding:20px 22px;background:#eee9dd;border-left:4px solid #9c8b66}
+.file-label{font:20px monospace;color:#6e6043}
+.reference-source p{margin:16px 0;font-size:23px;line-height:1.6}.reference-source strong{color:#0b6b5f;text-decoration:underline;text-underline-offset:6px;font-family:monospace}
+.reference-annotation{display:flex;gap:24px;color:#6e6043;font-size:18px}
+.reference-arrow{font-size:18px;color:#0b6b5f;text-align:center}.reference-arrow b{display:block;font-size:48px;line-height:1.1;font-weight:400}
+.reference-file{border:2px solid #9c8b66;border-radius:2px 20px 2px 2px;padding:18px 22px;background:#fffdf7}
+.reference-file h3{font:27px "Course Title";margin:12px 0}.reference-file p{font-size:20px;margin:0}
+.paper-lines{margin-top:14px}.paper-lines i{display:block;height:1px;background:#d6d0c0;width:85%;margin-top:8px}.paper-lines i:last-child{width:60%}
+.resource-actions{display:flex;gap:42px;margin-top:24px;padding-top:18px;border-top:1px solid #c8c3b6}.resource-actions>div{display:flex;align-items:center;gap:18px;flex:1}
+.action-word{font:26px "Course Title";color:#0b6b5f}.resource-actions p{font-size:20px;margin:0;line-height:1.6}.resource-actions strong{font-size:21px;font-weight:500}.resource-actions b{color:#0b6b5f;font-weight:400}
+
+/* 正文写法：四类要求对应具体写法，不画成执行流程。 */
+.writing-points{display:grid;grid-template-columns:repeat(4,1fr);gap:34px}
+.writing-points section{border-top:2px solid #9c8b66;padding-top:14px}
+.writing-number{font:20px monospace;color:#9c8b66}
+.writing-points h3{font:28px "Course Title";color:#0b6b5f;margin:8px 0 14px}
+.writing-points p{font-size:22px;line-height:1.5;margin:0}
+.writing-example{border-top:1px solid #c8c3b6;margin-top:22px;padding-top:16px}
+.writing-example>span{font-size:20px;color:#0b6b5f}
+.writing-example p{font-size:20px;margin-top:8px}
+
+/* 正文详情：左侧常驻导航，右侧每步只呈现当前内容。 */
+.writing-switch{display:grid;grid-template-columns:230px 1fr;gap:48px;align-items:center;min-height:330px}
+.writing-nav{display:grid;gap:12px;border-right:1px solid #c8c3b6;padding-right:28px}
+.writing-nav-item{font:27px "Course Title";color:#8a8b86;padding:15px 10px;border-left:4px solid transparent}
+.writing-nav-item span{font:18px monospace;margin-right:16px}
+.writing-panels{position:relative;height:310px}
+.writing-panel{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:24px}
+#p07m .writing-panel.step-past{visibility:hidden;opacity:0;pointer-events:none}
+#p07m .writing-panel{transition:none;translate:none}
+#p07m .writing-panel h3{font:28px "Course Title";max-width:650px}
+#p07m:has(.writing-panel[data-reveal="0"]:not(.step-hidden):not(.step-past)) .writing-nav-0,
+#p07m:has(.writing-panel[data-reveal="1"]:not(.step-hidden):not(.step-past)) .writing-nav-1,
+#p07m:has(.writing-panel[data-reveal="2"]:not(.step-hidden):not(.step-past)) .writing-nav-2,
+#p07m:has(.writing-panel[data-reveal="3"]:not(.step-hidden):not(.step-past)) .writing-nav-3{color:#0b6b5f;background:transparent;border-left-color:transparent;--writing-selected:1}
+.scope-example,.delivery-example{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}
+.example-paper{background:#fffdf7;border:1px solid #9c8b66;border-radius:2px 20px 2px 2px;padding:22px}
+.writing-panel small{font-size:18px;color:#6e6043;display:block;margin-bottom:12px}
+.writing-panel strong{font-size:24px;font-weight:500;display:block;margin-bottom:14px;color:#0b6b5f}
+#p07m .writing-panel p{font-size:21px;line-height:1.6;margin:0}
+.input-pair>span{display:block;color:#6e6043;font-size:18px;margin-bottom:12px}.input-pair b{color:#9c8b66;font-weight:400}
+.method-chain{display:grid;grid-template-columns:1fr 25px 1fr 25px 1fr;gap:12px;align-items:center}.method-chain>div{border-top:2px solid #9c8b66;padding-top:15px}.method-chain>b{font-size:26px;color:#9c8b66;font-weight:400}
+.check-options{display:grid;grid-template-columns:1fr 1.2fr;gap:32px}.check-options section{border-top:2px solid #9c8b66;padding-top:16px}
+#p07m .writing-panel .writing-takeaway{font-size:18px;color:#6e6043}
+.delivery-example .example-paper p{padding:5px 0}.example-paper p span{color:#aaa28e}
+body[data-mode=scroll] .writing-panels{height:auto}body[data-mode=scroll] .writing-panel{position:static;margin-bottom:30px}
+/* 播放器末步会恢复历史元素；此页末步仍只显示交付要求。 */
+body[data-mode=slides] #p07m:has(.writing-panel[data-reveal="3"]:not(.step-hidden)) .writing-panel:not([data-reveal="3"]){visibility:hidden;opacity:0;pointer-events:none}
+body[data-mode=slides] #p07m:has(.writing-panel[data-reveal="3"]:not(.step-hidden)) .writing-nav-item:not(.writing-nav-3){color:#8a8b86;background:transparent;border-left-color:transparent;--writing-selected:0}
+
+/* 采用既有课件的手绘轮廓，文字保持工整。 */
+#p07m .writing-nav{border:0;padding-right:12px;gap:16px}
+#p07m .writing-nav-item{position:relative;border:0;padding:19px 16px;--writing-selected:0}
+#p07m .writing-nav-item::before{content:"";position:absolute;inset:-2px -5px;pointer-events:none;opacity:var(--writing-selected);background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20240%2076%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M7%209%20Q112%205%20231%208%20L233%2066%20Q124%2071%206%2067%20Z%22%20fill%3D%22none%22%20stroke%3D%22%230b6b5f%22%20stroke-width%3D%222.1%22%20stroke-linejoin%3D%22round%22/%3E%3Cpath%20d%3D%22M10%2011%20Q125%208%20229%2011%20M230%2064%20Q110%2067%2010%2065%22%20fill%3D%22none%22%20stroke%3D%22%230b6b5f%22%20stroke-width%3D%22.7%22%20opacity%3D%22.45%22/%3E%3C/svg%3E ") center/100% 100% no-repeat}
+#p07m .writing-nav-item span{margin-right:13px;color:#9c8b66}
+#p07m .writing-switch{gap:55px}
+#p07m .writing-panel h3{font-size:30px;line-height:1.35}
+#p07m .example-paper{border:0;border-radius:0;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20360%20240%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M4%205%20L326%203%20L355%2031%20L357%20235%20L5%20237%20Z%20M326%203%20L326%2032%20L355%2031%22%20fill%3D%22%23fffdf7%22%20stroke%3D%22%239c8b66%22%20stroke-width%3D%221.7%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E ") center/100% 100% no-repeat;padding:26px 24px}
+#p07m .method-chain>div{border-top:0;position:relative;padding:18px 0}
+#p07m .method-chain strong{font-family:"Course Title";font-size:29px;border-bottom:2px solid #9c8b66;padding-bottom:12px;transform:rotate(-.5deg)}
+#p07m .method-chain>div:nth-of-type(2) strong{transform:rotate(.6deg)}
+#p07m .check-options section{border-top:0;padding:18px 22px;background:#eee9dd;border-radius:2px 9px 3px 7px}
+#p07m .check-options section:last-child{background:#e8eeea;border-radius:8px 2px 9px 3px}
+#p07m .writing-panel strong{font-family:"Course Title";font-size:26px}
+#p07m .writing-panel .writing-takeaway{padding-top:8px}
+
+#p07m:has(.writing-panel[data-reveal="0"]:not(.step-hidden):not(.step-past)) .writing-nav-0{--writing-selected:1}
+
+#p07m:has(.writing-panel[data-reveal="1"]:not(.step-hidden):not(.step-past)) .writing-nav-1{--writing-selected:1}
+
+#p07m:has(.writing-panel[data-reveal="2"]:not(.step-hidden):not(.step-past)) .writing-nav-2{--writing-selected:1}
+
+#p07m:has(.writing-panel[data-reveal="3"]:not(.step-hidden):not(.step-past)) .writing-nav-3{--writing-selected:1}
+body[data-mode=slides] #p07m:has(.writing-panel[data-reveal="3"]:not(.step-hidden)) .writing-nav-item:not(.writing-nav-3){--writing-selected:0}
+
+/* 3.2 课件的强调块统一使用手绘闭合轮廓。 */
+:is(.resource-instruction,.body-examples p,.task-result,.task-results p,.reference-source,.authoring-reuse-target){position:relative;border-left:0;background:transparent;--outline-color:#9c8b66}
+:is(.resource-instruction,.body-examples p,.task-result,.task-results p,.reference-source,.authoring-reuse-target)::after{content:"";position:absolute;inset:0;pointer-events:none;background:var(--outline-image) center/100% 100% no-repeat}
+ :is(.resource-instruction,.body-examples p,.task-result,.task-results p,.reference-source,.authoring-reuse-target){--outline-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20600%20160%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M4%205%20Q280%202%20595%205%20L597%20154%20Q310%20158%204%20155%20Z%22%20fill%3D%22none%22%20stroke%3D%22%239c8b66%22%20stroke-width%3D%221.8%22%20vector-effect%3D%22non-scaling-stroke%22/%3E%3Cpath%20d%3D%22M7%208%20Q290%205%20592%208%20M592%20152%20Q280%20155%208%20152%22%20fill%3D%22none%22%20stroke%3D%22%239c8b66%22%20opacity%3D%22.35%22%20stroke-width%3D%22.7%22%20vector-effect%3D%22non-scaling-stroke%22/%3E%3C/svg%3E")}
+:is(.task-result,.task-results p){--outline-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20600%20160%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M4%205%20Q280%202%20595%205%20L597%20154%20Q310%20158%204%20155%20Z%22%20fill%3D%22none%22%20stroke%3D%22%230b6b5f%22%20stroke-width%3D%221.8%22%20vector-effect%3D%22non-scaling-stroke%22/%3E%3Cpath%20d%3D%22M7%208%20Q290%205%20592%208%20M592%20152%20Q280%20155%208%20152%22%20fill%3D%22none%22%20stroke%3D%22%230b6b5f%22%20opacity%3D%22.35%22%20stroke-width%3D%22.7%22%20vector-effect%3D%22non-scaling-stroke%22/%3E%3C/svg%3E")}
+:is(.task-result.is-risk,.task-results p.is-risk){--outline-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20600%20160%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M4%205%20Q280%202%20595%205%20L597%20154%20Q310%20158%204%20155%20Z%22%20fill%3D%22none%22%20stroke%3D%22%23ac3615%22%20stroke-width%3D%221.8%22%20vector-effect%3D%22non-scaling-stroke%22/%3E%3Cpath%20d%3D%22M7%208%20Q290%205%20592%208%20M592%20152%20Q280%20155%208%20152%22%20fill%3D%22none%22%20stroke%3D%22%23ac3615%22%20opacity%3D%22.35%22%20stroke-width%3D%22.7%22%20vector-effect%3D%22non-scaling-stroke%22/%3E%3C/svg%3E")}
+:is(.task-result.is-ok,.task-results p.is-ok){--outline-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20600%20160%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M4%205%20Q280%202%20595%205%20L597%20154%20Q310%20158%204%20155%20Z%22%20fill%3D%22none%22%20stroke%3D%22%2315803d%22%20stroke-width%3D%221.8%22%20vector-effect%3D%22non-scaling-stroke%22/%3E%3Cpath%20d%3D%22M7%208%20Q290%205%20592%208%20M592%20152%20Q280%20155%208%20152%22%20fill%3D%22none%22%20stroke%3D%22%2315803d%22%20opacity%3D%22.35%22%20stroke-width%3D%22.7%22%20vector-effect%3D%22non-scaling-stroke%22/%3E%3C/svg%3E")}

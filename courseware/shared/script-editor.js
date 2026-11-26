@@ -18,7 +18,7 @@ export async function enableScriptEditing(root, {commentsEnabled = true} = {}) {
       if (['localhost', '127.0.0.1'].includes(location.hostname)) addBanner('当前是只读页面。要改口播，运行 sh tools/edit-courseware.sh，从打开的浏览器进入逐字稿页。');
       return;
     }
-    makeEditable(async ({ intro, scene, screen, step, part, old, text, onDraft }) => {
+    makeEditable(async ({ intro, scene, screen, step, part, old, text, onDraft, strict = false }) => {
       while (true) {
         const response = await fetch('/__script/edit', {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -26,6 +26,7 @@ export async function enableScriptEditing(root, {commentsEnabled = true} = {}) {
         });
         const result = await response.json();
         if (response.status === 409 && typeof result.current === 'string') {
+          if (strict) throw new Error('源文件已在别处修改，未执行撤销或重做；请刷新后核对');
           const merged = await resolveConflict(result.current, text, onDraft);
           if (merged.cancelled) {
             const error = new Error('暂未保存，草稿已保留，可再次编辑后保存');
@@ -37,7 +38,7 @@ export async function enableScriptEditing(root, {commentsEnabled = true} = {}) {
           continue; // 再次比较最新值；对照期间发生的更新也不能被覆盖。
         }
         if (!response.ok) throw new Error(result.error);
-        return { text: result.text, note: `已写回 ${result.source}` };
+        return { text: result.text, before: old, note: `已写回 ${result.source}` };
       }
     }, '逐字稿可点击修改。Shift+Enter 换行，Enter 或点别处自动保存，Esc 撤销当前修改。');
     if (comments && commentsEnabled) {
@@ -131,6 +132,66 @@ export async function enableScriptEditing(root, {commentsEnabled = true} = {}) {
   function makeEditable(save, bannerText) {
     document.body.classList.add('script-editable');
     addBanner(bannerText);
+    const historyKey = 'script-history-v1:' + location.pathname;
+    let history = {undo: [], redo: []};
+    try {
+      const stored = JSON.parse(sessionStorage.getItem(historyKey));
+      if (stored && ['undo', 'redo'].every(key => Array.isArray(stored[key]) && stored[key].every(
+        item => typeof item.key === 'string' && typeof item.before === 'string' && typeof item.after === 'string'))) history = stored;
+    } catch { /* 当前页面仍可撤销 */ }
+    const normalize = text => text.replace(/\r\n?/g, '\n').replace(/\n{2,}/g, '\n').trim();
+    const editors = new Map();
+    let pending = 0, replaying = false;
+    const bar = document.createElement('nav');
+    bar.className = 'script-history'; bar.setAttribute('aria-label', '口播修改历史');
+    bar.style.cssText = 'position:fixed;right:16px;bottom:16px;z-index:1000;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:8px;background:#f4f2eb;border:1px solid #aaa;border-radius:8px;font:14px system-ui;max-width:calc(100vw - 32px);box-sizing:border-box';
+    const undo = document.createElement('button'), redo = document.createElement('button');
+    undo.type = redo.type = 'button';
+    undo.textContent = '撤销已保存修改'; redo.textContent = '重做';
+    undo.title = 'Command/Ctrl+Z；历史保留在当前标签页，刷新后可继续';
+    redo.title = 'Command/Ctrl+Shift+Z 或 Ctrl+Y';
+    const status = document.createElement('span'); status.setAttribute('role', 'status');
+    status.style.cssText = 'max-width:280px;overflow-wrap:anywhere';
+    bar.append(undo, redo, status); document.body.append(bar);
+    function updateHistory() {
+      undo.disabled = !!pending || replaying || !history.undo.length;
+      redo.disabled = !!pending || replaying || !history.redo.length;
+      try { sessionStorage.setItem(historyKey, JSON.stringify(history)); } catch { /* 内存历史仍可用 */ }
+    }
+    async function replay(direction) {
+      if (pending || replaying || !history[direction].length) return;
+      if ([...editors.values()].some(editor => editor.dirty())) {
+        status.textContent = '请先保存当前编辑，或按 Esc 取消'; return;
+      }
+      const entry = history[direction].at(-1), editor = editors.get(entry.key);
+      const expected = direction === 'undo' ? entry.after : entry.before;
+      if (!editor || editor.value() !== expected) {
+        status.textContent = '这段口播已变化，请核对后再操作'; return;
+      }
+      replaying = true; updateHistory();
+      const ok = await editor.commit(direction === 'undo' ? entry.before : entry.after, true);
+      if (ok) {
+        history[direction].pop(); history[direction === 'undo' ? 'redo' : 'undo'].push(entry);
+        status.textContent = (direction === 'undo' ? '已撤销：' : '已重做：') + editor.label;
+      }
+      replaying = false; updateHistory();
+    }
+    // 点击历史按钮不先触发输入框失焦保存，避免撤销目标在点击过程中变化。
+    for (const button of [undo, redo]) button.addEventListener('mousedown', event => event.preventDefault());
+    undo.onclick = () => replay('undo'); redo.onclick = () => replay('redo');
+    document.addEventListener('keydown', event => {
+      if (event.defaultPrevented || event.isComposing || event.altKey || !(event.metaKey || event.ctrlKey)) return;
+      const key = event.key.toLowerCase();
+      if (key !== 'z' && !(key === 'y' && event.ctrlKey)) return;
+      const active = document.activeElement;
+      if (active?.closest('dialog, input, textarea')) return;
+      const editor = [...editors.values()].find(item => item.node === active);
+      // 尚未保存的输入交给浏览器原生逐次撤销；已保存的改动使用源文件历史。
+      if (editor?.dirty() || editor?.nativePending() || (active?.isContentEditable && !editor)) return;
+      event.preventDefault();
+      replay(key === 'y' || event.shiftKey ? 'redo' : 'undo');
+    });
+    updateHistory();
     root.querySelectorAll('p.narration, [data-script-edit]').forEach(p => {
       p.contentEditable = 'plaintext-only';
       p.setAttribute('role', 'textbox');
@@ -140,11 +201,13 @@ export async function enableScriptEditing(root, {commentsEnabled = true} = {}) {
         : `开场白 ${Number(p.dataset.intro) + 1}`);
       p.title = '点击编辑，Shift+Enter 换行，Enter 或点别处保存，Esc 撤销';
       p.spellcheck = false;
+      // content-visibility 隐藏的段落可能返回空 innerText，不能当作被清空。
+      const readText = () => p.innerText || p.textContent;
       let saved = p.textContent;
-      let saving = false;
+      let saving = false, nativeHistory = false;
       const draftKey = 'script-draft:' + location.pathname + ':' + JSON.stringify([p.dataset.intro, p.dataset.scene, p.dataset.screen, p.dataset.step, p.dataset.part]);
       const keepDraft = () => {
-        try { sessionStorage.setItem(draftKey, JSON.stringify({old: saved, text: p.innerText})); } catch { /* 仍保留页面文字 */ }
+        try { sessionStorage.setItem(draftKey, JSON.stringify({old: saved, text: readText()})); } catch { /* 仍保留页面文字 */ }
       };
       const clearDraft = () => { try { sessionStorage.removeItem(draftKey); } catch {} };
       try {
@@ -154,7 +217,7 @@ export async function enableScriptEditing(root, {commentsEnabled = true} = {}) {
           p.dataset.state = 'error'; p.title = '已恢复未保存草稿，编辑后按 Enter 保存；Esc 撤销';
         } else if (draft) clearDraft();
       } catch { /* 无可恢复草稿 */ }
-      p.addEventListener('input', keepDraft);
+      p.addEventListener('input', () => { nativeHistory = true; keepDraft(); });
       const intro = p.dataset.intro === undefined ? undefined : Number(p.dataset.intro);
       p.addEventListener('focus', () => { p.dataset.state = 'editing'; });
       p.addEventListener('keydown', event => {
@@ -162,30 +225,46 @@ export async function enableScriptEditing(root, {commentsEnabled = true} = {}) {
         if (event.key === 'Escape') { event.preventDefault(); p.textContent = saved; clearDraft(); p.blur(); }
         if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); p.blur(); }
       });
-      p.addEventListener('blur', async () => {
-        if (saving) return;
-        const text = p.innerText.replace(/\r\n?/g, '\n').replace(/\n{2,}/g, '\n').trim();
-        if (text === saved) { p.textContent = saved; clearDraft(); delete p.dataset.state; return; }
-        keepDraft();
+      async function commit(text, replay = false) {
+        if (saving) return false;
+        if (normalize(text) === normalize(saved)) { nativeHistory = false; clearDraft(); delete p.dataset.state; return true; }
+        if (!replay) keepDraft();
+        pending++; updateHistory();
         saving = true;
         p.contentEditable = 'false';
         p.dataset.state = 'saving';
         try {
-          const result = await save({ intro, scene: p.dataset.scene, screen: p.dataset.screen, step: Number(p.dataset.step), part: Number(p.dataset.part), old: saved, text, onDraft: draft => { p.textContent = draft; keepDraft(); } });
-          p.textContent = saved = result.text;
+          const result = await save({ intro, scene: p.dataset.scene, screen: p.dataset.screen, step: Number(p.dataset.step), part: Number(p.dataset.part), old: saved, text, strict: replay, onDraft: draft => { p.textContent = draft; keepDraft(); } });
+          if (!replay && result.text !== result.before) {
+            history.undo.push({key: draftKey, before: result.before, after: result.text});
+            history.undo = history.undo.slice(-100); history.redo = [];
+            status.textContent = '已保存，可撤销';
+          }
+          p.textContent = result.text;
+          saved = result.text; nativeHistory = false;
           clearDraft();
           p.dataset.state = 'saved'; p.title = result.note;
           root.dispatchEvent(new Event('script:changed'));
+          return true;
         } catch (error) {
+          if (replay) {
+            p.dataset.state = 'error'; p.title = error.message;
+            status.textContent = error.message; return false;
+          }
           if (typeof error.draft === 'string') p.textContent = error.draft;
           keepDraft();
           p.dataset.state = 'error'; p.title = error.message;
           alert(`没有保存：${error.message}\n\n页面上保留了你的改动，刷新后也会恢复草稿，可再次编辑后保存。`);
         } finally {
           saving = false;
+          pending--; updateHistory();
           p.contentEditable = 'plaintext-only';
         }
-      });
+      }
+      const value = () => normalize(readText());
+      editors.set(draftKey, {node: p, label: p.getAttribute('aria-label'), value: () => saved,
+        dirty: () => value() !== normalize(saved), nativePending: () => nativeHistory, commit});
+      p.addEventListener('blur', () => commit(value()));
     });
   }
 

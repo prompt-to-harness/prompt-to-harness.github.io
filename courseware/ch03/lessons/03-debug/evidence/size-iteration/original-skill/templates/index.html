@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="一句话玩法说明。">
+<meta name="theme-color" content="#141a2e">
+<title>游戏名 · Game Name</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<main class="app">
+  <header class="app__header">
+    <h1 class="title">🎮 游戏名</h1>
+    <p class="subtitle">一句话说明玩法：做什么、怎么算赢。</p>
+  </header>
+
+  <!-- ===== HUD 左：分段控件（难度 / 模式 / 关卡） ===== -->
+  <section class="toolbar" aria-label="游戏设置">
+    <div class="field">
+      <span class="field__label" id="mode-label">难度</span>
+      <div class="segmented" id="mode-group" role="radiogroup" aria-labelledby="mode-label"></div>
+    </div>
+    <!-- ===== HUD 右：音效开关 + 主操作 ===== -->
+    <div class="field field--actions">
+      <button class="btn btn--ghost" id="sound-toggle" type="button" aria-pressed="true">🔊 音效</button>
+      <button class="btn btn--primary" id="restart-btn" type="button">↻ 重新开始</button>
+    </div>
+  </section>
+
+  <!-- ===== 数据条：四个格子，标签按玩法改 ===== -->
+  <section class="stats" aria-label="本局数据">
+    <div class="stat"><span class="stat__label">步数</span><span class="stat__value" id="stat-moves">0</span></div>
+    <div class="stat"><span class="stat__label">用时</span><span class="stat__value" id="stat-time">0:00</span></div>
+    <div class="stat"><span class="stat__label">进度</span><span class="stat__value" id="stat-progress">0/0</span></div>
+    <div class="stat"><span class="stat__label">最佳</span><span class="stat__value" id="stat-best">—</span></div>
+  </section>
+
+  <!-- ===== 场地：唯一需要替换的区域。容器保留 .board-wrap + .board ===== -->
+  <section class="board-wrap">
+    <div class="board" id="board" style="--cols: 4; --rows: 4">
+      <!-- 玩法 DOM 由你的脚本渲染到这里 -->
+    </div>
+  </section>
+
+  <footer class="app__footer">
+    <p class="hint">键盘操作：<kbd>←</kbd><kbd>↑</kbd><kbd>→</kbd><kbd>↓</kbd> 移动焦点，<kbd>Enter</kbd> 确认。</p>
+  </footer>
+</main>
+
+<!-- ===== 结算浮层：文案与按钮由 shell.showResult() 填充 ===== -->
+<div class="overlay" id="overlay" hidden>
+  <div class="overlay__panel" role="dialog" aria-modal="true" aria-labelledby="overlay-title" aria-describedby="overlay-text">
+    <div class="overlay__emoji" id="overlay-emoji" aria-hidden="true">🎉</div>
+    <h2 class="overlay__title" id="overlay-title">完成！</h2>
+    <p class="overlay__text" id="overlay-text"></p>
+    <div class="overlay__actions">
+      <button class="btn btn--primary" id="overlay-again" type="button">再玩一局</button>
+      <button class="btn btn--ghost" id="overlay-close" type="button">继续看看</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>

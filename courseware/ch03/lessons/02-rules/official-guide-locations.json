@@ -1,0 +1,117 @@
+{
+  "anthropic": {
+    "title": "Anthropic · Skill authoring best practices",
+    "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices",
+    "root": ".docs-prose",
+    "returnTo": "http://127.0.0.1:8841/courseware/ch03/lessons/02-rules/speaker.html#b31",
+    "nextGuide": "openai.html#boundary",
+    "steps": [
+      {
+        "id": "naming",
+        "label": "名称：动作与具体工作",
+        "start": "#naming-conventions",
+        "endBefore": "#writing-effective-descriptions",
+        "returnTo": "http://127.0.0.1:8841/courseware/ch03/lessons/02-rules/speaker.html#f17"
+      },
+      {
+        "id": "descriptions",
+        "label": "描述：用途、适用情境与示例",
+        "start": "#writing-effective-descriptions",
+        "endText": "Use when working with PDF files or when the user mentions PDFs, forms, or document extraction.",
+        "returnTo": "http://127.0.0.1:8841/courseware/ch03/lessons/02-rules/speaker.html#f17"
+      },
+      {
+        "id": "field-limits",
+        "label": "名称和描述的字符上限",
+        "start": "#yaml-frontmatter-requirements",
+        "endBefore": "#token-budgets",
+        "returnTo": "http://127.0.0.1:8841/courseware/ch03/lessons/02-rules/speaker.html#f18"
+      },
+      {
+        "id": "structure",
+        "label": "单文件 Skill 图",
+        "start": "svg[aria-label=\"Simple SKILL.md file showing YAML frontmatter and markdown body\"]",
+        "returnTo": "http://127.0.0.1:8841/courseware/ch03/lessons/02-rules/speaker.html?mode=script#cue-authoringStructure",
+        "endAfter": "svg[aria-label=\"Simple SKILL.md file showing YAML frontmatter and markdown body\"]",
+        "highlightElement": "svg[aria-label=\"Simple SKILL.md file showing YAML frontmatter and markdown body\"]"
+      },
+      {
+        "id": "references",
+        "label": "附带参考资料的 Skill 图",
+        "start": "svg[aria-label=\"Bundling additional reference files such as reference.md and forms.md.\"]",
+        "returnTo": "http://127.0.0.1:8841/courseware/ch03/lessons/02-rules/speaker.html?mode=script#cue-authoringReferences",
+        "endAfter": "svg[aria-label=\"Bundling additional reference files such as reference.md and forms.md.\"]",
+        "highlightElement": "svg[aria-label=\"Bundling additional reference files such as reference.md and forms.md.\"]"
+      },
+      {
+        "id": "workflow",
+        "label": "填写流程与检查",
+        "startText": "Example 2: PDF form filling workflow (for Skills with code):",
+        "endBefore": "#implement-feedback-loops",
+        "returnTo": "http://127.0.0.1:8841/courseware/ch03/lessons/02-rules/speaker.html?mode=script#cue-authoringWorkflow"
+      },
+      {
+        "id": "template",
+        "label": "报告模板",
+        "start": "#template-pattern",
+        "endText": "For flexible guidance (when adaptation is useful):",
+        "endExclusive": true,
+        "returnTo": "http://127.0.0.1:8841/courseware/ch03/lessons/02-rules/speaker.html?mode=script#cue-authoringPatterns"
+      },
+      {
+        "id": "examples",
+        "label": "输入输出示例",
+        "start": "#examples-pattern",
+        "endBefore": "#conditional-workflow-pattern",
+        "returnTo": "http://127.0.0.1:8841/courseware/ch03/lessons/02-rules/speaker.html?mode=script#cue-authoringExamples"
+      },
+      {
+        "id": "conditions",
+        "label": "条件流程",
+        "start": "#conditional-workflow-pattern",
+        "endBefore": "#evaluation-and-iteration",
+        "returnTo": "http://127.0.0.1:8841/courseware/ch03/lessons/02-rules/speaker.html?mode=script#cue-authoringConditions"
+      },
+      {
+        "id": "script-example",
+        "label": "运行命令与输出",
+        "startText": "## Utility scripts",
+        "endText": "**validate_boxes.py**",
+        "endExclusive": true,
+        "returnTo": "http://127.0.0.1:8841/courseware/ch03/lessons/02-rules/speaker.html?mode=script#cue-authoringScripts"
+      },
+      {
+        "id": "script-use",
+        "label": "运行或查阅脚本",
+        "startText": "Important distinction:",
+        "endText": "For most utility scripts, execution is preferred",
+        "endExclusive": true,
+        "returnTo": "http://127.0.0.1:8841/courseware/ch03/lessons/02-rules/speaker.html?mode=script#cue-authoringScriptUse"
+      }
+    ]
+  },
+  "openai": {
+    "title": "OpenAI · Build skills",
+    "url": "https://developers.openai.com/plugins/build/skills",
+    "root": "article.prose",
+    "returnTo": "http://127.0.0.1:8841/courseware/ch03/lessons/02-rules/speaker.html#b32",
+    "nextGuide": "http://127.0.0.1:8841/courseware/ch03/lessons/02-rules/index.html?mode=slides#p07o",
+    "steps": [
+      {
+        "id": "boundary",
+        "label": "工作边界",
+        "start": "#define-the-workflow-boundary",
+        "endBefore": "#review-instruction-following",
+        "returnTo": "http://127.0.0.1:8841/courseware/ch03/lessons/02-rules/speaker.html?mode=script#cue-workflowBoundary"
+      },
+      {
+        "id": "resources",
+        "label": "配套文件与入口",
+        "start": "#add-supporting-resources",
+        "endBefore": "#connect-skills-to-mcp-tools",
+        "returnTo": "http://127.0.0.1:8841/courseware/ch03/lessons/02-rules/speaker.html?mode=script#cue-supportGuide"
+      }
+    ],
+    "topOffset": 140
+  }
+}

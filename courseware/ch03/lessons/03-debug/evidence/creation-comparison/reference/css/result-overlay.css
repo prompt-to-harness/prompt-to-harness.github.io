@@ -1,0 +1,130 @@
+/* ==========================================================================
+   result-overlay.css — 结算浮层（可单独使用）
+   -------------------------------------------------------------------------
+   依赖：purple-theme.css（提供 --pg-* 变量、按钮 .pg-btn）
+
+   结构（静态 HTML 版见 assets/html/components.html）：
+     .pg-overlay                 遮罩层（fixed 铺满）
+       .pg-overlay__panel        面板
+         .pg-overlay__emoji       顶部大图标
+         .pg-overlay__title       主标题
+         .pg-overlay__text        描述文字
+         .pg-overlay__summary     结算明细行（可选）
+         .pg-overlay__actions     按钮区
+   ========================================================================== */
+
+.pg-overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(6, 9, 22, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 50;
+  animation: pg-fade-in 0.22s ease;
+}
+
+.pg-overlay[hidden] { display: none; }
+
+@keyframes pg-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.pg-overlay__panel {
+  width: min(420px, 100%);
+  max-height: 100%;
+  overflow: auto;
+  text-align: center;
+  padding: 30px 26px;
+  background: linear-gradient(165deg, rgba(42, 49, 112, 0.96), rgba(30, 24, 60, 0.96));
+  border: 1px solid var(--pg-border);
+  border-radius: var(--pg-radius-lg);
+  box-shadow: var(--pg-shadow);
+  animation: pg-rise 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+@keyframes pg-rise {
+  from { opacity: 0; transform: translateY(22px) scale(0.95); }
+  to { opacity: 1; transform: none; }
+}
+
+.pg-overlay__emoji {
+  font-size: 3.2rem;
+  line-height: 1;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.35));
+}
+
+.pg-overlay__title {
+  margin: 10px 0 6px;
+  font-size: 1.45rem;
+  background: var(--pg-grad-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.pg-overlay__text {
+  margin: 0 0 20px;
+  color: var(--pg-text-dim);
+  font-size: 0.93rem;
+  line-height: 1.7;
+}
+
+.pg-overlay__text strong { color: var(--pg-text); }
+
+/* 结算明细：每行 “标签 ……… 数值” */
+.pg-overlay__summary {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 20px;
+  padding: 14px 16px;
+  text-align: left;
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid var(--pg-border);
+  border-radius: var(--pg-radius-sm);
+}
+
+.pg-overlay__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.88rem;
+  color: var(--pg-text-dim);
+}
+
+.pg-overlay__row-value {
+  color: var(--pg-text);
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.pg-overlay__row--good .pg-overlay__row-value { color: var(--pg-good); }
+.pg-overlay__row--bad .pg-overlay__row-value { color: var(--pg-bad); }
+.pg-overlay__row--accent .pg-overlay__row-value { color: #b9c2ff; }
+
+.pg-overlay__actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* 紧凑版：用于中途提示、暂停面板等 */
+.pg-overlay--compact .pg-overlay__panel {
+  width: min(340px, 100%);
+  padding: 24px 22px;
+}
+
+.pg-overlay--compact .pg-overlay__emoji { font-size: 2.4rem; }
+.pg-overlay--compact .pg-overlay__title { font-size: 1.2rem; }
+
+/* 焦点可见：键盘用户从遮罩进入面板时仍有清晰指示 */
+.pg-overlay__panel:focus-visible,
+.pg-overlay__panel:focus-within {
+  outline: 3px solid var(--pg-accent-3);
+  outline-offset: 3px;
+}

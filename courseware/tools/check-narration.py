@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Check continuous narration on actual chapter 3 pages, not only the template."""
+import json
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
@@ -11,11 +12,12 @@ with sync_playwright() as playwright:
         errors = []
         page.on('pageerror', lambda error: errors.append(str(error)))
         page.goto(page_path.as_uri())
-        page.wait_for_selector('.narration-entry')
+        page.wait_for_selector('.entry')
         ids = page.evaluate('''() => narrationData.parts.flatMap(p =>
           [p.id, ...(p.groups || []).flatMap(g => [g.id, ...(g.screens || []).map(s => s.id)])])''')
-        assert page.locator('.narration-entry').count() == len(ids)
-        page.evaluate('window.originalEntries = [...document.querySelectorAll(".narration-entry")]')
+        ids.insert(0, 'ppt-plan')
+        assert page.locator('.entry').count() == len(ids)
+        page.evaluate('window.originalEntries = [...document.querySelectorAll(".entry")]')
         sidebar = page.evaluate("document.querySelector('aside').scrollTop")
         folds = page.evaluate("[...document.querySelectorAll('nav details')].map(e => e.open)")
         # Exercise every boundary without navigation or replacing any content.
@@ -35,7 +37,7 @@ with sync_playwright() as playwright:
         page.goto(page_path.as_uri() + '#' + target)
         page.reload()
         page.wait_for_function('id => document.querySelector("nav [aria-current]")?.hash === "#" + id', arg=target)
-        page.evaluate('window.originalEntries = [...document.querySelectorAll(".narration-entry")]')
+        page.evaluate('window.originalEntries = [...document.querySelectorAll(".entry")]')
         for entry_id in (following, target):
             page.evaluate('id => document.querySelector(`nav a[href="#${id}"]`).click()', entry_id)
         page.go_back()
@@ -67,13 +69,14 @@ with sync_playwright() as playwright:
             page.on('pageerror', lambda error: errors.append(str(error)))
             url = page_path.parents[1] / folder / 'speaker.html'
             page.goto(url.as_uri())
-            page.wait_for_selector(entry_selector)
+            assert not errors, (folder, errors)
+            page.wait_for_selector(entry_selector, state='attached')
             page.evaluate('''({panel, entries}) => {
               window.readingPanel = panel ? document.querySelector(panel) : document.scrollingElement;
               window.originalEntries = [...document.querySelectorAll(entries)];
               window.originalScripts = [...document.querySelectorAll('[data-scene]')].map(node =>
                 ({node, text:node.textContent, scene:node.dataset.scene, step:node.dataset.step, part:node.dataset.part}));
-              window.checkContinuity = () => originalEntries.every(node => node.isConnected && node.getBoundingClientRect().height > 0)
+              window.checkContinuity = () => originalEntries.every(node => node.isConnected && (node.hidden || node.getBoundingClientRect().height > 0))
                 && originalScripts.every(({node,text,scene,step,part}) => node.isConnected && node.textContent === text
                   && node.dataset.scene === scene && node.dataset.step === step && node.dataset.part === part);
             }''', {'panel': panel_selector, 'entries': entry_selector})
@@ -81,10 +84,51 @@ with sync_playwright() as playwright:
               : window.unifiedSpeakerPlan ? unifiedSpeakerPlan.contentDesign.units.reduce((n,u)=>n+1+u.items.length,0)
               : window.screenPlan ? screenPlan.units.length+1 : lesson.scenes.length''')
             assert page.locator(entry_selector).count() == expected, folder
+            if folder == '02-rules':
+                # Both modes keep original narration mounted. A longer edited
+                # passage must still display every paragraph under its cues.
+                scripts = json.loads((url.parent / 'script.json').read_text())
+                for mode, label in [('design', '讲述安排'), ('script', '画面与口播')]:
+                    button = page.locator('.speaker-mode-toolbar').get_by_role('button', name=label, exact=True)
+                    button.click()
+                    assert button.get_attribute('aria-pressed') == 'true'
+                    assert f'mode={mode}' in page.url
+                    assert page.evaluate('checkContinuity()'), (folder, mode)
+                    assert page.locator('.discussion-content:not([hidden])').count() > 0
+                for step, text in enumerate(scripts['r322-1']):
+                    source_nodes = page.locator(f'#b31 [data-scene="r322-1"][data-step="{step}"]')
+                    assert source_nodes.all_text_contents() == text.split('\n\n')[1:], (folder, step)
+                    assert all(node.is_visible() for node in source_nodes.all()), (folder, step)
             hashes = page.eval_on_selector_all('aside a[href^="#"]', 'nodes => [...new Set(nodes.map(n => n.hash))]')
             for hash_value in hashes:
                 page.evaluate('hash => [...document.querySelectorAll("aside a[href]")].find(a=>a.hash===hash).click()', hash_value)
                 assert page.evaluate('checkContinuity()'), (folder, hash_value)
+                if folder == '02-rules' and hash_value.startswith('#unit-'):
+                    # A hidden design overview must resolve inside its own part.
+                    assert page.evaluate('''hash => {
+                      const unit = unifiedSpeakerPlan.contentDesign.units[Number(hash.slice(6)) - 1];
+                      const first = document.getElementById('content-' + unit.items[0].frame);
+                      const panel = document.querySelector('.discussion-panel');
+                      const offset = first.getBoundingClientRect().top - panel.getBoundingClientRect().top;
+                      return offset >= -50 && offset < 100;
+                    }''', hash_value), (folder, width, hash_value, 'wrong part')
+            if folder == '02-rules':
+                # Check visible destination, not merely that navigation preserves DOM.
+                route_page = browser.new_page(viewport={'width': width, 'height': 850})
+                for mode in ('design', 'script'):
+                    for number in range(1, 5):
+                        route = url.as_uri() + f'?mode={mode}#unit-{number}'
+                        route_page.goto(route); route_page.reload()
+                        route_page.wait_for_selector('.discussion-panel')
+                        assert route_page.evaluate("""({number, mode}) => {
+                          const unit = unifiedSpeakerPlan.contentDesign.units[number - 1];
+                          const id = mode === 'script' ? 'content-' + unit.items[0].frame : 'unit-' + number;
+                          const target = document.getElementById(id);
+                          const panel = document.querySelector('.discussion-panel');
+                          const top = target.getBoundingClientRect().top - panel.getBoundingClientRect().top;
+                          return !target.hidden && top >= -1 && top < 100;
+                        }""", {'number': number, 'mode': mode}), (width, route, 'deep link/reload destination')
+                route_page.close()
             # A real wheel gesture crosses a section boundary with no directory click.
             if panel_selector:
                 page.evaluate('''() => {
@@ -117,9 +161,10 @@ with sync_playwright() as playwright:
                 page.wait_for_function('hash => location.hash === hash', arg=second)
                 assert page.evaluate('checkContinuity()'), folder
                 page.reload()
-                page.wait_for_selector(entry_selector)
+                assert not errors, (folder, errors)
+                page.wait_for_selector(entry_selector, state='attached')
                 assert page.locator(entry_selector).count() == expected
-                assert page.eval_on_selector_all(entry_selector, 'nodes => nodes.every(node => node.getBoundingClientRect().height > 0)'), folder
+                assert page.eval_on_selector_all(entry_selector, 'nodes => nodes.every(node => node.hidden || node.getBoundingClientRect().height > 0)'), folder
             else:
                 for index in range(expected):
                     page.evaluate('index => originalEntries[index].scrollIntoView()', index)
