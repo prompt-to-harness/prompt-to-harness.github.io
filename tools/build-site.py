@@ -49,6 +49,8 @@ SPEAKER_NAME = 'speaker.html'
 
 # An anchor to a speaker page (with or without a #fragment), plus a leading " · " separator.
 SPEAKER_LINK = re.compile(r'(?:\s*·\s*)?<a\b[^>]*\bhref="[^"]*speaker\.html[^"]*"[^>]*>.*?</a>', re.S)
+# Redirects public evidence pages to the local Inspect viewer. Materials stay unpublished.
+INSPECT_ROUTE = re.compile(r'\s*<script\b[^>]*\bsrc="[^"]*inspect-process-routes\.js"[^>]*>\s*</script>')
 
 ROOT_INDEX = """<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8">
@@ -69,17 +71,24 @@ def wanted(path: Path, rel: Path) -> bool:
     return True
 
 
+# 旧七节结构留下的目录，不是当前 3.1–3.5。
+# practice/ 只被旧课链接；runs/ 是未经审阅的运行对比原型。
+CH03_HELD = {
+    Path('ch03/lessons/05-game-studio'),
+    Path('ch03/lessons/06-sources'),
+    Path('ch03/lessons/07-cleanup'),
+    Path('ch03/lessons/01-memory-game/evidence.html'),
+    Path('ch03/practice'),
+    Path('ch03/runs'),
+}
+
+
 def courseware_in_release(rel: Path) -> bool:
-    # Chapter 3 currently publishes its landing page and section 3.1.
-    if rel.parts[0] != MEMORY_LESSON.parts[0]:
+    # 第三章发布当前五节阅读与演示页及其配套资源。
+    # 旧课目录、未审阅原型和讲师稿不发布；讲师稿由 wanted() 排除。
+    if not rel.parts or rel.parts[0] != 'ch03':
         return True
-    if rel == Path('ch03/index.html'):
-        return True
-    if rel.is_relative_to(MEMORY_LESSON):
-        entry = rel.relative_to(MEMORY_LESSON)
-        return (entry.name in MEMORY_PAGES and len(entry.parts) == 1
-                or entry.parts[0] in {'assets', 'games'} or entry == MEMORY_EVIDENCE)
-    return False
+    return not any(rel == held or rel.is_relative_to(held) for held in CH03_HELD)
 
 
 def copy_sources(out: Path):
@@ -108,6 +117,17 @@ def strip_speaker_links(out: Path):
     for page in out.rglob('*.html'):
         text = page.read_text(encoding='utf-8')
         new, n = SPEAKER_LINK.subn('', text)
+        if n:
+            page.write_text(new, encoding='utf-8')
+            stripped += n
+    return stripped
+
+
+def strip_local_inspect_routes(out: Path):
+    stripped = 0
+    for page in out.rglob('*.html'):
+        text = page.read_text(encoding='utf-8')
+        new, n = INSPECT_ROUTE.subn('', text)
         if n:
             page.write_text(new, encoding='utf-8')
             stripped += n
@@ -232,6 +252,7 @@ def main():
     copied = copy_sources(out)
     prepare_memory_release(out)
     stripped = strip_speaker_links(out)
+    strip_local_inspect_routes(out)
     strip_unreleased_courseware_links(out)
     (out / 'index.html').write_text(ROOT_INDEX, encoding='utf-8')
     (out / '.nojekyll').write_text('')
