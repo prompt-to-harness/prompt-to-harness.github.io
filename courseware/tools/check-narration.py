@@ -98,7 +98,15 @@ with sync_playwright() as playwright:
                 for step, text in enumerate(scripts['r322-1']):
                     source_nodes = page.locator(f'#b31 [data-scene="r322-1"][data-step="{step}"]')
                     assert source_nodes.all_text_contents() == text.split('\n\n')[1:], (folder, step)
-                    assert all(node.is_visible() for node in source_nodes.all()), (folder, step)
+                    for node in source_nodes.all():
+                        optional = node.locator('xpath=ancestor::details[@data-optional-narration]')
+                        was_open = False
+                        if optional.count():
+                            was_open = optional.first.evaluate('(details) => details.open')
+                            optional.first.evaluate('(details) => { details.open = true; }')
+                        assert node.is_visible(), (folder, step)
+                        if optional.count() and not was_open:
+                            optional.first.evaluate('(details) => { details.open = false; }')
             hashes = page.eval_on_selector_all('aside a[href^="#"]', 'nodes => [...new Set(nodes.map(n => n.hash))]')
             for hash_value in hashes:
                 page.evaluate('hash => [...document.querySelectorAll("aside a[href]")].find(a=>a.hash===hash).click()', hash_value)

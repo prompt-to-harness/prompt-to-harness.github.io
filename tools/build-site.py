@@ -78,6 +78,10 @@ CH03_HELD = {
     Path('ch03/lessons/06-sources'),
     Path('ch03/lessons/07-cleanup'),
     Path('ch03/lessons/01-memory-game/evidence.html'),
+    # 本地审查生成物和讲师录前准备页不属于公开阅读资料。
+    Path('ch03/lessons/02-rules/layout-review-321'),
+    Path('ch03/lessons/02-rules/skill-test-321'),
+    Path('ch03/lessons/03-debug/creation-demo-guide.html'),
     Path('ch03/practice'),
     Path('ch03/runs'),
 }

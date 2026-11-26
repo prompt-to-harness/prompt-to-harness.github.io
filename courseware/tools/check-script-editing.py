@@ -76,7 +76,7 @@ with sync_playwright() as pw:
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)
         (root / 'tools').mkdir(); (root / 'courseware/tools').mkdir(parents=True)
-        for name in ('serve-courseware.py', 'script_comments.py'):
+        for name in ('serve-courseware.py', 'script_comments.py', 'course_install_demo.py'):
             shutil.copy(ROOT / 'tools' / name, root / 'tools' / name)
         shutil.copy(ROOT / 'courseware/tools/rebuild-lesson.py', root / 'courseware/tools/rebuild-lesson.py')
         (root / 'courseware/shared').symlink_to(ROOT / 'courseware/shared', target_is_directory=True)
