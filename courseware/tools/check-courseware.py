@@ -79,6 +79,8 @@ for path in sorted(p for directory in content_roots for p in source_files(direct
             reading = json.loads(reading_data.read_text().split('window.readingPlan = ', 1)[1].split(';\n', 1)[0])
             for frame in reading['frames']:
                 page.ids.update([frame['id'], 'content-' + frame['id']])
+                for alias in frame.get('legacyAliases', []):
+                    page.ids.update([alias, 'content-' + alias])
             page.links.extend(item['url'] for item in reading['materials'].values())
 
     if 'screen-plan.js' in script_paths and 'narration.js' in script_paths:

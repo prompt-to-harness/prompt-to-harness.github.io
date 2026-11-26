@@ -220,8 +220,19 @@
           {kind:screen.kind || (screen.ppt ? 'ppt' : 'browser'), materials:screen.materials, text:screen.action},
           {paragraphs:(screen.reuse || []).map((_, index) => index)}
         ];
+        let destination = section;
+        let optionalLabel = '';
+        function optionalDestination(label) {
+          if (label === optionalLabel) return;
+          optionalLabel = label;
+          destination = details(section, label + '（主讲可跳过；原稿与定位保留）');
+          destination.classList.remove('frame-preparation');
+          destination.dataset.optionalNarration = 'true';
+        }
+        if (screen.optional) optionalDestination(screen.optional);
         const used = new Set();
         for (const beat of beats) {
+          if (beat.optional) optionalDestination(beat.optional);
           if (beat.paragraphs) {
             const passage = el('div', 'script-passage');
             for (const index of beat.paragraphs) {
@@ -233,7 +244,7 @@
             }
             // 已由就近对象提示承接的旧切换节点仍保留源坐标，但不重复展示。
             if (beat.hidden) passage.hidden = true;
-            section.append(passage);
+            destination.append(passage);
           } else {
             const labels = {ppt:'PPT',browser:'网页',terminal:'终端',inspect:'Inspect'};
             if (!labels[beat.kind]) throw new Error('未知画面类型：' + beat.kind);
@@ -250,7 +261,12 @@
               if (beat.kind === 'ppt') action = action.replace(/^(?:打开|推进|回到)\s+p\d+[a-z\d-]*(?:\s*第\s*\d+\s*步)?[，、]?\s*/i, '');
               paragraph(content, action, 'object-cue-action');
             }
-            cue.append(content); section.append(cue);
+            if (beat.jumpTo) {
+              const jump = el('a', '', beat.jumpLabel || '继续主讲');
+              jump.href = '#' + beat.jumpTo;
+              content.append(jump);
+            }
+            cue.append(content); destination.append(cue);
           }
         }
         if (used.size !== (screen.reuse || []).length) throw new Error('尚有口播未显示：' + frame.id);
@@ -524,7 +540,15 @@
             const archive = details(recording, '历史口播取材（不在本次录制顺序内）');
             archive.append(frame);
             if (location.hash === '#' + id) archive.open = true;
-          } else recording.append(frame);
+          } else {
+            const optional = plan.frames.find(entry => entry.id === id)?.optional;
+            if (optional) {
+              const archive = details(recording, optional + '（主讲可跳过；原稿与定位保留）');
+              archive.classList.remove('frame-preparation');
+              archive.dataset.optionalNarration = 'true';
+              archive.append(frame);
+            } else recording.append(frame);
+          }
           if (id !== item.frame) frameAliases.set(id, item.frame);
         }
         article.append(recording); panel.append(article);
@@ -681,6 +705,11 @@
       panel.scrollTop += target.getBoundingClientRect().top - panel.getBoundingClientRect().top - 24;
       if (screenTarget && !recordingView) {
         const screen = document.getElementById(requested);
+        if (screen) {
+          for (let node = screen.parentElement; node; node = node.parentElement) {
+            if (node.matches('details[data-optional-narration]')) node.open = true;
+          }
+        }
         if (screen && screen.getClientRects().length) {
           panel.scrollTop += screen.getBoundingClientRect().top - panel.getBoundingClientRect().top - 24;
         }

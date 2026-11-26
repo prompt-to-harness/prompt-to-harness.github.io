@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="60 秒躲避与收集：用方向键或 WASD 移动，躲开障碍，收集宝石。">
+<meta name="theme-color" content="#141a2e">
+<title>60 秒躲避与收集 · Dodge &amp; Collect</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<main class="app">
+  <header class="app__header">
+    <h1 class="title">💎 60 秒躲避与收集</h1>
+    <p class="subtitle">用方向键或 WASD 移动，躲开紫色障碍，收集宝石，撑过 60 秒。</p>
+  </header>
+
+  <!-- ===== 数据条：游玩中只显示时间 / 得分 / 生命 ===== -->
+  <section class="stats" aria-label="本局数据">
+    <div class="stat"><span class="stat__label">剩余时间</span><span class="stat__value" id="stat-time">60</span></div>
+    <div class="stat"><span class="stat__label">得分</span><span class="stat__value" id="stat-score">0</span></div>
+    <div class="stat"><span class="stat__label">生命</span><span class="stat__value" id="stat-lives">♥♥♥</span></div>
+  </section>
+
+  <!-- ===== 场地：唯一需要替换的区域。容器保留 .board-wrap + .board ===== -->
+  <section class="board-wrap">
+    <div class="board board--arena" id="board">
+      <canvas class="arena" id="arena" width="640" height="480" tabindex="0" aria-label="躲避与收集游戏场地"></canvas>
+      <p class="board__tip" id="board-tip">按 <kbd>方向键</kbd> 或 <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 开始</p>
+    </div>
+  </section>
+
+  <footer class="app__footer">
+    <p class="hint">键盘操作：<kbd>←</kbd><kbd>↑</kbd><kbd>→</kbd><kbd>↓</kbd> 或 <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 移动 · 撞到障碍扣 1 命 · 宝石 +10 分</p>
+  </footer>
+</main>
+
+<!-- ===== 结算浮层：重开按钮只出现在这里 ===== -->
+<div class="overlay" id="overlay" hidden>
+  <div class="overlay__panel" role="dialog" aria-modal="true" aria-labelledby="overlay-title" aria-describedby="overlay-text">
+    <div class="overlay__emoji" id="overlay-emoji" aria-hidden="true">🎉</div>
+    <h2 class="overlay__title" id="overlay-title">时间到！</h2>
+    <p class="overlay__text" id="overlay-text"></p>
+    <div class="overlay__actions">
+      <button class="btn btn--primary" id="overlay-again" type="button">再玩一局</button>
+      <button class="btn btn--ghost" id="overlay-sound" type="button" aria-pressed="true">🔊 音效</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>

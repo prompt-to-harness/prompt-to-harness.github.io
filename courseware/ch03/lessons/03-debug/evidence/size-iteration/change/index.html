@@ -1,0 +1,57 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>change</title><style>body{margin:0;background:#f8f7f3;color:#26332e;font:18px/1.7 system-ui}main{max-width:1100px;margin:auto;padding:36px 28px}h1{font-size:36px}h2{margin-top:48px}a{color:#28664d}nav{display:flex;gap:20px;flex-wrap:wrap}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#fff;border:1px solid #ddd;padding:20px;font:14px/1.65 monospace}img{width:100%;border-radius:12px}section{scroll-margin-top:24px}.pair{display:grid;grid-template-columns:1fr 1fr;gap:24px}small{color:#647068}@media(max-width:700px){.pair{grid-template-columns:1fr}}</style><main><a href="../index.html">← 材料汇总</a><h1>在原会话修改 Skill</h1><p>实际请求与回复，机器路径已替换。回复是模型原文，包含待复核判断。</p><h2>实际请求</h2><pre>目标：
+根据刚才的排查结果，修改 Skill，减少不同玩法复用时的布局问题。
+
+上下文：
+我们要复用的是紫色视觉风格，布局应随玩法调整。请重点解决 Skill 把网格场地当作通用结构的问题，并同步检查正文、模板和参考资料。
+原版已复制并提交为可回退基线：6a0163c8258b2b535a8e12e6794e9cd6aeb7738e。
+本轮唯一可修改的 Skill 副本目录：&lt;实验目录&gt;/iterate-scheme1-minimax-20261119-231343/workspace/purple-game-ui
+请修改这个副本，不要修改之前排查的原始实验目录。
+
+约束：
+只修改上述 Skill 副本，不修改已有游戏。不要把当前游戏的宽度、比例写成通用要求，也不要为这一个问题增加不必要的规则。保留原有网格玩法和其他无关能力。不调用其他 agent，不修改 Git 配置，不执行提交。
+
+完成标准：
+完成修改后，说明改了什么、为什么能减少同类问题，以及做了哪些检查。后续我们会另开对话，用原请求重新生成游戏，再验证其他玩法；本轮先不生成游戏。
+</pre><h2>实际回复</h2><pre>已完成修改。只改了指定副本 `purple-game-ui/`（5 个文件，工作区改动，未提交、未动 Git 配置、未碰上一轮的原始实验目录与任何游戏）。
+
+## 一、改了什么
+
+**1. `templates/styles.css`（第 7 区重写 + 第 8c 区参数化）**
+- 把「场地容器」拆成三种语义清晰的容器：
+  - `.board-wrap` —— 只负责居中，**与场地类型无关**（保持原样）；
+  - **`.stage`（新增）** —— 通用非网格场地容器：纵向 flex + 水平居中，宽度上限 `var(--stage-max, 100%)`，不加列宽约束；配 `.stage__tip`（场地内提示文字）；
+  - `.board` —— 保留原行为，但注释明确它是**网格/棋盘专用容器**，自带 `display:grid` 和按列算的宽度上限；把硬编码的 `108px` 提成变量 `--cell`（默认仍 108px，**渲染结果与原来完全一致**）。
+- `.stage-canvas` 的宽度上限改为 `var(--stage-max, calc(var(--cols,8)*64px))`、长宽比改为 `var(--stage-ratio, 4/3)`——**默认值不变**（512×384、4/3），但以后任何玩法都能用自己的数值覆盖，而不必改模板。
+
+**2. `SKILL.md`（正文 + 骨架 + 清单 + 反模式 + 验证）**
+- 核心原则 1 改为「只允许动场地内部，**但场地容器本身要按玩法换**」；
+- 新增一节「**场地容器怎么选（网格 / 画布 / 自由布局）**」：`.board-wrap` 通用、`.board` 仅网格、`.stage` 非网格，**两个类不得挂在同一元素上**，并写明「不要把某一款游戏的像素尺寸/比例写进模板」；
+- 骨架示例加上「二选一」注释；frontmatter description 点明三种场地容器；
+- 检查清单把旧条目「场地内容整体替换，但容器保留 `.board-wrap` + `.board`」改为三条：外层保留 `.board-wrap` / 容器按玩法二选一 / 宽度用变量表达；
+- 反模式新增两条：`.board` 当通用容器（会挤进第一列）、同元素叠语义冲突的类（后写规则赢，先写的被静默覆盖）；
+- 「验证」新增第 1 条：**量一次场地尺寸**（`getBoundingClientRect()`），并给出判据——「只有几十像素宽、或只占容器第一列宽度 ⇒ 容器类用错了」。
+
+**3. `references/patterns.md`** —— 第三节改为「场地容器与可复用的场地件」：3.1 容器选择表（`.board` / `.stage` 各自适用与禁用场景）+ 故障机理说明；3.2 场地件补 `.stage__tip`、`.stage-canvas` 的变量用法；坑位清单新增第 8、9 条（场地容器选错、同元素叠类）；标准流程第 2 步加上「按玩法选场地容器」。
+
+**4. `references/design-tokens.md`** —— 尺寸表补场地相关变量：`--cols/--rows`、`--cell`、`--stage-max`、`--stage-ratio`，并注明「具体数值属于某一款游戏就写在它自己的 CSS 里」。
+
+**5. `templates/index.html`** —— 场地注释改为三选说明（`.board-wrap` 通用 + `.board`/`.stage` 二选一），演示玩法仍用 `.board`，功能不变。
+
+## 二、为什么能减少同类问题
+
+- **根因是&quot;把网格场地当通用结构&quot;**。改法不是给画布加一条专用规则，而是把「场地容器」在 Skill 里**显式建模成两个互斥选项**，并把选择表写进正文、模板注释、检查清单、参考资料四处——AI 在生成时的**每个读取点**都会撞到这条信息，不再需要自己推断「`.board` 是不是万能容器」。
+- **消除了&quot;自己造轮子&quot;的诱因**：上次 AI 自造 `.arena`（几乎逐条复制 `.stage-canvas`），说明它没把现有场地件当成正式接口。现在画布类玩法有现成、受支持的 `.stage` + `.stage-canvas`。
+- **宽度/比例不再硬编码**：`--cell`/`--stage-max`/`--stage-ratio` 让&quot;布局随玩法调整&quot;成为默认路径，同时默认值保持原样，不破坏既有网格与画布玩法的观感。
+- **补上了&quot;静默覆盖&quot;这一类通用坑**（同特异度后写规则赢），并把「量一次宽度」写进验证清单——这类塌缩没有报错，只有量尺寸才抓得住。
+- 没有引入当前游戏的任何具体数值（640/480、4:3 之外的值都没写死成要求；4:3 只是 `.stage-canvas` 的**既有**默认值，且可覆盖）。
+
+## 三、做了哪些检查
+
+- CSS 花括号配平（89/89）；新增类 `.stage` / `.stage__tip` 各只定义一次，无重名冲突。
+- 保留能力核对：`.board` 的默认计算结果不变（`--cols=4` × `--cell=108px` → 宽度上限仍 432px，与原 `108px` 硬编码等价）；`.stage-canvas` 默认仍是 512×384、4/3；`.card` / `.tile` / `--cols` / `--rows` 与 `templates/src/main.js` 翻牌演示均未改动 → 网格玩法与其他无关能力保持原样。
+- 全文检索：旧的「保留 `.board-wrap` + `.board`」表述已无处残留（仅作为反模式出现）；SKILL.md 快速上手提到的 `&lt;!-- ===== 场地：唯一需要替换的区域 ===== --&gt;` 标记与模板中实际注释仍一致。
+- `git status`：仅 `purple-game-ui/` 下 5 个文件被修改，未提交。
+- **未能完成的一项**：本沙箱内 Chrome headless 启动即崩溃（exit 134），无法渲染截图验证新布局。已用算术核对代替（`.stage`=912 容器、`.stage-canvas`=512×384 居中、`.board`=432 不变），并把&quot;量一次场地尺寸&quot;正式写进 Skill 的验证清单，使下一步真实浏览器验证成为生成流程的必备步骤。
+- 本轮**不生成游戏**；后续用原请求重新生成时，可按&quot;场地容器二选一&quot;检查生成结果是否用了 `.stage`（而非 `.board`），再按验证清单量一次尺寸。
+
+**无法确认**：`.stage` 是否覆盖所有未来玩法形态（例如需要非等宽多栏的自由布局），本轮只保证了&quot;网格 vs 非网格&quot;这一层的清晰划分；更细的场地形态可能仍需后续扩展。</pre></main></html>

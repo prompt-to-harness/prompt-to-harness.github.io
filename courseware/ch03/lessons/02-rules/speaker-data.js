@@ -585,7 +585,7 @@ window.screenPlan = {
       "scene": "p07d-writing",
       "step": 0,
       "start": 0,
-      "end": 2,
+      "end": 4,
       "title": "Anthropic · 名称和描述怎么写",
       "surface": "PPT 第三屏 → Anthropic 官方文章",
       "visible": "game-playtest 文件头；Anthropic 的命名与描述示例",
@@ -594,7 +594,8 @@ window.screenPlan = {
       "group": "调用回顾与名称、描述写法",
       "materials": [
         "p07d-writing",
-        "skill-authoring-guide"
+        "skill-authoring-guide",
+        "skill-description-guide"
       ],
       "recordingBeats": [
         {
@@ -607,10 +608,18 @@ window.screenPlan = {
         {
           "kind": "browser",
           "material": "skill-authoring-guide",
-          "text": "先看 Naming conventions，再看 Writing effective descriptions"
+          "text": "定位 Naming conventions，高亮命名建议、示例与应避免的名字"
         },
         {
           "part": 2
+        },
+        {
+          "kind": "browser",
+          "material": "skill-description-guide",
+          "text": "同一原文下一处：描述的用途与适用情境、第三人称及 PDF 示例"
+        },
+        {
+          "part": 4
         }
       ]
     },
@@ -618,13 +627,13 @@ window.screenPlan = {
       "id": "f18",
       "scene": "p07d-writing",
       "step": 0,
-      "start": 3,
-      "end": 5,
-      "title": "Agent Skills · 名称和描述的字符上限",
-      "surface": "Agent Skills 规范 → PPT 第三屏",
+      "start": 5,
+      "end": 7,
+      "title": "Anthropic · 名称和描述的字符上限",
+      "surface": "Anthropic 文章 → PPT 第三屏",
       "visible": "左侧 SKILL.md 文件头；右侧引线对应人工辨认与模型匹配；底部单列规范上限",
       "explain": "用真实任务说法解释适用情境。区分课上的一到两句和规范字符上限。",
-      "action": "打开本段的 Agent Skills 规范核对字符上限，最后回 PPT 指写作建议。",
+      "action": "在同一篇 Anthropic 文章定位 YAML frontmatter requirements，核对两个字段的字符上限，最后回 PPT 指写作建议。",
       "group": "调用回顾与名称、描述写法",
       "materials": [
         "skill-length-validator",
@@ -634,17 +643,17 @@ window.screenPlan = {
         {
           "kind": "browser",
           "material": "skill-length-validator",
-          "text": "打开 Agent Skills 规范，核对两个字段的字符上限"
+          "text": "同一篇文章下一处：YAML frontmatter requirements，核对两个字段的字符上限"
         },
         {
-          "part": 4
+          "part": 6
         },
         {
           "kind": "ppt",
           "text": "回课件，指课上长度建议"
         },
         {
-          "part": 5
+          "part": 7
         }
       ]
     }
@@ -2987,16 +2996,17 @@ window.screenPlan = {
       "url": "index.html?mode=slides#p07d-writing"
     },
     "skill-authoring-guide": {
-      "label": "Anthropic · Skill authoring best practices",
-      "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices#naming-conventions"
+      "label": "Anthropic · Naming conventions 原文定位",
+      "url": "http://127.0.0.1:4397/sources/skill-authoring/anthropic.html#naming"
     },
     "p07d-implicit": {
       "label": "PPT · 自然语言触发流程图",
       "url": "index.html?mode=slides#p07d-implicit"
     },
     "skill-length-validator": {
-      "label": "Agent Skills · 字段规范",
-      "url": "https://agentskills.io/specification#frontmatter"
+      "label": "Anthropic · 名称和描述的字符上限",
+      "url": "http://127.0.0.1:4397/sources/skill-authoring/anthropic.html#field-limits",
+      "originalUrl": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices#yaml-frontmatter-requirements"
     },
     "install-demo-github": {
       "label": "GitHub 安装 · Prompt 与独立终端",
@@ -3029,6 +3039,10 @@ window.screenPlan = {
     "autoCompare": {
       "label": "Inspect AI · 第五步 · 比较另一份 Skill",
       "url": "http://127.0.0.1:4397/inspect/?topic=selection-auto-lesson&position=4"
+    },
+    "skill-description-guide": {
+      "label": "Anthropic · Writing effective descriptions 原文定位",
+      "url": "http://127.0.0.1:4397/sources/skill-authoring/anthropic.html#descriptions"
     }
   },
   "visualRevision": {
@@ -3043,31 +3057,31 @@ window.screenPlan = {
     "scope": "九页主画面重做，讲述主线与 script.json 保持；本机对照截图不发布"
   },
   "reading": {
-    "scope": "3.2.2–3.2.3 读懂简单 Skill 与游戏试玩 Skill",
-    "intro": "先读简单示例，再沿游戏试玩 Skill 看正文和配套资源。",
-    "status": "2026-11-11：三个任务各接入一页三态 PPT，知识、实例与证据对应；后两段小结保持。",
+    "scope": "3.2.2–3.2.3 完整 Skill 的组成与实际使用",
+    "intro": "先解读官方文章，再用 PPT 归纳完整 Skill 的组成；随后接续 3.2.1 的 E 版显式调用日志，核对正文、Reference、实际试玩与报告。F 版自然语言触发保留独立对照。",
+    "status": "2026-11-18：3.2.3 已接入 E 版主讲与 F 版备用，逐字稿、15 处日志停留、截图与回看 PPT 对应；待讲师审阅，两部分融合仍待讨论。",
     "scriptComplete": true,
     "sourcePlanning": {
-      "content": "认识 SKILL.md 的文件头和正文，结合 setup-demo-app 看适用场景、交付要求、执行步骤和完成标准。",
-      "purpose": "能说明一份简短 Skill 正文各部分的作用。"
+      "content": "沿 Anthropic 文章解释核心指导、引用、工作流程、模板、示例和脚本，用 OpenAI 指南补齐工作边界及配套文件分工；五页 PPT 总结组成、连接、正文写法与渐进披露。",
+      "purpose": "拿到一份 Skill，能解释正文与配套文件分别支持什么工作、怎样取用，并知道需要从运行记录核对实际采用情况。"
     },
     "units": [
       {
         "section": "3.2.2",
-        "group": "读懂简单 Skill",
-        "explanation": "用结构图和 setup-demo-app 认识正文。",
-        "transition": "接着看 game-playtest。"
+        "group": "认识完整 Skill 的组成与组织",
+        "explanation": "Anthropic 原文主讲至报告模板，随后直接回 PPT 总结；其余 Anthropic 解读及 OpenAI 原文解读作为可选内容保留。",
+        "transition": "带着正文职责与引用关系，接着看 3.2.1 的 E 版显式调用如何继续完成试玩。"
       },
       {
         "section": "3.2.3",
-        "group": "认识复杂 Skill 的资料、脚本与资源",
-        "explanation": "沿翻牌试玩看正文、调用与配套资源。",
-        "transition": "接着看 Plugin 如何组织多份 Skill。"
+        "group": "从日志看 Skill 怎样被使用",
+        "explanation": "正文提供方法 → Reference 经工具读入 → 生成并运行试玩脚本、核对状态和截图 → 报告要求对应实际交付；主讲沿 E 版同一轮记录，F 版独立备用。",
+        "transition": "主讲在此收束，接 3.3 将已有作品经验整理成 Skill；Plugin 保留为可选讲解。"
       },
       {
         "section": "3.2.4",
         "group": "通过 Plugin 组织和分发能力",
-        "explanation": "Game Studio 引出 Plugin → 简介 MCP 与 Hook → 安装调用。",
+        "explanation": "可选讲解，默认折叠；保留全部原稿、材料和定位。主讲可以在 3.2.3 结束后直接进入 3.3。",
         "transition": "完成 3.2；紫色风格由 3.3 展开。"
       }
     ],
@@ -3165,8 +3179,9 @@ window.screenPlan = {
         "url": "index.html?mode=slides&part=2&step=0#p07j1"
       },
       "bodySpec": {
-        "label": "正文与篇幅建议",
-        "url": "https://agentskills.io/specification#body-content"
+        "label": "Agent Skills · 正文格式规范",
+        "url": "https://agentskills.io/specification#body-content",
+        "purpose": "核实正文没有固定格式要求。"
       },
       "old5": {
         "label": "04 号游戏（历史 ID：old5）",
@@ -3230,7 +3245,7 @@ window.screenPlan = {
       },
       "connectAsset": {
         "label": "PPT · 素材怎样接入正文",
-        "url": "index.html?mode=slides&step=1#p07p"
+        "url": "index.html?mode=slides&step=0#p07p"
       },
       "compareBodies": {
         "label": "PPT · 两份正文的组织",
@@ -3281,8 +3296,10 @@ window.screenPlan = {
         "url": "http://127.0.0.1:4397/inspect/?topic=playtest-a-output"
       },
       "supportGuide": {
-        "label": "OpenAI · 配套文件指南",
-        "url": "https://developers.openai.com/plugins/build/skills#add-supporting-resources"
+        "label": "OpenAI · 配套资料、脚本与素材",
+        "url": "http://127.0.0.1:4397/sources/skill-authoring/openai.html#resources",
+        "originalUrl": "https://developers.openai.com/plugins/build/skills#add-supporting-resources",
+        "purpose": "对照 references、assets、scripts 的使用方式。"
       },
       "disclosure": {
         "label": "Agent Skills · 渐进披露",
@@ -3294,26 +3311,26 @@ window.screenPlan = {
       },
       "mapSupport": {
         "label": "PPT · Skill 全局：三类配套文件",
-        "url": "index.html?mode=slides&step=1#p07o"
+        "url": "index.html?mode=slides&step=0#p07os"
       },
       "mapOther": {
         "label": "PPT · Skill 全局：专项指导边界",
-        "url": "index.html?mode=slides&step=2#p07o"
+        "url": "index.html?mode=slides&step=0#p07ox"
       },
       "connectAll": {
         "label": "PPT · 条件与入口连接配套文件",
         "url": "index.html?mode=slides&step=0#p07p"
       },
       "connectUse": {
-        "label": "PPT · 输入、使用方式与结果",
-        "url": "index.html?mode=slides&step=1#p07p"
+        "label": "PPT · 配套文件引用小结",
+        "url": "index.html?mode=slides&step=0#p07p"
       },
       "bodyRoles": {
         "label": "PPT · 正文组织工作知识",
         "url": "index.html?mode=slides&step=0#p07m"
       },
       "bodyExamples": {
-        "label": "PPT · 两份正文的不同组织",
+        "label": "PPT · 正文的具体写法",
         "url": "index.html?mode=slides&step=1#p07m"
       },
       "progressMeta": {
@@ -3409,20 +3426,20 @@ window.screenPlan = {
         "url": "index.html?mode=slides&step=1#p324a"
       },
       "p324a-2": {
-        "label": "PPT · p324a · 状态 3",
-        "url": "index.html?mode=slides&step=2#p324a"
+        "label": "PPT · Plugin 整包与资源关系（旧入口）",
+        "url": "index.html?mode=slides&step=1#p324a"
       },
       "p324b-0": {
-        "label": "PPT · p324b · 状态 1",
-        "url": "index.html?mode=slides&step=0#p324b"
+        "label": "PPT · Plugin 整包与资源关系（旧入口）",
+        "url": "index.html?mode=slides&step=1#p324a"
       },
       "p324b-1": {
-        "label": "PPT · p324b · 状态 2",
-        "url": "index.html?mode=slides&step=1#p324b"
+        "label": "PPT · Plugin 整包与资源关系（旧入口）",
+        "url": "index.html?mode=slides&step=1#p324a"
       },
       "p324b-2": {
-        "label": "PPT · p324b · 状态 3",
-        "url": "index.html?mode=slides&step=2#p324b"
+        "label": "PPT · Plugin 整包与资源关系（旧入口）",
+        "url": "index.html?mode=slides&step=1#p324a"
       },
       "plugin-run-source": {
         "label": "完整 Plugin 预跑 · source",
@@ -3476,209 +3493,348 @@ window.screenPlan = {
         "label": "录前准备 · 四份独立 Skill",
         "url": "install-skill.html"
       },
-      "p324c": {
-        "label": "PPT · 再看第一版风格指导",
-        "url": "index.html?mode=slides#p324c"
+      "authoringStructure": {
+        "label": "Anthropic · 单文件 Skill 图",
+        "url": "http://127.0.0.1:4397/sources/skill-authoring/anthropic.html#structure",
+        "originalUrl": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices#visual-overview-from-simple-to-complex",
+        "purpose": "指认同一份文件中的名称、描述和 PDF 处理正文。"
+      },
+      "authoringReferences": {
+        "label": "Anthropic · 附带参考资料的 Skill 图",
+        "url": "http://127.0.0.1:4397/sources/skill-authoring/anthropic.html#references",
+        "originalUrl": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices#visual-overview-from-simple-to-complex",
+        "purpose": "对照 Overview 引用和 PDF Processing Advanced Reference、forms.md 的实际内容。"
+      },
+      "authoringWorkflow": {
+        "label": "Anthropic · 工作流程与检查",
+        "url": "http://127.0.0.1:4397/sources/skill-authoring/anthropic.html#workflow",
+        "originalUrl": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices#use-workflows-for-complex-tasks",
+        "purpose": "完整的 PDF 填写流程，包含中间校验和失败返回。"
+      },
+      "authoringPatterns": {
+        "label": "Anthropic · 报告模板",
+        "url": "http://127.0.0.1:4397/sources/skill-authoring/anthropic.html#template",
+        "originalUrl": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices#common-patterns",
+        "purpose": "看报告模板如何约定输出结构。"
+      },
+      "authoringScripts": {
+        "label": "Anthropic · 配套脚本",
+        "url": "http://127.0.0.1:4397/sources/skill-authoring/anthropic.html#script-example",
+        "originalUrl": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices#provide-utility-scripts",
+        "purpose": "看脚本的运行输入、命令与输出格式。"
+      },
+      "workflowBoundary": {
+        "label": "OpenAI · 工作边界",
+        "url": "http://127.0.0.1:4397/sources/skill-authoring/openai.html#boundary",
+        "originalUrl": "https://developers.openai.com/plugins/build/skills#define-the-workflow-boundary",
+        "purpose": "核对正文要交代的输入、步骤、输出及条件。"
+      },
+      "authoringExamples": {
+        "label": "Anthropic · 输入输出示例",
+        "url": "http://127.0.0.1:4397/sources/skill-authoring/anthropic.html#examples",
+        "purpose": "看具体输入对应什么样的输出。"
+      },
+      "authoringConditions": {
+        "label": "Anthropic · 条件流程",
+        "url": "http://127.0.0.1:4397/sources/skill-authoring/anthropic.html#conditions",
+        "purpose": "对照创建新文档和修改已有文档的分支。"
+      },
+      "authoringScriptUse": {
+        "label": "Anthropic · 运行或查阅脚本",
+        "url": "http://127.0.0.1:4397/sources/skill-authoring/anthropic.html#script-use",
+        "purpose": "连续对照 Run the script 与 Read it as reference。"
+      },
+      "anthropicArticle": {
+        "label": "Anthropic · Skill 编写指南",
+        "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices",
+        "purpose": "讲稿提到的完整官方文章，供课后继续阅读。"
+      },
+      "openaiArticle": {
+        "label": "OpenAI · Skill 编写指南",
+        "url": "https://developers.openai.com/plugins/build/skills",
+        "purpose": "讲稿提到的完整官方文章，供课后继续阅读。"
+      },
+      "log323-1-0": {
+        "label": "Inspect · 请求与任务边界",
+        "url": "http://127.0.0.1:4397/inspect/?topic=selection-use-1&position=0",
+        "purpose": "E 版 e-short 原生记录第 10 行；对应本段第 1 次停留。"
+      },
+      "log323-1-1": {
+        "label": "Inspect · 模型确认清单位置",
+        "url": "http://127.0.0.1:4397/inspect/?topic=selection-use-1&position=1",
+        "purpose": "E 版 e-short 原生记录第 24 行；对应本段第 2 次停留。"
+      },
+      "log323-1-2": {
+        "label": "Inspect · 模型发出读取请求",
+        "url": "http://127.0.0.1:4397/inspect/?topic=selection-use-1&position=2",
+        "purpose": "E 版 e-short 原生记录第 37 行；对应本段第 3 次停留。"
+      },
+      "log323-1-3": {
+        "label": "Inspect · 工具返回配套内容",
+        "url": "http://127.0.0.1:4397/inspect/?topic=selection-use-1&position=3",
+        "purpose": "E 版 e-short 原生记录第 41 行；对应本段第 4 次停留。"
+      },
+      "log323-2-0": {
+        "label": "Inspect · 结合代码决定实际验证",
+        "url": "http://127.0.0.1:4397/inspect/?topic=selection-use-2&position=0",
+        "purpose": "E 版 e-short 原生记录第 52 行；对应本段第 1 次停留。"
+      },
+      "log323-2-1": {
+        "label": "Inspect · 模型安排本次试玩",
+        "url": "http://127.0.0.1:4397/inspect/?topic=selection-use-2&position=1",
+        "purpose": "E 版 e-short 原生记录第 64 行；对应本段第 2 次停留。"
+      },
+      "log323-2-2": {
+        "label": "Inspect · 将配对检查展开成具体动作",
+        "url": "http://127.0.0.1:4397/inspect/?topic=selection-use-2&position=2",
+        "purpose": "E 版 e-short 原生记录第 64 行；对应本段第 3 次停留。"
+      },
+      "log323-3-0": {
+        "label": "Inspect · 启动后取得游戏状态",
+        "url": "http://127.0.0.1:4397/inspect/?topic=selection-use-3&position=0",
+        "purpose": "E 版 e-short 原生记录第 113 行；对应本段第 1 次停留。"
+      },
+      "log323-3-1": {
+        "label": "Inspect · 模型编写试玩脚本",
+        "url": "http://127.0.0.1:4397/inspect/?topic=selection-use-3&position=1",
+        "purpose": "E 版 e-short 原生记录第 164 行；对应本段第 2 次停留。"
+      },
+      "log323-4-0": {
+        "label": "Inspect · 模型按报告标准组织内容",
+        "url": "http://127.0.0.1:4397/inspect/?topic=selection-use-4&position=0",
+        "purpose": "E 版 e-short 原生记录第 388 行；对应本段第 1 次停留。"
+      },
+      "log323-4-1": {
+        "label": "Inspect · 模型写入报告的第一项问题",
+        "url": "http://127.0.0.1:4397/inspect/?topic=selection-use-4&position=1",
+        "purpose": "E 版 e-short 原生记录第 391 行；对应本段第 2 次停留。"
+      },
+      "log323-3-2": {
+        "label": "Inspect · 工具运行试玩脚本",
+        "url": "http://127.0.0.1:4397/inspect/?topic=selection-use-3&position=2",
+        "purpose": "E 版 e-short 原生记录第 169 行；对应本段第 3 次停留。"
+      },
+      "log323-3-3": {
+        "label": "Inspect · 工具返回试玩结果",
+        "url": "http://127.0.0.1:4397/inspect/?topic=selection-use-3&position=3",
+        "purpose": "E 版 e-short 原生记录第 172 行；对应本段第 4 次停留。"
+      },
+      "log323-3-4": {
+        "label": "Inspect · 模型打开截图核对",
+        "url": "http://127.0.0.1:4397/inspect/?topic=selection-use-3&position=5",
+        "purpose": "E 版 e-short 原生记录第 178 行；对应本段第 5 次停留。"
+      },
+      "log323-4-2": {
+        "label": "Inspect · 最终回答中的结论与依据",
+        "url": "http://127.0.0.1:4397/inspect/?topic=selection-use-4&position=2",
+        "purpose": "E 版 e-short 原生记录第 404 行；对应本段第 3 次停留。"
+      },
+      "log323-e-shot": {
+        "label": "E 版原始截图 · 三对即通关",
+        "url": "../../materials/playtest-prompts-20261118/e-premature-win.png",
+        "purpose": "与 E 版第 178 行 view_image 指向同一文件；原图未裁改。"
+      },
+      "log323-f-backup": {
+        "label": "备用 · F 独立运行的对应证据",
+        "url": "http://127.0.0.1:4397/inspect/?topic=selection-use-f-backup&position=0",
+        "purpose": "按需核对 F 版正文、Reference、实际结果与最终回答。主讲不切入，不与 E 的截图或结果混用。"
+      },
+      "plugin-routing": {
+        "label": "game-studio · 任务分流",
+        "url": "https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/game-studio/SKILL.md#routing-rules"
+      },
+      "plugin-ui": {
+        "label": "game-ui-frontend · 界面方法",
+        "url": "https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/game-ui-frontend/SKILL.md#frontend-standards"
+      },
+      "plugin-ui-refs": {
+        "label": "界面指导 · 资料引用",
+        "url": "https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/game-ui-frontend/SKILL.md#references"
+      },
+      "plugin-playtest-refs": {
+        "label": "试玩指导 · 资料引用",
+        "url": "https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/game-playtest/SKILL.md#references"
+      },
+      "plugin-checklist": {
+        "label": "共同的试玩清单",
+        "url": "https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/references/playtest-checklist.md#universal-checks"
+      },
+      "plugin-sprite-flow": {
+        "label": "sprite-pipeline · 工作流程",
+        "url": "https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/sprite-pipeline/SKILL.md#core-workflow"
+      },
+      "plugin-script": {
+        "label": "动画条归一化脚本",
+        "url": "https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/scripts/normalize_sprite_strip.py"
+      },
+      "log323-3-5": {
+        "label": "Inspect · 模型根据运行结果确认问题",
+        "url": "http://127.0.0.1:4397/inspect/?topic=selection-use-3&position=4",
+        "purpose": "E 版原生记录第 175 行；显示模型本身的判断。"
+      },
+      "log323-3-6": {
+        "label": "Inspect · 模型根据截图核对异常画面",
+        "url": "http://127.0.0.1:4397/inspect/?topic=selection-use-3&position=6",
+        "purpose": "E 版原生记录第 184 行；显示模型本身的判断。"
+      },
+      "log323-return-workflow": {
+        "label": "回看 Skill · 试玩步骤",
+        "url": "https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/game-playtest/SKILL.md#preferred-workflow"
+      },
+      "log323-return-report": {
+        "label": "回看 Skill · 报告要求",
+        "url": "https://github.com/openai/plugins/blob/0722921d5542fc593105c27bd52630babd8b8c2a/plugins/game-studio/skills/game-playtest/SKILL.md#reporting-standard"
+      },
+      "useSummary": {
+        "label": "PPT · Skill 的指导怎样落实到任务中",
+        "url": "index.html?mode=slides#p323-summary"
       }
     },
     "purposeSlide": {
       "title": "setup-demo-app：搭建最小演示应用",
       "content": "画面呈现“界面实验／问题复现 → 搭建最小 React 演示应用”，浏览器框只标 Header 与两张 Card，并注明交付结构示意。技术栈、目录和步骤不放在这页，到官方原文里读。",
       "position": "结构介绍后、打开官方原文前；与用途介绍一句对应",
-      "status": "已制作：index.html?mode=slides&part=2#p07j"
+      "status": "历史取材，不在当前正式页序；setup-demo-app 用途页保留原深链。"
     },
     "routes": {
       "r322-1": [
         {
           "step": 0,
-          "parts": [
-            1,
-            2
-          ],
-          "surface": "PPT · 从“是否选用”读到“具体怎样工作”",
+          "surface": "Anthropic 文章 · 单文件 Skill 的文件头与正文",
           "materials": [
-            "structurePpt"
-          ]
+            "authoringStructure"
+          ],
+          "kind": "browser"
         },
         {
           "step": 1,
-          "parts": [
-            1
-          ],
-          "surface": "PPT · setup-demo-app 用来搭建什么",
+          "surface": "Anthropic 文章 · 扩展 Skill 的正文与参考资料",
           "materials": [
-            "purposePpt",
-            "official"
+            "authoringReferences"
+          ],
+          "kind": "browser"
+        },
+        {
+          "step": 2,
+          "surface": "Anthropic 文章 · PDF 填写流程与检查",
+          "materials": [
+            "authoringWorkflow"
+          ],
+          "kind": "browser"
+        },
+        {
+          "step": 3,
+          "surface": "Anthropic 文章 · 模板、示例与条件流程",
+          "materials": [
+            "authoringPatterns",
+            "authoringExamples",
+            "authoringConditions"
+          ],
+          "kind": "browser",
+          "beats": [
+            {
+              "kind": "browser",
+              "materials": [
+                "authoringPatterns"
+              ],
+              "text": "定位 「报告模板」，指摘要、发现和建议的结构。"
+            },
+            {
+              "paragraphs": [
+                0,
+                1
+              ]
+            },
+            {
+              "kind": "ppt",
+              "text": "主讲到报告模板为止，跳过下方可选解读，直接进入总结。",
+              "jumpTo": "cue-mapEntry",
+              "jumpLabel": "继续主讲：完整 Skill 的总结"
+            },
+            {
+              "kind": "browser",
+              "materials": [
+                "authoringExamples"
+              ],
+              "text": "点“下一处”到 「输入输出示例」，对照输入与期望输出。",
+              "optional": "可选解读 · 输入输出示例与条件流程"
+            },
+            {
+              "paragraphs": [
+                2
+              ]
+            },
+            {
+              "kind": "browser",
+              "materials": [
+                "authoringConditions"
+              ],
+              "text": "点“下一处”到 「条件流程」，对照创建与修改文档的分支。",
+              "optional": "可选解读 · 输入输出示例与条件流程"
+            },
+            {
+              "paragraphs": [
+                3
+              ]
+            }
           ]
+        },
+        {
+          "step": 4,
+          "surface": "Anthropic 文章 · 脚本的运行与查阅",
+          "materials": [
+            "authoringScripts",
+            "authoringScriptUse"
+          ],
+          "kind": "browser",
+          "beats": [
+            {
+              "kind": "browser",
+              "materials": [
+                "authoringScripts"
+              ],
+              "text": "指运行命令和 Output format。"
+            },
+            {
+              "paragraphs": [
+                0
+              ]
+            },
+            {
+              "kind": "browser",
+              "materials": [
+                "authoringScriptUse"
+              ],
+              "text": "点“下一处”，对照运行与查阅两种用法。"
+            },
+            {
+              "paragraphs": [
+                1
+              ]
+            }
+          ],
+          "optional": "可选解读 · 脚本的运行与查阅"
         }
       ],
       "r322-2": [
         {
           "step": 0,
-          "surface": "OpenAI 原文 · 适用场景",
+          "surface": "OpenAI 指南 · 工作边界",
           "materials": [
-            "official"
-          ]
+            "workflowBoundary",
+            "bodySpec"
+          ],
+          "kind": "browser",
+          "optional": "可选解读 · OpenAI 工作边界与配套文件"
         },
         {
           "step": 1,
-          "surface": "OpenAI 原文 · 技术、目录与写法要求",
+          "surface": "OpenAI 指南 · 配套文件及取用要求",
           "materials": [
-            "official"
-          ]
-        },
-        {
-          "step": 2,
-          "surface": "OpenAI 原文 · 执行步骤",
-          "materials": [
-            "official"
-          ]
-        },
-        {
-          "step": 3,
-          "surface": "OpenAI 原文 · 完成标准",
-          "materials": [
-            "official"
-          ]
-        },
-        {
-          "step": 4,
-          "surface": "PPT · 把执行、自检与修正接起来",
-          "materials": [
-            "workflowSummaryPpt"
-          ]
-        }
-      ],
-      "r322-3": [
-        {
-          "step": 0,
-          "surface": "GitHub 固定版本 · game-playtest 全貌",
-          "materials": [
-            "playtest"
-          ]
-        }
-      ],
-      "r322-4": [
-        {
-          "step": 0,
-          "surface": "GitHub 原文 · Overview",
-          "materials": [
-            "overview",
-            "faceEvidence"
-          ]
-        },
-        {
-          "step": 1,
-          "surface": "GitHub 原文 · Preferred Workflow",
-          "materials": [
-            "workflow",
-            "checks",
-            "countEvidence"
-          ]
-        },
-        {
-          "step": 2,
-          "surface": "GitHub 原文 · Tooling Guidance",
-          "materials": [
-            "tooling"
-          ]
-        },
-        {
-          "step": 3,
-          "surface": "GitHub 原文 · Common Checks 与视口检查",
-          "materials": [
-            "common",
-            "responsive"
-          ]
-        },
-        {
-          "step": 4,
-          "surface": "GitHub 原文 · Reporting Standard",
-          "materials": [
-            "reporting",
-            "countEvidence"
-          ]
-        },
-        {
-          "step": 5,
-          "surface": "GitHub 原文 · References",
-          "materials": [
-            "references"
-          ]
-        }
-      ],
-      "r322-5": [
-        {
-          "step": 0,
-          "parts": [
-            1
+            "supportGuide"
           ],
-          "surface": "PPT · 按作用读懂正文里的具体指导",
-          "materials": [
-            "contentsPpt"
-          ]
-        },
-        {
-          "step": 0,
-          "parts": [
-            2
-          ],
-          "surface": "PPT · 模板和示例怎样交代输出要求",
-          "materials": [
-            "examplesPpt"
-          ]
-        },
-        {
-          "step": 0,
-          "parts": [
-            3
-          ],
-          "surface": "PPT · 模板和示例怎样交代输出要求",
-          "materials": [
-            "exampleFilled"
-          ]
-        },
-        {
-          "step": 0,
-          "parts": [
-            4
-          ],
-          "surface": "PPT · 模板和示例怎样交代输出要求",
-          "materials": [
-            "exampleCondition"
-          ]
-        }
-      ],
-      "r322-6": [
-        {
-          "step": 0,
-          "parts": [
-            1
-          ],
-          "surface": "PPT · 工作不同，需要交代的内容也不同",
-          "materials": [
-            "organizationPpt"
-          ]
-        },
-        {
-          "step": 0,
-          "parts": [
-            2
-          ],
-          "surface": "PPT · 按作用取舍内容，控制正文篇幅",
-          "materials": [
-            "lengthPpt"
-          ]
-        },
-        {
-          "step": 0,
-          "parts": [
-            3
-          ],
-          "surface": "PPT · 按作用取舍内容，控制正文篇幅",
-          "materials": [
-            "resourceTransition"
-          ]
+          "kind": "browser",
+          "optional": "可选解读 · OpenAI 工作边界与配套文件"
         }
       ]
     },
@@ -3688,36 +3844,849 @@ window.screenPlan = {
       ],
       "3.2.2.2": [
         "r322-2"
-      ],
-      "3.2.3.1": [
-        "r322-3"
-      ],
-      "3.2.3.2": [
-        "r322-4"
-      ],
-      "3.2.3.6": [
-        "r322-5",
-        "r322-6"
       ]
     },
     "recordingLabels": {
-      "r322-1": "3.2.2.1 PPT：SKILL.md 结构示意图",
-      "r322-2": "3.2.2.2 OpenAI 示例原文：认识正文的基本内容",
-      "r322-3": "3.2.3.1 交代案例",
-      "r322-4": "3.2.3.2 正文怎样把任务要求变成工作方法",
-      "r322-5": "正文常见内容、模板与示例",
-      "r322-6": "正文组织方式与篇幅"
+      "r322-1": "3.2.2.1 沿官方文章认识完整 Skill",
+      "r322-2": "3.2.2.2 可选解读：工作边界与配套文件的分工"
     },
     "plannedFrames": [
+      {
+        "id": "plan323-5",
+        "number": "3.2.2.3",
+        "title": "总结：完整 Skill 的组成、正文与连接",
+        "group": "认识完整 Skill 的组成与组织",
+        "screens": [
+          {
+            "surface": "PPT p07o",
+            "action": "打开 p07o 第 1 步，指认 Skill 边界、SKILL.md、文件头与正文。",
+            "materials": [
+              "mapEntry"
+            ],
+            "scriptStep": 0,
+            "ppt": {
+              "id": "p07o",
+              "step": 0
+            },
+            "kind": "ppt"
+          },
+          {
+            "surface": "PPT p07m",
+            "action": "打开 p07m 第 1 步，看任务边界、工作方法、判断依据与交付要求四项关系。",
+            "materials": [
+              "bodyRoles"
+            ],
+            "scriptStep": 6,
+            "ppt": {
+              "id": "p07m",
+              "step": 0
+            },
+            "kind": "ppt"
+          },
+          {
+            "surface": "PPT p07m",
+            "action": "推进 p07m 第 2 步，用下方两份已读示例对应四种作用。",
+            "materials": [
+              "bodyExamples"
+            ],
+            "scriptStep": 7,
+            "ppt": {
+              "id": "p07m",
+              "step": 1
+            },
+            "kind": "ppt"
+          },
+          {
+            "surface": "PPT p07os",
+            "action": "推进 p07o 第 2 步，从正文的引用沿线观察三类配套文件。",
+            "materials": [
+              "mapSupport"
+            ],
+            "scriptStep": 1,
+            "ppt": {
+              "id": "p07os",
+              "step": 0
+            },
+            "kind": "ppt"
+          },
+          {
+            "surface": "PPT p07p",
+            "action": "打开 p07p 第 1 步，先看核心指导与四项取用信息，再读 Reference 一行。",
+            "materials": [
+              "connectAll"
+            ],
+            "scriptStep": 3,
+            "ppt": {
+              "id": "p07p",
+              "step": 0
+            },
+            "kind": "ppt"
+          },
+          {
+            "surface": "PPT p07p",
+            "action": "停留 P3.2-12-01，用一句话总结其他配套文件的引用。",
+            "materials": [
+              "connectUse"
+            ],
+            "scriptStep": 5,
+            "ppt": {
+              "id": "p07p",
+              "step": 0
+            },
+            "kind": "ppt"
+          },
+          {
+            "surface": "PPT p07ox",
+            "action": "推进 p07o 第 3 步，指认 Skill 边界外的另一份 SKILL.md，再回看两类连接。",
+            "materials": [
+              "mapOther"
+            ],
+            "scriptStep": 2,
+            "ppt": {
+              "id": "p07ox",
+              "step": 0
+            },
+            "kind": "ppt"
+          }
+        ],
+        "reuse": [],
+        "scriptSource": "r323-5",
+        "status": "2026-11-18：按讲师手改稿合并原两段总结，已同步操作与画面；待讲师复看。",
+        "explanation": "完整结构图作锚点；正文详情说明边界、步骤、检查与交付具体怎样写，引用详情用正文引用句指向文件，再比较运行脚本与使用模板。两张详情页采用流程与文件示意，不使用表格。",
+        "boundary": "主讲五页、七个状态：完整图突出正文 → 正文详情两步 → 完整图突出配套文件 → 链接与描述详情两步 → 完整图突出另一份 Skill。所有锚点图的节点始终可见、位置一致。",
+        "presentation": "sequence",
+        "arrangement": [
+          "完整结构图突出正文，进入正文写法详情：先交代边界、方法、检查与交付，再说明分别用范围与输入、逐步指导、检查说明或脚本、要求或模板来写。",
+          "回到完整图突出 references、scripts、assets，再进入链接与描述详情；最后回到完整图突出另一份 Skill，说明同样可以沿引用查阅专项指导。"
+        ],
+        "transition": "接续 3.2.1 的 E 版显式调用日志，核对正文、Reference、工具执行与最终报告。",
+        "legacyAliases": [
+          "plan323-6"
+        ]
+      },
+      {
+        "id": "plan323-log1",
+        "number": "3.2.3.1",
+        "title": "模型怎样沿引用找到资料",
+        "group": "从日志看 Skill 怎样被使用",
+        "scriptSource": "r323-log1",
+        "screens": [
+          {
+            "surface": "Inspect · 请求与任务边界",
+            "materials": [
+              "log323-1-0"
+            ],
+            "scriptStep": 0,
+            "kind": "inspect"
+          },
+          {
+            "surface": "Inspect · 模型确认清单位置",
+            "materials": [
+              "log323-1-1"
+            ],
+            "scriptStep": 1,
+            "kind": "inspect"
+          },
+          {
+            "surface": "Inspect · 模型发出读取请求",
+            "materials": [
+              "log323-1-2"
+            ],
+            "scriptStep": 2,
+            "kind": "inspect"
+          },
+          {
+            "surface": "Inspect · 工具返回配套内容",
+            "materials": [
+              "log323-1-3"
+            ],
+            "scriptStep": 3,
+            "kind": "inspect"
+          }
+        ],
+        "reuse": [],
+        "presentation": "sequence",
+        "explanation": "从本次请求没有逐条交代的试玩方法，引出 Skill 保存可复用方法的作用；先用资料入口、实际读取和返回解释详细清单怎样供任务使用。 路径与命令只讲到支持理解取用过程，不逐行讲路径计算；清单用来提醒检查范围，随后进入实际采用方法的例子。",
+        "arrangement": [
+          "从本次请求没有逐条交代的试玩方法，引出 Skill 保存可复用方法的作用；先用资料入口、实际读取和返回解释详细清单怎样供任务使用。",
+          "路径与命令只讲到支持理解取用过程，不逐行讲路径计算；清单用来提醒检查范围，随后进入实际采用方法的例子。"
+        ],
+        "boundary": "主讲 E 版显式调用的同一轮记录；F 版自然语言触发为独立对照，不拼接成一次运行。",
+        "status": "2026-11-18：保留讲师手改开场，按模型寻找资料、形成计划、执行与组织报告调整口播和日志；待讲师审阅。",
+        "legacyAliases": [
+          "plan323-1",
+          "plan323-2"
+        ]
+      },
+      {
+        "id": "plan323-log2",
+        "number": "3.2.3.2",
+        "title": "模型怎样用 Skill 完成这次试玩",
+        "group": "从日志看 Skill 怎样被使用",
+        "scriptSource": "r323-log2",
+        "screens": [
+          {
+            "surface": "Inspect · 结合代码决定实际验证",
+            "materials": [
+              "log323-2-0"
+            ],
+            "scriptStep": 0,
+            "kind": "inspect",
+            "scriptSource": "r323-log2"
+          },
+          {
+            "surface": "Inspect · 模型安排本次试玩",
+            "materials": [
+              "log323-2-1"
+            ],
+            "scriptStep": 1,
+            "kind": "inspect",
+            "scriptSource": "r323-log2"
+          },
+          {
+            "surface": "Inspect · 将配对检查展开成具体动作",
+            "materials": [
+              "log323-2-2"
+            ],
+            "scriptStep": 2,
+            "kind": "inspect",
+            "scriptSource": "r323-log2"
+          },
+          {
+            "surface": "Inspect · 模型编写试玩脚本",
+            "materials": [
+              "log323-3-1"
+            ],
+            "scriptStep": 1,
+            "kind": "inspect",
+            "scriptSource": "r323-log3"
+          },
+          {
+            "surface": "Inspect · 工具运行试玩脚本",
+            "materials": [
+              "log323-3-2"
+            ],
+            "scriptStep": 2,
+            "kind": "inspect",
+            "scriptSource": "r323-log3"
+          },
+          {
+            "surface": "Inspect · 工具返回试玩结果",
+            "materials": [
+              "log323-3-3"
+            ],
+            "scriptStep": 3,
+            "kind": "inspect",
+            "scriptSource": "r323-log3"
+          },
+          {
+            "surface": "Inspect · 模型根据运行结果确认问题",
+            "materials": [
+              "log323-3-5"
+            ],
+            "scriptSource": "r323-log3",
+            "scriptStep": 5,
+            "kind": "inspect"
+          },
+          {
+            "surface": "Inspect · 模型打开截图核对",
+            "materials": [
+              "log323-3-4",
+              "log323-e-shot"
+            ],
+            "scriptStep": 4,
+            "kind": "inspect",
+            "scriptSource": "r323-log3"
+          },
+          {
+            "surface": "Inspect · 模型根据截图核对异常画面",
+            "materials": [
+              "log323-3-6"
+            ],
+            "scriptSource": "r323-log3",
+            "scriptStep": 6,
+            "kind": "inspect"
+          },
+          {
+            "surface": "Inspect · 模型按报告标准组织内容",
+            "materials": [
+              "log323-4-0"
+            ],
+            "scriptStep": 0,
+            "kind": "inspect",
+            "scriptSource": "r323-log4"
+          },
+          {
+            "surface": "Inspect · 模型写入报告的第一项问题",
+            "materials": [
+              "log323-4-1"
+            ],
+            "scriptStep": 1,
+            "kind": "inspect",
+            "scriptSource": "r323-log4"
+          },
+          {
+            "surface": "Inspect · 最终回答中的结论与依据",
+            "materials": [
+              "log323-4-2",
+              "log323-f-backup"
+            ],
+            "scriptStep": 2,
+            "kind": "inspect",
+            "scriptSource": "r323-log4"
+          },
+          {
+            "surface": "GitHub · 回看 Skill 的试玩步骤与报告要求",
+            "materials": [
+              "log323-return-workflow",
+              "log323-return-report"
+            ],
+            "scriptSource": "r323-log4",
+            "scriptStep": 3,
+            "kind": "browser",
+            "action": "从最终回复回到 SKILL.md，指 Preferred Workflow 第 1–3 项及紧接着的 Tooling Guidance 第 1 项，联系前面检查脚本的安排；再下滚至 Reporting Standard，联系报告的组织。",
+            "beats": [
+              {
+                "kind": "browser",
+                "materials": [
+                  "log323-return-workflow"
+                ],
+                "text": "回看主要操作、关键截图和 Playwright 建议。"
+              },
+              {
+                "paragraphs": [
+                  0
+                ]
+              },
+              {
+                "paragraphs": [
+                  1
+                ],
+                "hidden": true
+              },
+              {
+                "kind": "browser",
+                "materials": [
+                  "log323-return-report"
+                ],
+                "text": "回看报告要求，随后返回总结 PPT。"
+              },
+              {
+                "paragraphs": [
+                  2
+                ]
+              }
+            ]
+          }
+        ],
+        "reuse": [],
+        "presentation": "sequence",
+        "explanation": "核心收获：将希望复用的工具选择、检查方法和交付要求写进 Skill，为模型提供明确的工作方法；用本次实际采用的记录解释其作用，不只逐项证明动作与原文对应。 前面保留工具选择、启动和手机视口对检查范围的说明；从写脚本的计划起，沿提前通关疑点推进，不再逐项展开初始截图、窗口变化、随机点击和重开。 配对计划 → 快速带过脚本与执行 → 工具结果（172）→ 模型明确确认问题（175）→ 打开截图（178）→ 模型读图后的核对（184）→ 报告。严格区分工具观察与模型判断；截图前已确认问题，不能讲成看截图才首次发现。 保留原稿的 scriptSource、scriptStep 编辑坐标；各项检查分成不同脚本，当前没有修改游戏代码，不称修改后的回归测试。",
+        "arrangement": [
+          "核心收获：将希望复用的工具选择、检查方法和交付要求写进 Skill，为模型提供明确的工作方法；用本次实际采用的记录解释其作用，不只逐项证明动作与原文对应。",
+          "前面保留工具选择、启动和手机视口对检查范围的说明；从写脚本的计划起，沿提前通关疑点推进，不再逐项展开初始截图、窗口变化、随机点击和重开。",
+          "配对计划 → 快速带过脚本与执行 → 工具结果（172）→ 模型明确确认问题（175）→ 打开截图（178）→ 模型读图后的核对（184）→ 报告。严格区分工具观察与模型判断；截图前已确认问题，不能讲成看截图才首次发现。",
+          "保留原稿的 scriptSource、scriptStep 编辑坐标；各项检查分成不同脚本，当前没有修改游戏代码，不称修改后的回归测试。",
+          "结尾简短回看试玩与报告要求，具体对应与写作启示统一在下一页 PPT 总结，不重复展开。"
+        ],
+        "boundary": "主讲 E 版显式调用的同一轮记录；F 版自然语言触发为独立对照，不拼接成一次运行。",
+        "status": "已合并计划、执行与报告为一次试玩的连续讲述；待讲师审阅。",
+        "legacyAliases": [
+          "plan323-3",
+          "plan323-log3",
+          "plan323-log4",
+          "plan323-4"
+        ]
+      },
+      {
+        "id": "plan323-summary",
+        "number": "3.2.3.3",
+        "title": "总结：从运行日志看 Skill 的指导怎样被使用",
+        "group": "从日志看 Skill 怎样被使用",
+        "scriptSource": "r323-summary",
+        "screens": [
+          {
+            "surface": "PPT · 试玩过程总结",
+            "materials": [
+              "useSummary"
+            ],
+            "scriptSource": "r323-summary",
+            "scriptStep": 0,
+            "kind": "ppt",
+            "ppt": {
+              "id": "p323-summary",
+              "step": 0
+            }
+          }
+        ],
+        "reuse": [],
+        "presentation": "sequence",
+        "explanation": "连接前面读过的 Skill 与刚才的同轮运行日志：通用指导需要模型结合游戏规则展开成具体检查；用三组对应关系说明怎样对照关键要求与后续操作，看指导用在了哪里，再衔接 3.3 自己写 Skill。",
+        "boundary": "只总结 E 版同一轮已有证据，不推断使用 Skill 必然发现问题。",
+        "arrangement": [
+          "保留三组对应关系同屏，不增加逐行点击；重点解释主要操作如何结合游戏规则展开为配对和通关检查。",
+          "以清单、工具建议与报告要求的实际用法补足对应，归纳对照关键要求与后续操作的观察方法。",
+          "不扩展为 Skill 失效诊断教程，不把读到指导等同于全部要求已经落实。",
+          "跳过 Plugin 时，将最后一段替换为：接下来，我们也试着把自己的项目经验整理成一份 Skill，再通过实际使用，看看这些经验能不能指导模型完成新的任务。"
+        ],
+        "transition": "本版先补充讲解 Plugin，打开 Game Studio 根目录；补充结束后回到 3.3 整理自己的项目经验。跳过 Plugin 的录制路线保留。",
+        "status": "讲师已确认本轮讲述思路；逐字稿与 PPT 已同步修改，待讲师审阅成稿。"
+      },
+      {
+        "id": "plan324-1",
+        "number": "3.2.4.1",
+        "title": "可选｜从已用 Skill 认识完整 Plugin",
+        "group": "通过 Plugin 组织和分发能力",
+        "scriptSource": "r324-package",
+        "screens": [
+          {
+            "surface": "GitHub 原件",
+            "action": "打开 Game Studio 固定版本根目录，指认 skills、references 和 scripts。",
+            "materials": [
+              "plugin-tree"
+            ],
+            "scriptSource": "r324-package",
+            "scriptStep": 0,
+            "points": [],
+            "kind": "browser"
+          },
+          {
+            "surface": "GitHub 原件",
+            "action": "停留在 Game Studio 根目录，依次指认 skills/、references/、scripts/，暂不打开插件声明。",
+            "materials": [
+              "plugin-tree"
+            ],
+            "scriptSource": "r324-package",
+            "scriptStep": 2,
+            "points": [],
+            "kind": "browser"
+          }
+        ],
+        "reuse": [],
+        "presentation": "sequence",
+        "explanation": "保留讲师过渡原文，从已用 game-playtest 拉远到 Game Studio 根目录；停留指认 skills、references、scripts 的并列位置，再进入各份指导。开头不打开插件声明，后续沿正文引用解释目录之间的关系。",
+        "boundary": "前三环节连续使用 GitHub；3.2.4.4 统一总结，收录 1 页 PPT、2 个状态；随后接真实安装与调用回放。",
+        "status": "已按确认路线制作，待讲师审阅与试读。",
+        "legacyAliases": [],
+        "arrangement": [
+          "接住 3.2.3 对单个 Skill 及配套资料的认识，使用讲师已修改的过渡原文，从熟悉的 game-playtest 拉远到它所属的 Game Studio Plugin。过渡口播保持原文，不另写一版。",
+          "停在 Game Studio 根目录，依次指认 skills、references 和 scripts：这个包中有多份指导，资料与脚本也可以放在包级目录。先让学员看清整体组成与目录位置，不打开 plugin.json，也不逐个解释配置字段。",
+          "目录只说明文件放在哪里，不能据此断定哪些 Skill 共用资源。把“各份指导负责什么、怎样联系、引用哪些材料”留给后面的实际文件逐步回答。"
+        ],
+        "transition": "从根目录进入 skills：先看有哪些指导，再读代表 Skill 的正文，解释它们各自的职责与联系。",
+        "optional": "可选讲解 · Plugin"
+      },
+      {
+        "id": "plan324-roles",
+        "number": "3.2.4.2",
+        "title": "可选｜看懂包内指导的职责与联系",
+        "group": "通过 Plugin 组织和分发能力",
+        "scriptSource": "r324-roles",
+        "screens": [
+          {
+            "surface": "GitHub 原件",
+            "action": "打开 Game Studio 的 skills 目录，快速指认 game-studio、game-ui-frontend、sprite-pipeline、game-playtest。",
+            "materials": [
+              "plugin-skills-tree"
+            ],
+            "scriptSource": "r324-roles",
+            "scriptStep": 0,
+            "points": [],
+            "kind": "browser"
+          },
+          {
+            "surface": "GitHub 原件",
+            "action": "打开 game-studio/SKILL.md，定位 Use This Skill When 与 Do Not Stay Here When。",
+            "materials": [
+              "plugin-skill-router"
+            ],
+            "scriptSource": "r324-roles",
+            "scriptStep": 1,
+            "points": [],
+            "kind": "browser"
+          },
+          {
+            "surface": "GitHub 原件",
+            "action": "在同一文件向下定位 Routing Rules，指分类后的专项 Skill 相对路径。",
+            "materials": [
+              "plugin-routing"
+            ],
+            "scriptSource": "r324-roles",
+            "scriptStep": 2,
+            "points": [],
+            "kind": "browser"
+          },
+          {
+            "surface": "GitHub 原件",
+            "action": "打开 game-ui-frontend 的 Frontend Standards，依次指视觉方向、信息层级、Protect the playfield。",
+            "materials": [
+              "plugin-ui"
+            ],
+            "scriptSource": "r324-roles",
+            "scriptStep": 3,
+            "points": [],
+            "kind": "browser"
+          }
+        ],
+        "reuse": [],
+        "presentation": "sequence",
+        "explanation": "用总入口的适用条件与分流规则解释专项联系，再读界面方法并接到共同依据。",
+        "boundary": "前三环节连续使用 GitHub；3.2.4.4 统一总结，收录 1 页 PPT、2 个状态；随后接真实安装与调用回放。",
+        "status": "已按确认路线制作，待讲师审阅与试读。",
+        "legacyAliases": [
+          "plan324-2"
+        ],
+        "arrangement": [
+          "先浏览 skills 目录，指认 game-studio、game-ui-frontend、sprite-pipeline 和已用过的 game-playtest，把名称对应到任务判断、界面、素材、试玩等工作；不逐一讲九份 Skill。",
+          "打开 game-studio/SKILL.md，先区分整个 Plugin 与包内同名 Skill。读适用条件，再看 Routing Rules：技术路线未定或任务跨领域时先判断任务，明确专项后转向相应指导。用正文中的相对路径说明联系来自明确规则，不能把打包理解成自动依次执行全部 Skill。",
+          "再读 game-ui-frontend 的 Frontend Standards，选视觉方向、信息层级和保护游戏区域说明专项指导有自己的方法；与熟悉的 game-playtest 的检查职责对应。"
+        ],
+        "transition": "做界面和检查界面各有职责，却可能使用共同依据。停在界面 Skill 的 References，沿引用查看它需要的资料。",
+        "optional": "可选讲解 · Plugin"
+      },
+      {
+        "id": "plan324-3",
+        "number": "3.2.4.3",
+        "title": "可选｜沿引用看共同资料与配套脚本",
+        "group": "通过 Plugin 组织和分发能力",
+        "scriptSource": "r324-resources",
+        "screens": [
+          {
+            "surface": "GitHub 原件",
+            "action": "定位 game-ui-frontend 的 References，指 Playtest review 的 ../../references/playtest-checklist.md。",
+            "materials": [
+              "plugin-ui-refs"
+            ],
+            "scriptSource": "r324-resources",
+            "scriptStep": 0,
+            "points": [],
+            "kind": "browser"
+          },
+          {
+            "surface": "GitHub 原件",
+            "action": "打开 game-playtest 的 References，指 Full checklist 的相同路径。",
+            "materials": [
+              "plugin-playtest-refs"
+            ],
+            "scriptSource": "r324-resources",
+            "scriptStep": 1,
+            "points": [],
+            "kind": "browser"
+          },
+          {
+            "surface": "GitHub 原件",
+            "action": "打开 playtest-checklist.md 的 Universal checks，指 HUD 可读性、优先游戏画面、中央区域保持清晰等条目。",
+            "materials": [
+              "plugin-checklist"
+            ],
+            "scriptSource": "r324-resources",
+            "scriptStep": 2,
+            "points": [],
+            "kind": "browser"
+          },
+          {
+            "surface": "GitHub 原件",
+            "action": "打开 sprite-pipeline 的 Core Workflow，指第 4 步及 normalize_sprite_strip.py 引用。",
+            "materials": [
+              "plugin-sprite-flow"
+            ],
+            "scriptSource": "r324-resources",
+            "scriptStep": 3,
+            "points": [],
+            "kind": "browser"
+          },
+          {
+            "surface": "GitHub 原件",
+            "action": "打开 normalize_sprite_strip.py，确认文件路径与文件开头用途；不展开函数实现。",
+            "materials": [
+              "plugin-script"
+            ],
+            "scriptSource": "r324-resources",
+            "scriptStep": 4,
+            "points": [],
+            "kind": "browser"
+          }
+        ],
+        "reuse": [],
+        "presentation": "sequence",
+        "explanation": "先比较共同清单的引用，再沿专项步骤找到脚本；区分共同资源和配套资源。",
+        "boundary": "前三环节连续使用 GitHub；3.2.4.4 统一总结，收录 1 页 PPT、2 个状态；随后接真实安装与调用回放。",
+        "status": "已按确认路线制作，待讲师审阅与试读。",
+        "legacyAliases": [],
+        "arrangement": [
+          "先看 game-ui-frontend 的 References，再看 game-playtest 的 References，比较两处 ../../references/playtest-checklist.md。沿路径回到包级 references，打开同一份清单，以可读性和游戏区域等条目解释两份指导怎样使用共同检查依据。",
+          "再打开 sprite-pipeline 的 Core Workflow，简短交代二维动画素材用途，沿归一化步骤找到 scripts/normalize_sprite_strip.py。只看文件位置与用途：Skill 说明何时使用和要求，脚本负责具体处理，不展开参数、算法或素材生成。",
+          "把两条关系区分清楚：清单有两份 Skill 的实际引用，脚本是所看专项指导的配套资源。放在包级目录不等于所有 Skill 共用，也不能据此推断这些文件由重复内容抽取而来。"
+        ],
+        "transition": "至此三个 GitHub 环节全部完成。回到同一张 PPT，把目录、职责和刚看过的引用关系放在一起总结。",
+        "optional": "可选讲解 · Plugin"
+      },
+      {
+        "id": "plan324-summary",
+        "number": "3.2.4.4",
+        "title": "可选｜统一总结：整包、分工与引用",
+        "group": "通过 Plugin 组织和分发能力",
+        "scriptSource": "r324-summary",
+        "screens": [
+          {
+            "surface": "PPT · 统一总结",
+            "action": "打开 PPT p324a 第 1 步，指 Game Studio 包边界及其中的代表 Skill。",
+            "materials": [
+              "p324a-0"
+            ],
+            "scriptSource": "r324-summary",
+            "scriptStep": 0,
+            "points": [],
+            "kind": "ppt",
+            "ppt": {
+              "id": "p324a",
+              "step": 0
+            }
+          },
+          {
+            "surface": "PPT · 统一总结",
+            "action": "推进到第 2 步，沿两份 Skill 指向同一清单的箭头，再指素材指导与脚本。",
+            "materials": [
+              "p324a-1"
+            ],
+            "scriptSource": "r324-summary",
+            "scriptStep": 1,
+            "points": [],
+            "kind": "ppt",
+            "ppt": {
+              "id": "p324a",
+              "step": 1
+            }
+          }
+        ],
+        "reuse": [],
+        "presentation": "sequence",
+        "explanation": "三个 GitHub 环节完成后，用同一张图收拢整体边界、代表职责和已核对的引用。",
+        "boundary": "前三环节连续使用 GitHub；3.2.4.4 统一总结，收录 1 页 PPT、2 个状态；随后接真实安装与调用回放。",
+        "status": "已按确认路线制作，待讲师审阅与试读。",
+        "legacyAliases": [
+          "plan324-4"
+        ],
+        "arrangement": [
+          "这是前三个 GitHub 环节之后的唯一一次 PPT 总结，使用 p324a 一页、两个展示状态；前面各环节不插入总结页。",
+          "第一状态先指 Game Studio 的包边界，再看其中的代表 Skill，收拢“整包提供相关指导与资源、各份 Skill 有各自职责”的关系。",
+          "第二状态展示两份 Skill 指向同一清单、素材 Skill 指向脚本的关系，回扣刚才的原文证据：资料按需引用，具体使用关系由指导决定。只归纳已经看过的内容，不新增 MCP 或 Hook 分支。"
+        ],
+        "transition": "整体组成和引用关系已经看清，接着看怎样安装这个包，并在当前任务中选用其中的指导。",
+        "optional": "可选讲解 · Plugin"
+      },
+      {
+        "id": "plan324-5",
+        "number": "3.2.4.5",
+        "title": "可选｜安装整包，按任务选用",
+        "group": "通过 Plugin 组织和分发能力",
+        "scriptSource": "r324-use",
+        "screens": [
+          {
+            "surface": "GitHub 原件",
+            "action": "打开 .codex-plugin/plugin.json，只指名称 game-studio 和 skills 入口。",
+            "materials": [
+              "plugin-manifest"
+            ],
+            "scriptSource": "r324-package",
+            "scriptStep": 1,
+            "points": [],
+            "kind": "browser"
+          },
+          {
+            "surface": "真实回放",
+            "action": "打开完整 Plugin 预跑的来源与实际组成；明确这是历史回放。",
+            "materials": [
+              "plugin-run-source"
+            ],
+            "scriptSource": "r324-use",
+            "scriptStep": 0,
+            "points": [],
+            "kind": "browser"
+          },
+          {
+            "surface": "真实回放",
+            "action": "打开安装返回的 Inspect 原件，指插件名称、来源和安装路径。安装命令见原预跑文档；同轮终端执行日志缺失，不模拟执行。",
+            "materials": [
+              "plugin-run-install"
+            ],
+            "scriptSource": "r324-use",
+            "scriptStep": 1,
+            "points": [],
+            "kind": "inspect"
+          },
+          {
+            "surface": "真实回放",
+            "action": "打开同次请求留存，指 game-playtest、六对通关、重开归零和只生成清单的范围。",
+            "materials": [
+              "plugin-run-request"
+            ],
+            "scriptSource": "r324-use",
+            "scriptStep": 2,
+            "points": [],
+            "kind": "browser"
+          },
+          {
+            "surface": "真实回放",
+            "action": "打开同轮返回清单的 Inspect 原件，定位通关边界与重开条目。",
+            "materials": [
+              "plugin-run-result"
+            ],
+            "scriptSource": "r324-use",
+            "scriptStep": 3,
+            "points": [],
+            "kind": "inspect"
+          },
+          {
+            "surface": "真实回放",
+            "action": "保持清单结果画面；拓展阅读链接留在讲述页材料区，不打开新案例。",
+            "materials": [
+              "plugin-concept",
+              "plugin-skill-mcp",
+              "plugin-hooks"
+            ],
+            "scriptSource": "r324-use",
+            "scriptStep": 4,
+            "points": [],
+            "kind": "browser"
+          }
+        ],
+        "reuse": [],
+        "presentation": "sequence",
+        "explanation": "先简短看插件声明中的名称与 Skill 入口，承接整包安装；再使用原同轮回放核对安装对象、任务和结果。结尾仅提供 MCP／Hook 拓展阅读，再接下一节。",
+        "boundary": "前三环节连续使用 GitHub；3.2.4.4 统一总结，收录 1 页 PPT、2 个状态；随后接真实安装与调用回放。",
+        "status": "已按确认路线制作，待讲师审阅与试读。",
+        "legacyAliases": [
+          "plan324-6"
+        ],
+        "arrangement": [
+          "安装环节开头才打开 .codex-plugin/plugin.json，简短指认 name 与 skills 入口，不逐字段讲解。说明单份 Skill 也能独立使用和分享；这里通过 Plugin 将相关指导和资源作为整体安装、分发。",
+          "切到已有真实安装回放，核对安装对象、来源和返回位置，明确这是历史记录。沿用同次安装与调用材料；终端执行日志缺失的部分不模拟执行，也不把已有安装冒充首次安装。",
+          "看明确选用 game-playtest 的原始请求，再看返回清单里的六对通关与重开归零条目。解释安装取得整套能力，当前任务决定用哪部分，还需要补充项目规则；本次只生成清单，没有运行游戏或修改代码。"
+        ],
+        "transition": "保持结果画面结束 3.2，只简短提及其他 Plugin 可有 MCP、Hook 并提供拓展阅读链接，不展开新案例。随后接 3.3 对 Skill 的生成、审阅、修改与实际应用。",
+        "optional": "可选讲解 · Plugin"
+      }
+    ],
+    "pluginSlidePlan": {
+      "total": 1,
+      "status": "前三环节后统一总结；1 页、2 状态。",
+      "pages": [
+        {
+          "id": "P324-1",
+          "frames": [
+            "3.2.4.4"
+          ],
+          "states": 2,
+          "content": "整包身份与代表职责 → 共同清单与配套脚本的引用",
+          "actualId": "p324a",
+          "scene": "p324a",
+          "page": 1,
+          "progression": "完整包与分工 → 资源引用"
+        }
+      ]
+    },
+    "routeDesign": {
+      "r322-1": {
+        "content": "主讲在同一篇 Anthropic 文章观察单文件、参考资料、工作流程和报告模板；输入输出示例、条件流程与脚本细读保留为可选解读。",
+        "reason": "先从真实文件关系与具体写法建立完整 Skill 的认识；文章阶段不插入同义 PPT。",
+        "presentation": "sequence",
+        "arrangement": [
+          "主讲依次看单文件图、配套资料图、表单填写流程和报告模板。讲完模板直接跳到总结，不要求继续逐项读文章。",
+          "输入输出示例、条件流程与脚本细读保留原稿、定位及编辑坐标，默认折叠；需要时展开录制。"
+        ],
+        "transition": "主讲直接进入 3.2.2.3 的总结；OpenAI 原文解读也作为可选内容保留。"
+      },
+      "r322-2": {
+        "content": "在 OpenAI 指南核对工作边界，再看 references/、assets/、scripts/ 的分工；用读规范、填模板、运行程序区分使用方式，指出正文需提供条件与入口。",
+        "reason": "可选录制与课后备查：保留原稿和原文定位，主讲不依赖本段。",
+        "presentation": "sequence",
+        "arrangement": [
+          "先对照输入、步骤、输出和提问／停止条件，说明正文要把一项工作交代清楚。正文格式规范只用于回答标题是否固定，不展开一套必填栏目。",
+          "再看 references、assets、scripts 的官方说明，用读规范、填模板和运行程序区分使用方式；指认正文需要链接这些文件，并说明何时取用。"
+        ],
+        "transition": "原文解读在这里收束，以完整结构图为锚点，进入正文和链接详情，再回到结构图讲另一份 Skill。"
+      }
+    },
+    "summarySlidePlan": {
+      "total": 7,
+      "status": "主讲五页、六个状态，另两页深链备查；锚点图全部内容常显，只改变高亮。",
+      "pages": [
+        {
+          "page": 1,
+          "scene": "p07o",
+          "frames": "3.2.2.3",
+          "content": "完整图高亮正文",
+          "progression": "整体关系常显，进入正文详情",
+          "status": "主讲"
+        },
+        {
+          "page": 2,
+          "scene": "p07m",
+          "frames": "3.2.2.3",
+          "content": "Skill 正文通常要写清什么",
+          "progression": "四类内容 → 具体写法",
+          "status": "主讲"
+        },
+        {
+          "page": 3,
+          "scene": "p07os",
+          "frames": "3.2.2.3",
+          "content": "完整图高亮配套文件",
+          "progression": "查阅、运行、使用，进入链接详情",
+          "status": "主讲"
+        },
+        {
+          "page": 4,
+          "scene": "p07p",
+          "frames": "3.2.2.3",
+          "content": "正文怎样连接配套文件",
+          "progression": "查阅条件与入口；脚本、模板和素材以一句话带过，不再单独展开",
+          "status": "主讲"
+        },
+        {
+          "scene": "p07ox",
+          "frames": "3.2.2.3",
+          "content": "完整图高亮另一份 Skill",
+          "progression": "引用专项指导，进入日志",
+          "status": "主讲",
+          "page": 5
+        },
+        {
+          "page": 6,
+          "scene": "p07l",
+          "frames": "3.2.2.3",
+          "content": "模板、示例和条件各做什么",
+          "progression": "空结构 → 填写示意 → 条件分支",
+          "status": "补充备查，录制跳过"
+        },
+        {
+          "page": 7,
+          "scene": "p07q",
+          "frames": "3.2.2.3",
+          "content": "沿使用顺序理解渐进披露",
+          "progression": "识别选用 → 核心指导与本次输入 → 按需取用，进入日志",
+          "status": "补充备查，录制跳过"
+        }
+      ]
+    },
+    "excludedScriptSteps": {
+      "r323-5": [
+        4
+      ],
+      "r323-log3": [
+        0
+      ]
+    },
+    "historicalFrames": [
       {
         "id": "plan323-1",
         "number": "3.2.3.1",
         "title": "交代案例：同一工作为什么需要不同层次的指导",
-        "group": "认识复杂 Skill 的资料、脚本与资源",
+        "group": "从日志看 Skill 怎样被使用",
         "screens": [
           {
-            "surface": "从简单正文到配套指导 · 早期 05 预览",
-            "action": "打开归档游戏，指认十二张牌；说明六对通关和三轮独立副本。",
+            "surface": "浏览器 · 三轮试玩的共同游戏起点",
             "materials": [
               "old5"
             ],
@@ -3733,7 +4702,7 @@ window.screenPlan = {
         "id": "plan323-2",
         "number": "3.2.3.2",
         "title": "正文怎样把任务要求变成工作方法",
-        "group": "认识复杂 Skill 的资料、脚本与资源",
+        "group": "从日志看 Skill 怎样被使用",
         "screens": [
           {
             "surface": "本次输入与可复用方法的分工 · 任务 1 请求",
@@ -3833,7 +4802,7 @@ window.screenPlan = {
         "id": "plan323-3",
         "number": "3.2.3.3",
         "title": "Reference 怎样把通用指导补充为具体检查",
-        "group": "认识复杂 Skill 的资料、脚本与资源",
+        "group": "从日志看 Skill 怎样被使用",
         "screens": [
           {
             "surface": "为什么需要配套细则 · 任务 2 请求",
@@ -3902,6 +4871,15 @@ window.screenPlan = {
             "scriptStep": 4
           },
           {
+            "surface": "Inspect · 本次生成并运行的重开检查脚本",
+            "action": "打开任务 2 的 Inspect 原始脚本写入命令，指认点击、状态读取和预期检查。",
+            "materials": [
+              "restartScript"
+            ],
+            "scriptStep": 4,
+            "scriptSource": "r323-5"
+          },
+          {
             "surface": "PPT · 实际结果对应两层预期",
             "action": "返回 PPT p07t2，停在第 3 步：实际结果对应两层预期。",
             "materials": [
@@ -3917,13 +4895,13 @@ window.screenPlan = {
         "reuse": [],
         "scriptSource": "r323-3",
         "status": "2026-11-11：按录制顺序走查并去除重复，明确原文、实录与 PPT 返回状态；检查见 README。",
-        "boundary": "本任务使用 1 页 PPT（p07t2），依次建立知识关系、对应本例、核对结果；原文连续阅读、实录连续核验后返回同一页。"
+        "boundary": "本任务使用 1 页 PPT（p07t2），依次建立知识关系、对应本例、核对结果；原文连续阅读、实录连续核验后返回同一页。 重开结果后补看本次生成的脚本，明确它不是 Skill 随包脚本。"
       },
       {
         "id": "plan323-4",
         "number": "3.2.3.4",
         "title": "专项 Skill 怎样补充另一类工作的判断",
-        "group": "认识复杂 Skill 的资料、脚本与资源",
+        "group": "从日志看 Skill 怎样被使用",
         "screens": [
           {
             "surface": "检查目标决定需要什么指导 · 任务 3 请求",
@@ -4024,497 +5002,20 @@ window.screenPlan = {
         "scriptSource": "r323-4",
         "status": "2026-11-11：按录制顺序走查并去除重复，明确原文、实录与 PPT 返回状态；检查见 README。",
         "boundary": "本任务使用 1 页 PPT（p07t3），依次建立知识关系、对应本例、核对结果；原文连续阅读、实录连续核验后返回同一页。"
-      },
-      {
-        "id": "plan323-5",
-        "number": "3.2.3.5",
-        "title": "复杂 Skill 怎么拆、怎么接",
-        "group": "认识复杂 Skill 的资料、脚本与资源",
-        "screens": [
-          {
-            "surface": "PPT p07o",
-            "action": "打开 p07o 第 1 步，指认 Skill 边界、SKILL.md、文件头与正文。",
-            "materials": [
-              "mapEntry"
-            ],
-            "scriptStep": 0,
-            "ppt": {
-              "id": "p07o",
-              "step": 0
-            }
-          },
-          {
-            "surface": "PPT p07o",
-            "action": "推进 p07o 第 2 步，从正文的引用沿线观察三类配套文件。",
-            "materials": [
-              "mapSupport"
-            ],
-            "scriptStep": 1,
-            "ppt": {
-              "id": "p07o",
-              "step": 1
-            }
-          },
-          {
-            "surface": "PPT p07o",
-            "action": "推进 p07o 第 3 步，指认 Skill 边界外的另一份 SKILL.md，再回看两类连接。",
-            "materials": [
-              "mapOther"
-            ],
-            "scriptStep": 2,
-            "ppt": {
-              "id": "p07o",
-              "step": 2
-            }
-          },
-          {
-            "surface": "PPT p07p",
-            "action": "打开 p07p 第 1 步，先看核心指导与四项取用信息，再读 Reference 一行。",
-            "materials": [
-              "connectAll"
-            ],
-            "scriptStep": 3,
-            "ppt": {
-              "id": "p07p",
-              "step": 0
-            }
-          },
-          {
-            "surface": "实际重开脚本",
-            "action": "打开任务 2 的 Inspect 原始脚本写入命令，指认点击、状态读取和预期检查。",
-            "materials": [
-              "restartScript"
-            ],
-            "scriptStep": 4
-          },
-          {
-            "surface": "PPT p07p",
-            "action": "返回 p07p 第 2 步，展开脚本和素材两行，对照输入与结果。",
-            "materials": [
-              "connectUse"
-            ],
-            "scriptStep": 5,
-            "ppt": {
-              "id": "p07p",
-              "step": 1
-            }
-          }
-        ],
-        "reuse": [],
-        "scriptSource": "r323-5",
-        "status": "2026-11-11：正式口播接入唯一 script.json；PPT 与材料按画面映射。作者核对状态见本节 README，未讲师试讲。"
-      },
-      {
-        "id": "plan323-6",
-        "number": "3.2.3.6",
-        "title": "两份示例的系统小结",
-        "group": "认识复杂 Skill 的资料、脚本与资源",
-        "screens": [
-          {
-            "surface": "PPT p07m",
-            "action": "打开 p07m 第 1 步，看任务边界、工作方法、判断依据与交付要求四项关系。",
-            "materials": [
-              "bodyRoles"
-            ],
-            "scriptStep": 0,
-            "ppt": {
-              "id": "p07m",
-              "step": 0
-            }
-          },
-          {
-            "surface": "PPT p07m",
-            "action": "推进 p07m 第 2 步，用下方两份已读示例对应四种作用。",
-            "materials": [
-              "bodyExamples"
-            ],
-            "scriptStep": 1,
-            "ppt": {
-              "id": "p07m",
-              "step": 1
-            }
-          },
-          {
-            "surface": "PPT p07l",
-            "action": "打开 p07l 第 1 步，显示空报告结构。",
-            "materials": [
-              "template"
-            ],
-            "scriptStep": 2,
-            "ppt": {
-              "id": "p07l",
-              "step": 0
-            }
-          },
-          {
-            "surface": "PPT p07l",
-            "action": "推进 p07l 第 2 步，展开填写示意。",
-            "materials": [
-              "filledTemplate"
-            ],
-            "scriptStep": 3,
-            "ppt": {
-              "id": "p07l",
-              "step": 1
-            }
-          },
-          {
-            "surface": "PPT p07l",
-            "action": "推进 p07l 第 3 步，观察条件与要求，再收束表达方式。",
-            "materials": [
-              "conditional"
-            ],
-            "scriptStep": 4,
-            "ppt": {
-              "id": "p07l",
-              "step": 2
-            }
-          },
-          {
-            "surface": "PPT p07q",
-            "action": "打开 p07q 第 1 步，回到与 p07o 同构的全局图，突出文件头。",
-            "materials": [
-              "progressMeta"
-            ],
-            "scriptStep": 5,
-            "ppt": {
-              "id": "p07q",
-              "step": 0
-            }
-          },
-          {
-            "surface": "PPT p07q",
-            "action": "推进 p07q 第 2 步，突出正文，保留文件头与配套资源的位置。",
-            "materials": [
-              "progressBody"
-            ],
-            "scriptStep": 6,
-            "ppt": {
-              "id": "p07q",
-              "step": 1
-            }
-          },
-          {
-            "surface": "PPT p07q",
-            "action": "推进 p07q 第 3 步，突出从正文展开的路径，显示渐进披露与篇幅建议。",
-            "materials": [
-              "progressMore"
-            ],
-            "scriptStep": 7,
-            "ppt": {
-              "id": "p07q",
-              "step": 2
-            }
-          }
-        ],
-        "reuse": [],
-        "scriptSource": "r323-6",
-        "status": "2026-11-11：正式口播接入唯一 script.json；PPT 与材料按画面映射。作者核对状态见本节 README，未讲师试讲。"
-      },
-      {
-        "id": "plan323-review",
-        "number": "3.2.3.7",
-        "title": "再看第一版风格指导",
-        "group": "认识复杂 Skill 的资料、脚本与资源",
-        "screens": [
-          {
-            "surface": "PPT p324c · 回看初稿",
-            "action": "讲完渐进披露后切到回看页，依次指四项问题；邀请修改并保存两版，再转向 Plugin 的整包提供。",
-            "visible": "使用时机、具体要求、资料入口、实际读取与结果；下方指向新玩法验证。",
-            "points": [],
-            "materials": [
-              "p324c"
-            ],
-            "scriptSource": "r324-review",
-            "scriptStep": 0,
-            "ppt": {
-              "id": "p324c",
-              "step": 0
-            }
-          }
-        ]
-      },
-      {
-        "id": "plan324-1",
-        "number": "3.2.4.1",
-        "title": "Plugin 怎样组织和分发能力",
-        "group": "通过 Plugin 组织和分发能力",
-        "screens": [
-          {
-            "surface": "已有项目目录 · 四份独立 Skill",
-            "action": "在编辑器中打开 3.2.1 演示项目的 .agents/skills，指认四个目录；本段先保持项目目录，下一段再切来源。录前若目录不存在，按就近准备页创建四份 Skill 的隔离演示副本。",
-            "visible": "game-playtest、game-ui-frontend、web-game-foundations、react-three-fiber-game 四个目录。",
-            "points": [],
-            "materials": [
-              "plugin-four-preparation"
-            ],
-            "scriptStep": 0,
-            "scriptSource": "r324-1"
-          },
-          {
-            "surface": "来源目录 · Game Studio 固定版本",
-            "action": "打开固定版本 Game Studio 的 skills 目录，指认四份熟悉指导和 game-studio、phaser-2d-game；随后按切换提示查看插件声明。",
-            "visible": "固定版本、完整 skills 目录与共同的 Plugin 位置；不把本地 .agents 目录叫作已安装 Plugin。",
-            "points": [],
-            "materials": [
-              "plugin-skills-tree",
-              "plugin-manifest"
-            ],
-            "scriptStep": 1,
-            "scriptSource": "r324-1"
-          },
-          {
-            "surface": "PPT P324-1 · 状态 1：熟悉的指导",
-            "action": "从目录切到图，展示前面已准备的四份 Skill；试玩、界面突出，两份依赖弱化。",
-            "visible": "四份名称与主要/配套关系；标明“前面：按任务准备的指导文件”。",
-            "points": [],
-            "materials": [
-              "p324a-0"
-            ],
-            "scriptStep": 0,
-            "ppt": {
-              "id": "p324a",
-              "step": 0
-            },
-            "scriptSource": "r324-2"
-          },
-          {
-            "surface": "PPT P324-1 · 状态 2：外层包",
-            "action": "在来源的完整能力集合中增加其他代表 Skill，展开 Game Studio Plugin 的统一身份与组成声明。",
-            "visible": "已有四份与其他代表指导同属完整包；外层写身份与组成声明，不画成仅给本地四份目录改名。",
-            "points": [],
-            "materials": [
-              "p324a-1"
-            ],
-            "scriptStep": 1,
-            "ppt": {
-              "id": "p324a",
-              "step": 1
-            },
-            "scriptSource": "r324-2"
-          },
-          {
-            "surface": "PPT P324-1 · 状态 3：提供与使用",
-            "action": "展开提供者 → 整包安装 → 使用者 → 按任务选用 Skill 的关系；用鼠标指认包内已有的 game-playtest，不等待额外高亮动画。",
-            "visible": "完整包保持可见；提供者、整包安装、使用者、按任务选用之间的箭头出现，鼠标指认 game-playtest。",
-            "points": [],
-            "materials": [
-              "p324a-2",
-              "plugin-concept"
-            ],
-            "scriptStep": 2,
-            "ppt": {
-              "id": "p324a",
-              "step": 2
-            },
-            "scriptSource": "r324-2"
-          }
-        ],
-        "reuse": [],
-        "status": "阶段 4：按当前逐字稿与实际画面走查，定位与切换修正已复验；安装采用已有真实回放。未进行讲师出声试读、试讲或本轮重新安装。",
-        "boundary": "3.2.4 共复用 2 页 PPT：P324-1（p324a）对应第一环节，P324-2（p324b）对应第二环节，各 3 个状态；第三环节使用目录与真实安装调用回放。",
-        "legacyAliases": [
-          "plan324-2"
-        ]
-      },
-      {
-        "id": "plan324-3",
-        "number": "3.2.4.2",
-        "title": "Skill、MCP 与 Hook 各有什么作用",
-        "group": "通过 Plugin 组织和分发能力",
-        "screens": [
-          {
-            "surface": "PPT P324-2 · 状态 1：团队试玩方法",
-            "action": "换页；先指出“教学示意”，再指试玩 Skill。",
-            "visible": "新标题“团队游戏开发 Plugin · 教学示意”；试玩 Skill 写检查方法与报告要求。",
-            "points": [],
-            "materials": [
-              "p324b-0"
-            ],
-            "scriptStep": 0,
-            "ppt": {
-              "id": "p324b",
-              "step": 0
-            },
-            "scriptSource": "r324-3"
-          },
-          {
-            "surface": "PPT P324-2 · 状态 2：查询工具与外部服务",
-            "action": "增加 MCP 分支及边界外缺陷库，沿查询关系指认。",
-            "visible": "Plugin 内显示服务连接，外部显示缺陷库；查询工具标为示意。",
-            "points": [],
-            "materials": [
-              "p324b-1",
-              "plugin-concept"
-            ],
-            "scriptStep": 1,
-            "ppt": {
-              "id": "p324b",
-              "step": 1
-            },
-            "scriptSource": "r324-3"
-          },
-          {
-            "surface": "PPT P324-2 · 状态 3：事件触发",
-            "action": "保留原图，增加 Hook 分支；先指会话开始，再指环境检查脚本。",
-            "visible": "Skill、MCP、Hook 三个可选组成并列；Hook 单独用“会话开始 → 检查脚本”；页下注支持环境与信任条件。",
-            "points": [],
-            "materials": [
-              "p324b-2",
-              "plugin-hooks"
-            ],
-            "scriptStep": 0,
-            "ppt": {
-              "id": "p324b",
-              "step": 2
-            },
-            "scriptSource": "r324-4"
-          },
-          {
-            "surface": "官方原文 · Skill 与 MCP 的分工",
-            "action": "打开 Skills 文档的 How skills complement an MCP server，停在首段与该节末尾的职责说明。",
-            "visible": "MCP 提供信息与操作；Skill 说明何时调用、怎样组织工作及输出。",
-            "points": [],
-            "materials": [
-              "plugin-skill-mcp"
-            ],
-            "scriptSource": "r324-7",
-            "scriptStep": 0
-          },
-          {
-            "surface": "官方原文 · Hook 的事件与命令",
-            "action": "打开 Hook 章节，先停在开头的宿主与安装方式说明；讲完首段后按切换提示定位代码示例。",
-            "visible": "事件发生 → 宿主执行配置命令；脚本必须能在执行环境中运行。",
-            "points": [],
-            "materials": [
-              "plugin-hooks",
-              "plugin-shapes"
-            ],
-            "scriptSource": "r324-7",
-            "scriptStep": 1
-          },
-          {
-            "surface": "来源目录 · Game Studio 的实际声明",
-            "action": "打开固定版本插件声明，指 name、version，再滚到 skills 字段；说明未声明 MCP 或 Hook 后按切换提示回到包目录。",
-            "visible": "Game Studio 指向 skills；本版本未声明 MCP 或 Hook。",
-            "points": [],
-            "materials": [
-              "plugin-manifest",
-              "plugin-tree"
-            ],
-            "scriptSource": "r324-7",
-            "scriptStep": 2
-          }
-        ],
-        "reuse": [],
-        "status": "阶段 4：按当前逐字稿与实际画面走查，定位与切换修正已复验；安装采用已有真实回放。未进行讲师出声试读、试讲或本轮重新安装。",
-        "boundary": "3.2.4 共复用 2 页 PPT：P324-1（p324a）对应第一环节，P324-2（p324b）对应第二环节，各 3 个状态；第三环节使用目录与真实安装调用回放。",
-        "legacyAliases": [
-          "plan324-4"
-        ]
-      },
-      {
-        "id": "plan324-5",
-        "number": "3.2.4.3",
-        "title": "安装 Game Studio，并按任务选用指导",
-        "group": "通过 Plugin 组织和分发能力",
-        "screens": [
-          {
-            "surface": "真实预跑回放 · 完整 Plugin 安装",
-            "action": "打开真实安装回放的“来源与实际组成”，指安装对象与九份 Skill 清单；讲完首段后按切换提示进入“安装”。",
-            "visible": "已配置官方来源；本次通过 CLI 安装完整包，记录日期与版本可查。",
-            "points": [],
-            "materials": [
-              "plugin-run-source",
-              "plugin-run-install"
-            ],
-            "scriptSource": "r324-5",
-            "scriptStep": 1
-          },
-          {
-            "surface": "真实目录与正文 · 按任务选择指导",
-            "action": "打开固定版本 game-studio/SKILL.md，停在 Use This Skill When；随后按切换提示打开 sprite-pipeline 和 game-playtest 的职责说明。",
-            "visible": "Game Studio Plugin 的包边界与 game-studio Skill 的文件层级；三个任务各自对应一份指导。",
-            "points": [],
-            "materials": [
-              "plugin-tree",
-              "plugin-skill-router",
-              "plugin-skill-sprite",
-              "plugin-skill-playtest"
-            ],
-            "scriptSource": "r324-7",
-            "scriptStep": 3
-          },
-          {
-            "surface": "真实预跑回放 · 明确选用与具体规则",
-            "action": "打开同次请求，指 game-playtest、六对通关、重开归零，以及只生成清单的范围。",
-            "visible": "选择的指导与本次具体规则同时可见。",
-            "points": [],
-            "materials": [
-              "plugin-run-request"
-            ],
-            "scriptSource": "r324-6",
-            "scriptStep": 0
-          },
-          {
-            "surface": "真实预跑回放 · 返回清单与衔接",
-            "action": "定位清单中的通关边界和重开条目，展示到可以看出已针对本次规则作答即止。",
-            "visible": "5/6 不通关、6/6 才通关；重开计数归零后继续翻牌。",
-            "points": [],
-            "materials": [
-              "plugin-run-result"
-            ],
-            "scriptSource": "r324-6",
-            "scriptStep": 2
-          }
-        ],
-        "reuse": [],
-        "status": "阶段 4：按当前逐字稿与实际画面走查，定位与切换修正已复验；安装采用已有真实回放。未进行讲师出声试读、试讲或本轮重新安装。",
-        "boundary": "3.2.4 共复用 2 页 PPT：P324-1（p324a）对应第一环节，P324-2（p324b）对应第二环节，各 3 个状态；第三环节使用目录与真实安装调用回放。",
-        "legacyAliases": [
-          "plan324-6"
-        ],
-        "previousReuse": [
-          {
-            "scene": "r324-5",
-            "step": 0,
-            "part": 1
-          },
-          {
-            "scene": "r324-6",
-            "step": 1,
-            "part": 1
-          }
-        ]
       }
     ],
-    "pluginSlidePlan": {
-      "total": 2,
-      "status": "复用两页 PPT、各三个状态；原文带读、任务选用及转场逐字稿已补齐，安装调用采用真实回放。",
+    "spokenStyle": "3.2.3 接续讲师前文手改稿：先指着原文说明它让 AI 做什么，再用本例解释帮助；避免把教学分类和审查说明直接念进口播。每行表达一句话或一个连续意思，用单换行保留段落编辑坐标。",
+    "useSlidePlan": {
+      "total": 1,
+      "status": "E 版日志与原文讲解后回到一页总结 PPT，随后直接进入 3.3；Plugin 可选，F 版独立备用。",
       "pages": [
         {
-          "id": "P324-1",
-          "frames": [
-            "3.2.4.1"
-          ],
-          "states": 3,
-          "content": "前面按任务准备四份指导 → 来源处完整 Plugin 的统一身份与组成声明 → 整包安装与按需选用；数量不是 Plugin 的定义。",
-          "actualId": "p324a",
-          "scene": "p324a",
           "page": 1,
-          "progression": "目录 → 熟悉的指导 → 完整包 → 提供与选用"
-        },
-        {
-          "id": "P324-2",
-          "frames": [
-            "3.2.4.2"
-          ],
-          "states": 3,
-          "content": "教学假设：Skill 的方法、MCP 的工具、Hook 的事件触发；三个可选组成并列。",
-          "actualId": "p324b",
-          "scene": "p324b",
-          "page": 2,
-          "progression": "方法 → 工具接入 → 事件触发 → 官方原文 → 真实组成"
+          "scene": "p323-summary",
+          "frames": "3.2.3.3",
+          "content": "对照 Skill 关键要求与日志中的具体操作，理解通用指导怎样用于当前任务",
+          "progression": "一页一个状态，三组关系同屏，口播依次说明",
+          "status": "主讲"
         }
       ]
     }

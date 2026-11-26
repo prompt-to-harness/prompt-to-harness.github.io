@@ -1,0 +1,65 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>reference-game/src/sound.js</title><style>body{margin:0;background:#f8f7f3;color:#26332e;font:18px/1.6 system-ui}main{max-width:1100px;margin:auto;padding:24px 24px 100px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:white;border:1px solid #ddd;padding:20px;font:14px/1.65 monospace}</style><main><h1>reference-game/src/sound.js</h1><nav data-source="reference-game/src/sound.js" data-evidence-stops="[{&quot;id&quot;: &quot;L9&quot;, &quot;label&quot;: &quot;声音开关&quot;}, {&quot;id&quot;: &quot;L50&quot;, &quot;label&quot;: &quot;翻牌与配对声音&quot;}, {&quot;id&quot;: &quot;L60&quot;, &quot;label&quot;: &quot;胜利声音&quot;}]"></nav><pre><span id="L1">/**</span>
+<span id="L2"> * 用 WebAudio 现场合成音效，不依赖任何外部音频文件。</span>
+<span id="L3"> * 浏览器要求用户先有交互才允许播放 AudioContext，这里做惰性创建。</span>
+<span id="L4"> */</span>
+<span id="L5"></span>
+<span id="L6">let ctx = null;</span>
+<span id="L7">let enabled = true;</span>
+<span id="L8"></span>
+<span id="L9">export function setSoundEnabled(value) {</span>
+<span id="L10">  enabled = Boolean(value);</span>
+<span id="L11">}</span>
+<span id="L12"></span>
+<span id="L13">export function isSoundEnabled() {</span>
+<span id="L14">  return enabled;</span>
+<span id="L15">}</span>
+<span id="L16"></span>
+<span id="L17">function getContext() {</span>
+<span id="L18">  if (!enabled) return null;</span>
+<span id="L19">  if (ctx === null) {</span>
+<span id="L20">    const Ctor = window.AudioContext || window.webkitAudioContext;</span>
+<span id="L21">    if (!Ctor) return null;</span>
+<span id="L22">    try {</span>
+<span id="L23">      ctx = new Ctor();</span>
+<span id="L24">    } catch {</span>
+<span id="L25">      ctx = null;</span>
+<span id="L26">    }</span>
+<span id="L27">  }</span>
+<span id="L28">  if (ctx &amp;&amp; ctx.state === &#x27;suspended&#x27;) ctx.resume().catch(() =&gt; {});</span>
+<span id="L29">  return ctx;</span>
+<span id="L30">}</span>
+<span id="L31"></span>
+<span id="L32">/** 播放一个音符。 */</span>
+<span id="L33">function tone(freq, duration, { type = &#x27;sine&#x27;, delay = 0, gain = 0.15 } = {}) {</span>
+<span id="L34">  const audio = getContext();</span>
+<span id="L35">  if (!audio) return;</span>
+<span id="L36">  const start = audio.currentTime + delay;</span>
+<span id="L37">  const osc = audio.createOscillator();</span>
+<span id="L38">  const vol = audio.createGain();</span>
+<span id="L39">  osc.type = type;</span>
+<span id="L40">  osc.frequency.setValueAtTime(freq, start);</span>
+<span id="L41">  vol.gain.setValueAtTime(0.0001, start);</span>
+<span id="L42">  vol.gain.exponentialRampToValueAtTime(gain, start + 0.015);</span>
+<span id="L43">  vol.gain.exponentialRampToValueAtTime(0.0001, start + duration);</span>
+<span id="L44">  osc.connect(vol).connect(audio.destination);</span>
+<span id="L45">  osc.start(start);</span>
+<span id="L46">  osc.stop(start + duration + 0.02);</span>
+<span id="L47">}</span>
+<span id="L48"></span>
+<span id="L49">export const sfx = {</span>
+<span id="L50">  flip() {</span>
+<span id="L51">    tone(520, 0.07, { type: &#x27;triangle&#x27;, gain: 0.09 });</span>
+<span id="L52">  },</span>
+<span id="L53">  match() {</span>
+<span id="L54">    tone(660, 0.12, { type: &#x27;sine&#x27;, gain: 0.13 });</span>
+<span id="L55">    tone(990, 0.16, { type: &#x27;sine&#x27;, delay: 0.08, gain: 0.11 });</span>
+<span id="L56">  },</span>
+<span id="L57">  mismatch() {</span>
+<span id="L58">    tone(196, 0.2, { type: &#x27;sawtooth&#x27;, gain: 0.07 });</span>
+<span id="L59">  },</span>
+<span id="L60">  win() {</span>
+<span id="L61">    [523, 659, 784, 1047].forEach((freq, i) =&gt; {</span>
+<span id="L62">      tone(freq, 0.26, { type: &#x27;triangle&#x27;, delay: i * 0.11, gain: 0.13 });</span>
+<span id="L63">    });</span>
+<span id="L64">  },</span>
+<span id="L65">};</span></pre></main><script src="../../evidence-navigation.js"></script></html>

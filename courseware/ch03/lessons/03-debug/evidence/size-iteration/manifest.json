@@ -1,0 +1,32 @@
+{
+  "runs": {
+    "diagnosis": {
+      "directory": "diagnose-primary-cause-minimax-20261119-225934",
+      "files": {
+        "prompt.txt": "8e07c8e88cc64ab2bebc3aac95bb5e3204756b1f5219ab601ca58fb306af4925",
+        "final.md": "c84066efd97412e5e5f4162e244f2e072068e2ba2fc6e625cd296dd73cce9fcb",
+        "events.jsonl": "53f83d4372d633738f97a84f35ceee42f8b89f3eb2591924183b83cf62756a99"
+      },
+      "thread": "01a1f451-f571-7ec1-a0aa-4d55819e7edb"
+    },
+    "change": {
+      "directory": "iterate-scheme1-minimax-20261119-231343",
+      "files": {
+        "prompt.txt": "4682cddde3c928801083b535816e43ef7719ff8e7390d332f2fdead4dab7f597",
+        "final.md": "96e25fda92c9385d59dc64e1983c26792c4a90290a8aa2b9f04db101548cf303",
+        "events.jsonl": "a97e25f21059af5bd1cda013faee67f52948f92f10c1346e3b3f5b331aefb849"
+      },
+      "thread": "01a1f451-f571-7ec1-a0aa-4d55819e7edb"
+    },
+    "validation": {
+      "directory": "dodge-iterate-scheme1-20261119-232409",
+      "files": {
+        "prompt.txt": "cdf5336713fb2022c11b53f4287819d3193eb6600f10a41688d63baa7ee285ea",
+        "final.md": "148dd3dece2b84387e6c501370df2aa1ffd9110194cbd52644a904007b303989",
+        "events.jsonl": "c97fcfbe719ab0d2ade6b61f23f82f96f1d571da8cccf0e2cf78f471e6bc6176"
+      },
+      "thread": "01a1f469-9d84-7e11-9c0b-d808fbe73303"
+    }
+  },
+  "boundary": "公开副本仅对机器路径作占位替换；完整 CLI、会话与请求追踪保留在私有实验目录，Inspect 仅格式转换。"
+}

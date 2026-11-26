@@ -1,0 +1,19 @@
+目标：
+这款游戏的场地显示异常。请先分析主要问题出在哪里、为什么会出现，再提出修改建议。
+
+上下文：
+我们希望把已有小游戏的紫色视觉风格整理成 Skill，供后续不同玩法的小游戏复用，场地布局随玩法调整。这款游戏是使用该 Skill 生成的。
+异常截图已附上：<实验目录>/dodge-compare-layout-template-game/browser-review/playing.png
+完整游戏源码：<实验目录>/dodge-compare-layout-template-game/workspace/
+当时使用的完整 Skill：<实验目录>/dodge-compare-layout-template-game/workspace/.agents/skills/purple-game-ui/
+原始开发请求：<实验目录>/dodge-compare-layout-template-game/prompt.txt
+生成过程记录：<实验目录>/dodge-compare-layout-template-game/logs/events.jsonl
+
+约束：
+请独立检查材料，不预设问题属于哪一方。不要停留在能消除当前画面异常的代码修补：结合复用目标、Skill 的指导与模板、AI 的实际使用过程，判断主要问题及其依据；区分直接触发异常的原因和造成这类问题的上游原因，也不要为了寻找上游原因强行归因。
+本轮只分析，不修改游戏或 Skill，不重新生成游戏，不调用其他 agent。无法确认的地方明确说明。
+
+完成标准：
+先说明主要问题在哪里、为什么这样判断，用具体文件位置和生成记录支持结论，并区分已证实的事实与推断。
+再提出与主要原因对应的修改建议：哪些应在游戏实现中解决，哪些需要调整 Skill，优先改什么、为什么。我们的后续重点是迭代 Skill，并在新对话里用它重新生成游戏，因此 Skill 建议应适用于不同小游戏，避免只针对当前游戏打补丁；如无须改 Skill，也请说明。
+最后给出验证方法，检查新生成的游戏是否解决问题，以及 Skill 原有能力是否保留。

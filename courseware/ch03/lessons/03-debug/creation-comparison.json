@@ -1,0 +1,39 @@
+{
+  "title": "三种方案的游戏效果",
+  "boundary": "方案一与方案三复用最初的 Skill 和游戏；方案三就是后续音效迭代的修改前版本，方案一的游戏提供声音代码。方案二保留 skill-creator 补跑结果。三组游戏开发请求一致；创建材料与运行日期不同，只展示保存案例，不给创建方式排名。",
+  "prompt": "使用当前工作区 .agents/skills/purple-game-ui/SKILL.md，从空项目做一个「60 秒躲避与收集」网页小游戏，沿用 Skill 的紫色界面风格。玩家用方向键或 WASD 移动，躲避障碍，收集物品得分；碰撞扣生命，时间到或生命耗尽时结算，可以重开。只做单一难度，界面不提供难度选择。游玩时界面只显示时间、得分和生命，重开按钮只出现在结算画面。用原生 HTML/CSS/JS，入口放在根目录 index.html。保持 Skill 文件不变，完成后告诉我用了哪些 Skill 文件。浏览器试玩留给我。\n",
+  "cases": [
+    {
+      "id": "direct",
+      "label": "方案一",
+      "run": "dodge-compare-layout-template-game",
+      "skill_note": "方案一的历史结果",
+      "excerpt_start": "## 快速上手",
+      "excerpt_end": "## 页面骨架契约",
+      "game_note": "已有声音反馈；后续复用这款游戏的声音代码",
+      "topic": "layout-game-requests&position=0",
+      "iteration_game": "historical-template"
+    },
+    {
+      "id": "creator",
+      "label": "方案二",
+      "run": "dodge-compare-creator-game-20261119",
+      "skill_note": "用 skill-creator 辅助创建",
+      "excerpt_start": "## 落地步骤",
+      "excerpt_end": "## 页面骨架",
+      "game_note": "主题 CSS 单独复用，成品保留标题与横排读数",
+      "topic": "compare-creator"
+    },
+    {
+      "id": "reference",
+      "label": "方案三",
+      "run": "dodge-compare-layout-components-game",
+      "skill_note": "方案三的修改前结果",
+      "excerpt_start": "## 工作流",
+      "excerpt_end": "## 布局规则",
+      "game_note": "当前没有声音；后续优化这份 Skill",
+      "topic": "layout-game-requests&position=1",
+      "iteration_game": "historical-components"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>紫夜闪避 · 60 秒躲避与收集</title>
+<link rel="stylesheet" href="css/purple-theme.css" />
+<link rel="stylesheet" href="css/stat-cards.css" />
+<link rel="stylesheet" href="css/result-overlay.css" />
+<link rel="stylesheet" href="css/game.css" />
+</head>
+<body class="pg-body">
+<main class="pg-game">
+
+  <header class="pg-game__head" id="head">
+    <h1 class="pg-title">紫夜闪避</h1>
+    <p class="pg-subtitle">60 秒内躲开障碍，收集灵晶。用 <span class="pg-kbd">↑</span> <span class="pg-kbd">↓</span> <span class="pg-kbd">←</span> <span class="pg-kbd">→</span> 或 <span class="pg-kbd">W</span><span class="pg-kbd">A</span><span class="pg-kbd">S</span><span class="pg-kbd">D</span> 移动。</p>
+  </header>
+
+  <section class="pg-game__board">
+
+    <div class="pg-stats pg-stats--rail pg-game__hud" id="hud" aria-live="off">
+      <!-- 由 JS 渲染：时间 / 得分 / 生命 -->
+    </div>
+
+    <div class="pg-game__field pg-panel">
+      <canvas id="canvas" width="720" height="480" aria-label="游戏场地"></canvas>
+      <div class="pg-game__flash" id="flash" aria-hidden="true"></div>
+    </div>
+
+  </section>
+
+  <!-- 结算浮层：重开按钮只在这里出现 -->
+  <div id="overlay" hidden></div>
+
+</main>
+
+<script type="module" src="js/game.js"></script>
+</body>
+</html>

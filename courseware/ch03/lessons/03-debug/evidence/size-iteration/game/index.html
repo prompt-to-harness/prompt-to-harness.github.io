@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="60 秒躲避与收集：用方向键或 WASD 移动，躲开障碍，收集宝石得分。">
+<meta name="theme-color" content="#141a2e">
+<title>60 秒躲避与收集 · Dodge &amp; Collect</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<main class="app">
+  <header class="app__header">
+    <h1 class="title">💎 60 秒躲避与收集</h1>
+    <p class="subtitle">用方向键 / WASD 移动：躲开尖刺，收集宝石，60 秒后结算。</p>
+  </header>
+
+  <!-- ===== 数据条：游玩时只显示 时间 / 得分 / 生命 ===== -->
+  <section class="stats stats--3" aria-label="本局数据">
+    <div class="stat"><span class="stat__label">时间</span><span class="stat__value" id="stat-time">0:00</span></div>
+    <div class="stat"><span class="stat__label">得分</span><span class="stat__value" id="stat-score">0</span></div>
+    <div class="stat"><span class="stat__label">生命</span><span class="stat__value" id="stat-lives">3</span></div>
+  </section>
+
+  <!-- ===== 场地：画布类玩法，用 .stage + .stage-canvas ===== -->
+  <section class="board-wrap">
+    <div class="stage" style="--stage-max: 760px">
+      <canvas class="stage-canvas" id="game" style="--stage-ratio: 16 / 10" width="960" height="600" tabindex="0" aria-label="游戏场地"></canvas>
+      <p class="stage__tip">方向键 / WASD 移动 · 也可按住鼠标拖动</p>
+    </div>
+  </section>
+
+  <footer class="app__footer">
+    <p class="hint">键盘操作：<kbd>←</kbd><kbd>↑</kbd><kbd>→</kbd><kbd>↓</kbd> 或 <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 移动，撞到障碍扣一条命。</p>
+  </footer>
+</main>
+
+<!-- ===== 结算浮层：重开按钮只在这里出现 ===== -->
+<div class="overlay" id="overlay" hidden>
+  <div class="overlay__panel" role="dialog" aria-modal="true" aria-labelledby="overlay-title" aria-describedby="overlay-text">
+    <div class="overlay__emoji" id="overlay-emoji" aria-hidden="true">🎉</div>
+    <h2 class="overlay__title" id="overlay-title">时间到！</h2>
+    <p class="overlay__text" id="overlay-text"></p>
+    <div class="overlay__actions">
+      <button class="btn btn--primary" id="overlay-again" type="button">↻ 再玩一局</button>
+      <button class="btn btn--ghost" id="overlay-close" type="button">关闭</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>

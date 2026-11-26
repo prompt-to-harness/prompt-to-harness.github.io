@@ -1,0 +1,115 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>revised/SKILL.md</title><style>body{margin:0;background:#f8f7f3;color:#26332e;font:18px/1.6 system-ui}main{max-width:1100px;margin:auto;padding:24px 24px 100px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:white;border:1px solid #ddd;padding:20px;font:14px/1.65 monospace}</style><main><h1>revised/SKILL.md</h1><nav data-source="revised/SKILL.md" data-evidence-stops="[{&quot;id&quot;: &quot;L15&quot;, &quot;label&quot;: &quot;声音资源&quot;}, {&quot;id&quot;: &quot;L25&quot;, &quot;label&quot;: &quot;声音工作流&quot;}, {&quot;id&quot;: &quot;L41&quot;, &quot;label&quot;: &quot;声音规则与用法&quot;, &quot;end&quot;: &quot;L93&quot;}, {&quot;id&quot;: &quot;L53&quot;, &quot;label&quot;: &quot;用法片段&quot;}, {&quot;id&quot;: &quot;L108&quot;, &quot;label&quot;: &quot;验证&quot;}]"></nav><pre><span id="L1">---</span>
+<span id="L2">name: purple-game-ui</span>
+<span id="L3">description: Build or restyle browser mini-games with the shared &quot;purple dusk&quot; visual language — deep indigo-violet gradient surfaces, glass panels, indigo-to-violet accent buttons, stat cards, a settlement/result overlay, and a WebAudio sound-feedback engine. Use when creating a new small web game, porting an existing game&#x27;s look to this purple theme, or when several games with different gameplay types must share one visual and audio system (reusable theme tokens, HUD/data-card components, result overlay, generic event-based sound cues, and HUD-placement rules).</span>
+<span id="L4">---</span>
+<span id="L5"></span>
+<span id="L6"># Purple Game UI</span>
+<span id="L7"></span>
+<span id="L8">一套可复用的紫色小游戏视觉 + 声音系统。四个资源各自独立，也可以单独取用：</span>
+<span id="L9"></span>
+<span id="L10">| 资源 | 文件 | 作用 |</span>
+<span id="L11">|---|---|---|</span>
+<span id="L12">| **主题** | `assets/css/purple-theme.css` | 令牌（`--pg-*`）、背景、标题、按钮、分段控件、焦点环、动效降级 |</span>
+<span id="L13">| **数据卡** | `assets/css/stat-cards.css` | HUD 读数卡（顶部横排 / 侧边 rail / 底部横条 / 紧凑 chip） |</span>
+<span id="L14">| **结算浮层** | `assets/css/result-overlay.css` | 结算面板：遮罩、图标、标题、明细行、按钮区 |</span>
+<span id="L15">| **音效** | `assets/js/purple-sound.js` | WebAudio 现场合成（零音频文件）：通用事件音效表、静音开关、音量与持久化 |</span>
+<span id="L16"></span>
+<span id="L17">附加：`assets/js/purple-ui-kit.js`（数据卡渲染 + 浮层焦点管理）、`assets/html/components.html`（静态标记片段）、`assets/preview.html`（可视化预览）、`references/`（令牌表、布局建议、音效选型）、`scripts/verify-resources.mjs`（资源与说明的一致性自检）。</span>
+<span id="L18"></span>
+<span id="L19">## 工作流</span>
+<span id="L20"></span>
+<span id="L21">1. **复制资源**：把 `assets/css/` 下需要的文件拷进项目（三个 css 可独立引入；`stat-cards.css` 与 `result-overlay.css` 依赖 `purple-theme.css` 的令牌）。需要数据卡渲染/浮层行为时再拷 `assets/js/purple-ui-kit.js`；需要声音反馈时拷 `assets/js/purple-sound.js`。</span>
+<span id="L22">2. **上主题**：`&lt;body class=&quot;pg-body&quot;&gt;`（或给容器加 `.pg-surface`）。标题用 `.pg-title`，副标题 `.pg-subtitle`。</span>
+<span id="L23">3. **摆 HUD**：按下面的布局规则选容器形态——`.pg-stats--row`（回合制顶部横排）、`.pg-stats--rail`（实时侧边竖排）、`.pg-stats--inline`（实时底部横条）、`.pg-chip`（高频刷新的浮动读数）。</span>
+<span id="L24">4. **接结算**：用 `ResultOverlay` 或静态 `.pg-overlay` 结构，`open({ emoji, title, text, rows, actions })`。</span>
+<span id="L25">5. **接声音**：`bindSoundToggle(按钮)` 挂上静音开关，事件处调 `play(&#x27;success&#x27;)` 之类的通用事件名。**按玩法挑事件，不要照搬翻牌游戏的 `flip/match/mismatch/win`**——见下面的声音规则。</span>
+<span id="L26">6. **核对令牌**：颜色/圆角/阴影一律引用 `--pg-*`，不要写死十六进制。令牌表与用法见 `references/tokens.md`。</span>
+<span id="L27"></span>
+<span id="L28">## 布局规则（核心）</span>
+<span id="L29"></span>
+<span id="L30">**如果玩法要求玩家持续观察场地和读数，就让 HUD 靠近场地边缘——具体贴哪条边，按玩法的自然视线落点和操作手决定。**</span>
+<span id="L31"></span>
+<span id="L32">- 回合制、读数只在操作后变化 → HUD 在场地上方一条横排（视线切换成本被回合节奏摊薄）。</span>
+<span id="L33">- 实时、读数持续变化 → HUD 贴场地左/右竖向 rail 或底部横条，别单独占据屏幕一端。</span>
+<span id="L34">- 只有一两个数值需要真盯着（血量、剩余时间）→ 做成 `.pg-chip` 贴在场边缘，其余统计退到边栏。</span>
+<span id="L35">- HUD 不得覆盖场地的可交互元素；数值变化用 `tabular-nums`，每秒刷新也不能让布局抖。</span>
+<span id="L36"></span>
+<span id="L37">初版翻牌游戏采用的「顶部工具栏 + 顶部数据卡 + 场地」只是**回合制的一种排法**，不是所有玩法的固定要求；实时玩法应改用贴边排布。</span>
+<span id="L38"></span>
+<span id="L39">按玩法选边、网格实现示例、验收清单见 `references/layout.md`。</span>
+<span id="L40"></span>
+<span id="L41">## 声音规则（核心）</span>
+<span id="L42"></span>
+<span id="L43">**音效用通用事件表达，不绑定具体玩法。** 内置事件表：</span>
+<span id="L44"></span>
+<span id="L45">`tap`（操作）、`move`（移动/焦点，很轻）、`select`（选中）、`pickup`（拾取/得分）、`success`（达成一次目标）、`error`（失误）、`tick`（倒计时/节拍）、`complete`（通关）、`fail`（失败）。</span>
+<span id="L46"></span>
+<span id="L47">- 各玩法从表里挑自己用得上的，按需用 `defineCue()` 覆盖或新增；没有某个事件就干脆不用，不要为了凑齐而加。</span>
+<span id="L48">- **必须能关闭声音**：界面上有开关（`bindSoundToggle` 已处理文案、`aria-pressed` 与持久化），关掉后游戏逻辑完全不受影响。</span>
+<span id="L49">- **不要自动播放**：浏览器要求先有用户交互，调用 `unlockAudio()` 在首次交互时恢复 AudioContext。</span>
+<span id="L50">- 音频只做补充：关掉声音后游戏必须仍然完全可玩（结算浮层里要有文字数值）。</span>
+<span id="L51">- 选型建议、事件→玩法对照、实现要点见 `references/sound.md`。</span>
+<span id="L52"></span>
+<span id="L53">## 用法片段</span>
+<span id="L54"></span>
+<span id="L55">HTML（数据卡 + 音效开关）：</span>
+<span id="L56"></span>
+<span id="L57">```html</span>
+<span id="L58">&lt;link rel=&quot;stylesheet&quot; href=&quot;css/purple-theme.css&quot;&gt;</span>
+<span id="L59">&lt;link rel=&quot;stylesheet&quot; href=&quot;css/stat-cards.css&quot;&gt;</span>
+<span id="L60">&lt;link rel=&quot;stylesheet&quot; href=&quot;css/result-overlay.css&quot;&gt;</span>
+<span id="L61"></span>
+<span id="L62">&lt;div class=&quot;pg-stats pg-stats--rail&quot;&gt;</span>
+<span id="L63">  &lt;div class=&quot;pg-stat&quot;&gt;</span>
+<span id="L64">    &lt;span class=&quot;pg-stat__label&quot;&gt;生命&lt;/span&gt;</span>
+<span id="L65">    &lt;span class=&quot;pg-stat__value&quot;&gt;3&lt;/span&gt;</span>
+<span id="L66">  &lt;/div&gt;</span>
+<span id="L67">&lt;/div&gt;</span>
+<span id="L68"></span>
+<span id="L69">&lt;button class=&quot;pg-btn pg-btn--ghost&quot; id=&quot;sound-toggle&quot; type=&quot;button&quot;&gt;🔊 音效&lt;/button&gt;</span>
+<span id="L70">```</span>
+<span id="L71"></span>
+<span id="L72">JS（渲染 + 浮层 + 声音）：</span>
+<span id="L73"></span>
+<span id="L74">```js</span>
+<span id="L75">import { renderStats, updateStats, ResultOverlay } from &#x27;./purple-ui-kit.js&#x27;;</span>
+<span id="L76">import { play, bindSoundToggle, unlockAudio } from &#x27;./purple-sound.js&#x27;;</span>
+<span id="L77"></span>
+<span id="L78">const stats = renderStats(document.getElementById(&#x27;hud&#x27;), [</span>
+<span id="L79">  { key: &#x27;hp&#x27;,   label: &#x27;生命&#x27;, value: 3,  state: &#x27;good&#x27; },</span>
+<span id="L80">  { key: &#x27;time&#x27;, label: &#x27;用时&#x27;, value: &#x27;0:00&#x27; },</span>
+<span id="L81">]);</span>
+<span id="L82">updateStats(stats, { hp: 2, time: &#x27;0:12&#x27; });   // 值变化时自动播放一次高亮脉冲</span>
+<span id="L83"></span>
+<span id="L84">const overlay = new ResultOverlay(document.getElementById(&#x27;overlay&#x27;));</span>
+<span id="L85">overlay.open({</span>
+<span id="L86">  emoji: &#x27;🎉&#x27;,</span>
+<span id="L87">  title: &#x27;全部配对完成！&#x27;,</span>
+<span id="L88">  text: &#x27;本局用时 0:03，共 9 步。&#x27;,</span>
+<span id="L89">  rows: [{ label: &#x27;用时&#x27;, value: &#x27;0:03&#x27; }, { label: &#x27;最佳成绩&#x27;, value: &#x27;9 步 · 0:01&#x27;, state: &#x27;good&#x27; }],</span>
+<span id="L90">  actions: [{ label: &#x27;再玩一局&#x27;, primary: true, onClick: () =&gt; overlay.close() }],</span>
+<span id="L91">});</span>
+<span id="L92"></span>
+<span id="L93">bindSoundToggle(document.getElementById(&#x27;sound-toggle&#x27;));  // 静音开关（持久化）</span>
+<span id="L94">unlockAudio();                                            // 首次交互时解锁</span>
+<span id="L95">play(&#x27;tap&#x27;);              // 操作反馈</span>
+<span id="L96">play(&#x27;success&#x27;);          // 达成一次目标</span>
+<span id="L97">play(&#x27;complete&#x27;);         // 通关（可配合结算浮层弹出）</span>
+<span id="L98">```</span>
+<span id="L99"></span>
+<span id="L100">## 约束</span>
+<span id="L101"></span>
+<span id="L102">- 类名与变量一律 `--pg-` / `.pg-` 前缀，避免与宿主项目冲突。</span>
+<span id="L103">- 焦点环（3px `--pg-accent-3`）不要删；结算浮层必须能 `Esc` 关闭、Tab 焦点循环、关闭后焦点归位（`ResultOverlay` 已实现）。</span>
+<span id="L104">- 颜色不能单独传达含义，配上文字或形状变化；声音同理，不能只靠听觉传达信息。</span>
+<span id="L105">- 不要给宿主页面全局加 `backdrop-filter` / 重置样式，除非项目本身就是新页面。</span>
+<span id="L106">- 想先看效果：起一个静态服务器打开 `assets/preview.html`（ES Modules 需要 http，`file://` 会被 CORS 拦截）。</span>
+<span id="L107"></span>
+<span id="L108">## 验证</span>
+<span id="L109"></span>
+<span id="L110">- `node scripts/verify-resources.mjs` → 112 项通过：文件齐全、文档引用的路径真实存在、HTML 用到的 `.pg-` 类名都在 CSS 中定义、示例 import 的函数都真实导出、音效事件名在「模块 / 文档 / 预览页」三方一致、布局规则在 SKILL.md 与 layout.md 中一致。**改动资源后跑一遍这个脚本。**</span>
+<span id="L111">- `assets/css/` 三个样式表：括号/注释/字符串配平通过，`var(--pg-*)` 引用的变量全部在 `purple-theme.css` 中有定义。</span>
+<span id="L112">- `assets/js/purple-ui-kit.js`：在最小 DOM 模拟下跑通 40 项断言（格式化、数据卡渲染与更新、浮层骨架/明细/按钮、Esc 关闭、Tab 焦点循环、关闭后焦点归位）。</span>
+<span id="L113">- `assets/js/purple-sound.js`：在最小 AudioContext 模拟下跑通 57 项断言（静音拦截、事件表、`defineCue` 覆盖、音量与延迟、开关持久化与降级）。</span>
+<span id="L114">- **未做真实浏览器渲染核对**：当前环境无法启动 Chrome，所以视觉效果（渐变背景、玻璃面板、浮层动画）尚未截图确认；`assets/preview.html` 就是为此准备的回归基线，换环境后应先打开它目检一次。</span>
+<span id="L115">- **音效未实际听辨**：只验证了合成调用不抛异常、参数正确，人耳效果需在浏览器里试听。</span></pre></main><script src="../../evidence-navigation.js"></script></html>

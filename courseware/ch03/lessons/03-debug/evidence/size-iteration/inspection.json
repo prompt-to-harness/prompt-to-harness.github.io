@@ -1,0 +1,57 @@
+{
+  "initial": {
+    "text": "💎 60 秒躲避与收集\n\n用方向键 / WASD 移动：躲开尖刺，收集宝石，60 秒后结算。\n\n时间\n0:00\n得分\n0\n生命\n3\n\n方向键 / WASD 移动 · 也可按住鼠标拖动\n\n键盘操作：←↑→↓ 或 WASD 移动，撞到障碍扣一条命。",
+    "canvas": {
+      "width": 760,
+      "height": 475,
+      "parent": "stage"
+    },
+    "overflow": false,
+    "buttons": []
+  },
+  "playing": {
+    "text": "💎 60 秒躲避与收集\n\n用方向键 / WASD 移动：躲开尖刺，收集宝石，60 秒后结算。\n\n时间\n58 秒\n得分\n0\n生命\n3\n\n方向键 / WASD 移动 · 也可按住鼠标拖动\n\n键盘操作：←↑→↓ 或 WASD 移动，撞到障碍扣一条命。",
+    "canvas": {
+      "width": 760,
+      "height": 475,
+      "parent": "stage"
+    },
+    "overflow": false,
+    "buttons": []
+  },
+  "ending": {
+    "text": "💎 60 秒躲避与收集\n\n用方向键 / WASD 移动：躲开尖刺，收集宝石，60 秒后结算。\n\n时间\n53 秒\n得分\n0\n生命\n0\n\n方向键 / WASD 移动 · 也可按住鼠标拖动\n\n键盘操作：←↑→↓ 或 WASD 移动，撞到障碍扣一条命。\n\n💔\n生命耗尽！\n\n本局得分 0，收集 0 枚宝石。\n🏅 新纪录！\n历史最佳：0 分\n\n↻ 再玩一局\n关闭",
+    "canvas": {
+      "width": 760,
+      "height": 475,
+      "parent": "stage"
+    },
+    "overflow": false,
+    "buttons": [
+      "↻ 再玩一局",
+      "关闭"
+    ]
+  },
+  "replay": {
+    "text": "💎 60 秒躲避与收集\n\n用方向键 / WASD 移动：躲开尖刺，收集宝石，60 秒后结算。\n\n时间\n60 秒\n得分\n0\n生命\n3\n\n方向键 / WASD 移动 · 也可按住鼠标拖动\n\n键盘操作：←↑→↓ 或 WASD 移动，撞到障碍扣一条命。",
+    "canvas": {
+      "width": 760,
+      "height": 475,
+      "parent": "stage"
+    },
+    "overflow": false,
+    "buttons": []
+  },
+  "mobile": {
+    "text": "💎 60 秒躲避与收集\n\n用方向键 / WASD 移动：躲开尖刺，收集宝石，60 秒后结算。\n\n时间\n60 秒\n得分\n0\n生命\n3\n\n方向键 / WASD 移动 · 也可按住鼠标拖动\n\n键盘操作：←↑→↓ 或 WASD 移动，撞到障碍扣一条命。",
+    "canvas": {
+      "width": 366,
+      "height": 228.75,
+      "parent": "stage"
+    },
+    "overflow": false,
+    "buttons": []
+  },
+  "errors": [],
+  "skill_unchanged": true
+}

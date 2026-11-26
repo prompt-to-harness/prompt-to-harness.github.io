@@ -299,9 +299,485 @@
           "mode": "session"
         }
       }
+    },
+    "creation-direct": {
+      "root": "repo",
+      "title": "3.3 三次创建 · direct",
+      "date": "2026-11-18",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "新的独立 Codex CLI 会话；输出未用新游戏验证。文件已生成，讲师备课代理主动中止额外浏览器排查，首轮无最终成功回复，随后追加仅总结的收束请求。",
+      "samples": {
+        "cli": {
+          "path": "lab-runs/ch33-create-three-20261118/direct/logs/events.jsonl",
+          "mode": "cli",
+          "prompt": "lab-runs/ch33-create-three-20261118/direct/prompt.txt"
+        },
+        "skill": {
+          "path": "lab-runs/ch33-create-three-20261118/direct/generated-original/SKILL.md",
+          "mode": "document",
+          "boundary": "生成原件，description YAML 未加引号；保留原貌，不是已修正版本"
+        },
+        "format-fix": {
+          "path": "lab-runs/ch33-create-three-20261118/direct/logs/frontmatter-fix.diff",
+          "mode": "document",
+          "boundary": "备课代理随后只修正 description 引号，原件单独保留"
+        },
+        "wrapup": {
+          "path": "lab-runs/ch33-create-three-20261118/direct/logs/wrapup-events.jsonl",
+          "mode": "cli",
+          "prompt": "lab-runs/ch33-create-three-20261118/direct/logs/wrapup-prompt.txt",
+          "boundary": "同一会话中止额外排查后，实际追加的收束请求与回复；不是首轮结果"
+        }
+      }
+    },
+    "creation-creator": {
+      "root": "repo",
+      "title": "3.3 三次创建 · creator",
+      "date": "2026-11-18",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "新的独立 Codex CLI 会话；输出未用新游戏验证。",
+      "samples": {
+        "cli": {
+          "path": "lab-runs/ch33-create-three-20261118/creator/logs/events.jsonl",
+          "mode": "cli",
+          "prompt": "lab-runs/ch33-create-three-20261118/creator/prompt.txt"
+        },
+        "skill": {
+          "path": "lab-runs/ch33-create-three-20261118/creator/workspace/purple-game-ui/SKILL.md",
+          "mode": "document",
+          "boundary": "实际生成文件原文；不是会话最终回复"
+        },
+        "wrapup": {
+          "path": "lab-runs/ch33-create-three-20261118/creator/logs/wrapup-events.jsonl",
+          "mode": "cli",
+          "prompt": "lab-runs/ch33-create-three-20261118/creator/logs/wrapup-prompt.txt",
+          "boundary": "同一会话中止额外排查后，实际追加的收束请求与回复；不是首轮结果"
+        },
+        "session": {
+          "path": "lab-runs/ch33-create-three-20261118/creator/home/.codex/sessions/2026/11/18/rollout-2026-11-18T21-28-28-01a1eed8-327c-7d93-867b-734b9c6418f5.jsonl",
+          "mode": "session",
+          "boundary": "同一运行的原生会话，显式调用的 Skill 正文已注入上下文"
+        }
+      }
+    },
+    "creation-reference": {
+      "root": "repo",
+      "title": "3.3 三次创建 · reference",
+      "date": "2026-11-18",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "新的独立 Codex CLI 会话；输出未用新游戏验证。",
+      "samples": {
+        "cli": {
+          "path": "lab-runs/ch33-create-three-20261118/reference-only/logs/events.jsonl",
+          "mode": "cli",
+          "prompt": "lab-runs/ch33-create-three-20261118/reference-only/prompt.txt"
+        },
+        "skill": {
+          "path": "lab-runs/ch33-create-three-20261118/reference-only/workspace/purple-game-ui/SKILL.md",
+          "mode": "document",
+          "boundary": "实际生成文件原文；不是会话最终回复"
+        }
+      }
+    },
+    "comparison-direct": {
+      "root": "purple",
+      "title": "3.3 同题游戏 · 直接提炼 · 已有案例",
+      "date": "2026-11-12",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "直接提炼与参考改写沿用已保存案例；skill-creator 使用 11 月 18 日生成的 Skill，本轮补跑游戏。三组开发请求一致，创建材料与运行日期不同，只比较这次产物，不给创建方式排名。",
+      "samples": {
+        "cli": {
+          "path": "dodge-compare-baseline-game/logs/events.jsonl",
+          "mode": "cli",
+          "prompt": "dodge-compare-baseline-game/prompt.txt"
+        },
+        "skill": {
+          "path": "dodge-compare-baseline-game/workspace/.agents/skills/purple-game-ui/SKILL.md",
+          "mode": "document"
+        }
+      }
+    },
+    "comparison-creator": {
+      "root": "purple",
+      "title": "3.3 同题游戏 · skill-creator · 本轮补跑",
+      "date": "2026-11-19",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "直接提炼与参考改写沿用已保存案例；skill-creator 使用 11 月 18 日生成的 Skill，本轮补跑游戏。三组开发请求一致，创建材料与运行日期不同，只比较这次产物，不给创建方式排名。",
+      "samples": {
+        "cli": {
+          "path": "dodge-compare-creator-game-20261119/logs/events.jsonl",
+          "mode": "cli",
+          "prompt": "dodge-compare-creator-game-20261119/prompt.txt"
+        },
+        "skill": {
+          "path": "dodge-compare-creator-game-20261119/workspace/.agents/skills/purple-game-ui/SKILL.md",
+          "mode": "document"
+        }
+      }
+    },
+    "comparison-reference": {
+      "root": "purple",
+      "title": "3.3 同题游戏 · 参考改写 · 已有案例",
+      "date": "2026-11-12",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "直接提炼与参考改写沿用已保存案例；skill-creator 使用 11 月 18 日生成的 Skill，本轮补跑游戏。三组开发请求一致，创建材料与运行日期不同，只比较这次产物，不给创建方式排名。",
+      "samples": {
+        "cli": {
+          "path": "dodge-compare-components-game/logs/events.jsonl",
+          "mode": "cli",
+          "prompt": "dodge-compare-components-game/prompt.txt"
+        },
+        "skill": {
+          "path": "dodge-compare-components-game/workspace/.agents/skills/purple-game-ui/SKILL.md",
+          "mode": "document"
+        }
+      }
+    },
+    "size-diagnosis": {
+      "root": "purple",
+      "title": "方案一·排查主要原因",
+      "date": "2026-11-19",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "实际 CLI 记录。排查与修改接续同一会话；生成验证为独立新会话。仅格式转换，不代表所有建议正确或全面验收通过。",
+      "samples": {
+        "cli": {
+          "path": "diagnose-primary-cause-minimax-20261119-225934/events.jsonl",
+          "mode": "cli",
+          "prompt": "diagnose-primary-cause-minimax-20261119-225934/prompt.txt"
+        },
+        "reply": {
+          "path": "diagnose-primary-cause-minimax-20261119-225934/final.md",
+          "mode": "document",
+          "language": "markdown"
+        }
+      }
+    },
+    "size-change": {
+      "root": "purple",
+      "title": "方案一·接续修改 Skill",
+      "date": "2026-11-19",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "实际 CLI 记录。排查与修改接续同一会话；生成验证为独立新会话。仅格式转换，不代表所有建议正确或全面验收通过。",
+      "samples": {
+        "cli": {
+          "path": "iterate-scheme1-minimax-20261119-231343/events.jsonl",
+          "mode": "cli",
+          "prompt": "iterate-scheme1-minimax-20261119-231343/prompt.txt"
+        },
+        "reply": {
+          "path": "iterate-scheme1-minimax-20261119-231343/final.md",
+          "mode": "document",
+          "language": "markdown"
+        }
+      }
+    },
+    "size-validation": {
+      "root": "purple",
+      "title": "方案一·新对话生成验证",
+      "date": "2026-11-19",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "实际 CLI 记录。排查与修改接续同一会话；生成验证为独立新会话。仅格式转换，不代表所有建议正确或全面验收通过。",
+      "samples": {
+        "cli": {
+          "path": "dodge-iterate-scheme1-20261119-232409/logs/events.jsonl",
+          "mode": "cli",
+          "prompt": "dodge-iterate-scheme1-20261119-232409/prompt.txt"
+        },
+        "reply": {
+          "path": "dodge-iterate-scheme1-20261119-232409/logs/final.md",
+          "mode": "document",
+          "language": "markdown"
+        }
+      }
+    },
+    "audio-reference-author": {
+      "root": "purple",
+      "title": "3.3 接续创建对话，从原参考游戏提取声音",
+      "date": "2026-11-20",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "2026-11-20 原参考游戏声音实验。CLI 事件原文；作者阶段为原创建上下文的分支续作，游戏阶段为独立新会话。success 仅指格式导入，不代表验收通过。",
+      "samples": {
+        "cli": {
+          "path": "../reference-audio-20261120-162240/author/logs/events.jsonl",
+          "mode": "cli",
+          "prompt": "../reference-audio-20261120-162240/author/prompt.txt"
+        }
+      }
+    },
+    "audio-reference-baseline": {
+      "root": "purple",
+      "title": "3.3 原版 Skill 本轮生成",
+      "date": "2026-11-20",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "2026-11-20 原参考游戏声音实验。CLI 事件原文；作者阶段为原创建上下文的分支续作，游戏阶段为独立新会话。success 仅指格式导入，不代表验收通过。",
+      "samples": {
+        "cli": {
+          "path": "../reference-audio-20261120-162240/baseline/logs/events.jsonl",
+          "mode": "cli",
+          "prompt": "../reference-audio-20261120-162240/baseline/prompt.txt"
+        }
+      }
+    },
+    "audio-reference-with-audio": {
+      "root": "purple",
+      "title": "3.3 修改版 Skill 本轮生成",
+      "date": "2026-11-20",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "2026-11-20 原参考游戏声音实验。CLI 事件原文；作者阶段为原创建上下文的分支续作，游戏阶段为独立新会话。success 仅指格式导入，不代表验收通过。",
+      "samples": {
+        "cli": {
+          "path": "../reference-audio-20261120-162240/with-audio/logs/events.jsonl",
+          "mode": "cli",
+          "prompt": "../reference-audio-20261120-162240/with-audio/prompt.txt"
+        }
+      }
+    },
+    "audio-reference-baseline-repair": {
+      "root": "purple",
+      "title": "3.3 原版游戏加载错误修复",
+      "date": "2026-11-20",
+      "model": "MiniMax-M3.1-Flash",
+      "boundary": "2026-11-20 原参考游戏声音实验。CLI 事件原文；作者阶段为原创建上下文的分支续作，游戏阶段为独立新会话。success 仅指格式导入，不代表验收通过。",
+      "samples": {
+        "cli": {
+          "path": "../reference-audio-20261120-162240/baseline/repair-logs/events.jsonl",
+          "mode": "cli",
+          "prompt": "../reference-audio-20261120-162240/baseline/repair-prompt.txt"
+        }
+      }
+    },
+    "audio-reference-files": {
+      "root": "repo",
+      "title": "3.3 本轮 Skill 与源码原文",
+      "date": "2026-11-20",
+      "model": "archive",
+      "boundary": "归档文件原文，非运行消息；修改与生成过程见对应 CLI 记录。",
+      "samples": {
+        "original": {
+          "path": "courseware/ch03/lessons/03-debug/evidence/audio-reference-iteration/original/SKILL.md",
+          "mode": "document",
+          "language": "text"
+        },
+        "source": {
+          "path": "courseware/ch03/lessons/03-debug/evidence/audio-reference-iteration/reference-game/src/sound.js",
+          "mode": "document",
+          "language": "text"
+        },
+        "diff": {
+          "path": "courseware/ch03/lessons/03-debug/evidence/audio-reference-iteration/skill.diff",
+          "mode": "document",
+          "language": "text"
+        },
+        "revised": {
+          "path": "courseware/ch03/lessons/03-debug/evidence/audio-reference-iteration/revised/SKILL.md",
+          "mode": "document",
+          "language": "text"
+        },
+        "sound": {
+          "path": "courseware/ch03/lessons/03-debug/evidence/audio-reference-iteration/revised/assets/js/purple-sound.js",
+          "mode": "document",
+          "language": "text"
+        },
+        "guide": {
+          "path": "courseware/ch03/lessons/03-debug/evidence/audio-reference-iteration/revised/references/sound.md",
+          "mode": "document",
+          "language": "text"
+        },
+        "game": {
+          "path": "courseware/ch03/lessons/03-debug/evidence/audio-reference-iteration/with-audio/js/game.js",
+          "mode": "document",
+          "language": "text"
+        },
+        "checks": {
+          "path": "courseware/ch03/lessons/03-debug/evidence/audio-reference-iteration/checks-summary.md",
+          "mode": "document",
+          "language": "text"
+        }
+      }
     }
   },
   "topics": {
+    "selection-explicit-workflow": {
+      "title": "Skill 正文 · Preferred Workflow",
+      "steps": [
+        {
+          "run": "selection-terminal",
+          "sample": "session",
+          "line": 12,
+          "label": "正文里的试玩流程",
+          "text_span": {
+            "from": "## Preferred Workflow",
+            "until": "## Tooling Guidance"
+          }
+        }
+      ]
+    },
+    "selection-auto-workflow": {
+      "title": "Skill 正文 · Preferred Workflow",
+      "steps": [
+        {
+          "run": "selection-original-positive",
+          "sample": "session",
+          "line": 18,
+          "label": "正文里的试玩流程",
+          "text_span": {
+            "from": "## Preferred Workflow",
+            "until": "## Tooling Guidance"
+          }
+        }
+      ]
+    },
+    "selection-explicit-full": {
+      "title": "显式指定 · 完整运行",
+      "steps": [
+        {
+          "run": "selection-terminal",
+          "sample": "session",
+          "label": "提供给模型的完整 Skill 列表",
+          "line": 3,
+          "text_span": {
+            "from": "### Available skills",
+            "until": "</skills_instructions>"
+          }
+        },
+        {
+          "run": "selection-terminal",
+          "sample": "session",
+          "label": "可用列表中的 Game Playtest",
+          "line": 3,
+          "text": [
+            "game-playtest: Run browser-game playtests and frontend QA."
+          ]
+        },
+        {
+          "run": "selection-terminal",
+          "sample": "session",
+          "line": 10,
+          "label": "提交任务 · 显式指定 Game Playtest",
+          "text": [
+            "$game-playtest 我做了一个浏览器记忆翻牌游戏",
+            "重点检查计步和重开"
+          ]
+        },
+        {
+          "run": "selection-terminal",
+          "sample": "session",
+          "label": "带入指定 Skill 的名称和来源路径",
+          "line": 12,
+          "text": [
+            "<name>game-playtest</name>"
+          ]
+        },
+        {
+          "run": "selection-terminal",
+          "sample": "session",
+          "line": 17,
+          "label": "继续工作 · 查阅试玩参考资料",
+          "text": [
+            "cat .agents/references/playtest-checklist.md"
+          ]
+        },
+        {
+          "run": "selection-terminal",
+          "sample": "session",
+          "label": "工具返回试玩参考清单",
+          "line": 21,
+          "text": [
+            "# Playtest Checklist"
+          ]
+        },
+        {
+          "run": "selection-terminal",
+          "sample": "session",
+          "label": "读取翻牌游戏源码",
+          "line": 83,
+          "text": [
+            "cat main.js"
+          ]
+        },
+        {
+          "run": "selection-terminal",
+          "sample": "session",
+          "line": 98,
+          "label": "交付 · 计步检查写进清单",
+          "text": [
+            "人工试玩清单 · 计步与重开",
+            "翻开第 1 张牌 → 步数仍为 **0**"
+          ]
+        }
+      ]
+    },
+    "selection-auto-full": {
+      "title": "自然语言自选 · 完整运行",
+      "steps": [
+        {
+          "run": "selection-original-positive",
+          "sample": "session",
+          "label": "提供给模型的完整 Skill 列表",
+          "line": 3,
+          "text_span": {
+            "from": "### Available skills",
+            "until": "</skills_instructions>"
+          }
+        },
+        {
+          "run": "selection-original-positive",
+          "sample": "session",
+          "line": 10,
+          "label": "提交任务 · 只发送相同的任务文字",
+          "text": [
+            "我做了一个浏览器记忆翻牌游戏",
+            "重点检查计步和重开"
+          ]
+        },
+        {
+          "run": "selection-original-positive",
+          "sample": "session",
+          "label": "Game Playtest 的名称和描述",
+          "line": 3,
+          "text": [
+            "game-playtest: Run browser-game playtests and frontend QA. Use when the user asks for smoke tests, screenshot-based verification, browser automation, HUD or overlay review, or structured issue-finding in a browser game."
+          ]
+        },
+        {
+          "run": "selection-original-positive",
+          "sample": "session",
+          "label": "读取项目里的 SKILL.md",
+          "line": 14,
+          "text": [
+            "game-playtest/SKILL.md"
+          ]
+        },
+        {
+          "run": "selection-original-positive",
+          "sample": "session",
+          "label": "工具返回 Skill 文件头",
+          "line": 18,
+          "text": [
+            "name: game-playtest"
+          ]
+        },
+        {
+          "run": "selection-original-positive",
+          "sample": "session",
+          "line": 22,
+          "label": "继续工作 · 核对仓库内容",
+          "text": [
+            "git -C . ls-tree -r --name-only HEAD"
+          ]
+        },
+        {
+          "run": "selection-original-positive",
+          "sample": "session",
+          "line": 32,
+          "label": "交付 · 按给定规则写出计步检查",
+          "text": [
+            "人工试玩清单（计步 & 重开）",
+            "步数仍 = 0"
+          ]
+        }
+      ]
+    },
     "early-win-review": {
       "title": "04 号游戏 · 从提前通关到验收范围",
       "steps": [
@@ -404,12 +880,13 @@
       "steps": [
         {
           "run": "selection-terminal",
-          "sample": "01-skills-menu",
-          "text": [
-            "List skills"
-          ],
-          "label": "终端菜单",
-          "line": 1
+          "sample": "session",
+          "label": "提供给模型的完整 Skill 列表",
+          "line": 3,
+          "text_span": {
+            "from": "### Available skills",
+            "until": "</skills_instructions>"
+          }
         },
         {
           "run": "selection-terminal",
@@ -1004,7 +1481,9 @@
           "run": "audio-baseline",
           "sample": "cli",
           "text": [
-            "只做单一难度"
+            "只做单一难度",
+            "保留组件组的这些体验",
+            "浏览器试玩留给我"
           ],
           "label": "E1 原始请求",
           "message": "prompt"
@@ -1013,7 +1492,9 @@
           "run": "audio-first",
           "sample": "cli",
           "text": [
-            "只做单一难度"
+            "只做单一难度",
+            "保留组件组的这些体验",
+            "浏览器试玩留给我"
           ],
           "label": "E2 原始请求",
           "message": "prompt"
@@ -1078,7 +1559,8 @@
           "run": "audio-repair",
           "sample": "cli",
           "text": [
-            "Only `js/game.js` was modified."
+            "Only `js/game.js` was modified.",
+            "浏览器"
           ],
           "label": "修改范围与返回",
           "line": 128
@@ -1241,6 +1723,746 @@
           "text": [
             "配对 3 组后横幅弹出「全部配对完成，用时 0:08，翻了 7 步。」，统计显示「配对 6/6」，**但 12 张卡里还有 6 张是背面朝上**。此时点剩余的卡片完全没反应，计时器也停了 —— 真正的「6 组全配对」永远达不到。"
           ]
+        }
+      ]
+    },
+    "selection-use-1": {
+      "title": "模型怎样沿引用找到资料",
+      "numbered_navigation": true,
+      "steps": [
+        {
+          "run": "selection-short-explicit",
+          "sample": "session",
+          "line": 10,
+          "label": "请求与任务边界",
+          "text": [
+            "实际试玩当前的翻牌游戏，看看还有哪些问题。",
+            "先检查，暂时不要修改游戏代码。",
+            "给我一份试玩报告，说明是否适合上线，以及需要优先处理的问题。"
+          ]
+        },
+        {
+          "run": "selection-short-explicit",
+          "sample": "session",
+          "line": 24,
+          "label": "模型确认清单位置",
+          "text": [
+            "Note: the skill is at `.agents/skills/game-playtest/SKILL.md` but references `../../references/playtest-checklist.md` which would be `.agents/references/`...",
+            "Wait actually the output shows \"===REF===\" then the list. Let me check which one produced it.",
+            "Let me check both."
+          ]
+        },
+        {
+          "run": "selection-short-explicit",
+          "sample": "session",
+          "line": 37,
+          "label": "模型发出读取请求",
+          "text": [
+            "cat .agents/references/playtest-checklist.md"
+          ]
+        },
+        {
+          "run": "selection-short-explicit",
+          "sample": "session",
+          "line": 41,
+          "label": "工具返回配套内容",
+          "text_span": {
+            "from": "# Playtest Checklist",
+            "until": "## 2D checks"
+          }
+        }
+      ],
+      "navigation_group": "selection-use-e"
+    },
+    "selection-use-2": {
+      "title": "模型怎样用 Skill 完成这次试玩",
+      "numbered_navigation": true,
+      "steps": [
+        {
+          "run": "selection-short-explicit",
+          "sample": "session",
+          "line": 52,
+          "label": "结合代码决定实际验证",
+          "text": [
+            "Let me now actually run the game and playtest it with Playwright, capture screenshots, and confirm the win-condition bug empirically.",
+            "Does the game boot correctly?",
+            "Mobile viewport"
+          ]
+        },
+        {
+          "run": "selection-short-explicit",
+          "sample": "session",
+          "line": 64,
+          "label": "模型安排本次试玩",
+          "text": [
+            "The server is running. Now let me write a Playwright script that:",
+            "Reads the DOM state of the board (aria-labels) to find matching pairs",
+            "Plays the game, verifying the win condition bug"
+          ]
+        },
+        {
+          "run": "selection-short-explicit",
+          "sample": "session",
+          "line": 64,
+          "label": "将配对检查展开成具体动作",
+          "text_span": {
+            "from": "Script 2: deterministic full playthrough",
+            "until": "- Then click 再来一次"
+          },
+          "text": [
+            "Actually, I should also play \"as a player would\" to check the real feel — e.g., click cards randomly, observe timing. But for finding the win-condition bug, deterministic is better."
+          ]
+        }
+      ],
+      "navigation_group": "selection-use-e"
+    },
+    "selection-use-3": {
+      "title": "模型怎样用 Skill 完成这次试玩",
+      "numbered_navigation": true,
+      "steps": [
+        {
+          "run": "selection-short-explicit",
+          "sample": "session",
+          "line": 113,
+          "label": "启动后取得游戏状态",
+          "text": [
+            "stats: ['步数 0', '用时 0:00', '配对 0/6']",
+            "cards: 12"
+          ]
+        },
+        {
+          "run": "selection-short-explicit",
+          "sample": "session",
+          "line": 164,
+          "label": "模型编写试玩脚本",
+          "text_span": {
+            "from": "+    for p_idx, (a, b) in enumerate(pairs):",
+            "until": "+    dump("
+          },
+          "display_escaped_newlines": true
+        },
+        {
+          "run": "selection-short-explicit",
+          "sample": "session",
+          "line": 169,
+          "label": "工具运行试玩脚本",
+          "text": [
+            "./evidence/run.sh evidence/p02_play.py 2>&1 | tail -40"
+          ]
+        },
+        {
+          "run": "selection-short-explicit",
+          "sample": "session",
+          "line": 172,
+          "label": "工具返回试玩结果",
+          "text_span": {
+            "from": "--- after pair 3",
+            "until": "console:"
+          }
+        },
+        {
+          "run": "selection-short-explicit",
+          "sample": "session",
+          "line": 175,
+          "label": "模型根据运行结果确认问题",
+          "text": [
+            "**CONFIRMED — the critical bug:**",
+            "The game declares victory after only 3 of 6 pairs. The HUD reads \"配对 6/6\" (should be 3/6 pairs), the win banner says \"全部配对完成\" while 6 cards (3 pairs) are still face down and unclickable (dead).",
+            "Also confirmed: after the premature win, clicking a remaining hidden card does nothing (locked by isWon) — 6 of 12 cards are dead.",
+            "Let me view the screenshots."
+          ]
+        },
+        {
+          "run": "selection-short-explicit",
+          "sample": "session",
+          "line": 178,
+          "label": "模型打开截图核对",
+          "text": [
+            "evidence/shot_03_premature_win.png"
+          ],
+          "evidence_image": "http://127.0.0.1:8841/courseware/ch03/materials/playtest-prompts-20261118/e-premature-win.png"
+        },
+        {
+          "run": "selection-short-explicit",
+          "sample": "session",
+          "line": 184,
+          "label": "模型根据截图核对异常画面",
+          "text": [
+            "The screenshot is devastating evidence: \"全部配对完成，用时 0:02，翻了 3 步\" with \"配对 6/6\" while 6 cards are still face-down and dead."
+          ]
+        }
+      ],
+      "navigation_group": "selection-use-e",
+      "main_positions": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    "selection-use-4": {
+      "title": "模型怎样用 Skill 完成这次试玩",
+      "numbered_navigation": true,
+      "steps": [
+        {
+          "run": "selection-short-explicit",
+          "sample": "session",
+          "line": 388,
+          "label": "模型按报告标准组织内容",
+          "text": [
+            "Let me make sure I list the reproduction steps for each finding and the likely owner (simulation / renderer / frontend / asset pipeline) per the reporting standard."
+          ]
+        },
+        {
+          "run": "selection-short-explicit",
+          "sample": "session",
+          "line": 391,
+          "label": "模型写入报告的第一项问题",
+          "text_span": {
+            "from": "+### 1. 通关判定",
+            "until": "+### 2."
+          },
+          "display_escaped_newlines": true
+        },
+        {
+          "run": "selection-short-explicit",
+          "sample": "session",
+          "line": 404,
+          "label": "最终回答中的结论与依据",
+          "text": [
+            "试玩完成，报告已写入 `playtest-report.md`（仓库根目录），证据截图和脚本在 `evidence/`。",
+            "配好第 3 对时 matchedCount 正好等于 6 → 弹出「全部配对完成，用时 0:02，翻了 3 步。」，但棋盘上还有 **6 张牌翻不动**。游戏**永远无法通关**。截图：`evidence/shot_03_premature_win.png`。",
+            "`npm run build` 直接失败** — 仓库里没有 `tsconfig.json`，`tsc -b` 报 TS5083 退出，产物根本没生成。"
+          ]
+        }
+      ],
+      "navigation_group": "selection-use-e"
+    },
+    "selection-use-f-backup": {
+      "title": "备用对照 · F 自然语言触发（独立运行）",
+      "numbered_navigation": true,
+      "steps": [
+        {
+          "run": "selection-short-implicit",
+          "sample": "session",
+          "line": 50,
+          "label": "F · 正文工作步骤",
+          "text_span": {
+            "from": "## Preferred Workflow",
+            "until": "## Tooling Guidance"
+          }
+        },
+        {
+          "run": "selection-short-implicit",
+          "sample": "session",
+          "line": 62,
+          "label": "F · 清单返回",
+          "text_span": {
+            "from": "# Playtest Checklist",
+            "until": "## 2D checks"
+          }
+        },
+        {
+          "run": "selection-short-implicit",
+          "sample": "session",
+          "line": 247,
+          "label": "F · 修正检查后的实际结果",
+          "text_span": {
+            "from": "--- B. false-win state",
+            "until": "--- D."
+          }
+        },
+        {
+          "run": "selection-short-implicit",
+          "sample": "session",
+          "line": 344,
+          "label": "F · 最终回答的首项问题",
+          "text": [
+            "配对 3 组后横幅弹出「全部配对完成，用时 0:08，翻了 7 步。」，统计显示「配对 6/6」，**但 12 张卡里还有 6 张是背面朝上**。此时点剩余的卡片完全没反应，计时器也停了 —— 真正的「6 组全配对」永远达不到。"
+          ]
+        }
+      ]
+    },
+    "create-direct": {
+      "title": "3.3 创建演示 · direct",
+      "steps": [
+        {
+          "run": "creation-direct",
+          "sample": "cli",
+          "message": "prompt",
+          "text": [
+            "目标：根据这款翻牌游戏的实际材料"
+          ],
+          "label": "实际完整请求"
+        },
+        {
+          "run": "creation-direct",
+          "sample": "cli",
+          "line": 7,
+          "text": [
+            "source-dialogue.md"
+          ],
+          "label": "实际读取依据"
+        },
+        {
+          "run": "creation-direct",
+          "sample": "skill",
+          "message": "document",
+          "text": [
+            "name: purple-game-ui"
+          ],
+          "label": "生成的 Skill 原文"
+        }
+      ]
+    },
+    "create-creator": {
+      "title": "3.3 创建演示 · creator",
+      "steps": [
+        {
+          "run": "creation-creator",
+          "sample": "cli",
+          "message": "prompt",
+          "text": [
+            "目标：根据这款翻牌游戏的实际材料"
+          ],
+          "label": "实际完整请求"
+        },
+        {
+          "run": "creation-creator",
+          "sample": "session",
+          "line": 12,
+          "text": [
+            "Create skills that give Codex"
+          ],
+          "label": "内置创建 Skill 进入上下文"
+        },
+        {
+          "run": "creation-creator",
+          "sample": "skill",
+          "message": "document",
+          "text": [
+            "name: purple-game-ui"
+          ],
+          "label": "生成的 Skill 原文"
+        }
+      ]
+    },
+    "create-reference": {
+      "title": "3.3 创建演示 · reference",
+      "steps": [
+        {
+          "run": "creation-reference",
+          "sample": "cli",
+          "message": "prompt",
+          "text": [
+            "目标：根据这款翻牌游戏的实际材料"
+          ],
+          "label": "实际完整请求"
+        },
+        {
+          "run": "creation-reference",
+          "sample": "cli",
+          "line": 11,
+          "text": [
+            "Protect the playfield first, especially in 3D."
+          ],
+          "label": "实际读取依据"
+        },
+        {
+          "run": "creation-reference",
+          "sample": "skill",
+          "message": "document",
+          "text": [
+            "name: purple-game-ui"
+          ],
+          "label": "生成的 Skill 原文"
+        }
+      ]
+    },
+    "compare-direct": {
+      "title": "3.3 同题游戏 · 直接提炼 · 已有案例",
+      "steps": [
+        {
+          "run": "comparison-direct",
+          "sample": "cli",
+          "message": "prompt",
+          "text": [
+            "使用当前工作区"
+          ],
+          "label": "共用开发请求与实际执行"
+        },
+        {
+          "run": "comparison-direct",
+          "sample": "skill",
+          "message": "document",
+          "text": [
+            "## Workflow"
+          ],
+          "label": "实际使用的 Skill"
+        }
+      ]
+    },
+    "compare-creator": {
+      "title": "3.3 同题游戏 · skill-creator · 本轮补跑",
+      "steps": [
+        {
+          "run": "comparison-creator",
+          "sample": "cli",
+          "message": "prompt",
+          "text": [
+            "使用当前工作区"
+          ],
+          "label": "共用开发请求与实际执行"
+        },
+        {
+          "run": "comparison-creator",
+          "sample": "skill",
+          "message": "document",
+          "text": [
+            "## 落地步骤"
+          ],
+          "label": "实际使用的 Skill"
+        }
+      ]
+    },
+    "compare-reference": {
+      "title": "3.3 同题游戏 · 参考改写 · 已有案例",
+      "steps": [
+        {
+          "run": "comparison-reference",
+          "sample": "cli",
+          "message": "prompt",
+          "text": [
+            "使用当前工作区"
+          ],
+          "label": "共用开发请求与实际执行"
+        },
+        {
+          "run": "comparison-reference",
+          "sample": "skill",
+          "message": "document",
+          "text": [
+            "## 新项目怎么用"
+          ],
+          "label": "实际使用的 Skill"
+        }
+      ]
+    },
+    "size-diagnosis": {
+      "title": "方案一·排查主要原因",
+      "steps": [
+        {
+          "run": "size-diagnosis",
+          "sample": "cli",
+          "message": "prompt",
+          "text": [
+            "目标："
+          ],
+          "label": "第一步 · 实际发送请求"
+        },
+        {
+          "run": "size-diagnosis",
+          "sample": "cli",
+          "line": 46,
+          "text": [
+            "主要问题不在玩法脚本"
+          ],
+          "label": "第二步 · 场地变小的直接原因"
+        },
+        {
+          "run": "size-diagnosis",
+          "sample": "cli",
+          "line": 46,
+          "text": [
+            "模板与 Skill 侧（上游原因）"
+          ],
+          "label": "第三步 · Skill 的上游原因"
+        },
+        {
+          "run": "size-diagnosis",
+          "sample": "cli",
+          "line": 46,
+          "label": "第四步 · 五条修改建议",
+          "text_span": {
+            "from": "### A. 应在 Skill 上改",
+            "until": "### B. 应在本游戏实现中改"
+          }
+        },
+        {
+          "run": "size-diagnosis",
+          "sample": "cli",
+          "line": 46,
+          "text": [
+            "在 `templates/styles.css` 里补齐场地变体"
+          ],
+          "label": "第五步 · 补齐场地样式"
+        },
+        {
+          "run": "size-diagnosis",
+          "sample": "cli",
+          "line": 46,
+          "text": [
+            "给 Skill 增加\"类名语义互斥\"的坑位"
+          ],
+          "label": "第六步 · 避免类名冲突"
+        },
+        {
+          "run": "size-diagnosis",
+          "sample": "cli",
+          "line": 46,
+          "text": [
+            "强化\"验证\"为可执行步骤"
+          ],
+          "label": "第七步 · 检查场地尺寸"
+        },
+        {
+          "run": "size-diagnosis",
+          "sample": "cli",
+          "line": 46,
+          "text": [
+            "顺带：Skill 允许\"去掉难度控件\""
+          ],
+          "label": "第八步 · 难度控件建议"
+        }
+      ],
+      "numbered_navigation": true
+    },
+    "size-change": {
+      "title": "方案一·接续修改 Skill",
+      "steps": [
+        {
+          "run": "size-change",
+          "sample": "cli",
+          "message": "prompt",
+          "text": [
+            "目标：",
+            "不要把当前游戏的宽度、比例写成通用要求"
+          ],
+          "label": "第一步 · 实际发送请求"
+        },
+        {
+          "run": "size-change",
+          "sample": "cli",
+          "line": 49,
+          "text": [
+            "把「场地容器」拆成三种语义清晰的容器",
+            "`.stage-canvas` 的宽度上限改为",
+            "`SKILL.md`（正文 + 骨架 + 清单 + 反模式 + 验证）"
+          ],
+          "label": "第二步 · 实际最终回复"
+        }
+      ],
+      "numbered_navigation": true
+    },
+    "size-validation": {
+      "title": "方案一·新对话生成验证",
+      "steps": [
+        {
+          "run": "size-validation",
+          "sample": "cli",
+          "message": "prompt",
+          "text": [
+            "使用当前工作区 .agents/skills/purple-game-ui/SKILL.md，从空项目做一个「60 秒躲避与收集」网页小游戏，沿用 Skill 的紫色界面风格。玩家用方向键或 WASD 移动，躲避障碍，收集物品得分；碰撞扣生命，时间到或生命耗尽时结算，可以重开。只做单一难度，界面不提供难度选择。游玩时界面只显示时间、得分和生命，重开按钮只出现在结算画面。用原生 HTML/CSS/JS，入口放在根目录 index.html。保持 Skill 文件不变，完成后告诉我用了哪些 Skill 文件。浏览器试玩留给我。"
+          ],
+          "label": "第一步 · 实际发送请求"
+        },
+        {
+          "run": "size-validation",
+          "sample": "cli",
+          "line": 63,
+          "text": [
+            "做完了。游戏在根目录",
+            "用到的 Skill 文件"
+          ],
+          "label": "第二步 · 实际最终回复"
+        }
+      ],
+      "numbered_navigation": true
+    },
+    "audio-reference-author": {
+      "title": "audio-reference-author",
+      "steps": [
+        {
+          "run": "audio-reference-author",
+          "sample": "cli",
+          "message": "prompt",
+          "text": [
+            "source-game",
+            "保留原有"
+          ],
+          "label": "author · 实际请求"
+        },
+        {
+          "run": "audio-reference-author",
+          "sample": "cli",
+          "line": 6,
+          "text": [
+            "flip",
+            "match",
+            "mismatch",
+            "win"
+          ],
+          "label": "读取原参考游戏声音"
+        },
+        {
+          "run": "audio-reference-author",
+          "sample": "cli",
+          "line": 91,
+          "text": [],
+          "label": "author · 最终回复"
+        }
+      ]
+    },
+    "audio-reference-games": {
+      "title": "audio-reference-games",
+      "steps": [
+        {
+          "run": "audio-reference-baseline",
+          "sample": "cli",
+          "message": "prompt",
+          "text": [
+            "Skill",
+            "浏览器"
+          ],
+          "label": "baseline · 实际请求"
+        },
+        {
+          "run": "audio-reference-baseline",
+          "sample": "cli",
+          "line": 55,
+          "text": [],
+          "label": "baseline · 最终回复"
+        },
+        {
+          "run": "audio-reference-with-audio",
+          "sample": "cli",
+          "message": "prompt",
+          "text": [
+            "Skill",
+            "浏览器"
+          ],
+          "label": "with-audio · 实际请求"
+        },
+        {
+          "run": "audio-reference-with-audio",
+          "sample": "cli",
+          "line": 9,
+          "text": [
+            "purple-sound.js"
+          ],
+          "label": "读取新 Skill 声音资源"
+        },
+        {
+          "run": "audio-reference-with-audio",
+          "sample": "cli",
+          "line": 12,
+          "text": [
+            "purple-sound.js"
+          ],
+          "label": "复制新声音模块"
+        },
+        {
+          "run": "audio-reference-with-audio",
+          "sample": "cli",
+          "line": 52,
+          "text": [
+            "purple-sound.js"
+          ],
+          "label": "修改版游戏最终回复"
+        }
+      ]
+    },
+    "audio-reference-repair": {
+      "title": "audio-reference-repair",
+      "steps": [
+        {
+          "run": "audio-reference-baseline-repair",
+          "sample": "cli",
+          "message": "prompt",
+          "text": [
+            "Skill",
+            "浏览器"
+          ],
+          "label": "baseline-repair · 实际请求"
+        },
+        {
+          "run": "audio-reference-baseline-repair",
+          "sample": "cli",
+          "line": 8,
+          "text": [],
+          "label": "baseline-repair · 最终回复"
+        }
+      ]
+    },
+    "audio-reference-files": {
+      "title": "本轮 Skill 与源码",
+      "steps": [
+        {
+          "run": "audio-reference-files",
+          "sample": "original",
+          "message": "document",
+          "label": "original",
+          "text": [
+            "三个资源各自独立",
+            "## 工作流"
+          ]
+        },
+        {
+          "run": "audio-reference-files",
+          "sample": "source",
+          "message": "document",
+          "label": "source",
+          "text": [
+            "setSoundEnabled",
+            "flip()",
+            "match()",
+            "mismatch()",
+            "win()"
+          ]
+        },
+        {
+          "run": "audio-reference-files",
+          "sample": "diff",
+          "message": "document",
+          "label": "diff",
+          "text": []
+        },
+        {
+          "run": "audio-reference-files",
+          "sample": "revised",
+          "message": "document",
+          "label": "revised",
+          "text": []
+        },
+        {
+          "run": "audio-reference-files",
+          "sample": "sound",
+          "message": "document",
+          "label": "sound",
+          "text": []
+        },
+        {
+          "run": "audio-reference-files",
+          "sample": "guide",
+          "message": "document",
+          "label": "guide",
+          "text": []
+        },
+        {
+          "run": "audio-reference-files",
+          "sample": "game",
+          "message": "document",
+          "label": "game",
+          "text": []
+        },
+        {
+          "run": "audio-reference-files",
+          "sample": "checks",
+          "message": "document",
+          "label": "checks",
+          "text": []
         }
       ]
     }

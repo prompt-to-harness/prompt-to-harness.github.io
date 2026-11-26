@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>60 秒躲避与收集 · 紫色黄昏</title>
+  <link rel="stylesheet" href="css/purple-theme.css">
+  <link rel="stylesheet" href="css/stat-cards.css">
+  <link rel="stylesheet" href="css/result-overlay.css">
+  <link rel="stylesheet" href="css/game.css">
+</head>
+<body class="pg-body">
+
+  <header class="topbar">
+    <div class="topbar__title">
+      <h1 class="pg-title">60 秒躲避与收集</h1>
+      <p class="pg-subtitle">方向键 / WASD 移动 · 躲开障碍，抓住限时水晶</p>
+    </div>
+    <button class="pg-btn pg-btn--ghost" id="sound-toggle" type="button" aria-pressed="true">🔊 音效</button>
+  </header>
+
+  <main class="game">
+    <!-- HUD：桌面端贴场地左侧竖排；窄屏落到场地下方横排（不遮挡场地） -->
+    <aside class="game__hud">
+      <div class="pg-stats pg-stats--rail" id="hud" aria-label="实时读数">
+        <div class="pg-stat">
+          <span class="pg-stat__label">剩余时间</span>
+          <span class="pg-stat__value">60</span>
+        </div>
+        <div class="pg-stat pg-stat--accent">
+          <span class="pg-stat__label">得分</span>
+          <span class="pg-stat__value">0</span>
+        </div>
+        <div class="pg-stat pg-stat--good">
+          <span class="pg-stat__label">生命</span>
+          <span class="pg-stat__value">3</span>
+        </div>
+      </div>
+    </aside>
+
+    <section class="game__field">
+      <div class="field" id="field">
+        <canvas class="field__canvas" id="canvas" width="800" height="520" aria-label="游戏场地"></canvas>
+        <div class="field__flash" aria-hidden="true"></div>
+      </div>
+
+      <div class="dpad" id="dpad" aria-hidden="true">
+        <button class="dpad__btn dpad__btn--up" type="button" data-dir="up">▲</button>
+        <button class="dpad__btn dpad__btn--left" type="button" data-dir="left">◀</button>
+        <button class="dpad__btn dpad__btn--down" type="button" data-dir="down">▼</button>
+        <button class="dpad__btn dpad__btn--right" type="button" data-dir="right">▶</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- 进入游戏前的规则提醒（确认后才开始计时） -->
+  <div class="pg-overlay pg-overlay--compact" id="rules-overlay" hidden>
+    <div class="pg-overlay__panel" role="dialog" aria-modal="true" aria-labelledby="rules-title" aria-describedby="rules-text">
+      <div class="pg-overlay__emoji" aria-hidden="true">🎯</div>
+      <h2 class="pg-overlay__title" id="rules-title">准备好了吗？</h2>
+      <p class="pg-overlay__text" id="rules-text">确认后 <strong>60 秒</strong>倒计时立刻开始。</p>
+      <ul class="rules__list">
+        <li class="rules__item"><span class="rules__icon" aria-hidden="true">🕹</span><span>用 <strong>方向键</strong> 或 <strong>WASD</strong> 移动粉色方块。</span></li>
+        <li class="rules__item"><span class="rules__icon" aria-hidden="true">🪨</span><span>撞到深色障碍会 <strong>扣 1 点生命</strong>，并短暂无敌。</span></li>
+        <li class="rules__item"><span class="rules__icon" aria-hidden="true">💎</span><span>收集青色水晶 <strong>+10 分</strong>；每颗水晶 <strong>只存在 9 秒</strong>，进度环走完即消失。</span></li>
+        <li class="rules__item"><span class="rules__icon" aria-hidden="true">⏱</span><span>时间归零或生命耗尽即结算；结算画面里可以 <strong>重开一局</strong>。</span></li>
+      </ul>
+      <div class="pg-overlay__actions">
+        <button class="pg-btn pg-btn--primary" id="rules-start" type="button">开始游戏</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 结算浮层（重开按钮只出现在这里） -->
+  <div class="pg-overlay" id="overlay" hidden>
+    <div class="pg-overlay__panel" role="dialog" aria-modal="true" aria-labelledby="overlay-title">
+      <div class="pg-overlay__emoji" aria-hidden="true">🎉</div>
+      <h2 class="pg-overlay__title" id="overlay-title">时间到！</h2>
+      <p class="pg-overlay__text" id="overlay-text"></p>
+      <div class="pg-overlay__summary" id="overlay-summary"></div>
+      <div class="pg-overlay__actions" id="overlay-actions"></div>
+    </div>
+  </div>
+
+  <script type="module" src="js/game.js"></script>
+</body>
+</html>

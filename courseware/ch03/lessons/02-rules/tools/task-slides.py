@@ -35,7 +35,7 @@ def apply(scenes, scripts, reading):
     titles=['共同方法怎样用于当前任务','Reference 怎样变成具体检查','专项 Skill 怎样补充判断依据']
     keys=[['workflow','tooling','reporting','earlyClear','outputA','reportA'],['references','checklist','readB','restartResult'],['references','frontend','readC','desktopPair','mobileBottom','narrowResult']]
     for n,(title,body) in enumerate(zip(titles,bodies),1):
-        id=f'p07t{n}';frame=reading['plannedFrames'][n];mapped={screen['ppt']['step']:screen for screen in frame['screens'] if screen.get('ppt',{}).get('id')==id}
+        id=f'p07t{n}';frame=next(f for f in reading['plannedFrames'] + reading.get('historicalFrames', []) if f['id']==f'plan323-{n+1}');mapped={screen['ppt']['step']:screen for screen in frame['screens'] if screen.get('ppt',{}).get('id')==id}
         assert sorted(mapped)==[0,1,2]
         narration=['\n\n'.join(scripts[frame['scriptSource']][mapped[k]['scriptStep']].split('\n\n')[1:]) for k in range(3)]
-        scenes.append(dict(id=id,title=title,label=title,segment='认识复杂 Skill 的资料、脚本与资源',lead=['任务规则与正文方法共同形成检查；实际证据支持本轮结论。','正文提供入口，清单提供条目；结合当前游戏形成动作、预期与可核对的结果。','共同流程与专项判断配合使用；按当前任务选用标准，分别核对不同检查问题。'][n-1],layout='reading-slide task-slide',html='<div class="task-board">'+body+'</div>'+links(keys[n-1]),steps=['建立知识关系','对应当前任务','用实际结果核对'],script=narration,source='index.html#'+id,seconds=120))
+        scenes.append(dict(id=id,title=title,label=title,segment=frame['group'],lead=['任务规则与正文方法共同形成检查；实际证据支持本轮结论。','正文提供入口，清单提供条目；结合当前游戏形成动作、预期与可核对的结果。','共同流程与专项判断配合使用；按当前任务选用标准，分别核对不同检查问题。'][n-1],layout='reading-slide task-slide',html='<div class="task-board">'+body+'</div>'+links(keys[n-1]),steps=['建立知识关系','对应当前任务','用实际结果核对'],script=narration,source='index.html#'+id,seconds=120))

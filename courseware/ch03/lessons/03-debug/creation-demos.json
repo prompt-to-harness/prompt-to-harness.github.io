@@ -1,0 +1,53 @@
+{
+  "date": "2026-11-18",
+  "model": "MiniMax-M3.1-Flash",
+  "cli": "0.163.0",
+  "sources": {
+    "expertise": "https://agentskills.io/skill-creation/best-practices#start-from-real-expertise",
+    "creator": "https://learn.chatgpt.com/docs/build-skills#create-a-skill",
+    "reference": "https://github.com/openai/plugins/blob/82fd64bce3869f0d4c0bb2bf0e36a6e262ca5ad8/plugins/game-studio/skills/game-ui-frontend/SKILL.md#frontend-standards"
+  },
+  "cases": [
+    {
+      "id": "direct",
+      "title": "从已有上下文直接生成",
+      "prompt": "目标：根据这款翻牌游戏的实际材料，创建一个以后开发其他小游戏时可以复用的紫色界面 Skill。\n上下文：source-game/ 是已完成的源码，source-game/docs/ 有截图，source-dialogue.md 是原始开发对话。\n约束：先读取材料，再提炼实际存在的视觉规则和开发要求。输出到当前项目 purple-game-ui/，包含 SKILL.md 及确有必要的配套文件；区分可复用视觉与翻牌专属规则，不把翻牌布局固定到所有游戏。不要修改输入材料，也不要开发新游戏。现有输入足够时直接完成；缺少关键信息时明确指出。直接从上述材料整理，不调用 skill-creator 或其他 Skill。\n完成标准：检查 Skill 的 name、description、文件引用和内容依据；最终说明提炼了哪些可复用内容、哪些只适用于翻牌，以及尚未通过新任务验证的部分。\n",
+      "command": "bash courseware/ch03/lessons/03-debug/tools/start-creation-demo.sh direct",
+      "status": "首轮生成文件后主动中止额外浏览器排查，随后在同一会话追加收束请求并获得总结。原件 description 引号缺失导致 YAML 失败；备课方只修正引号，原件与 diff 均保留，修后官方格式校验通过。未用新游戏验证。",
+      "inspection": [
+        "读取 source-game 与 source-dialogue.md",
+        "打开输出的 purple-game-ui/SKILL.md",
+        "核对内容来源与尚未验证项"
+      ],
+      "prerun_prompt": "目标：根据这款翻牌游戏的实际材料，创建一个以后开发其他小游戏时可以复用的紫色界面 Skill。\n上下文：source-game/ 是已完成的源码，source-game/docs/ 有截图，source-dialogue.md 是原始开发对话。请先读取这些材料，再提炼实际存在的视觉规则和开发要求。\n约束：输出到当前项目 purple-game-ui/，包含 SKILL.md 及确有必要的配套文件；区分可复用视觉与翻牌专属规则，不把翻牌布局固定到所有游戏。不要修改输入材料，也不要开发新游戏。现有输入足够时直接完成；缺少关键信息时明确指出。\n完成标准：检查 Skill 的 name、description、文件引用和内容依据；最终说明提炼了哪些可复用内容、哪些只适用于翻牌，以及尚未通过新任务验证的部分。\n本次直接从上述材料整理，不调用 skill-creator 或其他 Skill。\n"
+    },
+    {
+      "id": "creator",
+      "title": "调用内置 skill-creator 生成",
+      "prompt": "$skill-creator\n\n目标：根据这款翻牌游戏的实际材料，创建一个以后开发其他小游戏时可以复用的紫色界面 Skill。\n上下文：source-game/ 是已完成的源码，source-game/docs/ 有截图，source-dialogue.md 是原始开发对话。\n约束：先读取材料，再提炼实际存在的视觉规则和开发要求。输出到当前项目 purple-game-ui/，包含 SKILL.md 及确有必要的配套文件；区分可复用视觉与翻牌专属规则，不把翻牌布局固定到所有游戏。不要修改输入材料，也不要开发新游戏。现有输入足够时直接完成；缺少关键信息时明确指出。使用 Codex 内置 skill-creator 辅助创建。\n完成标准：检查 Skill 的 name、description、文件引用和内容依据；最终说明提炼了哪些可复用内容、哪些只适用于翻牌，以及尚未通过新任务验证的部分。\n",
+      "command": "bash courseware/ch03/lessons/03-debug/tools/start-creation-demo.sh creator",
+      "status": "已生成文件，独立使用真实 PyYAML 执行官方格式校验通过。额外浏览器／服务器测试受限，已中止该分支并在同一会话追加收束请求；已有总结，运行行为和新游戏使用未验证。",
+      "inspection": [
+        "读取 source-game 与 source-dialogue.md",
+        "打开输出的 purple-game-ui/SKILL.md",
+        "核对内容来源与尚未验证项"
+      ],
+      "prerun_prompt": "$skill-creator\n\n目标：根据这款翻牌游戏的实际材料，创建一个以后开发其他小游戏时可以复用的紫色界面 Skill。\n上下文：source-game/ 是已完成的源码，source-game/docs/ 有截图，source-dialogue.md 是原始开发对话。请先读取这些材料，再提炼实际存在的视觉规则和开发要求。\n约束：输出到当前项目 purple-game-ui/，包含 SKILL.md 及确有必要的配套文件；区分可复用视觉与翻牌专属规则，不把翻牌布局固定到所有游戏。不要修改输入材料，也不要开发新游戏。现有输入足够时直接完成；缺少关键信息时明确指出。\n完成标准：检查 Skill 的 name、description、文件引用和内容依据；最终说明提炼了哪些可复用内容、哪些只适用于翻牌，以及尚未通过新任务验证的部分。\n本次使用 Codex 内置 skill-creator 辅助创建。\n"
+    },
+    {
+      "id": "reference",
+      "title": "补充 Reference 后生成",
+      "prompt": "目标：根据这款翻牌游戏的实际材料，创建一个以后开发其他小游戏时可以复用的紫色界面 Skill。\n上下文：source-game/ 是已完成的源码，source-game/docs/ 有截图，source-dialogue.md 是原始开发对话。reference/game-ui-frontend.md 是补充的界面参考。\n约束：先读取材料，再提炼实际存在的视觉规则和开发要求。输出到当前项目 purple-game-ui/，包含 SKILL.md 及确有必要的配套文件；区分可复用视觉与翻牌专属规则，不把翻牌布局固定到所有游戏。不要修改输入材料，也不要开发新游戏。现有输入足够时直接完成；缺少关键信息时明确指出。本次不调用 skill-creator。阅读补充参考，借鉴保护游戏场地、按玩法组织 HUD 和渐进展示信息的原则，不照搬 3D 专属要求。\n完成标准：检查 Skill 的 name、description、文件引用和内容依据；最终说明提炼了哪些可复用内容、哪些只适用于翻牌，以及尚未通过新任务验证的部分。说明采用了哪些参考建议，哪些不适用。\n",
+      "command": "bash courseware/ch03/lessons/03-debug/tools/start-creation-demo.sh reference",
+      "status": "禁用 skill-creator 后的独立重跑已正常完成，生成正文、主题 CSS 与两份配套 Reference；实际读取原参考，官方格式校验通过。未渲染或用于新游戏；首次误读创建 Skill 的记录另行保留，不用于本例主展示。",
+      "inspection": [
+        "读取 source-game 与 source-dialogue.md",
+        "打开输出的 purple-game-ui/SKILL.md",
+        "核对内容来源与尚未验证项"
+      ],
+      "run_directory": "reference-only",
+      "prerun_prompt": "目标：根据这款翻牌游戏的实际材料，创建一个以后开发其他小游戏时可以复用的紫色界面 Skill。\n上下文：source-game/ 是已完成的源码，source-game/docs/ 有截图，source-dialogue.md 是原始开发对话。请先读取这些材料，再提炼实际存在的视觉规则和开发要求。\n约束：输出到当前项目 purple-game-ui/，包含 SKILL.md 及确有必要的配套文件；区分可复用视觉与翻牌专属规则，不把翻牌布局固定到所有游戏。不要修改输入材料，也不要开发新游戏。现有输入足够时直接完成；缺少关键信息时明确指出。\n完成标准：检查 Skill 的 name、description、文件引用和内容依据；最终说明提炼了哪些可复用内容、哪些只适用于翻牌，以及尚未通过新任务验证的部分。\n本次不调用 skill-creator。额外阅读 reference/game-ui-frontend.md，借鉴其中保护游戏场地、按玩法组织 HUD 和渐进展示信息的原则；不要照搬 3D 专属要求。说明采用了哪些参考建议，哪些不适用。\n本次只做 Skill 内容、格式和文件引用检查，不启动浏览器或服务器，不安装依赖，不生成演示游戏或测试网页。\n"
+    }
+  ],
+  "prompt_note": "2026-11-19：演示请求按四要素归位，参考版删除额外的浏览器、服务器、依赖和测试网页限制。prompt 为当前展示与发送稿；prerun_prompt 保留此前预跑实际请求，status 与已有输出仍对应预跑。当前稿未重新运行。"
+}

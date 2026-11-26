@@ -1,1233 +1,1225 @@
-<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>3.3 原文与源码查看</title><style>body{max-width:1100px;margin:32px auto;padding:0 24px;background:#f7f7f0;color:#283c31;font:18px/1.8 system-ui}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#edf1e9;padding:24px;font:18px/1.7 monospace}a{color:#326449}section{margin:60px 0}section:target{scroll-margin-top:20px}</style><h1>3.3 原文与源码</h1><p>以下为保存文件的原文，仅做 HTML 转义展示，不执行源码。</p>
-<section id="original"><h2>原组件正文</h2><p>文件：original-skill.txt</p><p><a href="index.html#origin">返回声音来源</a> · <a href="index.html#change">返回 Skill 差异</a> · <a href="../../speaker.html#audio-origin">返回讲述位置</a></p><pre>---
-name: purple-game-ui
-description: Build or restyle browser mini-games with the shared &quot;purple dusk&quot; visual language — deep indigo-violet gradient surfaces, glass panels, indigo-to-violet accent buttons, stat cards, and a settlement/result overlay. Use when creating a new small web game, porting an existing game&#x27;s look to this purple theme, or when several games with different gameplay types must share one visual system (reusable theme tokens, HUD/data-card components, result overlay, and HUD-placement rules).
----
-
-# Purple Game UI
-
-一套可复用的紫色小游戏视觉系统。三个资源各自独立，也可以单独取用：
-
-| 资源 | 文件 | 作用 |
-|---|---|---|
-| **主题** | `assets/css/purple-theme.css` | 令牌（`--pg-*`）、背景、标题、按钮、分段控件、焦点环、动效降级 |
-| **数据卡** | `assets/css/stat-cards.css` | HUD 读数卡（顶部横排 / 侧边 rail / 底部横条 / 紧凑 chip） |
-| **结算浮层** | `assets/css/result-overlay.css` | 结算面板：遮罩、图标、标题、明细行、按钮区 |
-
-附加：`assets/js/purple-ui-kit.js`（数据卡渲染 + 浮层焦点管理）、`assets/html/components.html`（静态标记片段）、`assets/preview.html`（可视化预览）。
-
-## 工作流
-
-1. **复制资源**：把 `assets/css/` 下需要的文件拷进项目（三个 css 可独立引入；`stat-cards.css` 与 `result-overlay.css` 依赖 `purple-theme.css` 的令牌）。需要数据卡渲染/浮层行为时再拷 `assets/js/purple-ui-kit.js`。
-2. **上主题**：`&lt;body class=&quot;pg-body&quot;&gt;`（或给容器加 `.pg-surface`）。标题用 `.pg-title`，副标题 `.pg-subtitle`。
-3. **摆 HUD**：按下面的布局规则选容器形态——`.pg-stats--row`（回合制顶部横排）、`.pg-stats--rail`（实时侧边竖排）、`.pg-stats--inline`（实时底部横条）、`.pg-chip`（高频刷新的浮动读数）。
-4. **接结算**：用 `ResultOverlay` 或静态 `.pg-overlay` 结构，`open({ emoji, title, text, rows, actions })`。
-5. **核对令牌**：颜色/圆角/阴影一律引用 `--pg-*`，不要写死十六进制。令牌表与用法见 `references/tokens.md`。
-
-## 布局规则（核心）
-
-**如果玩法要求玩家持续观察场地和读数，就让 HUD 靠近场地边缘——具体贴哪条边，按玩法的自然视线落点和操作手决定。**
-
-- 回合制、读数只在操作后变化 → HUD 在场地上方一条横排（视线切换成本被回合节奏摊薄）。
-- 实时、读数持续变化 → HUD 贴场地左/右竖向 rail 或底部横条，别单独占据屏幕一端。
-- 只有一两个数值需要真盯着（血量、剩余时间）→ 做成 `.pg-chip` 贴在场边缘，其余统计退到边栏。
-- HUD 不得覆盖场地的可交互元素；数值变化用 `tabular-nums`，每秒刷新也不能让布局抖。
-
-按玩法选边、网格实现示例、验收清单见 `references/layout.md`。
-
-## 用法片段
-
-HTML（数据卡 + 浮层）：
-
-```html
-&lt;link rel=&quot;stylesheet&quot; href=&quot;css/purple-theme.css&quot;&gt;
-&lt;link rel=&quot;stylesheet&quot; href=&quot;css/stat-cards.css&quot;&gt;
-&lt;link rel=&quot;stylesheet&quot; href=&quot;css/result-overlay.css&quot;&gt;
-
-&lt;div class=&quot;pg-stats pg-stats--rail&quot;&gt;
-  &lt;div class=&quot;pg-stat&quot;&gt;
-    &lt;span class=&quot;pg-stat__label&quot;&gt;生命&lt;/span&gt;
-    &lt;span class=&quot;pg-stat__value&quot;&gt;3&lt;/span&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-```
-
-JS（渲染 + 浮层）：
-
-```js
-import { renderStats, updateStats, ResultOverlay } from &#x27;./purple-ui-kit.js&#x27;;
-
-const stats = renderStats(document.getElementById(&#x27;hud&#x27;), [
-  { key: &#x27;hp&#x27;,   label: &#x27;生命&#x27;, value: 3,  state: &#x27;good&#x27; },
-  { key: &#x27;time&#x27;, label: &#x27;用时&#x27;, value: &#x27;0:00&#x27; },
-]);
-updateStats(stats, { hp: 2, time: &#x27;0:12&#x27; });   // 值变化时自动播放一次高亮脉冲
-
-const overlay = new ResultOverlay(document.getElementById(&#x27;overlay&#x27;));
-overlay.open({
-  emoji: &#x27;🎉&#x27;,
-  title: &#x27;全部配对完成！&#x27;,
-  text: &#x27;本局用时 0:03，共 9 步。&#x27;,
-  rows: [{ label: &#x27;用时&#x27;, value: &#x27;0:03&#x27; }, { label: &#x27;最佳成绩&#x27;, value: &#x27;9 步 · 0:01&#x27;, state: &#x27;good&#x27; }],
-  actions: [{ label: &#x27;再玩一局&#x27;, primary: true, onClick: () =&gt; overlay.close() }],
-});
-```
-
-## 约束
-
-- 类名与变量一律 `--pg-` / `.pg-` 前缀，避免与宿主项目冲突。
-- 焦点环（3px `--pg-accent-3`）不要删；结算浮层必须能 `Esc` 关闭、Tab 焦点循环、关闭后焦点归位（`ResultOverlay` 已实现）。
-- 颜色不能单独传达含义，配上文字或形状变化。
-- 不要给宿主页面全局加 `backdrop-filter` / 重置样式，除非项目本身就是新页面。
-- 想先看效果：起一个静态服务器打开 `assets/preview.html`（ES Modules 需要 http，`file://` 会被 CORS 拦截）。
-
-## 验证
-
-本 Skill 自带的资源已在 headless Chrome 中渲染核对：深靛渐变背景、玻璃面板、顶部横排 / 侧边 rail / 底部横条三种 HUD 形态、结算浮层（遮罩 + 明细行 + 按钮）、窄屏断点。`assets/preview.html` 可作为回归基线，改动样式后重截对比。
-</pre></section>
-<section id="revised"><h2>修改后组件正文</h2><p>文件：revised-skill.txt</p><p><a href="index.html#origin">返回声音来源</a> · <a href="index.html#change">返回 Skill 差异</a> · <a href="../../speaker.html#audio-guidance">返回讲述位置</a></p><pre>---
-name: purple-game-ui
-description: Build or restyle browser mini-games with the shared &quot;purple dusk&quot; visual language — deep indigo-violet gradient surfaces, glass panels, indigo-to-violet accent buttons, stat cards, and a settlement/result overlay. Use when creating a new small web game, porting an existing game&#x27;s look to this purple theme, or when several games with different gameplay types must share one visual system (reusable theme tokens, HUD/data-card components, result overlay, and HUD-placement rules).
----
-
-# Purple Game UI
-
-一套可复用的紫色小游戏视觉系统。三个资源各自独立，也可以单独取用：
-
-| 资源 | 文件 | 作用 |
-|---|---|---|
-| **主题** | `assets/css/purple-theme.css` | 令牌（`--pg-*`）、背景、标题、按钮、分段控件、焦点环、动效降级 |
-| **数据卡** | `assets/css/stat-cards.css` | HUD 读数卡（顶部横排 / 侧边 rail / 底部横条 / 紧凑 chip） |
-| **结算浮层** | `assets/css/result-overlay.css` | 结算面板：遮罩、图标、标题、明细行、按钮区 |
-
-附加：`assets/js/purple-ui-kit.js`（数据卡渲染 + 浮层焦点管理）、`assets/html/components.html`（静态标记片段）、`assets/preview.html`（可视化预览）。
-
-## 工作流
-
-1. **复制资源**：把 `assets/css/` 下需要的文件拷进项目（三个 css 可独立引入；`stat-cards.css` 与 `result-overlay.css` 依赖 `purple-theme.css` 的令牌）。需要数据卡渲染/浮层行为时再拷 `assets/js/purple-ui-kit.js`。
-2. **上主题**：`&lt;body class=&quot;pg-body&quot;&gt;`（或给容器加 `.pg-surface`）。标题用 `.pg-title`，副标题 `.pg-subtitle`。
-3. **摆 HUD**：按下面的布局规则选容器形态——`.pg-stats--row`（回合制顶部横排）、`.pg-stats--rail`（实时侧边竖排）、`.pg-stats--inline`（实时底部横条）、`.pg-chip`（高频刷新的浮动读数）。
-4. **接结算**：用 `ResultOverlay` 或静态 `.pg-overlay` 结构，`open({ emoji, title, text, rows, actions })`。
-5. **核对令牌**：颜色/圆角/阴影一律引用 `--pg-*`，不要写死十六进制。令牌表与用法见 `references/tokens.md`。
-
-## 布局规则（核心）
-
-**如果玩法要求玩家持续观察场地和读数，就让 HUD 靠近场地边缘——具体贴哪条边，按玩法的自然视线落点和操作手决定。**
-
-- 回合制、读数只在操作后变化 → HUD 在场地上方一条横排（视线切换成本被回合节奏摊薄）。
-- 实时、读数持续变化 → HUD 贴场地左/右竖向 rail 或底部横条，别单独占据屏幕一端。
-- 只有一两个数值需要真盯着（血量、剩余时间）→ 做成 `.pg-chip` 贴在场边缘，其余统计退到边栏。
-- HUD 不得覆盖场地的可交互元素；数值变化用 `tabular-nums`，每秒刷新也不能让布局抖。
-
-按玩法选边、网格实现示例、验收清单见 `references/layout.md`。
-
-## 用法片段
-
-HTML（数据卡 + 浮层）：
-
-```html
-&lt;link rel=&quot;stylesheet&quot; href=&quot;css/purple-theme.css&quot;&gt;
-&lt;link rel=&quot;stylesheet&quot; href=&quot;css/stat-cards.css&quot;&gt;
-&lt;link rel=&quot;stylesheet&quot; href=&quot;css/result-overlay.css&quot;&gt;
-
-&lt;div class=&quot;pg-stats pg-stats--rail&quot;&gt;
-  &lt;div class=&quot;pg-stat&quot;&gt;
-    &lt;span class=&quot;pg-stat__label&quot;&gt;生命&lt;/span&gt;
-    &lt;span class=&quot;pg-stat__value&quot;&gt;3&lt;/span&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-```
-
-JS（渲染 + 浮层）：
-
-```js
-import { renderStats, updateStats, ResultOverlay } from &#x27;./purple-ui-kit.js&#x27;;
-
-const stats = renderStats(document.getElementById(&#x27;hud&#x27;), [
-  { key: &#x27;hp&#x27;,   label: &#x27;生命&#x27;, value: 3,  state: &#x27;good&#x27; },
-  { key: &#x27;time&#x27;, label: &#x27;用时&#x27;, value: &#x27;0:00&#x27; },
-]);
-updateStats(stats, { hp: 2, time: &#x27;0:12&#x27; });   // 值变化时自动播放一次高亮脉冲
-
-const overlay = new ResultOverlay(document.getElementById(&#x27;overlay&#x27;));
-overlay.open({
-  emoji: &#x27;🎉&#x27;,
-  title: &#x27;全部配对完成！&#x27;,
-  text: &#x27;本局用时 0:03，共 9 步。&#x27;,
-  rows: [{ label: &#x27;用时&#x27;, value: &#x27;0:03&#x27; }, { label: &#x27;最佳成绩&#x27;, value: &#x27;9 步 · 0:01&#x27;, state: &#x27;good&#x27; }],
-  actions: [{ label: &#x27;再玩一局&#x27;, primary: true, onClick: () =&gt; overlay.close() }],
-});
-```
-
-## 约束
-
-- 类名与变量一律 `--pg-` / `.pg-` 前缀，避免与宿主项目冲突。
-- 焦点环（3px `--pg-accent-3`）不要删；结算浮层必须能 `Esc` 关闭、Tab 焦点循环、关闭后焦点归位（`ResultOverlay` 已实现）。
-- 颜色不能单独传达含义，配上文字或形状变化。
-- 不要给宿主页面全局加 `backdrop-filter` / 重置样式，除非项目本身就是新页面。
-- 想先看效果：起一个静态服务器打开 `assets/preview.html`（ES Modules 需要 http，`file://` 会被 CORS 拦截）。
-
-## 验证
-
-本 Skill 自带的资源已在 headless Chrome 中渲染核对：深靛渐变背景、玻璃面板、顶部横排 / 侧边 rail / 底部横条三种 HUD 形态、结算浮层（遮罩 + 明细行 + 按钮）、窄屏断点。`assets/preview.html` 可作为回归基线，改动样式后重截对比。
-
-## 游戏事件的声音反馈
-
-开发可交互小游戏时，沿用现有布局与视觉组件，并接入 `assets/js/purple-sound.js` 的声音反馈；若任务明确要求无声，则不接入。这个独立 ES Module 不依赖页面结构或 `purple-ui-kit.js`，不要为接入声音改变 HUD 位置、浮层用途或玩法效果。
-
-- 复制该文件到项目，导入 `sfx`、`setSoundEnabled`、`isSoundEnabled`。音效库来自整页版的声音实现及其躲避游戏中的事件扩展。
-- 按实际游戏事件接线：确认开始可用 `sfx.tick()`，收集成功用 `sfx.pickup()`，受伤用 `sfx.hurt()`；胜利用 `sfx.win()`，失败可用 `sfx.mismatch()`。翻牌和配对仍可用 `flip()`、`match()`。只为游戏实际存在的事件接线，每次事件调用一次，不在绘制循环或持续按键中重复播放。
-- 用明确的音效开关调用 `setSoundEnabled(value)`，用 `isSoundEnabled()`同步状态。首次播放应来自玩家的开始或其他真实操作；浏览器没有音频能力时，游戏仍须可玩。
-- 保留原有可见反馈：声音补充收集、受伤和按钮反馈，不替代闪光、数值变化、浮层等视觉信息，也不规定场地布局。
-- 验证开始、收集、受伤等已接线事件能发声，静音后这些事件不再发声；同时复查原有布局、开场/结算浮层和玩法反馈。
-</pre></section>
-<section id="historical-sound"><h2>历史整页游戏声音模块</h2><p>文件：historical-template/src/sound.js</p><p><a href="index.html#origin">返回声音来源</a> · <a href="index.html#change">返回 Skill 差异</a> · <a href="../../speaker.html#audio-scope">返回讲述位置</a></p><pre>/**
- * 用 WebAudio 现场合成音效，不依赖任何外部音频文件。
- * 浏览器要求用户先有交互才允许播放 AudioContext，这里做惰性创建。
- */
-
-let ctx = null;
-let enabled = true;
-
-export function setSoundEnabled(value) {
-  enabled = Boolean(value);
-}
-
-export function isSoundEnabled() {
-  return enabled;
-}
-
-function getContext() {
-  if (!enabled) return null;
-  if (ctx === null) {
-    const Ctor = window.AudioContext || window.webkitAudioContext;
-    if (!Ctor) return null;
-    try {
-      ctx = new Ctor();
-    } catch {
-      ctx = null;
-    }
-  }
-  if (ctx &amp;&amp; ctx.state === &#x27;suspended&#x27;) ctx.resume().catch(() =&gt; {});
-  return ctx;
-}
-
-/** 播放一个音符。 */
-function tone(freq, duration, { type = &#x27;sine&#x27;, delay = 0, gain = 0.15 } = {}) {
-  const audio = getContext();
-  if (!audio) return;
-  const start = audio.currentTime + delay;
-  const osc = audio.createOscillator();
-  const vol = audio.createGain();
-  osc.type = type;
-  osc.frequency.setValueAtTime(freq, start);
-  vol.gain.setValueAtTime(0.0001, start);
-  vol.gain.exponentialRampToValueAtTime(gain, start + 0.015);
-  vol.gain.exponentialRampToValueAtTime(0.0001, start + duration);
-  osc.connect(vol).connect(audio.destination);
-  osc.start(start);
-  osc.stop(start + duration + 0.02);
-}
-
-export const sfx = {
-  flip() {
-    tone(520, 0.07, { type: &#x27;triangle&#x27;, gain: 0.09 });
-  },
-  match() {
-    tone(660, 0.12, { type: &#x27;sine&#x27;, gain: 0.13 });
-    tone(990, 0.16, { type: &#x27;sine&#x27;, delay: 0.08, gain: 0.11 });
-  },
-  mismatch() {
-    tone(196, 0.2, { type: &#x27;sawtooth&#x27;, gain: 0.07 });
-  },
-  win() {
-    [523, 659, 784, 1047].forEach((freq, i) =&gt; {
-      tone(freq, 0.26, { type: &#x27;triangle&#x27;, delay: i * 0.11, gain: 0.13 });
-    });
-  },
-  /** 收集到宝石 */
-  pickup() {
-    tone(880, 0.08, { type: &#x27;triangle&#x27;, gain: 0.11 });
-    tone(1320, 0.12, { type: &#x27;sine&#x27;, delay: 0.07, gain: 0.1 });
-  },
-  /** 撞到障碍，扣血 */
-  hurt() {
-    tone(150, 0.26, { type: &#x27;sawtooth&#x27;, gain: 0.11 });
-    tone(98, 0.3, { type: &#x27;square&#x27;, delay: 0.05, gain: 0.08 });
-  },
-  /** 开局倒数提示 */
-  tick() {
-    tone(720, 0.05, { type: &#x27;sine&#x27;, gain: 0.08 });
-  },
-};
-</pre></section>
-<section id="added-sound"><h2>新增声音资源</h2><p>文件：after/js/purple-sound.js</p><p><a href="index.html#origin">返回声音来源</a> · <a href="index.html#change">返回 Skill 差异</a> · <a href="../../speaker.html#audio-resource">返回讲述位置</a></p><pre>/**
- * 用 WebAudio 现场合成音效，不依赖任何外部音频文件。
- * 浏览器要求用户先有交互才允许播放 AudioContext，这里做惰性创建。
- */
-
-let ctx = null;
-let enabled = true;
-
-export function setSoundEnabled(value) {
-  enabled = Boolean(value);
-}
-
-export function isSoundEnabled() {
-  return enabled;
-}
-
-function getContext() {
-  if (!enabled) return null;
-  if (ctx === null) {
-    const Ctor = window.AudioContext || window.webkitAudioContext;
-    if (!Ctor) return null;
-    try {
-      ctx = new Ctor();
-    } catch {
-      ctx = null;
-    }
-  }
-  if (ctx &amp;&amp; ctx.state === &#x27;suspended&#x27;) ctx.resume().catch(() =&gt; {});
-  return ctx;
-}
-
-/** 播放一个音符。 */
-function tone(freq, duration, { type = &#x27;sine&#x27;, delay = 0, gain = 0.15 } = {}) {
-  const audio = getContext();
-  if (!audio) return;
-  const start = audio.currentTime + delay;
-  const osc = audio.createOscillator();
-  const vol = audio.createGain();
-  osc.type = type;
-  osc.frequency.setValueAtTime(freq, start);
-  vol.gain.setValueAtTime(0.0001, start);
-  vol.gain.exponentialRampToValueAtTime(gain, start + 0.015);
-  vol.gain.exponentialRampToValueAtTime(0.0001, start + duration);
-  osc.connect(vol).connect(audio.destination);
-  osc.start(start);
-  osc.stop(start + duration + 0.02);
-}
-
-export const sfx = {
-  flip() {
-    tone(520, 0.07, { type: &#x27;triangle&#x27;, gain: 0.09 });
-  },
-  match() {
-    tone(660, 0.12, { type: &#x27;sine&#x27;, gain: 0.13 });
-    tone(990, 0.16, { type: &#x27;sine&#x27;, delay: 0.08, gain: 0.11 });
-  },
-  mismatch() {
-    tone(196, 0.2, { type: &#x27;sawtooth&#x27;, gain: 0.07 });
-  },
-  win() {
-    [523, 659, 784, 1047].forEach((freq, i) =&gt; {
-      tone(freq, 0.26, { type: &#x27;triangle&#x27;, delay: i * 0.11, gain: 0.13 });
-    });
-  },
-  /** 收集到宝石 */
-  pickup() {
-    tone(880, 0.08, { type: &#x27;triangle&#x27;, gain: 0.11 });
-    tone(1320, 0.12, { type: &#x27;sine&#x27;, delay: 0.07, gain: 0.1 });
-  },
-  /** 撞到障碍，扣血 */
-  hurt() {
-    tone(150, 0.26, { type: &#x27;sawtooth&#x27;, gain: 0.11 });
-    tone(98, 0.3, { type: &#x27;square&#x27;, delay: 0.05, gain: 0.08 });
-  },
-  /** 开局倒数提示 */
-  tick() {
-    tone(720, 0.05, { type: &#x27;sine&#x27;, gain: 0.08 });
-  },
-};
-</pre></section>
-<section id="template-sound"><h2>原模板声音模块</h2><p>文件：template-sound.js</p><p><a href="index.html#origin">返回声音来源</a> · <a href="index.html#change">返回 Skill 差异</a> · <a href="../../speaker.html#audio-origin">返回讲述位置</a></p><pre>/**
- * 用 WebAudio 现场合成音效，不依赖任何外部音频文件。
- * 浏览器要求用户先有交互才允许播放 AudioContext，这里做惰性创建。
- */
-
-let ctx = null;
-let enabled = true;
-
-export function setSoundEnabled(value) {
-  enabled = Boolean(value);
-}
-
-export function isSoundEnabled() {
-  return enabled;
-}
-
-function getContext() {
-  if (!enabled) return null;
-  if (ctx === null) {
-    const Ctor = window.AudioContext || window.webkitAudioContext;
-    if (!Ctor) return null;
-    try {
-      ctx = new Ctor();
-    } catch {
-      ctx = null;
-    }
-  }
-  if (ctx &amp;&amp; ctx.state === &#x27;suspended&#x27;) ctx.resume().catch(() =&gt; {});
-  return ctx;
-}
-
-/** 播放一个音符。 */
-function tone(freq, duration, { type = &#x27;sine&#x27;, delay = 0, gain = 0.15 } = {}) {
-  const audio = getContext();
-  if (!audio) return;
-  const start = audio.currentTime + delay;
-  const osc = audio.createOscillator();
-  const vol = audio.createGain();
-  osc.type = type;
-  osc.frequency.setValueAtTime(freq, start);
-  vol.gain.setValueAtTime(0.0001, start);
-  vol.gain.exponentialRampToValueAtTime(gain, start + 0.015);
-  vol.gain.exponentialRampToValueAtTime(0.0001, start + duration);
-  osc.connect(vol).connect(audio.destination);
-  osc.start(start);
-  osc.stop(start + duration + 0.02);
-}
-
-export const sfx = {
-  flip() {
-    tone(520, 0.07, { type: &#x27;triangle&#x27;, gain: 0.09 });
-  },
-  match() {
-    tone(660, 0.12, { type: &#x27;sine&#x27;, gain: 0.13 });
-    tone(990, 0.16, { type: &#x27;sine&#x27;, delay: 0.08, gain: 0.11 });
-  },
-  mismatch() {
-    tone(196, 0.2, { type: &#x27;sawtooth&#x27;, gain: 0.07 });
-  },
-  win() {
-    [523, 659, 784, 1047].forEach((freq, i) =&gt; {
-      tone(freq, 0.26, { type: &#x27;triangle&#x27;, delay: i * 0.11, gain: 0.13 });
-    });
-  },
-};
-</pre></section>
-<section id="events"><h2>历史游戏事件调用</h2><p>文件：historical-template/src/main.js</p><p><a href="index.html#origin">返回声音来源</a> · <a href="index.html#change">返回 Skill 差异</a> · <a href="../../speaker.html#audio-origin">返回讲述位置</a></p><pre>/**
- * 60 秒躲避与收集 —— 玩法脚本。
- * 方向键 / WASD 移动，躲避紫色障碍，收集宝石；撞到障碍扣 1 命，
- * 时间耗尽或生命归零时结算，结算浮层里可以重开。
- */
-
-import { shell } from &#x27;./shell.js&#x27;;
-import { recordBestScore } from &#x27;./storage.js&#x27;;
-
-const W = 640;
-const H = 480;
-const ROUND_TIME = 60;
-const START_LIVES = 3;
-const PLAYER_R = 13;
-const PLAYER_SPEED = 250;
-const INVULN_MS = 1400;
-const GEM_SCORE = 10;
-
-const canvas = document.getElementById(&#x27;arena&#x27;);
-const ctx = canvas.getContext(&#x27;2d&#x27;);
-const tipEl = document.getElementById(&#x27;board-tip&#x27;);
-
-/* 高清屏适配：逻辑坐标固定 640x480，按 DPR 放大画布 */
-const dpr = Math.min(window.devicePixelRatio || 1, 2);
-canvas.width = W * dpr;
-canvas.height = H * dpr;
-ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-const keys = new Set();
-const KEY_MAP = {
-  ArrowLeft: &#x27;left&#x27;, ArrowRight: &#x27;right&#x27;, ArrowUp: &#x27;up&#x27;, ArrowDown: &#x27;down&#x27;,
-  a: &#x27;left&#x27;, A: &#x27;left&#x27;, d: &#x27;right&#x27;, D: &#x27;right&#x27;, w: &#x27;up&#x27;, W: &#x27;up&#x27;, s: &#x27;down&#x27;, S: &#x27;down&#x27;,
-};
-
-const state = {
-  phase: &#x27;ready&#x27;, // ready | playing | over
-  timeLeft: ROUND_TIME,
-  score: 0,
-  lives: START_LIVES,
-  player: { x: W / 2, y: H / 2, vx: 0, vy: 0, invuln: 0 },
-  obstacles: [],
-  gems: [],
-  nextObstacleAt: 0,
-  nextGemAt: 0,
-  elapsed: 0,
-};
-
-const rand = (min, max) =&gt; min + Math.random() * (max - min);
-const hearts = (n) =&gt; (&#x27;\u2665&#x27;.repeat(Math.max(0, n)) || &#x27;\u2014&#x27;);
-
-/* ------------------------------------------------------------------ */
-/* 生成                                                                 */
-/* ------------------------------------------------------------------ */
-
-function spawnObstacle() {
-  const r = rand(16, 24);
-  const angle = rand(0, Math.PI * 2);
-  const speed = rand(65, 105);
-  let x = rand(r, W - r);
-  let y = rand(r, H - r);
-  const p = state.player;
-  if (Math.hypot(x - p.x, y - p.y) &lt; 120) { x = W - x; y = H - y; }
-  state.obstacles.push({
-    x, y, r,
-    vx: Math.cos(angle) * speed,
-    vy: Math.sin(angle) * speed,
-    spin: rand(-2, 2),
-    rot: rand(0, Math.PI * 2),
-  });
-}
-
-function spawnGem() {
-  const p = state.player;
-  let x = rand(24, W - 24);
-  let y = rand(24, H - 24);
-  if (Math.hypot(x - p.x, y - p.y) &lt; 60) { x = W - x; y = H - y; }
-  state.gems.push({ x, y, r: 11, phase: rand(0, Math.PI * 2), value: GEM_SCORE });
-}
-
-function resetRound() {
-  state.phase = &#x27;ready&#x27;;
-  state.timeLeft = ROUND_TIME;
-  state.score = 0;
-  state.lives = START_LIVES;
-  state.player = { x: W / 2, y: H / 2, vx: 0, vy: 0, invuln: 0 };
-  state.obstacles = [];
-  state.gems = [];
-  state.nextObstacleAt = 0;
-  state.nextGemAt = 0;
-  state.elapsed = 0;
-  for (let i = 0; i &lt; 3; i++) spawnObstacle();
-  for (let i = 0; i &lt; 2; i++) spawnGem();
-  shell.setStat(&#x27;time&#x27;, String(ROUND_TIME));
-  shell.setStat(&#x27;score&#x27;, &#x27;0&#x27;);
-  shell.setStat(&#x27;lives&#x27;, hearts(START_LIVES));
-  shell.setStatus(&#x27;等待开始&#x27;);
-  if (tipEl) tipEl.hidden = false;
-}
-
-/* ------------------------------------------------------------------ */
-/* 更新                                                                 */
-/* ------------------------------------------------------------------ */
-
-function update(dt) {
-  if (state.phase !== &#x27;playing&#x27;) return;
-
-  state.elapsed += dt;
-  state.timeLeft = Math.max(0, ROUND_TIME - state.elapsed);
-
-  const p = state.player;
-  let dx = 0;
-  let dy = 0;
-  if (keys.has(&#x27;left&#x27;)) dx -= 1;
-  if (keys.has(&#x27;right&#x27;)) dx += 1;
-  if (keys.has(&#x27;up&#x27;)) dy -= 1;
-  if (keys.has(&#x27;down&#x27;)) dy += 1;
-  if (dx !== 0 || dy !== 0) {
-    const len = Math.hypot(dx, dy);
-    p.x += (dx / len) * PLAYER_SPEED * dt;
-    p.y += (dy / len) * PLAYER_SPEED * dt;
-  }
-  p.x = Math.min(W - PLAYER_R, Math.max(PLAYER_R, p.x));
-  p.y = Math.min(H - PLAYER_R, Math.max(PLAYER_R, p.y));
-  if (p.invuln &gt; 0) p.invuln -= dt * 1000;
-
-  const ramp = 1 + Math.min(0.8, state.elapsed / 60);
-  if (state.elapsed &gt;= state.nextObstacleAt &amp;&amp; state.obstacles.length &lt; 9) {
-    spawnObstacle();
-    state.nextObstacleAt = state.elapsed + 8;
-  }
-  for (const o of state.obstacles) {
-    o.x += o.vx * ramp * dt;
-    o.y += o.vy * ramp * dt;
-    o.rot += o.spin * dt;
-    if (o.x - o.r &lt; 0) { o.x = o.r; o.vx = Math.abs(o.vx); }
-    if (o.x + o.r &gt; W) { o.x = W - o.r; o.vx = -Math.abs(o.vx); }
-    if (o.y - o.r &lt; 0) { o.y = o.r; o.vy = Math.abs(o.vy); }
-    if (o.y + o.r &gt; H) { o.y = H - o.r; o.vy = -Math.abs(o.vy); }
-  }
-
-  if (state.elapsed &gt;= state.nextGemAt &amp;&amp; state.gems.length &lt; 6) {
-    spawnGem();
-    state.nextGemAt = state.elapsed + 1.4;
-  }
-  for (let i = state.gems.length - 1; i &gt;= 0; i--) {
-    const g = state.gems[i];
-    g.phase += dt * 3;
-    if (Math.hypot(g.x - p.x, g.y - p.y) &lt; g.r + PLAYER_R - 3) {
-      state.gems.splice(i, 1);
-      state.score += g.value;
-      shell.setStat(&#x27;score&#x27;, String(state.score));
-      shell.sfx.pickup();
-    }
-  }
-
-  if (p.invuln &lt;= 0) {
-    for (const o of state.obstacles) {
-      if (Math.hypot(o.x - p.x, o.y - p.y) &lt; o.r + PLAYER_R - 4) {
-        state.lives -= 1;
-        shell.setStat(&#x27;lives&#x27;, hearts(state.lives));
-        shell.sfx.hurt();
-        p.invuln = INVULN_MS;
-        const ax = p.x - o.x;
-        const ay = p.y - o.y;
-        const len = Math.hypot(ax, ay) || 1;
-        p.x = Math.min(W - PLAYER_R, Math.max(PLAYER_R, p.x + (ax / len) * 46));
-        p.y = Math.min(H - PLAYER_R, Math.max(PLAYER_R, p.y + (ay / len) * 46));
-        if (state.lives &lt;= 0) { endRound(&#x27;lose&#x27;); return; }
-        break;
-      }
-    }
-  }
-
-  shell.setStat(&#x27;time&#x27;, String(Math.ceil(state.timeLeft)));
-  if (state.timeLeft &lt;= 0) endRound(&#x27;win&#x27;);
-}
-
-/* ------------------------------------------------------------------ */
-/* 绘制                                                                 */
-/* ------------------------------------------------------------------ */
-
-function draw() {
-  ctx.clearRect(0, 0, W, H);
-
-  const bg = ctx.createLinearGradient(0, 0, 0, H);
-  bg.addColorStop(0, &#x27;rgba(124,140,255,0.16)&#x27;);
-  bg.addColorStop(1, &#x27;rgba(154,107,255,0.10)&#x27;);
-  ctx.fillStyle = bg;
-  ctx.fillRect(0, 0, W, H);
-
-  ctx.strokeStyle = &#x27;rgba(255,255,255,0.06)&#x27;;
-  ctx.lineWidth = 1;
-  for (let x = 0; x &lt;= W; x += 40) {
-    ctx.beginPath(); ctx.moveTo(x + 0.5, 0); ctx.lineTo(x + 0.5, H); ctx.stroke();
-  }
-  for (let y = 0; y &lt;= H; y += 40) {
-    ctx.beginPath(); ctx.moveTo(0, y + 0.5); ctx.lineTo(W, y + 0.5); ctx.stroke();
-  }
-
-  for (const g of state.gems) {
-    const s = 1 + Math.sin(g.phase) * 0.12;
-    ctx.save();
-    ctx.translate(g.x, g.y);
-    ctx.rotate(Math.PI / 4);
-    ctx.scale(s, s);
-    ctx.shadowColor = &#x27;rgba(86,214,198,0.9)&#x27;;
-    ctx.shadowBlur = 14;
-    ctx.fillStyle = &#x27;#56d6c6&#x27;;
-    ctx.fillRect(-g.r * 0.7, -g.r * 0.7, g.r * 1.4, g.r * 1.4);
-    ctx.shadowBlur = 0;
-    ctx.fillStyle = &#x27;rgba(255,255,255,0.55)&#x27;;
-    ctx.fillRect(-g.r * 0.35, -g.r * 0.35, g.r * 0.6, g.r * 0.6);
-    ctx.restore();
-  }
-
-  for (const o of state.obstacles) {
-    ctx.save();
-    ctx.translate(o.x, o.y);
-    ctx.rotate(o.rot);
-    ctx.shadowColor = &#x27;rgba(154,107,255,0.8)&#x27;;
-    ctx.shadowBlur = 16;
-    const g = ctx.createLinearGradient(-o.r, -o.r, o.r, o.r);
-    g.addColorStop(0, &#x27;#8b5cf6&#x27;);
-    g.addColorStop(1, &#x27;#4b5bd6&#x27;);
-    ctx.fillStyle = g;
-    ctx.fillRect(-o.r, -o.r, o.r * 2, o.r * 2);
-    ctx.shadowBlur = 0;
-    ctx.strokeStyle = &#x27;rgba(255,255,255,0.35)&#x27;;
-    ctx.lineWidth = 2;
-    ctx.strokeRect(-o.r, -o.r, o.r * 2, o.r * 2);
-    ctx.restore();
-  }
-
-  const p = state.player;
-  if (p.invuln &lt;= 0 || Math.floor(p.invuln / 100) % 2 === 0) {
-    ctx.save();
-    ctx.shadowColor = &#x27;rgba(86,214,198,0.95)&#x27;;
-    ctx.shadowBlur = 18;
-    const pg = ctx.createRadialGradient(p.x - 4, p.y - 5, 2, p.x, p.y, PLAYER_R);
-    pg.addColorStop(0, &#x27;#ffffff&#x27;);
-    pg.addColorStop(0.4, &#x27;#7ce7d8&#x27;);
-    pg.addColorStop(1, &#x27;#3fb8a6&#x27;);
-    ctx.fillStyle = pg;
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, PLAYER_R, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.shadowBlur = 0;
-    ctx.fillStyle = &#x27;#14213d&#x27;;
-    ctx.beginPath();
-    ctx.arc(p.x - 4.5, p.y - 2, 2.4, 0, Math.PI * 2);
-    ctx.arc(p.x + 4.5, p.y - 2, 2.4, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-  }
-}
-
-/* ------------------------------------------------------------------ */
-/* 结算                                                                 */
-/* ------------------------------------------------------------------ */
-
-function endRound(kind) {
-  state.phase = &#x27;over&#x27;;
-  keys.clear();
-  shell.setStatus(kind === &#x27;win&#x27; ? &#x27;时间到&#x27; : &#x27;生命耗尽&#x27;);
-  const { best, isRecord } = recordBestScore(shell.settings, state.score);
-  shell.showResult({
-    emoji: kind === &#x27;win&#x27; ? &#x27;\ud83c\udf89&#x27; : &#x27;\ud83d\udc94&#x27;,
-    title: kind === &#x27;win&#x27; ? &#x27;时间到！成功生还&#x27; : &#x27;生命耗尽&#x27;,
-    lines: [
-      `本局得分 &lt;strong&gt;${state.score}&lt;/strong&gt;，收集宝石 &lt;strong&gt;${state.score / GEM_SCORE}&lt;/strong&gt; 颗。`,
-      `历史最佳 &lt;strong&gt;${best.score}&lt;/strong&gt;${isRecord ? &#x27;（新纪录！）&#x27; : &#x27;&#x27;}。`,
-    ],
-    primary: { label: &#x27;再玩一局&#x27;, onClick: () =&gt; shell.newGame() },
-  });
-}
-
-/* ------------------------------------------------------------------ */
-/* 输入                                                                 */
-/* ------------------------------------------------------------------ */
-
-window.addEventListener(&#x27;keydown&#x27;, (event) =&gt; {
-  const dir = KEY_MAP[event.key];
-  if (!dir) return;
-  event.preventDefault();
-  keys.add(dir);
-  if (state.phase === &#x27;ready&#x27;) {
-    state.phase = &#x27;playing&#x27;;
-    state.elapsed = 0;
-    shell.setStatus(&#x27;进行中&#x27;);
-    shell.sfx.tick();
-    if (tipEl) tipEl.hidden = true;
-  }
-});
-
-window.addEventListener(&#x27;keyup&#x27;, (event) =&gt; {
-  const dir = KEY_MAP[event.key];
-  if (dir) keys.delete(dir);
-});
-
-window.addEventListener(&#x27;blur&#x27;, () =&gt; keys.clear());
-
-/* ------------------------------------------------------------------ */
-/* 主循环                                                               */
-/* ------------------------------------------------------------------ */
-
-let last = performance.now();
-function loop(now) {
-  const dt = Math.min(0.05, (now - last) / 1000);
-  last = now;
-  update(dt);
-  draw();
-  requestAnimationFrame(loop);
-}
-
-shell.init({
-  onRestart: () =&gt; {
-    resetRound();
-    canvas.focus();
-  },
-});
-
-resetRound();
-requestAnimationFrame(loop);
-</pre></section>
-<section id="first-code"><h2>E2 首轮游戏代码</h2><p>文件：first-failure/js/game.js</p><p><a href="index.html#origin">返回声音来源</a> · <a href="index.html#change">返回 Skill 差异</a> · <a href="../../speaker.html#audio-adoption">返回讲述位置</a></p><pre>/* ==========================================================================
-   game.js — 「60 秒躲避与收集」
-   使用 purple-game-ui 的数据卡 / 结算浮层 / 声音组件。
-   ========================================================================== */
-
-import { renderStats, updateStats, ResultOverlay } from &#x27;./purple-ui-kit.js&#x27;;
-import { sfx, setSoundEnabled, isSoundEnabled } from &#x27;./purple-sound.js&#x27;;
-
-/* ------------------------------------------------------------- 常量 */
-const ROUND_TIME = 60;      // 一局秒数
-const MAX_HP = 3;           // 生命上限
-const GEM_LIFE = 9;         // 晶体存在时间（秒）
-const PLAYER_R = 18;
-const PLAYER_SPEED = 340;   // px / 秒
-const INVULN = 1.2;         // 受伤后的无敌时间
-
-const W = 960, H = 600;
-
-/* 高分屏清晰渲染 */
-const DPR = Math.min(2, window.devicePixelRatio || 1);
-canvas.width = W * DPR;
-canvas.height = H * DPR;
-
-/* 从主题令牌读取实际颜色（canvas 不认 var()） */
-const CSS = getComputedStyle(document.documentElement);
-const C = {
-  accent3: CSS.getPropertyValue(&#x27;--pg-accent-3&#x27;).trim() || &#x27;#56d6c6&#x27;,
-  accent2: CSS.getPropertyValue(&#x27;--pg-accent-2&#x27;).trim() || &#x27;#9a6bff&#x27;,
-  warn: CSS.getPropertyValue(&#x27;--pg-warn&#x27;).trim() || &#x27;#fbbf24&#x27;,
-  bad: CSS.getPropertyValue(&#x27;--pg-bad&#x27;).trim() || &#x27;#fb7185&#x27;,
-};
-
-/* ------------------------------------------------------------- DOM */
-const canvas = document.getElementById(&#x27;canvas&#x27;);
-const ctx = canvas.getContext(&#x27;2d&#x27;);
-const field = document.getElementById(&#x27;field&#x27;);
-const floaters = document.getElementById(&#x27;floaters&#x27;);
-const hudEl = document.getElementById(&#x27;hud&#x27;);
-const introEl = document.getElementById(&#x27;intro&#x27;);
-const soundBtn = document.getElementById(&#x27;sound-btn&#x27;);
-const hintEl = document.getElementById(&#x27;field-hint&#x27;);
-
-/* ---------------------------------------------------------- HUD 读数 */
-const stats = renderStats(hudEl, [
-  { key: &#x27;time&#x27;, label: &#x27;剩余时间&#x27;, value: &#x27;1:00&#x27;, state: &#x27;accent&#x27; },
-  { key: &#x27;score&#x27;, label: &#x27;得分&#x27;, value: 0 },
-  { key: &#x27;hp&#x27;, label: &#x27;生命&#x27;, value: MAX_HP, state: &#x27;good&#x27; },
-]);
-
-/* --------------------------------------------------------- 游戏状态 */
-const state = {
-  phase: &#x27;intro&#x27;,      // intro | playing | over
-  time: ROUND_TIME,
-  score: 0,
-  hp: MAX_HP,
-  player: { x: W / 2, y: H / 2, r: PLAYER_R, vx: 0, vy: 0, invuln: 0 },
-  obstacles: [],
-  gems: [],
-  particles: [],
-  shake: 0,
-};
-
-const keys = new Set();
-const KEY_MAP = {
-  ArrowUp: &#x27;up&#x27;, ArrowDown: &#x27;down&#x27;, ArrowLeft: &#x27;left&#x27;, ArrowRight: &#x27;right&#x27;,
-  w: &#x27;up&#x27;, a: &#x27;left&#x27;, s: &#x27;down&#x27;, d: &#x27;right&#x27;,
-  W: &#x27;up&#x27;, A: &#x27;left&#x27;, S: &#x27;down&#x27;, D: &#x27;right&#x27;,
-};
-
-/* --------------------------------------------------------- 结算浮层 */
-const overlay = new ResultOverlay(document.getElementById(&#x27;overlay&#x27;));
-
-/* ============================ 开场规则提醒（自定义，结构已固定） ==== */
-const introPanel = introEl.querySelector(&#x27;.pg-overlay__panel&#x27;);
-const startBtn = document.getElementById(&#x27;start-btn&#x27;);
-let introLastFocus = null;
-
-introPanel.setAttribute(&#x27;role&#x27;, &#x27;dialog&#x27;);
-introPanel.setAttribute(&#x27;aria-modal&#x27;, &#x27;true&#x27;);
-introPanel.setAttribute(&#x27;aria-labelledby&#x27;, &#x27;intro-title&#x27;);
-
-function showIntro() {
-  introLastFocus = document.activeElement;
-  introEl.hidden = false;
-  hintEl.hidden = true;
-  startBtn.focus();
-  document.addEventListener(&#x27;keydown&#x27;, introKeydown, true);
-}
-
-function showHint(text) {
-  hintEl.textContent = text;
-  hintEl.hidden = false;
-}
-
-function hideHint() {
-  hintEl.hidden = true;
-  hintEl.textContent = &#x27;&#x27;;
-}
-
-function startRound() {
-  hideIntro();
-  hideHint();
-  state.phase = &#x27;playing&#x27;;
-  state.time = ROUND_TIME;
-  state.score = 0;
-  state.hp = MAX_HP;
-  state.player.x = W / 2; state.player.y = H / 2;
-  state.player.invuln = 0;
-  state.obstacles = [];
-  state.gems = [];
-  state.particles = [];
-  state.shake = 0;
-  for (let i = 0; i &lt; 3; i++) spawnObstacle();
-  spawnGem();
-  updateHud();
-  canvas.focus();
-  sfx.tick();
-}
-
-function closeIntro() {
-  hideIntro();
-  showHint(&#x27;规则提醒已关闭 · 按 Enter 重新查看规则&#x27;);
-}
-
-function hideIntro() {
-  introEl.hidden = true;
-  document.removeEventListener(&#x27;keydown&#x27;, introKeydown, true);
-  if (introLastFocus &amp;&amp; typeof introLastFocus.focus === &#x27;function&#x27;) introLastFocus.focus();
-  introLastFocus = null;
-}
-
-function introKeydown(e) {
-  if (introEl.hidden) return;
-  if (e.key === &#x27;Escape&#x27;) {
-    e.preventDefault();
-    closeIntro();
-    return;
-  }
-  if (e.key === &#x27;Enter&#x27;) { e.preventDefault(); startRound(); return; }
-  if (e.key !== &#x27;Tab&#x27;) return;
-  const items = [...introPanel.querySelectorAll(&#x27;button, [href], [tabindex]:not([tabindex=&quot;-1&quot;])&#x27;)]
-    .filter((n) =&gt; !n.disabled &amp;&amp; n.offsetParent !== null);
-  if (!items.length) return;
-  const first = items[0], last = items[items.length - 1];
-  if (e.shiftKey &amp;&amp; document.activeElement === first) { e.preventDefault(); last.focus(); }
-  else if (!e.shiftKey &amp;&amp; document.activeElement === last) { e.preventDefault(); first.focus(); }
-}
-
-startBtn.addEventListener(&#x27;click&#x27;, () =&gt; startRound());
-
-/* ==================================================== 音效开关 ======= */
-function refreshSoundBtn() {
-  const on = isSoundEnabled();
-  soundBtn.textContent = on ? &#x27;音效：开&#x27; : &#x27;音效：关&#x27;;
-  soundBtn.setAttribute(&#x27;aria-pressed&#x27;, String(on));
-}
-soundBtn.addEventListener(&#x27;click&#x27;, () =&gt; {
-  setSoundEnabled(!isSoundEnabled());
-  refreshSoundBtn();
-});
-
-/* ==================================================== 回合流程 ======= */
-function endRound(reason) {
-  state.phase = &#x27;over&#x27;;
-  keys.clear();
-  overlay.open({
-    emoji: reason === &#x27;hp&#x27; ? &#x27;💔&#x27; : &#x27;🎉&#x27;,
-    title: reason === &#x27;hp&#x27; ? &#x27;生命耗尽&#x27; : &#x27;时间到！&#x27;,
-    text: reason === &#x27;hp&#x27;
-      ? `你在第 &lt;strong&gt;${Math.ceil(ROUND_TIME - state.time)}&lt;/strong&gt; 秒被击倒，共收集 &lt;strong&gt;${state.score}&lt;/strong&gt; 个晶体。`
-      : `坚持满 &lt;strong&gt;${ROUND_TIME}&lt;/strong&gt; 秒，共收集 &lt;strong&gt;${state.score}&lt;/strong&gt; 个晶体。`,
-    rows: [
-      { label: &#x27;最终得分&#x27;, value: String(state.score), state: &#x27;accent&#x27; },
-      { label: &#x27;剩余生命&#x27;, value: `${state.hp} / ${MAX_HP}`, state: state.hp &gt; 0 ? &#x27;good&#x27; : &#x27;bad&#x27; },
-      { label: &#x27;用时&#x27;, value: `${Math.min(ROUND_TIME, Math.ceil(ROUND_TIME - state.time))} 秒` },
-    ],
-    actions: [{ label: &#x27;再玩一局&#x27;, primary: true, onClick: () =&gt; { overlay.close(); startRound(); } }],
-    dismissible: true,
-  });
-  if (reason === &#x27;hp&#x27;) sfx.mismatch(); else sfx.win();
-}
-
-/* ==================================================== 元素生成 ======= */
-function rand(a, b) { return a + Math.random() * (b - a); }
-
-function spawnObstacle() {
-  const size = rand(26, 40);
-  const dir = Math.random() &lt; 0.5 ? 1 : -1;
-  let x = rand(50, W - 50), y = rand(50, H - 50);
-  for (let i = 0; i &lt; 20; i++) {
-    if (Math.hypot(x - state.player.x, y - state.player.y) &gt; 140) break;
-    x = rand(50, W - 50); y = rand(50, H - 50);
-  }
-  state.obstacles.push({
-    x,
-    y,
-    r: size,
-    angle: rand(0, Math.PI * 2),
-    spin: rand(-1.6, 1.6),
-    vx: rand(60, 150) * dir,
-    vy: rand(60, 150) * (Math.random() &lt; 0.5 ? 1 : -1),
-  });
-}
-
-function spawnGem() {
- if (state.gems.length &gt;= 4) return;
-  const gr = 16;
-  for (let tries = 0; tries &lt; 24; tries++) {
-    const gx = rand(gr + 20, W - gr - 20);
-    const gy = rand(gr + 20, H - gr - 20);
-    // 避开玩家出生点附近，避免一开局就贴脸
-    if (Math.hypot(gx - state.player.x, gy - state.player.y) &lt; 120) continue;
-    state.gems.push({ x: gx, y: gy, r: gr, born: ROUND_TIME - state.time, life: GEM_LIFE, spin: rand(0, Math.PI * 2) });
-    return;
-  }
-}
-
-/* ==================================================== 可见反馈 ======= */
-function flashField(kind) {
-  const cls = kind === &#x27;hurt&#x27; ? &#x27;is-hurt&#x27; : &#x27;is-pickup&#x27;;
-  field.classList.remove(&#x27;is-hurt&#x27;, &#x27;is-pickup&#x27;);
-  void field.offsetWidth;
-  field.classList.add(cls);
-  setTimeout(() =&gt; field.classList.remove(cls), 500);
-}
-
-function floater(text, x, y, kind) {
-  const el = document.createElement(&#x27;div&#x27;);
-  el.className = `floater${kind ? ` floater--${kind}` : &#x27;&#x27;}`;
-  el.textContent = text;
-  el.style.left = `${(x / W) * 100}%`;
-  el.style.top = `${(y / H) * 100}%`;
-  floaters.appendChild(el);
-  setTimeout(() =&gt; el.remove(), 800);
-}
-
-function burst(x, y, color, count = 12) {
-  for (let i = 0; i &lt; count; i++) {
-    const a = Math.random() * Math.PI * 2;
-    const sp = rand(60, 210);
-    state.particles.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: rand(0.3, 0.6), max: 0.6, color, r: rand(2, 4) });
-  }
-}
-
-/* ==================================================== HUD 更新 ======= */
-function updateHud() {
-  const secs = Math.max(0, Math.ceil(state.time));
-  const m = Math.floor(secs / 60), s = secs % 60;
-  updateStats(stats, {
-    time: { value: `${m}:${String(s).padStart(2, &#x27;0&#x27;)}`, state: state.time &lt;= 10 ? &#x27;warn&#x27; : &#x27;accent&#x27; },
-    score: state.score,
-    hp: { value: state.hp, state: state.hp === 1 ? &#x27;bad&#x27; : state.hp &gt; 0 ? &#x27;good&#x27; : &#x27;bad&#x27; },
-  });
-}
-
-/* ==================================================== 输入 ========== */
-window.addEventListener(&#x27;keydown&#x27;, (e) =&gt; {
-  if (e.key === &#x27;Enter&#x27;) {
-    if (state.phase === &#x27;intro&#x27; &amp;&amp; introEl.hidden) { e.preventDefault(); showIntro(); return; }
-    if (state.phase === &#x27;over&#x27; &amp;&amp; overlay.root.hidden) { e.preventDefault(); startRound(); return; }
-  }
-  const dir = KEY_MAP[e.key];
-  if (!dir) return;
-  if (state.phase !== &#x27;playing&#x27;) return;
-  e.preventDefault();
-  keys.add(dir);
-});
-
-window.addEventListener(&#x27;keyup&#x27;, (e) =&gt; {
-  const dir = KEY_MAP[e.key];
-  if (!dir) return;
-  keys.delete(dir);
-});
-
-window.addEventListener(&#x27;blur&#x27;, () =&gt; keys.clear());
-
-/* ==================================================== 主循环 ======= */
-let last = performance.now();
-
-function loop(now) {
-  const dt = Math.min(0.05, (now - last) / 1000);
-  last = now;
-  if (state.phase === &#x27;playing&#x27;) update(dt);
-  else if (state.phase === &#x27;over&#x27; &amp;&amp; overlay.root.hidden &amp;&amp; hintEl.hidden) {
-    showHint(&#x27;本局结束 · 按 Enter 重新开始&#x27;);
-  }
-  draw();
-  requestAnimationFrame(loop);
-}
-
-function update(dt) {
-  state.time -= dt;
-  if (state.time &lt;= 0) {
-    state.time = 0;
-    updateHud();
-    endRound(&#x27;time&#x27;);
-    return;
-  }
-
-  const p = state.player;
-  let dx = (keys.has(&#x27;right&#x27;) ? 1 : 0) - (keys.has(&#x27;left&#x27;) ? 1 : 0);
-  let dy = (keys.has(&#x27;down&#x27;) ? 1 : 0) - (keys.has(&#x27;up&#x27;) ? 1 : 0);
-  if (dx || dy) {
-    const len = Math.hypot(dx, dy);
-    dx = dx / len; dy = dy / len;
-    p.x += dx * PLAYER_SPEED * dt;
-    p.y += dy * PLAYER_SPEED * dt;
-  }
-  p.x = Math.max(p.r, Math.min(W - p.r, p.x));
-  p.y = Math.max(p.r, Math.min(H - p.r, p.y));
-  if (p.invuln &gt; 0) p.invuln -= dt;
-
-  // 障碍
-  for (let i = state.obstacles.length - 1; i &gt;= 0; i--) {
-    const o = state.obstacles[i];
-    o.x += o.vx * dt; o.y += o.vy * dt; o.angle += o.spin * dt;
-    if (o.x &lt; o.r || o.x &gt; W - o.r) { o.vx *= -1; o.x = Math.max(o.r, Math.min(W - o.r, o.x)); }
-    if (o.y &lt; o.r || o.y &gt; H - o.r) { o.vy *= -1; o.y = Math.max(o.r, Math.min(H - o.r, o.y)); }
-
-    if (p.invuln &lt;= 0 &amp;&amp; Math.hypot(o.x - p.x, o.y - p.y) &lt; o.r * 0.72 + p.r * 0.72) {
-      state.hp -= 1;
-      p.invuln = INVULN;
-      state.shake = 0.35;
-      state.obstacles.splice(i, 1);
-      burst(p.x, p.y, C.bad, 16);
-      floater(&#x27;-1 生命&#x27;, p.x, p.y, &#x27;bad&#x27;);
-      flashField(&#x27;hurt&#x27;);
-      sfx.hurt();
-      updateHud();
-      if (state.hp &lt;= 0) {
-        state.hp = 0;
-        updateHud();
-        endRound(&#x27;hp&#x27;);
-        return;
-      }
-    }
-  }
-
-  // 障碍逐渐变多（单一难度、固定节奏）
-  const targetObstacles = 3 + Math.floor((ROUND_TIME - state.time) / 10);
-  if (state.obstacles.length &lt; targetObstacles &amp;&amp; Math.random() &lt; dt * 1.6) spawnObstacle();
-
-  // 晶体
-  for (let i = state.gems.length - 1; i &gt;= 0; i--) {
-    const g = state.gems[i];
-    g.spin += dt * 1.6;
-    const age = (ROUND_TIME - state.time) - g.born;
-    if (age &gt;= GEM_LIFE) {
-      state.gems.splice(i, 1);
-      continue;
-    }
-    if (Math.hypot(g.x - p.x, g.y - p.y) &lt; g.r + p.r * 0.8) {
-      state.gems.splice(i, 1);
-      state.score += 1;
-      burst(g.x, g.y, C.accent3, 14);
-      floater(&#x27;+1&#x27;, g.x, g.y, &#x27;good&#x27;);
-      flashField(&#x27;pickup&#x27;);
-      sfx.pickup();
-      updateHud();
-    }
-  }
-  if (Math.random() &lt; dt * 0.9) spawnGem();
-
-  // 粒子
-  for (let i = state.particles.length - 1; i &gt;= 0; i--) {
-    const q = state.particles[i];
-    q.x += q.vx * dt; q.y += q.vy * dt;
-    q.vx *= 0.94; q.vy *= 0.94;
-    q.life -= dt;
-    if (q.life &lt;= 0) state.particles.splice(i, 1);
-  }
-
-  if (state.shake &gt; 0) state.shake = Math.max(0, state.shake - dt);
-
-  // 时间读数整秒刷新，避免布局抖动
-  if (Math.ceil(state.time) !== Math.ceil(state.time + dt)) updateHud();
-}
-
-/* ==================================================== 绘制 ========== */
-function draw() {
-  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-  ctx.clearRect(0, 0, W, H);
-  ctx.save();
-  if (state.shake &gt; 0) {
-    const s = state.shake * 12;
-    ctx.translate((Math.random() - 0.5) * s, (Math.random() - 0.5) * s);
-  }
-
-  // 网格底纹
-  ctx.strokeStyle = &#x27;rgba(255,255,255,0.05)&#x27;;
-  ctx.lineWidth = 1;
-  for (let x = 0; x &lt;= W; x += 60) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
-  for (let y = 0; y &lt;= H; y += 60) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
-
-  // 晶体：进度环显示剩余存在时间
-  const nowAge = ROUND_TIME - state.time;
-  for (const g of state.gems) {
-    const remain = Math.max(0, 1 - (nowAge - g.born) / GEM_LIFE);
-    const pulse = 1 + Math.sin(nowAge * 4 + g.spin) * 0.06;
-    ctx.save();
-    ctx.translate(g.x, g.y);
-    ctx.scale(pulse, pulse);
-    // 环
-    ctx.lineWidth = 4;
-    ctx.strokeStyle = &#x27;rgba(255,255,255,0.14)&#x27;;
-    ctx.beginPath(); ctx.arc(0, 0, g.r + 8, 0, Math.PI * 2); ctx.stroke();
-    ctx.strokeStyle = remain &gt; 0.34 ? C.accent3 : C.warn;
-    ctx.lineCap = &#x27;round&#x27;;
-    ctx.beginPath();
-    ctx.arc(0, 0, g.r + 8, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * remain);
-    ctx.stroke();
-    // 菱形本体
-    ctx.rotate(g.spin * 0.4);
-    const gr = g.r;
-    ctx.beginPath();
-    ctx.moveTo(0, -gr); ctx.lineTo(gr * 0.72, 0); ctx.lineTo(0, gr); ctx.lineTo(-gr * 0.72, 0);
-    ctx.closePath();
-    ctx.fillStyle = C.accent3;
-    ctx.fill();
-    ctx.strokeStyle = &#x27;rgba(255,255,255,0.65)&#x27;;
-    ctx.lineWidth = 1.6;
-    ctx.stroke();
-    ctx.restore();
-  }
-
-  // 障碍：紫色尖刺
-  for (const o of state.obstacles) {
-    ctx.save();
-    ctx.translate(o.x, o.y);
-    ctx.rotate(o.angle);
-    ctx.beginPath();
-    for (let k = 0; k &lt; 3; k++) {
-      const a = (k / 3) * Math.PI * 2 - Math.PI / 2;
-      const px = Math.cos(a) * o.r, py = Math.sin(a) * o.r;
-      k === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
-    }
-    ctx.closePath();
-    ctx.fillStyle = C.accent2;
-    ctx.fill();
-    ctx.strokeStyle = &#x27;rgba(255,255,255,0.55)&#x27;;
-    ctx.lineWidth = 2;
-    ctx.stroke();
-    ctx.restore();
-  }
-
-  // 玩家
-  const p = state.player;
-  if (p.invuln &lt;= 0 || Math.floor(nowAge * 12) % 2 === 0) {
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = C.warn;
-    ctx.fill();
-    ctx.strokeStyle = &#x27;rgba(255,255,255,0.8)&#x27;;
-    ctx.lineWidth = 2.5;
-    ctx.stroke();
-    // 朝向指示
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r * 0.45, 0, Math.PI * 2);
-    ctx.fillStyle = &#x27;rgba(20,14,40,0.55)&#x27;;
-    ctx.fill();
-    ctx.restore();
-  }
-
-  // 粒子
-  for (const q of state.particles) {
-    ctx.globalAlpha = Math.max(0, q.life / q.max);
-    ctx.fillStyle = q.color;
-    ctx.beginPath();
-    ctx.arc(q.x, q.y, q.r, 0, Math.PI * 2);
-    ctx.fill();
-  }
-  ctx.globalAlpha = 1;
-
-  ctx.restore();
-}
-
-/* ==================================================== 启动 ========== */
-updateHud();
-showIntro();
-requestAnimationFrame(loop);
-</pre></section>
-<section id="skill-diff"><h2>Skill 修改差异</h2><p>文件：skill.diff</p><p><a href="index.html#origin">返回声音来源</a> · <a href="index.html#change">返回 Skill 差异</a> · <a href="../../speaker.html#audio-guidance">返回讲述位置</a></p><pre>--- before/SKILL.md
-+++ after/SKILL.md
-@@ -83,3 +83,13 @@
- ## 验证
- 
- 本 Skill 自带的资源已在 headless Chrome 中渲染核对：深靛渐变背景、玻璃面板、顶部横排 / 侧边 rail / 底部横条三种 HUD 形态、结算浮层（遮罩 + 明细行 + 按钮）、窄屏断点。`assets/preview.html` 可作为回归基线，改动样式后重截对比。
-+
-+## 游戏事件的声音反馈
-+
-+开发可交互小游戏时，沿用现有布局与视觉组件，并接入 `assets/js/purple-sound.js` 的声音反馈；若任务明确要求无声，则不接入。这个独立 ES Module 不依赖页面结构或 `purple-ui-kit.js`，不要为接入声音改变 HUD 位置、浮层用途或玩法效果。
-+
-+- 复制该文件到项目，导入 `sfx`、`setSoundEnabled`、`isSoundEnabled`。音效库来自整页版的声音实现及其躲避游戏中的事件扩展。
-+- 按实际游戏事件接线：确认开始可用 `sfx.tick()`，收集成功用 `sfx.pickup()`，受伤用 `sfx.hurt()`；胜利用 `sfx.win()`，失败可用 `sfx.mismatch()`。翻牌和配对仍可用 `flip()`、`match()`。只为游戏实际存在的事件接线，每次事件调用一次，不在绘制循环或持续按键中重复播放。
-+- 用明确的音效开关调用 `setSoundEnabled(value)`，用 `isSoundEnabled()`同步状态。首次播放应来自玩家的开始或其他真实操作；浏览器没有音频能力时，游戏仍须可玩。
-+- 保留原有可见反馈：声音补充收集、受伤和按钮反馈，不替代闪光、数值变化、浮层等视觉信息，也不规定场地布局。
-+- 验证开始、收集、受伤等已接线事件能发声，静音后这些事件不再发声；同时复查原有布局、开场/结算浮层和玩法反馈。
-</pre></section>
-</html>
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>3.3 原文与源码查看</title><style>body{max-width:1100px;margin:32px auto;padding:0 24px;background:#f7f7f0;color:#283c31;font:18px/1.8 system-ui}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#edf1e9;padding:24px;font:18px/1.7 monospace}a{color:#326449}section{margin:60px 0}section:target,pre span:target{scroll-margin-top:110px}pre span:target{background:#fff1bf;outline:2px solid #bca162}.source-stops{position:sticky;top:0;display:flex;gap:20px;background:#f7f7f0;padding:12px;z-index:2}.source-stops button{font:inherit;cursor:pointer}</style><h1>3.3 原文与源码</h1><p>以下为保存文件的原文，仅做 HTML 转义展示，不执行源码。</p>
+<section id="original"><h2>原组件正文</h2><p>文件：original-skill.txt</p><p><a href="index.html#origin">返回声音来源</a> · <a href="index.html#change">返回 Skill 差异</a> · <a href="../../speaker.html#audio-origin">返回讲述位置</a></p><nav class="source-stops" data-stops="[{&quot;id&quot;: &quot;original-resources&quot;, &quot;label&quot;: &quot;资源入口&quot;}, {&quot;id&quot;: &quot;original-workflow&quot;, &quot;label&quot;: &quot;工作流要求&quot;}]"><button data-prev>上一处</button><span role="status"></span><button data-next>下一处</button></nav><pre><span id="original-L1">---</span>
+<span id="original-L2">name: purple-game-ui</span>
+<span id="original-L3">description: Build or restyle browser mini-games with the shared &quot;purple dusk&quot; visual language — deep indigo-violet gradient surfaces, glass panels, indigo-to-violet accent buttons, stat cards, and a settlement/result overlay. Use when creating a new small web game, porting an existing game&#x27;s look to this purple theme, or when several games with different gameplay types must share one visual system (reusable theme tokens, HUD/data-card components, result overlay, and HUD-placement rules).</span>
+<span id="original-L4">---</span>
+<span id="original-L5"></span>
+<span id="original-L6"># Purple Game UI</span>
+<span id="original-L7"></span>
+<span id="original-L8">一套可复用的紫色小游戏视觉系统。三个资源各自独立，也可以单独取用：</span>
+<span id="original-L9"></span>
+<span id="original-L10">| 资源 | 文件 | 作用 |</span>
+<span id="original-L11">|---|---|---|</span>
+<span id="original-resources">| **主题** | `assets/css/purple-theme.css` | 令牌（`--pg-*`）、背景、标题、按钮、分段控件、焦点环、动效降级 |</span>
+<span id="original-L13">| **数据卡** | `assets/css/stat-cards.css` | HUD 读数卡（顶部横排 / 侧边 rail / 底部横条 / 紧凑 chip） |</span>
+<span id="original-L14">| **结算浮层** | `assets/css/result-overlay.css` | 结算面板：遮罩、图标、标题、明细行、按钮区 |</span>
+<span id="original-L15"></span>
+<span id="original-L16">附加：`assets/js/purple-ui-kit.js`（数据卡渲染 + 浮层焦点管理）、`assets/html/components.html`（静态标记片段）、`assets/preview.html`（可视化预览）。</span>
+<span id="original-L17"></span>
+<span id="original-workflow">## 工作流</span>
+<span id="original-L19"></span>
+<span id="original-L20">1. **复制资源**：把 `assets/css/` 下需要的文件拷进项目（三个 css 可独立引入；`stat-cards.css` 与 `result-overlay.css` 依赖 `purple-theme.css` 的令牌）。需要数据卡渲染/浮层行为时再拷 `assets/js/purple-ui-kit.js`。</span>
+<span id="original-L21">2. **上主题**：`&lt;body class=&quot;pg-body&quot;&gt;`（或给容器加 `.pg-surface`）。标题用 `.pg-title`，副标题 `.pg-subtitle`。</span>
+<span id="original-L22">3. **摆 HUD**：按下面的布局规则选容器形态——`.pg-stats--row`（回合制顶部横排）、`.pg-stats--rail`（实时侧边竖排）、`.pg-stats--inline`（实时底部横条）、`.pg-chip`（高频刷新的浮动读数）。</span>
+<span id="original-L23">4. **接结算**：用 `ResultOverlay` 或静态 `.pg-overlay` 结构，`open({ emoji, title, text, rows, actions })`。</span>
+<span id="original-L24">5. **核对令牌**：颜色/圆角/阴影一律引用 `--pg-*`，不要写死十六进制。令牌表与用法见 `references/tokens.md`。</span>
+<span id="original-L25"></span>
+<span id="original-L26">## 布局规则（核心）</span>
+<span id="original-L27"></span>
+<span id="original-L28">**如果玩法要求玩家持续观察场地和读数，就让 HUD 靠近场地边缘——具体贴哪条边，按玩法的自然视线落点和操作手决定。**</span>
+<span id="original-L29"></span>
+<span id="original-L30">- 回合制、读数只在操作后变化 → HUD 在场地上方一条横排（视线切换成本被回合节奏摊薄）。</span>
+<span id="original-L31">- 实时、读数持续变化 → HUD 贴场地左/右竖向 rail 或底部横条，别单独占据屏幕一端。</span>
+<span id="original-L32">- 只有一两个数值需要真盯着（血量、剩余时间）→ 做成 `.pg-chip` 贴在场边缘，其余统计退到边栏。</span>
+<span id="original-L33">- HUD 不得覆盖场地的可交互元素；数值变化用 `tabular-nums`，每秒刷新也不能让布局抖。</span>
+<span id="original-L34"></span>
+<span id="original-L35">按玩法选边、网格实现示例、验收清单见 `references/layout.md`。</span>
+<span id="original-L36"></span>
+<span id="original-L37">## 用法片段</span>
+<span id="original-L38"></span>
+<span id="original-L39">HTML（数据卡 + 浮层）：</span>
+<span id="original-L40"></span>
+<span id="original-L41">```html</span>
+<span id="original-L42">&lt;link rel=&quot;stylesheet&quot; href=&quot;css/purple-theme.css&quot;&gt;</span>
+<span id="original-L43">&lt;link rel=&quot;stylesheet&quot; href=&quot;css/stat-cards.css&quot;&gt;</span>
+<span id="original-L44">&lt;link rel=&quot;stylesheet&quot; href=&quot;css/result-overlay.css&quot;&gt;</span>
+<span id="original-L45"></span>
+<span id="original-L46">&lt;div class=&quot;pg-stats pg-stats--rail&quot;&gt;</span>
+<span id="original-L47">  &lt;div class=&quot;pg-stat&quot;&gt;</span>
+<span id="original-L48">    &lt;span class=&quot;pg-stat__label&quot;&gt;生命&lt;/span&gt;</span>
+<span id="original-L49">    &lt;span class=&quot;pg-stat__value&quot;&gt;3&lt;/span&gt;</span>
+<span id="original-L50">  &lt;/div&gt;</span>
+<span id="original-L51">&lt;/div&gt;</span>
+<span id="original-L52">```</span>
+<span id="original-L53"></span>
+<span id="original-L54">JS（渲染 + 浮层）：</span>
+<span id="original-L55"></span>
+<span id="original-L56">```js</span>
+<span id="original-L57">import { renderStats, updateStats, ResultOverlay } from &#x27;./purple-ui-kit.js&#x27;;</span>
+<span id="original-L58"></span>
+<span id="original-L59">const stats = renderStats(document.getElementById(&#x27;hud&#x27;), [</span>
+<span id="original-L60">  { key: &#x27;hp&#x27;,   label: &#x27;生命&#x27;, value: 3,  state: &#x27;good&#x27; },</span>
+<span id="original-L61">  { key: &#x27;time&#x27;, label: &#x27;用时&#x27;, value: &#x27;0:00&#x27; },</span>
+<span id="original-L62">]);</span>
+<span id="original-L63">updateStats(stats, { hp: 2, time: &#x27;0:12&#x27; });   // 值变化时自动播放一次高亮脉冲</span>
+<span id="original-L64"></span>
+<span id="original-L65">const overlay = new ResultOverlay(document.getElementById(&#x27;overlay&#x27;));</span>
+<span id="original-L66">overlay.open({</span>
+<span id="original-L67">  emoji: &#x27;🎉&#x27;,</span>
+<span id="original-L68">  title: &#x27;全部配对完成！&#x27;,</span>
+<span id="original-L69">  text: &#x27;本局用时 0:03，共 9 步。&#x27;,</span>
+<span id="original-L70">  rows: [{ label: &#x27;用时&#x27;, value: &#x27;0:03&#x27; }, { label: &#x27;最佳成绩&#x27;, value: &#x27;9 步 · 0:01&#x27;, state: &#x27;good&#x27; }],</span>
+<span id="original-L71">  actions: [{ label: &#x27;再玩一局&#x27;, primary: true, onClick: () =&gt; overlay.close() }],</span>
+<span id="original-L72">});</span>
+<span id="original-L73">```</span>
+<span id="original-L74"></span>
+<span id="original-L75">## 约束</span>
+<span id="original-L76"></span>
+<span id="original-L77">- 类名与变量一律 `--pg-` / `.pg-` 前缀，避免与宿主项目冲突。</span>
+<span id="original-L78">- 焦点环（3px `--pg-accent-3`）不要删；结算浮层必须能 `Esc` 关闭、Tab 焦点循环、关闭后焦点归位（`ResultOverlay` 已实现）。</span>
+<span id="original-L79">- 颜色不能单独传达含义，配上文字或形状变化。</span>
+<span id="original-L80">- 不要给宿主页面全局加 `backdrop-filter` / 重置样式，除非项目本身就是新页面。</span>
+<span id="original-L81">- 想先看效果：起一个静态服务器打开 `assets/preview.html`（ES Modules 需要 http，`file://` 会被 CORS 拦截）。</span>
+<span id="original-L82"></span>
+<span id="original-L83">## 验证</span>
+<span id="original-L84"></span>
+<span id="original-L85">本 Skill 自带的资源已在 headless Chrome 中渲染核对：深靛渐变背景、玻璃面板、顶部横排 / 侧边 rail / 底部横条三种 HUD 形态、结算浮层（遮罩 + 明细行 + 按钮）、窄屏断点。`assets/preview.html` 可作为回归基线，改动样式后重截对比。</span></pre></section>
+<section id="revised"><h2>修改后组件正文</h2><p>文件：revised-skill.txt</p><p><a href="index.html#origin">返回声音来源</a> · <a href="index.html#change">返回 Skill 差异</a> · <a href="../../speaker.html#audio-guidance">返回讲述位置</a></p><nav class="source-stops" data-stops="[{&quot;id&quot;: &quot;revised-scope&quot;, &quot;label&quot;: &quot;适用范围&quot;}, {&quot;id&quot;: &quot;revised-import&quot;, &quot;label&quot;: &quot;资源导入&quot;}, {&quot;id&quot;: &quot;revised-events&quot;, &quot;label&quot;: &quot;事件调用&quot;}, {&quot;id&quot;: &quot;revised-switch&quot;, &quot;label&quot;: &quot;音效开关&quot;}, {&quot;id&quot;: &quot;revised-retain&quot;, &quot;label&quot;: &quot;保留画面反馈&quot;}, {&quot;id&quot;: &quot;revised-verify&quot;, &quot;label&quot;: &quot;验证要求&quot;}]"><button data-prev>上一处</button><span role="status"></span><button data-next>下一处</button></nav><pre><span id="revised-L1">---</span>
+<span id="revised-L2">name: purple-game-ui</span>
+<span id="revised-L3">description: Build or restyle browser mini-games with the shared &quot;purple dusk&quot; visual language — deep indigo-violet gradient surfaces, glass panels, indigo-to-violet accent buttons, stat cards, and a settlement/result overlay. Use when creating a new small web game, porting an existing game&#x27;s look to this purple theme, or when several games with different gameplay types must share one visual system (reusable theme tokens, HUD/data-card components, result overlay, and HUD-placement rules).</span>
+<span id="revised-L4">---</span>
+<span id="revised-L5"></span>
+<span id="revised-L6"># Purple Game UI</span>
+<span id="revised-L7"></span>
+<span id="revised-L8">一套可复用的紫色小游戏视觉系统。三个资源各自独立，也可以单独取用：</span>
+<span id="revised-L9"></span>
+<span id="revised-L10">| 资源 | 文件 | 作用 |</span>
+<span id="revised-L11">|---|---|---|</span>
+<span id="revised-L12">| **主题** | `assets/css/purple-theme.css` | 令牌（`--pg-*`）、背景、标题、按钮、分段控件、焦点环、动效降级 |</span>
+<span id="revised-L13">| **数据卡** | `assets/css/stat-cards.css` | HUD 读数卡（顶部横排 / 侧边 rail / 底部横条 / 紧凑 chip） |</span>
+<span id="revised-L14">| **结算浮层** | `assets/css/result-overlay.css` | 结算面板：遮罩、图标、标题、明细行、按钮区 |</span>
+<span id="revised-L15"></span>
+<span id="revised-L16">附加：`assets/js/purple-ui-kit.js`（数据卡渲染 + 浮层焦点管理）、`assets/html/components.html`（静态标记片段）、`assets/preview.html`（可视化预览）。</span>
+<span id="revised-L17"></span>
+<span id="revised-L18">## 工作流</span>
+<span id="revised-L19"></span>
+<span id="revised-L20">1. **复制资源**：把 `assets/css/` 下需要的文件拷进项目（三个 css 可独立引入；`stat-cards.css` 与 `result-overlay.css` 依赖 `purple-theme.css` 的令牌）。需要数据卡渲染/浮层行为时再拷 `assets/js/purple-ui-kit.js`。</span>
+<span id="revised-L21">2. **上主题**：`&lt;body class=&quot;pg-body&quot;&gt;`（或给容器加 `.pg-surface`）。标题用 `.pg-title`，副标题 `.pg-subtitle`。</span>
+<span id="revised-L22">3. **摆 HUD**：按下面的布局规则选容器形态——`.pg-stats--row`（回合制顶部横排）、`.pg-stats--rail`（实时侧边竖排）、`.pg-stats--inline`（实时底部横条）、`.pg-chip`（高频刷新的浮动读数）。</span>
+<span id="revised-L23">4. **接结算**：用 `ResultOverlay` 或静态 `.pg-overlay` 结构，`open({ emoji, title, text, rows, actions })`。</span>
+<span id="revised-L24">5. **核对令牌**：颜色/圆角/阴影一律引用 `--pg-*`，不要写死十六进制。令牌表与用法见 `references/tokens.md`。</span>
+<span id="revised-L25"></span>
+<span id="revised-L26">## 布局规则（核心）</span>
+<span id="revised-L27"></span>
+<span id="revised-L28">**如果玩法要求玩家持续观察场地和读数，就让 HUD 靠近场地边缘——具体贴哪条边，按玩法的自然视线落点和操作手决定。**</span>
+<span id="revised-L29"></span>
+<span id="revised-L30">- 回合制、读数只在操作后变化 → HUD 在场地上方一条横排（视线切换成本被回合节奏摊薄）。</span>
+<span id="revised-L31">- 实时、读数持续变化 → HUD 贴场地左/右竖向 rail 或底部横条，别单独占据屏幕一端。</span>
+<span id="revised-L32">- 只有一两个数值需要真盯着（血量、剩余时间）→ 做成 `.pg-chip` 贴在场边缘，其余统计退到边栏。</span>
+<span id="revised-L33">- HUD 不得覆盖场地的可交互元素；数值变化用 `tabular-nums`，每秒刷新也不能让布局抖。</span>
+<span id="revised-L34"></span>
+<span id="revised-L35">按玩法选边、网格实现示例、验收清单见 `references/layout.md`。</span>
+<span id="revised-L36"></span>
+<span id="revised-L37">## 用法片段</span>
+<span id="revised-L38"></span>
+<span id="revised-L39">HTML（数据卡 + 浮层）：</span>
+<span id="revised-L40"></span>
+<span id="revised-L41">```html</span>
+<span id="revised-L42">&lt;link rel=&quot;stylesheet&quot; href=&quot;css/purple-theme.css&quot;&gt;</span>
+<span id="revised-L43">&lt;link rel=&quot;stylesheet&quot; href=&quot;css/stat-cards.css&quot;&gt;</span>
+<span id="revised-L44">&lt;link rel=&quot;stylesheet&quot; href=&quot;css/result-overlay.css&quot;&gt;</span>
+<span id="revised-L45"></span>
+<span id="revised-L46">&lt;div class=&quot;pg-stats pg-stats--rail&quot;&gt;</span>
+<span id="revised-L47">  &lt;div class=&quot;pg-stat&quot;&gt;</span>
+<span id="revised-L48">    &lt;span class=&quot;pg-stat__label&quot;&gt;生命&lt;/span&gt;</span>
+<span id="revised-L49">    &lt;span class=&quot;pg-stat__value&quot;&gt;3&lt;/span&gt;</span>
+<span id="revised-L50">  &lt;/div&gt;</span>
+<span id="revised-L51">&lt;/div&gt;</span>
+<span id="revised-L52">```</span>
+<span id="revised-L53"></span>
+<span id="revised-L54">JS（渲染 + 浮层）：</span>
+<span id="revised-L55"></span>
+<span id="revised-L56">```js</span>
+<span id="revised-L57">import { renderStats, updateStats, ResultOverlay } from &#x27;./purple-ui-kit.js&#x27;;</span>
+<span id="revised-L58"></span>
+<span id="revised-L59">const stats = renderStats(document.getElementById(&#x27;hud&#x27;), [</span>
+<span id="revised-L60">  { key: &#x27;hp&#x27;,   label: &#x27;生命&#x27;, value: 3,  state: &#x27;good&#x27; },</span>
+<span id="revised-L61">  { key: &#x27;time&#x27;, label: &#x27;用时&#x27;, value: &#x27;0:00&#x27; },</span>
+<span id="revised-L62">]);</span>
+<span id="revised-L63">updateStats(stats, { hp: 2, time: &#x27;0:12&#x27; });   // 值变化时自动播放一次高亮脉冲</span>
+<span id="revised-L64"></span>
+<span id="revised-L65">const overlay = new ResultOverlay(document.getElementById(&#x27;overlay&#x27;));</span>
+<span id="revised-L66">overlay.open({</span>
+<span id="revised-L67">  emoji: &#x27;🎉&#x27;,</span>
+<span id="revised-L68">  title: &#x27;全部配对完成！&#x27;,</span>
+<span id="revised-L69">  text: &#x27;本局用时 0:03，共 9 步。&#x27;,</span>
+<span id="revised-L70">  rows: [{ label: &#x27;用时&#x27;, value: &#x27;0:03&#x27; }, { label: &#x27;最佳成绩&#x27;, value: &#x27;9 步 · 0:01&#x27;, state: &#x27;good&#x27; }],</span>
+<span id="revised-L71">  actions: [{ label: &#x27;再玩一局&#x27;, primary: true, onClick: () =&gt; overlay.close() }],</span>
+<span id="revised-L72">});</span>
+<span id="revised-L73">```</span>
+<span id="revised-L74"></span>
+<span id="revised-L75">## 约束</span>
+<span id="revised-L76"></span>
+<span id="revised-L77">- 类名与变量一律 `--pg-` / `.pg-` 前缀，避免与宿主项目冲突。</span>
+<span id="revised-L78">- 焦点环（3px `--pg-accent-3`）不要删；结算浮层必须能 `Esc` 关闭、Tab 焦点循环、关闭后焦点归位（`ResultOverlay` 已实现）。</span>
+<span id="revised-L79">- 颜色不能单独传达含义，配上文字或形状变化。</span>
+<span id="revised-L80">- 不要给宿主页面全局加 `backdrop-filter` / 重置样式，除非项目本身就是新页面。</span>
+<span id="revised-L81">- 想先看效果：起一个静态服务器打开 `assets/preview.html`（ES Modules 需要 http，`file://` 会被 CORS 拦截）。</span>
+<span id="revised-L82"></span>
+<span id="revised-L83">## 验证</span>
+<span id="revised-L84"></span>
+<span id="revised-L85">本 Skill 自带的资源已在 headless Chrome 中渲染核对：深靛渐变背景、玻璃面板、顶部横排 / 侧边 rail / 底部横条三种 HUD 形态、结算浮层（遮罩 + 明细行 + 按钮）、窄屏断点。`assets/preview.html` 可作为回归基线，改动样式后重截对比。</span>
+<span id="revised-L86"></span>
+<span id="revised-L87">## 游戏事件的声音反馈</span>
+<span id="revised-L88"></span>
+<span id="revised-scope">开发可交互小游戏时，沿用现有布局与视觉组件，并接入 `assets/js/purple-sound.js` 的声音反馈；若任务明确要求无声，则不接入。这个独立 ES Module 不依赖页面结构或 `purple-ui-kit.js`，不要为接入声音改变 HUD 位置、浮层用途或玩法效果。</span>
+<span id="revised-L90"></span>
+<span id="revised-import">- 复制该文件到项目，导入 `sfx`、`setSoundEnabled`、`isSoundEnabled`。音效库来自整页版的声音实现及其躲避游戏中的事件扩展。</span>
+<span id="revised-events">- 按实际游戏事件接线：确认开始可用 `sfx.tick()`，收集成功用 `sfx.pickup()`，受伤用 `sfx.hurt()`；胜利用 `sfx.win()`，失败可用 `sfx.mismatch()`。翻牌和配对仍可用 `flip()`、`match()`。只为游戏实际存在的事件接线，每次事件调用一次，不在绘制循环或持续按键中重复播放。</span>
+<span id="revised-switch">- 用明确的音效开关调用 `setSoundEnabled(value)`，用 `isSoundEnabled()`同步状态。首次播放应来自玩家的开始或其他真实操作；浏览器没有音频能力时，游戏仍须可玩。</span>
+<span id="revised-retain">- 保留原有可见反馈：声音补充收集、受伤和按钮反馈，不替代闪光、数值变化、浮层等视觉信息，也不规定场地布局。</span>
+<span id="revised-verify">- 验证开始、收集、受伤等已接线事件能发声，静音后这些事件不再发声；同时复查原有布局、开场/结算浮层和玩法反馈。</span></pre></section>
+<section id="historical-sound"><h2>历史整页游戏声音模块</h2><p>文件：historical-template/src/sound.js</p><p><a href="index.html#origin">返回声音来源</a> · <a href="index.html#change">返回 Skill 差异</a> · <a href="../../speaker.html#audio-scope">返回讲述位置</a></p><nav class="source-stops" data-stops="[{&quot;id&quot;: &quot;historical-sound-switch&quot;, &quot;label&quot;: &quot;音效开关&quot;}, {&quot;id&quot;: &quot;historical-sound-pickup&quot;, &quot;label&quot;: &quot;收集音效&quot;}, {&quot;id&quot;: &quot;historical-sound-hurt&quot;, &quot;label&quot;: &quot;受伤音效&quot;}]"><button data-prev>上一处</button><span role="status"></span><button data-next>下一处</button></nav><pre><span id="historical-sound-L1">/**</span>
+<span id="historical-sound-L2"> * 用 WebAudio 现场合成音效，不依赖任何外部音频文件。</span>
+<span id="historical-sound-L3"> * 浏览器要求用户先有交互才允许播放 AudioContext，这里做惰性创建。</span>
+<span id="historical-sound-L4"> */</span>
+<span id="historical-sound-L5"></span>
+<span id="historical-sound-L6">let ctx = null;</span>
+<span id="historical-sound-L7">let enabled = true;</span>
+<span id="historical-sound-L8"></span>
+<span id="historical-sound-switch">export function setSoundEnabled(value) {</span>
+<span id="historical-sound-L10">  enabled = Boolean(value);</span>
+<span id="historical-sound-L11">}</span>
+<span id="historical-sound-L12"></span>
+<span id="historical-sound-L13">export function isSoundEnabled() {</span>
+<span id="historical-sound-L14">  return enabled;</span>
+<span id="historical-sound-L15">}</span>
+<span id="historical-sound-L16"></span>
+<span id="historical-sound-L17">function getContext() {</span>
+<span id="historical-sound-L18">  if (!enabled) return null;</span>
+<span id="historical-sound-L19">  if (ctx === null) {</span>
+<span id="historical-sound-L20">    const Ctor = window.AudioContext || window.webkitAudioContext;</span>
+<span id="historical-sound-L21">    if (!Ctor) return null;</span>
+<span id="historical-sound-L22">    try {</span>
+<span id="historical-sound-L23">      ctx = new Ctor();</span>
+<span id="historical-sound-L24">    } catch {</span>
+<span id="historical-sound-L25">      ctx = null;</span>
+<span id="historical-sound-L26">    }</span>
+<span id="historical-sound-L27">  }</span>
+<span id="historical-sound-L28">  if (ctx &amp;&amp; ctx.state === &#x27;suspended&#x27;) ctx.resume().catch(() =&gt; {});</span>
+<span id="historical-sound-L29">  return ctx;</span>
+<span id="historical-sound-L30">}</span>
+<span id="historical-sound-L31"></span>
+<span id="historical-sound-L32">/** 播放一个音符。 */</span>
+<span id="historical-sound-L33">function tone(freq, duration, { type = &#x27;sine&#x27;, delay = 0, gain = 0.15 } = {}) {</span>
+<span id="historical-sound-L34">  const audio = getContext();</span>
+<span id="historical-sound-L35">  if (!audio) return;</span>
+<span id="historical-sound-L36">  const start = audio.currentTime + delay;</span>
+<span id="historical-sound-L37">  const osc = audio.createOscillator();</span>
+<span id="historical-sound-L38">  const vol = audio.createGain();</span>
+<span id="historical-sound-L39">  osc.type = type;</span>
+<span id="historical-sound-L40">  osc.frequency.setValueAtTime(freq, start);</span>
+<span id="historical-sound-L41">  vol.gain.setValueAtTime(0.0001, start);</span>
+<span id="historical-sound-L42">  vol.gain.exponentialRampToValueAtTime(gain, start + 0.015);</span>
+<span id="historical-sound-L43">  vol.gain.exponentialRampToValueAtTime(0.0001, start + duration);</span>
+<span id="historical-sound-L44">  osc.connect(vol).connect(audio.destination);</span>
+<span id="historical-sound-L45">  osc.start(start);</span>
+<span id="historical-sound-L46">  osc.stop(start + duration + 0.02);</span>
+<span id="historical-sound-L47">}</span>
+<span id="historical-sound-L48"></span>
+<span id="historical-sound-L49">export const sfx = {</span>
+<span id="historical-sound-L50">  flip() {</span>
+<span id="historical-sound-L51">    tone(520, 0.07, { type: &#x27;triangle&#x27;, gain: 0.09 });</span>
+<span id="historical-sound-L52">  },</span>
+<span id="historical-sound-L53">  match() {</span>
+<span id="historical-sound-L54">    tone(660, 0.12, { type: &#x27;sine&#x27;, gain: 0.13 });</span>
+<span id="historical-sound-L55">    tone(990, 0.16, { type: &#x27;sine&#x27;, delay: 0.08, gain: 0.11 });</span>
+<span id="historical-sound-L56">  },</span>
+<span id="historical-sound-L57">  mismatch() {</span>
+<span id="historical-sound-L58">    tone(196, 0.2, { type: &#x27;sawtooth&#x27;, gain: 0.07 });</span>
+<span id="historical-sound-L59">  },</span>
+<span id="historical-sound-L60">  win() {</span>
+<span id="historical-sound-L61">    [523, 659, 784, 1047].forEach((freq, i) =&gt; {</span>
+<span id="historical-sound-L62">      tone(freq, 0.26, { type: &#x27;triangle&#x27;, delay: i * 0.11, gain: 0.13 });</span>
+<span id="historical-sound-L63">    });</span>
+<span id="historical-sound-L64">  },</span>
+<span id="historical-sound-L65">  /** 收集到宝石 */</span>
+<span id="historical-sound-pickup">  pickup() {</span>
+<span id="historical-sound-L67">    tone(880, 0.08, { type: &#x27;triangle&#x27;, gain: 0.11 });</span>
+<span id="historical-sound-L68">    tone(1320, 0.12, { type: &#x27;sine&#x27;, delay: 0.07, gain: 0.1 });</span>
+<span id="historical-sound-L69">  },</span>
+<span id="historical-sound-L70">  /** 撞到障碍，扣血 */</span>
+<span id="historical-sound-hurt">  hurt() {</span>
+<span id="historical-sound-L72">    tone(150, 0.26, { type: &#x27;sawtooth&#x27;, gain: 0.11 });</span>
+<span id="historical-sound-L73">    tone(98, 0.3, { type: &#x27;square&#x27;, delay: 0.05, gain: 0.08 });</span>
+<span id="historical-sound-L74">  },</span>
+<span id="historical-sound-L75">  /** 开局倒数提示 */</span>
+<span id="historical-sound-L76">  tick() {</span>
+<span id="historical-sound-L77">    tone(720, 0.05, { type: &#x27;sine&#x27;, gain: 0.08 });</span>
+<span id="historical-sound-L78">  },</span>
+<span id="historical-sound-L79">};</span></pre></section>
+<section id="added-sound"><h2>新增声音资源</h2><p>文件：after/js/purple-sound.js</p><p><a href="index.html#origin">返回声音来源</a> · <a href="index.html#change">返回 Skill 差异</a> · <a href="../../speaker.html#audio-resource">返回讲述位置</a></p><nav class="source-stops" data-stops="[{&quot;id&quot;: &quot;added-sound-switch&quot;, &quot;label&quot;: &quot;音效开关&quot;}, {&quot;id&quot;: &quot;added-sound-pickup&quot;, &quot;label&quot;: &quot;收集音效&quot;}, {&quot;id&quot;: &quot;added-sound-hurt&quot;, &quot;label&quot;: &quot;受伤音效&quot;}]"><button data-prev>上一处</button><span role="status"></span><button data-next>下一处</button></nav><pre><span id="added-sound-L1">/**</span>
+<span id="added-sound-L2"> * 用 WebAudio 现场合成音效，不依赖任何外部音频文件。</span>
+<span id="added-sound-L3"> * 浏览器要求用户先有交互才允许播放 AudioContext，这里做惰性创建。</span>
+<span id="added-sound-L4"> */</span>
+<span id="added-sound-L5"></span>
+<span id="added-sound-L6">let ctx = null;</span>
+<span id="added-sound-L7">let enabled = true;</span>
+<span id="added-sound-L8"></span>
+<span id="added-sound-switch">export function setSoundEnabled(value) {</span>
+<span id="added-sound-L10">  enabled = Boolean(value);</span>
+<span id="added-sound-L11">}</span>
+<span id="added-sound-L12"></span>
+<span id="added-sound-L13">export function isSoundEnabled() {</span>
+<span id="added-sound-L14">  return enabled;</span>
+<span id="added-sound-L15">}</span>
+<span id="added-sound-L16"></span>
+<span id="added-sound-L17">function getContext() {</span>
+<span id="added-sound-L18">  if (!enabled) return null;</span>
+<span id="added-sound-L19">  if (ctx === null) {</span>
+<span id="added-sound-L20">    const Ctor = window.AudioContext || window.webkitAudioContext;</span>
+<span id="added-sound-L21">    if (!Ctor) return null;</span>
+<span id="added-sound-L22">    try {</span>
+<span id="added-sound-L23">      ctx = new Ctor();</span>
+<span id="added-sound-L24">    } catch {</span>
+<span id="added-sound-L25">      ctx = null;</span>
+<span id="added-sound-L26">    }</span>
+<span id="added-sound-L27">  }</span>
+<span id="added-sound-L28">  if (ctx &amp;&amp; ctx.state === &#x27;suspended&#x27;) ctx.resume().catch(() =&gt; {});</span>
+<span id="added-sound-L29">  return ctx;</span>
+<span id="added-sound-L30">}</span>
+<span id="added-sound-L31"></span>
+<span id="added-sound-L32">/** 播放一个音符。 */</span>
+<span id="added-sound-L33">function tone(freq, duration, { type = &#x27;sine&#x27;, delay = 0, gain = 0.15 } = {}) {</span>
+<span id="added-sound-L34">  const audio = getContext();</span>
+<span id="added-sound-L35">  if (!audio) return;</span>
+<span id="added-sound-L36">  const start = audio.currentTime + delay;</span>
+<span id="added-sound-L37">  const osc = audio.createOscillator();</span>
+<span id="added-sound-L38">  const vol = audio.createGain();</span>
+<span id="added-sound-L39">  osc.type = type;</span>
+<span id="added-sound-L40">  osc.frequency.setValueAtTime(freq, start);</span>
+<span id="added-sound-L41">  vol.gain.setValueAtTime(0.0001, start);</span>
+<span id="added-sound-L42">  vol.gain.exponentialRampToValueAtTime(gain, start + 0.015);</span>
+<span id="added-sound-L43">  vol.gain.exponentialRampToValueAtTime(0.0001, start + duration);</span>
+<span id="added-sound-L44">  osc.connect(vol).connect(audio.destination);</span>
+<span id="added-sound-L45">  osc.start(start);</span>
+<span id="added-sound-L46">  osc.stop(start + duration + 0.02);</span>
+<span id="added-sound-L47">}</span>
+<span id="added-sound-L48"></span>
+<span id="added-sound-L49">export const sfx = {</span>
+<span id="added-sound-L50">  flip() {</span>
+<span id="added-sound-L51">    tone(520, 0.07, { type: &#x27;triangle&#x27;, gain: 0.09 });</span>
+<span id="added-sound-L52">  },</span>
+<span id="added-sound-L53">  match() {</span>
+<span id="added-sound-L54">    tone(660, 0.12, { type: &#x27;sine&#x27;, gain: 0.13 });</span>
+<span id="added-sound-L55">    tone(990, 0.16, { type: &#x27;sine&#x27;, delay: 0.08, gain: 0.11 });</span>
+<span id="added-sound-L56">  },</span>
+<span id="added-sound-L57">  mismatch() {</span>
+<span id="added-sound-L58">    tone(196, 0.2, { type: &#x27;sawtooth&#x27;, gain: 0.07 });</span>
+<span id="added-sound-L59">  },</span>
+<span id="added-sound-L60">  win() {</span>
+<span id="added-sound-L61">    [523, 659, 784, 1047].forEach((freq, i) =&gt; {</span>
+<span id="added-sound-L62">      tone(freq, 0.26, { type: &#x27;triangle&#x27;, delay: i * 0.11, gain: 0.13 });</span>
+<span id="added-sound-L63">    });</span>
+<span id="added-sound-L64">  },</span>
+<span id="added-sound-L65">  /** 收集到宝石 */</span>
+<span id="added-sound-pickup">  pickup() {</span>
+<span id="added-sound-L67">    tone(880, 0.08, { type: &#x27;triangle&#x27;, gain: 0.11 });</span>
+<span id="added-sound-L68">    tone(1320, 0.12, { type: &#x27;sine&#x27;, delay: 0.07, gain: 0.1 });</span>
+<span id="added-sound-L69">  },</span>
+<span id="added-sound-L70">  /** 撞到障碍，扣血 */</span>
+<span id="added-sound-hurt">  hurt() {</span>
+<span id="added-sound-L72">    tone(150, 0.26, { type: &#x27;sawtooth&#x27;, gain: 0.11 });</span>
+<span id="added-sound-L73">    tone(98, 0.3, { type: &#x27;square&#x27;, delay: 0.05, gain: 0.08 });</span>
+<span id="added-sound-L74">  },</span>
+<span id="added-sound-L75">  /** 开局倒数提示 */</span>
+<span id="added-sound-L76">  tick() {</span>
+<span id="added-sound-L77">    tone(720, 0.05, { type: &#x27;sine&#x27;, gain: 0.08 });</span>
+<span id="added-sound-L78">  },</span>
+<span id="added-sound-L79">};</span></pre></section>
+<section id="template-sound"><h2>原模板声音模块</h2><p>文件：template-sound.js</p><p><a href="index.html#origin">返回声音来源</a> · <a href="index.html#change">返回 Skill 差异</a> · <a href="../../speaker.html#audio-origin">返回讲述位置</a></p><pre><span id="template-sound-L1">/**</span>
+<span id="template-sound-L2"> * 用 WebAudio 现场合成音效，不依赖任何外部音频文件。</span>
+<span id="template-sound-L3"> * 浏览器要求用户先有交互才允许播放 AudioContext，这里做惰性创建。</span>
+<span id="template-sound-L4"> */</span>
+<span id="template-sound-L5"></span>
+<span id="template-sound-L6">let ctx = null;</span>
+<span id="template-sound-L7">let enabled = true;</span>
+<span id="template-sound-L8"></span>
+<span id="template-sound-L9">export function setSoundEnabled(value) {</span>
+<span id="template-sound-L10">  enabled = Boolean(value);</span>
+<span id="template-sound-L11">}</span>
+<span id="template-sound-L12"></span>
+<span id="template-sound-L13">export function isSoundEnabled() {</span>
+<span id="template-sound-L14">  return enabled;</span>
+<span id="template-sound-L15">}</span>
+<span id="template-sound-L16"></span>
+<span id="template-sound-L17">function getContext() {</span>
+<span id="template-sound-L18">  if (!enabled) return null;</span>
+<span id="template-sound-L19">  if (ctx === null) {</span>
+<span id="template-sound-L20">    const Ctor = window.AudioContext || window.webkitAudioContext;</span>
+<span id="template-sound-L21">    if (!Ctor) return null;</span>
+<span id="template-sound-L22">    try {</span>
+<span id="template-sound-L23">      ctx = new Ctor();</span>
+<span id="template-sound-L24">    } catch {</span>
+<span id="template-sound-L25">      ctx = null;</span>
+<span id="template-sound-L26">    }</span>
+<span id="template-sound-L27">  }</span>
+<span id="template-sound-L28">  if (ctx &amp;&amp; ctx.state === &#x27;suspended&#x27;) ctx.resume().catch(() =&gt; {});</span>
+<span id="template-sound-L29">  return ctx;</span>
+<span id="template-sound-L30">}</span>
+<span id="template-sound-L31"></span>
+<span id="template-sound-L32">/** 播放一个音符。 */</span>
+<span id="template-sound-L33">function tone(freq, duration, { type = &#x27;sine&#x27;, delay = 0, gain = 0.15 } = {}) {</span>
+<span id="template-sound-L34">  const audio = getContext();</span>
+<span id="template-sound-L35">  if (!audio) return;</span>
+<span id="template-sound-L36">  const start = audio.currentTime + delay;</span>
+<span id="template-sound-L37">  const osc = audio.createOscillator();</span>
+<span id="template-sound-L38">  const vol = audio.createGain();</span>
+<span id="template-sound-L39">  osc.type = type;</span>
+<span id="template-sound-L40">  osc.frequency.setValueAtTime(freq, start);</span>
+<span id="template-sound-L41">  vol.gain.setValueAtTime(0.0001, start);</span>
+<span id="template-sound-L42">  vol.gain.exponentialRampToValueAtTime(gain, start + 0.015);</span>
+<span id="template-sound-L43">  vol.gain.exponentialRampToValueAtTime(0.0001, start + duration);</span>
+<span id="template-sound-L44">  osc.connect(vol).connect(audio.destination);</span>
+<span id="template-sound-L45">  osc.start(start);</span>
+<span id="template-sound-L46">  osc.stop(start + duration + 0.02);</span>
+<span id="template-sound-L47">}</span>
+<span id="template-sound-L48"></span>
+<span id="template-sound-L49">export const sfx = {</span>
+<span id="template-sound-L50">  flip() {</span>
+<span id="template-sound-L51">    tone(520, 0.07, { type: &#x27;triangle&#x27;, gain: 0.09 });</span>
+<span id="template-sound-L52">  },</span>
+<span id="template-sound-L53">  match() {</span>
+<span id="template-sound-L54">    tone(660, 0.12, { type: &#x27;sine&#x27;, gain: 0.13 });</span>
+<span id="template-sound-L55">    tone(990, 0.16, { type: &#x27;sine&#x27;, delay: 0.08, gain: 0.11 });</span>
+<span id="template-sound-L56">  },</span>
+<span id="template-sound-L57">  mismatch() {</span>
+<span id="template-sound-L58">    tone(196, 0.2, { type: &#x27;sawtooth&#x27;, gain: 0.07 });</span>
+<span id="template-sound-L59">  },</span>
+<span id="template-sound-L60">  win() {</span>
+<span id="template-sound-L61">    [523, 659, 784, 1047].forEach((freq, i) =&gt; {</span>
+<span id="template-sound-L62">      tone(freq, 0.26, { type: &#x27;triangle&#x27;, delay: i * 0.11, gain: 0.13 });</span>
+<span id="template-sound-L63">    });</span>
+<span id="template-sound-L64">  },</span>
+<span id="template-sound-L65">};</span></pre></section>
+<section id="events"><h2>历史游戏事件调用</h2><p>文件：historical-template/src/main.js</p><p><a href="index.html#origin">返回声音来源</a> · <a href="index.html#change">返回 Skill 差异</a> · <a href="../../speaker.html#audio-origin">返回讲述位置</a></p><pre><span id="events-L1">/**</span>
+<span id="events-L2"> * 60 秒躲避与收集 —— 玩法脚本。</span>
+<span id="events-L3"> * 方向键 / WASD 移动，躲避紫色障碍，收集宝石；撞到障碍扣 1 命，</span>
+<span id="events-L4"> * 时间耗尽或生命归零时结算，结算浮层里可以重开。</span>
+<span id="events-L5"> */</span>
+<span id="events-L6"></span>
+<span id="events-L7">import { shell } from &#x27;./shell.js&#x27;;</span>
+<span id="events-L8">import { recordBestScore } from &#x27;./storage.js&#x27;;</span>
+<span id="events-L9"></span>
+<span id="events-L10">const W = 640;</span>
+<span id="events-L11">const H = 480;</span>
+<span id="events-L12">const ROUND_TIME = 60;</span>
+<span id="events-L13">const START_LIVES = 3;</span>
+<span id="events-L14">const PLAYER_R = 13;</span>
+<span id="events-L15">const PLAYER_SPEED = 250;</span>
+<span id="events-L16">const INVULN_MS = 1400;</span>
+<span id="events-L17">const GEM_SCORE = 10;</span>
+<span id="events-L18"></span>
+<span id="events-L19">const canvas = document.getElementById(&#x27;arena&#x27;);</span>
+<span id="events-L20">const ctx = canvas.getContext(&#x27;2d&#x27;);</span>
+<span id="events-L21">const tipEl = document.getElementById(&#x27;board-tip&#x27;);</span>
+<span id="events-L22"></span>
+<span id="events-L23">/* 高清屏适配：逻辑坐标固定 640x480，按 DPR 放大画布 */</span>
+<span id="events-L24">const dpr = Math.min(window.devicePixelRatio || 1, 2);</span>
+<span id="events-L25">canvas.width = W * dpr;</span>
+<span id="events-L26">canvas.height = H * dpr;</span>
+<span id="events-L27">ctx.setTransform(dpr, 0, 0, dpr, 0, 0);</span>
+<span id="events-L28"></span>
+<span id="events-L29">const keys = new Set();</span>
+<span id="events-L30">const KEY_MAP = {</span>
+<span id="events-L31">  ArrowLeft: &#x27;left&#x27;, ArrowRight: &#x27;right&#x27;, ArrowUp: &#x27;up&#x27;, ArrowDown: &#x27;down&#x27;,</span>
+<span id="events-L32">  a: &#x27;left&#x27;, A: &#x27;left&#x27;, d: &#x27;right&#x27;, D: &#x27;right&#x27;, w: &#x27;up&#x27;, W: &#x27;up&#x27;, s: &#x27;down&#x27;, S: &#x27;down&#x27;,</span>
+<span id="events-L33">};</span>
+<span id="events-L34"></span>
+<span id="events-L35">const state = {</span>
+<span id="events-L36">  phase: &#x27;ready&#x27;, // ready | playing | over</span>
+<span id="events-L37">  timeLeft: ROUND_TIME,</span>
+<span id="events-L38">  score: 0,</span>
+<span id="events-L39">  lives: START_LIVES,</span>
+<span id="events-L40">  player: { x: W / 2, y: H / 2, vx: 0, vy: 0, invuln: 0 },</span>
+<span id="events-L41">  obstacles: [],</span>
+<span id="events-L42">  gems: [],</span>
+<span id="events-L43">  nextObstacleAt: 0,</span>
+<span id="events-L44">  nextGemAt: 0,</span>
+<span id="events-L45">  elapsed: 0,</span>
+<span id="events-L46">};</span>
+<span id="events-L47"></span>
+<span id="events-L48">const rand = (min, max) =&gt; min + Math.random() * (max - min);</span>
+<span id="events-L49">const hearts = (n) =&gt; (&#x27;\u2665&#x27;.repeat(Math.max(0, n)) || &#x27;\u2014&#x27;);</span>
+<span id="events-L50"></span>
+<span id="events-L51">/* ------------------------------------------------------------------ */</span>
+<span id="events-L52">/* 生成                                                                 */</span>
+<span id="events-L53">/* ------------------------------------------------------------------ */</span>
+<span id="events-L54"></span>
+<span id="events-L55">function spawnObstacle() {</span>
+<span id="events-L56">  const r = rand(16, 24);</span>
+<span id="events-L57">  const angle = rand(0, Math.PI * 2);</span>
+<span id="events-L58">  const speed = rand(65, 105);</span>
+<span id="events-L59">  let x = rand(r, W - r);</span>
+<span id="events-L60">  let y = rand(r, H - r);</span>
+<span id="events-L61">  const p = state.player;</span>
+<span id="events-L62">  if (Math.hypot(x - p.x, y - p.y) &lt; 120) { x = W - x; y = H - y; }</span>
+<span id="events-L63">  state.obstacles.push({</span>
+<span id="events-L64">    x, y, r,</span>
+<span id="events-L65">    vx: Math.cos(angle) * speed,</span>
+<span id="events-L66">    vy: Math.sin(angle) * speed,</span>
+<span id="events-L67">    spin: rand(-2, 2),</span>
+<span id="events-L68">    rot: rand(0, Math.PI * 2),</span>
+<span id="events-L69">  });</span>
+<span id="events-L70">}</span>
+<span id="events-L71"></span>
+<span id="events-L72">function spawnGem() {</span>
+<span id="events-L73">  const p = state.player;</span>
+<span id="events-L74">  let x = rand(24, W - 24);</span>
+<span id="events-L75">  let y = rand(24, H - 24);</span>
+<span id="events-L76">  if (Math.hypot(x - p.x, y - p.y) &lt; 60) { x = W - x; y = H - y; }</span>
+<span id="events-L77">  state.gems.push({ x, y, r: 11, phase: rand(0, Math.PI * 2), value: GEM_SCORE });</span>
+<span id="events-L78">}</span>
+<span id="events-L79"></span>
+<span id="events-L80">function resetRound() {</span>
+<span id="events-L81">  state.phase = &#x27;ready&#x27;;</span>
+<span id="events-L82">  state.timeLeft = ROUND_TIME;</span>
+<span id="events-L83">  state.score = 0;</span>
+<span id="events-L84">  state.lives = START_LIVES;</span>
+<span id="events-L85">  state.player = { x: W / 2, y: H / 2, vx: 0, vy: 0, invuln: 0 };</span>
+<span id="events-L86">  state.obstacles = [];</span>
+<span id="events-L87">  state.gems = [];</span>
+<span id="events-L88">  state.nextObstacleAt = 0;</span>
+<span id="events-L89">  state.nextGemAt = 0;</span>
+<span id="events-L90">  state.elapsed = 0;</span>
+<span id="events-L91">  for (let i = 0; i &lt; 3; i++) spawnObstacle();</span>
+<span id="events-L92">  for (let i = 0; i &lt; 2; i++) spawnGem();</span>
+<span id="events-L93">  shell.setStat(&#x27;time&#x27;, String(ROUND_TIME));</span>
+<span id="events-L94">  shell.setStat(&#x27;score&#x27;, &#x27;0&#x27;);</span>
+<span id="events-L95">  shell.setStat(&#x27;lives&#x27;, hearts(START_LIVES));</span>
+<span id="events-L96">  shell.setStatus(&#x27;等待开始&#x27;);</span>
+<span id="events-L97">  if (tipEl) tipEl.hidden = false;</span>
+<span id="events-L98">}</span>
+<span id="events-L99"></span>
+<span id="events-L100">/* ------------------------------------------------------------------ */</span>
+<span id="events-L101">/* 更新                                                                 */</span>
+<span id="events-L102">/* ------------------------------------------------------------------ */</span>
+<span id="events-L103"></span>
+<span id="events-L104">function update(dt) {</span>
+<span id="events-L105">  if (state.phase !== &#x27;playing&#x27;) return;</span>
+<span id="events-L106"></span>
+<span id="events-L107">  state.elapsed += dt;</span>
+<span id="events-L108">  state.timeLeft = Math.max(0, ROUND_TIME - state.elapsed);</span>
+<span id="events-L109"></span>
+<span id="events-L110">  const p = state.player;</span>
+<span id="events-L111">  let dx = 0;</span>
+<span id="events-L112">  let dy = 0;</span>
+<span id="events-L113">  if (keys.has(&#x27;left&#x27;)) dx -= 1;</span>
+<span id="events-L114">  if (keys.has(&#x27;right&#x27;)) dx += 1;</span>
+<span id="events-L115">  if (keys.has(&#x27;up&#x27;)) dy -= 1;</span>
+<span id="events-L116">  if (keys.has(&#x27;down&#x27;)) dy += 1;</span>
+<span id="events-L117">  if (dx !== 0 || dy !== 0) {</span>
+<span id="events-L118">    const len = Math.hypot(dx, dy);</span>
+<span id="events-L119">    p.x += (dx / len) * PLAYER_SPEED * dt;</span>
+<span id="events-L120">    p.y += (dy / len) * PLAYER_SPEED * dt;</span>
+<span id="events-L121">  }</span>
+<span id="events-L122">  p.x = Math.min(W - PLAYER_R, Math.max(PLAYER_R, p.x));</span>
+<span id="events-L123">  p.y = Math.min(H - PLAYER_R, Math.max(PLAYER_R, p.y));</span>
+<span id="events-L124">  if (p.invuln &gt; 0) p.invuln -= dt * 1000;</span>
+<span id="events-L125"></span>
+<span id="events-L126">  const ramp = 1 + Math.min(0.8, state.elapsed / 60);</span>
+<span id="events-L127">  if (state.elapsed &gt;= state.nextObstacleAt &amp;&amp; state.obstacles.length &lt; 9) {</span>
+<span id="events-L128">    spawnObstacle();</span>
+<span id="events-L129">    state.nextObstacleAt = state.elapsed + 8;</span>
+<span id="events-L130">  }</span>
+<span id="events-L131">  for (const o of state.obstacles) {</span>
+<span id="events-L132">    o.x += o.vx * ramp * dt;</span>
+<span id="events-L133">    o.y += o.vy * ramp * dt;</span>
+<span id="events-L134">    o.rot += o.spin * dt;</span>
+<span id="events-L135">    if (o.x - o.r &lt; 0) { o.x = o.r; o.vx = Math.abs(o.vx); }</span>
+<span id="events-L136">    if (o.x + o.r &gt; W) { o.x = W - o.r; o.vx = -Math.abs(o.vx); }</span>
+<span id="events-L137">    if (o.y - o.r &lt; 0) { o.y = o.r; o.vy = Math.abs(o.vy); }</span>
+<span id="events-L138">    if (o.y + o.r &gt; H) { o.y = H - o.r; o.vy = -Math.abs(o.vy); }</span>
+<span id="events-L139">  }</span>
+<span id="events-L140"></span>
+<span id="events-L141">  if (state.elapsed &gt;= state.nextGemAt &amp;&amp; state.gems.length &lt; 6) {</span>
+<span id="events-L142">    spawnGem();</span>
+<span id="events-L143">    state.nextGemAt = state.elapsed + 1.4;</span>
+<span id="events-L144">  }</span>
+<span id="events-L145">  for (let i = state.gems.length - 1; i &gt;= 0; i--) {</span>
+<span id="events-L146">    const g = state.gems[i];</span>
+<span id="events-L147">    g.phase += dt * 3;</span>
+<span id="events-L148">    if (Math.hypot(g.x - p.x, g.y - p.y) &lt; g.r + PLAYER_R - 3) {</span>
+<span id="events-L149">      state.gems.splice(i, 1);</span>
+<span id="events-L150">      state.score += g.value;</span>
+<span id="events-L151">      shell.setStat(&#x27;score&#x27;, String(state.score));</span>
+<span id="events-L152">      shell.sfx.pickup();</span>
+<span id="events-L153">    }</span>
+<span id="events-L154">  }</span>
+<span id="events-L155"></span>
+<span id="events-L156">  if (p.invuln &lt;= 0) {</span>
+<span id="events-L157">    for (const o of state.obstacles) {</span>
+<span id="events-L158">      if (Math.hypot(o.x - p.x, o.y - p.y) &lt; o.r + PLAYER_R - 4) {</span>
+<span id="events-L159">        state.lives -= 1;</span>
+<span id="events-L160">        shell.setStat(&#x27;lives&#x27;, hearts(state.lives));</span>
+<span id="events-L161">        shell.sfx.hurt();</span>
+<span id="events-L162">        p.invuln = INVULN_MS;</span>
+<span id="events-L163">        const ax = p.x - o.x;</span>
+<span id="events-L164">        const ay = p.y - o.y;</span>
+<span id="events-L165">        const len = Math.hypot(ax, ay) || 1;</span>
+<span id="events-L166">        p.x = Math.min(W - PLAYER_R, Math.max(PLAYER_R, p.x + (ax / len) * 46));</span>
+<span id="events-L167">        p.y = Math.min(H - PLAYER_R, Math.max(PLAYER_R, p.y + (ay / len) * 46));</span>
+<span id="events-L168">        if (state.lives &lt;= 0) { endRound(&#x27;lose&#x27;); return; }</span>
+<span id="events-L169">        break;</span>
+<span id="events-L170">      }</span>
+<span id="events-L171">    }</span>
+<span id="events-L172">  }</span>
+<span id="events-L173"></span>
+<span id="events-L174">  shell.setStat(&#x27;time&#x27;, String(Math.ceil(state.timeLeft)));</span>
+<span id="events-L175">  if (state.timeLeft &lt;= 0) endRound(&#x27;win&#x27;);</span>
+<span id="events-L176">}</span>
+<span id="events-L177"></span>
+<span id="events-L178">/* ------------------------------------------------------------------ */</span>
+<span id="events-L179">/* 绘制                                                                 */</span>
+<span id="events-L180">/* ------------------------------------------------------------------ */</span>
+<span id="events-L181"></span>
+<span id="events-L182">function draw() {</span>
+<span id="events-L183">  ctx.clearRect(0, 0, W, H);</span>
+<span id="events-L184"></span>
+<span id="events-L185">  const bg = ctx.createLinearGradient(0, 0, 0, H);</span>
+<span id="events-L186">  bg.addColorStop(0, &#x27;rgba(124,140,255,0.16)&#x27;);</span>
+<span id="events-L187">  bg.addColorStop(1, &#x27;rgba(154,107,255,0.10)&#x27;);</span>
+<span id="events-L188">  ctx.fillStyle = bg;</span>
+<span id="events-L189">  ctx.fillRect(0, 0, W, H);</span>
+<span id="events-L190"></span>
+<span id="events-L191">  ctx.strokeStyle = &#x27;rgba(255,255,255,0.06)&#x27;;</span>
+<span id="events-L192">  ctx.lineWidth = 1;</span>
+<span id="events-L193">  for (let x = 0; x &lt;= W; x += 40) {</span>
+<span id="events-L194">    ctx.beginPath(); ctx.moveTo(x + 0.5, 0); ctx.lineTo(x + 0.5, H); ctx.stroke();</span>
+<span id="events-L195">  }</span>
+<span id="events-L196">  for (let y = 0; y &lt;= H; y += 40) {</span>
+<span id="events-L197">    ctx.beginPath(); ctx.moveTo(0, y + 0.5); ctx.lineTo(W, y + 0.5); ctx.stroke();</span>
+<span id="events-L198">  }</span>
+<span id="events-L199"></span>
+<span id="events-L200">  for (const g of state.gems) {</span>
+<span id="events-L201">    const s = 1 + Math.sin(g.phase) * 0.12;</span>
+<span id="events-L202">    ctx.save();</span>
+<span id="events-L203">    ctx.translate(g.x, g.y);</span>
+<span id="events-L204">    ctx.rotate(Math.PI / 4);</span>
+<span id="events-L205">    ctx.scale(s, s);</span>
+<span id="events-L206">    ctx.shadowColor = &#x27;rgba(86,214,198,0.9)&#x27;;</span>
+<span id="events-L207">    ctx.shadowBlur = 14;</span>
+<span id="events-L208">    ctx.fillStyle = &#x27;#56d6c6&#x27;;</span>
+<span id="events-L209">    ctx.fillRect(-g.r * 0.7, -g.r * 0.7, g.r * 1.4, g.r * 1.4);</span>
+<span id="events-L210">    ctx.shadowBlur = 0;</span>
+<span id="events-L211">    ctx.fillStyle = &#x27;rgba(255,255,255,0.55)&#x27;;</span>
+<span id="events-L212">    ctx.fillRect(-g.r * 0.35, -g.r * 0.35, g.r * 0.6, g.r * 0.6);</span>
+<span id="events-L213">    ctx.restore();</span>
+<span id="events-L214">  }</span>
+<span id="events-L215"></span>
+<span id="events-L216">  for (const o of state.obstacles) {</span>
+<span id="events-L217">    ctx.save();</span>
+<span id="events-L218">    ctx.translate(o.x, o.y);</span>
+<span id="events-L219">    ctx.rotate(o.rot);</span>
+<span id="events-L220">    ctx.shadowColor = &#x27;rgba(154,107,255,0.8)&#x27;;</span>
+<span id="events-L221">    ctx.shadowBlur = 16;</span>
+<span id="events-L222">    const g = ctx.createLinearGradient(-o.r, -o.r, o.r, o.r);</span>
+<span id="events-L223">    g.addColorStop(0, &#x27;#8b5cf6&#x27;);</span>
+<span id="events-L224">    g.addColorStop(1, &#x27;#4b5bd6&#x27;);</span>
+<span id="events-L225">    ctx.fillStyle = g;</span>
+<span id="events-L226">    ctx.fillRect(-o.r, -o.r, o.r * 2, o.r * 2);</span>
+<span id="events-L227">    ctx.shadowBlur = 0;</span>
+<span id="events-L228">    ctx.strokeStyle = &#x27;rgba(255,255,255,0.35)&#x27;;</span>
+<span id="events-L229">    ctx.lineWidth = 2;</span>
+<span id="events-L230">    ctx.strokeRect(-o.r, -o.r, o.r * 2, o.r * 2);</span>
+<span id="events-L231">    ctx.restore();</span>
+<span id="events-L232">  }</span>
+<span id="events-L233"></span>
+<span id="events-L234">  const p = state.player;</span>
+<span id="events-L235">  if (p.invuln &lt;= 0 || Math.floor(p.invuln / 100) % 2 === 0) {</span>
+<span id="events-L236">    ctx.save();</span>
+<span id="events-L237">    ctx.shadowColor = &#x27;rgba(86,214,198,0.95)&#x27;;</span>
+<span id="events-L238">    ctx.shadowBlur = 18;</span>
+<span id="events-L239">    const pg = ctx.createRadialGradient(p.x - 4, p.y - 5, 2, p.x, p.y, PLAYER_R);</span>
+<span id="events-L240">    pg.addColorStop(0, &#x27;#ffffff&#x27;);</span>
+<span id="events-L241">    pg.addColorStop(0.4, &#x27;#7ce7d8&#x27;);</span>
+<span id="events-L242">    pg.addColorStop(1, &#x27;#3fb8a6&#x27;);</span>
+<span id="events-L243">    ctx.fillStyle = pg;</span>
+<span id="events-L244">    ctx.beginPath();</span>
+<span id="events-L245">    ctx.arc(p.x, p.y, PLAYER_R, 0, Math.PI * 2);</span>
+<span id="events-L246">    ctx.fill();</span>
+<span id="events-L247">    ctx.shadowBlur = 0;</span>
+<span id="events-L248">    ctx.fillStyle = &#x27;#14213d&#x27;;</span>
+<span id="events-L249">    ctx.beginPath();</span>
+<span id="events-L250">    ctx.arc(p.x - 4.5, p.y - 2, 2.4, 0, Math.PI * 2);</span>
+<span id="events-L251">    ctx.arc(p.x + 4.5, p.y - 2, 2.4, 0, Math.PI * 2);</span>
+<span id="events-L252">    ctx.fill();</span>
+<span id="events-L253">    ctx.restore();</span>
+<span id="events-L254">  }</span>
+<span id="events-L255">}</span>
+<span id="events-L256"></span>
+<span id="events-L257">/* ------------------------------------------------------------------ */</span>
+<span id="events-L258">/* 结算                                                                 */</span>
+<span id="events-L259">/* ------------------------------------------------------------------ */</span>
+<span id="events-L260"></span>
+<span id="events-L261">function endRound(kind) {</span>
+<span id="events-L262">  state.phase = &#x27;over&#x27;;</span>
+<span id="events-L263">  keys.clear();</span>
+<span id="events-L264">  shell.setStatus(kind === &#x27;win&#x27; ? &#x27;时间到&#x27; : &#x27;生命耗尽&#x27;);</span>
+<span id="events-L265">  const { best, isRecord } = recordBestScore(shell.settings, state.score);</span>
+<span id="events-L266">  shell.showResult({</span>
+<span id="events-L267">    emoji: kind === &#x27;win&#x27; ? &#x27;\ud83c\udf89&#x27; : &#x27;\ud83d\udc94&#x27;,</span>
+<span id="events-L268">    title: kind === &#x27;win&#x27; ? &#x27;时间到！成功生还&#x27; : &#x27;生命耗尽&#x27;,</span>
+<span id="events-L269">    lines: [</span>
+<span id="events-L270">      `本局得分 &lt;strong&gt;${state.score}&lt;/strong&gt;，收集宝石 &lt;strong&gt;${state.score / GEM_SCORE}&lt;/strong&gt; 颗。`,</span>
+<span id="events-L271">      `历史最佳 &lt;strong&gt;${best.score}&lt;/strong&gt;${isRecord ? &#x27;（新纪录！）&#x27; : &#x27;&#x27;}。`,</span>
+<span id="events-L272">    ],</span>
+<span id="events-L273">    primary: { label: &#x27;再玩一局&#x27;, onClick: () =&gt; shell.newGame() },</span>
+<span id="events-L274">  });</span>
+<span id="events-L275">}</span>
+<span id="events-L276"></span>
+<span id="events-L277">/* ------------------------------------------------------------------ */</span>
+<span id="events-L278">/* 输入                                                                 */</span>
+<span id="events-L279">/* ------------------------------------------------------------------ */</span>
+<span id="events-L280"></span>
+<span id="events-L281">window.addEventListener(&#x27;keydown&#x27;, (event) =&gt; {</span>
+<span id="events-L282">  const dir = KEY_MAP[event.key];</span>
+<span id="events-L283">  if (!dir) return;</span>
+<span id="events-L284">  event.preventDefault();</span>
+<span id="events-L285">  keys.add(dir);</span>
+<span id="events-L286">  if (state.phase === &#x27;ready&#x27;) {</span>
+<span id="events-L287">    state.phase = &#x27;playing&#x27;;</span>
+<span id="events-L288">    state.elapsed = 0;</span>
+<span id="events-L289">    shell.setStatus(&#x27;进行中&#x27;);</span>
+<span id="events-L290">    shell.sfx.tick();</span>
+<span id="events-L291">    if (tipEl) tipEl.hidden = true;</span>
+<span id="events-L292">  }</span>
+<span id="events-L293">});</span>
+<span id="events-L294"></span>
+<span id="events-L295">window.addEventListener(&#x27;keyup&#x27;, (event) =&gt; {</span>
+<span id="events-L296">  const dir = KEY_MAP[event.key];</span>
+<span id="events-L297">  if (dir) keys.delete(dir);</span>
+<span id="events-L298">});</span>
+<span id="events-L299"></span>
+<span id="events-L300">window.addEventListener(&#x27;blur&#x27;, () =&gt; keys.clear());</span>
+<span id="events-L301"></span>
+<span id="events-L302">/* ------------------------------------------------------------------ */</span>
+<span id="events-L303">/* 主循环                                                               */</span>
+<span id="events-L304">/* ------------------------------------------------------------------ */</span>
+<span id="events-L305"></span>
+<span id="events-L306">let last = performance.now();</span>
+<span id="events-L307">function loop(now) {</span>
+<span id="events-L308">  const dt = Math.min(0.05, (now - last) / 1000);</span>
+<span id="events-L309">  last = now;</span>
+<span id="events-L310">  update(dt);</span>
+<span id="events-L311">  draw();</span>
+<span id="events-L312">  requestAnimationFrame(loop);</span>
+<span id="events-L313">}</span>
+<span id="events-L314"></span>
+<span id="events-L315">shell.init({</span>
+<span id="events-L316">  onRestart: () =&gt; {</span>
+<span id="events-L317">    resetRound();</span>
+<span id="events-L318">    canvas.focus();</span>
+<span id="events-L319">  },</span>
+<span id="events-L320">});</span>
+<span id="events-L321"></span>
+<span id="events-L322">resetRound();</span>
+<span id="events-L323">requestAnimationFrame(loop);</span></pre></section>
+<section id="first-code"><h2>E2 首轮游戏代码</h2><p>文件：first-failure/js/game.js</p><p><a href="index.html#origin">返回声音来源</a> · <a href="index.html#change">返回 Skill 差异</a> · <a href="../../speaker.html#audio-adoption">返回讲述位置</a></p><nav class="source-stops" data-stops="[{&quot;id&quot;: &quot;first-code-switch&quot;, &quot;label&quot;: &quot;音效开关&quot;}, {&quot;id&quot;: &quot;first-code-hurt&quot;, &quot;label&quot;: &quot;受伤调用&quot;}, {&quot;id&quot;: &quot;first-code-pickup&quot;, &quot;label&quot;: &quot;收集调用&quot;}]"><button data-prev>上一处</button><span role="status"></span><button data-next>下一处</button></nav><pre><span id="first-code-L1">/* ==========================================================================</span>
+<span id="first-code-L2">   game.js — 「60 秒躲避与收集」</span>
+<span id="first-code-L3">   使用 purple-game-ui 的数据卡 / 结算浮层 / 声音组件。</span>
+<span id="first-code-L4">   ========================================================================== */</span>
+<span id="first-code-L5"></span>
+<span id="first-code-L6">import { renderStats, updateStats, ResultOverlay } from &#x27;./purple-ui-kit.js&#x27;;</span>
+<span id="first-code-L7">import { sfx, setSoundEnabled, isSoundEnabled } from &#x27;./purple-sound.js&#x27;;</span>
+<span id="first-code-L8"></span>
+<span id="first-code-L9">/* ------------------------------------------------------------- 常量 */</span>
+<span id="first-code-L10">const ROUND_TIME = 60;      // 一局秒数</span>
+<span id="first-code-L11">const MAX_HP = 3;           // 生命上限</span>
+<span id="first-code-L12">const GEM_LIFE = 9;         // 晶体存在时间（秒）</span>
+<span id="first-code-L13">const PLAYER_R = 18;</span>
+<span id="first-code-L14">const PLAYER_SPEED = 340;   // px / 秒</span>
+<span id="first-code-L15">const INVULN = 1.2;         // 受伤后的无敌时间</span>
+<span id="first-code-L16"></span>
+<span id="first-code-L17">const W = 960, H = 600;</span>
+<span id="first-code-L18"></span>
+<span id="first-code-L19">/* 高分屏清晰渲染 */</span>
+<span id="first-code-L20">const DPR = Math.min(2, window.devicePixelRatio || 1);</span>
+<span id="first-code-L21">canvas.width = W * DPR;</span>
+<span id="first-code-L22">canvas.height = H * DPR;</span>
+<span id="first-code-L23"></span>
+<span id="first-code-L24">/* 从主题令牌读取实际颜色（canvas 不认 var()） */</span>
+<span id="first-code-L25">const CSS = getComputedStyle(document.documentElement);</span>
+<span id="first-code-L26">const C = {</span>
+<span id="first-code-L27">  accent3: CSS.getPropertyValue(&#x27;--pg-accent-3&#x27;).trim() || &#x27;#56d6c6&#x27;,</span>
+<span id="first-code-L28">  accent2: CSS.getPropertyValue(&#x27;--pg-accent-2&#x27;).trim() || &#x27;#9a6bff&#x27;,</span>
+<span id="first-code-L29">  warn: CSS.getPropertyValue(&#x27;--pg-warn&#x27;).trim() || &#x27;#fbbf24&#x27;,</span>
+<span id="first-code-L30">  bad: CSS.getPropertyValue(&#x27;--pg-bad&#x27;).trim() || &#x27;#fb7185&#x27;,</span>
+<span id="first-code-L31">};</span>
+<span id="first-code-L32"></span>
+<span id="first-code-L33">/* ------------------------------------------------------------- DOM */</span>
+<span id="first-code-L34">const canvas = document.getElementById(&#x27;canvas&#x27;);</span>
+<span id="first-code-L35">const ctx = canvas.getContext(&#x27;2d&#x27;);</span>
+<span id="first-code-L36">const field = document.getElementById(&#x27;field&#x27;);</span>
+<span id="first-code-L37">const floaters = document.getElementById(&#x27;floaters&#x27;);</span>
+<span id="first-code-L38">const hudEl = document.getElementById(&#x27;hud&#x27;);</span>
+<span id="first-code-L39">const introEl = document.getElementById(&#x27;intro&#x27;);</span>
+<span id="first-code-L40">const soundBtn = document.getElementById(&#x27;sound-btn&#x27;);</span>
+<span id="first-code-L41">const hintEl = document.getElementById(&#x27;field-hint&#x27;);</span>
+<span id="first-code-L42"></span>
+<span id="first-code-L43">/* ---------------------------------------------------------- HUD 读数 */</span>
+<span id="first-code-L44">const stats = renderStats(hudEl, [</span>
+<span id="first-code-L45">  { key: &#x27;time&#x27;, label: &#x27;剩余时间&#x27;, value: &#x27;1:00&#x27;, state: &#x27;accent&#x27; },</span>
+<span id="first-code-L46">  { key: &#x27;score&#x27;, label: &#x27;得分&#x27;, value: 0 },</span>
+<span id="first-code-L47">  { key: &#x27;hp&#x27;, label: &#x27;生命&#x27;, value: MAX_HP, state: &#x27;good&#x27; },</span>
+<span id="first-code-L48">]);</span>
+<span id="first-code-L49"></span>
+<span id="first-code-L50">/* --------------------------------------------------------- 游戏状态 */</span>
+<span id="first-code-L51">const state = {</span>
+<span id="first-code-L52">  phase: &#x27;intro&#x27;,      // intro | playing | over</span>
+<span id="first-code-L53">  time: ROUND_TIME,</span>
+<span id="first-code-L54">  score: 0,</span>
+<span id="first-code-L55">  hp: MAX_HP,</span>
+<span id="first-code-L56">  player: { x: W / 2, y: H / 2, r: PLAYER_R, vx: 0, vy: 0, invuln: 0 },</span>
+<span id="first-code-L57">  obstacles: [],</span>
+<span id="first-code-L58">  gems: [],</span>
+<span id="first-code-L59">  particles: [],</span>
+<span id="first-code-L60">  shake: 0,</span>
+<span id="first-code-L61">};</span>
+<span id="first-code-L62"></span>
+<span id="first-code-L63">const keys = new Set();</span>
+<span id="first-code-L64">const KEY_MAP = {</span>
+<span id="first-code-L65">  ArrowUp: &#x27;up&#x27;, ArrowDown: &#x27;down&#x27;, ArrowLeft: &#x27;left&#x27;, ArrowRight: &#x27;right&#x27;,</span>
+<span id="first-code-L66">  w: &#x27;up&#x27;, a: &#x27;left&#x27;, s: &#x27;down&#x27;, d: &#x27;right&#x27;,</span>
+<span id="first-code-L67">  W: &#x27;up&#x27;, A: &#x27;left&#x27;, S: &#x27;down&#x27;, D: &#x27;right&#x27;,</span>
+<span id="first-code-L68">};</span>
+<span id="first-code-L69"></span>
+<span id="first-code-L70">/* --------------------------------------------------------- 结算浮层 */</span>
+<span id="first-code-L71">const overlay = new ResultOverlay(document.getElementById(&#x27;overlay&#x27;));</span>
+<span id="first-code-L72"></span>
+<span id="first-code-L73">/* ============================ 开场规则提醒（自定义，结构已固定） ==== */</span>
+<span id="first-code-L74">const introPanel = introEl.querySelector(&#x27;.pg-overlay__panel&#x27;);</span>
+<span id="first-code-L75">const startBtn = document.getElementById(&#x27;start-btn&#x27;);</span>
+<span id="first-code-L76">let introLastFocus = null;</span>
+<span id="first-code-L77"></span>
+<span id="first-code-L78">introPanel.setAttribute(&#x27;role&#x27;, &#x27;dialog&#x27;);</span>
+<span id="first-code-L79">introPanel.setAttribute(&#x27;aria-modal&#x27;, &#x27;true&#x27;);</span>
+<span id="first-code-L80">introPanel.setAttribute(&#x27;aria-labelledby&#x27;, &#x27;intro-title&#x27;);</span>
+<span id="first-code-L81"></span>
+<span id="first-code-L82">function showIntro() {</span>
+<span id="first-code-L83">  introLastFocus = document.activeElement;</span>
+<span id="first-code-L84">  introEl.hidden = false;</span>
+<span id="first-code-L85">  hintEl.hidden = true;</span>
+<span id="first-code-L86">  startBtn.focus();</span>
+<span id="first-code-L87">  document.addEventListener(&#x27;keydown&#x27;, introKeydown, true);</span>
+<span id="first-code-L88">}</span>
+<span id="first-code-L89"></span>
+<span id="first-code-L90">function showHint(text) {</span>
+<span id="first-code-L91">  hintEl.textContent = text;</span>
+<span id="first-code-L92">  hintEl.hidden = false;</span>
+<span id="first-code-L93">}</span>
+<span id="first-code-L94"></span>
+<span id="first-code-L95">function hideHint() {</span>
+<span id="first-code-L96">  hintEl.hidden = true;</span>
+<span id="first-code-L97">  hintEl.textContent = &#x27;&#x27;;</span>
+<span id="first-code-L98">}</span>
+<span id="first-code-L99"></span>
+<span id="first-code-L100">function startRound() {</span>
+<span id="first-code-L101">  hideIntro();</span>
+<span id="first-code-L102">  hideHint();</span>
+<span id="first-code-L103">  state.phase = &#x27;playing&#x27;;</span>
+<span id="first-code-L104">  state.time = ROUND_TIME;</span>
+<span id="first-code-L105">  state.score = 0;</span>
+<span id="first-code-L106">  state.hp = MAX_HP;</span>
+<span id="first-code-L107">  state.player.x = W / 2; state.player.y = H / 2;</span>
+<span id="first-code-L108">  state.player.invuln = 0;</span>
+<span id="first-code-L109">  state.obstacles = [];</span>
+<span id="first-code-L110">  state.gems = [];</span>
+<span id="first-code-L111">  state.particles = [];</span>
+<span id="first-code-L112">  state.shake = 0;</span>
+<span id="first-code-L113">  for (let i = 0; i &lt; 3; i++) spawnObstacle();</span>
+<span id="first-code-L114">  spawnGem();</span>
+<span id="first-code-L115">  updateHud();</span>
+<span id="first-code-L116">  canvas.focus();</span>
+<span id="first-code-L117">  sfx.tick();</span>
+<span id="first-code-L118">}</span>
+<span id="first-code-L119"></span>
+<span id="first-code-L120">function closeIntro() {</span>
+<span id="first-code-L121">  hideIntro();</span>
+<span id="first-code-L122">  showHint(&#x27;规则提醒已关闭 · 按 Enter 重新查看规则&#x27;);</span>
+<span id="first-code-L123">}</span>
+<span id="first-code-L124"></span>
+<span id="first-code-L125">function hideIntro() {</span>
+<span id="first-code-L126">  introEl.hidden = true;</span>
+<span id="first-code-L127">  document.removeEventListener(&#x27;keydown&#x27;, introKeydown, true);</span>
+<span id="first-code-L128">  if (introLastFocus &amp;&amp; typeof introLastFocus.focus === &#x27;function&#x27;) introLastFocus.focus();</span>
+<span id="first-code-L129">  introLastFocus = null;</span>
+<span id="first-code-L130">}</span>
+<span id="first-code-L131"></span>
+<span id="first-code-L132">function introKeydown(e) {</span>
+<span id="first-code-L133">  if (introEl.hidden) return;</span>
+<span id="first-code-L134">  if (e.key === &#x27;Escape&#x27;) {</span>
+<span id="first-code-L135">    e.preventDefault();</span>
+<span id="first-code-L136">    closeIntro();</span>
+<span id="first-code-L137">    return;</span>
+<span id="first-code-L138">  }</span>
+<span id="first-code-L139">  if (e.key === &#x27;Enter&#x27;) { e.preventDefault(); startRound(); return; }</span>
+<span id="first-code-L140">  if (e.key !== &#x27;Tab&#x27;) return;</span>
+<span id="first-code-L141">  const items = [...introPanel.querySelectorAll(&#x27;button, [href], [tabindex]:not([tabindex=&quot;-1&quot;])&#x27;)]</span>
+<span id="first-code-L142">    .filter((n) =&gt; !n.disabled &amp;&amp; n.offsetParent !== null);</span>
+<span id="first-code-L143">  if (!items.length) return;</span>
+<span id="first-code-L144">  const first = items[0], last = items[items.length - 1];</span>
+<span id="first-code-L145">  if (e.shiftKey &amp;&amp; document.activeElement === first) { e.preventDefault(); last.focus(); }</span>
+<span id="first-code-L146">  else if (!e.shiftKey &amp;&amp; document.activeElement === last) { e.preventDefault(); first.focus(); }</span>
+<span id="first-code-L147">}</span>
+<span id="first-code-L148"></span>
+<span id="first-code-L149">startBtn.addEventListener(&#x27;click&#x27;, () =&gt; startRound());</span>
+<span id="first-code-L150"></span>
+<span id="first-code-L151">/* ==================================================== 音效开关 ======= */</span>
+<span id="first-code-L152">function refreshSoundBtn() {</span>
+<span id="first-code-L153">  const on = isSoundEnabled();</span>
+<span id="first-code-L154">  soundBtn.textContent = on ? &#x27;音效：开&#x27; : &#x27;音效：关&#x27;;</span>
+<span id="first-code-L155">  soundBtn.setAttribute(&#x27;aria-pressed&#x27;, String(on));</span>
+<span id="first-code-L156">}</span>
+<span id="first-code-L157">soundBtn.addEventListener(&#x27;click&#x27;, () =&gt; {</span>
+<span id="first-code-switch">  setSoundEnabled(!isSoundEnabled());</span>
+<span id="first-code-L159">  refreshSoundBtn();</span>
+<span id="first-code-L160">});</span>
+<span id="first-code-L161"></span>
+<span id="first-code-L162">/* ==================================================== 回合流程 ======= */</span>
+<span id="first-code-L163">function endRound(reason) {</span>
+<span id="first-code-L164">  state.phase = &#x27;over&#x27;;</span>
+<span id="first-code-L165">  keys.clear();</span>
+<span id="first-code-L166">  overlay.open({</span>
+<span id="first-code-L167">    emoji: reason === &#x27;hp&#x27; ? &#x27;💔&#x27; : &#x27;🎉&#x27;,</span>
+<span id="first-code-L168">    title: reason === &#x27;hp&#x27; ? &#x27;生命耗尽&#x27; : &#x27;时间到！&#x27;,</span>
+<span id="first-code-L169">    text: reason === &#x27;hp&#x27;</span>
+<span id="first-code-L170">      ? `你在第 &lt;strong&gt;${Math.ceil(ROUND_TIME - state.time)}&lt;/strong&gt; 秒被击倒，共收集 &lt;strong&gt;${state.score}&lt;/strong&gt; 个晶体。`</span>
+<span id="first-code-L171">      : `坚持满 &lt;strong&gt;${ROUND_TIME}&lt;/strong&gt; 秒，共收集 &lt;strong&gt;${state.score}&lt;/strong&gt; 个晶体。`,</span>
+<span id="first-code-L172">    rows: [</span>
+<span id="first-code-L173">      { label: &#x27;最终得分&#x27;, value: String(state.score), state: &#x27;accent&#x27; },</span>
+<span id="first-code-L174">      { label: &#x27;剩余生命&#x27;, value: `${state.hp} / ${MAX_HP}`, state: state.hp &gt; 0 ? &#x27;good&#x27; : &#x27;bad&#x27; },</span>
+<span id="first-code-L175">      { label: &#x27;用时&#x27;, value: `${Math.min(ROUND_TIME, Math.ceil(ROUND_TIME - state.time))} 秒` },</span>
+<span id="first-code-L176">    ],</span>
+<span id="first-code-L177">    actions: [{ label: &#x27;再玩一局&#x27;, primary: true, onClick: () =&gt; { overlay.close(); startRound(); } }],</span>
+<span id="first-code-L178">    dismissible: true,</span>
+<span id="first-code-L179">  });</span>
+<span id="first-code-L180">  if (reason === &#x27;hp&#x27;) sfx.mismatch(); else sfx.win();</span>
+<span id="first-code-L181">}</span>
+<span id="first-code-L182"></span>
+<span id="first-code-L183">/* ==================================================== 元素生成 ======= */</span>
+<span id="first-code-L184">function rand(a, b) { return a + Math.random() * (b - a); }</span>
+<span id="first-code-L185"></span>
+<span id="first-code-L186">function spawnObstacle() {</span>
+<span id="first-code-L187">  const size = rand(26, 40);</span>
+<span id="first-code-L188">  const dir = Math.random() &lt; 0.5 ? 1 : -1;</span>
+<span id="first-code-L189">  let x = rand(50, W - 50), y = rand(50, H - 50);</span>
+<span id="first-code-L190">  for (let i = 0; i &lt; 20; i++) {</span>
+<span id="first-code-L191">    if (Math.hypot(x - state.player.x, y - state.player.y) &gt; 140) break;</span>
+<span id="first-code-L192">    x = rand(50, W - 50); y = rand(50, H - 50);</span>
+<span id="first-code-L193">  }</span>
+<span id="first-code-L194">  state.obstacles.push({</span>
+<span id="first-code-L195">    x,</span>
+<span id="first-code-L196">    y,</span>
+<span id="first-code-L197">    r: size,</span>
+<span id="first-code-L198">    angle: rand(0, Math.PI * 2),</span>
+<span id="first-code-L199">    spin: rand(-1.6, 1.6),</span>
+<span id="first-code-L200">    vx: rand(60, 150) * dir,</span>
+<span id="first-code-L201">    vy: rand(60, 150) * (Math.random() &lt; 0.5 ? 1 : -1),</span>
+<span id="first-code-L202">  });</span>
+<span id="first-code-L203">}</span>
+<span id="first-code-L204"></span>
+<span id="first-code-L205">function spawnGem() {</span>
+<span id="first-code-L206"> if (state.gems.length &gt;= 4) return;</span>
+<span id="first-code-L207">  const gr = 16;</span>
+<span id="first-code-L208">  for (let tries = 0; tries &lt; 24; tries++) {</span>
+<span id="first-code-L209">    const gx = rand(gr + 20, W - gr - 20);</span>
+<span id="first-code-L210">    const gy = rand(gr + 20, H - gr - 20);</span>
+<span id="first-code-L211">    // 避开玩家出生点附近，避免一开局就贴脸</span>
+<span id="first-code-L212">    if (Math.hypot(gx - state.player.x, gy - state.player.y) &lt; 120) continue;</span>
+<span id="first-code-L213">    state.gems.push({ x: gx, y: gy, r: gr, born: ROUND_TIME - state.time, life: GEM_LIFE, spin: rand(0, Math.PI * 2) });</span>
+<span id="first-code-L214">    return;</span>
+<span id="first-code-L215">  }</span>
+<span id="first-code-L216">}</span>
+<span id="first-code-L217"></span>
+<span id="first-code-L218">/* ==================================================== 可见反馈 ======= */</span>
+<span id="first-code-L219">function flashField(kind) {</span>
+<span id="first-code-L220">  const cls = kind === &#x27;hurt&#x27; ? &#x27;is-hurt&#x27; : &#x27;is-pickup&#x27;;</span>
+<span id="first-code-L221">  field.classList.remove(&#x27;is-hurt&#x27;, &#x27;is-pickup&#x27;);</span>
+<span id="first-code-L222">  void field.offsetWidth;</span>
+<span id="first-code-L223">  field.classList.add(cls);</span>
+<span id="first-code-L224">  setTimeout(() =&gt; field.classList.remove(cls), 500);</span>
+<span id="first-code-L225">}</span>
+<span id="first-code-L226"></span>
+<span id="first-code-L227">function floater(text, x, y, kind) {</span>
+<span id="first-code-L228">  const el = document.createElement(&#x27;div&#x27;);</span>
+<span id="first-code-L229">  el.className = `floater${kind ? ` floater--${kind}` : &#x27;&#x27;}`;</span>
+<span id="first-code-L230">  el.textContent = text;</span>
+<span id="first-code-L231">  el.style.left = `${(x / W) * 100}%`;</span>
+<span id="first-code-L232">  el.style.top = `${(y / H) * 100}%`;</span>
+<span id="first-code-L233">  floaters.appendChild(el);</span>
+<span id="first-code-L234">  setTimeout(() =&gt; el.remove(), 800);</span>
+<span id="first-code-L235">}</span>
+<span id="first-code-L236"></span>
+<span id="first-code-L237">function burst(x, y, color, count = 12) {</span>
+<span id="first-code-L238">  for (let i = 0; i &lt; count; i++) {</span>
+<span id="first-code-L239">    const a = Math.random() * Math.PI * 2;</span>
+<span id="first-code-L240">    const sp = rand(60, 210);</span>
+<span id="first-code-L241">    state.particles.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: rand(0.3, 0.6), max: 0.6, color, r: rand(2, 4) });</span>
+<span id="first-code-L242">  }</span>
+<span id="first-code-L243">}</span>
+<span id="first-code-L244"></span>
+<span id="first-code-L245">/* ==================================================== HUD 更新 ======= */</span>
+<span id="first-code-L246">function updateHud() {</span>
+<span id="first-code-L247">  const secs = Math.max(0, Math.ceil(state.time));</span>
+<span id="first-code-L248">  const m = Math.floor(secs / 60), s = secs % 60;</span>
+<span id="first-code-L249">  updateStats(stats, {</span>
+<span id="first-code-L250">    time: { value: `${m}:${String(s).padStart(2, &#x27;0&#x27;)}`, state: state.time &lt;= 10 ? &#x27;warn&#x27; : &#x27;accent&#x27; },</span>
+<span id="first-code-L251">    score: state.score,</span>
+<span id="first-code-L252">    hp: { value: state.hp, state: state.hp === 1 ? &#x27;bad&#x27; : state.hp &gt; 0 ? &#x27;good&#x27; : &#x27;bad&#x27; },</span>
+<span id="first-code-L253">  });</span>
+<span id="first-code-L254">}</span>
+<span id="first-code-L255"></span>
+<span id="first-code-L256">/* ==================================================== 输入 ========== */</span>
+<span id="first-code-L257">window.addEventListener(&#x27;keydown&#x27;, (e) =&gt; {</span>
+<span id="first-code-L258">  if (e.key === &#x27;Enter&#x27;) {</span>
+<span id="first-code-L259">    if (state.phase === &#x27;intro&#x27; &amp;&amp; introEl.hidden) { e.preventDefault(); showIntro(); return; }</span>
+<span id="first-code-L260">    if (state.phase === &#x27;over&#x27; &amp;&amp; overlay.root.hidden) { e.preventDefault(); startRound(); return; }</span>
+<span id="first-code-L261">  }</span>
+<span id="first-code-L262">  const dir = KEY_MAP[e.key];</span>
+<span id="first-code-L263">  if (!dir) return;</span>
+<span id="first-code-L264">  if (state.phase !== &#x27;playing&#x27;) return;</span>
+<span id="first-code-L265">  e.preventDefault();</span>
+<span id="first-code-L266">  keys.add(dir);</span>
+<span id="first-code-L267">});</span>
+<span id="first-code-L268"></span>
+<span id="first-code-L269">window.addEventListener(&#x27;keyup&#x27;, (e) =&gt; {</span>
+<span id="first-code-L270">  const dir = KEY_MAP[e.key];</span>
+<span id="first-code-L271">  if (!dir) return;</span>
+<span id="first-code-L272">  keys.delete(dir);</span>
+<span id="first-code-L273">});</span>
+<span id="first-code-L274"></span>
+<span id="first-code-L275">window.addEventListener(&#x27;blur&#x27;, () =&gt; keys.clear());</span>
+<span id="first-code-L276"></span>
+<span id="first-code-L277">/* ==================================================== 主循环 ======= */</span>
+<span id="first-code-L278">let last = performance.now();</span>
+<span id="first-code-L279"></span>
+<span id="first-code-L280">function loop(now) {</span>
+<span id="first-code-L281">  const dt = Math.min(0.05, (now - last) / 1000);</span>
+<span id="first-code-L282">  last = now;</span>
+<span id="first-code-L283">  if (state.phase === &#x27;playing&#x27;) update(dt);</span>
+<span id="first-code-L284">  else if (state.phase === &#x27;over&#x27; &amp;&amp; overlay.root.hidden &amp;&amp; hintEl.hidden) {</span>
+<span id="first-code-L285">    showHint(&#x27;本局结束 · 按 Enter 重新开始&#x27;);</span>
+<span id="first-code-L286">  }</span>
+<span id="first-code-L287">  draw();</span>
+<span id="first-code-L288">  requestAnimationFrame(loop);</span>
+<span id="first-code-L289">}</span>
+<span id="first-code-L290"></span>
+<span id="first-code-L291">function update(dt) {</span>
+<span id="first-code-L292">  state.time -= dt;</span>
+<span id="first-code-L293">  if (state.time &lt;= 0) {</span>
+<span id="first-code-L294">    state.time = 0;</span>
+<span id="first-code-L295">    updateHud();</span>
+<span id="first-code-L296">    endRound(&#x27;time&#x27;);</span>
+<span id="first-code-L297">    return;</span>
+<span id="first-code-L298">  }</span>
+<span id="first-code-L299"></span>
+<span id="first-code-L300">  const p = state.player;</span>
+<span id="first-code-L301">  let dx = (keys.has(&#x27;right&#x27;) ? 1 : 0) - (keys.has(&#x27;left&#x27;) ? 1 : 0);</span>
+<span id="first-code-L302">  let dy = (keys.has(&#x27;down&#x27;) ? 1 : 0) - (keys.has(&#x27;up&#x27;) ? 1 : 0);</span>
+<span id="first-code-L303">  if (dx || dy) {</span>
+<span id="first-code-L304">    const len = Math.hypot(dx, dy);</span>
+<span id="first-code-L305">    dx = dx / len; dy = dy / len;</span>
+<span id="first-code-L306">    p.x += dx * PLAYER_SPEED * dt;</span>
+<span id="first-code-L307">    p.y += dy * PLAYER_SPEED * dt;</span>
+<span id="first-code-L308">  }</span>
+<span id="first-code-L309">  p.x = Math.max(p.r, Math.min(W - p.r, p.x));</span>
+<span id="first-code-L310">  p.y = Math.max(p.r, Math.min(H - p.r, p.y));</span>
+<span id="first-code-L311">  if (p.invuln &gt; 0) p.invuln -= dt;</span>
+<span id="first-code-L312"></span>
+<span id="first-code-L313">  // 障碍</span>
+<span id="first-code-L314">  for (let i = state.obstacles.length - 1; i &gt;= 0; i--) {</span>
+<span id="first-code-L315">    const o = state.obstacles[i];</span>
+<span id="first-code-L316">    o.x += o.vx * dt; o.y += o.vy * dt; o.angle += o.spin * dt;</span>
+<span id="first-code-L317">    if (o.x &lt; o.r || o.x &gt; W - o.r) { o.vx *= -1; o.x = Math.max(o.r, Math.min(W - o.r, o.x)); }</span>
+<span id="first-code-L318">    if (o.y &lt; o.r || o.y &gt; H - o.r) { o.vy *= -1; o.y = Math.max(o.r, Math.min(H - o.r, o.y)); }</span>
+<span id="first-code-L319"></span>
+<span id="first-code-L320">    if (p.invuln &lt;= 0 &amp;&amp; Math.hypot(o.x - p.x, o.y - p.y) &lt; o.r * 0.72 + p.r * 0.72) {</span>
+<span id="first-code-L321">      state.hp -= 1;</span>
+<span id="first-code-L322">      p.invuln = INVULN;</span>
+<span id="first-code-L323">      state.shake = 0.35;</span>
+<span id="first-code-L324">      state.obstacles.splice(i, 1);</span>
+<span id="first-code-L325">      burst(p.x, p.y, C.bad, 16);</span>
+<span id="first-code-L326">      floater(&#x27;-1 生命&#x27;, p.x, p.y, &#x27;bad&#x27;);</span>
+<span id="first-code-L327">      flashField(&#x27;hurt&#x27;);</span>
+<span id="first-code-hurt">      sfx.hurt();</span>
+<span id="first-code-L329">      updateHud();</span>
+<span id="first-code-L330">      if (state.hp &lt;= 0) {</span>
+<span id="first-code-L331">        state.hp = 0;</span>
+<span id="first-code-L332">        updateHud();</span>
+<span id="first-code-L333">        endRound(&#x27;hp&#x27;);</span>
+<span id="first-code-L334">        return;</span>
+<span id="first-code-L335">      }</span>
+<span id="first-code-L336">    }</span>
+<span id="first-code-L337">  }</span>
+<span id="first-code-L338"></span>
+<span id="first-code-L339">  // 障碍逐渐变多（单一难度、固定节奏）</span>
+<span id="first-code-L340">  const targetObstacles = 3 + Math.floor((ROUND_TIME - state.time) / 10);</span>
+<span id="first-code-L341">  if (state.obstacles.length &lt; targetObstacles &amp;&amp; Math.random() &lt; dt * 1.6) spawnObstacle();</span>
+<span id="first-code-L342"></span>
+<span id="first-code-L343">  // 晶体</span>
+<span id="first-code-L344">  for (let i = state.gems.length - 1; i &gt;= 0; i--) {</span>
+<span id="first-code-L345">    const g = state.gems[i];</span>
+<span id="first-code-L346">    g.spin += dt * 1.6;</span>
+<span id="first-code-L347">    const age = (ROUND_TIME - state.time) - g.born;</span>
+<span id="first-code-L348">    if (age &gt;= GEM_LIFE) {</span>
+<span id="first-code-L349">      state.gems.splice(i, 1);</span>
+<span id="first-code-L350">      continue;</span>
+<span id="first-code-L351">    }</span>
+<span id="first-code-L352">    if (Math.hypot(g.x - p.x, g.y - p.y) &lt; g.r + p.r * 0.8) {</span>
+<span id="first-code-L353">      state.gems.splice(i, 1);</span>
+<span id="first-code-L354">      state.score += 1;</span>
+<span id="first-code-L355">      burst(g.x, g.y, C.accent3, 14);</span>
+<span id="first-code-L356">      floater(&#x27;+1&#x27;, g.x, g.y, &#x27;good&#x27;);</span>
+<span id="first-code-L357">      flashField(&#x27;pickup&#x27;);</span>
+<span id="first-code-pickup">      sfx.pickup();</span>
+<span id="first-code-L359">      updateHud();</span>
+<span id="first-code-L360">    }</span>
+<span id="first-code-L361">  }</span>
+<span id="first-code-L362">  if (Math.random() &lt; dt * 0.9) spawnGem();</span>
+<span id="first-code-L363"></span>
+<span id="first-code-L364">  // 粒子</span>
+<span id="first-code-L365">  for (let i = state.particles.length - 1; i &gt;= 0; i--) {</span>
+<span id="first-code-L366">    const q = state.particles[i];</span>
+<span id="first-code-L367">    q.x += q.vx * dt; q.y += q.vy * dt;</span>
+<span id="first-code-L368">    q.vx *= 0.94; q.vy *= 0.94;</span>
+<span id="first-code-L369">    q.life -= dt;</span>
+<span id="first-code-L370">    if (q.life &lt;= 0) state.particles.splice(i, 1);</span>
+<span id="first-code-L371">  }</span>
+<span id="first-code-L372"></span>
+<span id="first-code-L373">  if (state.shake &gt; 0) state.shake = Math.max(0, state.shake - dt);</span>
+<span id="first-code-L374"></span>
+<span id="first-code-L375">  // 时间读数整秒刷新，避免布局抖动</span>
+<span id="first-code-L376">  if (Math.ceil(state.time) !== Math.ceil(state.time + dt)) updateHud();</span>
+<span id="first-code-L377">}</span>
+<span id="first-code-L378"></span>
+<span id="first-code-L379">/* ==================================================== 绘制 ========== */</span>
+<span id="first-code-L380">function draw() {</span>
+<span id="first-code-L381">  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);</span>
+<span id="first-code-L382">  ctx.clearRect(0, 0, W, H);</span>
+<span id="first-code-L383">  ctx.save();</span>
+<span id="first-code-L384">  if (state.shake &gt; 0) {</span>
+<span id="first-code-L385">    const s = state.shake * 12;</span>
+<span id="first-code-L386">    ctx.translate((Math.random() - 0.5) * s, (Math.random() - 0.5) * s);</span>
+<span id="first-code-L387">  }</span>
+<span id="first-code-L388"></span>
+<span id="first-code-L389">  // 网格底纹</span>
+<span id="first-code-L390">  ctx.strokeStyle = &#x27;rgba(255,255,255,0.05)&#x27;;</span>
+<span id="first-code-L391">  ctx.lineWidth = 1;</span>
+<span id="first-code-L392">  for (let x = 0; x &lt;= W; x += 60) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }</span>
+<span id="first-code-L393">  for (let y = 0; y &lt;= H; y += 60) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }</span>
+<span id="first-code-L394"></span>
+<span id="first-code-L395">  // 晶体：进度环显示剩余存在时间</span>
+<span id="first-code-L396">  const nowAge = ROUND_TIME - state.time;</span>
+<span id="first-code-L397">  for (const g of state.gems) {</span>
+<span id="first-code-L398">    const remain = Math.max(0, 1 - (nowAge - g.born) / GEM_LIFE);</span>
+<span id="first-code-L399">    const pulse = 1 + Math.sin(nowAge * 4 + g.spin) * 0.06;</span>
+<span id="first-code-L400">    ctx.save();</span>
+<span id="first-code-L401">    ctx.translate(g.x, g.y);</span>
+<span id="first-code-L402">    ctx.scale(pulse, pulse);</span>
+<span id="first-code-L403">    // 环</span>
+<span id="first-code-L404">    ctx.lineWidth = 4;</span>
+<span id="first-code-L405">    ctx.strokeStyle = &#x27;rgba(255,255,255,0.14)&#x27;;</span>
+<span id="first-code-L406">    ctx.beginPath(); ctx.arc(0, 0, g.r + 8, 0, Math.PI * 2); ctx.stroke();</span>
+<span id="first-code-L407">    ctx.strokeStyle = remain &gt; 0.34 ? C.accent3 : C.warn;</span>
+<span id="first-code-L408">    ctx.lineCap = &#x27;round&#x27;;</span>
+<span id="first-code-L409">    ctx.beginPath();</span>
+<span id="first-code-L410">    ctx.arc(0, 0, g.r + 8, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * remain);</span>
+<span id="first-code-L411">    ctx.stroke();</span>
+<span id="first-code-L412">    // 菱形本体</span>
+<span id="first-code-L413">    ctx.rotate(g.spin * 0.4);</span>
+<span id="first-code-L414">    const gr = g.r;</span>
+<span id="first-code-L415">    ctx.beginPath();</span>
+<span id="first-code-L416">    ctx.moveTo(0, -gr); ctx.lineTo(gr * 0.72, 0); ctx.lineTo(0, gr); ctx.lineTo(-gr * 0.72, 0);</span>
+<span id="first-code-L417">    ctx.closePath();</span>
+<span id="first-code-L418">    ctx.fillStyle = C.accent3;</span>
+<span id="first-code-L419">    ctx.fill();</span>
+<span id="first-code-L420">    ctx.strokeStyle = &#x27;rgba(255,255,255,0.65)&#x27;;</span>
+<span id="first-code-L421">    ctx.lineWidth = 1.6;</span>
+<span id="first-code-L422">    ctx.stroke();</span>
+<span id="first-code-L423">    ctx.restore();</span>
+<span id="first-code-L424">  }</span>
+<span id="first-code-L425"></span>
+<span id="first-code-L426">  // 障碍：紫色尖刺</span>
+<span id="first-code-L427">  for (const o of state.obstacles) {</span>
+<span id="first-code-L428">    ctx.save();</span>
+<span id="first-code-L429">    ctx.translate(o.x, o.y);</span>
+<span id="first-code-L430">    ctx.rotate(o.angle);</span>
+<span id="first-code-L431">    ctx.beginPath();</span>
+<span id="first-code-L432">    for (let k = 0; k &lt; 3; k++) {</span>
+<span id="first-code-L433">      const a = (k / 3) * Math.PI * 2 - Math.PI / 2;</span>
+<span id="first-code-L434">      const px = Math.cos(a) * o.r, py = Math.sin(a) * o.r;</span>
+<span id="first-code-L435">      k === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);</span>
+<span id="first-code-L436">    }</span>
+<span id="first-code-L437">    ctx.closePath();</span>
+<span id="first-code-L438">    ctx.fillStyle = C.accent2;</span>
+<span id="first-code-L439">    ctx.fill();</span>
+<span id="first-code-L440">    ctx.strokeStyle = &#x27;rgba(255,255,255,0.55)&#x27;;</span>
+<span id="first-code-L441">    ctx.lineWidth = 2;</span>
+<span id="first-code-L442">    ctx.stroke();</span>
+<span id="first-code-L443">    ctx.restore();</span>
+<span id="first-code-L444">  }</span>
+<span id="first-code-L445"></span>
+<span id="first-code-L446">  // 玩家</span>
+<span id="first-code-L447">  const p = state.player;</span>
+<span id="first-code-L448">  if (p.invuln &lt;= 0 || Math.floor(nowAge * 12) % 2 === 0) {</span>
+<span id="first-code-L449">    ctx.save();</span>
+<span id="first-code-L450">    ctx.beginPath();</span>
+<span id="first-code-L451">    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);</span>
+<span id="first-code-L452">    ctx.fillStyle = C.warn;</span>
+<span id="first-code-L453">    ctx.fill();</span>
+<span id="first-code-L454">    ctx.strokeStyle = &#x27;rgba(255,255,255,0.8)&#x27;;</span>
+<span id="first-code-L455">    ctx.lineWidth = 2.5;</span>
+<span id="first-code-L456">    ctx.stroke();</span>
+<span id="first-code-L457">    // 朝向指示</span>
+<span id="first-code-L458">    ctx.beginPath();</span>
+<span id="first-code-L459">    ctx.arc(p.x, p.y, p.r * 0.45, 0, Math.PI * 2);</span>
+<span id="first-code-L460">    ctx.fillStyle = &#x27;rgba(20,14,40,0.55)&#x27;;</span>
+<span id="first-code-L461">    ctx.fill();</span>
+<span id="first-code-L462">    ctx.restore();</span>
+<span id="first-code-L463">  }</span>
+<span id="first-code-L464"></span>
+<span id="first-code-L465">  // 粒子</span>
+<span id="first-code-L466">  for (const q of state.particles) {</span>
+<span id="first-code-L467">    ctx.globalAlpha = Math.max(0, q.life / q.max);</span>
+<span id="first-code-L468">    ctx.fillStyle = q.color;</span>
+<span id="first-code-L469">    ctx.beginPath();</span>
+<span id="first-code-L470">    ctx.arc(q.x, q.y, q.r, 0, Math.PI * 2);</span>
+<span id="first-code-L471">    ctx.fill();</span>
+<span id="first-code-L472">  }</span>
+<span id="first-code-L473">  ctx.globalAlpha = 1;</span>
+<span id="first-code-L474"></span>
+<span id="first-code-L475">  ctx.restore();</span>
+<span id="first-code-L476">}</span>
+<span id="first-code-L477"></span>
+<span id="first-code-L478">/* ==================================================== 启动 ========== */</span>
+<span id="first-code-L479">updateHud();</span>
+<span id="first-code-L480">showIntro();</span>
+<span id="first-code-L481">requestAnimationFrame(loop);</span></pre></section>
+<section id="skill-diff"><h2>Skill 修改差异</h2><p>文件：skill.diff</p><p><a href="index.html#origin">返回声音来源</a> · <a href="index.html#change">返回 Skill 差异</a> · <a href="../../speaker.html#audio-guidance">返回讲述位置</a></p><nav class="source-stops" data-stops="[{&quot;id&quot;: &quot;skill-diff-scope&quot;, &quot;label&quot;: &quot;适用范围&quot;}, {&quot;id&quot;: &quot;skill-diff-import&quot;, &quot;label&quot;: &quot;资源导入&quot;}, {&quot;id&quot;: &quot;skill-diff-events&quot;, &quot;label&quot;: &quot;事件调用&quot;}, {&quot;id&quot;: &quot;skill-diff-switch&quot;, &quot;label&quot;: &quot;音效开关&quot;}, {&quot;id&quot;: &quot;skill-diff-retain&quot;, &quot;label&quot;: &quot;保留画面反馈&quot;}, {&quot;id&quot;: &quot;skill-diff-verify&quot;, &quot;label&quot;: &quot;验证要求&quot;}]"><button data-prev>上一处</button><span role="status"></span><button data-next>下一处</button></nav><pre><span id="skill-diff-L1">--- before/SKILL.md</span>
+<span id="skill-diff-L2">+++ after/SKILL.md</span>
+<span id="skill-diff-L3">@@ -83,3 +83,13 @@</span>
+<span id="skill-diff-L4"> ## 验证</span>
+<span id="skill-diff-L5"> </span>
+<span id="skill-diff-L6"> 本 Skill 自带的资源已在 headless Chrome 中渲染核对：深靛渐变背景、玻璃面板、顶部横排 / 侧边 rail / 底部横条三种 HUD 形态、结算浮层（遮罩 + 明细行 + 按钮）、窄屏断点。`assets/preview.html` 可作为回归基线，改动样式后重截对比。</span>
+<span id="skill-diff-L7">+</span>
+<span id="skill-diff-L8">+## 游戏事件的声音反馈</span>
+<span id="skill-diff-L9">+</span>
+<span id="skill-diff-scope">+开发可交互小游戏时，沿用现有布局与视觉组件，并接入 `assets/js/purple-sound.js` 的声音反馈；若任务明确要求无声，则不接入。这个独立 ES Module 不依赖页面结构或 `purple-ui-kit.js`，不要为接入声音改变 HUD 位置、浮层用途或玩法效果。</span>
+<span id="skill-diff-L11">+</span>
+<span id="skill-diff-import">+- 复制该文件到项目，导入 `sfx`、`setSoundEnabled`、`isSoundEnabled`。音效库来自整页版的声音实现及其躲避游戏中的事件扩展。</span>
+<span id="skill-diff-events">+- 按实际游戏事件接线：确认开始可用 `sfx.tick()`，收集成功用 `sfx.pickup()`，受伤用 `sfx.hurt()`；胜利用 `sfx.win()`，失败可用 `sfx.mismatch()`。翻牌和配对仍可用 `flip()`、`match()`。只为游戏实际存在的事件接线，每次事件调用一次，不在绘制循环或持续按键中重复播放。</span>
+<span id="skill-diff-switch">+- 用明确的音效开关调用 `setSoundEnabled(value)`，用 `isSoundEnabled()`同步状态。首次播放应来自玩家的开始或其他真实操作；浏览器没有音频能力时，游戏仍须可玩。</span>
+<span id="skill-diff-retain">+- 保留原有可见反馈：声音补充收集、受伤和按钮反馈，不替代闪光、数值变化、浮层等视觉信息，也不规定场地布局。</span>
+<span id="skill-diff-verify">+- 验证开始、收集、受伤等已接线事件能发声，静音后这些事件不再发声；同时复查原有布局、开场/结算浮层和玩法反馈。</span></pre></section>
+<script>document.querySelectorAll('[data-stops]').forEach(nav=>{const stops=JSON.parse(nav.dataset.stops);let at=Math.max(0,stops.findIndex(s=>'#'+s.id===location.hash));const prev=nav.querySelector('[data-prev]'),next=nav.querySelector('[data-next]');function show(move){prev.disabled=at===0;next.disabled=at===stops.length-1;nav.querySelector('[role=status]').textContent=`第 ${at+1}/${stops.length} 处 · ${stops[at].label}`;if(move){history.replaceState(null,'','#'+stops[at].id);document.getElementById(stops[at].id).scrollIntoView({block:'start'});}}prev.onclick=()=>{at=Math.max(0,at-1);show(true)};next.onclick=()=>{at=Math.min(stops.length-1,at+1);show(true)};show(false);});</script></html>

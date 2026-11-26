@@ -2,18 +2,130 @@ window.lesson = {
   "title": "修改 Skill，并用它开发躲避游戏",
   "chapter": "第 3 章 · Vibe Coding + Plugin",
   "section": "03.03",
-  "summary": "从同一个参考游戏生成两份 Skill，再用同一个开发任务核对实际复用了什么。",
+  "summary": "从已有材料演示三种 Skill 生成请求，再沿组件版完成声音迭代。",
   "scenes": [
     {
-      "id": "skill-inputs",
-      "segment": "生成与审阅",
-      "label": "两种复用要求",
-      "title": "同一款翻牌游戏，两种复用要求",
-      "lead": "共用截图、源码和可见开发对话，在独立会话中生成",
-      "html": "<div class=\"skill-slide\"><div class=\"skill-inputs\"><figure class=\"skill-reference\"><img src=\"evidence/reference.png\" alt=\"紫色翻牌游戏，数据栏位于卡片上方\"><figcaption>同一作品：截图、源码、开发对话</figcaption></figure><div class=\"skill-requests\" data-reveal=\"1\"><div class=\"p-box\" data-role=\"agent\"><h3>整页模板组</h3><p>标题、横排 HUD、居中场地、结算浮层</p><strong>换玩法时，默认保留页面布局</strong></div><div class=\"p-box\" data-role=\"agent\"><h3>按需组件组</h3><p>主题、数据卡、结算浮层可单独用</p><strong>实时读数靠近场地，位置按玩法安排</strong></div></div></div><nav class=\"skill-evidence\" aria-label=\"本页材料\"><a href=\"evidence/index.html#reference\" target=\"_blank\" rel=\"noopener\">参考作品原图 ↗</a></nav></div>",
+      "id": "creation-evidence",
+      "narration_source": {
+        "file": "screen-plan.js",
+        "screen": "creation-methods"
+      },
+      "segment": "生成方式",
+      "label": "材料与创建方式",
+      "title": "先把已有对话和成品交给 AI",
+      "lead": "Prompt 说明任务与读取位置，文件承载具体上下文",
+      "html": "<div class=\"creation-overview\"><div class=\"creation-project\"><img src=\"evidence/reference.png\" alt=\"已完成的紫色翻牌游戏\"><span>已完成的翻牌游戏</span></div><div class=\"creation-bundle\"><h3>把经验带进新会话</h3><div><b>开发对话</b><code>source-dialogue.md</code></div><div><b>最终源码</b><code>source-game/</code></div><div><b>成品截图</b><code>source-game/docs/</code></div></div><div class=\"creation-guide p-box\" data-role=\"ctx\"><span class=\"creation-eyebrow\">PROMPT</span><h3>告诉 AI<br>要提炼什么</h3><p>复用目标 · 材料位置<br>提炼边界 · 完成标准</p><strong>先读材料，再生成</strong></div></div><div class=\"creation-route\"><span><i>01</i>直接提炼</span><span><i>02</i>调用 skill-creator</span><span><i>03</i>补充 Reference</span></div>",
       "steps": [
-        "参考作品",
-        "并行生成"
+        "材料进入新会话"
+      ],
+      "script": [
+        "【操作提示｜对应讲述页 creation-methods：指旧对话、源码、截图的文件位置及 Prompt 的四项要求。】"
+      ],
+      "teaching": [],
+      "source": "index.html#creation-evidence",
+      "seconds": 30
+    },
+    {
+      "id": "create-direct",
+      "narration_source": {
+        "file": "screen-plan.js",
+        "screen": "demo-direct"
+      },
+      "segment": "生成方式",
+      "label": "从已有上下文直接生成",
+      "title": "从已有上下文直接生成",
+      "lead": "依据已有对话、最终源码与截图，提炼可复用经验",
+      "html": "<div class=\"creation-method\"><figure class=\"creation-source\"><div class=\"p-page\"><div class=\"p-page-bar\"><i></i><i></i><i></i>Agent Skills · 从实际任务提炼</div><a class=\"creation-capture\" href=\"external/creation-direct-context.png\" target=\"_blank\" rel=\"noopener\" aria-label=\"放大原文截图\"><img src=\"external/creation-direct-context.png\" alt=\"Agent Skills · 从实际任务提炼：保留上下文的原页截图\"><svg viewBox=\"0 0 1152 508\" aria-hidden=\"true\"><rect x=\"70\" y=\"314\" width=\"300\" height=\"44\"/><rect x=\"70\" y=\"386\" width=\"360\" height=\"44\"/></svg></a></div><figcaption>留意：成功步骤与纠正意见</figcaption></figure><div class=\"creation-practice\"><div class=\"creation-flow\"><div class=\"creation-materials\"><span class=\"creation-eyebrow\">同一份作品材料</span><div class=\"creation-paper p-box\" data-role=\"us\"><b>对话 · 源码 · 截图</b><span>最终源码 · 成品截图</span></div></div><svg class=\"creation-arrow\" viewBox=\"0 0 72 42\" aria-hidden=\"true\"><path d=\"M5 23 Q29 17 61 21 M49 9 Q57 15 64 21 Q56 26 49 34\"/></svg><div class=\"creation-transform\"><span class=\"creation-eyebrow\">直接提炼</span><strong>提取可复用经验</strong><p>区分通用视觉与翻牌规则</p></div><svg class=\"creation-arrow\" viewBox=\"0 0 72 42\" aria-hidden=\"true\"><path d=\"M5 23 Q29 17 61 21 M49 9 Q57 15 64 21 Q56 26 49 34\"/></svg><div class=\"creation-output\"><span class=\"creation-eyebrow\">生成后审阅</span><b>Skill 初稿</b><code>SKILL.md</code><span>正文 + 配套文件</span></div></div><div class=\"creation-bottom\"><span>读取对话、源码与截图，再整理经验</span><div class=\"creation-actions\"><details class=\"p-pop\"><summary>查看完整 Prompt</summary><div class=\"p-pop-body\"><div class=\"p-pop-head\"><span>完整生成 Prompt</span><button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div><div class=\"creation-prompt\" id=\"creation-prompt-direct\"><pre>目标：根据这款翻牌游戏的实际材料，创建一个以后开发其他小游戏时可以复用的紫色界面 Skill。\n上下文：source-game/ 是已完成的源码，source-game/docs/ 有截图，source-dialogue.md 是原始开发对话。\n约束：先读取材料，再提炼实际存在的视觉规则和开发要求。输出到当前项目 purple-game-ui/，包含 SKILL.md 及确有必要的配套文件；区分可复用视觉与翻牌专属规则，不把翻牌布局固定到所有游戏。不要修改输入材料，也不要开发新游戏。现有输入足够时直接完成；缺少关键信息时明确指出。直接从上述材料整理，不调用 skill-creator 或其他 Skill。\n完成标准：检查 Skill 的 name、description、文件引用和内容依据；最终说明提炼了哪些可复用内容、哪些只适用于翻牌，以及尚未通过新任务验证的部分。\n</pre><button type=\"button\" data-creation-copy>复制完整 Prompt</button><span role=\"status\"></span></div></div></details><button type=\"button\" data-creation-copy=\"direct\">复制完整 Prompt</button><span role=\"status\"></span></div></div></div></div>",
+      "steps": [
+        "官方说明与完整请求"
+      ],
+      "script": [
+        "【操作提示｜完整口播与逐段动作见讲述页 demo-direct；按当前画面定位执行。】"
+      ],
+      "refs": [
+        {
+          "kind": "live",
+          "group": "",
+          "text": "原文出处",
+          "url": "https://agentskills.io/skill-creation/best-practices#start-from-real-expertise"
+        }
+      ],
+      "teaching": [],
+      "source": "index.html#create-direct",
+      "seconds": 30
+    },
+    {
+      "id": "create-creator",
+      "narration_source": {
+        "file": "screen-plan.js",
+        "screen": "demo-creator"
+      },
+      "segment": "生成方式",
+      "label": "调用内置 skill-creator 生成",
+      "title": "调用内置 skill-creator 生成",
+      "lead": "同一份材料，在请求开头加入 $skill-creator",
+      "html": "<div class=\"creation-method\"><figure class=\"creation-source\"><div class=\"p-page\"><div class=\"p-page-bar\"><i></i><i></i><i></i>OpenAI · Codex 内置创建工具</div><a class=\"creation-capture\" href=\"external/creation-creator-context.png\" target=\"_blank\" rel=\"noopener\" aria-label=\"放大原文截图\"><img src=\"external/creation-creator-context.png\" alt=\"OpenAI · Codex 内置创建工具：保留上下文的原页截图\"><svg viewBox=\"0 0 1072 492\" aria-hidden=\"true\"><rect x=\"54\" y=\"201\" width=\"280\" height=\"43\"/></svg></a></div><figcaption>留意：Codex 的调用写法与创建时的提问</figcaption></figure><div class=\"creation-practice\"><div class=\"creation-flow\"><div class=\"creation-materials\"><span class=\"creation-eyebrow\">同一份作品材料</span><div class=\"creation-paper p-box\" data-role=\"us\"><b>对话 · 源码 · 截图</b><span>最终源码 · 成品截图</span></div></div><svg class=\"creation-arrow\" viewBox=\"0 0 72 42\" aria-hidden=\"true\"><path d=\"M5 23 Q29 17 61 21 M49 9 Q57 15 64 21 Q56 26 49 34\"/></svg><div class=\"creation-transform\"><span class=\"creation-eyebrow\">调用创建工具</span><strong>$skill-creator</strong><p>提供目标，由工具组织创建过程</p></div><svg class=\"creation-arrow\" viewBox=\"0 0 72 42\" aria-hidden=\"true\"><path d=\"M5 23 Q29 17 61 21 M49 9 Q57 15 64 21 Q56 26 49 34\"/></svg><div class=\"creation-output\"><span class=\"creation-eyebrow\">生成后审阅</span><b>Skill 初稿</b><code>SKILL.md</code><span>正文 + 配套文件</span></div></div><div class=\"creation-bottom\"><span>创建工具不替代项目材料与复用目标</span><div class=\"creation-actions\"><details class=\"p-pop\"><summary>查看完整 Prompt</summary><div class=\"p-pop-body\"><div class=\"p-pop-head\"><span>完整生成 Prompt</span><button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div><div class=\"creation-prompt\" id=\"creation-prompt-creator\"><pre>$skill-creator\n\n目标：根据这款翻牌游戏的实际材料，创建一个以后开发其他小游戏时可以复用的紫色界面 Skill。\n上下文：source-game/ 是已完成的源码，source-game/docs/ 有截图，source-dialogue.md 是原始开发对话。\n约束：先读取材料，再提炼实际存在的视觉规则和开发要求。输出到当前项目 purple-game-ui/，包含 SKILL.md 及确有必要的配套文件；区分可复用视觉与翻牌专属规则，不把翻牌布局固定到所有游戏。不要修改输入材料，也不要开发新游戏。现有输入足够时直接完成；缺少关键信息时明确指出。使用 Codex 内置 skill-creator 辅助创建。\n完成标准：检查 Skill 的 name、description、文件引用和内容依据；最终说明提炼了哪些可复用内容、哪些只适用于翻牌，以及尚未通过新任务验证的部分。\n</pre><button type=\"button\" data-creation-copy>复制完整 Prompt</button><span role=\"status\"></span></div></div></details><button type=\"button\" data-creation-copy=\"creator\">复制完整 Prompt</button><span role=\"status\"></span></div></div></div></div>",
+      "steps": [
+        "官方说明与完整请求"
+      ],
+      "script": [
+        "【操作提示｜完整口播与逐段动作见讲述页 demo-creator；按当前画面定位执行。】"
+      ],
+      "refs": [
+        {
+          "kind": "read",
+          "group": "",
+          "text": "原文出处",
+          "url": "https://learn.chatgpt.com/docs/build-skills#create-a-skill"
+        }
+      ],
+      "teaching": [],
+      "source": "index.html#create-creator",
+      "seconds": 30
+    },
+    {
+      "id": "create-reference",
+      "narration_source": {
+        "file": "screen-plan.js",
+        "screen": "demo-reference"
+      },
+      "segment": "生成方式",
+      "label": "补充 Reference 后生成",
+      "title": "补充 Reference 后生成",
+      "lead": "同一份材料，再提供参考文件并说明采用范围",
+      "html": "<div class=\"creation-method\"><figure class=\"creation-source\"><div class=\"p-page\"><div class=\"p-page-bar\"><i></i><i></i><i></i>Agent Skills · 综合已有项目资料</div><a class=\"creation-capture\" href=\"external/creation-reference-context.png\" target=\"_blank\" rel=\"noopener\" aria-label=\"放大原文截图\"><img src=\"external/creation-reference-context.png\" alt=\"Agent Skills · 综合已有项目资料：保留上下文的原页截图\"><svg viewBox=\"0 0 1152 452\" aria-hidden=\"true\"><rect x=\"199\" y=\"386\" width=\"934\" height=\"43\"/></svg></a></div><figcaption>留意：资料要贴合具体项目</figcaption></figure><div class=\"creation-practice\"><div class=\"creation-flow\"><div class=\"creation-materials\"><span class=\"creation-eyebrow\">同一份作品材料</span><div class=\"creation-paper p-box\" data-role=\"us\"><b>对话 · 源码 · 截图</b><span>最终源码 · 成品截图</span></div></div><svg class=\"creation-arrow\" viewBox=\"0 0 72 42\" aria-hidden=\"true\"><path d=\"M5 23 Q29 17 61 21 M49 9 Q57 15 64 21 Q56 26 49 34\"/></svg><div class=\"creation-transform\"><span class=\"creation-eyebrow\">补充参考</span><strong>材料 + Reference</strong><p>指定借鉴原则与不适用范围</p></div><svg class=\"creation-arrow\" viewBox=\"0 0 72 42\" aria-hidden=\"true\"><path d=\"M5 23 Q29 17 61 21 M49 9 Q57 15 64 21 Q56 26 49 34\"/></svg><div class=\"creation-output\"><span class=\"creation-eyebrow\">生成后审阅</span><b>Skill 初稿</b><code>SKILL.md</code><span>正文 + 配套文件</span></div></div><div class=\"creation-bottom\"><span>保护场地 · 按玩法安排 HUD · 排除 3D 专属要求</span><div class=\"creation-actions\"><details class=\"p-pop\"><summary>查看完整 Prompt</summary><div class=\"p-pop-body\"><div class=\"p-pop-head\"><span>完整生成 Prompt</span><button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div><div class=\"creation-prompt\" id=\"creation-prompt-reference\"><pre>目标：根据这款翻牌游戏的实际材料，创建一个以后开发其他小游戏时可以复用的紫色界面 Skill。\n上下文：source-game/ 是已完成的源码，source-game/docs/ 有截图，source-dialogue.md 是原始开发对话。reference/game-ui-frontend.md 是补充的界面参考。\n约束：先读取材料，再提炼实际存在的视觉规则和开发要求。输出到当前项目 purple-game-ui/，包含 SKILL.md 及确有必要的配套文件；区分可复用视觉与翻牌专属规则，不把翻牌布局固定到所有游戏。不要修改输入材料，也不要开发新游戏。现有输入足够时直接完成；缺少关键信息时明确指出。本次不调用 skill-creator。阅读补充参考，借鉴保护游戏场地、按玩法组织 HUD 和渐进展示信息的原则，不照搬 3D 专属要求。\n完成标准：检查 Skill 的 name、description、文件引用和内容依据；最终说明提炼了哪些可复用内容、哪些只适用于翻牌，以及尚未通过新任务验证的部分。说明采用了哪些参考建议，哪些不适用。\n</pre><button type=\"button\" data-creation-copy>复制完整 Prompt</button><span role=\"status\"></span></div></div></details><button type=\"button\" data-creation-copy=\"reference\">复制完整 Prompt</button><span role=\"status\"></span></div></div></div></div>",
+      "steps": [
+        "官方说明与完整请求"
+      ],
+      "script": [
+        "【操作提示｜完整口播与逐段动作见讲述页 demo-reference；按当前画面定位执行。】"
+      ],
+      "refs": [
+        {
+          "kind": "read",
+          "group": "",
+          "text": "原文出处",
+          "url": "https://agentskills.io/skill-creation/best-practices#start-from-real-expertise"
+        }
+      ],
+      "teaching": [],
+      "source": "index.html#create-reference",
+      "seconds": 30
+    },
+    {
+      "id": "skill-inputs",
+      "narration_source": {
+        "file": "screen-plan.js",
+        "screen": "review-defaults"
+      },
+      "segment": "简短对比",
+      "label": "三份实际产物",
+      "title": "安装并调用 Skill，看看游戏效果",
+      "lead": "同一开发请求 · 各自只带对应 Skill · 比较实际结果",
+      "html": "<div class=\"creation-compare\"><div class=\"comparison-cards\"><figure><figcaption>方案一</figcaption><a href=\"evidence/creation-comparison/direct/index.html\" target=\"_blank\" rel=\"noopener\"><img src=\"evidence/creation-comparison/direct/playing.png\" alt=\"方案一实际游戏\"></a><strong>方案一的历史结果</strong></figure><figure><figcaption>方案二</figcaption><a href=\"evidence/creation-comparison/creator/index.html\" target=\"_blank\" rel=\"noopener\"><img src=\"evidence/creation-comparison/creator/playing.png\" alt=\"方案二实际游戏\"></a><strong>用 skill-creator 辅助创建</strong></figure><figure><figcaption>方案三</figcaption><a href=\"evidence/creation-comparison/reference/index.html\" target=\"_blank\" rel=\"noopener\"><img src=\"evidence/creation-comparison/reference/playing.png\" alt=\"方案三实际游戏\"></a><strong>方案三的修改前结果</strong></figure></div><p class=\"comparison-boundary\">提前准备的游戏结果 · 现场任务仍在生成</p><nav class=\"creation-actions\"><a href=\"evidence/creation-comparison/index.html#skills\" target=\"_blank\" rel=\"noopener\">三种方案的游戏效果 ↗</a><details class=\"p-pop\"><summary>共用开发 Prompt</summary><div class=\"p-pop-body\"><div class=\"p-pop-head\"><span>共用开发 Prompt</span><button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div><div class=\"creation-prompt\" id=\"creation-prompt-comparison\"><pre>使用当前工作区 .agents/skills/purple-game-ui/SKILL.md，从空项目做一个「60 秒躲避与收集」网页小游戏，沿用 Skill 的紫色界面风格。玩家用方向键或 WASD 移动，躲避障碍，收集物品得分；碰撞扣生命，时间到或生命耗尽时结算，可以重开。只做单一难度，界面不提供难度选择。游玩时界面只显示时间、得分和生命，重开按钮只出现在结算画面。用原生 HTML/CSS/JS，入口放在根目录 index.html。保持 Skill 文件不变，完成后告诉我用了哪些 Skill 文件。浏览器试玩留给我。\n</pre><button type=\"button\" data-creation-copy>复制完整 Prompt</button><span role=\"status\"></span></div></div></details><button type=\"button\" data-creation-copy=\"comparison\">复制开发请求</button><span role=\"status\"></span></nav></div>",
+      "steps": [
+        "三份实际产物",
+        "同题游戏结果"
       ],
       "script": [
         "【操作提示｜停在第 1 页第 1 步，指翻牌游戏截图里的数据栏和紫色卡片】\n\n上一节学完内容组织后，我们用使用时机、具体要求、资料入口和核对方法，重新审视了第一版风格指导。现在继续回答一个问题：这些要求放进 Skill 后，换一种玩法，实际能保留什么？这一节，我们从这款紫色翻牌游戏出发，请 AI 新写两份 Skill，再用它们开发躲避游戏，看哪些设计真正被带了过去。后面还会根据游戏的实际体验，修改其中一份。\n\n我们想把翻牌游戏的紫色风格用到躲避游戏里。拿数据栏来说，可以让 AI 沿用整页的横排布局，也可以把数据卡单独交给它，让它按新玩法决定摆在哪儿。",
@@ -25,129 +137,193 @@ window.lesson = {
     },
     {
       "id": "skill-files",
-      "segment": "生成与审阅",
-      "label": "正文与配套文件",
-      "title": "沿正文找到开发要用的文件",
-      "lead": "正文交代起点，也交代配套文件怎样使用",
-      "html": "<div class=\"skill-slide\"><div class=\"skill-files\"><div class=\"skill-route\"><h3>整页模板组</h3><div class=\"p-box\"><b>SKILL.md</b><p>从整页模板起步，保留布局</p></div><div class=\"skill-connector\">↓ 作为项目起点</div><div class=\"p-box\" data-role=\"context\"><code>templates/index.html</code><p>页面结构与配套交互</p></div></div><div class=\"skill-route\" data-reveal=\"1\"><h3>按需组件组</h3><div class=\"p-box\"><b>SKILL.md</b><p>正文给布局规则，再取用部件</p></div><div class=\"skill-resources\"><div><div class=\"skill-connector\">↓ 查阅具体方案</div><div class=\"p-box\" data-role=\"context\"><code>references/layout.md</code><p>玩法、布局形式与类名</p></div></div><div data-reveal=\"2\"><div class=\"skill-connector\">↓ 采用实现</div><div class=\"p-box\" data-role=\"context\"><code>stat-cards.css</code><p>可直接用的数据卡样式</p></div></div></div></div></div><nav class=\"skill-evidence\" aria-label=\"本页材料\"><a href=\"evidence/index.html#layout-template-skill\" target=\"_blank\" rel=\"noopener\">正文与模板 ↗</a><a href=\"evidence/index.html#layout-component-reference\" target=\"_blank\" rel=\"noopener\">布局 Reference ↗</a><a href=\"evidence/index.html#layout-component-resource\" target=\"_blank\" rel=\"noopener\">数据卡 CSS ↗</a></nav></div>",
+      "narration_source": {
+        "file": "screen-plan.js",
+        "screen": "size-problem"
+      },
+      "segment": "方案一迭代",
+      "label": "方案一：风格保留了，场地却太小",
+      "title": "方案一：风格保留了，场地却太小",
+      "lead": "",
+      "html": "<div class=\"size-case\"><div class=\"size-problem-layout\"><figure class=\"size-shot\"><img src=\"evidence/creation-comparison/direct/playing.png\" alt=\"方案一实际游戏截图：大页面中场地只占很小一块\"><svg viewBox=\"0 0 1280 920\" aria-hidden=\"true\"><rect x=\"417\" y=\"208\" width=\"115\" height=\"90\" rx=\"8\"/><path d=\"M535 250 H770\"/><text x=\"780\" y=\"260\">场地挤在这里</text></svg></figure><section><h3>先说清楚问题</h3><p>整体紫色风格已带过来</p><p>需要操作的场地却太小</p><strong>为什么会这样？</strong><nav class=\"size-nav\"><a href=\"evidence/creation-comparison/direct/index.html\" target=\"_blank\" rel=\"noopener\">打开游戏 ↗</a><a href=\"evidence/creation-comparison/direct/playing.png\" target=\"_blank\" rel=\"noopener\">查看完整截图 ↗</a></nav></section></div></div>",
       "steps": [
-        "整页模板",
-        "布局 Reference",
-        "可用资源"
+        "方案一：风格保留了，场地却太小"
       ],
       "script": [
-        "【操作提示｜先到 PPT 第 2 页第 1 步，点“正文与模板”；在材料页扫过 name 和 description，再定位布局原则】\n\n生成以后，怎么知道这两份 Skill 会让 AI 从哪儿起步？名称和描述说明它适合什么任务，具体怎么做得看正文。整页组的正文把「默认保留布局」写成了「只允许动场地」，约束比我们交代的更严。\n\n【操作提示｜在同一材料页向下滚动到“快速上手”，再到“templates/index.html · 页面结构摘录”，指标题、数据栏、场地和浮层】\n\n整页组还附了一份完整页面，数据栏已经排在场地上方。完整页面可以作为案例，给 AI 看成品长什么样。这里正文明确要求从这份页面开始改，所以它起的是模板的作用。",
-        "【操作提示｜回 PPT 第 2 页展开第 2 步，点“布局 Reference”；先指 SKILL.md 的布局规则，再下移到 Reference 的实时动作一行】\n\n生成组件 Skill 时，我们主动给了一条建议：玩家需要持续观察场地和读数，就让读数靠近场地，具体位置按玩法安排。现在看它怎样落实这条要求。\n\n正文把实时游戏的布局展开成左右侧栏或底部横条，并指向布局 Reference。Reference 又列出了实时动作游戏可以用的侧栏形式和对应类名。这样，下一次开发既有选择方向，也有具体方案可查。",
-        "【操作提示｜回 PPT 第 2 页展开第 3 步，点“数据卡 CSS”，指侧栏单列规则】\n\n选了侧栏，就有现成的 CSS 可以用。正文和 Reference 给出布局建议，CSS 提供选好以后能直接用的样式。\n\n【操作提示｜回本步讲述页，停在共用开发 Prompt，指 Skill 路径与三项 HUD】\n\n为了看这两份 Skill 用起来有什么区别，我们让 AI 分别用它们做同一个任务。先新建两个没有游戏代码的项目，把刚生成的两份完整 Skill 分别复制到各自项目的 .agents/skills/purple-game-ui 目录，正文和配套资源一起带过去。两份 Skill 名字相同，内容不同，所以要分开放。\n\n这就是请求里说的“从空项目开始”：起点只有本组 Skill，还没有躲避游戏。两次都做六十秒躲避游戏，玩家移动、躲障碍、收集得分，碰撞扣生命，时间到或生命耗尽时结算，还可以重开。游玩时显示时间、得分和生命；Prompt 里的 HUD 指的就是这些游戏读数。请求没有指定这三项的位置，正好可以看两份 Skill 各自给了什么布局依据。\n\n【操作提示｜展示本步“实验上下文与 Codex 操作”，确认两个工作区各自的 Skill；从已保存请求切到“本次历史整页游戏”和“本次历史组件游戏”，再返回第 3 页比较截图】\n\n生成 Skill 的会话到这里结束。实际开发使用新的会话，请求直接指定项目内的 Skill 路径，并要求保留 Skill 文件不变。每组只带自己的 Skill，不再附翻牌源码、开发对话，也不带生成 Skill 时的会话历史。这样才能看出这些文件本身给开发提供了什么。"
+        "【操作提示｜讲述页：本页口播读取 screen-plan.js 中对应的讲述段，使用页面上的“讲解全文”入口】"
       ],
       "teaching": [],
       "source": "index.html#skill-files",
-      "seconds": 90
+      "seconds": 30
     },
     {
-      "id": "skill-games",
-      "segment": "开发与试玩",
-      "label": "同任务的两款游戏",
-      "title": "同样三项数据，两种场地布局",
-      "lead": "任务规定时间、得分、生命；截图均取开局约 3 秒",
-      "html": "<div class=\"skill-slide\"><div class=\"skill-games\"><figure><figcaption><b>整页模板组</b>　场地上方横排（截图上部）</figcaption><a href=\"evidence/layout-template.png\" target=\"_blank\" rel=\"noopener\"><img src=\"evidence/layout-template.png\" alt=\"整页组：时间、得分和生命横排在场地上方\"></a></figure><figure><figcaption><b>按需组件组</b>　场地右侧竖排（截图上部）</figcaption><a href=\"evidence/layout-components.png\" target=\"_blank\" rel=\"noopener\"><img src=\"evidence/layout-components.png\" alt=\"组件组：时间、得分和生命竖排在场地右侧\"></a></figure></div><div class=\"skill-trace\" data-reveal=\"1\"><span>正文与 Reference：布局建议</span><span>读取记录 + 成品侧栏类名</span><b>核对查阅与实际采用</b></div><nav class=\"skill-evidence\" aria-label=\"本页材料\"><a href=\"evidence/index.html#layout-run-hud\" target=\"_blank\" rel=\"noopener\">读取记录与侧栏类名 ↗</a></nav></div>",
+      "id": "size-request",
+      "narration_source": {
+        "file": "screen-plan.js",
+        "screen": "size-diagnosis"
+      },
+      "segment": "方案一迭代",
+      "label": "把问题交给 AI，先找主要原因",
+      "title": "把问题交给 AI，先找主要原因",
+      "lead": "",
+      "html": "<div class=\"size-case\"><nav class=\"size-progress\" aria-label=\"方案一迭代步骤\"><a href=\"index.html?mode=slides#size-request\" aria-current=\"step\"><span>1</span>让 AI 找原因</a><i aria-hidden=\"true\">→</i><a href=\"index.html?mode=slides#size-cause\"><span>2</span>核对原因</a><i aria-hidden=\"true\">→</i><a href=\"index.html?mode=slides#size-revision\"><span>3</span>确定改法</a><i aria-hidden=\"true\">→</i><a href=\"index.html?mode=slides#size-check\"><span>4</span>重新验证</a></nav><div class=\"size-focus\"><p class=\"size-premise\">场地太小：结合截图、代码、Skill 和生成日志排查</p><div class=\"size-contrast\"><section><span class=\"size-label\">检查本次实现</span><h3>代码哪里出了错？</h3></section><span class=\"size-join\">＋</span><section><span class=\"size-label\">追查上游指导</span><h3>Skill 是否引导错了？</h3></section></div><p class=\"size-takeaway\">先定位主要原因，再决定改哪里</p><nav class=\"size-nav\"><details class=\"p-pop\"><summary>查看排查 Prompt · 可复制</summary><div class=\"p-pop-body\"><div class=\"p-pop-head\"><span>查看排查 Prompt · 可复制</span><button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div><div class=\"creation-prompt\" id=\"creation-prompt-size-diagnosis\"><pre>目标：\n这款游戏的场地显示异常。请先分析主要问题出在哪里、为什么会出现，再提出修改建议。\n\n上下文：\n我们希望把已有小游戏的紫色视觉风格整理成 Skill，供后续不同玩法的小游戏复用，场地布局随玩法调整。这款游戏是使用该 Skill 生成的。\n异常截图已附上：&lt;实验目录&gt;/dodge-compare-layout-template-game/browser-review/playing.png\n完整游戏源码：&lt;实验目录&gt;/dodge-compare-layout-template-game/workspace/\n当时使用的完整 Skill：&lt;实验目录&gt;/dodge-compare-layout-template-game/workspace/.agents/skills/purple-game-ui/\n原始开发请求：&lt;实验目录&gt;/dodge-compare-layout-template-game/prompt.txt\n生成过程记录：&lt;实验目录&gt;/dodge-compare-layout-template-game/logs/events.jsonl\n\n约束：\n请独立检查材料，不预设问题属于哪一方。不要停留在能消除当前画面异常的代码修补：结合复用目标、Skill 的指导与模板、AI 的实际使用过程，判断主要问题及其依据；区分直接触发异常的原因和造成这类问题的上游原因，也不要为了寻找上游原因强行归因。\n本轮只分析，不修改游戏或 Skill，不重新生成游戏，不调用其他 agent。无法确认的地方明确说明。\n\n完成标准：\n先说明主要问题在哪里、为什么这样判断，用具体文件位置和生成记录支持结论，并区分已证实的事实与推断。\n再提出与主要原因对应的修改建议：哪些应在游戏实现中解决，哪些需要调整 Skill，优先改什么、为什么。我们的后续重点是迭代 Skill，并在新对话里用它重新生成游戏，因此 Skill 建议应适用于不同小游戏，避免只针对当前游戏打补丁；如无须改 Skill，也请说明。\n最后给出验证方法，检查新生成的游戏是否解决问题，以及 Skill 原有能力是否保留。\n</pre><button type=\"button\" data-creation-copy>复制完整 Prompt</button><span role=\"status\"></span></div></div></details><a href=\"http://127.0.0.1:4397/inspect/?topic=size-diagnosis&position=0\" target=\"_blank\" rel=\"noopener\">打开排查日志 ↗</a></nav></div></div>",
       "steps": [
-        "同状态画面",
-        "回查布局依据"
+        "把问题交给 AI，先找主要原因"
       ],
       "script": [
-        "【操作提示｜打开第 3 页并排截图，先指两边的时间、得分和生命，再指数据栏位置】\n\n两款游戏都做出了任务要求的三项读数。整页组把模板里的四格改成三格，保留上方横排。组件组把同样三项竖着放在场地右侧。",
-        "【操作提示｜第 3 页展开第 2 步，打开“读取记录与侧栏类名”的 Inspect 入口，先指读取命令，再点“下一条记录”看原始补丁中的类名】\n\n组件组的日志里有读取布局 Reference 的命令，成品也用了 Skill 里的侧栏样式。显示哪三项是这次开发任务定的；布局方向则来自我们生成 Skill 时给的要求，经过正文和 Reference 展开，再配上现成样式。这次开发选用了右侧竖排，和我们刚才看到的指导与资源对应起来了。"
+        "【操作提示｜讲述页：本页口播读取 screen-plan.js 中对应的讲述段，使用页面上的“讲解全文”入口】"
       ],
       "teaching": [],
-      "source": "index.html#skill-games",
-      "seconds": 60
+      "source": "index.html#size-request",
+      "seconds": 30
     },
     {
-      "id": "skill-reuse",
-      "segment": "开发与试玩",
-      "label": "实际复用的交互",
-      "title": "结算时看见实际复用了什么",
-      "lead": "回到同次运行的画面与代码，核对这次带进项目的内容",
-      "html": "<div class=\"skill-slide\"><div class=\"skill-reuse\"><div data-reveal=\"1\"><h3>整页模板组：页面与已有交互</h3><div class=\"skill-result-pair\"><div class=\"p-box\"><b>第一局结算</b><p>得分 10 · 切到静音</p></div><span>刷新<br>再玩 →</span><div class=\"p-box\"><b>第二局结算</b><p>得分 0 · 最佳 10</p><p>仍为静音</p></div></div><p class=\"skill-proof\">模板的保存逻辑接到了新游戏</p><div class=\"skill-local-links\"><a href=\"evidence/layout-first-result.jpg\" target=\"_blank\" rel=\"noopener\">第一局 ↗</a><a href=\"evidence/layout-second-result.jpg\" target=\"_blank\" rel=\"noopener\">刷新后 ↗</a><a href=\"evidence/index.html#layout-run-storage\" target=\"_blank\" rel=\"noopener\">模板与项目代码 ↗</a></div></div><div><h3>按需组件组：同一个浮层，两次使用</h3><div class=\"p-box skill-overlay\"><code>ResultOverlay</code><p>同一个实例，各自提供内容和按钮</p></div><div class=\"skill-result-pair\"><div class=\"p-box\"><b>开场</b><p>规则 + 开始按钮</p></div><div class=\"p-box\"><b>结算</b><p>成绩 + 重开按钮</p></div></div><div class=\"skill-local-links\"><a href=\"evidence/layout-components-opening.jpg\" target=\"_blank\" rel=\"noopener\">开场 ↗</a><a href=\"evidence/layout-components-ending.jpg\" target=\"_blank\" rel=\"noopener\">结算 ↗</a><a href=\"evidence/index.html#layout-run-overlay\" target=\"_blank\" rel=\"noopener\">两处调用 ↗</a></div></div></div><div class=\"skill-takeaway\" data-reveal=\"2\">以组件组为基础，保留布局选择，再补事件音效</div><nav class=\"skill-evidence\" aria-label=\"本页材料\"></nav></div>",
+      "id": "size-cause",
+      "narration_source": {
+        "file": "screen-plan.js",
+        "screen": "size-diagnosis-source"
+      },
+      "segment": "方案一迭代",
+      "label": "为什么这次要改 Skill",
+      "title": "为什么这次要改 Skill",
+      "lead": "",
+      "html": "<div class=\"size-case\"><nav class=\"size-progress\" aria-label=\"方案一迭代步骤\"><a href=\"index.html?mode=slides#size-request\"><span>1</span>让 AI 找原因</a><i aria-hidden=\"true\">→</i><a href=\"index.html?mode=slides#size-cause\" aria-current=\"step\"><span>2</span>核对原因</a><i aria-hidden=\"true\">→</i><a href=\"index.html?mode=slides#size-revision\"><span>3</span>确定改法</a><i aria-hidden=\"true\">→</i><a href=\"index.html?mode=slides#size-check\"><span>4</span>重新验证</a></nav><div class=\"size-focus\"><div class=\"size-contrast\"><section><span class=\"size-label\">Skill 的通用要求</span><h3>所有玩法保留网格容器</h3><p>要求保留 <code>.board-wrap + .board</code></p></section><span class=\"size-join\" aria-hidden=\"true\"><svg viewBox=\"0 0 60 36\"><path d=\"M4 20 Q27 15 53 18 M43 7 L54 18 L42 29\"/></svg></span><section><span class=\"size-label\">本次生成的实现</span><h3>画布被挤进网格一列</h3><p><code>.board</code> 的四列网格样式<br>覆盖了本次新增的场地样式</p></section></div><p class=\"size-takeaway\">AI 的分析要回到实际材料中核对</p><nav class=\"size-nav\"><a href=\"evidence/creation-comparison/direct-skill.html#stage-contract\" target=\"_blank\" rel=\"noopener\">原 Skill 场地要求 ↗</a><a href=\"http://127.0.0.1:4397/inspect/?topic=size-diagnosis&position=1\" target=\"_blank\" rel=\"noopener\">排查回复 · 逐处查看 ↗</a><a href=\"evidence/creation-comparison/direct/styles.css\" target=\"_blank\" rel=\"noopener\">游戏样式 ↗</a></nav></div></div>",
       "steps": [
-        "开场与结算",
-        "刷新复验",
-        "回看两份 Skill"
+        "为什么这次要改 Skill"
       ],
       "script": [
-        "【操作提示｜进入第 4 页第 1 步，点“开场”，停在规则和开始按钮】\n\n数据栏说的是页面怎么排。再看交互，组件组一开始用浮层放游戏规则和开始按钮。\n\n【操作提示｜回到保留的 PPT，点“结算”，停在成绩和重开按钮】\n\n玩到结算，又出现了样式相同的浮层，内容换成了成绩和重开按钮。\n\n【操作提示｜回到保留的 PPT，点“两处调用”，指同一个实例】\n\n代码里用的是同一个浮层。两处各传入自己的内容和按钮，一份实现就用在了开场和结算。Skill 提供的是浮层能力，这次开发再决定用它展示规则还是成绩。",
-        "【操作提示｜回第 4 页展开第 2 步，点“第一局”，指 10 分和静音】\n\n整页组的模板原来就会保存成绩和音效设置。换成躲避游戏以后还会保存吗？复测的第一局得了十分，我在结算时切到静音，再刷新玩第二局。\n\n【操作提示｜回 PPT 点“刷新后”，指 0 分、历史最佳 10 和静音】\n\n第二局没得分，历史最佳还是十分，音效也保持静音。\n\n【操作提示｜回 PPT 点“模板与项目代码”，对照模板目录、复制记录和最终保存代码】\n\n项目代码里，AI 沿用了模板的保存逻辑，把纪录改成躲避游戏的最高分，音效开关也接到了结算里。",
-        "【操作提示｜回第 4 页第 3 步，保留左右两组复用结果】\n\n这次两份 Skill 给了 AI 不同的起点。整页模板带来了页面和已经接好的交互，组件包把我们提出的布局建议写成规则，配上能单独使用的部件。审阅时，既要看正文怎么组织文件，也要用成品和记录核对实际采用。\n\n我们不必在两份 Skill 里选一个赢家。我这次想继续用组件组，但希望它也有整页组的声音反馈。这个选择就给出了一个具体的迭代方向：保留哪些体验，再补哪项能力。"
+        "【操作提示｜讲述页：本页口播读取 screen-plan.js 中对应的讲述段，使用页面上的“讲解全文”入口】"
       ],
       "teaching": [],
-      "source": "index.html#skill-reuse",
-      "seconds": 90
+      "source": "index.html#size-cause",
+      "seconds": 30
+    },
+    {
+      "id": "size-revision",
+      "narration_source": {
+        "file": "screen-plan.js",
+        "screen": "size-change"
+      },
+      "segment": "方案一迭代",
+      "label": "保留视觉风格，布局随玩法调整",
+      "title": "保留视觉风格，布局随玩法调整",
+      "lead": "",
+      "html": "<div class=\"size-case\"><nav class=\"size-progress\" aria-label=\"方案一迭代步骤\"><a href=\"index.html?mode=slides#size-request\"><span>1</span>让 AI 找原因</a><i aria-hidden=\"true\">→</i><a href=\"index.html?mode=slides#size-cause\"><span>2</span>核对原因</a><i aria-hidden=\"true\">→</i><a href=\"index.html?mode=slides#size-revision\" aria-current=\"step\"><span>3</span>确定改法</a><i aria-hidden=\"true\">→</i><a href=\"index.html?mode=slides#size-check\"><span>4</span>重新验证</a></nav><div class=\"size-focus\"><div class=\"size-contrast\"><section><span class=\"size-label\">原来的要求</span><h3>所有玩法沿用同一容器</h3><p>躲避游戏也要沿用<br>翻牌游戏的 <code>.board</code></p></section><span class=\"size-join\" aria-hidden=\"true\"><svg viewBox=\"0 0 60 36\"><path d=\"M4 20 Q27 15 53 18 M43 7 L54 18 L42 29\"/></svg></span><section class=\"size-choice p-box\"><span class=\"size-label\">修改后的要求</span><h3>按玩法选择场地布局</h3><p>网格玩法用 <code>.board</code><br>其他玩法用 <code>.stage</code>，尺寸按需确定</p></section></div><p class=\"size-takeaway\">修改 Skill，要考虑后续复用的场景</p><nav class=\"size-nav\"><details class=\"p-pop\"><summary>查看修改 Prompt · 可复制</summary><div class=\"p-pop-body\"><div class=\"p-pop-head\"><span>查看修改 Prompt · 可复制</span><button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div><div class=\"creation-prompt\" id=\"creation-prompt-size-change\"><pre>目标：\n根据刚才的排查结果，修改 Skill，减少不同玩法复用时的布局问题。\n\n上下文：\n我们要复用的是紫色视觉风格，布局应随玩法调整。请重点解决 Skill 把网格场地当作通用结构的问题，并同步检查正文、模板和参考资料。\n原版已复制并提交为可回退基线：6a0163c8258b2b535a8e12e6794e9cd6aeb7738e。\n本轮唯一可修改的 Skill 副本目录：&lt;实验目录&gt;/iterate-scheme1-minimax-20261119-231343/workspace/purple-game-ui\n请修改这个副本，不要修改之前排查的原始实验目录。\n\n约束：\n只修改上述 Skill 副本，不修改已有游戏。不要把当前游戏的宽度、比例写成通用要求，也不要为这一个问题增加不必要的规则。保留原有网格玩法和其他无关能力。不调用其他 agent，不修改 Git 配置，不执行提交。\n\n完成标准：\n完成修改后，说明改了什么、为什么能减少同类问题，以及做了哪些检查。后续我们会另开对话，用原请求重新生成游戏，再验证其他玩法；本轮先不生成游戏。\n</pre><button type=\"button\" data-creation-copy>复制完整 Prompt</button><span role=\"status\"></span></div></div></details><a href=\"evidence/size-iteration/revised-skill.html#stage-contract\" target=\"_blank\" rel=\"noopener\">修订后的 Skill ↗</a><a href=\"evidence/size-iteration/diff.html#L35\" target=\"_blank\" rel=\"noopener\">查看改动 ↗</a><a href=\"http://127.0.0.1:4397/inspect/?topic=size-diagnosis&position=3\" target=\"_blank\" rel=\"noopener\">AI 五条建议 ↗</a></nav></div></div>",
+      "steps": [
+        "保留视觉风格，布局随玩法调整"
+      ],
+      "script": [
+        "【操作提示｜讲述页：本页口播读取 screen-plan.js 中对应的讲述段，使用页面上的“讲解全文”入口】"
+      ],
+      "teaching": [],
+      "source": "index.html#size-revision",
+      "seconds": 30
+    },
+    {
+      "id": "size-check",
+      "narration_source": {
+        "file": "screen-plan.js",
+        "screen": "size-revalidate"
+      },
+      "segment": "方案一迭代",
+      "label": "用新对话验证修改后的 Skill",
+      "title": "用新对话验证修改后的 Skill",
+      "lead": "",
+      "html": "<div class=\"size-case\"><nav class=\"size-progress\" aria-label=\"方案一迭代步骤\"><a href=\"index.html?mode=slides#size-request\"><span>1</span>让 AI 找原因</a><i aria-hidden=\"true\">→</i><a href=\"index.html?mode=slides#size-cause\"><span>2</span>核对原因</a><i aria-hidden=\"true\">→</i><a href=\"index.html?mode=slides#size-revision\"><span>3</span>确定改法</a><i aria-hidden=\"true\">→</i><a href=\"index.html?mode=slides#size-check\" aria-current=\"step\"><span>4</span>重新验证</a></nav><div class=\"size-focus\"><div class=\"size-contrast\"><section><span class=\"size-label\">验证条件</span><h3>相同需求，重新生成</h3><p>新对话只调用修订后的 Skill<br>不带入上一轮修复讨论</p></section><span class=\"size-join\" aria-hidden=\"true\"><svg viewBox=\"0 0 60 36\"><path d=\"M4 20 Q27 15 53 18 M43 7 L54 18 L42 29\"/></svg></span><section><span class=\"size-label\">本轮结果</span><h3>场地恢复正常</h3><p>同一窗口下，场地由约 99 × 74<br>变为 760 × 475（16∶10）</p></section></div><p class=\"size-takeaway\">Skill 改得有没有用，要通过实际调用来验证</p><nav class=\"size-nav\"><details class=\"p-pop\"><summary>查看开发 Prompt · 可复制</summary><div class=\"p-pop-body\"><div class=\"p-pop-head\"><span>查看开发 Prompt · 可复制</span><button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div><div class=\"creation-prompt\" id=\"creation-prompt-size-validation\"><pre>使用当前工作区 .agents/skills/purple-game-ui/SKILL.md，从空项目做一个「60 秒躲避与收集」网页小游戏，沿用 Skill 的紫色界面风格。玩家用方向键或 WASD 移动，躲避障碍，收集物品得分；碰撞扣生命，时间到或生命耗尽时结算，可以重开。只做单一难度，界面不提供难度选择。游玩时界面只显示时间、得分和生命，重开按钮只出现在结算画面。用原生 HTML/CSS/JS，入口放在根目录 index.html。保持 Skill 文件不变，完成后告诉我用了哪些 Skill 文件。浏览器试玩留给我。\n</pre><button type=\"button\" data-creation-copy>复制完整 Prompt</button><span role=\"status\"></span></div></div></details><a href=\"evidence/creation-comparison/direct/playing.png\" target=\"_blank\" rel=\"noopener\">修改前画面 ↗</a><a href=\"evidence/size-iteration/playing.png\" target=\"_blank\" rel=\"noopener\">修改后画面 ↗</a><a href=\"evidence/size-iteration/game/index.html\" target=\"_blank\" rel=\"noopener\">试玩新游戏 ↗</a><a href=\"http://127.0.0.1:4397/inspect/?topic=size-validation&position=0\" target=\"_blank\" rel=\"noopener\">验证请求 ↗</a><a href=\"evidence/size-iteration/game-styles.html#L472\" target=\"_blank\" rel=\"noopener\">本轮尺寸设置 ↗</a></nav></div></div>",
+      "steps": [
+        "用新对话验证修改后的 Skill"
+      ],
+      "script": [
+        "【操作提示｜讲述页：本页口播读取 screen-plan.js 中对应的讲述段，使用页面上的“讲解全文”入口】"
+      ],
+      "teaching": [],
+      "source": "index.html#size-check",
+      "seconds": 30
     },
     {
       "id": "audio-goal",
+      "narration_source": {
+        "file": "screen-plan.js",
+        "screen": "iteration-criteria"
+      },
       "segment": "音效迭代",
-      "label": "新增与保留",
-      "title": "保留组件的自由，补上事件音效",
-      "lead": "以组件组为基础，先说清这次想改变什么",
-      "html": "<div class=\"skill-slide\"><div class=\"audio-goal\"><figure><img src=\"evidence/layout-components.png\" alt=\"历史组件游戏：场地与侧边读数\"><figcaption>组件组 · 按玩法组织界面</figcaption></figure><div class=\"audio-intent\"><section><h3>继续保留</h3><p>侧边读数 · 开场确认</p><p>限时收集进度 · 可见反馈 · 结算重开</p></section><section class=\"audio-add\"><h3>这次增加</h3><p>收集、受伤时有声音</p><p>玩家可以关闭音效</p></section></div></div><div class=\"skill-takeaway\">检查新增能力，也检查原来想保留的体验</div><nav class=\"skill-evidence\" aria-label=\"本页材料\"><a href=\"evidence/audio-iteration/index.html#versions\" target=\"_blank\" rel=\"noopener\">两组历史游戏 ↗</a><a href=\"evidence/audio-iteration/index.html#origin\" target=\"_blank\" rel=\"noopener\">声音来源 ↗</a></nav></div>",
+      "label": "让后续游戏也带上声音反馈",
+      "title": "让后续游戏也带上声音反馈",
+      "lead": "",
+      "html": "<div class=\"size-case audio-case\"><nav class=\"size-progress\" aria-label=\"声音优化步骤\"><a href=\"index.html?mode=slides#audio-goal\" aria-current=\"step\"><span>1</span>明确目标与请求</a><i aria-hidden=\"true\">→</i><a href=\"index.html?mode=slides#audio-result\"><span>2</span>新对话验证</a></nav><div class=\"size-focus\"><div class=\"size-contrast\"><section><span class=\"size-label\">这次增加</span><h3>收集、受伤有不同声音</h3><p>玩家可以关闭音效</p></section><span class=\"size-join\" aria-hidden=\"true\">＋</span><section class=\"size-choice p-box\"><span class=\"size-label\">继续保留</span><h3>原有布局与玩法</h3><p>开场确认 · 画面反馈<br>限时收集 · 结算重开</p></section></div><p class=\"size-takeaway\">先说清希望增加什么，以及怎样算做好</p><nav class=\"size-nav\"><details class=\"p-pop\"><summary>查看优化 Prompt · 四要素稿</summary><div class=\"p-pop-body\"><div class=\"p-pop-head\"><span>查看优化 Prompt · 四要素稿</span><button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div><p>四要素整理稿，尚未重新执行；本轮结果对应实际发送原文。</p><div class=\"creation-prompt\"><pre>Goal｜目标\n继续优化刚才的 purple-game-ui Skill，让以后用它生成的小游戏也能带上最初紫色翻牌游戏的声音反馈。\n\nContext｜上下文\n沿用这段对话里的 Skill、参考游戏源码 source-game 和开发对话 source-dialogue.md。请检查原游戏的声音实现和用法，提取适合复用的部分。\n\nConstraints｜约束\n只修改当前工作区的 purple-game-ui，补充声音资源和使用说明。不同玩法按事件选择或适配音效，并提供声音开关；保留原有紫色视觉、布局建议、数据卡和结算浮层，不把翻牌玩法的事件和布局设成通用规则。这一步先不生成游戏，之后在新对话里调用验证。\n\nDone when｜完成标准\n声音资源和对应的使用说明已补进 Skill，并检查文件、接口与说明是否一致。说明从原游戏提取了什么、修改了哪些指导，以及检查结果和未验证的部分。\n</pre><button type=\"button\" data-creation-copy>复制完整 Prompt</button><span role=\"status\"></span></div></div></details><details class=\"p-pop\"><summary>本轮实际发送 Prompt</summary><div class=\"p-pop-body\"><div class=\"p-pop-head\"><span>本轮实际发送 Prompt · 可复制</span><button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div><div class=\"creation-prompt\"><pre>我们继续优化刚才这份 purple-game-ui Skill。我希望以后用它做小游戏时，也能带上最初紫色翻牌游戏里的声音反馈，而不只是视觉风格。\n\n请从之前提供的 source-game 和 source-dialogue.md 中检查声音的实现和用法，把适合复用的声音资源及使用说明补进当前 Skill。不同玩法可以按事件选择或适配音效，要能关闭声音；保留原有紫色视觉、布局建议、数据卡和结算浮层，不把翻牌玩法的事件和布局变成所有游戏的固定要求。\n\n只修改当前工作区的 purple-game-ui，完成后说明提取了什么、修改了哪些指导，并检查资源和说明是否对应。先不生成游戏，下一步我们会在新对话里调用它验证。\n</pre><button type=\"button\" data-creation-copy>复制完整 Prompt</button><span role=\"status\"></span></div></div></details><a href=\"http://127.0.0.1:4397/inspect/?topic=audio-reference-author\" target=\"_blank\" rel=\"noopener\">打开优化日志 ↗</a></nav></div></div>",
       "steps": [
-        "新增与保留"
+        "让后续游戏也带上声音反馈"
       ],
       "script": [
-        "【操作提示｜回到 PPT 第 5 页“保留组件的自由，补上事件音效”，先指保留项，再指新增项】\n\n改之前，先说清楚怎样才算满足这次需求。我要加的是收集、受伤时的声音，而且玩家可以关掉它。我要保留的是开场确认、限时收集的进度提示、原来的可见反馈，以及结算后重开。\n\n布局也有一个判断标准：数据栏仍然可以按玩法安排，窄屏时不挡住场地。所以，之后即使侧栏从右边换到左边，只要符合这个要求，就可以接受。我们不是要求新游戏每个像素都和旧游戏一样。\n\n有了这两组检查点，才知道改完要看什么。现在先查声音从哪里来，看看有没有可以单独拿出来的实现。"
+        "【操作提示｜完整口播与逐段动作见讲述页 iteration-criteria；按当前画面定位执行。】"
       ],
       "teaching": [],
       "source": "index.html#audio-goal",
       "seconds": 30
     },
     {
-      "id": "audio-package",
-      "segment": "音效迭代",
-      "label": "指导与资源",
-      "title": "指导说明怎么用，资源提供实现",
-      "lead": "实际修改：正文追加接入要求，组件包新增一个声音文件",
-      "html": "<div class=\"skill-slide\"><div class=\"audio-package\"><section class=\"audio-file\"><header>SKILL.md · 新增指导</header><p>复制、导入声音资源</p><p>收集与受伤各调用一次</p><p>接入静音，保留可见反馈</p><p>复查声音与原有体验</p></section><div class=\"audio-join\">指向<br>→</div><section class=\"audio-file\"><header>purple-sound.js · 独立资源</header><code>sfx.pickup()<br>sfx.hurt()<br>setSoundEnabled(value)</code><p>来自历史整页游戏的声音实现</p><p>不依赖 HUD 的位置</p></section></div><div class=\"audio-unchanged\">原有三个 CSS 与 UI kit 未改　→　还要用新游戏检查结果</div><nav class=\"skill-evidence\" aria-label=\"本页材料\"><a href=\"evidence/audio-iteration/index.html#change\" target=\"_blank\" rel=\"noopener\">实际修改差异 ↗</a><a href=\"evidence/audio-iteration/index.html#generate\" target=\"_blank\" rel=\"noopener\">共同请求与采用记录 ↗</a></nav></div>",
-      "steps": [
-        "审阅修改范围"
-      ],
-      "script": [
-        "【操作提示｜从讲述页打开“声音资源”原文查看页，查看导出与 pickup、hurt；用浏览器后退回讲述页，再点 P3.3-06-01 返回 PPT 第 6 页“指导说明怎么用，资源提供实现”】\n\n正文指到的这份文件，实际就是历史整页游戏采用的声音实现。这次没有重写三个 CSS，也没有重写浮层组件，只追加了正文和一个声音文件。\n\n资源负责提供可以调用的实现，正文负责告诉 AI 什么时候取用、接到哪些事件、怎样检查。两者配在一起，下一次开发才有明确的使用依据。\n\n不过，改动范围小，只能说明我们没有直接重写布局。新的游戏究竟会做成什么样，还得让另一个开发会话实际使用这份 Skill。"
-      ],
-      "teaching": [],
-      "source": "index.html#audio-package",
-      "seconds": 30
-    },
-    {
       "id": "audio-result",
+      "narration_source": {
+        "file": "screen-plan.js",
+        "screen": "audio-regenerate"
+      },
       "segment": "音效迭代",
-      "label": "按结果取舍",
-      "title": "按需求验收，再决定是否保留",
-      "lead": "本轮对照：原组件版与音效修复版，使用同一条开发请求",
-      "html": "<div class=\"skill-slide\"><div class=\"audio-verdict\"><section><h3>新增能力</h3><p>收集、受伤有声音</p><p>静音后停止播放</p><b>本轮已接入</b></section><section><h3>请求明确的保留项</h3><p>开场确认、侧栏布局</p><p>限时进度、视觉反馈、重开</p><b>主要约定体验仍在</b></section><section class=\"audio-remaining\"><h3>继续处理</h3><p>结算显示了文字标签</p><p>若交付触屏操作，须补实现</p><b>回到游戏继续修</b></section></div><div class=\"skill-takeaway\">保留这次 Skill 修改；换玩法后继续实际验证</div><nav class=\"skill-evidence\" aria-label=\"本页材料\"><a href=\"evidence/audio-iteration/before/index.html\" target=\"_blank\" rel=\"noopener\">原组件版 ↗</a><a href=\"evidence/audio-iteration/after/index.html\" target=\"_blank\" rel=\"noopener\">音效修复版 ↗</a><a href=\"evidence/audio-iteration/index.html#compare\" target=\"_blank\" rel=\"noopener\">前后实拍与结果 ↗</a></nav></div>",
+      "label": "新增能力要生效，原有能力也要保留",
+      "title": "新增能力要生效，原有能力也要保留",
+      "lead": "",
+      "html": "<div class=\"size-case audio-case\"><nav class=\"size-progress\" aria-label=\"声音优化步骤\"><a href=\"index.html?mode=slides#audio-goal\"><span>1</span>明确目标与请求</a><i aria-hidden=\"true\">→</i><a href=\"index.html?mode=slides#audio-result\" aria-current=\"step\"><span>2</span>新对话验证</a></nav><div class=\"size-focus\"><div class=\"audio-checks\"><section><h3>新对话调用</h3><p>修改后的 Skill<br>空项目生成游戏</p></section><section><h3>实际试听</h3><p>触发收集、受伤<br>关闭声音后再试</p></section><section><h3>检查原有体验</h3><p>开场、反馈、结算、重开<br>剩余问题继续修</p></section></div><p class=\"size-takeaway\">用真实任务检验新增能力，也检查原有功能</p><nav class=\"size-nav\"><details class=\"p-pop\"><summary>开发请求 · 可复制</summary><div class=\"p-pop-body\"><div class=\"p-pop-head\"><span>开发请求 · 可复制</span><button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div><div class=\"creation-prompt\"><pre>使用当前工作区 .agents/skills/purple-game-ui/SKILL.md，从空项目做一个「60 秒躲避与收集」网页小游戏，沿用 Skill 的紫色界面风格。玩家用方向键或 WASD 移动，躲避障碍，收集物品得分；碰撞扣生命，时间到或生命耗尽时结算，可以重开。只做单一难度，界面不提供难度选择。游玩时游戏读数只显示时间、得分和生命，重开按钮只出现在结算画面。\n\n同时保留这些体验：HUD 在桌面端靠场地侧边，窄屏合理排列且不遮挡场地；进入游戏先显示可确认的规则提醒，确认后开始计时；收集物品显示剩余存在时间的进度条或进度环，9 秒未收集会消失；收集、受伤有可见反馈。保留按钮按压与开场、结算浮层的视觉效果。\n\n用原生 HTML/CSS/JS，入口放在根目录 index.html。保持 Skill 文件不变，完成后告诉我用了哪些 Skill 文件。浏览器试玩留给我。\n</pre><button type=\"button\" data-creation-copy>复制完整 Prompt</button><span role=\"status\"></span></div></div></details><a href=\"evidence/audio-reference-iteration/with-audio/index.html\" target=\"_blank\" rel=\"noopener\">修改版游戏 ↗</a></nav></div></div>",
       "steps": [
-        "对照需求取舍"
+        "新增能力要生效，原有能力也要保留"
       ],
       "script": [
-        "【操作提示｜回到 PPT 第 7 页“按需求验收，再决定是否保留”，逐项对应刚才的试玩与截图】\n\n按这次确定的要求，我会保留这次 Skill 修改：新增指导和声音资源已经接到收集、受伤与静音上；开发请求里明确要求保留的开场、限时收集和主要视觉反馈，也在这次成品里逐项检查到了。结算标签的问题继续在游戏里修；如果交付范围包括触屏操作，再补对应的实现和检查。\n\n这次迭代的起点，是作品里一个具体的体验缺口。我们先查实际用了哪些指导和资源，再决定改哪里；修改后用同一个请求重新生成，检查新增能力，也检查要保留的体验。结果满足要求，就保留；还有缺口，就根据证据继续调整，必要时回退。\n\n这里的一次结果说明，这个声音能力在本例里迁入成功。以后换玩法，仍然要实际使用和验证。下一节我们再把视野打开，看看去哪里寻找值得体验的 Skill，以及怎样持续关注它们的变化。"
+        "【操作提示｜完整口播与逐段动作见讲述页 audio-verdict；按当前画面定位执行。】"
       ],
       "teaching": [],
       "source": "index.html#audio-result",
+      "seconds": 30
+    },
+    {
+      "id": "size-summary",
+      "narration_source": {
+        "file": "screen-plan.js",
+        "screen": "size-summary"
+      },
+      "segment": "优化总结",
+      "label": "一轮 Skill 优化怎么做",
+      "title": "一轮 Skill 优化怎么做",
+      "lead": "",
+      "html": "<div class=\"size-case\"><div class=\"summary-layout\"><div class=\"summary-prep\">\n<section><h3>1　发现问题</h3><p>真实任务中观察，明确预期与差异</p></section><div class=\"summary-down\">↓</div>\n<section><h3>2　核对原因</h3><p>结合日志和产物，回查 Skill 指导</p></section><div class=\"summary-down\">↓</div>\n<section><h3>3　针对性修改</h3><p>筛选建议，修改相关指导与资源</p></section>\n</div><div class=\"size-join\" aria-hidden=\"true\"><svg viewBox=\"0 0 60 36\"><path d=\"M4 20 Q27 15 53 18 M43 7 L54 18 L42 29\"/></svg></div>\n<section class=\"summary-verify p-box\"><h3>4　独立验证</h3><p class=\"summary-condition\">新对话执行同一任务，对照修改前后</p>\n<div class=\"summary-check\"><b>问题有没有解决</b><p>重新执行原任务，检查原来的问题</p></div>\n<div class=\"summary-check\"><b>换个任务是否适用</b><p>用其他同类任务检验复用效果</p></div>\n<div class=\"summary-check\"><b>原有功能是否正常</b><p>检查之前的能力有没有受到影响</p></div>\n<p class=\"summary-return\">发现问题 → 回到原因与修改</p></section></div>\n<p class=\"summary-source\">参考方法，结合本案例归纳：<a href=\"https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices#evaluation-and-iteration\" target=\"_blank\" rel=\"noopener\">Anthropic ↗</a> · <a href=\"https://agentskills.io/skill-creation/evaluating-skills\" target=\"_blank\" rel=\"noopener\">Agent Skills ↗</a></p></div>",
+      "steps": [
+        "一轮 Skill 优化怎么做"
+      ],
+      "script": [
+        "【操作提示｜总结口播见讲述页 size-summary。】"
+      ],
+      "teaching": [],
+      "source": "index.html#size-summary",
       "seconds": 30
     }
   ],
   "segments": [
     {
-      "label": "生成与审阅",
-      "seconds": 150
+      "label": "生成方式",
+      "seconds": 120
     },
     {
-      "label": "开发与试玩",
+      "label": "简短对比",
+      "seconds": 60
+    },
+    {
+      "label": "方案一迭代",
       "seconds": 150
     },
     {
       "label": "音效迭代",
-      "seconds": 90
+      "seconds": 60
+    },
+    {
+      "label": "优化总结",
+      "seconds": 30
     }
   ]
 };

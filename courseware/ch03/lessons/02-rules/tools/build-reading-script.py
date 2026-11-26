@@ -6,6 +6,28 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parents[1]
 
+def validate_sequence_frames(frames):
+    """Catch unsupported surfaces and stale mappings before generating speaker data."""
+    allowed_kinds = {'ppt', 'browser', 'terminal', 'inspect'}
+    for frame in frames:
+        if frame.get('presentation') != 'sequence':
+            continue
+        for number, screen in enumerate(frame['screens'], 1):
+            kinds = [screen.get('kind', 'ppt' if screen.get('ppt') else 'browser')]
+            kinds.extend(beat.get('kind') for beat in screen.get('beats', [])
+                         if 'paragraphs' not in beat)
+            for kind in kinds:
+                if kind not in allowed_kinds:
+                    raise ValueError(f"未知画面类型：{kind}；{frame['id']} 第 {number} 个画面。"
+                                     "请在 screen-plan.json 使用 ppt、browser、terminal 或 inspect。")
+            if 'beats' not in screen:
+                continue
+            used = [index for beat in screen['beats'] for index in beat.get('paragraphs', [])]
+            expected = list(range(len(screen.get('reuse', []))))
+            if sorted(used) != expected:
+                raise ValueError(f"口播映射不完整或重复：{frame['id']} 第 {number} 个画面；"
+                                 f"应覆盖 {expected}，实际 {used}。请同步 screen-plan.json 的 beats。")
+
 def build():
     from markdown_it import MarkdownIt
     evidence = HERE.parents[1] / 'materials/playtest-old5-20261111'
@@ -57,22 +79,24 @@ def build():
                 reading['materials'][key]['label'] = f"PPT {ordinal} · {page['title']}" + (f"（第 {state+1} 步）" if len(page['steps']) > 1 else '')
                 break
             screens.append({'surface':surface, 'action':action,
-                            'materials':route['materials'], 'reuse':indices})
+                            'materials':route['materials'], 'reuse':indices,
+                            **({k:route[k] for k in ('kind', 'beats', 'optional') if k in route})})
         expected = [(step, part) for step, block in enumerate(scripts[scene])
                     for part in range(1, len(block.split('\n\n')))]
         assert coverage == expected, (scene, coverage, expected)
+        design = reading.get('routeDesign', {}).get(scene, {})
         frames.append({'id':frame_id, 'title':title, 'group':group, 'screens':screens,
-                       'reuse':reuse, 'status':'按实际操作映射原文定位、PPT 页与展开状态；口播来自 script.json。'})
-        if number.startswith('3.2.2.'):
-            items.setdefault('3.2.2', []).append({'frame':frame_id, 'title':title, 'screens':screens})
-        else:
-            reading['recordingFrames'].setdefault(number, []).append(frame_id)
+                       'reuse':reuse, 'status':'按实际操作映射原文定位、PPT 页与展开状态；口播来自 script.json。',
+                       **({'presentation':design['presentation']} if design.get('presentation') else {})})
+        reading['recordingFrames'].setdefault(number, []).append(frame_id)
+        if number.startswith('3.2.2.') and not any(f['number'] == number for f in reading.get('plannedFrames', [])):
+            design = reading.get('routeDesign', {}).get(scene, {})
+            items.setdefault('3.2.2', []).append({'frame':frame_id, 'title':title, 'screens':screens, **design})
         scenes.append({'id':scene, 'label':title, 'script':scripts[scene]})
+    planned_coverage = {}
     for frame in reading.get('plannedFrames', []):
-        planned_screens = [screen.copy() for screen in frame['screens']]
         source = frame.get('scriptSource')
         frame['reuse'] = []
-        used = []
         screen_sources = set()
         for screen in frame['screens']:
             assert all(key in reading['materials'] for key in screen['materials'])
@@ -87,19 +111,15 @@ def build():
                 for part in range(1, len(parts)):
                     screen['reuse'].append(len(frame['reuse']))
                     frame['reuse'].append(dict(scene=screen_source, step=step, part=part))
-                    used.append((step, part))
+                    planned_coverage.setdefault(screen_source, []).append((step, part))
                 if screen.get('ppt'):
                     page = ppt_by_id[screen['ppt']['id']]
                     state = screen['ppt']['step']
                     assert state < len(page['steps'])
                     screen['surface'] = f"PPT {page['id']} · {page['title']} · 第 {state+1} 步：{page['steps'][state]}"
-        if source:
-            expected = [(step, part) for step, block in enumerate(scripts[source]) for part in range(1, len(block.split('\n\n')))]
-            assert sorted(used) == expected, (source, used, expected)
-            scenes.append(dict(id=source, label=frame['title'], script=scripts[source]))
-        if not source:
-            screen_sources.update(ref['scene'] for ref in frame.get('previousReuse', []))
-            for preserved_source in sorted(screen_sources):
+        screen_sources.update(ref['scene'] for ref in frame.get('previousReuse', []))
+        for preserved_source in sorted(screen_sources):
+            if not any(scene['id'] == preserved_source for scene in scenes):
                 scenes.append(dict(id=preserved_source, label=frame['title'], script=scripts[preserved_source]))
         number = frame['number']
         existing = reading['recordingFrames'].get(number, [])
@@ -107,18 +127,32 @@ def build():
             if old['id'] in existing:
                 old['historical'] = True
                 old['title'] = '已有口播取材 · ' + old['title']
-                old['boundary'] = '历史取材：原稿及编辑坐标保留。当前录制采用上方三轮讲述线。'
+                old['boundary'] = '历史取材：原稿及编辑坐标保留，不在当前主讲顺序内。'
         reading['recordingFrames'][number] = [frame['id'], *existing]
         items.setdefault(number.rsplit('.', 1)[0], []).append({
             'frame':number, 'title':f"{number} {frame['title']}",
-            'screens':planned_screens, 'recordingFrames':reading['recordingFrames'][number],
+            'screens':[screen.copy() for screen in frame['screens']], 'recordingFrames':reading['recordingFrames'][number],
+            **({'content':frame['explanation'], 'reason':frame.get('boundary', '')} if frame.get('explanation') else {}),
+            **({key:frame[key] for key in ('presentation','arrangement','transition') if key in frame}),
             **({'legacyAliases':frame['legacyAliases']} if frame.get('legacyAliases') else {}),
         })
+    # A source block may move to another teaching unit without changing its
+    # editing/comment coordinates. Validate coverage across all destination frames.
+    complete_sources = {frame['scriptSource'] for frame in reading.get('plannedFrames', []) if frame.get('scriptSource')}
+    for source in complete_sources:
+        used = planned_coverage.get(source, [])
+        expected = [(step, part) for step, block in enumerate(scripts[source])
+                    if step not in reading.get('excludedScriptSteps', {}).get(source, [])
+                    for part in range(1, len(block.split('\n\n')))]
+        assert sorted(used) == expected, (source, used, expected)
     reading['frames'] = [*frames, *reading.get('plannedFrames', [])]
+    validate_sequence_frames(reading['frames'])
     reading['contentDesign'] = {'units':[
         {'title':f"{unit['section']} {unit['group']}", 'section':unit['section'],
          'discussion':f"../../../../docs/outline/ch03-discussion.md#:~:text={quote(unit['section'] + ' ' + unit['group'])}",
          'items':items.get(unit['section'], []),
+         **({'pptPlan':reading['summarySlidePlan']} if unit['section'] == '3.2.2' and reading.get('summarySlidePlan') else {}),
+         **({'pptPlan':reading['useSlidePlan']} if unit['section'] == '3.2.3' and reading.get('useSlidePlan') else {}),
          **({'pptPlan':reading['pluginSlidePlan']} if unit['section'] == '3.2.4' else {})}
         for unit in reading['units']
     ]}

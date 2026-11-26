@@ -1,0 +1,142 @@
+/* ------------------------------------------------------------------ 布局 */
+.pg-shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(14px, 3vw, 28px) clamp(12px, 3vw, 26px) clamp(18px, 3vw, 30px);
+}
+
+.pg-head {
+  margin-bottom: clamp(10px, 2vw, 18px);
+}
+
+.pg-stage {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.pg-hud {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 148px;
+}
+
+.pg-hud__hint {
+  line-height: 2;
+  text-align: center;
+  padding: 0 2px;
+}
+
+.pg-field {
+  grid-column: 2;
+  grid-row: 1;
+  position: relative;
+  border-radius: var(--pg-radius);
+  border: 1px solid var(--pg-border);
+  overflow: hidden;
+  background: rgba(8, 11, 28, 0.55);
+  box-shadow: var(--pg-shadow);
+  line-height: 0;
+}
+
+#canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 960 / 600;
+  outline: none;
+}
+
+#canvas:focus-visible {
+  outline: 3px solid var(--pg-accent-3);
+  outline-offset: -3px;
+}
+
+/* ---------------------------------------------------------------- 反馈层 */
+.pg-fx {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.pg-fx__flash {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  animation: pg-fx-fade 0.42s ease-out forwards;
+}
+
+.pg-fx__flash--good { background: radial-gradient(circle at 50% 50%, rgba(74, 222, 128, 0.34), transparent 70%); }
+.pg-fx__flash--bad { background: radial-gradient(circle at 50% 50%, rgba(251, 113, 133, 0.42), transparent 70%); }
+
+@keyframes pg-fx-fade {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.pg-fx__pop {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-weight: 700;
+  font-size: clamp(13px, 2.2vw, 18px);
+  color: var(--pg-text);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  animation: pg-fx-pop 0.8s ease-out forwards;
+  white-space: nowrap;
+}
+
+.pg-fx__pop--good { color: var(--pg-good); }
+.pg-fx__pop--bad { color: var(--pg-bad); }
+
+@keyframes pg-fx-pop {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(0.7); }
+  35% { opacity: 1; transform: translate(-50%, -160%) scale(1.12); }
+  100% { opacity: 0; transform: translate(-50%, -260%) scale(1); }
+}
+
+.pg-field.is-hurt { animation: pg-shake 0.3s ease; }
+
+@keyframes pg-shake {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-6px, 3px); }
+  50% { transform: translate(5px, -4px); }
+  75% { transform: translate(-3px, 2px); }
+}
+
+/* ------------------------------------------------------------- 窄屏适配 */
+@media (max-width: 720px) {
+  .pg-stage {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+  }
+  .pg-field {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .pg-hud {
+    grid-column: 1;
+    grid-row: 2;
+    width: 100%;
+    flex-direction: column;
+  }
+  .pg-stats--rail {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    min-width: 0;
+  }
+  .pg-stats--rail .pg-stat {
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 7px 4px;
+  }
+  .pg-hud__hint { display: none; }
+}
+
+@media (max-width: 420px) {
+  .pg-shell { padding: 10px 8px 16px; }
+  .pg-stats--rail .pg-stat__value { font-size: 1rem; }
+}

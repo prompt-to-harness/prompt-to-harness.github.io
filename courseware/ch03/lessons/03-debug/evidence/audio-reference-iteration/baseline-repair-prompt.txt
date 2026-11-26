@@ -1,0 +1,1 @@
+浏览器打开 index.html 后报错：Identifier 'renderStats' has already been declared，规则提醒和游戏都没有正常启动。请检查并修复这个加载错误，保持原任务和 Skill 文件不变。完成后说明改了什么，浏览器试玩仍由我来做。

@@ -1,0 +1,46 @@
+{
+  "rules_visible": false,
+  "start_by_enter": {
+    "state": "playing",
+    "score": 0,
+    "lives": 3,
+    "timeLeft": 60,
+    "x": 480,
+    "items": 0
+  },
+  "move": {
+    "state": "playing",
+    "score": 0,
+    "lives": 3,
+    "timeLeft": 59.743200000071546,
+    "x": 558.3239999781844,
+    "items": 0
+  },
+  "pickup": {
+    "state": "playing",
+    "score": 10,
+    "lives": 3,
+    "timeLeft": 59.64310000007154,
+    "x": 558.3239999781844,
+    "items": 0
+  },
+  "hurt": {
+    "state": "playing",
+    "score": 10,
+    "lives": 2,
+    "timeLeft": 59.54320000007155,
+    "x": 558.3239999781844,
+    "items": 0
+  },
+  "end": "60 秒躲避与收集\n\n躲开紫色尖刺，收集青色光球 —— 撑满 60 秒就算赢\n\n剩余时间\n0:00\n得分\n10\n生命\n2\n\n移动 ↑↓←→ 或 WASD\n\n+10\n-1 生命\n🏆\n撑满 60 秒！\n\n你在 60 秒里坚持到最后，最终得分 <strong>10</strong>。\n\n得分\n10\n收集数量\n1\n存活时间\n60 秒\n剩余生命\n2 / 3\n再玩一局",
+  "restart": {
+    "state": "playing",
+    "score": 0,
+    "lives": 3,
+    "timeLeft": 60,
+    "x": 480,
+    "items": 0
+  },
+  "mobile_overflow": false,
+  "errors": []
+}

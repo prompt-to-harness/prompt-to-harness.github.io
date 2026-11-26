@@ -1,0 +1,179 @@
+/* ==========================================================================
+   stat-cards.css — 数据卡 / HUD 读数（可单独使用）
+   -------------------------------------------------------------------------
+   依赖：purple-theme.css（提供 --pg-* 变量与 .pg-surface 背景）
+
+   三种容器形态，按玩法挑选：
+     .pg-stats            自适应网格（默认，适合顶部一排）
+     .pg-stats--row       固定等分一排
+     .pg-stats--rail      纵向排列（贴近场地左/右边缘的竖向 HUD）
+     .pg-stats--inline    紧凑横条（贴近场地边缘的一条 HUD）
+
+   紧凑读数片（不占格子，适合实时高频刷新）：
+     .pg-chip
+   ========================================================================== */
+
+/* ------------------------------------------------------------ 容器形态 */
+.pg-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+.pg-stats--row {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+/* 竖向 HUD：读数贴在场地侧边时使用 */
+.pg-stats--rail {
+  grid-template-columns: 1fr;
+  gap: 8px;
+  min-width: 104px;
+}
+
+.pg-stats--rail .pg-stat {
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+}
+
+/* 紧凑横条 HUD：贴地场顶/底边缘的一条读数带 */
+.pg-stats--inline {
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.pg-stats--inline .pg-stat {
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border-radius: var(--pg-radius-sm);
+}
+
+.pg-stats--inline .pg-stat__label {
+  font-size: 0.68rem;
+}
+
+.pg-stats--inline .pg-stat__value {
+  font-size: 0.98rem;
+}
+
+/* -------------------------------------------------------------- 数据卡 */
+.pg-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: center;
+  padding: 10px 6px;
+  background: var(--pg-panel);
+  border: 1px solid var(--pg-border);
+  border-radius: 13px;
+  transition: border-color 0.18s ease, background 0.18s ease,
+    transform 0.18s ease;
+}
+
+.pg-stat__label {
+  font-size: 0.74rem;
+  color: var(--pg-text-dim);
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.pg-stat__value {
+  font-size: clamp(1rem, 2.6vw, 1.25rem);
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;   /* 数字跳动时不抖动 */
+  line-height: 1.15;
+}
+
+/* 卡内补充说明，例如 “目标 12” */
+.pg-stat__hint {
+  font-size: 0.68rem;
+  color: var(--pg-text-dim);
+  opacity: 0.85;
+}
+
+/* 卡内图标 */
+.pg-stat__icon {
+  font-size: 1rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.22));
+  user-select: none;
+}
+
+/* ------------------------------------------------------------ 状态变体 */
+.pg-stat--accent {
+  border-color: rgba(124, 140, 255, 0.45);
+  background: linear-gradient(160deg, rgba(124, 140, 255, 0.18), rgba(154, 107, 255, 0.12));
+}
+
+.pg-stat--good {
+  border-color: var(--pg-good);
+  background: linear-gradient(160deg, rgba(74, 222, 128, 0.16), rgba(74, 222, 128, 0.06));
+}
+
+.pg-stat--good .pg-stat__value { color: var(--pg-good); }
+
+.pg-stat--bad {
+  border-color: var(--pg-bad);
+  background: linear-gradient(160deg, rgba(251, 113, 133, 0.16), rgba(251, 113, 133, 0.06));
+}
+
+.pg-stat--bad .pg-stat__value { color: var(--pg-bad); }
+
+.pg-stat--warn {
+  border-color: var(--pg-warn);
+  background: linear-gradient(160deg, rgba(251, 191, 36, 0.16), rgba(251, 191, 36, 0.06));
+}
+
+.pg-stat--warn .pg-stat__value { color: var(--pg-warn); }
+
+/* 数值刚刚变化时的高亮脉冲（配合 JS 加 .is-bump） */
+.pg-stat.is-bump .pg-stat__value {
+  animation: pg-bump 0.36s ease;
+}
+
+@keyframes pg-bump {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.14); color: var(--pg-accent-3); }
+  100% { transform: scale(1); }
+}
+
+/* --------------------------------------------------------- 紧凑读数片 */
+.pg-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--pg-panel-strong);
+  border: 1px solid var(--pg-border);
+  font-size: 0.78rem;
+  color: var(--pg-text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.pg-chip__value {
+  color: var(--pg-text);
+  font-weight: 650;
+}
+
+.pg-chip--good { border-color: rgba(74, 222, 128, 0.5); }
+.pg-chip--good .pg-chip__value { color: var(--pg-good); }
+
+.pg-chip--bad { border-color: rgba(251, 113, 133, 0.5); }
+.pg-chip--bad .pg-chip__value { color: var(--pg-bad); }
+
+.pg-chip--accent { border-color: rgba(124, 140, 255, 0.5); }
+.pg-chip--accent .pg-chip__value { color: #b9c2ff; }
+
+/* ------------------------------------------------------- 窄屏适配 */
+@media (max-width: 520px) {
+  .pg-stats--row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pg-stat { padding: 9px 4px; }
+  .pg-stat__label { font-size: 0.7rem; }
+}

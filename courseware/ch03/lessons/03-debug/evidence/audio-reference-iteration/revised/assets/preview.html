@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Purple Game UI · 组件预览</title>
+<link rel="stylesheet" href="./css/purple-theme.css">
+<link rel="stylesheet" href="./css/stat-cards.css">
+<link rel="stylesheet" href="./css/result-overlay.css">
+<style>
+  .demo { max-width: 960px; margin: 0 auto; padding: 28px 20px 60px; display: grid; gap: 28px; }
+  .demo__head { text-align: center; }
+  .demo__note { color: var(--pg-text-dim); font-size: 0.85rem; margin: 6px 0 0; }
+  .demo__case { display: grid; gap: 12px; }
+  .demo__case-title { font-size: 0.95rem; color: var(--pg-text-dim); letter-spacing: 0.4px; }
+  .demo__case-title b { color: var(--pg-text); }
+  .field {
+    display: grid; place-items: center; min-height: 190px; padding: 20px;
+    border: 1px dashed rgba(255,255,255,0.22); border-radius: var(--pg-radius);
+    background: rgba(0,0,0,0.22); color: var(--pg-text-dim); font-size: 0.9rem;
+  }
+  .layout-side { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; }
+  .layout-bottom { display: grid; gap: 10px; }
+  .demo__row { display: flex; gap: 10px; flex-wrap: wrap; }
+  @media (max-width: 560px) { .layout-side { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body class="pg-body">
+<main class="demo">
+  <header class="demo__head">
+    <h1 class="pg-title">🌙 Purple Game UI</h1>
+    <p class="demo__note">主题 · 数据卡 · 结算浮层 · 音效 —— 四个可单独复用的资源</p>
+  </header>
+
+  <section class="demo__case">
+    <p class="demo__case-title"><b>A · 顶部 HUD</b> —— 回合制玩法：读数只在回合结束时变化</p>
+    <div class="pg-stats pg-stats--row" aria-label="本局数据">
+      <div class="pg-stat"><span class="pg-stat__label">步数</span><span class="pg-stat__value">0</span></div>
+      <div class="pg-stat"><span class="pg-stat__label">用时</span><span class="pg-stat__value">0:00</span></div>
+      <div class="pg-stat pg-stat--accent"><span class="pg-stat__label">配对</span><span class="pg-stat__value">0/8</span><span class="pg-stat__hint">目标 8</span></div>
+      <div class="pg-stat"><span class="pg-stat__label">最佳</span><span class="pg-stat__value">—</span></div>
+    </div>
+    <div class="field">场地</div>
+  </section>
+
+  <section class="demo__case">
+    <p class="demo__case-title"><b>B · 侧边 rail HUD</b> —— 实时玩法：HUD 贴着场地边缘，视线不用来回跳</p>
+    <div class="layout-side">
+      <aside class="pg-stats pg-stats--rail" aria-label="实时读数">
+        <div class="pg-stat"><span class="pg-stat__label">生命</span><span class="pg-stat__value">3</span></div>
+        <div class="pg-stat pg-stat--good"><span class="pg-stat__label">连击</span><span class="pg-stat__value">x4</span></div>
+        <div class="pg-stat"><span class="pg-stat__label">分数</span><span class="pg-stat__value">1,240</span></div>
+      </aside>
+      <div class="field">场地</div>
+    </div>
+  </section>
+
+  <section class="demo__case">
+    <p class="demo__case-title"><b>C · 底部横条 HUD</b> —— 实时玩法：一条读数带压在场地底边</p>
+    <div class="layout-bottom">
+      <div class="field">场地</div>
+      <div class="pg-stats pg-stats--inline" aria-label="状态读数">
+        <div class="pg-stat"><span class="pg-stat__label">速度</span><span class="pg-stat__value">12</span></div>
+        <div class="pg-stat pg-stat--warn"><span class="pg-stat__label">能量</span><span class="pg-stat__value">48%</span></div>
+        <div class="pg-stat"><span class="pg-stat__label">回合</span><span class="pg-stat__value">7</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="demo__case">
+    <p class="demo__case-title"><b>D · 音效开关与事件试听</b> —— 每个玩法按事件取用，不是固定绑定</p>
+    <div class="demo__row">
+      <button class="pg-btn pg-btn--ghost" id="sound-toggle" type="button" aria-pressed="true">🔊 音效</button>
+      <button class="pg-btn pg-btn--ghost" data-cue="tap" type="button">tap</button>
+      <button class="pg-btn pg-btn--ghost" data-cue="move" type="button">move</button>
+      <button class="pg-btn pg-btn--ghost" data-cue="select" type="button">select</button>
+      <button class="pg-btn pg-btn--ghost" data-cue="pickup" type="button">pickup</button>
+      <button class="pg-btn pg-btn--ghost" data-cue="success" type="button">success</button>
+      <button class="pg-btn pg-btn--ghost" data-cue="error" type="button">error</button>
+      <button class="pg-btn pg-btn--ghost" data-cue="tick" type="button">tick</button>
+      <button class="pg-btn pg-btn--ghost" data-cue="complete" type="button">complete</button>
+      <button class="pg-btn pg-btn--ghost" data-cue="fail" type="button">fail</button>
+    </div>
+  </section>
+
+  <section class="demo__case">
+    <p class="demo__case-title"><b>E · 按钮与结算浮层</b></p>
+    <div class="demo__row">
+      <button class="pg-btn pg-btn--primary" type="button">↻ 重新开始</button>
+      <button class="pg-btn pg-btn--ghost" type="button">🔊 音效</button>
+      <div class="pg-segmented" role="radiogroup">
+        <button class="pg-segmented__btn" type="button" aria-checked="false">简单</button>
+        <button class="pg-segmented__btn" type="button" aria-checked="true">普通</button>
+        <button class="pg-segmented__btn" type="button" aria-checked="false">困难</button>
+      </div>
+    </div>
+    <div class="demo__row">
+      <button class="pg-btn pg-btn--primary" id="show-overlay" type="button">查看结算浮层</button>
+    </div>
+  </section>
+</main>
+
+<div class="pg-overlay" id="overlay" hidden>
+  <div class="pg-overlay__panel" role="dialog" aria-modal="true" aria-labelledby="overlay-title" aria-describedby="overlay-text">
+    <div class="pg-overlay__emoji" aria-hidden="true">🎉</div>
+    <h2 class="pg-overlay__title" id="overlay-title">全部配对完成！</h2>
+    <p class="pg-overlay__text" id="overlay-text">本局用时 <strong>0:03</strong>，共 <strong>9</strong> 步。</p>
+    <div class="pg-overlay__summary">
+      <div class="pg-overlay__row"><span class="pg-overlay__row-label">用时</span><span class="pg-overlay__row-value">0:03</span></div>
+      <div class="pg-overlay__row pg-overlay__row--good"><span class="pg-overlay__row-label">最佳成绩</span><span class="pg-overlay__row-value">9 步 · 0:01</span></div>
+    </div>
+    <div class="pg-overlay__actions">
+      <button class="pg-btn pg-btn--primary" id="overlay-again" type="button">再玩一局</button>
+      <button class="pg-btn pg-btn--ghost" id="overlay-close" type="button">查看牌面</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { ResultOverlay } from './js/purple-ui-kit.js';
+  import { play, bindSoundToggle, unlockAudio } from './js/purple-sound.js';
+
+  bindSoundToggle(document.getElementById('sound-toggle'));
+  unlockAudio();
+  document.querySelectorAll('[data-cue]').forEach((btn) => {
+    btn.addEventListener('click', () => play(btn.dataset.cue));
+  });
+  const overlay = new ResultOverlay(document.getElementById('overlay'));
+  document.getElementById('show-overlay').addEventListener('click', () => overlay.open({
+    emoji: '🎉',
+    title: '全部配对完成！',
+    text: '本局用时 0:03，共 9 步。',
+    rows: [
+      { label: '用时', value: '0:03' },
+      { label: '最佳成绩', value: '9 步 · 0:01', state: 'good' },
+    ],
+    actions: [
+      { label: '再玩一局', primary: true, onClick: () => overlay.close() },
+      { label: '查看牌面', onClick: () => overlay.close() },
+    ],
+  }));
+  document.getElementById('overlay-again').addEventListener('click', () => overlay.close());
+  document.getElementById('overlay-close').addEventListener('click', () => overlay.close());
+</script>
+</body>
+</html>

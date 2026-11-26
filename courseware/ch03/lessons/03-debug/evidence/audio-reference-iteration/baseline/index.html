@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>60 秒躲避与收集 · 紫色黄昏</title>
+<link rel="stylesheet" href="css/purple-theme.css">
+<link rel="stylesheet" href="css/stat-cards.css">
+<link rel="stylesheet" href="css/result-overlay.css">
+<link rel="stylesheet" href="css/game.css">
+</head>
+<body class="pg-body">
+<main class="pg-shell">
+
+  <header class="pg-head">
+    <h1 class="pg-title">60 秒躲避与收集</h1>
+    <p class="pg-subtitle">躲开紫色尖刺，收集青色光球 —— 撑满 60 秒就算赢</p>
+  </header>
+
+  <section class="pg-stage">
+    <!-- HUD：桌面端在场地的右侧竖向 rail，窄屏自动落到场地下方横条 -->
+    <aside class="pg-hud" aria-label="游戏读数">
+      <div class="pg-stats pg-stats--rail" id="hud"></div>
+      <p class="pg-hint pg-hud__hint">
+        移动 <span class="pg-kbd">↑</span><span class="pg-kbd">↓</span><span class="pg-kbd">←</span><span class="pg-kbd">→</span>
+        或 <span class="pg-kbd">W</span><span class="pg-kbd">A</span><span class="pg-kbd">S</span><span class="pg-kbd">D</span>
+      </p>
+    </aside>
+
+    <div class="pg-field">
+      <canvas id="canvas" width="960" height="600" tabindex="0" aria-label="游戏场地"></canvas>
+      <div class="pg-fx" id="fx" aria-hidden="true"></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- 规则提醒：确认后才开始计时 -->
+<div class="pg-overlay pg-overlay--compact" id="rules" hidden>
+  <div class="pg-overlay__panel" role="dialog" aria-modal="true" aria-labelledby="rules-title">
+    <div class="pg-overlay__emoji" aria-hidden="true">🎮</div>
+    <h2 class="pg-overlay__title" id="rules-title">开始前，请确认规则</h2>
+    <div class="pg-overlay__text">
+      <p style="margin:0 0 10px">用 <strong>方向键</strong> 或 <strong>WASD</strong> 移动紫色方块。</p>
+      <p style="margin:0 0 10px">撞上尖刺会 <strong>扣 1 点生命</strong>（共 3 点）。</p>
+      <p style="margin:0">收集青色光球 <strong>+10 分</strong>；光球只存在 <strong>9 秒</strong>，外圈进度环走完就会消失。</p>
+      <p style="margin:10px 0 0">坚持到 <strong>60 秒</strong> 计时结束即结算。生命耗尽则提前结束。</p>
+    </div>
+    <div class="pg-overlay__actions">
+      <button type="button" class="pg-btn pg-btn--primary" id="btn-start">确认并开始</button>
+    </div>
+  </div>
+</div>
+
+<!-- 结算浮层：重开按钮只出现在这里 -->
+<div class="pg-overlay" id="overlay" hidden></div>
+
+<script src="js/purple-ui-kit.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>

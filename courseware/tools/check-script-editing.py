@@ -11,7 +11,7 @@ import tempfile
 import threading
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, expect
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -80,35 +80,86 @@ with sync_playwright() as pw:
             shutil.copy(ROOT / 'tools' / name, root / 'tools' / name)
         shutil.copy(ROOT / 'courseware/tools/rebuild-lesson.py', root / 'courseware/tools/rebuild-lesson.py')
         (root / 'courseware/shared').symlink_to(ROOT / 'courseware/shared', target_is_directory=True)
-        for folder in ('03-debug', '04-plugin'):
-            source = ROOT / 'courseware/ch03/lessons' / folder
-            target = root / source.relative_to(ROOT); target.mkdir(parents=True)
-            if folder == '04-plugin':
-                shutil.copytree(source / 'tools', target / 'tools')
-            for file in source.iterdir():
-                if file.is_file() and file.suffix in ('.html', '.js', '.json', '.css'):
-                    shutil.copy(file, target / file.name)
+        # 3.2 rebuilds its reading data and evidence routes too; isolate the entire
+        # chapter so no generated files or source edits can reach the lecturer's copy.
+        shutil.copytree(ROOT / 'courseware/ch03', root / 'courseware/ch03')
+        shutil.copytree(ROOT / 'tools/ch03-showcase', root / 'tools/ch03-showcase')
         server, base = start(root)
         try:
-            for folder, selector, source in [('03-debug', '#reference [data-script-edit]', 'script.json'), ('03-debug', '[data-screen]', 'screen-plan.js'), ('04-plugin', '[data-script-edit]', 'script.json')]:
+            for folder, selector, source in [('02-rules', '[data-scene="p07a"][data-part]', 'script.json'), ('03-debug', '[data-script-edit][data-screen]', 'screen-plan.js'), ('04-plugin', '[data-script-edit][data-scene]', 'script.json')]:
                 print('Checking', folder, source, flush=True)
                 url = base + '/courseware/ch03/lessons/' + folder + '/speaker.html'
                 page = browser.new_page(); page.on('dialog', lambda d: (print('Dialog:', d.message, flush=True), d.dismiss())); page.goto(url)
                 block = page.locator(selector).first
                 page.wait_for_selector(selector + '[contenteditable="plaintext-only"]', state='attached')
+                def source_contains(text):
+                    return json.dumps(text, ensure_ascii=False)[1:-1] in (root / 'courseware/ch03/lessons' / folder / source).read_text()
                 original = block.inner_text(); edited = original + '编辑验证'
                 block.fill(edited); block.press('Enter')
                 page.wait_for_selector(selector + '[data-state="saved"]', state='attached')
-                assert edited in (root / 'courseware/ch03/lessons' / folder / source).read_text()
+                assert source_contains(edited), (repr(edited), block.inner_text(), page.locator('.script-history').inner_text())
                 page.reload(); page.wait_for_selector(selector + '[contenteditable="plaintext-only"]', state='attached')
                 assert block.inner_text() == edited
                 block.fill('撤销验证'); block.press('Escape'); assert block.inner_text() == edited
+                # Saved history survives refresh and writes undo/redo back to the source.
+                undo = page.get_by_role('button', name='撤销已保存修改', exact=True)
+                redo = page.get_by_role('button', name='重做', exact=True)
+                def wait_text(locator, text):
+                    expect(locator).to_have_attribute('data-state', 'saved')
+                    expect(locator).to_have_text(text)
+                    expect(page.locator('.script-history button:disabled')).not_to_have_count(2)
+                undo.click()
+                wait_text(block, original)
+                assert not source_contains(edited)
+                page.reload(); page.wait_for_selector(selector + '[contenteditable="plaintext-only"]', state='attached')
+                redo.click(); wait_text(block, edited)
+                # Shortcuts work with focus outside the editor, as after Enter or navigation.
+                page.keyboard.press('Meta+z'); wait_text(block, original)
+                page.keyboard.press('Meta+Shift+z'); wait_text(block, edited)
+                page.keyboard.press('Control+z'); wait_text(block, original)
+                page.keyboard.press('Control+y'); wait_text(block, edited)
+                # Unsaved native typing undo must not consume a saved transaction.
+                block.click(); block.press('End'); block.press('x'); block.press('ControlOrMeta+z')
+                expect(block).to_have_text(edited, use_inner_text=True)
+                block.press('ControlOrMeta+Shift+z')
+                expect(block).not_to_have_text(edited)
+                block.press('Escape')
+                # Cross-paragraph transactions undo in save order, regardless of current focus.
+                second = page.locator(selector).nth(1)
+                second_original = second.inner_text()
+                second.fill(second_original + '跨段验证'); second.press('Enter')
+                wait_text(second, second_original + '跨段验证')
+                if folder == '02-rules':
+                    page.locator('a[href="#unit-4"]').first.click()
+                undo.click(); wait_text(second, second_original)
+                undo.click(); wait_text(block, original)
+                redo.click(); wait_text(block, edited)
+                redo.click(); wait_text(second, second_original + '跨段验证')
+                undo.click(); wait_text(second, second_original)
+                # Failed undo leaves both text and history untouched and is retryable.
+                page.route('**/__script/edit', lambda route: route.fulfill(status=503,
+                    content_type='application/json', body='{"error":"暂时不可用"}'))
+                undo.click()
+                expect(page.locator('.script-history [role="status"]')).to_have_text('暂时不可用')
+                expect(undo).to_be_enabled(); assert block.inner_text() == edited
+                page.unroute('**/__script/edit')
+                undo.click(); wait_text(block, original)
+                redo.click(); wait_text(block, edited)
+                # A new edit after undo starts a new branch, without resurrecting old redo.
+                undo.click(); wait_text(block, original)
+                block.fill(edited); block.press('Enter')
+                expect(undo).to_be_enabled(); expect(redo).to_be_disabled()
                 # Another tab saves first: original tab must offer conflict resolution.
                 other = browser.new_page(); other.goto(url)
                 other.wait_for_selector(selector + '[contenteditable="plaintext-only"]', state='attached')
                 remote = other.locator(selector).first
                 remote.fill(edited + '另一窗口'); remote.press('Enter')
                 other.wait_for_selector(selector + '[data-state="saved"]', state='attached')
+                # Undo must not overwrite a newer save from another window.
+                undo.click()
+                expect(page.locator('.script-history [role="status"]')).to_contain_text('源文件已在别处修改')
+                assert source_contains(edited + '另一窗口')
+                assert block.inner_text() == edited
                 block.fill(edited + '本窗口'); block.press('Enter')
                 page.wait_for_selector('dialog.script-conflict')
                 assert '另一窗口' in page.locator('dialog pre').inner_text()
@@ -116,13 +167,20 @@ with sync_playwright() as pw:
                 page.get_by_text('保存整理后的这一段', exact=True).click()
                 page.wait_for_selector(selector + '[data-state="saved"]', state='attached')
                 assert block.inner_text() == original
+                # A conflict resolution records the actual server value as the undo baseline.
+                undo.click(); wait_text(block, edited + '另一窗口')
+                redo.click(); wait_text(block, original)
+                page.set_viewport_size({'width': 390, 'height': 850})
+                box = page.locator('.script-history').bounding_box()
+                assert box['x'] >= 0 and box['x'] + box['width'] <= 390
                 page.close(); other.close()
                 # Simulate public static hosting: a missing API must never enable editing.
                 page = browser.new_page(); page.route('**/__script/ping', lambda route: route.fulfill(status=404, body='not found'))
                 page.goto(url); page.wait_for_selector('.edit-banner', state='attached')
                 assert page.locator('[contenteditable]').count() == 0
+                assert page.locator('.script-history').count() == 0
                 page.close()
-            print('Isolated saves: PPT, standalone narration and template adapter; reload, Escape, conflict and unavailable API passed', flush=True)
+            print('Isolated saves: PPT, standalone narration and template adapter; reload, saved undo/redo, shortcuts, native undo, failed saves, conflict and unavailable API passed', flush=True)
         finally:
             stop(server)
     browser.close()

@@ -1,0 +1,98 @@
+<!--
+  components.html — 静态标记片段（不依赖 JS，直接复制进项目）
+  配套样式：purple-theme.css / stat-cards.css / result-overlay.css
+  =========================================================================
+-->
+
+<!-- ------------------------------------------------------------------
+     1) 数据卡 · 顶部一排（回合制玩法：读数只在回合结束时变化）
+     ------------------------------------------------------------------ -->
+<section class="pg-stats pg-stats--row" aria-label="本局数据">
+  <div class="pg-stat">
+    <span class="pg-stat__label">步数</span>
+    <span class="pg-stat__value" id="stat-moves">0</span>
+  </div>
+  <div class="pg-stat">
+    <span class="pg-stat__label">用时</span>
+    <span class="pg-stat__value" id="stat-time">0:00</span>
+  </div>
+  <div class="pg-stat pg-stat--accent">
+    <span class="pg-stat__label">配对</span>
+    <span class="pg-stat__value" id="stat-pairs">0/0</span>
+    <span class="pg-stat__hint">目标 12</span>
+  </div>
+  <div class="pg-stat">
+    <span class="pg-stat__label">最佳</span>
+    <span class="pg-stat__value" id="stat-best">—</span>
+  </div>
+</section>
+
+<!-- ------------------------------------------------------------------
+     2) 数据卡 · 竖向 rail（贴场地左/右边缘，实时玩法）
+     ------------------------------------------------------------------ -->
+<aside class="pg-stats pg-stats--rail" aria-label="实时读数">
+  <div class="pg-stat">
+    <span class="pg-stat__label">生命</span>
+    <span class="pg-stat__value" id="hp">3</span>
+  </div>
+  <div class="pg-stat pg-stat--good">
+    <span class="pg-stat__label">连击</span>
+    <span class="pg-stat__value" id="combo">x1</span>
+  </div>
+  <div class="pg-stat">
+    <span class="pg-stat__label">分数</span>
+    <span class="pg-stat__value" id="score">0</span>
+  </div>
+</aside>
+
+<!-- ------------------------------------------------------------------
+     3) 数据卡 · 紧凑横条（贴场地顶/底边缘的一条读数带）
+     ------------------------------------------------------------------ -->
+<div class="pg-stats pg-stats--inline" aria-label="状态读数">
+  <div class="pg-stat">
+    <span class="pg-stat__label">速度</span>
+    <span class="pg-stat__value">12</span>
+  </div>
+  <div class="pg-stat pg-stat--warn">
+    <span class="pg-stat__label">能量</span>
+    <span class="pg-stat__value">48%</span>
+  </div>
+  <div class="pg-stat">
+    <span class="pg-stat__label">回合</span>
+    <span class="pg-stat__value">7</span>
+  </div>
+</div>
+
+<!-- ------------------------------------------------------------------
+     4) 紧凑读数片（不占格子，适合高频刷新的浮标）
+     ------------------------------------------------------------------ -->
+<div class="pg-chip pg-chip--accent"><span>时间</span><span class="pg-chip__value">0:03</span></div>
+<div class="pg-chip pg-chip--good"><span>命中</span><span class="pg-chip__value">92%</span></div>
+
+<!-- ------------------------------------------------------------------
+     5) 结算浮层（静态版；若用 purple-ui-kit.js 可省略内部结构）
+     ------------------------------------------------------------------ -->
+<div class="pg-overlay" id="overlay" hidden>
+  <div class="pg-overlay__panel" role="dialog" aria-modal="true"
+       aria-labelledby="overlay-title" aria-describedby="overlay-text">
+    <div class="pg-overlay__emoji" aria-hidden="true">🎉</div>
+    <h2 class="pg-overlay__title" id="overlay-title">全部配对完成！</h2>
+    <p class="pg-overlay__text" id="overlay-text">
+      本局用时 <strong>0:03</strong>，共 <strong>9</strong> 步。
+    </p>
+    <div class="pg-overlay__summary">
+      <div class="pg-overlay__row">
+        <span class="pg-overlay__row-label">用时</span>
+        <span class="pg-overlay__row-value">0:03</span>
+      </div>
+      <div class="pg-overlay__row pg-overlay__row--good">
+        <span class="pg-overlay__row-label">最佳成绩</span>
+        <span class="pg-overlay__row-value">9 步 · 0:01</span>
+      </div>
+    </div>
+    <div class="pg-overlay__actions">
+      <button class="pg-btn pg-btn--primary" id="overlay-again" type="button">再玩一局</button>
+      <button class="pg-btn pg-btn--ghost" id="overlay-close" type="button">查看牌面</button>
+    </div>
+  </div>
+</div>
