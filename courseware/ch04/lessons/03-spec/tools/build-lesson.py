@@ -41,6 +41,53 @@ REST = [
     (2, "其他客户端、格式", "VS Code 插件、其他数据格式标为 Deferred"),
 ]
 
+PROMPT_P35_TEACHER = """请先阅读 docs/specs/BRIEF.md，再根据这份 Brief 和下面由需求负责人确认的决定清单，起草 docs/specs/SPEC.md。
+
+本次目标是网页版 JSON Diff：同时输入 Before 和 After 两份 JSON，比较并高亮差异，提供差异摘要和“只看变化”。请把已经确认的产品行为写成规则；具体代码放在哪里、改现有页面还是新增入口、使用哪个组件或函数，留给后续 Plan。
+
+规则与状态要求：
+
+1. 每条规则使用 REQ- 编号，描述用户能观察、能够检查的行为。规则正文不规定文件名、组件名或函数名。
+2. 根据已确认的目标或下方明确决定写出的规则，标为 Approved；明确暂缓或本次不做的内容，标为 Deferred；会改变本次产品行为、但尚未决定的内容，标为 Draft，并说明还缺什么决定。
+3. Brief 中 Agent 提出的建议只是建议，不要自动写成 Approved。不要自行补充决定清单未覆盖的行为。
+4. 每条规则注明来源：Brief 的相关小节、Open 问题（OQ 编号），或下面的课程决定；有多个来源时可以同时列出，不要编造出处。
+5. 这里的 Approved 是按已确认决定起草的状态，最终还要由我逐条审查。
+
+课程决定清单：
+
+1. 对象键换序不算差异，忽略对象键顺序。真正关心字段顺序的场景不在本次范围。
+2. 数组按索引逐项比较（索引从 0 开始）。中间插入一项后，后面的项可能显示为改动；按元素对齐（含按 id / 业务主键、LCS）和移动检测是本次非目标。
+3. 同一路径的原始值或类型改变（如 1 变成 "1"）都记为 changed，不再细分“只是类型变了”。（1 与 1.0 等数值字面量是否算变化尚未决定，保留 Draft。）
+4. 差异有 added、removed、changed、unchanged 四种直接状态。结果画在一张合并图里，Before 独有、已删除的节点标为 removed 并保留在图上。
+5. 两侧都存在且容器类型相同的祖先保持 unchanged；如果下层有变化，额外带 hasDiffDescendant 派生标记，用于帮助找到下层变化。只带这个派生标记的祖先不计入差异数。
+6. 差异数统计直接差异。新增或删除一整个对象或数组时，只在它的根计 1 处，其中的子节点仍逐个标为 added 或 removed。
+7. “只看变化”隐藏未变化的节点，但保留通向差异所必需的祖先和 removed 节点；切换筛选不改变差异数。
+8. 字段值为 null 等同于该路径不存在，按同样的增删规则处理。
+9. 输入错误时，指明出错的是 Before 还是 After，并保留最后一次有效的比较结果；还没有成功比较过且输入出错时，显示空状态和错误提示。
+10. 合并图沿用 JSON Crack 现有的节点上限设定，不另定新数值；removed 节点也计入上限。超过上限时不渲染合并图，只提示图太大，不沿用现有提示里的外部产品升级链接。
+11. 比较在浏览器本地完成，JSON 内容不因比较功能发送到网络。
+12. 每种状态除颜色外还有文字或符号可以辨认；在 360px 宽的窗口里，两侧输入、错误提示和结果都能操作。
+13. VS Code 插件、其他数据格式（YAML/XML/CSV）以及结果写回、导出或分享标为 Deferred。
+
+请在 SPEC.md 末尾列一张 Open 问题去向表，逐条列出 Brief 中实际存在的每个 Open 问题（OQ-1 到 OQ-13），并分别说明：
+
+- 哪些部分已由课程决定或 REQ 规则处理；
+- 哪些会改变产品行为的部分仍未决定（保留 Draft，例如浏览器本地存储、节点点击弹窗细节、数值字面量等）；
+- 哪些属于具体实现安排，需要留给后续 Plan（例如入口位置与页面改造落点）。
+
+一个 Open 问题可以对应多条规则，一条规则也可以回应多个问题。对于只处理了一部分的问题，请把已决定和未决定的部分分开写，不要为了凑对应关系自行补决定。
+
+如果 Brief 中的目标、非目标或其他内容与上述决定有冲突，请在 SPEC.md 中列出冲突供我审查，不要自行忽略，也不要修改 Brief。
+
+只新建 docs/specs/SPEC.md，不修改其他文件。完成后运行 git status --short --untracked-files=all 给我看。"""
+
+PROMPT_P36_REVISE = """请按以下 4 条审查意见修改 docs/specs/SPEC.md，只改 docs/specs/SPEC.md，不要修改 BRIEF.md 或任何代码文件：
+1. 收紧计数口径（术语「直接差异」与 REQ-012）：第 19 行把「直接差异」写成“状态为 added、removed、changed 的节点”，与 REQ-013、REQ-014“整棵对象或数组增删时子节点也标状态，但只在根计 1 处”存在字面歧义。请在术语和 REQ-012 中写明：按 REQ-013 规则统计直接差异，整棵新增或删除的子树只在根计 1 处，其内部子节点虽标为 added 或 removed，但不重复计入差异数。
+2. 补齐筛选例外（REQ-016）：REQ-016 写“开启后，状态为 unchanged 的节点不再显示”，与 REQ-017 保留通向差异所必需的祖先（按 REQ-009 自身为 unchanged）字面冲突。请改为：开启后，除 REQ-017 保留的通向差异所必需的祖先节点外，其余状态为 unchanged 的节点不再显示。
+3. 批准 REQ-038 的行为底线（衔接后续单输入回归）：把 REQ-038 从 Draft 改为 Approved，明确“新增 JSON Diff 功能不得破坏现有的单份 JSON 查看链路”；具体是改造现有页面还是新增独立入口，继续留在 OQ-10 的“留给 Plan”列，规则正文不写文件名或路由。同时更新 §12 Open 问题去向表和规则统计。
+4. 确认 §11 冲突结论：CF-1 按课程决定 3（REQ-002）执行，CF-2 按课程决定 10（REQ-024）执行，在 §11 注明已由需求负责人确认，BRIEF.md 保持不变；其余 Draft（REQ-032~REQ-037）继续保留为 Draft，不要自行补充决定。
+改完后汇总改动点，并运行 git status --short --untracked-files=all 给我看。"""
+
 lesson = Lesson(__file__, "4.3", "要求写得再细，为什么还会跑偏", summary="用几段小 JSON 看清同一句需求的几种合理结果，由人决定行为，再让 Agent 起草、讲师逐条审，写成第二份规格 Spec。")
 scene = lesson.scene
 
@@ -264,14 +311,19 @@ scene(
         pop_title="请求表达示例",
         pop_label="示例：按实际 Brief 调整请求",
         pop_body=(
-            '<p style="margin:0 0 8px;font-size:17px">按你自己的 Brief 与决定清单改写，下面只展示表达方式</p>'
-            '<div class="p-code"><div class="p-code-head"><span>请求示例</span></div>'
-            '<pre style="padding:12px 14px;white-space:pre-wrap;font-size:18px;line-height:1.55">'
+            '<p style="margin:0 0 8px;font-size:17px">按你自己的 Brief 与决定清单改写，下面先给简版表达方式，再附课堂演练时教师使用的完整 Prompt 供参考</p>'
+            '<div class="p-code"><div class="p-code-head"><span>请求示例（简版）</span></div>'
+            '<pre style="padding:12px 14px;white-space:pre-wrap;font-size:17px;line-height:1.55">'
             '依据 docs/specs/BRIEF.md 起草 docs/specs/SPEC.md。\n'
             '已确认的决定包括：对象键顺序忽略；数组按索引比较；值或类型改变都记为 changed；'
             '字段值为 null 按该路径不存在处理；筛选不改变差异数；沿用节点上限。\n'
             '每条规则带 REQ 编号、状态和 Brief 来源；尚未决定的保留 Draft，不混入文件名或函数名。'
             '</pre></div>'
+            '<p style="margin:12px 0 6px;font-size:17px"><b>课堂演练时教师 Prompt（供参考）</b>：按自己的 Brief 编号与实际决定调整，不必逐字照抄</p>'
+            '<div class="p-code"><div class="p-code-head"><span>课堂演练时教师 Prompt（供参考）</span></div>'
+            '<pre style="padding:12px 14px;white-space:pre-wrap;font-size:15.5px;line-height:1.55">'
+            + escape(PROMPT_P35_TEACHER)
+            + '</pre></div>'
         ),
         pop_hint="把决定写进请求，示例仅供参考",
     ),
@@ -315,7 +367,7 @@ scene(
     steps=["Open 问题去向", "可观察与实现细节", "状态和默认做法", "修改并检查"],
     repro=repro([
         ("打开自己的 SPEC.md，对照 Brief、课程决定和页面上的审查项；先看 Open 问题去向表。", None),
-        ("审出问题时，指出具体内容、对照依据、修改要求和范围，按实际情况交给 Agent 修改。", None),
+        ("审出问题时，指出具体内容、对照依据、修改要求和范围，按实际情况交给 Agent 修改。下面附上教师演示时的修正 Prompt（仅供参考，请按自己 SPEC.md 的实际编号与审查结果调整）：", PROMPT_P36_REVISE),
         ("回看修改处与相关规则，确认未决事项没有被擅自批准，再检查工作区。", "git status --short --untracked-files=all"),
     ], note="实际问题和编号可能不同；没有审出问题时继续核对，不必编造修改。", label="跟做：审查与修改"),
 )

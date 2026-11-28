@@ -21,11 +21,11 @@ lesson = Lesson(
     __file__,
     "5.2",
     "字段删掉了，结果图上怎样看见它",
-    summary="从同一组嵌套素材里被删掉的字段出发，看清只按 After 构图为什么看不见它，再把两侧映射到现有图数据上并核对照射结果。",
+    summary="从同一组嵌套素材里被删掉的字段出发，看清只按 After 构图为什么看不见它，再把两侧映射到独立合并图组件并核对结构与上限判定。",
     prep=[
-        "确认教学副本处于 5.1 功能分支，TASK-01 差异模型已通过七组素材核对且工作区干净",
-        "编辑器定位 docs/specs/TASKS.md（TASK-02）及 docs/specs/fixtures/nested/、subtree/",
-        "准备好运行共享包构建与插件端回归检查命令（pnpm --filter jsoncrack-react / vscode）",
+        "确认教学副本处于 5.1 功能分支，TASK-01 差异模型与 check-diff.ts（c01–c13）已通过且工作区干净",
+        "编辑器定位 docs/specs/TASKS.md（TASK-02）、PLAN.md §2.1 及 fixtures/c03-nested、c05~c08、c17~c19",
+        "核对开发环境节点上限 2000（c17=2102、c18=2051 含 150 removed、c19=101）均由参数传入共享包",
     ],
 )
 scene = lesson.scene
@@ -87,17 +87,17 @@ scene(
     layout="lesson-cover",
     label="字段删掉了，结果图上怎样看见它",
     title="图上怎样看见被删掉的字段？",
-    lead="5.1 已验证纯函数差异模型；这一节把两侧差异投影到 JSON Crack 现有图数据上",
+    lead="5.1 已验证纯函数差异模型；这一节把两侧差异映射到图数据，并建立独立合并图外壳",
     html=cover_handoff(
         2,
         "5.1 已就位",
         "按路径对齐的纯函数差异模型",
-        "已能算出直接状态、差异数与祖先标记，但尚未生成画布图数据",
+        "已能算出直接状态、差异数与祖先标记，但尚未生成合并图与 <code>DiffGraph</code>",
         "5.2 完成后留下",
         [
-            "产出 <code>NodeData / EdgeData</code> 的合并图映射",
-            "一次性图数据核对脚本与 <code>lint / build</code> 结果",
-            "更新后的 <code>CH05_IMPLEMENTATION.md</code>",
+            "合并图映射、可见集计算与含 <code>removed</code> 上限判定",
+            "不动 <code>JSONCrackComponent</code> 的独立 <code>DiffGraph.tsx</code>",
+            "扩展后的 <code>check-diff.ts</code> 与共享包 <code>lint / build</code>",
         ],
     ),
     steps=["本章位置", "5.1 已就位", "本节要留下什么"],
@@ -110,19 +110,19 @@ scene(
     segment="被删掉的字段",
     label="只拿 After 构图，被删字段去哪了",
     title="只拿 After 构图，被删字段去哪了？",
-    lead="打开 docs/specs/fixtures/nested/，先看只存在于 Before 的 /active 在单侧构图下会怎样。",
+    lead="打开 docs/specs/fixtures/c03-nested.*，先看只存在于 Before 的 /active 在单侧构图下会怎样。",
     html=(
         '<div class="ch5-2col" style="display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:20px;align-items:stretch">'
         '<div class="ch5-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:stretch" data-reveal="0">'
-        + json_card("Before", NESTED_BEFORE, "nested/before.json")
-        + json_card("After", NESTED_AFTER, "nested/after.json")
+        + json_card("Before", NESTED_BEFORE, "c03-nested.before.json")
+        + json_card("After", NESTED_AFTER, "c03-nested.after.json")
         + "</div>"
         '<div class="p-box" data-role="us" data-reveal="2" style="display:flex;flex-direction:column;justify-content:center;padding:16px 20px">'
         '<span class="p-tag" data-role="us">请先判断</span>'
         '<h3 style="font-size:24px;margin:4px 0 8px">只拿 After 解析构图，图上找得到 <code>/active</code> 吗？</h3>'
         '<p style="font-size:19px;color:var(--p-muted)">找不到——它不在 After 里，单侧解析会直接丢失删除项</p></div></div>'
-        '<div class="p-bar is-light" data-reveal="1"><code>/active</code> 只存在于 <b>Before</b>；已批准规则要求它作为 <code>removed</code> 保留在结果图上（<code>REQ-004</code> · <code>AC-010</code>）</div>'
-        '<p class="source-note">实际素材：docs/specs/fixtures/nested/</p>'
+        '<div class="p-bar is-light" data-reveal="1"><code>/active</code> 只存在于 <b>Before</b>；已批准规则要求它作为 <code>removed</code> 保留在合并图上（<code>REQ-008</code> · <code>AC-03</code>）</div>'
+        '<p class="source-note">实际素材：docs/specs/fixtures/c03-nested.before.json / after.json</p>'
     ),
     steps=["嵌套素材 Before 与 After", "/active 只存在于 Before", "单侧构图会丢失删除项"],
 )
@@ -132,7 +132,7 @@ scene(
     segment="被删掉的字段",
     label="怎样在一张图上同时看见增删改",
     title="怎样在一张图上同时看见增删改？",
-    lead="对照现有单侧构图与合并图映射，看 Before 独有节点与祖先路径怎样落进同一份图数据。",
+    lead="对照现有单侧构图与合并图映射，看 Before 独有节点与祖先路径怎样投影到同一份图数据。",
     html=(
         '<div class="p-pair">'
         '<div data-reveal="0">'
@@ -141,13 +141,13 @@ scene(
         + "</div>"
         '<div class="p-join" data-reveal="1"><span>投影两侧</span><i class="p-arrow"></i></div>'
         '<div data-reveal="1">'
-        '<div class="p-head" style="margin-bottom:6px"><h3 style="font-size:21px;margin:0">合并图数据（NodeData / EdgeData）</h3><span class="p-chip" data-role="ok">保留四状态</span></div>'
+        '<div class="p-head" style="margin-bottom:6px"><h3 style="font-size:21px;margin:0">合并图数据（DiffGraph 消费）</h3><span class="p-chip" data-role="ok">保留四状态</span></div>'
         + TREE_MERGE
         + "</div></div>"
-        '<div class="p-bar" data-reveal="2">不并排画两张图，也不另写渲染引擎——把两侧差异投影为现有画布可消费的<b>同一套节点与连边</b></div>'
-        '<p class="source-note">合并图示意用于核对映射产出的图数据结构与符号标记</p>'
+        '<div class="p-bar" data-reveal="2">不改 <code>JSONCrackComponent</code> 原外壳，新建 <code>DiffGraph.tsx</code> 复用同一套节点与连边组件渲染合并图</div>'
+        '<p class="source-note">NodeData 新增可选差异状态与 hasDiffDescendant 字段，缺省不传时单输入与 VS Code 端保持原样</p>'
     ),
-    steps=["只看 After 会丢节点", "投影为同一份合并图数据", "复用现有画布渲染"],
+    steps=["只看 After 会丢节点", "投影两侧生成合并图数据", "新建 DiffGraph 复用节点组件"],
 )
 
 scene(
@@ -155,7 +155,7 @@ scene(
     segment="被删掉的字段",
     label="本节检查到哪一步，才算映射做完",
     title="本节检查到哪一步，才算映射做完？",
-    lead="明确图数据层的三项核对内容，并与 5.4 的筛选界面走查划清边界。",
+    lead="明确合并图节点、可见集合与上限判定的核对口径，并与网页界面交互划清边界。",
     html=(
         '<div class="ch5-2col" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:20px;align-items:stretch">'
         '<div data-reveal="0">'
@@ -164,14 +164,14 @@ scene(
         + "</div>"
         '<div style="display:flex;flex-direction:column;gap:10px;justify-content:center">'
         '<div class="p-box" data-role="ctx" data-reveal="0" style="padding:12px 16px">'
-        '<span class="p-tag" data-role="ctx">1 · nested 图数据与可见集合</span>'
-        '<p style="font-size:18.5px"><code>/</code>、<code>/user</code> 与三处差异保留，<code>/user/name</code> 排除，差异数仍为 <b>3</b></p></div>'
+        '<span class="p-tag" data-role="ctx">1 · 子树保留与可见集合</span>'
+        '<p style="font-size:18.5px"><code>c06 / c08</code> 被删子树全节点仍在图中；<code>c03</code> 筛选可见集保留必要祖先与 <code>removed</code>，排除 <code>/user/name</code></p></div>'
         '<div class="p-box" data-role="tool" data-reveal="1" style="padding:12px 16px">'
-        '<span class="p-tag" data-role="tool">2 · subtree 与零差异素材</span>'
-        '<p style="font-size:18.5px">被删子树全部节点仍在图数据中且只计根 <b>2</b> 处；<code>identical</code>、<code>key-order</code>、<code>null-equiv</code> 不因节点 id 误报</p></div></div></div>'
-        '<div class="p-bar" data-reveal="2">本节只验<b>底层图数据与插件端无回归</b>；网页上的「只看变化」开关、摘要与超限提示留给 <b>5.4</b></div>'
+        '<span class="p-tag" data-role="tool">2 · 上限判定（参数传入 2000）</span>'
+        '<p style="font-size:18.5px"><code>c19</code>（101 节点）正常构图；<code>c17</code>（2102）与 <code>c18</code>（含 150 个 <code>removed</code> 共 2051）必须判超限（<code>REQ-025</code>）</p></div></div></div>'
+        '<div class="p-bar" data-reveal="2">本节只验<b>数据映射、可见集与超限判定</b>；状态符号定稿、网页开关与超限提示框留给后续任务</div>'
     ),
-    steps=["nested 节点关系与可见集合", "被删子树与零差异核对", "界面开关留给 5.4"],
+    steps=["子树节点与筛选可见集合", "removed 计入上限判定", "界面提示与交互留后续任务"],
 )
 
 
@@ -181,27 +181,27 @@ scene(
     segment="怎样发出请求",
     label="怎样只做图数据映射，不顺手改界面",
     title="怎样只做图数据映射，不顺手改界面？",
-    lead="在架构图上锁定共享包的可选入口改动，保证既有 json 入口与 VS Code 插件端零回归。",
+    lead="在架构图上锁定 DiffGraph 与可选字段改动，不碰原画布外壳与网页端。",
     html=(
         diff_arch(active="graph", done=("model",), reveal=0)
         + '<div class="ch5-2col" style="display:grid;grid-template-columns:1fr 1.15fr;gap:16px;align-items:stretch">'
         '<div class="p-box" data-role="ctx" data-reveal="1" style="padding:12px 16px">'
-        '<div class="p-head"><h3 style="font-size:22px">脚本 + 跨包静态验证</h3><span class="p-tag" data-role="ctx">怎么验</span></div>'
-        '<p style="font-size:18.5px">一次性脚本验图数据；再跑 <code>jsoncrack-react</code> 的 <code>lint / build</code> 与 <code>vscode</code> 的 <code>lint</code></p></div>'
+        '<div class="p-head"><h3 style="font-size:22px">扩展脚本 + 共享包构建</h3><span class="p-tag" data-role="ctx">怎么验</span></div>'
+        '<p style="font-size:18.5px">扩展 <code>scripts/check-diff.ts</code> 断言 <code>c05</code>–<code>c08</code>、可见集与 <code>c17</code>–<code>c19</code>；跑共享包 <code>lint / build</code></p></div>'
         '<div class="p-box" data-role="agent" data-reveal="2" style="padding:12px 16px">'
-        '<div class="p-head"><h3 style="font-size:22px">只增可选入口，不碰网页视图</h3><span class="p-tag" data-role="agent">怎么派</span></div>'
-        '<p style="font-size:18.5px">给 <code>types.ts</code> 与 <code>JSONCrackComponent</code> 增可选图数据入口并渲染状态符号；双输入与筛选开关留后续任务</p>'
+        '<div class="p-head"><h3 style="font-size:22px">新增 DiffGraph，不动原组件外壳</h3><span class="p-tag" data-role="agent">怎么派</span></div>'
+        '<p style="font-size:18.5px"><code>NodeData</code> 增可选状态并在节点组件透传；上限由调用方传参，共享包不写死默认值（待 <b>5.4</b> 定稿符号形态）</p>'
         '<div style="margin-top:8px">'
         + pop(
             "TASK-02 委托请求要素参考（按自己的规格调整）",
             "查看请求要素参考",
-            '<p style="margin:0 0 8px">请阅读 <code>TASK-02</code> 及关联 Spec、Acceptance 与固定素材，基于上一任务已验证的差异模型实现合并图映射</p>'
-            '<p style="margin:0 0 8px">允许范围：在共享包 <code>diff/</code> 新增映射；在 <code>types.ts</code> 新增可选状态字段；在 <code>JSONCrackComponent.tsx</code> 新增可选 <code>nodes / edges</code> 入口；在节点组件渲染非纯颜色的状态符号并更新导出。不改既有 <code>json</code> 入口、<code>parser.ts</code>、超限判定逻辑与网页版视图</p>'
-            '<p style="margin:0">用工作区外一次性脚本核对 <code>nested</code>、<code>subtree</code>、<code>identical</code>、<code>key-order</code>、<code>null-equiv</code> 的图数据；再运行共享包 <code>lint</code>、<code>build</code> 与 <code>pnpm --filter vscode run lint</code></p>',
+            '<p style="margin:0 0 8px">请阅读 <code>TASK-02</code> 及关联 Spec、Acceptance、Plan 与素材（<code>c05</code>–<code>c08</code>、<code>c17</code>–<code>c19</code>），基于 5.1 已验证的差异模型完成合并图映射与 <code>DiffGraph</code></p>'
+            '<p style="margin:0 0 8px">允许范围：在 <code>packages/jsoncrack-react/src/diff/**</code> 实现节点/边映射、可见集计算与含 <code>removed</code> 的上限判定；新增独立画布外壳 <code>DiffGraph.tsx</code> 复用同一套节点/边与布局；<code>types.ts</code> 为 <code>NodeData</code> 增可选状态字段并在 <code>CustomNode</code> / <code>ObjectNode</code> / <code>TextNode</code> 透传。上限数值一律由参数接收，不在共享包写死默认值或读环境变量</p>'
+            '<p style="margin:0">禁止改动：<code>parser.ts</code>、<code>JSONCrackComponent.tsx</code>、已有 <code>NodeData</code> 字段语义与 <code>apps/**</code>。扩展 <code>scripts/check-diff.ts</code>（参数传入上限 2000）跑过全量断言，再跑通 <code>pnpm --filter jsoncrack-react lint</code> 与 <code>build</code></p>',
         )
         + "</div></div></div>"
     ),
-    steps=["锁定共享包增量边界", "图数据脚本与跨包检查", "委托要素与请求参考"],
+    steps=["锁定 DiffGraph 与可选字段边界", "扩展 check-diff 与共享包构建", "委托要素与参数化上限"],
 )
 
 pending(
@@ -209,7 +209,7 @@ pending(
     "p16",
     "怎样发出请求",
     "当前副本对得上起点吗？请求该怎么发出？",
-    "实操页占位：正式录制时在 5.1 功能分支上发出 TASK-02 映射请求",
+    "实操页占位：正式录制时在 5.1 功能分支上发出 TASK-02 合并图映射请求",
 )
 
 
@@ -219,7 +219,7 @@ pending(
     "p17",
     "完成边界",
     "怎样判断映射做到了完成边界？",
-    "实操页占位：正式录制时展示映射改动范围、图数据脚本核对与构建输出",
+    "实操页占位：正式录制时展示映射改动范围、c17–c19 上限断言与共享包构建输出",
 )
 
 scene(
@@ -235,10 +235,10 @@ scene(
         '<p style="font-size:19.5px">被删字段的原始键值只来自 <b>Before</b>；在 After 里找不到节点，绝不能反推「删除项不必保留」</p></div>'
         '<div class="p-box" data-role="ok" data-reveal="1" style="padding:16px 20px">'
         '<div class="p-head"><h3>查映射产出的 NodeData / EdgeData</h3><span class="p-tag" data-role="ok">✓ 证据成立</span></div>'
-        '<p style="font-size:19.5px">直接核实 <code>/active</code> 节点存在、状态标为 <code>removed</code>，且父子连边挂在正确容器路径下</p></div></div>'
-        '<div class="p-bar is-light" data-reveal="2">另一条边界：图数据能算出筛选可见集合 <b>不等于</b>「只看变化」界面已通过验收；界面交互留给 5.4</div>'
+        '<p style="font-size:19.5px">直接核实 <code>/active</code> 与被删子树节点存在、标为 <code>removed</code>，连边正确，且 <code>c18</code>（2051 节点）判为超限</p></div></div>'
+        '<div class="p-bar is-light" data-reveal="2">另一条边界：图数据能算出可见集合与超限结果 <b>不等于</b>「只看变化」界面和超限提示框已验收</div>'
     ),
-    steps=["只查 After 为何失效", "核对映射后的节点与连边", "数据就绪不等于界面已验收"],
+    steps=["只查 After 为何失效", "核对映射节点、连边与上限", "数据就绪不等于界面已验收"],
 )
 
 
@@ -264,19 +264,19 @@ scene(
     segment="自检与交接",
     label="带着什么进入 5.3",
     title="带着什么进入 5.3？",
-    lead="共享包已经能产出带四种状态的合并图数据，并且没有破坏既有单输入入口。",
+    lead="共享包已经能产出带四种状态的合并图与 DiffGraph 组件，且原画布组件零改动。",
     html=sketch_recap(
         "本节核心判断",
-        ["删除节点来自 Before", "必须投影两侧成合并图", "按产出节点与连边核对"],
+        ["删除节点来自 Before", "两侧投影进同一份合并图", "removed 节点必须计入上限"],
         "本节留下",
         [
-            "产出 <code>NodeData / EdgeData</code> 的合并图映射",
-            "通过共享包 <code>build</code> 与 <code>vscode lint</code> 的可选入口",
-            "更新后的 <code>CH05_IMPLEMENTATION.md</code>",
+            "合并图映射、可见集计算与 <code>c17</code>–<code>c19</code> 上限断言",
+            "独立的 <code>DiffGraph.tsx</code> 与 <code>NodeData</code> 可选状态",
+            "原 <code>JSONCrackComponent</code> 零改动的构建结果",
         ],
         "下一节 5.3",
-        "双输入与错误恢复",
-        "把两侧输入接到网页视图，看一边输入出错时已有结果该怎么办",
+        "独立路由双输入与报错",
+        "在 apps/www 新增 /diff 页面接入双输入，看一边出错时已有结果该怎么办",
     ),
     steps=["核心判断", "本节留下的成果", "进入 5.3 双输入"],
 )

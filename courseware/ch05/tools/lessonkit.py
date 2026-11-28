@@ -26,10 +26,10 @@ SECTIONS = [
 
 # 全章共用的 JSON Diff 四步实施切片（5.1–5.4 逐节推进）
 ARCH_SLICES = [
-    ("model", "5.1 差异模型", "packages/jsoncrack-react/src/diff/", "按路径对齐两侧，算状态、计数与祖先标记"),
-    ("graph", "5.2 合并图映射", "NodeData / EdgeData + 可选入口", "保留 removed 与必要祖先，赋予状态符号"),
-    ("input", "5.3 双输入与错误", "apps/www DiffView + 独立状态", "接入 Before / After，出错保留上次结果"),
-    ("ui", "5.4 摘要 · 筛选 · 验收", "只看变化 + 无外链超限 + 全量走查", "补齐摘要与筛选，走完 AC-001~021 与回归"),
+    ("model", "5.1 差异模型", "src/diff/ · 无 React", "路径比较、null 视同缺失与 check-diff"),
+    ("graph", "5.2 合并图映射", "DiffGraph + NodeData", "保留 removed、可见集与上限"),
+    ("input", "5.3 双输入与错误", "pages/diff + useDiff", "独立路由、内存态与报错保留"),
+    ("ui", "5.4 摘要 · 筛选 · 验收", "符号定稿 · AC-01~23", "补齐摘要与筛选，走完三端 lint/build"),
 ]
 
 
@@ -150,11 +150,12 @@ def diff_arch(active, done=(), reveal=0):
     return (
         f'<div class="ch5-arch"{rv}>'
         f'<div class="ch5-arch-chain">{"".join(nodes)}</div>'
-        '<div class="ch5-arch-guard"><b>隔离保护（全章不动）：</b>'
-        "<span><code>parser.ts</code> 顺序节点 id</span> · "
-        "<span><code>useJson</code> 单输入状态链路</span> · "
-        "<span><code>NotSupported</code> 原超限组件</span> · "
-        "<span><code>apps/vscode</code> 插件端</span></div>"
+        '<div class="ch5-arch-guard"><b>隔离保护（全程不动）：</b>'
+        "<span><code>parser.ts</code></span> · "
+        "<span><code>JSONCrackComponent</code></span> · "
+        "<span><code>pages/editor</code></span> · "
+        "<span><code>features/editor</code></span> · "
+        "<span><code>useFile / useJson</code></span></div>"
         "</div>"
     )
 

@@ -6,6 +6,7 @@
 实跑请求保存在分镜；页面展示组织请求的要素、审查观察点和一次备课实跑说明，不预写 Agent 回复。
 """
 import sys
+from html import escape
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
@@ -35,6 +36,35 @@ TASKS = [
     ("tool", "TASK-03", "双输入与错误", "Before/After、单侧错误、上次有效结果", "正常比较、报错与恢复路径"),
     ("ok", "TASK-04", "摘要筛选验收", "摘要、只看变化、非纯颜色、整体验收", "当前验收项 + 单输入回归"),
 ]
+
+PROMPT_P55_TEACHER = """请先阅读已经审过的 docs/specs/SPEC.md（32 条 Approved：REQ-001~REQ-031 与 REQ-038）、docs/specs/ACCEPTANCE.md（23 条验收案例 AC-01~AC-23）、docs/specs/fixtures/README.md，以及 docs/specs/BRIEF.md 里「已核实约束」中的仓库事实。不要再重复走一遍从输入到渲染的源码导览。
+
+请先针对这次实施做一轮很薄的影响面核对：这次方案会改到哪些具体位置、入口落在哪里（同时守住 REQ-038 不破坏现有单份 JSON 查看链路）、用什么命令和方式验证。没有源码依据，就不要把文件路径和命令写进计划。
+
+然后比较两种改法：一种是在界面里直接比较两份 JSON 并生成展示；另一种是先形成独立的差异模型，再映射到现有图数据。请根据刚才核对到的依据做出选择，说明取舍，不要在没有依据时预先认定只能选哪一种。
+
+在此之后，起草 docs/specs/PLAN.md 和 docs/specs/TASKS.md，并补全已批准需求、验收案例与任务的完整对应关系。
+
+这一步只新建 docs/specs/PLAN.md 和 docs/specs/TASKS.md，不要修改生产代码，不要修改 BRIEF.md、SPEC.md、ACCEPTANCE.md 和 docs/specs/fixtures/，也不要执行 git commit。
+
+要求：
+1. PLAN.md 写清所选方案、取舍原因、影响范围（附源码依据）、验证入口、风险和回退安排，以及入口改造落点（回应 SPEC §13 OQ-10 留给 Plan 的部分）。只换适配位置就更新 Plan 和相关任务即可；不要在计划里改变已经批准的产品行为。
+2. 按依赖把实施拆成 4 项可检查的任务，写进 TASKS.md（正式编号可按 TASK-01~TASK-04）：
+   - 差异模型（含键序忽略、数组按索引、类型变化、REQ-003 的 null 规则、直接状态、派生标记与计数，用固定素材核对纯逻辑）；
+   - 合并图映射（将差异模型映射到现有图数据，保留 removed 节点与必要祖先，并按 2000 上限含 removed 节点核对超限）；
+   - 双输入与错误状态（接入 Before / After 两侧输入、单侧出错指明哪一侧、保留上次有效结果、首次即错空状态与本地处理验证）；
+   - 摘要、筛选与整体验收（接入差异摘要、「只看变化」、非纯颜色文字或符号、360px 窄屏，完成当前整体验收并回归 REQ-038 / AC-23 原有单输入路径）。
+   后一项承接前一项已确认的结果。每项任务写清：输入、允许改动范围、依赖、对应的 REQ-* 与 AC-*（引用实际编号）、验证方法与完成标准。
+3. 完整的 REQ-* ↔ AC-* ↔ TASK-* 对应追踪表集中写在 TASKS.md，确保全部 32 条 Approved 需求与 23 条 AC 都有落点，尤其把「忽略对象键顺序」（REQ-001 → AC-02 → c02-key-order）从规则一路串通到相关任务。各文档用编号引用，不靠复制大段正文保持一致。
+4. 尚未决定的 6 条 Draft（REQ-032~REQ-037，如 1 与 1.0 数值字面量、浏览器本地存储、节点点击详情、独立差异清单、摘要扩展内容、大输入验收规模）在文档中单独列出交给我决定，不要写成实现决定；5 条 Deferred（REQ-039~REQ-043，VS Code 插件、其他数据格式、写回导出分享、元素对齐与移动检测、字段顺序敏感场景）与浏览器扩展不纳入本次任务。
+5. 写完后检查追踪表一致性，并运行 git status --short --untracked-files=all 给我看。"""
+
+PROMPT_P56_REVISE = """请按以下 3 条审查意见修改 docs/specs/PLAN.md 和 docs/specs/TASKS.md，只改这两个文件，不要修改生产代码，不要修改 BRIEF.md、SPEC.md、ACCEPTANCE.md 和 docs/specs/fixtures/，也不要执行 git commit：
+1. 修正 REQ-032 写串笔误：docs/specs/TASKS.md 第 85 行（TASK-01 完成标准）写成“键序忽略的判定集中在一个可单独替换的函数里（因为 REQ-032 仍是 Draft，见 §5）”，把已批准的 REQ-001（键序忽略）和未决定的 REQ-032（1 与 1.0 数值字面量）写串了；第 372 行（§7.3）也顺带把 REQ-001 写成了“落到单个可替换函数”。请修正这两处：REQ-001 是已批准规则，按 SPEC 执行即可；需要留出可替换判定点的是 REQ-032（数值字面量比较）。
+2. 不要替 REQ-032 预设“字面量不同算变化”的实现决定：docs/specs/PLAN.md 第 157 行（风险 R-5）和 docs/specs/TASKS.md 第 273 行（§5 REQ-032）都写了“临时默认按字面量不同即算变化”。请删去这一预设：REQ-032 尚未决定，且标准 JSON 解析中 1 与 1.0 本就是数值相等，不要在本轮强行按字面量拆成变化；改为注明“在 TASK-01 留出数值比较的单一判定点，待需求负责人决定后再补对应行为与验收，本轮不写死 1 与 1.0 的字面量断言”。
+3. 收清 TASK-02 上限参数的跨包口径：docs/specs/TASKS.md 第 145 行（TASK-02 完成标准）写“上限数值取自 apps/www/src/constants/graph.ts:6 的同一个 SUPPORTED_LIMIT”，但 TASK-02 位于共享包 packages/jsoncrack-react 且禁止改动 apps/**。请改为明确“共享包映射与 DiffGraph 通过参数接收上限数值，不另定硬编码默认值；由 TASK-03 在 apps/www 接入时传入 apps/www/src/constants/graph.ts:6 的 SUPPORTED_LIMIT”。
+另外确认 PLAN §3 末尾的待确认项：新页面 /diff 的搜索索引策略保持默认（按 /editor 模式可索引）即可，可注明已确认。
+改完后汇总改动点，并运行 git status --short --untracked-files=all 给我看。"""
 
 
 # ---------- 开篇 ----------
@@ -236,10 +266,17 @@ scene(
         pop_title="组织请求表达示例（按自己的文档调整）",
         pop_label="查看组织示例",
         pop_body=(
-            '<div class="p-code"><div class="p-code-head"><span>发给 Agent 的组织参考</span><span>按实际文档与编号调整</span></div>'
-            "<pre>请先阅读已审过的 docs/specs/SPEC.md、docs/specs/ACCEPTANCE.md，以及 docs/specs/BRIEF.md 里已核实的仓库事实（不要再走一遍从输入到渲染的导览）。\n\n"
+            '<p style="margin:0 0 8px;font-size:17px">按你自己的文档与编号改写，下面先给简版表达方式，再附课堂演练时教师使用的完整 Prompt 供参考</p>'
+            '<div class="p-code"><div class="p-code-head"><span>发给 Agent 的组织参考（简版）</span><span>按实际文档与编号调整</span></div>'
+            '<pre style="padding:12px 14px;white-space:pre-wrap;font-size:17px;line-height:1.55">'
+            "请先阅读已审过的 docs/specs/SPEC.md、docs/specs/ACCEPTANCE.md，以及 docs/specs/BRIEF.md 里已核实的仓库事实（不要再走一遍从输入到渲染的导览）。\n\n"
             "先针对这次实施做一轮很薄的影响面核对，再比较「界面直接比较」与「独立差异模型再映射」两种改法并说明取舍；没有源码依据，不要把路径和命令写进计划。\n\n"
             "随后起草 docs/specs/PLAN.md 与 docs/specs/TASKS.md，补全已批准需求、验收案例与任务的对应关系（至少把「忽略对象键顺序」串通）。只写规格，不改生产代码，不动既有文档与素材；剩余未决细则列出交给我。写完运行 git status --short --untracked-files=all。</pre></div>"
+            '<p style="margin:12px 0 6px;font-size:17px"><b>课堂演练时教师 Prompt（供参考）</b>：按自己的 Spec / Acceptance 编号与实际内容调整，不必逐字照抄</p>'
+            '<div class="p-code"><div class="p-code-head"><span>课堂演练时教师 Prompt（供参考）</span></div>'
+            '<pre style="padding:12px 14px;white-space:pre-wrap;font-size:15.5px;line-height:1.55">'
+            + escape(PROMPT_P55_TEACHER)
+            + "</pre></div>"
         ),
         pop_hint="按自己文档组织措辞，点击可看完整表达示例",
     ),
@@ -275,9 +312,13 @@ scene(
         ],
         footer_bar="审完看 <code>git status</code>：新增与修改只在 <b>docs/specs/</b>；确认后<b>由人提交规格基线</b>，本节不写生产代码",
         example_pop=pop(
-            "一次实跑：这次没有要改的地方",
+            "一次实跑：审查与修改示例",
             "示例：备课实跑",
-            '<p style="margin:0">2026-11-10 备课实跑。打开 <code>PLAN.md</code> 和 <code>TASKS.md</code> 抽查后，没有要改的地方，就直接进入提交。每次生成的编号和内容可能不同；没有审出问题时不必为了演示编造修改。</p>',
+            '<p style="margin:0 0 8px;font-size:17px">以下为教师演示时的审查修改 Prompt（仅供参考；每次生成的编号和内容可能不同，请按自己的实际抽查结果调整，没有审出问题时也不必编造修改）</p>'
+            '<div class="p-code"><div class="p-code-head"><span>课堂演练时教师修正 Prompt（供参考）</span></div>'
+            '<pre style="padding:12px 14px;white-space:pre-wrap;font-size:15.5px;line-height:1.55">'
+            + escape(PROMPT_P56_REVISE)
+            + '</pre></div>',
         ),
     ),
     steps=["抽查方案", "抽查任务", "抽查对应关系", "检查工作区并提交"],
@@ -287,7 +328,7 @@ scene(
             ("再抽查四项任务的依赖、验证和完成标准，并抽一条已批准需求，看能不能走到对应的案例和任务。", None),
             ("审出问题时，指出实际内容和依据，请 Agent 修改后再回看。没有问题时继续核对，不必编造修改。审完运行 git status，确认后由人提交规格基线，不要让 Agent 先提交。", "git status --short --untracked-files=all"),
         ],
-        note="实际问题和编号可能不同；这次备课实跑没有要改的地方，就直接进入提交。本节提交只含规格和素材，不改生产代码。",
+        note="实际问题和编号可能不同；没有审出问题时也不必编造修改。本节提交只含规格和素材，不改生产代码。",
         label="跟做：审查并提交规格基线",
     ),
 )

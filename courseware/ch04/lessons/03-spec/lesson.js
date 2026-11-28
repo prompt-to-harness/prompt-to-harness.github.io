@@ -40,7 +40,7 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜停留课件 p27 第 1 步；切到编辑器，打开基线副本中的 docs/specs/BRIEF.md，滚到 Open 问题一节，再切回课件】\n\n先打开上一节写出的 Brief，找到 Open 问题。这里列的是需求原文还没定下来、又会改变实现的地方。每个人生成的条数和编号可能不同。找到一条，先看它会影响什么结果，再看原文和调查提供了什么依据。",
-        "【操作提示｜推进第 2 步；切到现场 Brief，指出一条问题，查看是否附有建议，再切回课件】\n\n再看 Agent 有没有附建议。比如我备课那次，它建议按业务主键对齐数组。这是一种办法，行为上选哪种还需要人决定；代码具体怎么改，留到 Plan 再讨论。你看到的问题和建议可能不同。",
+        "【操作提示｜推进第 2 步；切到现场 Brief，指出一条问题，查看是否附有建议，再切回课件】\n\n再看 Agent 有没有附建议。比如这里；代码具体怎么改，留到 Plan 再讨论。你看到的问题和建议可能不同。",
         "【操作提示｜推进第 3 步，指向“示例：一条 Open 问题”；讲完进入 p28】\n\n页面里截取了那次实跑的一条问题，供你对照看。接下来拿几段很小的 JSON 比较不同结果，帮助我们为自己的 Brief 作决定。"
       ],
       "teaching": [],
@@ -89,7 +89,7 @@ window.lesson = {
         "【操作提示｜停留课件 p29 第 1 步，指向左侧 Before 和 After】\n\n数组的情况更复杂。Before 是 10、20，After 在最前面插了一个 5，变成 5、10、20。",
         "【操作提示｜推进第 2 步，从上到下指“按索引”一栏】\n\n按位置一项一项比：第 0 位从 10 变成 5，第 1 位从 20 变成 10，第 2 位多出一个 20。一共 3 处差异，可实际上只插了一项。",
         "【操作提示｜推进第 3 步，指向“按元素对齐”一栏】\n\n先认出同一个元素再比，结果就是开头新增了一个 5，10 和 20 都没变，只有 1 处差异。这个结果更符合直觉。",
-        "【操作提示｜推进第 4 步，指向底部横条】\n\n可它要先回答一个问题：怎样算同一个元素？数字可以按值认，商品列表里的对象按哪个字段认？上一节 Agent 起草 Brief 时，可能在这条 Open 问题下面建议过 LCS 或者业务主键，这些都是对齐的办法。选哪一种、做不做，还是要人来定。"
+        "【操作提示｜推进第 4 步，指向底部横条】\n\n可它要先回答一个问题：怎样算同一个元素？数字可以按值认，商品列表里的对象按哪个字段认？上一节 Agent 起草 Brief 时，在这条 Open 问题下面建议过 LCS 或者业务主键，这些都是对齐的办法。选哪一种、做不做，还是要人来定。"
       ],
       "teaching": [],
       "source": "index.html#p29",
@@ -109,7 +109,7 @@ window.lesson = {
       ],
       "script": [
         "【操作提示｜停留课件 p30 第 1 步，指向需求原文两句】\n\n回到这一节的问题。需求原文写了把不同的地方高亮出来，也写了数组要支持，还说 1 变成字符串 1 这种他们也想知道。可键序算不算变化、这种变化归成哪一类、数组元素怎样对上，原文都还没给出唯一答案。",
-        "【操作提示｜推进第 2 步，依次指三张卡片】\n\n原文留下空白，每个实现者都会用自己习惯的做法补上。实现者 A 可能觉得键序也算变化、数组按索引比；实现者 B 可能正好相反。Agent 也一样，它会按自己采用的常见做法补。补出来的东西各不相同，就是跑偏。",
+        "【操作提示｜推进第 2 步，依次指三张卡片】\n\n原文留下空白，每个实现者都会用自己习惯的做法补上。实现者 A 可能觉得键序也算变化、数组按索引比；实现者 B 可能正好相反。Agent 也一样，它会按自己认为的常见做法补。",
         "【操作提示｜推进第 3 步，指向底部横条；讲完进入 p31】\n\n所以，把要求写得更细，并不能替我们选出其中一种。能消除分歧的，是一个人看过各种结果和代价之后作出的决定，再把这个决定写成规则。"
       ],
       "teaching": [],
@@ -151,10 +151,10 @@ window.lesson = {
         "数一数"
       ],
       "script": [
-        "【操作提示｜停留课件 p32 第 1 步，指向左侧 Before 和 After】\n\n值怎么比定下来了，还要定怎么画。JSON Crack 是把数据画成图的，差异也要在图上看得到。看这个嵌套的小例子：config 下面，retry 从 3 变成了 5，debug 整个被删掉了。",
+        "【操作提示｜停留课件 p32 第 1 步，指向左侧 Before 和 After】\n\n值怎么比 定下来了，还要定怎么画。JSON Crack 是把数据画成图的，差异也要在图上看得到。看这个嵌套的小例子：config 下面，retry 从 3 变成了 5，debug 整个被删掉了。",
         "【操作提示｜推进第 2 步，指向中间“只画 After”】\n\n如果只把 After 画出来，图上只剩 config 和 retry，debug 就消失了。需求原文第 4 条专门说过，删掉的字段也要能看出来。",
         "【操作提示｜推进第 3 步，依次指合并图里的三个节点】\n\n所以要画一张合并图。retry 标成 changed；debug 只在 Before 里有，标成 removed，留在图上。config 本身两边都是对象，没有增删、也没改类型，它的状态还是 unchanged，只是带一个派生标记 hasDiffDescendant，意思是下面有变化，帮用户顺着找下去。",
-        "【操作提示｜推进第 4 步，指向底部横条】\n\n这样数下来，直接差异是 2 处，config 不计入。四种直接状态就是 added、removed、changed、unchanged，再加上祖先的这个派生标记。右边这张图是我画的示意，JSON Diff 还没有实现。"
+        "【操作提示｜推进第 4 步，指向底部横条】\n\n这样数下来，直接差异是 2 处，config 不计入。四种直接状态就是 added、removed、changed、unchanged，再加上 config 当中的这个派生标记。右边这张图是我画的示意，JSON Diff 还没有实现。"
       ],
       "teaching": [],
       "source": "index.html#p32",
@@ -173,9 +173,9 @@ window.lesson = {
         "本地、可辨认与暂缓"
       ],
       "script": [
-        "【操作提示｜停留课件 p33 第 1 步，指向前三行】\n\n用户真正用起来，还会筛选、会输错、会贴进很大的文件，也会遇到字段值为 null 的情况，这些也要在交给验收之前定下来。先看前三条：只数直接差异，整个对象或数组被增删时，只在它的根上计 1 处，里面的节点仍要逐个标状态。只看变化时，未变化的节点藏起来，但通向差异的祖先和删掉的节点要留着，筛选前后差异数不变。至于某个字段值为 null，统一按该路径不存在处理，走同样的增删规则，后面写验收和拆任务都按这一条来。",
-        "【操作提示｜推进第 2 步，指向中间两行】\n\n输入出错时，要指明是 Before 还是 After 出错，并保留最后一次有效的比较结果。4.1 我们在现有编辑器里看到过，输错时图会保留上一次的结果，这里沿用同样的思路。节点上限，上一节查到它来自仓库配置，这里决定合并图沿用现有设定，不另定新数值；删掉的节点也画在图上，所以一并计入。超过上限就不画图，只提示图太大。具体数值留给下一节，按运行环境来核算。",
-        "【操作提示｜推进第 3 步，指向最后三行】\n\n最后三行：比较在浏览器本地完成，JSON 内容不发出去，这是原文第 6 条的要求。每种状态除了颜色，还要有文字或符号能认出来；360 像素宽的窗口里也要能操作。VS Code 插件、其他数据格式，标为暂缓，也就是 Deferred。"
+        "【操作提示｜停留课件 p33 第 1 步，指向前三行】\n\n剩下几条日常场景，也一起定下来。先看前三行：计数只数直接差异，整块对象或数组增删，根上只算 1 处，子节点照样标状态。点“只看变化”，藏起没变的，但通往差异的父级路径和删掉的节点留着，差异数不变。字段值为 null，直接当成字段不存在，按增删规则算。",
+        "【操作提示｜推进第 2 步，指向中间两行】\n\n中间两行说出错和大文件。输错时，指明是 Before 还是 After 出错，保留上一次有效结果；如果还没比过，就显示空状态。节点上限直接沿用仓库现有的设定，删掉的节点也算在内；超了就不画图，只提示图太大。",
+        "【操作提示｜推进第 3 步，指向最后三行】\n\n最后三行：比较全在浏览器本地跑，数据不发往网络。状态除了颜色，还要配文字或符号，360 像素的窄屏也能正常操作。VS Code 插件和其他格式，标成 Deferred，先暂缓。"
       ],
       "teaching": [],
       "source": "index.html#p33",
@@ -208,7 +208,7 @@ window.lesson = {
       "label": "让 Agent 起草 Spec",
       "title": "让 Agent 起草 Spec",
       "lead": "结合自己的 Brief 组织请求：把本章已经确认的决定逐条写进发给 Agent 的请求，说明依据和目标文件，要求规则写清编号、行为、状态、来源与 Open 问题去向；尚未决定的保留待定。",
-      "html": "<div class=\"ch4-delegation\"><div class=\"ch4-del-col\" data-reveal=\"0\"><div class=\"p-box ch4-del-card\" data-role=\"ctx\"><span class=\"p-tag\" data-role=\"ctx\" style=\"margin-bottom:2px;align-self:flex-start\">读哪些依据</span><div class=\"ch4-file-stack\"><div class=\"ch4-file-chip\" data-role=\"ctx\"><code>docs/specs/BRIEF.md</code><span>已审过的问题与依据</span></div><div class=\"ch4-file-chip\" data-role=\"ctx\"><code>课程决定清单</code><span>含键序、数组、类型与 null 规则</span></div></div><p class=\"ch4-del-note\">把已确认的决定逐条写进发给 Agent 的请求；未决定的标待定</p></div></div><div class=\"ch4-contract\"><div class=\"ch4-contract-row\" data-key=\"依据与目标\" data-reveal=\"0\"><span class=\"ch4-contract-key\">依据与产出</span><span>按我的 Brief，起草 <code>docs/specs/SPEC.md</code></span></div><div class=\"ch4-contract-row\" data-key=\"规则要求\" data-reveal=\"1\"><span class=\"ch4-contract-key\">每条规则</span><span>REQ 编号 · 可观察可检查 · Approved/Draft/Deferred · 来源</span></div><div class=\"ch4-contract-row\" data-key=\"边界分流\" data-reveal=\"2\"><span class=\"ch4-contract-key\">Open 问题</span><span>全部写明去向；未决定的留给人决定，不写代码改法</span></div><div class=\"ch4-contract-row\" data-key=\"请求约束\" data-reveal=\"3\"><span class=\"ch4-contract-key\">改完核对</span><span>只新建 <code>SPEC.md</code>，完成后看 <code>git status</code></span></div></div><div class=\"ch4-del-col\"><div class=\"p-box ch4-del-card\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"agent\" style=\"margin-bottom:2px;align-self:flex-start\">请 Agent 起草</span><div class=\"ch4-file-stack\"><div class=\"ch4-file-chip\" data-role=\"agent\"><code>docs/specs/SPEC.md</code><span>供下一页逐条审查</span></div></div></div><div class=\"ch4-pop-dock\" data-reveal=\"3\"><span class=\"ch4-pop-dock-hint\">把决定写进请求，示例仅供参考</span><details class=\"p-pop\"><summary>示例：按实际 Brief 调整请求</summary><div class=\"p-pop-body\"><div class=\"p-pop-head\"><span>请求表达示例</span><button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div><p style=\"margin:0 0 8px;font-size:17px\">按你自己的 Brief 与决定清单改写，下面只展示表达方式</p><div class=\"p-code\"><div class=\"p-code-head\"><span>请求示例</span></div><pre style=\"padding:12px 14px;white-space:pre-wrap;font-size:18px;line-height:1.55\">依据 docs/specs/BRIEF.md 起草 docs/specs/SPEC.md。\n已确认的决定包括：对象键顺序忽略；数组按索引比较；值或类型改变都记为 changed；字段值为 null 按该路径不存在处理；筛选不改变差异数；沿用节点上限。\n每条规则带 REQ 编号、状态和 Brief 来源；尚未决定的保留 Draft，不混入文件名或函数名。</pre></div></div></details></div></div></div>",
+      "html": "<div class=\"ch4-delegation\"><div class=\"ch4-del-col\" data-reveal=\"0\"><div class=\"p-box ch4-del-card\" data-role=\"ctx\"><span class=\"p-tag\" data-role=\"ctx\" style=\"margin-bottom:2px;align-self:flex-start\">读哪些依据</span><div class=\"ch4-file-stack\"><div class=\"ch4-file-chip\" data-role=\"ctx\"><code>docs/specs/BRIEF.md</code><span>已审过的问题与依据</span></div><div class=\"ch4-file-chip\" data-role=\"ctx\"><code>课程决定清单</code><span>含键序、数组、类型与 null 规则</span></div></div><p class=\"ch4-del-note\">把已确认的决定逐条写进发给 Agent 的请求；未决定的标待定</p></div></div><div class=\"ch4-contract\"><div class=\"ch4-contract-row\" data-key=\"依据与目标\" data-reveal=\"0\"><span class=\"ch4-contract-key\">依据与产出</span><span>按我的 Brief，起草 <code>docs/specs/SPEC.md</code></span></div><div class=\"ch4-contract-row\" data-key=\"规则要求\" data-reveal=\"1\"><span class=\"ch4-contract-key\">每条规则</span><span>REQ 编号 · 可观察可检查 · Approved/Draft/Deferred · 来源</span></div><div class=\"ch4-contract-row\" data-key=\"边界分流\" data-reveal=\"2\"><span class=\"ch4-contract-key\">Open 问题</span><span>全部写明去向；未决定的留给人决定，不写代码改法</span></div><div class=\"ch4-contract-row\" data-key=\"请求约束\" data-reveal=\"3\"><span class=\"ch4-contract-key\">改完核对</span><span>只新建 <code>SPEC.md</code>，完成后看 <code>git status</code></span></div></div><div class=\"ch4-del-col\"><div class=\"p-box ch4-del-card\" data-role=\"agent\" data-reveal=\"0\"><span class=\"p-tag\" data-role=\"agent\" style=\"margin-bottom:2px;align-self:flex-start\">请 Agent 起草</span><div class=\"ch4-file-stack\"><div class=\"ch4-file-chip\" data-role=\"agent\"><code>docs/specs/SPEC.md</code><span>供下一页逐条审查</span></div></div></div><div class=\"ch4-pop-dock\" data-reveal=\"3\"><span class=\"ch4-pop-dock-hint\">把决定写进请求，示例仅供参考</span><details class=\"p-pop\"><summary>示例：按实际 Brief 调整请求</summary><div class=\"p-pop-body\"><div class=\"p-pop-head\"><span>请求表达示例</span><button type=\"button\" onclick=\"this.closest('details').open=false\">关闭</button></div><p style=\"margin:0 0 8px;font-size:17px\">按你自己的 Brief 与决定清单改写，下面先给简版表达方式，再附课堂演练时教师使用的完整 Prompt 供参考</p><div class=\"p-code\"><div class=\"p-code-head\"><span>请求示例（简版）</span></div><pre style=\"padding:12px 14px;white-space:pre-wrap;font-size:17px;line-height:1.55\">依据 docs/specs/BRIEF.md 起草 docs/specs/SPEC.md。\n已确认的决定包括：对象键顺序忽略；数组按索引比较；值或类型改变都记为 changed；字段值为 null 按该路径不存在处理；筛选不改变差异数；沿用节点上限。\n每条规则带 REQ 编号、状态和 Brief 来源；尚未决定的保留 Draft，不混入文件名或函数名。</pre></div><p style=\"margin:12px 0 6px;font-size:17px\"><b>课堂演练时教师 Prompt（供参考）</b>：按自己的 Brief 编号与实际决定调整，不必逐字照抄</p><div class=\"p-code\"><div class=\"p-code-head\"><span>课堂演练时教师 Prompt（供参考）</span></div><pre style=\"padding:12px 14px;white-space:pre-wrap;font-size:15.5px;line-height:1.55\">请先阅读 docs/specs/BRIEF.md，再根据这份 Brief 和下面由需求负责人确认的决定清单，起草 docs/specs/SPEC.md。\n\n本次目标是网页版 JSON Diff：同时输入 Before 和 After 两份 JSON，比较并高亮差异，提供差异摘要和“只看变化”。请把已经确认的产品行为写成规则；具体代码放在哪里、改现有页面还是新增入口、使用哪个组件或函数，留给后续 Plan。\n\n规则与状态要求：\n\n1. 每条规则使用 REQ- 编号，描述用户能观察、能够检查的行为。规则正文不规定文件名、组件名或函数名。\n2. 根据已确认的目标或下方明确决定写出的规则，标为 Approved；明确暂缓或本次不做的内容，标为 Deferred；会改变本次产品行为、但尚未决定的内容，标为 Draft，并说明还缺什么决定。\n3. Brief 中 Agent 提出的建议只是建议，不要自动写成 Approved。不要自行补充决定清单未覆盖的行为。\n4. 每条规则注明来源：Brief 的相关小节、Open 问题（OQ 编号），或下面的课程决定；有多个来源时可以同时列出，不要编造出处。\n5. 这里的 Approved 是按已确认决定起草的状态，最终还要由我逐条审查。\n\n课程决定清单：\n\n1. 对象键换序不算差异，忽略对象键顺序。真正关心字段顺序的场景不在本次范围。\n2. 数组按索引逐项比较（索引从 0 开始）。中间插入一项后，后面的项可能显示为改动；按元素对齐（含按 id / 业务主键、LCS）和移动检测是本次非目标。\n3. 同一路径的原始值或类型改变（如 1 变成 &quot;1&quot;）都记为 changed，不再细分“只是类型变了”。（1 与 1.0 等数值字面量是否算变化尚未决定，保留 Draft。）\n4. 差异有 added、removed、changed、unchanged 四种直接状态。结果画在一张合并图里，Before 独有、已删除的节点标为 removed 并保留在图上。\n5. 两侧都存在且容器类型相同的祖先保持 unchanged；如果下层有变化，额外带 hasDiffDescendant 派生标记，用于帮助找到下层变化。只带这个派生标记的祖先不计入差异数。\n6. 差异数统计直接差异。新增或删除一整个对象或数组时，只在它的根计 1 处，其中的子节点仍逐个标为 added 或 removed。\n7. “只看变化”隐藏未变化的节点，但保留通向差异所必需的祖先和 removed 节点；切换筛选不改变差异数。\n8. 字段值为 null 等同于该路径不存在，按同样的增删规则处理。\n9. 输入错误时，指明出错的是 Before 还是 After，并保留最后一次有效的比较结果；还没有成功比较过且输入出错时，显示空状态和错误提示。\n10. 合并图沿用 JSON Crack 现有的节点上限设定，不另定新数值；removed 节点也计入上限。超过上限时不渲染合并图，只提示图太大，不沿用现有提示里的外部产品升级链接。\n11. 比较在浏览器本地完成，JSON 内容不因比较功能发送到网络。\n12. 每种状态除颜色外还有文字或符号可以辨认；在 360px 宽的窗口里，两侧输入、错误提示和结果都能操作。\n13. VS Code 插件、其他数据格式（YAML/XML/CSV）以及结果写回、导出或分享标为 Deferred。\n\n请在 SPEC.md 末尾列一张 Open 问题去向表，逐条列出 Brief 中实际存在的每个 Open 问题（OQ-1 到 OQ-13），并分别说明：\n\n- 哪些部分已由课程决定或 REQ 规则处理；\n- 哪些会改变产品行为的部分仍未决定（保留 Draft，例如浏览器本地存储、节点点击弹窗细节、数值字面量等）；\n- 哪些属于具体实现安排，需要留给后续 Plan（例如入口位置与页面改造落点）。\n\n一个 Open 问题可以对应多条规则，一条规则也可以回应多个问题。对于只处理了一部分的问题，请把已决定和未决定的部分分开写，不要为了凑对应关系自行补决定。\n\n如果 Brief 中的目标、非目标或其他内容与上述决定有冲突，请在 SPEC.md 中列出冲突供我审查，不要自行忽略，也不要修改 Brief。\n\n只新建 docs/specs/SPEC.md，不修改其他文件。完成后运行 git status --short --untracked-files=all 给我看。</pre></div></div></details></div></div></div>",
       "steps": [
         "依据与产出",
         "规则怎么写",
@@ -216,7 +216,7 @@ window.lesson = {
         "按实际组织请求"
       ],
       "script": [
-        "【操作提示｜停留课件 p35 第 1 步，指向左栏“读哪些依据”与右上产出卡；不切窗口】\n\n现在让 Agent 把这些决定写成 Spec。请求先说清依据：自己在 4.2 形成的 Brief，并把刚才已经确认的课程决定逐条写进这条请求；还要说明这次要起草 SPEC.md。",
+        "【操作提示｜停留课件 p35 第 1 步，指向左栏“读哪些依据”与右上产出卡；不切窗口】\n\n现在让 Agent 把这些决定写成 Spec。请求先说清依据：自己在 4.2 形成的 Brief，并把刚才已经确认的决定逐条写进这条请求；还要说明这次要起草 SPEC.md。",
         "【操作提示｜推进第 2 步，指向中间第二行“每条规则”】\n\n再说清每条规则怎么写：带 REQ 编号，写用户能观察、能检查的行为，并标上状态和来源。具体代码放在哪里，留给后面的 Plan。",
         "【操作提示｜推进第 3 步，指向中间第三行“Open 问题”】\n\n还要让它交代 Brief 里每个 Open 问题的去向：已经决定的对应规则，暂缓的标出来，尚未决定的留给人。这里的 Approved 是依据我们的决定起草，生成后仍要逐条审。",
         "【操作提示｜推进第 4 步，必要时点开右侧“请求表达示例”；切到 Codex，在 4.2 的同一会话中结合当前 Brief 和已确认决定组织起草请求；等待回复后切回课件进入 p36】\n\n请求的具体措辞，按照你自己的 Brief 来组织，已确认的决定要逐条写进去，还没决定的标明待定。页面右侧有一个示例弹窗，帮助你看清表达方式；确认依据和要求之后，在同一会话发给 Agent。"
@@ -260,7 +260,7 @@ window.lesson = {
         "【操作提示｜停留课件 p36 第 1 步；切到编辑器打开 docs/specs/SPEC.md，找到 Open 问题去向表，对照当前 Brief，再切回课件】\n\nSpec 起草好了，先看每个 Open 问题有没有去处。已经决定的，对上规则；还缺决定的，要写清缺什么。具体代码放在哪里，留给 Plan。每个人的编号和条数都可能不同。",
         "【操作提示｜推进第 2 步；切到当前 SPEC.md，选一条 Approved 规则检查行为和可能混入的实现安排，再切回课件】\n\n再看规则本身。每条 Approved 规则能不能说清用户看到什么、怎样检查？相关规则放在一起，有没有互相矛盾？文件名、组件名和函数名是实现安排，不要混进规则正文。",
         "【操作提示｜推进第 3 步；对照当前的课程决定和 SPEC.md 的状态、Draft，再切回课件】\n\n然后看状态是不是和决定一致：Agent 的建议不能因为写进文档就变成批准；还没定的地方也不能让它自己补默认。",
-        "【操作提示｜推进第 4 步；切到现场 SPEC.md，对照本次审查结果；在 Codex 中处理审出的意见、核对结果并运行 git status；切回课件进入 p37】\n\n审出问题，就指出具体哪句话不对、依据是什么、希望怎样修改和改动的范围。改完回头对照相关规则。页面里有一次备课时的计数问题作例子，你自己的结果和编号可能不同；没有发现问题，也不必为了演示编造修改。最后看 git status：新增内容只在 docs/specs 下，本节先不提交。"
+        "【操作提示｜推进第 4 步；切到现场 SPEC.md，对照本次审查结果；在 Codex 中发送下方审查修改 Prompt、核对改后的 SPEC.md 并运行 git status；切回课件进入 p37】\n\n审出问题，就指出具体哪句话不对、依据是什么、希望怎样修改和改动的范围。拿我们这次生成的 SPEC.md 来说，我刚才审出三处要一起收口：第一，术语“直接差异”和 REQ-012、REQ-013 放在一起有字面歧义，要写清整棵对象或数组增删只在根计 1 处，子节点虽标状态但不重复计入；第二，REQ-016 写开启“只看变化”后隐藏所有 unchanged 节点，要补上 REQ-017 保留必要祖先的例外；第三，REQ-038 原先留作 Draft，这里顺手把行为底线定下来——新增 JSON Diff 不得破坏现有单份 JSON 查看链路，批准为 Approved，具体入口怎么放仍留给 Plan，方便后面 4.5 拆任务时做单输入回归测试。另外一并确认，CF-1 和 CF-2 都以课程决定为准，BRIEF.md 保持不变。我们把这条修改请求发给 Codex。\n\n【切换｜Codex】\n\n【操作提示｜以下整段为本次审查修改 Prompt，不照念，直接复制发送给 Codex】\n\n请按以下 4 条审查意见修改 docs/specs/SPEC.md，只改 docs/specs/SPEC.md，不要修改 BRIEF.md 或任何代码文件：\n1. 收紧计数口径（术语「直接差异」与 REQ-012）：第 19 行把「直接差异」写成“状态为 added、removed、changed 的节点”，与 REQ-013、REQ-014“整棵对象或数组增删时子节点也标状态，但只在根计 1 处”存在字面歧义。请在术语和 REQ-012 中写明：按 REQ-013 规则统计直接差异，整棵新增或删除的子树只在根计 1 处，其内部子节点虽标为 added 或 removed，但不重复计入差异数。\n2. 补齐筛选例外（REQ-016）：REQ-016 写“开启后，状态为 unchanged 的节点不再显示”，与 REQ-017 保留通向差异所必需的祖先（按 REQ-009 自身为 unchanged）字面冲突。请改为：开启后，除 REQ-017 保留的通向差异所必需的祖先节点外，其余状态为 unchanged 的节点不再显示。\n3. 批准 REQ-038 的行为底线（衔接后续单输入回归）：把 REQ-038 从 Draft 改为 Approved，明确“新增 JSON Diff 功能不得破坏现有的单份 JSON 查看链路”；具体是改造现有页面还是新增独立入口，继续留在 OQ-10 的“留给 Plan”列，规则正文不写文件名或路由。同时更新 §12 Open 问题去向表和规则统计。\n4. 确认 §11 冲突结论：CF-1 按课程决定 3（REQ-002）执行，CF-2 按课程决定 10（REQ-024）执行，在 §11 注明已由需求负责人确认，BRIEF.md 保持不变；其余 Draft（REQ-032~REQ-037）继续保留为 Draft，不要自行补充决定。\n改完后汇总改动点，并运行 git status --short --untracked-files=all 给我看。\n\n【切换｜回课件 p36】\n\n改完后，回头对照修改处和相关规则，确认未决的 Draft 没有被擅自批准。页面里有一次备课时的计数问题作例子，你自己的结果和编号可能不同；没有发现问题，也不必为了演示编造修改。最后看 git status：新增内容只在 docs/specs 下，本节先不提交。"
       ],
       "repro": {
         "label": "跟做：审查与修改",
@@ -270,8 +270,8 @@ window.lesson = {
             "code": ""
           },
           {
-            "text": "审出问题时，指出具体内容、对照依据、修改要求和范围，按实际情况交给 Agent 修改。",
-            "code": ""
+            "text": "审出问题时，指出具体内容、对照依据、修改要求和范围，按实际情况交给 Agent 修改。下面附上教师演示时的修正 Prompt（仅供参考，请按自己 SPEC.md 的实际编号与审查结果调整）：",
+            "code": "请按以下 4 条审查意见修改 docs/specs/SPEC.md，只改 docs/specs/SPEC.md，不要修改 BRIEF.md 或任何代码文件：\n1. 收紧计数口径（术语「直接差异」与 REQ-012）：第 19 行把「直接差异」写成“状态为 added、removed、changed 的节点”，与 REQ-013、REQ-014“整棵对象或数组增删时子节点也标状态，但只在根计 1 处”存在字面歧义。请在术语和 REQ-012 中写明：按 REQ-013 规则统计直接差异，整棵新增或删除的子树只在根计 1 处，其内部子节点虽标为 added 或 removed，但不重复计入差异数。\n2. 补齐筛选例外（REQ-016）：REQ-016 写“开启后，状态为 unchanged 的节点不再显示”，与 REQ-017 保留通向差异所必需的祖先（按 REQ-009 自身为 unchanged）字面冲突。请改为：开启后，除 REQ-017 保留的通向差异所必需的祖先节点外，其余状态为 unchanged 的节点不再显示。\n3. 批准 REQ-038 的行为底线（衔接后续单输入回归）：把 REQ-038 从 Draft 改为 Approved，明确“新增 JSON Diff 功能不得破坏现有的单份 JSON 查看链路”；具体是改造现有页面还是新增独立入口，继续留在 OQ-10 的“留给 Plan”列，规则正文不写文件名或路由。同时更新 §12 Open 问题去向表和规则统计。\n4. 确认 §11 冲突结论：CF-1 按课程决定 3（REQ-002）执行，CF-2 按课程决定 10（REQ-024）执行，在 §11 注明已由需求负责人确认，BRIEF.md 保持不变；其余 Draft（REQ-032~REQ-037）继续保留为 Draft，不要自行补充决定。\n改完后汇总改动点，并运行 git status --short --untracked-files=all 给我看。"
           },
           {
             "text": "回看修改处与相关规则，确认未决事项没有被擅自批准，再检查工作区。",
@@ -299,7 +299,7 @@ window.lesson = {
       "script": [
         "【操作提示｜停留课件 p37 第 1 步，指向暂停标记和两条规则；停顿数秒】\n\n停下来判断一下。有人写的 Spec 里有这样两条，哪条该留在 Spec？",
         "【操作提示｜推进第 2 步，指向第 1 条的参考判断】\n\n第一条，两个值类型不同，标记为 changed。用户能在图上看到，也能拿具体输入检查，留在 Spec。",
-        "【操作提示｜推进第 3 步，指向第 2 条的参考判断】\n\n第二条，在合并图组件里调用比较函数。它说的是代码怎么改，回到 Plan。审 Spec 的时候，两类问题一起找：还没决定的边界，和混进来的实现安排。"
+        "【操作提示｜推进第 3 步，指向第 2 条的参考判断】\n\n第二条，在合并图组件里调用比较函数。它说的是代码怎么改，应该放到 Plan。审 Spec 的时候，两类问题一起找：还没决定的边界，和混进来的代码实现安排。"
       ],
       "teaching": [],
       "source": "index.html#p37",
