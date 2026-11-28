@@ -79,6 +79,21 @@ PROMPT_P61_CLI = (
     f"请阅读 {CLI_DOC}，按文档在本机自助安装飞书 CLI 对应的 Skill。"
     "安装完成后，给出授权链接，由我手动完成授权。"
 )
+CMD_P61_MCP_LOGIN = (
+    "npx -y @larksuiteoapi/lark-mcp login -a 你的App_ID -s 你的App_Secret"
+)
+CMD_P61_MCP_CONFIG = (
+    "# Codex 命令接入（将占位符换成你的 App ID 和 App Secret）\n"
+    "codex mcp add feishu -- npx -y @larksuiteoapi/lark-mcp mcp -a 你的App_ID -s 你的App_Secret --oauth\n\n"
+    "# 或直接写入 ~/.codex/config.toml\n"
+    "[mcp_servers.feishu]\n"
+    'command = "npx"\n'
+    'args = ["-y", "@larksuiteoapi/lark-mcp", "mcp", "-a", "你的App_ID", "-s", "你的App_Secret", "--oauth"]'
+)
+FEISHU_NOTE_URL = "https://my.feishu.cn/wiki/TMvww5IMRiiP63kd3QFc6lvhnfh"
+PROMPT_P61_MCP_VERIFY = (
+    f"请使用 feishu mcp 阅读 {FEISHU_NOTE_URL} 这个文档的内容，告诉我这个文档写了什么"
+)
 
 
 def jump(text, url):
@@ -127,14 +142,26 @@ scene(
             jump("飞书 CLI 官方说明", CLI_DOC),
             {
                 "text": (
-                    "飞书 MCP：按官方文档《本地调用 OpenAPI MCP》操作，从在开放者后台创建企业自建应用，讲到安装并配置 lark-mcp。"
-                    "文档里有逐步说明和授权截图。创建应用的更细说明见《创建企业自建应用》。"
-                    "完成后，应能在 Agent 里调用飞书工具。不要把应用密钥贴进对话。"
+                    "飞书 MCP · 准备应用：确认本机已安装 Node.js（建议 v20+），按《创建企业自建应用》在飞书开放平台创建企业自建应用并拿到 App ID 和 App Secret；"
+                    "在「权限管理」开通所需权限（注意区分应用身份权限与用户身份权限），在「安全设置」的重定向 URL 填入 http://localhost:3000/callback，"
+                    "最后发布一个应用初版使其生效。详细步骤见《本地调用 OpenAPI MCP》。"
                 ),
                 "links": [
-                    {"text": "《本地调用 OpenAPI MCP》", "url": MCP_DOC},
                     {"text": "《创建企业自建应用》", "url": APP_DOC},
+                    {"text": "《本地调用 OpenAPI MCP》", "url": MCP_DOC},
                 ],
+            },
+            {
+                "text": "飞书 MCP · 登录授权：在终端执行下面命令（把占位符换成你的 App ID 和 App Secret），浏览器打开后完成飞书授权登录，将用户身份凭据保存在本地。若只需用应用身份访问，可跳过这一步。",
+                "code": CMD_P61_MCP_LOGIN,
+            },
+            {
+                "text": "飞书 MCP · 接入 Codex：执行下面命令把 lark-mcp 加入 Codex（或按同样参数写进 ~/.codex/config.toml；如用 Cursor / Claude Desktop，按官方文档写进 mcpServers）。参数 --oauth 启用本地用户身份；按需可加 -t 限制开放的工具范围。",
+                "code": CMD_P61_MCP_CONFIG,
+            },
+            {
+                "text": "飞书 MCP · 检查连通：重启并打开 Codex，发送下面这段请求，看返回的内容是否读出了文档正文，以此验证飞书 MCP 是否安装成功（新版 Codex 对本地 stdio MCP 默认延迟启动，首次调用前 /mcp 显示 not started 且 Auth: Unsupported 属正常）。不要把 App Secret 或授权详情贴进对话或公开仓库。",
+                "code": PROMPT_P61_MCP_VERIFY,
             },
             {
                 "text": "飞书 CLI：把下面这段请求发给本地 Agent，让它按官方文档自助安装 Skill。官方说明见《飞书 CLI 官方说明》。",
@@ -147,14 +174,15 @@ scene(
 )
 
 
-PROMPT_P62 = "请阅读 <活动方案链接> 这个飞书文档，告诉我这个文档中写了什么。"
+FEISHU_PLAN_URL = "https://my.feishu.cn/wiki/SHZNw7tgyiZJvtk6SNicVDuYn5d"
+PROMPT_P62 = f"请阅读 {FEISHU_PLAN_URL} 这个飞书文档，告诉我这个文档中写了什么。"
 
 
 scene(
     id="p62", segment="飞书 CLI", layout="prompt-scene", prompt=PROMPT_P62,
     label="怎样用一句话加一个链接，让 Agent 读出飞书云文档",
     title="怎样用一句话加一个链接，让 Agent 读出飞书云文档？",
-    lead="将占位符换成你有权访问的活动方案链接，再发给本地 Agent。不要改写这篇用于阅读的文档",
+    lead="把下面这句带活动方案链接的请求发给本地 Agent，也可换成你有权访问的飞书文档链接。不要改写这篇用于阅读的文档",
     html=(
         "<style>body[data-mode='slides'] #p62 .prompt{height:auto;min-height:190px;max-height:280px}</style>"
         '<div class="demo-notes"><ol class="p-notes">'
@@ -169,8 +197,8 @@ scene(
 
 
 
-DOC_REVIEW = "<评审补充链接>"
-DIR_DEMO = "<演示目录链接>"
+DOC_REVIEW = "https://my.feishu.cn/wiki/ICf8wdBLniIPzhkjaJFcYuV4nxg"
+DIR_DEMO = "https://my.feishu.cn/wiki/OgWOwSpIaimzSskTC6RcySNmngd"
 PROMPT_P63_UPDATE = (
     "请使用飞书官方 CLI，以本人身份，更新这份飞书云文档：\n"
     f"{DOC_REVIEW}\n\n"
@@ -211,7 +239,7 @@ scene(
     steps=["指定文档和改动范围", "打开实际文档核对", "新建后再核对位置和内容"],
     repro={
         "label": "发给 Agent 的请求",
-        "note": "将占位符换成你有权访问的教学文档和目录链接。只改指定的教学文档，不要改活动方案，也不要改 4.2 的需求笔记。不要向群聊发消息。",
+        "note": "请求里已填入教学文档和演示目录链接，也可换成你有权访问的飞书文档与目录链接。只改指定的教学文档，不要改活动方案，也不要改 4.2 的需求笔记。不要向群聊发消息。",
         "steps": [
             {
                 "text": "先发出下面这段更新请求。只改评审补充的第 2 条。",
@@ -229,11 +257,11 @@ scene(
 
 
 
-SHEET_DOC = "<分场次报名统计链接>"
+SHEET_DOC = "https://my.feishu.cn/wiki/VaQlwaqWhiSTsakon6tck8xunIe"
 PROMPT_P64 = (
     "请使用飞书官方 CLI，以本人身份，修改这份飞书电子表格：\n"
     f"{SHEET_DOC}\n\n"
-    "只改工作表「报名统计」里场次 C · 开源协作 的「已报名」，改成 <当场给出的人数>。\n"
+    "只改工作表「报名统计」里场次 C · 开源协作 的「已报名」，改成 99。\n"
     "不要改其他格子，不要改名额，也不要新增列。改完后告诉我改了哪一格。"
 )
 
@@ -247,10 +275,10 @@ scene(
         "<style>body[data-mode='slides'] #p64 .prompt{height:auto;min-height:220px;max-height:335px}</style>"
         '<div class="demo-notes"><ol class="p-notes">'
         '<li data-reveal="0"><span><b>先看清这是电子表格</b><small>不要用云文档里的普通表格代替</small></span></li>'
-        '<li data-reveal="1"><span><b>发给本地 Agent</b><small>只改场次 C 的已报名，人数由讲师当场给出</small></span></li>'
+        '<li data-reveal="1"><span><b>发给本地 Agent</b><small>只改场次 C 的已报名，示例改成 99</small></span></li>'
         '<li data-reveal="2"><span><b>打开实际表格核对</b><small>看刚才改的那一格，不能只看对话</small></span></li>'
         '</ol>'
-        '<p style="margin:10px 0 0;font-size:18px;color:var(--p-muted)">将占位符换成你有权访问的报名统计链接，再填写人数</p></div>'
+        '<p style="margin:10px 0 0;font-size:18px;color:var(--p-muted)">请求里已填入报名统计链接与示例人数 99，也可换成你有权访问的表格链接和目标人数</p></div>'
     ),
     steps=["先看清这是电子表格", "发给本地 Agent", "打开实际表格核对"],
 )
@@ -279,7 +307,7 @@ scene(
         '<li data-reveal="1"><span><b>发给本地 Agent</b><small>建在演示目录，不要用已有表顶替</small></span></li>'
         '<li data-reveal="2"><span><b>打开实际多维表格核对</b><small>看位置、字段和记录，不能只看对话</small></span></li>'
         '</ol>'
-        '<p style="margin:10px 0 0;font-size:18px;color:var(--p-muted)">将占位符换成你有权访问的演示目录链接</p></div>'
+        '<p style="margin:10px 0 0;font-size:18px;color:var(--p-muted)">请求里已填入演示目录链接，也可换成你有权访问的知识库目录链接</p></div>'
     ),
     steps=["先看清要建什么", "发给本地 Agent", "打开实际多维表格核对"],
 )
